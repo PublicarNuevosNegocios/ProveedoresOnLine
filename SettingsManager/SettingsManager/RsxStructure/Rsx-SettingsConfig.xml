@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="Module1">
+    <key name="location">D:\Proyectos\GitHub\ProveedoresOnLine\SettingsManager\SettingsManager\RsxStructure\Rsx-Module1.xml</key>
+  </Module>
+  <Module name="Module2">
+    <key name="location">D:\Proyectos\GitHub\ProveedoresOnLine\SettingsManager\SettingsManager\RsxStructure\Rsx-Module2.xml</key>
+  </Module>
+</SettingsConfig>

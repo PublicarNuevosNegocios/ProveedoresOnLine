@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Module1>
+    <key name="Parametro1">valor 1</key>
+    <key name="Parametro2">valor 2</key>
+    <key name="Parametro3">valor 3</key>
+    <key name="Parametro4">valor 4</key>
+    <key name="Parametro5">valor 5</key>
+    <key name="Parametro6">valor 6</key>
+    <key name="Parametro7">valor 7</key>
+  </Module1>
+</Settings>
+
