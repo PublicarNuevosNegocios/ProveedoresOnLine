@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <FileRepository>
+
+    <!--S3 setting module-->
+    <key name="S3_SaludGuru_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
+    <key name="S3_SaludGuru_Params">
+      <![CDATA[
+          <S3>
+            <key name="S3.Server">http://devsaludguruimg.s3-website-us-east-1.amazonaws.com</key>
+            <key name="S3.Publish">http://devsaludguruimg.s3-website-us-east-1.amazonaws.com</key>
+            <key name="S3.AccessKeyId"></key>
+            <key name="S3.SecretAccessKey"></key>
+            <key name="S3.BucketName">devsaludguruimg</key>
+            <!--REDUCED_REDUNDANCY,GLACIER,STANDARD-->
+            <key name="S3.StorageClass">REDUCED_REDUNDANCY</key>
+            <!--us-east-1-->
+            <key name="S3.RegionEndpoint">us-east-1</key>
+          </S3>
+    ]]>
+    </key>
+    <!--FTP Settings module-->
+    <key name="FTP_SaludGuru_AssemblyInfo">FileRepository.FTP.FTPImplement,FileRepository.FTP</key>
+    <key name="FTP_SaludGuru_Params">
+      <![CDATA[
+          <FTP>
+            <key name="FTP.Server">ftp://192.168.42.218:21</key>
+            <key name="FTP.Publish">ftp://192.168.42.218:21</key>
+            <key name="FTP.User">FTPTest</key>
+            <key name="FTP.Password">FTPTestpw</key>
+            <key name="FTP.BufferSize">65535</key>
+          </FTP>      
+    ]]>
+    </key>
+
+
+  </FileRepository>
+</Settings>
+
