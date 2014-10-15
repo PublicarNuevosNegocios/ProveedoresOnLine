@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="Auth">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\SaludGuru\BackOffice.Auth\Rsx-Auth.xml</key>
+  </Module>
+</SettingsConfig>

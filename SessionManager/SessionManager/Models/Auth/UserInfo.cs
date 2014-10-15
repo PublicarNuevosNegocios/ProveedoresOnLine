@@ -9,9 +9,15 @@ namespace SessionManager.Models.Auth
     public class UserInfo
     {
         public int UserInfoId { get; set; }
-        public enumUserInfoType? InfoType { get; set; }
+
+        public enumUserInfoType UserInfoType { get; set; }
+
         public string Value { get; set; }
+
+        public string LargeValue { get; set; }
+
         public DateTime LastModify { get; set; }
+
         public DateTime CreateDate { get; set; }
     }
 }

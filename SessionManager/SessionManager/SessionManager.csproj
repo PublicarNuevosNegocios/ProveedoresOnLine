@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Models\Auth\Enumerations.cs" />
     <Compile Include="Models\Auth\User.cs" />
+    <Compile Include="Models\Auth\ApplicationRole.cs" />
     <Compile Include="Models\Auth\UserInfo.cs" />
     <Compile Include="Models\Auth\UserProvider.cs" />
     <Compile Include="Models\Constants.cs" />

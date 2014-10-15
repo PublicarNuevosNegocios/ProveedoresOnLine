@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+
+    @*Render bondles styles*@
+    @Styles.Render("~/" + Auth.Web.Controllers.BaseController.AreaName + "/content/css")
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+
+    @*Render boundles scripts*@
+    @Scripts.Render("~/" + Auth.Web.Controllers.BaseController.AreaName + "/bundles/jquery")
+    @Scripts.Render("~/" + Auth.Web.Controllers.BaseController.AreaName + "/bundles/jqueryval")
+    @Scripts.Render("~/" + Auth.Web.Controllers.BaseController.AreaName + "/bundles/modernizr")
+    @Scripts.Render("~/" + Auth.Web.Controllers.BaseController.AreaName + "/bundles/bootstrap")
+    @Scripts.Render("~/" + Auth.Web.Controllers.BaseController.AreaName + "/sitescripts")
+
+
+    @*Render inline site scripts*@
+    @RenderSection("inlinescripts", required: false)
+</body>
+</html>
