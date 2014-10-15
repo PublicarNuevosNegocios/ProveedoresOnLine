@@ -105,12 +105,7 @@ namespace Auth.Web.Controllers
             oRetorno.UserPublicId = Auth.DAL.Controller.AuthDataController.Instance.UserUpsert
                 (OriginalInfo.Name,
                 OriginalInfo.LastName,
-                OriginalInfo.
-                    RelatedUserInfo.
-                    Where(x => x.UserInfoType == SessionManager.Models.Auth.enumUserInfoType.Email).
-                        Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault(),
+                OriginalInfo.Email,
                 OriginalInfo.RelatedUserProvider.
                         Select(x => x.ProviderId).
                         DefaultIfEmpty(string.Empty).
@@ -177,6 +172,7 @@ namespace Auth.Web.Controllers
             {
                 Name = vSocialUser.FirstName,
                 LastName = vSocialUser.LastName,
+                Email = vSocialUser.Email,
 
                 RelatedUserProvider = new List<SessionManager.Models.Auth.UserProvider>() 
                 { 
@@ -204,11 +200,6 @@ namespace Auth.Web.Controllers
                                     ((int)SessionManager.Models.Auth.enumGender.Male).ToString(),
                     },
 
-                    new SessionManager.Models.Auth.UserInfo()
-                    {
-                        UserInfoType = SessionManager.Models.Auth.enumUserInfoType.Email,
-                        Value = vSocialUser.Email                    
-                    },
                     new SessionManager.Models.Auth.UserInfo()
                     {
                         UserInfoType = SessionManager.Models.Auth.enumUserInfoType.ProfileImage,

@@ -11,9 +11,8 @@
     public enum enumUserInfoType
     {
         Birthday = 201,
-        Email = 202,
-        ProfileImage = 203,
-        Gender = 204
+        ProfileImage = 202,
+        Gender = 203
     }
 
     public enum enumGender

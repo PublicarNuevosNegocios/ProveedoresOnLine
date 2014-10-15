@@ -14,6 +14,8 @@ namespace SessionManager.Models.Auth
 
         public string LastName { get; set; }
 
+        public string Email { get; set; }
+
         public List<UserInfo> RelatedUserInfo { get; set; }
 
         public List<UserProvider> RelatedUserProvider { get; set; }
