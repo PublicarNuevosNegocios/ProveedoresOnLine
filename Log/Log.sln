@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager", "LogManager\LogManager.csproj", "{C5412248-9B30-4EC5-9D31-CE2BB5CF0817}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManager.Test", "LogManager.Test\LogManager.Test.csproj", "{0324F7B4-EDB6-44E3-AD99-7A8E5DF96384}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5412248-9B30-4EC5-9D31-CE2BB5CF0817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5412248-9B30-4EC5-9D31-CE2BB5CF0817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5412248-9B30-4EC5-9D31-CE2BB5CF0817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5412248-9B30-4EC5-9D31-CE2BB5CF0817}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0324F7B4-EDB6-44E3-AD99-7A8E5DF96384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0324F7B4-EDB6-44E3-AD99-7A8E5DF96384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0324F7B4-EDB6-44E3-AD99-7A8E5DF96384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0324F7B4-EDB6-44E3-AD99-7A8E5DF96384}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
