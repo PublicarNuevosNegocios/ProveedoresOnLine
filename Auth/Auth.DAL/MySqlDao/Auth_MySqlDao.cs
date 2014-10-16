@@ -186,7 +186,7 @@ namespace Auth.DAL.MySqlDao
                              ApplicationRoleId = ar.Field<int>("ApplicationRoleId"),
                              Application = (SessionManager.Models.Auth.enumApplication)ar.Field<int>("ApplicationId"),
                              Role = (SessionManager.Models.Auth.enumRole)ar.Field<int>("RoleId"),
-                             UserEmail = ar.Field<string>("UserEmail"),
+                             UserEmail = ar.Field<string>("Email"),
                          } into arg
                          select new SessionManager.Models.Auth.ApplicationRole()
                          {
