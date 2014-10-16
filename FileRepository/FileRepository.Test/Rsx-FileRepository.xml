@@ -3,8 +3,8 @@
   <FileRepository>
 
     <!--S3 setting module-->
-    <key name="S3_SaludGuru_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
-    <key name="S3_SaludGuru_Params">
+    <key name="S3_ProveedoresOnline_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
+    <key name="S3_ProveedoresOnline_Params">
       <![CDATA[
           <S3>
             <key name="S3.Server">http://devsaludguruimg.s3-website-us-east-1.amazonaws.com</key>
@@ -32,7 +32,7 @@
           </FTP>      
     ]]>
     </key>
-
+    
 
   </FileRepository>
 </Settings>
