@@ -57,6 +57,10 @@
     <Compile Include="Interfaces\IProviderData.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\Provider\ProviderCustomerInfo.cs" />
+    <Compile Include="Models\Provider\ProviderInfoModel.cs" />
+    <Compile Include="Models\Provider\ProviderModel.cs" />
+    <Compile Include="Models\Util\CatalogModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
