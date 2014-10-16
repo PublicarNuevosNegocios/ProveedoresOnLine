@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentManagement.Provider.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,17 @@ namespace DocumentManagement.Provider.Controller
         static public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
         {
             return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId,ProviderCustomerInfoType, Value, LargeValue);
-        }  
+        }          
+
+        static public void LoadFile(string FilePath, string FileName)
+        {
+            File oLoader = new File()
+            {
+                FilesToUpload = new List<string>() { FilePath, FilePath },
+                RemoteFolder = ""
+            };
+
+            oLoader.StartUpload();
+        }        
     }
 }
