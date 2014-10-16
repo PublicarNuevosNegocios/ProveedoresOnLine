@@ -24,7 +24,7 @@ namespace DocumentManagementClient.Manager.DAL.Controller
         private ICustomerData DataFactory;
         #endregion
 
-        #region Customer
+        #region Constructor
         public CustomerDataController()
         {
             CustomerDataFactory factory = new CustomerDataFactory();
@@ -32,9 +32,16 @@ namespace DocumentManagementClient.Manager.DAL.Controller
         }
         #endregion
 
+        #region Costumer
         public string CustomerUpsert(string CustomerPublicId, string Name, Models.enumIdentificationType IdentificationType, string IdentificationNumber)
         {
             return DataFactory.CustomerUpsert(CustomerPublicId, Name, IdentificationType, IdentificationNumber);
         }
+
+        public List<Models.Customer.CustomerModel> CustomerSearch(string IdentificationNumber, string Name)
+        {
+            return DataFactory.CustomerSearch(IdentificationNumber, Name);
+        } 
+        #endregion
     }
 }

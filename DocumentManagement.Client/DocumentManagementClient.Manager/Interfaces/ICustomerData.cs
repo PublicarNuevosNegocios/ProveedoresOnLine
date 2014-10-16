@@ -1,4 +1,5 @@
 ﻿using DocumentManagementClient.Manager.Models;
+using DocumentManagementClient.Manager.Models.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace DocumentManagementClient.Manager.Interfaces
     {
         string CustomerUpsert(string CustomerPublicId, string Name, enumIdentificationType IdentificationType, string IdentificationNumber);
 
-
+        List<CustomerModel> CustomerSearch(string IdentificationNumber, string Name);
     }
 }

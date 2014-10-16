@@ -48,12 +48,11 @@
     <Compile Include="DAL\MySQLDAO\Customer_MySqlDao.cs" />
     <Compile Include="Interfaces\ICustomerData.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\Customer\CustomerModel.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Customer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
