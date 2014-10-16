@@ -8,8 +8,6 @@ namespace DocumentManagementClient.Manager.Models.Customer
 {
     public class CustomerModel
     {
-        public int CustomerId { get; set; }
-
         public string CustomerPublicId { get; set; }
 
         public string Name { get; set; }
