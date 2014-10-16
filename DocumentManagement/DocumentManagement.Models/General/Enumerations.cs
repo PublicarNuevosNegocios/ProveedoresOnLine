@@ -1,0 +1,3 @@
+﻿namespace DocumentManagement.Models.General
+{
+}

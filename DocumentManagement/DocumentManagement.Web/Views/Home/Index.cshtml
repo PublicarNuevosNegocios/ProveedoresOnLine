@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Ingreso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @{
+        //get login urls
+        string RetUrl = Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name, null, Request.Url.Scheme);
+
+        string GoogleUrl = DocumentManagement.Models.General.InternalSettings.Instance
+            [DocumentManagement.Models.General.Constants.C_Settings_Login_GoogleUrl]
+            .Value.Replace("{{UrlRetorno}}", RetUrl);
+    }
+    <div>
+        <a href="@GoogleUrl">Login Google</a>
+        @if (ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
+                !string.IsNullOrEmpty(ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
+        {
+            <span>@ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</span>
+        }
+    </div>
+</div>
