@@ -11,7 +11,7 @@ namespace DocumentManagement.Provider.DAL.Controller
     {
         public IProviderData DocumentManagementProviderInstance()
         {
-            Type typetoreturn = Type.GetType("DocumentManagement.Provider.DAL.MySQLDAO.DocumentManagement.Provider_MySqlDao,DocumentManagement.Provider");
+            Type typetoreturn = Type.GetType("DocumentManagement.Provider.DAL.MySQLDAO.Provider_MySqlDao,DocumentManagement.Provider");
             IProviderData oRetorno = (IProviderData)Activator.CreateInstance(typetoreturn);
             return oRetorno;
         }
