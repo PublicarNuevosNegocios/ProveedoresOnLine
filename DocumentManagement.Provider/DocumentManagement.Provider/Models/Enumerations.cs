@@ -24,7 +24,9 @@ namespace DocumentManagement.Provider.Models
         }
 
         public enum enumProviderInfoType
-        { }
+        { 
+
+        }
 
         public enum enumProviderCustomerInfoType
         { }
