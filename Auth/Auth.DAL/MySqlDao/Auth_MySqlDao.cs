@@ -139,6 +139,7 @@ namespace Auth.DAL.MySqlDao
                     UserPublicId = response.DataTableResult.Rows[0].Field<string>("UserPublicId"),
                     Name = response.DataTableResult.Rows[0].Field<string>("Name"),
                     LastName = response.DataTableResult.Rows[0].Field<string>("LastName"),
+                    Email = response.DataTableResult.Rows[0].Field<string>("Email"),
 
                     RelatedUserInfo =
                         (from ui in response.DataTableResult.AsEnumerable()

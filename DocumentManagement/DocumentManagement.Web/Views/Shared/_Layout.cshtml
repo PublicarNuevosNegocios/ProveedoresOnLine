@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores on line - @ViewBag.Title</title>
+
+    @*bundle render styles*@
+    @Styles.Render("~/site/styles/bootstrap")
+    @Styles.Render("~/site/styles")
+
+</head>
+<body>
+
+    @if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
+        DocumentManagement.Models.General.SessionModel.UserIsAutorized)
+    {
+        <div>
+            @Html.Partial(MVC.Shared.Views._L_Header)
+        </div>
+    }
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <div>
+        @Html.Partial(MVC.Shared.Views._L_Footer)
+    </div>
+
+    @*bundle render scripts*@
+    @Scripts.Render("~/site/scripts/jquery")
+    @Scripts.Render("~/site/scripts/jqueryval")
+    @Scripts.Render("~/site/scripts/modernizr")
+    @Scripts.Render("~/site/scripts/bootstrap")
+    @Scripts.Render("~/site/scripts")
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
