@@ -33,6 +33,7 @@ namespace DocumentManagement.Provider.DAL.Controller
 
         #endregion
 
+        #region Provider
         public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Models.Enumerations.enumIdentificationType IdentificationType, string IdentificationNumber, string Email, Models.Enumerations.enumProcessStatus Status)
         {
             return DataFactory.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, IdentificationNumber, Email, Status);
@@ -46,6 +47,7 @@ namespace DocumentManagement.Provider.DAL.Controller
         public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
         {
             return DataFactory.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
-        }
+        } 
+        #endregion
     }
 }

@@ -18,9 +18,9 @@ namespace DocumentManagement.Provider.Controller
             return DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert(ProviderInfoId, ProviderPublicId, ProviderInfoType, Value, LargeValue);
         }
 
-        static public string ProviderCustomerInfoUpsert(int ProviderInfoId, string ProviderPublicId, Models.Enumerations.enumProviderInfoType ProviderInfoType, string Value, string LargeValue)
+        static public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderInfoId, ProviderPublicId, ProviderInfoType, Value, LargeValue);
+            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId,ProviderCustomerInfoType, Value, LargeValue);
         }  
     }
 }
