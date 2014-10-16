@@ -12,7 +12,7 @@ namespace Customer.Test
         [TestMethod]
         public void CustomerUpsert()
         {
-            string result = DocumentManagementClient.Manager.Controller.Customer.CustomerUpsert(null, "SebastianTes", enumIdentificationType.Nit, "5555555555");
+            string result = DocumentManagementClient.Manager.Controller.Customer.CustomerUpsert(null, "SebastianTest", enumIdentificationType.Nit, "5555555555");
             Assert.IsNotNull(result);
         }
     }

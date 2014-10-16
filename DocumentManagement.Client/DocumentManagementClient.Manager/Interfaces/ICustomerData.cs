@@ -11,5 +11,6 @@ namespace DocumentManagementClient.Manager.Interfaces
     {
         string CustomerUpsert(string CustomerPublicId, string Name, enumIdentificationType IdentificationType, string IdentificationNumber);
 
+
     }
 }
