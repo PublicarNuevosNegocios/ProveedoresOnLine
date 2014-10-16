@@ -14,7 +14,8 @@ namespace DocumentManagement.Web
 
 
             bundles.Add(new ScriptBundle("~/site/scripts/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/site/scripts/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -38,6 +39,13 @@ namespace DocumentManagement.Web
 
             #endregion
 
+            #region Kendo
+
+            bundles.Add(new ScriptBundle("~/site/scripts/kendo").Include(
+                         "~/Scripts/kendo/2014.1.318/kendo.web.min.js"));
+
+            #endregion
+
             #region site scripts
 
             bundles.Add(new ScriptBundle("~/site/scripts").IncludeDirectory(
@@ -54,6 +62,14 @@ namespace DocumentManagement.Web
             #region bootstrap
 
             bundles.Add(new StyleBundle("~/site/styles/bootstrap").Include("~/Content/bootstrap.css"));
+
+            #endregion
+
+            #region kendo
+
+            bundles.Add(new StyleBundle("~/site/styles/kendo").Include(
+                      "~/Content/kendo/2014.1.318/kendo.common.min.css",
+                      "~/Content/kendo/2014.1.318/kendo.default.min.css"));
 
             #endregion
 

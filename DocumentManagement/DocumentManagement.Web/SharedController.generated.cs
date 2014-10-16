@@ -38,10 +38,14 @@ namespace T4MVC
             {
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
+                public readonly string _L_PrincipalMenu = "_L_PrincipalMenu";
+                public readonly string _L_UserInfo = "_L_UserInfo";
                 public readonly string _Layout = "_Layout";
             }
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
+            public readonly string _L_PrincipalMenu = "~/Views/Shared/_L_PrincipalMenu.cshtml";
+            public readonly string _L_UserInfo = "~/Views/Shared/_L_UserInfo.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
         }
     }
