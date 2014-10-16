@@ -30,8 +30,8 @@
         {
             string AppName = ViewBag.AppName;
             AnalitycsScript = SettingsManager.SettingsController.SettingsInstance.ModulesParams
-                    [Auth.Interfaces.Models.Constants.C_SettingsModuleName]
-                    [Auth.Interfaces.Models.Constants.C_AuthAnalytics.Replace("{AppName}", AppName)].Value;
+                    [Auth.Interfaces.Constants.C_SettingsModuleName]
+                    [Auth.Interfaces.Constants.C_AuthAnalytics.Replace("{AppName}", AppName)].Value;
         }
     }
     @Html.Raw(AnalitycsScript)

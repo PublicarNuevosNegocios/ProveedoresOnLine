@@ -30,5 +30,6 @@
 
         public const string C_AuthAnalytics = "{AppName}_Analytics";
 
+        public const string C_ApplicationName = "AuthModule";
     }
 }

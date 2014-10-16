@@ -48,14 +48,14 @@ namespace Auth.Web.Controllers
                 UserToLogin = base.LoginUser(UserToLogin);
 
                 //Add Log
-                //CarvajalLog.LogController Log = new CarvajalLog.LogController();
-                //Log.SaveLog(new CarvajalLog.Models.AuthLogModel()
-                //{
-                //    UserId = UserToLogin.UserId,
-                //    LogAction = UserToLogin.GetType().ToString(),
-                //    IsSuccessfull = 1,
-                //    ErrorMessage = "el usuario inició sesión correctamente",
-                //});
+                LogManager.ClientLog.AddLog(new LogManager.Models.LogModel()
+                {
+                    User = UserToLogin.UserPublicId,
+                    Application = Auth.Interfaces.Constants.C_ApplicationName,
+                    Source = Request.Url.ToString(),
+                    IsSuccess = true,
+                    LogObject = UserToLogin,
+                });
 
                 //return to site
                 Response.Redirect(base.ReturnUrl.ToString());

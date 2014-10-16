@@ -68,16 +68,15 @@ namespace LogManager
             if (ProccessLogTimer == null)
             {
                 ProccessLogTimer = new Timer();
+                ProccessLogTimer.Elapsed += ProccessLogTimer_Elapsed;
+                ProccessLogTimer.Interval = LogTimer;
             }
 
-            ProccessLogTimer.Elapsed += ProccessLogTimer_Elapsed;
-            ProccessLogTimer.Interval = LogTimer;
             ProccessLogTimer.Enabled = true;
         }
 
         private void StopTimer()
         {
-            ProccessLogTimer.Stop();
             ProccessLogTimer.Enabled = false;
         }
 
@@ -96,25 +95,31 @@ namespace LogManager
                         ql.IsSuccess,
                         ql.Message);
 
-                    ql.RelatedLogInfo.All(qli =>
+                    if (ql.RelatedLogInfo != null)
                     {
-                        DAL.Controller.LogDataController.Instance.LogInfoCreate
-                            (ql.LogId,
-                            qli.LogInfoType,
-                            qli.Value);
+                        ql.RelatedLogInfo.All(qli =>
+                        {
+                            DAL.Controller.LogDataController.Instance.LogInfoCreate
+                                (ql.LogId,
+                                qli.LogInfoType,
+                                qli.Value);
 
-                        return true;
-                    });
+                            return true;
+                        });
+                    }
 
-                    ql.LogInfoObject.All(qlo =>
+                    if (ql.LogInfoObject != null)
                     {
-                        DAL.Controller.LogDataController.Instance.LogInfoCreate
-                            (ql.LogId,
-                            qlo.LogInfoType,
-                            qlo.Value);
+                        ql.LogInfoObject.All(qlo =>
+                        {
+                            DAL.Controller.LogDataController.Instance.LogInfoCreate
+                                (ql.LogId,
+                                qlo.LogInfoType,
+                                qlo.Value);
 
-                        return true;
-                    });
+                            return true;
+                        });
+                    }
                 }
                 catch { }
 
