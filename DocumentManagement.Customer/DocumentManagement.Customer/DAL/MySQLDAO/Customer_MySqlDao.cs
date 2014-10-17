@@ -90,16 +90,16 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             return oReturn;
         }
 
-        public CustomerModel CustomerGetById(string CustomerPublicId)
+        public CustomerModel CustomerGetByFormId(string FormPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFormPublicId", FormPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "C_Customer_GetById",
+                CommandText = "C_Customer_GetByFormId",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
@@ -290,6 +290,47 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             });
         }
 
+        public List<FormModel> FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            TotalRows = 0;
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "F_Form_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<FormModel> oReturn = new List<FormModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("FormPublicId")
+                     select new FormModel()
+                     {
+                         FormPublicId = c.Field<string>("FormPublicId"),
+                         Name = c.Field<string>("Name"),
+                         Logo = c.Field<string>("Logo"),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
+
     }
 }

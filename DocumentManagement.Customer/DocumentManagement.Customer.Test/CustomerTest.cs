@@ -19,12 +19,23 @@ namespace DocumentManagement.Customer.Test
         }
 
         [TestMethod]
-        public void CustomerGetById()
+        public void CustomerGetByFormId()
         {
             DocumentManagement.Customer.Models.Customer.CustomerModel oResult =
-                DocumentManagement.Customer.Controller.Customer.CustomerGetById("aaa");
+                DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId("aaa");
 
             Assert.IsNotNull(oResult);
+        }
+
+        [TestMethod]
+        public void FormSearch()
+        {
+            int oTotalRows;
+            List<DocumentManagement.Customer.Models.Form.FormModel> oResult =
+                DocumentManagement.Customer.Controller.Customer.FormSearch
+                    ("aaaa",null, 0, 20, out oTotalRows);
+
+            Assert.AreEqual(true, oResult.Count > 0);
         }
     }
 }

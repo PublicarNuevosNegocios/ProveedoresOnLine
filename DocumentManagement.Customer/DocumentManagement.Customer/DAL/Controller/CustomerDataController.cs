@@ -47,11 +47,10 @@ namespace DocumentManagement.Customer.DAL.Controller
             return DataFactory.CustomerSearch(SearchParam, PageNumber, RowCount, out  TotalRows);
         }
 
-        public Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId)
+        public Models.Customer.CustomerModel CustomerGetByFormId(string FormPublicId)
         {
-            return DataFactory.CustomerGetById(CustomerPublicId);
+            return DataFactory.CustomerGetByFormId(FormPublicId);
         }
-
 
         #endregion
 
@@ -82,6 +81,12 @@ namespace DocumentManagement.Customer.DAL.Controller
             DataFactory.FieldDelete(FieldId);
         }
 
+        public List<Models.Form.FormModel> FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.FormSearch(CustomerPublicId, SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
         #endregion
+
     }
 }

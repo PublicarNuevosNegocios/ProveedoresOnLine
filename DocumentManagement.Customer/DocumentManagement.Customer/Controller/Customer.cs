@@ -30,9 +30,9 @@ namespace DocumentManagement.Customer.Controller
                 out TotalRows);
         }
 
-        public static Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId)
+        public static Models.Customer.CustomerModel CustomerGetByFormId(string FormPublicId)
         {
-            return DAL.Controller.CustomerDataController.Instance.CustomerGetById(CustomerPublicId);
+            return DAL.Controller.CustomerDataController.Instance.CustomerGetByFormId(FormPublicId);
         }
 
         #endregion
@@ -78,7 +78,16 @@ namespace DocumentManagement.Customer.Controller
             DAL.Controller.CustomerDataController.Instance.FieldDelete(FieldId);
         }
 
-        #endregion
+        public static List<DocumentManagement.Customer.Models.Form.FormModel> FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CustomerDataController.Instance.FormSearch
+                (CustomerPublicId,
+                SearchParam,
+                PageNumber,
+                RowCount,
+                out TotalRows);
+        }
 
+        #endregion
     }
 }
