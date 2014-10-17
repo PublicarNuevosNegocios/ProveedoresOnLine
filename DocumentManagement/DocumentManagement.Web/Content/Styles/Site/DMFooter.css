@@ -1,7 +1,6 @@
 .MPMainWrapper {
     display: block;
     width:100%;
-    min-width: 760px;
     height:auto;
     background-repeat: no-repeat;
     background-size: 147px auto;
@@ -10,7 +9,6 @@
     padding:4px 0px 6px 0px;
     /*Mantener en el fondo de la página*/
     clear: both;
-    margin-top:18px;
 }
 .MPTextWrapper {
     display: block;

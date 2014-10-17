@@ -380,6 +380,7 @@
     <Content Include="Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Content\Styles\Site\DMLayout.css" />
     <Content Include="Content\Styles\Site\DMFooter.css" />
     <Content Include="Content\Styles\Site\DMHeader.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -870,6 +871,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Scripts\Site\CustomerScripts.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\kendo\2014.1.318\kendo.window.min.js.map" />
