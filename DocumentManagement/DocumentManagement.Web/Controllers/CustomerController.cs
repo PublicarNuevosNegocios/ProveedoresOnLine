@@ -16,7 +16,10 @@ namespace DocumentManagement.Web.Controllers
 
         public virtual ActionResult UpsertCustomer(string CustomerPublicId)
         {
-            UpserCustomerModel oModel = new UpserCustomerModel();
+            UpserCustomerModel oModel = new UpserCustomerModel()
+            {
+                CustomerOptions = DocumentManagement.Customer.Controller.Customer.CatalogGetCustomerOptions(),
+            };
 
             if (!string.IsNullOrEmpty(CustomerPublicId))
                 oModel.RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId);

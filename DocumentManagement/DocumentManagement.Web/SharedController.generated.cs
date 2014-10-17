@@ -36,12 +36,14 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _C_CustomerMenu = "_C_CustomerMenu";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _L_PrincipalMenu = "_L_PrincipalMenu";
                 public readonly string _L_UserInfo = "_L_UserInfo";
                 public readonly string _Layout = "_Layout";
             }
+            public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
             public readonly string _L_PrincipalMenu = "~/Views/Shared/_L_PrincipalMenu.cshtml";

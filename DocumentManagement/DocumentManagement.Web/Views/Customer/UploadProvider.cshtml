@@ -4,6 +4,22 @@
     ViewBag.Title = "Compradores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div>
+
+    @if (Model.RelatedCustomer != null && !string.IsNullOrEmpty(Model.RelatedCustomer.CustomerPublicId))
+    {
+        Html.RenderPartial(MVC.Shared.Views._C_CustomerMenu, Model);
+    }
+
+    <div>
+        <form action="" method="post">
+
+
+
+
+            <input type="submit" value="Guardar" />
+        </form>
+
+    </div>
+
 </div>

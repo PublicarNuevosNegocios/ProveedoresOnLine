@@ -31,7 +31,7 @@ namespace DocumentManagement.Customer.Test
         public void CustomerGetById()
         {
             DocumentManagement.Customer.Models.Customer.CustomerModel oResult =
-                DocumentManagement.Customer.Controller.Customer.CustomerGetById("aaa");
+                DocumentManagement.Customer.Controller.Customer.CustomerGetById("1D4F2724");
 
             Assert.IsNotNull(oResult);
         }
@@ -46,5 +46,16 @@ namespace DocumentManagement.Customer.Test
 
             Assert.AreEqual(true, oResult.Count > 0);
         }
+
+        [TestMethod]
+        public void CatalogGetCustomerOptions()
+        {
+
+            List<DocumentManagement.Customer.Models.Util.CatalogModel> oResult =
+                DocumentManagement.Customer.Controller.Customer.CatalogGetCustomerOptions();
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
+
     }
 }
