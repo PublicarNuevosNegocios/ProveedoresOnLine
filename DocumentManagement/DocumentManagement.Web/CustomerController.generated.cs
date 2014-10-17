@@ -63,6 +63,18 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertCustomer);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ListForm()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListForm);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UploadProvider()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UploadProvider);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CustomerController Actions { get { return MVC.Customer; } }
@@ -81,6 +93,8 @@ namespace DocumentManagement.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string UpsertCustomer = "UpsertCustomer";
+            public readonly string ListForm = "ListForm";
+            public readonly string UploadProvider = "UploadProvider";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,6 +102,8 @@ namespace DocumentManagement.Web.Controllers
         {
             public const string Index = "Index";
             public const string UpsertCustomer = "UpsertCustomer";
+            public const string ListForm = "ListForm";
+            public const string UploadProvider = "UploadProvider";
         }
 
 
@@ -96,6 +112,22 @@ namespace DocumentManagement.Web.Controllers
         public ActionParamsClass_UpsertCustomer UpsertCustomerParams { get { return s_params_UpsertCustomer; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_UpsertCustomer
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_ListForm s_params_ListForm = new ActionParamsClass_ListForm();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ListForm ListFormParams { get { return s_params_ListForm; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ListForm
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_UploadProvider s_params_UploadProvider = new ActionParamsClass_UploadProvider();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UploadProvider UploadProviderParams { get { return s_params_UploadProvider; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UploadProvider
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
         }
@@ -110,9 +142,13 @@ namespace DocumentManagement.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string ListForm = "ListForm";
+                public readonly string UploadProvider = "UploadProvider";
                 public readonly string UpsertCustomer = "UpsertCustomer";
             }
             public readonly string Index = "~/Views/Customer/Index.cshtml";
+            public readonly string ListForm = "~/Views/Customer/ListForm.cshtml";
+            public readonly string UploadProvider = "~/Views/Customer/UploadProvider.cshtml";
             public readonly string UpsertCustomer = "~/Views/Customer/UpsertCustomer.cshtml";
         }
     }
@@ -142,6 +178,30 @@ namespace DocumentManagement.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertCustomer);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             UpsertCustomerOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ListFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ListForm(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListForm);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ListFormOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UploadProvider(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UploadProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            UploadProviderOverride(callInfo, CustomerPublicId);
             return callInfo;
         }
 
