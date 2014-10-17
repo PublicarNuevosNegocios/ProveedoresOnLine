@@ -10,7 +10,9 @@ namespace DocumentManagement.Customer.Interfaces
     {
         string CustomerUpsert(string CustomerPublicId, string Name, int IdentificationType, string IdentificationNumber);
 
-        string FormUpsert(string FormPublicId, string CustomerPublicId, string Name, string TermsAndConditions, string Logo);
+        string FormUpsert(string FormPublicId, string CustomerPublicId, string Name, string TermsAndConditions);
+
+        void FormUpsertLogo(string FormPublicId, string Logo);
 
         int StepCreate(string FormPublicId, string Name, int Position);
 

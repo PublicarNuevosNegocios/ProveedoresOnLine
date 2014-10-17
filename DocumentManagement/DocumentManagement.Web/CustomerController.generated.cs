@@ -71,6 +71,18 @@ namespace DocumentManagement.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UpsertForm()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertForm);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UpsertFormLogo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertFormLogo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult UploadProvider()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UploadProvider);
@@ -94,6 +106,8 @@ namespace DocumentManagement.Web.Controllers
             public readonly string Index = "Index";
             public readonly string UpsertCustomer = "UpsertCustomer";
             public readonly string ListForm = "ListForm";
+            public readonly string UpsertForm = "UpsertForm";
+            public readonly string UpsertFormLogo = "UpsertFormLogo";
             public readonly string UploadProvider = "UploadProvider";
         }
 
@@ -103,6 +117,8 @@ namespace DocumentManagement.Web.Controllers
             public const string Index = "Index";
             public const string UpsertCustomer = "UpsertCustomer";
             public const string ListForm = "ListForm";
+            public const string UpsertForm = "UpsertForm";
+            public const string UpsertFormLogo = "UpsertFormLogo";
             public const string UploadProvider = "UploadProvider";
         }
 
@@ -122,6 +138,25 @@ namespace DocumentManagement.Web.Controllers
         public class ActionParamsClass_ListForm
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_UpsertForm s_params_UpsertForm = new ActionParamsClass_UpsertForm();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpsertForm UpsertFormParams { get { return s_params_UpsertForm; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpsertForm
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+        }
+        static readonly ActionParamsClass_UpsertFormLogo s_params_UpsertFormLogo = new ActionParamsClass_UpsertFormLogo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpsertFormLogo UpsertFormLogoParams { get { return s_params_UpsertFormLogo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpsertFormLogo
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+            public readonly string UploadFile = "UploadFile";
         }
         static readonly ActionParamsClass_UploadProvider s_params_UploadProvider = new ActionParamsClass_UploadProvider();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -145,11 +180,13 @@ namespace DocumentManagement.Web.Controllers
                 public readonly string ListForm = "ListForm";
                 public readonly string UploadProvider = "UploadProvider";
                 public readonly string UpsertCustomer = "UpsertCustomer";
+                public readonly string UpsertForm = "UpsertForm";
             }
             public readonly string Index = "~/Views/Customer/Index.cshtml";
             public readonly string ListForm = "~/Views/Customer/ListForm.cshtml";
             public readonly string UploadProvider = "~/Views/Customer/UploadProvider.cshtml";
             public readonly string UpsertCustomer = "~/Views/Customer/UpsertCustomer.cshtml";
+            public readonly string UpsertForm = "~/Views/Customer/UpsertForm.cshtml";
         }
     }
 
@@ -190,6 +227,33 @@ namespace DocumentManagement.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListForm);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             ListFormOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpsertFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string FormPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpsertForm(string CustomerPublicId, string FormPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertForm);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            UpsertFormOverride(callInfo, CustomerPublicId, FormPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpsertFormLogoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string FormPublicId, System.Web.HttpPostedFileBase UploadFile);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpsertFormLogo(string CustomerPublicId, string FormPublicId, System.Web.HttpPostedFileBase UploadFile)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertFormLogo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "UploadFile", UploadFile);
+            UpsertFormLogoOverride(callInfo, CustomerPublicId, FormPublicId, UploadFile);
             return callInfo;
         }
 

@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Customer.Models.Customer;
+using DocumentManagement.Customer.Models.Form;
 using DocumentManagement.Models.Customer;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,52 @@ namespace DocumentManagement.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult UpsertForm(string CustomerPublicId, string FormPublicId)
+        {
+            UpserCustomerModel oModel = new UpserCustomerModel()
+            {
+                RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
+                RelatedForm = new FormModel() { FormPublicId = FormPublicId },
+            };
+
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                oModel.RelatedForm = GetFormRequest();
+
+                oModel.RelatedForm.FormPublicId = DocumentManagement.Customer.Controller.Customer.FormUpsert
+                    (oModel.RelatedCustomer.CustomerPublicId,
+                    oModel.RelatedForm);
+
+                return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name,
+                    new
+                    {
+                        CustomerPublicId = oModel.RelatedCustomer.CustomerPublicId,
+                        FormPublicId = oModel.RelatedForm.FormPublicId,
+                    });
+            }
+
+            if (!string.IsNullOrEmpty(oModel.RelatedForm.FormPublicId))
+            {
+                oModel.RelatedForm = DocumentManagement.Customer.Controller.Customer.
+                    CustomerGetByFormId(oModel.RelatedForm.FormPublicId).
+                    RelatedForm.
+                    Where(x => x.FormPublicId == FormPublicId).
+                    FirstOrDefault();
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult UpsertFormLogo(string CustomerPublicId, string FormPublicId, HttpPostedFileBase UploadFile)
+        {
+
+            return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
+            {
+                CustomerPublicId = CustomerPublicId,
+                FormPublicId = FormPublicId
+            });
+        }
+
         public virtual ActionResult UploadProvider(string CustomerPublicId)
         {
             UpserCustomerModel oModel = new UpserCustomerModel()
@@ -70,6 +117,20 @@ namespace DocumentManagement.Web.Controllers
                 oReturn.Name = Request["Name"];
                 oReturn.IdentificationType = new Customer.Models.Util.CatalogModel() { ItemId = Convert.ToInt32(Request["IdentificationType"]), };
                 oReturn.IdentificationNumber = Request["IdentificationNumber"];
+            }
+
+            return oReturn;
+        }
+
+        private FormModel GetFormRequest()
+        {
+            FormModel oReturn = new FormModel();
+
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                oReturn.FormPublicId = Request["FormPublicId"];
+                oReturn.Name = Request["Name"];
+                oReturn.TermsAndConditions = Request["TermsAndConditions"];
             }
 
             return oReturn;

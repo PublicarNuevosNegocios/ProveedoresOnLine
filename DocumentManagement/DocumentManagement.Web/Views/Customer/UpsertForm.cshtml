@@ -1,0 +1,60 @@
+﻿@model DocumentManagement.Models.Customer.UpserCustomerModel
+
+@{
+    ViewBag.Title = "Compradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <div>
+        <!--Basic Info-->
+        <form action="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name)" method="post">
+            <ul>
+                <li>
+                    <span>Nombre</span>
+                    <input type="text" id="Name" name="Name" value="@(Model.RelatedForm != null ? Model.RelatedForm.Name : string.Empty)" />
+                </li>
+                <li>
+                    <span>Términos y condiciones</span>
+                    <textarea id="TermsAndConditions" name="TermsAndConditions">@(Model.RelatedForm != null ? Model.RelatedForm.TermsAndConditions : string.Empty)</textarea>
+                </li>
+                <li>
+                    <input type="submit" value="Guardar" />
+                </li>
+            </ul>
+
+            <div style="display:none">
+                <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                <input type="hidden" name="CustomerPublicId" value="@Model.RelatedCustomer.CustomerPublicId" />
+                @if (Model.RelatedForm != null && !string.IsNullOrEmpty(Model.RelatedForm.FormPublicId))
+                {
+                    <input type="hidden" name="FormPublicId" value="@Model.RelatedForm.FormPublicId" />
+                }
+            </div>
+        </form>
+
+        @if (Model.RelatedForm != null && !string.IsNullOrEmpty(Model.RelatedForm.FormPublicId))
+        {
+            <!--Logo-->
+            <form action="@Url.Action(MVC.Customer.ActionNames.UpsertFormLogo, MVC.Customer.Name, new { CustomerPublicId= Model.RelatedCustomer.CustomerPublicId,FormPublicId=Model.RelatedForm.FormPublicId })" method="post" enctype="multipart/form-data">
+                <ul>
+                    <li>
+                        <span>Logo:</span>
+                        <input type="file" id="UploadFile" name="UploadFile" />
+                    </li>
+                    <li>
+                        <input type="submit" value="Guardar" />
+                    </li>
+                </ul>
+
+                <div style="display:none">
+                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                </div>
+            </form>
+        }
+
+    </div>
+
+</div>
