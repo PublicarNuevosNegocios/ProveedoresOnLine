@@ -1,0 +1,52 @@
+.MPMainWrapper {
+    display: block;
+    width:100%;
+    min-width: 760px;
+    height:auto;
+    background-repeat: no-repeat;
+    background-size: 147px auto;
+    background-position: 98% -4px;
+    background-color: #FF7E35;
+    padding:4px 0px 6px 0px;
+    /*Mantener en el fondo de la página*/
+    clear: both;
+    margin-top:18px;
+}
+.MPTextWrapper {
+    display: block;
+    width:100%;
+    height:auto;
+    margin: 7px auto;
+    border: none;
+    text-align: center;
+}
+.MPTextWrapper a, .MPTextWrapper p{    
+    color:#fff;
+    font-family: "MuseoSans100","Trebuchet MS", Helvetica, sans-serif;
+}
+.MPTextWrapper ul li{
+    display:inline-block;
+    margin:0px 0px 6px 0px;
+}
+    .MPTextWrapper a {
+        font-size:1em;
+        color: #fff;
+        display: inline;
+        margin: 0px;
+        line-height:1em;
+    }
+    .MPTextWrapper p {
+        font-size:0.7em;
+        display:block;
+        width:80%;
+        margin:0px auto;
+        line-height:1.1em;
+    }
+
+        .MPTextWrapper a:hover {
+            color: #ccc;
+            text-decoration: underline;
+        }
+    .MPTextWrapper p a {
+        text-decoration:underline;
+    }

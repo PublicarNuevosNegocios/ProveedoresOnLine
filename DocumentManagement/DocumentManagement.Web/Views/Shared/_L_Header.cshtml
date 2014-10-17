@@ -1,9 +1,19 @@
 ﻿<div>
-    <!--Logo-->
-    <div><img src="" /></div>
-    <label>Módulo de gestion documental</label>
+    
     <!--User Info-->
-    @Html.Partial(MVC.Shared.Views._L_UserInfo)
-    <!--Principal menu-->
-    @Html.Partial(MVC.Shared.Views._L_PrincipalMenu)
+    <div class="UserInfo">
+        @Html.Partial(MVC.Shared.Views._L_UserInfo)
+    </div>
+    <div class="MainMenu">
+        <!--Logo-->
+        <div class="LogoHeader">
+            <img src="" />
+        </div>
+        <!--Titulo-->
+        <div class="MDTitle">
+            <label>Módulo de gestion documental</label>
+        </div>       
+        <!--Principal menu-->
+        @Html.Partial(MVC.Shared.Views._L_PrincipalMenu)
+    </div>
 </div>
