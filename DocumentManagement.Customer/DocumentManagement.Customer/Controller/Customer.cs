@@ -94,5 +94,14 @@ namespace DocumentManagement.Customer.Controller
         }
 
         #endregion
+
+        #region Util
+
+        public static List<Models.Util.CatalogModel> CatalogGetCustomerOptions()
+        {
+            return DAL.Controller.CustomerDataController.Instance.CatalogGetCustomerOptions();
+        }
+
+        #endregion
     }
 }
