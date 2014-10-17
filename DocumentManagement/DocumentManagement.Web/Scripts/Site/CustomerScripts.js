@@ -34,6 +34,16 @@ function CustomerSearchGrid(vidDiv) {
                 }
             },
         },
+        change: function (arg) {
+            $.map(this.select(), function (item) {
+            
+                if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
+                    window.location = '/Customer/UpsertCustomer?CustomerPublicId='  + $(item).find('td').first().text();
+                }
+            });
+
+        },
+        selectable: true,
         columns: [{
             field: "CustomerPublicId",
             title: "Id",

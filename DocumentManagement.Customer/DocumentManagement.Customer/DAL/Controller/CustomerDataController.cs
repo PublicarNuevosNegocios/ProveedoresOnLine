@@ -92,5 +92,14 @@ namespace DocumentManagement.Customer.DAL.Controller
         }
 
         #endregion
+
+        #region Util
+
+        public List<Models.Util.CatalogModel> CatalogGetCustomerOptions()
+        {
+            return DataFactory.CatalogGetCustomerOptions();
+        }
+
+        #endregion
     }
 }

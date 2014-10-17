@@ -26,6 +26,8 @@ namespace DocumentManagement.Customer.Interfaces
 
         DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetByFormId(string FormPublicId);
 
-        DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId); 
+        DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId);
+
+        List<DocumentManagement.Customer.Models.Util.CatalogModel> CatalogGetCustomerOptions();
     }
 }

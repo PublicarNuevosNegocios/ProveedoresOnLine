@@ -963,6 +963,7 @@
     <Content Include="Views\Customer\UpsertCustomer.cshtml" />
     <Content Include="Views\Customer\UploadProvider.cshtml" />
     <Content Include="Views\Customer\ListForm.cshtml" />
+    <Content Include="Views\Shared\_C_CustomerMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

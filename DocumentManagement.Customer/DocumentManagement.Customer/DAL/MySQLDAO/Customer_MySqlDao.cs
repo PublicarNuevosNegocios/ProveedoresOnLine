@@ -76,7 +76,7 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                      where !c.IsNull("CustomerPublicId")
                      select new CustomerModel()
                      {
-                         CustomerPublicId = c.Field<string>("UserInfoId"),
+                         CustomerPublicId = c.Field<string>("CustomerPublicId"),
                          Name = c.Field<string>("Name"),
                          IdentificationType = new Models.Util.CatalogModel()
                          {
@@ -111,7 +111,7 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             {
                 oReturn = new CustomerModel()
                 {
-                    CustomerPublicId = response.DataTableResult.Rows[0].Field<string>("UserInfoId"),
+                    CustomerPublicId = response.DataTableResult.Rows[0].Field<string>("CustomerPublicId"),
                     Name = response.DataTableResult.Rows[0].Field<string>("Name"),
                     IdentificationType = new Models.Util.CatalogModel()
                     {
@@ -212,7 +212,7 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             {
                 oReturn = new CustomerModel()
                 {
-                    CustomerPublicId = response.DataTableResult.Rows[0].Field<string>("UserInfoId"),
+                    CustomerPublicId = response.DataTableResult.Rows[0].Field<string>("CustomerPublicId"),
                     Name = response.DataTableResult.Rows[0].Field<string>("Name"),
                     IdentificationType = new Models.Util.CatalogModel()
                     {
@@ -367,5 +367,38 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
 
         #endregion
 
+        #region Util
+
+        public List<CatalogModel> CatalogGetCustomerOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetCustomerOptions",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<CatalogModel> oReturn = new List<CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ItemId")
+                     select new CatalogModel()
+                     {
+                         CatalogId = c.Field<int>("CatalogId"),
+                         CatalogName = c.Field<string>("CatalogName"),
+                         ItemId = c.Field<int>("ItemId"),
+                         ItemName = c.Field<string>("ItemName"),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }
