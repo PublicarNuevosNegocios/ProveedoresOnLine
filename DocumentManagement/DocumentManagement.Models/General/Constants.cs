@@ -20,7 +20,12 @@
 
         #endregion
 
+        #region Generic params
+
+        public const string C_Settings_Grid_RowCountDefault = "Grid_RowCountDefault";
+
         #endregion
 
+        #endregion
     }
 }

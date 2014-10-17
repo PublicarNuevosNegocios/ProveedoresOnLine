@@ -10,6 +10,8 @@ namespace DocumentManagement.Customer.Controller
 {
     public class Customer
     {
+        #region Customer
+
         public static string CustomerUpsert(CustomerModel CustomerToUpsert)
         {
             return DAL.Controller.CustomerDataController.Instance.CustomerUpsert
@@ -18,6 +20,24 @@ namespace DocumentManagement.Customer.Controller
                 CustomerToUpsert.IdentificationType.ItemId,
                 CustomerToUpsert.IdentificationNumber);
         }
+
+        public static List<Models.Customer.CustomerModel> CustomerSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CustomerDataController.Instance.CustomerSearch
+                (SearchParam,
+                PageNumber,
+                RowCount,
+                out TotalRows);
+        }
+
+        public static Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId)
+        {
+            return DAL.Controller.CustomerDataController.Instance.CustomerGetById(CustomerPublicId);
+        }
+
+        #endregion
+
+        #region Form
 
         public static string FormUpsert(string CustomerPublicId, FormModel FormToUpsert)
         {
@@ -57,6 +77,8 @@ namespace DocumentManagement.Customer.Controller
         {
             DAL.Controller.CustomerDataController.Instance.FieldDelete(FieldId);
         }
+
+        #endregion
 
     }
 }

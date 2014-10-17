@@ -42,6 +42,17 @@ namespace DocumentManagement.Customer.DAL.Controller
             return DataFactory.CustomerUpsert(CustomerPublicId, Name, IdentificationType, IdentificationNumber);
         }
 
+        public List<Models.Customer.CustomerModel> CustomerSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CustomerSearch(SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId)
+        {
+            return DataFactory.CustomerGetById(CustomerPublicId);
+        }
+
+
         #endregion
 
         #region Form

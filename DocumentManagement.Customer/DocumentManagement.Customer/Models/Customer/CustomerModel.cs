@@ -1,4 +1,5 @@
-﻿using DocumentManagement.Customer.Models.Util;
+﻿using DocumentManagement.Customer.Models.Form;
+using DocumentManagement.Customer.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace DocumentManagement.Customer.Models.Customer
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public List<FormModel> RelatedForm { get; set; }
     }
 }

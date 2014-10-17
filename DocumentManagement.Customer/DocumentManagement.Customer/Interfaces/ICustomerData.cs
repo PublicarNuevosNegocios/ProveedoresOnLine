@@ -19,5 +19,9 @@ namespace DocumentManagement.Customer.Interfaces
         int FieldCreate(int StepId, string Name, int ProviderInfoType, int FieldType, bool IsRequired, int Position);
 
         void FieldDelete(int FieldId);
+
+        List<DocumentManagement.Customer.Models.Customer.CustomerModel> CustomerSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
+        DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId);
     }
 }
