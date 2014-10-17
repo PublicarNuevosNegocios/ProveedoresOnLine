@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
   <FileRepository>
-
+    
     <!--S3 setting module-->
-    <key name="S3_ProveedoresOnLine_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
+    <key name="S3_ProveedoresOnline_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
     <key name="S3_ProveedoresOnLine_Params">
       <![CDATA[
           <S3>
