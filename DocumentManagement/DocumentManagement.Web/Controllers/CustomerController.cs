@@ -87,6 +87,20 @@ namespace DocumentManagement.Web.Controllers
 
         public virtual ActionResult UpsertFormLogo(string CustomerPublicId, string FormPublicId, HttpPostedFileBase UploadFile)
         {
+            //get folder
+            string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
+
+            if (!System.IO.Directory.Exists(strFolder))
+                System.IO.Directory.CreateDirectory(strFolder);
+
+            //get File
+            string strFile = strFolder.TrimEnd('\\') +
+                "\\Logo_" +
+                CustomerPublicId + "_" +
+                DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
+
+
+            UploadFile.SaveAs(strFile);
 
             return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
             {

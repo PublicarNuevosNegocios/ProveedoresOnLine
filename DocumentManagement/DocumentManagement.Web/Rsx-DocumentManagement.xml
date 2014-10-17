@@ -9,6 +9,9 @@
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
 
+    <!--File Params-->
+    <key name="File_TempDirectory">/TempDirectory/</key>
+
 
   </DocumentManagement>
 </Settings>

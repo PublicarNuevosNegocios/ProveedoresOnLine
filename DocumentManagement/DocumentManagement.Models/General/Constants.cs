@@ -26,6 +26,12 @@
 
         #endregion
 
+        #region File
+
+        public const string C_Settings_File_TempDirectory = "File_TempDirectory";
+
+        #endregion
+
         #endregion
     }
 }
