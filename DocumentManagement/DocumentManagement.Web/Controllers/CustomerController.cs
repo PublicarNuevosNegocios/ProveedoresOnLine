@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentManagement.Models.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,13 @@ namespace DocumentManagement.Web.Controllers
         public virtual ActionResult Index()
         {
             return View();
+        }
+
+        public virtual ActionResult UpsertCustomer(string CustomerPublicId)
+        {
+            UpserCustomerModel oModel = new UpserCustomerModel();
+
+            return View(oModel);
         }
     }
 }
