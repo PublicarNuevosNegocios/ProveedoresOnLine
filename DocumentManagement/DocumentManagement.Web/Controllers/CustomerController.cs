@@ -18,6 +18,29 @@ namespace DocumentManagement.Web.Controllers
         {
             UpserCustomerModel oModel = new UpserCustomerModel();
 
+            if (!string.IsNullOrEmpty(CustomerPublicId))
+                oModel.RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId);
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult ListForm(string CustomerPublicId)
+        {
+            UpserCustomerModel oModel = new UpserCustomerModel()
+            {
+                RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
+            };
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult UploadProvider(string CustomerPublicId)
+        {
+            UpserCustomerModel oModel = new UpserCustomerModel()
+            {
+                RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
+            };
+
             return View(oModel);
         }
     }

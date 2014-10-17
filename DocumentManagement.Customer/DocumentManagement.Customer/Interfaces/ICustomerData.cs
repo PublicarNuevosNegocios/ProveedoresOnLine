@@ -25,5 +25,7 @@ namespace DocumentManagement.Customer.Interfaces
         List<DocumentManagement.Customer.Models.Form.FormModel> FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetByFormId(string FormPublicId);
+
+        DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId); 
     }
 }

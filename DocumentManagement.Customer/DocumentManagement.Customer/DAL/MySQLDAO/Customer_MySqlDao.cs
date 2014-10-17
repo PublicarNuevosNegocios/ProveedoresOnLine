@@ -191,6 +191,41 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             return oReturn;
         }
 
+        public CustomerModel CustomerGetById(string CustomerPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_Customer_GetById",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            CustomerModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new CustomerModel()
+                {
+                    CustomerPublicId = response.DataTableResult.Rows[0].Field<string>("UserInfoId"),
+                    Name = response.DataTableResult.Rows[0].Field<string>("Name"),
+                    IdentificationType = new Models.Util.CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
+                    },
+                    IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
+                };
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Form

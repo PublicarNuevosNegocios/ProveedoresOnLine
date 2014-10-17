@@ -959,6 +959,8 @@
     <Content Include="Views\Shared\_L_UserInfo.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\UpsertCustomer.cshtml" />
+    <Content Include="Views\Customer\UploadProvider.cshtml" />
+    <Content Include="Views\Customer\ListForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

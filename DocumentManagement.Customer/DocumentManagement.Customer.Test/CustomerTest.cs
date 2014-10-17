@@ -28,6 +28,15 @@ namespace DocumentManagement.Customer.Test
         }
 
         [TestMethod]
+        public void CustomerGetById()
+        {
+            DocumentManagement.Customer.Models.Customer.CustomerModel oResult =
+                DocumentManagement.Customer.Controller.Customer.CustomerGetById("aaa");
+
+            Assert.IsNotNull(oResult);
+        }
+
+        [TestMethod]
         public void FormSearch()
         {
             int oTotalRows;

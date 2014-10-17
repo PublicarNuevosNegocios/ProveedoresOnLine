@@ -52,6 +52,11 @@ namespace DocumentManagement.Customer.DAL.Controller
             return DataFactory.CustomerGetByFormId(FormPublicId);
         }
 
+        public Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId)
+        {
+            return DataFactory.CustomerGetById(CustomerPublicId);
+        }
+
         #endregion
 
         #region Form
@@ -87,6 +92,5 @@ namespace DocumentManagement.Customer.DAL.Controller
         }
 
         #endregion
-
     }
 }

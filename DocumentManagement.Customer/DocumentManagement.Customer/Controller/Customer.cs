@@ -35,6 +35,11 @@ namespace DocumentManagement.Customer.Controller
             return DAL.Controller.CustomerDataController.Instance.CustomerGetByFormId(FormPublicId);
         }
 
+        public static Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId)
+        {
+            return DAL.Controller.CustomerDataController.Instance.CustomerGetById(CustomerPublicId);
+        }
+
         #endregion
 
         #region Form
