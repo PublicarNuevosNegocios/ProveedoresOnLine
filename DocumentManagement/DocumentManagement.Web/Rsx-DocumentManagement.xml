@@ -9,6 +9,7 @@
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
 
+    <key name="File_TmpProviderExcelDir">C:\Users\JOHMARVA\Documents\PRUEBA_CARGUE_MASIVO\</key>
 
   </DocumentManagement>
 </Settings>

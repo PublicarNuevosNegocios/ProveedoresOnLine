@@ -26,6 +26,12 @@
 
         #endregion
 
+        #region Provider General
+
+        public const string C_Settings_File_TmpExcelDir = "File_TmpProviderExcelDir";
+
+        #endregion
+
         #endregion
     }
 }
