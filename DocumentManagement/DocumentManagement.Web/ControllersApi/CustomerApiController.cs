@@ -13,7 +13,7 @@ namespace DocumentManagement.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public CustomerSearchModel CustomerSearch
-            (string SearchParam, int PageNumber, int RowCount)
+            (string CustomerSearchVal, string SearchParam, int PageNumber, int RowCount)
         {
             CustomerSearchModel oReturn = new CustomerSearchModel();
 
@@ -27,6 +27,25 @@ namespace DocumentManagement.Web.ControllersApi
             return oReturn;
 
         }
+
+        [HttpPost]
+        [HttpGet]
+        public FormSearchModel FormSearch
+            (string FormSearchVal, string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            FormSearchModel oReturn = new FormSearchModel();
+
+            int oTotalRows;
+            oReturn.RelatedForm = DocumentManagement.Customer.Controller.Customer.FormSearch
+                (CustomerPublicId, SearchParam, PageNumber, RowCount, out oTotalRows);
+
+            oReturn.TotalRows = oTotalRows;
+
+
+            return oReturn;
+
+        }
+
 
     }
 }

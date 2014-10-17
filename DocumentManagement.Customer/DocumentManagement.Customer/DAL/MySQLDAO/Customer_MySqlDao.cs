@@ -230,7 +230,7 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
 
         #region Form
 
-        public string FormUpsert(string FormPublicId, string CustomerPublicId, string Name, string TermsAndConditions, string Logo)
+        public string FormUpsert(string FormPublicId, string CustomerPublicId, string Name, string TermsAndConditions)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -238,7 +238,6 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
             lstParams.Add(DataInstance.CreateTypedParameter("vTermsAndConditions", TermsAndConditions));
-            lstParams.Add(DataInstance.CreateTypedParameter("vLogo", Logo));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -252,6 +251,22 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                 return response.ScalarResult.ToString();
             else
                 return null;
+        }
+
+        public void FormUpsertLogo(string FormPublicId, string Logo)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vFormPublicId", FormPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLogo", Logo));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "F_Form_UpsertLogo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
         }
 
         public int StepCreate(string FormPublicId, string Name, int Position)
@@ -400,5 +415,6 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
         }
 
         #endregion
+
     }
 }
