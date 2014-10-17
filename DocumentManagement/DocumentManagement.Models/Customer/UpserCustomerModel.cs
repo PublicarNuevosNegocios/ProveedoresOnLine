@@ -11,5 +11,7 @@ namespace DocumentManagement.Models.Customer
         public DocumentManagement.Customer.Models.Customer.CustomerModel RelatedCustomer { get; set; }
 
         public List<DocumentManagement.Customer.Models.Util.CatalogModel> CustomerOptions { get; set; }
+
+        public DocumentManagement.Customer.Models.Form.FormModel RelatedForm { get; set; }
     }
 }

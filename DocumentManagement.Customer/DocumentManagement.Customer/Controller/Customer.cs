@@ -50,8 +50,14 @@ namespace DocumentManagement.Customer.Controller
                 (FormToUpsert.FormPublicId,
                 CustomerPublicId,
                 FormToUpsert.Name,
-                FormToUpsert.TermsAndConditions,
-                FormToUpsert.Logo);
+                FormToUpsert.TermsAndConditions);
+        }
+
+        public static void FormUpsertLogo(string FormPublicId, string Logo)
+        {
+            DAL.Controller.CustomerDataController.Instance.FormUpsertLogo
+                (FormPublicId,
+                Logo);
         }
 
         public static int StepCreate(string FormPublicId, StepModel StepToUpsert)
