@@ -21,18 +21,23 @@ namespace DocumentManagement.Provider.Controller
 
         static public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId,ProviderCustomerInfoType, Value, LargeValue);
-        }          
+            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
+        }
 
-        static public void LoadFile(string FilePath, string FileName)
+        static public string LoadFile(string FilePath, string RemoteFolder)
         {
             File oLoader = new File()
             {
-                FilesToUpload = new List<string>() { FilePath, FilePath },
-                RemoteFolder = ""
+                FilesToUpload = new List<string>() { FilePath },
+                RemoteFolder = RemoteFolder
             };
 
             oLoader.StartUpload();
-        }        
+
+            return oLoader.UploadedFiles.Where(x => x.FilePathLocalSystem == FilePath).
+                        Select(x => x.PublishFile.ToString()).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+        }
     }
 }

@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 namespace DocumentManagement.Provider.Controller
 {
     internal class File
-    {        
+    {
+        #region Properties
+
         private FileRepository.Manager.FileRepository FileRepositoryInstance
         {
             get
@@ -48,7 +50,22 @@ namespace DocumentManagement.Provider.Controller
             }
         }
 
-        public string StartUpload()
+        public List<FileModel> UploadedFiles
+        {
+            get
+            {
+                if (FileRepositoryInstance == null)
+                    return null;
+                else
+                    return FileRepositoryInstance.CurrentOperations;
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void StartUpload()
         {
             //fill file info to load
             FileRepositoryInstance.CurrentOperations = new List<FileModel>();
@@ -66,9 +83,9 @@ namespace DocumentManagement.Provider.Controller
             });
             //start load
             FileRepositoryInstance.StartOperation(false);
-
-            return null;
         }
+
+        #endregion
 
         #region Eventos del repositorio
 
@@ -82,6 +99,6 @@ namespace DocumentManagement.Provider.Controller
 
         }
 
-        #endregion       
+        #endregion
     }
 }

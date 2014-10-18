@@ -72,6 +72,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Jellyfish.jpg" />
     <Content Include="Rsx-SettingsConfig.xml" />
     <Content Include="Rsx-FileRepository.xml" />
   </ItemGroup>

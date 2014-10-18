@@ -10,7 +10,7 @@ namespace DocumentManagement.Provider.Models
     {
         public const string P_ProviderConnectionName = "DM_ProviderConnection";
 
-        public const string C_Settings_File_FileModuleName = "S3_ProveedoresOnline";
+        public const string C_Settings_File_FileModuleName = "S3_ProveedoresOnLine";
         
         public const string C_Settings_File_ProviderFile_RemoteFolder = "ProviderFile_RemoteFolder";
     }

@@ -16,7 +16,11 @@ namespace DocumentManagement.Provider_Test
         [TestMethod]
         public void LoadFile()
         {
-            DocumentManagement.Provider.Controller.Provider.LoadFile("","");
-        }       
+            string FilePath = @"D:\Proyectos\Github\ProveedoresOnLine\DocumentManagement.Provider\DocumentManagement.Provider_Test\Jellyfish.jpg";
+
+            string oReturn = DocumentManagement.Provider.Controller.Provider.LoadFile(FilePath, "\\tmp\\");
+
+            Assert.AreEqual(true, !string.IsNullOrEmpty(oReturn));
+        }
     }
 }

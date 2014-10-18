@@ -3,15 +3,15 @@
   <FileRepository>
     
     <!--S3 setting module-->
-    <key name="S3_ProveedoresOnline_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
+    <key name="S3_ProveedoresOnLine_AssemblyInfo">FileRepository.S3.S3Implement,FileRepository.S3</key>
     <key name="S3_ProveedoresOnLine_Params">
       <![CDATA[
           <S3>
-            <key name="S3.Server">http://devsaludguruimg.s3-website-us-east-1.amazonaws.com</key>
-            <key name="S3.Publish">http://devsaludguruimg.s3-website-us-east-1.amazonaws.com</key>
+            <key name="S3.Server">http://devproveedoresonline.s3-website-us-east-1.amazonaws.com</key>
+            <key name="S3.Publish">http://devproveedoresonline.s3-website-us-east-1.amazonaws.com</key>
             <key name="S3.AccessKeyId"></key>
             <key name="S3.SecretAccessKey"></key>
-            <key name="S3.BucketName">devsaludguruimg</key>
+            <key name="S3.BucketName">devproveedoresonline</key>
             <!--REDUCED_REDUNDANCY,GLACIER,STANDARD-->
             <key name="S3.StorageClass">REDUCED_REDUNDANCY</key>
             <!--us-east-1-->
