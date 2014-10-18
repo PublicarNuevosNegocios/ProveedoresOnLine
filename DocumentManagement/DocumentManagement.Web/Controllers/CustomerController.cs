@@ -100,8 +100,21 @@ namespace DocumentManagement.Web.Controllers
                 CustomerPublicId + "_" +
                 DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
 
-
             UploadFile.SaveAs(strFile);
+
+            //load file to s3
+            string strRemoteFile = DocumentManagement.Provider.Controller.Provider.LoadFile
+                (strFile,
+                DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
+
+            //update file into db
+            DocumentManagement.Customer.Controller.Customer.FormUpsertLogo
+                                (FormPublicId,
+                                strRemoteFile);
+
+            //remove temporal file
+            if (System.IO.File.Exists(strFile))
+                System.IO.File.Delete(strFile);
 
             return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
             {
@@ -176,12 +189,12 @@ namespace DocumentManagement.Web.Controllers
                 //        ErrorFile = RemoteErrorFilePath,
                 //    });
             }
-                return View();
+            return View();
         }
 
         private void ProccessAppointmentFile(string FilePath, string ErrorFilePath, string CustomerPublicId)
         {
-            
+
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
 

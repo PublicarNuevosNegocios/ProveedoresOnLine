@@ -3,4 +3,7 @@
   <Module name="DocumentManagement">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\Rsx-DocumentManagement.xml</key>
   </Module>
+  <Module name="FileRepository">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\Rsx-FileRepository.xml</key>
+  </Module>
 </SettingsConfig>

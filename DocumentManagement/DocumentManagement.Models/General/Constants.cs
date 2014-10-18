@@ -36,6 +36,8 @@
 
         public const string C_Settings_File_TempDirectory = "File_TempDirectory";
 
+        public const string C_Settings_File_RemoteDirectory = "File_RemoteDirectory";
+
         #endregion
 
         #endregion

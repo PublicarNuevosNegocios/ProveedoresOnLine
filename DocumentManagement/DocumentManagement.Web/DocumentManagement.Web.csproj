@@ -46,8 +46,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="AWSSDK">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\AWSSDK.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentManagement.Customer">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Customer\developer\DocumentManagement.Customer.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentManagement.Provider">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Provider\developer\DocumentManagement.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="FileRepository.Manager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="FileRepository.S3">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
     </Reference>
     <Reference Include="LinqToExcel">
       <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
@@ -435,6 +447,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Rsx-DocumentManagement.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Rsx-FileRepository.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Rsx-SettingsConfig.xml">
@@ -1030,6 +1045,7 @@
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
 XCOPY "$(ProjectDir)$(OutDir)Rsx-DocumentManagement.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
+XCOPY "$(ProjectDir)$(OutDir)Rsx-FileRepository.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
