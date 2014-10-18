@@ -46,6 +46,29 @@ namespace DocumentManagement.Web.ControllersApi
 
         }
 
+        [HttpPost]
+        [HttpGet]
+        public StepSearchModel StepSearch
+            (string StepSearchVal, string FormPublicId)
+        {
+            StepSearchModel oReturn = new StepSearchModel();
+
+            oReturn.RelatedStep = DocumentManagement.Customer.Controller.Customer.StepGetByFormId(FormPublicId);
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public FieldSearchModel FieldSearch
+            (string FieldSearchVal, string StepId)
+        {
+            FieldSearchModel oReturn = new FieldSearchModel();
+
+            oReturn.RelatedField = DocumentManagement.Customer.Controller.Customer.FieldGetByStepId(Convert.ToInt32(StepId));
+
+            return oReturn;
+        }
 
     }
 }

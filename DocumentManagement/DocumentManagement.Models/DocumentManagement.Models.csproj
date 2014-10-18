@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Customer\StepSearchModel.cs" />
+    <Compile Include="Customer\FieldSearchModel.cs" />
     <Compile Include="Customer\FormSearchModel.cs" />
     <Compile Include="Customer\CustomerSearchModel.cs" />
     <Compile Include="Customer\UpserCustomerModel.cs" />

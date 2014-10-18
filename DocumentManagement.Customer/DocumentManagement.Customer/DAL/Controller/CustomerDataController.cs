@@ -71,7 +71,6 @@ namespace DocumentManagement.Customer.DAL.Controller
             DataFactory.FormUpsertLogo(FormPublicId, Logo);
         }
 
-
         public int StepCreate(string FormPublicId, string Name, int Position)
         {
             return DataFactory.StepCreate(FormPublicId, Name, Position);
@@ -82,9 +81,9 @@ namespace DocumentManagement.Customer.DAL.Controller
             DataFactory.StepDelete(StepId);
         }
 
-        public int FieldCreate(int StepId, string Name, int ProviderInfoType, int FieldType, bool IsRequired, int Position)
+        public int FieldCreate(int StepId, string Name, int ProviderInfoType, bool IsRequired, int Position)
         {
-            return DataFactory.FieldCreate(StepId, Name, ProviderInfoType, FieldType, IsRequired, Position);
+            return DataFactory.FieldCreate(StepId, Name, ProviderInfoType, IsRequired, Position);
         }
 
         public void FieldDelete(int FieldId)
@@ -95,6 +94,16 @@ namespace DocumentManagement.Customer.DAL.Controller
         public List<Models.Form.FormModel> FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             return DataFactory.FormSearch(CustomerPublicId, SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public List<Models.Form.StepModel> StepGetByFormId(string FormPublicId)
+        {
+            return DataFactory.StepGetByFormId(FormPublicId);
+        }
+
+        public List<Models.Form.FieldModel> FieldGetByStepId(int StepId)
+        {
+            return DataFactory.FieldGetByStepId(StepId);
         }
 
         #endregion

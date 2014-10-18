@@ -42,10 +42,29 @@ namespace DocumentManagement.Customer.Test
             int oTotalRows;
             List<DocumentManagement.Customer.Models.Form.FormModel> oResult =
                 DocumentManagement.Customer.Controller.Customer.FormSearch
-                    ("aaaa",null, 0, 20, out oTotalRows);
+                    ("aaaa", null, 0, 20, out oTotalRows);
 
             Assert.AreEqual(true, oResult.Count > 0);
         }
+
+        [TestMethod]
+        public void StepGetByFormId()
+        {
+            List<DocumentManagement.Customer.Models.Form.StepModel> oResult =
+                DocumentManagement.Customer.Controller.Customer.StepGetByFormId("aaaa");
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
+
+        [TestMethod]
+        public void FieldGetByStepId()
+        {
+            List<DocumentManagement.Customer.Models.Form.FieldModel> oResult =
+                DocumentManagement.Customer.Controller.Customer.FieldGetByStepId(0);
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
+
 
         [TestMethod]
         public void CatalogGetCustomerOptions()

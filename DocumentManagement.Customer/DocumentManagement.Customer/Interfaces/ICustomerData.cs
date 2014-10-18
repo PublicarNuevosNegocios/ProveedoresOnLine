@@ -18,7 +18,7 @@ namespace DocumentManagement.Customer.Interfaces
 
         void StepDelete(int StepId);
 
-        int FieldCreate(int StepId, string Name, int ProviderInfoType, int FieldType, bool IsRequired, int Position);
+        int FieldCreate(int StepId, string Name, int ProviderInfoType, bool IsRequired, int Position);
 
         void FieldDelete(int FieldId);
 
@@ -31,5 +31,10 @@ namespace DocumentManagement.Customer.Interfaces
         DocumentManagement.Customer.Models.Customer.CustomerModel CustomerGetById(string CustomerPublicId);
 
         List<DocumentManagement.Customer.Models.Util.CatalogModel> CatalogGetCustomerOptions();
+
+        List<DocumentManagement.Customer.Models.Form.StepModel> StepGetByFormId(string FormPublicId);
+
+        List<DocumentManagement.Customer.Models.Form.FieldModel> FieldGetByStepId(int StepId);
+
     }
 }
