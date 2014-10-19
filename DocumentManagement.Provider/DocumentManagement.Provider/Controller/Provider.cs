@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Provider.Models;
+using DocumentManagement.Provider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,11 @@ namespace DocumentManagement.Provider.Controller
                         Select(x => x.PublishFile.ToString()).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
+        }
+
+        static public ProviderModel GetProbiderByIdentificationNumberAndDucmentType(string IdentificationNumber, Models.Enumerations.enumIdentificationType IdenificationType)
+        {
+            return DAL.Controller.ProviderDataController.Instance.GetProbiderByIdentificationNumberAndDucmentType(IdentificationNumber, IdenificationType);
         }
     }
 }

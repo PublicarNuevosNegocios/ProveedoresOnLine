@@ -47,7 +47,12 @@ namespace DocumentManagement.Provider.DAL.Controller
         public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
         {
             return DataFactory.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
-        } 
+        }
+        
+        public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDucmentType(string IdentificationNumber, Models.Enumerations.enumIdentificationType IdenificationType)
+        {
+            return DataFactory.GetProbiderByIdentificationNumberAndDucmentType(IdentificationNumber, IdenificationType);
+        }
         #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DocumentManagement.Provider.Models.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,10 @@ namespace DocumentManagement.Provider.Interfaces
 
         string ProviderInfoUpsert(int ProviderInfoId, string ProviderPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderInfoType ProviderInfoType, string Value, string LargeValue);
 
-        string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue); 
+        string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue);
+
+        ProviderModel GetProbiderByIdentificationNumberAndDucmentType(string IdentificationNumber, DocumentManagement.Provider.Models.Enumerations.enumIdentificationType IdenificationType);
+        
         #endregion      
     }
 }
