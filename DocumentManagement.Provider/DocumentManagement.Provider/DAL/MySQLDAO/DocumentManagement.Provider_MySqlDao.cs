@@ -113,8 +113,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                     },
                     Email = response.DataTableResult.Rows[0].Field<string>("Email"),
                     Name = response.DataTableResult.Rows[0].Field<string>("Name"),
-                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("ProfileLastModify"),
-                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("ProfileCreateDate")
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate")
                 };
             }
             return oReturn;
