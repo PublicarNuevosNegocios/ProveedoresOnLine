@@ -161,7 +161,7 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                                              FieldName = fi.Field<string>("FieldName"),
                                              ProviderInfoTypeId = fi.Field<int>("ProviderInfoTypeId"),
                                              ProviderInfoTypeName = fi.Field<string>("ProviderInfoTypeName"),
-                                             IsRequired = fi.Field<bool>("IsRequired"),
+                                             IsRequired = fi.Field<UInt64>("IsRequired") == 1 ? true : false,
                                              FieldPosition = fi.Field<int>("FieldPosition"),
                                          } into fig
                                          select new FieldModel()
@@ -452,7 +452,7 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                              ItemId = fi.Field<int>("ProviderInfoTypeId"),
                              ItemName = fi.Field<string>("ProviderInfoTypeName"),
                          },
-                         IsRequired = fi.Field<bool>("IsRequired"),
+                         IsRequired = fi.Field<UInt64>("IsRequired") == 1 ? true : false,
                          Position = fi.Field<int>("FieldPosition"),
                      }).ToList();
             }
