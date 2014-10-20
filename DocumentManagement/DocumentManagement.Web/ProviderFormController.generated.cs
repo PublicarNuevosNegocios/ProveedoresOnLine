@@ -103,7 +103,7 @@ namespace DocumentManagement.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
         {
-            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
             public readonly string StepId = "StepId";
         }
@@ -113,7 +113,7 @@ namespace DocumentManagement.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_LoginProvider
         {
-            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -138,29 +138,29 @@ namespace DocumentManagement.Web.Controllers
         public T4MVC_ProviderFormController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string FormPublicId, string StepId);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string StepId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string CustomerPublicId, string FormPublicId, string StepId)
+        public override System.Web.Mvc.ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
-            IndexOverride(callInfo, CustomerPublicId, FormPublicId, StepId);
+            IndexOverride(callInfo, ProviderPublicId, FormPublicId, StepId);
             return callInfo;
         }
 
         [NonAction]
-        partial void LoginProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string FormPublicId);
+        partial void LoginProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LoginProvider(string CustomerPublicId, string FormPublicId)
+        public override System.Web.Mvc.ActionResult LoginProvider(string ProviderPublicId, string FormPublicId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProvider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
-            LoginProviderOverride(callInfo, CustomerPublicId, FormPublicId);
+            LoginProviderOverride(callInfo, ProviderPublicId, FormPublicId);
             return callInfo;
         }
 

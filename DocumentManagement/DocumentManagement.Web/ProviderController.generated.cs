@@ -57,12 +57,6 @@ namespace DocumentManagement.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ProviderList()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProviderList);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -80,27 +74,15 @@ namespace DocumentManagement.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string ProviderList = "ProviderList";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string ProviderList = "ProviderList";
         }
 
 
-        static readonly ActionParamsClass_ProviderList s_params_ProviderList = new ActionParamsClass_ProviderList();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ProviderList ProviderListParams { get { return s_params_ProviderList; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ProviderList
-        {
-            public readonly string Name = "Name";
-            public readonly string CustomerPublicId = "CustomerPublicId";
-            public readonly string FormPublicId = "FormPublicId";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -112,10 +94,8 @@ namespace DocumentManagement.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string ProviderList = "ProviderList";
             }
             public readonly string Index = "~/Views/Provider/Index.cshtml";
-            public readonly string ProviderList = "~/Views/Provider/ProviderList.cshtml";
         }
     }
 
@@ -132,20 +112,6 @@ namespace DocumentManagement.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ProviderListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string Name, string CustomerPublicId, string FormPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ProviderList(string Name, string CustomerPublicId, string FormPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProviderList);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Name", Name);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
-            ProviderListOverride(callInfo, Name, CustomerPublicId, FormPublicId);
             return callInfo;
         }
 
