@@ -1,34 +1,92 @@
 /*****************UserInfo************************/
 .UserInfo {
-    /* border: 1px solid green; */
+   
     display: inline-block;
     width: 100%;
     height: auto;
-    margin: 0px 1px 0px 0px;
+    margin: 2px 1px 0px 0px;
     vertical-align: top;
     text-align: right;
 }
 
-/*****************Logo********************/
-.LogoHeader {
-    border: 1px solid red;
-    display: inline-block;
-    width: 400px;
-    height: 75px;
+.openDialog {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 16px solid #FF7E35;
+    padding: 0 !important;
+    display: inline-block !important;
     vertical-align: top;
-    margin: -6px 20px 0px 2%;
+    margin: 3px 30px 0px 5px;
 }
 
+#divUserMenu {
+    border: 1px solid grey;
+    width: 9%;
+    height: auto;
+    position: absolute;
+    z-index: 20;
+    background-color: #fff;
+    right: 30px;
+    text-align: center;
+}
+
+    #divUserMenu ul {
+        padding: 0;
+        margin: 0;
+    }
+
+        #divUserMenu ul li {
+            border: none;
+            border-bottom: 1px solid #333;
+            height: auto;
+            cursor: pointer;
+            list-style: none;
+        }
+
+            #divUserMenu ul li a {
+                font-size: 13px;
+                line-height: 33px;
+                color: #4d4d4d;
+                display: block;
+                margin-left: 5px;
+            }
+
+/*****************Logo********************/
+.LogoHeader {
+    display: inline-block;
+    width:auto;
+    height:auto;
+    vertical-align: top;
+    margin: -14px 0px 0px 12px;
+    }
+    .LogoHeader a{
+        width:300px;
+        height:auto;
+        display: block;
+    }
+        .LogoHeader a img {
+            width:300px;
+        height:auto;
+        }
 /*****************Title************************/
 .MDTitle {
-    border: 1px solid blue;
+
     display: inline-block;
-    width: 36%;
     height: auto;
+    margin: 26px auto 0 10%;
     text-align: center;
-    margin: 10px 0px 0px 0px;
-    font-size: 25px;
+    width: auto;
 }
+    .MDTitle label{
+        font-size: 25px;
+        font-weight:normal;
+        margin:0px;
+        line-height:25px;
+        letter-spacing:-0.5px;
+        color:#ff8300;
+    }
 
 /*****************MainMenu************************/
 .MainMenu {
@@ -36,16 +94,15 @@
     width: 100%;
 }
 
-.MenuButtoms {
-    display: block;
+.MenuButtons {
+    float: right;
     border: none;
-    width: 100%;
+    width: auto;
     background-color: #fff;
     text-align: right;
-    margin-top: -30px;
+    margin:20px 0px 0px 0px;
 }
-
-    .MenuButtoms li {
+    .MenuButtons li {
         border: 1px solid grey;
         display: inline-block;
         height: 44px;
@@ -57,9 +114,9 @@
         background-color: #fff;
     }
 
-        .MenuButtoms li:hover,
-        .MenuButtoms li:active,
-        .MenuButtoms li.selected {
+        .MenuButtons li:hover,
+        .MenuButtons li:active,
+        .MenuButtons li.selected {
             border: 1px solid grey;
             display: inline-block;
             height: 48px;
@@ -74,14 +131,10 @@
         }
 
 /*Provider*/
-.MenuButtoms {
-    border-bottom: 4px solid #9d046f;
+.MenuProvider {
+    border-bottom: 4px solid #F5761A;
 }
 /*Customer*/
-.MenuButtoms {
-    border-bottom: 4px solid #0E9090;
-}
-/*BackOffice*/
-.MenuButtoms {
-    border-bottom: 4px solid #0E9090;
+.MenuCustomer {
+    border-bottom: 4px solid #4D94E5;
 }

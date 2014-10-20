@@ -85,10 +85,10 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return null;
         }
         
-        public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
+        public Models.Provider.ProviderModel GetProviderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-            lstParams.Add(DataInstance.CreateTypedParameter("vIdenificationType", (int)IdenificationType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", (int)IdenificationType));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
             
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -108,16 +108,37 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                     IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
                     IdentificationType = new Models.Util.CatalogModel()
                     {
-                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationType"),
                         ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
                     },
                     Email = response.DataTableResult.Rows[0].Field<string>("Email"),
                     Name = response.DataTableResult.Rows[0].Field<string>("Name"),
-                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("ProfileLastModify"),
-                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("ProfileCreateDate")
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate")
                 };
             }
             return oReturn;
+        }
+        
+        public bool GetRelationProviderAndCustomer(string CustomerPublicId, string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "P_ProviderCustomer_GetByCustomerAndProvider",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+            
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+                return true;
+            else            
+                return false;           
         }
     }
 }

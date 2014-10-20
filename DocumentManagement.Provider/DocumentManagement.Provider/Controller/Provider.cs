@@ -41,9 +41,14 @@ namespace DocumentManagement.Provider.Controller
                         FirstOrDefault();
         }
 
-        static public ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, Models.Enumerations.enumIdentificationType IdenificationType)
+        static public ProviderModel GetProviderByIdentificationNumberAndDocumentType(string IdentificationNumber, Models.Enumerations.enumIdentificationType IdenificationType)
         {
-            return DAL.Controller.ProviderDataController.Instance.GetProbiderByIdentificationNumberAndDocumentType(IdentificationNumber, IdenificationType);
+            return DAL.Controller.ProviderDataController.Instance.GetProviderByIdentificationNumberAndDocumentType(IdentificationNumber, IdenificationType);
+        }
+
+        static public bool GetRelationProviderAndCustomer(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.ProviderDataController.Instance.GetRelationProviderAndCustomer(CustomerPublicId, ProviderPublicId);
         }
     }
 }
