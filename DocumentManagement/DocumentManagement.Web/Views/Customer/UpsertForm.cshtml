@@ -9,19 +9,20 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <div class="DMCustomerForm">
+        <span class="spanTitleForm">Formulario @(Model.RelatedForm != null && Model.RelatedForm.Name != null ? Model.RelatedForm.Name : " Nuevo")</span>
         <!--Basic Info-->
         <form action="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name)" method="post">
-            <ul>
+            <ul class="ulBasicInfo">
                 <li>
-                    <span>Nombre</span>
+                    <span>Nombre:</span>
                     <input type="text" id="Name" name="Name" value="@(Model.RelatedForm != null ? Model.RelatedForm.Name : string.Empty)" />
                 </li>
                 <li>
-                    <span>Términos y condiciones</span>
-                    <textarea id="TermsAndConditions" name="TermsAndConditions">@(Model.RelatedForm != null ? Model.RelatedForm.TermsAndConditions : string.Empty)</textarea>
+                    <span>Términos y condiciones:</span>
+                    <textarea id="TermsAndConditions" name="TermsAndConditions" rows="4">@(Model.RelatedForm != null ? Model.RelatedForm.TermsAndConditions : string.Empty)</textarea>
                 </li>
                 <li>
-                    <input type="submit" value="Guardar" />
+                    <input class="DMButtonsForm" type="submit" value="Guardar" />
                 </li>
             </ul>
 
@@ -39,14 +40,14 @@
         {
             <!--Logo-->
             <form action="@Url.Action(MVC.Customer.ActionNames.UpsertFormLogo, MVC.Customer.Name, new { CustomerPublicId= Model.RelatedCustomer.CustomerPublicId,FormPublicId=Model.RelatedForm.FormPublicId })" method="post" enctype="multipart/form-data">
-                <ul>
+                <ul class="ulFormLogo">
                     <li>
                         <span>Logo:</span>
                         <input type="file" id="UploadFile" name="UploadFile" />
                         <img src="@Model.RelatedForm.Logo" />
                     </li>
                     <li>
-                        <input type="submit" value="Guardar" />
+                        <input class="DMButtonsForm" type="submit" value="Guardar" />
                     </li>
                 </ul>
 

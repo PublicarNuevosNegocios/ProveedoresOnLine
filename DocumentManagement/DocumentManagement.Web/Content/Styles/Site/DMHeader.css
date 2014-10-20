@@ -1,6 +1,5 @@
 /*****************UserInfo************************/
 .UserInfo {
-   
     display: inline-block;
     width: 100%;
     height: auto;
@@ -56,36 +55,38 @@
 /*****************Logo********************/
 .LogoHeader {
     display: inline-block;
-    width:auto;
-    height:auto;
+    width: auto;
+    height: auto;
     vertical-align: top;
     margin: -14px 0px 0px 12px;
-    }
-    .LogoHeader a{
-        width:300px;
-        height:auto;
+}
+
+    .LogoHeader a {
+        width: 300px;
+        height: auto;
         display: block;
     }
+
         .LogoHeader a img {
-            width:300px;
-        height:auto;
+            width: 300px;
+            height: auto;
         }
 /*****************Title************************/
 .MDTitle {
-
     display: inline-block;
     height: auto;
     margin: 26px auto 0 10%;
     text-align: center;
     width: auto;
 }
-    .MDTitle label{
+
+    .MDTitle label {
         font-size: 25px;
-        font-weight:normal;
-        margin:0px;
-        line-height:25px;
-        letter-spacing:-0.5px;
-        color:#ff8300;
+        font-weight: normal;
+        margin: 0px;
+        line-height: 25px;
+        letter-spacing: -0.5px;
+        color: #ff8300;
     }
 
 /*****************MainMenu************************/
@@ -98,11 +99,12 @@
 .MenuButtons {
     float: right;
     border: none;
-    width: auto;
     background-color: #fff;
     text-align: right;
-    margin:20px 0px 0px 0px;
+    margin: -35px 0px 0px 0px;
+    width: 100%;
 }
+
     .MenuButtons li {
         border: 1px solid grey;
         display: inline-block;
@@ -137,5 +139,5 @@
 }
 /*Customer*/
 .MenuCustomer {
-    border-bottom: 4px solid #4D94E5;
+    border-bottom: 4px solid #2C67A9;
 }
