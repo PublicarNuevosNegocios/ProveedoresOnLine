@@ -211,6 +211,7 @@
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\ProviderFormController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomerController.generated.cs">
@@ -224,6 +225,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProviderFormController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SharedController.generated.cs">
@@ -1002,6 +1006,12 @@
     <Content Include="Views\Customer\ListForm.cshtml" />
     <Content Include="Views\Shared\_C_CustomerMenu.cshtml" />
     <Content Include="Views\Customer\UpsertForm.cshtml" />
+    <Content Include="Views\ProviderForm\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutProviderForm.cshtml" />
+    <Content Include="Views\Shared\_L_HeaderProviderForm.cshtml" />
+    <Content Include="Views\Shared\_L_FooterProviderForm.cshtml" />
+    <Content Include="Views\Shared\_P_StepLogin.cshtml" />
+    <Content Include="Views\Provider\ProviderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

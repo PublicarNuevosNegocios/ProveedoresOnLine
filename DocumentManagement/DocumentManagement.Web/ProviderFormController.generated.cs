@@ -23,13 +23,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace DocumentManagement.Web.Controllers
 {
-    public partial class ProviderController
+    public partial class ProviderFormController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ProviderController() { }
+        public ProviderFormController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected ProviderController(Dummy d) { }
+        protected ProviderFormController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,19 +59,25 @@ namespace DocumentManagement.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ProviderList()
+        public virtual System.Web.Mvc.ActionResult Index()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProviderList);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LoginProvider()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProvider);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ProviderController Actions { get { return MVC.Provider; } }
+        public ProviderFormController Actions { get { return MVC.ProviderForm; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Provider";
+        public readonly string Name = "ProviderForm";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Provider";
+        public const string NameConst = "ProviderForm";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -80,24 +86,33 @@ namespace DocumentManagement.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string ProviderList = "ProviderList";
+            public readonly string LoginProvider = "LoginProvider";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string ProviderList = "ProviderList";
+            public const string LoginProvider = "LoginProvider";
         }
 
 
-        static readonly ActionParamsClass_ProviderList s_params_ProviderList = new ActionParamsClass_ProviderList();
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ProviderList ProviderListParams { get { return s_params_ProviderList; } }
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ProviderList
+        public class ActionParamsClass_Index
         {
-            public readonly string Name = "Name";
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+            public readonly string StepId = "StepId";
+        }
+        static readonly ActionParamsClass_LoginProvider s_params_LoginProvider = new ActionParamsClass_LoginProvider();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LoginProvider LoginProviderParams { get { return s_params_LoginProvider; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LoginProvider
+        {
             public readonly string CustomerPublicId = "CustomerPublicId";
             public readonly string FormPublicId = "FormPublicId";
         }
@@ -112,40 +127,40 @@ namespace DocumentManagement.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string ProviderList = "ProviderList";
             }
-            public readonly string Index = "~/Views/Provider/Index.cshtml";
-            public readonly string ProviderList = "~/Views/Provider/ProviderList.cshtml";
+            public readonly string Index = "~/Views/ProviderForm/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ProviderController : DocumentManagement.Web.Controllers.ProviderController
+    public partial class T4MVC_ProviderFormController : DocumentManagement.Web.Controllers.ProviderFormController
     {
-        public T4MVC_ProviderController() : base(Dummy.Instance) { }
+        public T4MVC_ProviderFormController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string FormPublicId, string StepId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(string CustomerPublicId, string FormPublicId, string StepId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
+            IndexOverride(callInfo, CustomerPublicId, FormPublicId, StepId);
             return callInfo;
         }
 
         [NonAction]
-        partial void ProviderListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string Name, string CustomerPublicId, string FormPublicId);
+        partial void LoginProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string FormPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ProviderList(string Name, string CustomerPublicId, string FormPublicId)
+        public override System.Web.Mvc.ActionResult LoginProvider(string CustomerPublicId, string FormPublicId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProviderList);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Name", Name);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProvider);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
-            ProviderListOverride(callInfo, Name, CustomerPublicId, FormPublicId);
+            LoginProviderOverride(callInfo, CustomerPublicId, FormPublicId);
             return callInfo;
         }
 

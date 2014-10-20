@@ -1,0 +1,23 @@
+﻿@model DocumentManagement.Models.Provider.ProviderFormModel
+<div>
+    <form action="@(Url.Action(MVC.ProviderForm.ActionNames.LoginProvider, MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                        }))" method="post">
+        <ul>
+            <li>
+                <span>Tipo de identificación</span>
+                <select name="IdentificationType"></select>
+            </li>
+            <li>
+                <span>Número de identificación</span>
+                <input type="text" name="IdentificationNumber" />
+            </li>
+            <li>
+                <input type="submit" value="Ingresar" />
+            </li>
+        </ul>
+    </form>
+</div>

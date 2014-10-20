@@ -165,6 +165,7 @@ namespace DocumentManagement.Web.Controllers
         public class ActionParamsClass_UploadProvider
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string ExcelFile = "ExcelFile";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -266,6 +267,19 @@ namespace DocumentManagement.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UploadProvider);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             UploadProviderOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, System.Web.HttpPostedFileBase ExcelFile);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UploadProvider(string CustomerPublicId, System.Web.HttpPostedFileBase ExcelFile)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UploadProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ExcelFile", ExcelFile);
+            UploadProviderOverride(callInfo, CustomerPublicId, ExcelFile);
             return callInfo;
         }
 
