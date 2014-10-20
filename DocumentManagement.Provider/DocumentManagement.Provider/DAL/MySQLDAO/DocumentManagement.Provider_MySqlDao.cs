@@ -88,7 +88,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-            lstParams.Add(DataInstance.CreateTypedParameter("vIdenificationType", (int)IdenificationType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", (int)IdenificationType));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
             
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -108,7 +108,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                     IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
                     IdentificationType = new Models.Util.CatalogModel()
                     {
-                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationType"),
                         ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
                     },
                     Email = response.DataTableResult.Rows[0].Field<string>("Email"),

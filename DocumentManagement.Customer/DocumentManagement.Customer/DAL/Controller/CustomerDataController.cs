@@ -76,6 +76,11 @@ namespace DocumentManagement.Customer.DAL.Controller
             return DataFactory.StepCreate(FormPublicId, Name, Position);
         }
 
+        public void StepModify(int StepId, string Name, int Position)
+        {
+            DataFactory.StepModify(StepId, Name, Position);
+        }
+
         public void StepDelete(int StepId)
         {
             DataFactory.StepDelete(StepId);
