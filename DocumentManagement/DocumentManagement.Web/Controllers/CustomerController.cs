@@ -232,7 +232,7 @@ namespace DocumentManagement.Web.Controllers
                             Name = prv.nombre
                         };
 
-                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(CustomerPublicId, "", ProviderToCreate.Name, idType, ProviderToCreate.IdentificationNumber, ProviderToCreate.Email, DocumentManagement.Provider.Models.Enumerations.enumProcessStatus.New);
+                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(CustomerPublicId, "", ProviderToCreate.Name, idType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType.Tipo1, ProviderToCreate.IdentificationNumber, ProviderToCreate.Email, DocumentManagement.Provider.Models.Enumerations.enumProcessStatus.New);
                     }
                     else
                     {

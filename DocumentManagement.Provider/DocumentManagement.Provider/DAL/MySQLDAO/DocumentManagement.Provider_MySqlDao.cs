@@ -19,7 +19,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(Constants.P_ProviderConnectionName);
         }
 
-        public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status)
+        public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType CustomerProviderInfoType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -27,6 +27,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", IdentificationType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerProviderInfoType", CustomerProviderInfoType));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vEmail", Email));
             lstParams.Add(DataInstance.CreateTypedParameter("vStatus", (int)Status));

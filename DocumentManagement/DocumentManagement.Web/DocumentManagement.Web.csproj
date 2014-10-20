@@ -474,6 +474,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
+    <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

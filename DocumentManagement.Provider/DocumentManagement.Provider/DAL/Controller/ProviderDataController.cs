@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Provider.Interfaces;
+using DocumentManagement.Provider.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace DocumentManagement.Provider.DAL.Controller
         #endregion
 
         #region Provider
-        public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Models.Enumerations.enumIdentificationType IdentificationType, string IdentificationNumber, string Email, Models.Enumerations.enumProcessStatus Status)
+        public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType CustomerProviderInfoType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status)
         {
-            return DataFactory.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, IdentificationNumber, Email, Status);
+            return DataFactory.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, CustomerProviderInfoType, IdentificationNumber, Email, Status);
         }
 
         public string ProviderInfoUpsert(int ProviderInfoId, string ProviderPublicId, Models.Enumerations.enumProviderInfoType ProviderInfoType, string Value, string LargeValue)
