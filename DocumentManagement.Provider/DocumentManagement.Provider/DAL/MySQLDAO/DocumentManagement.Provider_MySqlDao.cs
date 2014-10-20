@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace DocumentManagement.Provider.DAL.MySQLDAO
@@ -84,7 +85,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return null;
         }
         
-        public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDucmentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
+        public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
             lstParams.Add(DataInstance.CreateTypedParameter("vIdenificationType", (int)IdenificationType));
