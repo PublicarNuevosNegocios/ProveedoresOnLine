@@ -1,11 +1,28 @@
-﻿<ul class="MenuButtoms">
-    -<li class="MenuButtoms_Provider selected">
-        <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
-    </li>
-    <li class="MenuButtoms_Customer">
-        <a href="@Url.Action(MVC.Customer.ActionNames.Index,MVC.Customer.Name)">Clientes</a>
-    </li>
-    <li class="MenuButtoms_BO">
-        <a href="">Ir a Backoffice</a>
-    </li>
-</ul>
+﻿@if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Customer"))
+{
+    <ul class="MenuButtoms MenuCustomer">
+        <li class="MenuButtoms_Customer selected">
+            <a href="@Url.Action(MVC.Customer.ActionNames.Index,MVC.Customer.Name)">Compradores</a>
+        </li>
+        <li class="MenuButtoms_Provider">
+            <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
+        </li>
+        <li class="MenuButtoms_BO">
+            <a href="">Ir a Backoffice</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="MenuButtoms MenuProvider">
+        <li class="MenuButtoms_Customer">
+            <a href="@Url.Action(MVC.Customer.ActionNames.Index,MVC.Customer.Name)">Compradores</a>
+        </li>
+        <li class="MenuButtoms_Provider selected">
+            <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
+        </li>
+        <li class="MenuButtoms_BO">
+            <a href="">Ir a Backoffice</a>
+        </li>
+    </ul>
+}

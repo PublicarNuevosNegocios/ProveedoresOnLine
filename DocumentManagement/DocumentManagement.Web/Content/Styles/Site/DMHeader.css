@@ -74,14 +74,10 @@
         }
 
 /*Provider*/
-.MenuButtoms {
-    border-bottom: 4px solid #9d046f;
+.MenuProvider {
+    border-bottom: 4px solid #F5761A;
 }
 /*Customer*/
-.MenuButtoms {
-    border-bottom: 4px solid #0E9090;
-}
-/*BackOffice*/
-.MenuButtoms {
-    border-bottom: 4px solid #0E9090;
+.MenuCustomer {
+    border-bottom: 4px solid #4D94E5;
 }

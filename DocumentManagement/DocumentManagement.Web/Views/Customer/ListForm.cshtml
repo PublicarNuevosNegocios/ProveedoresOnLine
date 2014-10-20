@@ -4,7 +4,10 @@
     ViewBag.Title = "Formularios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
+
+@Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+<div class="DMCustomerForm">
     <div>
         <span>Administrar formularios</span>
         <div id="divGridForm"></div>
