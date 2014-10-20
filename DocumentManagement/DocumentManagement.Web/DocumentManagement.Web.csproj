@@ -1011,6 +1011,7 @@
     <Content Include="Views\Shared\_L_HeaderProviderForm.cshtml" />
     <Content Include="Views\Shared\_L_FooterProviderForm.cshtml" />
     <Content Include="Views\Shared\_P_StepLogin.cshtml" />
+    <Content Include="Views\Provider\ProviderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
