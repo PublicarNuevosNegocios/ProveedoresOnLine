@@ -88,15 +88,20 @@
             color:#727276;
             font-size:1em;
         }
-        .DMCustomerForm ul li input[type="submit"] {
+        .DMCustomerForm ul li input[type="submit"], .DMButtonsForm {
             border:none;
-            width:340px;
-            height:32px;
+            width:auto;
+            height:auto;
             background-color:#ff8300;
-            color:#727276;
-            font-size:1em;
+            color:#fff;
+            font-size:1.3em;
+            padding:3px 38px;
         }
-
+            .DMCustomerForm ul li input[type="submit"]:hover, .DMButtonsForm:hover {
+                text-decoration:underline;
+                background-color:#ff9955;
+            }
+         
 
 
 
