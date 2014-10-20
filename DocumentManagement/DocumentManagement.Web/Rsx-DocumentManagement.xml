@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <DocumentManagement>
+    <!--Login Module-->
+    <key name="Login_GoogleUrl">https://localhost:44305/GoogleLogin/Login?UrlRetorno={{UrlRetorno}}</key>
+
+    <key name="Login_UserNotAutorized">El usuario {UserName} no esta autorizado para ingresar a la plataforma.</key>
+
+    <!--Generic params-->
+    <key name="Grid_RowCountDefault">20</key>
+
+    <!--File Params-->
+    <key name="File_TempDirectory">/TempDirectory/</key>
+    <key name="File_RemoteDirectory">\DocumentManagment\CustomerLogo\</key>
+
+    <key name="File_TmpProviderExcelDir">C:\Users\JOHMARVA\Documents\PRUEBA_CARGUE_MASIVO\</key>
+
+  </DocumentManagement>
+</Settings>
+

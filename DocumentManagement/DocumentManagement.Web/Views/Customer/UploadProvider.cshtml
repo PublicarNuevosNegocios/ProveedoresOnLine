@@ -1,0 +1,32 @@
+﻿@model DocumentManagement.Models.Customer.UpserCustomerModel
+
+@{
+    ViewBag.Title = "Compradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <div class="DMCustomerForm">
+        <form action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
+            <div class="BOFormDataWrapper">
+                <h3>Cargue masivo de citas</h3>
+                <ul>
+                    <li><div>Comprador: @Model.RelatedCustomer.Name</div></li>
+                    <li><a target="_blank" href="https://s3.amazonaws.com/devproveedoresonline/0XlsProvider/ProveedoresCargue.xls">Descargar plantilla</a></li>
+                    <li><div>Archivo a cargar:<input type="file" name="ExcelFile" id="ExcelFile" /></div></li>
+                    <li><input class="BOButtons" type="submit" value="Iniciar carga del archivo" /></li>
+                    @if (!string.IsNullOrEmpty(Request["ErrorFile"]))
+                    {
+                        <li>
+                            <a target="_blank" href="@Request["ErrorFile"]">Ver log de proceso.</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </form>
+    </div>
+
+
+</div>

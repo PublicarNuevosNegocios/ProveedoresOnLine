@@ -1,0 +1,11 @@
+﻿<div onclick="javascript: Header_ShowHideUserMenu('divUserMenu');">
+    Bienvenido: @(DocumentManagement.Models.General.SessionModel.CurrentLoginUser.Name + " " + DocumentManagement.Models.General.SessionModel.CurrentLoginUser.LastName)
+</div>
+<!--pop up user option menu-->
+<div id="divUserMenu" style="display:none;">
+    <ul>
+        <li>
+            <a href="@Url.Action(MVC.Home.ActionNames.Index,MVC.Home.Name)">Cerrar sesión</a>
+        </li>
+    </ul>
+</div>

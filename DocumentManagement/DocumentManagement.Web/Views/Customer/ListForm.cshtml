@@ -1,0 +1,32 @@
+﻿@model DocumentManagement.Models.Customer.UpserCustomerModel
+
+@{
+    ViewBag.Title = "Formularios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+<div class="DMCustomerForm">
+    <div>
+        <span>Administrar formularios</span>
+        <div id="divGridForm"></div>
+    </div>
+    <div id="template" style="display:none;">
+        <div id="divGridForm_Header">
+            <input type="text" id="divGridForm_txtSearch" />
+            <input type="button" id="divGridForm_SearchButton" value="Buscar" />
+            <a href="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new { CustomerPublicId  = Model.RelatedCustomer.CustomerPublicId})">Crear formulario</a>
+        </div>
+    </div>
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start customer grid
+            FormSearchGrid('divGridForm', '@Model.RelatedCustomer.CustomerPublicId');
+        });
+    </script>
+}

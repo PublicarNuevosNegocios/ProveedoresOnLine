@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Module2>
+    <key name="Parametro1"><![CDATA[<html> <div>este es un html 1</div></html>]]></key>
+    <key name="Parametro2"><![CDATA[<html> <div>este es un html 2</div></html>]]></key>
+    <key name="Parametro3"><![CDATA[<html> <div>este es un html 3</div></html>]]></key>
+  </Module2>
+</Settings>

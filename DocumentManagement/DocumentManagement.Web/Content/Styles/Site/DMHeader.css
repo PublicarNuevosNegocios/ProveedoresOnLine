@@ -1,0 +1,83 @@
+/*****************UserInfo************************/
+.UserInfo {
+    /* border: 1px solid green; */
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    margin: 0px 1px 0px 0px;
+    vertical-align: top;
+    text-align: right;
+}
+
+/*****************Logo********************/
+.LogoHeader {
+    border: 1px solid red;
+    display: inline-block;
+    width: 400px;
+    height: 75px;
+    vertical-align: top;
+    margin: -6px 20px 0px 2%;
+}
+
+/*****************Title************************/
+.MDTitle {
+    border: 1px solid blue;
+    display: inline-block;
+    width: 36%;
+    height: auto;
+    text-align: center;
+    margin: 10px 0px 0px 0px;
+    font-size: 25px;
+}
+
+/*****************MainMenu************************/
+.MainMenu {
+    display: inline-block;
+    width: 100%;
+}
+
+.MenuButtoms {
+    display: block;
+    border: none;
+    width: 100%;
+    background-color: #fff;
+    text-align: right;
+    margin-top: -30px;
+}
+
+    .MenuButtoms li {
+        border: 1px solid grey;
+        display: inline-block;
+        height: 44px;
+        padding: 2px 6px;
+        margin-left: -5px;
+        vertical-align: top;
+        text-align: center;
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+        .MenuButtoms li:hover,
+        .MenuButtoms li:active,
+        .MenuButtoms li.selected {
+            border: 1px solid grey;
+            display: inline-block;
+            height: 48px;
+            padding: 2px 6px;
+            margin: -4px 0px 0px -5px;
+            vertical-align: top;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 2px 2px 2px;
+            position: relative;
+            z-index: 10;
+        }
+
+/*Provider*/
+.MenuProvider {
+    border-bottom: 4px solid #F5761A;
+}
+/*Customer*/
+.MenuCustomer {
+    border-bottom: 4px solid #4D94E5;
+}

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Compradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div>
+        <span>Administrar compradores</span>
+        <div id="divGridCustomer"></div>
+    </div>
+    <div id="template" style="display:none;">
+        <div id="divGridCustomer_Header">
+            <input type="text" id="divGridCustomer_txtSearch" />
+            <input type="button" id="divGridCustomer_SearchButton" value="Buscar" />
+            <a href="@Url.Action(MVC.Customer.ActionNames.UpsertCustomer, MVC.Customer.Name)">Crear comprador</a>
+        </div>
+    </div>
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start customer grid
+            CustomerSearchGrid('divGridCustomer');
+        });
+    </script>
+}

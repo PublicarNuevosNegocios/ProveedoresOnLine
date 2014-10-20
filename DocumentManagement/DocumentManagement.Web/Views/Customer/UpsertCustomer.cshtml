@@ -1,0 +1,58 @@
+﻿@model DocumentManagement.Models.Customer.UpserCustomerModel
+
+@{
+    ViewBag.Title = "Compradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+
+    @if (Model.RelatedCustomer != null && !string.IsNullOrEmpty(Model.RelatedCustomer.CustomerPublicId))
+    {
+        Html.RenderPartial(MVC.Shared.Views._C_CustomerMenu, Model);
+    }
+
+    <div class="DMCustomerForm">
+        <form action="@Url.Action(MVC.Customer.ActionNames.UpsertCustomer, MVC.Customer.Name)" method="post">
+            <ul>
+                <li>
+                    <span>Nombre</span>
+                    <input type="text" id="Name" name="Name" value="@(Model.RelatedCustomer != null ? Model.RelatedCustomer.Name : string.Empty)" />
+                </li>
+                <li>
+                    <span>Tipo de identificación</span>
+                    <select id="IdentificationType" name="IdentificationType">
+                        @foreach (var item in Model.CustomerOptions.Where(x => x.CatalogId == 1))
+                        {
+                            if (Model.RelatedCustomer.IdentificationType != null && item.ItemId == Model.RelatedCustomer.IdentificationType.ItemId)
+                            {
+                                <option value="@item.ItemId" selected="selected">@item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.ItemId">@item.ItemName</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
+                    <span>Número de identificación</span>
+                    <input type="text" id="IdentificationNumber" name="IdentificationNumber" value="@(Model.RelatedCustomer != null ? Model.RelatedCustomer.IdentificationNumber : string.Empty)" />
+                </li>
+                <li>
+                    <input type="submit" value="Guardar" />
+                </li>
+            </ul>
+
+            <div style="display:none">
+                <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                @if (Model.RelatedCustomer != null && !string.IsNullOrEmpty(Model.RelatedCustomer.CustomerPublicId))
+                {
+                    <input type="hidden" name="CustomerPublicId" value="@Model.RelatedCustomer.CustomerPublicId" />
+                }
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

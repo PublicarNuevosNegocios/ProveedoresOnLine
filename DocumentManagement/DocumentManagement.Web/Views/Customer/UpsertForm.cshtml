@@ -1,0 +1,102 @@
+﻿@model DocumentManagement.Models.Customer.UpserCustomerModel
+
+@{
+    ViewBag.Title = "Compradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <div class="DMCustomerForm">
+        <!--Basic Info-->
+        <form action="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name)" method="post">
+            <ul>
+                <li>
+                    <span>Nombre</span>
+                    <input type="text" id="Name" name="Name" value="@(Model.RelatedForm != null ? Model.RelatedForm.Name : string.Empty)" />
+                </li>
+                <li>
+                    <span>Términos y condiciones</span>
+                    <textarea id="TermsAndConditions" name="TermsAndConditions">@(Model.RelatedForm != null ? Model.RelatedForm.TermsAndConditions : string.Empty)</textarea>
+                </li>
+                <li>
+                    <input type="submit" value="Guardar" />
+                </li>
+            </ul>
+
+            <div style="display:none">
+                <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                <input type="hidden" name="CustomerPublicId" value="@Model.RelatedCustomer.CustomerPublicId" />
+                @if (Model.RelatedForm != null && !string.IsNullOrEmpty(Model.RelatedForm.FormPublicId))
+                {
+                    <input type="hidden" name="FormPublicId" value="@Model.RelatedForm.FormPublicId" />
+                }
+            </div>
+        </form>
+
+        @if (Model.RelatedForm != null && !string.IsNullOrEmpty(Model.RelatedForm.FormPublicId))
+        {
+            <!--Logo-->
+            <form action="@Url.Action(MVC.Customer.ActionNames.UpsertFormLogo, MVC.Customer.Name, new { CustomerPublicId= Model.RelatedCustomer.CustomerPublicId,FormPublicId=Model.RelatedForm.FormPublicId })" method="post" enctype="multipart/form-data">
+                <ul>
+                    <li>
+                        <span>Logo:</span>
+                        <input type="file" id="UploadFile" name="UploadFile" />
+                        <img src="@Model.RelatedForm.Logo" />
+                    </li>
+                    <li>
+                        <input type="submit" value="Guardar" />
+                    </li>
+                </ul>
+
+                <div style="display:none">
+                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                </div>
+            </form>
+
+            <!--step grid-->
+            <div>
+                <span>Pasos</span>
+                <div id="divGridStep"></div>
+            </div>
+
+            <!--field grid-->
+            <div>
+                <span>Campos</span>
+                <div id="divGridField"></div>
+                <input type="hidden" id="divGridField_StepId" value="@(Model.
+                    RelatedForm.
+                    RelatedStep.
+                    Select(x => x.StepId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault())" />
+            </div>
+        }
+    </div>
+
+</div>
+<div id="template" style="display:none;">
+    <!--step templates-->
+    <div id="divGridStep_Header">
+        <a href="">Crear paso</a>
+    </div>
+
+    <!--field templates-->
+    <div id="divGridField_Header">
+        <a href="">Crear campos</a>
+    </div>
+
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start customer grid
+            StepFieldSearchGrid('divGridStep', 'divGridField', '@Model.RelatedForm.FormPublicId');
+        });
+    </script>
+}
+
+
