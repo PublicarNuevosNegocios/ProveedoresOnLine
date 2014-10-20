@@ -1,0 +1,21 @@
+﻿@model DocumentManagement.Models.Provider.ProviderFormModel
+
+@{
+    ViewBag.Title = "Proveedores";
+    Layout = "~/Views/Shared/_LayoutProviderForm.cshtml";
+}
+
+<div>
+
+    @if (Model.RealtedStep == null)
+    {
+        //login step
+        Html.RenderPartial(MVC.Shared.Views._P_StepLogin, Model);
+    }
+    else
+    {
+
+    }
+
+
+</div>

@@ -29,6 +29,7 @@ public static partial class MVC
     public static DocumentManagement.Web.Controllers.CustomerController Customer = new DocumentManagement.Web.Controllers.T4MVC_CustomerController();
     public static DocumentManagement.Web.Controllers.HomeController Home = new DocumentManagement.Web.Controllers.T4MVC_HomeController();
     public static DocumentManagement.Web.Controllers.ProviderController Provider = new DocumentManagement.Web.Controllers.T4MVC_ProviderController();
+    public static DocumentManagement.Web.Controllers.ProviderFormController ProviderForm = new DocumentManagement.Web.Controllers.T4MVC_ProviderFormController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -604,6 +605,7 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string CustomerScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CustomerScripts.min.js") ? Url("CustomerScripts.min.js") : Url("CustomerScripts.js");
+            public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
         }
     
     }
@@ -621,6 +623,15 @@ namespace Links
              
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Images {
+            private const string URLPATH = "~/Content/Images";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string LogoPOHeader_png = Url("LogoPOHeader.png");
+            public static readonly string LogoPublicarFooter_png = Url("LogoPublicarFooter.png");
+        }
+    
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class kendo {
             private const string URLPATH = "~/Content/kendo";
@@ -905,6 +916,18 @@ namespace Links
                 private const string URLPATH = "~/Content/Styles/Site";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string DMCustomer_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMCustomer.min.css") ? Url("DMCustomer.min.css") : Url("DMCustomer.css");
+                     
+                public static readonly string DMFooter_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMFooter.min.css") ? Url("DMFooter.min.css") : Url("DMFooter.css");
+                     
+                public static readonly string DMHeader_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMHeader.min.css") ? Url("DMHeader.min.css") : Url("DMHeader.css");
+                     
+                public static readonly string DMLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMLayout.min.css") ? Url("DMLayout.min.css") : Url("DMLayout.css");
+                     
+                public static readonly string DMLogIn_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMLogIn.min.css") ? Url("DMLogIn.min.css") : Url("DMLogIn.css");
+                     
+                public static readonly string DMProvider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMProvider.min.css") ? Url("DMProvider.min.css") : Url("DMProvider.css");
+                     
             }
         
         }
