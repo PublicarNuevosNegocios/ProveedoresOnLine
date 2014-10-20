@@ -10,12 +10,15 @@
 
     <div class="DMCustomerForm">
         <form action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
-            <div class="BOFormDataWrapper">
+            <div class="DMFormDataWrapper">
                 <span class="spanTitleForm">Cargue masivo de compradores</span>
                 <ul>
-                    <li><div>Comprador: @Model.RelatedCustomer.Name</div></li>
+                    <li><label>Comprador: @Model.RelatedCustomer.Name</label></li>
                     <li><a target="_blank" href="https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0XlsProvider/ProveedoresCargue.xls">Descargar plantilla</a></li>
-                    <li><div>Archivo a cargar:<input type="file" name="ExcelFile" id="ExcelFile" /></div></li>
+                    <li>
+                        <span>Archivo a cargar:</span>
+                        <input type="file" name="ExcelFile" id="ExcelFile" />
+                    </li>
                     <li><input class="BOButtons" type="submit" value="Iniciar carga del archivo" /></li>
                     @if (!string.IsNullOrEmpty(Request["ErrorFile"]))
                     {
