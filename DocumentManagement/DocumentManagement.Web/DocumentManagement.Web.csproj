@@ -1002,6 +1002,7 @@
     <Content Include="Views\Customer\ListForm.cshtml" />
     <Content Include="Views\Shared\_C_CustomerMenu.cshtml" />
     <Content Include="Views\Customer\UpsertForm.cshtml" />
+    <Content Include="Views\Provider\ProviderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
