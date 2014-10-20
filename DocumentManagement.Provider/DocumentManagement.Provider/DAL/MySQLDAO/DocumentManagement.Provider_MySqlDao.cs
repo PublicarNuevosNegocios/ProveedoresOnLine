@@ -85,7 +85,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return null;
         }
         
-        public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
+        public Models.Provider.ProviderModel GetProviderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", (int)IdenificationType));
@@ -118,6 +118,27 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                 };
             }
             return oReturn;
+        }
+        
+        public bool GetRelationProviderAndCustomer(string CustomerPublicId, string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "P_ProviderCustomer_GetByCustomerAndProvider",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+            
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+                return true;
+            else            
+                return false;           
         }
     }
 }

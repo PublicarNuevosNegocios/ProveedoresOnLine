@@ -16,8 +16,9 @@ namespace DocumentManagement.Provider.Interfaces
 
         string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue);
 
-        ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, DocumentManagement.Provider.Models.Enumerations.enumIdentificationType IdenificationType);
-        
+        ProviderModel GetProviderByIdentificationNumberAndDocumentType(string IdentificationNumber, DocumentManagement.Provider.Models.Enumerations.enumIdentificationType IdenificationType);
+
+        bool GetRelationProviderAndCustomer(string CustomerPublicId, string ProviderPublicId);
         #endregion      
     }
 }
