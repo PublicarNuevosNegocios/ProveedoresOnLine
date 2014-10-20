@@ -245,8 +245,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Google-plus-icon.png" />
     <Content Include="Content\Images\LogoPOHeader.png" />
     <Content Include="Content\Images\LogoPublicarFooter.png" />
+    <Content Include="Content\Images\LogInBackground.jpg" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2014.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.1.318\Black\indeterminate.gif" />
