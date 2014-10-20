@@ -24,8 +24,9 @@ namespace DocumentManagement.Provider.Models
         }
 
         public enum enumProviderInfoType
-        { 
-
+        {
+            CedulaCiudadania = 101,
+            Nit = 102
         }
 
         public enum enumProviderCustomerInfoType
