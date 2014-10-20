@@ -13,16 +13,5 @@ namespace DocumentManagement.Web.Controllers
         {
             return View();
         }
-
-        public virtual ActionResult ProviderList(string Name, string CustomerPublicId, string FormPublicId)
-        {
-            ProviderUpsertModel oModel = new ProviderUpsertModel()
-            {
-                //RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
-            };
-
-            return View(oModel);
-            
-        }
     }
 }

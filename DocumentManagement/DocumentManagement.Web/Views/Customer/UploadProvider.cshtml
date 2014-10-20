@@ -11,7 +11,7 @@
     <div class="DMCustomerForm">
         <form action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
             <div class="BOFormDataWrapper">
-                <h3>Cargue masivo de citas</h3>
+                <span class="spanTitleForm">Cargue masivo de compradores</span>
                 <ul>
                     <li><div>Comprador: @Model.RelatedCustomer.Name</div></li>
                     <li><a target="_blank" href="https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/0XlsProvider/ProveedoresCargue.xls">Descargar plantilla</a></li>
