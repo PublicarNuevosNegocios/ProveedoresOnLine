@@ -3,11 +3,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <div>
-        <span>Administrar compradores</span>
-        <div id="divGridCustomer"></div>
-    </div>
+    <span class="DMSectionTitle">Administrar compradores</span>
+    <div id="divGridCustomer"></div>
+
     <div id="template" style="display:none;">
         <div id="divGridCustomer_Header">
             <input type="text" id="divGridCustomer_txtSearch" />
@@ -15,7 +13,6 @@
             <a href="@Url.Action(MVC.Customer.ActionNames.UpsertCustomer, MVC.Customer.Name)">Crear comprador</a>
         </div>
     </div>
-</div>
 
 @section inlinescripts
 {

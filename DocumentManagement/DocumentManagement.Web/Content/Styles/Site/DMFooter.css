@@ -28,6 +28,9 @@
     text-align: center;
     background-color:#727276;
 }
+    .DMTextWrapper ul {
+        margin-bottom:0px;
+    }
 .DMTextWrapper a{
     color:#fff;
     font-family: "MuseoSans100","Trebuchet MS", Helvetica, sans-serif;

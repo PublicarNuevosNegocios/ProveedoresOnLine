@@ -59,13 +59,8 @@
                 }
 
 /******FormBody********/
-
 .DMCustomerForm {
-    display: inline-block;
     vertical-align: top;
-}
-
-.DMCustomerForm {
     border-width: 0px 0px 0px 1px;
     border-style: solid;
     border-color: #FF7E35;
@@ -76,6 +71,46 @@
     margin: 0px 0px 0px -4px;
     padding-bottom: 25px;
 }
+    .DMCustomerForm ul li{
+        list-style-type:none;
+        margin:8px auto;
+    }
+        .DMCustomerForm ul li span{
+            font-size:0.9em;
+            color:#727276;
+            display:block;
+        }
+        .DMCustomerForm ul li input, .DMCustomerForm ul li select{
+            border:1px solid #727276;
+            width:340px;
+            height:32px;
+            background-color:#f9f9f9;
+            color:#727276;
+            font-size:1em;
+        }
+        .DMCustomerForm ul li input[type="submit"] {
+            border:none;
+            width:340px;
+            height:32px;
+            background-color:#ff8300;
+            color:#727276;
+            font-size:1em;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     .DMCustomerForm h3 {
         display: block;

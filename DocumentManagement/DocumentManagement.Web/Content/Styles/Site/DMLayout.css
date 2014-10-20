@@ -1,5 +1,14 @@
 /*********Body Content************/
 .PageBody{
     width: 96%;
-    margin-left: 2%;
+    margin: 0px 0px 22px 2%;
+}
+.DMSectionTitle {
+    color: #727276;
+    display: block;
+    font-size: 1.6em;
+    letter-spacing: -0.7px;
+    margin: 0 auto 3px;
+    text-transform: uppercase;
+    width: 100%;
 }
