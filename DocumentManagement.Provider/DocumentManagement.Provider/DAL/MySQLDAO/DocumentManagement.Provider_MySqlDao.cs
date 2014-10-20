@@ -108,7 +108,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                     IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
                     IdentificationType = new Models.Util.CatalogModel()
                     {
-                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationType"),
                         ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
                     },
                     Email = response.DataTableResult.Rows[0].Field<string>("Email"),
