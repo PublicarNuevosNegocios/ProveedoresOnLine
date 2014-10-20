@@ -3,6 +3,7 @@
     display: inline-block;
     width: 23%;
     border: none;
+    margin-top: 2%;
 }
 
     .DMMenuCustomer ul {
@@ -12,32 +13,50 @@
 
         .DMMenuCustomer ul li {
             display: block;
-            margin: 0px;
             padding: 10px 0px;
             width: 100%;
             height: auto;
-            background-color: #f2f2f2;
             text-align: left;
             color: #333;
         }
 
-            .DMMenuCustomer ul li:first-child {
-                border-width: 1px 1px 1px 1px;
-                border-style: solid;
-                border-color: #999999;
-            }
-
-        .DMMenuCustomer ul li {
-            border-width: 0px 1px 1px 1px;
-            border-style: solid;
-            border-color: #999999;
-        }
-
             .DMMenuCustomer ul li:hover {
                 cursor: pointer;
-                background-color: #e7e3e0;
+                background-color: #FFBD97;
             }
 
+            .DMMenuCustomer ul li:hover a{
+                color: #fff;
+            }
+
+
+            /************ ESTE ES EL ESTILO DEL ITEM ACTIVO *************/
+            .DMMenuCustomer ul li a {
+                display: block;
+                margin: 0px 0px 0px 20px;
+                width: auto;
+                height: auto;
+                border: none;
+                font-size: 18px;
+                line-height: 15px;
+                vertical-align: middle;
+                color: #333;
+            }
+
+                .DMMenuCustomer ul li a:hover {
+                    text-decoration: none;
+                }
+
+            .DMMenuCustomer ul li.selected {
+                background-color: #FF7E35;
+                z-index: 10;
+                border-right: medium none #FFF;
+                position: relative;
+            }
+
+                .DMMenuCustomer ul li.selected a {
+                    color: #fff;
+                }
 
 /******FormBody********/
 
@@ -47,9 +66,9 @@
 }
 
 .DMCustomerForm {
-    border-width: 1px 0px 1px 1px;
+    border-width: 0px 0px 0px 1px;
     border-style: solid;
-    border-color: #999;
+    border-color: #FF7E35;
     width: 76.9%;
     min-width: 58%;
     min-height: 490px;
