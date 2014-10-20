@@ -214,8 +214,8 @@ namespace DocumentManagement.Web.Controllers
             //process Provider
             oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.numerodeidentificacion)).All(prv =>
             {
-                //try
-                //{
+                try
+                {
                     //Validar el provider
                     ProviderModel Provider = new ProviderModel();
                     DocumentManagement.Provider.Models.Enumerations.enumIdentificationType idType = (DocumentManagement.Provider.Models.Enumerations.enumIdentificationType)Enum.Parse(typeof(DocumentManagement.Provider.Models.Enumerations.enumIdentificationType), prv.tipodeidentificacion, true);
@@ -244,22 +244,22 @@ namespace DocumentManagement.Web.Controllers
                             DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(0, Provider.ProviderPublicId, CustomerPublicId, ProvInfoType, string.Empty, string.Empty);
                         }
                     }
-                //}
-                //catch (Exception err)
-                //{
-                    
-                //    //oAptToProcessResult.Add(new ExcelAppointmentResultModel()
-                //    //{
-                //    //    AptModel = apmt,
-                //    //    Success = false,
-                //    //    Error = "Error :: " + err.Message + " :: " +
-                //    //                err.StackTrace +
-                //    //                (err.InnerException == null ? string.Empty :
-                //    //                " :: " + err.InnerException.Message + " :: " +
-                //    //                err.InnerException.StackTrace),
-                //    //});
+                }
+                catch (Exception err)
+                {
 
-                //}
+                    //oAptToProcessResult.Add(new ExcelAppointmentResultModel()
+                    //{
+                    //    AptModel = apmt,
+                    //    Success = false,
+                    //    Error = "Error :: " + err.Message + " :: " +
+                    //                err.StackTrace +
+                    //                (err.InnerException == null ? string.Empty :
+                    //                " :: " + err.InnerException.Message + " :: " +
+                    //                err.InnerException.StackTrace),
+                    //});
+
+                }
                 return true;
             });
         }
