@@ -88,7 +88,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         public Models.Provider.ProviderModel GetProbiderByIdentificationNumberAndDocumentType(string IdentificationNumber, Enumerations.enumIdentificationType IdenificationType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-            lstParams.Add(DataInstance.CreateTypedParameter("vIdenificationType", (int)IdenificationType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", (int)IdenificationType));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
             
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
