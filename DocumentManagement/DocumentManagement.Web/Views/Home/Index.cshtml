@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class=".logInMainWrapper">
+<div class="logInMainWrapper">
     @{
         //get login urls
         string RetUrl = Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name, null, Request.Url.Scheme);
@@ -13,17 +13,16 @@
             .Value.Replace("{{UrlRetorno}}", RetUrl);
     }
     <div class="logInElementsWrapper">
-
-        <div class="logoProveedoresOnline"></div>
-
-        <span>Puedes ingresar usando tu usuario de Google.</span>
-        <a href="@GoogleUrl">
-            <img src="/Content/Images/Google-plus-icon.png" alt="Login Google" title="Login Google" />
-        </a>
-        @if (ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
+        <div >
+            <span>Puedes ingresar usando tu usuario de Google.</span>
+            <a href="@GoogleUrl">
+                <img src="/Content/Images/Google-plus-icon.png" alt="Login Google" title="Login Google" />
+            </a>
+            @if (ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
                 !string.IsNullOrEmpty(ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
-        {
-            <span>@ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</span>
-        }
+            {
+                <span>@ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</span>
+            }
+        </div>
     </div>
 </div>
