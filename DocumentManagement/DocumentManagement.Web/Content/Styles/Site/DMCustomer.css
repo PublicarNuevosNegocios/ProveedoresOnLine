@@ -91,27 +91,31 @@
             color: #727276;
             font-size: 1em;
         }
-
-            .DMCustomerForm ul li input[type="submit"] {
-                border: none;
-                width: 340px;
-                height: 32px;
-                background-color: #ff8300;
-                color: #fff;
-                font-size: 1em;
-            }
+        .DMCustomerForm ul li input[type="submit"], .DMButtonsForm {
+            border:none;
+            width:auto;
+            height:auto;
+            background-color:#ff8300;
+            color:#fff;
+            font-size:1.3em;
+            padding:3px 38px;
+        }
+            .DMCustomerForm ul li input[type="submit"]:hover, .DMButtonsForm:hover {
+                text-decoration:underline;
+                background-color:#ff9955;
+        }
 
 input[type="file"] {
     height: 24px !important;
 }
 
-.DMCustomerForm h3 {
-    display: block;
-    margin: 10px 0px 10px 16px;
-    width: auto;
-    font-size: 20px;
-    line-height: 20px;
-}
+    .DMCustomerForm h3 {
+        display: block;
+        margin: 10px 0px 10px 16px;
+        width: auto;
+        font-size: 20px;
+        line-height: 20px;
+    }
 
 /******Grid********/
 #divGridStep, #divGridForm, #divGridCustomer .k-grid-content table tbody tr {
