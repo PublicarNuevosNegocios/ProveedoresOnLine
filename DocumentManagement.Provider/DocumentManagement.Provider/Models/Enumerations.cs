@@ -30,8 +30,8 @@ namespace DocumentManagement.Provider.Models
 
         public enum enumProviderCustomerInfoType
         {
-            CedulaCiudadania = 101,
-            Nit = 102
+            Tipo1 = 301,
+            Tipo2 = 302
         }
     }
 }
