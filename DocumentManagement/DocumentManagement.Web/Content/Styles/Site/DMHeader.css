@@ -42,13 +42,13 @@
     width: 100%;
     background-color: #fff;
     text-align: right;
-    margin-top: -40px;
+    margin-top: -30px;
 }
 
     .MenuButtoms li {
         border: 1px solid grey;
         display: inline-block;
-        height: 54px;
+        height: 44px;
         padding: 2px 6px;
         margin-left: -5px;
         vertical-align: top;
@@ -62,7 +62,7 @@
         .MenuButtoms li.selected {
             border: 1px solid grey;
             display: inline-block;
-            height: 58px;
+            height: 48px;
             padding: 2px 6px;
             margin: -4px 0px 0px -5px;
             vertical-align: top;

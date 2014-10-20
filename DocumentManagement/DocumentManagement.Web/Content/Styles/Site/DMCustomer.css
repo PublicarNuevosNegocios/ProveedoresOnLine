@@ -1,0 +1,67 @@
+/*************MenuCustomer**************/
+.DMMenuCustomer {
+    display: inline-block;
+    width: 23%;
+    border: none;
+}
+
+    .DMMenuCustomer ul {
+        width: 100%;
+        height: auto;
+    }
+
+        .DMMenuCustomer ul li {
+            display: block;
+            margin: 0px;
+            padding: 10px 0px;
+            width: 100%;
+            height: auto;
+            background-color: #f2f2f2;
+            text-align: left;
+            color: #333;
+        }
+
+            .DMMenuCustomer ul li:first-child {
+                border-width: 1px 1px 1px 1px;
+                border-style: solid;
+                border-color: #999999;
+            }
+
+        .DMMenuCustomer ul li {
+            border-width: 0px 1px 1px 1px;
+            border-style: solid;
+            border-color: #999999;
+        }
+
+            .DMMenuCustomer ul li:hover {
+                cursor: pointer;
+                background-color: #e7e3e0;
+            }
+
+
+/******FormBody********/
+
+.DMCustomerForm {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.DMCustomerForm {
+    border-width: 1px 0px 1px 1px;
+    border-style: solid;
+    border-color: #999;
+    width: 76.9%;
+    min-width: 58%;
+    min-height: 490px;
+    display: inline-block;
+    margin: 0px 0px 0px -4px;
+    padding-bottom: 25px;
+}
+
+    .DMCustomerForm h3 {
+        display: block;
+        margin: 10px 0px 10px 16px;
+        width: auto;
+        font-size: 20px;
+        line-height: 20px;
+    }

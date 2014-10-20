@@ -8,7 +8,7 @@
 
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
-    <div>
+    <div class="DMCustomerForm">
         <form action="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
             <div class="BOFormDataWrapper">
                 <h3>Cargue masivo de citas</h3>
