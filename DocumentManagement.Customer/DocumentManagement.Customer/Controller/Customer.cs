@@ -68,6 +68,11 @@ namespace DocumentManagement.Customer.Controller
                 StepToUpsert.Position);
         }
 
+        public static void StepModify(int StepId, string Name, int Position)
+        {
+            DAL.Controller.CustomerDataController.Instance.StepModify(StepId, Name, Position);
+        }
+
         public static void StepCreate(int StepId)
         {
             DAL.Controller.CustomerDataController.Instance.StepDelete(StepId);

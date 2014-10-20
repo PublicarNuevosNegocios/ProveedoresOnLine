@@ -281,6 +281,23 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public void StepModify(int StepId, string Name, int Position)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vStepId", StepId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPosition", Position));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "F_Step_Modify",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+        }
+
         public void StepDelete(int StepId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();

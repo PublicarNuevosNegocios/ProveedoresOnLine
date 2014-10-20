@@ -16,6 +16,8 @@ namespace DocumentManagement.Customer.Interfaces
 
         int StepCreate(string FormPublicId, string Name, int Position);
 
+        void StepModify(int StepId, string Name, int Position);
+
         void StepDelete(int StepId);
 
         int FieldCreate(int StepId, string Name, int ProviderInfoType, bool IsRequired, int Position);
