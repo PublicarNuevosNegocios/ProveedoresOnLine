@@ -91,31 +91,33 @@
             color: #727276;
             font-size: 1em;
         }
-        .DMCustomerForm ul li input[type="submit"], .DMButtonsForm {
-            border:none;
-            width:auto;
-            height:auto;
-            background-color:#ff8300;
-            color:#fff;
-            font-size:1.3em;
-            padding:3px 38px;
-        }
-            .DMCustomerForm ul li input[type="submit"]:hover, .DMButtonsForm:hover {
-                text-decoration:underline;
-                background-color:#ff9955;
-        }
+
+            .DMCustomerForm ul li input[type="submit"], .DMButtonsForm {
+                border: none;
+                width: auto;
+                height: auto;
+                background-color: #ff8300;
+                color: #fff;
+                font-size: 1.3em;
+                padding: 3px 38px;
+            }
+
+                .DMCustomerForm ul li input[type="submit"]:hover, .DMButtonsForm:hover {
+                    text-decoration: underline;
+                    background-color: #ff9955;
+                }
 
 input[type="file"] {
     height: 24px !important;
 }
 
-    .DMCustomerForm h3 {
-        display: block;
-        margin: 10px 0px 10px 16px;
-        width: auto;
-        font-size: 20px;
-        line-height: 20px;
-    }
+.DMCustomerForm h3 {
+    display: block;
+    margin: 10px 0px 10px 16px;
+    width: auto;
+    font-size: 20px;
+    line-height: 20px;
+}
 
 /******Grid********/
 #divGridStep, #divGridForm, #divGridCustomer .k-grid-content table tbody tr {
@@ -311,3 +313,68 @@ form ul {
     width: 98%;
     margin-left: 2%;
 }
+
+
+/******Pop-upForms********/
+#divGridStep_Upsert {
+}
+
+    #divGridStep_Upsert ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        #divGridStep_Upsert ul li {
+            margin-top: 10px;
+        }
+
+            #divGridStep_Upsert ul li span {
+                width: 100%;
+            }
+
+            #divGridStep_Upsert ul li input[type="text"] {
+                width: 100%;
+            }
+
+.liButtonDialog {
+    text-align: center;
+}
+
+.DMButtonsDialog {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    color: #ff8300 !important;
+}
+
+#divGridField_Create {
+}
+
+    #divGridField_Create ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        #divGridField_Create ul li {
+            margin-top: 10px;
+        }
+
+            #divGridField_Create ul li select {
+                width: 137px;
+                height: 30px;
+            }
+
+            #divGridField_Create ul li span {
+                width: 100%;
+            }
+
+            #divGridField_Create ul li input[type="text"] {
+                width: 100%;
+            }
+
+            #divGridField_Create ul li input[type="checkbox"] {
+                width: 15px;
+                height: 15px;
+                margin: 5px 0px 0px 10px;
+                vertical-align: top;
+            }
