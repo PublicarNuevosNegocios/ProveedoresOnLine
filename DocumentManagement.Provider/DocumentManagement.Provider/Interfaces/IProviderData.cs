@@ -1,4 +1,5 @@
-﻿using DocumentManagement.Provider.Models.Provider;
+﻿using DocumentManagement.Provider.Models;
+using DocumentManagement.Provider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DocumentManagement.Provider.Interfaces
     interface IProviderData
     {
         #region Provider
-        string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, DocumentManagement.Provider.Models.Enumerations.enumIdentificationType IdentificationType, string IdentificationNumber, string Email, DocumentManagement.Provider.Models.Enumerations.enumProcessStatus Status);
+        string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType CustomerProviderInfoType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status);
 
         string ProviderInfoUpsert(int ProviderInfoId, string ProviderPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderInfoType ProviderInfoType, string Value, string LargeValue);
 
