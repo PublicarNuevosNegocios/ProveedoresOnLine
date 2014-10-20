@@ -7,6 +7,8 @@
             <li class="selected">
                 <a href="@Url.Action(MVC.Customer.ActionNames.UpsertCustomer, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId })">Información básica</a>
             </li>
+            <li class="triangulo">
+            </li>
             <li>
                 <a href="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId })">Cargar proveedores</a>
             </li>
@@ -22,6 +24,8 @@
             <li class="selected">
                 <a href="@Url.Action(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId })">Cargar proveedores</a>
             </li>
+            <li class="triangulo">
+            </li>
             <li>
                 <a href="@Url.Action(MVC.Customer.ActionNames.ListForm, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId })">Formularios</a>
             </li>
@@ -36,6 +40,8 @@
             </li>
             <li class="selected">
                 <a href="@Url.Action(MVC.Customer.ActionNames.ListForm, MVC.Customer.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId })">Formularios</a>
+            </li>
+            <li class="triangulo">
             </li>
         }
     </ul>

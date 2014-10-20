@@ -1,14 +1,15 @@
 /*************MenuCustomer**************/
 .DMMenuCustomer {
     display: inline-block;
-    width: 23%;
+    width: 19%;
     border: none;
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
     .DMMenuCustomer ul {
         width: 100%;
         height: auto;
+        padding: 0;
     }
 
         .DMMenuCustomer ul li {
@@ -25,9 +26,9 @@
                 background-color: #FFBD97;
             }
 
-            .DMMenuCustomer ul li:hover a{
-                color: #fff;
-            }
+                .DMMenuCustomer ul li:hover a {
+                    color: #fff;
+                }
 
 
             /************ ESTE ES EL ESTILO DEL ITEM ACTIVO *************/
@@ -52,11 +53,25 @@
                 z-index: 10;
                 border-right: medium none #FFF;
                 position: relative;
+                display: inline-block !important;
+                width: 87%;
             }
 
                 .DMMenuCustomer ul li.selected a {
                     color: #fff;
                 }
+
+.triangulo {
+    border-style: solid;
+    border-width: 17px;
+    padding: 0 !important;
+    width: 0 !important;
+    border-color: #FFF #FFF #FFF #FF7E35;
+    /* position: relative; */
+    display: inline-block !important;
+    vertical-align: top;
+    margin: 0px -4px;
+}
 
 /******FormBody********/
 
@@ -69,7 +84,7 @@
     border-width: 0px 0px 0px 1px;
     border-style: solid;
     border-color: #FF7E35;
-    width: 76.9%;
+    width: 81%;
     min-width: 58%;
     min-height: 490px;
     display: inline-block;
@@ -84,3 +99,27 @@
         font-size: 20px;
         line-height: 20px;
     }
+
+/**********FormStyles************/
+
+.divListForm {
+    width: 98%;
+    margin-left: 2%;
+}
+
+.spanTitleForm {
+    font-size: 18px;
+    margin-left: 40%;
+}
+
+/**********UpsertForm***********/
+.stepGrid {
+    margin: 15px 0px 15px 0px;
+    width: 98%;
+    margin-left: 2%;
+}
+
+.fieldGrid {
+    width: 98%;
+    margin-left: 2%;
+}
