@@ -161,8 +161,6 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                                              FieldName = fi.Field<string>("FieldName"),
                                              ProviderInfoTypeId = fi.Field<int>("ProviderInfoTypeId"),
                                              ProviderInfoTypeName = fi.Field<string>("ProviderInfoTypeName"),
-                                             FieldTypeId = fi.Field<int>("FieldTypeId"),
-                                             FieldTypeName = fi.Field<string>("FieldTypeName"),
                                              IsRequired = fi.Field<bool>("IsRequired"),
                                              FieldPosition = fi.Field<int>("FieldPosition"),
                                          } into fig
@@ -174,11 +172,6 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                                              {
                                                  ItemId = fig.Key.ProviderInfoTypeId,
                                                  ItemName = fig.Key.ProviderInfoTypeName,
-                                             },
-                                             FieldType = new CatalogModel()
-                                             {
-                                                 ItemId = fig.Key.FieldTypeId,
-                                                 ItemName = fig.Key.FieldTypeName,
                                              },
                                              IsRequired = fig.Key.IsRequired,
                                              Position = fig.Key.FieldPosition,
@@ -303,14 +296,13 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             });
         }
 
-        public int FieldCreate(int StepId, string Name, int ProviderInfoType, int FieldType, bool IsRequired, int Position)
+        public int FieldCreate(int StepId, string Name, int ProviderInfoType, bool IsRequired, int Position)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vStepId", StepId));
             lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderInfoType", ProviderInfoType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vFieldType", FieldType));
             lstParams.Add(DataInstance.CreateTypedParameter("vIsRequired", IsRequired));
             lstParams.Add(DataInstance.CreateTypedParameter("vPosition", Position));
 
@@ -378,6 +370,77 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
             }
 
             return oReturn;
+        }
+
+        public List<StepModel> StepGetByFormId(string FormPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vFormPublicId", FormPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "F_Step_GetByFormId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<StepModel> oReturn = new List<StepModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from s in response.DataTableResult.AsEnumerable()
+                     where !s.IsNull("StepId")
+                     select new StepModel()
+                     {
+                         StepId = s.Field<int>("StepId"),
+                         Name = s.Field<string>("StepName"),
+                         Position = s.Field<int>("StepPosition"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<FieldModel> FieldGetByStepId(int StepId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vStepId", StepId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "F_Field_GetByStepId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<FieldModel> oReturn = new List<FieldModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from fi in response.DataTableResult.AsEnumerable()
+                     where !fi.IsNull("FieldId")
+                     select new FieldModel()
+                     {
+                         FieldId = fi.Field<int>("FieldId"),
+                         Name = fi.Field<string>("FieldName"),
+                         ProviderInfoType = new CatalogModel()
+                         {
+                             ItemId = fi.Field<int>("ProviderInfoTypeId"),
+                             ItemName = fi.Field<string>("ProviderInfoTypeName"),
+                         },
+                         IsRequired = fi.Field<bool>("IsRequired"),
+                         Position = fi.Field<int>("FieldPosition"),
+                     }).ToList();
+            }
+            return oReturn;
+
         }
 
         #endregion

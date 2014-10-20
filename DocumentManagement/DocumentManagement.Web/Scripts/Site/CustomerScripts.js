@@ -36,9 +36,9 @@ function CustomerSearchGrid(vidDiv) {
         },
         change: function (arg) {
             $.map(this.select(), function (item) {
-            
+
                 if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
-                    window.location = '/Customer/UpsertCustomer?CustomerPublicId='  + $(item).find('td').first().text();
+                    window.location = '/Customer/UpsertCustomer?CustomerPublicId=' + $(item).find('td').first().text();
                 }
             });
 
@@ -65,7 +65,7 @@ function CustomerSearchGrid(vidDiv) {
     });
 }
 
-//init customer search grid
+//init form search grid
 function FormSearchGrid(vidDiv, vCustomerPublicId) {
 
     //configure grid
@@ -88,7 +88,7 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();
 
                     $.ajax({
-                        url: '/api/CustomerApi?FormSearchVal=true&CustomerPublicId=' + vCustomerPublicId  + '&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                        url: '/api/CustomerApi?FormSearchVal=true&CustomerPublicId=' + vCustomerPublicId + '&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                         dataType: "json",
                         type: "POST",
                         success: function (result) {
@@ -125,3 +125,115 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
 }
+
+//init Step Field search grid
+function StepFieldSearchGrid(vidDivStep, vidDivField, vFormPublicId) {
+
+    //configure step grid
+    $('#' + vidDivStep).kendoGrid({
+        toolbar: [{ template: $('#' + vidDivStep + '_Header').html() }],
+        pageable: false,
+        dataSource: {
+            transport: {
+                read: function (options) {
+                    $.ajax({
+                        url: '/api/CustomerApi?StepSearchVal=true&FormPublicId=' + vFormPublicId,
+                        dataType: "json",
+                        type: "POST",
+                        success: function (result) {
+                            options.success(result.RelatedStep);
+                        },
+                        error: function (result) {
+                            options.error(result);
+                        }
+                    });
+                }
+            },
+        },
+        change: function (arg) {
+            $.map(this.select(), function (item) {
+
+                //inputStepId
+
+                ////add search button event
+                //$('#' + vidDiv + '_SearchButton').click(function () {
+                //    $('#' + vidDiv).getKendoGrid().dataSource.read();
+                //});
+
+                //if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
+                //    window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
+                //}
+            });
+
+        },
+        selectable: true,
+        columns: [{
+            field: "StepId",
+            title: "Id",
+        }, {
+            field: "Name",
+            title: "Paso"
+        }, {
+            field: "Position",
+            title: "Orden"
+        }],
+    });
+
+    //configure field grid
+    $('#' + vidDivField).kendoGrid({
+        toolbar: [{ template: $('#' + vidDivField + '_Header').html() }],
+        pageable: false,
+        dataSource: {
+            transport: {
+                read: function (options) {
+                    $.ajax({
+                        url: '/api/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + vidDivField + '_StepId').val(),
+                        dataType: "json",
+                        type: "POST",
+                        success: function (result) {
+                            options.success(result.RelatedField);
+                        },
+                        error: function (result) {
+                            options.error(result);
+                        }
+                    });
+                }
+            },
+        },
+        //change: function (arg) {
+        //    $.map(this.select(), function (item) {
+
+        //        //inputStepId
+
+        //        ////add search button event
+        //        //$('#' + vidDiv + '_SearchButton').click(function () {
+        //        //    $('#' + vidDiv).getKendoGrid().dataSource.read();
+        //        //});
+
+        //        //if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
+        //        //    window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
+        //        //}
+        //    });
+        //},
+        //selectable: true,
+        columns: [{
+            field: "FieldId",
+            title: "Id",
+        }, {
+            field: "Name",
+            title: "Campo"
+        }, {
+            field: "ProviderInfoType.ItemName",
+            title: "Tipo de campo"
+        }, {
+            field: "Position",
+            title: "Orden"
+        }, {
+            field: "IsRequired",
+            title: "Obligatorio"
+        }],
+    });
+}
+
+
+

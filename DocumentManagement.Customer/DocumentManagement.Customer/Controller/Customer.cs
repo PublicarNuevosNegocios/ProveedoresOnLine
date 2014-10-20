@@ -79,7 +79,6 @@ namespace DocumentManagement.Customer.Controller
                 (StepId,
                 FieldToUpsert.Name,
                 FieldToUpsert.ProviderInfoType.ItemId,
-                FieldToUpsert.FieldType.ItemId,
                 FieldToUpsert.IsRequired,
                 FieldToUpsert.Position);
         }
@@ -97,6 +96,16 @@ namespace DocumentManagement.Customer.Controller
                 PageNumber,
                 RowCount,
                 out TotalRows);
+        }
+
+        public static List<Models.Form.StepModel> StepGetByFormId(string FormPublicId)
+        {
+            return DAL.Controller.CustomerDataController.Instance.StepGetByFormId(FormPublicId);
+        }
+
+        public static List<Models.Form.FieldModel> FieldGetByStepId(int StepId)
+        {
+            return DAL.Controller.CustomerDataController.Instance.FieldGetByStepId(StepId);
         }
 
         #endregion

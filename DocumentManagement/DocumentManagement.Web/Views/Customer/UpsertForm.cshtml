@@ -54,8 +54,49 @@
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 </div>
             </form>
-        }
 
+            <!--step grid-->
+            <div>
+                <span>Pasos</span>
+                <div id="divGridStep"></div>
+            </div>
+
+            <!--field grid-->
+            <div>
+                <span>Campos</span>
+                <div id="divGridField"></div>
+                <input type="hidden" id="divGridField_StepId" value="@(Model.
+                    RelatedForm.
+                    RelatedStep.
+                    Select(x => x.StepId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault())" />
+            </div>
+        }
     </div>
 
 </div>
+<div id="template" style="display:none;">
+    <!--step templates-->
+    <div id="divGridStep_Header">
+        <a href="">Crear paso</a>
+    </div>
+
+    <!--field templates-->
+    <div id="divGridField_Header">
+        <a href="">Crear campos</a>
+    </div>
+
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start customer grid
+            StepFieldSearchGrid('divGridStep', 'divGridField', '@Model.RelatedForm.FormPublicId');
+        });
+    </script>
+}
+
+

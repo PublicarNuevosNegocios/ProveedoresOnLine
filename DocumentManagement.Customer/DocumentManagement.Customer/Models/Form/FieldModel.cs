@@ -15,8 +15,6 @@ namespace DocumentManagement.Customer.Models.Form
 
         public CatalogModel ProviderInfoType { get; set; }
 
-        public CatalogModel FieldType { get; set; }
-
         public bool IsRequired { get; set; }
 
         public int Position { get; set; }
