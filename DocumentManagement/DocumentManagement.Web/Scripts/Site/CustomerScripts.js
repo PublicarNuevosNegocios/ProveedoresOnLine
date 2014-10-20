@@ -126,114 +126,332 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
     });
 }
 
-//init Step Field search grid
-function StepFieldSearchGrid(vidDivStep, vidDivField, vFormPublicId) {
+//field step object
+var FormUpsertObject = {
+    /*step field info*/
+    idDivStep: '',
+    idDivField: '',
+    FormPublicId: '',
 
-    //configure step grid
-    $('#' + vidDivStep).kendoGrid({
-        toolbar: [{ template: $('#' + vidDivStep + '_Header').html() }],
-        pageable: false,
-        dataSource: {
-            transport: {
-                read: function (options) {
-                    $.ajax({
-                        url: '/api/CustomerApi?StepSearchVal=true&FormPublicId=' + vFormPublicId,
-                        dataType: "json",
-                        type: "POST",
-                        success: function (result) {
-                            options.success(result.RelatedStep);
-                        },
-                        error: function (result) {
-                            options.error(result);
-                        }
+    /*init meeting calendar variables*/
+    Init: function (vInitObject) {
+        this.idDivStep = vInitObject.idDivStep;
+        this.idDivField = vInitObject.idDivField;
+        this.FormPublicId = vInitObject.FormPublicId;
+    },
+
+    /*render grids*/
+    RenderAsync: function () {
+
+        this.RenderStepGrid();
+        this.RenderFieldGrid();
+
+    },
+
+    RenderStepGrid: function () {
+
+        //configure step grid
+        $('#' + FormUpsertObject.idDivStep).kendoGrid({
+            toolbar: [{ template: $('#' + FormUpsertObject.idDivStep + '_Header').html() }],
+            pageable: false,
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: '/api/CustomerApi?StepSearchVal=true&FormPublicId=' + FormUpsertObject.FormPublicId,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                options.success(result.RelatedStep);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+            },
+            change: function (arg) {
+                $.map(this.select(), function (item) {
+
+                    if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
+                        //change current step id
+                        $('#' + FormUpsertObject.idDivField + '_StepId').val($($(item).find('td')[0]).text());
+                        $('#' + FormUpsertObject.idDivField).getKendoGrid().dataSource.read();
+                    }
+                });
+
+            },
+            selectable: true,
+            columns: [{
+                field: "StepId",
+                title: "Id",
+            }, {
+                field: "Name",
+                title: "Paso"
+            }, {
+                field: "Position",
+                title: "Orden"
+            }, {
+                field: "StepId",
+                title: "Editar",
+                template: '<a href="javascript:FormUpsertObject.RenderStepUpdate(\'${StepId}\');">Editar</a><br/><a href="javascript:FormUpsertObject.StepDelete(\'${StepId}\');">Borrar</a>'
+            }],
+        });
+    },
+
+    RenderStepCreate: function () {
+
+        $('#' + FormUpsertObject.idDivStep + '_Upsert_StepId').val('');
+        $('#' + FormUpsertObject.idDivStep + '_Upsert').dialog();
+
+    },
+
+    RenderStepUpdate: function (vStepId) {
+        var grid = $('#' + FormUpsertObject.idDivStep).data("kendoGrid");
+        var selectedItem = grid.dataItem(grid.select());
+
+        if (selectedItem != null && selectedItem.StepId != null) {
+
+            //show edit popup
+            $('#' + FormUpsertObject.idDivStep + '_Upsert_StepId').val(selectedItem.StepId);
+            $('#' + FormUpsertObject.idDivStep + '_Upsert_Name').val(selectedItem.Name);
+            $('#' + FormUpsertObject.idDivStep + '_Upsert_Position').val(selectedItem.Position);
+
+            $('#' + FormUpsertObject.idDivStep + '_Upsert').dialog();
+        }
+    },
+
+    StepUpsert: function () {
+
+        $('#' + FormUpsertObject.idDivStep + '_Upsert').dialog("close");
+
+        var oStepId = $('#' + FormUpsertObject.idDivStep + '_Upsert_StepId').val();
+        var oName = $('#' + FormUpsertObject.idDivStep + '_Upsert_Name').val();
+        var oPosition = $('#' + FormUpsertObject.idDivStep + '_Upsert_Position').val();
+
+        if (oName != null && oName.length > 0 && oPosition != null && oPosition.length > 0) {
+
+            if (oStepId != null && oStepId.length > 0) {
+                //update
+                $.ajax({
+                    url: '/api/CustomerApi?StepModifyVal=true&StepId=' + oStepId + '&Name=' + oName + '&Position=' + oPosition,
+                    dataType: "json",
+                    type: "POST",
+                    success: function (result) {
+                        $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                    },
+                    error: function (result) {
+                        $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                        alert('Se ha generado un error:' + result);
+                    }
+                });
+            }
+            else {
+                //create
+                $.ajax({
+                    url: '/api/CustomerApi?StepCreateVal=true&FormPublicId=' + FormUpsertObject.FormPublicId + '&Name=' + oName + '&Position=' + oPosition,
+                    dataType: "json",
+                    type: "POST",
+                    success: function (result) {
+                        $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                    },
+                    error: function (result) {
+                        $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                        alert('Se ha generado un error:' + result);
+                    }
+                });
+            }
+        }
+        else {
+
+            alert('los campos nombre y posicion son obligatorios');
+        }
+
+    },
+
+    StepDelete: function (vStepId) {
+
+        if (vStepId != null && vStepId.length > 0) {
+
+            $('#' + FormUpsertObject.idDivStep + '_Delete').dialog({
+                modal: true,
+                buttons: {
+                    "Borrar": function () {
+                        //delete
+                        $.ajax({
+                            url: '/api/CustomerApi?StepDeleteVal=true&StepId=' + vStepId,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                            },
+                            error: function (result) {
+                                $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                                alert('Se ha generado un error:' + result);
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+        else {
+            alert('El paso ' + vStepId + ' no es valido');
+        }
+    },
+
+    RenderFieldGrid: function () {
+
+        //configure field grid
+        $('#' + FormUpsertObject.idDivField).kendoGrid({
+            toolbar: [{ template: $('#' + FormUpsertObject.idDivField + '_Header').html() }],
+            pageable: false,
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: '/api/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + FormUpsertObject.idDivField + '_StepId').val(),
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                options.success(result.RelatedField);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    }
+                },
+            },
+            columns: [{
+                field: "FieldId",
+                title: "Id",
+            }, {
+                field: "Name",
+                title: "Campo"
+            }, {
+                field: "ProviderInfoType.ItemId",
+                title: "Tipo de campo Id"
+            }, {
+                field: "ProviderInfoType.ItemName",
+                title: "Tipo de campo"
+            }, {
+                field: "Position",
+                title: "Orden"
+            }, {
+                field: "IsRequired",
+                title: "Obligatorio"
+            }, {
+                field: "FieldId",
+                title: "Borrar",
+                template: '<a href="javascript:FormUpsertObject.FieldDelete(\'${FieldId}\');">Borrar</a>'
+            }],
+        });
+    },
+
+    RenderFieldCreate: function () {
+
+        $.ajax({
+            url: '/api/CustomerApi?GetFieldOptionsVal=true&FormPublicId=' + FormUpsertObject.FormPublicId,
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                if (result != null && result.ProviderInfoType != null && result.ProviderInfoType.length > 0) {
+
+                    //clean fields
+                    $('#' + FormUpsertObject.idDivField + '_Create_Name').val('');
+                    $('#' + FormUpsertObject.idDivField + '_Create_ProviderInfoType').val('');
+                    $('#' + FormUpsertObject.idDivField + '_Create_Position').val('');
+                    $('#' + FormUpsertObject.idDivField + '_Create_IsRequired').attr('checked', false);
+
+                    //fill items to select
+                    $('#' + FormUpsertObject.idDivField + '_Create_ProviderInfoType').find('option').remove();
+                    $.each(result.ProviderInfoType, function (item, value) {
+                        $('#' + FormUpsertObject.idDivField + '_Create_ProviderInfoType').append('<option value="' + value.ItemId + '">' + value.ItemName + '</option>')
                     });
+
+                    $('#' + FormUpsertObject.idDivField + '_Create').dialog();
+                }
+                else {
+                    alert('No quedan mas campos por agregar.');
                 }
             },
-        },
-        change: function (arg) {
-            $.map(this.select(), function (item) {
+            error: function (result) {
+                alert('Se ha generado un error:' + result);
+            }
+        });
+    },
 
-                //inputStepId
+    FieldCreate: function () {
+        $('#' + FormUpsertObject.idDivField + '_Create').dialog("close");
 
-                ////add search button event
-                //$('#' + vidDiv + '_SearchButton').click(function () {
-                //    $('#' + vidDiv).getKendoGrid().dataSource.read();
-                //});
+        debugger;
+        var oName = $('#' + FormUpsertObject.idDivField + '_Create_Name').val();
+        var oProviderInfoType = $('#' + FormUpsertObject.idDivField + '_Create_ProviderInfoType').val();
+        var oPosition = $('#' + FormUpsertObject.idDivField + '_Create_Position').val();
 
-                //if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
-                //    window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
-                //}
+        var oIsRequired = '' + $('#' + FormUpsertObject.idDivField + '_Create_IsRequired:checked').is(":checked") + '';
+
+        if (oName != null && oName.length > 0 && oProviderInfoType != null && oProviderInfoType.length > 0 && oPosition != null && oPosition.length > 0 && oIsRequired != null && oIsRequired.length > 0) {
+
+            $.ajax({
+                url: '/api/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + FormUpsertObject.idDivField + '_StepId').val() + '&Name=' + oName + '&ProviderInfoType=' + oProviderInfoType + '&IsRequired=' + oIsRequired + '&Position=' + oPosition,
+                dataType: "json",
+                type: "POST",
+                success: function (result) {
+                    $('#' + FormUpsertObject.idDivField).getKendoGrid().dataSource.read();
+                },
+                error: function (result) {
+                    $('#' + FormUpsertObject.idDivField).getKendoGrid().dataSource.read();
+                    alert('Se ha generado un error:' + result);
+                }
             });
 
-        },
-        selectable: true,
-        columns: [{
-            field: "StepId",
-            title: "Id",
-        }, {
-            field: "Name",
-            title: "Paso"
-        }, {
-            field: "Position",
-            title: "Orden"
-        }],
-    });
+        }
+        else {
 
-    //configure field grid
-    $('#' + vidDivField).kendoGrid({
-        toolbar: [{ template: $('#' + vidDivField + '_Header').html() }],
-        pageable: false,
-        dataSource: {
-            transport: {
-                read: function (options) {
-                    $.ajax({
-                        url: '/api/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + vidDivField + '_StepId').val(),
-                        dataType: "json",
-                        type: "POST",
-                        success: function (result) {
-                            options.success(result.RelatedField);
-                        },
-                        error: function (result) {
-                            options.error(result);
-                        }
-                    });
+            alert('los campos nombre y posicion son obligatorios');
+        }
+
+    },
+
+    FieldDelete: function (vFieldId) {
+
+        if (vFieldId != null && vFieldId.length > 0) {
+
+            $('#' + FormUpsertObject.idDivField + '_Delete').dialog({
+                modal: true,
+                buttons: {
+                    "Borrar": function () {
+                        //delete
+                        $.ajax({
+                            url: '/api/CustomerApi?FieldDeleteVal=true&FieldId=' + vFieldId,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                $('#' + FormUpsertObject.idDivField).getKendoGrid().dataSource.read();
+                            },
+                            error: function (result) {
+                                $('#' + FormUpsertObject.idDivField).getKendoGrid().dataSource.read();
+                                alert('Se ha generado un error:' + result);
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
                 }
-            },
-        },
-        //change: function (arg) {
-        //    $.map(this.select(), function (item) {
+            });
+        }
+        else {
+            alert('El paso ' + vStepId + ' no es valido');
+        }
+    },
 
-        //        //inputStepId
-
-        //        ////add search button event
-        //        //$('#' + vidDiv + '_SearchButton').click(function () {
-        //        //    $('#' + vidDiv).getKendoGrid().dataSource.read();
-        //        //});
-
-        //        //if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
-        //        //    window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
-        //        //}
-        //    });
-        //},
-        //selectable: true,
-        columns: [{
-            field: "FieldId",
-            title: "Id",
-        }, {
-            field: "Name",
-            title: "Campo"
-        }, {
-            field: "ProviderInfoType.ItemName",
-            title: "Tipo de campo"
-        }, {
-            field: "Position",
-            title: "Orden"
-        }, {
-            field: "IsRequired",
-            title: "Obligatorio"
-        }],
-    });
-}
-
-
+};
 

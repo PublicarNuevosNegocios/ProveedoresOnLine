@@ -59,6 +59,12 @@ namespace DocumentManagement.Web
 
             #region Styles
 
+            #region jquery
+
+            bundles.Add(new StyleBundle("~/site/styles/jquery").Include("~/Content/themes/base/all.css"));
+
+            #endregion
+
             #region bootstrap
 
             bundles.Add(new StyleBundle("~/site/styles/bootstrap").Include("~/Content/bootstrap.css"));

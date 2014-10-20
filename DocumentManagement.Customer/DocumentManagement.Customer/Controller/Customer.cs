@@ -68,12 +68,15 @@ namespace DocumentManagement.Customer.Controller
                 StepToUpsert.Position);
         }
 
-        public static void StepModify(int StepId, string Name, int Position)
+        public static void StepModify(StepModel StepToUpsert)
         {
-            DAL.Controller.CustomerDataController.Instance.StepModify(StepId, Name, Position);
+            DAL.Controller.CustomerDataController.Instance.StepModify
+                (StepToUpsert.StepId,
+                StepToUpsert.Name,
+                StepToUpsert.Position);
         }
 
-        public static void StepCreate(int StepId)
+        public static void StepDelete(int StepId)
         {
             DAL.Controller.CustomerDataController.Instance.StepDelete(StepId);
         }
@@ -88,7 +91,7 @@ namespace DocumentManagement.Customer.Controller
                 FieldToUpsert.Position);
         }
 
-        public static void FieldCreate(int FieldId)
+        public static void FieldDelete(int FieldId)
         {
             DAL.Controller.CustomerDataController.Instance.FieldDelete(FieldId);
         }

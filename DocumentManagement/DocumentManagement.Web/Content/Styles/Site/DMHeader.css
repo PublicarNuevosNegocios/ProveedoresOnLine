@@ -4,10 +4,54 @@
     display: inline-block;
     width: 100%;
     height: auto;
-    margin: 0px 1px 0px 0px;
+    margin: 2px 1px 0px 0px;
     vertical-align: top;
     text-align: right;
 }
+
+.openDialog {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 16px solid #FF7E35;
+    padding: 0 !important;
+    display: inline-block !important;
+    vertical-align: top;
+    margin: 3px 30px 0px 5px;
+}
+
+#divUserMenu {
+    border: 1px solid grey;
+    width: 9%;
+    height: auto;
+    position: absolute;
+    z-index: 20;
+    background-color: #fff;
+    right: 30px;
+    text-align: center;
+}
+
+    #divUserMenu ul {
+        padding: 0;
+        margin: 0;
+    }
+
+        #divUserMenu ul li {
+            border: none;
+            border-bottom: 1px solid #333;
+            height: auto;
+            cursor: pointer;
+            list-style: none;
+        }
+
+            #divUserMenu ul li a {
+                font-size: 13px;
+                line-height: 33px;
+                color: #4d4d4d;
+                display: block;
+                margin-left: 5px;
+            }
 
 /*****************Logo********************/
 .LogoHeader {

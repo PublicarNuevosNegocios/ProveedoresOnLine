@@ -79,22 +79,80 @@
 <div id="template" style="display:none;">
     <!--step templates-->
     <div id="divGridStep_Header">
-        <a href="">Crear paso</a>
+        <a href="javascript:FormUpsertObject.RenderStepCreate();">Crear paso</a>
     </div>
 
     <!--field templates-->
     <div id="divGridField_Header">
-        <a href="">Crear campos</a>
+        <a href="javascript:FormUpsertObject.RenderFieldCreate();">Crear campos</a>
     </div>
 
 </div>
+
+<div id="dialog" style="display:none;">
+
+    <!--step dialogs-->
+    <div id="divGridStep_Upsert" title="Edición de pasos">
+        <ul>
+            <li>
+                <span>Nombre:</span> <input type="text" id="divGridStep_Upsert_Name" />
+            </li>
+            <li>
+                <span>Orden:</span> <input type="text" id="divGridStep_Upsert_Position" />
+            </li>
+            <li>
+                <a href="javascript:FormUpsertObject.StepUpsert();">Guardar</a>
+            </li>
+        </ul>
+        <div style="display:none">
+            <input type="hidden" id="divGridStep_Upsert_StepId" />
+        </div>
+    </div>
+
+    <div id="divGridStep_Delete" title="Edición de pasos">
+        <div>Esta seguro de borrar este paso</div>
+    </div>
+
+    <!--field dialogs-->
+    <div id="divGridField_Create" title="Edición de campos">
+        <ul>
+            <li>
+                <span>Nombre:</span> <input type="text" id="divGridField_Create_Name" />
+            </li>
+            <li>
+                <span>Tipo de campo:</span>
+                <select id="divGridField_Create_ProviderInfoType"></select>
+            </li>
+            <li>
+                <span>Orden:</span> <input type="text" id="divGridField_Create_Position" />
+            </li>
+            <li>
+                <span>Obligatorio:</span> <input type="checkbox" id="divGridField_Create_IsRequired" />
+            </li>
+            <li>
+                <a href="javascript:FormUpsertObject.FieldCreate();">Guardar</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="divGridField_Delete" title="Edición de campos">
+        <div>Esta seguro de borrar este campo</div>
+    </div>
+</div>
+
 
 @section inlinescripts
 {
     <script type="text/javascript">
         $(document).ready(function () {
+
             //start customer grid
-            StepFieldSearchGrid('divGridStep', 'divGridField', '@Model.RelatedForm.FormPublicId');
+            FormUpsertObject.Init({
+                idDivStep: 'divGridStep',
+                idDivField: 'divGridField',
+                FormPublicId: '@Model.RelatedForm.FormPublicId',
+            });
+            FormUpsertObject.RenderAsync();
         });
     </script>
 }

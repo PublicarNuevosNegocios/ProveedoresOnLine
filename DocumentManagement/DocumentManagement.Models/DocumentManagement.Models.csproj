@@ -33,6 +33,9 @@
     <Reference Include="DocumentManagement.Customer">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Customer\developer\DocumentManagement.Customer.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentManagement.Provider">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Provider\developer\DocumentManagement.Provider.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -60,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ExcelProviderResultModel.cs" />
     <Compile Include="Provider\ExcelProviderModel.cs" />
+    <Compile Include="Provider\ProviderUpsertModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,5 +9,7 @@ namespace DocumentManagement.Models.Customer
     public class FieldSearchModel
     {
         public List<DocumentManagement.Customer.Models.Form.FieldModel> RelatedField { get; set; }
+
+        public List<DocumentManagement.Customer.Models.Util.CatalogModel> ProviderInfoType { get; set; }
     }
 }
