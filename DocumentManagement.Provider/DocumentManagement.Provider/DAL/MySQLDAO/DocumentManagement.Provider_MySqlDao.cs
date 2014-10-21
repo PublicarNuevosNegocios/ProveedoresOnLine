@@ -382,7 +382,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return oReturn;
         }
 
-        public Dictionary<CatalogModel, List<CatalogModel>> CatalogGetProviderOptions()
+        public Dictionary<int, List<CatalogModel>> CatalogGetProviderOptions()
         {
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -392,7 +392,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                 Parameters = null
             });
 
-            Dictionary<CatalogModel, List<CatalogModel>> oReturn = new Dictionary<CatalogModel, List<CatalogModel>>();
+            Dictionary<int, List<CatalogModel>> oReturn = new Dictionary<int, List<CatalogModel>>();
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
@@ -406,10 +406,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                      } into cg
                      select new
                      {
-                         ProviderInfoType = new CatalogModel()
-                         {
-                             ItemId = cg.Key.ProviderInfoType,
-                         },
+                         ProviderInfoType = cg.Key.ProviderInfoType,
 
                          CatalogInfo =
                              (from ci in response.DataTableResult.AsEnumerable()

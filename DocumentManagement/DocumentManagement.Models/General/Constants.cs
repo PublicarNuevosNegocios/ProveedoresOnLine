@@ -24,6 +24,8 @@
 
         public const string C_Settings_Grid_RowCountDefault = "Grid_RowCountDefault";
 
+        public const string C_Settings_Catalog_IdentificationType = "Catalog_IdentificationType";
+
         #endregion
 
         #region Provider General

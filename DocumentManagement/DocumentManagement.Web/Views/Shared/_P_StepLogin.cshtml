@@ -3,7 +3,7 @@
 
 <div class="DMLogInProviders">
     <div class="DMLogIntopWrapper">
-        <img class="DMProviderlogo" src="/Content/Images/lidl.png" alt="" />
+        <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
         <label>REGISTRO DE INFORMACIÓN DE PROVEEDORES</label>
         <img class="DMPOLogo" src="/Content/Images/LogoPOLogInAlpha.png" alt="" />
     </div>
@@ -18,11 +18,19 @@
                         {
                             ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
                             FormPublicId = Model.RealtedForm.FormPublicId,
+                            CustomerPublicId = Model.RealtedCustomer.CustomerPublicId,
                         }))" method="post">
             <ul class="DMForm">
                 <li>
                     <span>Tipo de identificación</span>
-                    <select name="IdentificationType"></select>
+                    <select name="IdentificationType">
+                        @foreach (var Item in Model.ProviderOptions[0].
+                                Where(x => x.CatalogId.ToString() == DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Catalog_IdentificationType].Value).
+                                OrderBy(x => x.ItemName))
+                        {
+                            <option value="@Item.ItemId">@Item.ItemName</option>
+                        }
+                    </select>
                 </li>
                 <li>
                     <span>Número de identificación</span>
@@ -40,6 +48,5 @@
         <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
     </div>
 </div>
-
 
 

@@ -628,8 +628,16 @@ namespace Links
             private const string URLPATH = "~/Content/Images";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
+            public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
+            public static readonly string lidl_png = Url("lidl.png");
+            public static readonly string LogInBackground_jpg = Url("LogInBackground.jpg");
             public static readonly string LogoPOHeader_png = Url("LogoPOHeader.png");
+            public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
             public static readonly string LogoPublicarFooter_png = Url("LogoPublicarFooter.png");
+            public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
+            public static readonly string MDLogInProvBackground_jpg = Url("MDLogInProvBackground.jpg");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -925,6 +933,8 @@ namespace Links
                 public static readonly string DMLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMLayout.min.css") ? Url("DMLayout.min.css") : Url("DMLayout.css");
                      
                 public static readonly string DMLogIn_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMLogIn.min.css") ? Url("DMLogIn.min.css") : Url("DMLogIn.css");
+                     
+                public static readonly string DMLogInProviders_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMLogInProviders.min.css") ? Url("DMLogInProviders.min.css") : Url("DMLogInProviders.css");
                      
                 public static readonly string DMProvider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DMProvider.min.css") ? Url("DMProvider.min.css") : Url("DMProvider.css");
                      

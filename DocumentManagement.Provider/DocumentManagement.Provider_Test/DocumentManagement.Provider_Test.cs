@@ -56,7 +56,7 @@ namespace DocumentManagement.Provider_Test
         [TestMethod]
         public void CatalogGetProviderOptions()
         {
-            Dictionary<DocumentManagement.Provider.Models.Util.CatalogModel, List<DocumentManagement.Provider.Models.Util.CatalogModel>> oReturn =
+            Dictionary<int, List<DocumentManagement.Provider.Models.Util.CatalogModel>> oReturn =
                 DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions();
 
             Assert.AreEqual(true, oReturn.Count > 0);
