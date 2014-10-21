@@ -381,5 +381,56 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
 
             return oReturn;
         }
+
+        public Dictionary<CatalogModel, List<CatalogModel>> CatalogGetProviderOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetProviderOptions",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            Dictionary<CatalogModel, List<CatalogModel>> oReturn = new Dictionary<CatalogModel, List<CatalogModel>>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ProviderInfoType")
+                     group c by new
+                     {
+                         ProviderInfoType = (int)c.Field<Int64>("ProviderInfoType")
+                     } into cg
+                     select new
+                     {
+                         ProviderInfoType = new CatalogModel()
+                         {
+                             ItemId = cg.Key.ProviderInfoType,
+                         },
+
+                         CatalogInfo =
+                             (from ci in response.DataTableResult.AsEnumerable()
+                              where !ci.IsNull("CatalogId") && (int)ci.Field<Int64>("ProviderInfoType") == cg.Key.ProviderInfoType
+                              group ci by new
+                              {
+                                  CatalogId = ci.Field<int>("CatalogId"),
+                                  CatalogName = ci.Field<string>("CatalogName"),
+                                  ItemId = ci.Field<int>("ItemId"),
+                                  ItemName = ci.Field<string>("ItemName"),
+                              } into cig
+                              select new CatalogModel()
+                              {
+                                  CatalogId = cig.Key.CatalogId,
+                                  CatalogName = cig.Key.CatalogName,
+                                  ItemId = cig.Key.ItemId,
+                                  ItemName = cig.Key.ItemName,
+                              }).ToList(),
+                     }).ToDictionary(k => k.ProviderInfoType, v => v.CatalogInfo);
+            }
+            return oReturn;
+        }
     }
 }
