@@ -26,12 +26,15 @@
         @RenderBody()
     </div>
 
-    <div>
-        @Html.Partial(MVC.Shared.Views._L_Footer)
-    </div>
+    @if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
+        DocumentManagement.Models.General.SessionModel.UserIsAutorized)
+    {
+        <div>
+            @Html.Partial(MVC.Shared.Views._L_Footer)
+        </div>
+    }
 
-    @*bundle render scripts*@
-    @Scripts.Render("~/site/scripts/jquery")
+    @*bundle render scripts*@@Scripts.Render("~/site/scripts/jquery")
     @Scripts.Render("~/site/scripts/jqueryval")
     @Scripts.Render("~/site/scripts/modernizr")
     @Scripts.Render("~/site/scripts/bootstrap")

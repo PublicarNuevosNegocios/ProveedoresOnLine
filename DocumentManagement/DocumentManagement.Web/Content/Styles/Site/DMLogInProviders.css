@@ -1,0 +1,47 @@
+.DMLogInProviders {
+    background-image:url('/Content/Images/.jpg');
+    background-repeat:no-repeat;
+    background-size:auto;
+    background-position:0px;
+}
+    .DMLogIntopWrapper{
+            display:block;
+            margin:0px;
+            padding:0px;
+
+    }
+        .DMProviderlogo{
+        }
+        .DMLogIntopWrapper label {
+        }
+        .DMPOLogo {
+        }
+
+    .DMLogInformWrapper{
+
+    }
+        .DMTextWelcome{
+
+        }
+        .DMTextDirection{
+
+        }
+        .DMForm{
+        }
+            .DMForm li{
+            }
+            .DMForm li span{
+            }
+            .DMForm li select, .DMInputs li input{
+            }
+                .DMButtons {
+                }
+    .DMLogInbottomWrapper {
+
+    }
+        .DMLogPublicar {
+
+        }
+        .DMPublicarCopyright {
+
+        }

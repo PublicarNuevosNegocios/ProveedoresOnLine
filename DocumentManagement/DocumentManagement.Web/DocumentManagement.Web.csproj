@@ -252,9 +252,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\arrowSelectedMenuSmall.png" />
+    <Content Include="Content\Images\cerrar.png" />
+    <Content Include="Content\Images\Google-plus-icon.png" />
     <Content Include="Content\Images\LogoPOHeader.png" />
     <Content Include="Content\Images\LogoPublicarFooter.png" />
     <Content Include="Content\Images\LogInBackground.jpg" />
+    <Content Include="Content\Images\panthermedia_A15064751_1748x1208.jpg" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2014.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.1.318\Black\indeterminate.gif" />
@@ -423,6 +426,7 @@
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
     <Content Include="Content\Styles\Site\DMCustomer.css" />
+    <Content Include="Content\Styles\Site\DMLogInProviders.css" />
     <Content Include="Content\Styles\Site\DMProvider.css" />
     <Content Include="Content\Styles\Site\DMLayout.css" />
     <Content Include="Content\Styles\Site\DMFooter.css" />
