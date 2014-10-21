@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="FileRepository">
+    <key name="location">D:\Proyectos\Github\ProveedoresOnLine\ProveedoresOnLine.FileManager\ProveedoresOnLine.FileManager.Test\Rsx-FileRepository.xml</key>
+  </Module>
+</SettingsConfig>

@@ -90,40 +90,39 @@ namespace DocumentManagement.Web.Controllers
 
         public virtual ActionResult UpsertFormLogo(string CustomerPublicId, string FormPublicId, HttpPostedFileBase UploadFile)
         {
-            ////get folder
-            //string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
+            //get folder
+            string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
 
-            //if (!System.IO.Directory.Exists(strFolder))
-            //    System.IO.Directory.CreateDirectory(strFolder);
+            if (!System.IO.Directory.Exists(strFolder))
+                System.IO.Directory.CreateDirectory(strFolder);
 
-            ////get File
-            //string strFile = strFolder.TrimEnd('\\') +
-            //    "\\Logo_" +
-            //    CustomerPublicId + "_" +
-            //    DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
+            //get File
+            string strFile = strFolder.TrimEnd('\\') +
+                "\\Logo_" +
+                CustomerPublicId + "_" +
+                DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
 
-            //UploadFile.SaveAs(strFile);
+            UploadFile.SaveAs(strFile);
 
-            ////load file to s3
-            //string strRemoteFile = DocumentManagement.Provider.Controller.Provider.LoadFile
-            //    (strFile,
-            //    DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
+            //load file to s3
+            string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                (strFile,
+                DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
 
-            ////update file into db
-            //DocumentManagement.Customer.Controller.Customer.FormUpsertLogo
-            //                    (FormPublicId,
-            //                    strRemoteFile);
+            //update file into db
+            DocumentManagement.Customer.Controller.Customer.FormUpsertLogo
+                                (FormPublicId,
+                                strRemoteFile);
 
-            ////remove temporal file
-            //if (System.IO.File.Exists(strFile))
-            //    System.IO.File.Delete(strFile);
+            //remove temporal file
+            if (System.IO.File.Exists(strFile))
+                System.IO.File.Delete(strFile);
 
-            //return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
-            //{
-            //    CustomerPublicId = CustomerPublicId,
-            //    FormPublicId = FormPublicId
-            //});
-            return View();
+            return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
+            {
+                CustomerPublicId = CustomerPublicId,
+                FormPublicId = FormPublicId
+            });
         }
 
         public virtual ActionResult UploadProvider(string CustomerPublicId)
@@ -139,36 +138,35 @@ namespace DocumentManagement.Web.Controllers
         [HttpPost]
         public virtual ActionResult UploadProvider(string CustomerPublicId, HttpPostedFileBase ExcelFile)
         {
-            //string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
+            string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
 
-            //if (!System.IO.Directory.Exists(strFolder))
-            //    System.IO.Directory.CreateDirectory(strFolder);
+            if (!System.IO.Directory.Exists(strFolder))
+                System.IO.Directory.CreateDirectory(strFolder);
 
-            ////get File
-            //string strFile = strFolder.TrimEnd('\\') +
-            //    "\\ProviderUploadFile_" +
-            //    CustomerPublicId + "_" +
-            //    DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
+            //get File
+            string strFile = strFolder.TrimEnd('\\') +
+                "\\ProviderUploadFile_" +
+                CustomerPublicId + "_" +
+                DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
 
-            //ExcelFile.SaveAs(strFile);
+            ExcelFile.SaveAs(strFile);
 
-            ////load file to s3
+            //load file to s3
             //string strRemoteFile = DocumentManagement.Provider.Controller.Provider.LoadFile
             //    (strFile,
             //    DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
 
-            ////update file into db          
-            //this.ProccessProviderFile(strFile, CustomerPublicId);
+            //update file into db          
+            this.ProccessProviderFile(strFile, CustomerPublicId);
 
-            ////remove temporal file
-            //if (System.IO.File.Exists(strFile))
-            //    System.IO.File.Delete(strFile);
+            //remove temporal file
+            if (System.IO.File.Exists(strFile))
+                System.IO.File.Delete(strFile);
 
-            //return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
-            //{
-            //    CustomerPublicId = CustomerPublicId                
-            //});
-            return View();
+            return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
+            {
+                CustomerPublicId = CustomerPublicId
+            });
         }       
 
         #region private methods
@@ -204,66 +202,86 @@ namespace DocumentManagement.Web.Controllers
 
         private void ProccessProviderFile(string FilePath, string CustomerPublicId)
         {
-        //    //get excel rows
-        //    LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
+            //get excel rows
+            LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
 
-        //    List<ExcelProviderModel> oPrvToProcess =
-        //        (from x in XlsInfo.Worksheet<ExcelProviderModel>(0)
-        //         select x).ToList();
+            List<ExcelProviderModel> oPrvToProcess =
+                (from x in XlsInfo.Worksheet<ExcelProviderModel>(0)
+                 select x).ToList();
             
-        //    List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
+            List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
 
-        //    //process Provider
-        //    oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.numerodeidentificacion)).All(prv =>
-        //    {
-        //        try
-        //        {
-        //            //Validar el provider
-        //            ProviderModel Provider = new ProviderModel();
-        //            DocumentManagement.Provider.Models.Enumerations.enumIdentificationType idType = (DocumentManagement.Provider.Models.Enumerations.enumIdentificationType)Enum.Parse(typeof(DocumentManagement.Provider.Models.Enumerations.enumIdentificationType), prv.tipodeidentificacion, true);
+            //process Provider
+            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.numerodeidentificacion)).All(prv =>
+            {
+                try
+                {
+                    //Validar el provider
+                    ProviderModel Provider = new ProviderModel();
 
-        //            Provider = DocumentManagement.Provider.Controller.Provider.GetProviderByIdentificationNumberAndDocumentType(prv.numerodeidentificacion, DocumentManagement.Provider.Models.Enumerations.enumIdentificationType.Nit);
-        //            if (Provider == null)
-        //            {
-        //                //Create Provider
-        //                ProviderModel ProviderToCreate = new ProviderModel()
-        //                {
-        //                    IdentificationNumber = prv.numerodeidentificacion,
-        //                    IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = Convert.ToInt32(idType), },
-        //                    Email = prv.email,
-        //                    Name = prv.nombre
-        //                };
+                    int IdentificationType = 0; 
 
-        //                DocumentManagement.Provider.Controller.Provider.ProviderUpsert(CustomerPublicId, "", ProviderToCreate.Name, idType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType.Tipo1, ProviderToCreate.IdentificationNumber, ProviderToCreate.Email, DocumentManagement.Provider.Models.Enumerations.enumProcessStatus.New);
-        //            }
-        //            else
-        //            {
-        //                bool isRelated = false;
-        //                isRelated = DocumentManagement.Provider.Controller.Provider.GetRelationProviderAndCustomer(CustomerPublicId, Provider.ProviderPublicId);
-        //                if (!isRelated)
-        //                {
-        //                    DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProvInfoType = (DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType)Enum.Parse(typeof(DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType), prv.tipodeidentificacion, true);
-        //                    DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(0, Provider.ProviderPublicId, CustomerPublicId, ProvInfoType, string.Empty, string.Empty);
-        //                }
-        //            }
-        //        }
-        //        catch (Exception err)
-        //        {
+                    //Create ProviderCustomerInfo
+                    List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
+                    ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
 
-        //            //oAptToProcessResult.Add(new ExcelAppointmentResultModel()
-        //            //{
-        //            //    AptModel = apmt,
-        //            //    Success = false,
-        //            //    Error = "Error :: " + err.Message + " :: " +
-        //            //                err.StackTrace +
-        //            //                (err.InnerException == null ? string.Empty :
-        //            //                " :: " + err.InnerException.Message + " :: " +
-        //            //                err.InnerException.StackTrace),
-        //            //});
+                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 201 };
+                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
 
-        //        }
-        //        return true;
-        //    });
+                    switch (prv.tipodeidentificacion)
+                    {
+                        case "nit":
+                            IdentificationType = 102;
+                            break;
+                        case "Cedula de Ciudadania":
+                            IdentificationType = 101;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    //Create Provider
+                    ProviderModel ProviderToCreate = new ProviderModel()
+                    {
+                        CustomerPublicId = CustomerPublicId,
+                        Name = prv.nombre,
+                        IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = IdentificationType },
+                        IdentificationNumber = prv.numerodeidentificacion,
+                        Email = prv.email,
+                        RelatedProviderCustomerInfo = ListCustomerProviderInfo
+
+                    };
+
+                    DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
+                    //}
+                    //else
+                    //{
+                    //    bool isRelated = false;
+                    //    isRelated = DocumentManagement.Provider.Controller.Provider.GetRelationProviderAndCustomer(CustomerPublicId, Provider.ProviderPublicId);
+                    //    if (!isRelated)
+                    //    {
+                    //        DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProvInfoType = (DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType)Enum.Parse(typeof(DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType), prv.tipodeidentificacion, true);
+                    //        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(0, Provider.ProviderPublicId, CustomerPublicId, ProvInfoType, string.Empty, string.Empty);
+                    //    }
+                    //}
+                }
+                catch (Exception err)
+                {
+
+                    //oAptToProcessResult.Add(new ExcelAppointmentResultModel()
+                    //{
+                    //    AptModel = apmt,
+                    //    Success = false,
+                    //    Error = "Error :: " + err.Message + " :: " +
+                    //                err.StackTrace +
+                    //                (err.InnerException == null ? string.Empty :
+                    //                " :: " + err.InnerException.Message + " :: " +
+                    //                err.InnerException.StackTrace),
+                    //});
+
+                }
+                return true;
+            });
         }
         #endregion
     }

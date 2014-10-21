@@ -19,6 +19,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(Constants.C_DMProviderConnectionName);
         }
 
+        #region Comentario
         //public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType CustomerProviderInfoType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status)
         //{
         //    List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -140,26 +141,117 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         //        return true;
         //    else            
         //        return false;           
-        //}
+        //} 
+        #endregion
 
         public string ProviderUpsert(string ProviderPublicId, string Name, int IdentificationTypeId, string IdentificationNumber, string Email)
         {
-            throw new NotImplementedException();
-        }
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationTypeId", IdentificationTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEmail", Email));            
 
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "P_Provider_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return response.ScalarResult.ToString();
+        }
+        
         public int ProviderInfoUpsert(string ProviderPublicId, int? ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderInfoId", ProviderInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderInfoTypeId", ProviderInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "P_Provider_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
         public int ProviderCustomerInfoUpsert(string ProviderPublicId, string CustomerPublicId, int? ProviderCustomerInfoId, int ProviderCustomerInfoTypeId, string Value, string LargeValue)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderCustomerInfoId", ProviderCustomerInfoId == 0 ? null : ProviderCustomerInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderCustomerInfoTypeId", ProviderCustomerInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "P_ProviderCustomerInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount)
+        public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
-            throw new NotImplementedException();
+            TotalRows = 0;
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "P_Provider_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<ProviderModel> oReturn = new List<ProviderModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ProviderPublicId")
+                     select new ProviderModel()
+                     {
+                         CustomerPublicId = c.Field<string>("ProviderPublicId"),
+                         Name = c.Field<string>("Name"),
+                         IdentificationType = new Models.Util.CatalogModel()
+                         {
+                             ItemId = c.Field<int>("IdentificationTypeId"),
+                             ItemName = c.Field<string>("IdentificationTypeName"),
+                         },
+                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
+                         FormPublicId = c.Field<string>("FormPublicId"),
+                         FormName = c.Field<string>("FormName"),
+                     }).ToList();
+            }
+
+            return oReturn;
         }
 
         public ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
@@ -170,6 +262,6 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         public ProviderModel ProviderGetById(string ProviderPublicId, int? StepId)
         {
             throw new NotImplementedException();
-        }
+        }        
     }
 }

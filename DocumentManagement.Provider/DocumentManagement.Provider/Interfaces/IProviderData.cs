@@ -14,7 +14,7 @@ namespace DocumentManagement.Provider.Interfaces
 
         int ProviderCustomerInfoUpsert(string ProviderPublicId, string CustomerPublicId, int? ProviderCustomerInfoId, int ProviderCustomerInfoTypeId, string Value, string LargeValue);
 
-        List<DocumentManagement.Provider.Models.Provider.ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount);
+        List<DocumentManagement.Provider.Models.Provider.ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId);
 

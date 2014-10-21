@@ -1,5 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DocumentManagement.Provider.Models.Provider;
+using System.Collections.Generic;
+using DocumentManagement.Provider.Models.Util;
 
 namespace DocumentManagement.Provider_Test
 {
@@ -9,7 +12,24 @@ namespace DocumentManagement.Provider_Test
         [TestMethod]
         public void ProviderUpsert()
         {
-            //string result = DocumentManagement.Provider.Controller.Provider.ProviderUpsert("1D4F2724", "", "SebastianProvider", DocumentManagement.Provider.Models.Enumerations.enumIdentificationType.Nit, "1030544724", "sebastianmartinez18@yahoo.com.co", DocumentManagement.Provider.Models.Enumerations.enumProcessStatus.New);
+            List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
+            ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
+
+            CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 401 };
+            CustomerProviderInfo.Value = "201";
+            ListCustomerProviderInfo.Add(CustomerProviderInfo);
+            //Create Provider
+            ProviderModel ProviderToCreate = new ProviderModel()
+            {
+                CustomerPublicId = "1C17DDCD",
+                Name = "ProveedorTest",
+                IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = 101 },
+                IdentificationNumber = "1030544789",
+                Email = "pruebaemail.email.com",
+                RelatedProviderCustomerInfo = ListCustomerProviderInfo
+
+            };
+            string result = DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
             //Assert.IsNotNull(result);
         }
 

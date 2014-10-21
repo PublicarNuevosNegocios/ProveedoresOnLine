@@ -49,9 +49,9 @@ namespace DocumentManagement.Provider.DAL.Controller
             return DataFactory.ProviderCustomerInfoUpsert(ProviderPublicId, CustomerPublicId, ProviderCustomerInfoId, ProviderCustomerInfoTypeId, Value, LargeValue);
         }
 
-        public List<Models.Provider.ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount)
+        public List<Models.Provider.ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.ProviderSearch(SearchParam, PageNumber, RowCount);
+            return DataFactory.ProviderSearch(SearchParam, PageNumber, RowCount, out TotalRows);
         }
 
         public Models.Provider.ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
