@@ -63,5 +63,10 @@ namespace DocumentManagement.Provider.DAL.Controller
         {
             return DataFactory.ProviderGetById(ProviderPublicId, StepId);
         }
+
+        public Dictionary<Models.Util.CatalogModel, List<Models.Util.CatalogModel>> CatalogGetProviderOptions()
+        {
+            return DataFactory.CatalogGetProviderOptions();
+        }
     }
 }

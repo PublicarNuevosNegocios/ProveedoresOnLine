@@ -14,10 +14,10 @@ namespace DocumentManagement.Provider.Controller
         {
             string oResult = DAL.Controller.ProviderDataController.Instance.ProviderUpsert
                 (ProviderToUpsert.ProviderPublicId
-                ,ProviderToUpsert.Name
-                ,ProviderToUpsert.IdentificationType.ItemId
-                ,ProviderToUpsert.IdentificationNumber
-                ,ProviderToUpsert.Email);            
+                , ProviderToUpsert.Name
+                , ProviderToUpsert.IdentificationType.ItemId
+                , ProviderToUpsert.IdentificationNumber
+                , ProviderToUpsert.Email);
 
             if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
             {
@@ -27,7 +27,7 @@ namespace DocumentManagement.Provider.Controller
                         (oResult,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
-                        item.Value, 
+                        item.Value,
                         item.LargeValue);
                 }
             }
@@ -40,7 +40,7 @@ namespace DocumentManagement.Provider.Controller
                         ProviderToUpsert.CustomerPublicId,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
-                        item.Value, 
+                        item.Value,
                         item.LargeValue);
                 }
             }
@@ -81,7 +81,7 @@ namespace DocumentManagement.Provider.Controller
         static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount, out TotalRows);
-        }      
+        }
 
         public static ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
@@ -92,5 +92,11 @@ namespace DocumentManagement.Provider.Controller
         {
             return DAL.Controller.ProviderDataController.Instance.ProviderGetById(ProviderPublicId, StepId);
         }
+
+        public static Dictionary<Models.Util.CatalogModel, List<Models.Util.CatalogModel>> CatalogGetProviderOptions()
+        {
+            return DAL.Controller.ProviderDataController.Instance.CatalogGetProviderOptions();
+        }
+
     }
 }
