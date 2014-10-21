@@ -6,7 +6,7 @@
     border-color: #FF7E35;
     width: 76.9%;
     min-width: 58%;
-    min-height: 490px;
+    min-height: 410px;
     display: inline-block;
     margin: 0px 0px 0px -4px;
     padding-bottom: 25px;
@@ -73,7 +73,7 @@ input[type="file"] {
     display: inline-block;
     width: 19%;
     border: none;
-    margin:0px;
+    margin: 0px;
 }
 
     .DMMenuCustomer ul {
@@ -84,12 +84,12 @@ input[type="file"] {
 
         .DMMenuCustomer ul li {
             display: block;
-            padding:6px 0px;
+            padding: 6px 0px;
             width: 90%;
             height: auto;
             text-align: left;
             color: #4d4d4d;
-            margin:0px 0px 6px 0px;
+            margin: 0px 0px 6px 0px;
         }
 
             .DMMenuCustomer ul li:hover {
@@ -108,24 +108,28 @@ input[type="file"] {
                 vertical-align: middle;
                 color: #333;
             }
+
                 .DMMenuCustomer ul li a:hover {
                     text-decoration: underline;
                 }
+
             .DMMenuCustomer ul li.selected {
                 background-color: #ff8300;
                 z-index: 10;
                 border-right: medium none #FFF;
                 position: relative;
                 display: inline-block !important;
-                background-image:url('/Content/Images/arrowSelectedMenuSmall.png');
-                background-repeat:no-repeat;
-                background-position:100% 0px;
-                background-size:auto;
+                background-image: url('/Content/Images/arrowSelectedMenuSmall.png');
+                background-repeat: no-repeat;
+                background-position: 100% 0px;
+                background-size: auto;
                 width: 90%;
             }
+
                 .DMMenuCustomer ul li.selected a {
                     color: #fff;
                 }
+
 .triangulo {
     border-style: solid;
     border-width: 17px;
@@ -136,33 +140,6 @@ input[type="file"] {
     vertical-align: top;
     margin: 0px -4px;
 }
-
-/******FormBody********/
-
-.DMCustomerForm {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.DMCustomerForm {
-    border-width: 0px 0px 0px 1px;
-    border-style: solid;
-    border-color: #FF7E35;
-    width: 81%;
-    min-width: 58%;
-    min-height: 490px;
-    display: inline-block;
-    margin: 0px 0px 0px -4px;
-    padding-bottom: 25px;
-}
-
-    .DMCustomerForm h3 {
-        display: block;
-        margin: 10px 0px 10px 16px;
-        width: auto;
-        font-size: 20px;
-        line-height: 20px;
-    }
 
 /**********FormStyles************/
 
@@ -175,34 +152,39 @@ input[type="file"] {
     color: #4d4d4d;
     display: block;
     font-size: 1.5em;
-    letter-spacing:-0.5px;
+    letter-spacing: -0.5px;
     margin: 0 auto 3px 20px;
     width: 100%;
 }
-.DMFormDataWrapper ul li label, .DMFormDataWrapper ul li a{
+
+.DMFormDataWrapper ul li label, .DMFormDataWrapper ul li a {
     font-weight: normal;
     margin-bottom: 0px;
-    font-size:1em;
+    font-size: 1em;
 }
-    .DMFormDataWrapper ul li label{
-        color:#4d4d4d;
-    }
-    .DMFormDataWrapper ul li a{
-        font-size:1em;
-    }
-    .DMFormDataWrapper ul li span {
-        color: #4d4d4d;
-        display: block;
-        font-size: 0.9em;
-    }
-    .DMFormDataWrapper ul li input[type="file"] {
-        background-color: #f9f9f9;
-        border: 1px solid #727276;
-        color: #727276;
-        font-size: 1em;
-        height: 32px !important;
-        width: 340px;
-    }
+
+.DMFormDataWrapper ul li label {
+    color: #4d4d4d;
+}
+
+.DMFormDataWrapper ul li a {
+    font-size: 1em;
+}
+
+.DMFormDataWrapper ul li span {
+    color: #4d4d4d;
+    display: block;
+    font-size: 0.9em;
+}
+
+.DMFormDataWrapper ul li input[type="file"] {
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    height: 32px !important;
+    width: 340px;
+}
 
 
 
@@ -343,3 +325,9 @@ form ul {
                 margin: 5px 0px 0px 10px;
                 vertical-align: top;
             }
+
+.ui-dialog .ui-dialog-titlebar-close {
+    background-image: url('/Content/Images/cerrar.png');
+    background-repeat: no-repeat;
+    background-size: 15px;
+}
