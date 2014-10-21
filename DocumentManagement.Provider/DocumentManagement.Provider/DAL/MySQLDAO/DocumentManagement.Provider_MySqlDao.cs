@@ -192,7 +192,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vProviderCustomerInfoId", ProviderCustomerInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderCustomerInfoId", ProviderCustomerInfoId == 0 ? null : ProviderCustomerInfoId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderCustomerInfoTypeId", ProviderCustomerInfoTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
