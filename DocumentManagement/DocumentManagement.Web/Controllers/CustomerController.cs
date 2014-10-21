@@ -90,40 +90,39 @@ namespace DocumentManagement.Web.Controllers
 
         public virtual ActionResult UpsertFormLogo(string CustomerPublicId, string FormPublicId, HttpPostedFileBase UploadFile)
         {
-            ////get folder
-            //string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
+            //get folder
+            string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
 
-            //if (!System.IO.Directory.Exists(strFolder))
-            //    System.IO.Directory.CreateDirectory(strFolder);
+            if (!System.IO.Directory.Exists(strFolder))
+                System.IO.Directory.CreateDirectory(strFolder);
 
-            ////get File
-            //string strFile = strFolder.TrimEnd('\\') +
-            //    "\\Logo_" +
-            //    CustomerPublicId + "_" +
-            //    DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
+            //get File
+            string strFile = strFolder.TrimEnd('\\') +
+                "\\Logo_" +
+                CustomerPublicId + "_" +
+                DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpeg";
 
-            //UploadFile.SaveAs(strFile);
+            UploadFile.SaveAs(strFile);
 
-            ////load file to s3
-            //string strRemoteFile = DocumentManagement.Provider.Controller.Provider.LoadFile
-            //    (strFile,
-            //    DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
+            //load file to s3
+            string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                (strFile,
+                DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
 
-            ////update file into db
-            //DocumentManagement.Customer.Controller.Customer.FormUpsertLogo
-            //                    (FormPublicId,
-            //                    strRemoteFile);
+            //update file into db
+            DocumentManagement.Customer.Controller.Customer.FormUpsertLogo
+                                (FormPublicId,
+                                strRemoteFile);
 
-            ////remove temporal file
-            //if (System.IO.File.Exists(strFile))
-            //    System.IO.File.Delete(strFile);
+            //remove temporal file
+            if (System.IO.File.Exists(strFile))
+                System.IO.File.Delete(strFile);
 
-            //return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
-            //{
-            //    CustomerPublicId = CustomerPublicId,
-            //    FormPublicId = FormPublicId
-            //});
-            return View();
+            return RedirectToAction(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new
+            {
+                CustomerPublicId = CustomerPublicId,
+                FormPublicId = FormPublicId
+            });
         }
 
         public virtual ActionResult UploadProvider(string CustomerPublicId)
@@ -168,7 +167,7 @@ namespace DocumentManagement.Web.Controllers
             {
                 CustomerPublicId = CustomerPublicId
             });
-        }
+        }       
 
         #region private methods
 
@@ -209,9 +208,9 @@ namespace DocumentManagement.Web.Controllers
             List<ExcelProviderModel> oPrvToProcess =
                 (from x in XlsInfo.Worksheet<ExcelProviderModel>(0)
                  select x).ToList();
-
-            List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
             
+            List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
+
             //process Provider
             oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.numerodeidentificacion)).All(prv =>
             {
