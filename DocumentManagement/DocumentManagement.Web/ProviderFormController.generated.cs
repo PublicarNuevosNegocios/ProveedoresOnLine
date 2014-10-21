@@ -115,6 +115,7 @@ namespace DocumentManagement.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
+            public readonly string CustomerPublicId = "CustomerPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -152,15 +153,16 @@ namespace DocumentManagement.Web.Controllers
         }
 
         [NonAction]
-        partial void LoginProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId);
+        partial void LoginProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string CustomerPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LoginProvider(string ProviderPublicId, string FormPublicId)
+        public override System.Web.Mvc.ActionResult LoginProvider(string ProviderPublicId, string FormPublicId, string CustomerPublicId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProvider);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
-            LoginProviderOverride(callInfo, ProviderPublicId, FormPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            LoginProviderOverride(callInfo, ProviderPublicId, FormPublicId, CustomerPublicId);
             return callInfo;
         }
 
