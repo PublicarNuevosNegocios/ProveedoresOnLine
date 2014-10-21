@@ -19,18 +19,18 @@
                         {
                             ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
                             FormPublicId = Model.RealtedForm.FormPublicId,
+                            CustomerPublicId = Model.RealtedCustomer.CustomerPublicId,
                         }))" method="post">
             <ul class="DMForm">
                 <li>
                     <span>Tipo de identificación</span>
                     <select name="IdentificationType">
                         @foreach (var Item in Model.ProviderOptions[0].
-                                Where(x => x.CatalogId.ToString() == DocumentManagement.Models.General.Constants.C_Settings_Catalog_IdentificationType).
+                                Where(x => x.CatalogId.ToString() == DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Catalog_IdentificationType].Value).
                                 OrderBy(x => x.ItemName))
                         {
                             <option value="@Item.ItemId">@Item.ItemName</option>
                         }
-
                     </select>
                 </li>
                 <li>

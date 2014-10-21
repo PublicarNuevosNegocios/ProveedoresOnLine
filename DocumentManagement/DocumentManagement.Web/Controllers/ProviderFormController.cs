@@ -35,16 +35,80 @@ namespace DocumentManagement.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult LoginProvider(string ProviderPublicId, string FormPublicId)
+        public virtual ActionResult LoginProvider(string ProviderPublicId, string FormPublicId, string CustomerPublicId)
         {
-            return RedirectToAction
-                (MVC.ProviderForm.ActionNames.Index,
-                MVC.ProviderForm.Name,
-                new
-                {
-                    ProviderPublicId = ProviderPublicId,
-                    FormPublicId = FormPublicId
-                });
+            //get Provider info
+            DocumentManagement.Provider.Models.Provider.ProviderModel RequestResult = GetGenericRequest();
+
+            DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification
+                (RequestResult.IdentificationNumber, RequestResult.IdentificationType.ItemId, CustomerPublicId);
+
+            if (RealtedProvider != null && !string.IsNullOrEmpty(RealtedProvider.ProviderPublicId))
+            {
+                //get first step
+                DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
+                    DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId);
+
+                //loggin success
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                        StepId = RealtedCustomer.
+                            RelatedForm.
+                            Where(x => x.FormPublicId == FormPublicId).
+                            FirstOrDefault().
+                            RelatedStep.OrderBy(x => x.Position).
+                            FirstOrDefault().
+                            StepId,
+                    });
+            }
+            else
+            {
+                //loggin failed
+                return RedirectToAction
+                    (MVC.ProviderForm.ActionNames.Index,
+                    MVC.ProviderForm.Name,
+                    new
+                    {
+                        ProviderPublicId = ProviderPublicId,
+                        FormPublicId = FormPublicId,
+                        StepId = string.Empty
+                    });
+            }
         }
+
+        #region PrivateMethods
+
+        private DocumentManagement.Provider.Models.Provider.ProviderModel GetGenericRequest()
+        {
+            DocumentManagement.Provider.Models.Provider.ProviderModel oReturn = new DocumentManagement.Provider.Models.Provider.ProviderModel();
+
+            #region StepLogin
+
+            if (!string.IsNullOrEmpty(Request["IdentificationType"]))
+            {
+                oReturn.IdentificationType = new Provider.Models.Util.CatalogModel()
+                {
+                    ItemId = Convert.ToInt32(Request["IdentificationType"]),
+                };
+            }
+
+            if (!string.IsNullOrEmpty(Request["IdentificationNumber"]))
+            {
+                oReturn.IdentificationNumber = Request["IdentificationNumber"].Trim();
+            }
+
+            #endregion
+
+            return oReturn;
+        }
+
+
+        #endregion
+
     }
 }
