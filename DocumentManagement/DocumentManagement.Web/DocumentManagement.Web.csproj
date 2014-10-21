@@ -1028,8 +1028,6 @@
     <Content Include="Views\Customer\UpsertForm.cshtml" />
     <Content Include="Views\ProviderForm\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutProviderForm.cshtml" />
-    <Content Include="Views\Shared\_L_HeaderProviderForm.cshtml" />
-    <Content Include="Views\Shared\_L_FooterProviderForm.cshtml" />
     <Content Include="Views\Shared\_P_StepLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>

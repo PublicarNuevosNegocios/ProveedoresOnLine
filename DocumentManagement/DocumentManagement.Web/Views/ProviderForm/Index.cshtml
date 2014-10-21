@@ -6,16 +6,37 @@
 }
 
 <div>
-
     @if (Model.RealtedStep == null)
     {
-        //login step
-        Html.RenderPartial(MVC.Shared.Views._P_StepLogin, Model);
+        <div class="DMLogInProviders">
+            <div class="DMLogIntopWrapper">
+                <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
+                <label>REGISTRO DE INFORMACIÓN DE PROVEEDORES</label>
+                <img class="DMPOLogo" src="/Content/Images/LogoPOLogInAlpha.png" alt="" />
+            </div>
+            @Html.Partial(MVC.Shared.Views._P_StepLogin, Model);
+            <div class="DMLogInbottomWrapper">
+                <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
+                <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
+            </div>
+        </div>
     }
     else
     {
+        <div>
+            <div class="DMLogIntopWrapper">
+                <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
+                <label>REGISTRO DE INFORMACIÓN DE PROVEEDORES</label>
+                <img class="DMPOLogo" src="/Content/Images/LogoPOLogInAlpha.png" alt="" />
+            </div>
+            
 
+
+            <div class="DMLogInbottomWrapper">
+                <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
+                <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
+            </div>
+        </div>
     }
-
 
 </div>
