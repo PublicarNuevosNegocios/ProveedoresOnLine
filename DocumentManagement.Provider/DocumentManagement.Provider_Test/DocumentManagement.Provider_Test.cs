@@ -13,14 +13,14 @@ namespace DocumentManagement.Provider_Test
             //Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void LoadFile()
-        {
-            string FilePath = @"D:\Proyectos\Github\ProveedoresOnLine\DocumentManagement.Provider\DocumentManagement.Provider_Test\Jellyfish.jpg";
+        //[TestMethod]
+        //public void LoadFile()
+        //{
+        //    string FilePath = @"D:\Proyectos\Github\ProveedoresOnLine\DocumentManagement.Provider\DocumentManagement.Provider_Test\Jellyfish.jpg";
 
-            string oReturn = DocumentManagement.Provider.Controller.Provider.LoadFile(FilePath, "\\tmp\\");
+        //    string oReturn = DocumentManagement.Provider.Controller.Provider.LoadFile(FilePath, "\\tmp\\");
 
-            Assert.AreEqual(true, !string.IsNullOrEmpty(oReturn));
-        }
+        //    Assert.AreEqual(true, !string.IsNullOrEmpty(oReturn));
+        //}
     }
 }

@@ -9,6 +9,18 @@ namespace DocumentManagement.Provider.Models.Provider
 {
     public class ProviderModel
     {
+        public string CustomerPublicId { get; set; }
+
+        public string CustomerName { get; set; }
+
+        public string FormPublicId { get; set; }
+
+        public string FormName { get; set; }
+
+        public List<ProviderInfoModel> RelatedProviderCustomerInfo { get; set; }
+
+        public List<ProviderInfoModel> RelatedProviderInfo { get; set; }
+
         public string ProviderPublicId { get; set; }
 
         public string Name { get; set; }
@@ -22,5 +34,7 @@ namespace DocumentManagement.Provider.Models.Provider
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+
     }
 }

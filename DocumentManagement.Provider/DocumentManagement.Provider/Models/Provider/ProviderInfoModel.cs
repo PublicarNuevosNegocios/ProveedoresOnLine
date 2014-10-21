@@ -9,7 +9,7 @@ namespace DocumentManagement.Provider.Models.Provider
 {
     public class ProviderInfoModel
     {
-        public string ProviderPublicId { get; set; }
+        public int ProviderInfoId { get; set; }
 
         public CatalogModel ProviderInfoType { get; set; }
 

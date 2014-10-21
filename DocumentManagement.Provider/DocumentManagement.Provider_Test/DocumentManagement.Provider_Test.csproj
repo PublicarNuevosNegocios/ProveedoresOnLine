@@ -35,15 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AWSSDK">
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\AWSSDK.dll</HintPath>
-    </Reference>
-    <Reference Include="FileRepository.Manager">
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.Manager.dll</HintPath>
-    </Reference>
-    <Reference Include="FileRepository.S3">
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -73,8 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Jellyfish.jpg" />
-    <Content Include="Rsx-SettingsConfig.xml" />
-    <Content Include="Rsx-FileRepository.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
