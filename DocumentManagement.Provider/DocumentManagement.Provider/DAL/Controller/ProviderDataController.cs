@@ -34,32 +34,34 @@ namespace DocumentManagement.Provider.DAL.Controller
 
         #endregion
 
-        #region Provider
-        public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType CustomerProviderInfoType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status)
+        public string ProviderUpsert(string ProviderPublicId, string Name, int IdentificationTypeId, string IdentificationNumber, string Email)
         {
-            return DataFactory.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, CustomerProviderInfoType, IdentificationNumber, Email, Status);
+            return DataFactory.ProviderUpsert(ProviderPublicId, Name, IdentificationTypeId, IdentificationNumber, Email);
         }
 
-        public string ProviderInfoUpsert(int ProviderInfoId, string ProviderPublicId, Models.Enumerations.enumProviderInfoType ProviderInfoType, string Value, string LargeValue)
+        public int ProviderInfoUpsert(string ProviderPublicId, int? ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
         {
-            return DataFactory.ProviderInfoUpsert(ProviderInfoId, ProviderPublicId, ProviderInfoType, Value, LargeValue);
+            return DataFactory.ProviderInfoUpsert(ProviderPublicId, ProviderInfoId, ProviderInfoTypeId, Value, LargeValue);
         }
 
-        public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
+        public int ProviderCustomerInfoUpsert(string ProviderPublicId, string CustomerPublicId, int? ProviderCustomerInfoId, int ProviderCustomerInfoTypeId, string Value, string LargeValue)
         {
-            return DataFactory.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
-        }
-        
-        public Models.Provider.ProviderModel GetProviderByIdentificationNumberAndDocumentType(string IdentificationNumber, Models.Enumerations.enumIdentificationType IdenificationType)
-        {
-            return DataFactory.GetProviderByIdentificationNumberAndDocumentType(IdentificationNumber, IdenificationType);
+            return DataFactory.ProviderCustomerInfoUpsert(ProviderPublicId, CustomerPublicId, ProviderCustomerInfoId, ProviderCustomerInfoTypeId, Value, LargeValue);
         }
 
-        public bool GetRelationProviderAndCustomer(string CustomerPublicId, string ProviderPublicId)
+        public List<Models.Provider.ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount)
         {
-            return DataFactory.GetRelationProviderAndCustomer(CustomerPublicId, ProviderPublicId);
+            return DataFactory.ProviderSearch(SearchParam, PageNumber, RowCount);
         }
 
-        #endregion        
+        public Models.Provider.ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
+        {
+            return DataFactory.ProviderGetByIdentification(IdentificationNumber, IdenificationTypeId, CustomerPublicId);
+        }
+
+        public Models.Provider.ProviderModel ProviderGetById(string ProviderPublicId, int? StepId)
+        {
+            return DataFactory.ProviderGetById(ProviderPublicId, StepId);
+        }
     }
 }
