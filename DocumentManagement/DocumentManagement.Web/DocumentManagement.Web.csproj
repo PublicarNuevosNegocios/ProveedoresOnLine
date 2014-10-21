@@ -1033,6 +1033,8 @@
     <Content Include="Views\ProviderForm\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutProviderForm.cshtml" />
     <Content Include="Views\Shared\_P_StepLogin.cshtml" />
+    <Content Include="Views\Shared\_P_Menu.cshtml" />
+    <Content Include="Views\Shared\_P_StepGeneric.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
