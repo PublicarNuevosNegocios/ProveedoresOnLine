@@ -147,12 +147,12 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         public string ProviderUpsert(string ProviderPublicId, string Name, int IdentificationTypeId, string IdentificationNumber, string Email)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-            
+
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationTypeId", IdentificationTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEmail", Email));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vEmail", Email));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -164,7 +164,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
 
             return response.ScalarResult.ToString();
         }
-        
+
         public int ProviderInfoUpsert(string ProviderPublicId, int? ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -256,12 +256,130 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
 
         public ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationNumber", IdentificationNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIdenificationTypeId", IdenificationTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "P_Provider_GetByIdentification",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            ProviderModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new ProviderModel()
+                    {
+                        ProviderPublicId = response.DataTableResult.Rows[0].Field<string>("ProviderPublicId"),
+                        Name = response.DataTableResult.Rows[0].Field<string>("Name"),
+                        IdentificationType = new CatalogModel()
+                        {
+                            ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                            ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
+                        },
+                        IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
+                        Email = response.DataTableResult.Rows[0].Field<string>("Email"),
+
+                        CustomerPublicId = response.DataTableResult.Rows[0].Field<string>("CustomerPublicId"),
+                        CustomerName = response.DataTableResult.Rows[0].Field<string>("CustomerName"),
+
+                        RelatedProviderCustomerInfo =
+                            (from pci in response.DataTableResult.AsEnumerable()
+                             where !pci.IsNull("ProviderCustomerInfoId")
+                             select new ProviderInfoModel()
+                             {
+                                 ProviderInfoId = pci.Field<int>("ProviderCustomerInfoId"),
+                                 ProviderInfoType = new CatalogModel()
+                                 {
+                                     ItemId = pci.Field<int>("ProviderCustomerInfoTypeId"),
+                                     ItemName = pci.Field<string>("ProviderCustomerInfoTypeName"),
+                                 },
+                                 Value = pci.Field<string>("ProviderCustomerInfoValue"),
+                                 LargeValue = pci.Field<string>("ProviderCustomerInfoLargeValue"),
+                             }).ToList(),
+                    };
+            }
+
+            return oReturn;
         }
 
         public ProviderModel ProviderGetById(string ProviderPublicId, int? StepId)
         {
-            throw new NotImplementedException();
-        }        
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vStepId", StepId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataSet,
+                CommandText = "P_Provider_GetById",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            ProviderModel oReturn = null;
+
+            if (response.DataSetResult != null &&
+                response.DataSetResult.Tables != null &&
+                response.DataSetResult.Tables.Count > 0 &&
+                response.DataSetResult.Tables[0].Rows.Count > 0)
+            {
+                oReturn = new ProviderModel()
+                {
+                    ProviderPublicId = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProviderPublicId"),
+                    Name = response.DataSetResult.Tables[0].Rows[0].Field<string>("Name"),
+                    IdentificationType = new CatalogModel()
+                    {
+                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("IdentificationTypeName"),
+                    },
+                    IdentificationNumber = response.DataSetResult.Tables[0].Rows[0].Field<string>("IdentificationNumber"),
+                    Email = response.DataSetResult.Tables[0].Rows[0].Field<string>("Email"),
+
+                    CustomerPublicId = response.DataSetResult.Tables[0].Rows[0].Field<string>("CustomerPublicId"),
+                    CustomerName = response.DataSetResult.Tables[0].Rows[0].Field<string>("CustomerName"),
+
+                    RelatedProviderCustomerInfo =
+                        (from pci in response.DataSetResult.Tables[0].AsEnumerable()
+                         where !pci.IsNull("ProviderCustomerInfoId")
+                         select new ProviderInfoModel()
+                         {
+                             ProviderInfoId = pci.Field<int>("ProviderCustomerInfoId"),
+                             ProviderInfoType = new CatalogModel()
+                             {
+                                 ItemId = pci.Field<int>("ProviderCustomerInfoTypeId"),
+                                 ItemName = pci.Field<string>("ProviderCustomerInfoTypeName"),
+                             },
+                             Value = pci.Field<string>("ProviderCustomerInfoValue"),
+                             LargeValue = pci.Field<string>("ProviderCustomerInfoLargeValue"),
+                         }).ToList(),
+
+                    RelatedProviderInfo = (response.DataSetResult.Tables.Count <= 1 || response.DataSetResult.Tables[1].Rows.Count <= 0) ? new List<ProviderInfoModel>() :
+                        (from pci in response.DataSetResult.Tables[1].AsEnumerable()
+                         where !pci.IsNull("ProviderInfoId")
+                         select new ProviderInfoModel()
+                         {
+                             ProviderInfoId = pci.Field<int>("ProviderInfoId"),
+                             ProviderInfoType = new CatalogModel()
+                             {
+                                 ItemId = pci.Field<int>("ProviderInfoTypeId"),
+                                 ItemName = pci.Field<string>("ProviderInfoTypeName"),
+                             },
+                             Value = pci.Field<string>("Value"),
+                             LargeValue = pci.Field<string>("LargeValue"),
+                         }).ToList(),
+                };
+            }
+
+            return oReturn;
+        }
     }
 }
