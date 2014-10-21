@@ -38,7 +38,7 @@ namespace DocumentManagement.Provider_Test
         {
             DocumentManagement.Provider.Models.Provider.ProviderModel oReturn =
                 DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification
-                    ("", 101, "");
+                    ("16290", 102, "1C17DDCD");
 
             Assert.IsNotNull(oReturn);
         }
