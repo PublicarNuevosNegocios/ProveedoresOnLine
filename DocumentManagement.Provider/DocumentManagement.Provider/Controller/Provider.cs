@@ -10,45 +10,36 @@ namespace DocumentManagement.Provider.Controller
 {
     public class Provider
     {
-        static public string ProviderUpsert(string CustomerPublicId, string ProviderPublicId, string Name, Enumerations.enumIdentificationType IdentificationType, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType CustomerProviderInfoType, string IdentificationNumber, string Email, Enumerations.enumProcessStatus Status)
+        static public string ProviderUpsert(ProviderModel ProviderToUpsert)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, CustomerProviderInfoType, IdentificationNumber, Email, Status);
+            //return DAL.Controller.ProviderDataController.Instance.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, CustomerProviderInfoType, IdentificationNumber, Email, Status);
+            return null;
         }
 
-        static public string ProviderInfoUpsert(int ProviderInfoId, string ProviderPublicId, Models.Enumerations.enumProviderInfoType ProviderInfoType, string Value, string LargeValue)
+        static public void ProviderInfoUpsert(ProviderModel ProviderToUpsert)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert(ProviderInfoId, ProviderPublicId, ProviderInfoType, Value, LargeValue);
+            //return DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert(ProviderInfoId, ProviderPublicId, ProviderInfoType, Value, LargeValue);
         }
 
-        static public string ProviderCustomerInfoUpsert(int ProviderCustomerInfoId, string ProviderPublicId, string CustomerPublicId, DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProviderCustomerInfoType, string Value, string LargeValue)
+        static public void ProviderCustomerInfoUpsert(ProviderModel ProviderToUpsert)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
+            //return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
         }
 
-        static public string LoadFile(string FilePath, string RemoteFolder)
+        static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount)
         {
-            File oLoader = new File()
-            {
-                FilesToUpload = new List<string>() { FilePath },
-                RemoteFolder = RemoteFolder
-            };
-
-            oLoader.StartUpload();
-
-            return oLoader.UploadedFiles.Where(x => x.FilePathLocalSystem == FilePath).
-                        Select(x => x.PublishFile.ToString()).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
+            return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount);
         }
 
-        static public ProviderModel GetProviderByIdentificationNumberAndDocumentType(string IdentificationNumber, Models.Enumerations.enumIdentificationType IdenificationType)
+        public static ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
-            return DAL.Controller.ProviderDataController.Instance.GetProviderByIdentificationNumberAndDocumentType(IdentificationNumber, IdenificationType);
+            return DAL.Controller.ProviderDataController.Instance.ProviderGetByIdentification(IdentificationNumber, IdenificationTypeId, CustomerPublicId);
         }
 
-        static public bool GetRelationProviderAndCustomer(string CustomerPublicId, string ProviderPublicId)
+        public static ProviderModel ProviderGetById(string ProviderPublicId, int? StepId)
         {
-            return DAL.Controller.ProviderDataController.Instance.GetRelationProviderAndCustomer(CustomerPublicId, ProviderPublicId);
+            return DAL.Controller.ProviderDataController.Instance.ProviderGetById(ProviderPublicId, StepId);
         }
+
     }
 }
