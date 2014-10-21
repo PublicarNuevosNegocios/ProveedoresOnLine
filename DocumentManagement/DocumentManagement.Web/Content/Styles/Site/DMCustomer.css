@@ -6,7 +6,7 @@
     border-color: #FF7E35;
     width: 76.9%;
     min-width: 58%;
-    min-height: 490px;
+    min-height: 410px;
     display: inline-block;
     margin: 0px 0px 0px -4px;
     padding-bottom: 25px;
@@ -136,33 +136,6 @@ input[type="file"] {
     vertical-align: top;
     margin: 0px -4px;
 }
-
-/******FormBody********/
-
-.DMCustomerForm {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.DMCustomerForm {
-    border-width: 0px 0px 0px 1px;
-    border-style: solid;
-    border-color: #FF7E35;
-    width: 81%;
-    min-width: 58%;
-    min-height: 490px;
-    display: inline-block;
-    margin: 0px 0px 0px -4px;
-    padding-bottom: 25px;
-}
-
-    .DMCustomerForm h3 {
-        display: block;
-        margin: 10px 0px 10px 16px;
-        width: auto;
-        font-size: 20px;
-        line-height: 20px;
-    }
 
 /**********FormStyles************/
 
@@ -342,4 +315,8 @@ form ul {
                 height: 15px;
                 margin: 5px 0px 0px 10px;
                 vertical-align: top;
+            }
+
+            .ui-dialog .ui-dialog-titlebar-close{
+                background-image: url("/Conten/Images/");
             }

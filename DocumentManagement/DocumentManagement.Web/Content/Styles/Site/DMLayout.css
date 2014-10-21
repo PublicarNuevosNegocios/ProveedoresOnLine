@@ -2,6 +2,7 @@
 .PageBody{
     width: 96%;
     margin: 0px 0px 22px 2%;
+    min-height: 430px;
 }
 .DMSectionTitle {
     color: #727276;
