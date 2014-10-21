@@ -24,7 +24,7 @@ namespace DocumentManagement.Provider.Controller
                 foreach (var item in ProviderToUpsert.RelatedProviderInfo)
                 {
                     DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
-                        (ProviderToUpsert.ProviderPublicId,
+                        (oResult,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
                         item.Value, item.LargeValue);
@@ -35,7 +35,7 @@ namespace DocumentManagement.Provider.Controller
                 foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
                 {
                     DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
-                        (ProviderToUpsert.ProviderPublicId,
+                        (oResult,
                         ProviderToUpsert.CustomerPublicId,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
@@ -46,14 +46,34 @@ namespace DocumentManagement.Provider.Controller
             return oResult;
         }
 
-        static public int ProviderInfoUpsert(string ProviderPublicId, int? ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
+        static public void ProviderInfoUpsert(ProviderModel ProviderToUpsert)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert(ProviderPublicId, ProviderInfoId, ProviderInfoTypeId, Value, LargeValue);
+            if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
+            {
+                foreach (var item in ProviderToUpsert.RelatedProviderInfo)
+                {
+                    DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
+                        (ProviderToUpsert.ProviderPublicId,
+                        item.ProviderInfoId,
+                        item.ProviderInfoType.ItemId,
+                        item.Value, item.LargeValue);
+                }
+            }
         }
 
-        public static int ProviderCustomerInfoUpsert(string ProviderPublicId, string CustomerPublicId, int? ProviderCustomerInfoId, int ProviderCustomerInfoTypeId, string Value, string LargeValue)
+        public static void ProviderCustomerInfoUpsert(ProviderModel ProviderToUpsert)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderPublicId, CustomerPublicId, ProviderCustomerInfoId, ProviderCustomerInfoTypeId, Value, LargeValue);
+            if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
+            {
+                foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
+                {
+                    DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
+                        (ProviderToUpsert.ProviderPublicId,
+                        item.ProviderInfoId,
+                        item.ProviderInfoType.ItemId,
+                        item.Value, item.LargeValue);
+                }
+            }
         }
 
         static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
