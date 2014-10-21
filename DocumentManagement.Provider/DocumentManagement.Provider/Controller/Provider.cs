@@ -93,7 +93,7 @@ namespace DocumentManagement.Provider.Controller
             return DAL.Controller.ProviderDataController.Instance.ProviderGetById(ProviderPublicId, StepId);
         }
 
-        public static Dictionary<Models.Util.CatalogModel, List<Models.Util.CatalogModel>> CatalogGetProviderOptions()
+        public static Dictionary<int, List<Models.Util.CatalogModel>> CatalogGetProviderOptions()
         {
             return DAL.Controller.ProviderDataController.Instance.CatalogGetProviderOptions();
         }
