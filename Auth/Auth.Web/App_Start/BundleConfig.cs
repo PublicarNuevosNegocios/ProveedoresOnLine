@@ -38,6 +38,20 @@ namespace Auth.Web
                           true));
                 #endregion
 
+                #region Kendo
+
+                bundles.Add(new ScriptBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/kendo/js").IncludeDirectory(
+                            "~/Areas/Web/Scripts/kendo/2014.1.318",
+                            "*.js",
+                            true));
+
+                bundles.Add(new ScriptBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/kendo/css").IncludeDirectory(
+                            "~/Areas/Web/Content/kendo/2014.1.318",
+                            "*.css",
+                            true));
+
+                #endregion
+
                 #region Styles
                 bundles.Add(new StyleBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/content/css").IncludeDirectory(
                           "~/Areas/Web/Content/Styles",
