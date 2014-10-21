@@ -14,7 +14,7 @@
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\DocumentManagment\CustomerLogo\</key>
-    <key name="File_ExcelDirectory">\DocumentManagment\Provider\</key>
+    <key name="File_ExcelDirectory">\DocumentManagment\0XlsProvider\</key>
 
   </DocumentManagement>
 </Settings>

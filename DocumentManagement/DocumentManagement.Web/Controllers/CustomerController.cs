@@ -125,48 +125,48 @@ namespace DocumentManagement.Web.Controllers
             });
         }
 
-        public virtual ActionResult UploadProvider(string CustomerPublicId)
-        {
-            UpserCustomerModel oModel = new UpserCustomerModel()
-            {
-                RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
-            };
-
-            return View(oModel);
-        }
-
-        [HttpPost]
         public virtual ActionResult UploadProvider(string CustomerPublicId, HttpPostedFileBase ExcelFile)
         {
-            string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
-
-            if (!System.IO.Directory.Exists(strFolder))
-                System.IO.Directory.CreateDirectory(strFolder);
-
-            //get File
-            string strFile = strFolder.TrimEnd('\\') +
-                "\\ProviderUploadFile_" +
-                CustomerPublicId + "_" +
-                DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
-
-            ExcelFile.SaveAs(strFile);
-
-            //load file to s3
-            string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                (strFile,
-                DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
-
-            //update file into db          
-            this.ProccessProviderFile(strFile, CustomerPublicId);
-
-            //remove temporal file
-            if (System.IO.File.Exists(strFile))
-                System.IO.File.Delete(strFile);
-
-            return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
+            if (ExcelFile != null)
             {
-                CustomerPublicId = CustomerPublicId
-            });
+                string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                //get File
+                string strFile = strFolder.TrimEnd('\\') +
+                    "\\ProviderUploadFile_" +
+                    CustomerPublicId + "_" +
+                    DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
+                string ErrorFilePath = strFile.Replace(".xls", "_log.csv");
+                ExcelFile.SaveAs(strFile);
+
+                //load file to s3
+                string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                    (strFile,
+                    DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
+
+                //update file into db          
+                this.ProccessProviderFile(strFile, ErrorFilePath, CustomerPublicId);
+
+                //remove temporal file
+                if (System.IO.File.Exists(strFile))
+                    System.IO.File.Delete(strFile);
+
+                return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
+                {
+                    CustomerPublicId = CustomerPublicId
+                });
+            }
+            else
+            {
+                UpserCustomerModel oModel = new UpserCustomerModel()
+                {
+                    RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
+                };
+                return View(oModel);
+            }
         }
 
         #region private methods
@@ -200,7 +200,7 @@ namespace DocumentManagement.Web.Controllers
             return oReturn;
         }
 
-        private void ProccessProviderFile(string FilePath, string CustomerPublicId)
+        private void ProccessProviderFile(string FilePath, string ErrorFilePath, string CustomerPublicId)
         {
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
@@ -226,7 +226,7 @@ namespace DocumentManagement.Web.Controllers
                         case "nit":
                             IdentificationType = 102;
                             break;
-                        case "Cedula de Ciudadania":
+                        case "cc":
                             IdentificationType = 101;
                             break;
                         default:
@@ -255,28 +255,79 @@ namespace DocumentManagement.Web.Controllers
                         Email = prv.email,
                         RelatedProviderCustomerInfo = ListCustomerProviderInfo
                     };
-                    if (oResultValidate == null)                    
-                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);                    
-                    else                    
-                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);                    
+                    if (oResultValidate == null)
+                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
+                    else
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
+
+                    oPrvToProcessResult.Add(new ExcelProviderResultModel()
+                    {
+                        PrvModel = prv,
+                        Success = true,
+                        Error = "Se ha creado el Proveedor '" + ProviderToCreate.ProviderPublicId + "'",
+                    });
                 }
                 catch (Exception err)
                 {
-
-                    //oAptToProcessResult.Add(new ExcelAppointmentResultModel()
-                    //{
-                    //    AptModel = apmt,
-                    //    Success = false,
-                    //    Error = "Error :: " + err.Message + " :: " +
-                    //                err.StackTrace +
-                    //                (err.InnerException == null ? string.Empty :
-                    //                " :: " + err.InnerException.Message + " :: " +
-                    //                err.InnerException.StackTrace),
-                    //});
-
+                    oPrvToProcessResult.Add(new ExcelProviderResultModel()
+                    {
+                        PrvModel = prv,
+                        Success = false,
+                        Error = "Error :: " + err.Message + " :: " +
+                                    err.StackTrace +
+                                    (err.InnerException == null ? string.Empty :
+                                    " :: " + err.InnerException.Message + " :: " +
+                                    err.InnerException.StackTrace),
+                    });                  
                 }
                 return true;
             });
+
+            //save log file
+            #region Error log file
+            try
+            {
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(ErrorFilePath))
+                {
+                    string strSep = ";";
+
+                    sw.WriteLine
+                            ("\"nombre\"" + strSep +
+                            "\"tipodeidentificacion\"" + strSep +
+                            "\"numerodeidentificacion\"" + strSep +
+                            "\"email\"" + strSep +
+                            "\"Success\"" + strSep +
+                            "\"Error\"");
+
+                    oPrvToProcessResult.All(lg =>
+                    {
+                        sw.WriteLine
+                            ("\"" + lg.PrvModel.nombre + "\"" + strSep +
+                            "\"" + lg.PrvModel.tipodeidentificacion + "\"" + strSep +
+                            "\"" + lg.PrvModel.numerodeidentificacion + "\"" + strSep +
+                            "\"" + lg.PrvModel.email + "\"" + strSep +
+
+                            "\"" + lg.Success + "\"" + strSep +
+                            "\"" + lg.Error + "\"");
+
+                        return true;
+                    });                   
+                   
+                    sw.Flush();
+                    sw.Close();
+                }
+             
+                //load file to s3
+                string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                    (ErrorFilePath,
+                    DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
+                //remove temporal file
+                if (System.IO.File.Exists(ErrorFilePath))
+                    System.IO.File.Delete(ErrorFilePath);
+            }
+            catch { }
+
+            #endregion
         }
         #endregion
     }

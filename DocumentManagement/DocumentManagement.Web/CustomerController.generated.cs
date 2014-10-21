@@ -259,18 +259,6 @@ namespace DocumentManagement.Web.Controllers
         }
 
         [NonAction]
-        partial void UploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult UploadProvider(string CustomerPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UploadProvider);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
-            UploadProviderOverride(callInfo, CustomerPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
         partial void UploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, System.Web.HttpPostedFileBase ExcelFile);
 
         [NonAction]
