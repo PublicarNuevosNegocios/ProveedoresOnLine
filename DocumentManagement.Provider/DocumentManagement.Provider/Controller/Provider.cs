@@ -27,7 +27,8 @@ namespace DocumentManagement.Provider.Controller
                         (oResult,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
-                        item.Value, item.LargeValue);
+                        item.Value, 
+                        item.LargeValue);
                 }
             }
             if (ProviderToUpsert.RelatedProviderCustomerInfo != null && ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
@@ -39,7 +40,8 @@ namespace DocumentManagement.Provider.Controller
                         ProviderToUpsert.CustomerPublicId,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
-                        item.Value, item.LargeValue);
+                        item.Value, 
+                        item.LargeValue);
                 }
             }
 

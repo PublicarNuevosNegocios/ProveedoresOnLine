@@ -15,7 +15,8 @@ namespace DocumentManagement.Provider_Test
             List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
             ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
 
-            CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 201 };
+            CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 401 };
+            CustomerProviderInfo.Value = "201";
             ListCustomerProviderInfo.Add(CustomerProviderInfo);
             //Create Provider
             ProviderModel ProviderToCreate = new ProviderModel()
