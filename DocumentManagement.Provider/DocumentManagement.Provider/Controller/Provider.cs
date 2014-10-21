@@ -12,23 +12,43 @@ namespace DocumentManagement.Provider.Controller
     {
         static public string ProviderUpsert(ProviderModel ProviderToUpsert)
         {
-            //return DAL.Controller.ProviderDataController.Instance.ProviderUpsert(CustomerPublicId, ProviderPublicId, Name, IdentificationType, CustomerProviderInfoType, IdentificationNumber, Email, Status);
-            return null;
+            string oResult = DAL.Controller.ProviderDataController.Instance.ProviderUpsert
+                (ProviderToUpsert.ProviderPublicId
+                ,ProviderToUpsert.Name
+                ,ProviderToUpsert.IdentificationType.ItemId
+                ,ProviderToUpsert.IdentificationNumber
+                ,ProviderToUpsert.Email);            
+
+            if (ProviderToUpsert.RelatedProviderInfo.Count > 0)
+            {
+                foreach (var item in ProviderToUpsert.RelatedProviderInfo)
+                {
+                    DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
+                        (ProviderToUpsert.ProviderPublicId,
+                        item.ProviderInfoId,
+                        item.ProviderInfoType.ItemId,
+                        item.Value, item.LargeValue);
+                }
+            }
+            else if (ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
+            {
+                foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
+                {
+                    DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
+                        (ProviderToUpsert.ProviderPublicId,
+                        ProviderToUpsert.CustomerPublicId,
+                        item.ProviderInfoId,
+                        item.ProviderInfoType.ItemId,
+                        item.Value, item.LargeValue);
+                }
+            }
+
+            return oResult;
         }
 
-        static public void ProviderInfoUpsert(ProviderModel ProviderToUpsert)
+        static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
-            //return DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert(ProviderInfoId, ProviderPublicId, ProviderInfoType, Value, LargeValue);
-        }
-
-        static public void ProviderCustomerInfoUpsert(ProviderModel ProviderToUpsert)
-        {
-            //return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderCustomerInfoId, ProviderPublicId, CustomerPublicId, ProviderCustomerInfoType, Value, LargeValue);
-        }
-
-        static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount)
-        {
-            return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount);
+            return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount, out TotalRows);
         }
 
         public static ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
