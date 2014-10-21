@@ -16,6 +16,6 @@ namespace DocumentManagement.Models.Provider
 
         public DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider { get; set; }
 
-        public List<DocumentManagement.Provider.Models.Util.CatalogModel> ProviderOptions { get; set; }
+        public Dictionary<DocumentManagement.Provider.Models.Util.CatalogModel, List<DocumentManagement.Provider.Models.Util.CatalogModel>> ProviderOptions { get; set; }
     }
 }

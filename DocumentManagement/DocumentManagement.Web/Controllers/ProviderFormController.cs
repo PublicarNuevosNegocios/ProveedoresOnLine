@@ -11,10 +11,13 @@ namespace DocumentManagement.Web.Controllers
     {
         public virtual ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId)
         {
+            int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
+
             ProviderFormModel oModel = new ProviderFormModel()
             {
+                ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
                 RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
-                RealtedProvider = new Provider.Models.Provider.ProviderModel() { ProviderPublicId = ProviderPublicId, },
+                RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
             };
 
             oModel.RealtedForm = oModel.RealtedCustomer.
@@ -22,10 +25,10 @@ namespace DocumentManagement.Web.Controllers
                 Where(x => x.FormPublicId == FormPublicId).
                 FirstOrDefault();
 
-            if (!string.IsNullOrEmpty(StepId))
+            if (oStepId != null)
             {
                 oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
-                    Where(x => x.StepId == Convert.ToInt32(StepId)).
+                    Where(x => x.StepId == (int)oStepId).
                     FirstOrDefault();
             }
 

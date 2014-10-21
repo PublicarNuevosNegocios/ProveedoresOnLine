@@ -152,9 +152,9 @@ namespace DocumentManagement.Web.Controllers
             ExcelFile.SaveAs(strFile);
 
             //load file to s3
-            //string strRemoteFile = DocumentManagement.Provider.Controller.Provider.LoadFile
-            //    (strFile,
-            //    DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
+            string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                (strFile,
+                DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectory].Value);
 
             //update file into db          
             this.ProccessProviderFile(strFile, CustomerPublicId);
@@ -167,7 +167,7 @@ namespace DocumentManagement.Web.Controllers
             {
                 CustomerPublicId = CustomerPublicId
             });
-        }       
+        }
 
         #region private methods
 
@@ -208,7 +208,7 @@ namespace DocumentManagement.Web.Controllers
             List<ExcelProviderModel> oPrvToProcess =
                 (from x in XlsInfo.Worksheet<ExcelProviderModel>(0)
                  select x).ToList();
-            
+
             List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
 
             //process Provider
@@ -219,15 +219,8 @@ namespace DocumentManagement.Web.Controllers
                     //Validar el provider
                     ProviderModel Provider = new ProviderModel();
 
-                    int IdentificationType = 0; 
-
-                    //Create ProviderCustomerInfo
-                    List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
-                    ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
-
-                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 201 };
-                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
-
+                    int IdentificationType = 0;
+                    #region Set IdentificationType
                     switch (prv.tipodeidentificacion)
                     {
                         case "nit":
@@ -239,6 +232,18 @@ namespace DocumentManagement.Web.Controllers
                         default:
                             break;
                     }
+                    #endregion
+
+                    ProviderModel oResultValidate = new ProviderModel();
+                    oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(prv.numerodeidentificacion, IdentificationType, CustomerPublicId);
+
+                    //Create ProviderCustomerInfo
+                    List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
+                    ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
+
+                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 401 };
+                    CustomerProviderInfo.Value = "201";
+                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
 
                     //Create Provider
                     ProviderModel ProviderToCreate = new ProviderModel()
@@ -249,21 +254,11 @@ namespace DocumentManagement.Web.Controllers
                         IdentificationNumber = prv.numerodeidentificacion,
                         Email = prv.email,
                         RelatedProviderCustomerInfo = ListCustomerProviderInfo
-
                     };
-
-                    DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
-                    //}
-                    //else
-                    //{
-                    //    bool isRelated = false;
-                    //    isRelated = DocumentManagement.Provider.Controller.Provider.GetRelationProviderAndCustomer(CustomerPublicId, Provider.ProviderPublicId);
-                    //    if (!isRelated)
-                    //    {
-                    //        DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType ProvInfoType = (DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType)Enum.Parse(typeof(DocumentManagement.Provider.Models.Enumerations.enumProviderCustomerInfoType), prv.tipodeidentificacion, true);
-                    //        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(0, Provider.ProviderPublicId, CustomerPublicId, ProvInfoType, string.Empty, string.Empty);
-                    //    }
-                    //}
+                    if (oResultValidate == null)                    
+                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);                    
+                    else                    
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);                    
                 }
                 catch (Exception err)
                 {

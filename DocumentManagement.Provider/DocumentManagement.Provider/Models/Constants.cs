@@ -8,6 +8,6 @@ namespace DocumentManagement.Provider.Models
 {
     public class Constants
     {
-        public const string C_DMProviderConnectionName = "DM_ProviderConnectionName";
+        public const string C_DMProviderConnectionName = "DM_ProviderConnection";
     }
 }
