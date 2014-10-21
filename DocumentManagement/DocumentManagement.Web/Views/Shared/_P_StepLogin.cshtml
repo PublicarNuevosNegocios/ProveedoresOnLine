@@ -2,29 +2,44 @@
 
 
 <div class="DMLogInProviders">
+    <div class="DMLogIntopWrapper">
+        <img class="DMProviderlogo" src="" alt="" />
+        <label></label>
+        <img class="DMPOLogo" src="" alt="" />
+    </div>
+    <div class="DMLogInformWrapper">
+
+        <label class="DMTextWelcome"></label>
+        <label class="DMTextDirection"></label>
 
 
-
-</div>
-
-
-    <form action="@(Url.Action(MVC.ProviderForm.ActionNames.LoginProvider, MVC.ProviderForm.Name,
+        <form action="@(Url.Action(MVC.ProviderForm.ActionNames.LoginProvider, MVC.ProviderForm.Name,
                         new
                         {
                             ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
                             FormPublicId = Model.RealtedForm.FormPublicId,
                         }))" method="post">
-        <ul>
-            <li>
-                <span>Tipo de identificación</span>
-                <select name="IdentificationType"></select>
-            </li>
-            <li>
-                <span>Número de identificación</span>
-                <input type="text" name="IdentificationNumber" />
-            </li>
-            <li>
-                <input type="submit" value="Ingresar" />
-            </li>
-        </ul>
-    </form>
+            <ul class="DMForm">
+                <li>
+                    <span>Tipo de identificación</span>
+                    <select name="IdentificationType"></select>
+                </li>
+                <li>
+                    <span>Número de identificación</span>
+                    <input type="text" name="IdentificationNumber" />
+                </li>
+                <li>
+                    <input class="DMButtons" type="submit" value="Ingresar" />
+                </li>
+            </ul>
+        </form>
+
+    </div>
+    <div class="DMLogInbottomWrapper">
+        <img class="DMLogPublica" src="" alt="" />
+        <label class="DMPublicarCopyright"></label>
+    </div>
+</div>
+
+
+
