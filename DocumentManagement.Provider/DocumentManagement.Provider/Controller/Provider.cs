@@ -19,7 +19,7 @@ namespace DocumentManagement.Provider.Controller
                 ,ProviderToUpsert.IdentificationNumber
                 ,ProviderToUpsert.Email);            
 
-            if (ProviderToUpsert.RelatedProviderInfo.Count > 0)
+            if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
             {
                 foreach (var item in ProviderToUpsert.RelatedProviderInfo)
                 {
@@ -30,7 +30,7 @@ namespace DocumentManagement.Provider.Controller
                         item.Value, item.LargeValue);
                 }
             }
-            else if (ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
+            if (ProviderToUpsert.RelatedProviderCustomerInfo != null && ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
             {
                 foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
                 {
@@ -46,10 +46,20 @@ namespace DocumentManagement.Provider.Controller
             return oResult;
         }
 
+        static public int ProviderInfoUpsert(string ProviderPublicId, int? ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
+        {
+            return DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert(ProviderPublicId, ProviderInfoId, ProviderInfoTypeId, Value, LargeValue);
+        }
+
+        public static int ProviderCustomerInfoUpsert(string ProviderPublicId, string CustomerPublicId, int? ProviderCustomerInfoId, int ProviderCustomerInfoTypeId, string Value, string LargeValue)
+        {
+            return DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert(ProviderPublicId, CustomerPublicId, ProviderCustomerInfoId, ProviderCustomerInfoTypeId, Value, LargeValue);
+        }
+
         static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount, out TotalRows);
-        }
+        }      
 
         public static ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
@@ -60,6 +70,5 @@ namespace DocumentManagement.Provider.Controller
         {
             return DAL.Controller.ProviderDataController.Instance.ProviderGetById(ProviderPublicId, StepId);
         }
-
     }
 }
