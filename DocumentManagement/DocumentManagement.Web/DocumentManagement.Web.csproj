@@ -252,6 +252,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\arrowSelectedMenuSmall.png" />
+    <Content Include="Content\Images\cerrar.png" />
+    <Content Include="Content\Images\Google-plus-icon.png" />
     <Content Include="Content\Images\LogoPOHeader.png" />
     <Content Include="Content\Images\LogoPublicarFooter.png" />
     <Content Include="Content\Images\LogInBackground.jpg" />
