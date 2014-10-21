@@ -38,24 +38,24 @@ namespace T4MVC
             {
                 public readonly string _C_CustomerMenu = "_C_CustomerMenu";
                 public readonly string _L_Footer = "_L_Footer";
-                public readonly string _L_FooterProviderForm = "_L_FooterProviderForm";
                 public readonly string _L_Header = "_L_Header";
-                public readonly string _L_HeaderProviderForm = "_L_HeaderProviderForm";
                 public readonly string _L_PrincipalMenu = "_L_PrincipalMenu";
                 public readonly string _L_UserInfo = "_L_UserInfo";
                 public readonly string _Layout = "_Layout";
                 public readonly string _LayoutProviderForm = "_LayoutProviderForm";
+                public readonly string _P_Menu = "_P_Menu";
+                public readonly string _P_StepGeneric = "_P_StepGeneric";
                 public readonly string _P_StepLogin = "_P_StepLogin";
             }
             public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
-            public readonly string _L_FooterProviderForm = "~/Views/Shared/_L_FooterProviderForm.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
-            public readonly string _L_HeaderProviderForm = "~/Views/Shared/_L_HeaderProviderForm.cshtml";
             public readonly string _L_PrincipalMenu = "~/Views/Shared/_L_PrincipalMenu.cshtml";
             public readonly string _L_UserInfo = "~/Views/Shared/_L_UserInfo.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string _LayoutProviderForm = "~/Views/Shared/_LayoutProviderForm.cshtml";
+            public readonly string _P_Menu = "~/Views/Shared/_P_Menu.cshtml";
+            public readonly string _P_StepGeneric = "~/Views/Shared/_P_StepGeneric.cshtml";
             public readonly string _P_StepLogin = "~/Views/Shared/_P_StepLogin.cshtml";
         }
     }

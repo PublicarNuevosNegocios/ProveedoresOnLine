@@ -490,6 +490,10 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
+    <Content Include="fonts\OpenSans-Regular.eot" />
+    <Content Include="fonts\OpenSans-Regular.otf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Regular.woff" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1028,9 +1032,9 @@
     <Content Include="Views\Customer\UpsertForm.cshtml" />
     <Content Include="Views\ProviderForm\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutProviderForm.cshtml" />
-    <Content Include="Views\Shared\_L_HeaderProviderForm.cshtml" />
-    <Content Include="Views\Shared\_L_FooterProviderForm.cshtml" />
     <Content Include="Views\Shared\_P_StepLogin.cshtml" />
+    <Content Include="Views\Shared\_P_Menu.cshtml" />
+    <Content Include="Views\Shared\_P_StepGeneric.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
