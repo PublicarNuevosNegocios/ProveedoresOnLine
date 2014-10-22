@@ -1039,6 +1039,11 @@
     <Content Include="Views\Shared\_P_FieldText.cshtml" />
     <Content Include="Views\Shared\_P_FieldNumber.cshtml" />
     <Content Include="Views\Shared\_P_FieldFile.cshtml" />
+    <Content Include="Views\Shared\_P_FieldEmail.cshtml" />
+    <Content Include="Views\Shared\_P_FieldQuantity.cshtml" />
+    <Content Include="Views\Shared\_P_FieldLegalTerms.cshtml" />
+    <Content Include="Views\Shared\_P_FieldFormPdf.cshtml" />
+    <Content Include="Views\Shared\_P_FieldPartners.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1086,7 +1091,7 @@
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
 XCOPY "$(ProjectDir)$(OutDir)Rsx-DocumentManagement.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
-XCOPY "$(ProjectDir)$(OutDir)Rsx-FileRepository.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
+
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

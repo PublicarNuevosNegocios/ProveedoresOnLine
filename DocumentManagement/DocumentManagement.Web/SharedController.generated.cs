@@ -43,8 +43,12 @@ namespace T4MVC
                 public readonly string _L_UserInfo = "_L_UserInfo";
                 public readonly string _Layout = "_Layout";
                 public readonly string _LayoutProviderForm = "_LayoutProviderForm";
+                public readonly string _P_FieldEmail = "_P_FieldEmail";
                 public readonly string _P_FieldFile = "_P_FieldFile";
+                public readonly string _P_FieldFormPdf = "_P_FieldFormPdf";
+                public readonly string _P_FieldLegalTerms = "_P_FieldLegalTerms";
                 public readonly string _P_FieldNumber = "_P_FieldNumber";
+                public readonly string _P_FieldQuantity = "_P_FieldQuantity";
                 public readonly string _P_FieldText = "_P_FieldText";
                 public readonly string _P_Menu = "_P_Menu";
                 public readonly string _P_StepGeneric = "_P_StepGeneric";
@@ -57,8 +61,12 @@ namespace T4MVC
             public readonly string _L_UserInfo = "~/Views/Shared/_L_UserInfo.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string _LayoutProviderForm = "~/Views/Shared/_LayoutProviderForm.cshtml";
+            public readonly string _P_FieldEmail = "~/Views/Shared/_P_FieldEmail.cshtml";
             public readonly string _P_FieldFile = "~/Views/Shared/_P_FieldFile.cshtml";
+            public readonly string _P_FieldFormPdf = "~/Views/Shared/_P_FieldFormPdf.cshtml";
+            public readonly string _P_FieldLegalTerms = "~/Views/Shared/_P_FieldLegalTerms.cshtml";
             public readonly string _P_FieldNumber = "~/Views/Shared/_P_FieldNumber.cshtml";
+            public readonly string _P_FieldQuantity = "~/Views/Shared/_P_FieldQuantity.cshtml";
             public readonly string _P_FieldText = "~/Views/Shared/_P_FieldText.cshtml";
             public readonly string _P_Menu = "~/Views/Shared/_P_Menu.cshtml";
             public readonly string _P_StepGeneric = "~/Views/Shared/_P_StepGeneric.cshtml";
