@@ -1,10 +1,12 @@
-﻿@model DocumentManagement.Models.Provider.ProviderFormModel
+﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
 
-<ul>
-    @foreach (var Item in Model.RealtedStep.RelatedField)
-    {
-        <li></li>
-    }
-</ul>
+@if (!Model.RenderScripts)
+{
+    <div>
+        <!--Partners field-->
+        <span>@Model.RealtedField.Name:</span>
+        <input type="text" id="" name="" value="" />
+    </div>
+}
 
 

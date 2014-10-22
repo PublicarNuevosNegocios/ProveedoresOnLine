@@ -1,28 +1,64 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFormModel
 
-<form action="" method="post">
-    <ul>
-        @foreach (var Item in Model.RealtedStep.RelatedField)
-        {
-            <li>
-                @switch (Item.ProviderInfoType.ItemId)
-                {
+@if (!Model.RenderScripts)
+{
+    <form action="" method="post" enctype="multipart/form-data">
+        <ul>
+            @foreach (var Item in Model.RealtedStep.RelatedField)
+            {
+                //get partial view to render
+                string strFieldType = Model.
+                    FieldInfoTypes.
+                    Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+                    Select(strView => strView.Key).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
 
-                    default:
-                        Html.RenderPartial(MVC.Shared.Views._P_FieldText,
+                if (!string.IsNullOrEmpty(strFieldType))
+                {
+                    <li>
+                        @(Html.Partial(Url.Content(strFieldType),
                             new DocumentManagement.Models.Provider.ProviderFieldModel()
                             {
+                                RenderScripts = false,
                                 RealtedField = Item,
                                 RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
                                     Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
                                     ToList(),
                                 ProviderOptions = Model.ProviderOptions,
-                            });
-                        break;
+                                FieldType = strFieldType,
+                            }))
+                    </li>
                 }
+            }
+        </ul>
+    </form>
+}
+else
+{
+    foreach (var Item in Model.RealtedStep.RelatedField)
+    {
+        //get partial view to render
+        string strFieldType = Model.
+            FieldInfoTypes.
+            Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+            Select(strView => strView.Key).
+            DefaultIfEmpty(string.Empty).
+            FirstOrDefault();
 
-            </li>
+        if (!string.IsNullOrEmpty(strFieldType))
+        {
+            Html.RenderPartial(Url.Content(strFieldType),
+                    new DocumentManagement.Models.Provider.ProviderFieldModel()
+                    {
+                        RenderScripts = true,
+                        RealtedField = Item,
+                        RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
+                            Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                            ToList(),
+                        ProviderOptions = Model.ProviderOptions,
+                        FieldType = strFieldType,
+                    });
         }
-    </ul>
-</form>
-
+    }
+}
