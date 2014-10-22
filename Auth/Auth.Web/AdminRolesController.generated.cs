@@ -99,8 +99,8 @@ namespace Auth.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_AutorizationUpsert
         {
-            public readonly string Rol = "Rol";
-            public readonly string Aplication = "Aplication";
+            public readonly string AplicationId = "AplicationId";
+            public readonly string RoleId = "RoleId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -133,15 +133,15 @@ namespace Auth.Web.Controllers
         }
 
         [NonAction]
-        partial void AutorizationUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SessionManager.Models.Auth.enumRole Rol, SessionManager.Models.Auth.enumApplication Aplication);
+        partial void AutorizationUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SessionManager.Models.Auth.enumApplication AplicationId, SessionManager.Models.Auth.enumRole RoleId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AutorizationUpsert(SessionManager.Models.Auth.enumRole Rol, SessionManager.Models.Auth.enumApplication Aplication)
+        public override System.Web.Mvc.ActionResult AutorizationUpsert(SessionManager.Models.Auth.enumApplication AplicationId, SessionManager.Models.Auth.enumRole RoleId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AutorizationUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Rol", Rol);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Aplication", Aplication);
-            AutorizationUpsertOverride(callInfo, Rol, Aplication);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "AplicationId", AplicationId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleId", RoleId);
+            AutorizationUpsertOverride(callInfo, AplicationId, RoleId);
             return callInfo;
         }
 

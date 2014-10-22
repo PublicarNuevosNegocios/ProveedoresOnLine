@@ -27,17 +27,19 @@
                 <li>
                     <label>Aplicación</label>
                     <select id="AplicationId" name="AplicationId">
-                        <option value="@SessionManager.Models.Auth.enumApplication.Backoffice">@SessionManager.Models.Auth.enumApplication.Backoffice.ToString()</option>
-                        <option value="@SessionManager.Models.Auth.enumApplication.DocumentManagement">@SessionManager.Models.Auth.enumApplication.DocumentManagement.ToString()</option>
-                        <option value="@SessionManager.Models.Auth.enumApplication.Marketplace">@SessionManager.Models.Auth.enumApplication.Marketplace.ToString()</option>
+                        @foreach (SessionManager.Models.Auth.enumApplication ItemApp in (SessionManager.Models.Auth.enumApplication[])Enum.GetValues(typeof(SessionManager.Models.Auth.enumApplication)))
+                        {
+                            <option value="@ItemApp.ToString()">@ItemApp.ToString()</option>
+                        }
                     </select>
                 </li>
                 <li>
                     <label>Rol</label>
                     <select id="RoleId" name="RoleId">
-                        <option value="@SessionManager.Models.Auth.enumRole.Certifier">@SessionManager.Models.Auth.enumRole.Certifier</option>
-                        <option value="@SessionManager.Models.Auth.enumRole.Marketing">@SessionManager.Models.Auth.enumRole.Marketing</option>
-                        <option value="@SessionManager.Models.Auth.enumRole.SystemAdministrator">@SessionManager.Models.Auth.enumRole.SystemAdministrator</option>
+                        @foreach (SessionManager.Models.Auth.enumRole ItemRole in (SessionManager.Models.Auth.enumRole[])Enum.GetValues(typeof(SessionManager.Models.Auth.enumRole)))
+                        {
+                            <option value="@ItemRole.ToString()">@ItemRole.ToString()</option>
+                        }
                     </select>
                 </li>
                 <li>
@@ -79,7 +81,6 @@
         var vAutorizationData = @Html.Raw(oAutorizationRole)
         $(document).ready(function () {
             //Start grid
-            debugger;
             AutorizationListGrid('divGridAutorization', vAutorizationData);
             //Validation
             ValidateEmail('AutorizationId')

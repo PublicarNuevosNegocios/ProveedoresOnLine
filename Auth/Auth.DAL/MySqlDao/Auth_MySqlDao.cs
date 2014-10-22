@@ -86,7 +86,7 @@ namespace Auth.DAL.MySqlDao
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("", AplicationRoleId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vApplicationRoleId", AplicationRoleId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {
