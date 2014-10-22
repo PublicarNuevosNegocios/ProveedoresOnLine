@@ -1,1 +1,62 @@
-﻿
+﻿/************Header************/
+.AdminRolesHeader {
+    border: 1px solid red;
+    padding: 0;
+    vertical-align: top;
+    margin: -50px 0px 0px 0px;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+    .AdminRolesHeader label {
+        border: none;
+        color: #0066ae;
+        display: inline-block;
+        font-size: 1.2em;
+        font-weight: normal;
+        height: auto;
+        line-height: 1.3em;
+        margin: 2.6% auto 0 auto;
+        text-transform: uppercase;
+        width: 498px;
+    }
+
+    .AdminRolesHeader img {
+        float: right;
+        width: 14%;
+        height: auto;
+        margin: 8px 1% 0 0;
+    }
+
+/*************Body*************/
+.AdminRolesBody {
+    border: 1px solid blue;
+    width: 100%;
+    height: 450px;
+}
+
+/*************Footer***********/
+.AdminRolesFooter {
+    border: 1px solid green;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}
+
+    .AdminRolesFooter label {
+        display: block;
+        margin: 5px 0px 7px 0px;
+        width: 100%;
+        color: #4d4d4d;
+        font-size: 0.9em;
+        line-height: 0.7em;
+        font-weight: normal;
+    }
+
+    .AdminRolesFooter img {
+        display: block;
+        margin: 6px 0 0 86%;
+        width: 12%;
+        height: auto;
+    }
