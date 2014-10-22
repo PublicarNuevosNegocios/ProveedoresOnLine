@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Auth.Interfaces.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,6 +32,25 @@ namespace Auth.DAL.Controller
         {
             AuthDataFactory factory = new AuthDataFactory();
             DataFactory = factory.GetDataInstance();
+        }
+
+        #endregion
+
+        #region AdminRoles
+
+        public List<AdminRolesModel> ListUserRoles()
+        {
+            return DataFactory.ListUserRoles();
+        }
+
+        public string CreateUserRolesUpsert(int vAplicationId, int vRoleId, string vUserEmail)
+        {
+            return DataFactory.CreateUserRolesUpsert(vAplicationId, vRoleId, vUserEmail);
+        }
+
+        public void DeleteUserRoles(int AplicationRoleId)
+        {
+            DataFactory.DeleteUserRoles(AplicationRoleId);
         }
 
         #endregion

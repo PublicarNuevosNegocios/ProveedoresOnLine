@@ -41,7 +41,6 @@ namespace DocumentManagement.Web.ControllersApi
 
             oReturn.TotalRows = oTotalRows;
 
-
             return oReturn;
 
         }
