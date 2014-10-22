@@ -5,7 +5,7 @@
     <ul>
         @foreach (var Item in Model.RealtedForm.RelatedStep.OrderBy(x => x.Position))
         {
-            @if (Item.StepId == Model.RealtedStep.StepId)
+            if (Item.StepId == Model.RealtedStep.StepId)
             {
                 <li class="MenuSelected">
                     <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
