@@ -11,7 +11,7 @@
                                 StepId = Model.RealtedStep.StepId,
                                 NewStepId = "{{NewStepId}}"
                             })))" method="post" enctype="multipart/form-data">
-        <ul>
+        <ul class="DMFormGenericFields">
             @foreach (var Item in Model.RealtedStep.RelatedField)
             {
                 //get partial view to render
