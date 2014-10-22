@@ -22,7 +22,7 @@
         float: left;
         width: 20%;
         height: auto;
-        margin: 8px 1% 0 0;
+        margin: 11px 1% 0 2%;
     }
 
 /*************Body*************/
@@ -55,6 +55,7 @@ div#divGridAutorization {
     color: #fff;
     font-size: 1.3em;
     padding: 3px 38px;
+    margin: 5px 0px 8px -10px;
 }
 
 .DMButtonsDeleteForm {
@@ -69,6 +70,15 @@ div#divGridAutorization {
 
 th.k-header {
     text-align: center !important;
+}
+
+/**********Validate***************/
+span#UserEmail-error {
+    position: absolute;
+    margin: 25px 0px 0px -173px;
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 /*************Footer***********/

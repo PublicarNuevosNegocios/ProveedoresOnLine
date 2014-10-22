@@ -23,13 +23,15 @@ namespace Auth.Web.Controllers
             return View(Model);
         }
 
-        public virtual ActionResult AutorizationUpsert(SessionManager.Models.Auth.enumRole Rol, SessionManager.Models.Auth.enumApplication Aplication)
+        public virtual ActionResult AutorizationUpsert(SessionManager.Models.Auth.enumApplication AplicationId, SessionManager.Models.Auth.enumRole RoleId)
         {
             string result = "";
             
             string correo = Request["UserEmail"].Trim();
+            int vAplicationId = int.Parse(AplicationId.GetHashCode().ToString());
+            int vRolId = int.Parse(RoleId.GetHashCode().ToString());
 
-            result = DAL.Controller.AuthDataController.Instance.CreateUserRolesUpsert(Convert.ToInt32(Aplication), Convert.ToInt32(Rol), correo);
+            result = DAL.Controller.AuthDataController.Instance.CreateUserRolesUpsert(vAplicationId, vRolId, correo);
             
             return RedirectToAction(MVC.AdminRoles.ActionNames.Index, MVC.AdminRoles.Name);
         }

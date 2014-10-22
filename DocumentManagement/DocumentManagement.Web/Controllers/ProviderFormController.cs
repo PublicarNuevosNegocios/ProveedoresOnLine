@@ -86,33 +86,20 @@ namespace DocumentManagement.Web.Controllers
             //validate upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
             {
-                DocumentManagement.Provider.Models.Provider.ProviderModel RequestResult = GetUpsertGenericStepRequest();
+                //get generic models
+                ProviderFormModel oGenericModels = new ProviderFormModel()
+                {
+                    //ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                    RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                    RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, Convert.ToInt32(StepId)),
+                };
 
+                //get request into generic model
+                GetUpsertGenericStepRequest(oGenericModels);
+
+                //upsert fields in database
+                DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(oGenericModels.RealtedProvider);
             }
-
-
-            //int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
-
-            //ProviderFormModel oModel = new ProviderFormModel()
-            //{
-            //    ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
-            //    RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
-            //    RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
-            //};
-
-            //oModel.RealtedForm = oModel.RealtedCustomer.
-            //    RelatedForm.
-            //    Where(x => x.FormPublicId == FormPublicId).
-            //    FirstOrDefault();
-
-            //if (oStepId != null)
-            //{
-            //    oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
-            //        Where(x => x.StepId == (int)oStepId).
-            //        FirstOrDefault();
-            //}
-
-            //return View(oModel);
 
             //save success
             return RedirectToAction
@@ -152,10 +139,8 @@ namespace DocumentManagement.Web.Controllers
             return oReturn;
         }
 
-        private DocumentManagement.Provider.Models.Provider.ProviderModel GetUpsertGenericStepRequest()
+        private void GetUpsertGenericStepRequest(ProviderFormModel GenericModels)
         {
-            DocumentManagement.Provider.Models.Provider.ProviderModel oReturn = new DocumentManagement.Provider.Models.Provider.ProviderModel();
-
             //loop request
             Dictionary<string, string> ValidRequest = Request.
                 Form.
@@ -171,27 +156,61 @@ namespace DocumentManagement.Web.Controllers
                             ProviderFormModel.FieldTypes.Any(ft => ft.ToLower().Replace(" ", "") == rq.Value.ToLower().Replace(" ", ""))).
                 ToDictionary(k => k.Key, v => v.Value);
 
-            oReturn.RelatedProviderInfo = new List<Provider.Models.Provider.ProviderInfoModel>();
+            GenericModels.RealtedProvider.RelatedProviderInfo = new List<Provider.Models.Provider.ProviderInfoModel>();
 
             ValidRequest.All(reqKey =>
                 {
-                    if (MVC.Shared.Views._P_FieldEmail.IndexOf(reqKey.Value) >= 0)
+                    DocumentManagement.Provider.Models.Provider.ProviderInfoModel oProviderInfoToAdd = null;
+
+                    if (MVC.Shared.Views._P_FieldEmail.IndexOf(reqKey.Value) >= 0 ||
+                        MVC.Shared.Views._P_FieldNumber.IndexOf(reqKey.Value) >= 0 ||
+                        MVC.Shared.Views._P_FieldQuantity.IndexOf(reqKey.Value) >= 0 ||
+                        MVC.Shared.Views._P_FieldText.IndexOf(reqKey.Value) >= 0)
                     {
-                        oReturn.RelatedProviderInfo.Add(GetFieldEmailRequest(reqKey.Key));
+                        oProviderInfoToAdd = GetFieldBasicRequest(reqKey.Key, GenericModels);
+                    }
+
+
+                    if (oProviderInfoToAdd != null)
+                    {
+                        GenericModels.RealtedProvider.RelatedProviderInfo.Add(oProviderInfoToAdd);
                     }
                     return true;
                 });
-
-            return oReturn;
         }
 
-        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldEmailRequest(string RequestKey)
+        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldBasicRequest(string RequestKey, ProviderFormModel GenericModels)
         {
+            List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
-
-
-
-            return new Provider.Models.Provider.ProviderInfoModel();
+            if (RequestKeySplit.Count >= 2)
+            {
+                Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                {
+                    ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                    ProviderInfoType =
+                        GenericModels.
+                        RealtedCustomer.
+                        RelatedForm.
+                        Select(f => f.RelatedStep.
+                            Select(s => s.RelatedField.
+                                Where(fi => fi.FieldId == Convert.ToInt32(RequestKeySplit[1].Replace(" ", ""))).
+                                Select(fi => new DocumentManagement.Provider.Models.Util.CatalogModel()
+                                    {
+                                        CatalogId = fi.ProviderInfoType.CatalogId,
+                                        CatalogName = fi.ProviderInfoType.CatalogName,
+                                        ItemId = fi.ProviderInfoType.ItemId,
+                                        ItemName = fi.ProviderInfoType.ItemName,
+                                    }).
+                                DefaultIfEmpty(null).
+                                FirstOrDefault()).
+                            FirstOrDefault()).
+                        FirstOrDefault(),
+                    Value = Request[RequestKey],
+                };
+                return oReturn;
+            }
+            return null;
         }
 
         #endregion
