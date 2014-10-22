@@ -1,0 +1,12 @@
+.DMStepsLayOutWrapper{
+    display: block;
+    padding: 14px 0 0;
+    border-top:3px solid #ff8300;
+}
+
+
+.DMPageBodyProviderForm {
+    width: 100%;
+    margin: 0px;
+    min-height: 430px;
+}

@@ -17,14 +17,15 @@
     <key name="File_ExcelDirectory">\DocumentManagment\0XlsProvider\</key>
 
     <!--Field Params-->
-    <key name="Field_FieldEmail">303,306,310,313,326,328,330,332,</key>
-    <key name="Field_FieldFile">343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,</key>
-    <key name="Field_FieldFormPdf">365,</key>
-    <key name="Field_FieldLegalTerms">363,364,</key>
-    <key name="Field_FieldNumber">314,</key>
-    <key name="Field_FieldPartners">342,</key>
-    <key name="Field_FieldQuantity">334,335,336,337,338,339,340,</key>
-    <key name="Field_FieldText">301,302,304,305,307,308,309,311,312,315,316,317,318,319,320,321,322,323,324,325,327,329,331,333,341,</key>
+    <key name="Field_Types">_P_FieldEmail,_P_FieldFile,_P_FieldFormPdf,_P_FieldLegalTerms,_P_FieldNumber,_P_FieldPartners,_P_FieldQuantity,_P_FieldText,</key>
+    <key name="_P_FieldEmail">303,306,310,313,326,328,330,332,</key>
+    <key name="_P_FieldFile">343,344,345,346,347,348,349,350,351,352,353,354,355,356,357,358,359,360,361,362,</key>
+    <key name="_P_FieldFormPdf">365,</key>
+    <key name="_P_FieldLegalTerms">363,364,</key>
+    <key name="_P_FieldNumber">314,</key>
+    <key name="_P_FieldPartners">342,</key>
+    <key name="_P_FieldQuantity">334,335,336,337,338,339,340,</key>
+    <key name="_P_FieldText">301,302,304,305,307,308,309,311,312,315,316,317,318,319,320,321,322,323,324,325,327,329,331,333,341,</key>
 
   </DocumentManagement>
 </Settings>

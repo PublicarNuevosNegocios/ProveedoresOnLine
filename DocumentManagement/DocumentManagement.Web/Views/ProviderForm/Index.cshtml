@@ -3,9 +3,10 @@
 @{
     ViewBag.Title = "Proveedores";
     Layout = "~/Views/Shared/_LayoutProviderForm.cshtml";
+
+    Model.RenderScripts = false;
 }
 
-<div>
     @{
         string strStyle = string.Empty;
         if (Model.RealtedStep == null)
@@ -13,7 +14,6 @@
             strStyle = "DMLogInProviders";
         }
     }
-
 
     <div class="@strStyle">
         <div class="DMLogIntopWrapper">
@@ -24,13 +24,11 @@
 
         @if (Model.RealtedStep == null)
         {
-            <div>
                 @Html.Partial(MVC.Shared.Views._P_StepLogin, Model);
-            </div>
         }
         else
         {
-            <div>
+            <div class="DMStepsLayOutWrapper">
                 <div class="DMMenuCustomer">
                     @Html.Partial(MVC.Shared.Views._P_Menu, Model)
                 </div>
@@ -43,7 +41,20 @@
             <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
             <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
         </div>
-    </div>
-
-
 </div>
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @if (Model.RealtedStep == null)
+    {
+        Html.RenderPartial(MVC.Shared.Views._P_StepLogin, Model);
+    }
+    else
+    {
+        Html.RenderPartial(MVC.Shared.Views._P_Menu, Model);
+        Html.RenderPartial(MVC.Shared.Views._P_StepGeneric, Model);
+    }
+}

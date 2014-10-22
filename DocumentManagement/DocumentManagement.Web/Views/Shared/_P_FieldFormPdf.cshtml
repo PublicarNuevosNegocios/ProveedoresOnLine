@@ -1,7 +1,10 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
 
-<div>
-    <span>@Model.RealtedField.Name:</span>
-    <input type="text" id="" name="" value="" />
-</div>
-
+@if (!Model.RenderScripts)
+{
+    <div>
+        <!--FormPdf field-->
+        <span>@Model.RealtedField.Name:</span>
+        <input type="text" id="" name="" value="" />
+    </div>
+}

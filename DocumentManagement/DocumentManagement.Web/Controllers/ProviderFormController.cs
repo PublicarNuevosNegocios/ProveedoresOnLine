@@ -81,6 +81,51 @@ namespace DocumentManagement.Web.Controllers
             }
         }
 
+        public virtual ActionResult UpsertGenericStep(string ProviderPublicId, string FormPublicId, string StepId, string NewStepId)
+        {
+            //validate upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
+            { 
+            
+            
+            }
+
+
+            //int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
+
+            //ProviderFormModel oModel = new ProviderFormModel()
+            //{
+            //    ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+            //    RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+            //    RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
+            //};
+
+            //oModel.RealtedForm = oModel.RealtedCustomer.
+            //    RelatedForm.
+            //    Where(x => x.FormPublicId == FormPublicId).
+            //    FirstOrDefault();
+
+            //if (oStepId != null)
+            //{
+            //    oModel.RealtedStep = oModel.RealtedForm.RelatedStep.
+            //        Where(x => x.StepId == (int)oStepId).
+            //        FirstOrDefault();
+            //}
+
+            //return View(oModel);
+
+            //save success
+            return RedirectToAction
+                (MVC.ProviderForm.ActionNames.Index,
+                MVC.ProviderForm.Name,
+                new
+                {
+                    ProviderPublicId = ProviderPublicId,
+                    FormPublicId = FormPublicId,
+                    StepId = StepId
+                });
+        }
+
         #region PrivateMethods
 
         private DocumentManagement.Provider.Models.Provider.ProviderModel GetGenericRequest()
