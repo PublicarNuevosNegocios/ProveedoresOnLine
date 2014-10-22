@@ -1,8 +1,52 @@
-﻿@{
+﻿@model List<DocumentManagement.Provider.Models.Provider.ProviderModel>
+
+@{
     ViewBag.Title = "Proveedores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="DMCustomerForm">
+    <div>
+        <span class="spanTitleForm">Administrar proveedores</span>
+        <div id="divGridProvider"></div>
+    </div>
+    <div id="template" style="display:none;">
+        <div id="divGridProvider_Header">
+            <label>Filtrar por:</label>
+            <input type="text" id="divGridProvider_txtSearch" />
 
+            <select id="CustomerId" name="CustomerId">
+                @*@foreach ( it in
+                    Model.OfficeOptions.
+                    Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.Role && x.ItemId != (int)BackOffice.Models.General.enumCatalog.Admin).
+                    OrderBy(x => x.ItemName)
+                    .ToList())
+                    {
+                        <option value="@it.ItemId">@it.ItemName</option>
+                    }*@
+            </select>
+            <select id="Form" name="FormId">
+                @*@foreach ( it in
+                    Model.OfficeOptions.
+                    Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.Role && x.ItemId != (int)BackOffice.Models.General.enumCatalog.Admin).
+                    OrderBy(x => x.ItemName)
+                    .ToList())
+                    {
+                        <option value="@it.ItemId">@it.ItemName</option>
+                    }*@
+            </select>
+
+            <input type="button" id="divGridProvider_SearchButton" value="Buscar" />            
+        </div>
+    </div>
 </div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start customer grid
+            ProviderSearchGrid('divGridProvider');
+        });
+    </script>
+}

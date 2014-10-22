@@ -17,11 +17,11 @@ namespace DocumentManagement.Web.ControllersApi
         {
             ProviderSearchModel oReturn = new ProviderSearchModel();
 
-            //int oTotalRows;
-            ////oReturn.RelatedProvider = DocumentManagement.Provider.Controller.Provider.CustomerSearch
-            ////    (SearchParam, PageNumber, RowCount, out oTotalRows);
+            int oTotalRows;
+            oReturn.RelatedProvider = DocumentManagement.Provider.Controller.Provider.ProviderSearch
+                (SearchParam, PageNumber, RowCount, out oTotalRows);
 
-            //oReturn.TotalRows = oTotalRows;
+            oReturn.TotalRows = oTotalRows;
 
 
             return oReturn;
