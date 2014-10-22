@@ -5,8 +5,8 @@
     <ul>
         @foreach (var Item in Model.RealtedForm.RelatedStep.OrderBy(x => x.Position))
         {
-            <li>
-                <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                <li>
+                    <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
                         MVC.ProviderForm.Name,
                         new
                         {
@@ -14,7 +14,7 @@
                             FormPublicId = Model.RealtedForm.FormPublicId,
                             StepId = Item.StepId
                         }))">@Item.Name</a>
-                    </li>
+                </li>
         }
     </ul>
 }
