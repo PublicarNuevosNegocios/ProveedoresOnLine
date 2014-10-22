@@ -240,6 +240,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                      {
                          CustomerPublicId = c.Field<string>("ProviderPublicId"),
                          Name = c.Field<string>("Name"),
+                         Email = c.Field<string>("Email"),
                          IdentificationType = new Models.Util.CatalogModel()
                          {
                              ItemId = c.Field<int>("IdentificationTypeId"),
@@ -248,6 +249,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          IdentificationNumber = c.Field<string>("IdentificationNumber"),
                          FormPublicId = c.Field<string>("FormPublicId"),
                          FormName = c.Field<string>("FormName"),
+                         CustomerName = c.Field<string>("CustomerName"),                         
                      }).ToList();
             }
 
