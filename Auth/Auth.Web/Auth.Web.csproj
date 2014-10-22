@@ -459,7 +459,6 @@
     <Content Include="Areas\Web\Content\Styles\bootstrap.min.css" />
     <Content Include="Areas\Web\Content\Styles\Site.css" />
     <Content Include="Areas\Web\Content\Styles\Site\AdminRoles.css" />
-    <Content Include="Areas\Web\Content\Styles\Site\Site.css" />
     <Content Include="Areas\Web\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\Web\Scripts\bootstrap.js" />
     <Content Include="Areas\Web\Scripts\bootstrap.min.js" />
