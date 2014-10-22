@@ -20,8 +20,8 @@ namespace DocumentManagement.Models.Provider
 
         public Dictionary<int, List<DocumentManagement.Provider.Models.Util.CatalogModel>> ProviderOptions { get; set; }
 
-        private List<string> oFieldTypes;
-        public List<string> FieldTypes
+        private static List<string> oFieldTypes;
+        public static List<string> FieldTypes
         {
             get
             {
@@ -37,8 +37,8 @@ namespace DocumentManagement.Models.Provider
             }
         }
 
-        private Dictionary<string, List<int>> oFieldInfoTypes;
-        public Dictionary<string, List<int>> FieldInfoTypes
+        private static Dictionary<string, List<int>> oFieldInfoTypes;
+        public static Dictionary<string, List<int>> FieldInfoTypes
         {
             get
             {
