@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Proveedores";
     Layout = "~/Views/Shared/_LayoutProviderForm.cshtml";
+
+    Model.RenderScripts = false;
 }
 
 <div>
@@ -25,7 +27,7 @@
         @if (Model.RealtedStep == null)
         {
             <div>
-                @Html.Partial(MVC.Shared.Views._P_StepLogin, Model);
+                @Html.Partial(MVC.Shared.Views._P_StepLogin, Model)
             </div>
         }
         else
@@ -47,3 +49,19 @@
 
 
 </div>
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @if (Model.RealtedStep == null)
+    {
+        Html.RenderPartial(MVC.Shared.Views._P_StepLogin, Model);
+    }
+    else
+    {
+        Html.RenderPartial(MVC.Shared.Views._P_Menu, Model);
+        Html.RenderPartial(MVC.Shared.Views._P_StepGeneric, Model);
+    }
+}

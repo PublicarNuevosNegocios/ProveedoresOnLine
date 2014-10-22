@@ -934,6 +934,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site\ProviderFormScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Scripts\Site\CustomerScripts.js" />
     <Content Include="Scripts\Site\ProviderScript.js" />

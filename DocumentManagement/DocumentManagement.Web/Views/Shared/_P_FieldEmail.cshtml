@@ -1,7 +1,20 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
 
-<div>
-    <span>@Model.RealtedField.Name:</span>
-    <input type="text" id="" name="" value="" />
-</div>
+@if (!Model.RenderScripts)
+{
+    //get value and id
+    string strId = Model.FieldType + "|" + Model.RealtedField.FieldId + "|";
+    string strValue = string.Empty;
+    if (Model.RealtedProviderInfo != null && Model.RealtedProviderInfo.Count > 0)
+    {
+        strId += Model.RealtedProviderInfo.FirstOrDefault().ProviderInfoId.ToString();
+        strValue = Model.RealtedProviderInfo.FirstOrDefault().Value;
+    }
+
+    <div>
+        <!--Email field-->
+        <span>@Model.RealtedField.Name:</span>
+        <input type="text" id="@strId" name="@strId" value="@strValue" />
+    </div>
+}
 
