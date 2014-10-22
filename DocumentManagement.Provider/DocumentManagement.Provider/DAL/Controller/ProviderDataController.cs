@@ -39,7 +39,7 @@ namespace DocumentManagement.Provider.DAL.Controller
             return DataFactory.ProviderUpsert(ProviderPublicId, Name, IdentificationTypeId, IdentificationNumber, Email);
         }
 
-        public int ProviderInfoUpsert(string ProviderPublicId, int? ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
+        public int ProviderInfoUpsert(string ProviderPublicId, int ProviderInfoId, int ProviderInfoTypeId, string Value, string LargeValue)
         {
             return DataFactory.ProviderInfoUpsert(ProviderPublicId, ProviderInfoId, ProviderInfoTypeId, Value, LargeValue);
         }
