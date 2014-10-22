@@ -34,20 +34,20 @@
 
     <!--Gmail-->
     <key name="GM_local_Enabled">true</key>
-    <key name="GM_local_AppId">65284956123-78ptq4tubr8a2d1um9hkq7tmvnr6lrn2.apps.googleusercontent.com</key>
-    <key name="GM_local_AppSecret">noc1gdOdcRsW26RPPU6KFPdl</key>
+    <key name="GM_local_AppId">529355985464-00ahlip6ur7sd8a6ba1674s8pt1cm3od.apps.googleusercontent.com</key>
+    <key name="GM_local_AppSecret">yjpiO9FqVbxol_pFR8xaXNWW</key>
 
     <key name="GM_documentmanagement_Enabled">true</key>
-    <key name="GM_documentmanagement_AppId">65284956123-78ptq4tubr8a2d1um9hkq7tmvnr6lrn2.apps.googleusercontent.com</key>
-    <key name="GM_documentmanagement_AppSecret">noc1gdOdcRsW26RPPU6KFPdl</key>
+    <key name="GM_documentmanagement_AppId">529355985464-00ahlip6ur7sd8a6ba1674s8pt1cm3od.apps.googleusercontent.com</key>
+    <key name="GM_documentmanagement_AppSecret">yjpiO9FqVbxol_pFR8xaXNWW</key>
 
     <key name="GM_marketplace_Enabled">false</key>
     <key name="GM_marketplace_AppId"></key>
     <key name="GM_marketplace_AppSecret"></key>
 
     <key name="GM_backoffice_Enabled">true</key>
-    <key name="GM_backoffice_AppId">65284956123-78ptq4tubr8a2d1um9hkq7tmvnr6lrn2.apps.googleusercontent.com</key>
-    <key name="GM_backoffice_AppSecret">noc1gdOdcRsW26RPPU6KFPdl</key>
+    <key name="GM_backoffice_AppId">529355985464-00ahlip6ur7sd8a6ba1674s8pt1cm3od.apps.googleusercontent.com</key>
+    <key name="GM_backoffice_AppSecret">yjpiO9FqVbxol_pFR8xaXNWW</key>
 
     <!--Windows live-->
     <key name="WL_local_Enabled">true</key>
