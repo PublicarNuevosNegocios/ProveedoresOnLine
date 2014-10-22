@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Auth.Interfaces.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,11 @@ namespace Auth.Interfaces
         void ApplicationRoleCreate(int ApplicationRoleId);
 
         SessionManager.Models.Auth.User UserGetById(string UserPublicId);
+
+        List<AdminRolesModel> ListUserRoles();
+
+        string CreateUserRolesUpsert(int AplicationId, int RoleId, string UserEmail);
+
+        void DeleteUserRoles(int AplicationRoleId);
     }
 }
