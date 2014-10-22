@@ -81,6 +81,7 @@
                 width: 90%;
             }
 
-                .DMStepsMenuCustomer ul li.selected a {
+                .DMStepsMenuCustomer ul li.MenuSelected a {
                     color: #fff;
                 }
+/********** ASTERISCO CAMPO OBLIGATORIO *********/
