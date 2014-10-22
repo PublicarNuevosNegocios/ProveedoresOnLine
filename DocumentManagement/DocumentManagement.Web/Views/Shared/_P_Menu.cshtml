@@ -1,22 +1,17 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFormModel
-
-
-<div>
-    <ul>
-        @foreach (var Item in Model.RealtedForm.RelatedStep.OrderBy(x => x.Position))
-        {
-            <li>
-                <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
-                                    MVC.ProviderForm.Name,
-                                    new
-                                    {
-                                        ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
-                                        FormPublicId = Model.RealtedForm.FormPublicId,
-                                        StepId = Item.StepId
-                                    }))">@Item.Name</a>
-            </li>
-        }
-    </ul>
-
-</div>
+<ul>
+    @foreach (var Item in Model.RealtedForm.RelatedStep.OrderBy(x => x.Position))
+    {
+        <li>
+            <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                        MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                            StepId = Item.StepId
+                        }))">@Item.Name</a>
+        </li>
+    }
+</ul>
 
