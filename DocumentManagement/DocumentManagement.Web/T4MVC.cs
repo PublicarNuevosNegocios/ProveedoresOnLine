@@ -636,6 +636,8 @@ namespace Links
             public static readonly string LogoPOHeader_png = Url("LogoPOHeader.png");
             public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
             public static readonly string LogoPublicarFooter_png = Url("LogoPublicarFooter.png");
+            public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
+            public static readonly string MDLogInProvBackground_jpg = Url("MDLogInProvBackground.jpg");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

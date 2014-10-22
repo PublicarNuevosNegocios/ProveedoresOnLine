@@ -1,10 +1,29 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFormModel
 
-<ul>
-    @foreach (var Item in Model.RealtedStep.RelatedField)
-    {
-        <li></li>
-    }
-</ul>
+<form action="" method="post">
+    <ul>
+        @foreach (var Item in Model.RealtedStep.RelatedField)
+        {
+            <li>
+                @switch (Item.ProviderInfoType.ItemId)
+                {
+
+                    case 301:
+                        Html.RenderPartial(MVC.Shared.Views._P_FieldText,
+                            new DocumentManagement.Models.Provider.ProviderFieldModel()
+                            {
+                                RealtedField = Item,
+                                RealtedProviderInfo = null,
+                                ProviderOptions = Model.ProviderOptions,
+                            });
+                        break;
+                    default:
+                        break;
+                }
+
+            </li>
+        }
+    </ul>
+</form>
 
 

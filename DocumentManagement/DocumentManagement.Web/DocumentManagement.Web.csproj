@@ -1035,6 +1035,9 @@
     <Content Include="Views\Shared\_P_StepLogin.cshtml" />
     <Content Include="Views\Shared\_P_Menu.cshtml" />
     <Content Include="Views\Shared\_P_StepGeneric.cshtml" />
+    <Content Include="Views\Shared\_P_FieldText.cshtml" />
+    <Content Include="Views\Shared\_P_FieldNumber.cshtml" />
+    <Content Include="Views\Shared\_P_FieldFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
