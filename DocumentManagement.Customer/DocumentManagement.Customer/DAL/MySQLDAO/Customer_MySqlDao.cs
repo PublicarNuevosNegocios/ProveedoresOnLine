@@ -134,7 +134,6 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                          {
                              FormPublicId = fg.Key.FormPublicId,
                              Name = fg.Key.FormName,
-                             TermsAndConditions = fg.Key.TermsAndConditions,
                              Logo = fg.Key.Logo,
                              RelatedStep =
                                 (from s in response.DataTableResult.AsEnumerable()
@@ -223,14 +222,13 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
 
         #region Form
 
-        public string FormUpsert(string FormPublicId, string CustomerPublicId, string Name, string TermsAndConditions)
+        public string FormUpsert(string FormPublicId, string CustomerPublicId, string Name)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vFormPublicId", FormPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
-            lstParams.Add(DataInstance.CreateTypedParameter("vTermsAndConditions", TermsAndConditions));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

@@ -12,8 +12,6 @@ namespace DocumentManagement.Customer.Models.Form
 
         public string Name { get; set; }
 
-        public string TermsAndConditions { get; set; }
-
         public string Logo { get; set; }
 
         public DateTime LastModify { get; set; }

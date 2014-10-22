@@ -18,10 +18,6 @@
                     <input type="text" id="Name" name="Name" value="@(Model.RelatedForm != null ? Model.RelatedForm.Name : string.Empty)" />
                 </li>
                 <li>
-                    <span>Términos y condiciones:</span>
-                    <textarea id="TermsAndConditions" name="TermsAndConditions" rows="4">@(Model.RelatedForm != null ? Model.RelatedForm.TermsAndConditions : string.Empty)</textarea>
-                </li>
-                <li>
                     <input class="DMButtonsForm" type="submit" value="Guardar" />
                 </li>
             </ul>

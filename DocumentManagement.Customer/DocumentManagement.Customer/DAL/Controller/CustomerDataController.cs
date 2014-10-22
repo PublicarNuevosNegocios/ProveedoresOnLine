@@ -61,9 +61,9 @@ namespace DocumentManagement.Customer.DAL.Controller
 
         #region Form
 
-        public string FormUpsert(string FormPublicId, string CustomerPublicId, string Name, string TermsAndConditions)
+        public string FormUpsert(string FormPublicId, string CustomerPublicId, string Name)
         {
-            return DataFactory.FormUpsert(FormPublicId, CustomerPublicId, Name, TermsAndConditions);
+            return DataFactory.FormUpsert(FormPublicId, CustomerPublicId, Name);
         }
 
         public void FormUpsertLogo(string FormPublicId, string Logo)

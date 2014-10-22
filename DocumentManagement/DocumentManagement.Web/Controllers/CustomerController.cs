@@ -194,7 +194,6 @@ namespace DocumentManagement.Web.Controllers
             {
                 oReturn.FormPublicId = Request["FormPublicId"];
                 oReturn.Name = Request["Name"];
-                oReturn.TermsAndConditions = Request["TermsAndConditions"];
             }
 
             return oReturn;
@@ -278,7 +277,7 @@ namespace DocumentManagement.Web.Controllers
                                     (err.InnerException == null ? string.Empty :
                                     " :: " + err.InnerException.Message + " :: " +
                                     err.InnerException.StackTrace),
-                    });                  
+                    });
                 }
                 return true;
             });
@@ -311,12 +310,12 @@ namespace DocumentManagement.Web.Controllers
                             "\"" + lg.Error + "\"");
 
                         return true;
-                    });                   
-                   
+                    });
+
                     sw.Flush();
                     sw.Close();
                 }
-             
+
                 //load file to s3
                 string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                     (ErrorFilePath,

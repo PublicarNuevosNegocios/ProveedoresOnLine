@@ -49,8 +49,7 @@ namespace DocumentManagement.Customer.Controller
             return DAL.Controller.CustomerDataController.Instance.FormUpsert
                 (FormToUpsert.FormPublicId,
                 CustomerPublicId,
-                FormToUpsert.Name,
-                FormToUpsert.TermsAndConditions);
+                FormToUpsert.Name);
         }
 
         public static void FormUpsertLogo(string FormPublicId, string Logo)
