@@ -8,16 +8,16 @@
                 @switch (Item.ProviderInfoType.ItemId)
                 {
 
-                    case 301:
+                    default:
                         Html.RenderPartial(MVC.Shared.Views._P_FieldText,
                             new DocumentManagement.Models.Provider.ProviderFieldModel()
                             {
                                 RealtedField = Item,
-                                RealtedProviderInfo = null,
+                                RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
+                                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                    ToList(),
                                 ProviderOptions = Model.ProviderOptions,
                             });
-                        break;
-                    default:
                         break;
                 }
 
@@ -25,5 +25,4 @@
         }
     </ul>
 </form>
-
 

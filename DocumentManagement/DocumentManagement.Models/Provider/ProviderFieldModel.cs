@@ -10,7 +10,7 @@ namespace DocumentManagement.Models.Provider
     {
         public DocumentManagement.Customer.Models.Form.FieldModel RealtedField { get; set; }
 
-        public DocumentManagement.Provider.Models.Provider.ProviderInfoModel RealtedProviderInfo { get; set; }
+        public List<DocumentManagement.Provider.Models.Provider.ProviderInfoModel> RealtedProviderInfo { get; set; }
 
         public Dictionary<int, List<DocumentManagement.Provider.Models.Util.CatalogModel>> ProviderOptions { get; set; }
     }
