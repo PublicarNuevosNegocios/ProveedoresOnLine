@@ -141,3 +141,8 @@
 .MenuCustomer {
     border-bottom: 4px solid #2C67A9;
 }
+
+/*AdminRoles*/
+MenuAdminRoles {
+    border-bottom: 4px solid #848484;
+}
