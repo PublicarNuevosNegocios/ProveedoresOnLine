@@ -13,6 +13,10 @@
 
     <div>
         <!--Text field-->
+        @if (Model.RealtedField.IsRequired)
+        {
+            <span>*</span>
+        }
         <span>@Model.RealtedField.Name:</span>
         <input type="text" id="@strId" name="@strId" value="@strValue" />
     </div>

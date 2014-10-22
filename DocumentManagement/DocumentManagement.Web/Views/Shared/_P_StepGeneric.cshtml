@@ -18,16 +18,16 @@
                 {
                     <li>
                         @(Html.Partial(Url.Content(strFieldType),
-                        new DocumentManagement.Models.Provider.ProviderFieldModel()
-                        {
-                            RenderScripts = false,
-                            RealtedField = Item,
-                            RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
-                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                ToList(),
-                            ProviderOptions = Model.ProviderOptions,
-                            FieldType = strFieldType,
-                        }))
+                            new DocumentManagement.Models.Provider.ProviderFieldModel()
+                            {
+                                RenderScripts = false,
+                                RealtedField = Item,
+                                RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
+                                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                    ToList(),
+                                ProviderOptions = Model.ProviderOptions,
+                                FieldType = strFieldType,
+                            }))
                     </li>
                 }
             }
