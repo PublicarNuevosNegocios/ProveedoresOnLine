@@ -974,6 +974,7 @@
     <Content Include="Rsx-SettingsConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Web\Views\AdminRoles\Index.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
@@ -1003,7 +1004,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="Areas\Web\Views\AdminRoles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth.ApplicationBlock\Auth.ApplicationBlock.csproj">
