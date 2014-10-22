@@ -7,7 +7,6 @@
     Model.RenderScripts = false;
 }
 
-<div>
     @{
         string strStyle = string.Empty;
         if (Model.RealtedStep == null)
@@ -25,13 +24,11 @@
 
         @if (Model.RealtedStep == null)
         {
-            <div>
-                @Html.Partial(MVC.Shared.Views._P_StepLogin, Model)
-            </div>
+                @Html.Partial(MVC.Shared.Views._P_StepLogin, Model);
         }
         else
         {
-            <div>
+            <div class="DMStepsLayOutWrapper">
                 <div class="DMMenuCustomer">
                     @Html.Partial(MVC.Shared.Views._P_Menu, Model)
                 </div>
@@ -44,8 +41,6 @@
             <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
             <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
         </div>
-    </div>
-
 </div>
 @{
     Model.RenderScripts = true;
