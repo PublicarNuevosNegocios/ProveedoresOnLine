@@ -4,7 +4,7 @@
     src: url('/Content/fonts/OpenSans-Regular.eot');
     src: url('/Content/fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/OpenSans-Regular.woff') format('woff'), url('/Content/fonts/OpenSans-Regular.ttf') format('truetype');
 }
-p, h1, h2, h3, h4, h5, h6, label, title, input, span{
+p, h1, h2, h3, h4, h5, h6, a, label, title, input, span{
     font-family: "OpenSans-Regular";
 }
 /*********Body Content************/
