@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Auth.Interfaces.Models;
+using SessionManager.Models.Auth;
 
 namespace Auth.DAL.MySqlDao
 {
@@ -17,6 +19,85 @@ namespace Auth.DAL.MySqlDao
         {
             DataInstance = new ADO.MYSQL.MySqlImplement(Interfaces.Constants.C_AuthConnectionName);
         }
+
+        #region AdminRoles
+
+        public List<AdminRolesModel> ListUserRoles()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "A_GetAllUsers",
+                    CommandType = System.Data.CommandType.StoredProcedure
+                });
+
+            List<AdminRolesModel> oRetorno = null;
+            
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oRetorno = (from au in response.DataTableResult.AsEnumerable()
+                            select new AdminRolesModel()
+                            {
+                                RelatedRole = new SessionManager.Models.Auth.ApplicationRole()
+                                {
+                                    ApplicationRoleId = au.Field<int>("ApplicationRoleId"),
+                                    Application = au.Field<enumApplication>("ApplicationId"),
+                                    Role = au.Field<enumRole>("RoleId"),
+                                    CreateDate = au.Field<DateTime>("CreateDate"),
+                                },
+                                UserEmail = au.Field<string>("UserEmail")
+                            }).ToList();
+            }
+            return oRetorno;
+        }
+
+        public string CreateUserRolesUpsert(
+                                      int AplicationId,
+                                      int RoleId,
+                                      string UserEmail)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vApplicationId", AplicationId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleId", RoleId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUserEmail", UserEmail));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                    CommandText = "A_ApplicationRole_Create",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams
+                });
+
+            if (response.ScalarResult != null)
+            {
+                return response.ScalarResult.ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void DeleteUserRoles(int AplicationRoleId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("", AplicationRoleId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                    CommandText = "A_ApplicationRole_Delete",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams
+                });
+        }
+
+        #endregion
 
         #region Implemented methods
 

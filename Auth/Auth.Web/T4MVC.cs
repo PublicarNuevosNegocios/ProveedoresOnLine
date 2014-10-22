@@ -43,21 +43,21 @@ namespace T4MVC
     public class MobileClass
     {
         public readonly string Name = "Mobile";
+        public Auth.Web.Areas.Mobile.Controllers.AdminRolesController AdminRoles = new Auth.Web.Areas.Mobile.Controllers.T4MVC_AdminRolesController();
         public Auth.Web.Areas.Mobile.Controllers.FBLoginController FBLogin = new Auth.Web.Areas.Mobile.Controllers.T4MVC_FBLoginController();
         public Auth.Web.Areas.Mobile.Controllers.GoogleLoginController GoogleLogin = new Auth.Web.Areas.Mobile.Controllers.T4MVC_GoogleLoginController();
         public Auth.Web.Areas.Mobile.Controllers.InternalLoginController InternalLogin = new Auth.Web.Areas.Mobile.Controllers.T4MVC_InternalLoginController();
-        public T4MVC.Mobile.AdminRolesController AdminRoles = new T4MVC.Mobile.AdminRolesController();
         public T4MVC.Mobile.SharedController Shared = new T4MVC.Mobile.SharedController();
     }
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class WebClass
     {
         public readonly string Name = "Web";
+        public Auth.Web.Areas.Web.Controllers.AdminRolesController AdminRoles = new Auth.Web.Areas.Web.Controllers.T4MVC_AdminRolesController();
         public Auth.Web.Areas.Web.Controllers.FBLoginController FBLogin = new Auth.Web.Areas.Web.Controllers.T4MVC_FBLoginController();
         public Auth.Web.Areas.Web.Controllers.GoogleLoginController GoogleLogin = new Auth.Web.Areas.Web.Controllers.T4MVC_GoogleLoginController();
         public Auth.Web.Areas.Web.Controllers.InternalLoginController InternalLogin = new Auth.Web.Areas.Web.Controllers.T4MVC_InternalLoginController();
         public Auth.Web.Areas.Web.Controllers.WLLoginController WLLogin = new Auth.Web.Areas.Web.Controllers.T4MVC_WLLoginController();
-        public T4MVC.Web.AdminRolesController AdminRoles = new T4MVC.Web.AdminRolesController();
         public T4MVC.Web.SharedController Shared = new T4MVC.Web.SharedController();
     }
 }
@@ -92,44 +92,6 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
 
 namespace Links
 {
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Scripts {
-        private const string URLPATH = "~/Scripts";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
-        public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
-        public static readonly string jquery_2_1_1_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.intellisense.min.js") ? Url("jquery-2.1.1.intellisense.min.js") : Url("jquery-2.1.1.intellisense.js");
-        public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js") : Url("jquery-2.1.1.js");
-        public static readonly string jquery_2_1_1_min_js = Url("jquery-2.1.1.min.js");
-        public static readonly string jquery_2_1_1_min_map = Url("jquery-2.1.1.min.map");
-        public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
-        public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
-        public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
-        public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
-        public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
-        public static readonly string respond_min_js = Url("respond.min.js");
-    }
-
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Content {
-        private const string URLPATH = "~/Content";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
-             
-        public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map");
-        public static readonly string bootstrap_theme_min_css = Url("bootstrap-theme.min.css");
-        public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
-             
-        public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
-        public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
-    }
-
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Areas {
@@ -183,6 +145,289 @@ namespace Links
                 private const string URLPATH = "~/Areas/Mobile/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Images {
+                    private const string URLPATH = "~/Areas/Mobile/Content/Images";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
+                    public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class kendo {
+                    private const string URLPATH = "~/Areas/Mobile/Content/kendo";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                    public static class _2014_1_318 {
+                        private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318";
+                        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Black {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Black";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class BlueOpal {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/BlueOpal";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Bootstrap {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Bootstrap";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Default {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Default";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Flat {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Flat";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class HighContrast {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/HighContrast";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class images {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/images";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string kendoui_ttf = Url("kendoui.ttf");
+                            public static readonly string kendoui_woff = Url("kendoui.woff");
+                        }
+                    
+                        public static readonly string kendo_black_min_css = Url("kendo.black.min.css");
+                        public static readonly string kendo_black_mobile_min_css = Url("kendo.black.mobile.min.css");
+                        public static readonly string kendo_blueopal_min_css = Url("kendo.blueopal.min.css");
+                        public static readonly string kendo_blueopal_mobile_min_css = Url("kendo.blueopal.mobile.min.css");
+                        public static readonly string kendo_bootstrap_min_css = Url("kendo.bootstrap.min.css");
+                        public static readonly string kendo_bootstrap_mobile_min_css = Url("kendo.bootstrap.mobile.min.css");
+                        public static readonly string kendo_common_bootstrap_core_min_css = Url("kendo.common-bootstrap.core.min.css");
+                        public static readonly string kendo_common_bootstrap_min_css = Url("kendo.common-bootstrap.min.css");
+                        public static readonly string kendo_common_core_min_css = Url("kendo.common.core.min.css");
+                        public static readonly string kendo_common_min_css = Url("kendo.common.min.css");
+                        public static readonly string kendo_default_min_css = Url("kendo.default.min.css");
+                        public static readonly string kendo_default_mobile_min_css = Url("kendo.default.mobile.min.css");
+                        public static readonly string kendo_flat_min_css = Url("kendo.flat.min.css");
+                        public static readonly string kendo_flat_mobile_min_css = Url("kendo.flat.mobile.min.css");
+                        public static readonly string kendo_highcontrast_min_css = Url("kendo.highcontrast.min.css");
+                        public static readonly string kendo_highcontrast_mobile_min_css = Url("kendo.highcontrast.mobile.min.css");
+                        public static readonly string kendo_metro_min_css = Url("kendo.metro.min.css");
+                        public static readonly string kendo_metro_mobile_min_css = Url("kendo.metro.mobile.min.css");
+                        public static readonly string kendo_metroblack_min_css = Url("kendo.metroblack.min.css");
+                        public static readonly string kendo_metroblack_mobile_min_css = Url("kendo.metroblack.mobile.min.css");
+                        public static readonly string kendo_moonlight_min_css = Url("kendo.moonlight.min.css");
+                        public static readonly string kendo_moonlight_mobile_min_css = Url("kendo.moonlight.mobile.min.css");
+                        public static readonly string kendo_rtl_min_css = Url("kendo.rtl.min.css");
+                        public static readonly string kendo_silver_min_css = Url("kendo.silver.min.css");
+                        public static readonly string kendo_silver_mobile_min_css = Url("kendo.silver.mobile.min.css");
+                        public static readonly string kendo_uniform_min_css = Url("kendo.uniform.min.css");
+                        public static readonly string kendo_uniform_mobile_min_css = Url("kendo.uniform.mobile.min.css");
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Metro {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Metro";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class MetroBlack {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/MetroBlack";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Moonlight {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Moonlight";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Silver {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Silver";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class textures {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/textures";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string brushed_metal_png = Url("brushed-metal.png");
+                            public static readonly string dots1_png = Url("dots1.png");
+                            public static readonly string dots10_png = Url("dots10.png");
+                            public static readonly string dots11_png = Url("dots11.png");
+                            public static readonly string dots12_png = Url("dots12.png");
+                            public static readonly string dots13_png = Url("dots13.png");
+                            public static readonly string dots2_png = Url("dots2.png");
+                            public static readonly string dots3_png = Url("dots3.png");
+                            public static readonly string dots4_png = Url("dots4.png");
+                            public static readonly string dots5_png = Url("dots5.png");
+                            public static readonly string dots6_png = Url("dots6.png");
+                            public static readonly string dots7_png = Url("dots7.png");
+                            public static readonly string dots8_png = Url("dots8.png");
+                            public static readonly string dots9_png = Url("dots9.png");
+                            public static readonly string glass_lighter_png = Url("glass-lighter.png");
+                            public static readonly string glass_png = Url("glass.png");
+                            public static readonly string highlight_png = Url("highlight.png");
+                            public static readonly string hsv_gradient_png = Url("hsv-gradient.png");
+                            public static readonly string hue_png = Url("hue.png");
+                            public static readonly string leather1_png = Url("leather1.png");
+                            public static readonly string leather2_png = Url("leather2.png");
+                            public static readonly string noise_png = Url("noise.png");
+                            public static readonly string stripe1_png = Url("stripe1.png");
+                            public static readonly string stripe2_png = Url("stripe2.png");
+                            public static readonly string stripe3_png = Url("stripe3.png");
+                            public static readonly string stripe4_png = Url("stripe4.png");
+                            public static readonly string stripe5_png = Url("stripe5.png");
+                            public static readonly string stripe6_png = Url("stripe6.png");
+                            public static readonly string transparency_png = Url("transparency.png");
+                            public static readonly string transtexture_png = Url("transtexture.png");
+                        }
+                    
+                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                        public static class Uniform {
+                            private const string URLPATH = "~/Areas/Mobile/Content/kendo/2014.1.318/Uniform";
+                            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                            public static readonly string editor_png = Url("editor.png");
+                            public static readonly string imagebrowser_png = Url("imagebrowser.png");
+                            public static readonly string indeterminate_gif = Url("indeterminate.gif");
+                            public static readonly string loading_image_gif = Url("loading-image.gif");
+                            public static readonly string loading_gif = Url("loading.gif");
+                            public static readonly string loading_2x_gif = Url("loading_2x.gif");
+                            public static readonly string slider_h_gif = Url("slider-h.gif");
+                            public static readonly string slider_v_gif = Url("slider-v.gif");
+                            public static readonly string sprite_png = Url("sprite.png");
+                            public static readonly string sprite_2x_png = Url("sprite_2x.png");
+                        }
+                    
+                    }
+                
+                }
+            
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Styles {
                     private const string URLPATH = "~/Areas/Mobile/Content/Styles";
@@ -742,6 +987,7 @@ namespace Links
                     private const string URLPATH = "~/Areas/Web/Scripts/Site";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string AdminRoles_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AdminRoles.min.js") ? Url("AdminRoles.min.js") : Url("AdminRoles.js");
                     public static readonly string Auth_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Auth.min.js") ? Url("Auth.min.js") : Url("Auth.js");
                 }
             
@@ -758,6 +1004,15 @@ namespace Links
                 private const string URLPATH = "~/Areas/Web/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Images {
+                    private const string URLPATH = "~/Areas/Web/Content/Images";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
+                    public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
+                }
+            
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class kendo {
                     private const string URLPATH = "~/Areas/Web/Content/kendo";
@@ -1050,7 +1305,7 @@ namespace Links
                         private const string URLPATH = "~/Areas/Web/Content/Styles/Site";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
+                        public static readonly string AdminRoles_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AdminRoles.min.css") ? Url("AdminRoles.min.css") : Url("AdminRoles.css");
                              
                     }
                 

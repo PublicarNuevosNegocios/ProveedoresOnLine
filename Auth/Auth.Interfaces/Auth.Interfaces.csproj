@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="IAuthData.cs" />
+    <Compile Include="Models\AdminRolesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
