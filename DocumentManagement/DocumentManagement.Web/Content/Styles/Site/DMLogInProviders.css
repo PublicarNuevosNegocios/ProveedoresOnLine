@@ -115,28 +115,27 @@ hr {
 
 .DMLogInbottomWrapper {
     position: absolute;
-    /*bottom:0px;*/
+    bottom:0px;
     width: 100%;
     height: auto;
     text-align: center;
     padding: 0px;
-    margin-left: -27px;
+    margin-left: 0px;
     background-color: rgba(255, 255, 255, 0.8);
 }
+        .DMLogPublicar {
+            display: block;
+            margin: 6px 0 0 86%;
+            width: 12%;
+            height: auto;
+        }
 
-.DMLogPublicar {
-    display: block;
-    margin: 6px 0 0 86%;
-    width: 12%;
-    height: auto;
-}
-
-.DMPublicarCopyright {
-    display: block;
-    margin: 5px 0px 7px 0px;
-    width: 100%;
-    color: #4d4d4d;
-    font-size: 0.9em;
-    line-height: 0.7em;
-    font-weight: normal;
-}
+        .DMPublicarCopyright {
+            display: block;
+            margin: 5px 0px 7px 0px;
+            width: 100%;
+            color: #4d4d4d;
+            font-size: 0.9em;
+            line-height: 0.7em;
+            font-weight: normal;
+        }
