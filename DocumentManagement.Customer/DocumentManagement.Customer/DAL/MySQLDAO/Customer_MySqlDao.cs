@@ -127,7 +127,6 @@ namespace DocumentManagement.Customer.DAL.MySQLDAO
                          {
                              FormPublicId = f.Field<string>("FormPublicId"),
                              FormName = f.Field<string>("FormName"),
-                             TermsAndConditions = f.Field<string>("TermsAndConditions"),
                              Logo = f.Field<string>("Logo"),
                          } into fg
                          select new FormModel()

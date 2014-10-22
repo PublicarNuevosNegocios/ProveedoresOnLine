@@ -1025,7 +1025,7 @@
     <Content Include="Views\Shared\_L_Header.cshtml" />
     <Content Include="Views\Shared\_L_PrincipalMenu.cshtml" />
     <Content Include="Views\Shared\_L_UserInfo.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\ListCustomer.cshtml" />
     <Content Include="Views\Customer\UpsertCustomer.cshtml" />
     <Content Include="Views\Customer\UploadProvider.cshtml" />
     <Content Include="Views\Customer\ListForm.cshtml" />

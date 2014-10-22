@@ -14,7 +14,7 @@ namespace DocumentManagement.Web.Controllers
 {
     public partial class CustomerController : BaseController
     {
-        public virtual ActionResult Index()
+        public virtual ActionResult ListCustomer()
         {
             return View();
         }
