@@ -3,7 +3,7 @@
 @if (!Model.RenderScripts)
 {
     //get value and id
-    string strId = Model.FieldType + "|" + Model.RealtedField.FieldId + "|";
+    string strId = Model.FieldType + "-" + Model.RealtedField.FieldId + "-";
     string strValue = string.Empty;
     if (Model.RealtedProviderInfo != null && Model.RealtedProviderInfo.Count > 0)
     {

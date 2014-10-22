@@ -2,7 +2,15 @@
 
 @if (!Model.RenderScripts)
 {
-    <form action="" method="post" enctype="multipart/form-data">
+    <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.UpsertGenericStep,
+                            MVC.ProviderForm.Name,
+                            new
+                            {
+                                ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                                FormPublicId = Model.RealtedForm.FormPublicId,
+                                StepId = Model.RealtedStep.StepId,
+                                NewStepId = "{{NewStepId}}"
+                            })))" method="post" enctype="multipart/form-data">
         <ul>
             @foreach (var Item in Model.RealtedStep.RelatedField)
             {
@@ -32,6 +40,10 @@
                 }
             }
         </ul>
+        @Html.Partial(MVC.Shared.Views._P_StepNavigator)
+        <div style="display:none">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+        </div>
     </form>
 }
 else

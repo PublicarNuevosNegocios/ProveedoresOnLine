@@ -48,11 +48,13 @@ namespace T4MVC
                 public readonly string _P_FieldFormPdf = "_P_FieldFormPdf";
                 public readonly string _P_FieldLegalTerms = "_P_FieldLegalTerms";
                 public readonly string _P_FieldNumber = "_P_FieldNumber";
+                public readonly string _P_FieldPartners = "_P_FieldPartners";
                 public readonly string _P_FieldQuantity = "_P_FieldQuantity";
                 public readonly string _P_FieldText = "_P_FieldText";
                 public readonly string _P_Menu = "_P_Menu";
                 public readonly string _P_StepGeneric = "_P_StepGeneric";
                 public readonly string _P_StepLogin = "_P_StepLogin";
+                public readonly string _P_StepNavigator = "_P_StepNavigator";
             }
             public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
@@ -66,11 +68,13 @@ namespace T4MVC
             public readonly string _P_FieldFormPdf = "~/Views/Shared/_P_FieldFormPdf.cshtml";
             public readonly string _P_FieldLegalTerms = "~/Views/Shared/_P_FieldLegalTerms.cshtml";
             public readonly string _P_FieldNumber = "~/Views/Shared/_P_FieldNumber.cshtml";
+            public readonly string _P_FieldPartners = "~/Views/Shared/_P_FieldPartners.cshtml";
             public readonly string _P_FieldQuantity = "~/Views/Shared/_P_FieldQuantity.cshtml";
             public readonly string _P_FieldText = "~/Views/Shared/_P_FieldText.cshtml";
             public readonly string _P_Menu = "~/Views/Shared/_P_Menu.cshtml";
             public readonly string _P_StepGeneric = "~/Views/Shared/_P_StepGeneric.cshtml";
             public readonly string _P_StepLogin = "~/Views/Shared/_P_StepLogin.cshtml";
+            public readonly string _P_StepNavigator = "~/Views/Shared/_P_StepNavigator.cshtml";
         }
     }
 

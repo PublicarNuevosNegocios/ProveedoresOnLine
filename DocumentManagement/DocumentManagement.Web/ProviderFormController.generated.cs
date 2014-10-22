@@ -69,6 +69,12 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoginProvider);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UpsertGenericStep()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertGenericStep);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -87,6 +93,7 @@ namespace DocumentManagement.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string LoginProvider = "LoginProvider";
+            public readonly string UpsertGenericStep = "UpsertGenericStep";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,6 +101,7 @@ namespace DocumentManagement.Web.Controllers
         {
             public const string Index = "Index";
             public const string LoginProvider = "LoginProvider";
+            public const string UpsertGenericStep = "UpsertGenericStep";
         }
 
 
@@ -116,6 +124,17 @@ namespace DocumentManagement.Web.Controllers
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
             public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_UpsertGenericStep s_params_UpsertGenericStep = new ActionParamsClass_UpsertGenericStep();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpsertGenericStep UpsertGenericStepParams { get { return s_params_UpsertGenericStep; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpsertGenericStep
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+            public readonly string StepId = "StepId";
+            public readonly string NewStepId = "NewStepId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -163,6 +182,21 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             LoginProviderOverride(callInfo, ProviderPublicId, FormPublicId, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpsertGenericStepOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId, string StepId, string NewStepId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpsertGenericStep(string ProviderPublicId, string FormPublicId, string StepId, string NewStepId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertGenericStep);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "NewStepId", NewStepId);
+            UpsertGenericStepOverride(callInfo, ProviderPublicId, FormPublicId, StepId, NewStepId);
             return callInfo;
         }
 
