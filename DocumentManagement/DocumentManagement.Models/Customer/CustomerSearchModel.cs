@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocumentManagement.Models.Provider
+namespace DocumentManagement.Models.Customer
 {
     public class CustomerSearchModel
     {
