@@ -131,3 +131,46 @@
             width: 340px;
             margin:0px;
         }
+/********** ESTILOS NAVIGAYTOR ***********/
+
+.DMFormNavigationWrapper {
+    display:block;
+    padding:8px 0px;
+    margin:0px;
+    width:100%;
+    height:auto;
+}
+.DMFormNavigationWrapper li{
+    display:inline-block;
+    margin:0px !important; padding:0px;
+}
+.DMButtonsPrev, .DMButtonsNext {
+    background-color: #fff;
+    color: #ff8300;
+    font-size: 1.3em;
+    height: auto;
+    padding: 3px 12px;
+    width: auto;
+}
+    .DMButtonsPrev:hover, .DMButtonsNext:hover{
+        text-decoration: underline;
+        background-color: #f9f9f9;
+        color: #ff8300;
+    }
+.DMButtonsSave {
+    float:right;
+}
+.DMFormNavigationWrapper a.DMButtonsForm{
+    background-color: #ff8300;
+    border: medium none;
+    color: #fff;
+    font-size: 1.3em;
+    height: auto;
+    padding: 3px 38px;
+    width: auto;
+}
+a.DMButtonsForm:hover{
+    text-decoration: underline;
+    background-color: #ff9955;
+    color:#fff;
+}
