@@ -15,7 +15,7 @@
         <form action="@Url.Action(MVC.Customer.ActionNames.UpsertCustomer, MVC.Customer.Name)" method="post">
             <ul>
                 <li>
-                    <span>Nombre</span>
+                    <span>Razón Social</span>
                     <input type="text" id="Name" name="Name" value="@(Model.RelatedCustomer != null ? Model.RelatedCustomer.Name : string.Empty)" />
                 </li>
                 <li>

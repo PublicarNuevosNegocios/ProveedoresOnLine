@@ -18,7 +18,7 @@
     margin: 0px;
     padding: 0px;
     width: 100%;
-    height: 82px;
+    height: 115px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.9);
 }
@@ -26,8 +26,8 @@
 .DMProviderlogo {
     float: left;
     height: auto;
-    margin: 8px 0 0 1%;
-    width: 5%;
+    margin: 8px 0px 0 2%;
+    width: 133px;
 }
 
 .DMLogIntopWrapper label {
@@ -38,16 +38,16 @@
     font-weight: normal;
     height: auto;
     line-height: 1.3em;
-    margin: 2.6% auto 0 auto;
+    margin: 3.6% auto 0 auto;
     text-transform: uppercase;
-    width: 498px;
+    width: 600px;
 }
 
 .DMPOLogo {
     float: right;
     width: 14%;
     height: auto;
-    margin: 8px 1% 0 0;
+    margin: 24px 2% 0 0;
 }
 
 .DMLogInformWrapper {
@@ -115,7 +115,7 @@ hr {
 
 .DMLogInbottomWrapper {
     position: absolute;
-    bottom:0px;
+    bottom: 0px;
     width: 100%;
     height: auto;
     text-align: center;
@@ -123,19 +123,20 @@ hr {
     margin-left: 0px;
     background-color: rgba(255, 255, 255, 0.8);
 }
-        .DMLogPublicar {
-            display: block;
-            margin: 6px 0 0 86%;
-            width: 12%;
-            height: auto;
-        }
 
-        .DMPublicarCopyright {
-            display: block;
-            margin: 5px 0px 7px 0px;
-            width: 100%;
-            color: #4d4d4d;
-            font-size: 0.9em;
-            line-height: 0.7em;
-            font-weight: normal;
-        }
+.DMLogPublicar {
+    display: block;
+    margin: 6px 0 0 86%;
+    width: 12%;
+    height: auto;
+}
+
+.DMPublicarCopyright {
+    display: block;
+    margin: 5px 0px 7px 0px;
+    width: 100%;
+    color: #4d4d4d;
+    font-size: 0.9em;
+    line-height: 0.7em;
+    font-weight: normal;
+}

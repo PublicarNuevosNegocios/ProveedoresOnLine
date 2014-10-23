@@ -2,6 +2,18 @@
 
 @if (!Model.RenderScripts)
 {
+    <div>
+        <div class="TitleCustomer">
+            <label>@Model.RealtedProvider.Name</label>
+            <label>@Model.RealtedProvider.IdentificationType.ItemName</label>
+            <label>@Model.RealtedProvider.IdentificationNumber</label>
+        </div>
+        <div class="ProgressBar">
+            <label id="divProgressBar_Label"></label>
+            <div id="divProgressBar"></div>
+        </div>
+    </div>
+
     <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.UpsertGenericStep,
                             MVC.ProviderForm.Name,
                             new
@@ -48,6 +60,9 @@
 }
 else
 {
+    int TotalRequiredFields = 0, FillRequiredFields = 0;
+
+
     foreach (var Item in Model.RealtedStep.RelatedField)
     {
         //get partial view to render
@@ -58,19 +73,36 @@ else
             DefaultIfEmpty(string.Empty).
             FirstOrDefault();
 
+        DocumentManagement.Models.Provider.ProviderFieldModel ItemModel = new DocumentManagement.Models.Provider.ProviderFieldModel()
+            {
+                RenderScripts = true,
+                RealtedField = Item,
+                RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
+                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                    ToList(),
+                ProviderOptions = Model.ProviderOptions,
+                FieldType = strFieldType,
+            };
+
+        if (ItemModel.RealtedField.IsRequired)
+        {
+            TotalRequiredFields++;
+            if (ItemModel.RealtedProviderInfo.Any(x => !string.IsNullOrEmpty(x.Value) || !string.IsNullOrEmpty(x.LargeValue)))
+            {
+                FillRequiredFields++;
+            }
+        }
+
         if (!string.IsNullOrEmpty(strFieldType))
         {
-            Html.RenderPartial(Url.Content(strFieldType),
-                    new DocumentManagement.Models.Provider.ProviderFieldModel()
-                    {
-                        RenderScripts = true,
-                        RealtedField = Item,
-                        RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
-                            Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                            ToList(),
-                        ProviderOptions = Model.ProviderOptions,
-                        FieldType = strFieldType,
-                    });
+            Html.RenderPartial(Url.Content(strFieldType), ItemModel);
         }
     }
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            PF_InitProgressBar('divProgressBar', @(TotalRequiredFields > 0 ? (int)((FillRequiredFields * 100)/ TotalRequiredFields) : 0), '@(FillRequiredFields + "/" + TotalRequiredFields)');
+        });
+    </script>
+
 }

@@ -20,7 +20,7 @@
                 <li>
                     <input class="DMButtonsForm" type="submit" value="Guardar" />
                 </li>
-            </ul>
+            </ul>           
 
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
@@ -31,6 +31,8 @@
                 }
             </div>
         </form>
+
+        <hr class="featurette-divider __loop">
 
         @if (Model.RelatedForm != null && !string.IsNullOrEmpty(Model.RelatedForm.FormPublicId))
         {
@@ -51,13 +53,17 @@
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 </div>
             </form>
-
+            
+            <hr class="featurette-divider __loop">
+            
             <!--step grid-->
             <div class="stepGrid">
                 <span>Pasos</span>
                 <div id="divGridStep"></div>
             </div>
 
+            <hr class="featurette-divider __loop">
+            
             <!--field grid-->
             <div class="fieldGrid">
                 <span>Campos</span>
