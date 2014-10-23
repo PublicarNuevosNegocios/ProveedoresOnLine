@@ -138,13 +138,13 @@
     }
 
 img.ImageFile {
-    width: 6%;
+    width: 11%;
     display: inline-block;
-    margin: 12px;
+    margin: 15px;
 }
 
-a.OpenFile{
-    margin-left: 8%;
+a.OpenFile {
+    margin-left: 6%;
     margin-top: 5px;
 }
 
