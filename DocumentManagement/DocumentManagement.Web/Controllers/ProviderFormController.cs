@@ -208,30 +208,19 @@ namespace DocumentManagement.Web.Controllers
 
             if (RequestKeySplit.Count >= 2)
             {
-                Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
+                    (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
+
+                if (oProviderInfoType != null)
                 {
-                    ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
-                    ProviderInfoType =
-                        GenericModels.
-                        RealtedCustomer.
-                        RelatedForm.
-                        Select(f => f.RelatedStep.
-                            Select(s => s.RelatedField.
-                                Where(fi => fi.FieldId == Convert.ToInt32(RequestKeySplit[1].Replace(" ", ""))).
-                                Select(fi => new DocumentManagement.Provider.Models.Util.CatalogModel()
-                                    {
-                                        CatalogId = fi.ProviderInfoType.CatalogId,
-                                        CatalogName = fi.ProviderInfoType.CatalogName,
-                                        ItemId = fi.ProviderInfoType.ItemId,
-                                        ItemName = fi.ProviderInfoType.ItemName,
-                                    }).
-                                DefaultIfEmpty(null).
-                                FirstOrDefault()).
-                            FirstOrDefault()).
-                        FirstOrDefault(),
-                    Value = Request[RequestKey],
-                };
-                return oReturn;
+                    Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                    {
+                        ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                        ProviderInfoType = oProviderInfoType,
+                        Value = Request[RequestKey],
+                    };
+                    return oReturn;
+                }
             }
             return null;
         }
@@ -273,32 +262,54 @@ namespace DocumentManagement.Web.Controllers
                     System.IO.File.Delete(strFile);
 
 
-                Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
+                    (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
+
+                if (oProviderInfoType != null)
                 {
-                    ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
-                    ProviderInfoType =
-                        GenericModels.
-                        RealtedCustomer.
-                        RelatedForm.
-                        Select(f => f.RelatedStep.
-                            Select(s => s.RelatedField.
-                                Where(fi => fi.FieldId == Convert.ToInt32(RequestKeySplit[1].Replace(" ", ""))).
-                                Select(fi => new DocumentManagement.Provider.Models.Util.CatalogModel()
-                                {
-                                    CatalogId = fi.ProviderInfoType.CatalogId,
-                                    CatalogName = fi.ProviderInfoType.CatalogName,
-                                    ItemId = fi.ProviderInfoType.ItemId,
-                                    ItemName = fi.ProviderInfoType.ItemName,
-                                }).
-                                DefaultIfEmpty(null).
-                                FirstOrDefault()).
-                            FirstOrDefault()).
-                        FirstOrDefault(),
-                    LargeValue = strRemoteFile,
-                };
-                return oReturn;
+
+                    Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                    {
+                        ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                        ProviderInfoType = oProviderInfoType,
+                        LargeValue = strRemoteFile,
+                    };
+                    return oReturn;
+                }
             }
             return null;
+        }
+
+        private DocumentManagement.Provider.Models.Util.CatalogModel GetProviderInfoType(ProviderFormModel GenericModels, int FieldId)
+        {
+            DocumentManagement.Provider.Models.Util.CatalogModel oReturn = null;
+
+            GenericModels.RealtedCustomer.RelatedForm.All(f =>
+            {
+                f.RelatedStep.All(s =>
+                {
+                    s.RelatedField.All(fi =>
+                    {
+                        if (fi.FieldId == FieldId)
+                        {
+                            oReturn = new DocumentManagement.Provider.Models.Util.CatalogModel()
+                            {
+                                CatalogId = fi.ProviderInfoType.CatalogId,
+                                CatalogName = fi.ProviderInfoType.CatalogName,
+                                ItemId = fi.ProviderInfoType.ItemId,
+                                ItemName = fi.ProviderInfoType.ItemName,
+                            };
+                        }
+
+                        return true;
+                    });
+
+                    return true;
+                });
+                return true;
+            });
+
+            return oReturn;
         }
 
         #endregion
