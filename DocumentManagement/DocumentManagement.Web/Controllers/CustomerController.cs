@@ -1,6 +1,6 @@
 ﻿using DocumentManagement.Customer.Models.Customer;
 using DocumentManagement.Customer.Models.Form;
-using DocumentManagement.Models.Customer;
+using DocumentManagement.Models.Provider;
 using DocumentManagement.Models.Provider;
 using DocumentManagement.Provider.Models.Provider;
 using DocumentManagement.Provider.Models.Util;

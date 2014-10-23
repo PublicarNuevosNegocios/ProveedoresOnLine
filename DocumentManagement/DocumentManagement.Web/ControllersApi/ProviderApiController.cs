@@ -1,4 +1,4 @@
-﻿using DocumentManagement.Models.Customer;
+﻿using DocumentManagement.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +13,50 @@ namespace DocumentManagement.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public ProviderSearchModel ProviderSearch
-            (string CustomerSearchVal, string SearchParam, int PageNumber, int RowCount)
+            (string ProviderSearchVal, string SearchParam, int PageNumber, int RowCount, string CustomerPublicId, string FormPublicId)
         {
             ProviderSearchModel oReturn = new ProviderSearchModel();
 
             int oTotalRows;
-            oReturn.RelatedProvider = DocumentManagement.Provider.Controller.Provider.ProviderSearch
+            List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
                 (SearchParam, PageNumber, RowCount, out oTotalRows);
 
             oReturn.TotalRows = oTotalRows;
+            if (CustomerPublicId != null)
+            {
+                oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId 
+                                    && x.FormPublicId == FormPublicId
+                                    ).Select(x => x).ToList();
+            //    P.ProviderPublicId like oSearchParam
+            //or P.Name like oSearchParam
+            //or P.IdentificationNumber like oSearchParam
+            //or P.Email like oSearchParam
+            }
+           
 
+            oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
+            oProviderlst.All(prv =>
+            {
+                oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
+                {
+                    RelatedProvider = prv,
+                });
+                return true;
+            });
 
             return oReturn;
+        }
 
+        [HttpPost]
+        [HttpGet]
+        public FormSearchModel FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            int oTotalRows;
+
+            FormSearchModel oReturn = new FormSearchModel();
+            oReturn.RelatedForm = DocumentManagement.Customer.Controller.Customer.FormSearch(CustomerPublicId, SearchParam, PageNumber, RowCount, out oTotalRows);
+
+            return oReturn;
         }
     }
 }

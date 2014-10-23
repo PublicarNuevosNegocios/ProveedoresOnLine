@@ -34,6 +34,12 @@
 
         #endregion
 
+        #region Administrator User Roles
+
+        public const string C_Settings_Url_AdminRoles = "URL_AdminRoles";
+
+        #endregion
+
         #region File
 
         public const string C_Settings_File_TempDirectory = "File_TempDirectory";

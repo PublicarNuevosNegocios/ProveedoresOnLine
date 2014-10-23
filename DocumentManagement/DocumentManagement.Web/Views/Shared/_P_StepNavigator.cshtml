@@ -20,16 +20,16 @@
             DefaultIfEmpty(null).
             FirstOrDefault();
 
-    <ul>
+    <ul class="DMFormNavigationWrapper">
         @if (PreviewStep != null)
         {
-            <li><a href="javascript:PF_PostBackForm('FrmGenericStep', '@PreviewStep.ToString()')">Anterior / Back</a></li>
+            <li><a class="DMButtonsPrev" href="javascript:PF_PostBackForm('FrmGenericStep', '@PreviewStep.ToString()')"><< Anterior / Back</a></li>
         }
         @if (NextStep != null)
         {
-            <li><a href="javascript:PF_PostBackForm('FrmGenericStep', '@NextStep.ToString()')">Siguiente / Next</a></li>
+            <li><a class="DMButtonsNext" href="javascript:PF_PostBackForm('FrmGenericStep', '@NextStep.ToString()')">Siguiente / Next >></a></li>
         }
-        <li><a href="javascript:PF_PostBackForm('FrmGenericStep', '')">Guardar / Save</a></li>
+        <li class="DMButtonsSave"><a class="DMButtonsForm" href="javascript:PF_PostBackForm('FrmGenericStep', '')">Guardar / Save</a></li>
     </ul>
 }
 

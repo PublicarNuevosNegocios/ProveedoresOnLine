@@ -11,7 +11,11 @@ namespace DocumentManagement.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            return View();
+            ProviderSearchModel oModel = new ProviderSearchModel();
+            int oTotalRows;
+            oModel.Customers = DocumentManagement.Customer.Controller.Customer.CustomerSearch(null, 0, 20, out oTotalRows);
+            //oModel.Forms = DocumentManagement.Customer.Controller.Customer.FormSearch(null, 0, 20, out oTotalRows);
+            return View(oModel);           
         }
     }
 }

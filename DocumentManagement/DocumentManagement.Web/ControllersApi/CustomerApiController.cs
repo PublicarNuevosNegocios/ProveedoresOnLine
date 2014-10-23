@@ -1,4 +1,4 @@
-﻿using DocumentManagement.Models.Customer;
+﻿using DocumentManagement.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;

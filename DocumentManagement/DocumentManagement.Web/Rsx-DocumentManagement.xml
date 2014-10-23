@@ -8,8 +8,11 @@
 
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
-
+    
     <key name="Catalog_IdentificationType">1</key>
+    
+    <!--Administrator User Roles-->
+    <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
