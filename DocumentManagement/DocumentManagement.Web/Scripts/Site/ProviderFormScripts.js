@@ -10,3 +10,11 @@ function PF_InitSpinner(vidDiv) {
     $("#" + vidDiv).spinner();
 }
 
+//init progressbar
+function PF_InitProgressBar(vidDiv, vProgress, vLabel) {
+    $("#" + vidDiv).progressbar({
+        value: vProgress
+    });
+
+    $("#" + vidDiv + '_Label').text(vLabel);
+}
