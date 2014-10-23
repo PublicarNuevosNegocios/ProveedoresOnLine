@@ -9,8 +9,10 @@
         </li>
         @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
         {
+            string urlAdmin = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString();
+            
             <li class="MenuButtons_BO">
-                <a href="https://localhost:44305/AdminRoles/Index" target="_blank">Administrar Usuarios</a>
+                <a href="@urlAdmin" target="_blank">Administrar Usuarios</a>
             </li>
         }
         @*<li class="MenuButtons_BO">
@@ -29,8 +31,10 @@ else if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Provider"))
         </li>
         @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
         {
+            string urlAdmin = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString();
+            
             <li class="MenuButtons_BO">
-                <a href="https://localhost:44305/AdminRoles/Index" target="_blank">Administrar Usuarios</a>
+                <a href="@urlAdmin" target="_blank">Administrar Usuarios</a>
             </li>
         }
         @*<li class="MenuButtons_BO">
@@ -49,8 +53,10 @@ else
         </li>
         @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
         {
+            string urlAdmin = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString();
+            
             <li class="MenuButtons_AdminRoles selected">
-                <a href="https://localhost:44305/AdminRoles/Index" target="_blank">Administrar Usuarios</a>
+                <a href="@urlAdmin" target="_blank">Administrar Usuarios</a>
             </li>
         }
         @*<li class="MenuButtons_BO">

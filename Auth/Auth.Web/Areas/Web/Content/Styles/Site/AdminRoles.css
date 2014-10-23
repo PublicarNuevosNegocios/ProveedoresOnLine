@@ -20,9 +20,11 @@
 
     .AdminRolesHeader img {
         float: left;
-        width: 20%;
         height: auto;
-        margin: 11px 1% 0 2%;
+        margin: 11px 1% 0 1%;
+        min-width: 250px;
+        width: 300px;
+        height: auto;
     }
 
 /*************Body*************/
