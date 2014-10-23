@@ -50,6 +50,7 @@
 input[type="file"] {
     height: 24px !important;
 }
+
 .DMCustomerForm h3 {
     display: block;
     margin: 10px 0px 10px 16px;
@@ -260,6 +261,50 @@ form ul {
     margin-left: 2%;
 }
 
+hr.featurette-divider.__loop {
+    width: 98%;
+    margin: 2% 0px 1% 2%;
+}
+
+label#divProgressBar_Label {
+    display: inline-block;
+    font-size: 12px;
+    vertical-align: top;
+    margin-top: 3px;
+}
+
+div#divProgressBar {
+    width: 80%;
+    display: inline-block;
+    height: 21px;
+    vertical-align: top;
+}
+
+.ProgressBar {
+    float: right;
+    width: 20%;
+    vertical-align: top;
+    margin: 0px 7%;
+}
+
+.TitleCustomer {
+    display: inline-block;
+    margin-left: 20%;
+    width: 45%;
+    text-align: center;
+}
+
+.ui-progressbar-value.ui-widget-header.ui-corner-left {
+    height: 21px !important;
+    background: #FF8302 !important;
+}
+
+.TitleCustomer label {
+    color: #ff8300;
+    font-family: 'OpenSans-Regular', Fallback, sans-serif;
+    font-size: 1.3em;
+    font-weight: normal;
+}
 
 /******Pop-upForms********/
 #divGridStep_Upsert {

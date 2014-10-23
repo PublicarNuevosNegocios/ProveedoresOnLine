@@ -240,6 +240,8 @@ var FormUpsertObject = {
                     type: "POST",
                     success: function (result) {
                         $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                        $('#divGridStep_Upsert_Name').val('');
+                        $('#divGridStep_Upsert_Position').val('');
                     },
                     error: function (result) {
                         $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
@@ -255,6 +257,8 @@ var FormUpsertObject = {
                     type: "POST",
                     success: function (result) {
                         $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();
+                        $('#divGridStep_Upsert_Name').val('');
+                        $('#divGridStep_Upsert_Position').val('');
                     },
                     error: function (result) {
                         $('#' + FormUpsertObject.idDivStep).getKendoGrid().dataSource.read();

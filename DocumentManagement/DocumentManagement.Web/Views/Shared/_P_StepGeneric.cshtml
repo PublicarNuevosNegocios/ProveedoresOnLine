@@ -3,12 +3,12 @@
 @if (!Model.RenderScripts)
 {
     <div>
-        <div>
+        <div class="TitleCustomer">
             <label>@Model.RealtedProvider.Name</label>
             <label>@Model.RealtedProvider.IdentificationType.ItemName</label>
             <label>@Model.RealtedProvider.IdentificationNumber</label>
         </div>
-        <div>
+        <div class="ProgressBar">
             <label id="divProgressBar_Label"></label>
             <div id="divProgressBar"></div>
         </div>
