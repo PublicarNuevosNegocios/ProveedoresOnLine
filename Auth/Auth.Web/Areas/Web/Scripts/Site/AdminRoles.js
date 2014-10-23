@@ -1,20 +1,23 @@
 ﻿//init Schedule Available grid
-function ProfileAutorizationListGrid(vidDiv, vProfileData) {
+function AutorizationListGrid(vidDiv, vAutorizationData) {
 
     $('#' + vidDiv).kendoGrid({
         toolbar: [{ template: $("#templateCreate").html() }],
         dataSource: {
             type: "json",
-            data: vProfileData,
+            data: vAutorizationData,
         },
         columns: [{
-            field: "RoleName",
+            field: "Application",
+            title: "Aplicativo",
+        }, {
+            field: "Role",
             title: "Rol",
         }, {
             field: "UserEmail",
             title: "Correo electrónico"
         }, {
-            field: "ProfileRoleId",
+            field: "ApplicationRoleId",
             title: "&nbsp;",
             template: $("#templateDelete").html()
         }],
@@ -22,7 +25,7 @@ function ProfileAutorizationListGrid(vidDiv, vProfileData) {
 }
 
 //Valitation, Email 
-function ValidEmailAutorizationProfileList(ControlId) {
+function ValidateEmail(ControlId) {
     $('#' + ControlId).validate({
         //debug: true,
         errorClass: 'error help-inline',

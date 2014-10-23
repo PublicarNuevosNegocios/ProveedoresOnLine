@@ -1,0 +1,133 @@
+.DMStepsLayOutWrapper{
+    display: block;
+    padding: 14px 0 0;
+    border-top:3px solid #ff8300;
+}
+.DMPageBodyProviderForm {
+    width: 100%;
+    margin: 0px;
+    min-height: 430px;
+}
+
+/************* PINTA EL FOOTER DENTRO DE LOS PASOS **************/
+
+.DMStepsBottomWrapper {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid #e6e6e6;
+    display: block;
+    height: auto;
+    margin: 9px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/*********** MENU LATERAL DE LOS PASOS DEL FORMULARIO **************/
+
+.DMStepsMenuCustomer {
+    display: inline-block;
+    width: 19%;
+    border: none;
+    margin: 0px 0px 0px 25px;
+}
+
+    .DMStepsMenuCustomer ul {
+        width: 100%;
+        height: auto;
+        padding: 0;
+    }
+
+        .DMStepsMenuCustomer ul li {
+            display: block;
+            padding: 6px 0px;
+            width: 92%;
+            height: auto;
+            text-align: left;
+            color: #4d4d4d;
+            margin: 0px 0px 6px 0px;
+        }
+
+            .DMStepsMenuCustomer ul li:hover {
+                cursor: pointer;
+                background-color: #ececec;
+            }
+            /************ ESTE ES EL ESTILO DEL ITEM ACTIVO *************/
+            .DMStepsMenuCustomer ul li a {
+                display: block;
+                margin: 0px 0px 0px 20px;
+                width: auto;
+                height: auto;
+                border: none;
+                font-size: 1.2em;
+                line-height: 15px;
+                vertical-align: middle;
+                color: #333;
+            }
+
+                .DMStepsMenuCustomer ul li a:hover {
+                    text-decoration: underline;
+                }
+
+            .DMStepsMenuCustomer ul li.MenuSelected {
+                background-color: #ff8300;
+                z-index: 10;
+                border-right: medium none #FFF;
+                position: relative;
+                display: inline-block !important;
+                background-image: url('/Content/Images/arrowSelectedMenuSmall.png');
+                background-repeat: no-repeat;
+                background-position: 100% 0px;
+                background-size: auto;
+                width: 90%;
+            }
+
+                .DMStepsMenuCustomer ul li.MenuSelected a {
+                    color: #fff;
+                }
+/********** ASTERISCO CAMPO OBLIGATORIO *********/
+.DMFormGenericFields li{
+    display: inline-block;
+    list-style-type: none !important;
+    margin: 8px 12px 8px auto !important;
+    vertical-align:top;
+}
+.DMFormGenericFields li div span{
+    color:red;
+    display: inline;
+    font-size: 0.9em;
+    font-weight:bold;
+    font-size:1em;
+    line-height: 1em;
+}
+.DMFormGenericFields li div label {
+    color: #4d4d4d;
+    display: inline;
+    font-size: 0.9em;
+    font-weight:normal;
+    vertical-align: top;
+}
+.DMFormGenericFields li div input {
+    display:block;
+}
+
+    .DMFormGenericFields li div span.ui-spinner{
+        background-color: #f9f9f9;
+        border: 1px solid #727276;
+        color: #727276;
+        font-size: 1em;
+        font-weight:normal;
+        line-height:0.9em;
+        height: 32px;
+        width: 340px;
+        display:block;
+        border-radius:0px;
+    }
+        .DMFormGenericFields li div input.ui-spinner-input {
+            background-color:#f9f9f9;
+            border: none;
+            color: #727276;
+            font-size: 1em;
+            height: 32px;
+            width: 340px;
+            margin:0px;
+        }

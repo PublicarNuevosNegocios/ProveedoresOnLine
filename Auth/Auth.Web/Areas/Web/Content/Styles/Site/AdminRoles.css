@@ -1,6 +1,6 @@
 ﻿/************Header************/
 .AdminRolesHeader {
-    border: 1px solid red;
+    /*border: 1px solid red;*/
     padding: 0;
     vertical-align: top;
     margin: -50px 0px 0px 0px;
@@ -10,38 +10,86 @@
 }
 
     .AdminRolesHeader label {
-        border: none;
-        color: #0066ae;
-        display: inline-block;
-        font-size: 1.2em;
+        margin: 3.6% 22% 0 auto;
+        font-size: 25px;
         font-weight: normal;
-        height: auto;
-        line-height: 1.3em;
-        margin: 2.6% auto 0 auto;
-        text-transform: uppercase;
-        width: 498px;
+        line-height: 25px;
+        letter-spacing: -0.5px;
+        color: #ff8300;
     }
 
     .AdminRolesHeader img {
-        float: right;
-        width: 14%;
+        float: left;
         height: auto;
-        margin: 8px 1% 0 0;
+        margin: 11px 1% 0 1%;
+        min-width: 250px;
+        width: 300px;
+        height: auto;
     }
 
 /*************Body*************/
 .AdminRolesBody {
-    border: 1px solid blue;
+    /*border: 1px solid blue;*/
     width: 100%;
-    height: 450px;
+    min-height: 410px;
+}
+
+div#divGridAutorization {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.OptionsList {
+    list-style: none;
+}
+
+    .OptionsList li {
+        display: inline-block;
+        margin-left: 5%;
+    }
+
+.DMButtonsForm {
+    border: none;
+    width: auto;
+    height: auto;
+    background-color: #ff8300;
+    color: #fff;
+    font-size: 1.3em;
+    padding: 3px 38px;
+    margin: 5px 0px 8px -10px;
+}
+
+.DMButtonsDeleteForm {
+    border: none;
+    width: auto;
+    height: auto;
+    color: #ff8300;
+    font-size: 1.3em;
+    padding: 3px 38px;
+    background-color: transparent;
+}
+
+th.k-header {
+    text-align: center !important;
+}
+
+/**********Validate***************/
+span#UserEmail-error {
+    position: absolute;
+    margin: 25px 0px 0px -173px;
+    color: red;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 /*************Footer***********/
 .AdminRolesFooter {
-    border: 1px solid green;
+    /*border: 1px solid green;*/
     width: 100%;
-    height: 100px;
+    height: 70px;
     text-align: center;
+    background-color: #DADADA;
 }
 
     .AdminRolesFooter label {

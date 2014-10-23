@@ -40,15 +40,12 @@ namespace Auth.Web
 
                 #region Kendo
 
-                bundles.Add(new ScriptBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/kendo/js").IncludeDirectory(
-                            "~/Areas/Web/Scripts/kendo/2014.1.318",
-                            "*.js",
-                            true));
+                bundles.Add(new ScriptBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/bundles/kendo").Include(
+                             "~/Areas/Web/Scripts/kendo/2014.1.318/kendo.web.min.js"));
 
-                bundles.Add(new ScriptBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/kendo/css").IncludeDirectory(
-                            "~/Areas/Web/Content/kendo/2014.1.318",
-                            "*.css",
-                            true));
+                bundles.Add(new StyleBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/content/kendo/css").Include(
+                          "~/Areas/Web/Content/kendo/2014.1.318/kendo.common.min.css",
+                          "~/Areas/Web/Content/kendo/2014.1.318/kendo.default.min.css"));
 
                 #endregion
 
@@ -87,6 +84,17 @@ namespace Auth.Web
                           "~/Areas/Web/Scripts/Site",
                           "*.js",
                           true));
+                #endregion
+
+                #region Kendo
+
+                bundles.Add(new ScriptBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/bundles/kendo").Include(
+                             "~/Areas/Web/Scripts/kendo/2014.1.318/kendo.web.min.js"));
+
+                bundles.Add(new StyleBundle("~/" + Auth.Web.Controllers.BaseController.AreaName + "/content/kendo/css").Include(
+                          "~/Areas/Web/Content/kendo/2014.1.318/kendo.common.min.css",
+                          "~/Areas/Web/Content/kendo/2014.1.318/kendo.default.min.css"));
+
                 #endregion
 
                 #region Styles

@@ -103,7 +103,7 @@ namespace DocumentManagement.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
+            public readonly string ListCustomer = "ListCustomer";
             public readonly string UpsertCustomer = "UpsertCustomer";
             public readonly string ListForm = "ListForm";
             public readonly string UpsertForm = "UpsertForm";
@@ -114,7 +114,7 @@ namespace DocumentManagement.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
+            public const string ListCustomer = "ListCustomer";
             public const string UpsertCustomer = "UpsertCustomer";
             public const string ListForm = "ListForm";
             public const string UpsertForm = "UpsertForm";
@@ -177,13 +177,13 @@ namespace DocumentManagement.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
+                public readonly string ListCustomer = "ListCustomer";
                 public readonly string ListForm = "ListForm";
                 public readonly string UploadProvider = "UploadProvider";
                 public readonly string UpsertCustomer = "UpsertCustomer";
                 public readonly string UpsertForm = "UpsertForm";
             }
-            public readonly string Index = "~/Views/Customer/Index.cshtml";
+            public readonly string ListCustomer = "~/Views/Customer/ListCustomer.cshtml";
             public readonly string ListForm = "~/Views/Customer/ListForm.cshtml";
             public readonly string UploadProvider = "~/Views/Customer/UploadProvider.cshtml";
             public readonly string UpsertCustomer = "~/Views/Customer/UpsertCustomer.cshtml";
@@ -197,13 +197,13 @@ namespace DocumentManagement.Web.Controllers
         public T4MVC_CustomerController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ListCustomerOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult ListCustomer()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ListCustomer);
+            ListCustomerOverride(callInfo);
             return callInfo;
         }
 

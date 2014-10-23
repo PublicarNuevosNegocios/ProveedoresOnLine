@@ -1,0 +1,35 @@
+﻿@model DocumentManagement.Models.Provider.ProviderFormModel
+
+@if (!Model.RenderScripts)
+{
+    int? PreviewStep = Model.
+        RealtedForm.
+        RelatedStep.
+        Where(x => x.Position < Model.RealtedStep.Position).
+        OrderByDescending(x => x.Position).
+        Select(x => (int?)x.StepId).
+        DefaultIfEmpty(null).
+        FirstOrDefault();
+
+    int? NextStep = Model.
+            RealtedForm.
+            RelatedStep.
+            Where(x => x.Position > Model.RealtedStep.Position).
+            OrderBy(x => x.Position).
+            Select(x => (int?)x.StepId).
+            DefaultIfEmpty(null).
+            FirstOrDefault();
+
+    <ul>
+        @if (PreviewStep != null)
+        {
+            <li><a href="javascript:PF_PostBackForm('FrmGenericStep', '@PreviewStep.ToString()')">Anterior / Back</a></li>
+        }
+        @if (NextStep != null)
+        {
+            <li><a href="javascript:PF_PostBackForm('FrmGenericStep', '@NextStep.ToString()')">Siguiente / Next</a></li>
+        }
+        <li><a href="javascript:PF_PostBackForm('FrmGenericStep', '')">Guardar / Save</a></li>
+    </ul>
+}
+

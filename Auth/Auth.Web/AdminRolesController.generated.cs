@@ -57,6 +57,12 @@ namespace Auth.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AutorizationUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AutorizationUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AdminRolesController Actions { get { return MVC.AdminRoles; } }
@@ -74,15 +80,28 @@ namespace Auth.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string AutorizationUpsert = "AutorizationUpsert";
+            public readonly string AutorizationDelete = "AutorizationDelete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string AutorizationUpsert = "AutorizationUpsert";
+            public const string AutorizationDelete = "AutorizationDelete";
         }
 
 
+        static readonly ActionParamsClass_AutorizationUpsert s_params_AutorizationUpsert = new ActionParamsClass_AutorizationUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AutorizationUpsert AutorizationUpsertParams { get { return s_params_AutorizationUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AutorizationUpsert
+        {
+            public readonly string AplicationId = "AplicationId";
+            public readonly string RoleId = "RoleId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -110,6 +129,30 @@ namespace Auth.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AutorizationUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, SessionManager.Models.Auth.enumApplication AplicationId, SessionManager.Models.Auth.enumRole RoleId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AutorizationUpsert(SessionManager.Models.Auth.enumApplication AplicationId, SessionManager.Models.Auth.enumRole RoleId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AutorizationUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "AplicationId", AplicationId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "RoleId", RoleId);
+            AutorizationUpsertOverride(callInfo, AplicationId, RoleId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AutorizationDeleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AutorizationDelete()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AutorizationDelete);
+            AutorizationDeleteOverride(callInfo);
             return callInfo;
         }
 

@@ -30,5 +30,11 @@ namespace DocumentManagement.Web.Controllers
 
             return View();
         }
+
+        public virtual ActionResult LogOutUser()
+        {
+            base.LogOut();
+            return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
+        }
     }
 }

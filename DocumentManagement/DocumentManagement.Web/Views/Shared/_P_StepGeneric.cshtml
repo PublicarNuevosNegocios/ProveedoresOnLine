@@ -1,28 +1,76 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFormModel
 
-<form action="" method="post">
-    <ul>
-        @foreach (var Item in Model.RealtedStep.RelatedField)
-        {
-            <li>
-                @switch (Item.ProviderInfoType.ItemId)
-                {
+@if (!Model.RenderScripts)
+{
+    <form id="FrmGenericStep" action="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.UpsertGenericStep,
+                            MVC.ProviderForm.Name,
+                            new
+                            {
+                                ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                                FormPublicId = Model.RealtedForm.FormPublicId,
+                                StepId = Model.RealtedStep.StepId,
+                                NewStepId = "{{NewStepId}}"
+                            })))" method="post" enctype="multipart/form-data">
+        <ul class="DMFormGenericFields">
+            @foreach (var Item in Model.RealtedStep.RelatedField)
+            {
+                //get partial view to render
+                string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
+                    FieldInfoTypes.
+                    Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+                    Select(strView => strView.Key).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
 
-                    default:
-                        Html.RenderPartial(MVC.Shared.Views._P_FieldText,
+                if (!string.IsNullOrEmpty(strFieldType))
+                {
+                    <li>
+                        @(Html.Partial(Url.Content(strFieldType),
                             new DocumentManagement.Models.Provider.ProviderFieldModel()
                             {
+                                RenderScripts = false,
                                 RealtedField = Item,
                                 RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
                                     Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
                                     ToList(),
                                 ProviderOptions = Model.ProviderOptions,
-                            });
-                        break;
+                                FieldType = strFieldType,
+                            }))
+                    </li>
                 }
+            }
+        </ul>
+        @Html.Partial(MVC.Shared.Views._P_StepNavigator)
+        <div style="display:none">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+        </div>
+    </form>
+}
+else
+{
+    foreach (var Item in Model.RealtedStep.RelatedField)
+    {
+        //get partial view to render
+        string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
+            FieldInfoTypes.
+            Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+            Select(strView => strView.Key).
+            DefaultIfEmpty(string.Empty).
+            FirstOrDefault();
 
-            </li>
+        if (!string.IsNullOrEmpty(strFieldType))
+        {
+            Html.RenderPartial(Url.Content(strFieldType),
+                    new DocumentManagement.Models.Provider.ProviderFieldModel()
+                    {
+                        RenderScripts = true,
+                        RealtedField = Item,
+                        RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
+                            Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                            ToList(),
+                        ProviderOptions = Model.ProviderOptions,
+                        FieldType = strFieldType,
+                    });
         }
-    </ul>
-</form>
-
+    }
+}

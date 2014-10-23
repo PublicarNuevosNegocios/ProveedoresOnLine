@@ -934,6 +934,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site\ProviderFormScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Scripts\Site\CustomerScripts.js" />
     <Content Include="Scripts\Site\ProviderScript.js" />
@@ -1025,7 +1026,7 @@
     <Content Include="Views\Shared\_L_Header.cshtml" />
     <Content Include="Views\Shared\_L_PrincipalMenu.cshtml" />
     <Content Include="Views\Shared\_L_UserInfo.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\ListCustomer.cshtml" />
     <Content Include="Views\Customer\UpsertCustomer.cshtml" />
     <Content Include="Views\Customer\UploadProvider.cshtml" />
     <Content Include="Views\Customer\ListForm.cshtml" />
@@ -1039,6 +1040,12 @@
     <Content Include="Views\Shared\_P_FieldText.cshtml" />
     <Content Include="Views\Shared\_P_FieldNumber.cshtml" />
     <Content Include="Views\Shared\_P_FieldFile.cshtml" />
+    <Content Include="Views\Shared\_P_FieldEmail.cshtml" />
+    <Content Include="Views\Shared\_P_FieldQuantity.cshtml" />
+    <Content Include="Views\Shared\_P_FieldLegalTerms.cshtml" />
+    <Content Include="Views\Shared\_P_FieldFormPdf.cshtml" />
+    <Content Include="Views\Shared\_P_FieldPartners.cshtml" />
+    <Content Include="Views\Shared\_P_StepNavigator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1086,7 +1093,7 @@
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
 XCOPY "$(ProjectDir)$(OutDir)Rsx-DocumentManagement.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
-XCOPY "$(ProjectDir)$(OutDir)Rsx-FileRepository.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\" /y
+
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

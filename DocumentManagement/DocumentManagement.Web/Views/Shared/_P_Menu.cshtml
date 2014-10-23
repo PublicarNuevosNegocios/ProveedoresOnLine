@@ -1,9 +1,14 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFormModel
-<ul>
-    @foreach (var Item in Model.RealtedForm.RelatedStep.OrderBy(x => x.Position))
-    {
-        <li>
-            <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+
+@if (!Model.RenderScripts)
+{
+    <ul>
+        @foreach (var Item in Model.RealtedForm.RelatedStep.OrderBy(x => x.Position))
+        {
+            if (Item.StepId == Model.RealtedStep.StepId)
+            {
+                <li class="MenuSelected">
+                    <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
                         MVC.ProviderForm.Name,
                         new
                         {
@@ -11,7 +16,22 @@
                             FormPublicId = Model.RealtedForm.FormPublicId,
                             StepId = Item.StepId
                         }))">@Item.Name</a>
-        </li>
-    }
-</ul>
+                    </li>
+            }
+            else
+            {
+            <li>
+                <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                        MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                            StepId = Item.StepId
+                        }))">@Item.Name</a>
+                    </li>
+        }
 
+        }
+    </ul>
+}

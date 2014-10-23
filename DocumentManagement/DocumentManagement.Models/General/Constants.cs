@@ -34,6 +34,12 @@
 
         #endregion
 
+        #region Administrator User Roles
+
+        public const string C_Settings_Url_AdminRoles = "URL_AdminRoles";
+
+        #endregion
+
         #region File
 
         public const string C_Settings_File_TempDirectory = "File_TempDirectory";
@@ -41,7 +47,12 @@
         public const string C_Settings_File_RemoteDirectory = "File_RemoteDirectory";
 
         public const string C_Settings_File_ExcelDirectory = "File_ExcelDirectory";
-        
+
+        #endregion
+
+        #region Field
+
+        public const string C_Settings_Field_Types = "Field_Types";
 
         #endregion
 

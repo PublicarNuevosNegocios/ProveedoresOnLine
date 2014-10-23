@@ -1,8 +1,9 @@
-﻿
+﻿@model List<Auth.Interfaces.Models.AdminRolesModel>
+
 @{
     ViewBag.Title = "Administrador Roles";
     Layout = "~/Areas/Web/Views/Shared/_Layout.cshtml";
-} 
+}
 
 <div>
     <div class="AdminRolesHeader">
@@ -10,7 +11,7 @@
         <img class="DMPOLogo" src="~/Areas/Web/Content/Images/LogoPOLogInAlpha.png" alt="" />
     </div>
     <div class="AdminRolesBody">
-
+        <div id="divGridAutorization"></div>
     </div>
     <div class="AdminRolesFooter">
         <img class="DMLogPublicar" src="~/Areas/Web/Content/Images/LogoPublicarFooterBlack.png" alt="" />
@@ -18,4 +19,72 @@
     </div>
 </div>
 
+<div id="template" style="display:none;">
+    <div id="templateCreate">
+        <form id="AutorizationId" method="post" action="@(Url.Action(MVC.AdminRoles.ActionNames.AutorizationUpsert, MVC.AdminRoles.Name))">
+            <label>Agregar usuario por rol:</label>
+            <ul class="OptionsList">
+                <li>
+                    <label>Aplicación</label>
+                    <select id="AplicationId" name="AplicationId">
+                        @foreach (SessionManager.Models.Auth.enumApplication ItemApp in (SessionManager.Models.Auth.enumApplication[])Enum.GetValues(typeof(SessionManager.Models.Auth.enumApplication)))
+                        {
+                            <option value="@ItemApp.ToString()">@ItemApp.ToString()</option>
+                        }
+                    </select>
+                </li>
+                <li>
+                    <label>Rol</label>
+                    <select id="RoleId" name="RoleId">
+                        @foreach (SessionManager.Models.Auth.enumRole ItemRole in (SessionManager.Models.Auth.enumRole[])Enum.GetValues(typeof(SessionManager.Models.Auth.enumRole)))
+                        {
+                            <option value="@ItemRole.ToString()">@ItemRole.ToString()</option>
+                        }
+                    </select>
+                </li>
+                <li>
+                    <label>Correo electrónico</label>
+                    <input type="text" class="required" name="UserEmail" id="UserEmail" value="" />
+                </li>
+                <li>
+                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                    <input class="DMButtonsForm" type="submit" value="Agregar" />
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="templateDelete">
+        <form method="post" action="@(Url.Action(MVC.AdminRoles.ActionNames.AutorizationDelete, MVC.AdminRoles.Name))">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+            <input type="hidden" id="RoleId" name="RoleId" value="${ApplicationRoleId}" />
+            <input class="DMButtonsDeleteForm" type="submit" value="Borrar" />
+        </form>
+    </div>
+</div>
+
+@{
+    //get info roles
+    string oAutorizationRole = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.Select(x => new
+            {
+                ApplicationRoleId = x.RelatedRole.ApplicationRoleId,
+                Application = x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.Backoffice ? SessionManager.Models.Auth.enumApplication.Backoffice.ToString() : x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement ? SessionManager.Models.Auth.enumApplication.DocumentManagement.ToString() : x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.Marketplace ? SessionManager.Models.Auth.enumApplication.Marketplace.ToString() : null,
+                Role = x.RelatedRole.Role == SessionManager.Models.Auth.enumRole.Certifier ? SessionManager.Models.Auth.enumRole.Certifier.ToString() : x.RelatedRole.Role == SessionManager.Models.Auth.enumRole.Marketing ? SessionManager.Models.Auth.enumRole.Marketing.ToString() : x.RelatedRole.Role == SessionManager.Models.Auth.enumRole.SystemAdministrator ? SessionManager.Models.Auth.enumRole.SystemAdministrator.ToString() : null,
+                UserEmail = x.UserEmail,
+                CreateDate = x.RelatedRole.CreateDate,
+            }
+        ).ToList());
+}
+
+@section inlinescripts{
+    <script type="text/javascript">
+        var vAutorizationData = @Html.Raw(oAutorizationRole)
+        $(document).ready(function () {
+            //Start grid
+            AutorizationListGrid('divGridAutorization', vAutorizationData);
+            //Validation
+            ValidateEmail('AutorizationId')
+        })
+    </script>
+}
 
