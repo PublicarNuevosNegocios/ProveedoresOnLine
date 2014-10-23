@@ -90,3 +90,11 @@ var PF_PartnerFormObject = {
     },
 };
 
+//init autocomplete control
+function PF_InitAutocomplete(acId, acData) {
+    $('#' + acId).autocomplete(
+	{
+	    source: acData,
+	    minLength: 0,
+	});
+}
