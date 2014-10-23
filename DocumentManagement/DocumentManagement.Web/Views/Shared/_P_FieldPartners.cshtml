@@ -1,12 +1,73 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
 
+@{
+    //get grid id
+    string strId = Model.FieldType + "-" + Model.RealtedField.FieldId;
+}
+
 @if (!Model.RenderScripts)
 {
     <div>
         <!--Partners field-->
-        <span>@Model.RealtedField.Name:</span>
-        <input type="text" id="" name="" value="" />
+        <span>@Model.RealtedField.Name</span>
+        <div id="@strId"></div>
+    </div>
+
+    <div style="display:none;">
+        <input type="hidden" name="@(strId)-" id="@(strId)-" />
+    </div>
+
+    <div id="dialog" style="display:none;">
+
+        <!--partner field dialogs-->
+        <div id="@(strId)_Create" title="@Model.RealtedField.Name">
+            <ul>
+                <li>
+                    <span>Identificación:</span> <input type="text" id="@(strId)_IdentificationNumber" />
+                </li>
+                <li>
+                    <span>Nombres y apellidos:</span> <input type="text" id="@(strId)_FullName" />
+                </li>
+                <li>
+                    <span>(%):</span> <input type="text" id="@(strId)_ParticipationPercent" />
+                </li>
+                <li>
+                    <a href="javascript:PF_PartnerFormObject.Create()">Guardar</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="@(strId)_Delete" title="@Model.RealtedField.Name">
+            <div>Esta seguro de borrar este @Model.RealtedField.Name</div>
+        </div>
     </div>
 }
+else
+{
+    string oGridData = string.Empty;
+    if (Model.RealtedProviderInfo != null)
+    {
+        oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(
+            Model.
+            RealtedProviderInfo.
+            Select
+                (x => new DocumentManagement.Models.Provider.ProviderFormPartners(x.LargeValue, x.ProviderInfoId.ToString())).
+            Where(x => x.IsDelete == false).ToList());
+    }
 
+    <script type="text/javascript">
+        var vGridData = @(Html.Raw(oGridData));
+        $(document).ready(function () {
+            //start customer grid
+            PF_PartnerFormObject.Init({
+                DivId:'@strId',
+                PartnerData:vGridData,
+            });
+
+            PF_PartnerFormObject.RenderAsync();
+        });
+    </script>
+
+}
 

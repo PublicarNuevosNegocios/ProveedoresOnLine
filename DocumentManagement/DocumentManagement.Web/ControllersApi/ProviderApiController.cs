@@ -17,27 +17,27 @@ namespace DocumentManagement.Web.ControllersApi
         {
             ProviderSearchModel oReturn = new ProviderSearchModel();
 
-            int oTotalRows;
-            List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-                (SearchParam, PageNumber, RowCount, out oTotalRows);
+            //int oTotalRows;
+            //List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
+            //    (SearchParam, PageNumber, RowCount, out oTotalRows);
 
-            oReturn.TotalRows = oTotalRows;
-            if (CustomerPublicId != null)
-            {
-                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
-                                     && x.FormPublicId == FormPublicId).Select(x => x).ToList();          
-            }
+            //oReturn.TotalRows = oTotalRows;
+            //if (CustomerPublicId != null)
+            //{
+            //    oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
+            //                         && x.FormPublicId == FormPublicId).Select(x => x).ToList();          
+            //}
 
 
-            oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
-            oProviderlst.All(prv =>
-            {
-                oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
-                {
-                    RelatedProvider = prv,
-                });
-                return true;
-            });
+            //oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
+            //oProviderlst.All(prv =>
+            //{
+            //    oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
+            //    {
+            //        RelatedProvider = prv,
+            //    });
+            //    return true;
+            //});
 
             return oReturn;
         }

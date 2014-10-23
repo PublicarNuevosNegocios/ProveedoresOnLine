@@ -193,6 +193,10 @@ namespace DocumentManagement.Web.Controllers
                     {
                         oProviderInfoToAdd = GetFieldFileRequest(reqKey.Key, GenericModels);
                     }
+                    else if (MVC.Shared.Views._P_FieldPartners.IndexOf(reqKey.Value) >= 0)
+                    {
+                        oProviderInfoToAdd = GetFieldPartnerRequest(reqKey.Key, GenericModels);
+                    }
 
                     if (oProviderInfoToAdd != null)
                     {
@@ -273,6 +277,32 @@ namespace DocumentManagement.Web.Controllers
                         ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
                         ProviderInfoType = oProviderInfoType,
                         LargeValue = strRemoteFile,
+                    };
+                    return oReturn;
+                }
+            }
+            return null;
+        }
+
+        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldPartnerRequest(string RequestKey, ProviderFormModel GenericModels)
+        {
+            List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            if (RequestKeySplit.Count >= 2)
+            {
+                DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
+                    (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
+
+                ProviderFormPartners oReqObject = (ProviderFormPartners)(new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(Request[RequestKey], typeof(ProviderFormPartners));
+
+                if (oProviderInfoType != null)
+                {
+                    Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                    {
+                        ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                        ProviderInfoType = oProviderInfoType,
+                        LargeValue = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(oReqObject),
                     };
                     return oReturn;
                 }

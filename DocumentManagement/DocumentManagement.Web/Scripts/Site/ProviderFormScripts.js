@@ -18,3 +18,75 @@ function PF_InitProgressBar(vidDiv, vProgress, vLabel) {
 
     $("#" + vidDiv + '_Label').text(vLabel);
 }
+
+//partners object
+var PF_PartnerFormObject = {
+
+    DivId: '',
+    PartnerData: new Array(),
+
+    Init: function (vInitObject) {
+
+        this.DivId = vInitObject.DivId;
+        this.PartnerData = vInitObject.PartnerData;
+    },
+
+    //init Partners grid
+    RenderAsync: function () {
+        $('#' + PF_PartnerFormObject.DivId).kendoGrid({
+            toolbar: [{ template: '<a href="javascript:PF_PartnerFormObject.ShowCreate();">Agregar</a>' }],
+            dataSource: {
+                type: 'json',
+                data: PF_PartnerFormObject.PartnerData,
+            },
+            columns: [{
+                field: 'IdentificationNumber',
+                title: 'Identificación',
+            }, {
+                field: 'FullName',
+                title: 'Nombres y apellidos'
+            }, {
+                field: 'ParticipationPercent',
+                title: '(%)'
+            }, {
+                field: 'ProviderInfoId',
+                title: ' ',
+                template: '<a href="javascript:PF_PartnerFormObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
+            }]
+        });
+    },
+
+    ShowCreate: function () {
+        $('#' + PF_PartnerFormObject.DivId + '_Create').dialog();
+    },
+
+    Create: function () {
+
+        var oReq = '';
+        oReq = oReq + '{ProviderInfoId:0,';
+        oReq = oReq + 'IdentificationNumber:"' + $('#' + PF_PartnerFormObject.DivId + '_IdentificationNumber').val() + '",';
+        oReq = oReq + 'FullName:"' + $('#' + PF_PartnerFormObject.DivId + '_FullName').val() + '",';
+        oReq = oReq + 'ParticipationPercent:"' + $('#' + PF_PartnerFormObject.DivId + '_ParticipationPercent').val() + '",';
+        oReq = oReq + 'IsDelete:"false"}';
+
+        $('#' + PF_PartnerFormObject.DivId + '-').val(oReq);
+
+        PF_PostBackForm('FrmGenericStep', '');
+    },
+
+    ShowDelete: function (ProviderInfoId) {
+
+        var oReq = '';
+        oReq = oReq + '{ProviderInfoId:"' + ProviderInfoId + '",';
+        oReq = oReq + 'IdentificationNumber:"",';
+        oReq = oReq + 'FullName:"",';
+        oReq = oReq + 'ParticipationPercent:"",';
+        oReq = oReq + 'IsDelete:"true"}';
+
+        $('#' + PF_PartnerFormObject.DivId + '-').val(oReq);
+        $('#' + PF_PartnerFormObject.DivId + '-').attr('name', $('#' + PF_PartnerFormObject.DivId + '-').attr('name') + ProviderInfoId);
+
+        PF_PostBackForm('FrmGenericStep', '');
+    },
+};
+
