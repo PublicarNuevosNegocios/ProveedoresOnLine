@@ -7,20 +7,12 @@
         <li class="MenuButtons_Customer selected">
             <a href="@Url.Action(MVC.Customer.ActionNames.ListCustomer, MVC.Customer.Name)">Compradores</a>
         </li>
-        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
-        {
-            string urlAdmin = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString();
-            
-            <li class="MenuButtons_BO">
-                <a href="@urlAdmin" target="_blank">Administrar Usuarios</a>
-            </li>
-        }
         @*<li class="MenuButtons_BO">
                 <a href="">Ir a Backoffice</a>
             </li>*@
     </ul>
 }
-else if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Provider"))
+else
 {
     <ul class="MenuButtons MenuProvider">
         <li class="MenuButtons_Provider selected">
@@ -29,36 +21,6 @@ else if (HttpContext.Current.Request.RawUrl.ToString().Contains("/Provider"))
         <li class="MenuButtons_Customer">
             <a href="@Url.Action(MVC.Customer.ActionNames.ListCustomer, MVC.Customer.Name)">Compradores</a>
         </li>
-        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
-        {
-            string urlAdmin = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString();
-            
-            <li class="MenuButtons_BO">
-                <a href="@urlAdmin" target="_blank">Administrar Usuarios</a>
-            </li>
-        }
-        @*<li class="MenuButtons_BO">
-                <a href="">Ir a Backoffice</a>
-            </li>*@
-    </ul>
-}
-else
-{
-    <ul class="MenuButtons MenuAdminRoles">
-        <li class="MenuButtons_Provider">
-            <a href="@Url.Action(MVC.Provider.ActionNames.Index,MVC.Provider.Name)">Proveedores</a>
-        </li>
-        <li class="MenuButtons_Customer">
-            <a href="@Url.Action(MVC.Customer.ActionNames.ListCustomer, MVC.Customer.Name)">Compradores</a>
-        </li>
-        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
-        {
-            string urlAdmin = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString();
-            
-            <li class="MenuButtons_AdminRoles selected">
-                <a href="@urlAdmin" target="_blank">Administrar Usuarios</a>
-            </li>
-        }
         @*<li class="MenuButtons_BO">
                 <a href="">Ir a Backoffice</a>
             </li>*@
