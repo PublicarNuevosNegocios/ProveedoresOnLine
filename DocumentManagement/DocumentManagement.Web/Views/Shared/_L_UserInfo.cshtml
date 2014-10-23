@@ -8,5 +8,11 @@
         <li>
             <a href="@Url.Action(MVC.Home.ActionNames.LogOutUser, MVC.Home.Name)">Cerrar sesión</a>
         </li>
+        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+        {
+            <li>
+                <a href="@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Url_AdminRoles].Value.ToString()" target="_blank">Administrar Usuarios</a>
+            </li>
+        }
     </ul>
 </div>
