@@ -1,4 +1,4 @@
-﻿function ProviderSearchGrid(vidDiv, cmbForm, cmbCustomer) {
+﻿function ProviderSearchGrid(vidDiv, cmbForm, cmbCustomer, chkName) {
     
     //configure grid
     $('#' + vidDiv).kendoGrid({
@@ -21,20 +21,20 @@
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();                    
                     var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
                     var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
+                    var oUniqueParam = $('#' + chkName).prop('checked');
+
                     if (oFormParam == null) {
                         oFormParam = "";
                     }
 
                     $.ajax({
-                        url: '/api/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam,
+                        url: '/api/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
                         dataType: "json",
                         type: "POST",
-                        success: function (result) {
-                            debugger;
+                        success: function (result) {                            
                             options.success(result.RelatedProvider)
                         },
-                        error: function (result) {
-                            debugger;
+                        error: function (result) {                            
                             options.error(result);
                         }
                     });
@@ -65,34 +65,23 @@
             title: "URL",
             width: 400,
             template: "<a target=\"_blank\" href=\"" + "#=FormUrl#" + "\">" + "#=FormUrl#" + "</a>"
+        }, {
+            field: "RelatedProvider.CustomerCount",
+            title: "# Comp. Relacionados",
+            width: 400,            
         }],
     });
     //add search button event
     $('#' + vidDiv + '_SearchButton').click(function () {        
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
-    $('#'+ cmbCustomer).change(function () {        
-        var CustomerPublicId = $('#'+ cmbCustomer + ' '+ 'option:selected').val();
-        var htmlCmbForm = $('#' + cmbForm).html();
-
-        $.ajax({
-            url: '/api/ProviderApi/FormSearch?CustomerPublicId=' + CustomerPublicId + '&SearchParam=' + ' ' + '&PageNumber=' + 0 + '&RowCount=' + 20,
-            dataType: "json",
-            type: "POST",
-            success: function (result) {
-                $('#' + cmbForm).html('');                
-                for (item in result.RelatedForm) {                    
-                    $('#' + cmbForm).append('<option value="' + result.RelatedForm[item].FormPublicId + '">' + result.RelatedForm[item].Name + '</option>')
-                }
-            },
-            error: function (result) {                
-                options.error(result);
-            }
-        });       
+    $('#' + cmbCustomer).change(function () {
+        debugger;
+        initCmb('Form', cmbCustomer);
     });
 }
 
-function initCmb(cmbForm) {
+function initCmb(cmbForm, cmbCustomer) {
     debugger;
     var CustomerPublicId = $('#' + cmbCustomer + ' ' + 'option:selected').val();
     var htmlCmbForm = $('#' + cmbForm).html();
@@ -102,7 +91,8 @@ function initCmb(cmbForm) {
         dataType: "json",
         type: "POST",
         success: function (result) {
-            $('#' + cmbForm).html('');            
+            $('#' + cmbForm).html('');
+            $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
             for (item in result.RelatedForm) {                
                 $('#' + cmbForm).append('<option value="' + result.RelatedForm[item].FormPublicId + '">' + result.RelatedForm[item].Name + '</option>')
             }

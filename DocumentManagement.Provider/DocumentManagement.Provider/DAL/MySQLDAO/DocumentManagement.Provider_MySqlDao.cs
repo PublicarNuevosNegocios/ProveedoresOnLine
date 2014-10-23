@@ -208,15 +208,17 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows, bool isUnique)
         {
             TotalRows = 0;
-
+            int oUnique = isUnique == true ? 1 : 0;               
+            
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+            lstParams.Add(DataInstance.CreateTypedParameter("vIsSingleCustomer", oUnique));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -250,7 +252,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          FormPublicId = c.Field<string>("FormPublicId"),
                          FormName = c.Field<string>("FormName"),
                          CustomerPublicId = c.Field<string>("CustomerPublicId"), 
-                         CustomerName = c.Field<string>("CustomerName"),                         
+                         CustomerName = c.Field<string>("CustomerName"),
+                         CustomerCount = c.Field<Int64>("CustomerCount"),   
                      }).ToList();
             }
 

@@ -35,6 +35,6 @@ namespace DocumentManagement.Provider.Models.Provider
 
         public DateTime CreateDate { get; set; }
 
-
+        public Int64 CustomerCount { get; set; }
     }
 }

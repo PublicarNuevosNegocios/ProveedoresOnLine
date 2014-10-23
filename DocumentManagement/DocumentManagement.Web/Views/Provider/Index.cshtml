@@ -14,6 +14,7 @@
         <div id="divGridProvider_Header">
             <label>Filtrar por:</label>
             <input type="text" id="divGridProvider_txtSearch" />
+            <label>  Comprador</label>
             <select id="CustomerId" name="CustomerName">
                 <option value=""></option>
                 @foreach (var item in Model.Customers)
@@ -23,8 +24,11 @@
                     }
                 }
             </select>
+            <label>  Formulario</label>
             <select id="Form" name="FormId">               
             </select>
+            <label>  Único</label>
+            <input type="checkbox" name="chk_Unique" id="chk_Unique" value="" />
             <input type="button" id="divGridProvider_SearchButton" value="Buscar" />
         </div>
     </div>
@@ -35,7 +39,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             //start customer grid
-            ProviderSearchGrid('divGridProvider', 'Form', 'CustomerId');
+            ProviderSearchGrid('divGridProvider', 'Form', 'CustomerId', 'chk_Unique');
             initCmb('Form');
         });
     </script>

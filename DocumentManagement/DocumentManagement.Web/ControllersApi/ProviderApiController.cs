@@ -13,21 +13,25 @@ namespace DocumentManagement.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public ProviderSearchModel ProviderSearch
-            (string ProviderSearchVal, string SearchParam, int PageNumber, int RowCount, string CustomerPublicId, string FormPublicId)
+            (string ProviderSearchVal, string SearchParam, int PageNumber, int RowCount, string CustomerPublicId, string FormPublicId, string Unique)
         {
             ProviderSearchModel oReturn = new ProviderSearchModel();
-
+            
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-                (SearchParam, PageNumber, RowCount, out oTotalRows);
+                (SearchParam, PageNumber, RowCount, out oTotalRows, Convert.ToBoolean(Unique));
 
             oReturn.TotalRows = oTotalRows;
-            if (CustomerPublicId != null)
+            if (CustomerPublicId != null && FormPublicId != null)
             {
                 oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
                                      && x.FormPublicId == FormPublicId).Select(x => x).ToList();          
             }
-
+            if (CustomerPublicId != null && FormPublicId == null)
+            {
+                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
+                                     || x.FormPublicId == FormPublicId).Select(x => x).ToList();     
+            }
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>

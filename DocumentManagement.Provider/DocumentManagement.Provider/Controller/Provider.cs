@@ -78,9 +78,9 @@ namespace DocumentManagement.Provider.Controller
             }
         }
 
-        static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        static public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows, bool isUnique)
         {
-            return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount, out TotalRows);
+            return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, PageNumber, RowCount, out TotalRows, isUnique);
         }
 
         public static ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
@@ -97,6 +97,5 @@ namespace DocumentManagement.Provider.Controller
         {
             return DAL.Controller.ProviderDataController.Instance.CatalogGetProviderOptions();
         }
-
     }
 }
