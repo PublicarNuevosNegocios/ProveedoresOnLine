@@ -8,12 +8,14 @@ namespace DocumentManagement.Models.Provider
 {
     public class ExcelProviderModel
     {
-        public string nombre { get; set; }
+        public string RazonSocial { get; set; }
 
-        public string tipodeidentificacion { get; set; }
+        public string TipoIdentificacion { get; set; }
 
-        public string numerodeidentificacion { get; set; }
+        public string NumeroIdentificacion { get; set; }
 
-        public string email { get; set; }
+        public string Email { get; set; }
+
+        public string CampanaSalesforce { get; set; }
     }
 }

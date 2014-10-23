@@ -155,6 +155,8 @@ namespace DocumentManagement.Web.Controllers
                 if (System.IO.File.Exists(strFile))
                     System.IO.File.Delete(strFile);
 
+                //ViewData.Add(strRemoteFile);
+
                 return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
                 {
                     CustomerPublicId = CustomerPublicId
@@ -212,30 +214,15 @@ namespace DocumentManagement.Web.Controllers
             List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
 
             //process Provider
-            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.numerodeidentificacion)).All(prv =>
+            oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.NumeroIdentificacion)).All(prv =>
             {
                 try
                 {
                     //Validar el provider
                     ProviderModel Provider = new ProviderModel();
 
-                    int IdentificationType = 0;
-                    #region Set IdentificationType
-                    switch (prv.tipodeidentificacion)
-                    {
-                        case "nit":
-                            IdentificationType = 102;
-                            break;
-                        case "cc":
-                            IdentificationType = 101;
-                            break;
-                        default:
-                            break;
-                    }
-                    #endregion
-
                     ProviderModel oResultValidate = new ProviderModel();
-                    oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(prv.numerodeidentificacion, IdentificationType, CustomerPublicId);
+                    oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), CustomerPublicId);
 
                     //Create ProviderCustomerInfo
                     List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
@@ -245,14 +232,21 @@ namespace DocumentManagement.Web.Controllers
                     CustomerProviderInfo.Value = "201";
                     ListCustomerProviderInfo.Add(CustomerProviderInfo);
 
+                    CustomerProviderInfo = new ProviderInfoModel();
+
+                    CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
+                    CustomerProviderInfo.Value = prv.CampanaSalesforce;
+
+                    ListCustomerProviderInfo.Add(CustomerProviderInfo);
+
                     //Create Provider
                     ProviderModel ProviderToCreate = new ProviderModel()
                     {
                         CustomerPublicId = CustomerPublicId,
-                        Name = prv.nombre,
-                        IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = IdentificationType },
-                        IdentificationNumber = prv.numerodeidentificacion,
-                        Email = prv.email,
+                        Name = prv.RazonSocial,
+                        IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = Convert.ToInt32(prv.TipoIdentificacion) },
+                        IdentificationNumber = prv.NumeroIdentificacion,
+                        Email = prv.Email,
                         RelatedProviderCustomerInfo = ListCustomerProviderInfo
                     };
                     if (oResultValidate == null)
@@ -292,20 +286,23 @@ namespace DocumentManagement.Web.Controllers
                     string strSep = ";";
 
                     sw.WriteLine
-                            ("\"nombre\"" + strSep +
-                            "\"tipodeidentificacion\"" + strSep +
-                            "\"numerodeidentificacion\"" + strSep +
-                            "\"email\"" + strSep +
+                            ("\"RazonSocial\"" + strSep +
+                            "\"TipoIdentificacion\"" + strSep +
+                            "\"NumeroIdentificaion\"" + strSep +
+                            "\"Email\"" + strSep +
+                            "\"CampanaSalesforce\"" + strSep +
+
                             "\"Success\"" + strSep +
                             "\"Error\"");
 
                     oPrvToProcessResult.All(lg =>
                     {
                         sw.WriteLine
-                            ("\"" + lg.PrvModel.nombre + "\"" + strSep +
-                            "\"" + lg.PrvModel.tipodeidentificacion + "\"" + strSep +
-                            "\"" + lg.PrvModel.numerodeidentificacion + "\"" + strSep +
-                            "\"" + lg.PrvModel.email + "\"" + strSep +
+                            ("\"" + lg.PrvModel.RazonSocial + "\"" + strSep +
+                            "\"" + lg.PrvModel.TipoIdentificacion + "\"" + strSep +
+                            "\"" + lg.PrvModel.NumeroIdentificacion + "\"" + strSep +
+                            "\"" + lg.PrvModel.Email + "\"" + strSep +
+                            "\"" + lg.PrvModel.CampanaSalesforce + "\"" + strSep +
 
                             "\"" + lg.Success + "\"" + strSep +
                             "\"" + lg.Error + "\"");
