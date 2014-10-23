@@ -24,15 +24,11 @@ namespace DocumentManagement.Web.ControllersApi
             oReturn.TotalRows = oTotalRows;
             if (CustomerPublicId != null)
             {
-                oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId 
+                oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
                                     && x.FormPublicId == FormPublicId
                                     ).Select(x => x).ToList();
-            //    P.ProviderPublicId like oSearchParam
-            //or P.Name like oSearchParam
-            //or P.IdentificationNumber like oSearchParam
-            //or P.Email like oSearchParam
             }
-           
+
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
@@ -49,11 +45,11 @@ namespace DocumentManagement.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public FormSearchModel FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)
+        public DocumentManagement.Models.Customer.FormSearchModel FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)
         {
             int oTotalRows;
 
-            FormSearchModel oReturn = new FormSearchModel();
+            DocumentManagement.Models.Customer.FormSearchModel oReturn = new DocumentManagement.Models.Customer.FormSearchModel();
             oReturn.RelatedForm = DocumentManagement.Customer.Controller.Customer.FormSearch(CustomerPublicId, SearchParam, PageNumber, RowCount, out oTotalRows);
 
             return oReturn;
