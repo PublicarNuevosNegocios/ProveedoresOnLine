@@ -29,7 +29,7 @@
             {
                 <img class="ImageFile" src="@strValue" />
             }
-            else
+            else if (strValue.IndexOf(".pdf") >= 0)
             {
                 <iframe src="@strValue" frameborder="0"></iframe>
             }
