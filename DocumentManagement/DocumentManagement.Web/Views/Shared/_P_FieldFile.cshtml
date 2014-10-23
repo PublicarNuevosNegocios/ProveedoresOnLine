@@ -21,13 +21,13 @@
         <input type="file" id="@strId" name="@strId" />
         @if (!string.IsNullOrEmpty(strValue))
         {
-            <a href="@strValue" target="_blank">Ver archivo</a>
+            <a class="OpenFile" href="@strValue" target="_blank">Ver archivo</a>
 
             if (strValue.IndexOf(".jpg") >= 0 ||
                 strValue.IndexOf(".jpeg") >= 0 ||
                 strValue.IndexOf(".png") >= 0)
             {
-                <img src="@strValue" />
+                <img class="ImageFile" src="@strValue" />
             }
             else
             {
