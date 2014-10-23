@@ -238,7 +238,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                      where !c.IsNull("ProviderPublicId")
                      select new ProviderModel()
                      {
-                         CustomerPublicId = c.Field<string>("ProviderPublicId"),
+                         ProviderPublicId = c.Field<string>("ProviderPublicId"),                                                 
                          Name = c.Field<string>("Name"),
                          Email = c.Field<string>("Email"),
                          IdentificationType = new Models.Util.CatalogModel()
@@ -249,6 +249,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          IdentificationNumber = c.Field<string>("IdentificationNumber"),
                          FormPublicId = c.Field<string>("FormPublicId"),
                          FormName = c.Field<string>("FormName"),
+                         CustomerPublicId = c.Field<string>("CustomerPublicId"), 
                          CustomerName = c.Field<string>("CustomerName"),                         
                      }).ToList();
             }
