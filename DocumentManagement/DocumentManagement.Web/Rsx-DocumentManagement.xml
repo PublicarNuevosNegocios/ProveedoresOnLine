@@ -15,6 +15,7 @@
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\DocumentManagment\CustomerLogo\</key>
     <key name="File_ExcelDirectory">\DocumentManagment\0XlsProvider\</key>
+    <key name="File_RemoteDirectoryProvider">\DocumentManagment\ProviderFile\</key>
 
     <!--Field Params-->
     <key name="Field_Types">_P_FieldEmail,_P_FieldFile,_P_FieldFormPdf,_P_FieldLegalTerms,_P_FieldNumber,_P_FieldPartners,_P_FieldQuantity,_P_FieldText,</key>

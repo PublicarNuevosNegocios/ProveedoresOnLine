@@ -42,6 +42,8 @@
 
         public const string C_Settings_File_ExcelDirectory = "File_ExcelDirectory";
 
+        public const string C_Settings_File_RemoteDirectoryProvider = "File_RemoteDirectoryProvider";
+
         #endregion
 
         #region Field

@@ -156,6 +156,25 @@ namespace DocumentManagement.Web.Controllers
                             ProviderFormModel.FieldTypes.Any(ft => ft.ToLower().Replace(" ", "") == rq.Value.ToLower().Replace(" ", ""))).
                 ToDictionary(k => k.Key, v => v.Value);
 
+            Request.Files.AllKeys.All(rqf =>
+            {
+                if (ProviderFormModel.FieldTypes.Any(ft =>
+                    ft.ToLower().
+                    Replace(" ", "") == rqf.Split('-').
+                         DefaultIfEmpty(string.Empty).
+                         FirstOrDefault().
+                         ToLower().
+                         Replace(" ", "")))
+                {
+                    ValidRequest.Add(rqf, rqf.Split('-').
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                }
+
+                return true;
+            });
+
+
             GenericModels.RealtedProvider.RelatedProviderInfo = new List<Provider.Models.Provider.ProviderInfoModel>();
 
             ValidRequest.All(reqKey =>
@@ -170,6 +189,10 @@ namespace DocumentManagement.Web.Controllers
                         oProviderInfoToAdd = GetFieldBasicRequest(reqKey.Key, GenericModels);
                     }
 
+                    else if (MVC.Shared.Views._P_FieldFile.IndexOf(reqKey.Value) >= 0)
+                    {
+                        oProviderInfoToAdd = GetFieldFileRequest(reqKey.Key, GenericModels);
+                    }
 
                     if (oProviderInfoToAdd != null)
                     {
@@ -207,6 +230,71 @@ namespace DocumentManagement.Web.Controllers
                             FirstOrDefault()).
                         FirstOrDefault(),
                     Value = Request[RequestKey],
+                };
+                return oReturn;
+            }
+            return null;
+        }
+
+        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldFileRequest(string RequestKey, ProviderFormModel GenericModels)
+        {
+            List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            if (RequestKeySplit.Count >= 2)
+            {
+                //get folder
+                string strFolder = Server.MapPath(DocumentManagement.Models.General.InternalSettings.Instance
+                    [DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory].Value);
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                //get File
+                HttpPostedFileBase UploadFile = (HttpPostedFileBase)Request.Files[RequestKey];
+
+                string strFile = strFolder.TrimEnd('\\') +
+                    "\\ProviderFile_" +
+                    GenericModels.RealtedProvider.CustomerPublicId + "_" +
+                    RequestKeySplit[1].Replace(" ", "") + "_" +
+                    DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                    UploadFile.FileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
+
+                UploadFile.SaveAs(strFile);
+
+                //load file to s3
+                string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                    (strFile,
+                    DocumentManagement.Models.General.InternalSettings.Instance
+                        [DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
+                        GenericModels.RealtedProvider.CustomerPublicId + "\\");
+
+                //remove temporal file
+                if (System.IO.File.Exists(strFile))
+                    System.IO.File.Delete(strFile);
+
+
+                Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                {
+                    ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                    ProviderInfoType =
+                        GenericModels.
+                        RealtedCustomer.
+                        RelatedForm.
+                        Select(f => f.RelatedStep.
+                            Select(s => s.RelatedField.
+                                Where(fi => fi.FieldId == Convert.ToInt32(RequestKeySplit[1].Replace(" ", ""))).
+                                Select(fi => new DocumentManagement.Provider.Models.Util.CatalogModel()
+                                {
+                                    CatalogId = fi.ProviderInfoType.CatalogId,
+                                    CatalogName = fi.ProviderInfoType.CatalogName,
+                                    ItemId = fi.ProviderInfoType.ItemId,
+                                    ItemName = fi.ProviderInfoType.ItemName,
+                                }).
+                                DefaultIfEmpty(null).
+                                FirstOrDefault()).
+                            FirstOrDefault()).
+                        FirstOrDefault(),
+                    LargeValue = strRemoteFile,
                 };
                 return oReturn;
             }

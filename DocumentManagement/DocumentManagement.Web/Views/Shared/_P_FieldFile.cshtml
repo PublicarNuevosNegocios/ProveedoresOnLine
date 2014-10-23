@@ -2,10 +2,39 @@
 
 @if (!Model.RenderScripts)
 {
+    //get value and id
+    string strId = Model.FieldType + "-" + Model.RealtedField.FieldId + "-";
+    string strValue = string.Empty;
+    if (Model.RealtedProviderInfo != null && Model.RealtedProviderInfo.Count > 0)
+    {
+        strId += Model.RealtedProviderInfo.FirstOrDefault().ProviderInfoId.ToString();
+        strValue = Model.RealtedProviderInfo.FirstOrDefault().LargeValue;
+    }
+
     <div>
-        <!--File field-->
+        <!--Email field-->
+        @if (Model.RealtedField.IsRequired)
+        {
+            <span>*</span>
+        }
         <span>@Model.RealtedField.Name:</span>
-        <input type="text" id="" name="" value="" />
+        <input type="file" id="@strId" name="@strId" />
+        @if (!string.IsNullOrEmpty(strValue))
+        {
+            <a href="@strValue" target="_blank">Ver archivo</a>
+
+            if (strValue.IndexOf(".jpg") >= 0 ||
+                strValue.IndexOf(".jpeg") >= 0 ||
+                strValue.IndexOf(".png") >= 0)
+            {
+                <img src="@strValue" />
+            }
+            else
+            {
+                <iframe src="@strValue" frameborder="0"></iframe>
+            }
+
+        }
     </div>
 }
 

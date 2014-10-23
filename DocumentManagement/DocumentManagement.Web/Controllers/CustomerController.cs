@@ -91,7 +91,8 @@ namespace DocumentManagement.Web.Controllers
         public virtual ActionResult UpsertFormLogo(string CustomerPublicId, string FormPublicId, HttpPostedFileBase UploadFile)
         {
             //get folder
-            string strFolder = Server.MapPath(DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory);
+            string strFolder = Server.MapPath(DocumentManagement.Models.General.InternalSettings.Instance
+                [DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory].Value);
 
             if (!System.IO.Directory.Exists(strFolder))
                 System.IO.Directory.CreateDirectory(strFolder);
