@@ -24,9 +24,8 @@ namespace DocumentManagement.Web.ControllersApi
             oReturn.TotalRows = oTotalRows;
             if (CustomerPublicId != null)
             {
-                oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
-                                    && x.FormPublicId == FormPublicId
-                                    ).Select(x => x).ToList();
+                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
+                                     && x.FormPublicId == FormPublicId).Select(x => x).ToList();          
             }
 
 
