@@ -375,3 +375,39 @@ div#divProgressBar {
     background-repeat: no-repeat;
     background-size: 15px;
 }
+
+/******LegalTerms********/
+
+.LegalTermsForm label {
+    font-size: 1em !important;
+}
+    .LegalTermsContent ul {
+    }
+
+        .LegalTermsContent ul li {
+            color: #4d4d4d;
+            display: inline;
+            font-size: 0.9em;
+        }
+
+.CheckData, .CheckCommercial, .CheckRestrictiveList {
+    width: 15px !important;
+    margin: 0px 0px 0px 0px !important;
+    vertical-align: top;
+    display: inline-block !important;
+}
+
+.LegalTermsContent ul li label {
+    display: inline-block !important;
+    vertical-align: top !important;
+    width: 95%;
+    margin: 6px 0px 6px 10px;
+}
+
+.TextForm {
+    display: block !important;
+}
+
+.DownloadTerms{
+    margin: 10px 0px 10px 0px;
+}
