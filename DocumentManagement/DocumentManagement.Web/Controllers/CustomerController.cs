@@ -150,18 +150,28 @@ namespace DocumentManagement.Web.Controllers
                     DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
 
                 //update file into db          
-                this.ProccessProviderFile(strFile, ErrorFilePath, CustomerPublicId);
+                string logFile = this.ProccessProviderFile(strFile, ErrorFilePath, CustomerPublicId);
 
                 //remove temporal file
                 if (System.IO.File.Exists(strFile))
                     System.IO.File.Delete(strFile);
 
                 //ViewData.Add(strRemoteFile);
+                List<string> urlList = new List<string>();
+                urlList.Add(strRemoteFile);
+                urlList.Add(logFile);
 
-                return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
+                ViewData["UrlReturn"] = urlList;
+
+                UpserCustomerModel oModel = new UpserCustomerModel()
                 {
-                    CustomerPublicId = CustomerPublicId
-                });
+                    RelatedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(CustomerPublicId),
+                };
+                return View(oModel);
+                //return RedirectToAction(MVC.Customer.ActionNames.UploadProvider, MVC.Customer.Name, new
+                //{
+                //    CustomerPublicId = CustomerPublicId
+                //});
             }
             else
             {
@@ -203,7 +213,7 @@ namespace DocumentManagement.Web.Controllers
             return oReturn;
         }
 
-        private void ProccessProviderFile(string FilePath, string ErrorFilePath, string CustomerPublicId)
+        private string ProccessProviderFile(string FilePath, string ErrorFilePath, string CustomerPublicId)
         {
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
@@ -324,9 +334,12 @@ namespace DocumentManagement.Web.Controllers
                 //remove temporal file
                 if (System.IO.File.Exists(ErrorFilePath))
                     System.IO.File.Delete(ErrorFilePath);
+
+                return strRemoteFile;
             }
             catch { }
 
+            return null;
             #endregion
         }
         #endregion
