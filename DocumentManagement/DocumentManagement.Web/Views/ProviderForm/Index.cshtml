@@ -5,54 +5,52 @@
     Layout = "~/Views/Shared/_LayoutProviderForm.cshtml";
 
     Model.RenderScripts = false;
+
+    string strStyle = string.Empty;
+    if (Model.RealtedStep == null)
+    {
+        strStyle = "DMLogInProviders";
+    }
 }
 
-    @{
-        string strStyle = string.Empty;
-        if (Model.RealtedStep == null)
-        {
-            strStyle = "DMLogInProviders";
-        }
+<div class="@strStyle">
+    <div class="DMLogIntopWrapper">
+        <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
+        <label>SISTEMA DE REGISTRO DE PROVEEDORES DE @Model.RealtedCustomer.Name.ToUpper()</label>
+        <img class="DMPOLogo" src="/Content/Images/LogoPOLogInAlpha.png" alt="" />
+    </div>
+
+    @if (Model.RealtedStep == null)
+    {
+        @Html.Partial(MVC.Shared.Views._P_StepLogin, Model);
+    }
+    else
+    {
+        <div class="DMStepsLayOutWrapper">
+            <div class="DMStepsMenuCustomer">
+                @Html.Partial(MVC.Shared.Views._P_Menu, Model)
+            </div>
+            <div class="DMCustomerForm">
+                @Html.Partial(MVC.Shared.Views._P_StepGeneric, Model)
+            </div>
+        </div>
     }
 
-    <div class="@strStyle">
-        <div class="DMLogIntopWrapper">
-            <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
-            <label>SISTEMA DE REGISTRO DE PROVEEDORES DE @Model.RealtedCustomer.Name.ToUpper()</label>
-            <img class="DMPOLogo" src="/Content/Images/LogoPOLogInAlpha.png" alt="" />
+    @if (Model.RealtedStep == null)
+    {
+        <div class="DMLogInbottomWrapper">
+            <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
+            <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
         </div>
+    }
+    else
+    {
+        <div class="DMStepsBottomWrapper">
+            <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
+            <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
+        </div>
+    }
 
-        @if (Model.RealtedStep == null)
-        {
-                @Html.Partial(MVC.Shared.Views._P_StepLogin, Model);
-        }
-        else
-        {
-            <div class="DMStepsLayOutWrapper">
-                <div class="DMStepsMenuCustomer">
-                    @Html.Partial(MVC.Shared.Views._P_Menu, Model)
-                </div>
-                <div class="DMCustomerForm">
-                    @Html.Partial(MVC.Shared.Views._P_StepGeneric, Model)
-                </div>
-            </div>
-        }
-
-        @if (Model.RealtedStep == null)
-        {
-            <div class="DMLogInbottomWrapper">
-                <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
-                <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
-            </div>
-        }
-        else
-        {
-            <div class="DMStepsBottomWrapper">
-                <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
-                <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
-            </div>
-        }
-        
 </div>
 @{
     Model.RenderScripts = true;

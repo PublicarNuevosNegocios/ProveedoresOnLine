@@ -43,6 +43,7 @@ namespace T4MVC
                 public readonly string _L_UserInfo = "_L_UserInfo";
                 public readonly string _Layout = "_Layout";
                 public readonly string _LayoutProviderForm = "_LayoutProviderForm";
+                public readonly string _P_FieldAutocomplete = "_P_FieldAutocomplete";
                 public readonly string _P_FieldEmail = "_P_FieldEmail";
                 public readonly string _P_FieldFile = "_P_FieldFile";
                 public readonly string _P_FieldFormPdf = "_P_FieldFormPdf";
@@ -63,6 +64,7 @@ namespace T4MVC
             public readonly string _L_UserInfo = "~/Views/Shared/_L_UserInfo.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string _LayoutProviderForm = "~/Views/Shared/_LayoutProviderForm.cshtml";
+            public readonly string _P_FieldAutocomplete = "~/Views/Shared/_P_FieldAutocomplete.cshtml";
             public readonly string _P_FieldEmail = "~/Views/Shared/_P_FieldEmail.cshtml";
             public readonly string _P_FieldFile = "~/Views/Shared/_P_FieldFile.cshtml";
             public readonly string _P_FieldFormPdf = "~/Views/Shared/_P_FieldFormPdf.cshtml";

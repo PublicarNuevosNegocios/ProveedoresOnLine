@@ -113,6 +113,23 @@ namespace DocumentManagement.Web.Controllers
                 });
         }
 
+        public virtual ActionResult AdminProvider(string ProviderPublicId, string FormPublicId)
+        {
+            ProviderFormModel oModel = new ProviderFormModel()
+            {
+                ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null),
+            };
+
+            oModel.RealtedForm = oModel.RealtedCustomer.
+                RelatedForm.
+                Where(x => x.FormPublicId == FormPublicId).
+                FirstOrDefault();
+
+            return View(oModel);
+        }
+
         #region PrivateMethods
 
         private DocumentManagement.Provider.Models.Provider.ProviderModel GetLoginRequest()

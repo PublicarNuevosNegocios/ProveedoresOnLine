@@ -98,3 +98,48 @@ function PF_InitAutocomplete(acId, acData) {
 	    minLength: 0,
 	});
 }
+
+//partners object
+var AP_ProviderNotesObject = {
+
+    DivId: '',
+    NotesData: new Array(),
+
+    Init: function (vInitObject) {
+
+        this.DivId = vInitObject.DivId;
+        this.NotesData = vInitObject.NotesData;
+    },
+
+    //init Partners grid
+    RenderAsync: function () {
+        $('#' + AP_ProviderNotesObject.DivId).kendoGrid({
+            toolbar: [{ template: '<a href="javascript:AP_ProviderNotesObject.ShowCreate();">Agregar</a>' }],
+            dataSource: {
+                type: 'json',
+                data: AP_ProviderNotesObject.PartnerData,
+            },
+            columns: [{
+                field: 'LargeValue',
+                title: 'Nota',
+            }, {
+                field: 'CreateDate',
+                title: 'Fecha'
+            }]
+        });
+    },
+
+    ShowCreate: function () {
+        $('#' + AP_ProviderNotesObject.DivId + '_Create').dialog();
+    },
+
+    Create: function () {
+
+    },
+};
+
+
+
+
+
+

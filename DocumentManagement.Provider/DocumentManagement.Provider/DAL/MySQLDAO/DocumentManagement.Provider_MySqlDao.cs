@@ -211,8 +211,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
         public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows, bool isUnique)
         {
             TotalRows = 0;
-            int oUnique = isUnique == true ? 1 : 0;               
-            
+            int oUnique = isUnique == true ? 1 : 0;
+
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
@@ -240,7 +240,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                      where !c.IsNull("ProviderPublicId")
                      select new ProviderModel()
                      {
-                         ProviderPublicId = c.Field<string>("ProviderPublicId"),                                                 
+                         ProviderPublicId = c.Field<string>("ProviderPublicId"),
                          Name = c.Field<string>("Name"),
                          Email = c.Field<string>("Email"),
                          IdentificationType = new Models.Util.CatalogModel()
@@ -251,9 +251,9 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          IdentificationNumber = c.Field<string>("IdentificationNumber"),
                          FormPublicId = c.Field<string>("FormPublicId"),
                          FormName = c.Field<string>("FormName"),
-                         CustomerPublicId = c.Field<string>("CustomerPublicId"), 
+                         CustomerPublicId = c.Field<string>("CustomerPublicId"),
                          CustomerName = c.Field<string>("CustomerName"),
-                         CustomerCount = c.Field<Int64>("CustomerCount"),   
+                         CustomerCount = c.Field<Int64>("CustomerCount"),
                      }).ToList();
             }
 
@@ -366,6 +366,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                              },
                              Value = pci.Field<string>("ProviderCustomerInfoValue"),
                              LargeValue = pci.Field<string>("ProviderCustomerInfoLargeValue"),
+                             LastModify = pci.Field<DateTime>("ProviderCustomerInfoLastModify"),
+                             CreateDate = pci.Field<DateTime>("ProviderCustomerInfoCreateDate"),
                          }).ToList(),
 
                     RelatedProviderInfo = (response.DataSetResult.Tables.Count <= 1 || response.DataSetResult.Tables[1].Rows.Count <= 0) ? new List<ProviderInfoModel>() :

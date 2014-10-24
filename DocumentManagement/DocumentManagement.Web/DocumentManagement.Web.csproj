@@ -1047,6 +1047,7 @@
     <Content Include="Views\Shared\_P_FieldPartners.cshtml" />
     <Content Include="Views\Shared\_P_StepNavigator.cshtml" />
     <Content Include="Views\Shared\_P_FieldAutocomplete.cshtml" />
+    <Content Include="Views\ProviderForm\AdminProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
