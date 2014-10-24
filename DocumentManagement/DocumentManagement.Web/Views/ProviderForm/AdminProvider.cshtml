@@ -14,14 +14,14 @@
         <img class="DMPOLogo" src="/Content/Images/LogoPOLogInAlpha.png" alt="" />
     </div>
 
-    <div>
-        <form>
-            <ul>
-                <li>
-                    <label>Administrar proveedor</label>
+    <div class="divAdminProvider">
+        <form class="FormProvider">
+            <ul class="ulAdminProvider">
+                <li class="TitleAdminProvider">
+                    <label>ADMINISTRAR PROVEEDOR</label>
                 </li>
                 <li>
-                    <span>Estado del proveedor:</span>
+                    <label>Estado del proveedor:</label>
                     <select>
                         @{
                             int oProviderStatus = Model.
@@ -46,10 +46,10 @@
                     </select>
                 </li>
                 <li>
-                    <span>Nota:</span>
+                    <label>Nota:</label>
                     <textarea id="taNoteText"></textarea>
                 </li>
-                <li>
+                <li class="liButtonSave">
                     <input type="submit" value="Guardar" />
                 </li>
                 <li>
@@ -86,12 +86,12 @@
         }
     }
     <script type="text/javascript">
-        var vNotesData = @(Html.Raw(oNotesData));
+        var vNotesData = @(Html.Raw(oNotesData))
         $(document).ready(function () {
             //start grid
             AP_ProviderNotesObject.Init({
-                DivId:'GridNotes',
-                NotesData:vNotesData,
+                DivId: 'GridNotes',
+                NotesData: vNotesData,
             });
 
             AP_ProviderNotesObject.RenderAsync();

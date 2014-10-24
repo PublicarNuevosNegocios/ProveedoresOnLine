@@ -198,3 +198,109 @@ a.DMButtonsForm:hover {
     background-color: #ff9955;
     color: #fff;
 }
+/*********** TABLA ADMINISTRAR PROVEEDORES ************/
+#divGridProvider_Header{
+    border:1px solid;
+    margin:0px 0px 0px 12px;
+}
+#ProfileInfoFormId label{
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0px 0px 0px 5px;
+    vertical-align:middle;
+}
+#ProfileInfoFormId input, #ProfileInfoFormId select{
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    height: 24px;
+    vertical-align: top;
+    width: 150px;
+    vertical-align:middle;
+}
+#ProfileInfoFormId input[type="checkbox"]{
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    height: 24px;
+    vertical-align: top;
+    width:auto;
+    vertical-align:middle;
+}
+.DMProviderFilterActions{
+    float:right;
+    margin:0px;
+    padding:0px;
+    height:auto; width:auto;
+}
+.DMProviderFilterActions input[type="button"]:hover, .DMProviderFilterActions input[type="submit"]:hover{
+    background-color:#e6e6e6 !important;
+    
+}
+
+/******AdminProvider********/
+.divAdminProvider {
+    width: 100%;
+    min-height: 470px;
+    display: block;
+    padding: 14px 0 0;
+    border-top: 3px solid #ff8300;
+}
+
+.TitleAdminProvider label {
+    color: #ff8300 !important;
+    font-family: 'OpenSans-Regular', Fallback, sans-serif !important;
+    font-size: 1.3em !important;
+    font-weight: normal !important;
+    display: block !important;
+    margin: 0px auto 0px auto !important;
+    text-align: center !important;
+}
+
+.TitleAdminProvider {
+    width: 100% !important;
+}
+
+.FormProvider {
+    width: 96%;
+    margin-left: 1%;
+}
+
+.ulAdminProvider li {
+    margin: 10px auto 10px auto;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+
+    .ulAdminProvider li textarea {
+        width: 95%;
+        display: inline-block;
+    }
+
+    .ulAdminProvider li label {
+        color: #4d4d4d;
+        display: inline;
+        font-size: 0.9em;
+        font-weight: normal;
+        vertical-align: top;
+        margin-right: 20px;
+    }
+
+.liButtonSave {
+    width: 96%;
+    text-align: center;
+    margin: 0px !important;
+}
+
+    .liButtonSave input[type="submit"] {
+        background-color: #ff8300;
+        border: medium none;
+        color: #fff;
+        font-size: 1.3em;
+        height: auto;
+        padding: 3px 38px;
+        width: auto;
+    }

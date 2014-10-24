@@ -26,7 +26,7 @@ namespace DocumentManagement.Web.Controllers
 
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-            (Request["divGridProvider_txtSearch"], 0, 20, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));       
+            (Request["divGridProvider_txtSearch"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));       
             
             if (!string.IsNullOrEmpty(Request["CustomerName"]) && !string.IsNullOrEmpty(Request["FormId"]))
             {
@@ -59,13 +59,13 @@ namespace DocumentManagement.Web.Controllers
                 data.Append("\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep);
                 data.Append("\"" + item.RelatedProvider.Email + "\"" + strSep);
                 //data.Append(item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType == new CatalogModel { ItemId = 401 }).Select(x => x).ToList());
-                data.Append("\"" + item.FormUrl + "\"" + strSep + "A\n");
+                data.Append("\"" + item.FormUrl + "\"" + strSep + "\n");
                 //data.Append(item.)
             }
 
             byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
 
-            string fileName = "ProvidersFiltred.csv";
+            string fileName = "ProviderFile.csv";
             return File(buffer, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
     }

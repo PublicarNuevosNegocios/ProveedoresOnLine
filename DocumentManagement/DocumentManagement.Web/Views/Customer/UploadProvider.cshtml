@@ -26,6 +26,24 @@
                             <a target="_blank" href="@Request["ErrorFile"]">Ver log de proceso.</a>
                         </li>
                     }
+                    @{
+                        var stringList = ViewData["UrlReturn"] as List<string>;
+                        if (stringList != null && stringList.Count() != 0)
+                        {
+                            for (int i = 0; i < stringList.Count(); i++)
+                            {
+                                if (i == 0)
+                                {
+                                    <li><a target="_blank" href="@stringList[i]">Descargar ProviderFile.xls</a></li>
+                                }
+                                else
+                                {
+                                    <li><a target="_blank" href="@stringList[i]">Descargar LogProvider.xls</a></li>
+                                }                             
+                            }
+                        }
+                    }
+
                 </ul>
             </div>
         </form>
