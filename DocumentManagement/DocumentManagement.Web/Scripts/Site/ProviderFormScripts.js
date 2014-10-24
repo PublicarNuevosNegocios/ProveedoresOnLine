@@ -114,7 +114,7 @@ var AP_ProviderNotesObject = {
     //init Partners grid
     RenderAsync: function () {
         $('#' + AP_ProviderNotesObject.DivId).kendoGrid({
-            toolbar: [{ template: '<a href="javascript:AP_ProviderNotesObject.ShowCreate();">Agregar</a>' }],
+            //toolbar: [{ template: '<a href="javascript:AP_ProviderNotesObject.ShowCreate();">Agregar</a>' }],
             dataSource: {
                 type: 'json',
                 data: AP_ProviderNotesObject.PartnerData,
@@ -127,14 +127,6 @@ var AP_ProviderNotesObject = {
                 title: 'Fecha'
             }]
         });
-    },
-
-    ShowCreate: function () {
-        $('#' + AP_ProviderNotesObject.DivId + '_Create').dialog();
-    },
-
-    Create: function () {
-
     },
 };
 

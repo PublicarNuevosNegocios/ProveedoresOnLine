@@ -15,66 +15,54 @@
     </div>
 
     <div>
-
-        <ul>
-            <li>
-                <label>Administrar proveedor</label>
-            </li>
-            <li>
-                <span>Estado del proveedor:</span>
-                <select>
-                    @{
-                        int oProviderStatus = Model.
-                            RealtedProvider.
-                            RelatedProviderCustomerInfo.
-                            Where(x => x.ProviderInfoType.ItemId == 401).
-                            Select(x => Convert.ToInt32(x.Value)).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault();
-                        foreach (var Item in Model.ProviderOptions[0].Where(x => x.CatalogId == 2))
-                        {
-                            if (Item.ItemId == oProviderStatus)
+        <form>
+            <ul>
+                <li>
+                    <label>Administrar proveedor</label>
+                </li>
+                <li>
+                    <span>Estado del proveedor:</span>
+                    <select>
+                        @{
+                            int oProviderStatus = Model.
+                                RealtedProvider.
+                                RelatedProviderCustomerInfo.
+                                Where(x => x.ProviderInfoType.ItemId == 401).
+                                Select(x => Convert.ToInt32(x.Value)).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+                            foreach (var Item in Model.ProviderOptions[0].Where(x => x.CatalogId == 2))
                             {
-                                <option value="@Item.ItemId" selected="selected">@Item.ItemName</option>
-                            }
-                            else
-                            {
-                                <option value="@Item.ItemId">@Item.ItemName</option>
+                                if (Item.ItemId == oProviderStatus)
+                                {
+                                    <option value="@Item.ItemId" selected="selected">@Item.ItemName</option>
+                                }
+                                else
+                                {
+                                    <option value="@Item.ItemId">@Item.ItemName</option>
+                                }
                             }
                         }
-                    }
-                </select>
-            </li>
-            <li>
-                <span>Notas del proveedor:</span>
-                <div id="GridNotes"></div>
-            </li>
-        </ul>
+                    </select>
+                </li>
+                <li>
+                    <span>Nota:</span>
+                    <textarea id="taNoteText"></textarea>
+                </li>
+                <li>
+                    <input type="submit" value="Guardar" />
+                </li>
+                <li>
+                    <span>Notas del proveedor:</span>
+                    <div id="GridNotes"></div>
+                </li>
+            </ul>
+        </form>
     </div>
 
     <div class="DMStepsBottomWrapper">
         <img class="DMLogPublicar" src="~/Content/Images/LogoPublicarFooterBlack.png" alt="" />
         <label class="DMPublicarCopyright">Publicar publicidad y soluciones multimedia - Proveedores Online &copy; 2014 - 2015</label>
-    </div>
-</div>
-
-<div id="dialog" style="display:none;">
-
-    <!--notes field dialogs-->
-    <div id="GridNotes_Create" title="Notas del proveedor">
-        <form>
-            <ul>
-                <li>
-                    <span>Nota</span>
-                </li>
-                <li>
-                    <textarea id="taNoteText"></textarea>
-                </li>
-                <li>
-                    <a href="javascript:AP_ProviderNotesObject.Create();">Guardar</a>
-                </li>
-            </ul>
-        </form>
     </div>
 </div>
 
