@@ -130,6 +130,90 @@ namespace DocumentManagement.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult UpsertAdminProvider(string ProviderPublicId, string FormPublicId)
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
+            {
+                ProviderFormModel oModel = new ProviderFormModel()
+                {
+                    ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                    RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                    RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null),
+                };
+
+                //get request object
+                string strStatus = Request["selProviderStatus"];
+                string strNote = Request["taNoteText"];
+
+                if (!string.IsNullOrEmpty(strStatus))
+                {
+                    DocumentManagement.Provider.Models.Provider.ProviderInfoModel oCurrentStatus =
+                        oModel.RealtedProvider.RelatedProviderCustomerInfo.
+                        Where(x => x.ProviderInfoType.ItemId == 401).
+                        FirstOrDefault();
+
+                    DocumentManagement.Provider.Models.Provider.ProviderModel ProviderToUpsert =
+                        new Provider.Models.Provider.ProviderModel()
+                    {
+                        ProviderPublicId = oModel.RealtedProvider.ProviderPublicId,
+                        CustomerPublicId = oModel.RealtedProvider.CustomerPublicId,
+                        RelatedProviderCustomerInfo = new List<Provider.Models.Provider.ProviderInfoModel>()
+                    };
+
+                    if (oCurrentStatus.Value.Replace(" ", "").ToLower() != strStatus.Replace(" ", "").ToLower())
+                    {
+                        ProviderToUpsert.RelatedProviderCustomerInfo.Add
+                            (new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
+                            {
+                                ProviderInfoId = oCurrentStatus.ProviderInfoId,
+                                ProviderInfoType = new Provider.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = 401,
+                                    },
+                                Value = strStatus.Replace(" ", ""),
+                            });
+
+                        ProviderToUpsert.RelatedProviderCustomerInfo.Add
+                            (new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
+                            {
+                                ProviderInfoId = 0,
+                                ProviderInfoType = new Provider.Models.Util.CatalogModel()
+                                {
+                                    ItemId = 402,
+                                },
+                                LargeValue = strStatus.Replace(" ", "") + " - " + " Cambio de estado de " + oCurrentStatus.Value + " a " + strStatus,
+                            });
+                    }
+
+                    if (!string.IsNullOrEmpty(strNote))
+                    {
+                        ProviderToUpsert.RelatedProviderCustomerInfo.Add
+                            (new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
+                            {
+                                ProviderInfoId = 0,
+                                ProviderInfoType = new Provider.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = 402,
+                                    },
+                                LargeValue = strStatus.Replace(" ", "") + " - " + strNote,
+                            });
+                    }
+
+                    DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToUpsert);
+                }
+            }
+
+            //save success
+            return RedirectToAction
+                (MVC.ProviderForm.ActionNames.AdminProvider,
+                MVC.ProviderForm.Name,
+                new
+                {
+                    ProviderPublicId = ProviderPublicId,
+                    FormPublicId = FormPublicId
+                });
+        }
+
         #region PrivateMethods
 
         private DocumentManagement.Provider.Models.Provider.ProviderModel GetLoginRequest()
@@ -214,6 +298,10 @@ namespace DocumentManagement.Web.Controllers
                     else if (MVC.Shared.Views._P_FieldPartners.IndexOf(reqKey.Value) >= 0)
                     {
                         oProviderInfoToAdd = GetFieldPartnerRequest(reqKey.Key, GenericModels);
+                    }
+                    else if (MVC.Shared.Views._P_FieldLegalTerms.IndexOf(reqKey.Value) >= 0)
+                    {
+                        oProviderInfoToAdd = GetFieldLegalTerms(reqKey.Key, GenericModels);
                     }
 
                     if (oProviderInfoToAdd != null)
@@ -358,6 +446,29 @@ namespace DocumentManagement.Web.Controllers
             });
 
             return oReturn;
+        }
+
+        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldLegalTerms(string RequestKey, ProviderFormModel GenericModels)
+        {
+            List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            if (RequestKeySplit.Count >= 2)
+            {
+                DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
+                    (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
+
+                if (oProviderInfoType != null)
+                {
+                    Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                    {
+                        ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                        ProviderInfoType = oProviderInfoType,
+                        LargeValue = Request[RequestKey],
+                    };
+                    return oReturn;
+                }
+            }
+            return null;
         }
 
         #endregion

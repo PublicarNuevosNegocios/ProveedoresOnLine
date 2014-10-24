@@ -38,9 +38,12 @@
                     <span>Número de identificación</span>
                     <input type="text" id="IdentificationNumber" name="IdentificationNumber" value="@(Model.RelatedCustomer != null ? Model.RelatedCustomer.IdentificationNumber : string.Empty)" />
                 </li>
-                <li>
-                    <input type="submit" value="Guardar" />
-                </li>
+                @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+                {
+                    <li>
+                        <input type="submit" value="Guardar" />
+                    </li>
+                }
             </ul>
 
             <div style="display:none">

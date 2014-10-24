@@ -3,16 +3,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <span class="DMSectionTitle">Administrar compradores</span>
-    <div id="divGridCustomer"></div>
+<span class="DMSectionTitle">Administrar compradores</span>
+<div id="divGridCustomer"></div>
 
-    <div id="template" style="display:none;">
-        <div id="divGridCustomer_Header">
-            <input type="text" id="divGridCustomer_txtSearch" />
-            <input type="button" id="divGridCustomer_SearchButton" value="Buscar" />
+<div id="template" style="display:none;">
+    <div id="divGridCustomer_Header">
+        <input type="text" id="divGridCustomer_txtSearch" />
+        <input type="button" id="divGridCustomer_SearchButton" value="Buscar" />
+        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+        {
             <a href="@Url.Action(MVC.Customer.ActionNames.UpsertCustomer, MVC.Customer.Name)">Crear comprador</a>
-        </div>
+        }
     </div>
+</div>
 
 @section inlinescripts
 {

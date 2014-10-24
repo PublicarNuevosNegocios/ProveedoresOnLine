@@ -19,7 +19,10 @@
                         <span>Archivo a cargar:</span>
                         <input type="file" name="ExcelFile" id="ExcelFile" />
                     </li>
-                    <li><input class="BOButtons" type="submit" value="Iniciar carga del archivo" /></li>
+                    @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+                    {
+                        <li><input class="BOButtons" type="submit" value="Iniciar carga del archivo" /></li>
+                    }
                     @if (!string.IsNullOrEmpty(Request["ErrorFile"]))
                     {
                         <li>
@@ -39,7 +42,7 @@
                                 else
                                 {
                                     <li><a target="_blank" href="@stringList[i]">Descargar LogProvider.xls</a></li>
-                                }                             
+                                }
                             }
                         }
                     }

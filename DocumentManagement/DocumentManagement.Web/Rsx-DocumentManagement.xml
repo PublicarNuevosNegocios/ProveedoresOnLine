@@ -34,6 +34,31 @@
 
     <key name="_P_FieldFormPdf_365_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_365_FormText">Descargar formulario pdf.</key>
+
+    <key name="_P_FieldLegalTerms_363_LegalText">
+      <![CDATA[
+      {
+        "txtHeader":"Con el diligenciamiento de la información en el portal de Proveedores Online o Landing Pages de envío de información, y/o el suministro de información y/o documentación de cualquier tipo usted está aceptando:",
+        "txtCheckData":"La divulgación de la información a través de Proveedores Online",
+        "txtCheckCommercial":"La confirmación de bases de datos con fines para ser comercializados",
+        "txtCheckRestrictiveList":"Consulta y certificación de la información en listas restrictivas, centrales de riesgo y demás entidades públicas y privadas para verificación de la información",
+        "txtFooter": "<a target='_blank' href='https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/LegalTerms/Politica-de-Tratamiento-de-Datos-Personales-Aviso-de-Privacidad.pdf'>Descargar terminos y condiciones</a>"
+      }
+      ]]>
+    </key>
+
+    <key name="_P_FieldLegalTerms_364_LegalText">
+      <![CDATA[
+      {
+        "txtHeader":"Con el diligenciamiento de la información en el portal de Proveedores Online o Landing Pages de envío de información, y/o el suministro de información y/o documentación de cualquier tipo usted está aceptando:",
+        "txtCheckData":"La divulgación de la información a través de Proveedores Online",
+        "txtCheckCommercial":"La confirmación de bases de datos con fines para ser comercializados",
+        "txtCheckRestrictiveList":"Consulta y certificación de la información en listas restrictivas, centrales de riesgo y demás entidades públicas y privadas para verificación de la información",
+        "txtFooter": "<a target='_blank' href='https://s3.amazonaws.com/devproveedoresonline/DocumentManagment/LegalTerms/Politica-de-Tratamiento-de-Datos-Personales-Aviso-de-Privacidad.pdf'>Descargar terminos y condiciones</a>"
+      }
+      ]]>
+    </key>
+
   </DocumentManagement>
 </Settings>
 
