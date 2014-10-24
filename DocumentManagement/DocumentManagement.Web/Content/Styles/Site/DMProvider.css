@@ -198,3 +198,44 @@ a.DMButtonsForm:hover {
     background-color: #ff9955;
     color: #fff;
 }
+/*********** TABLA ADMINISTRAR PROVEEDORES ************/
+#divGridProvider_Header{
+    border:1px solid;
+    margin:0px 0px 0px 12px;
+}
+#ProfileInfoFormId label{
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0px 0px 0px 5px;
+    vertical-align:middle;
+}
+#ProfileInfoFormId input, #ProfileInfoFormId select{
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    height: 24px;
+    vertical-align: top;
+    width: 150px;
+    vertical-align:middle;
+}
+#ProfileInfoFormId input[type="checkbox"]{
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    height: 24px;
+    vertical-align: top;
+    width:auto;
+    vertical-align:middle;
+}
+.DMProviderFilterActions{
+    float:right;
+    margin:0px;
+    padding:0px;
+    height:auto; width:auto;
+}
+.DMProviderFilterActions input[type="button"]:hover, .DMProviderFilterActions input[type="submit"]:hover{
+    background-color:#e6e6e6 !important;
+    
+}
