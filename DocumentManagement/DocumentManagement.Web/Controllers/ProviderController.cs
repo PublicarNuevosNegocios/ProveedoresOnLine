@@ -26,17 +26,17 @@ namespace DocumentManagement.Web.Controllers
 
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-            (Request["divGridProvider_txtSearch"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));       
-            
+            (Request["divGridProvider_txtSearch"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));
+
             if (!string.IsNullOrEmpty(Request["CustomerName"]) && !string.IsNullOrEmpty(Request["FormId"]))
             {
                 oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == Request["CustomerName"]
-                                     && x.FormPublicId == Request["FormId"]).Select(x => x).ToList();          
+                                     && x.FormPublicId == Request["FormId"]).Select(x => x).ToList();
             }
             if (!string.IsNullOrEmpty(Request["CustomerName"]) && string.IsNullOrEmpty(Request["FormId"]))
             {
                 oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == Request["CustomerName"]
-                                     || x.FormPublicId == Request["FormId"]).Select(x => x).ToList();     
+                                     || x.FormPublicId == Request["FormId"]).Select(x => x).ToList();
             }
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
@@ -53,20 +53,31 @@ namespace DocumentManagement.Web.Controllers
             StringBuilder data = new StringBuilder();
             foreach (var item in oReturn.RelatedProvider)
             {
-
-                data.Append(item.RelatedProvider.Name + "\"" + strSep);
-                data.Append("\"" + item.RelatedProvider.IdentificationType.ItemId + "\"" + strSep);
-                data.Append("\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep);
-                data.Append("\"" + item.RelatedProvider.Email + "\"" + strSep);
-                //data.Append(item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType == new CatalogModel { ItemId = 401 }).Select(x => x).ToList());
-                data.Append("\"" + item.FormUrl + "\"" + strSep + "\n");
-                //data.Append(item.)
+                if (oReturn.RelatedProvider.IndexOf(item) == 0)
+                {
+                    data.AppendLine
+                        ("\"" + "RAZON SOCIAL" + "\"" + strSep +
+                        "\"" + "TIPO IDENTIFICACION" + "\"" + strSep +
+                        "\"" + "NUMERO IDENTIFICACION" + "\"" + strSep +
+                        "\"" + "EMAIL" + "\"" + strSep +
+                        "\"" + "URL"+ "\"" );
+                    //data.Append(item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType == new CatalogModel { ItemId = 401 }).Select(x => x).ToList());
+                }
+                else
+                {
+                    data.AppendLine
+                        ("\"" + item.RelatedProvider.Name + "\"" + "" + strSep +
+                        "\"" + item.RelatedProvider.IdentificationType.ItemName + "\"" + strSep +
+                        "\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep +
+                        "\"" + item.RelatedProvider.Email + "\"" + strSep +
+                        "\"" + item.FormUrl + "\"");
+                    //data.Append(item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType == new CatalogModel { ItemId = 401 }).Select(x => x).ToList());
+                }
             }
 
             byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
 
-            string fileName = "ProviderFile.csv";
-            return File(buffer, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm")+ ".csv");
         }
     }
 }
