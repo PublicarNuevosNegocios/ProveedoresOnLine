@@ -65,15 +65,17 @@ namespace DocumentManagement.Provider.Controller
 
         public static void ProviderCustomerInfoUpsert(ProviderModel ProviderToUpsert)
         {
-            if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
+            if (ProviderToUpsert.RelatedProviderCustomerInfo != null && ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
             {
                 foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
                 {
-                    DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
-                        (ProviderToUpsert.ProviderPublicId,
-                        item.ProviderInfoId,
-                        item.ProviderInfoType.ItemId,
-                        item.Value, item.LargeValue);
+                    DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
+                         (ProviderToUpsert.ProviderPublicId,
+                         ProviderToUpsert.CustomerPublicId,
+                         item.ProviderInfoId,
+                         item.ProviderInfoType.ItemId,
+                         item.Value,
+                         item.LargeValue);
                 }
             }
         }

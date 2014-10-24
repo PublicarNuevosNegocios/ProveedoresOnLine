@@ -81,6 +81,12 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminProvider);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UpsertAdminProvider()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertAdminProvider);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -101,6 +107,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string LoginProvider = "LoginProvider";
             public readonly string UpsertGenericStep = "UpsertGenericStep";
             public readonly string AdminProvider = "AdminProvider";
+            public readonly string UpsertAdminProvider = "UpsertAdminProvider";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -110,6 +117,7 @@ namespace DocumentManagement.Web.Controllers
             public const string LoginProvider = "LoginProvider";
             public const string UpsertGenericStep = "UpsertGenericStep";
             public const string AdminProvider = "AdminProvider";
+            public const string UpsertAdminProvider = "UpsertAdminProvider";
         }
 
 
@@ -149,6 +157,15 @@ namespace DocumentManagement.Web.Controllers
         public ActionParamsClass_AdminProvider AdminProviderParams { get { return s_params_AdminProvider; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_AdminProvider
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+        }
+        static readonly ActionParamsClass_UpsertAdminProvider s_params_UpsertAdminProvider = new ActionParamsClass_UpsertAdminProvider();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpsertAdminProvider UpsertAdminProviderParams { get { return s_params_UpsertAdminProvider; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpsertAdminProvider
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
@@ -229,6 +246,19 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
             AdminProviderOverride(callInfo, ProviderPublicId, FormPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpsertAdminProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpsertAdminProvider(string ProviderPublicId, string FormPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertAdminProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            UpsertAdminProviderOverride(callInfo, ProviderPublicId, FormPublicId);
             return callInfo;
         }
 

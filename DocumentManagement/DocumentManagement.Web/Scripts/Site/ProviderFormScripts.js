@@ -117,7 +117,7 @@ var AP_ProviderNotesObject = {
             //toolbar: [{ template: '<a href="javascript:AP_ProviderNotesObject.ShowCreate();">Agregar</a>' }],
             dataSource: {
                 type: 'json',
-                data: AP_ProviderNotesObject.PartnerData,
+                data: AP_ProviderNotesObject.NotesData,
             },
             columns: [{
                 field: 'LargeValue',
