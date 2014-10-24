@@ -7,6 +7,7 @@ using DocumentManagement.Provider.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -171,7 +172,7 @@ namespace DocumentManagement.Web.Controllers
                 return View(oModel);
             }
         }
-
+               
         #region private methods
 
         private CustomerModel GetCustomerRequest()
@@ -218,6 +219,7 @@ namespace DocumentManagement.Web.Controllers
             {
                 try
                 {
+                    #region Operation
                     //Validar el provider
                     ProviderModel Provider = new ProviderModel();
 
@@ -259,7 +261,8 @@ namespace DocumentManagement.Web.Controllers
                         PrvModel = prv,
                         Success = true,
                         Error = "Se ha creado el Proveedor '" + ProviderToCreate.ProviderPublicId + "'",
-                    });
+                    }); 
+                    #endregion
                 }
                 catch (Exception err)
                 {

@@ -43,7 +43,7 @@
         },      
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
-            title: "Id",
+            title: "Id Proveedor",
         }, {
             field: "RelatedProvider.Name",
             title: "Razón Social"
@@ -67,8 +67,7 @@
             template: "<a target=\"_blank\" href=\"" + "#=FormUrl#" + "\">" + "#=FormUrl#" + "</a>"
         }, {
             field: "RelatedProvider.CustomerCount",
-            title: "# Comp. Relacionados",
-            width: 400,            
+            title: "# Comp. Relacionados",                      
         }],
     });
     //add search button event
