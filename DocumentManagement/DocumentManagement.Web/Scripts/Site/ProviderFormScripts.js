@@ -130,7 +130,17 @@ var AP_ProviderNotesObject = {
     },
 };
 
+//postback form
+function PF_LegalTermsChange(vidInput) {
 
+    var oReq = '';
+
+    oReq = oReq + '{CheckData:' + $('#' + vidInput + '_CheckData').prop( 'checked') + ',';
+    oReq = oReq + 'CheckCommercial:' + $('#' + vidInput + '_CheckCommercial').prop('checked') + ',';
+    oReq = oReq + 'CheckRestrictiveList:' + $('#' + vidInput + '_CheckRestrictiveList').prop('checked') + '}';
+
+    $("#" + vidInput).val(oReq);
+}
 
 
 

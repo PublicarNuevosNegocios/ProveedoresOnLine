@@ -215,6 +215,10 @@ namespace DocumentManagement.Web.Controllers
                     {
                         oProviderInfoToAdd = GetFieldPartnerRequest(reqKey.Key, GenericModels);
                     }
+                    else if (MVC.Shared.Views._P_FieldLegalTerms.IndexOf(reqKey.Value) >= 0)
+                    {
+                        oProviderInfoToAdd = GetFieldLegalTerms(reqKey.Key, GenericModels);
+                    }
 
                     if (oProviderInfoToAdd != null)
                     {
@@ -358,6 +362,29 @@ namespace DocumentManagement.Web.Controllers
             });
 
             return oReturn;
+        }
+
+        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldLegalTerms(string RequestKey, ProviderFormModel GenericModels)
+        {
+            List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            if (RequestKeySplit.Count >= 2)
+            {
+                DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
+                    (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
+
+                if (oProviderInfoType != null)
+                {
+                    Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                    {
+                        ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                        ProviderInfoType = oProviderInfoType,
+                        LargeValue = Request[RequestKey],
+                    };
+                    return oReturn;
+                }
+            }
+            return null;
         }
 
         #endregion
