@@ -16,7 +16,10 @@
         <div id="divGridForm_Header">
             <input type="text" id="divGridForm_txtSearch" />
             <input type="button" id="divGridForm_SearchButton" value="Buscar" />
-            <a href="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new { CustomerPublicId  = Model.RelatedCustomer.CustomerPublicId})">Crear formulario</a>
+            @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+            {
+                <a href="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new { CustomerPublicId  = Model.RelatedCustomer.CustomerPublicId})">Crear formulario</a>
+            }
         </div>
     </div>
 </div>

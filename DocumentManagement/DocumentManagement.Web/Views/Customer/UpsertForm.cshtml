@@ -17,10 +17,13 @@
                     <span>Nombre:</span>
                     <input type="text" id="Name" name="Name" value="@(Model.RelatedForm != null ? Model.RelatedForm.Name : string.Empty)" />
                 </li>
-                <li>
-                    <input class="DMButtonsForm" type="submit" value="Guardar" />
-                </li>
-            </ul>           
+                @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+                {
+                    <li>
+                        <input class="DMButtonsForm" type="submit" value="Guardar" />
+                    </li>
+                }
+            </ul>
 
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
@@ -44,18 +47,21 @@
                         <input type="file" id="UploadFile" name="UploadFile" />
                         <img src="@Model.RelatedForm.Logo" />
                     </li>
-                    <li>
-                        <input class="DMButtonsForm" type="submit" value="Guardar" />
-                    </li>
+                    @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+                    {
+                        <li>
+                            <input class="DMButtonsForm" type="submit" value="Guardar" />
+                        </li>
+                    }
                 </ul>
 
                 <div style="display:none">
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 </div>
             </form>
-            
+
             <hr class="featurette-divider __loop">
-            
+
             <!--step grid-->
             <div class="stepGrid">
                 <span>Pasos</span>
@@ -63,7 +69,7 @@
             </div>
 
             <hr class="featurette-divider __loop">
-            
+
             <!--field grid-->
             <div class="fieldGrid">
                 <span>Campos</span>
@@ -82,12 +88,18 @@
 <div id="template" style="display:none;">
     <!--step templates-->
     <div id="divGridStep_Header">
-        <a href="javascript:FormUpsertObject.RenderStepCreate();">Crear paso</a>
+        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+        {
+            <a href="javascript:FormUpsertObject.RenderStepCreate();">Crear paso</a>
+        }
     </div>
 
     <!--field templates-->
     <div id="divGridField_Header">
-        <a href="javascript:FormUpsertObject.RenderFieldCreate();">Crear campos</a>
+        @if (DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Select(x => x.Role).First() == SessionManager.Models.Auth.enumRole.SystemAdministrator)
+        {
+            <a href="javascript:FormUpsertObject.RenderFieldCreate();">Crear campos</a>
+        }
     </div>
 
 </div>
