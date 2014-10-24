@@ -18,10 +18,10 @@
             <span>*</span>
         }
         <label>@Model.RealtedField.Name:</label>
+        <input type="file" id="@strId" name="@strId" />
         <a target="_blank" href="@(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormUrl"].Value)">
             @(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormText"].Value)
         </a>
-        <input type="file" id="@strId" name="@strId" />
         @if (!string.IsNullOrEmpty(strValue))
         {
             <a class="OpenFile" href="@strValue" target="_blank">Ver archivo</a>
