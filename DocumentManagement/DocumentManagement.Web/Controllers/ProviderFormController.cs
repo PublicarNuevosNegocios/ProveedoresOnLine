@@ -109,7 +109,7 @@ namespace DocumentManagement.Web.Controllers
                 {
                     ProviderPublicId = ProviderPublicId,
                     FormPublicId = FormPublicId,
-                    StepId = StepId
+                    StepId = (!string.IsNullOrEmpty(NewStepId) && Convert.ToInt32(NewStepId) > 0) ? Convert.ToInt32(NewStepId) : Convert.ToInt32(StepId)
                 });
         }
 
@@ -189,7 +189,8 @@ namespace DocumentManagement.Web.Controllers
                         oProviderInfoToAdd = GetFieldBasicRequest(reqKey.Key, GenericModels);
                     }
 
-                    else if (MVC.Shared.Views._P_FieldFile.IndexOf(reqKey.Value) >= 0)
+                    else if (MVC.Shared.Views._P_FieldFile.IndexOf(reqKey.Value) >= 0 ||
+                            MVC.Shared.Views._P_FieldFormPdf.IndexOf(reqKey.Value) >= 0)
                     {
                         oProviderInfoToAdd = GetFieldFileRequest(reqKey.Key, GenericModels);
                     }

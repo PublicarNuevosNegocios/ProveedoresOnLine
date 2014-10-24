@@ -20,8 +20,8 @@
             }
             else
             {
-            <li>
-                <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                <li>
+                    <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
                         MVC.ProviderForm.Name,
                         new
                         {
@@ -30,8 +30,24 @@
                             StepId = Item.StepId
                         }))">@Item.Name</a>
                     </li>
+            }
+
         }
 
+        @if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
+            DocumentManagement.Models.General.SessionModel.UserIsAutorized &&
+            DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.
+                Any(x => x.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement))
+        {
+            <li>
+                <a href="@(Url.Action(MVC.ProviderForm.ActionNames.Index,
+                        MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                        }))">Administrar proveedor</a>
+            </li>
         }
     </ul>
 }

@@ -2,9 +2,42 @@
 
 @if (!Model.RenderScripts)
 {
+    //get value and id
+    string strId = Model.FieldType + "-" + Model.RealtedField.FieldId + "-";
+    string strValue = string.Empty;
+    if (Model.RealtedProviderInfo != null && Model.RealtedProviderInfo.Count > 0)
+    {
+        strId += Model.RealtedProviderInfo.FirstOrDefault().ProviderInfoId.ToString();
+        strValue = Model.RealtedProviderInfo.FirstOrDefault().LargeValue;
+    }
+
     <div>
-        <!--FormPdf field-->
-        <span>@Model.RealtedField.Name:</span>
-        <input type="text" id="" name="" value="" />
+        <!--Email field-->
+        @if (Model.RealtedField.IsRequired)
+        {
+            <span>*</span>
+        }
+        <label>@Model.RealtedField.Name:</label>
+        <a href="@(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormUrl"].Value)">
+            @(DocumentManagement.Models.General.InternalSettings.Instance[Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_FormText"].Value)
+        </a>
+        <input type="file" id="@strId" name="@strId" />
+        @if (!string.IsNullOrEmpty(strValue))
+        {
+            <a class="OpenFile" href="@strValue" target="_blank">Ver archivo</a>
+
+            if (strValue.IndexOf(".jpg") >= 0 ||
+                strValue.IndexOf(".jpeg") >= 0 ||
+                strValue.IndexOf(".png") >= 0)
+            {
+                <img class="ImageFile" src="@strValue" />
+            }
+            else if (strValue.IndexOf(".pdf") >= 0)
+            {
+                <iframe src="@strValue" frameborder="0"></iframe>
+            }
+
+        }
     </div>
 }
+
