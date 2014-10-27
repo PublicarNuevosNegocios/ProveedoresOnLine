@@ -10,14 +10,14 @@
             schema: {
                 total: function (data) {
                     if (data != null) {
-                        return data.TotalRows;
+                        debugger;
+                        return data[0].oTotalRows;
                     }
                     return 0;
                 }
             },
             transport: {
-                read: function (options) {
-                    debugger;
+                read: function (options) {                    
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();                    
                     var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
                     var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
@@ -68,14 +68,17 @@
         }, {
             field: "RelatedProvider.CustomerCount",
             title: "# Comp. Relacionados",                      
-        }],
+        }, {
+            field: "codSalesforce",
+            title: "Número Campaña"
+        }
+        ],
     });
     //add search button event
     $('#' + vidDiv + '_SearchButton').click(function () {        
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
-    $('#' + cmbCustomer).change(function () {
-        debugger;
+    $('#' + cmbCustomer).change(function () {        
         initCmb('Form', cmbCustomer);
     });
 }

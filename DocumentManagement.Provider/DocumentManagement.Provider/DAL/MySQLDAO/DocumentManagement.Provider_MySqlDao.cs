@@ -238,7 +238,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                 oReturn =
                     (from c in response.DataTableResult.AsEnumerable()
                      where !c.IsNull("ProviderPublicId")
-                     select new ProviderModel()
+                     group c.Field<int>("ProviderCustomerInfoTypeId") == 403 by
+                     new
                      {
                          ProviderPublicId = c.Field<string>("ProviderPublicId"),
                          Name = c.Field<string>("Name"),
@@ -248,12 +249,41 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                              ItemId = c.Field<int>("IdentificationTypeId"),
                              ItemName = c.Field<string>("IdentificationTypeName"),
                          },
+                         RelatedProviderCustomerInfo =
+                            (from pci in response.DataTableResult.AsEnumerable()
+                             where !pci.IsNull("ProviderCustomerInfoId") && pci.Field<int>("ProviderCustomerInfoId") == c.Field<int>("ProviderCustomerInfoId")
+                             select new ProviderInfoModel()
+                             {
+                                 ProviderInfoId = pci.Field<int>("ProviderCustomerInfoId"),
+                                 ProviderInfoType = new CatalogModel()
+                                 {
+                                     ItemId = pci.Field<int>("ProviderCustomerInfoTypeId"),
+                                     ItemName = pci.Field<string>("ProviderCustomerInfoTypeName"),
+                                 },
+                                 Value = pci.Field<string>("ProviderCustomerInfoValue"),
+                                 LargeValue = pci.Field<string>("ProviderCustomerInfoLargeValue"),
+                             }).ToList(),
+
                          IdentificationNumber = c.Field<string>("IdentificationNumber"),
                          FormPublicId = c.Field<string>("FormPublicId"),
                          FormName = c.Field<string>("FormName"),
                          CustomerPublicId = c.Field<string>("CustomerPublicId"),
                          CustomerName = c.Field<string>("CustomerName"),
                          CustomerCount = c.Field<Int64>("CustomerCount"),
+                     } into prov
+                     select new ProviderModel() 
+                     {
+                         ProviderPublicId = prov.Key.ProviderPublicId,
+                         Name = prov.Key.Name,
+                         Email = prov.Key.Email,
+                         IdentificationType = prov.Key.IdentificationType,
+                         IdentificationNumber = prov.Key.IdentificationNumber,
+                         RelatedProviderCustomerInfo = prov.Key.RelatedProviderCustomerInfo,
+                         FormName = prov.Key.FormName,
+                         FormPublicId = prov.Key.FormPublicId,
+                         CustomerName = prov.Key.CustomerName,
+                         CustomerPublicId = prov.Key.CustomerPublicId,
+                         CustomerCount = prov.Key.CustomerCount
                      }).ToList();
             }
 

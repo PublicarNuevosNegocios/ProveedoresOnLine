@@ -29,8 +29,7 @@ namespace DocumentManagement.Web.ControllersApi
             }
             if (CustomerPublicId != null && FormPublicId == null)
             {
-                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
-                                     || x.FormPublicId == FormPublicId).Select(x => x).ToList();     
+                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId).Select(x => x).ToList();     
             }
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
@@ -39,6 +38,8 @@ namespace DocumentManagement.Web.ControllersApi
                 oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
                 {
                     RelatedProvider = prv,
+                    codSalesforce = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault() == null ? string.Empty : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault(),
+                    oTotalRows = oTotalRows
                 });
                 return true;
             });

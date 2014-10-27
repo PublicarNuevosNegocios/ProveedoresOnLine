@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Models.Provider;
+using DocumentManagement.Provider.Models.Provider;
 using DocumentManagement.Provider.Models.Util;
 using System;
 using System.Collections.Generic;
@@ -45,14 +46,24 @@ namespace DocumentManagement.Web.Controllers
                 oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
                 {
                     RelatedProvider = prv,
-                });
+                });              
+
                 return true;
             });
             string strSep = ";";
 
+            
             StringBuilder data = new StringBuilder();
             foreach (var item in oReturn.RelatedProvider)
             {
+                string Campana = "";
+
+                ProviderInfoModel info = item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x).FirstOrDefault() == null ? null : item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x).FirstOrDefault();
+                if (info != null && info.ProviderInfoType.ItemId == 403)
+                    Campana = info.Value;
+                else
+                    Campana = "N/A";
+
                 if (oReturn.RelatedProvider.IndexOf(item) == 0)
                 {
                     data.AppendLine
@@ -60,8 +71,8 @@ namespace DocumentManagement.Web.Controllers
                         "\"" + "TIPO IDENTIFICACION" + "\"" + strSep +
                         "\"" + "NUMERO IDENTIFICACION" + "\"" + strSep +
                         "\"" + "EMAIL" + "\"" + strSep +
-                        "\"" + "URL"+ "\"" );
-                    //data.Append(item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType == new CatalogModel { ItemId = 401 }).Select(x => x).ToList());
+                        "\"" + "CAMPANA" + "\"" + strSep +
+                        "\"" + "URL" + "\"");
                 }
                 else
                 {
@@ -70,14 +81,14 @@ namespace DocumentManagement.Web.Controllers
                         "\"" + item.RelatedProvider.IdentificationType.ItemName + "\"" + strSep +
                         "\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep +
                         "\"" + item.RelatedProvider.Email + "\"" + strSep +
+                        "\"" + Campana + "\"" + strSep +
                         "\"" + item.FormUrl + "\"");
-                    //data.Append(item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType == new CatalogModel { ItemId = 401 }).Select(x => x).ToList());
                 }
             }
 
             byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
 
-            return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm")+ ".csv");
+            return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
         }
     }
 }

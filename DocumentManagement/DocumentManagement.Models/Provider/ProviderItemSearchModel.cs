@@ -17,11 +17,13 @@ namespace DocumentManagement.Models.Provider
                 if (RelatedProvider != null)
                 {
                     return "https://" + System.Web.HttpContext.Current.Request.Url.Host +":"+ System.Web.HttpContext.Current.Request.Url.Port + "/ProviderForm/Index?ProviderPublicId=" + RelatedProvider.ProviderPublicId + "&FormPublicId=" + RelatedProvider.FormPublicId;
-                }
-                //https://localhost:44306/ProviderForm/Index?ProviderPublicId=184C7F1E&FormPublicId=176BF266
+                }                
                 return string.Empty;
             }
         }
 
+        public string codSalesforce { get; set; }
+
+        public int oTotalRows { get; set; }
     }
 }
