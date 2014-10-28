@@ -12,39 +12,76 @@ namespace DocumentManagement.Provider.Controller
     {
         static public string ProviderUpsert(ProviderModel ProviderToUpsert)
         {
-            string oResult = DAL.Controller.ProviderDataController.Instance.ProviderUpsert
-                (ProviderToUpsert.ProviderPublicId
-                , ProviderToUpsert.Name
-                , ProviderToUpsert.IdentificationType.ItemId
-                , ProviderToUpsert.IdentificationNumber
-                , ProviderToUpsert.Email);
 
-            if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
-            {
-                foreach (var item in ProviderToUpsert.RelatedProviderInfo)
-                {
-                    DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
-                        (oResult,
-                        item.ProviderInfoId,
-                        item.ProviderInfoType.ItemId,
-                        item.Value,
-                        item.LargeValue);
-                }
-            }
-            if (ProviderToUpsert.RelatedProviderCustomerInfo != null && ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
-            {
-                foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
-                {
-                    DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
-                        (oResult,
-                        ProviderToUpsert.CustomerPublicId,
-                        item.ProviderInfoId,
-                        item.ProviderInfoType.ItemId,
-                        item.Value,
-                        item.LargeValue);
-                }
-            }
+            string oResult = null;
+            LogManager.Models.LogModel oLog = GetLogModel();
 
+            try
+            {
+                oResult = DAL.Controller.ProviderDataController.Instance.ProviderUpsert
+                    (ProviderToUpsert.ProviderPublicId
+                    , ProviderToUpsert.Name
+                    , ProviderToUpsert.IdentificationType.ItemId
+                    , ProviderToUpsert.IdentificationNumber
+                    , ProviderToUpsert.Email);
+
+                if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
+                {
+                    foreach (var item in ProviderToUpsert.RelatedProviderInfo)
+                    {
+                        DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
+                            (oResult,
+                            item.ProviderInfoId,
+                            item.ProviderInfoType.ItemId,
+                            item.Value,
+                            item.LargeValue);
+
+                        LogManager.Models.LogModel oItemLog = GetLogModel();
+                        oItemLog.IsSuccess = true;
+                        oItemLog.LogObject = item;
+                        LogManager.ClientLog.AddLog(oItemLog);
+                    }
+                }
+                if (ProviderToUpsert.RelatedProviderCustomerInfo != null && ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
+                {
+                    foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
+                    {
+                        DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
+                            (oResult,
+                            ProviderToUpsert.CustomerPublicId,
+                            item.ProviderInfoId,
+                            item.ProviderInfoType.ItemId,
+                            item.Value,
+                            item.LargeValue);
+
+                        LogManager.Models.LogModel oItemLog = GetLogModel();
+                        oItemLog.IsSuccess = true;
+                        oItemLog.LogObject = item;
+                        LogManager.ClientLog.AddLog(oItemLog);
+                    }
+                }
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = ProviderToUpsert;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "ProviderPublicId",
+                    Value = oResult,
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
             return oResult;
         }
 
@@ -59,6 +96,11 @@ namespace DocumentManagement.Provider.Controller
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
                         item.Value, item.LargeValue);
+
+                    LogManager.Models.LogModel oItemLog = GetLogModel();
+                    oItemLog.IsSuccess = true;
+                    oItemLog.LogObject = item;
+                    LogManager.ClientLog.AddLog(oItemLog);
                 }
             }
         }
@@ -76,6 +118,11 @@ namespace DocumentManagement.Provider.Controller
                          item.ProviderInfoType.ItemId,
                          item.Value,
                          item.LargeValue);
+
+                    LogManager.Models.LogModel oItemLog = GetLogModel();
+                    oItemLog.IsSuccess = true;
+                    oItemLog.LogObject = item;
+                    LogManager.ClientLog.AddLog(oItemLog);
                 }
             }
         }
@@ -99,5 +146,41 @@ namespace DocumentManagement.Provider.Controller
         {
             return DAL.Controller.ProviderDataController.Instance.CatalogGetProviderOptions();
         }
+
+        #region Log
+
+        private static LogManager.Models.LogModel GetLogModel()
+        {
+
+            LogManager.Models.LogModel oReturn = new LogManager.Models.LogModel();
+
+            try
+            {
+
+                if (System.Web.HttpContext.Current != null)
+                {
+                    //get user info
+                    if (SessionManager.SessionController.Auth_UserLogin != null)
+                    {
+                        oReturn.User = SessionManager.SessionController.Auth_UserLogin.Email;
+                    }
+                    else
+                    {
+                        oReturn.User = System.Web.HttpContext.Current.Request.UserHostAddress;
+                    }
+
+                    //get appname
+                    oReturn.Application = System.AppDomain.CurrentDomain.FriendlyName;
+
+                    //get source invocation
+                    oReturn.Source = System.Web.HttpContext.Current.Request.Url.ToString();
+                }
+            }
+            catch { }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }
