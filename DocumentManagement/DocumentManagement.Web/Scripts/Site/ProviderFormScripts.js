@@ -135,13 +135,58 @@ function PF_LegalTermsChange(vidInput) {
 
     var oReq = '';
 
-    oReq = oReq + '{CheckData:' + $('#' + vidInput + '_CheckData').prop( 'checked') + ',';
+    oReq = oReq + '{CheckData:' + $('#' + vidInput + '_CheckData').prop('checked') + ',';
     oReq = oReq + 'CheckCommercial:' + $('#' + vidInput + '_CheckCommercial').prop('checked') + ',';
     oReq = oReq + 'CheckRestrictiveList:' + $('#' + vidInput + '_CheckRestrictiveList').prop('checked') + '}';
 
     $("#" + vidInput).val(oReq);
 }
 
+//Multiple File
+var PF_MultipleFileObject = {
 
+    DivId: '',
+    MultipleData: new Array(),
 
+    Init: function (vInitObject) {
 
+        this.DivId = vInitObject.DivId;
+        this.MultipleData = vInitObject.MultipleData;
+    },
+
+    //init Multiple File grid
+    RenderAsync: function () {
+        $('#' + PF_MultipleFileObject.DivId).kendoGrid({
+            toolbar: [{ template: '<input type="file" id="' + PF_MultipleFileObject.DivId + '" name="' + PF_MultipleFileObject.DivId + '" />' }],
+            dataSource: {
+                type: 'json',
+                data: PF_MultipleFileObject.MultipleData,
+            },
+            columns: [{
+                field: 'ProviderInfoId',
+                title: 'Id',
+            }, {
+                field: 'ProviderInfoUrl',
+                title: 'File',
+                template: '<a href="${ProviderInfoUrl}" target="_blank" >Ver archivo</a>'
+            }, {
+                field: 'ProviderInfoId',
+                title: '',
+                template: '<a href="javascript:PF_MultipleFileObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
+            }]
+        });
+    },
+
+    ShowDelete: function (ProviderInfoId) {
+        debugger;
+        var oReq = '';
+        oReq = oReq + '{IsDelete:"true",';
+        oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
+        oReq = oReq + 'ProviderInfoUrl:""}';
+
+        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
+        $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
+
+        PF_PostBackForm('FrmGenericStep', '');
+    },
+}

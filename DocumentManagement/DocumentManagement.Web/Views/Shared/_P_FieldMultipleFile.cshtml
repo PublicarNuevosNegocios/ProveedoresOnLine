@@ -1,11 +1,47 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
 
+@{
+    //get grid id
+    string strId = Model.FieldType + "-" + Model.RealtedField.FieldId;
+}
+
 @if (!Model.RenderScripts)
 {
-
+    <div>
+        <!--Multiple file name-->
+        @if (Model.RealtedField.IsRequired)
+        {
+            <span>*</span>
+        }
+        <label>@Model.RealtedField.Name:</label>
+        <div id="@strId"></div>
+    </div>
+    
+    <div style="display:none;">
+        <input type="hidden" name="@(strId)-" id="@(strId)-" />
+    </div>
 }
 else
 {
+    string oGridData = string.Empty;
+    if (Model.RealtedProviderInfo != null)
+    {
+        oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(Model.RealtedProviderInfo.
+            Select(
+                x => new DocumentManagement.Models.Provider.ProviderMultipleFileModel(x.LargeValue, x.ProviderInfoId.ToString())).
+            Where(x => x.IsDelete == false).ToList());
+    }
 
+    <script type="text/javascript">
+        var vGridData = @(Html.Raw(oGridData))
+        $(document).ready(function () {
+            //Start grid
+            PF_MultipleFileObject.Init({
+                DivId: '@strId',
+                MultipleData: vGridData,
+            });
+            PF_MultipleFileObject.RenderAsync();
+        });
+    </script>
 }
-
