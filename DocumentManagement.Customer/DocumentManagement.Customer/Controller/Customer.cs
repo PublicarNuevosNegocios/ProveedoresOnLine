@@ -14,11 +14,44 @@ namespace DocumentManagement.Customer.Controller
 
         public static string CustomerUpsert(CustomerModel CustomerToUpsert)
         {
-            return DAL.Controller.CustomerDataController.Instance.CustomerUpsert
-                (CustomerToUpsert.CustomerPublicId,
-                CustomerToUpsert.Name,
-                CustomerToUpsert.IdentificationType.ItemId,
-                CustomerToUpsert.IdentificationNumber);
+            string oReturn = null;
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                oReturn = DAL.Controller.CustomerDataController.Instance.CustomerUpsert
+                    (CustomerToUpsert.CustomerPublicId,
+                    CustomerToUpsert.Name,
+                    CustomerToUpsert.IdentificationType.ItemId,
+                    CustomerToUpsert.IdentificationNumber);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                try
+                {
+                    oLog.LogObject = CustomerToUpsert;
+
+                    oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "CustomerPublicId",
+                        Value = oReturn,
+                    });
+
+                    LogManager.ClientLog.AddLog(oLog);
+                }
+                catch { }
+            }
+
+            return oReturn;
         }
 
         public static List<Models.Customer.CustomerModel> CustomerSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
@@ -122,6 +155,42 @@ namespace DocumentManagement.Customer.Controller
         public static List<Models.Util.CatalogModel> CatalogGetCustomerOptions()
         {
             return DAL.Controller.CustomerDataController.Instance.CatalogGetCustomerOptions();
+        }
+
+        #endregion
+
+        #region Log
+
+        private static LogManager.Models.LogModel GetLogModel()
+        {
+
+            LogManager.Models.LogModel oReturn = new LogManager.Models.LogModel();
+
+            try
+            {
+
+                if (System.Web.HttpContext.Current != null)
+                {
+                    //get user info
+                    if (SessionManager.SessionController.Auth_UserLogin != null)
+                    {
+                        oReturn.User = SessionManager.SessionController.Auth_UserLogin.Email;
+                    }
+                    else
+                    {
+                        oReturn.User = System.Web.HttpContext.Current.Request.UserHostAddress;
+                    }
+
+                    //get appname
+                    oReturn.Application = System.AppDomain.CurrentDomain.FriendlyName;
+
+                    //get source invocation
+                    oReturn.Source = System.Web.HttpContext.Current.Request.Url.ToString();
+                }
+            }
+            catch { }
+
+            return oReturn;
         }
 
         #endregion
