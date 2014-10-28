@@ -36,19 +36,15 @@ namespace DocumentManagement.Customer.Controller
             }
             finally
             {
-                try
+                oLog.LogObject = CustomerToUpsert;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
                 {
-                    oLog.LogObject = CustomerToUpsert;
+                    LogInfoType = "CustomerPublicId",
+                    Value = oReturn,
+                });
 
-                    oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                    {
-                        LogInfoType = "CustomerPublicId",
-                        Value = oReturn,
-                    });
-
-                    LogManager.ClientLog.AddLog(oLog);
-                }
-                catch { }
+                LogManager.ClientLog.AddLog(oLog);
             }
 
             return oReturn;
@@ -79,53 +75,241 @@ namespace DocumentManagement.Customer.Controller
 
         public static string FormUpsert(string CustomerPublicId, FormModel FormToUpsert)
         {
-            return DAL.Controller.CustomerDataController.Instance.FormUpsert
+            string oReturn = null;
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                oReturn = DAL.Controller.CustomerDataController.Instance.FormUpsert
                 (FormToUpsert.FormPublicId,
                 CustomerPublicId,
                 FormToUpsert.Name);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = FormToUpsert;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "FormPublicId",
+                    Value = oReturn,
+                });
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "CustomerPublicId",
+                    Value = CustomerPublicId,
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
+
+            return oReturn;
+
         }
 
         public static void FormUpsertLogo(string FormPublicId, string Logo)
         {
-            DAL.Controller.CustomerDataController.Instance.FormUpsertLogo
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                DAL.Controller.CustomerDataController.Instance.FormUpsertLogo
                 (FormPublicId,
                 Logo);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "FormPublicId",
+                        Value = FormPublicId,
+                    });
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "Logo",
+                        Value = Logo,
+                    });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
         }
 
         public static int StepCreate(string FormPublicId, StepModel StepToUpsert)
         {
-            return DAL.Controller.CustomerDataController.Instance.StepCreate
+            int oReturn = 0;
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                oReturn = DAL.Controller.CustomerDataController.Instance.StepCreate
                 (FormPublicId,
                 StepToUpsert.Name,
                 StepToUpsert.Position);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = StepToUpsert;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "FormPublicId",
+                    Value = FormPublicId,
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
+
+            return oReturn;
         }
 
         public static void StepModify(StepModel StepToUpsert)
         {
-            DAL.Controller.CustomerDataController.Instance.StepModify
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                DAL.Controller.CustomerDataController.Instance.StepModify
                 (StepToUpsert.StepId,
                 StepToUpsert.Name,
                 StepToUpsert.Position);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = StepToUpsert;
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
+
         }
 
         public static void StepDelete(int StepId)
         {
-            DAL.Controller.CustomerDataController.Instance.StepDelete(StepId);
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                DAL.Controller.CustomerDataController.Instance.StepDelete(StepId);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+                throw err;
+            }
+            finally
+            {
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "StepId",
+                    Value = StepId.ToString(),
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
         }
 
         public static int FieldCreate(int StepId, FieldModel FieldToUpsert)
         {
-            return DAL.Controller.CustomerDataController.Instance.FieldCreate
-                (StepId,
-                FieldToUpsert.Name,
-                FieldToUpsert.ProviderInfoType.ItemId,
-                FieldToUpsert.IsRequired,
-                FieldToUpsert.Position);
+            int oReturn = 0;
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                oReturn = DAL.Controller.CustomerDataController.Instance.FieldCreate
+                    (StepId,
+                    FieldToUpsert.Name,
+                    FieldToUpsert.ProviderInfoType.ItemId,
+                    FieldToUpsert.IsRequired,
+                    FieldToUpsert.Position);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = FieldToUpsert;
+
+                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "StepId",
+                    Value = StepId.ToString(),
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
+
+            return oReturn;
         }
 
         public static void FieldDelete(int FieldId)
         {
-            DAL.Controller.CustomerDataController.Instance.FieldDelete(FieldId);
+            LogManager.Models.LogModel oLog = GetLogModel();
+
+            try
+            {
+                DAL.Controller.CustomerDataController.Instance.FieldDelete(FieldId);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+                throw err;
+            }
+            finally
+            {
+                oLog.LogInfoObject.Add(new LogManager.Models.LogInfoModel()
+                {
+                    LogInfoType = "FieldId",
+                    Value = FieldId.ToString(),
+                });
+
+                LogManager.ClientLog.AddLog(oLog);
+            }
         }
 
         public static List<DocumentManagement.Customer.Models.Form.FormModel> FormSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
@@ -164,7 +348,10 @@ namespace DocumentManagement.Customer.Controller
         private static LogManager.Models.LogModel GetLogModel()
         {
 
-            LogManager.Models.LogModel oReturn = new LogManager.Models.LogModel();
+            LogManager.Models.LogModel oReturn = new LogManager.Models.LogModel()
+            {
+                RelatedLogInfo = new List<LogManager.Models.LogInfoModel>(),
+            };
 
             try
             {
