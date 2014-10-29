@@ -152,7 +152,10 @@ namespace DocumentManagement.Provider.Controller
         private static LogManager.Models.LogModel GetLogModel()
         {
 
-            LogManager.Models.LogModel oReturn = new LogManager.Models.LogModel();
+            LogManager.Models.LogModel oReturn = new LogManager.Models.LogModel()
+            {
+                RelatedLogInfo = new List<LogManager.Models.LogInfoModel>(),
+            };
 
             try
             {
