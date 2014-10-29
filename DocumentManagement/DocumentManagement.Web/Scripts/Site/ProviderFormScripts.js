@@ -76,17 +76,45 @@ var PF_PartnerFormObject = {
 
     ShowDelete: function (ProviderInfoId) {
 
-        var oReq = '';
-        oReq = oReq + '{ProviderInfoId:"' + ProviderInfoId + '",';
-        oReq = oReq + 'IdentificationNumber:"",';
-        oReq = oReq + 'FullName:"",';
-        oReq = oReq + 'ParticipationPercent:"",';
-        oReq = oReq + 'IsDelete:"true"}';
+        if (ProviderInfoId != null) {
+            $('#' + PF_PartnerFormObject.DivId + '_Delete').dialog({
+                modal: true,
+                buttons: {
+                    "Borrar": function () {
+                        //delete
+                        $.ajax({
+                            url: '/api/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                var oReq = '';
+                                oReq = oReq + '{ProviderInfoId:"' + ProviderInfoId + '",';
+                                oReq = oReq + 'IdentificationNumber:"",';
+                                oReq = oReq + 'FullName:"",';
+                                oReq = oReq + 'ParticipationPercent:"",';
+                                oReq = oReq + 'IsDelete:"true"}';
 
-        $('#' + PF_PartnerFormObject.DivId + '-').val(oReq);
-        $('#' + PF_PartnerFormObject.DivId + '-').attr('name', $('#' + PF_PartnerFormObject.DivId + '-').attr('name') + ProviderInfoId);
+                                $('#' + PF_PartnerFormObject.DivId + '-').val(oReq);
+                                $('#' + PF_PartnerFormObject.DivId + '-').attr('name', $('#' + PF_PartnerFormObject.DivId + '-').attr('name') + ProviderInfoId);
 
-        PF_PostBackForm('FrmGenericStep', '');
+                                PF_PostBackForm('FrmGenericStep', '');
+                            },
+                            error: function (result) {
+
+                                alert('Se ha generado un error:' + result);
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+        else {
+            alert('no se puede borrar ' + ProviderInfoId);
+        }
     },
 };
 
@@ -135,13 +163,84 @@ function PF_LegalTermsChange(vidInput) {
 
     var oReq = '';
 
-    oReq = oReq + '{CheckData:' + $('#' + vidInput + '_CheckData').prop( 'checked') + ',';
+    oReq = oReq + '{CheckData:' + $('#' + vidInput + '_CheckData').prop('checked') + ',';
     oReq = oReq + 'CheckCommercial:' + $('#' + vidInput + '_CheckCommercial').prop('checked') + ',';
     oReq = oReq + 'CheckRestrictiveList:' + $('#' + vidInput + '_CheckRestrictiveList').prop('checked') + '}';
 
     $("#" + vidInput).val(oReq);
 }
 
+//Multiple File
+var PF_MultipleFileObject = {
+
+    DivId: '',
+    MultipleData: new Array(),
+
+    Init: function (vInitObject) {
+
+        this.DivId = vInitObject.DivId;
+        this.MultipleData = vInitObject.MultipleData;
+    },
+
+    //init Multiple File grid
+    RenderAsync: function () {
+        $('#' + PF_MultipleFileObject.DivId).kendoGrid({
+            toolbar: [{ template: '<input type="file" id="' + PF_MultipleFileObject.DivId + '" name="' + PF_MultipleFileObject.DivId + '" />' }],
+            dataSource: {
+                type: 'json',
+                data: PF_MultipleFileObject.MultipleData,
+            },
+            columns: [{
+                field: 'ProviderInfoUrl',
+                title: 'Archivo',
+                template: '<a href="${ProviderInfoUrl}" target="_blank" >Ver archivo</a>'
+            }, {
+                field: 'ProviderInfoId',
+                title: ' ',
+                template: '<a href="javascript:PF_MultipleFileObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
+            }]
+        });
+    },
 
 
+    ShowDelete: function (ProviderInfoId) {
 
+        if (ProviderInfoId != null) {
+            $('#' + PF_MultipleFileObject.DivId + '_Delete').dialog({
+                modal: true,
+                buttons: {
+                    "Borrar": function () {
+                        //delete
+                        $.ajax({
+                            url: '/api/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                var oReq = '';
+                                oReq = oReq + '{IsDelete:"true",';
+                                oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
+                                oReq = oReq + 'ProviderInfoUrl:""}';
+
+                                $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
+                                $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
+
+                                PF_PostBackForm('FrmGenericStep', '');
+                            },
+                            error: function (result) {
+                                
+                                alert('Se ha generado un error:' + result);
+                            }
+                        });
+                        $(this).dialog("close");
+                    },
+                    "Cancelar": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+        else {
+            alert('no se puede borrar ' + ProviderInfoId );
+        }
+    },
+}
