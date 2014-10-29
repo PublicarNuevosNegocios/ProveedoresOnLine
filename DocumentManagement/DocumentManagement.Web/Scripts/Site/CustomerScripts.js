@@ -101,23 +101,27 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
                 }
             },
         },
-        change: function (arg) {
-            $.map(this.select(), function (item) {
-
-                if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
+        change: function (arg) {          
+            $.map(this.select(), function (item) {                
+                debugger;
+                if ($(item).find('#dialogRefId').first().length > 0 && $(item).find('td').first().text().length > 0) {
                     window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
                 }
             });
-
         },
-        selectable: true,
+        selectable: "row multiple",
         columns: [{
             field: "FormPublicId",
             title: "Id",
         }, {
             field: "Name",
             title: "Formulario"
-        }],
+        }, {
+            field: 'ProviderInfoId',
+            title: 'Duplicar Formulario',
+            template: '<a id="dialogRefId" href="javascript:DialogForm.Init(\'${FormPublicId}\');">Duplicar</a>'
+        }
+        ],
     });
 
     //add search button event
@@ -125,6 +129,19 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
 }
+
+var DialogForm = {
+    formPublicId: '',
+    Init: function (vFormPublicId) {
+        debugger;
+        $('#formPublicId').val(vFormPublicId);
+        $('#DuplicateFormId').dialog({ title: "Duplicar Formulario" });
+    },
+    //InitDialogForm: function (vFormPublicId, vDialogNameForm, vCustomerPublicId) {
+
+    //},
+}
+
 
 //field step object
 var FormUpsertObject = {
