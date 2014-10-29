@@ -173,7 +173,7 @@ namespace DocumentManagement.Provider.Controller
                     }
 
                     //get appname
-                    oReturn.Application = System.AppDomain.CurrentDomain.FriendlyName;
+                    oReturn.Application = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
 
                     //get source invocation
                     oReturn.Source = System.Web.HttpContext.Current.Request.Url.ToString();
