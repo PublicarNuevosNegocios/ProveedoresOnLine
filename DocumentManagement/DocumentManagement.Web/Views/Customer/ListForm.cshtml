@@ -21,15 +21,23 @@
                 <a href="@Url.Action(MVC.Customer.ActionNames.UpsertForm, MVC.Customer.Name, new { CustomerPublicId  = Model.RelatedCustomer.CustomerPublicId})">Crear formulario</a>
             }
         </div>
-    </div>
+    </div>    
+</div>
+<div id="DuplicateFormId" style="display:none">
+    <form action="@Url.Action(MVC.ProviderForm.ActionNames.DuplicateForm, MVC.ProviderForm.Name, new { CustomerPublicId = Model.RelatedCustomer.CustomerPublicId})" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="formPublicId" id="formPublicId" value="" />
+        <label>Nombre:</label>  
+        <input type="text" id="NewFormName" name="NewFormName" value="" />
+        <input type="submit" name="Duplicate" id="Duplicate" value="Duplicar" />
+    </form>
 </div>
 
 @section inlinescripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            //start customer grid
-            FormSearchGrid('divGridForm', '@Model.RelatedCustomer.CustomerPublicId');
+    $(document).ready(function () {
+        //start customer grid
+        FormSearchGrid('divGridForm', '@Model.RelatedCustomer.CustomerPublicId');        
         });
     </script>
 }

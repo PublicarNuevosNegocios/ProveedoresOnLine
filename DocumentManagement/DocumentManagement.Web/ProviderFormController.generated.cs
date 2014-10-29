@@ -87,6 +87,12 @@ namespace DocumentManagement.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertAdminProvider);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DuplicateForm()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DuplicateForm);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderFormController Actions { get { return MVC.ProviderForm; } }
@@ -108,6 +114,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string UpsertGenericStep = "UpsertGenericStep";
             public readonly string AdminProvider = "AdminProvider";
             public readonly string UpsertAdminProvider = "UpsertAdminProvider";
+            public readonly string DuplicateForm = "DuplicateForm";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -118,6 +125,7 @@ namespace DocumentManagement.Web.Controllers
             public const string UpsertGenericStep = "UpsertGenericStep";
             public const string AdminProvider = "AdminProvider";
             public const string UpsertAdminProvider = "UpsertAdminProvider";
+            public const string DuplicateForm = "DuplicateForm";
         }
 
 
@@ -169,6 +177,14 @@ namespace DocumentManagement.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
+        }
+        static readonly ActionParamsClass_DuplicateForm s_params_DuplicateForm = new ActionParamsClass_DuplicateForm();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DuplicateForm DuplicateFormParams { get { return s_params_DuplicateForm; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DuplicateForm
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -259,6 +275,18 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
             UpsertAdminProviderOverride(callInfo, ProviderPublicId, FormPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DuplicateFormOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DuplicateForm(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DuplicateForm);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            DuplicateFormOverride(callInfo, CustomerPublicId);
             return callInfo;
         }
 

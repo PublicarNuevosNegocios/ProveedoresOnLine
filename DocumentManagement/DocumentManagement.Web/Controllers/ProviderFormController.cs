@@ -1,4 +1,5 @@
-﻿using DocumentManagement.Models.Provider;
+﻿using DocumentManagement.Customer.Models.Form;
+using DocumentManagement.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -211,6 +212,70 @@ namespace DocumentManagement.Web.Controllers
                 {
                     ProviderPublicId = ProviderPublicId,
                     FormPublicId = FormPublicId
+                });
+        }
+
+        public virtual ActionResult DuplicateForm(string CustomerPublicId)
+        {
+            ProviderFormModel oModel = new ProviderFormModel();
+            int oTotalRows;
+
+            oModel.RealtedForm = DocumentManagement.Customer.Controller.Customer.FormSearch(CustomerPublicId, Request["formPublicId"], 0, 10000, out oTotalRows).FirstOrDefault();
+            oModel.RealtedForm.RelatedStep = DocumentManagement.Customer.Controller.Customer.StepGetByFormId(Request["formPublicId"]);
+
+            oModel.RealtedForm.FormPublicId = null;
+            oModel.RealtedForm.Name = Request["NewFormName"];
+            List<int> steps = new List<int>();
+
+            //get created formId
+            string FormId = DocumentManagement.Customer.Controller.Customer.FormUpsert(CustomerPublicId, oModel.RealtedForm);
+
+            //get Related Steps to copy
+            List<StepModel> oStepList = new List<StepModel>();
+            oStepList = DocumentManagement.Customer.Controller.Customer.StepGetByFormId(Request["formPublicId"]);
+
+            //Create the steps
+            oStepList.All(st =>
+            {
+
+                int stepCreated = DocumentManagement.Customer.Controller.Customer.StepCreate(FormId, st);
+
+                steps.Add(stepCreated);
+                return true;
+            });
+
+            //get Related Fields
+            List<StepModel> oStepByFieldList = new List<StepModel>();
+            StepModel oStepByFieldItem = new StepModel();
+            oStepByFieldItem.RelatedField = new List<FieldModel>();
+            oStepList.All(st =>
+            {
+                st.RelatedField = DocumentManagement.Customer.Controller.Customer.FieldGetByStepId(st.StepId);
+                return true;
+            });
+            for (int i = 0; i < oStepList.Count(); i++)
+            {
+                oStepList[i].Position = oStepList[i].StepId;
+                oStepList[i].StepId = steps[i];
+            }
+            oStepList.All(st =>
+            {
+                st.RelatedField = DocumentManagement.Customer.Controller.Customer.FieldGetByStepId(st.Position);
+                st.RelatedField.All(x =>
+                    {
+                        DocumentManagement.Customer.Controller.Customer.FieldCreate(st.StepId, x);
+                        return true;
+                    });
+
+                return true;
+            });       
+          
+            return RedirectToAction
+                (MVC.Customer.ActionNames.ListForm,
+                MVC.Customer.Name,
+                new
+                {
+                    CustomerPublicId = CustomerPublicId,
                 });
         }
 
