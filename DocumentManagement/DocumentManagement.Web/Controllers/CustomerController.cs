@@ -239,7 +239,7 @@ namespace DocumentManagement.Web.Controllers
                     //Create ProviderCustomerInfo
                     List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
                     ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
-                    if (oResultValidate !=null)
+                    if (oResultValidate ==null)
                     {
                         CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 401 };
                         CustomerProviderInfo.Value = "201";
