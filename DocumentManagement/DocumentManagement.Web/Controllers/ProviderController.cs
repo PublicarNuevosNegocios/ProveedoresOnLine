@@ -27,18 +27,7 @@ namespace DocumentManagement.Web.Controllers
 
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-            (Request["divGridProvider_txtSearch"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));
-
-            if (!string.IsNullOrEmpty(Request["CustomerName"]) && !string.IsNullOrEmpty(Request["FormId"]))
-            {
-                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == Request["CustomerName"]
-                                     && x.FormPublicId == Request["FormId"]).Select(x => x).ToList();
-            }
-            if (!string.IsNullOrEmpty(Request["CustomerName"]) && string.IsNullOrEmpty(Request["FormId"]))
-            {
-                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == Request["CustomerName"]
-                                     || x.FormPublicId == Request["FormId"]).Select(x => x).ToList();
-            }
+            (Request["divGridProvider_txtSearch"], Request["CustomerName"], Request["FormId"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
@@ -46,13 +35,13 @@ namespace DocumentManagement.Web.Controllers
                 oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
                 {
                     RelatedProvider = prv,
-                });              
+                });
 
                 return true;
             });
             string strSep = ";";
 
-            
+
             StringBuilder data = new StringBuilder();
             foreach (var item in oReturn.RelatedProvider)
             {

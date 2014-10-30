@@ -208,7 +208,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<ProviderModel> ProviderSearch(string SearchParam, int PageNumber, int RowCount, out int TotalRows, bool isUnique)
+        public List<ProviderModel> ProviderSearch(string SearchParam, string CustomerPublicId, string FormPublicId, int PageNumber, int RowCount, out int TotalRows, bool isUnique)
         {
             TotalRows = 0;
             int oUnique = isUnique == true ? 1 : 0;
@@ -216,6 +216,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFormPublicId", FormPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
             lstParams.Add(DataInstance.CreateTypedParameter("vIsSingleCustomer", oUnique));
@@ -244,14 +246,35 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          ProviderPublicId = c.Field<string>("ProviderPublicId"),
                          Name = c.Field<string>("Name"),
                          Email = c.Field<string>("Email"),
-                         IdentificationType = new Models.Util.CatalogModel()
+                         IdentificationTypeId = c.Field<int>("IdentificationTypeId"),
+                         IdentificationTypeName = c.Field<string>("IdentificationTypeName"),
+                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
+                         FormPublicId = c.Field<string>("FormPublicId"),
+                         FormName = c.Field<string>("FormName"),
+                         CustomerPublicId = c.Field<string>("CustomerPublicId"),
+                         CustomerName = c.Field<string>("CustomerName"),
+                         CustomerCount = c.Field<Int64>("CustomerCount"),
+                     } into prov
+                     select new ProviderModel()
+                     {
+                         ProviderPublicId = prov.Key.ProviderPublicId,
+                         Name = prov.Key.Name,
+                         Email = prov.Key.Email,
+                         IdentificationType = new CatalogModel()
                          {
-                             ItemId = c.Field<int>("IdentificationTypeId"),
-                             ItemName = c.Field<string>("IdentificationTypeName"),
+                             ItemId = prov.Key.IdentificationTypeId,
+                             ItemName = prov.Key.IdentificationTypeName,
                          },
+                         IdentificationNumber = prov.Key.IdentificationNumber,
+                         FormName = prov.Key.FormName,
+                         FormPublicId = prov.Key.FormPublicId,
+                         CustomerName = prov.Key.CustomerName,
+                         CustomerPublicId = prov.Key.CustomerPublicId,
+                         CustomerCount = prov.Key.CustomerCount,
+
                          RelatedProviderCustomerInfo =
                             (from pci in response.DataTableResult.AsEnumerable()
-                             where !pci.IsNull("ProviderCustomerInfoId") && pci.Field<int>("ProviderCustomerInfoId") == c.Field<int>("ProviderCustomerInfoId")
+                             where !pci.IsNull("ProviderCustomerInfoId") && pci.Field<string>("ProviderPublicId") == prov.Key.ProviderPublicId
                              select new ProviderInfoModel()
                              {
                                  ProviderInfoId = pci.Field<int>("ProviderCustomerInfoId"),
@@ -263,27 +286,6 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                                  Value = pci.Field<string>("ProviderCustomerInfoValue"),
                                  LargeValue = pci.Field<string>("ProviderCustomerInfoLargeValue"),
                              }).ToList(),
-
-                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
-                         FormPublicId = c.Field<string>("FormPublicId"),
-                         FormName = c.Field<string>("FormName"),
-                         CustomerPublicId = c.Field<string>("CustomerPublicId"),
-                         CustomerName = c.Field<string>("CustomerName"),
-                         CustomerCount = c.Field<Int64>("CustomerCount"),
-                     } into prov
-                     select new ProviderModel() 
-                     {
-                         ProviderPublicId = prov.Key.ProviderPublicId,
-                         Name = prov.Key.Name,
-                         Email = prov.Key.Email,
-                         IdentificationType = prov.Key.IdentificationType,
-                         IdentificationNumber = prov.Key.IdentificationNumber,
-                         RelatedProviderCustomerInfo = prov.Key.RelatedProviderCustomerInfo,
-                         FormName = prov.Key.FormName,
-                         FormPublicId = prov.Key.FormPublicId,
-                         CustomerName = prov.Key.CustomerName,
-                         CustomerPublicId = prov.Key.CustomerPublicId,
-                         CustomerCount = prov.Key.CustomerCount
                      }).ToList();
             }
 

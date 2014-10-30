@@ -23,9 +23,6 @@
                     var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
                     var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
                     var oUniqueParam = $('#' + chkName).prop('checked');
-                    if (oFormParam != "" || oSearchParam != "" || oCustomerParam != "") {
-                        options.data.pageSize = 65000;
-                    }
                     if (oFormParam == null) {
                         oFormParam = "";
                     }

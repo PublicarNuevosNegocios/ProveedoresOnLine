@@ -19,18 +19,9 @@ namespace DocumentManagement.Web.ControllersApi
 
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-                (SearchParam, PageNumber, RowCount, out oTotalRows, Convert.ToBoolean(Unique));
+                (SearchParam, CustomerPublicId, FormPublicId, PageNumber, RowCount, out oTotalRows, Convert.ToBoolean(Unique));
 
             oReturn.TotalRows = oTotalRows;
-            if (CustomerPublicId != null && FormPublicId != null)
-            {
-                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId
-                                     && x.FormPublicId == FormPublicId).Select(x => x).ToList();          
-            }
-            if (CustomerPublicId != null && FormPublicId == null)
-            {
-                oProviderlst = oProviderlst.Where(x => x.CustomerPublicId == CustomerPublicId).Select(x => x).ToList();     
-            }
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
