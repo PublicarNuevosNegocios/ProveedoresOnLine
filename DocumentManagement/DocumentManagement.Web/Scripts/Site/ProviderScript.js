@@ -9,7 +9,6 @@
             serverPaging: true,
             schema: {
                 total: function (data) {
-                    debugger;
                     if (data != null && data.length > 0) {                        
                         return data[0].oTotalRows;
                     }
@@ -18,7 +17,6 @@
             },
             transport: {
                 read: function (options) {
-                    debugger;
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();                    
                     var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
                     var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
@@ -28,7 +26,7 @@
                     }
 
                     $.ajax({
-                        url: '/api/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
+                        url: 'api/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
                         dataType: "json",
                         type: "POST",
                         success: function (result) {                            
@@ -84,12 +82,11 @@
 }
 
 function initCmb(cmbForm, cmbCustomer) {
-    debugger;
     var CustomerPublicId = $('#' + cmbCustomer + ' ' + 'option:selected').val();
     var htmlCmbForm = $('#' + cmbForm).html();
 
     $.ajax({
-        url: '/api/ProviderApi/FormSearch?CustomerPublicId=' + CustomerPublicId + '&SearchParam=' + ' ' + '&PageNumber=' + 0 + '&RowCount=' + 20,
+        url: 'api/ProviderApi/FormSearch?CustomerPublicId=' + CustomerPublicId + '&SearchParam=' + ' ' + '&PageNumber=' + 0 + '&RowCount=' + 20,
         dataType: "json",
         type: "POST",
         success: function (result) {
