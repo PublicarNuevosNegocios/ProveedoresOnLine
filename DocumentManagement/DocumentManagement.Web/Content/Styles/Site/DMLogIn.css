@@ -4,7 +4,7 @@
     width: 104%;
     height: 650px;
     min-height: 400px;
-    background-image: url('/Content/Images/LogInBackground.jpg');
+    background-image: url('../../Images/LogInBackground.jpg');
     margin: 0px -27px;
     -webkit-background-size: cover;
     -moz-background-size: cover;

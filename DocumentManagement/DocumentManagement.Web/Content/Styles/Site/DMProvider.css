@@ -75,7 +75,7 @@
                 border-right: medium none #FFF;
                 position: relative;
                 display: inline-block !important;
-                background-image: url('/Content/Images/arrowSelectedMenuSmall.png');
+                background-image: url('../../Images/arrowSelectedMenuSmall.png');
                 background-repeat: no-repeat;
                 background-position: 100% 0px;
                 background-size: auto;

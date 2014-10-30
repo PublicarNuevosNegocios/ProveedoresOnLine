@@ -16,7 +16,7 @@
         <div >
             <span>Puedes ingresar usando tu usuario de Google.</span>
             <a href="@GoogleUrl">
-                <img src="/Content/Images/Google-plus-icon.png" alt="Login Google" title="Login Google" />
+                <img src="@Url.Content("~/Content/Images/Google-plus-icon.png")" alt="Login Google" title="Login Google" />
             </a>
             @if (ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
                 !string.IsNullOrEmpty(ViewData[DocumentManagement.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))

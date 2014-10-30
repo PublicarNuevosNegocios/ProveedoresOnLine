@@ -119,7 +119,7 @@ input[type="file"] {
                 border-right: medium none #FFF;
                 position: relative;
                 display: inline-block !important;
-                background-image: url('/Content/Images/arrowSelectedMenuSmall.png');
+                background-image: url('../../Images/arrowSelectedMenuSmall.png');
                 background-repeat: no-repeat;
                 background-position: 100% 0px;
                 background-size: auto;
@@ -371,7 +371,7 @@ div#divProgressBar {
             }
 
 .ui-dialog .ui-dialog-titlebar-close {
-    background-image: url('/Content/Images/cerrar.png');
+    background-image: url('../../Images/cerrar.png');
     background-repeat: no-repeat;
     background-size: 15px;
 }
