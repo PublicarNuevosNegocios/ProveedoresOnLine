@@ -68,7 +68,7 @@
         Serialize(Model.Select(x => new
             {
                 ApplicationRoleId = x.RelatedRole.ApplicationRoleId,
-                Application = x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.Backoffice ? SessionManager.Models.Auth.enumApplication.Backoffice.ToString() : x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement ? SessionManager.Models.Auth.enumApplication.DocumentManagement.ToString() : x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.Marketplace ? SessionManager.Models.Auth.enumApplication.Marketplace.ToString() : null,
+                Application = x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.Backoffice ? SessionManager.Models.Auth.enumApplication.Backoffice.ToString() : x.RelatedRole.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement ? SessionManager.Models.Auth.enumApplication.DocumentManagement.ToString() : null,
                 Role = x.RelatedRole.Role == SessionManager.Models.Auth.enumRole.Certifier ? SessionManager.Models.Auth.enumRole.Certifier.ToString() : x.RelatedRole.Role == SessionManager.Models.Auth.enumRole.Marketing ? SessionManager.Models.Auth.enumRole.Marketing.ToString() : x.RelatedRole.Role == SessionManager.Models.Auth.enumRole.SystemAdministrator ? SessionManager.Models.Auth.enumRole.SystemAdministrator.ToString() : null,
                 UserEmail = x.UserEmail,
                 CreateDate = x.RelatedRole.CreateDate,
