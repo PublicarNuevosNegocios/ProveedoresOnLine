@@ -264,9 +264,7 @@ namespace DocumentManagement.Web.Controllers
                         RelatedProviderCustomerInfo = ListCustomerProviderInfo
                     };
                     if (oResultValidate == null)
-                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
-                    else
-                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
+                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);                   
 
                     oPrvToProcessResult.Add(new ExcelProviderResultModel()
                     {

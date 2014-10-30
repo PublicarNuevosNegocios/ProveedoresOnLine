@@ -1,7 +1,7 @@
 ﻿function ProviderSearchGrid(vidDiv, cmbForm, cmbCustomer, chkName) {
     
     //configure grid
-    $('#' + vidDiv).kendoGrid({
+    $('#' + vidDiv).kendoGrid({        
         toolbar: [{ template: $('#' + vidDiv + '_Header').html() }],
         pageable: true,
         dataSource: {
@@ -9,20 +9,23 @@
             serverPaging: true,
             schema: {
                 total: function (data) {
-                    if (data != null) {
-                        debugger;
+                    debugger;
+                    if (data != null && data.length > 0) {                        
                         return data[0].oTotalRows;
                     }
                     return 0;
                 }
             },
             transport: {
-                read: function (options) {                    
+                read: function (options) {
+                    debugger;
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();                    
                     var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
                     var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
                     var oUniqueParam = $('#' + chkName).prop('checked');
-
+                    if (oFormParam != "" || oSearchParam != "" || oCustomerParam != "") {
+                        options.data.pageSize = 65000;
+                    }
                     if (oFormParam == null) {
                         oFormParam = "";
                     }
