@@ -24,8 +24,7 @@
     public enum enumApplication
     {
         DocumentManagement = 401,
-        Backoffice = 402,
-        Marketplace = 403
+        Backoffice = 402
     }
 
     public enum enumRole
