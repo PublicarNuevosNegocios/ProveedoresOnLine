@@ -104,7 +104,7 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
         change: function (arg) {          
             $.map(this.select(), function (item) {                
                 if ($(item).find('#dialogRefId').first().length > 0 && $(item).find('td').first().text().length > 0) {
-                    window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
+                    window.location = BaseUrl.SiteUrl + 'Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
                 }
             });
         },
