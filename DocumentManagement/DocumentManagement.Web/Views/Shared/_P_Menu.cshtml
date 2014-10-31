@@ -34,7 +34,7 @@
 
         }
 
-        @if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
+        @*@if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
             DocumentManagement.Models.General.SessionModel.UserIsAutorized &&
             DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.
                 Any(x => x.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement))
@@ -48,6 +48,6 @@
                             FormPublicId = Model.RealtedForm.FormPublicId,
                         }))">Administrar proveedor</a>
             </li>
-        }
+        }*@
     </ul>
 }
