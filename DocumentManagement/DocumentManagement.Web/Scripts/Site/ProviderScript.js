@@ -24,6 +24,9 @@
                     if (oFormParam == null) {
                         oFormParam = "";
                     }
+                    if (oSearchParam != '' || oCustomerParam != '' || oFormParam != '' || oUniqueParam != '') {
+                        options.data.page = 1;
+                    }
 
                     $.ajax({
                         url: 'api/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
