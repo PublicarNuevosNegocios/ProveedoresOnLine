@@ -25,6 +25,15 @@
     @Scripts.Render("~/site/scripts/kendo")
     @Scripts.Render("~/site/scripts")
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start base url object
+            BaseUrl.Init({
+                ApiUrl: '@(Url.Content("~/api"))',
+            });
+        });
+    </script>
+
     @RenderSection("inlinescripts", required: false)
 
 </body>
