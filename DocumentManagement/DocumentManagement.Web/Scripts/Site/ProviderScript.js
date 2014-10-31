@@ -62,7 +62,7 @@
             field: "FormUrl",
             title: "URL",
             width: 400,
-            template: "<a target=\"_blank\" href=\"" + "#=FormUrl#" + "\">" + "#=FormUrl#" + "</a>"
+            template: $('#' + vidDiv + '_FormUrl').html(),
         }, {
             field: "RelatedProvider.CustomerCount",
             title: "# Comp. Relacionados",                      
