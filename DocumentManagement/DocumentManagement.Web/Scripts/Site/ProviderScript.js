@@ -24,6 +24,9 @@
                     if (oFormParam == null) {
                         oFormParam = "";
                     }
+                    if (oSearchParam != '' || oCustomerParam != '' || oFormParam != '' || oUniqueParam != '') {
+                        options.data.page = 1;
+                    }
 
                     $.ajax({
                         url: BaseUrl.ApiUrl + '/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
@@ -62,7 +65,7 @@
             field: "FormUrl",
             title: "URL",
             width: 400,
-            template: "<a target=\"_blank\" href=\"" + "#=FormUrl#" + "\">" + "#=FormUrl#" + "</a>"
+            template: $('#' + vidDiv + '_FormUrl').html(),
         }, {
             field: "RelatedProvider.CustomerCount",
             title: "# Comp. Relacionados",                      
