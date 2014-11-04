@@ -120,6 +120,7 @@ var PF_PartnerFormObject = {
 
 //init autocomplete control
 function PF_InitAutocomplete(acId, acData) {
+    debugger;
     $('#' + acId).autocomplete(
 	{
 	    source: acData,

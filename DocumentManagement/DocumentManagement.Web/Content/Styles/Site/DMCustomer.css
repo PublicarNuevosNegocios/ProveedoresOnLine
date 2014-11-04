@@ -287,6 +287,11 @@ div#divProgressBar {
     margin: 0px 7%;
 }
 
+span.Message {
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
 .TitleCustomer {
     display: inline-block;
     margin-left: 20%;
@@ -305,6 +310,20 @@ div#divProgressBar {
     font-size: 1.3em;
     font-weight: normal;
 }
+
+.MoreInfo {
+    background: #E7E7E7;
+    width: 190px;
+    margin-left: 2%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+    .MoreInfo ul {
+        text-align: left;
+        margin-left: 18px;
+    }
 
 /******Pop-upForms********/
 #divGridStep_Upsert {
@@ -381,14 +400,15 @@ div#divProgressBar {
 .LegalTermsForm label {
     font-size: 1em !important;
 }
-    .LegalTermsContent ul {
-    }
 
-        .LegalTermsContent ul li {
-            color: #4d4d4d;
-            display: inline-block;
-            font-size: 0.9em;
-        }
+.LegalTermsContent ul {
+}
+
+    .LegalTermsContent ul li {
+        color: #4d4d4d;
+        display: inline-block;
+        font-size: 0.9em;
+    }
 
 .CheckData, .CheckCommercial, .CheckRestrictiveList {
     width: 15px !important;
@@ -406,8 +426,8 @@ div#divProgressBar {
 
 .TextForm {
     display: block !important;
-} 
+}
 
-.DownloadTerms{
+.DownloadTerms {
     margin: 10px 0px 10px 0px;
 }
