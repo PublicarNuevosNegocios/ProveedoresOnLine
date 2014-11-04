@@ -71,7 +71,13 @@ namespace DocumentManagement.Web.Controllers
                         "\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep +
                         "\"" + item.RelatedProvider.Email + "\"" + strSep +
                         "\"" + Campana + "\"" + strSep +
-                        "\"" + item.FormUrl + "\"");
+                        "\"" + Url.Action(MVC.ProviderForm.ActionNames.Index,
+                                    MVC.ProviderForm.Name,
+                                    new
+                                    {
+                                        ProviderPublicId = item.RelatedProvider.ProviderPublicId,
+                                        FormPublicId = item.RelatedProvider.FormPublicId
+                                    }) + "\"");
                 }
             }
 

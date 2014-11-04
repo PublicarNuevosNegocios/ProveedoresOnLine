@@ -21,7 +21,7 @@ function CustomerSearchGrid(vidDiv) {
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();
 
                     $.ajax({
-                        url: 'api/CustomerApi?CustomerSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                        url: BaseUrl.ApiUrl + '/CustomerApi?CustomerSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                         dataType: "json",
                         type: "POST",
                         success: function (result) {
@@ -38,7 +38,7 @@ function CustomerSearchGrid(vidDiv) {
             $.map(this.select(), function (item) {
 
                 if ($(item).find('td').first().length > 0 && $(item).find('td').first().text().length > 0) {
-                    window.location = '/Customer/UpsertCustomer?CustomerPublicId=' + $(item).find('td').first().text();
+                    window.location = BaseUrl.SiteUrl + 'Customer/UpsertCustomer?CustomerPublicId=' + $(item).find('td').first().text();
                 }
             });
 
@@ -88,7 +88,7 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
                     var oSearchParam = $('#' + vidDiv + '_txtSearch').val();
 
                     $.ajax({
-                        url: 'api/CustomerApi?FormSearchVal=true&CustomerPublicId=' + vCustomerPublicId + '&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                        url: BaseUrl.ApiUrl + '/CustomerApi?FormSearchVal=true&CustomerPublicId=' + vCustomerPublicId + '&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                         dataType: "json",
                         type: "POST",
                         success: function (result) {
@@ -104,7 +104,7 @@ function FormSearchGrid(vidDiv, vCustomerPublicId) {
         change: function (arg) {          
             $.map(this.select(), function (item) {                
                 if ($(item).find('#dialogRefId').first().length > 0 && $(item).find('td').first().text().length > 0) {
-                    window.location = '/Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
+                    window.location = BaseUrl.SiteUrl + 'Customer/UpsertForm?CustomerPublicId=' + vCustomerPublicId + '&FormPublicId=' + $(item).find('td').first().text();
                 }
             });
         },
@@ -170,7 +170,7 @@ var FormUpsertObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: 'api/CustomerApi?StepSearchVal=true&FormPublicId=' + FormUpsertObject.FormPublicId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?StepSearchVal=true&FormPublicId=' + FormUpsertObject.FormPublicId,
                             dataType: "json",
                             type: "POST",
                             success: function (result) {
@@ -247,7 +247,7 @@ var FormUpsertObject = {
             if (oStepId != null && oStepId.length > 0) {
                 //update
                 $.ajax({
-                    url: 'api/CustomerApi?StepModifyVal=true&StepId=' + oStepId + '&Name=' + oName + '&Position=' + oPosition,
+                    url: BaseUrl.ApiUrl + '/CustomerApi?StepModifyVal=true&StepId=' + oStepId + '&Name=' + oName + '&Position=' + oPosition,
                     dataType: "json",
                     type: "POST",
                     success: function (result) {
@@ -264,7 +264,7 @@ var FormUpsertObject = {
             else {
                 //create
                 $.ajax({
-                    url: 'api/CustomerApi?StepCreateVal=true&FormPublicId=' + FormUpsertObject.FormPublicId + '&Name=' + oName + '&Position=' + oPosition,
+                    url: BaseUrl.ApiUrl + '/CustomerApi?StepCreateVal=true&FormPublicId=' + FormUpsertObject.FormPublicId + '&Name=' + oName + '&Position=' + oPosition,
                     dataType: "json",
                     type: "POST",
                     success: function (result) {
@@ -296,7 +296,7 @@ var FormUpsertObject = {
                     "Borrar": function () {
                         //delete
                         $.ajax({
-                            url: 'api/CustomerApi?StepDeleteVal=true&StepId=' + vStepId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?StepDeleteVal=true&StepId=' + vStepId,
                             dataType: "json",
                             type: "POST",
                             success: function (result) {
@@ -330,7 +330,7 @@ var FormUpsertObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: 'api/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + FormUpsertObject.idDivField + '_StepId').val(),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + FormUpsertObject.idDivField + '_StepId').val(),
                             dataType: "json",
                             type: "POST",
                             success: function (result) {
@@ -372,7 +372,7 @@ var FormUpsertObject = {
     RenderFieldCreate: function () {
 
         $.ajax({
-            url: 'api/CustomerApi?GetFieldOptionsVal=true&FormPublicId=' + FormUpsertObject.FormPublicId,
+            url: BaseUrl.ApiUrl + '/CustomerApi?GetFieldOptionsVal=true&FormPublicId=' + FormUpsertObject.FormPublicId,
             dataType: "json",
             type: "POST",
             success: function (result) {
@@ -414,7 +414,7 @@ var FormUpsertObject = {
         if (oName != null && oName.length > 0 && oProviderInfoType != null && oProviderInfoType.length > 0 && oPosition != null && oPosition.length > 0 && oIsRequired != null && oIsRequired.length > 0) {
 
             $.ajax({
-                url: 'api/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + FormUpsertObject.idDivField + '_StepId').val() + '&Name=' + oName + '&ProviderInfoType=' + oProviderInfoType + '&IsRequired=' + oIsRequired + '&Position=' + oPosition,
+                url: BaseUrl.ApiUrl + '/CustomerApi?FieldSearchVal=true&StepId=' + $('#' + FormUpsertObject.idDivField + '_StepId').val() + '&Name=' + oName + '&ProviderInfoType=' + oProviderInfoType + '&IsRequired=' + oIsRequired + '&Position=' + oPosition,
                 dataType: "json",
                 type: "POST",
                 success: function (result) {
@@ -444,7 +444,7 @@ var FormUpsertObject = {
                     "Borrar": function () {
                         //delete
                         $.ajax({
-                            url: 'api/CustomerApi?FieldDeleteVal=true&FieldId=' + vFieldId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?FieldDeleteVal=true&FieldId=' + vFieldId,
                             dataType: "json",
                             type: "POST",
                             success: function (result) {

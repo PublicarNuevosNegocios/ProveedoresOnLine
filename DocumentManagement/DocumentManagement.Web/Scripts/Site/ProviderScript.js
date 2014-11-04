@@ -29,7 +29,7 @@
                     }
 
                     $.ajax({
-                        url: 'api/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
+                        url: BaseUrl.ApiUrl + '/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
                         dataType: "json",
                         type: "POST",
                         success: function (result) {                            
@@ -65,7 +65,7 @@
             field: "FormUrl",
             title: "URL",
             width: 400,
-            template: "<a target=\"_blank\" href=\"" + "#=FormUrl#" + "\">" + "#=FormUrl#" + "</a>"
+            template: $('#' + vidDiv + '_FormUrl').html(),
         }, {
             field: "RelatedProvider.CustomerCount",
             title: "# Comp. Relacionados",                      
@@ -89,7 +89,7 @@ function initCmb(cmbForm, cmbCustomer) {
     var htmlCmbForm = $('#' + cmbForm).html();
 
     $.ajax({
-        url: 'api/ProviderApi/FormSearch?CustomerPublicId=' + CustomerPublicId + '&SearchParam=' + ' ' + '&PageNumber=' + 0 + '&RowCount=' + 20,
+        url: BaseUrl.ApiUrl + '/ProviderApi/FormSearch?CustomerPublicId=' + CustomerPublicId + '&SearchParam=' + ' ' + '&PageNumber=' + 0 + '&RowCount=' + 20,
         dataType: "json",
         type: "POST",
         success: function (result) {

@@ -83,7 +83,7 @@ var PF_PartnerFormObject = {
                     "Borrar": function () {
                         //delete
                         $.ajax({
-                            url: 'api/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
                             dataType: "json",
                             type: "POST",
                             success: function (result) {
@@ -212,7 +212,7 @@ var PF_MultipleFileObject = {
                     "Borrar": function () {
                         //delete
                         $.ajax({
-                            url: 'api/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
                             dataType: "json",
                             type: "POST",
                             success: function (result) {

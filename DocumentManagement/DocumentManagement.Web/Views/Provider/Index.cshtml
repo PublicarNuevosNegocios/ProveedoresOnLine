@@ -14,30 +14,33 @@
         <div id="divGridProvider"></div>
     </div>
     <div id="template" style="display:none;">
-         <div id="divGridProvider_Header">
-             <form id="ProfileInfoFormId" action="@UrlAction" method="post">
+        <div id="divGridProvider_FormUrl">
+            <a target="_blank" href="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.Index, MVC.ProviderForm.Name, new { ProviderPublicId = "${RelatedProvider.ProviderPublicId}", FormPublicId = "${RelatedProvider.FormPublicId}" })))">Ver formulario proveedor</a>
+        </div>
+        <div id="divGridProvider_Header">
+            <form id="ProfileInfoFormId" action="@UrlAction" method="post">
                 <label>Filtrar por:</label>
                 <input type="text" id="divGridProvider_txtSearch" name="divGridProvider_txtSearch" />
                 <label> | Comprador:</label>
                 <select id="CustomerId" name="CustomerName">
-                <option value=""></option>
-                @foreach (var item in Model.Customers)
-                {
-                {
-                <option value="@item.CustomerPublicId">@item.Name</option>
-                }
-                }
+                    <option value=""></option>
+                    @foreach (var item in Model.Customers)
+                    {
+                        {
+                            <option value="@item.CustomerPublicId">@item.Name</option>
+                        }
+                    }
                 </select>
                 <label> | Formulario:</label>
                 <select id="Form" name="FormId"></select>
                 <label> | Único:</label>
                 <input type="checkbox" name="chk_Unique" id="chk_Unique" value="" />
 
-                 <div class="DMProviderFilterActions">
-                     <input type="button" id="divGridProvider_SearchButton" value="Buscar" />
-                     <input type="submit" value="Descargar Excel" />
-                 </div>
-            </form>                
+                <div class="DMProviderFilterActions">
+                    <input type="button" id="divGridProvider_SearchButton" value="Buscar" />
+                    <input type="submit" value="Descargar Excel" />
+                </div>
+            </form>
         </div>
     </div>
 </div>
