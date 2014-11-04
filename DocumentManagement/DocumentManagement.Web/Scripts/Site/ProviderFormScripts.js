@@ -34,7 +34,7 @@ var PF_PartnerFormObject = {
     //init Partners grid
     RenderAsync: function () {
         $('#' + PF_PartnerFormObject.DivId).kendoGrid({
-            toolbar: [{ template: '<a href="javascript:PF_PartnerFormObject.ShowCreate();">Agregar</a>' }],
+            toolbar: [{ template: '<a class="AddMultipleFile" href="javascript:PF_PartnerFormObject.ShowCreate();">Agregar</a>' }],
             dataSource: {
                 type: 'json',
                 data: PF_PartnerFormObject.PartnerData,
@@ -47,7 +47,7 @@ var PF_PartnerFormObject = {
                 title: 'Nombres y apellidos'
             }, {
                 field: 'ParticipationPercent',
-                title: '(%)'
+                title: 'Porcentaje de participación (%)'
             }, {
                 field: 'ProviderInfoId',
                 title: ' ',
@@ -185,7 +185,11 @@ var PF_MultipleFileObject = {
     //init Multiple File grid
     RenderAsync: function () {
         $('#' + PF_MultipleFileObject.DivId).kendoGrid({
-            toolbar: [{ template: '<input type="file" id="' + PF_MultipleFileObject.DivId + '" name="' + PF_MultipleFileObject.DivId + '" />' }],
+            toolbar: [
+                {
+                    template: '<input type="file" id="' + PF_MultipleFileObject.DivId + '" name="' + PF_MultipleFileObject.DivId + '" /><a class="AddMultipleFile" href="javascript:PF_MultipleFileObject.Create();">Agregar archivo</a>'
+                }
+            ],
             dataSource: {
                 type: 'json',
                 data: PF_MultipleFileObject.MultipleData,
@@ -193,7 +197,10 @@ var PF_MultipleFileObject = {
             columns: [{
                 field: 'ProviderInfoUrl',
                 title: 'Archivo',
-                template: '<a href="${ProviderInfoUrl}" target="_blank" >Ver archivo</a>'
+            }, {
+                field: 'ProviderInfoUrl',
+                title: ' ',
+                template: '<a href="${ProviderInfoUrl}" target="_blank">Ver archivo</a>'
             }, {
                 field: 'ProviderInfoId',
                 title: ' ',
@@ -202,6 +209,17 @@ var PF_MultipleFileObject = {
         });
     },
 
+    Create: function () {
+
+        var oReq = '';
+        oReq = oReq + '{ProviderInfoId:0,';
+        oReq = oReq + 'ProviderInfoUrl:"' + $('#' + PF_MultipleFileObject.DivId).val() + '",';
+        oReq = oReq + 'IsDelete:"false"}';
+
+        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
+
+        PF_PostBackForm('FrmGenericStep', '');
+    },
 
     ShowDelete: function (ProviderInfoId) {
 
@@ -227,7 +245,7 @@ var PF_MultipleFileObject = {
                                 PF_PostBackForm('FrmGenericStep', '');
                             },
                             error: function (result) {
-                                
+
                                 alert('Se ha generado un error:' + result);
                             }
                         });
@@ -240,7 +258,7 @@ var PF_MultipleFileObject = {
             });
         }
         else {
-            alert('no se puede borrar ' + ProviderInfoId );
+            alert('no se puede borrar ' + ProviderInfoId);
         }
     },
 }

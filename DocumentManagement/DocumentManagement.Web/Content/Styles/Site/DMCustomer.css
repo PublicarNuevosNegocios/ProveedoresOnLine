@@ -386,7 +386,7 @@ div#divProgressBar {
 
         .LegalTermsContent ul li {
             color: #4d4d4d;
-            display: inline;
+            display: inline-block;
             font-size: 0.9em;
         }
 
@@ -406,7 +406,7 @@ div#divProgressBar {
 
 .TextForm {
     display: block !important;
-}
+} 
 
 .DownloadTerms{
     margin: 10px 0px 10px 0px;

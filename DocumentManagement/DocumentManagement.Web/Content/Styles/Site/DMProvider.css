@@ -51,6 +51,7 @@
             .DMStepsMenuCustomer ul li:hover {
                 cursor: pointer;
                 background-color: #ececec;
+                border-radius: 5px;
             }
             /************ ESTE ES EL ESTILO DEL ITEM ACTIVO *************/
             .DMStepsMenuCustomer ul li a {
@@ -75,10 +76,11 @@
                 border-right: medium none #FFF;
                 position: relative;
                 display: inline-block !important;
-                background-image: url('../../Images/arrowSelectedMenuSmall.png');
+                /*background-image: url('../../Images/arrowSelectedMenuSmall.png');
                 background-repeat: no-repeat;
                 background-position: 100% 0px;
-                background-size: auto;
+                background-size: auto;*/
+                border-radius: 5px;
                 width: 90%;
             }
 
@@ -89,7 +91,7 @@
 .DMFormGenericFields li {
     display: inline-block;
     list-style-type: none !important;
-    margin: 8px 12px 8px auto !important;
+    margin: 10px 30px 10px auto !important;
     vertical-align: top;
 }
 
@@ -104,10 +106,16 @@
 
     .DMFormGenericFields li div label {
         color: #4d4d4d;
-        display: inline;
+        display: inline-block;
         font-size: 0.9em;
         font-weight: normal;
         vertical-align: top;
+        width: 328px;
+    }
+
+    /******Label de formularios pantalla completa******/
+    .labelMultipleFiles, .labelFieldPartners, .labelLegalTerms{
+        width: 90% !important;
     }
 
     .DMFormGenericFields li div input {
@@ -199,17 +207,19 @@ a.DMButtonsForm:hover {
     color: #fff;
 }
 /*********** TABLA ADMINISTRAR PROVEEDORES ************/
-#divGridProvider_Header{
-    border:1px solid;
-    margin:0px 0px 0px 12px;
+#divGridProvider_Header {
+    border: 1px solid;
+    margin: 0px 0px 0px 12px;
 }
-#ProfileInfoFormId label{
+
+#ProfileInfoFormId label {
     font-size: 1em;
     font-weight: normal;
     margin: 0px 0px 0px 5px;
-    vertical-align:middle;
+    vertical-align: middle;
 }
-#ProfileInfoFormId input, #ProfileInfoFormId select{
+
+#ProfileInfoFormId input, #ProfileInfoFormId select {
     background-color: #f9f9f9;
     border: 1px solid #727276;
     color: #727276;
@@ -217,28 +227,31 @@ a.DMButtonsForm:hover {
     height: 24px;
     vertical-align: top;
     width: 150px;
-    vertical-align:middle;
+    vertical-align: middle;
 }
-#ProfileInfoFormId input[type="checkbox"]{
-    background-color: #f9f9f9;
-    border: 1px solid #727276;
-    color: #727276;
-    font-size: 1em;
-    height: 24px;
-    vertical-align: top;
-    width:auto;
-    vertical-align:middle;
+
+    #ProfileInfoFormId input[type="checkbox"] {
+        background-color: #f9f9f9;
+        border: 1px solid #727276;
+        color: #727276;
+        font-size: 1em;
+        height: 24px;
+        vertical-align: top;
+        width: auto;
+        vertical-align: middle;
+    }
+
+.DMProviderFilterActions {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+    width: auto;
 }
-.DMProviderFilterActions{
-    float:right;
-    margin:0px;
-    padding:0px;
-    height:auto; width:auto;
-}
-.DMProviderFilterActions input[type="button"]:hover, .DMProviderFilterActions input[type="submit"]:hover{
-    background-color:#e6e6e6 !important;
-    
-}
+
+    .DMProviderFilterActions input[type="button"]:hover, .DMProviderFilterActions input[type="submit"]:hover {
+        background-color: #e6e6e6 !important;
+    }
 
 /******AdminProvider********/
 .divAdminProvider {
@@ -303,4 +316,23 @@ a.DMButtonsForm:hover {
         height: auto;
         padding: 3px 38px;
         width: auto;
+    }
+
+/********Estilos grilla cargue multiple de archivos********/
+.k-toolbar.k-grid-toolbar > input {
+    display: inline-block;
+}
+
+.AddMultipleFile {
+    display: inline-block;
+    color: #ff8300;
+    font-size: 1.3em;
+    height: auto;
+    padding: 3px 12px;
+    width: auto;
+}
+
+    .AddMultipleFile:hover {
+        text-decoration: underline;
+        color: #ff8300;
     }
