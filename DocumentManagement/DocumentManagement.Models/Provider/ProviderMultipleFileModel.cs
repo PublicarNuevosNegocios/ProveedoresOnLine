@@ -14,6 +14,19 @@ namespace DocumentManagement.Models.Provider
 
         public string ProviderInfoUrl { get; set; }
 
+        public string FileName
+        {
+            get
+            {
+                string oReturn = string.Empty;
+                if (!string.IsNullOrEmpty(ProviderInfoUrl))
+                {
+                    oReturn = ProviderInfoUrl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries).DefaultIfEmpty(string.Empty).LastOrDefault();
+                }
+                return oReturn;
+            }
+        }
+
         public ProviderMultipleFileModel() { }
 
         public ProviderMultipleFileModel(string strJson, string ProviderInfoId)
