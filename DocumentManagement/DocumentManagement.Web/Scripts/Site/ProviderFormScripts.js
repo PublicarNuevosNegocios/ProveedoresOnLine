@@ -262,3 +262,65 @@ var PF_MultipleFileObject = {
         }
     },
 }
+
+//Validaciones de campos
+function validateEmail(vidInput) {
+    
+    $('#' + vidInput).validate({
+        //debug: true,
+        errorClass: 'error help-inline',
+        validClass: 'success',
+        errorElement: 'span',
+        highlight: function (element, errorClass, validClass) {
+            $(element).parents("div.control-group").addClass(errorClass).removeClass(validClass);
+
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+        },
+        rules: {
+            Name: {
+                required: true,
+            },
+        },
+        messages: {
+            Name: {
+                required: "Debe ingresar el nombre.",
+            }
+        }
+    });
+}
+
+function validateNumber(vidInput) {
+    
+
+    $('#'+ vidInput).validate({
+        //debug: true,
+        errorClass: 'error help-inline',
+        validClass: 'success',
+        errorElement: 'span',
+        highlight: function (element, errorClass, validClass) {
+            $(element).parents("div.control-group").addClass(errorClass).removeClass(validClass);
+
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+        },
+        rules: {
+            Name: {
+                required: true,
+            },
+            DurationTime: {
+                required: true
+            }
+        },
+        messages: {
+            Name: {
+                required: "Debe ingresar el nombre.",
+
+            }
+        }
+    });
+
+
+}
