@@ -31,9 +31,10 @@
             }
             else if (strValue.IndexOf(".pdf") >= 0)
             {
-                <iframe src="@(Url.Action(MVC.ProviderForm.ActionNames.GetPdfFileBytes, MVC.ProviderForm.Name, new { FilePath = strValue }))" frameborder="0"></iframe>
+                <div class="divFramePDF">
+                    <iframe src="@(Url.Action(MVC.ProviderForm.ActionNames.GetPdfFileBytes, MVC.ProviderForm.Name, new { FilePath = strValue }))" frameborder="0"></iframe>
+                </div>
             }
-
         }
     </div>
 }

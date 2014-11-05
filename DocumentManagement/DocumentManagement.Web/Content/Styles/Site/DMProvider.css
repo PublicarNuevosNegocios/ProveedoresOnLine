@@ -113,37 +113,37 @@
         width: 328px;
     }
 
-    /******Label de formularios pantalla completa******/
-    .labelMultipleFiles, .labelFieldPartners, .labelLegalTerms{
-        width: 90% !important;
-    }
+/******Label de formularios pantalla completa******/
+.labelMultipleFiles, .labelFieldPartners, .labelLegalTerms {
+    width: 90% !important;
+}
 
-    .DMFormGenericFields li div input {
-        display: block;
-    }
+.DMFormGenericFields li div input {
+    display: block;
+}
 
-    .DMFormGenericFields li div span.ui-spinner {
-        background-color: #f9f9f9;
-        border: 1px solid #727276;
-        color: #727276;
-        font-size: 1em;
-        font-weight: normal;
-        line-height: 0.9em;
-        height: 32px;
-        width: 340px;
-        display: block;
-        border-radius: 0px;
-    }
+.DMFormGenericFields li div span.ui-spinner {
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 0.9em;
+    height: 32px;
+    width: 340px;
+    display: block;
+    border-radius: 0px;
+}
 
-    .DMFormGenericFields li div input.ui-spinner-input {
-        background-color: #f9f9f9;
-        border: none;
-        color: #727276;
-        font-size: 1em;
-        height: 32px;
-        width: 340px;
-        margin: 0px;
-    }
+.DMFormGenericFields li div input.ui-spinner-input {
+    background-color: #f9f9f9;
+    border: none;
+    color: #727276;
+    font-size: 1em;
+    height: 32px;
+    width: 340px;
+    margin: 0px;
+}
 
 img.ImageFile {
     width: 11%;
@@ -337,8 +337,8 @@ a.DMButtonsForm:hover {
         color: #ff8300;
     }
 
-    /*Pop-up socios*/
-    /******Pop-upForms********/
+/*Pop-up socios*/
+/******Pop-upForms********/
 .partnerDialog {
 }
 
@@ -358,3 +358,12 @@ a.DMButtonsForm:hover {
             .partnerDialog ul li input[type="text"] {
                 width: 100%;
             }
+
+/*Estilos iframe PDF*/
+.divFramePDF {
+    margin: 5px 0px 10px 20px;
+    text-align: center;
+    border: 1px solid #727276;
+    width: 302px;
+    height: 152px;
+}
