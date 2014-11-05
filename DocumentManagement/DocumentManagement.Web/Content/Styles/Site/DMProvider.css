@@ -336,3 +336,25 @@ a.DMButtonsForm:hover {
         text-decoration: underline;
         color: #ff8300;
     }
+
+    /*Pop-up socios*/
+    /******Pop-upForms********/
+.partnerDialog {
+}
+
+    .partnerDialog ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .partnerDialog ul li {
+            margin-top: 10px;
+        }
+
+            .partnerDialog ul li span {
+                width: 100%;
+            }
+
+            .partnerDialog ul li input[type="text"] {
+                width: 100%;
+            }
