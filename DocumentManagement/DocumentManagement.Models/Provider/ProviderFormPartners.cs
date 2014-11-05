@@ -29,11 +29,22 @@ namespace DocumentManagement.Models.Provider
                         (strJson,
                         typeof(ProviderFormPartners));
 
-            this.ProviderInfoId = ProviderInfoId;
-            this.IdentificationNumber = oObjAux.IdentificationNumber;
-            this.FullName = oObjAux.FullName;
-            this.ParticipationPercent = oObjAux.ParticipationPercent;
-            this.IsDelete = oObjAux.IsDelete;
+            if (oObjAux != null)
+            {
+                this.ProviderInfoId = ProviderInfoId;
+                this.IdentificationNumber = oObjAux.IdentificationNumber;
+                this.FullName = oObjAux.FullName;
+                this.ParticipationPercent = oObjAux.ParticipationPercent;
+                this.IsDelete = oObjAux.IsDelete;
+            }
+            else
+            {
+                this.ProviderInfoId = ProviderInfoId;
+                this.IdentificationNumber = string.Empty;
+                this.FullName = string.Empty;
+                this.ParticipationPercent = string.Empty;
+                this.IsDelete = false;
+            }
         }
     }
 }

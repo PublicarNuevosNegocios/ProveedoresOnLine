@@ -51,6 +51,7 @@ else
         Serialize(
             Model.
             RealtedProviderInfo.
+            Where(x => !string.IsNullOrEmpty(x.LargeValue)).
             Select
                 (x => new DocumentManagement.Models.Provider.ProviderFormPartners(x.LargeValue, x.ProviderInfoId.ToString())).
             Where(x => x.IsDelete == false).ToList());

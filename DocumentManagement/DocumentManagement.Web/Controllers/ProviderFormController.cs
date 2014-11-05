@@ -72,7 +72,7 @@ namespace DocumentManagement.Web.Controllers
                     });
             }
             else
-            {               
+            {
                 //loggin failed
                 return RedirectToAction
                     (MVC.ProviderForm.ActionNames.Index,
@@ -480,7 +480,7 @@ namespace DocumentManagement.Web.Controllers
                 ProviderFormPartners oReqObject = (ProviderFormPartners)(new System.Web.Script.Serialization.JavaScriptSerializer()).
                     Deserialize(Request[RequestKey], typeof(ProviderFormPartners));
 
-                if (oProviderInfoType != null)
+                if (oProviderInfoType != null && oReqObject != null)
                 {
                     Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
                     {
