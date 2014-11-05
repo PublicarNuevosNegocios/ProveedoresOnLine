@@ -284,6 +284,14 @@ namespace DocumentManagement.Web.Controllers
                 });
         }
 
+        public virtual FileResult GetPdfFileBytes(string FilePath)
+        {
+            byte[] bytes = (new System.Net.WebClient()).DownloadData(FilePath);
+            return File
+                (bytes,
+                "application/pdf");
+        }
+
         #region PrivateMethods
 
         private DocumentManagement.Provider.Models.Provider.ProviderModel GetLoginRequest()
