@@ -195,7 +195,7 @@ var PF_MultipleFileObject = {
                 data: PF_MultipleFileObject.MultipleData,
             },
             columns: [{
-                field: 'ProviderInfoUrl',
+                field: 'FileName',
                 title: 'Archivo',
             }, {
                 field: 'ProviderInfoUrl',
