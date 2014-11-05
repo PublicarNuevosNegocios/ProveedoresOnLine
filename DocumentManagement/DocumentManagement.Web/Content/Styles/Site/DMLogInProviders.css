@@ -140,3 +140,8 @@ hr {
     line-height: 0.7em;
     font-weight: normal;
 }
+
+.errorMessageLogin {
+    font-weight: bold;
+    font-size: 12px !important;
+}
