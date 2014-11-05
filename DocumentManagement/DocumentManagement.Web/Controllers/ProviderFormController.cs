@@ -10,7 +10,7 @@ namespace DocumentManagement.Web.Controllers
 {
     public partial class ProviderFormController : BaseController
     {
-        public virtual ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId)
+        public virtual ActionResult Index(string ProviderPublicId, string FormPublicId, string StepId, string msg)
         {
             int? oStepId = string.IsNullOrEmpty(StepId) ? null : (int?)Convert.ToInt32(StepId.Trim());
 
@@ -19,6 +19,7 @@ namespace DocumentManagement.Web.Controllers
                 ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
                 RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
                 RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, oStepId),
+                errorMessage = msg != null ? msg : string.Empty,
             };
 
             oModel.RealtedForm = oModel.RealtedCustomer.
@@ -32,7 +33,10 @@ namespace DocumentManagement.Web.Controllers
                     Where(x => x.StepId == (int)oStepId).
                     FirstOrDefault();
             }
-
+            if (msg != null)
+            {
+                ViewData["ErrorMessage"] = "El Número o tipo de identificación son incorrectos";
+            }
             return View(oModel);
         }
 
@@ -68,7 +72,7 @@ namespace DocumentManagement.Web.Controllers
                     });
             }
             else
-            {
+            {               
                 //loggin failed
                 return RedirectToAction
                     (MVC.ProviderForm.ActionNames.Index,
@@ -77,7 +81,8 @@ namespace DocumentManagement.Web.Controllers
                     {
                         ProviderPublicId = ProviderPublicId,
                         FormPublicId = FormPublicId,
-                        StepId = string.Empty
+                        StepId = string.Empty,
+                        msg = "El Número o tipo de identificación son incorrectos"
                     });
             }
         }
