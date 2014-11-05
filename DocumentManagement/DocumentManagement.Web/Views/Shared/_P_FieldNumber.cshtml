@@ -1,5 +1,7 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
-@{
+
+@if (!Model.RenderScripts)
+{
     //get value and id
     string strId = Model.FieldType + "-" + Model.RealtedField.FieldId + "-";
     string strValue = string.Empty;
@@ -8,10 +10,7 @@
         strId += Model.RealtedProviderInfo.FirstOrDefault().ProviderInfoId.ToString();
         strValue = Model.RealtedProviderInfo.FirstOrDefault().Value;
     }
-}
-
-@if (!Model.RenderScripts)
-{
+    
     <div>
         <!--Number field-->
         @if (Model.RealtedField.IsRequired)
@@ -19,14 +18,6 @@
             <span>*</span>
         }
         <label>@Model.RealtedField.Name:</label>
-        <input type="text" class="required" id="@strId" name="@strId" value="@strValue" />
+        <input type="text" id="@strId" name="@strId" value="@strValue" />
     </div>
-}
-else
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            validateNumber('@strId');
-        });
-    </script>
 }
