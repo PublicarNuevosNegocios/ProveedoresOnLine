@@ -63,5 +63,7 @@ namespace DocumentManagement.Models.Provider
                 return oFieldInfoTypes;
             }
         }
+
+        public string errorMessage { get; set; }
     }
 }

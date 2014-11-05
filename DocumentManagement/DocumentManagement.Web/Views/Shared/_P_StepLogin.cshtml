@@ -17,6 +17,9 @@
                         }))" method="post">
             <ul class="DMForm">
                 <li>
+                    <span>@Model.errorMessage</span>    
+                </li> 
+                <li>                                     
                     <span>Tipo de identificación</span>
                     <select name="IdentificationType">
                         @foreach (var Item in Model.ProviderOptions[0].
@@ -27,7 +30,7 @@
                         }
                     </select>
                 </li>
-                <li>
+                <li>                      
                     <span>Número de identificación</span>
                     <input type="text" name="IdentificationNumber" />
                 </li>
