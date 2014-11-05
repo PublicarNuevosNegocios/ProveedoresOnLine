@@ -20,7 +20,7 @@
     <div id="dialog" style="display:none;">
 
         <!--partner field dialogs-->
-        <div id="@(strId)_Create" title="@Model.RealtedField.Name">
+        <div id="@(strId)_Create" class="partnerDialog" title="@Model.RealtedField.Name">
             <ul>
                 <li>
                     <span>Identificación:</span> <input type="text" id="@(strId)_IdentificationNumber" />
@@ -29,10 +29,10 @@
                     <span>Nombres y apellidos:</span> <input type="text" id="@(strId)_FullName" />
                 </li>
                 <li>
-                    <span>(%):</span> <input type="text" id="@(strId)_ParticipationPercent" />
+                    <span>Porcetaje de participación (%):</span> <input type="text" id="@(strId)_ParticipationPercent" />
                 </li>
                 <li>
-                    <a href="javascript:PF_PartnerFormObject.Create()">Guardar</a>
+                    <a class="DMButtonsDialog" href="javascript:PF_PartnerFormObject.Create()">Guardar</a>
                 </li>
             </ul>
         </div>

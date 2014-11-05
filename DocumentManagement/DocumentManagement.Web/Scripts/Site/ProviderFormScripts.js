@@ -266,7 +266,7 @@ var PF_MultipleFileObject = {
 //Validaciones de campos
 function validateEmail(vidInput) {
     
-    $('#' + vidInput).validate({
+    $('#FrmGenericStep').validate({
         //debug: true,
         errorClass: 'error help-inline',
         validClass: 'success',
@@ -279,13 +279,15 @@ function validateEmail(vidInput) {
             $(element).parents(".error").removeClass(errorClass).addClass(validClass);
         },
         rules: {
-            Name: {
-                required: true,
+            vidInput: {
+                required: false,
+                email: true
             },
         },
         messages: {
-            Name: {
-                required: "Debe ingresar el nombre.",
+            vidInput: {
+                required: "Debe ingresar una dirección de correo electrónico",
+                email: " Debe ingresar un email valido"
             }
         }
     });
@@ -293,8 +295,7 @@ function validateEmail(vidInput) {
 
 function validateNumber(vidInput) {
     
-
-    $('#'+ vidInput).validate({
+    $('#FrmGenericStep').validate({
         //debug: true,
         errorClass: 'error help-inline',
         validClass: 'success',
@@ -307,17 +308,13 @@ function validateNumber(vidInput) {
             $(element).parents(".error").removeClass(errorClass).addClass(validClass);
         },
         rules: {
-            Name: {
-                required: true,
+            vidInput: {
+                number: true
             },
-            DurationTime: {
-                required: true
-            }
         },
         messages: {
-            Name: {
-                required: "Debe ingresar el nombre.",
-
+            vidInput: {
+                number: "Solo se admiten números."
             }
         }
     });
