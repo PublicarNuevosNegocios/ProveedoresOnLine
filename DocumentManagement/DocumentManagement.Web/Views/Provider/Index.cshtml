@@ -17,6 +17,8 @@
         <div id="divGridProvider_FormUrl">
             <a target="_blank" href="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.Index, MVC.ProviderForm.Name, new { ProviderPublicId = "${RelatedProvider.ProviderPublicId}", FormPublicId = "${RelatedProvider.FormPublicId}" })))">Ver formulario proveedor</a>
         </div>
+        <a id="salesForceUrlId"  href="">Ver lead en SalesForce</a>
+
         <div id="divGridProvider_Header">
             <form id="ProfileInfoFormId" action="@UrlAction" method="post">
                 <label>Filtrar por:</label>

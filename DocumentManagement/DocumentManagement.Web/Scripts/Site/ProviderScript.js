@@ -1,7 +1,7 @@
 ﻿function ProviderSearchGrid(vidDiv, cmbForm, cmbCustomer, chkName) {
-    
+
     //configure grid
-    $('#' + vidDiv).kendoGrid({        
+    $('#' + vidDiv).kendoGrid({
         toolbar: [{ template: $('#' + vidDiv + '_Header').html() }],
         pageable: true,
         dataSource: {
@@ -9,7 +9,7 @@
             serverPaging: true,
             schema: {
                 total: function (data) {
-                    if (data != null && data.length > 0) {                        
+                    if (data != null && data.length > 0) {
                         return data[0].oTotalRows;
                     }
                     return 0;
@@ -17,7 +17,7 @@
             },
             transport: {
                 read: function (options) {
-                    var oSearchParam = $('#' + vidDiv + '_txtSearch').val();                    
+                    var oSearchParam = $('#' + vidDiv + '_txtSearch').val();
                     var oCustomerParam = $('#' + cmbCustomer + ' ' + 'option:selected').val();
                     var oFormParam = $('#' + cmbForm + ' ' + 'option:selected').val();
                     var oUniqueParam = $('#' + chkName).prop('checked');
@@ -32,23 +32,23 @@
                         url: BaseUrl.ApiUrl + '/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
                         dataType: "json",
                         type: "POST",
-                        success: function (result) {                            
+                        success: function (result) {
                             options.success(result.RelatedProvider)
                         },
-                        error: function (result) {                            
+                        error: function (result) {
                             options.error(result);
                         }
                     });
                 }
             },
-        },      
+        },
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
             title: "Id Proveedor",
         }, {
             field: "RelatedProvider.Name",
             title: "Razón Social"
-        },{
+        }, {
             field: "RelatedProvider.IdentificationType.ItemName",
             title: "Tipo identificación"
         }, {
@@ -58,28 +58,29 @@
             field: "RelatedProvider.CustomerName",
             title: "Comprador"
         },
-           {   
-            field: "RelatedProvider.Email",
-            title: "Email"
-        }, {
-            field: "FormUrl",
-            title: "URL",
-            width: 400,
-            template: $('#' + vidDiv + '_FormUrl').html(),
-        }, {
-            field: "RelatedProvider.CustomerCount",
-            title: "# Comp. Relacionados",                      
-        }, {
-            field: "codSalesforce",
-            title: "Número Campaña"
-        }
-        ],
+           {
+               field: "RelatedProvider.Email",
+               title: "Email"
+           }, {
+               field: "FormUrl",
+               title: "URL",
+               width: 100,
+               template: $('#' + vidDiv + '_FormUrl').html(),
+           }, {
+               field: "RelatedProvider.CustomerCount",
+               title: "# Comp. Relacionados",
+           }, {
+               field: "codSalesforce",
+               title: "URL SalesForce",
+               width: 300,               
+               template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
+           }],
     });
     //add search button event
-    $('#' + vidDiv + '_SearchButton').click(function () {        
+    $('#' + vidDiv + '_SearchButton').click(function () {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
-    $('#' + cmbCustomer).change(function () {        
+    $('#' + cmbCustomer).change(function () {
         initCmb('Form', cmbCustomer);
     });
 }
@@ -95,7 +96,7 @@ function initCmb(cmbForm, cmbCustomer) {
         success: function (result) {
             $('#' + cmbForm).html('');
             $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
-            for (item in result.RelatedForm) {                
+            for (item in result.RelatedForm) {
                 $('#' + cmbForm).append('<option value="' + result.RelatedForm[item].FormPublicId + '">' + result.RelatedForm[item].Name + '</option>')
             }
         },

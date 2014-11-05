@@ -248,6 +248,10 @@ namespace DocumentManagement.Web.Controllers
 
                     CustomerProviderInfo = new ProviderInfoModel();
 
+                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ? 
+                                                          oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
+                                                                    Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
+
                     CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 403 };
                     CustomerProviderInfo.Value = prv.CampanaSalesforce;
 
@@ -264,7 +268,13 @@ namespace DocumentManagement.Web.Controllers
                         RelatedProviderCustomerInfo = ListCustomerProviderInfo
                     };
                     if (oResultValidate == null)
-                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);                   
+                        DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
+                    else
+                    {
+                        ProviderToCreate.ProviderPublicId = oResultValidate.ProviderPublicId;
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate); 
+                    }
+             
 
                     oPrvToProcessResult.Add(new ExcelProviderResultModel()
                     {

@@ -26,6 +26,13 @@ namespace DocumentManagement.Web.ControllersApi
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
             {
+                prv.RelatedProviderCustomerInfo.All(y =>
+                    {
+                        if (y.ProviderInfoType.ItemId == 403)                       
+                            y.Value = "https://na2.salesforce.com/" + y.Value;                        
+                        return true;
+                    });
+
                 oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
                 {
                     RelatedProvider = prv,
