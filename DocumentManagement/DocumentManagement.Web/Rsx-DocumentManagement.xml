@@ -25,7 +25,7 @@
     <key name="_P_FieldAutocomplete">307,</key>
     <key name="_P_FieldEmail">303,306,310,313,326,328,330,332,</key>
     <key name="_P_FieldFile">343,344,345,346,347,348,351,352,353,354,355,356,357,358,359,360,361,362,368,</key>
-    <key name="_P_FieldFormPdf">365,</key>
+    <key name="_P_FieldFormPdf">365,369,370</key>
     <key name="_P_FieldLegalTerms">363,364,</key>
     <key name="_P_FieldNumber">314,367,</key>
     <key name="_P_FieldPartners">342,</key>
@@ -37,6 +37,12 @@
     <key name="_P_FieldFormPdf_365_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_365_FormText">Descargar formulario pdf.</key>
 
+    <key name="_P_FieldFormPdf_369_FormUrl">http://fieldform.pdf</key>
+    <key name="_P_FieldFormPdf_369_FormText">Descargar formulario pdf.</key>
+    
+    <key name="_P_FieldFormPdf_370_FormUrl">http://fieldform.pdf</key>
+    <key name="_P_FieldFormPdf_370_FormText">Download form pdf.</key>
+      
     <key name="_P_FieldLegalTerms_363_LegalText">
       <![CDATA[
       {
