@@ -25,41 +25,9 @@ namespace DocumentManagement.Provider.Controller
                     , ProviderToUpsert.IdentificationNumber
                     , ProviderToUpsert.Email);
 
-                if (ProviderToUpsert.RelatedProviderInfo != null && ProviderToUpsert.RelatedProviderInfo.Count > 0)
-                {
-                    foreach (var item in ProviderToUpsert.RelatedProviderInfo)
-                    {
-                        DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
-                            (oResult,
-                            item.ProviderInfoId,
-                            item.ProviderInfoType.ItemId,
-                            item.Value,
-                            item.LargeValue);
-
-                        LogManager.Models.LogModel oItemLog = GetLogModel();
-                        oItemLog.IsSuccess = true;
-                        oItemLog.LogObject = item;
-                        LogManager.ClientLog.AddLog(oItemLog);
-                    }
-                }
-                if (ProviderToUpsert.RelatedProviderCustomerInfo != null && ProviderToUpsert.RelatedProviderCustomerInfo.Count > 0)
-                {
-                    foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
-                    {
-                        DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
-                            (oResult,
-                            ProviderToUpsert.CustomerPublicId,
-                            item.ProviderInfoId,
-                            item.ProviderInfoType.ItemId,
-                            item.Value,
-                            item.LargeValue);
-
-                        LogManager.Models.LogModel oItemLog = GetLogModel();
-                        oItemLog.IsSuccess = true;
-                        oItemLog.LogObject = item;
-                        LogManager.ClientLog.AddLog(oItemLog);
-                    }
-                }
+                ProviderToUpsert.ProviderPublicId = oResult;
+                ProviderInfoUpsert(ProviderToUpsert);
+                ProviderCustomerInfoUpsert(ProviderToUpsert);
 
                 oLog.IsSuccess = true;
             }
@@ -91,15 +59,21 @@ namespace DocumentManagement.Provider.Controller
             {
                 foreach (var item in ProviderToUpsert.RelatedProviderInfo)
                 {
-                    DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
+                    item.ProviderInfoId = DAL.Controller.ProviderDataController.Instance.ProviderInfoUpsert
                         (ProviderToUpsert.ProviderPublicId,
                         item.ProviderInfoId,
                         item.ProviderInfoType.ItemId,
-                        item.Value, item.LargeValue);
+                        item.Value,
+                        item.LargeValue);
 
                     LogManager.Models.LogModel oItemLog = GetLogModel();
                     oItemLog.IsSuccess = true;
                     oItemLog.LogObject = item;
+                    oItemLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "ProviderInfoType.ItemId",
+                        Value = item.ProviderInfoType.ItemId.ToString(),
+                    });
                     LogManager.ClientLog.AddLog(oItemLog);
                 }
             }
@@ -111,7 +85,7 @@ namespace DocumentManagement.Provider.Controller
             {
                 foreach (var item in ProviderToUpsert.RelatedProviderCustomerInfo)
                 {
-                    DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
+                    item.ProviderInfoId = DAL.Controller.ProviderDataController.Instance.ProviderCustomerInfoUpsert
                          (ProviderToUpsert.ProviderPublicId,
                          ProviderToUpsert.CustomerPublicId,
                          item.ProviderInfoId,
@@ -122,6 +96,11 @@ namespace DocumentManagement.Provider.Controller
                     LogManager.Models.LogModel oItemLog = GetLogModel();
                     oItemLog.IsSuccess = true;
                     oItemLog.LogObject = item;
+                    oItemLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "ProviderCustomerInfoType.ItemId",
+                        Value = item.ProviderInfoType.ItemId.ToString(),
+                    });
                     LogManager.ClientLog.AddLog(oItemLog);
                 }
             }

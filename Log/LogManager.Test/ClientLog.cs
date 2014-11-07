@@ -8,8 +8,15 @@ namespace LogManager.Test
     {
         public string objId { get; set; }
         public double objValue { get; set; }
+        public enumTest objEnum { get; set; }
 
         public System.Collections.Generic.List<string> strlst { get; set; }
+    }
+
+    public enum enumTest
+    {
+        Option1 = 301,
+        Option2 = 302,
     }
 
     [TestClass]
@@ -18,6 +25,32 @@ namespace LogManager.Test
         [TestMethod]
         public void AddLog()
         {
+
+            LogManager.ClientLog.AddLog(new Models.LogModel()
+            {
+                User = "usuario",
+                Application = "Application",
+                Source = "Source",
+                IsSuccess = true,
+                Message = "Message",
+
+                LogObject = new TestLogObject() { objId = "el id ", objValue = 45545.252, objEnum = enumTest.Option1, strlst = new System.Collections.Generic.List<string>() { "a", "b" } },
+
+                RelatedLogInfo = new System.Collections.Generic.List<Models.LogInfoModel>()
+                {
+                    new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "tipo 1",
+                        Value = "Valor 1"
+                    },
+                    new LogManager.Models.LogInfoModel()
+                    {
+                        LogInfoType = "tipo 2",
+                        Value = "Valor 2"
+                    }
+                }
+            });
+
             LogManager.ClientLog.AddLog(new Models.LogModel()
             {
                 User = "usuario",
