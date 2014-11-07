@@ -60,7 +60,7 @@ namespace ProveedoresOnLine.FileManager
 
         #endregion
 
-        #region Public Methods
+        #region Load Methods
 
         internal void StartUpload()
         {
