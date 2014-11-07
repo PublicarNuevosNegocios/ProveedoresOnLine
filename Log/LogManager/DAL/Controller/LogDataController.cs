@@ -47,12 +47,12 @@ namespace LogManager.DAL.Controller
             DataFactory.LogInfoCreate(LogId, LogInfoType, Value);
         }
 
-        #endregion
-
-
         public List<Models.LogModel> LogSearch(string LogInfoType, string Value)
         {
-            throw new NotImplementedException();
+            return DataFactory.LogSearch(LogInfoType, Value);
         }
+
+        #endregion
+
     }
 }
