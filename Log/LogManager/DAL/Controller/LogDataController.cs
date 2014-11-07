@@ -48,5 +48,11 @@ namespace LogManager.DAL.Controller
         }
 
         #endregion
+
+
+        public List<Models.LogModel> LogSearch(string LogInfoType, string Value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

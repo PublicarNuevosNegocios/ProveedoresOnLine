@@ -57,5 +57,11 @@ namespace LogManager.DAL.MySqlDao
         }
 
         #endregion
+
+
+        public List<Models.LogModel> LogSearch(string LogInfoType, string Value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
