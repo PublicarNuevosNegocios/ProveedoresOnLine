@@ -65,5 +65,7 @@ namespace LogManager.Models
                 return oReturn;
             }
         }
+
+        public DateTime CreateDate { get; set; }
     }
 }

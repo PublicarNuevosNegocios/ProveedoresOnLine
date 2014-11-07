@@ -15,7 +15,7 @@ namespace LogManager
 
         public static List<LogManager.Models.LogModel> LogSearch(string LogInfoType, string Value)
         {
-            return new List<Models.LogModel>();
+            return DAL.Controller.LogDataController.Instance.LogSearch(LogInfoType, Value);
         }
     }
 }
