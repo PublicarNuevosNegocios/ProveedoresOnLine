@@ -221,6 +221,7 @@
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\LogFileController.cs" />
     <Compile Include="Controllers\ProviderFormController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +232,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogFileController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1051,6 +1055,7 @@
     <Content Include="Views\Shared\_P_FieldAutocomplete.cshtml" />
     <Content Include="Views\ProviderForm\AdminProvider.cshtml" />
     <Content Include="Views\Shared\_P_FieldMultipleFile.cshtml" />
+    <Content Include="Views\LogFile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1081,7 +1086,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>16135</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

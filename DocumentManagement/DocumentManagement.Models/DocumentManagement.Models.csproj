@@ -63,6 +63,7 @@
     <Compile Include="General\InternalSettings.cs" />
     <Compile Include="General\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\ProviderFileLogModel.cs" />
     <Compile Include="Provider\ProviderFieldModel.cs" />
     <Compile Include="Provider\ProviderFormLegalTerms.cs" />
     <Compile Include="Provider\ProviderMultipleFileModel.cs" />
