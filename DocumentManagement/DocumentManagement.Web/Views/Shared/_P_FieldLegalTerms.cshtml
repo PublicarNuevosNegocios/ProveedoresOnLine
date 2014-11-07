@@ -45,6 +45,14 @@
             <input type="hidden" id="@(strId)" name="@(strId)" value="@(strValue)" />
         </div>
     </div>
-
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Ocultar barra de progreso
+            $("#ProgressBar").css("display", "none");
+        });
+    </script>
 }
 
