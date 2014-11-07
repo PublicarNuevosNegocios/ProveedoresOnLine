@@ -1,9 +1,12 @@
 ﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
 
 @{
-
     //get value and id
     string strId = Model.FieldType + "-" + Model.RealtedField.FieldId + "-";
+}
+
+@if (!Model.RenderScripts)
+{
     string strValue = string.Empty;
     DocumentManagement.Models.Provider.ProviderFormLegalTerms CurrentModel = null;
     if (Model.RealtedProviderInfo != null && Model.RealtedProviderInfo.Count > 0)
@@ -25,10 +28,7 @@
                     [Model.FieldType + "_" + Model.RealtedField.ProviderInfoType.ItemId + "_LegalText"].Value,
             string.Empty);
     }
-}
 
-@if (!Model.RenderScripts)
-{
     <div class="LegalTermsForm">
         <!--legal terms field-->
         <label class="labelLegalTerms">@Model.RealtedField.Name:</label>
@@ -45,14 +45,5 @@
             <input type="hidden" id="@(strId)" name="@(strId)" value="@(strValue)" />
         </div>
     </div>
-}
-else
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            //Ocultar barra de progreso
-            $("#ProgressBar").css("display", "none");
-        });
-    </script>
 }
 

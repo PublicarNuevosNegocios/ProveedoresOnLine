@@ -60,6 +60,16 @@
 }
 else
 {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            PF_ValidateFormObject.Init({
+                FormId:'FrmGenericStep',
+            });
+            PF_ValidateFormObject.RenderAsync();
+        });
+    </script>
+    
+    
     int TotalRequiredFields = 0, FillRequiredFields = 0;
 
 
