@@ -41,8 +41,7 @@
                     });
                 }
             },
-        },
-        selectable: "row multiple",
+        },        
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
             title: "Id Proveedor",
