@@ -6,6 +6,7 @@
 }
 @{
     string UrlAction = Url.Action(MVC.Provider.ActionNames.DownloadFile, MVC.Provider.Name);
+    string UrlActionEdit = Url.Action(MVC.Provider.ActionNames.UpdateProvider, MVC.Provider.Name);
 }
 
 <div>
@@ -47,6 +48,40 @@
     </div>
 </div>
 
+<div id="EditProviderDialog" name="EditProviderDialog" style="display:none">
+    <form action="@UrlActionEdit" method="post">
+        <ul>
+            <li>
+                <label>Razón Social</label>
+                <input type="text" name="RazonSocial" id="RazonSocial" value="" />
+            </li>
+            <li>
+                <label>Tipo de Identificación (id)</label>
+                <input type="text" name="TipoIdentificacion" id="TipoIdentificacion" value="" />
+            </li>
+            <li>
+                <label>Número de Identificación</label>
+                <input type="text" name="NumeroIdentificacion" id="NumeroIdentificacion" value="" />
+            </li>
+            <li>
+                <label>E-Mail</label>
+                <input type="text" name="Email" id="Email" value="" />
+            </li>
+            <li>
+                <label>Código de SalesForce (Lead)</label>
+                <input type="text" name="SalesForceCode" id="SalesForceCode" value="" />
+            </li>
+            <li>
+                <input type="hidden" id="ProviderPublicIdEdit" name="ProviderPublicIdEdit" value="" />
+                <input type="hidden" id="ProviderCustomerIdEdit" name="ProviderCustomerIdEdit" value="" />
+                <input type="hidden" id="ProviderInfoIdEdit" name="ProviderInfoIdEdit" value="" />
+            </li>
+            <li>
+                <input type="submit" name="Edit" value="Editar" />
+            </li>
+        </ul>
+    </form>
+</div>
 @section inlinescripts
 {
     <script type="text/javascript">

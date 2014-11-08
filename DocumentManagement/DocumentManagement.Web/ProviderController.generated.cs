@@ -75,6 +75,7 @@ namespace DocumentManagement.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string DownloadFile = "DownloadFile";
+            public readonly string UpdateProvider = "UpdateProvider";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,6 +83,7 @@ namespace DocumentManagement.Web.Controllers
         {
             public const string Index = "Index";
             public const string DownloadFile = "DownloadFile";
+            public const string UpdateProvider = "UpdateProvider";
         }
 
 
@@ -125,6 +127,17 @@ namespace DocumentManagement.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadFile);
             DownloadFileOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpdateProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdateProvider()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateProvider);
+            UpdateProviderOverride(callInfo);
             return callInfo;
         }
 

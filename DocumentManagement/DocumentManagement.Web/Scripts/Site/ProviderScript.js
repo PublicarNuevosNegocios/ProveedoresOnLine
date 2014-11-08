@@ -42,6 +42,7 @@
                 }
             },
         },
+        selectable: "row multiple",
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
             title: "Id Proveedor",
@@ -57,24 +58,28 @@
         }, {
             field: "RelatedProvider.CustomerName",
             title: "Comprador"
-        },
-           {
-               field: "RelatedProvider.Email",
-               title: "Email"
-           }, {
-               field: "FormUrl",
-               title: "URL",
-               width: 100,
-               template: $('#' + vidDiv + '_FormUrl').html(),
-           }, {
-               field: "RelatedProvider.CustomerCount",
-               title: "# Comp. Relacionados",
-           }, {
-               field: "codSalesforce",
-               title: "URL SalesForce",
-               width: 300,               
-               template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
-           }],
+        }, {
+            field: "RelatedProvider.Email",
+            title: "Email"
+        }, {
+            field: "FormUrl",
+            title: "URL",
+            width: 100,
+            template: $('#' + vidDiv + '_FormUrl').html(),
+        }, {
+            field: "RelatedProvider.CustomerCount",
+            title: "# Comp. Relacionados",
+        }, {
+            field: "codSalesforce",
+            title: "URL SalesForce",
+            width: 300,               
+            template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
+        }, {
+            field: "Edit",
+            title: "Edit",
+            width: 100,
+            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\');">Editar</a>'
+        }],
     });
     //add search button event
     $('#' + vidDiv + '_SearchButton').click(function () {
@@ -83,6 +88,22 @@
     $('#' + cmbCustomer).change(function () {
         initCmb('Form', cmbCustomer);
     });
+}
+
+function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email,SalesForceCode, CustomerPublicId, ProviderName, infoId)
+{    
+    $('#EditProviderDialog').show;
+    $('#EditProviderDialog').dialog({ title: "Editar Proveedor" });
+    
+    $('#RazonSocial').val(ProviderName);
+    $('#ProviderPublicIdEdit').val(ProviderPublicId);
+    $('#TipoIdentificacion').val(IdentificationType);
+    $('#NumeroIdentificacion').val(IdentificationNumber);
+    $('#ProviderCustomerIdEdit').val(CustomerPublicId);    
+    $('#Email').val(Email);
+    $('#ProviderInfoIdEdit').val(infoId); 
+    
+    $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi,''));
 }
 
 function initCmb(cmbForm, cmbCustomer) {

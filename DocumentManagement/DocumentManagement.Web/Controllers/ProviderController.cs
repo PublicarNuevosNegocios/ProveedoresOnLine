@@ -85,5 +85,41 @@ namespace DocumentManagement.Web.Controllers
 
             return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
         }
+
+        public virtual ActionResult UpdateProvider()
+        {
+            ProviderModel oModel = new ProviderModel();
+            oModel = GetRequestProvider();
+
+            DocumentManagement.Provider.Controller.Provider.ProviderUpsert(oModel);
+
+            return RedirectToAction(MVC.Provider.ActionNames.Index, MVC.Provider.Name);
+        }
+        
+        #region Private Functions
+
+        private ProviderModel GetRequestProvider()
+        {
+            ProviderModel oreturn = new ProviderModel();
+
+            oreturn.ProviderPublicId = Request["ProviderPublicIdEdit"];
+            oreturn.Name = Request["RazonSocial"];
+            oreturn.IdentificationType = new CatalogModel();
+            oreturn.IdentificationType.ItemId = int.Parse(Request["TipoIdentificacion"]);
+            oreturn.IdentificationNumber = Request["NumeroIdentificacion"];
+            oreturn.Email = Request["Email"];
+            oreturn.CustomerPublicId = Request["ProviderCustomerIdEdit"];
+            oreturn.RelatedProviderCustomerInfo = new List<ProviderInfoModel>();
+            ProviderInfoModel info = new ProviderInfoModel();
+            info.ProviderInfoType = new CatalogModel();
+            info.ProviderInfoType.ItemId = 403;
+            info.ProviderInfoId = int.Parse(Request["ProviderInfoIdEdit"]);
+            info.Value = Request["SalesForceCode"];
+            oreturn.RelatedProviderCustomerInfo.Add(info);            
+
+            return oreturn;
+        }
+
+        #endregion
     }
 }

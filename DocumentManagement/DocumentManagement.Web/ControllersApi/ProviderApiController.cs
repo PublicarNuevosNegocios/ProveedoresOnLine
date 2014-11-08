@@ -26,17 +26,20 @@ namespace DocumentManagement.Web.ControllersApi
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
             {
+                #region Lead     
                 prv.RelatedProviderCustomerInfo.All(y =>
-                    {
-                        if (y.ProviderInfoType.ItemId == 403)                       
-                            y.Value = "https://na2.salesforce.com/" + y.Value;                        
-                        return true;
-                    });
+                           {
+                               if (y.ProviderInfoType.ItemId == 403)
+                                   y.Value = "https://na2.salesforce.com/" + y.Value;
+                               return true;
+                           }); 
+                #endregion
 
                 oReturn.RelatedProvider.Add(new ProviderItemSearchModel()
                 {
                     RelatedProvider = prv,
                     codSalesforce = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault() == null ? string.Empty : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault(),
+                    CustomerInfoTypeId = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.ProviderInfoId).FirstOrDefault() == null ? 0 : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.ProviderInfoId).FirstOrDefault(),
                     oTotalRows = oTotalRows
                 });
                 return true;
