@@ -12,5 +12,10 @@ namespace LogManager
         {
             QueueManager.Instance.AddQueueLog(LogToAdd);
         }
+
+        public static List<LogManager.Models.LogModel> LogSearch(string LogInfoType, string Value)
+        {
+            return DAL.Controller.LogDataController.Instance.LogSearch(LogInfoType, Value);
+        }
     }
 }

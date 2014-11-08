@@ -47,6 +47,12 @@ namespace LogManager.DAL.Controller
             DataFactory.LogInfoCreate(LogId, LogInfoType, Value);
         }
 
+        public List<Models.LogModel> LogSearch(string LogInfoType, string Value)
+        {
+            return DataFactory.LogSearch(LogInfoType, Value);
+        }
+
         #endregion
+
     }
 }

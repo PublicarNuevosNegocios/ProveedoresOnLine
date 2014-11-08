@@ -28,6 +28,7 @@ public static partial class MVC
     public static DocumentManagement.Web.Controllers.BaseController Base = new DocumentManagement.Web.Controllers.T4MVC_BaseController();
     public static DocumentManagement.Web.Controllers.CustomerController Customer = new DocumentManagement.Web.Controllers.T4MVC_CustomerController();
     public static DocumentManagement.Web.Controllers.HomeController Home = new DocumentManagement.Web.Controllers.T4MVC_HomeController();
+    public static DocumentManagement.Web.Controllers.LogFileController LogFile = new DocumentManagement.Web.Controllers.T4MVC_LogFileController();
     public static DocumentManagement.Web.Controllers.ProviderController Provider = new DocumentManagement.Web.Controllers.T4MVC_ProviderController();
     public static DocumentManagement.Web.Controllers.ProviderFormController ProviderForm = new DocumentManagement.Web.Controllers.T4MVC_ProviderFormController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();

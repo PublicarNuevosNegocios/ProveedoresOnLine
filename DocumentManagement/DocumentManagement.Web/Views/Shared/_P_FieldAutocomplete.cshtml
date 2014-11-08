@@ -40,6 +40,12 @@ else
         $(document).ready(function () {
             //start ac
             PF_InitAutocomplete('@strId', vAcData);
+
+            PF_ValidateFormObject.AddRule({
+                idDiv: '@(strId)',
+                Required: @(Model.RealtedField.IsRequired.ToString().ToLower()),
+                Type:'autocomplete'
+            });
         });
     </script>
 }

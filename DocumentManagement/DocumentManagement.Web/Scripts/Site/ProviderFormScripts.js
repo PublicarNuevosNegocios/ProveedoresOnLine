@@ -19,6 +19,44 @@ function PF_InitProgressBar(vidDiv, vProgress, vLabel) {
     $("#" + vidDiv + '_Label').text(vLabel);
 }
 
+var PF_ValidateFormObject = {
+
+    FormId: '',
+
+    Init: function (vInitObject) {
+        this.FormId = vInitObject.FormId;
+    },
+
+    RenderAsync: function () {
+        $('#' + PF_ValidateFormObject.FormId).validate({
+            errorClass: 'error help-inline',
+            validClass: 'success',
+            errorElement: 'span',
+            highlight: function (element, errorClass, validClass) {
+                $(element).parents("div.control-group").addClass(errorClass).removeClass(validClass);
+
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).parents(".error").removeClass(errorClass).addClass(validClass);
+            },
+        });
+    },
+
+    AddRule: function (vRuleValues) {        
+        $('#' + vRuleValues.idDiv).rules("add", {
+            required: vRuleValues.Required,
+            email: (vRuleValues.Type == 'email'),
+            number: (vRuleValues.Type == 'number'),
+            messages: {
+                required: 'El campo es obligatorio.',
+                email: 'El formato del campo no es correcto.',
+                number: 'El campo solo admite valores numéricos.'
+            },
+        });
+
+    },
+};
+
 //partners object
 var PF_PartnerFormObject = {
 

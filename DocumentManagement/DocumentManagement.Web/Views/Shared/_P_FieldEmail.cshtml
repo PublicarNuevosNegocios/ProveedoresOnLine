@@ -26,31 +26,11 @@ else
 {
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $('#FrmGenericStep').validate({
-                //debug: true,
-                errorClass: 'error help-inline',
-                validClass: 'success',
-                errorElement: 'span',
-                highlight: function (element, errorClass, validClass) {
-                    $(element).parents("div.control-group").addClass(errorClass).removeClass(validClass);
-
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).parents(".error").removeClass(errorClass).addClass(validClass);
-                },
-                rules: {
-                    '@strId': {
-                        email: true
-                    },
-                },
-                messages: {
-                    '@strId': {
-                        email: " Debe ingresar un email valido"
-                    }
-                }
+            PF_ValidateFormObject.AddRule({
+                idDiv: '@(strId)', 
+                Required: @(Model.RealtedField.IsRequired.ToString().ToLower()), 
+                Type:'email'
             });
-
         });
     </script>
 }

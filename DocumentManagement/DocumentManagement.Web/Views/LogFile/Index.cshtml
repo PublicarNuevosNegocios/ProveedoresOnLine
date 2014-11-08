@@ -1,0 +1,32 @@
+﻿@model List<DocumentManagement.Models.Provider.ProviderFileLogModel>
+
+@{
+    ViewBag.Title = "Proveedores - Archivos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div>
+        <span class="spanTitleForm">Administrar Archivos de Proveedores</span>
+        <div id="divGridProviderFile"></div>
+    </div>
+</div>
+
+@section inlinescripts
+{
+    @{
+        string oGridData = string.Empty;
+        if (Model != null)
+        {
+            oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(Model);
+        }
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start customer grid
+            var oData = @(Html.Raw(oGridData))
+            ProviderFileSearchGrid('divGridProviderFile', oData);
+        });
+    </script>
+}
