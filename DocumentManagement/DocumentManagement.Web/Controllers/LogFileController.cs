@@ -12,15 +12,22 @@ namespace DocumentManagement.Web.Controllers
 {
     public partial class LogFileController : BaseController
     {
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(string ProviderInfoId)
         {
+            List<LogManager.Models.LogModel> oLogList = LogManager.ClientLog.LogSearch("ProviderInfoId", ProviderInfoId);
 
-            //ProviderSearchModel oModel = new ProviderSearchModel();
-            //int oTotalRows;
-            //oModel.Customers = DocumentManagement.Customer.Controller.Customer.CustomerSearch(null, 0, 20, out oTotalRows);
-            ////oModel.Forms = DocumentManagement.Customer.Controller.Customer.FormSearch(null, 0, 20, out oTotalRows);
-            //return View(oModel);
-            return View();
+            List<ProviderFileLogModel> oModel = new List<ProviderFileLogModel>();
+
+            if (oLogList != null && oLogList.Count > 0)
+            {
+                oLogList.All(ol =>
+                {
+                    oModel.Add(new ProviderFileLogModel(ol));
+                    return true;
+                });
+            }
+
+            return View(oModel);
         }
     }
 }

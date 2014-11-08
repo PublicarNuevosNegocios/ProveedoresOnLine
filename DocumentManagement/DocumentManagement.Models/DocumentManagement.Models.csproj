@@ -36,6 +36,10 @@
     <Reference Include="DocumentManagement.Provider">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Provider\developer\DocumentManagement.Provider.dll</HintPath>
     </Reference>
+    <Reference Include="LogManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>

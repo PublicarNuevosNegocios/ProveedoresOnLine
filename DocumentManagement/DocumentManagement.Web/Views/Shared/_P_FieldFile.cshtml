@@ -5,10 +5,12 @@
     //get value and id
     string strId = Model.FieldType + "-" + Model.RealtedField.FieldId + "-";
     string strValue = string.Empty;
+    string strProviderInfoId = string.Empty;
     if (Model.RealtedProviderInfo != null && Model.RealtedProviderInfo.Count > 0)
     {
         strId += Model.RealtedProviderInfo.FirstOrDefault().ProviderInfoId.ToString();
         strValue = Model.RealtedProviderInfo.FirstOrDefault().LargeValue;
+        strProviderInfoId = Model.RealtedProviderInfo.FirstOrDefault().ProviderInfoId.ToString();
     }
 
     <div>
@@ -22,8 +24,10 @@
         @if (!string.IsNullOrEmpty(strValue))
         {
             <a class="OpenFile" href="@strValue" target="_blank">Ver archivo</a>
-            <a class="OpenLogFile" href="" target="_blank">Ver historial</a>
-
+            if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn && DocumentManagement.Models.General.SessionModel.UserIsAutorized && !string.IsNullOrEmpty(strProviderInfoId))
+            {
+                <a class="OpenLogFile" href="@Url.Action(MVC.LogFile.ActionNames.Index, MVC.LogFile.Name, new { ProviderInfoId = strProviderInfoId })" target="_blank">Ver historial</a>
+            }
             if (strValue.IndexOf(".jpg") >= 0 ||
                 strValue.IndexOf(".jpeg") >= 0 ||
                 strValue.IndexOf(".png") >= 0)

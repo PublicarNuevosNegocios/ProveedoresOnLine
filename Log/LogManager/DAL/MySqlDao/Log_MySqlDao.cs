@@ -87,7 +87,7 @@ namespace LogManager.DAL.MySqlDao
                          User = l.Field<string>("User"),
                          Application = l.Field<string>("Application"),
                          Source = l.Field<string>("Source"),
-                         IsSuccess = l.Field<Int64>("IsSuccess") == 1 ? true : false,
+                         IsSuccess = l.Field<UInt64>("IsSuccess") == 1 ? true : false,
                          Message = l.Field<string>("Message"),
                          CreateDate = l.Field<DateTime>("CreateDate"),
                      } into lg

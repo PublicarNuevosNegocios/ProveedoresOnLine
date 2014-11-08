@@ -1,59 +1,32 @@
-﻿@model DocumentManagement.Models.Provider.ProviderFileLogModel
+﻿@model List<DocumentManagement.Models.Provider.ProviderFileLogModel>
 
 @{
-    ViewBag.Title = "Proveedores";
+    ViewBag.Title = "Proveedores - Archivos";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@{
-    string UrlAction = Url.Action(MVC.Provider.ActionNames.DownloadFile, MVC.Provider.Name);
 }
 
 <div>
     <div>
-        <span class="spanTitleForm">Administrar Proveedores</span>
-        <div id="divGridProvider"></div>
+        <span class="spanTitleForm">Administrar Archivos de Proveedores</span>
+        <div id="divGridProviderFile"></div>
     </div>
-    @*<div id="template" style="display:none;">
-        <div id="divGridProvider_FormUrl">
-            <a target="_blank" href="@(Server.UrlDecode(Url.Action(MVC.ProviderForm.ActionNames.Index, MVC.ProviderForm.Name, new { ProviderPublicId = "${RelatedProvider.ProviderPublicId}", FormPublicId = "${RelatedProvider.FormPublicId}" })))">Ver formulario proveedor</a>
-        </div>
-        <a id="salesForceUrlId"  href="">Ver lead en SalesForce</a>
-
-        <div id="divGridProvider_Header">
-            <form id="ProfileInfoFormId" action="@UrlAction" method="post">
-                <label>Filtrar por:</label>
-                <input type="text" id="divGridProvider_txtSearch" name="divGridProvider_txtSearch" />
-                <label> | Comprador:</label>
-                <select id="CustomerId" name="CustomerName">
-                    <option value=""></option>
-                    @foreach (var item in Model.Customers)
-                    {
-                        {
-                            <option value="@item.CustomerPublicId">@item.Name</option>
-                        }
-                    }
-                </select>
-                <label> | Formulario:</label>
-                <select id="Form" name="FormId"></select>
-                <label> | Único:</label>
-                <input type="checkbox" name="chk_Unique" id="chk_Unique" value="" />
-
-                <div class="DMProviderFilterActions">
-                    <input type="button" id="divGridProvider_SearchButton" value="Buscar" />
-                    <input type="submit" value="Descargar Excel" />
-                </div>
-            </form>
-        </div>
-    </div>*@
 </div>
 
 @section inlinescripts
 {
-    @*<script type="text/javascript">
+    @{
+        string oGridData = string.Empty;
+        if (Model != null)
+        {
+            oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(Model);
+        }
+    }
+    <script type="text/javascript">
         $(document).ready(function () {
             //start customer grid
-            ProviderSearchGrid('divGridProvider', 'Form', 'CustomerId', 'chk_Unique');
-            initCmb('Form');
+            var oData = @(Html.Raw(oGridData))
+            ProviderFileSearchGrid('divGridProviderFile', oData);
         });
-    </script>*@
+    </script>
 }
