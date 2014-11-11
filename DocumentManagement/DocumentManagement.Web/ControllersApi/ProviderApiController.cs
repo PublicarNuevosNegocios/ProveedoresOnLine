@@ -30,7 +30,7 @@ namespace DocumentManagement.Web.ControllersApi
                 prv.RelatedProviderCustomerInfo.All(y =>
                            {
                                if (y.ProviderInfoType.ItemId == 403)
-                                   y.Value = "https://na2.salesforce.com/" + y.Value;
+                                   y.Value = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Path_SalesForce].Value + y.Value;
                                return true;
                            }); 
                 #endregion

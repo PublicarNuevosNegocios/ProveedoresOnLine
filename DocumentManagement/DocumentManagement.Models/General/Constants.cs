@@ -26,6 +26,8 @@
 
         public const string C_Settings_Catalog_IdentificationType = "Catalog_IdentificationType";
 
+        public const string C_Settings_Path_SalesForce = "Path_Salesforce";
+
         #endregion
 
         #region Provider General
