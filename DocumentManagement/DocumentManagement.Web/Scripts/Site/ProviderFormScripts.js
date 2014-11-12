@@ -42,7 +42,7 @@ var PF_ValidateFormObject = {
         });
     },
 
-    AddRule: function (vRuleValues) {        
+    AddRule: function (vRuleValues) {
         $('#' + vRuleValues.idDiv).rules("add", {
             required: vRuleValues.Required,
             email: (vRuleValues.Type == 'email'),
@@ -158,6 +158,7 @@ var PF_PartnerFormObject = {
 
 //init autocomplete control
 function PF_InitAutocomplete(acId, acData) {
+    debugger;
     $('#' + acId).autocomplete(
 	{
 	    source: acData,
@@ -298,5 +299,65 @@ var PF_MultipleFileObject = {
         else {
             alert('no se puede borrar ' + ProviderInfoId);
         }
+    },
+}
+
+var PF_MultipleFileACObject = {
+    
+    DivId: '',
+    MultipleData: new Array(),
+    DialogId: '',
+    ocData: new Array(),
+
+    Init: function (vInitObject) {
+        debugger;
+
+        this.DivId = vInitObject.DivId;
+        this.MultipleData = vInitObject.MultipleData;
+        this.DialogId = vInitObject.DialogId;
+        this.ocData = vInitObject.ocData;
+    },
+
+    //init Multiple File grid
+    RenderAsync: function () {
+        $('#' + PF_MultipleFileACObject.DivId).kendoGrid({
+            toolbar: [
+                {
+                    template: '<a class="AddMultipleFile" href="javascript:PF_MultipleFileACObject.OpenDialog();">Agregar archivo</a>'
+                }
+            ],
+            dataSource: {
+                type: 'json',
+                data: PF_MultipleFileACObject.MultipleData,
+            },
+            columns: [{
+                field: 'FileName',
+                title: 'Archivo',
+            }, {
+                field: 'ProviderInfoUrl',
+                title: ' ',
+                template: '<a href="${ProviderInfoUrl}" target="_blank">Ver archivo</a>'
+            }, {
+                field: 'ProviderInfoId',
+                title: ' ',
+                template: '<a href="javascript:PF_MultipleFileObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
+            }]
+        });
+    },
+
+    Create: function () {
+
+    },
+
+    OpenDialog: function () {
+        debugger;
+        $('#' + this.DialogId).dialog();
+        //$('#' + this.DialogId).html('');        
+        //$('#' + this.DialogId).append('<li><label>Etiqueta</label></li>')
+        //$('#' + this.DialogId).append('<li><input type="Text" id="' + PF_MultipleFileACObject.DivId + '" name="' + PF_MultipleFileACObject.DivId + '" /></li>')
+        $('#' + this.DialogId).append('<li><input type="file" id="' + PF_MultipleFileACObject.DivId + '" name="' + PF_MultipleFileACObject.DivId + '" /></li>');
+        $('#' + this.DialogId).append('<a class="" href="javascript:PF_MultipleFileACObject.Create();">Agregar</a><ul>')
+
+        //PF_InitAutocomplete(PF_MultipleFileACObject.DivId, PF_MultipleFileACObject.ocData);
     },
 }

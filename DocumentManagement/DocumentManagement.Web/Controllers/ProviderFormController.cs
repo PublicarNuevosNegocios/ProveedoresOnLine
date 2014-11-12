@@ -386,6 +386,10 @@ namespace DocumentManagement.Web.Controllers
                     {
                         oProviderInfoToAdd = GetFieldMultipleFileRequest(reqKey.Key, GenericModels);
                     }
+                    else if (MVC.Shared.Views._P_FieldMultipleFileAC.IndexOf(reqKey.Value) >= 0)
+                    {
+                        oProviderInfoToAdd = GetFieldMultipleFileACRequest(reqKey.Key, GenericModels);
+                    }
 
                     if (oProviderInfoToAdd != null)
                     {
@@ -520,7 +524,7 @@ namespace DocumentManagement.Web.Controllers
 
                 string strFile = "";
                 string strRemoteFile = "";
-                ProviderMultipleFileModel oReqObject = new ProviderMultipleFileModel();
+                ProviderMultipleFileModelAC oReqObject = new ProviderMultipleFileModelAC();
 
                 if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                 {
@@ -544,7 +548,7 @@ namespace DocumentManagement.Web.Controllers
                     if (System.IO.File.Exists(strFile))
                         System.IO.File.Delete(strFile);
 
-                    oReqObject = new ProviderMultipleFileModel()
+                    oReqObject = new ProviderMultipleFileModelAC()
                     {
                         ProviderInfoId = "0",
                         IsDelete = false,
@@ -556,7 +560,80 @@ namespace DocumentManagement.Web.Controllers
 
                     if (RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList().Count >= 3)
                     {
-                        oReqObject = (ProviderMultipleFileModel)(new System.Web.Script.Serialization.JavaScriptSerializer()).
+                        oReqObject = (ProviderMultipleFileModelAC)(new System.Web.Script.Serialization.JavaScriptSerializer()).
+                        Deserialize(Request[RequestKey], typeof(ProviderMultipleFileModelAC));
+                    }
+
+                    if (oProviderInfoType != null && oReqObject.ProviderInfoId != null)
+                    {
+                        Provider.Models.Provider.ProviderInfoModel oReturn = new Provider.Models.Provider.ProviderInfoModel()
+                        {
+                            ProviderInfoId = RequestKeySplit.Count >= 3 ? Convert.ToInt32(RequestKeySplit[2].Replace(" ", "")) : 0,
+                            ProviderInfoType = oProviderInfoType,
+                            LargeValue = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(oReqObject),
+                        };
+                        return oReturn;
+                    }
+                }
+            }
+            return null;
+        }
+
+        private DocumentManagement.Provider.Models.Provider.ProviderInfoModel GetFieldMultipleFileACRequest(string RequestKey, ProviderFormModel GenericModels)
+        {
+            List<string> RequestKeySplit = RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            if (RequestKeySplit.Count >= 2)
+            {
+                //get folder
+                string strFolder = Server.MapPath(DocumentManagement.Models.General.InternalSettings.Instance
+                    [DocumentManagement.Models.General.Constants.C_Settings_File_TempDirectory].Value);
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                //get File
+                HttpPostedFileBase UploadFile = (HttpPostedFileBase)Request.Files[RequestKey];
+
+                string strFile = "";
+                string strRemoteFile = "";
+                ProviderMultipleFileModelAC oReqObject = new ProviderMultipleFileModelAC();
+
+                if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
+                {
+                    strFile = strFolder.TrimEnd('\\') +
+                    "\\ProviderFile_" +
+                    GenericModels.RealtedProvider.CustomerPublicId + "_" +
+                    RequestKeySplit[1].Replace(" ", "") + "_" +
+                    DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                    UploadFile.FileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
+
+                    UploadFile.SaveAs(strFile);
+
+                    //load file to s3
+                    strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                        (strFile,
+                        DocumentManagement.Models.General.InternalSettings.Instance
+                            [DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
+                            GenericModels.RealtedProvider.CustomerPublicId + "\\");
+
+                    //remove temporal file
+                    if (System.IO.File.Exists(strFile))
+                        System.IO.File.Delete(strFile);
+
+                    oReqObject = new ProviderMultipleFileModelAC()
+                    {
+                        ProviderInfoId = "0",
+                        IsDelete = false,
+                        ProviderInfoUrl = strRemoteFile,
+                    };
+
+                    DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType
+                        (GenericModels, Convert.ToInt32(RequestKeySplit[1].Replace(" ", "")));
+
+                    if (RequestKey.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries).ToList().Count >= 3)
+                    {
+                        oReqObject = (ProviderMultipleFileModelAC)(new System.Web.Script.Serialization.JavaScriptSerializer()).
                         Deserialize(Request[RequestKey], typeof(ProviderMultipleFileModel));
                     }
 
