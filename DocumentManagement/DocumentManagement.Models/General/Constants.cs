@@ -59,6 +59,12 @@
 
         #endregion
 
+        #region PublicIdPublicar
+
+        public const string C_Settings_PublicId_Publicar = "CustomerPublicId_Publicar";
+        
+        #endregion
+
         #endregion
     }
 }

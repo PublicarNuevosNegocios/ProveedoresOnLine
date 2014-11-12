@@ -48,17 +48,18 @@
         }, {
             field: "RelatedProvider.Name",
             title: "Razón Social",
-            width: 200,
+            width: 150
         }, {
             field: "RelatedProvider.IdentificationType.ItemName",
             title: "Tipo identificación"
         }, {
             field: "RelatedProvider.IdentificationNumber",
-            title: "Númer identificación"
+            title: "Númer identificación",
+            width: 110
         }, {
             field: "RelatedProvider.CustomerName",
             title: "Comprador",
-            width: 200,
+            width: 150
         }, {
             field: "RelatedProvider.Email",
             title: "Email"
