@@ -159,7 +159,7 @@ var PF_PartnerFormObject = {
 //init autocomplete control
 function PF_InitAutocomplete(acId, acData) {
     $('#' + acId).autocomplete(
-	{
+	{       
 	    source: acData,
 	    minLength: 0,
 	});
@@ -265,6 +265,7 @@ var PF_MultipleFileObject = {
         });
 
         $('#' + PF_MultipleFileObject.DivId + '_Create').html($('#' + PF_MultipleFileObject.DivId + '_Create').html().replace(/pform/gi, 'form'));
+        PF_InitAutocomplete(PF_MultipleFileObject.DivId + '--Name', this.ACData);
     },
 
     Create: function () {

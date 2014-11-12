@@ -35,7 +35,7 @@
                         <label>Nombre</label>
                     </li>
                     <li>
-                        <input type="text" name="@(strId)--Name" />
+                        <input type="text" name="@(strId)--Name" id="@(strId)--Name" />
                     </li>
                     <li>
                         <input type="file" name="@(strId)--File" value="" />
@@ -57,7 +57,7 @@ else
             Where(x => x.IsDelete == false).ToList());
     }
 
-    string oAcData = string.Empty;
+    string oAcData = "[]";
     if (Model.ProviderOptions.ContainsKey(Model.RealtedField.ProviderInfoType.ItemId))
     {
         oAcData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
