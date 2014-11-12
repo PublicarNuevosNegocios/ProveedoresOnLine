@@ -1,0 +1,75 @@
+﻿@model DocumentManagement.Models.Provider.ProviderFieldModel
+
+@{
+    //get grid id
+    string strId = Model.FieldType + "-" + Model.RealtedField.FieldId;
+}
+
+@if (!Model.RenderScripts)
+{
+    <div>
+        <!--Multiple file name-->
+        @if (Model.RealtedField.IsRequired)
+        {
+            <span>*</span>
+        }
+        <label class="labelMultipleFiles">@Model.RealtedField.Name:</label>
+        <div id="@strId"></div>
+    </div>
+
+    <div style="display:none;">
+        <input type="hidden" name="@(strId)-" id="@(strId)-" />
+    </div>
+
+    <!--Dialog-->
+    <div id="dialog" style="display:none;">
+        <div id="@(strId)_Delete" title="Edición de @Model.RealtedField.Name">
+            <div>Esta seguro de borrar @Model.RealtedField.Name</div>
+        </div>
+    </div>
+
+    <!--Dialog-->
+    <div id="dialogCreate" style="display:none;">       
+        <label>Etiqueta</label>
+        <input type="text" id="Prueba" name="Prueba"  />
+    </div>
+}
+else
+{
+    string oGridData = string.Empty;
+    if (Model.RealtedProviderInfo != null)
+    {
+        oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(Model.RealtedProviderInfo.
+            Select(
+                x => new DocumentManagement.Models.Provider.ProviderMultipleFileModelAC(x.LargeValue, x.ProviderInfoId.ToString())).
+            Where(x => x.IsDelete == false).ToList());
+    }
+    string oAcData = string.Empty;
+
+    if (Model.ProviderOptions.ContainsKey(Model.RealtedField.ProviderInfoType.ItemId))
+    {
+        oAcData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(
+            Model.
+            ProviderOptions[Model.RealtedField.ProviderInfoType.ItemId].
+            Select(x => x.ItemName).ToList());
+    }
+
+    <script type="text/javascript">
+        var vGridData = @(Html.Raw(oGridData));
+        var vAcData = @(Html.Raw(oAcData));
+        $(document).ready(function () {
+            debugger;
+            //Start grid
+            PF_MultipleFileACObject.Init({
+                DivId: '@strId',
+            MultipleData: vGridData,
+            DialogId: "dialogCreate",
+            ocData: vAcData,
+        });
+        PF_MultipleFileACObject.RenderAsync();
+        PF_InitAutocomplete('Prueba', vAcData);
+    });
+    </script>
+}

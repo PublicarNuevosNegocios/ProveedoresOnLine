@@ -1057,6 +1057,7 @@
     <Content Include="Views\ProviderForm\AdminProvider.cshtml" />
     <Content Include="Views\Shared\_P_FieldMultipleFile.cshtml" />
     <Content Include="Views\LogFile\Index.cshtml" />
+    <Content Include="Views\Shared\_P_FieldMultipleFileAC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

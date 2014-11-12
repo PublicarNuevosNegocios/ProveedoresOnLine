@@ -49,6 +49,7 @@ namespace T4MVC
                 public readonly string _P_FieldFormPdf = "_P_FieldFormPdf";
                 public readonly string _P_FieldLegalTerms = "_P_FieldLegalTerms";
                 public readonly string _P_FieldMultipleFile = "_P_FieldMultipleFile";
+                public readonly string _P_FieldMultipleFileAC = "_P_FieldMultipleFileAC";
                 public readonly string _P_FieldNumber = "_P_FieldNumber";
                 public readonly string _P_FieldPartners = "_P_FieldPartners";
                 public readonly string _P_FieldQuantity = "_P_FieldQuantity";
@@ -71,6 +72,7 @@ namespace T4MVC
             public readonly string _P_FieldFormPdf = "~/Views/Shared/_P_FieldFormPdf.cshtml";
             public readonly string _P_FieldLegalTerms = "~/Views/Shared/_P_FieldLegalTerms.cshtml";
             public readonly string _P_FieldMultipleFile = "~/Views/Shared/_P_FieldMultipleFile.cshtml";
+            public readonly string _P_FieldMultipleFileAC = "~/Views/Shared/_P_FieldMultipleFileAC.cshtml";
             public readonly string _P_FieldNumber = "~/Views/Shared/_P_FieldNumber.cshtml";
             public readonly string _P_FieldPartners = "~/Views/Shared/_P_FieldPartners.cshtml";
             public readonly string _P_FieldQuantity = "~/Views/Shared/_P_FieldQuantity.cshtml";

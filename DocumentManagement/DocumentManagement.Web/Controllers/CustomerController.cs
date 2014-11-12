@@ -234,7 +234,9 @@ namespace DocumentManagement.Web.Controllers
                     ProviderModel Provider = new ProviderModel();
 
                     ProviderModel oResultValidate = new ProviderModel();
+                    ProviderModel oInfoValidate = new ProviderModel();
                     oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), CustomerPublicId);
+                    //oInfoValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByInfoType(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), 401);
 
                     //Create ProviderCustomerInfo
                     List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
