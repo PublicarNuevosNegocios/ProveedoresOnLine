@@ -25,7 +25,7 @@
     <!--Field Params-->
     <key name="Field_Types">_P_FieldEmail,_P_FieldFile,_P_FieldFormPdf,_P_FieldLegalTerms,_P_FieldNumber,_P_FieldPartners,_P_FieldQuantity,_P_FieldText,_P_FieldAutocomplete,_P_FieldMultipleFile</key>
     <key name="_P_FieldAutocomplete">307,</key>
-    <key name="_P_FieldEmail">303,306,310,313,326,328,330,332,</key>
+    <key name="_P_FieldEmail">303,306,310,313,326,328,330,332,372,</key>
     <key name="_P_FieldFile">343,344,345,346,347,348,353,354,355,356,357,358,359,360,361,368,371</key>
     <key name="_P_FieldFormPdf">365,369,370</key>
     <key name="_P_FieldLegalTerms">363,364,</key>
