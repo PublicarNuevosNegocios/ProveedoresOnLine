@@ -74,6 +74,14 @@
             width: 300,               
             template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
         }, {
+            field: "LastModifyUser",
+            title: "Usuario que actualizó",
+            width: 100,
+        }, {
+            field: "lastModify",
+            title: "Ultima actualización",
+            width: 100,
+        }, {
             field: "Edit",
             title: "Edit",
             width: 100,

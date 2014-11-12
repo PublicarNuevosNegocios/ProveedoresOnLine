@@ -36,5 +36,9 @@ namespace DocumentManagement.Provider.Models.Provider
         public DateTime CreateDate { get; set; }
 
         public Int64 CustomerCount { get; set; }
+
+        public string LogCreateDate { get; set; }
+
+        public string LogUser { get; set; }
     }
 }

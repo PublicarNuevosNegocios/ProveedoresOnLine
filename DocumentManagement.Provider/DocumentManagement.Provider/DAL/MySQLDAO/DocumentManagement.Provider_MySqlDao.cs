@@ -129,6 +129,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          CustomerPublicId = c.Field<string>("CustomerPublicId"),
                          CustomerName = c.Field<string>("CustomerName"),
                          CustomerCount = c.Field<Int64>("CustomerCount"),
+                         logUser = c.Field<string>("LogUser"),
+                         LogCreateDate = !c.IsNull("LogCreateDate") ? c.Field<DateTime>("LogCreateDate").ToString("dddd/MM/yyyy HH:mm") : string.Empty,
                      } into prov
                      select new ProviderModel()
                      {
@@ -146,6 +148,8 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          CustomerName = prov.Key.CustomerName,
                          CustomerPublicId = prov.Key.CustomerPublicId,
                          CustomerCount = prov.Key.CustomerCount,
+                         LogUser = prov.Key.logUser,
+                         LogCreateDate = prov.Key.LogCreateDate,
 
                          RelatedProviderCustomerInfo =
                             (from pci in response.DataTableResult.AsEnumerable()
