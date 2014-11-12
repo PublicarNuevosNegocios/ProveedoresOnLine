@@ -4,6 +4,7 @@
     $('#' + vidDiv).kendoGrid({
         toolbar: [{ template: $('#' + vidDiv + '_Header').html() }],
         pageable: true,
+        scrollable: true,
         dataSource: {
             pageSize: 20,
             serverPaging: true,
@@ -45,46 +46,54 @@
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
             title: "Id Proveedor",
+            width: 100
         }, {
             field: "RelatedProvider.Name",
             title: "Razón Social",
-            width: 150
+            width: 200
         }, {
             field: "RelatedProvider.IdentificationType.ItemName",
-            title: "Tipo identificación"
+            title: "Tipo identificación",
+            width: 150
         }, {
             field: "RelatedProvider.IdentificationNumber",
             title: "Númer identificación",
-            width: 110
+            width: 150
         }, {
             field: "RelatedProvider.CustomerName",
             title: "Comprador",
-            width: 150
+            width: 200
         }, {
             field: "RelatedProvider.Email",
-            title: "Email"
+            title: "Email",
+            width: 200
         }, {
             field: "FormUrl",
             title: "URL",
-            width: 100,
+            width: 200,
             template: $('#' + vidDiv + '_FormUrl').html(),
         }, {
             field: "RelatedProvider.CustomerCount",
             title: "# Comp. Relacionados",
+            width: 150
         }, {
             field: "codSalesforce",
             title: "URL SalesForce",         
             template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
+            width: 150
         }, {
             field: "LastModifyUser",
             title: "Usuario que actualizó",
+            width: 200
         }, {
             field: "lastModify",
             title: "Ultima actualización",
+            width: 200
         }, {
             field: "Edit",
             title: "Edit",
-            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\');">Editar</a>'
+            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\');">Editar</a>',
+            width: 150
         }],
     });
     //add search button event
