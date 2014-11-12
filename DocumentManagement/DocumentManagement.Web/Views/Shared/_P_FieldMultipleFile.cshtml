@@ -23,8 +23,25 @@
 
     <!--Dialog-->
     <div id="dialog" style="display:none;">
+        <!--dialog delete-->
         <div id="@(strId)_Delete" title="Edición de @Model.RealtedField.Name">
             <div>Esta seguro de borrar @Model.RealtedField.Name</div>
+        </div>
+        <!--dialog create-->
+        <div id="@(strId)_Create" style="display:none;">
+            <pform id="@(strId)_Form" method="post" enctype="multipart/form-data">
+                <ul>
+                    <li>
+                        <label>Nombre</label>
+                    </li>
+                    <li>
+                        <input type="text" name="@(strId)--Name" />
+                    </li>
+                    <li>
+                        <input type="file" name="@(strId)--File" value="" />
+                    </li>
+                </ul>
+            </pform>
         </div>
     </div>
 }
@@ -40,13 +57,25 @@ else
             Where(x => x.IsDelete == false).ToList());
     }
 
+    string oAcData = string.Empty;
+    if (Model.ProviderOptions.ContainsKey(Model.RealtedField.ProviderInfoType.ItemId))
+    {
+        oAcData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(
+            Model.
+            ProviderOptions[Model.RealtedField.ProviderInfoType.ItemId].
+            Select(x => x.ItemName).ToList());
+    }
+
     <script type="text/javascript">
-        var vGridData = @(Html.Raw(oGridData))
+        var vGridData = @(Html.Raw(oGridData));
+        var vACData = @(Html.Raw(oAcData));
         $(document).ready(function () {
             //Start grid
             PF_MultipleFileObject.Init({
                 DivId: '@strId',
                 MultipleData: vGridData,
+                ACData: vACData,
             });
             PF_MultipleFileObject.RenderAsync();
         });

@@ -158,7 +158,6 @@ var PF_PartnerFormObject = {
 
 //init autocomplete control
 function PF_InitAutocomplete(acId, acData) {
-    debugger;
     $('#' + acId).autocomplete(
 	{
 	    source: acData,
@@ -214,11 +213,13 @@ var PF_MultipleFileObject = {
 
     DivId: '',
     MultipleData: new Array(),
+    ACData: new Array(),
 
     Init: function (vInitObject) {
 
         this.DivId = vInitObject.DivId;
         this.MultipleData = vInitObject.MultipleData;
+        this.ACData = vInitObject.ACData;
     },
 
     //init Multiple File grid
@@ -226,7 +227,7 @@ var PF_MultipleFileObject = {
         $('#' + PF_MultipleFileObject.DivId).kendoGrid({
             toolbar: [
                 {
-                    template: '<input type="file" id="' + PF_MultipleFileObject.DivId + '" name="' + PF_MultipleFileObject.DivId + '" /><a class="AddMultipleFile" href="javascript:PF_MultipleFileObject.Create();">Agregar archivo</a>'
+                    template: '<a class="AddMultipleFile" href="javascript:PF_MultipleFileObject.ShowCreate();">Agregar archivo</a>'
                 }
             ],
             dataSource: {
@@ -234,8 +235,8 @@ var PF_MultipleFileObject = {
                 data: PF_MultipleFileObject.MultipleData,
             },
             columns: [{
-                field: 'FileName',
-                title: 'Archivo',
+                field: 'Name',
+                title: 'Nombre',
             }, {
                 field: 'ProviderInfoUrl',
                 title: ' ',
@@ -248,16 +249,28 @@ var PF_MultipleFileObject = {
         });
     },
 
+    ShowCreate: function (ProviderInfoId) {
+        $('#' + PF_MultipleFileObject.DivId + '_Create').dialog({
+            modal: true,
+            buttons: {
+                "Crear": function () {
+                    //create
+                    PF_MultipleFileObject.Create();
+                    $(this).dialog("close");
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('#' + PF_MultipleFileObject.DivId + '_Create').html($('#' + PF_MultipleFileObject.DivId + '_Create').html().replace(/pform/gi, 'form'));
+    },
+
     Create: function () {
-
-        var oReq = '';
-        oReq = oReq + '{ProviderInfoId:0,';
-        oReq = oReq + 'ProviderInfoUrl:"' + $('#' + PF_MultipleFileObject.DivId).val() + '",';
-        oReq = oReq + 'IsDelete:"false"}';
-
-        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
-
-        PF_PostBackForm('FrmGenericStep', '');
+        $('#' + PF_MultipleFileObject.DivId + '_Form').append('<input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />');
+        $('#' + PF_MultipleFileObject.DivId + '_Form').attr('action', $('#FrmGenericStep').attr('action'));
+        PF_PostBackForm(PF_MultipleFileObject.DivId + '_Form', '');
     },
 
     ShowDelete: function (ProviderInfoId) {
@@ -268,26 +281,17 @@ var PF_MultipleFileObject = {
                 buttons: {
                     "Borrar": function () {
                         //delete
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
-                            dataType: "json",
-                            type: "POST",
-                            success: function (result) {
-                                var oReq = '';
-                                oReq = oReq + '{IsDelete:"true",';
-                                oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
-                                oReq = oReq + 'ProviderInfoUrl:""}';
+                        var oReq = '';
+                        oReq = oReq + '{IsDelete:"true",';
+                        oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
+                        oReq = oReq + 'Name:"",';
+                        oReq = oReq + 'ProviderInfoUrl:""}';
 
-                                $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
-                                $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
+                        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
+                        $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
 
-                                PF_PostBackForm('FrmGenericStep', '');
-                            },
-                            error: function (result) {
+                        PF_PostBackForm('FrmGenericStep', '');
 
-                                alert('Se ha generado un error:' + result);
-                            }
-                        });
                         $(this).dialog("close");
                     },
                     "Cancelar": function () {
@@ -300,64 +304,5 @@ var PF_MultipleFileObject = {
             alert('no se puede borrar ' + ProviderInfoId);
         }
     },
-}
+};
 
-var PF_MultipleFileACObject = {
-    
-    DivId: '',
-    MultipleData: new Array(),
-    DialogId: '',
-    ocData: new Array(),
-
-    Init: function (vInitObject) {
-        debugger;
-
-        this.DivId = vInitObject.DivId;
-        this.MultipleData = vInitObject.MultipleData;
-        this.DialogId = vInitObject.DialogId;
-        this.ocData = vInitObject.ocData;
-    },
-
-    //init Multiple File grid
-    RenderAsync: function () {
-        $('#' + PF_MultipleFileACObject.DivId).kendoGrid({
-            toolbar: [
-                {
-                    template: '<a class="AddMultipleFile" href="javascript:PF_MultipleFileACObject.OpenDialog();">Agregar archivo</a>'
-                }
-            ],
-            dataSource: {
-                type: 'json',
-                data: PF_MultipleFileACObject.MultipleData,
-            },
-            columns: [{
-                field: 'FileName',
-                title: 'Archivo',
-            }, {
-                field: 'ProviderInfoUrl',
-                title: ' ',
-                template: '<a href="${ProviderInfoUrl}" target="_blank">Ver archivo</a>'
-            }, {
-                field: 'ProviderInfoId',
-                title: ' ',
-                template: '<a href="javascript:PF_MultipleFileObject.ShowDelete(${ProviderInfoId});">Borrar</a>'
-            }]
-        });
-    },
-
-    Create: function () {
-
-    },
-
-    OpenDialog: function () {
-        debugger;
-        $('#' + this.DialogId).dialog();
-        //$('#' + this.DialogId).html('');        
-        //$('#' + this.DialogId).append('<li><label>Etiqueta</label></li>')
-        //$('#' + this.DialogId).append('<li><input type="Text" id="' + PF_MultipleFileACObject.DivId + '" name="' + PF_MultipleFileACObject.DivId + '" /></li>')
-        $('#' + this.DialogId).append('<li><input type="file" id="' + PF_MultipleFileACObject.DivId + '" name="' + PF_MultipleFileACObject.DivId + '" /></li>');
-        $('#' + this.DialogId).append('<a class="" href="javascript:PF_MultipleFileACObject.Create();">Agregar</a><ul>')
-
-        //PF_InitAutocomplete(PF_MultipleFileACObject.DivId, PF_MultipleFileACObject.ocData);
-    },
-}
