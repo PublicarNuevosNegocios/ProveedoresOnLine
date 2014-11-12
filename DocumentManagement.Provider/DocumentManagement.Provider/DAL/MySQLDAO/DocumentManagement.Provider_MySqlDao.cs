@@ -130,7 +130,7 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
                          CustomerName = c.Field<string>("CustomerName"),
                          CustomerCount = c.Field<Int64>("CustomerCount"),
                          logUser = c.Field<string>("LogUser"),
-                         LogCreateDate = !c.IsNull("LogCreateDate") ? c.Field<DateTime>("LogCreateDate").ToString("dddd/MM/yyyy HH:mm") : string.Empty,
+                         LogCreateDate = !c.IsNull("LogCreateDate") ? c.Field<DateTime>("LogCreateDate").ToString("dd/MM/yyyy HH:mm") : string.Empty,
                      } into prov
                      select new ProviderModel()
                      {

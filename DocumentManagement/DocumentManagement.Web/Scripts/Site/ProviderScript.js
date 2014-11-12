@@ -47,7 +47,8 @@
             title: "Id Proveedor",
         }, {
             field: "RelatedProvider.Name",
-            title: "Razón Social"
+            title: "Razón Social",
+            width: 200,
         }, {
             field: "RelatedProvider.IdentificationType.ItemName",
             title: "Tipo identificación"
@@ -56,7 +57,8 @@
             title: "Númer identificación"
         }, {
             field: "RelatedProvider.CustomerName",
-            title: "Comprador"
+            title: "Comprador",
+            width: 200,
         }, {
             field: "RelatedProvider.Email",
             title: "Email"
@@ -70,21 +72,17 @@
             title: "# Comp. Relacionados",
         }, {
             field: "codSalesforce",
-            title: "URL SalesForce",
-            width: 300,               
+            title: "URL SalesForce",         
             template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
         }, {
             field: "LastModifyUser",
             title: "Usuario que actualizó",
-            width: 100,
         }, {
             field: "lastModify",
             title: "Ultima actualización",
-            width: 100,
         }, {
             field: "Edit",
             title: "Edit",
-            width: 100,
             template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\');">Editar</a>'
         }],
     });
