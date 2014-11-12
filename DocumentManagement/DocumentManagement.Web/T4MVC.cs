@@ -27,6 +27,7 @@ public static partial class MVC
 {
     public static DocumentManagement.Web.Controllers.BaseController Base = new DocumentManagement.Web.Controllers.T4MVC_BaseController();
     public static DocumentManagement.Web.Controllers.CustomerController Customer = new DocumentManagement.Web.Controllers.T4MVC_CustomerController();
+    public static DocumentManagement.Web.Controllers.ErrorController Error = new DocumentManagement.Web.Controllers.T4MVC_ErrorController();
     public static DocumentManagement.Web.Controllers.HomeController Home = new DocumentManagement.Web.Controllers.T4MVC_HomeController();
     public static DocumentManagement.Web.Controllers.LogFileController LogFile = new DocumentManagement.Web.Controllers.T4MVC_LogFileController();
     public static DocumentManagement.Web.Controllers.ProviderController Provider = new DocumentManagement.Web.Controllers.T4MVC_ProviderController();
@@ -649,6 +650,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
             public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string Error_png = Url("Error.png");
             public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
             public static readonly string lidl_png = Url("lidl.png");
             public static readonly string LogInBackground_jpg = Url("LogInBackground.jpg");
