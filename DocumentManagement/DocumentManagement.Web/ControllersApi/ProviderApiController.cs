@@ -39,6 +39,8 @@ namespace DocumentManagement.Web.ControllersApi
                 {
                     RelatedProvider = prv,
                     codSalesforce = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault() == null ? string.Empty : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault(),
+                    lastModify = prv.LogCreateDate,
+                    LastModifyUser = prv.LogUser,
                     CustomerInfoTypeId = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.ProviderInfoId).FirstOrDefault() == null ? 0 : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.ProviderInfoId).FirstOrDefault(),
                     oTotalRows = oTotalRows
                 });
