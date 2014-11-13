@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Crawler>
+    <key name="CrawlerUrl_BasicInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}&actividad=0&id_estado_pasa=1]]></key>
+  </Crawler>
+</Settings>
+

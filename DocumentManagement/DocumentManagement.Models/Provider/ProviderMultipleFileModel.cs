@@ -27,6 +27,8 @@ namespace DocumentManagement.Models.Provider
             }
         }
 
+        public string Name { get; set; }
+
         public ProviderMultipleFileModel() { }
 
         public ProviderMultipleFileModel(string strJson, string ProviderInfoId)
@@ -38,9 +40,20 @@ namespace DocumentManagement.Models.Provider
                         (strJson,
                         typeof(ProviderMultipleFileModel));
 
-            this.ProviderInfoId = ProviderInfoId;
-            this.IsDelete = oObjAux.IsDelete;
-            this.ProviderInfoUrl = oObjAux.ProviderInfoUrl;
+            if (oObjAux != null)
+            {
+                this.ProviderInfoId = ProviderInfoId;
+                this.IsDelete = oObjAux.IsDelete;
+                this.ProviderInfoUrl = oObjAux.ProviderInfoUrl;
+                this.Name = oObjAux.Name;
+            }
+            else
+            {
+                this.ProviderInfoId = ProviderInfoId;
+                this.IsDelete = true;
+                this.ProviderInfoUrl = string.Empty;
+                this.Name = string.Empty;
+            }
         }
     }
 }

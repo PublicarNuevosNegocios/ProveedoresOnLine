@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="Crawler">
+    <key name="location">D:\Publicar Software\ProveedoresOnline\ProveedoresOnlineV1.0\Crawler\Crawler\Rsx-Crawler.xml</key>
+  </Module>
+  <Module name="FileRepository">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\Rsx-FileRepository.xml</key>
+  </Module>
+</SettingsConfig>

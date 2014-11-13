@@ -30,7 +30,7 @@ namespace DocumentManagement.Web.ControllersApi
                 prv.RelatedProviderCustomerInfo.All(y =>
                            {
                                if (y.ProviderInfoType.ItemId == 403)
-                                   y.Value = "https://na2.salesforce.com/" + y.Value;
+                                   y.Value = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_Path_SalesForce].Value + y.Value;
                                return true;
                            }); 
                 #endregion
@@ -39,6 +39,8 @@ namespace DocumentManagement.Web.ControllersApi
                 {
                     RelatedProvider = prv,
                     codSalesforce = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault() == null ? string.Empty : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.Value).FirstOrDefault(),
+                    lastModify = prv.LogCreateDate,
+                    LastModifyUser = prv.LogUser,
                     CustomerInfoTypeId = prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.ProviderInfoId).FirstOrDefault() == null ? 0 : prv.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x.ProviderInfoId).FirstOrDefault(),
                     oTotalRows = oTotalRows
                 });

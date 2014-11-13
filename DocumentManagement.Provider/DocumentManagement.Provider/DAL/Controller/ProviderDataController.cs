@@ -68,5 +68,10 @@ namespace DocumentManagement.Provider.DAL.Controller
         {
             return DataFactory.CatalogGetProviderOptions();
         }
+
+        public Models.Provider.ProviderModel ProviderGetByInfoType(string IdentificationNumber, int IdentificationTypeId, int ProviderInfoTypeId)
+        {
+            return DataFactory.ProviderGetByInfoType(IdentificationNumber, IdentificationTypeId, ProviderInfoTypeId);
+        }
     }
 }
