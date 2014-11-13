@@ -26,6 +26,8 @@
 
         public const string C_Settings_Catalog_IdentificationType = "Catalog_IdentificationType";
 
+        public const string C_Settings_Path_SalesForce = "Path_Salesforce";
+
         #endregion
 
         #region Provider General
@@ -55,6 +57,12 @@
 
         public const string C_Settings_Field_Types = "Field_Types";
 
+        #endregion
+
+        #region PublicIdPublicar
+
+        public const string C_Settings_PublicId_Publicar = "CustomerPublicId_Publicar";
+        
         #endregion
 
         #endregion

@@ -221,11 +221,15 @@
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LogFileController.cs" />
     <Compile Include="Controllers\ProviderFormController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -260,6 +264,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\arrowSelectedMenuSmall.png" />
     <Content Include="Content\Images\cerrar.png" />
+    <Content Include="Content\Images\Error.png" />
     <Content Include="Content\Images\Google-plus-icon.png" />
     <Content Include="Content\Images\lidl.png" />
     <Content Include="Content\Images\LogoPOHeader.png" />
@@ -1057,6 +1062,7 @@
     <Content Include="Views\ProviderForm\AdminProvider.cshtml" />
     <Content Include="Views\Shared\_P_FieldMultipleFile.cshtml" />
     <Content Include="Views\LogFile\Index.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

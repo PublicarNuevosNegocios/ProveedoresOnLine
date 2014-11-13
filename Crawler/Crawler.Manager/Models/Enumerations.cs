@@ -1,0 +1,3 @@
+﻿namespace Crawler.Manager.Models
+{
+}

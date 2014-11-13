@@ -126,6 +126,11 @@ namespace DocumentManagement.Provider.Controller
             return DAL.Controller.ProviderDataController.Instance.CatalogGetProviderOptions();
         }
 
+        public static ProviderModel ProviderGetByInfoType(string IdentificationNumber, int IdentificationTypeId, int ProviderInfoTypeId)
+        {
+            return DAL.Controller.ProviderDataController.Instance.ProviderGetByInfoType(IdentificationNumber, IdentificationTypeId, ProviderInfoTypeId);
+        }
+
         #region Log
 
         private static LogManager.Models.LogModel GetLogModel()

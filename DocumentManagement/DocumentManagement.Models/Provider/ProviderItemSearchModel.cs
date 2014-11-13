@@ -12,6 +12,10 @@ namespace DocumentManagement.Models.Provider
 
         public string codSalesforce { get; set; }
 
+        public string lastModify { get; set; }
+
+        public string LastModifyUser { get; set; }
+
         public int CustomerInfoTypeId { get; set; }
 
         public int oTotalRows { get; set; }

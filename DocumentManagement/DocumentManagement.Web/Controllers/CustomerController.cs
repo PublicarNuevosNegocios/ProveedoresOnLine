@@ -182,7 +182,7 @@ namespace DocumentManagement.Web.Controllers
                 return View(oModel);
             }
         }
-               
+
         #region private methods
 
         private CustomerModel GetCustomerRequest()
@@ -234,21 +234,23 @@ namespace DocumentManagement.Web.Controllers
                     ProviderModel Provider = new ProviderModel();
 
                     ProviderModel oResultValidate = new ProviderModel();
+                    ProviderModel oInfoValidate = new ProviderModel();
                     oResultValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), CustomerPublicId);
+                    //oInfoValidate = DocumentManagement.Provider.Controller.Provider.ProviderGetByInfoType(prv.NumeroIdentificacion, Convert.ToInt32(prv.TipoIdentificacion), 401);
 
                     //Create ProviderCustomerInfo
                     List<ProviderInfoModel> ListCustomerProviderInfo = new List<ProviderInfoModel>();
                     ProviderInfoModel CustomerProviderInfo = new ProviderInfoModel();
-                    if (oResultValidate ==null)
+                    if (oResultValidate == null)
                     {
                         CustomerProviderInfo.ProviderInfoType = new CatalogModel() { ItemId = 401 };
                         CustomerProviderInfo.Value = "201";
                         ListCustomerProviderInfo.Add(CustomerProviderInfo);
-                    }                    
+                    }
 
                     CustomerProviderInfo = new ProviderInfoModel();
 
-                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ? 
+                    CustomerProviderInfo.ProviderInfoId = oResultValidate != null ?
                                                           oResultValidate.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).
                                                                     Select(x => x.ProviderInfoId).FirstOrDefault() : 0;
 
@@ -268,20 +270,27 @@ namespace DocumentManagement.Web.Controllers
                         RelatedProviderCustomerInfo = ListCustomerProviderInfo
                     };
                     if (oResultValidate == null)
+                    {
                         DocumentManagement.Provider.Controller.Provider.ProviderUpsert(ProviderToCreate);
+
+                        ProviderToCreate.CustomerPublicId = DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_Settings_PublicId_Publicar].Value;
+                        CustomerProviderInfo.ProviderInfoId = 0;
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
+
+                    }
                     else
                     {
                         ProviderToCreate.ProviderPublicId = oResultValidate.ProviderPublicId;
-                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate); 
+                        DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(ProviderToCreate);
                     }
-             
+
 
                     oPrvToProcessResult.Add(new ExcelProviderResultModel()
                     {
                         PrvModel = prv,
                         Success = true,
                         Error = "Se ha creado el Proveedor '" + ProviderToCreate.ProviderPublicId + "'",
-                    }); 
+                    });
                     #endregion
                 }
                 catch (Exception err)
@@ -315,6 +324,7 @@ namespace DocumentManagement.Web.Controllers
                             "\"Email\"" + strSep +
                             "\"CampanaSalesforce\"" + strSep +
 
+                            "\"PublicIdPublicar\"" + DocumentManagement.Models.General.Constants.C_Settings_PublicId_Publicar.ToString() +
                             "\"Success\"" + strSep +
                             "\"Error\"");
 
