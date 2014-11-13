@@ -27,6 +27,7 @@ public static partial class MVC
 {
     public static DocumentManagement.Web.Controllers.BaseController Base = new DocumentManagement.Web.Controllers.T4MVC_BaseController();
     public static DocumentManagement.Web.Controllers.CustomerController Customer = new DocumentManagement.Web.Controllers.T4MVC_CustomerController();
+    public static DocumentManagement.Web.Controllers.ErrorController Error = new DocumentManagement.Web.Controllers.T4MVC_ErrorController();
     public static DocumentManagement.Web.Controllers.HomeController Home = new DocumentManagement.Web.Controllers.T4MVC_HomeController();
     public static DocumentManagement.Web.Controllers.LogFileController LogFile = new DocumentManagement.Web.Controllers.T4MVC_LogFileController();
     public static DocumentManagement.Web.Controllers.ProviderController Provider = new DocumentManagement.Web.Controllers.T4MVC_ProviderController();
@@ -622,6 +623,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string CustomerScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CustomerScripts.min.js") ? Url("CustomerScripts.min.js") : Url("CustomerScripts.js");
             public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
+            public static readonly string LogFileScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/LogFileScripts.min.js") ? Url("LogFileScripts.min.js") : Url("LogFileScripts.js");
             public static readonly string ProviderFormScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProviderFormScripts.min.js") ? Url("ProviderFormScripts.min.js") : Url("ProviderFormScripts.js");
             public static readonly string ProviderScript_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProviderScript.min.js") ? Url("ProviderScript.min.js") : Url("ProviderScript.js");
         }
@@ -648,6 +650,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
             public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string Error_png = Url("Error.png");
             public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
             public static readonly string lidl_png = Url("lidl.png");
             public static readonly string LogInBackground_jpg = Url("LogInBackground.jpg");

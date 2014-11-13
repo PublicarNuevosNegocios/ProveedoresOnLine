@@ -42,7 +42,7 @@ var PF_ValidateFormObject = {
         });
     },
 
-    AddRule: function (vRuleValues) {        
+    AddRule: function (vRuleValues) {
         $('#' + vRuleValues.idDiv).rules("add", {
             required: vRuleValues.Required,
             email: (vRuleValues.Type == 'email'),
@@ -159,7 +159,7 @@ var PF_PartnerFormObject = {
 //init autocomplete control
 function PF_InitAutocomplete(acId, acData) {
     $('#' + acId).autocomplete(
-	{
+	{       
 	    source: acData,
 	    minLength: 0,
 	});
@@ -213,11 +213,13 @@ var PF_MultipleFileObject = {
 
     DivId: '',
     MultipleData: new Array(),
+    ACData: new Array(),
 
     Init: function (vInitObject) {
 
         this.DivId = vInitObject.DivId;
         this.MultipleData = vInitObject.MultipleData;
+        this.ACData = vInitObject.ACData;
     },
 
     //init Multiple File grid
@@ -225,7 +227,7 @@ var PF_MultipleFileObject = {
         $('#' + PF_MultipleFileObject.DivId).kendoGrid({
             toolbar: [
                 {
-                    template: '<input type="file" id="' + PF_MultipleFileObject.DivId + '" name="' + PF_MultipleFileObject.DivId + '" /><a class="AddMultipleFile" href="javascript:PF_MultipleFileObject.Create();">Agregar archivo</a>'
+                    template: '<a class="AddMultipleFile" href="javascript:PF_MultipleFileObject.ShowCreate();">Agregar archivo</a>'
                 }
             ],
             dataSource: {
@@ -233,8 +235,8 @@ var PF_MultipleFileObject = {
                 data: PF_MultipleFileObject.MultipleData,
             },
             columns: [{
-                field: 'FileName',
-                title: 'Archivo',
+                field: 'Name',
+                title: 'Nombre',
             }, {
                 field: 'ProviderInfoUrl',
                 title: ' ',
@@ -247,16 +249,29 @@ var PF_MultipleFileObject = {
         });
     },
 
+    ShowCreate: function (ProviderInfoId) {
+        $('#' + PF_MultipleFileObject.DivId + '_Create').dialog({
+            modal: true,
+            buttons: {
+                "Crear": function () {
+                    //create
+                    PF_MultipleFileObject.Create();
+                    $(this).dialog("close");
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $('#' + PF_MultipleFileObject.DivId + '_Create').html($('#' + PF_MultipleFileObject.DivId + '_Create').html().replace(/pform/gi, 'form'));
+        PF_InitAutocomplete(PF_MultipleFileObject.DivId + '--Name', this.ACData);
+    },
+
     Create: function () {
-
-        var oReq = '';
-        oReq = oReq + '{ProviderInfoId:0,';
-        oReq = oReq + 'ProviderInfoUrl:"' + $('#' + PF_MultipleFileObject.DivId).val() + '",';
-        oReq = oReq + 'IsDelete:"false"}';
-
-        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
-
-        PF_PostBackForm('FrmGenericStep', '');
+        $('#' + PF_MultipleFileObject.DivId + '_Form').append('<input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />');
+        $('#' + PF_MultipleFileObject.DivId + '_Form').attr('action', $('#FrmGenericStep').attr('action'));
+        PF_PostBackForm(PF_MultipleFileObject.DivId + '_Form', '');
     },
 
     ShowDelete: function (ProviderInfoId) {
@@ -267,26 +282,17 @@ var PF_MultipleFileObject = {
                 buttons: {
                     "Borrar": function () {
                         //delete
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?StepDeleteVal=true&StepId=' + ProviderInfoId,
-                            dataType: "json",
-                            type: "POST",
-                            success: function (result) {
-                                var oReq = '';
-                                oReq = oReq + '{IsDelete:"true",';
-                                oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
-                                oReq = oReq + 'ProviderInfoUrl:""}';
+                        var oReq = '';
+                        oReq = oReq + '{IsDelete:"true",';
+                        oReq = oReq + 'ProviderInfoId:"' + ProviderInfoId + '",';
+                        oReq = oReq + 'Name:"",';
+                        oReq = oReq + 'ProviderInfoUrl:""}';
 
-                                $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
-                                $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
+                        $('#' + PF_MultipleFileObject.DivId + '-').val(oReq);
+                        $('#' + PF_MultipleFileObject.DivId + '-').attr('name', $('#' + PF_MultipleFileObject.DivId + '-').attr('name') + ProviderInfoId);
 
-                                PF_PostBackForm('FrmGenericStep', '');
-                            },
-                            error: function (result) {
+                        PF_PostBackForm('FrmGenericStep', '');
 
-                                alert('Se ha generado un error:' + result);
-                            }
-                        });
                         $(this).dialog("close");
                     },
                     "Cancelar": function () {
@@ -299,4 +305,5 @@ var PF_MultipleFileObject = {
             alert('no se puede borrar ' + ProviderInfoId);
         }
     },
-}
+};
+

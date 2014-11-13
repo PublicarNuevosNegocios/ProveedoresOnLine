@@ -23,13 +23,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace DocumentManagement.Web.Controllers
 {
-    public partial class ProviderController
+    public partial class ErrorController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ProviderController() { }
+        public ErrorController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected ProviderController(Dummy d) { }
+        protected ErrorController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,13 +59,13 @@ namespace DocumentManagement.Web.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ProviderController Actions { get { return MVC.Provider; } }
+        public ErrorController Actions { get { return MVC.Error; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Provider";
+        public readonly string Name = "Error";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Provider";
+        public const string NameConst = "Error";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -73,17 +73,13 @@ namespace DocumentManagement.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Index = "Index";
-            public readonly string DownloadFile = "DownloadFile";
-            public readonly string UpdateProvider = "UpdateProvider";
+            public readonly string Error = "Error";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Index = "Index";
-            public const string DownloadFile = "DownloadFile";
-            public const string UpdateProvider = "UpdateProvider";
+            public const string Error = "Error";
         }
 
 
@@ -97,47 +93,25 @@ namespace DocumentManagement.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Index = "Index";
+                public readonly string Error = "Error";
             }
-            public readonly string Index = "~/Views/Provider/Index.cshtml";
+            public readonly string Error = "~/Views/Error/Error.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ProviderController : DocumentManagement.Web.Controllers.ProviderController
+    public partial class T4MVC_ErrorController : DocumentManagement.Web.Controllers.ErrorController
     {
-        public T4MVC_ProviderController() : base(Dummy.Instance) { }
+        public T4MVC_ErrorController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void ErrorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Error()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void DownloadFileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult DownloadFile()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadFile);
-            DownloadFileOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void UpdateProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult UpdateProvider()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateProvider);
-            UpdateProviderOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Error);
+            ErrorOverride(callInfo);
             return callInfo;
         }
 

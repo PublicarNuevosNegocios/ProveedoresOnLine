@@ -367,3 +367,21 @@ a.DMButtonsForm:hover {
     width: 302px;
     height: 152px;
 }
+
+/*Provider Pop-up edit*/
+#EditProviderDialog form ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        #EditProviderDialog form ul li {
+            margin-top: 10px;
+        }
+
+            #EditProviderDialog form ul li span {
+                width: 100%;
+            }
+
+            #EditProviderDialog form ul li input[type="text"] {
+                width: 100%;
+            }

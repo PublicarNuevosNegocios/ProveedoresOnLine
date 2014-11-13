@@ -21,5 +21,8 @@ namespace DocumentManagement.Provider.Interfaces
         DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetById(string ProviderPublicId, int? StepId);
 
         Dictionary<int, List<DocumentManagement.Provider.Models.Util.CatalogModel>> CatalogGetProviderOptions();
+
+        DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetByInfoType(string IdentificationNumber, int IdentificationTypeId, int ProviderInfoTypeId);
+
     }
 }

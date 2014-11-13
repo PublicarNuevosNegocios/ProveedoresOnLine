@@ -4,6 +4,7 @@
     $('#' + vidDiv).kendoGrid({
         toolbar: [{ template: $('#' + vidDiv + '_Header').html() }],
         pageable: true,
+        scrollable: true,
         dataSource: {
             pageSize: 20,
             serverPaging: true,
@@ -41,40 +42,59 @@
                     });
                 }
             },
-        },
+        },        
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
             title: "Id Proveedor",
+            width: 100
         }, {
             field: "RelatedProvider.Name",
-            title: "Razón Social"
+            title: "Razón Social",
+            width: 200
         }, {
             field: "RelatedProvider.IdentificationType.ItemName",
-            title: "Tipo identificación"
+            title: "Tipo identificación",
+            width: 150
         }, {
             field: "RelatedProvider.IdentificationNumber",
-            title: "Númer identificación"
+            title: "Númer identificación",
+            width: 150
         }, {
             field: "RelatedProvider.CustomerName",
-            title: "Comprador"
-        },
-           {
-               field: "RelatedProvider.Email",
-               title: "Email"
-           }, {
-               field: "FormUrl",
-               title: "URL",
-               width: 100,
-               template: $('#' + vidDiv + '_FormUrl').html(),
-           }, {
-               field: "RelatedProvider.CustomerCount",
-               title: "# Comp. Relacionados",
-           }, {
-               field: "codSalesforce",
-               title: "URL SalesForce",
-               width: 300,               
-               template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
-           }],
+            title: "Comprador",
+            width: 200
+        }, {
+            field: "RelatedProvider.Email",
+            title: "Email",
+            width: 200
+        }, {
+            field: "FormUrl",
+            title: "URL",
+            width: 200,
+            template: $('#' + vidDiv + '_FormUrl').html(),
+        }, {
+            field: "RelatedProvider.CustomerCount",
+            title: "# Comp. Relacionados",
+            width: 150
+        }, {
+            field: "codSalesforce",
+            title: "URL SalesForce",         
+            template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
+            width: 150
+        }, {
+            field: "LastModifyUser",
+            title: "Usuario que actualizó",
+            width: 200
+        }, {
+            field: "lastModify",
+            title: "Ultima actualización",
+            width: 200
+        }, {
+            field: "Edit",
+            title: "Edit",
+            template: '<a id="dialogRefId" href="javascript:EditDialog(\'${RelatedProvider.ProviderPublicId}\', \'${RelatedProvider.IdentificationType.ItemId}\', \'${RelatedProvider.IdentificationNumber}\', \'${RelatedProvider.Email}\', \'${codSalesforce}\', \'${RelatedProvider.CustomerPublicId}\', \'${RelatedProvider.Name}\', \'${CustomerInfoTypeId}\');">Editar</a>',
+            width: 150
+        }],
     });
     //add search button event
     $('#' + vidDiv + '_SearchButton').click(function () {
@@ -83,6 +103,22 @@
     $('#' + cmbCustomer).change(function () {
         initCmb('Form', cmbCustomer);
     });
+}
+
+function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email,SalesForceCode, CustomerPublicId, ProviderName, infoId)
+{    
+    $('#EditProviderDialog').show;
+    $('#EditProviderDialog').dialog({ title: "Editar Proveedor" });
+    
+    $('#RazonSocial').val(ProviderName);
+    $('#ProviderPublicIdEdit').val(ProviderPublicId);
+    $('#TipoIdentificacion').val(IdentificationType);
+    $('#NumeroIdentificacion').val(IdentificationNumber);
+    $('#ProviderCustomerIdEdit').val(CustomerPublicId);    
+    $('#Email').val(Email);
+    $('#ProviderInfoIdEdit').val(infoId); 
+    
+    $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi,''));
 }
 
 function initCmb(cmbForm, cmbCustomer) {
