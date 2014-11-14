@@ -44,7 +44,7 @@ var PF_ValidateFormObject = {
 
     AddRule: function (vRuleValues) {
         $('#' + vRuleValues.idDiv).rules("add", {
-            required: vRuleValues.Required,
+            //required: vRuleValues.Required,
             email: (vRuleValues.Type == 'email'),
             number: (vRuleValues.Type == 'number'),
             messages: {
