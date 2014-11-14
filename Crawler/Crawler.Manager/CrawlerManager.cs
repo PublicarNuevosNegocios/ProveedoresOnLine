@@ -79,6 +79,11 @@ namespace Crawler.Manager
             //                                    [Crawler.Manager.Models.Constants.C_Settings_FolderSave].
             //                                    Value + att.Value.ToString() + ".pdf");
 
+            //byte[] bytes = (new System.Net.WebClient()).DownloadData(FilePath);
+            //return File
+            //    (bytes,
+            //    "application/pdf");
+
         }
     }
 }
