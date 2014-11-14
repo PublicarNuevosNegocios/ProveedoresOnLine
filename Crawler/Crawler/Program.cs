@@ -12,7 +12,9 @@ namespace Crawler
         {
             //crawl basic info
             Crawler.Manager.CrawlerManager.CrawlerBasicInfo("1733");
-
+            Crawler.Manager.CrawlerManager.CrawlerBasicInfo("2248");
+            Console.WriteLine("\n Presione cualquier tecla...");
+            Console.ReadLine();
         }
     }
 }
