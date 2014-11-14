@@ -40,30 +40,45 @@ namespace Crawler.Manager
             HtmlDocument HtmlDoc = new HtmlDocument();
             HtmlDoc.LoadHtml(strHtml);
 
-            string message = string.Empty;
-
-            #region CreateFolderSave
-
-            //string carpeta = Path.GetDirectoryName(ParProviderId);
-            //if (!Directory.Exists(carpeta))
-            //{
-            //    Directory.CreateDirectory(carpeta);
-            //}
-
-            //String savePath = carpeta;
-
-            #endregion
-
+            string message = string.Empty;       
 
             foreach (HtmlNode link in HtmlDoc.DocumentNode.SelectNodes("//a[@href]"))
             {
+                string folderSave = Crawler.Manager.Models.InternalSettings.Instance
+                                                [Crawler.Manager.Models.Constants.C_Settings_FolderSave].
+                                                Value;
+                string urlDownload = "https://www.parservicios.com/parservi/procesos";
+
                 HtmlAttribute att = link.Attributes["href"];
                 if (att.Value.Contains(".pdf"))
                 {
                     try
                     {
-                        message = att.Value.ToString();                        
+                        urlDownload += att.Value.Replace("..", "");
+
+                        string cadena = att.Value.ToString();
+                        int l = cadena.IndexOf('&');
+                        if (l > 0)
+                        {
+                            cadena = cadena.Substring(l, cadena.Length - l);
+                            l = cadena.IndexOf('=');
+                            if (l > 0)
+                            {
+                                cadena = cadena.Substring(l + 1, cadena.Length - l - 1);
+                                //cadena = cadena.Replace("\", '');
+                            }
+                        }
+
+                        folderSave += "/" + cadena;
+
+                        message = att.Value.ToString();
+
+                        oWebClient.DownloadFile(urlDownload, folderSave);
+
                         Console.WriteLine(message);
+
+                        urlDownload = string.Empty;
+                        folderSave = string.Empty;
                     }
                     catch (Exception e)
                     {
@@ -71,19 +86,6 @@ namespace Crawler.Manager
                     }                    
                 }
             }
-
-            //xxx[0].Attributes["href"].Value;
-
-            //(new System.Net.WebClient()).DownloadFile(oParUrl,@"D:\Proyectos\Github\ProveedoresOnLine\Crawler\Crawler\1.html");
-            //(new System.Net.WebClient()).DownloadFile(att.Value, Crawler.Manager.Models.InternalSettings.Instance
-            //                                    [Crawler.Manager.Models.Constants.C_Settings_FolderSave].
-            //                                    Value + att.Value.ToString() + ".pdf");
-
-            //byte[] bytes = (new System.Net.WebClient()).DownloadData(FilePath);
-            //return File
-            //    (bytes,
-            //    "application/pdf");
-
         }
     }
 }

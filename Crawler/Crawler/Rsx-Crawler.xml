@@ -3,7 +3,7 @@
   <Crawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=aebbk2vru5vlgald26otn9v4t4]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=r4o81ai4p710dscd35nk2omu86]]></key>
     
     <!--Folder-->
     <key name="FolderSave">D:\Crawler</key>
