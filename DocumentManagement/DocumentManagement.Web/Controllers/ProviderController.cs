@@ -27,7 +27,11 @@ namespace DocumentManagement.Web.Controllers
 
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-            (Request["divGridProvider_txtSearch"], Request["CustomerName"], Request["FormId"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));
+                (Request["divGridProvider_txtSearch"] == "" ? null : Request["divGridProvider_txtSearch"]
+                , Request["CustomerName"] == "" ? null : Request["CustomerName"]
+                , Request["FormId"] == "" ? null : Request["FormId"] 
+                , 0, 65000, out oTotalRows, 
+                Convert.ToBoolean(Request["chk_Unique"]));
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
