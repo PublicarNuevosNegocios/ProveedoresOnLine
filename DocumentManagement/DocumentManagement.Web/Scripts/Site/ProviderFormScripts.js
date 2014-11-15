@@ -251,6 +251,7 @@ var PF_MultipleFileObject = {
 
     ShowCreate: function (ProviderInfoId) {
         $('#' + PF_MultipleFileObject.DivId + '_Create').dialog({
+            dialogClass:"DialogCreate",
             modal: true,
             buttons: {
                 "Crear": function () {
@@ -278,6 +279,7 @@ var PF_MultipleFileObject = {
 
         if (ProviderInfoId != null) {
             $('#' + PF_MultipleFileObject.DivId + '_Delete').dialog({
+                dialogClass: "DialogDelete",
                 modal: true,
                 buttons: {
                     "Borrar": function () {
