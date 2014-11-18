@@ -44,7 +44,7 @@ var PF_ValidateFormObject = {
 
     AddRule: function (vRuleValues) {
         $('#' + vRuleValues.idDiv).rules("add", {
-            required: vRuleValues.Required,
+            //required: vRuleValues.Required,
             email: (vRuleValues.Type == 'email'),
             number: (vRuleValues.Type == 'number'),
             messages: {
@@ -251,6 +251,7 @@ var PF_MultipleFileObject = {
 
     ShowCreate: function (ProviderInfoId) {
         $('#' + PF_MultipleFileObject.DivId + '_Create').dialog({
+            dialogClass:"DialogCreate",
             modal: true,
             buttons: {
                 "Crear": function () {
@@ -278,6 +279,7 @@ var PF_MultipleFileObject = {
 
         if (ProviderInfoId != null) {
             $('#' + PF_MultipleFileObject.DivId + '_Delete').dialog({
+                dialogClass: "DialogDelete",
                 modal: true,
                 buttons: {
                     "Borrar": function () {

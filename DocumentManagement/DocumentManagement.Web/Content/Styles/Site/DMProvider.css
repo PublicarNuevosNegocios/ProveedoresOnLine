@@ -370,18 +370,57 @@ a.DMButtonsForm:hover {
 
 /*Provider Pop-up edit*/
 #EditProviderDialog form ul {
-        list-style: none;
-        padding: 0;
+    list-style: none;
+    padding: 0;
+}
+
+    #EditProviderDialog form ul li {
+        margin-top: 10px;
     }
 
-        #EditProviderDialog form ul li {
-            margin-top: 10px;
+        #EditProviderDialog form ul li span {
+            width: 100%;
         }
 
-            #EditProviderDialog form ul li span {
-                width: 100%;
-            }
+        #EditProviderDialog form ul li input[type="text"] {
+            width: 100%;
+        }
 
-            #EditProviderDialog form ul li input[type="text"] {
-                width: 100%;
-            }
+/*Botones nuevas grillas*/
+.DialogCreate {
+    min-width: 415px !important;
+}
+
+    .DialogCreate div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        color: #ff8300 !important;
+        background: none;
+        border: none;
+    }
+
+        .DialogCreate div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button:hover {
+            text-decoration: underline;
+        }
+
+    .DialogCreate div form ul li > input[type="text"] {
+        margin: 10px 0px 10px 0px;
+    }
+
+.DialogDelete {
+    min-width: 415px !important;
+}
+
+    .DialogDelete div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        color: #ff8300 !important;
+        background: none;
+        border: none;
+    }
+
+        .DialogDelete div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button:hover {
+            text-decoration: underline;
+        }
