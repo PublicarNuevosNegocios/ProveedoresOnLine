@@ -30,8 +30,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocumentManagement.Customer">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Customer\developer\DocumentManagement.Customer.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentManagement.Provider">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Provider\developer\DocumentManagement.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="FileRepository.Manager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\FileRepository.Manager.dll</HintPath>
+    </Reference>
+    <Reference Include="FileRepository.S3">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\FileRepository.S3.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.FileManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
     </Reference>
     <Reference Include="SettingsManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
@@ -49,7 +64,6 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\InternalSettings.cs" />
-    <Compile Include="Models\ProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

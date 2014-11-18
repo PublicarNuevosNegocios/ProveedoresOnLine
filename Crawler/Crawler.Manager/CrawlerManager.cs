@@ -111,6 +111,7 @@ namespace Crawler.Manager
                                 oWebClient.DownloadFile(urlDownload, folderSave);
 
                                 //Integración con Document Management
+                                UploadFile(ParProviderId, folderSave + cadena);                               
 
                                 Console.WriteLine(message);
 
@@ -129,6 +130,19 @@ namespace Crawler.Manager
                     Console.WriteLine("la sección " + settings + " no tiene documentos para descargar.");
                 }
             }
+        }
+
+        public static void UploadFile(string ParProviderId, string urlFile)
+        {
+            //string strFile = urlFile.TrimEnd('\\') +
+            //        "\\ProviderUploadFile_" +
+            //        CustomerPublicId + "_" +
+            //        DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
+            
+            //load file to s3
+            string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile(
+                urlFile, 
+                Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_File_RemoteDirectoryProvider].Value);
         }
     }
 }

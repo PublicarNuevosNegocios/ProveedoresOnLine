@@ -10,6 +10,8 @@
 
         public const string C_Settings_SessionKey = "SessionKey";
 
+        public const string C_Settings_File_RemoteDirectoryProvider = "File_RemoteDirectoryProvider";
+
         public const string C_Settings_UrlDownload = "UrlDownload";
 
         public const string C_Settings_CrawlerUrl_BasicInfo = "CrawlerUrl_BasicInfo";
