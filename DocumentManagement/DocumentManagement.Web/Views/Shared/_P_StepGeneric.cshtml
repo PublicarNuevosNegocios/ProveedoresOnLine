@@ -24,31 +24,34 @@
                                 NewStepId = "{{NewStepId}}"
                             })))" method="post" enctype="multipart/form-data">
         <ul class="DMFormGenericFields">
-            @foreach (var Item in Model.RealtedStep.RelatedField)
-            {
-                //get partial view to render
-                string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
-                    FieldInfoTypes.
-                    Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
-                    Select(strView => strView.Key).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
-
-                if (!string.IsNullOrEmpty(strFieldType))
+            @{             
+                
+                foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
                 {
-                    <li>
-                        @(Html.Partial(Url.Content(strFieldType),
-                            new DocumentManagement.Models.Provider.ProviderFieldModel()
-                            {
-                                RenderScripts = false,
-                                RealtedField = Item,
-                                RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
-                                    Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
-                                    ToList(),
-                                ProviderOptions = Model.ProviderOptions,
-                                FieldType = strFieldType,
-                            }))
-                    </li>
+                    //get partial view to render
+                    string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
+                        FieldInfoTypes.
+                        Where(strView => strView.Value.Any(InfoType => InfoType == Item.ProviderInfoType.ItemId)).
+                        Select(strView => strView.Key).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(strFieldType))
+                    {
+                        <li>
+                            @(Html.Partial(Url.Content(strFieldType),
+                                        new DocumentManagement.Models.Provider.ProviderFieldModel()
+                                        {
+                                            RenderScripts = false,
+                                            RealtedField = Item,
+                                            RealtedProviderInfo = Model.RealtedProvider.RelatedProviderInfo.
+                                                Where(x => x.ProviderInfoType.ItemId == Item.ProviderInfoType.ItemId).
+                                                ToList(),
+                                            ProviderOptions = Model.ProviderOptions,
+                                            FieldType = strFieldType,
+                                        }))
+                        </li>
+                    }
                 }
             }
         </ul>
@@ -68,12 +71,12 @@ else
             PF_ValidateFormObject.RenderAsync();
         });
     </script>
-    
-    
+
+
     int TotalRequiredFields = 0, FillRequiredFields = 0;
 
 
-    foreach (var Item in Model.RealtedStep.RelatedField)
+    foreach (var Item in Model.RealtedStep.RelatedField.OrderBy(x => x.Position))
     {
         //get partial view to render
         string strFieldType = DocumentManagement.Models.Provider.ProviderFormModel.
@@ -108,7 +111,7 @@ else
             Html.RenderPartial(Url.Content(strFieldType), ItemModel);
         }
     }
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             PF_InitProgressBar('divProgressBar', @(TotalRequiredFields > 0 ? (int)((FillRequiredFields * 100)/ TotalRequiredFields) : 0), '@(FillRequiredFields + "/" + TotalRequiredFields)');

@@ -27,7 +27,11 @@ namespace DocumentManagement.Web.Controllers
 
             int oTotalRows;
             List<DocumentManagement.Provider.Models.Provider.ProviderModel> oProviderlst = DocumentManagement.Provider.Controller.Provider.ProviderSearch
-            (Request["divGridProvider_txtSearch"], Request["CustomerName"], Request["FormId"], 0, 65000, out oTotalRows, Convert.ToBoolean(Request["chk_Unique"]));
+                (Request["divGridProvider_txtSearch"] == "" ? null : Request["divGridProvider_txtSearch"]
+                , Request["CustomerName"] == "" ? null : Request["CustomerName"]
+                , Request["FormId"] == "" ? null : Request["FormId"]
+                , 0, 65000, out oTotalRows,
+                Convert.ToBoolean(Request["chk_Unique"]));
 
             oReturn.RelatedProvider = new List<ProviderItemSearchModel>();
             oProviderlst.All(prv =>
@@ -62,6 +66,21 @@ namespace DocumentManagement.Web.Controllers
                         "\"" + "EMAIL" + "\"" + strSep +
                         "\"" + "CAMPANA" + "\"" + strSep +
                         "\"" + "URL" + "\"");
+
+                    data.AppendLine
+                    ("\"" + item.RelatedProvider.Name + "\"" + "" + strSep +
+                    "\"" + item.RelatedProvider.IdentificationType.ItemName + "\"" + strSep +
+                    "\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep +
+                    "\"" + item.RelatedProvider.Email + "\"" + strSep +
+                    "\"" + Campana + "\"" + strSep +
+                    "\"" + Url.Action(MVC.ProviderForm.ActionNames.Index,
+                                MVC.ProviderForm.Name,
+                                new
+                                {
+                                    ProviderPublicId = item.RelatedProvider.ProviderPublicId,
+                                    FormPublicId = item.RelatedProvider.FormPublicId
+                                }) + "\"");
+
                 }
                 else
                 {
@@ -95,7 +114,7 @@ namespace DocumentManagement.Web.Controllers
 
             return RedirectToAction(MVC.Provider.ActionNames.Index, MVC.Provider.Name);
         }
-        
+
         #region Private Functions
 
         private ProviderModel GetRequestProvider()
@@ -115,7 +134,7 @@ namespace DocumentManagement.Web.Controllers
             info.ProviderInfoType.ItemId = 403;
             info.ProviderInfoId = int.Parse(Request["ProviderInfoIdEdit"]);
             info.Value = Request["SalesForceCode"];
-            oreturn.RelatedProviderCustomerInfo.Add(info);            
+            oreturn.RelatedProviderCustomerInfo.Add(info);
 
             return oreturn;
         }
