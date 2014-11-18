@@ -10,7 +10,11 @@
 
         public const string C_Settings_SessionKey = "SessionKey";
 
+        public const string C_Settings_UrlDownload = "UrlDownload";
+
         public const string C_Settings_CrawlerUrl_BasicInfo = "CrawlerUrl_BasicInfo";
+
+        public const string C_Settings_DetailInfo = "DetailInfo";
 
         public const string C_Settings_CrawlerUrl_DetailInfo_QualityActivities = "CrawlerUrl_DetailInfo_QualityActivities";
 

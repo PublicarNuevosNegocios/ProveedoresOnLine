@@ -3,24 +3,30 @@
   <Crawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=r4o81ai4p710dscd35nk2omu86]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=31vl1cmu89jkch092p9ltqtld6]]></key>
     
     <!--Folder-->
     <key name="FolderSave">D:\Crawler</key>
     
+    <!--Url download-->
+    <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
+    
+    <!--All Keys-->
+    <key name="DetailInfo">QualityActivities,ExperienceActivities,Balance,Legal,HSE</key>
+    
     <!--Modulos Par-->
     <!--Información Básica-->
-    <key name="CrawlerUrl_BasicInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}&actividad=0&id_estado_pasa=1]]></key>
+    <key name="CrawlerUrl_BasicInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}]]></key>
     
     <!--Información Detallada-->
     <!--Certificaciones-->
     <key name="CrawlerUrl_DetailInfo_QualityActivities"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/c_actividades_calidad.php?id_pv={{ParProviderId}}]]></key>
     <!--Experiencia-->
-    <key name="CrawlerUrl_DetailInfo_ExperienceActivities"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/c_actividades_experiencia.php?id_pv_arreglo={{ParProviderId}}_0&experiencia_pasa=]]></key>
+    <key name="CrawlerUrl_DetailInfo_ExperienceActivities"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/c_actividades_experiencia.php?id_pv_arreglo={{ParProviderId}}_0]]></key>
     
     <!--Información Financiera-->
     <!--Historico de Balances-->
-    <key name="CrawlerUrl_DetailInfo_Balance"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/descarga_balance.php?id_pv={{ParProviderId}}&actividad=0]]></key>
+    <key name="CrawlerUrl_DetailInfo_Balance"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/descarga_balance.php?id_pv={{ParProviderId}}]]></key>
     
     <!--Fiscal y Legal-->
     <key name="CrawlerUrl_DetailInfo_Legal"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=1]]></key>

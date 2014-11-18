@@ -49,6 +49,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\InternalSettings.cs" />
+    <Compile Include="Models\ProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
