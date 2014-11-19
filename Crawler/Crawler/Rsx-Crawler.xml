@@ -2,7 +2,9 @@
 <Settings>
   <Crawler>
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=31vl1cmu89jkch092p9ltqtld6]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=6kti0494otfnp5udnsb1epil20]]></key>
+
+    <!--LLave de id -->
     
     <!--Folder-->
     <key name="FolderSave">D:\Crawler</key>

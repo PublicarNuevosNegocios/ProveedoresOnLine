@@ -11,7 +11,7 @@ namespace Crawler.Manager
 {
     public static class CrawlerManager
     {
-        public static void CrawlerBasicInfo(string ParProviderId)
+        public static void CrawlerBasicInfo(string ParProviderId, string ProviderPublicId)
         {
             Console.WriteLine("\n Proveedor con id: " + ParProviderId + "\n");
             
@@ -22,6 +22,7 @@ namespace Crawler.Manager
             List<string> oSettingsList = Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_DetailInfo].Value.
                                         Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
                                         ToList();
+            
             foreach (var item in oSettingsList)
             {
                 string settings = item.ToString();
@@ -111,7 +112,7 @@ namespace Crawler.Manager
                                 oWebClient.DownloadFile(urlDownload, folderSave);
 
                                 //Integración con Document Management
-                                UploadFile(ParProviderId, folderSave + cadena);                               
+                                UploadFile(ProviderPublicId, folderSave, settings);                               
 
                                 Console.WriteLine(message);
 
@@ -132,17 +133,105 @@ namespace Crawler.Manager
             }
         }
 
-        public static void UploadFile(string ParProviderId, string urlFile)
+        public static void UploadFile(string ProviderPublicId, string urlFile, string SettingsName)
         {
-            //string strFile = urlFile.TrimEnd('\\') +
-            //        "\\ProviderUploadFile_" +
-            //        CustomerPublicId + "_" +
-            //        DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
+            DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null);
+            DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(RealtedProvider.CustomerPublicId);
             
-            //load file to s3
-            string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile(
-                urlFile, 
-                Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_File_RemoteDirectoryProvider].Value);
+            int FieldId = 0;
+            
+            //Obtener ProviderInfoType
+            if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_Balance.Contains(SettingsName))
+            {
+                Console.WriteLine("tipo " + SettingsName);
+            }
+            else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_ExperienceActivities.Contains(SettingsName))
+            {
+                Console.WriteLine("tipo " + SettingsName);
+            }
+            else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_HSE.Contains(SettingsName))
+            {
+                Console.WriteLine("tipo " + SettingsName);
+            }
+            else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_Legal.Contains(SettingsName))
+            {
+                Console.WriteLine("tipo " + SettingsName);
+            }
+            else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_QualityActivities.Contains(SettingsName))
+            {
+                FieldId = 362;
+
+                DocumentManagement.Provider.Models.Provider.ProviderInfoModel oModel = new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
+                {
+                    ProviderInfoType = new DocumentManagement.Provider.Models.Util.CatalogModel()
+                    {
+                        ItemId = FieldId,
+                    },
+                };
+
+                RealtedProvider.RelatedProviderInfo.Add(oModel);
+            }
+            else
+            {
+                Console.WriteLine("no hay tipo");
+            }
+
+            string strFile = urlFile.TrimEnd('\\') +
+                        "\\ProviderFile_" +
+                        RealtedProvider.CustomerPublicId + "_" +
+                        FieldId + "_" +
+                        DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                        urlFile.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
+            
+            ////load file to s3
+            //string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+            //            (strFile,
+            //            Crawler.Manager.Models.InternalSettings.Instance
+            //                [Crawler.Manager.Models.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
+            //                RealtedProvider.CustomerPublicId + "\\");
+
+            DocumentManagement.Provider.Models.Util.CatalogModel oProviderInfoType = GetProviderInfoType(RealtedProvider, FieldId);
+
+            //DocumentManagement.Provider.Models.Provider.ProviderInfoModel oReturn = new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
+            //{
+            //    ProviderInfoId = 0,
+            //    ProviderInfoType = oProviderInfoType,
+            //    LargeValue = strRemoteFile,
+            //};
+        }
+
+        private static DocumentManagement.Provider.Models.Util.CatalogModel GetProviderInfoType(DocumentManagement.Provider.Models.Provider.ProviderModel GenericModels, int FieldId)
+        {
+            DocumentManagement.Provider.Models.Util.CatalogModel oReturn = null;
+
+            DocumentManagement.Customer.Models.Customer.CustomerModel oCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetById(GenericModels.CustomerPublicId);
+                        
+            oCustomer.RelatedForm.All(f =>
+            {
+                f.RelatedStep.All(s =>
+                {
+                    s.RelatedField.All(fi =>
+                    {
+                        if (fi.FieldId == FieldId)
+                        {
+                            oReturn = new DocumentManagement.Provider.Models.Util.CatalogModel()
+                            {
+                                CatalogId = fi.ProviderInfoType.CatalogId,
+                                CatalogName = fi.ProviderInfoType.CatalogName,
+                                ItemId = fi.ProviderInfoType.ItemId,
+                                ItemName = fi.ProviderInfoType.ItemName,
+                            };
+                        }
+
+                        return true;
+                    });
+
+                    return true;
+                });
+                return true;
+            });
+
+            return oReturn;
         }
     }
 }

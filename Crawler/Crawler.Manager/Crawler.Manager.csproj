@@ -33,7 +33,8 @@
     <Reference Include="DocumentManagement.Customer">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Customer\developer\DocumentManagement.Customer.dll</HintPath>
     </Reference>
-    <Reference Include="DocumentManagement.Provider">
+    <Reference Include="DocumentManagement.Provider, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\DocumentManagement.Provider\developer\DocumentManagement.Provider.dll</HintPath>
     </Reference>
     <Reference Include="FileRepository.Manager">

@@ -12,14 +12,7 @@ namespace Crawler
         static void Main(string[] args)
         {
             //crawl provider info
-            Crawler.Manager.CrawlerManager.CrawlerBasicInfo("1733");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("2248");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("4259");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("4483");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("4860");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("9759");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("11033");
-            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("15977");
+            Crawler.Manager.CrawlerManager.CrawlerBasicInfo("2217", "19209650");
             Console.WriteLine("\n Presione cualquier tecla...");
             Console.ReadLine();
         }
