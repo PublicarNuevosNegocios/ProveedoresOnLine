@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <DocumentManagement>
+    <!--Login Module-->
+    <key name="Login_GoogleUrl">https://localhost:44305/GoogleLogin/Login?UrlRetorno={{UrlRetorno}}</key>
+
+    <key name="Login_UserNotAutorized">El usuario {UserName} no esta autorizado para ingresar a la plataforma.</key>
+
+    <!--Generic params-->
+    <key name="Grid_RowCountDefault">20</key>
+
+  </DocumentManagement>
+</Settings>
+

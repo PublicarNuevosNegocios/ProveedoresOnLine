@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="BackOffice">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-BackOffice.xml</key>
+  </Module>
+  <Module name="FileRepository">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\Rsx-FileRepository.xml</key>
+  </Module>
+</SettingsConfig>
