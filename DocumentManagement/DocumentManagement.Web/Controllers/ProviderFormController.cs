@@ -437,7 +437,7 @@ namespace DocumentManagement.Web.Controllers
                 {
                     string strFile = strFolder.TrimEnd('\\') +
                         "\\ProviderFile_" +
-                        GenericModels.RealtedProvider.CustomerPublicId + "_" +
+                        GenericModels.RealtedProvider.ProviderPublicId + "_" +
                         RequestKeySplit[1].Replace(" ", "") + "_" +
                         DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                         UploadFile.FileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
@@ -449,7 +449,7 @@ namespace DocumentManagement.Web.Controllers
                         (strFile,
                         DocumentManagement.Models.General.InternalSettings.Instance
                             [DocumentManagement.Models.General.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
-                            GenericModels.RealtedProvider.CustomerPublicId + "\\");
+                            GenericModels.RealtedProvider.ProviderPublicId + "\\");
 
                     //remove temporal file
                     if (System.IO.File.Exists(strFile))
