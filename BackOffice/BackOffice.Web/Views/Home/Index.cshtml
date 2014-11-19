@@ -1,8 +1,31 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Inicio";
-    Layout = MVC.Shared.Views._Layout;// "~/Views/Shared/_Layout.cshtml";
+    Layout = MVC.Shared.Views._Layout;
 }
+<div>
+    @{
+        //get login urls
+        string RetUrl = Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name, null, Request.Url.Scheme);
 
-<h2>Index</h2>
+        string GoogleUrl = BackOffice.Models.General.InternalSettings.Instance
+            [BackOffice.Models.General.Constants.C_Settings_Login_GoogleUrl]
+            .Value.Replace("{{UrlRetorno}}", RetUrl);
+    }
+    <div>
+        <div>
+            <span>Puedes ingresar usando tu usuario de Google.</span>
+            <a href="@GoogleUrl">
+                <img src="@Url.Content("~/Content/Images/Google-plus-icon.png")" alt="Login Google" title="Login Google" />
+            </a>
+            @if (ViewData[BackOffice.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
+                !string.IsNullOrEmpty(ViewData[BackOffice.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
+            {
+                <span>@ViewData[BackOffice.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</span>
+            }
+        </div>
+    </div>
+    <div>
+        <img src="~/Content/Images/LogoPublicarFooter.png" />
+    </div>
+</div>
 

@@ -27,6 +27,7 @@ public static partial class MVC
 {
     public static BackOffice.Web.Controllers.BaseController Base = new BackOffice.Web.Controllers.T4MVC_BaseController();
     public static BackOffice.Web.Controllers.HomeController Home = new BackOffice.Web.Controllers.T4MVC_HomeController();
+    public static BackOffice.Web.Controllers.ProviderController Provider = new BackOffice.Web.Controllers.T4MVC_ProviderController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -910,6 +911,7 @@ namespace Links
                 private const string URLPATH = "~/Content/Styles/Site";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
             }
         
         }

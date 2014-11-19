@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
-  <DocumentManagement>
+  <BackOffice>
     <!--Login Module-->
     <key name="Login_GoogleUrl">https://localhost:44305/GoogleLogin/Login?UrlRetorno={{UrlRetorno}}</key>
 
@@ -9,6 +9,16 @@
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
 
-  </DocumentManagement>
+    <key name="Path_Salesforce">https://na2.salesforce.com/</key>
+
+    <!--Administrator User Roles-->
+    <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
+
+    <!--File Params-->
+    <key name="File_TempDirectory">/TempDirectory/</key>
+    <key name="File_RemoteDirectory">\BackOffice\</key>
+
+
+  </BackOffice>
 </Settings>
 
