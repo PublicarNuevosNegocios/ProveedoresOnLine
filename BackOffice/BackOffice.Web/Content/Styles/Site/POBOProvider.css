@@ -1,0 +1,426 @@
+.DMStepsLayOutWrapper {
+    display: block;
+    padding: 14px 0 0;
+    border-top: 3px solid #ff8300;
+}
+
+.DMPageBodyProviderForm {
+    width: 100%;
+    margin: 0px;
+    min-height: 430px;
+}
+
+/************* PINTA EL FOOTER DENTRO DE LOS PASOS **************/
+
+.DMStepsBottomWrapper {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid #e6e6e6;
+    display: block;
+    height: auto;
+    margin: 9px 0 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+/*********** MENU LATERAL DE LOS PASOS DEL FORMULARIO **************/
+
+.DMStepsMenuCustomer {
+    display: inline-block;
+    width: 19%;
+    border: none;
+    margin: 0px 0px 0px 25px;
+}
+
+    .DMStepsMenuCustomer ul {
+        width: 100%;
+        height: auto;
+        padding: 0;
+    }
+
+        .DMStepsMenuCustomer ul li {
+            display: block;
+            padding: 6px 0px;
+            width: 92%;
+            height: auto;
+            text-align: left;
+            color: #4d4d4d;
+            margin: 0px 0px 6px 0px;
+        }
+
+            .DMStepsMenuCustomer ul li:hover {
+                cursor: pointer;
+                background-color: #ececec;
+                border-radius: 5px;
+            }
+            /************ ESTE ES EL ESTILO DEL ITEM ACTIVO *************/
+            .DMStepsMenuCustomer ul li a {
+                display: block;
+                margin: 0px 0px 0px 20px;
+                width: auto;
+                height: auto;
+                border: none;
+                font-size: 1.2em;
+                line-height: 15px;
+                vertical-align: middle;
+                color: #333;
+            }
+
+                .DMStepsMenuCustomer ul li a:hover {
+                    text-decoration: underline;
+                }
+
+            .DMStepsMenuCustomer ul li.MenuSelected {
+                background-color: #ff8300;
+                z-index: 10;
+                border-right: medium none #FFF;
+                position: relative;
+                display: inline-block !important;
+                /*background-image: url('../../Images/arrowSelectedMenuSmall.png');
+                background-repeat: no-repeat;
+                background-position: 100% 0px;
+                background-size: auto;*/
+                border-radius: 5px;
+                width: 90%;
+            }
+
+                .DMStepsMenuCustomer ul li.MenuSelected a {
+                    color: #fff;
+                }
+/********** ASTERISCO CAMPO OBLIGATORIO *********/
+.DMFormGenericFields li {
+    display: inline-block;
+    list-style-type: none !important;
+    margin: 10px 30px 10px auto !important;
+    vertical-align: top;
+}
+
+    .DMFormGenericFields li div span {
+        color: red;
+        display: inline;
+        font-size: 0.9em;
+        font-weight: bold;
+        font-size: 1em;
+        line-height: 1em;
+    }
+
+    .DMFormGenericFields li div label {
+        color: #4d4d4d;
+        display: inline-block;
+        font-size: 0.9em;
+        font-weight: normal;
+        vertical-align: top;
+        width: 328px;
+    }
+
+/******Label de formularios pantalla completa******/
+.labelMultipleFiles, .labelFieldPartners, .labelLegalTerms {
+    width: 90% !important;
+}
+
+.DMFormGenericFields li div input {
+    display: block;
+}
+
+.DMFormGenericFields li div span.ui-spinner {
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    font-weight: normal;
+    line-height: 0.9em;
+    height: 32px;
+    width: 340px;
+    display: block;
+    border-radius: 0px;
+}
+
+.DMFormGenericFields li div input.ui-spinner-input {
+    background-color: #f9f9f9;
+    border: none;
+    color: #727276;
+    font-size: 1em;
+    height: 32px;
+    width: 340px;
+    margin: 0px;
+}
+
+img.ImageFile {
+    width: 11%;
+    display: inline-block;
+    margin: 15px;
+}
+
+a.OpenFile {
+    margin-left: 6%;
+    margin-top: 5px;
+}
+
+/********** ESTILOS NAVIGAYTOR ***********/
+
+.DMFormNavigationWrapper {
+    display: block;
+    padding: 8px 0px;
+    margin: 0px;
+    width: 100%;
+    height: auto;
+}
+
+    .DMFormNavigationWrapper li {
+        display: inline-block;
+        margin: 0px !important;
+        padding: 0px;
+    }
+
+.DMButtonsPrev, .DMButtonsNext {
+    background-color: #fff;
+    color: #ff8300;
+    font-size: 1.3em;
+    height: auto;
+    padding: 3px 12px;
+    width: auto;
+}
+
+    .DMButtonsPrev:hover, .DMButtonsNext:hover {
+        text-decoration: underline;
+        background-color: #f9f9f9;
+        color: #ff8300;
+    }
+
+.DMButtonsSave {
+    float: right;
+}
+
+.DMFormNavigationWrapper a.DMButtonsForm {
+    background-color: #ff8300;
+    border: medium none;
+    color: #fff;
+    font-size: 1.3em;
+    height: auto;
+    padding: 3px 38px;
+    width: auto;
+}
+
+a.DMButtonsForm:hover {
+    text-decoration: underline;
+    background-color: #ff9955;
+    color: #fff;
+}
+/*********** TABLA ADMINISTRAR PROVEEDORES ************/
+#divGridProvider_Header {
+    border: 1px solid;
+    margin: 0px 0px 0px 12px;
+}
+
+#ProfileInfoFormId label {
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0px 0px 0px 5px;
+    vertical-align: middle;
+}
+
+#ProfileInfoFormId input, #ProfileInfoFormId select {
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #727276;
+    font-size: 1em;
+    height: 24px;
+    vertical-align: top;
+    width: 150px;
+    vertical-align: middle;
+}
+
+    #ProfileInfoFormId input[type="checkbox"] {
+        background-color: #f9f9f9;
+        border: 1px solid #727276;
+        color: #727276;
+        font-size: 1em;
+        height: 24px;
+        vertical-align: top;
+        width: auto;
+        vertical-align: middle;
+    }
+
+.DMProviderFilterActions {
+    float: right;
+    margin: 0px;
+    padding: 0px;
+    height: auto;
+    width: auto;
+}
+
+    .DMProviderFilterActions input[type="button"]:hover, .DMProviderFilterActions input[type="submit"]:hover {
+        background-color: #e6e6e6 !important;
+    }
+
+/******AdminProvider********/
+.divAdminProvider {
+    width: 100%;
+    min-height: 470px;
+    display: block;
+    padding: 14px 0 0;
+    border-top: 3px solid #ff8300;
+}
+
+.TitleAdminProvider label {
+    color: #ff8300 !important;
+    font-family: 'OpenSans-Regular', Fallback, sans-serif !important;
+    font-size: 1.3em !important;
+    font-weight: normal !important;
+    display: block !important;
+    margin: 0px auto 0px auto !important;
+    text-align: center !important;
+}
+
+.TitleAdminProvider {
+    width: 100% !important;
+}
+
+.FormProvider {
+    width: 96%;
+    margin-left: 1%;
+}
+
+.ulAdminProvider li {
+    margin: 10px auto 10px auto;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+
+    .ulAdminProvider li textarea {
+        width: 95%;
+        display: inline-block;
+    }
+
+    .ulAdminProvider li label {
+        color: #4d4d4d;
+        display: inline;
+        font-size: 0.9em;
+        font-weight: normal;
+        vertical-align: top;
+        margin-right: 20px;
+    }
+
+.liButtonSave {
+    width: 96%;
+    text-align: center;
+    margin: 0px !important;
+}
+
+    .liButtonSave input[type="submit"] {
+        background-color: #ff8300;
+        border: medium none;
+        color: #fff;
+        font-size: 1.3em;
+        height: auto;
+        padding: 3px 38px;
+        width: auto;
+    }
+
+/********Estilos grilla cargue multiple de archivos********/
+.k-toolbar.k-grid-toolbar > input {
+    display: inline-block;
+}
+
+.AddMultipleFile {
+    display: inline-block;
+    color: #ff8300;
+    font-size: 1.3em;
+    height: auto;
+    padding: 3px 12px;
+    width: auto;
+}
+
+    .AddMultipleFile:hover {
+        text-decoration: underline;
+        color: #ff8300;
+    }
+
+/*Pop-up socios*/
+/******Pop-upForms********/
+.partnerDialog {
+}
+
+    .partnerDialog ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .partnerDialog ul li {
+            margin-top: 10px;
+        }
+
+            .partnerDialog ul li span {
+                width: 100%;
+            }
+
+            .partnerDialog ul li input[type="text"] {
+                width: 100%;
+            }
+
+/*Estilos iframe PDF*/
+.divFramePDF {
+    margin: 5px 0px 10px 20px;
+    text-align: center;
+    border: 1px solid #727276;
+    width: 302px;
+    height: 152px;
+}
+
+/*Provider Pop-up edit*/
+#EditProviderDialog form ul {
+    list-style: none;
+    padding: 0;
+}
+
+    #EditProviderDialog form ul li {
+        margin-top: 10px;
+    }
+
+        #EditProviderDialog form ul li span {
+            width: 100%;
+        }
+
+        #EditProviderDialog form ul li input[type="text"] {
+            width: 100%;
+        }
+
+/*Botones nuevas grillas*/
+.DialogCreate {
+    min-width: 415px !important;
+}
+
+    .DialogCreate div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        color: #ff8300 !important;
+        background: none;
+        border: none;
+    }
+
+        .DialogCreate div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button:hover {
+            text-decoration: underline;
+        }
+
+    .DialogCreate div form ul li > input[type="text"] {
+        margin: 10px 0px 10px 0px;
+    }
+
+.DialogDelete {
+    min-width: 415px !important;
+}
+
+    .DialogDelete div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button {
+        font-size: 15px;
+        font-weight: bold;
+        text-align: center;
+        color: #ff8300 !important;
+        background: none;
+        border: none;
+    }
+
+        .DialogDelete div.ui-dialog-buttonpane.ui-widget-content.ui-helper-clearfix div.ui-dialog-buttonset button:hover {
+            text-decoration: underline;
+        }

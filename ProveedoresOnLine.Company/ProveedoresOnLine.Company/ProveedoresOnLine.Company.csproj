@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Company.cs" />
-    <Compile Include="Controller\GenericLog.cs" />
     <Compile Include="DAL\Controller\CompanyDataController.cs" />
     <Compile Include="DAL\Controller\CompanyDataFactory.cs" />
     <Compile Include="DAL\MySQLDAO\Company_MySqlDao.cs" />

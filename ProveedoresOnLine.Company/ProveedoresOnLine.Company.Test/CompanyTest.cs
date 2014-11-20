@@ -9,8 +9,6 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void TestMethod1()
         {
-            ProveedoresOnLine.Company.Controller.GenericLog.GetGenericLogModel();
-
         }
     }
 }

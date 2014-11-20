@@ -202,6 +202,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\logoPublicarBN.png" />
+    <Content Include="Content\Images\POBOBackground3Small.jpg" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2014.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.1.318\Black\indeterminate.gif" />
@@ -369,6 +373,13 @@
     <Content Include="Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Content\Styles\Site\POBOCustomer.css" />
+    <Content Include="Content\Styles\Site\POBOFooter.css" />
+    <Content Include="Content\Styles\Site\POBOHeader.css" />
+    <Content Include="Content\Styles\Site\POBOLayout.css" />
+    <Content Include="Content\Styles\Site\POBOLogIn.css" />
+    <Content Include="Content\Styles\Site\POBOLogInProviders.css" />
+    <Content Include="Content\Styles\Site\POBOProvider.css" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -413,6 +424,17 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
+    <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\Images\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\Images\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\Images\OpenSans-Regular.eot" />
+    <Content Include="Content\Images\OpenSans-Regular.otf" />
+    <Content Include="Content\Images\OpenSans-Regular.ttf" />
+    <Content Include="Content\Images\OpenSans-Regular.woff" />
+    <Content Include="fonts\OpenSans-Regular.eot" />
+    <Content Include="fonts\OpenSans-Regular.otf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Regular.woff" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Rsx-BackOffice.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -949,8 +971,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
-    <Folder Include="Content\Styles\Site\" />
     <Folder Include="ControllersApi\" />
   </ItemGroup>
   <ItemGroup>
