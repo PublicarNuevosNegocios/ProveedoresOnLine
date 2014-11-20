@@ -369,7 +369,7 @@
     <Content Include="Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
-    <Content Include="Content\Styles\Site\GeneralScripts.js" />
+    <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -950,8 +950,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Content\Styles\Site\" />
     <Folder Include="ControllersApi\" />
-    <Folder Include="Scripts\Site\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
