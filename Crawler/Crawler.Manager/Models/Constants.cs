@@ -28,6 +28,8 @@
 
         public const string C_Settings_CrawlerUrl_DetailInfo_HSE = "CrawlerUrl_DetailInfo_HSE";
 
+        public const string C_Settings_CompanyList = "CompanyList";
+
         #endregion
     }
 }
