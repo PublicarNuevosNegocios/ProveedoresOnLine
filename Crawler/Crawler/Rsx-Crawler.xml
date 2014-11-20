@@ -2,7 +2,7 @@
 <Settings>
   <Crawler>
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=6kti0494otfnp5udnsb1epil20]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=if7cbk48r6vdf28q91uftiejl6]]></key>
 
     <!--LLave de id -->
     
@@ -13,11 +13,11 @@
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
     
     <!--All Keys-->
-    <key name="DetailInfo">QualityActivities,ExperienceActivities,Balance,Legal,HSE</key>
+    <key name="DetailInfo">Balance,</key>
     
     <!--Modulos Par-->
     <!--Información Básica-->
-    <key name="CrawlerUrl_BasicInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}]]></key>
+    <key name="CrawlerUrl_DetailInfo_BasicInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}]]></key>
     <!--Información Detallada-->
     <!--Certificaciones-->
     <key name="CrawlerUrl_DetailInfo_QualityActivities"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/c_actividades_calidad.php?id_pv={{ParProviderId}}]]></key>
