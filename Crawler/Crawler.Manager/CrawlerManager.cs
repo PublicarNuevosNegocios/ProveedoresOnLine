@@ -139,7 +139,7 @@ namespace Crawler.Manager
             try
             {
                 //save provider info
-                //DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(NewRealtedProviderInfo);
+                DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(NewRealtedProviderInfo);
                 Console.WriteLine("Se ha guardado el Proveedor" + "\n");
             }
             catch (Exception e)
@@ -164,7 +164,6 @@ namespace Crawler.Manager
                 DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
             File.Copy(urlFile, strFile);
             //load file to s3
-            //string strRemoteFile = "nombre_del_archivo-pdf";
             string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                         (strFile,
                         Crawler.Manager.Models.InternalSettings.Instance
