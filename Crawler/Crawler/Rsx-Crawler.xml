@@ -13,7 +13,7 @@
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
     
     <!--All Keys-->
-    <key name="DetailInfo">Balance,</key>
+    <key name="DetailInfo">QualityActivities,ExperienceActivities,Balance,Legal,HSE,BasicInfo,</key>
     
     <!--Modulos Par-->
     <!--Información Básica-->

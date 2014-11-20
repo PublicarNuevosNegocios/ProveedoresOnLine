@@ -289,13 +289,9 @@ namespace Crawler.Manager
             }
             else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_BasicInfo.Contains(SettingsName))
             {
-                if (urlFile.Contains("representante") && urlFile.Contains("documento"))
+                if (urlFile.Contains("representante") && urlFile.Contains("documento") || urlFile.Contains("c c") || urlFile.Contains("c.c.") || urlFile.Contains("c.c"))
                 {
                     oReturn.ItemId = 348; //Documento de Identidad del Representante Legal (Formato PDF)
-                }
-                else
-                {
-                    oReturn.ItemId = 352; //Ingrese la documentación adicional que desee adjuntar
                 }
             }
             return oReturn;
