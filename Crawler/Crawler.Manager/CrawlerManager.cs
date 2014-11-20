@@ -193,7 +193,7 @@ namespace Crawler.Manager
                         (strFile,
                         Crawler.Manager.Models.InternalSettings.Instance
                             [Crawler.Manager.Models.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
-                            "Test\\" + ProviderPublicId + "\\");
+                            ProviderPublicId + "\\");
             File.Delete(strFile);
 
             if (SettingsName == "Balance" || SettingsName == "ExperienceActivities" || SettingsName == "QualityActivities")
