@@ -139,7 +139,7 @@ namespace Crawler.Manager
             try
             {
                 //save provider info
-                DocumentManagement.Provider.Controller.Provider.ProviderCustomerInfoUpsert(NewRealtedProviderInfo);
+                DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewRealtedProviderInfo);
                 Console.WriteLine("Se ha guardado el Proveedor" + "\n");
             }
             catch (Exception e)
@@ -157,12 +157,14 @@ namespace Crawler.Manager
         {
             //upload file
             string strFile = string.Empty;
+
             strFile = urlNewFile +
                 "\\ProviderFile_" +
                 ProviderPublicId + "_" +
                 "0" + "_" +
                 DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
             File.Copy(urlFile, strFile);
+
             //load file to s3
             string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                         (strFile,
@@ -170,6 +172,7 @@ namespace Crawler.Manager
                             [Crawler.Manager.Models.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
                             "Test\\" + ProviderPublicId + "\\");
             File.Delete(strFile);
+
             if (SettingsName == "Balance" || SettingsName == "ExperienceActivities" || SettingsName == "QualityActivities")
             {
                 int l = urlFile.LastIndexOf('\\');
