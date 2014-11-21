@@ -11,10 +11,27 @@ namespace Crawler
     {
         static void Main(string[] args)
         {
+            var lstCompany =
+                Crawler.Manager.Models.InternalSettings.Instance[Constants.C_Settings_CompanyList].Value
+                .Split(';').
+                Where(x => x.Contains(",")).
+                Select(x =>
+                    new
+                    {
+                        key = x.Split(',')[0].Replace(" ", ""),
+                        val = x.Split(',')[1].Replace(" ", "")
+                    });
+
+            lstCompany.All(x =>
+            {
+                Crawler.Manager.CrawlerManager.CrawlerBasicInfo(x.key, x.val);
+                return true;
+            });
+
             //crawl provider info
-            Crawler.Manager.CrawlerManager.CrawlerBasicInfo("9986", "800134773");
+            //Crawler.Manager.CrawlerManager.CrawlerBasicInfo("2056", "ADAC5173");
             Console.WriteLine("\n Presione cualquier tecla...");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }

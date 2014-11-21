@@ -14,6 +14,7 @@ namespace Crawler.Manager
         public static void CrawlerBasicInfo(string ParProviderId, string ProviderPublicId)
         {
             Console.WriteLine("\n Proveedor con id: " + ParProviderId + "\n");
+            Console.WriteLine("Start Date: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\n");
 
             System.Net.WebClient oWebClient = new System.Net.WebClient();
             oWebClient.Headers.Add("Cookie", Crawler.Manager.Models.InternalSettings.Instance
@@ -30,7 +31,7 @@ namespace Crawler.Manager
                 RelatedProviderInfo = new List<DocumentManagement.Provider.Models.Provider.ProviderInfoModel>(),
                 RelatedProviderCustomerInfo = new List<DocumentManagement.Provider.Models.Provider.ProviderInfoModel>(),
             };
-            
+
             foreach (var item in oSettingsList)
             {
                 string settings = item.ToString();
@@ -64,7 +65,7 @@ namespace Crawler.Manager
                                                                 [Crawler.Manager.Models.Constants.C_Settings_FolderSave].
                                                                 Value
                                                                 + "\\"
-                                                                + ParProviderId
+                                                                + ProviderPublicId
                                                                 + "\\"
                                                                 + settings;
                                 if (!File.Exists(folderSave))
@@ -116,7 +117,11 @@ namespace Crawler.Manager
                                 string folder = folderSave + "\\" + cadena;
                                 message = att.Value.ToString();
 
+                                System.Threading.Thread.Sleep(
+                                    Convert.ToInt32(Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_TimerSleep].Value));
+                                Console.WriteLine("Start download: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                                 oWebClient.DownloadFile(urlDownload, folder);
+                                Console.WriteLine("End download: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\n");
 
                                 //Integración con Document Management
                                 UploadFile(ProviderPublicId, folder, folderSave, settings, NewRealtedProviderInfo);
@@ -125,7 +130,7 @@ namespace Crawler.Manager
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine("Error! " + e.Message + " Archivo:" + att.Value.ToString());
+                                Console.WriteLine("Error! " + e.Message + " Archivo:" + att.Value.ToString() + "\n");
                             }
                         }
                     }
@@ -138,14 +143,39 @@ namespace Crawler.Manager
 
             try
             {
+                DocumentManagement.Provider.Models.Provider.ProviderModel CurrentProviderInfo =
+                    DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null);
+
+                NewRealtedProviderInfo.RelatedProviderInfo.All(destino =>
+                {
+                    if (("351,349,362,").ToString().Contains(destino.ProviderInfoType.ItemId.ToString() + ","))
+                    {
+                        //multiple file
+                    }
+                    else
+                    {
+                        //single file
+                        destino.ProviderInfoId =
+                            CurrentProviderInfo.RelatedProviderInfo.
+                            Where(x => destino.ProviderInfoType.ItemId == x.ProviderInfoType.ItemId).
+                            Select(x => x.ProviderInfoId).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault();
+                    }
+
+                    return true;
+                });
+
                 //save provider info
                 DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewRealtedProviderInfo);
-                Console.WriteLine("Se ha guardado el Proveedor" + "\n");
+                Console.WriteLine("Se ha guardado el Proveedor");
+                Console.WriteLine("End Date: " + DateTime.Now.ToString("dddd/MM/yyyy HH:mm:ss") + "\n");
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error! " + e.Message + " No se puede guardar la información del proveedor." + "\n");
-            }            
+                Console.WriteLine("End Date: " + DateTime.Now.ToString("dddd/MM/yyyy HH:mm:ss"));
+            }
         }
 
         public static void UploadFile
@@ -170,15 +200,17 @@ namespace Crawler.Manager
                         (strFile,
                         Crawler.Manager.Models.InternalSettings.Instance
                             [Crawler.Manager.Models.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
-                            "Test\\" + ProviderPublicId + "\\");
+                            ProviderPublicId + "\\");
             File.Delete(strFile);
 
             if (SettingsName == "Balance" || SettingsName == "ExperienceActivities" || SettingsName == "QualityActivities")
             {
                 int l = urlFile.LastIndexOf('\\');
                 string nameFile = urlFile.Substring(l + 1, urlFile.Length - l - 1).Replace(".pdf", "");
-                string oLargeValue = "{\"ProviderInfoId\":\"\",\"IsDelete\":false,\"ProviderInfoUrl\":\"" + 
-                strRemoteFile + "\",\"FileName\":\"" + strFile + "\",\"Name\":\"" + nameFile + "\"}";
+                l = strFile.LastIndexOf('\\');
+                string nameS3File = strFile.Substring(l + 1, strFile.Length - l - 1);
+                string oLargeValue = "{\"ProviderInfoId\":\"\",\"IsDelete\":false,\"ProviderInfoUrl\":\"" +
+                strRemoteFile + "\",\"FileName\":\"" + nameS3File + "\",\"Name\":\"" + nameFile + "\"}";             
 
                 NewRealtedProviderInfo.RelatedProviderInfo.Add(new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
                 {
@@ -188,12 +220,29 @@ namespace Crawler.Manager
             }
             else
             {
-                NewRealtedProviderInfo.RelatedProviderInfo.Add(new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
+                DocumentManagement.Provider.Models.Provider.ProviderInfoModel oProviderInfoModel = new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
                 {
-                    ProviderInfoType = GetProviderInfoType(urlFile, SettingsName),
-                    LargeValue = strRemoteFile,
-                });
-            }            
+                    ProviderInfoType = GetProviderInfoType(urlFile, SettingsName)
+                };
+
+                if (oProviderInfoModel.ProviderInfoType.ItemId == 352)
+                {
+                    int l = urlFile.LastIndexOf('\\');
+                    string nameFile = urlFile.Substring(l + 1, urlFile.Length - l - 1).Replace(".pdf", "");
+                    l = strFile.LastIndexOf('\\');
+                    string nameS3File = strFile.Substring(l + 1, strFile.Length - l - 1);
+                    string oLargeValue = "{\"ProviderInfoId\":\"\",\"IsDelete\":false,\"ProviderInfoUrl\":\"" +
+                    strRemoteFile + "\",\"FileName\":\"" + nameS3File + "\",\"Name\":\"" + nameFile + "\"}";    
+
+                    oProviderInfoModel.LargeValue = oLargeValue;
+                    NewRealtedProviderInfo.RelatedProviderInfo.Add(oProviderInfoModel);
+                }
+                else
+                {
+                    oProviderInfoModel.LargeValue = strRemoteFile;
+                    NewRealtedProviderInfo.RelatedProviderInfo.Add(oProviderInfoModel);
+                }
+            }
         }
 
         private static DocumentManagement.Provider.Models.Util.CatalogModel GetProviderInfoType
@@ -233,6 +282,10 @@ namespace Crawler.Manager
                 {
                     oReturn.ItemId = 368; //Resolución del Ministerio de Transporte (Si la empresa es de transporte - Aplica)
                 }
+                else
+                {
+                    oReturn.ItemId = 352; //Ingrese la documentación adicional que desee adjuntar
+                }
             }
             else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_Balance.Contains(SettingsName))
             {
@@ -247,7 +300,7 @@ namespace Crawler.Manager
             else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_HSE.Contains(SettingsName))
             {
                 //archivos de HSE
-                if (urlFile.Contains("politica") && urlFile.Contains("segudidad") || urlFile.Contains("ambiente"))
+                if (urlFile.Contains("segudidad") || urlFile.Contains("ambiente"))
                 {
                     oReturn.ItemId = 353; //Política de Seguridad, Salud y Ambiente
                 }
@@ -283,6 +336,10 @@ namespace Crawler.Manager
                 {
                     oReturn.ItemId = 361; //Certificado Accidentalidad ARL
                 }
+                else
+                {
+                    oReturn.ItemId = 352; //Ingrese la documentación adicional que desee adjuntar
+                }
             }
             else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_QualityActivities.Contains(SettingsName))
             {
@@ -291,9 +348,13 @@ namespace Crawler.Manager
             }
             else if (Crawler.Manager.Models.Constants.C_Settings_CrawlerUrl_DetailInfo_BasicInfo.Contains(SettingsName))
             {
-                if (urlFile.Contains("representante") && urlFile.Contains("documento") || urlFile.Contains("c c") || urlFile.Contains("c.c.") || urlFile.Contains("c.c"))
+                if (urlFile.Contains("representante") && urlFile.Contains("documento") || urlFile.Contains("c c") || urlFile.Contains("c.c.") || urlFile.Contains("c.c") || urlFile.Contains(" c c"))
                 {
                     oReturn.ItemId = 348; //Documento de Identidad del Representante Legal (Formato PDF)
+                }
+                else
+                {
+                    oReturn.ItemId = 352; //Ingrese la documentación adicional que desee adjuntar
                 }
             }
             return oReturn;

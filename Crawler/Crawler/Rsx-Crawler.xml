@@ -2,19 +2,22 @@
 <Settings>
   <Crawler>
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=if7cbk48r6vdf28q91uftiejl6]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=6ctq8mk74kt8p1psnk27pk35v6]]></key>
 
-    <!--LLave de id -->
+    <!--Timer sleep-->
+    <key name="TimerSleep">3000</key>
     
+    <!--LLave de id -->
+
     <!--Folder-->
     <key name="FolderSave">D:\Crawler</key>
-    
+
     <!--Url download-->
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
-    
+
     <!--All Keys-->
     <key name="DetailInfo">QualityActivities,ExperienceActivities,Balance,Legal,HSE,BasicInfo,</key>
-    
+
     <!--Modulos Par-->
     <!--Información Básica-->
     <key name="CrawlerUrl_DetailInfo_BasicInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}]]></key>
@@ -33,6 +36,107 @@
 
     <!--File Params-->
     <key name="File_RemoteDirectoryProvider">\DocumentManagment\ProviderFile\</key>
+
+    <key name="CompanyList">
+      <![CDATA[
+1733,A12ECFA2;
+1962,6B3EA005;
+2056,ADAC5173;
+2122,14B422F5;
+2165,1CD03456;
+2168,13F376BB;
+2217,19209650;
+2248,208BD143;
+2253,1D3AC9BB;
+2388,1CC5317C;
+2398,2180F5AB;
+2485,21CB9175;
+2488,21F97CF0;
+2502,1E23F089;
+2592,D74EAD12;
+2710,88A61726;
+2796,165D08E6;
+2989,8D5527E6;
+3016,1712D734;
+3035,353AFA8E;
+3051,1FFCE77C;
+3057,5595BFEC;
+3091,16D246D4;
+3136,173425E4;
+3145,20178CD6;
+3195,178415F0;
+3210,178ABF45;
+3219,92CC10A9;
+3222,1791689C;
+3252,2088CB90;
+3264,5E540123;
+3272,17AC0DF5;
+3279,9797574F;
+3305,5F292C00;
+3401,EF09F0B0;
+3463,EFDF1B69;
+3508,182A9F5D;
+3528,4028CC29;
+3537,2114AFA5;
+3590,1837F20B;
+3602,677CD7EC;
+3622,40F0A458;
+3641,9A154718;
+3673,F6F3072E;
+3719,185FEA10;
+3773,2150A3AF;
+4014,18D7D223;
+4071,21C1E26B;
+4259,21F72D1E;
+4408,4986ED93;
+4412,A268F304;
+4422,1927C22F;
+4423,220B2921;
+4429,76E46F9E;
+4448,198504E7;
+4450,10A8474C;
+4453,198BAE3D;
+4458,4DF360EF;
+4467,199900EB;
+4469,22831132;
+4471,A79D3E78;
+4483,7F381B8A;
+4496,10EAE4AC;
+4503,22B1B290;
+4505,10F18E03;
+4554,29FF43C0;
+4559,2322F14A;
+4560,54F9F9F9;
+4561,4CA75E3F;
+4576,553C975E;
+4582,AE1E9CCE;
+4598,55C1D227;
+4618,AEE674E7;
+4629,235192A8;
+4631,DE33EA9D;
+4644,1A7B7E62;
+4646,3897D552;
+4665,1ACB6E6E;
+4672,1CB11AEB;
+4683,5AB38036;
+4687,11F55A2A;
+4693,1AD8C11C;
+4713,925EF3B2;
+4733,92C98920;
+4750,1216A8DA;
+4752,1AFA0FCA;
+4757,21CBADAA;
+4807,1B14B523;
+4813,2C344492;
+4841,1B2207D1;
+4844,1DA63F54;
+4860,60AFA3C3;
+4915,1B7F4A88;
+4932,61777BDB;
+
+      ]]>
+    </key>
+
   </Crawler>
 </Settings>
 
