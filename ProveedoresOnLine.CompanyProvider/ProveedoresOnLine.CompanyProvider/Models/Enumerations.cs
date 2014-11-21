@@ -1,0 +1,3 @@
+﻿namespace ProveedoresOnLine.CompanyProvider.Models
+{
+}
