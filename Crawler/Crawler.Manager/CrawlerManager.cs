@@ -16,10 +16,14 @@ namespace Crawler.Manager
             Console.WriteLine("\n Proveedor con id: " + ParProviderId + "\n");
             Console.WriteLine("Start Date: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\n");
 
-            System.Net.WebClient oWebClient = new System.Net.WebClient();
+            //System.Net.WebClient oWebClient = new System.Net.WebClient();
+
+            MyWebClient oWebClient = new MyWebClient();
+
             oWebClient.Headers.Add("Cookie", Crawler.Manager.Models.InternalSettings.Instance
                                                 [Crawler.Manager.Models.Constants.C_Settings_SessionKey].
                                                 Value);
+
             List<string> oSettingsList = Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_DetailInfo].Value.
                                         Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
                                         ToList();
@@ -117,14 +121,16 @@ namespace Crawler.Manager
                                 string folder = folderSave + "\\" + cadena;
                                 message = att.Value.ToString();
 
-                                System.Threading.Thread.Sleep(
-                                    Convert.ToInt32(Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_TimerSleep].Value));
                                 Console.WriteLine("Start download: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                                 oWebClient.DownloadFile(urlDownload, folder);
                                 Console.WriteLine("End download: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\n");
 
                                 //Integración con Document Management
                                 UploadFile(ProviderPublicId, folder, folderSave, settings, NewRealtedProviderInfo);
+
+                                System.Threading.Thread.Sleep(
+                                    Convert.ToInt32(Crawler.Manager.Models.InternalSettings.Instance
+                                    [Crawler.Manager.Models.Constants.C_Settings_TimerSleep].Value));
 
                                 Console.WriteLine(message);
                             }
@@ -210,7 +216,7 @@ namespace Crawler.Manager
                 l = strFile.LastIndexOf('\\');
                 string nameS3File = strFile.Substring(l + 1, strFile.Length - l - 1);
                 string oLargeValue = "{\"ProviderInfoId\":\"\",\"IsDelete\":false,\"ProviderInfoUrl\":\"" +
-                strRemoteFile + "\",\"FileName\":\"" + nameS3File + "\",\"Name\":\"" + nameFile + "\"}";             
+                strRemoteFile + "\",\"FileName\":\"" + nameS3File + "\",\"Name\":\"" + nameFile + "\"}";
 
                 NewRealtedProviderInfo.RelatedProviderInfo.Add(new DocumentManagement.Provider.Models.Provider.ProviderInfoModel()
                 {
@@ -232,7 +238,7 @@ namespace Crawler.Manager
                     l = strFile.LastIndexOf('\\');
                     string nameS3File = strFile.Substring(l + 1, strFile.Length - l - 1);
                     string oLargeValue = "{\"ProviderInfoId\":\"\",\"IsDelete\":false,\"ProviderInfoUrl\":\"" +
-                    strRemoteFile + "\",\"FileName\":\"" + nameS3File + "\",\"Name\":\"" + nameFile + "\"}";    
+                    strRemoteFile + "\",\"FileName\":\"" + nameS3File + "\",\"Name\":\"" + nameFile + "\"}";
 
                     oProviderInfoModel.LargeValue = oLargeValue;
                     NewRealtedProviderInfo.RelatedProviderInfo.Add(oProviderInfoModel);
@@ -358,6 +364,16 @@ namespace Crawler.Manager
                 }
             }
             return oReturn;
+        }
+    }
+
+    public class MyWebClient : System.Net.WebClient
+    {
+        protected override System.Net.WebRequest GetWebRequest(Uri uri)
+        {
+            System.Net.WebRequest w = base.GetWebRequest(uri);
+            w.Timeout = 20 * 60 * 1000;
+            return w;
         }
     }
 }
