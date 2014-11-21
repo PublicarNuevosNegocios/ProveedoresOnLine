@@ -14,6 +14,7 @@ namespace Crawler.Manager
         public static void CrawlerBasicInfo(string ParProviderId, string ProviderPublicId)
         {
             Console.WriteLine("\n Proveedor con id: " + ParProviderId + "\n");
+            Console.WriteLine("Start Date: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
 
             System.Net.WebClient oWebClient = new System.Net.WebClient();
             oWebClient.Headers.Add("Cookie", Crawler.Manager.Models.InternalSettings.Instance
@@ -116,6 +117,8 @@ namespace Crawler.Manager
                                 string folder = folderSave + "\\" + cadena;
                                 message = att.Value.ToString();
 
+                                System.Threading.Thread.Sleep(
+                                    Convert.ToInt32(Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_TimerSleep].Value));
                                 oWebClient.DownloadFile(urlDownload, folder);
 
                                 //Integración con Document Management
@@ -164,10 +167,12 @@ namespace Crawler.Manager
                 //save provider info
                 DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewRealtedProviderInfo);
                 Console.WriteLine("Se ha guardado el Proveedor" + "\n");
+                Console.WriteLine("End Date: " + DateTime.Now.ToString("dddd/MM/yyyy HH:mm:ss"));
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error! " + e.Message + " No se puede guardar la información del proveedor." + "\n");
+                Console.WriteLine("End Date: " + DateTime.Now.ToString("dddd/MM/yyyy HH:mm:ss"));
             }
         }
 

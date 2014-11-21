@@ -30,6 +30,8 @@
 
         public const string C_Settings_CompanyList = "CompanyList";
 
+        public const string C_Settings_TimerSleep = "TimerSleep";
+
         #endregion
     }
 }

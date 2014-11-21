@@ -2,8 +2,11 @@
 <Settings>
   <Crawler>
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=if7cbk48r6vdf28q91uftiejl6]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=6ctq8mk74kt8p1psnk27pk35v6]]></key>
 
+    <!--Timer sleep-->
+    <key name="TimerSleep">3000</key>
+    
     <!--LLave de id -->
 
     <!--Folder-->
