@@ -2,8 +2,8 @@
 {
     public enum enumCompanyType
     {
-        Customer = 201,
-        Provider = 202,
-        CustomerProvider = 203,
+        Customer = 2001,
+        Provider = 2002,
+        CustomerProvider = 2003,
     }
 }
