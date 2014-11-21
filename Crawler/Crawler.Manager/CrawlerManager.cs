@@ -14,7 +14,7 @@ namespace Crawler.Manager
         public static void CrawlerBasicInfo(string ParProviderId, string ProviderPublicId)
         {
             Console.WriteLine("\n Proveedor con id: " + ParProviderId + "\n");
-            Console.WriteLine("Start Date: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+            Console.WriteLine("Start Date: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\n");
 
             System.Net.WebClient oWebClient = new System.Net.WebClient();
             oWebClient.Headers.Add("Cookie", Crawler.Manager.Models.InternalSettings.Instance
@@ -119,7 +119,9 @@ namespace Crawler.Manager
 
                                 System.Threading.Thread.Sleep(
                                     Convert.ToInt32(Crawler.Manager.Models.InternalSettings.Instance[Crawler.Manager.Models.Constants.C_Settings_TimerSleep].Value));
+                                Console.WriteLine("Start download: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                                 oWebClient.DownloadFile(urlDownload, folder);
+                                Console.WriteLine("End download: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "\n");
 
                                 //Integración con Document Management
                                 UploadFile(ProviderPublicId, folder, folderSave, settings, NewRealtedProviderInfo);
@@ -128,7 +130,7 @@ namespace Crawler.Manager
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine("Error! " + e.Message + " Archivo:" + att.Value.ToString());
+                                Console.WriteLine("Error! " + e.Message + " Archivo:" + att.Value.ToString() + "\n");
                             }
                         }
                     }
@@ -166,8 +168,8 @@ namespace Crawler.Manager
 
                 //save provider info
                 DocumentManagement.Provider.Controller.Provider.ProviderInfoUpsert(NewRealtedProviderInfo);
-                Console.WriteLine("Se ha guardado el Proveedor" + "\n");
-                Console.WriteLine("End Date: " + DateTime.Now.ToString("dddd/MM/yyyy HH:mm:ss"));
+                Console.WriteLine("Se ha guardado el Proveedor");
+                Console.WriteLine("End Date: " + DateTime.Now.ToString("dddd/MM/yyyy HH:mm:ss") + "\n");
             }
             catch (Exception e)
             {
