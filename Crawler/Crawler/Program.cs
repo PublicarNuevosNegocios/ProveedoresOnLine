@@ -18,7 +18,7 @@ namespace Crawler
                 Select(x =>
                     new
                     {
-                        key = x.Split(',')[0].Replace(" ", ""),
+                        key = Convert.ToInt32(x.Split(',')[0].Replace(" ", "")).ToString(),
                         val = x.Split(',')[1].Replace(" ", "")
                     });
 
