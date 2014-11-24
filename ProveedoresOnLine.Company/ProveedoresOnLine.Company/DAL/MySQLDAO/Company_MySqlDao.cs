@@ -59,17 +59,62 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         public int UpsertCategoryInfo(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCategoryId", CategoryId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCategoryInfoId", CategoryInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCategoryInfoType", CategoryInfoType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                    CommandText = "U_CategoryInfo_Upsert",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams
+                });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
         public void UpsertTreeCategory(int TreeId, int? ParentCategoryId, int ChildCategoryId, bool Enable)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vParentCategoryId", ParentCategoryId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vChildCategoryId", ChildCategoryId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                    CommandText = "U_TreeCategory_Upsert",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams
+                });
         }
 
         public int UpsertCatalogItem(int CatalogId, int? ItemId, string Name, bool Enable)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCatalogId", CatalogId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vItemId", ItemId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vName", Name));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                    CommandText = "U_CatalogItem_Upsert",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams
+                });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
         #endregion
