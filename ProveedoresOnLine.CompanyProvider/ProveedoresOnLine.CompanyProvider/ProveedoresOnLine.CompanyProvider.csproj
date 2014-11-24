@@ -59,21 +59,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CompanyProvider.cs" />
+    <Compile Include="DAL\Controller\CompanyProviderDataController.cs" />
+    <Compile Include="DAL\Controller\CompanyProviderDataFactory.cs" />
+    <Compile Include="DAL\MySQLDAO\CompanyProvider_MySqlDao.cs" />
     <Compile Include="Interfaces\ICompanyProviderData.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\Provider\BalanceSheetDetailModel.cs" />
     <Compile Include="Models\Provider\BalanceSheetModel.cs" />
     <Compile Include="Models\Provider\BlackListModel.cs" />
+    <Compile Include="Models\Provider\ProviderCategoryModel.cs" />
     <Compile Include="Models\Provider\ProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="DAL\Controller\" />
-    <Folder Include="DAL\MySQLDAO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\" /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
