@@ -2,6 +2,6 @@
 {
     public class Constants
     {
-        public const string C_POL_CompanyProviderConnectionName = "POL_CompanyProviderConnection";
+        public const string C_POL_CompanyCustomerConnectionName = "POL_CompanyCustomerConnection";
     }
 }

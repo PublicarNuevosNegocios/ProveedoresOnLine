@@ -11,7 +11,5 @@ namespace ProveedoresOnLine.CompanyCustomer.Models.Customer
         public ProveedoresOnLine.Company.Models.Util.CatalogModel Status { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedEvaluation { get; set; }
-
-
     }
 }

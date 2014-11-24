@@ -78,7 +78,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     }
                     finally
                     {
-                        oLog.LogObject = ProviderToUpsert;
+                        oLog.LogObject = pcat;
 
                         oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
                         {

@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ProveedoresOnLine.CompanyCustomer.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class CompanyCustomerTest
     {
         [TestMethod]
         public void TestMethod1()
