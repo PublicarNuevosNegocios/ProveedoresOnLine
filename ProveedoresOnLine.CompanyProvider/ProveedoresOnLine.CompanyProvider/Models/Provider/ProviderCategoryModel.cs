@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyProvider.Models.Provider
 {
-    public class BalanceSheetDetailModel
+    public class ProviderCategoryModel
     {
-        public int BalanceSheetId { get; set; }
+        public int CompanyCategoryId { get; set; }
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount { get; set; }
-
-        public decimal Value { get; set; }
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedCategory { get; set; }
 
         public bool Enable { get; set; }
 
