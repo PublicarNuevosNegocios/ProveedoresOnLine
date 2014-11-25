@@ -12,18 +12,17 @@
 </head>
 <body>
     <div>
-        @RenderBody()
+        <!--Render header-->
+        @Html.Partial(MVC.Shared.Views.ViewNames._L_Header)
     </div>
 
-    <div class="POBOFooterWrapper">
-        @* AQUI SE INCLUIYE EL FOOTER pero debe ser desde SHARED *@
-        <div class="POBOFooterLogos">
-            <img src="~/Content/Images/logoPublicarBN.png" />
-        </div>
-        <div class="POBOFooterLegal">
-            <span>©2014 Publicar SAS. Todos los derechos reservados</span>
-            <a href="#">Terminos y condiciones de uso</a>
-        </div>
+    <div>
+        <!--Render body-->
+        @RenderBody()
+    </div>
+    <div>
+        <!--Render footer-->
+        @Html.Partial(MVC.Shared.Views.ViewNames._L_Footer)
     </div>
 
     @*bundle render scripts*@
