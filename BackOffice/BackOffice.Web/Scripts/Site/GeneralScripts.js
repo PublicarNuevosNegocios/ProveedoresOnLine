@@ -7,3 +7,8 @@ var BaseUrl = {
         this.SiteUrl = vInitObject.SiteUrl;
     },
 };
+
+/*show hide user menu*/
+function Header_ShowHideUserMenu(divId) {
+    $('#' + divId).toggle('slow');
+}

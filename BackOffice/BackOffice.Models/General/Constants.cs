@@ -24,7 +24,13 @@
 
         #region Administrator User Roles
 
-        public const string C_Settings_Url_AdminRoles = "URL_AdminRoles";
+        public const string C_Settings_URL_AdminRoles = "URL_AdminRoles";
+
+        #endregion
+
+        #region Administrator User Roles
+
+        public const string C_Settings_URL_DocumentManagment = "URL_DocumentManagment";
 
         #endregion
 

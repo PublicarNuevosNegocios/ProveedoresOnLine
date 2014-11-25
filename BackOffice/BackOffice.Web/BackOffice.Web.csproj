@@ -977,6 +977,8 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <Content Include="Views\Provider\Index.cshtml" />
+    <Content Include="Views\Shared\_L_Footer.cshtml" />
+    <Content Include="Views\Shared\_L_Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
