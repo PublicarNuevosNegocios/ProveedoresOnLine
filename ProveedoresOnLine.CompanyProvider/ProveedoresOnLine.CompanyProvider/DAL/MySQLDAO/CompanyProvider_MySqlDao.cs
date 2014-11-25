@@ -20,7 +20,21 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         public int UpsertProviderCategory(string CompanyPublicId, int CategoryId, bool Enable)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCategoryId", CategoryId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_CompanyCategory_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
         public int UpsertExperience(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
