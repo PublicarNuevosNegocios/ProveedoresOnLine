@@ -34,7 +34,60 @@ namespace BackOffice.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
+            //eval upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
+                CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
+
+                return RedirectToAction(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+            }
+
             return View(oModel);
+        }
+
+        private ProveedoresOnLine.Company.Models.Company.CompanyModel GetProviderRequest()
+        {
+            //get company
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oReturn = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+            {
+                CompanyPublicId = Request["ProviderPublicId"],
+                IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = Convert.ToInt32(Request["IdentificationType"]),
+                },
+                IdentificationNumber = Request["IdentificationNumber"],
+                CompanyName = Request["CompanyName"],
+                CompanyType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = Convert.ToInt32(Request["CompanyType"]),
+                },
+                Enable = true,
+                CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            };
+
+            //get company info
+            Request.Form.AllKeys.Where(x => x.Contains("CompanyInfoType_")).All(req =>
+            {
+                string[] strSplit = req.Split('_');
+
+                if (strSplit.Length >= 3)
+                {
+                    oReturn.CompanyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = !string.IsNullOrEmpty(strSplit[2]) ? Convert.ToInt32(strSplit[2].Trim()) : 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(strSplit[1].Trim())
+                        },
+                        Value = Request[req],
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+
+            return oReturn;
         }
 
         #endregion
@@ -54,6 +107,9 @@ namespace BackOffice.Web.Controllers
                 string oCurrentController = BackOffice.Web.Controllers.BaseController.CurrentControllerName;
                 string oCurrentAction = BackOffice.Web.Controllers.BaseController.CurrentActionName;
 
+                BackOffice.Models.General.GenericMenu CurrentStepMenuAux = null;
+                BackOffice.Models.General.GenericMenu LastStepMenuAux = null;
+
                 #region General Info
 
                 //header
@@ -65,7 +121,7 @@ namespace BackOffice.Web.Controllers
                 };
 
                 //Basic info
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                CurrentStepMenuAux = new Models.General.GenericMenu()
                 {
                     Name = "Información básica",
                     Url = Url.Action
@@ -76,10 +132,14 @@ namespace BackOffice.Web.Controllers
                     IsSelected =
                         (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
                         oCurrentAction == MVC.Provider.Name),
-                });
+                    LastMenu = LastStepMenuAux,
+                };
+
+                oMenuAux.ChildMenu.Add(CurrentStepMenuAux);
 
                 //Contact info
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                LastStepMenuAux = CurrentStepMenuAux;
+                CurrentStepMenuAux = new Models.General.GenericMenu()
                 {
                     Name = "Información de contacto",
                     Url = Url.Action
@@ -90,7 +150,11 @@ namespace BackOffice.Web.Controllers
                     IsSelected =
                         (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
                         oCurrentAction == MVC.Provider.Name),
-                });
+                    LastMenu = LastStepMenuAux,
+                };
+                LastStepMenuAux.NextMenu = CurrentStepMenuAux;
+
+                oMenuAux.ChildMenu.Add(CurrentStepMenuAux);
 
                 //Branch info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
