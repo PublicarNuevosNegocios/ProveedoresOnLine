@@ -21,24 +21,27 @@
         </div>
         <div class="POBOUserMenuOptions" id="divHeader_UserMenu" style="display:none;">
             <ul>
-                <li>
-                    <a href="@Url.Action(MVC.Home.ActionNames.LogOutUser, MVC.Home.Name)">Salir</a>
+                <li>                    
+                    <a href="@Url.Action(MVC.Home.ActionNames.LogOutUser, MVC.Home.Name)">Salir</a>                    
                 </li>
             </ul>
         </div>
         <!--main menu-->
         <ul class="POBOMainMenuWrapper">
             <li>
-                <a href="@Url.Action(MVC.Provider.ActionNames.Index, MVC.Provider.Name)">Proveedores</a>
+                <a href="@Url.Action(MVC.Provider.ActionNames.Index, MVC.Provider.Name)">Proveedores</a>                
             </li>
+            <li class="spacers"></li>
             <li>
                 <a href="@Url.Action(MVC.Provider.ActionNames.Index, MVC.Provider.Name)">Compradores</a>
             </li>
+            <li class="spacers"></li>
             <li>
                 <a target="_blank" href="@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_DocumentManagment].Value">
                     Gestión documental
                 </a>
             </li>
+            <li class="spacers"></li>
         </ul>
     </div>
 }
