@@ -5,7 +5,7 @@
     height: auto;
     margin: 0px;
     text-align: left;
-    border-bottom:1.2px solid #ff8300;
+    border-bottom:2px solid #ff8300;
 }
 /****************Logo*******************/
 .POBOLogo{
@@ -18,12 +18,12 @@
     background-size:546px auto;
     background-position:-3px -50px;
     background-repeat:no-repeat;
-    border:1px solid purple;
+        border:none;
 }
 /*************** USER MENU ***************/
 .POBOUserMenu {
     float:right;
-    border:1px solid red;
+        border:none;
     width:auto; height:auto;
     display:block;
     padding:0px 8px 0px 0px;
@@ -58,8 +58,9 @@
     margin: 0;
     position: absolute;
     right: 31px;
-    top: 25px;
-    width: 150px;  
+    top: 23px;
+    width: 150px;
+    z-index:5;
 }
     .POBOUserMenuOptions ul li, .POBOUserMenuOptions ul li a{
             border:none;
@@ -70,26 +71,51 @@
         .POBOUserMenuOptions ul li{
             margin: 0 -41px;            
         }            
-            .POBOUserMenuOptions ul li a {
-                margin: 0px; text-indent:12px;
-                line-height:22px;
-            }
+        .POBOUserMenuOptions ul li a {
+            margin: 0px;
+            text-indent:12px;
+            line-height:22px;
+        }
 /*************** MAIN MENU *************/
 .POBOMainMenuWrapper {
-    border: 1px solid green;
+        border:none;
     height: 40px;
     margin: 0;
-    position: absolute;
-    right: 0;
-    top: 64px;
+    position:absolute;
+    right:6px;
+    top: 62px;
     width: auto;
+    padding:0;
 }
     .POBOMainMenuWrapper li{
         display:inline-block;
+        padding:0px;
+        text-align:center;            
+            border:none;
+        height:38px;
+        vertical-align:top;
     }
-
-
-
+    .POBOMainMenuWrapper li a{
+            border:none;
+        color: #666;
+        display: inline-block;
+        font-size: 1em;
+        height: 28px;
+        margin: 7px 0;
+        padding: 0 5px;
+        vertical-align: bottom;
+        letter-spacing:-0.4px;
+    }
+        .POBOMainMenuWrapper li a:hover, .POBOMainMenuWrapper li a.selected{
+            text-decoration:none;
+            border-bottom:8px solid #ff8300;
+        }
+    li.spacers {
+        border-left: 1px solid #727276;
+        height: 36px;
+        margin-top: 1px;
+        width: 2px;
+    }
 
 
 
