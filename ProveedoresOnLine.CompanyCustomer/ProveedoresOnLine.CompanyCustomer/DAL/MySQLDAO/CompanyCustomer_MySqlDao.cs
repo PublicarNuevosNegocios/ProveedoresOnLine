@@ -18,7 +18,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
         #region Customer Provider
 
-        public int UpsertCustomerProvider(string CustomerPublicId, string ProviderPublicId, int StatusId, bool Enable)
+        public int CustomerProviderUpsert(string CustomerPublicId, string ProviderPublicId, int StatusId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -38,7 +38,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertCustomerProviderInfo(int CustomerProviderId, int? CustomerProviderInfoId, int CustomerProviderInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int CustomerProviderInfoUpsert(int CustomerProviderId, int? CustomerProviderInfoId, int CustomerProviderInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -64,7 +64,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
         #region Survey
 
-        public int UpsertSurveyConfig(string CompanyPublicId, int? SurveyConfigId, string SurveyName, bool Enable)
+        public int SurveyConfigUpsert(string CompanyPublicId, int? SurveyConfigId, string SurveyName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -84,7 +84,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertSurveyItem(int SurveyConfigId, int? SurveyItemId, string SurveyItemName, int SurveyItemTypeId, int? ParentSurveyItemId, bool Enable)
+        public int SurveyItemUpsert(int SurveyConfigId, int? SurveyItemId, string SurveyItemName, int SurveyItemTypeId, int? ParentSurveyItemId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -105,7 +105,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertSurveyItemInfo(int SurveyItemId, int? SurveyItemInfoId, int SurveyItemInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int SurveyItemInfoUpsert(int SurveyItemId, int? SurveyItemInfoId, int SurveyItemInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -131,7 +131,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
         #region Project
 
-        public int UpsertProjectConfig(string CompanyPublicId, int? ProjectConfigId, string ProjectConfigName, int StatusId, bool Enable)
+        public int ProjectConfigUpsert(string CompanyPublicId, int? ProjectConfigId, string ProjectConfigName, int StatusId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -152,7 +152,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertEvaluationItem(int ProjectConfigId, int? EvaluationItemId, string EvaluationItemName, int EvaluationItemTypeId, int? ParentEvaluationItemId, bool Enable)
+        public int EvaluationItemUpsert(int ProjectConfigId, int? EvaluationItemId, string EvaluationItemName, int EvaluationItemTypeId, int? ParentEvaluationItemId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -174,7 +174,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertEvaluationItemInfo(int EvaluationItemId, int? EvaluationItemInfoId, int EvaluationItemInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int EvaluationItemInfoUpsert(int EvaluationItemId, int? EvaluationItemInfoId, int EvaluationItemInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 

@@ -37,66 +37,75 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #region Provider Experience
 
-        public int UpsertProviderCategory(string CompanyPublicId, int CategoryId, bool Enable)
+        public int ProviderCategoryUpsert(string CompanyPublicId, int CategoryId, bool Enable)
         {
-            return DataFactory.UpsertProviderCategory(CompanyPublicId, CategoryId, Enable);
+            return DataFactory.ProviderCategoryUpsert(CompanyPublicId, CategoryId, Enable);
         }
 
-        public int UpsertExperience(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
+        public int ExperienceUpsert(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
         {
-            return DataFactory.UpsertExperience(CompanyPublicId, ExperienceId, ExperienceName, Enable);
+            return DataFactory.ExperienceUpsert(CompanyPublicId, ExperienceId, ExperienceName, Enable);
         }
 
-        public int UpsertExperienceInfo(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int ExperienceInfoUpsert(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertExperienceInfo(ExperienceId, ExperienceInfoId, ExperienceInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.ExperienceInfoUpsert(ExperienceId, ExperienceInfoId, ExperienceInfoTypeId, Value, LargeValue, Enable);
         }
 
         #endregion
 
         #region Provider certification
 
-        public int UpsertCertification(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
+        public int CertificationUpsert(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
         {
-            return DataFactory.UpsertCertification(CompanyPublicId, CertificationId, CertificationTypeId, CertificationName, Enable);
+            return DataFactory.CertificationUpsert(CompanyPublicId, CertificationId, CertificationTypeId, CertificationName, Enable);
         }
 
-        public int UpsertCertificationInfo(int CertificationId, int? CertificationInfoId, int CertificationInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int CertificationInfoUpsert(int CertificationId, int? CertificationInfoId, int CertificationInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertCertificationInfo(CertificationId, CertificationInfoId, CertificationInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.CertificationInfoUpsert(CertificationId, CertificationInfoId, CertificationInfoTypeId, Value, LargeValue, Enable);
         }
 
         #endregion
 
         #region Provider financial
 
-        public int UpsertFinancial(string CompanyPublicId, int? FinancialId, int FinancialTypeId, string FinancialName, bool Enable)
+        public int FinancialUpsert(string CompanyPublicId, int? FinancialId, int FinancialTypeId, string FinancialName, bool Enable)
         {
-            return DataFactory.UpsertFinancial(CompanyPublicId, FinancialId, FinancialTypeId, FinancialName, Enable);
+            return DataFactory.FinancialUpsert(CompanyPublicId, FinancialId, FinancialTypeId, FinancialName, Enable);
         }
 
-        public int UpsertFinancialInfo(int FinancialId, int? FinancialInfoId, int FinancialInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int FinancialInfoUpsert(int FinancialId, int? FinancialInfoId, int FinancialInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertFinancialInfo(FinancialId, FinancialInfoId, FinancialInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.FinancialInfoUpsert(FinancialId, FinancialInfoId, FinancialInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public int UpsertBalanceSheet(int FinancialId, int? BalanceSheetId, int AccountId, decimal Value, bool Enable)
+        public int BalanceSheetUpsert(int FinancialId, int? BalanceSheetId, int AccountId, decimal Value, bool Enable)
         {
-            return DataFactory.UpsertBalanceSheet(FinancialId, BalanceSheetId, AccountId, Value, Enable);
+            return DataFactory.BalanceSheetUpsert(FinancialId, BalanceSheetId, AccountId, Value, Enable);
         }
 
         #endregion
 
         #region Provider Legal
 
-        public int UpsertLegal(string CompanyPublicId, int? LegalId, int LegalTypeId, string LegalName, bool Enable)
+        public int LegalUpsert(string CompanyPublicId, int? LegalId, int LegalTypeId, string LegalName, bool Enable)
         {
-            return DataFactory.UpsertLegal(CompanyPublicId, LegalId, LegalTypeId, LegalName, Enable);
+            return DataFactory.LegalUpsert(CompanyPublicId, LegalId, LegalTypeId, LegalName, Enable);
         }
 
-        public int UpsertLegalInfo(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertLegalInfo(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.LegalInfoUpsert(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
+        }
+
+        #endregion
+
+        #region Util
+
+        public List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions()
+        {
+            return DataFactory.CatalogGetProviderOptions();
         }
 
         #endregion

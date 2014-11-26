@@ -13,13 +13,22 @@ namespace BackOffice.Web.Controllers
             return View();
         }
 
+        #region General Info
+
         public virtual ActionResult UpsertProvider(string ProviderPublicId)
         {
-            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
 
             if (!string.IsNullOrEmpty(ProviderPublicId))
             {
                 //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                };
 
                 //get provider menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -28,7 +37,9 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        #region Private Methods
+        #endregion
+
+        #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetProviderMenu
             (BackOffice.Models.Provider.ProviderViewModel vProviderInfo)

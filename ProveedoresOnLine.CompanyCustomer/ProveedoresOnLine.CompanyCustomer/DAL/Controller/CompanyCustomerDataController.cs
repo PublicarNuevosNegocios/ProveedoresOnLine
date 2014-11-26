@@ -37,12 +37,12 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #region Customer Provider
 
-        public int UpsertCustomerProvider(string CustomerPublicId, string ProviderPublicId, int StatusId, bool Enable)
+        public int CustomerProviderUpsert(string CustomerPublicId, string ProviderPublicId, int StatusId, bool Enable)
         {
             throw new NotImplementedException();
         }
 
-        public int UpsertCustomerProviderInfo(int CustomerProviderId, int? CustomerProviderInfoId, int CustomerProviderInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int CustomerProviderInfoUpsert(int CustomerProviderId, int? CustomerProviderInfoId, int CustomerProviderInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             throw new NotImplementedException();
         }
@@ -51,17 +51,17 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #region Survey
 
-        public int UpsertSurveyConfig(string CompanyPublicId, int? SurveyConfigId, string SurveyName, bool Enable)
+        public int SurveyConfigUpsert(string CompanyPublicId, int? SurveyConfigId, string SurveyName, bool Enable)
         {
             throw new NotImplementedException();
         }
 
-        public int UpsertSurveyItem(int SurveyConfigId, int? SurveyItemId, string SurveyItemName, int SurveyItemTypeId, int? ParentSurveyItemId, bool Enable)
+        public int SurveyItemUpsert(int SurveyConfigId, int? SurveyItemId, string SurveyItemName, int SurveyItemTypeId, int? ParentSurveyItemId, bool Enable)
         {
             throw new NotImplementedException();
         }
 
-        public int UpsertSurveyItemInfo(int SurveyItemId, int? SurveyItemInfoId, int SurveyItemInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int SurveyItemInfoUpsert(int SurveyItemId, int? SurveyItemInfoId, int SurveyItemInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             throw new NotImplementedException();
         }
@@ -70,17 +70,17 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #region Project
 
-        public int UpsertProjectConfig(string CompanyPublicId, int? ProjectConfigId, string ProjectConfigName, int StatusId, bool Enable)
+        public int ProjectConfigUpsert(string CompanyPublicId, int? ProjectConfigId, string ProjectConfigName, int StatusId, bool Enable)
         {
             throw new NotImplementedException();
         }
 
-        public int UpsertEvaluationItem(int ProjectConfigId, int? EvaluationItemId, string EvaluationItemName, int EvaluationItemTypeId, int? ParentEvaluationItemId, bool Enable)
+        public int EvaluationItemUpsert(int ProjectConfigId, int? EvaluationItemId, string EvaluationItemName, int EvaluationItemTypeId, int? ParentEvaluationItemId, bool Enable)
         {
             throw new NotImplementedException();
         }
 
-        public int UpsertEvaluationItemInfo(int EvaluationItemId, int? EvaluationItemInfoId, int EvaluationItemInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int EvaluationItemInfoUpsert(int EvaluationItemId, int? EvaluationItemInfoId, int EvaluationItemInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             throw new NotImplementedException();
         }

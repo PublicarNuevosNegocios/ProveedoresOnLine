@@ -12,12 +12,12 @@ namespace ProveedoresOnLine.Company.Controller
     {
         #region Util
 
-        public static TreeModel UpsertTree(TreeModel TreeToUpsert)
+        public static TreeModel TreeUpsert(TreeModel TreeToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
             try
             {
-                TreeToUpsert.TreeId = DAL.Controller.CompanyDataController.Instance.UpsertTree
+                TreeToUpsert.TreeId = DAL.Controller.CompanyDataController.Instance.TreeUpsert
                     (TreeToUpsert.TreeId > 0 ? (int?)TreeToUpsert.TreeId : null,
                     TreeToUpsert.TreeName,
                     TreeToUpsert.Enable);
@@ -40,22 +40,22 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static GenericItemModel UpsertCategory(int? TreeId, GenericItemModel CategoryToUpsert)
+        public static GenericItemModel CategoryUpsert(int? TreeId, GenericItemModel CategoryToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
 
             try
             {
-                CategoryToUpsert.ItemId = DAL.Controller.CompanyDataController.Instance.UpsertCategory
+                CategoryToUpsert.ItemId = DAL.Controller.CompanyDataController.Instance.CategoryUpsert
                     (CategoryToUpsert.ItemId,
                     CategoryToUpsert.ItemName,
                     CategoryToUpsert.Enable);
 
-                UpsertCategoryInfo(CategoryToUpsert);
+                CategoryInfoUpsert(CategoryToUpsert);
 
                 if (TreeId != null && TreeId > 0)
                 {
-                    UpsertTreeCategory((int)TreeId, CategoryToUpsert);
+                    TreeCategoryUpsert((int)TreeId, CategoryToUpsert);
                 }
 
                 oLog.IsSuccess = true;
@@ -86,7 +86,7 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static GenericItemModel UpsertCategoryInfo(GenericItemModel CategoryToUpsert)
+        public static GenericItemModel CategoryInfoUpsert(GenericItemModel CategoryToUpsert)
         {
             if (CategoryToUpsert.ItemId > 0 &&
                 CategoryToUpsert.ItemInfo != null &&
@@ -97,7 +97,7 @@ namespace ProveedoresOnLine.Company.Controller
                     LogManager.Models.LogModel oLog = GetGenericLogModel();
                     try
                     {
-                        catinfo.ItemInfoId = DAL.Controller.CompanyDataController.Instance.UpsertCategoryInfo
+                        catinfo.ItemInfoId = DAL.Controller.CompanyDataController.Instance.CategoryInfoUpsert
                             (CategoryToUpsert.ItemId,
                             catinfo.ItemInfoId > 0 ? (int?)catinfo.ItemInfoId : null,
                             catinfo.ItemInfoType.ItemId,
@@ -134,13 +134,13 @@ namespace ProveedoresOnLine.Company.Controller
             return CategoryToUpsert;
         }
 
-        public static void UpsertTreeCategory(int TreeId, GenericItemModel CategoryToUpsert)
+        public static void TreeCategoryUpsert(int TreeId, GenericItemModel CategoryToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
             try
             {
 
-                DAL.Controller.CompanyDataController.Instance.UpsertTreeCategory
+                DAL.Controller.CompanyDataController.Instance.TreeCategoryUpsert
                     (TreeId,
                     CategoryToUpsert.ParentItem != null && CategoryToUpsert.ParentItem.ItemId > 0 ? (int?)CategoryToUpsert.ParentItem.ItemId : null,
                     CategoryToUpsert.ItemId,
@@ -169,13 +169,13 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static CatalogModel UpsertCatalogItem(CatalogModel CatalogItemToUpsert)
+        public static CatalogModel CatalogItemUpsert(CatalogModel CatalogItemToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
             try
             {
 
-                CatalogItemToUpsert.ItemId = DAL.Controller.CompanyDataController.Instance.UpsertCatalogItem
+                CatalogItemToUpsert.ItemId = DAL.Controller.CompanyDataController.Instance.CatalogItemUpsert
                     (CatalogItemToUpsert.CatalogId,
                     CatalogItemToUpsert.ItemId > 0 ? (int?)CatalogItemToUpsert.ItemId : null,
                     CatalogItemToUpsert.ItemName,
@@ -203,23 +203,25 @@ namespace ProveedoresOnLine.Company.Controller
 
         #region Company
 
-        public static CompanyModel UpsertCompany(CompanyModel CompanyToUpsert)
+        #region Crud Methods
+
+        public static CompanyModel CompanyUpsert(CompanyModel CompanyToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
             try
             {
 
-                CompanyToUpsert.CompanyPublicId = DAL.Controller.CompanyDataController.Instance.UpsertCompany
+                CompanyToUpsert.CompanyPublicId = DAL.Controller.CompanyDataController.Instance.CompanyUpsert
                     (CompanyToUpsert.CompanyPublicId,
                     CompanyToUpsert.CompanyName,
                     CompanyToUpsert.IdentificationType.ItemId,
                     CompanyToUpsert.IdentificationNumber,
-                    CompanyToUpsert.CompanyType,
+                    CompanyToUpsert.CompanyType.ItemId,
                     CompanyToUpsert.Enable);
 
-                UpsertCompanyInfo(CompanyToUpsert);
-                UpsertContact(CompanyToUpsert);
-                UpsertRoleCompany(CompanyToUpsert);
+                CompanyInfoUpsert(CompanyToUpsert);
+                ContactUpsert(CompanyToUpsert);
+                RoleCompanyUpsert(CompanyToUpsert);
 
                 oLog.IsSuccess = true;
 
@@ -239,7 +241,7 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static CompanyModel UpsertCompanyInfo(CompanyModel CompanyToUpsert)
+        public static CompanyModel CompanyInfoUpsert(CompanyModel CompanyToUpsert)
         {
             if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
                 CompanyToUpsert.CompanyInfo != null &&
@@ -250,7 +252,7 @@ namespace ProveedoresOnLine.Company.Controller
                     LogManager.Models.LogModel oLog = GetGenericLogModel();
                     try
                     {
-                        cmpinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.UpsertCompanyInfo
+                        cmpinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.CompanyInfoUpsert
                             (CompanyToUpsert.CompanyPublicId,
                             cmpinf.ItemInfoId > 0 ? (int?)cmpinf.ItemInfoId : null,
                             cmpinf.ItemInfoType.ItemId,
@@ -287,7 +289,7 @@ namespace ProveedoresOnLine.Company.Controller
             return CompanyToUpsert;
         }
 
-        public static CompanyModel UpsertContact(CompanyModel CompanyToUpsert)
+        public static CompanyModel ContactUpsert(CompanyModel CompanyToUpsert)
         {
             if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
                 CompanyToUpsert.RelatedContact != null &&
@@ -298,14 +300,14 @@ namespace ProveedoresOnLine.Company.Controller
                     LogManager.Models.LogModel oLog = GetGenericLogModel();
                     try
                     {
-                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.UpsertContact
+                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.ContactUpsert
                             (CompanyToUpsert.CompanyPublicId,
                             cmpinf.ItemId > 0 ? (int?)cmpinf.ItemId : null,
                             cmpinf.ItemType.ItemId,
                             cmpinf.ItemName,
                             cmpinf.Enable);
 
-                        UpsertContactInfo(cmpinf);
+                        ContactInfoUpsert(cmpinf);
 
                         oLog.IsSuccess = true;
 
@@ -337,7 +339,7 @@ namespace ProveedoresOnLine.Company.Controller
             return CompanyToUpsert;
         }
 
-        public static GenericItemModel UpsertContactInfo(GenericItemModel ContactToUpsert)
+        public static GenericItemModel ContactInfoUpsert(GenericItemModel ContactToUpsert)
         {
             if (ContactToUpsert.ItemId > 0 &&
                 ContactToUpsert.ItemInfo != null &&
@@ -348,7 +350,7 @@ namespace ProveedoresOnLine.Company.Controller
                     LogManager.Models.LogModel oLog = GetGenericLogModel();
                     try
                     {
-                        ctinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.UpsertContactInfo
+                        ctinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.ContactInfoUpsert
                             (ContactToUpsert.ItemId,
                             ctinf.ItemInfoId > 0 ? (int?)ctinf.ItemInfoId : null,
                             ctinf.ItemInfoType.ItemId,
@@ -385,7 +387,7 @@ namespace ProveedoresOnLine.Company.Controller
             return ContactToUpsert;
         }
 
-        public static CompanyModel UpsertRoleCompany(CompanyModel CompanyToUpsert)
+        public static CompanyModel RoleCompanyUpsert(CompanyModel CompanyToUpsert)
         {
             if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
                 CompanyToUpsert.RelatedRole != null &&
@@ -396,14 +398,14 @@ namespace ProveedoresOnLine.Company.Controller
                     LogManager.Models.LogModel oLog = GetGenericLogModel();
                     try
                     {
-                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.UpsertRoleCompany
+                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.RoleCompanyUpsert
                             (CompanyToUpsert.CompanyPublicId,
                             cmpinf.ItemId > 0 ? (int?)cmpinf.ItemId : null,
                             cmpinf.ItemName,
                             cmpinf.ParentItem != null && cmpinf.ParentItem.ItemId > 0 ? (int?)cmpinf.ParentItem.ItemId : null,
                             cmpinf.Enable);
 
-                        UpsertRoleCompanyInfo(cmpinf);
+                        RoleCompanyInfoUpsert(cmpinf);
                         oLog.IsSuccess = true;
 
                     }
@@ -434,7 +436,7 @@ namespace ProveedoresOnLine.Company.Controller
 
         }
 
-        public static GenericItemModel UpsertRoleCompanyInfo(GenericItemModel RoleCompanyToUpsert)
+        public static GenericItemModel RoleCompanyInfoUpsert(GenericItemModel RoleCompanyToUpsert)
         {
             if (RoleCompanyToUpsert.ItemId > 0 &&
                 RoleCompanyToUpsert.ItemInfo != null &&
@@ -445,7 +447,7 @@ namespace ProveedoresOnLine.Company.Controller
                     LogManager.Models.LogModel oLog = GetGenericLogModel();
                     try
                     {
-                        ctinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.UpsertRoleCompanyInfo
+                        ctinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.RoleCompanyInfoUpsert
                             (RoleCompanyToUpsert.ItemId,
                             ctinf.ItemInfoId > 0 ? (int?)ctinf.ItemInfoId : null,
                             ctinf.ItemInfoType.ItemId,
@@ -483,13 +485,13 @@ namespace ProveedoresOnLine.Company.Controller
             return RoleCompanyToUpsert;
         }
 
-        public static UserCompany UpsertUserCompany(UserCompany UserCompanyToUpsert)
+        public static UserCompany UserCompanyUpsert(UserCompany UserCompanyToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
             try
             {
 
-                UserCompanyToUpsert.UserCompanyId = DAL.Controller.CompanyDataController.Instance.UpsertUserCompany
+                UserCompanyToUpsert.UserCompanyId = DAL.Controller.CompanyDataController.Instance.UserCompanyUpsert
                     (UserCompanyToUpsert.UserCompanyId > 0 ? (int?)UserCompanyToUpsert.UserCompanyId : null,
                     UserCompanyToUpsert.User,
                     UserCompanyToUpsert.RelatedRole.ItemId,
@@ -510,6 +512,17 @@ namespace ProveedoresOnLine.Company.Controller
                 LogManager.ClientLog.AddLog(oLog);
             }
         }
+
+        #endregion
+
+        #region Get Methods
+
+        public static CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CompanyGetBasicInfo(CompanyPublicId);
+        }
+
+        #endregion
 
         #endregion
 

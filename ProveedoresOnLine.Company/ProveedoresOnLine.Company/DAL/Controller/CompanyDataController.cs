@@ -37,71 +37,75 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #region Util
 
-        public int UpsertTree(int? TreeId, string TreeName, bool Enable)
+        public int TreeUpsert(int? TreeId, string TreeName, bool Enable)
         {
-            return DataFactory.UpsertTree(TreeId, TreeName, Enable);
+            return DataFactory.TreeUpsert(TreeId, TreeName, Enable);
         }
 
-        public int UpsertCategory(int? CategoryId, string CategoryName, bool Enable)
+        public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
-            return DataFactory.UpsertCategory(CategoryId, CategoryName, Enable);
+            return DataFactory.CategoryUpsert(CategoryId, CategoryName, Enable);
         }
 
-        public int UpsertCategoryInfo(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable)
+        public int CategoryInfoUpsert(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertCategoryInfo(CategoryId, CategoryInfoId, CategoryInfoType, Value, LargeValue, Enable);
+            return DataFactory.CategoryInfoUpsert(CategoryId, CategoryInfoId, CategoryInfoType, Value, LargeValue, Enable);
         }
 
-        public void UpsertTreeCategory(int TreeId, int? ParentCategoryId, int ChildCategoryId, bool Enable)
+        public void TreeCategoryUpsert(int TreeId, int? ParentCategoryId, int ChildCategoryId, bool Enable)
         {
-            DataFactory.UpsertTreeCategory(TreeId, ParentCategoryId, ChildCategoryId, Enable);
+            DataFactory.TreeCategoryUpsert(TreeId, ParentCategoryId, ChildCategoryId, Enable);
         }
 
-        public int UpsertCatalogItem(int CatalogId, int? ItemId, string Name, bool Enable)
+        public int CatalogItemUpsert(int CatalogId, int? ItemId, string Name, bool Enable)
         {
-            return DataFactory.UpsertCatalogItem(CatalogId, ItemId, Name, Enable);
+            return DataFactory.CatalogItemUpsert(CatalogId, ItemId, Name, Enable);
         }
 
         #endregion
 
         #region Company
 
-        public string UpsertCompany(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, ProveedoresOnLine.Company.Models.enumCompanyType CompanyType, bool Enable)
+        public string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable)
         {
-            return DataFactory.UpsertCompany(CompanyPublicId, CompanyName, IdentificationType, IdentificationNumber, CompanyType, Enable);
+            return DataFactory.CompanyUpsert(CompanyPublicId, CompanyName, IdentificationType, IdentificationNumber, CompanyType, Enable);
         }
 
-        public int UpsertCompanyInfo(string CompanyPublicId, int? CompanyInfoId, int CompanyInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int CompanyInfoUpsert(string CompanyPublicId, int? CompanyInfoId, int CompanyInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertCompanyInfo(CompanyPublicId, CompanyInfoId, CompanyInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.CompanyInfoUpsert(CompanyPublicId, CompanyInfoId, CompanyInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public int UpsertContact(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
+        public int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
         {
-            return DataFactory.UpsertContact(CompanyPublicId, ContactId, ContactTypeId, ContactName, Enable);
+            return DataFactory.ContactUpsert(CompanyPublicId, ContactId, ContactTypeId, ContactName, Enable);
         }
 
-        public int UpsertContactInfo(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertContactInfo(ContactId, ContactInfoId, ContactInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.ContactInfoUpsert(ContactId, ContactInfoId, ContactInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public int UpsertRoleCompany(string CompanyPublicId, int? RoleCompanyId, string RoleCompanyName, int? ParentRoleCompanyId, bool Enable)
+        public int RoleCompanyUpsert(string CompanyPublicId, int? RoleCompanyId, string RoleCompanyName, int? ParentRoleCompanyId, bool Enable)
         {
-            return DataFactory.UpsertRoleCompany(CompanyPublicId, RoleCompanyId, RoleCompanyName, ParentRoleCompanyId, Enable);
+            return DataFactory.RoleCompanyUpsert(CompanyPublicId, RoleCompanyId, RoleCompanyName, ParentRoleCompanyId, Enable);
         }
 
-        public int UpsertRoleCompanyInfo(int RoleCompanyId, int? RoleCompanyInfoId, int RoleCompanyInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int RoleCompanyInfoUpsert(int RoleCompanyId, int? RoleCompanyInfoId, int RoleCompanyInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.UpsertRoleCompanyInfo(RoleCompanyId, RoleCompanyInfoId, RoleCompanyInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.RoleCompanyInfoUpsert(RoleCompanyId, RoleCompanyInfoId, RoleCompanyInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public int UpsertUserCompany(int? UserCompanyId, string User, int RoleCompanyId, bool Enable)
+        public int UserCompanyUpsert(int? UserCompanyId, string User, int RoleCompanyId, bool Enable)
         {
-            return DataFactory.UpsertUserCompany(UserCompanyId, User, RoleCompanyId, Enable);
+            return DataFactory.UserCompanyUpsert(UserCompanyId, User, RoleCompanyId, Enable);
+        }
+
+        public Models.Company.CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DataFactory.CompanyGetBasicInfo(CompanyPublicId);
         }
 
         #endregion
-
     }
 }

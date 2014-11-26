@@ -11,21 +11,21 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
     {
         #region Provider Info
 
-        public static ProviderModel UpsertProvider(ProviderModel ProviderToUpsert)
+        public static ProviderModel ProviderUpsert(ProviderModel ProviderToUpsert)
         {
             LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
             try
             {
 
-                ProviderToUpsert.RelatedCompany = Company.Controller.Company.UpsertCompany
+                ProviderToUpsert.RelatedCompany = Company.Controller.Company.CompanyUpsert
                     (ProviderToUpsert.RelatedCompany);
 
-                UpsertProviderCategory(ProviderToUpsert);
-                UpsertExperience(ProviderToUpsert);
-                UpsertCertification(ProviderToUpsert);
-                UpsertFinancial(ProviderToUpsert);
-                UpsertBalanceSheet(ProviderToUpsert);
-                UpsertLegal(ProviderToUpsert);
+                ProviderCategoryUpsert(ProviderToUpsert);
+                ExperienceUpsert(ProviderToUpsert);
+                CertificationUpsert(ProviderToUpsert);
+                FinancialUpsert(ProviderToUpsert);
+                BalanceSheetUpsert(ProviderToUpsert);
+                LegalUpsert(ProviderToUpsert);
 
                 oLog.IsSuccess = true;
 
@@ -49,7 +49,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Provider Experience
 
-        public static ProviderModel UpsertProviderCategory(ProviderModel ProviderToUpsert)
+        public static ProviderModel ProviderCategoryUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -62,7 +62,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         pcat.CompanyCategoryId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.UpsertProviderCategory
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.ProviderCategoryUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
                             pcat.RelatedCategory.ItemId,
                             pcat.Enable);
@@ -102,7 +102,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static ProviderModel UpsertExperience(ProviderModel ProviderToUpsert)
+        public static ProviderModel ExperienceUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -115,13 +115,13 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         pexp.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.UpsertExperience
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.ExperienceUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
                             pexp.ItemId > 0 ? (int?)pexp.ItemId : null,
                             pexp.ItemName,
                             pexp.Enable);
 
-                        UpsertExperienceInfo(pexp);
+                        ExperienceInfoUpsert(pexp);
 
                         oLog.IsSuccess = true;
                     }
@@ -152,7 +152,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel UpsertExperienceInfo
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel ExperienceInfoUpsert
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel ExperienceToUpsert)
         {
             if (ExperienceToUpsert.ItemId > 0 &&
@@ -164,7 +164,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        expinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.UpsertExperienceInfo
+                        expinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.ExperienceInfoUpsert
                             (ExperienceToUpsert.ItemId,
                             expinf.ItemInfoId > 0 ? (int?)expinf.ItemInfoId : null,
                             expinf.ItemInfoType.ItemId,
@@ -205,7 +205,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Provider certification
 
-        public static ProviderModel UpsertCertification(ProviderModel ProviderToUpsert)
+        public static ProviderModel CertificationUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -218,14 +218,14 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         pcert.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.UpsertCertification
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.CertificationUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
                             pcert.ItemId > 0 ? (int?)pcert.ItemId : null,
                             pcert.ItemType.ItemId,
                             pcert.ItemName,
                             pcert.Enable);
 
-                        UpsertCertificationInfo(pcert);
+                        CertificationInfoUpsert(pcert);
 
                         oLog.IsSuccess = true;
                     }
@@ -256,7 +256,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel UpsertCertificationInfo
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel CertificationInfoUpsert
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel CertificationToUpsert)
         {
             if (CertificationToUpsert.ItemId > 0 &&
@@ -268,7 +268,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        certinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.UpsertCertificationInfo
+                        certinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.CertificationInfoUpsert
                             (CertificationToUpsert.ItemId,
                             certinf.ItemInfoId > 0 ? (int?)certinf.ItemInfoId : null,
                             certinf.ItemInfoType.ItemId,
@@ -309,7 +309,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Provider financial
 
-        public static ProviderModel UpsertFinancial(ProviderModel ProviderToUpsert)
+        public static ProviderModel FinancialUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -322,14 +322,14 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         pfin.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.UpsertFinancial
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
                             pfin.ItemId > 0 ? (int?)pfin.ItemId : null,
                             pfin.ItemType.ItemId,
                             pfin.ItemName,
                             pfin.Enable);
 
-                        UpsertFinancialInfo(pfin);
+                        FinancialInfoUpsert(pfin);
 
                         oLog.IsSuccess = true;
                     }
@@ -360,7 +360,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel UpsertFinancialInfo
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialInfoUpsert
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel FinancialToUpsert)
         {
             if (FinancialToUpsert.ItemId > 0 &&
@@ -372,7 +372,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        fininf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.UpsertFinancialInfo
+                        fininf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.FinancialInfoUpsert
                             (FinancialToUpsert.ItemId,
                             fininf.ItemInfoId > 0 ? (int?)fininf.ItemInfoId : null,
                             fininf.ItemInfoType.ItemId,
@@ -409,7 +409,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return FinancialToUpsert;
         }
 
-        public static ProviderModel UpsertBalanceSheet(ProviderModel ProviderToUpsert)
+        public static ProviderModel BalanceSheetUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -422,14 +422,14 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         pSheet.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.UpsertFinancial
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
                             pSheet.ItemId > 0 ? (int?)pSheet.ItemId : null,
                             pSheet.ItemType.ItemId,
                             pSheet.ItemName,
                             pSheet.Enable);
 
-                        UpsertBalanceSheetInfo(pSheet);
+                        BalanceSheetInfoUpsert(pSheet);
 
                         oLog.IsSuccess = true;
                     }
@@ -460,7 +460,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static BalanceSheetModel UpsertBalanceSheetInfo
+        public static BalanceSheetModel BalanceSheetInfoUpsert
             (BalanceSheetModel BalanceSheetToUpsert)
         {
             if (BalanceSheetToUpsert.ItemId > 0 &&
@@ -472,7 +472,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        bsinf.BalanceSheetId = DAL.Controller.CompanyProviderDataController.Instance.UpsertBalanceSheet
+                        bsinf.BalanceSheetId = DAL.Controller.CompanyProviderDataController.Instance.BalanceSheetUpsert
                             (BalanceSheetToUpsert.ItemId,
                             bsinf.BalanceSheetId > 0 ? (int?)bsinf.BalanceSheetId : null,
                             bsinf.RelatedAccount.ItemId,
@@ -512,7 +512,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Provider Legal
 
-        public static ProviderModel UpsertLegal(ProviderModel ProviderToUpsert)
+        public static ProviderModel LegalUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -525,14 +525,14 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         plegal.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.UpsertLegal
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.LegalUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
                             plegal.ItemId > 0 ? (int?)plegal.ItemId : null,
                             plegal.ItemType.ItemId,
                             plegal.ItemName,
                             plegal.Enable);
 
-                        UpsertLegalInfo(plegal);
+                        LegalInfoUpsert(plegal);
 
                         oLog.IsSuccess = true;
                     }
@@ -563,7 +563,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel UpsertLegalInfo
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalInfoUpsert
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel LegalToUpsert)
         {
             if (LegalToUpsert.ItemId > 0 &&
@@ -575,7 +575,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        legalinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.UpsertLegalInfo
+                        legalinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.LegalInfoUpsert
                             (LegalToUpsert.ItemId,
                             legalinf.ItemInfoId > 0 ? (int?)legalinf.ItemInfoId : null,
                             legalinf.ItemInfoType.ItemId,
@@ -610,6 +610,15 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             }
 
             return LegalToUpsert;
+        }
+
+        #endregion
+
+        #region Util
+
+        public static List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions()
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.CatalogGetProviderOptions();
         }
 
         #endregion

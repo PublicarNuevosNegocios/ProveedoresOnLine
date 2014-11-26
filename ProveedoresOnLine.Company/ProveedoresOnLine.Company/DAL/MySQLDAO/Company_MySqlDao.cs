@@ -1,9 +1,11 @@
 ﻿using ProveedoresOnLine.Company.Interfaces;
+using ProveedoresOnLine.Company.Models.Company;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 {
@@ -18,7 +20,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         #region Util
 
-        public int UpsertTree(int? TreeId, string TreeName, bool Enable)
+        public int TreeUpsert(int? TreeId, string TreeName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -37,7 +39,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertCategory(int? CategoryId, string CategoryName, bool Enable)
+        public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -57,7 +59,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         }
 
-        public int UpsertCategoryInfo(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable)
+        public int CategoryInfoUpsert(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -79,7 +81,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public void UpsertTreeCategory(int TreeId, int? ParentCategoryId, int ChildCategoryId, bool Enable)
+        public void TreeCategoryUpsert(int TreeId, int? ParentCategoryId, int ChildCategoryId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -97,7 +99,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 });
         }
 
-        public int UpsertCatalogItem(int CatalogId, int? ItemId, string Name, bool Enable)
+        public int CatalogItemUpsert(int CatalogId, int? ItemId, string Name, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -121,7 +123,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         #region Company
 
-        public string UpsertCompany(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, Models.enumCompanyType CompanyType, bool Enable)
+        public string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -146,7 +148,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 return null;
         }
 
-        public int UpsertCompanyInfo(string CompanyPublicId, int? CompanyInfoId, int CompanyInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int CompanyInfoUpsert(string CompanyPublicId, int? CompanyInfoId, int CompanyInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -167,7 +169,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertContact(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
+        public int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -187,7 +189,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertContactInfo(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -209,7 +211,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertRoleCompany(string CompanyPublicId, int? RoleCompanyId, string RoleCompanyName, int? ParentRoleCompanyId, bool Enable)
+        public int RoleCompanyUpsert(string CompanyPublicId, int? RoleCompanyId, string RoleCompanyName, int? ParentRoleCompanyId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -230,7 +232,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         }
 
-        public int UpsertRoleCompanyInfo(int RoleCompanyId, int? RoleCompanyInfoId, int RoleCompanyInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int RoleCompanyInfoUpsert(int RoleCompanyId, int? RoleCompanyInfoId, int RoleCompanyInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -252,7 +254,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertUserCompany(int? UserCompanyId, string User, int RoleCompanyId, bool Enable)
+        public int UserCompanyUpsert(int? UserCompanyId, string User, int RoleCompanyId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -270,6 +272,67 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 });
 
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+
+        public CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_Company_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            CompanyModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new CompanyModel()
+                {
+                    CompanyPublicId = response.DataTableResult.Rows[0].Field<string>("CompanyPublicId"),
+                    CompanyName = response.DataTableResult.Rows[0].Field<string>("CompanyName"),
+                    IdentificationType = new Models.Util.CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationName"),
+                    },
+                    IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
+                    CompanyType = new Models.Util.CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("CompanyTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("CompanyTypeName"),
+                    },
+                    Enable = response.DataTableResult.Rows[0].Field<Int64>("CompanyEnable") == 1 ? true : false,
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("CompanyLastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CompanyCreateDate"),
+
+                    CompanyInfo =
+                        (from ci in response.DataTableResult.AsEnumerable()
+                         where !ci.IsNull("CompanyInfoId")
+                         select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                         {
+                             ItemInfoId = ci.Field<int>("CompanyInfoId"),
+                             ItemInfoType = new Models.Util.CatalogModel()
+                             {
+                                 ItemId = ci.Field<int>("CompanyInfoTypeId"),
+                                 ItemName = ci.Field<string>("CompanyInfoTypeName"),
+                             },
+                             Value = ci.Field<string>("Value"),
+                             LargeValue = ci.Field<string>("LargeValue"),
+                             Enable = ci.Field<Int64>("CompanyInfoEnable") == 1 ? true : false,
+                             LastModify = ci.Field<DateTime>("CompanyInfoLastModify"),
+                             CreateDate = ci.Field<DateTime>("CompanyInfoCreateDate"),
+                         }).ToList(),
+                };
+            }
+            return oReturn;
         }
 
         #endregion

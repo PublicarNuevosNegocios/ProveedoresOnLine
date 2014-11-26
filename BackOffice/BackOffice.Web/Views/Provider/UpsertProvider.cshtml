@@ -19,7 +19,7 @@
                 MVC.Provider.Name,
                 new
                 {
-                    ProviderPublicId = Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
+                    ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
                 }))">
 
             <ul>
@@ -38,6 +38,11 @@
                 <li>
                     <span>Tipo de empresa</span>
                     <select></select>
+                </li>
+                <li>
+                    <span>Código de salesforce</span>
+                    <input type="text" />
+                    <a target="_blank" href="">Ver en salesforce</a>
                 </li>
             </ul>
             <div style="display:none">

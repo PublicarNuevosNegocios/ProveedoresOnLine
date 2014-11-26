@@ -13,5 +13,7 @@ namespace BackOffice.Models.Provider
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; set; }
 
         public List<BackOffice.Models.General.GenericMenu> ProviderMenu { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
     }
 }

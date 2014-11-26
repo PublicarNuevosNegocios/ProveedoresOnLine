@@ -11,16 +11,16 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
     {
         #region Customer Info
 
-        public static CustomerModel UpsertProvider(CustomerModel CustomerToUpsert)
+        public static CustomerModel ProviderUpsert(CustomerModel CustomerToUpsert)
         {
             LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
             try
             {
 
-                CustomerToUpsert.RelatedCompany = Company.Controller.Company.UpsertCompany
+                CustomerToUpsert.RelatedCompany = Company.Controller.Company.CompanyUpsert
                     (CustomerToUpsert.RelatedCompany);
 
-                UpsertCustomerProvider(CustomerToUpsert);
+                CustomerProviderUpsert(CustomerToUpsert);
 
                 oLog.IsSuccess = true;
 
@@ -44,7 +44,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
 
         #region Customer Provider
 
-        public static CustomerModel UpsertCustomerProvider(CustomerModel CustomerToUpsert)
+        public static CustomerModel CustomerProviderUpsert(CustomerModel CustomerToUpsert)
         {
             if (CustomerToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(CustomerToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -57,13 +57,13 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     try
                     {
                         prov.CustomerProviderId =
-                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.UpsertCustomerProvider
+                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.CustomerProviderUpsert
                             (CustomerToUpsert.RelatedCompany.CompanyPublicId,
                             prov.RelatedProvider.CompanyPublicId,
                             prov.Status.ItemId,
                             prov.Enable);
 
-                        UpsertCustomerProviderInfo(prov);
+                        CustomerProviderInfoUpsert(prov);
 
                         oLog.IsSuccess = true;
                     }
@@ -100,7 +100,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerToUpsert;
         }
 
-        public static CustomerProviderModel UpsertCustomerProviderInfo
+        public static CustomerProviderModel CustomerProviderInfoUpsert
             (CustomerProviderModel CustomerProviderToUpsert)
         {
             if (CustomerProviderToUpsert.CustomerProviderId > 0 &&
@@ -113,7 +113,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     try
                     {
                         cpinf.ItemInfoId =
-                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.UpsertCustomerProviderInfo
+                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.CustomerProviderInfoUpsert
                             (CustomerProviderToUpsert.CustomerProviderId,
                             cpinf.ItemInfoId > 0 ? (int?)cpinf.ItemInfoId : null,
                             cpinf.ItemInfoType.ItemId,
@@ -154,7 +154,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
 
         #region Customer Survey
 
-        public CustomerModel UpsertSurveyConfig(CustomerModel CustomerToUpsert)
+        public CustomerModel SurveyConfigUpsert(CustomerModel CustomerToUpsert)
         {
             if (CustomerToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(CustomerToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -167,13 +167,13 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     try
                     {
                         srv.ItemId =
-                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.UpsertSurveyConfig
+                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.SurveyConfigUpsert
                             (CustomerToUpsert.RelatedCompany.CompanyPublicId,
                             srv.ItemId > 0 ? (int?)srv.ItemId : null,
                             srv.ItemName,
                             srv.Enable);
 
-                        UpsertSurveyItem(srv);
+                        SurveyItemUpsert(srv);
 
                         oLog.IsSuccess = true;
                     }
@@ -204,7 +204,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerToUpsert;
         }
 
-        public SurveyConfigModel UpsertSurveyItem(SurveyConfigModel SurveyConfigToUpsert)
+        public SurveyConfigModel SurveyItemUpsert(SurveyConfigModel SurveyConfigToUpsert)
         {
             if (SurveyConfigToUpsert.ItemId > 0 &&
                 SurveyConfigToUpsert.RelatedSurveyItem != null &&
@@ -216,7 +216,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     try
                     {
                         srvitem.ItemId =
-                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.UpsertSurveyItem
+                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.SurveyItemUpsert
                             (SurveyConfigToUpsert.ItemId,
                             srvitem.ItemId > 0 ? (int?)srvitem.ItemId : null,
                             srvitem.ItemName,
@@ -224,7 +224,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                             srvitem.ParentItem != null && srvitem.ParentItem.ItemId > 0 ? (int?)srvitem.ParentItem.ItemId : null,
                             srvitem.Enable);
 
-                        UpsertSurveyItemInfo(srvitem);
+                        SurveyItemInfoUpsert(srvitem);
 
                         oLog.IsSuccess = true;
                     }
@@ -255,7 +255,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return SurveyConfigToUpsert;
         }
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel UpsertSurveyItemInfo
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel SurveyItemInfoUpsert
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel SurveyItemToUpsert)
         {
             if (SurveyItemToUpsert.ItemId > 0 &&
@@ -267,7 +267,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        srvitinf.ItemInfoId = DAL.Controller.CompanyCustomerDataController.Instance.UpsertSurveyItemInfo
+                        srvitinf.ItemInfoId = DAL.Controller.CompanyCustomerDataController.Instance.SurveyItemInfoUpsert
                             (SurveyItemToUpsert.ItemId,
                             srvitinf.ItemInfoId > 0 ? (int?)srvitinf.ItemInfoId : null,
                             srvitinf.ItemInfoType.ItemId,
@@ -308,7 +308,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
 
         #region Customer Project
 
-        public CustomerModel UpsertProjectConfig(CustomerModel CustomerToUpsert)
+        public CustomerModel ProjectConfigUpsert(CustomerModel CustomerToUpsert)
         {
             if (CustomerToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(CustomerToUpsert.RelatedCompany.CompanyPublicId) &&
@@ -321,14 +321,14 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     try
                     {
                         prcnf.ItemId =
-                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.UpsertProjectConfig
+                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.ProjectConfigUpsert
                             (CustomerToUpsert.RelatedCompany.CompanyPublicId,
                             prcnf.ItemId > 0 ? (int?)prcnf.ItemId : null,
                             prcnf.ItemName,
                             prcnf.Status.ItemId,
                             prcnf.Enable);
 
-                        UpsertEvaluationItem(prcnf);
+                        EvaluationItemUpsert(prcnf);
 
                         oLog.IsSuccess = true;
                     }
@@ -359,7 +359,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerToUpsert;
         }
 
-        public ProjectConfigModel UpsertEvaluationItem
+        public ProjectConfigModel EvaluationItemUpsert
             (ProjectConfigModel ProjectConfigToUpsert)
         {
             if (ProjectConfigToUpsert.ItemId > 0 &&
@@ -372,7 +372,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     try
                     {
                         prjevit.ItemId =
-                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.UpsertEvaluationItem
+                            ProveedoresOnLine.CompanyCustomer.DAL.Controller.CompanyCustomerDataController.Instance.EvaluationItemUpsert
                             (ProjectConfigToUpsert.ItemId,
                             prjevit.ItemId > 0 ? (int?)prjevit.ItemId : null,
                             prjevit.ItemName,
@@ -380,7 +380,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                             prjevit.ParentItem != null && prjevit.ParentItem.ItemId > 0 ? (int?)prjevit.ParentItem.ItemId : null,
                             prjevit.Enable);
 
-                        UpsertEvaluationItemInfo(prjevit);
+                        EvaluationItemInfoUpsert(prjevit);
 
                         oLog.IsSuccess = true;
                     }
@@ -411,7 +411,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return ProjectConfigToUpsert;
         }
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel UpsertEvaluationItemInfo
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel EvaluationItemInfoUpsert
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel EvaluationItemToUpsert)
         {
             if (EvaluationItemToUpsert.ItemId > 0 &&
@@ -423,7 +423,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        evitinf.ItemInfoId = DAL.Controller.CompanyCustomerDataController.Instance.UpsertEvaluationItemInfo
+                        evitinf.ItemInfoId = DAL.Controller.CompanyCustomerDataController.Instance.EvaluationItemInfoUpsert
                             (EvaluationItemToUpsert.ItemId,
                             evitinf.ItemInfoId > 0 ? (int?)evitinf.ItemInfoId : null,
                             evitinf.ItemInfoType.ItemId,

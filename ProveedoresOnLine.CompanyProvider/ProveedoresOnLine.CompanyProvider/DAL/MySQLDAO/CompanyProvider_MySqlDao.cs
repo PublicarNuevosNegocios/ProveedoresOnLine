@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 {
@@ -18,7 +19,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #region Provider Experience
 
-        public int UpsertProviderCategory(string CompanyPublicId, int CategoryId, bool Enable)
+        public int ProviderCategoryUpsert(string CompanyPublicId, int CategoryId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -37,7 +38,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertExperience(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
+        public int ExperienceUpsert(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -57,7 +58,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertExperienceInfo(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int ExperienceInfoUpsert(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -83,7 +84,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #region Provider certification
 
-        public int UpsertCertification(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
+        public int CertificationUpsert(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -104,7 +105,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertCertificationInfo(int CertificationId, int? CertificationInfoId, int CertificationInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int CertificationInfoUpsert(int CertificationId, int? CertificationInfoId, int CertificationInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -130,7 +131,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #region Provider financial
 
-        public int UpsertFinancial(string CompanyPublicId, int? FinancialId, int FinancialTypeId, string FinancialName, bool Enable)
+        public int FinancialUpsert(string CompanyPublicId, int? FinancialId, int FinancialTypeId, string FinancialName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -151,7 +152,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertFinancialInfo(int FinancialId, int? FinancialInfoId, int FinancialInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int FinancialInfoUpsert(int FinancialId, int? FinancialInfoId, int FinancialInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -173,7 +174,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertBalanceSheet(int FinancialId, int? BalanceSheetId, int AccountId, decimal Value, bool Enable)
+        public int BalanceSheetUpsert(int FinancialId, int? BalanceSheetId, int AccountId, decimal Value, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -198,7 +199,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #region Provider Legal
 
-        public int UpsertLegal(string CompanyPublicId, int? LegalId, int LegalTypeId, string LegalName, bool Enable)
+        public int LegalUpsert(string CompanyPublicId, int? LegalId, int LegalTypeId, string LegalName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -219,7 +220,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int UpsertLegalInfo(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable)
+        public int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -239,6 +240,39 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                 });
 
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+        #endregion
+
+        #region Util
+
+        public List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetProviderOptions",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<ProveedoresOnLine.Company.Models.Util.CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ItemId")
+                     select new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                     {
+                         CatalogId = c.Field<int>("CatalogId"),
+                         CatalogName = c.Field<string>("CatalogName"),
+                         ItemId = c.Field<int>("ItemId"),
+                         ItemName = c.Field<string>("ItemName"),
+                     }).ToList();
+            }
+            return oReturn;
         }
 
         #endregion

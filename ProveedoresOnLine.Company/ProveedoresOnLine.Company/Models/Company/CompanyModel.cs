@@ -17,7 +17,7 @@ namespace ProveedoresOnLine.Company.Models.Company
 
         public string IdentificationNumber { get; set; }
 
-        public enumCompanyType CompanyType { get; set; }
+        public CatalogModel CompanyType { get; set; }
 
         public bool Enable { get; set; }
 
