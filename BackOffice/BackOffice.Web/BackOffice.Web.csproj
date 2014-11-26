@@ -389,6 +389,7 @@
     <Content Include="Content\Styles\Site\POBOLogIn.css" />
     <Content Include="Content\Styles\Site\POBOLogInProviders.css" />
     <Content Include="Content\Styles\Site\POBOProvider.css" />
+    <Content Include="Scripts\Site\ProviderScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -979,6 +980,8 @@
     <Content Include="Views\Provider\Index.cshtml" />
     <Content Include="Views\Shared\_L_Footer.cshtml" />
     <Content Include="Views\Shared\_L_Header.cshtml" />
+    <Content Include="Views\Provider\UpsertProvider.cshtml" />
+    <Content Include="Views\Shared\_P_ProviderMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

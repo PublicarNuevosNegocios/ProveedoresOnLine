@@ -1,8 +1,35 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Busqueda de proveedores";
     Layout = MVC.Shared.Views._Layout;
 }
 
-<h2>Index</h2>
+<div>
+    <div>
+        <ul>
+            <li>
+                <input type="text" />
+                <a>Encontrar</a>
+            </li>
+            <li>
+                <a href="@Url.Action(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name)">Nuevo</a>
+            </li>
+            <li>
+                <a>Dercargar excel</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <div>
+            <span>Filtrar por:</span>
+            <ul>
+                <li>
+                    <input type="checkbox" /><span>Filtro 1</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div id="divProviderSearch_Grid"></div>
+        </div>
+    </div>
+</div>
 
