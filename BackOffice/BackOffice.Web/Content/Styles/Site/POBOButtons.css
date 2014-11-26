@@ -1,0 +1,11 @@
+.POBOButtons{
+    background-color:#ff8300;
+    padding:7px 10px 7px 10px;
+    font-size:1.1em;
+    letter-spacing:-0.5px;
+    color:#fff;
+}
+    .POBObuttons:hover{
+        background-color:#ffb362;
+        text-decoration:underline;
+    }

@@ -1,0 +1,28 @@
+.POBOPTopSearchBar {
+    margin:10px auto;
+    padding:10px 0px 10px 0px;
+    background-color:#ffe6d5;
+    display:block;
+    width:98%; height:auto;
+}
+.POBOPTopSearchBar ul{
+    margin:0px; padding:0px;
+}
+.POBOPTopSearchBar ul li{
+    display:inline-block;
+    vertical-align:top;
+}
+.POBOPTopSearchBar ul li a{
+    display:inline-block;
+    vertical-align:top;
+}
+
+        .POBOTextField{
+            border:1px solid #727276;
+            background-color:#f9f9f9;
+            padding:7px 10px 7px 10px;
+            letter-spacing:-0.5px;
+        }
+        .POBOTextField [placeholder=""] {
+            padding:7px 10px 7px 10px;
+        }

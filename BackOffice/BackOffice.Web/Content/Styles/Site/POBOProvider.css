@@ -1,14 +1,31 @@
-.DMStepsLayOutWrapper {
+.POBOProviderWrapper {
     display: block;
-    padding: 14px 0 0;
-    border-top: 3px solid #ff8300;
+    padding: 0;
+    border: 1px solid #ff8300;
+    text-align:center;
 }
+    .POBOProviderWrapper {
 
+    }
 .DMPageBodyProviderForm {
     width: 100%;
     margin: 0px;
     min-height: 430px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /************* PINTA EL FOOTER DENTRO DE LOS PASOS **************/
 
