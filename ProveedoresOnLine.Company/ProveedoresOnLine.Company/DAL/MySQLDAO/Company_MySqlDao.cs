@@ -153,7 +153,8 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vComapanyInfoId", CompanyInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyInfoId", CompanyInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyInfoType", CompanyInfoTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
@@ -301,7 +302,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                     IdentificationType = new Models.Util.CatalogModel()
                     {
                         ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
-                        ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationName"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
                     },
                     IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
                     CompanyType = new Models.Util.CatalogModel()
@@ -309,7 +310,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                         ItemId = response.DataTableResult.Rows[0].Field<int>("CompanyTypeId"),
                         ItemName = response.DataTableResult.Rows[0].Field<string>("CompanyTypeName"),
                     },
-                    Enable = response.DataTableResult.Rows[0].Field<Int64>("CompanyEnable") == 1 ? true : false,
+                    Enable = response.DataTableResult.Rows[0].Field<UInt64>("CompanyEnable") == 1 ? true : false,
                     LastModify = response.DataTableResult.Rows[0].Field<DateTime>("CompanyLastModify"),
                     CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CompanyCreateDate"),
 
@@ -326,7 +327,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                              },
                              Value = ci.Field<string>("Value"),
                              LargeValue = ci.Field<string>("LargeValue"),
-                             Enable = ci.Field<Int64>("CompanyInfoEnable") == 1 ? true : false,
+                             Enable = ci.Field<UInt64>("CompanyInfoEnable") == 1 ? true : false,
                              LastModify = ci.Field<DateTime>("CompanyInfoLastModify"),
                              CreateDate = ci.Field<DateTime>("CompanyInfoCreateDate"),
                          }).ToList(),

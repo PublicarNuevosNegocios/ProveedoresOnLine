@@ -17,5 +17,9 @@ namespace BackOffice.Models.General
         public bool IsSelected { get; set; }
 
         public List<GenericMenu> ChildMenu { get; set; }
+
+        public GenericMenu LastMenu { get; set; }
+
+        public GenericMenu NextMenu { get; set; }
     }
 }

@@ -5,6 +5,9 @@
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    int CompanyInfoIdAux = 0;
+    string CompanyInfoValueAux = string.Empty;
 }
 
 <div>
@@ -25,24 +28,82 @@
             <ul>
                 <li>
                     <span>Tipo de identificación</span>
-                    <select></select>
+                    <select name="IdentificationType">
+                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyIdentificationType))
+                        {
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.IdentificationType != null &&
+                                Model.RelatedProvider.RelatedCompany.IdentificationType.ItemId == Item.ItemId)
+                            {
+                                <option value="@Item.ItemId" selected="selected">@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
                 </li>
                 <li>
                     <span>Número de identificación</span>
-                    <input type="text" />
+                    <input type="text" name="IdentificationNumber" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.IdentificationNumber : string.Empty)" />
                 </li>
                 <li>
                     <span>Razón social</span>
-                    <input type="text" />
+                    <input type="text" name="CompanyName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyName : string.Empty)" />
                 </li>
                 <li>
                     <span>Tipo de empresa</span>
-                    <select></select>
+                    <select name="CompanyType">
+                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyType))
+                        {
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyType.ItemId == Item.ItemId)
+                            {
+                                <option value="@Item.ItemId" selected="selected">@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
                 </li>
                 <li>
+                    @{
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedProvider != null &&
+                           Model.RelatedProvider.RelatedCompany != null &&
+                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SalesforceId).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SalesforceId).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
                     <span>Código de salesforce</span>
-                    <input type="text" />
-                    <a target="_blank" href="">Ver en salesforce</a>
+                    <input type="text" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.SalesforceId).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
+                    @if (!string.IsNullOrEmpty(CompanyInfoValueAux))
+                    {
+                        <a target="_blank" href="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Path_SalesForce].Value.TrimEnd('/') + "/" + CompanyInfoValueAux)">Ver en salesforce</a>
+                    }
                 </li>
             </ul>
             <div style="display:none">
@@ -54,6 +115,22 @@
                     <li>
                         <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'next'})">Siguiente</a>
                     </li>
+                    @if (Model.RelatedProvider != null &&
+                        Model.RelatedProvider.RelatedCompany != null)
+                    {
+                        if (Model.RelatedProvider.RelatedCompany.Enable)
+                        {
+                            <li>
+                                <a href="">Deshabilitar empresa</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="">Habilitar empresa</a>
+                            </li>
+                        }
+                    }
                     <li>
                         <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert'})">Guardar</a>
                     </li>
