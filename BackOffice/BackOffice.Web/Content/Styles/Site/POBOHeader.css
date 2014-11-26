@@ -1,12 +1,107 @@
 /*****************UserInfo************************/
-.UserInfo {
-    display: inline-block;
+.POBOHeaderWrapper {
+    display:block;
     width: 100%;
     height: auto;
-    margin: 2px 0px 0px 0px;
-    vertical-align: top;
-    text-align: right;
+    margin: 0px;
+    text-align: left;
+    border-bottom:1.2px solid #ff8300;
 }
+/****************Logo*******************/
+.POBOLogo{
+    display: inline-block;
+    width: 257px;
+    height: 85px;
+    vertical-align: top;
+    margin: 15px 0px 8px 14px;
+    background-image:url(../../Images/POBOsprite.png);
+    background-size:546px auto;
+    background-position:-3px -50px;
+    background-repeat:no-repeat;
+    border:1px solid purple;
+}
+/*************** USER MENU ***************/
+.POBOUserMenu {
+    float:right;
+    border:1px solid red;
+    width:auto; height:auto;
+    display:block;
+    padding:0px 8px 0px 0px;
+}
+    .POBOUserMenu img{
+        width: 22px;
+        height: 22px;
+        border:0.7px solid #4d4d4d;
+        vertical-align:top;
+    }
+    .POBOUserMenu label{
+        line-height:12px;
+        color:#666;
+        font-weight:normal;
+        vertical-align:top;
+        margin: 5px 0 0;
+    }
+    .POBOUserMenu div{
+        display:inline-block;
+        width:22px; height:22px;
+        background-image:url(../../Images/POBOsprite.png);
+        background-size:470px auto;
+        background-position:-245px -3px;
+        background-repeat:no-repeat;
+        vertical-align:top;
+        margin: 0 0 0 6px;
+    }
+.POBOUserMenuOptions{
+    background-color: #ececec;
+        border: 1px solid #666;
+    height: 26px;
+    margin: 0;
+    position: absolute;
+    right: 31px;
+    top: 25px;
+    width: 150px;  
+}
+    .POBOUserMenuOptions ul li, .POBOUserMenuOptions ul li a{
+            border:none;
+        display: block;
+        height: 26px;
+        width: 150px;
+    }
+        .POBOUserMenuOptions ul li{
+            margin: 0 -41px;            
+        }            
+            .POBOUserMenuOptions ul li a {
+                margin: 0px; text-indent:12px;
+                line-height:22px;
+            }
+/*************** MAIN MENU *************/
+.POBOMainMenuWrapper {
+    border: 1px solid green;
+    height: 40px;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 64px;
+    width: auto;
+}
+    .POBOMainMenuWrapper li{
+        display:inline-block;
+    }
+
+
+
+
+
+
+
+
+
+
+
+        .LogoHeader a img {
+            width: 300px;
+            height: auto;
+        }
 
 .openDialog {
     width: 0;
@@ -52,27 +147,10 @@
                 margin-left: 5px;
             }
 
-/*****************Logo********************/
-.LogoHeader {
-    display: inline-block;
-    width: auto;
-    height: auto;
-    vertical-align: top;
-    margin: -14px 0px 0px 12px;
-}
 
-    .LogoHeader a {
-        width: 300px;
-        height: auto;
-        display: block;
-    }
 
-        .LogoHeader a img {
-            width: 300px;
-            height: auto;
-        }
-/*****************Title************************/
-.MDTitle {
+/*****************Title***********************
+/*.MDTitle {
     display: inline-block;
     height: auto;
     margin: 26px auto 0 10%;
@@ -87,10 +165,10 @@
         line-height: 25px;
         letter-spacing: -0.5px;
         color: #ff8300;
-    }
+    }*/
 
 /*****************MainMenu************************/
-.MainMenu {
+/*.MainMenu {
     display: inline-block;
     width: 100%;
     margin: 0px 0px 14px 0px;
@@ -131,18 +209,17 @@
             box-shadow: 2px 2px 2px;
             position: relative;
             z-index: 10;
-        }
+        }*/
 
 /*Provider*/
-.MenuProvider {
+/*.MenuProvider {
     border-bottom: 4px solid #F5761A;
-}
+}*/
 /*Customer*/
-.MenuCustomer {
+/*.MenuCustomer {
     border-bottom: 4px solid #2C67A9;
-}
-
+}*/
 /*AdminRoles*/
-MenuAdminRoles {
+/*MenuAdminRoles {
     border-bottom: 4px solid #848484;
-}
+}*/

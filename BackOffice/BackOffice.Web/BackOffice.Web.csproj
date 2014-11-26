@@ -211,10 +211,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\logoPublicarBN.png" />
     <Content Include="Content\Images\POBOBackground3Small.jpg" />
+    <Content Include="Content\Images\POBOsprite.png" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2014.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2014.1.318\Black\indeterminate.gif" />
@@ -433,13 +433,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2014.1.318\images\kendoui.ttf" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\Images\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\Images\OpenSans-Regular.eot" />
-    <Content Include="Content\Images\OpenSans-Regular.otf" />
-    <Content Include="Content\Images\OpenSans-Regular.ttf" />
-    <Content Include="Content\Images\OpenSans-Regular.woff" />
     <Content Include="fonts\OpenSans-Regular.eot" />
     <Content Include="fonts\OpenSans-Regular.otf" />
     <Content Include="fonts\OpenSans-Regular.ttf" />
