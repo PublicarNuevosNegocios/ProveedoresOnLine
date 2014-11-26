@@ -57,6 +57,12 @@ namespace BackOffice.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UpsertProvider()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertProvider);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -74,15 +80,25 @@ namespace BackOffice.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string UpsertProvider = "UpsertProvider";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string UpsertProvider = "UpsertProvider";
         }
 
 
+        static readonly ActionParamsClass_UpsertProvider s_params_UpsertProvider = new ActionParamsClass_UpsertProvider();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpsertProvider UpsertProviderParams { get { return s_params_UpsertProvider; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpsertProvider
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -94,8 +110,10 @@ namespace BackOffice.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string UpsertProvider = "UpsertProvider";
             }
             public readonly string Index = "~/Views/Provider/Index.cshtml";
+            public readonly string UpsertProvider = "~/Views/Provider/UpsertProvider.cshtml";
         }
     }
 
@@ -112,6 +130,18 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpsertProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpsertProvider(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            UpsertProviderOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

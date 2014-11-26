@@ -1,0 +1,69 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Nuevo proveedor";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+<div>
+    <div>
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div>
+        <form id="frmProviderUpsert"
+              method="post"
+              action="@(Url.Action
+                (MVC.Provider.ActionNames.UpsertProvider,
+                MVC.Provider.Name,
+                new
+                {
+                    ProviderPublicId = Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
+                }))">
+
+            <ul>
+                <li>
+                    <span>Tipo de identificación</span>
+                    <select></select>
+                </li>
+                <li>
+                    <span>Número de identificación</span>
+                    <input type="text" />
+                </li>
+                <li>
+                    <span>Razón social</span>
+                    <input type="text" />
+                </li>
+                <li>
+                    <span>Tipo de empresa</span>
+                    <select></select>
+                </li>
+            </ul>
+            <div style="display:none">
+                <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                <input type="hidden" name="StepAction" id="StepAction" value="" />
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'next'})">Siguiente</a>
+                    </li>
+                    <li>
+                        <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert'})">Guardar</a>
+                    </li>
+                </ul>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+}
