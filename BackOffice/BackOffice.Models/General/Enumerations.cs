@@ -46,7 +46,7 @@
     /// <summary>
     /// Legal type
     /// </summary>
-    public enum enumContactType
+    public enum enumLegalType
     {
         ChaimberOfCommerce = 17001,
         RUT = 17002,
@@ -61,7 +61,7 @@
     /// <summary>
     /// HSEQ type
     /// </summary>
-    public enum enumContactType
+    public enum enumHSEQType
     {
         Certifications = 16001,
         CompanyHealtyPolitic = 16002,
