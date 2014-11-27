@@ -3,18 +3,18 @@
     Layout = MVC.Shared.Views._Layout;
 }
 
-<div>
-    <div>
+<div class="POBOProviderWrapper">
+    <div class="POBOPTopSearchBar">
         <ul>
             <li>
-                <input type="text" />
-                <a>Encontrar</a>
+                <input class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" />
+                <a class="POBOSearchButtons" href="">Encontrar</a>
             </li>
             <li>
-                <a href="@Url.Action(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name)">Nuevo</a>
+                <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name)">Nuevo</a>
             </li>
             <li>
-                <a>Dercargar excel</a>
+                <a class="POBOButtons" href="">Dercargar excel</a>
             </li>
         </ul>
     </div>
