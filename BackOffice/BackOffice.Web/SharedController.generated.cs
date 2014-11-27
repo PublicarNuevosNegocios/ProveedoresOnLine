@@ -39,11 +39,13 @@ namespace T4MVC
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
+                public readonly string _P_ProviderActions = "_P_ProviderActions";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
             }
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
+            public readonly string _P_ProviderActions = "~/Views/Shared/_P_ProviderActions.cshtml";
             public readonly string _P_ProviderMenu = "~/Views/Shared/_P_ProviderMenu.cshtml";
         }
     }

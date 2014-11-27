@@ -37,10 +37,33 @@ namespace BackOffice.Web.Controllers
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
+                //get provider request info
                 ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
+
+                //upsert provider
                 CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
 
-                return RedirectToAction(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["UpsertAction"].Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["UpsertAction"].Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+                else
+                {
+                    return RedirectToAction(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+                }
             }
 
             return View(oModel);
@@ -92,6 +115,21 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #region HSEQ
+
+        public virtual ActionResult UpsertCertifications(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                
+            };
+
+            return View();
+        }
+
+        #endregion
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetProviderMenu
@@ -107,9 +145,6 @@ namespace BackOffice.Web.Controllers
                 string oCurrentController = BackOffice.Web.Controllers.BaseController.CurrentControllerName;
                 string oCurrentAction = BackOffice.Web.Controllers.BaseController.CurrentActionName;
 
-                BackOffice.Models.General.GenericMenu CurrentStepMenuAux = null;
-                BackOffice.Models.General.GenericMenu LastStepMenuAux = null;
-
                 #region General Info
 
                 //header
@@ -121,7 +156,7 @@ namespace BackOffice.Web.Controllers
                 };
 
                 //Basic info
-                CurrentStepMenuAux = new Models.General.GenericMenu()
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información básica",
                     Url = Url.Action
@@ -130,16 +165,12 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
-                    LastMenu = LastStepMenuAux,
-                };
-
-                oMenuAux.ChildMenu.Add(CurrentStepMenuAux);
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
+                });
 
                 //Contact info
-                LastStepMenuAux = CurrentStepMenuAux;
-                CurrentStepMenuAux = new Models.General.GenericMenu()
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información de contacto",
                     Url = Url.Action
@@ -148,13 +179,9 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
-                    LastMenu = LastStepMenuAux,
-                };
-                LastStepMenuAux.NextMenu = CurrentStepMenuAux;
-
-                oMenuAux.ChildMenu.Add(CurrentStepMenuAux);
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
+                });
 
                 //Branch info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -166,8 +193,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //Distributor info
@@ -180,8 +207,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //get is selected menu
@@ -212,8 +239,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //Economic activity
@@ -226,8 +253,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //get is selected menu
@@ -253,13 +280,13 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Certificaciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.UpsertCertifications,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //Company healty politic
@@ -272,8 +299,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //Company risk policies
@@ -286,8 +313,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //get is selected menu
@@ -318,8 +345,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //tax info
@@ -332,8 +359,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //money laundering
@@ -346,8 +373,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //income statement
@@ -360,8 +387,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //bank info
@@ -374,8 +401,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //get is selected menu
@@ -406,8 +433,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //RUT
@@ -420,8 +447,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //CIFIN
@@ -434,8 +461,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //SARLAFT
@@ -448,8 +475,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //Resolution
@@ -462,8 +489,8 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentController == MVC.Provider.ActionNames.UpsertProvider &&
-                        oCurrentAction == MVC.Provider.Name),
+                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        oCurrentController == MVC.Provider.Name),
                 });
 
                 //get is selected menu
@@ -474,6 +501,28 @@ namespace BackOffice.Web.Controllers
 
                 #endregion
 
+                #region last next menu
+
+                BackOffice.Models.General.GenericMenu MenuAux = null;
+
+                oReturn.OrderBy(x => x.Position).All(pm =>
+                {
+                    pm.ChildMenu.OrderBy(x => x.Position).All(sm =>
+                    {
+                        if (MenuAux != null)
+                        {
+                            MenuAux.NextMenu = sm;
+                        }
+                        sm.LastMenu = MenuAux;
+                        MenuAux = sm;
+
+                        return true;
+                    });
+
+                    return true;
+                });
+
+                #endregion
             }
 
 

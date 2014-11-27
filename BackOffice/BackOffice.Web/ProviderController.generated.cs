@@ -63,6 +63,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertProvider);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UpsertCertifications()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertCertifications);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -81,6 +87,7 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string UpsertProvider = "UpsertProvider";
+            public readonly string UpsertCertifications = "UpsertCertifications";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -88,6 +95,7 @@ namespace BackOffice.Web.Controllers
         {
             public const string Index = "Index";
             public const string UpsertProvider = "UpsertProvider";
+            public const string UpsertCertifications = "UpsertCertifications";
         }
 
 
@@ -96,6 +104,14 @@ namespace BackOffice.Web.Controllers
         public ActionParamsClass_UpsertProvider UpsertProviderParams { get { return s_params_UpsertProvider; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_UpsertProvider
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_UpsertCertifications s_params_UpsertCertifications = new ActionParamsClass_UpsertCertifications();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpsertCertifications UpsertCertificationsParams { get { return s_params_UpsertCertifications; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpsertCertifications
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -142,6 +158,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertProvider);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             UpsertProviderOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UpsertCertificationsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpsertCertifications(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertCertifications);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            UpsertCertificationsOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

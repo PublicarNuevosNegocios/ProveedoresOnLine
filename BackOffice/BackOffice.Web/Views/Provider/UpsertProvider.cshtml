@@ -111,30 +111,7 @@
                 <input type="hidden" name="StepAction" id="StepAction" value="" />
             </div>
             <div>
-                <ul>
-                    <li>
-                        <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'next'})">Siguiente</a>
-                    </li>
-                    @if (Model.RelatedProvider != null &&
-                        Model.RelatedProvider.RelatedCompany != null)
-                    {
-                        if (Model.RelatedProvider.RelatedCompany.Enable)
-                        {
-                            <li>
-                                <a href="">Deshabilitar empresa</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="">Habilitar empresa</a>
-                            </li>
-                        }
-                    }
-                    <li>
-                        <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert'})">Guardar</a>
-                    </li>
-                </ul>
+                @Html.Partial(MVC.Shared.Views._P_ProviderActions, Model)
             </div>
         </form>
 
