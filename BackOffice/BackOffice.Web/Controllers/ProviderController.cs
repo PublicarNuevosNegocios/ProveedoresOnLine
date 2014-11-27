@@ -85,7 +85,7 @@ namespace BackOffice.Web.Controllers
                 {
                     ItemId = Convert.ToInt32(Request["CompanyType"]),
                 },
-                Enable = true,
+                Enable = !string.IsNullOrEmpty(Request["Enable"]),
                 CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
             };
 
