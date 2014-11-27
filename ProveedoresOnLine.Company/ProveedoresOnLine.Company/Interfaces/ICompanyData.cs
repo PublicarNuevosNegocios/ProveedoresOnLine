@@ -42,6 +42,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         CompanyModel CompanyGetBasicInfo(string CompanyPublicId);
 
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId);
+
         #endregion
     }
 }

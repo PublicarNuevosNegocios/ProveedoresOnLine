@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 {
@@ -332,6 +333,75 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                              CreateDate = ci.Field<DateTime>("CompanyInfoCreateDate"),
                          }).ToList(),
                 };
+            }
+            return oReturn;
+        }
+
+        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_Contact_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from co in response.DataTableResult.AsEnumerable()
+                     where !co.IsNull("ContactId")
+                     group co by new
+                     {
+                         ContactId = co.Field<int>("ContactId"),
+                         ContactTypeId = co.Field<int>("ContactTypeId"),
+                         ContactTypeName = co.Field<string>("ContactTypeName"),
+                         ContactName = co.Field<string>("ContactName"),
+                         ContactEnable = co.Field<UInt64>("ContactEnable") == 1 ? true : false,
+                         ContactLastModify = co.Field<DateTime>("ContactLastModify"),
+                         ContactCreateDate = co.Field<DateTime>("ContactCreateDate"),
+                     }
+                         into cog
+                         select new GenericItemModel()
+                         {
+                             ItemId = cog.Key.ContactId,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.ContactTypeId,
+                                 ItemName = cog.Key.ContactTypeName
+                             },
+                             ItemName = cog.Key.ContactName,
+                             Enable = cog.Key.ContactEnable,
+                             LastModify = cog.Key.ContactLastModify,
+                             CreateDate = cog.Key.ContactCreateDate,
+                             ItemInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("ContactInfoId") &&
+                                          coinf.Field<int>("ContactId") == cog.Key.ContactId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("ContactInfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = coinf.Field<int>("ContactInfoTypeId"),
+                                          ItemName = coinf.Field<string>("ContactInfoTypeName"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      LargeValue = coinf.Field<string>("LargeValue"),
+                                      Enable = coinf.Field<UInt64>("ContactInfoEnable") == 1 ? true : false,
+                                      LastModify = coinf.Field<DateTime>("ContactInfoLastModify"),
+                                      CreateDate = coinf.Field<DateTime>("ContactInfoCreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
             }
             return oReturn;
         }
