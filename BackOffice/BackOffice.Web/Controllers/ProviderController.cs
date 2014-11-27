@@ -15,7 +15,7 @@ namespace BackOffice.Web.Controllers
 
         #region General Info
 
-        public virtual ActionResult UpsertProvider(string ProviderPublicId)
+        public virtual ActionResult ProviderUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -62,12 +62,68 @@ namespace BackOffice.Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(MVC.Provider.ActionNames.UpsertProvider, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+                    return RedirectToAction(MVC.Provider.ActionNames.ProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
                 }
             }
 
             return View(oModel);
         }
+
+        public virtual ActionResult CompanyContactUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            //eval upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                //get provider request info
+                ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
+
+                //upsert provider
+                CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
+
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["UpsertAction"].Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["UpsertAction"].Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+                else
+                {
+                    return RedirectToAction(MVC.Provider.ActionNames.ProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+                }
+            }
+
+            return View(oModel);
+        }
+
+        #region Private methods
 
         private ProveedoresOnLine.Company.Models.Company.CompanyModel GetProviderRequest()
         {
@@ -115,9 +171,11 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #endregion
+
         #region HSEQ
 
-        public virtual ActionResult UpsertCertifications(string ProviderPublicId)
+        public virtual ActionResult CertificationsUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -160,38 +218,53 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información básica",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.ProviderUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
-                //Contact info
+                //Company contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información de contacto",
+                    Name = "Información de contacto de empresa",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.CompanyContactUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.CompanyContactUpsert &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //Person contact info
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Información de personas de contacto",
+                    Url = Url.Action
+                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        MVC.Provider.Name,
+                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Position = 2,
+                    IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
+
 
                 //Branch info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Sucursales",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 2,
+                    Position = 3,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
@@ -202,10 +275,10 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Distribuidores",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 3,
+                    Position = 4,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
@@ -234,7 +307,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Experiencias",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
@@ -248,7 +321,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Actividades economicas",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
@@ -280,7 +353,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Certificaciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertCertifications,
+                        (MVC.Provider.ActionNames.CertificationsUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
@@ -294,7 +367,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Salud, medio ambiente y seguridad",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
@@ -308,7 +381,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Sistema de riesgos laborales",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
@@ -340,7 +413,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Balances financieros",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
@@ -354,7 +427,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Impuestos",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
@@ -368,7 +441,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Lavado de activos",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
@@ -382,7 +455,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Declaración de renta",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
@@ -396,7 +469,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información bancaria",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
@@ -428,7 +501,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Camara y comercio",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
@@ -442,7 +515,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Registro unico tributario",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
@@ -456,7 +529,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "CIFIN",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
@@ -470,7 +543,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "SARLAFT",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
@@ -484,7 +557,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Resoluciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.ProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
