@@ -20,6 +20,7 @@
                         <ul>
                             @foreach (BackOffice.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
                             {
+                                strSeleClass = string.Empty;
                                 if (sm.IsSelected)
                                 {
                                     strSeleClass = "secundarymenuselected";

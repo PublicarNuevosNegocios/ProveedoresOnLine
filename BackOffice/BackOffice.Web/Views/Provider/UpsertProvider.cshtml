@@ -24,10 +24,10 @@
                 {
                     ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
                 }))">
-
+            <span>Campos obligatorios *</span>
             <ul>
                 <li>
-                    <span>Tipo de identificación</span>
+                    <span>* Tipo de identificación</span>
                     <select name="IdentificationType">
                         @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyIdentificationType))
                         {
@@ -46,15 +46,15 @@
                     </select>
                 </li>
                 <li>
-                    <span>Número de identificación</span>
+                    <span>* Número de identificación</span>
                     <input type="text" name="IdentificationNumber" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.IdentificationNumber : string.Empty)" />
                 </li>
                 <li>
-                    <span>Razón social</span>
+                    <span>* Razón social</span>
                     <input type="text" name="CompanyName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyName : string.Empty)" />
                 </li>
                 <li>
-                    <span>Tipo de empresa</span>
+                    <span>* Tipo de empresa</span>
                     <select name="CompanyType">
                         @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyType))
                         {
@@ -103,6 +103,19 @@
                     @if (!string.IsNullOrEmpty(CompanyInfoValueAux))
                     {
                         <a target="_blank" href="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Path_SalesForce].Value.TrimEnd('/') + "/" + CompanyInfoValueAux)">Ver en salesforce</a>
+                    }
+                </li>
+                <li>
+                    <span>* Habilitado</span>
+                    @if (Model.RelatedProvider != null &&
+                        Model.RelatedProvider.RelatedCompany != null &&
+                        !Model.RelatedProvider.RelatedCompany.Enable)
+                    {
+                        <input type="checkbox" name="Enable" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Enable" checked="checked" />
                     }
                 </li>
             </ul>

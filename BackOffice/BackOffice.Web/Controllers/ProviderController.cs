@@ -122,7 +122,7 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-                
+
             };
 
             return View();
@@ -179,7 +179,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -193,7 +193,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -207,7 +207,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -239,7 +239,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -253,7 +253,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -285,7 +285,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -299,7 +299,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -313,7 +313,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -345,7 +345,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -359,7 +359,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -373,7 +373,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -387,7 +387,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -401,7 +401,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -433,7 +433,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -447,7 +447,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -461,7 +461,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -475,7 +475,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -489,7 +489,7 @@ namespace BackOffice.Web.Controllers
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.UpsertProvider &&
+                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
