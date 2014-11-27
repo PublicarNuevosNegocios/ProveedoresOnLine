@@ -175,15 +175,11 @@ namespace BackOffice.Web.Controllers
 
         #region HSEQ
 
-        public virtual ActionResult CertificationsUpsert(string ProviderPublicId, string CertificationType)
+        public virtual ActionResult CertificationsUpsert(string ProviderPublicId, int CertificationType)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                {
-                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationInfoGetByCertificationType(ProviderPublicId, CertificationType),
-                },
             };
 
             oModel.ProviderMenu = GetProviderMenu(oModel);

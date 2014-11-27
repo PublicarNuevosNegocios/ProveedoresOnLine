@@ -130,6 +130,7 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_CertificationsUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string CertificationType = "CertificationType";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -192,14 +193,15 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void CertificationsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void CertificationsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, int CertificationType);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CertificationsUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult CertificationsUpsert(string ProviderPublicId, int CertificationType)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CertificationsUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CertificationsUpsertOverride(callInfo, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CertificationType", CertificationType);
+            CertificationsUpsertOverride(callInfo, ProviderPublicId, CertificationType);
             return callInfo;
         }
 
