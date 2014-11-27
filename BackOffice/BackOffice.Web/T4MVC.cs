@@ -604,6 +604,7 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
+            public static readonly string ProviderScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProviderScripts.min.js") ? Url("ProviderScripts.min.js") : Url("ProviderScripts.js");
         }
     
     }
@@ -626,17 +627,10 @@ namespace Links
             private const string URLPATH = "~/Content/Images";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string glyphicons_halflings_regular_eot = Url("glyphicons-halflings-regular.eot");
-            public static readonly string glyphicons_halflings_regular_svg = Url("glyphicons-halflings-regular.svg");
-            public static readonly string glyphicons_halflings_regular_ttf = Url("glyphicons-halflings-regular.ttf");
-            public static readonly string glyphicons_halflings_regular_woff = Url("glyphicons-halflings-regular.woff");
             public static readonly string logo_png = Url("logo.png");
             public static readonly string logoPublicarBN_png = Url("logoPublicarBN.png");
-            public static readonly string OpenSans_Regular_eot = Url("OpenSans-Regular.eot");
-            public static readonly string OpenSans_Regular_otf = Url("OpenSans-Regular.otf");
-            public static readonly string OpenSans_Regular_ttf = Url("OpenSans-Regular.ttf");
-            public static readonly string OpenSans_Regular_woff = Url("OpenSans-Regular.woff");
             public static readonly string POBOBackground3Small_jpg = Url("POBOBackground3Small.jpg");
+            public static readonly string POBOsprite_png = Url("POBOsprite.png");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

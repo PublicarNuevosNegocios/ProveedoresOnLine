@@ -92,6 +92,21 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #region HSEQ
+
+        public virtual ActionResult UpsertCertifications(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                
+            };
+
+            return View();
+        }
+
+        #endregion
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetProviderMenu
@@ -253,7 +268,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Certificaciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.UpsertProvider,
+                        (MVC.Provider.ActionNames.UpsertCertifications,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
