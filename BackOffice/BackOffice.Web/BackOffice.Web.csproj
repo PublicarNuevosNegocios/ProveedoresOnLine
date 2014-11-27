@@ -979,9 +979,10 @@
     <Content Include="Views\Provider\Index.cshtml" />
     <Content Include="Views\Shared\_L_Footer.cshtml" />
     <Content Include="Views\Shared\_L_Header.cshtml" />
-    <Content Include="Views\Provider\UpsertProvider.cshtml" />
+    <Content Include="Views\Provider\ProviderUpsert.cshtml" />
     <Content Include="Views\Shared\_P_ProviderMenu.cshtml" />
     <Content Include="Views\Shared\_P_ProviderActions.cshtml" />
+    <Content Include="Views\Provider\CompanyContactUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
