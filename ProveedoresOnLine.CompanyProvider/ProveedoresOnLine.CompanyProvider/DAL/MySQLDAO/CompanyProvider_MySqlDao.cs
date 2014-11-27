@@ -244,7 +244,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> LegalInfoGetByLegalType(string CompanyPublicId, int? LegalType)
+        public List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 

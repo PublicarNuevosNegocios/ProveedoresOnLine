@@ -99,6 +99,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.LegalInfoUpsert(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
         }
 
+        public List<Company.Models.Util.GenericItemModel> LegalInfoGetByLegalType(string CompanyPublicId, int? LegalType)
+        {
+            return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType);
+        }
+
         #endregion
 
         #region Util
@@ -109,5 +114,8 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         }
 
         #endregion
+
+
+       
     }
 }
