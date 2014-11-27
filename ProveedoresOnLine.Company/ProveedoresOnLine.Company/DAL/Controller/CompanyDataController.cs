@@ -106,9 +106,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CompanyGetBasicInfo(CompanyPublicId);
         }
 
-        public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId)
+        public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
         {
-            return DataFactory.ContactGetBasicInfo(CompanyPublicId);
+            return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
         #endregion

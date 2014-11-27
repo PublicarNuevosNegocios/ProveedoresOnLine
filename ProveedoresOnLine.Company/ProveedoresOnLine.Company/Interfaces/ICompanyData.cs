@@ -42,7 +42,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         CompanyModel CompanyGetBasicInfo(string CompanyPublicId);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType);
 
         #endregion
     }

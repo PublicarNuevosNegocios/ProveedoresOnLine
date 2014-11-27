@@ -337,11 +337,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId)
+        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactType", ContactType));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

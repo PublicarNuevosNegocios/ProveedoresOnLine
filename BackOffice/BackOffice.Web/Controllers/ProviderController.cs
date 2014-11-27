@@ -82,7 +82,8 @@ namespace BackOffice.Web.Controllers
             };
 
             //get company contacts 
-            oModel.RelatedProvider.RelatedCompany.RelatedContact = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo(ProviderPublicId);
+            oModel.RelatedProvider.RelatedCompany.RelatedContact = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
+                (ProviderPublicId, (int?)BackOffice.Models.General.enumContactType.CompanyContact);
 
             //get provider menu
             oModel.ProviderMenu = GetProviderMenu(oModel);
