@@ -1,0 +1,15 @@
+.POBOPSideFilterWrapper {
+    display:inline-block;
+    margin:0 0 0 9px; padding:3px 0 0 14px;
+    border:1px solid #b6ff00;
+    min-height:192px;
+    width:260px;
+    vertical-align:top;
+    float:left;
+    text-align:left;
+}
+    .POBOPSideBlockTitle{
+        font-size:1.3em;
+        letter-spacing:-0.5px;
+        color:#4d4d4d;
+    }
