@@ -1,10 +1,37 @@
 .POBOProviderWrapper {
     display: block;
     padding: 0;
-        border:none;
+    border: none;
 }
 
+#ReportLITF {
+    border: 1px solid #ff8300;
+    width: 50%;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+}
 
+    #ReportLITF li {
+        width: 45%;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 -2px 0 -2px;
+    }
 
+        #ReportLITF li hr {
+            margin: 0 !important;
+            width: 100%;
+        }
 
+li#F2 {
+    width: 15%;
+}
 
+li#F3 {
+    margin-top: 15px;
+    width: 80%;
+}
+
+    li#F3 label {
+        display: block;
+    }

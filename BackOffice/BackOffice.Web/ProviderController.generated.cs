@@ -77,21 +77,21 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult HealtyPoliticUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HealtyPoliticUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult RiskPoliciesUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RiskPoliciesUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ChaimberOfCommerceUpsert()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChaimberOfCommerceUpsert);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CompanyHealtyPoliticUpsert()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompanyHealtyPoliticUpsert);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CompanyRiskPoliciesUpsert()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompanyRiskPoliciesUpsert);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -113,9 +113,9 @@ namespace BackOffice.Web.Controllers
             public readonly string ProviderUpsert = "ProviderUpsert";
             public readonly string CompanyContactUpsert = "CompanyContactUpsert";
             public readonly string CertificationsUpsert = "CertificationsUpsert";
+            public readonly string HealtyPoliticUpsert = "HealtyPoliticUpsert";
+            public readonly string RiskPoliciesUpsert = "RiskPoliciesUpsert";
             public readonly string ChaimberOfCommerceUpsert = "ChaimberOfCommerceUpsert";
-            public readonly string CompanyHealtyPoliticUpsert = "CompanyHealtyPoliticUpsert";
-            public readonly string CompanyRiskPoliciesUpsert = "CompanyRiskPoliciesUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -125,9 +125,9 @@ namespace BackOffice.Web.Controllers
             public const string ProviderUpsert = "ProviderUpsert";
             public const string CompanyContactUpsert = "CompanyContactUpsert";
             public const string CertificationsUpsert = "CertificationsUpsert";
+            public const string HealtyPoliticUpsert = "HealtyPoliticUpsert";
+            public const string RiskPoliciesUpsert = "RiskPoliciesUpsert";
             public const string ChaimberOfCommerceUpsert = "ChaimberOfCommerceUpsert";
-            public const string CompanyHealtyPoliticUpsert = "CompanyHealtyPoliticUpsert";
-            public const string CompanyRiskPoliciesUpsert = "CompanyRiskPoliciesUpsert";
         }
 
 
@@ -155,6 +155,22 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_HealtyPoliticUpsert s_params_HealtyPoliticUpsert = new ActionParamsClass_HealtyPoliticUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_HealtyPoliticUpsert HealtyPoliticUpsertParams { get { return s_params_HealtyPoliticUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_HealtyPoliticUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_RiskPoliciesUpsert s_params_RiskPoliciesUpsert = new ActionParamsClass_RiskPoliciesUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RiskPoliciesUpsert RiskPoliciesUpsertParams { get { return s_params_RiskPoliciesUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RiskPoliciesUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_ChaimberOfCommerceUpsert s_params_ChaimberOfCommerceUpsert = new ActionParamsClass_ChaimberOfCommerceUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ChaimberOfCommerceUpsert ChaimberOfCommerceUpsertParams { get { return s_params_ChaimberOfCommerceUpsert; } }
@@ -162,22 +178,6 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_ChaimberOfCommerceUpsert
         {
             public readonly string CompanyPublicId = "CompanyPublicId";
-        }
-        static readonly ActionParamsClass_CompanyHealtyPoliticUpsert s_params_CompanyHealtyPoliticUpsert = new ActionParamsClass_CompanyHealtyPoliticUpsert();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CompanyHealtyPoliticUpsert CompanyHealtyPoliticUpsertParams { get { return s_params_CompanyHealtyPoliticUpsert; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CompanyHealtyPoliticUpsert
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
-        }
-        static readonly ActionParamsClass_CompanyRiskPoliciesUpsert s_params_CompanyRiskPoliciesUpsert = new ActionParamsClass_CompanyRiskPoliciesUpsert();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CompanyRiskPoliciesUpsert CompanyRiskPoliciesUpsertParams { get { return s_params_CompanyRiskPoliciesUpsert; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CompanyRiskPoliciesUpsert
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -256,6 +256,30 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
+        partial void HealtyPoliticUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HealtyPoliticUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HealtyPoliticUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            HealtyPoliticUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void RiskPoliciesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RiskPoliciesUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RiskPoliciesUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            RiskPoliciesUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void ChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompanyPublicId);
 
         [NonAction]
@@ -264,30 +288,6 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChaimberOfCommerceUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompanyPublicId", CompanyPublicId);
             ChaimberOfCommerceUpsertOverride(callInfo, CompanyPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CompanyHealtyPoliticUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CompanyHealtyPoliticUpsert(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompanyHealtyPoliticUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CompanyHealtyPoliticUpsertOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CompanyRiskPoliciesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CompanyRiskPoliciesUpsert(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompanyRiskPoliciesUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CompanyRiskPoliciesUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
