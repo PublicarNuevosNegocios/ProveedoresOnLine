@@ -132,7 +132,10 @@
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 <input type="hidden" name="StepAction" id="StepAction" value="" />
             </div>
-            @Html.Partial(MVC.Shared.Views._P_ProviderActions, Model)
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </form>
     </div>
 </div>

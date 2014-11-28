@@ -88,6 +88,24 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult PersonContactUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Private methods
 
         private ProveedoresOnLine.Company.Models.Company.CompanyModel GetProviderRequest()
@@ -156,14 +174,36 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult CompanyHealtyPoliticUpsert(string ProviderPublicId)
+        public virtual ActionResult HealtyPoliticUpsert(string ProviderPublicId)
         {
-            return View();
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyHealtyPolitic),
+                }
+            };
+
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
         }
 
-        public virtual ActionResult CompanyRiskPoliciesUpsert(string ProviderPublicId)
+        public virtual ActionResult RiskPoliciesUpsert(string ProviderPublicId)
         {
-            return View();
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies),
+                }
+            };
+
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
         }
 
         #endregion
@@ -243,12 +283,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información de personas de contacto",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.PersonContactUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.PersonContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -364,7 +404,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Salud, medio ambiente y seguridad",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.HealtyPoliticUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
@@ -378,7 +418,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Sistema de riesgos laborales",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.RiskPoliciesUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,

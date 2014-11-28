@@ -36,7 +36,6 @@ var Provider_CompanyContactObject = {
             editable: true,
             navigatable: true,
             pageable: false,
-            height: 500,
             toolbar: [
                 { name: 'create', text: 'Nuevo contacto' },
                 { name: 'save', text: 'Guardar cambios' },
