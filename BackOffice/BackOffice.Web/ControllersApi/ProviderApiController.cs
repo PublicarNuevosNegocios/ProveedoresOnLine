@@ -68,32 +68,39 @@ namespace BackOffice.Web.ControllersApi
                             },
                             ItemName = oDataToUpsert.ContactName,
                             Enable = oDataToUpsert.Enable,
-                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
-                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                {
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_ValueId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_ValueId.Trim()),
-                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                    {
-                                        ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_Value
-                                    },
-                                    Value = oDataToUpsert.CC_Value,
-                                    Enable = true,
-                                },
-                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                {
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_CompanyContactTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_CompanyContactTypeId.Trim()),
-                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                    {
-                                        ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_CompanyContactType
-                                    },
-                                    Value = oDataToUpsert.CC_CompanyContactType,
-                                    Enable = true,
-                                },
-                            }
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                         },
                     }
                 };
+
+                if (Convert.ToInt32(ContactType.Trim()) == (int)BackOffice.Models.General.enumContactType.CompanyContact)
+                {
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_ValueId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_ValueId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_Value
+                            },
+                            Value = oDataToUpsert.CC_Value,
+                            Enable = true,
+                        });
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CC_CompanyContactTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.CC_CompanyContactTypeId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumContactInfoType.CC_CompanyContactType
+                            },
+                            Value = oDataToUpsert.CC_CompanyContactType,
+                            Enable = true,
+                        });
+                }
+                else if (Convert.ToInt32(ContactType.Trim()) == (int)BackOffice.Models.General.enumContactType.PersonContact)
+                {
+
+                }
+
                 oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
                 oReturn = new Models.Provider.ProviderContactViewModel(oCompany.RelatedContact.FirstOrDefault());
             }

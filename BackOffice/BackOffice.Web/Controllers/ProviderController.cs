@@ -88,6 +88,24 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult PersonContactUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Private methods
 
         private ProveedoresOnLine.Company.Models.Company.CompanyModel GetProviderRequest()
@@ -243,12 +261,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información de personas de contacto",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.PersonContactUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.PersonContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

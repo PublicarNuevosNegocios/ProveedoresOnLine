@@ -987,6 +987,7 @@
     <Content Include="Views\Provider\CompanyContactUpsert.cshtml" />
     <Content Include="Views\Provider\CertificationsUpsert.cshtml" />
     <Content Include="Views\Provider\ChaimberOfCommerceUpsert.cshtml" />
+    <Content Include="Views\Provider\PersonContactUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
