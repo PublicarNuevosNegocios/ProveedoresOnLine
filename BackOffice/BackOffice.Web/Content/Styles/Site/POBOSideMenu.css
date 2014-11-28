@@ -1,0 +1,63 @@
+/********  ********/
+.POBOProviderSideMenu {
+    border:1px solid blue;
+    width:272px;
+    letter-spacing: -1px;
+}
+    .POBOProviderSideMenu > ul > li.principalmenuselected > label, .POBOProviderSideMenu > ul > li > label:hover{
+        background-image: none !important;
+        background-color:#ff8300;
+            border:none;
+        border-radius: 1px;
+        color: #fefefe;
+        display: block;
+        font-size: 1.1em;
+        margin: 0;
+        padding: 4px 0 6px 32px;
+    }
+    .POBOProviderSideMenu > ul > li > label, .POBOProviderSideMenu > ul > li > label:hover{
+        background-image: none !important;
+        background-color:#3289c8;
+            border:none;
+        border-radius: 1px;
+        color: #fefefe;
+        display: block;
+        font-size: 1.1em;
+        margin: 0;
+        padding: 4px 0 6px 32px;
+    }
+    .POBOProviderSideMenu > ul > li > label:hover {
+        text-decoration:underline;
+    }
+        .POBOProviderSideMenu > ul > li > label > span {
+            background-position: -104px -29px;
+            background-size: 400px auto;
+        }
+
+/********* AQUI INICIA EL SUBMENU ESTE ES EL SUBMENU *********/
+    .POBOProviderSideSubMenu {
+        padding:0px 6px 0 24px !important;
+        margin: 3px 0 0;
+        border:none;
+    }
+    .POBOProviderSideSubMenu > li{
+            border:none;
+        padding:5px 0px 4px 7px;
+    }
+        .POBOProviderSideSubMenu > li:hover, .POBOProviderSideSubMenu > li.secundarymenuselected {
+            background-color:#ff8300;
+            cursor:pointer;
+        }
+        .POBOProviderSideSubMenu > li > a {
+            font-size:0.9em;
+            display:block;
+            width:auto; height:auto;
+        }
+            .POBOProviderSideSubMenu > li > a:hover {
+                text-decoration:underline;
+                color:#fff;
+            }
+            li.secundarymenuselected > a {
+                color:#fff;
+                text-decoration:none;
+            }

@@ -5,7 +5,7 @@
 {
     if (!Model.RenderScripts)
     {
-        <div>
+        <div class="POBOProviderSideMenu">
             <ul id="ulProviderMenu">
                 @foreach (BackOffice.Models.General.GenericMenu pm in Model.ProviderMenu.OrderBy(x => x.Position))
                 {
@@ -17,7 +17,7 @@
 
                     <li class="@strSeleClass">
                         <label>@pm.Name</label>
-                        <ul>
+                        <ul class="POBOProviderSideSubMenu">
                             @foreach (BackOffice.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
                             {
                                 strSeleClass = string.Empty;
