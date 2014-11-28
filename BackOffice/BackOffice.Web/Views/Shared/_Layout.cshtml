@@ -11,16 +11,16 @@
     @Styles.Render("~/site/styles")
 </head>
 <body>
-    <div>
+    <div class="POBORenderHeader">
         <!--Render header-->
         @Html.Partial(MVC.Shared.Views.ViewNames._L_Header)
     </div>
 
-    <div>
+    <div class="POBORenderBody">
         <!--Render body-->
         @RenderBody()
     </div>
-    <div>
+    <div id="POBORenderFooter">
         <!--Render footer-->
         @Html.Partial(MVC.Shared.Views.ViewNames._L_Footer)
     </div>
