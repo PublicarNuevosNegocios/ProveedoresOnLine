@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackOffice.Models.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -144,10 +145,42 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
+                }
             };
 
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult CompanyHealtyPoliticUpsert(string ProviderPublicId)
+        {
             return View();
+        }
+
+        public virtual ActionResult CompanyRiskPoliciesUpsert(string ProviderPublicId)
+        {
+            return View();
+        }
+
+        #endregion
+
+        #region Información legal
+
+        public virtual ActionResult ChaimberOfCommerceUpsert(string CompanyPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
+            oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
+            oModel.RelatedProvider.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            oModel.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(CompanyPublicId, (int)enumLegalType.ChaimberOfCommerce);
+            
+
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+            return View(oModel);
         }
 
         #endregion
@@ -465,7 +498,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Camara y comercio",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.ChaimberOfCommerceUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,

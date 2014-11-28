@@ -985,6 +985,8 @@
     <Content Include="Views\Shared\_P_ProviderMenu.cshtml" />
     <Content Include="Views\Shared\_P_ProviderActions.cshtml" />
     <Content Include="Views\Provider\CompanyContactUpsert.cshtml" />
+    <Content Include="Views\Provider\CertificationsUpsert.cshtml" />
+    <Content Include="Views\Provider\ChaimberOfCommerceUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

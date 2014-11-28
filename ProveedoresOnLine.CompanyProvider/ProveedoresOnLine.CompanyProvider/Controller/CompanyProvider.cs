@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -203,7 +204,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #endregion
 
-        #region Provider certification
+        #region Provider Certification
 
         public static ProviderModel CertificationUpsert(ProviderModel ProviderToUpsert)
         {
@@ -303,6 +304,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             }
 
             return CertificationToUpsert;
+        }
+
+        public static List<GenericItemModel> CertficationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
         }
 
         #endregion
@@ -610,6 +616,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             }
 
             return LegalToUpsert;
+        }
+
+        public static List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.LegalGetBasicInfo(CompanyPublicId, LegalType);
         }
 
         #endregion

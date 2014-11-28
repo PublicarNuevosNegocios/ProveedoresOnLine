@@ -21,3 +21,18 @@
         text-decoration:underline;
         color:#fff;
     }
+
+/************ BOTONES DE ACCIONES DEL FORMULARIO ************/
+
+.POBOProviderActions{
+    background-color: #fff;
+    border: 1px solid blue;
+    display: block;
+    height: auto;
+    margin: 0 !important;
+    padding: 0;
+    position:fixed;
+    bottom:6px;
+    left:6px;
+    width:69.4%;
+}

@@ -45,4 +45,32 @@
 
     #endregion
 
+    #region Legal
+    /// <summary>
+    /// Legal type
+    /// </summary>
+    public enum enumLegalType
+    {
+        ChaimberOfCommerce = 17001,
+        RUT = 17002,
+        CIFIN = 17003,
+        SARLAFT = 17004,
+        Resolution = 17005
+    }
+    #endregion
+
+    #region HSEQ
+
+    /// <summary>
+    /// HSEQ type
+    /// </summary>
+    public enum enumHSEQType
+    {
+        Certifications = 16001,
+        CompanyHealtyPolitic = 16002,
+        CompanyRiskPolicies = 16003
+    }
+
+    #endregion
+
 }

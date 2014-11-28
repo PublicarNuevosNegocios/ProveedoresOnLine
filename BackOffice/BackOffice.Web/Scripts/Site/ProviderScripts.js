@@ -143,3 +143,12 @@ var Provider_CompanyContactObject = {
         });
     },
 };
+
+function checkOffset() {
+    if ($('.POBOProviderActions').offset().top + $('.POBOProviderActions').height()
+                >= $('#POBORenderFooter').offset().top - 10)
+        $('.POBOProviderActions').css('position', 'absolute');
+    if ($(document).scrollTop() + window.innerHeight < $('#POBORenderFooter').offset().top)
+        $('.POBOProviderActions').css('position', 'fixed');
+    $('.POBOProviderActions').text($(document).scrollTop() + window.innerHeight);
+}

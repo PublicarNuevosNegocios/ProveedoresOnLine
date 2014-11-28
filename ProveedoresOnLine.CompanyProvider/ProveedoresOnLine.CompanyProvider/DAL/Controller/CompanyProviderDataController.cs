@@ -66,6 +66,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CertificationInfoUpsert(CertificationId, CertificationInfoId, CertificationInfoTypeId, Value, LargeValue, Enable);
         }
 
+        public List<Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
+        }
+
         #endregion
 
         #region Provider financial
@@ -97,6 +102,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         public int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             return DataFactory.LegalInfoUpsert(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
+        }
+        
+        public List<Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType);
         }
 
         #endregion

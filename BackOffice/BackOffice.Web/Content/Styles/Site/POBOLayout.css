@@ -9,6 +9,14 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span{
     font-family: 'OpenSans-Regular', Fallback, sans-serif;
 }
 /*********Body Content************/
+.POBORenderHeader, .POBORenderBody, .POBORenderFooter{
+ text-align:left;
+}
+div#POBORenderFooter {
+    width:100%;
+    height:400px;
+}
+/* RENDER BODY */
 .POBOPageBody{
     width:100%;
     margin:0px;
@@ -61,5 +69,6 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span{
             width:58px;
 
         }
+
 
 
