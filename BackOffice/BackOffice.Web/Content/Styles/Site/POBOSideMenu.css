@@ -15,16 +15,16 @@
         margin: 0;
         padding: 4px 0 6px 32px;
     }
-    .POBOProviderSideMenu > ul > li > label, .POBOProviderSideMenu > ul > li > label:hover{
+    .POBOProviderSideMenu > ul > li > label{
+        background-color: #fff;
         background-image: none !important;
-        background-color:#3289c8;
-            border:none;
+        border: medium none;
         border-radius: 1px;
-        color: #fefefe;
-        display: block;
-        font-size: 1.1em;
-        margin: 0;
-        padding: 4px 0 6px 32px;
+        color: #222;
+        display: block !important;
+        font-size: 1.1em !important;
+        margin: 0 !important;
+        padding: 4px 0 6px 32px !important;
     }
     .POBOProviderSideMenu > ul > li > label:hover {
         text-decoration:underline;
