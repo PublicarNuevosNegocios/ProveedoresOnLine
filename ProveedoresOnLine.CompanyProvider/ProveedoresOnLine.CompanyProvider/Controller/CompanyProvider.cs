@@ -204,7 +204,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #endregion
 
-        #region Provider certification
+        #region Provider Certification
 
         public static ProviderModel CertificationUpsert(ProviderModel ProviderToUpsert)
         {
@@ -304,6 +304,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             }
 
             return CertificationToUpsert;
+        }
+
+        public static List<GenericItemModel> CertficationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
         }
 
         #endregion

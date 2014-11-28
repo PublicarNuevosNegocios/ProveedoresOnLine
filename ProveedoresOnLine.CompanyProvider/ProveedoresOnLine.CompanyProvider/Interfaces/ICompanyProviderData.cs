@@ -29,6 +29,8 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable);
 
+        List<GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
+
         List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType);
 
         List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions();
