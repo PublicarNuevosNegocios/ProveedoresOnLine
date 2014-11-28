@@ -11,6 +11,7 @@
 
         ContactType = 11,
         CompanyContactType = 12,
+        ContactInfoType = 18,
     }
 
     #region Company

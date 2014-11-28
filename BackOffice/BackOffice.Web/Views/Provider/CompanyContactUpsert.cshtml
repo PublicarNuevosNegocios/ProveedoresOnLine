@@ -26,29 +26,29 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
     @{
-        string oGridData = string.Empty;
-        if (Model.RelatedProvider != null &&
-            Model.RelatedProvider.RelatedCompany != null &&
-            Model.RelatedProvider.RelatedCompany.RelatedContact != null &&
-            Model.RelatedProvider.RelatedCompany.RelatedContact.Count > 0)
+        //get ContactTypeValues
+        string oCompanyContactTypeData = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
         {
-            oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(Model.RelatedProvider.RelatedCompany.RelatedContact.
-                Where(x => x.ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.CompanyContact).
-                Select(x => new
-                {
-                    //ContactId = x.
-                }).ToList());
+            oCompanyContactTypeData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(Model.ProviderOptions.
+                Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyContactType).
+                ToList());
         }
     }
 
     <script type="text/javascript">
-        var vGridData = @(Html.Raw(oGridData));
+        var vCompanyContactTypeData = @(Html.Raw(oCompanyContactTypeData));
         $(document).ready(function () {
-            Provider_CompanyContactObject({
+            Provider_CompanyContactObject.Init({
                 ObjectId: 'divGridCompanyContact',
-                GridData: vGridData,
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.CompanyContact)',
+                CompanyContactTypeData: vCompanyContactTypeData,
             });
+
+            Provider_CompanyContactObject.RenderAsync();
 
         });
     </script>
