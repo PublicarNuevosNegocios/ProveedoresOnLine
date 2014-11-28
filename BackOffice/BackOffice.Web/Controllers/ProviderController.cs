@@ -46,7 +46,7 @@ namespace BackOffice.Web.Controllers
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                    Request["UpsertAction"].Trim() == "next" &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
                     oModel.CurrentSubMenu != null &&
                     oModel.CurrentSubMenu.NextMenu != null &&
                     !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
@@ -54,7 +54,7 @@ namespace BackOffice.Web.Controllers
                     return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
                 }
                 else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                    Request["UpsertAction"].Trim() == "last" &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
                     oModel.CurrentSubMenu != null &&
                     oModel.CurrentSubMenu.LastMenu != null &&
                     !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
@@ -82,44 +82,26 @@ namespace BackOffice.Web.Controllers
                 },
             };
 
-            //get company contacts 
-            oModel.RelatedProvider.RelatedCompany.RelatedContact = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
-                (ProviderPublicId, (int?)BackOffice.Models.General.enumContactType.CompanyContact);
-
             //get provider menu
             oModel.ProviderMenu = GetProviderMenu(oModel);
 
-            //eval upsert action
-            //if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
-            //{
-            //    //get provider request info
-            //    ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
+            return View(oModel);
+        }
 
-            //    //upsert provider
-            //    CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
+        public virtual ActionResult PersonContactUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
 
-            //    //eval redirect url
-            //    if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-            //        Request["UpsertAction"].Trim() == "next" &&
-            //        oModel.CurrentSubMenu != null &&
-            //        oModel.CurrentSubMenu.NextMenu != null &&
-            //        !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
-            //    {
-            //        return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
-            //    }
-            //    else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-            //        Request["UpsertAction"].Trim() == "last" &&
-            //        oModel.CurrentSubMenu != null &&
-            //        oModel.CurrentSubMenu.LastMenu != null &&
-            //        !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
-            //    {
-            //        return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction(MVC.Provider.ActionNames.ProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
-            //    }
-            //}
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
             return View(oModel);
         }
@@ -301,12 +283,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información de personas de contacto",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.PersonContactUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.PersonContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

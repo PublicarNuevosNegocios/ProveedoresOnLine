@@ -10,6 +10,8 @@ namespace BackOffice.Models.Provider
     {
         public bool RenderScripts { get; set; }
 
+        public bool IsForm { get; set; }
+
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; set; }
 
         public List<BackOffice.Models.General.GenericMenu> ProviderMenu { get; set; }
