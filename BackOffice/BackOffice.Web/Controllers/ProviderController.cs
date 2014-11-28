@@ -192,6 +192,16 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult CompanyHealtyPoliticUpsert(string ProviderPublicId)
+        {
+            return View();
+        }
+
+        public virtual ActionResult CompanyRiskPoliciesUpsert(string ProviderPublicId)
+        {
+            return View();
+        }
+
         #endregion
 
         #region Información legal
@@ -207,16 +217,6 @@ namespace BackOffice.Web.Controllers
 
             oModel.ProviderMenu = GetProviderMenu(oModel);
             return View(oModel);
-        }
-
-        public virtual ActionResult CompanyHealtyPoliticUpsert(string ProviderPublicId)
-        {
-            return View();
-        }
-
-        public virtual ActionResult CompanyRiskPoliciesUpsert(string ProviderPublicId)
-        {
-            return View();
         }
 
         #endregion
