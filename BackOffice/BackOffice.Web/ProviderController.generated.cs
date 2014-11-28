@@ -75,6 +75,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CertificationsUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ChaimberOfCommerceUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChaimberOfCommerceUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -95,6 +101,7 @@ namespace BackOffice.Web.Controllers
             public readonly string ProviderUpsert = "ProviderUpsert";
             public readonly string CompanyContactUpsert = "CompanyContactUpsert";
             public readonly string CertificationsUpsert = "CertificationsUpsert";
+            public readonly string ChaimberOfCommerceUpsert = "ChaimberOfCommerceUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -104,6 +111,7 @@ namespace BackOffice.Web.Controllers
             public const string ProviderUpsert = "ProviderUpsert";
             public const string CompanyContactUpsert = "CompanyContactUpsert";
             public const string CertificationsUpsert = "CertificationsUpsert";
+            public const string ChaimberOfCommerceUpsert = "ChaimberOfCommerceUpsert";
         }
 
 
@@ -130,6 +138,15 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_CertificationsUpsert
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string CertificationType = "CertificationType";
+        }
+        static readonly ActionParamsClass_ChaimberOfCommerceUpsert s_params_ChaimberOfCommerceUpsert = new ActionParamsClass_ChaimberOfCommerceUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ChaimberOfCommerceUpsert ChaimberOfCommerceUpsertParams { get { return s_params_ChaimberOfCommerceUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ChaimberOfCommerceUpsert
+        {
+            public readonly string CompanyPublicId = "CompanyPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -141,10 +158,12 @@ namespace BackOffice.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string ChaimberOfCommerceUpsert = "ChaimberOfCommerceUpsert";
                 public readonly string CompanyContactUpsert = "CompanyContactUpsert";
                 public readonly string Index = "Index";
                 public readonly string ProviderUpsert = "ProviderUpsert";
             }
+            public readonly string ChaimberOfCommerceUpsert = "~/Views/Provider/ChaimberOfCommerceUpsert.cshtml";
             public readonly string CompanyContactUpsert = "~/Views/Provider/CompanyContactUpsert.cshtml";
             public readonly string Index = "~/Views/Provider/Index.cshtml";
             public readonly string ProviderUpsert = "~/Views/Provider/ProviderUpsert.cshtml";
@@ -192,14 +211,27 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void CertificationsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void CertificationsUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, int CertificationType);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CertificationsUpsert(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult CertificationsUpsert(string ProviderPublicId, int CertificationType)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CertificationsUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CertificationsUpsertOverride(callInfo, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CertificationType", CertificationType);
+            CertificationsUpsertOverride(callInfo, ProviderPublicId, CertificationType);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompanyPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChaimberOfCommerceUpsert(string CompanyPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChaimberOfCommerceUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompanyPublicId", CompanyPublicId);
+            ChaimberOfCommerceUpsertOverride(callInfo, CompanyPublicId);
             return callInfo;
         }
 

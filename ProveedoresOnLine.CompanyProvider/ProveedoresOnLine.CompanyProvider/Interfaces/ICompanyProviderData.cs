@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable);
 
+        List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType);
 
         List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions();
     }

@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -610,6 +611,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             }
 
             return LegalToUpsert;
+        }
+
+        public static List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.LegalGetBasicInfo(CompanyPublicId, LegalType);
         }
 
         #endregion

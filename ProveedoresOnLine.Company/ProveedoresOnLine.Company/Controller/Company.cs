@@ -522,6 +522,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CompanyGetBasicInfo(CompanyPublicId);
         }
 
+        public static List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DAL.Controller.CompanyDataController.Instance.ContactGetBasicInfo(CompanyPublicId, ContactType);
+        }
+
         #endregion
 
         #endregion

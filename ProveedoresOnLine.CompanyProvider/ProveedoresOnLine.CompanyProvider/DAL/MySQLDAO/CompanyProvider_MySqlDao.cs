@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 {
@@ -82,7 +84,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #endregion
 
-        #region Provider certification
+        #region Provider Certification
 
         public int CertificationUpsert(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
         {
@@ -127,6 +129,76 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GenericItemModel> CertificationInfoGetByCertificationType(string CompanyPublicId, int? CertificationType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCertificationType", CertificationType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_Certification_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("CertificationId")
+                     group c by new
+                     {
+                         CertificationId = c.Field<int>("CertificationId"),
+                         CertificationTypeId = c.Field<int>("CertificationTypeId"),
+                         CertificationTypeName = c.Field<string>("CertificationTypeName"),
+                         CertificationName = c.Field<string>("CertificationName"),
+                         CertificationEnable = c.Field<UInt64>("CertificationEnable") == 1 ? true : false,
+                         CertificationLastModify = c.Field<DateTime>("CertificationLastModify"),
+                         CertificationCreateDate = c.Field<DateTime>("CertificationCreateDate"),
+                     }
+                         into cog
+                         select new GenericItemModel()
+                         {
+                             ItemId = cog.Key.CertificationId,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.CertificationTypeId,
+                                 ItemName = cog.Key.CertificationTypeName
+                             },
+                             ItemName = cog.Key.CertificationName,
+                             Enable = cog.Key.CertificationEnable,
+                             LastModify = cog.Key.CertificationLastModify,
+                             CreateDate = cog.Key.CertificationCreateDate,
+                             ItemInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("CertificationInfoId") &&
+                                          coinf.Field<int>("CertificationId") == cog.Key.CertificationId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("CertificationInfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = coinf.Field<int>("CertificationInfoTypeId"),
+                                          ItemName = coinf.Field<string>("CertificationInfoTypeName"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      LargeValue = coinf.Field<string>("LargeValue"),
+                                      Enable = coinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
+                                      LastModify = coinf.Field<DateTime>("CertificationInfoLastModify"),
+                                      CreateDate = coinf.Field<DateTime>("CertificationInfoCreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
+            }
+            return oReturn;
+        }
+        
         #endregion
 
         #region Provider financial
@@ -242,6 +314,75 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLegalType", LegalType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_Legal_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from l in response.DataTableResult.AsEnumerable()
+                     where !l.IsNull("LegalId")
+                     group l by new
+                     {
+                         LegalId = l.Field<int>("LegalId"),                         
+                         LegalTypeId = l.Field<int>("LegalTypeId"),
+                         LegalTypeName = l.Field<string>("LegalTypeName"),
+                         LegalName = l.Field<string>("LegalName"),
+                         LegalEnable = l.Field<UInt64>("LegalEnable") == 1 ? true : false,
+                         LegalLastModify = l.Field<DateTime>("LegalLastModify"),
+                         LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
+                     }
+                         into cog
+                         select new GenericItemModel()
+                         {
+                             ItemId = cog.Key.LegalId,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.LegalTypeId,
+                                 ItemName = cog.Key.LegalTypeName
+                             },
+                             ItemName = cog.Key.LegalName,
+                             Enable = cog.Key.LegalEnable,
+                             LastModify = cog.Key.LegalLastModify,
+                             CreateDate = cog.Key.LegalCreateDate,
+                             ItemInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("LegalInfoId") &&
+                                          coinf.Field<int>("LegalId") == cog.Key.LegalId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("LegalInfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = coinf.Field<int>("LegalInfoTypeId"),
+                                          ItemName = coinf.Field<string>("LegalInfoTypeName"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      LargeValue = coinf.Field<string>("LargeValue"),
+                                      Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
+                                      LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),
+                                      CreateDate = coinf.Field<DateTime>("LegalInfoCreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
 
         #region Util
