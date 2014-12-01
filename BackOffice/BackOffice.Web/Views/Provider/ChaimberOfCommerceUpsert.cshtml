@@ -7,13 +7,14 @@
     Model.RenderScripts = false;
 }
 
-<div>
-    <div>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
-    <div>
+    <div class="POBOProviderContentWrapper">
         <div id="divGridCompanyContact"></div>
-
     </div>
 </div>
 
