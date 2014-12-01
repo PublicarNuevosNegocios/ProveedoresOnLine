@@ -7,18 +7,17 @@
     width: 99.8%;
 }
     .POBOProviderSideMenuWrapper {
-        border-right:2px solid #ff8300;
+            border-right:2px solid #ff8300;
         display:inline-block;
         width:auto;
         height:100%;
-        padding:0 12px 0 0;
+        padding:0 17px 0 0;
     }
     .POBOProviderContentWrapper{
         border:1px solid green;
         float:right;
         width:77%;
 }
-
 #ReportLITF {
     border: 1px solid #ff8300;
     width: 50%;
