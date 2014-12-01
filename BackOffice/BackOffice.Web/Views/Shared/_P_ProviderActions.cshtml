@@ -9,21 +9,42 @@
             if (Model.CurrentSubMenu != null &&
                 Model.CurrentSubMenu.LastMenu != null)
             {
-                <li>
-                    <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'last'})">Anterior</a>
-                </li>
+                if (Model.IsForm)
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'last'})"><< Anterior</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="@Model.CurrentSubMenu.LastMenu.Url"><< Anterior</a>
+                    </li>
+                }
             }
             if (Model.CurrentSubMenu != null &&
                 Model.CurrentSubMenu.NextMenu != null)
             {
-                <li>
-                    <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'next'})">Siguiente</a>
-                </li>
+                if (Model.IsForm)
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'next'})">Siguiente >></a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="@Model.CurrentSubMenu.NextMenu.Url">Siguiente >></a>
+                    </li>
+                }
             }
         }
-        <li>
-            <a href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert'})">Guardar</a>
-        </li>
+        @if (Model.IsForm)
+        {
+            <li class="POBOButtonsSaveProvider">
+                <a class="POBOButtons" href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert'})">Guardar Proveedor</a>
+            </li>
+        }
     </ul>
 }
 

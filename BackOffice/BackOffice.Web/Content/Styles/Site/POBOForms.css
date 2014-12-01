@@ -1,20 +1,14 @@
 /************ PROVIDER UPSERT FORM *********/
-.POBOProviderUpsertForm {
-    position:relative;
-    margin:2px;
-    width:70%;
-    height:700px;
-    padding:6px 0px;
-    border:4px solid green;
-}
 .POBOPCompulsoryFields {
     color: #d40000;
     font-size: 0.9em;
     letter-spacing: -0.7px; 
 }
-.POBOProviderUpsertForm ul, .POBOProviderUpsertForm ul li,
+.POBOProviderUpsertForm ul, 
+.POBOProviderUpsertForm ul li,
 .POBOPCompulsoryFields{
     margin:4px 0px 0px 8px;
+    padding: 0;
 }
 .POBOProviderUpsertForm ul li{
     border: 1px solid red;
@@ -45,3 +39,36 @@
         width:auto;
         vertical-align:top;
     }
+/************ SISTEMA DE RIESGOS LABORALES FORM *********/
+
+.POBOProviderUpsertForm li.POBOHSEQ {
+    text-align:left;
+    display:block;
+    width:83%;
+    border:1px solid red;
+}
+#ReportLITF {
+    border: 1px solid #ff8300;
+    width: auto;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+}
+    #ReportLITF li {
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 -2px 0 -2px;
+    }
+        #ReportLITF li hr {
+            margin: 0 !important;
+            width: 100%;
+        }
+    li#F2 label {
+        font-size:1.2em;
+        margin:0px 8px;
+    }        
+li#F3, li#F3 label {
+    margin:0px;
+    width:auto;
+    display:block;
+}

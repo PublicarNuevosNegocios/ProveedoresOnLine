@@ -11,6 +11,7 @@
 
         ContactType = 11,
         CompanyContactType = 12,
+        ContactInfoType = 18,
     }
 
     #region Company
@@ -42,6 +43,8 @@
         CC_Value = 18002,
     }
 
+    #endregion
+
     #region Legal
     /// <summary>
     /// Legal type
@@ -67,8 +70,6 @@
         CompanyHealtyPolitic = 16002,
         CompanyRiskPolicies = 16003
     }
-
-    #endregion
 
     #endregion
 

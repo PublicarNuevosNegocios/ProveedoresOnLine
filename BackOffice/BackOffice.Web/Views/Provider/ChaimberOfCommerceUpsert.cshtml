@@ -7,8 +7,10 @@
     Model.RenderScripts = false;
 }
 
-<div>
-    <div>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     
@@ -38,7 +40,7 @@
 
     </form>
 
-</div>
+    </div>
 
 @{
     Model.RenderScripts = true;
@@ -46,5 +48,5 @@
 
 @section inlinescripts
 {
-    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)   
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 }

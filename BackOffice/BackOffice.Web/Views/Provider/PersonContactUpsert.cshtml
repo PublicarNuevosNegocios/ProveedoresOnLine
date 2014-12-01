@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Contactos";
+    ViewBag.Title = "Personas de contacto";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -13,7 +13,7 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <div id="divGridCompanyContact"></div>
+        <div id="divGridPersonContact"></div>
     </div>
         @{
             Model.IsForm = false;

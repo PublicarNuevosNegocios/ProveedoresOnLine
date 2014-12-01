@@ -177,6 +177,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vContactId", ContactId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactTypeId", ContactTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vContactName", ContactName));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 

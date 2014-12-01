@@ -66,6 +66,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CertificationInfoUpsert(CertificationId, CertificationInfoId, CertificationInfoTypeId, Value, LargeValue, Enable);
         }
 
+        public List<Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
+        }
+
         #endregion
 
         #region Provider financial

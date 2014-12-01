@@ -184,6 +184,8 @@
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\ProviderApiController.cs" />
+    <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -983,11 +985,15 @@
     <Content Include="Views\Shared\_P_ProviderMenu.cshtml" />
     <Content Include="Views\Shared\_P_ProviderActions.cshtml" />
     <Content Include="Views\Provider\CompanyContactUpsert.cshtml" />
+    <Content Include="Views\Provider\CertificationsUpsert.cshtml" />
     <Content Include="Views\Provider\ChaimberOfCommerceUpsert.cshtml" />
+    <Content Include="Views\Provider\HealtyPoliticUpsert.cshtml" />
+    <Content Include="Views\Provider\RiskPoliciesUpsert.cshtml" />
+    <Content Include="Views\Provider\PersonContactUpsert.cshtml" />
+    <Content Include="Views\Provider\EconomicActivityUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ControllersApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

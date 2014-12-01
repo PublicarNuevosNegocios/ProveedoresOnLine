@@ -129,7 +129,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> CertificationInfoGetByCertificationType(string CompanyPublicId, int? CertificationType)
+        public List<GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 

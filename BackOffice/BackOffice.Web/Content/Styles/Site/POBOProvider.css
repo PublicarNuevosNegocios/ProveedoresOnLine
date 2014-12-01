@@ -1,10 +1,20 @@
 .POBOProviderWrapper {
-    display: block;
-    padding: 0;
-        border:none;
+    border: 1px solid green;
+    height: 700px;
+    margin: 2px 0 0 2px;
+    padding: 6px 0;
+    position: relative;
+    width: 99.8%;
 }
-
-
-
-
-
+    .POBOProviderSideMenuWrapper {
+            border-right:2px solid #ff8300;
+        display:inline-block;
+        width:auto;
+        height:100%;
+        padding:0 17px 0 0;
+    }
+    .POBOProviderContentWrapper{
+        border:1px solid green;
+        float:right;
+        width:77%;
+}
