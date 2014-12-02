@@ -15,7 +15,7 @@
 
 
 <div class="@strStyle">
-    <p class="alert" id="demo" ></p>
+    <p  id="demo" ></p>
     <div class="DMLogIntopWrapper">
         <img class="DMProviderlogo" src="@Model.RealtedForm.Logo" alt="" />
         <label>SISTEMA DE REGISTRO DE PROVEEDORES DE @Model.RealtedCustomer.Name.ToUpper()</label>
@@ -61,7 +61,8 @@
     var NAV = navigator.appVersion;
     NAV = NAV.toString();
     if (NAV.indexOf("IE 8.0") > -1 || NAV.indexOf("IE 7.0") > -1 || NAV.indexOf("IE 6.0") > -1 || NAV.indexOf("IE 5.0") > -1) {
-        document.getElementById("demo").innerHTML = "Estas utilizando un navegador no compatible con varias de nuestras funcionalidades. <br /><br /> Te recomendamos utilizar una versión más reciente o utilizar otro navegador. <br /><br /> Para mayor información comunicate con nosotros al telefono XXXXXXXX ";
+        document.getElementById("demo").className = "alert";
+        document.getElementById("demo").innerHTML = "Estas utilizando un navegador no compatible con varias de nuestras funcionalidades. <br /><br /> Te recomendamos utilizar una versión más reciente o utilizar otro navegador. <br /><br /> Para mayor información comunicate con nosotros al teléfono XXXXXXXX ";
     }    
 </script>
 
