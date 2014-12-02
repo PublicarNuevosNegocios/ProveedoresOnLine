@@ -37,5 +37,19 @@ namespace BackOffice.Web.Controllers
         }
 
         #endregion
+
+        #region generic file actions
+
+        public virtual FileResult GetPdfFileBytes(string FilePath)
+        {
+            byte[] bytes = new byte[] { };
+            if (!string.IsNullOrEmpty(FilePath) && FilePath.IndexOf(".pdf") > 0)
+            {
+                bytes = (new System.Net.WebClient()).DownloadData(FilePath);
+            }
+            return File(bytes, "application/pdf");
+        }
+
+        #endregion
     }
 }

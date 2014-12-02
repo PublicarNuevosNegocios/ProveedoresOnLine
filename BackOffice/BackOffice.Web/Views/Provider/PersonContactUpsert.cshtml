@@ -15,19 +15,37 @@
     <div class="POBOProviderContentWrapper">
         <div id="divGridPersonContact"></div>
     </div>
-        @{
-            Model.IsForm = false;
-            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-        }
+    @{
+        Model.IsForm = false;
+        Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+    }
 </div>
 
 <!--templates-->
-@*<div style="display:none;">
-    <div id="divGridPersonContact_FileTemplate">
-        <a href="${CP_IdentificationFile}">Ver archivo</a>
-        <input type="file" name="FileToUpload" id="FileToUpload" />
+<div style="display:none;">
+    <div id="divGridPersonContact_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
     </div>
-</div>*@
+    <div id="divGridPersonContact_File">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
+        </div>
+    </div>
+    <div id="divGridPersonContact_FileImg">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
+            <img src="${CP_IdentificationFile}" />
+        </div>
+    </div>
+    <div id="divGridPersonContact_FilePdf">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
+            <iframe src="@(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name))?FilePath=${cp_identificationfile}" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
 
 @{
     Model.RenderScripts = true;

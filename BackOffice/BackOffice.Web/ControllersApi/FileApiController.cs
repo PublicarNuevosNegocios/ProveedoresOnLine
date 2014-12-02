@@ -18,13 +18,49 @@ namespace BackOffice.Web.ControllersApi
 
             if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
             {
-                oReturn.Add(new BackOffice.Models.General.FileUploadModel()
+                //get folder
+                string strFolder = System.Web.HttpContext.Current.Server.MapPath
+                    (BackOffice.Models.General.InternalSettings.Instance
+                    [BackOffice.Models.General.Constants.C_Settings_File_TempDirectory].Value);
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                System.Web.HttpContext.Current.Request.Files.AllKeys.All(reqFile =>
                 {
-                    name = System.Web.HttpContext.Current.Request.Files[0].FileName,
-                    ServerName = "http://amazon.com/archivo.txt",
+                    //get File
+                    var UploadFile = System.Web.HttpContext.Current.Request.Files[reqFile];
+
+                    if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
+                    {
+                        string strFile = strFolder.TrimEnd('\\') +
+                            "\\CompanyFile_" +
+                            CompanyPublicId + "_" +
+                            DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                            UploadFile.FileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
+
+                        UploadFile.SaveAs(strFile);
+
+                        //load file to s3
+                        string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                            (strFile,
+                            BackOffice.Models.General.InternalSettings.Instance
+                                [BackOffice.Models.General.Constants.C_Settings_File_RemoteDirectory].Value +
+                                CompanyPublicId + "\\");
+
+                        //remove temporal file
+                        if (System.IO.File.Exists(strFile))
+                            System.IO.File.Delete(strFile);
+
+                        oReturn.Add(new BackOffice.Models.General.FileUploadModel()
+                        {
+                            name = UploadFile.FileName,
+                            ServerName = strRemoteFile,
+                        });
+                    }
+                    return true;
                 });
             }
-
             return oReturn;
         }
     }

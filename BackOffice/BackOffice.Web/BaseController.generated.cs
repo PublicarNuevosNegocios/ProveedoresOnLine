@@ -57,6 +57,12 @@ namespace BackOffice.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetPdfFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public BaseController Actions { get { return MVC.Base; } }
@@ -73,14 +79,24 @@ namespace BackOffice.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string GetPdfFileBytes = "GetPdfFileBytes";
         }
 
 
+        static readonly ActionParamsClass_GetPdfFileBytes s_params_GetPdfFileBytes = new ActionParamsClass_GetPdfFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetPdfFileBytes GetPdfFileBytesParams { get { return s_params_GetPdfFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetPdfFileBytes
+        {
+            public readonly string FilePath = "FilePath";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -99,6 +115,18 @@ namespace BackOffice.Web.Controllers
     public partial class T4MVC_BaseController : BackOffice.Web.Controllers.BaseController
     {
         public T4MVC_BaseController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void GetPdfFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetPdfFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetPdfFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetPdfFileBytesOverride(callInfo, FilePath);
+            return callInfo;
+        }
 
     }
 }
