@@ -992,6 +992,7 @@
     <Content Include="Views\Provider\RiskPoliciesUpsert.cshtml" />
     <Content Include="Views\Provider\PersonContactUpsert.cshtml" />
     <Content Include="Views\Provider\EconomicActivityUpsert.cshtml" />
+    <Content Include="Views\Provider\ExperiencesUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

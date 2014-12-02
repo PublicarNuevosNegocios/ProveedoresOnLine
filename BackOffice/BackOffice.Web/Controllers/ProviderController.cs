@@ -157,7 +157,29 @@ namespace BackOffice.Web.Controllers
         #endregion
 
         #region Commercial Info
+    
+        public virtual ActionResult ExperiencesUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
 
+            if(!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    //RelatedExperience = ;
+                };
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
+            
         public virtual ActionResult EconomicActivityUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
@@ -265,7 +287,7 @@ namespace BackOffice.Web.Controllers
             oModel.RelatedProvider.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
 
             oModel.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(CompanyPublicId, (int)enumLegalType.ChaimberOfCommerce);
-
+            
 
             oModel.ProviderMenu = GetProviderMenu(oModel);
             return View(oModel);
@@ -392,7 +414,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Experiencias",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.ExperiencesUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
