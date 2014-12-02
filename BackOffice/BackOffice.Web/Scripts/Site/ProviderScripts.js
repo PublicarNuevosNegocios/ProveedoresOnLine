@@ -335,16 +335,14 @@ var Provider_CompanyContactObject = {
                             autoUpload: true
                         },
                         success: function (e) {
-                            debugger;
-                            //options.field = e;
-                            oFileExit = true;
+                            alert(e.response[0].ServerName)
                         },
                         complete: function (e) {
-                            debugger;
-                            //options.field = e;
+                            //enable lost focus
                             oFileExit = true;
                         },
                         select: function (e) {
+                            //disable lost focus while upload file
                             oFileExit = false;
                         },
                     });
