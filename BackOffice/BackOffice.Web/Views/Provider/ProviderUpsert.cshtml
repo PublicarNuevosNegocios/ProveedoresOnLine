@@ -111,7 +111,7 @@
                     <input type="text" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.SalesforceId).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
                     @if (!string.IsNullOrEmpty(CompanyInfoValueAux))
                     {
-                        <a target="_blank" href="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Path_SalesForce].Value.TrimEnd('/') + "/" + CompanyInfoValueAux)">Ver en salesforce</a>
+                        <a class="POBOSmallCaption" target="_blank" href="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Path_SalesForce].Value.TrimEnd('/') + "/" + CompanyInfoValueAux)"> Ver en salesforce</a>
                     }
                 </li>
                 <li>

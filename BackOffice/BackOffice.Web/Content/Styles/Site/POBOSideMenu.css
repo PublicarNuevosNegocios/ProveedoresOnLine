@@ -1,7 +1,7 @@
 /******** ESTE ES EL MENU ESTE ES EL MENU ********/
 .POBOProviderSideMenu {
-    border:1px solid blue;
-    width:272px;
+        border:none;
+    width:257px;
     letter-spacing: -1px;
 }
     .POBOProviderSideMenu > ul > li.principalmenuselected > label, .POBOProviderSideMenu > ul > li > label:hover{
@@ -36,7 +36,7 @@
 
 /********* AQUI INICIA EL SUBMENU ESTE ES EL SUBMENU *********/
     .POBOProviderSideSubMenu {
-        padding:0px 0px 6px 24px !important;
+        padding:4px 0px 6px 24px !important;
         margin:0;
         border:none;
         height:auto !important;
