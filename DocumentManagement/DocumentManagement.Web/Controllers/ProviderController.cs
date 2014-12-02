@@ -47,17 +47,17 @@ namespace DocumentManagement.Web.Controllers
 
 
             StringBuilder data = new StringBuilder();
-            foreach (var item in oReturn.RelatedProvider)
+            foreach (var item in oProviderlst)
             {
                 string Campana = "";
 
-                ProviderInfoModel info = item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x).FirstOrDefault() == null ? null : item.RelatedProvider.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x).FirstOrDefault();
+                ProviderInfoModel info = item.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x).FirstOrDefault() == null ? null : item.RelatedProviderCustomerInfo.Where(x => x.ProviderInfoType.ItemId == 403).Select(x => x).FirstOrDefault();
                 if (info != null && info.ProviderInfoType.ItemId == 403)
                     Campana = info.Value;
                 else
                     Campana = "N/A";
 
-                if (oReturn.RelatedProvider.IndexOf(item) == 0)
+                if (oProviderlst.IndexOf(item) == 0)
                 {
                     data.AppendLine
                         ("\"" + "RAZON SOCIAL" + "\"" + strSep +
@@ -65,38 +65,44 @@ namespace DocumentManagement.Web.Controllers
                         "\"" + "NUMERO IDENTIFICACION" + "\"" + strSep +
                         "\"" + "EMAIL" + "\"" + strSep +
                         "\"" + "CAMPANA" + "\"" + strSep +
-                        "\"" + "URL" + "\"");
+                        "\"" + "URL" + "\"" + strSep +
+                        "\"" + "FECHA MODIFICACION" + "\"" + strSep +
+                        "\"" + "USUARIO ULTIMA MODIFICACION" + "\"");
 
                     data.AppendLine
-                    ("\"" + item.RelatedProvider.Name + "\"" + "" + strSep +
-                    "\"" + item.RelatedProvider.IdentificationType.ItemName + "\"" + strSep +
-                    "\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep +
-                    "\"" + item.RelatedProvider.Email + "\"" + strSep +
+                    ("\"" + item.Name + "\"" + "" + strSep +
+                    "\"" + item.IdentificationType.ItemName + "\"" + strSep +
+                    "\"" + item.IdentificationNumber + "\"" + strSep +
+                    "\"" + item.Email + "\"" + strSep +
                     "\"" + Campana + "\"" + strSep +
                     "\"" + Url.Action(MVC.ProviderForm.ActionNames.Index,
                                 MVC.ProviderForm.Name,
                                 new
                                 {
-                                    ProviderPublicId = item.RelatedProvider.ProviderPublicId,
-                                    FormPublicId = item.RelatedProvider.FormPublicId
-                                }) + "\"");
+                                    ProviderPublicId = item.ProviderPublicId,
+                                    FormPublicId = item.FormPublicId
+                                }) + "\"" + strSep +
+                    "\"" + item.LogCreateDate + "\"" + strSep +
+                    "\"" + item.LogUser + "\"");
 
                 }
                 else
                 {
                     data.AppendLine
-                        ("\"" + item.RelatedProvider.Name + "\"" + "" + strSep +
-                        "\"" + item.RelatedProvider.IdentificationType.ItemName + "\"" + strSep +
-                        "\"" + item.RelatedProvider.IdentificationNumber + "\"" + strSep +
-                        "\"" + item.RelatedProvider.Email + "\"" + strSep +
-                        "\"" + Campana + "\"" + strSep +
-                        "\"" + Url.Action(MVC.ProviderForm.ActionNames.Index,
-                                    MVC.ProviderForm.Name,
-                                    new
-                                    {
-                                        ProviderPublicId = item.RelatedProvider.ProviderPublicId,
-                                        FormPublicId = item.RelatedProvider.FormPublicId
-                                    }) + "\"");
+                    ("\"" + item.Name + "\"" + "" + strSep +
+                    "\"" + item.IdentificationType.ItemName + "\"" + strSep +
+                    "\"" + item.IdentificationNumber + "\"" + strSep +
+                    "\"" + item.Email + "\"" + strSep +
+                    "\"" + Campana + "\"" + strSep +
+                    "\"" + Url.Action(MVC.ProviderForm.ActionNames.Index,
+                                MVC.ProviderForm.Name,
+                                new
+                                {
+                                    ProviderPublicId = item.ProviderPublicId,
+                                    FormPublicId = item.FormPublicId
+                                }) + "\"" + strSep +
+                    "\"" + item.LogCreateDate + "\"" + strSep +
+                    "\"" + item.LogUser + "\"");
                 }
             }
 
