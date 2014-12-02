@@ -12,6 +12,7 @@
         ContactType = 11,
         CompanyContactType = 12,
         ContactInfoType = 18,
+        PersonContactType = 19,
     }
 
     #region Company
@@ -41,6 +42,15 @@
     {
         CC_CompanyContactType = 18001,
         CC_Value = 18002,
+
+        CP_PersonContactType = 18003,
+        CP_IdentificationType = 18004,
+        CP_IdentificationNumber = 18005,
+        CP_IdentificationCity = 18006,
+        CP_IdentificationFile = 18007,
+        CP_Phone = 18008,
+        CP_Email = 18009,
+        CP_Negotiation = 18010,
     }
 
     #endregion

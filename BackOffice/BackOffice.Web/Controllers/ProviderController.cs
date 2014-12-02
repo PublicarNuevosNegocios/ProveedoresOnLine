@@ -217,7 +217,7 @@ namespace BackOffice.Web.Controllers
             oModel.RelatedProvider.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
 
             oModel.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(CompanyPublicId, (int)enumLegalType.ChaimberOfCommerce);
-            
+
 
             oModel.ProviderMenu = GetProviderMenu(oModel);
             return View(oModel);
