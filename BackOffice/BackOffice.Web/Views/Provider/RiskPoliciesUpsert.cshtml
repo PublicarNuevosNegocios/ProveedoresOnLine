@@ -6,36 +6,39 @@
     Model.RenderScripts = false;
 }
 
-<div>
-    <div>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
-    <div>
-        <div id="divRiskPoliciesContent">
+    <div class="POBOProviderContentWrapper">
+        <div class="POBOProviderUpsertForm" id="divRiskPoliciesContent">
             <ul>
                 <li>
                     <label>Sistema de Riesgos: </label>
+                    <br />
                     <select id="listARL">
                         <option value="0">Seleccione una ARL</option>
                     </select>
                 </li>
                 <li>
-                    <label>Calificación de Riesgo ARL</label>
+                    <label>Calificación de Riesgo ARL</label><br />
                     <input type="text" value="" />
                 </li>
                 <li>
-                    <label>Afiliación ARL</label>
+                    <label>Afiliación ARL</label><br />
                     <input type="file" />
                 </li>
                 <li>
-                    <label>Certificado accidentalidad ARL</label>
+                    <label>Certificado accidentalidad ARL</label><br />
                     <input type="file" />
                 </li>
-                <li>
-                    <label>Certificados de Accidentalidad</label>
+                <li class="POBOHSEQ">
+                    <label>Certificados de Accidentalidad</label><br />
                     <div id="divGridRiskPolicies"></div>
                 </li>
-                <li>
+                <li class="POBOHSEQ">
                     <label>Reporte LTIF</label>
                     <ul id="ReportLITF">
                         <li id="F1">
@@ -48,15 +51,11 @@
                         </li>
                         <li id="F3">
                             <label>Resultado LTIF</label>
-                            <label>AÑOS </label>
+                            <label>AÑOS</label>
                         </li>
                     </ul>
                 </li>
             </ul>
-
-
-
-
         </div>
     </div>
 </div>

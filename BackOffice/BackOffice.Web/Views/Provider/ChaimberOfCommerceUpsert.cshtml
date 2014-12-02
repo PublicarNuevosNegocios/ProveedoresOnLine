@@ -7,15 +7,40 @@
     Model.RenderScripts = false;
 }
 
-<div>
-    <div>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
-    <div>
-        <div id="divGridCompanyContact"></div>
+    
+    <form action="/" method="post">
+        <ul>
+            <li>
+                <label>Fecha de Constitución</label>  
+                <input type="date"  name="ConstitutionDate" value="" />
+            </li>
+            <li>
+                <label>Fecha de Vigencia</label>
+                <input type="date" name="ValidityDate" value="" />
+            </li> 
+            <li>
+                <label>Departamento</label>
+                <select>
+                    <option id="StateId" value="value">text</option>
+                </select>                
+            </li> 
+            <li>
+                <label>Ciudad</label>
+                <select>
+                    <option id="CityId" value="value">text</option>
+                </select>
+            </li> 
+        </ul>
+
+    </form>
 
     </div>
-</div>
 
 @{
     Model.RenderScripts = true;
@@ -24,32 +49,4 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
-
-    @{
-        string oGridData = string.Empty;
-        if (Model.RelatedProvider != null &&
-            Model.RelatedProvider.RelatedCompany != null &&
-            Model.RelatedProvider.RelatedCompany.RelatedContact != null &&
-            Model.RelatedProvider.RelatedCompany.RelatedContact.Count > 0)
-        {
-            oGridData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(Model.RelatedProvider.RelatedCompany.RelatedContact.
-                Where(x => x.ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.CompanyContact).
-                Select(x => new
-                {
-                    //ContactId = x.
-                }).ToList());
-        }
-    }
-
-    <script type="text/javascript">
-        var vGridData = @(Html.Raw(oGridData));
-        $(document).ready(function () {
-            Provider_CompanyContactObject({
-                ObjectId: 'divGridCompanyContact',
-                GridData: vGridData,
-            });
-
-        });
-    </script>
 }

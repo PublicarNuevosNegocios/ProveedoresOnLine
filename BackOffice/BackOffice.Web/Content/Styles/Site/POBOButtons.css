@@ -5,6 +5,8 @@
     color:#fff;
 }
 .POBOButtons {
+    display: block;
+    margin: 0;
     padding:5px 30px;
 }
 .POBOSearchButtons {
@@ -21,8 +23,22 @@
         text-decoration:underline;
         color:#fff;
     }
-
-/************ BOTONES DE ACCIONES DEL FORMULARIO ************/
+/************* BOTONES SIGUIENTE ANTERIOR *************/
+    .POBOProgressButtons, .POBOProgressButtons:hover{
+        font-size:1.1em;
+        letter-spacing:-0.5px;
+        color:#4d4d4d;
+        border:1px solid #ff8300;
+        padding:5px 30px;
+        margin:0px 0px 0px 12px;
+    }
+        .POBOProgressButtons {
+            background-color:#f9f9f9;
+            display:inline-block;
+        }
+            .POBOProgressButtons:hover {
+                background-color: #e6e6e6;
+            }        
 
 .POBOProviderActions{
     background-color: #fff;
@@ -33,6 +49,19 @@
     padding: 0;
     position:fixed;
     bottom:6px;
-    left:6px;
-    width:69.4%;
+    left:312px;
+    width:76.4%;
 }
+.POBOProviderActions li {
+    margin:0 !important;
+    display: inline-block;
+    list-style-type: none;
+}
+    li.POBOButtonsSaveProvider {
+        position: absolute;
+        right: 12px;
+        top: 0;
+    }
+    li.POBOButtonsSaveProvider a.POBOButtons{
+        padding:6px 30px !important;
+    }

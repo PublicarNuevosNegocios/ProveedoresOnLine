@@ -1,9 +1,9 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Certificaciones";
+    ViewBag.Title = "Actividades Económicas";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    Model.RenderScripts = false;
+    
+    
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -13,9 +13,22 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
+        <label>Actividades Económicas.</label>
         <div id="divGridCertifications">
-            <label>@(Model.RelatedProvider.RelatedCertification.Select(x => x.ItemName).FirstOrDefault())</label>
-            <input type="text" value="@(Model.ProviderOptions.Select(x => x.ItemName).FirstOrDefault())" />
+            
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <label>Maestra</label>
+                    <select id="selectMaster">
+                        <option value="0">Seleccione</option>
+                    </select>
+                </li>
+                <li>
+
+                </li>
+            </ul>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-/********  ********/
+/******** ESTE ES EL MENU ESTE ES EL MENU ********/
 .POBOProviderSideMenu {
     border:1px solid blue;
     width:272px;
@@ -36,13 +36,14 @@
 
 /********* AQUI INICIA EL SUBMENU ESTE ES EL SUBMENU *********/
     .POBOProviderSideSubMenu {
-        padding:0px 6px 0 24px !important;
-        margin: 3px 0 0;
+        padding:0px 0px 6px 24px !important;
+        margin:0;
         border:none;
+        height:auto !important;
     }
     .POBOProviderSideSubMenu > li{
             border:none;
-        padding:5px 0px 4px 7px;
+        padding:0px;
     }
         .POBOProviderSideSubMenu > li:hover, .POBOProviderSideSubMenu > li.secundarymenuselected {
             background-color:#ff8300;
@@ -52,6 +53,9 @@
             font-size:0.9em;
             display:block;
             width:auto; height:auto;
+                border:none;
+            margin:0;
+            padding: 5px 0 4px 7px;
         }
             .POBOProviderSideSubMenu > li > a:hover {
                 text-decoration:underline;
@@ -59,5 +63,5 @@
             }
             li.secundarymenuselected > a {
                 color:#fff;
-                text-decoration:none;
+                text-decoration:none;   
             }
