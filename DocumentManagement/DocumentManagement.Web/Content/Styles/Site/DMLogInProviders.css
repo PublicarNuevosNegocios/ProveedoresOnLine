@@ -87,6 +87,8 @@ hr {
         color: #0066ae;
         display: block;
         font-size: 0.9em;
+        text-align: justify;
+        width: 98%;
     }
 
     .DMForm li select, .DMForm li input {
