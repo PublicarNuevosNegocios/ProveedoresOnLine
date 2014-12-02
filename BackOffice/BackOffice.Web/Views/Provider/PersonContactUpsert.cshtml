@@ -21,6 +21,14 @@
         }
 </div>
 
+<!--templates-->
+@*<div style="display:none;">
+    <div id="divGridPersonContact_FileTemplate">
+        <a href="${CP_IdentificationFile}">Ver archivo</a>
+        <input type="file" name="FileToUpload" id="FileToUpload" />
+    </div>
+</div>*@
+
 @{
     Model.RenderScripts = true;
 }
@@ -31,29 +39,35 @@
 
     @{
         //get ContactTypeValues
-        string oCompanyContactTypeData = "[]";
+        string oContactOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
-            oCompanyContactTypeData = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(Model.ProviderOptions.
-                Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyContactType).
-                ToList());
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oContactOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vCompanyContactTypeData = @(Html.Raw(oCompanyContactTypeData));
+        var vContactOptionList = @(Html.Raw(oContactOptionList));
         $(document).ready(function () {
             Provider_CompanyContactObject.Init({
-                ObjectId: 'divGridCompanyContact',
+                ObjectId: 'divGridPersonContact',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ContactType: '@((int)BackOffice.Models.General.enumContactType.CompanyContact)',
-                CompanyContactTypeData: vCompanyContactTypeData,
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.PersonContact)',
+                ContactOptionList: vContactOptionList,
             });
-
             Provider_CompanyContactObject.RenderAsync();
-
         });
     </script>
 }
