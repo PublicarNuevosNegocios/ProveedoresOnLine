@@ -11,7 +11,7 @@
     padding: 0;
 }
 .POBOProviderUpsertForm ul li{
-    border: 1px solid red;
+        border:none;
     display: inline-block;
     height: auto;
     vertical-align: top;
@@ -24,7 +24,16 @@
     letter-spacing: -0.7px;
     margin:0px;
     }
-.POBOProviderUpsertForm ul li select, .POBOProviderUpsertForm ul li input {
+    a.POBOSmallCaption{
+            color: #ff8400;
+        font-size: 0.9em;
+        font-weight:normal;
+        letter-spacing: -0.7px;
+        margin:0px;
+        display:block;
+    }
+.POBOProviderUpsertForm ul li select,
+.POBOProviderUpsertForm ul li input{
     background-color: #f9f9f9;
     border: 1px solid #727276;
     color: #999;
@@ -32,6 +41,11 @@
     margin: 2px 0 0;
     padding: 0 0 0 5px;
     width:400px;
+}
+.POBOProviderUpsertForm ul li select > option,
+.POBOProviderUpsertForm ul li select > option[selected="selected"]{
+    font-weight:normal;
+    font-size: 0.9em;
 }
     .POBOProviderUpsertForm ul li input[type="checkbox"] {
         margin:0px 0 0;
