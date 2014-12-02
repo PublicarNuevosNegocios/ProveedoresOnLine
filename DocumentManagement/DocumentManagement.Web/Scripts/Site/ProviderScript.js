@@ -97,8 +97,7 @@
     $('#' + vidDiv + '_SearchButton').click(function () {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
-    $('#' + cmbCustomer).change(function () {
-        debugger;
+    $('#' + cmbCustomer).change(function () {        
         initCmb('Form', cmbCustomer);
     });
 }
@@ -130,8 +129,7 @@ function initCmb(cmbForm, cmbCustomer) {
         success: function (result) {
             $('#' + cmbForm).html('');
             $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
-            for (item in result.RelatedForm) {
-                debugger;
+            for (item in result.RelatedForm) {                
                 $('#' + cmbForm).append('<option value="' + result.RelatedForm[0].FormPublicId + '">' + result.RelatedForm[0].Name + '</option>')
             }
         },
