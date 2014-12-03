@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Personas de contacto";
+    ViewBag.Title = "Contactos";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -13,38 +13,12 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <div id="divGridPersonContact"></div>
+        <div id="divGridBranch"></div>
     </div>
-    @{
-        Model.IsForm = false;
-        Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-    }
-</div>
-
-<!--templates-->
-<div style="display:none;">
-    <div id="divGridPersonContact_NoFile">
-        <div>
-            <span>Seleccione un archivo</span>
-        </div>
-    </div>
-    <div id="divGridPersonContact_File">
-        <div>
-            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
-        </div>
-    </div>
-    <div id="divGridPersonContact_FileImg">
-        <div>
-            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
-            <img src="${CP_IdentificationFile}" />
-        </div>
-    </div>
-    <div id="divGridPersonContact_FilePdf">
-        <div>
-            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
-            <iframe src="@(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name))?FilePath=${cp_identificationfile}" frameborder="0"></iframe>
-        </div>
-    </div>
+        @{
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
 </div>
 
 @{
@@ -80,9 +54,9 @@
         var vContactOptionList = @(Html.Raw(oContactOptionList));
         $(document).ready(function () {
             Provider_CompanyContactObject.Init({
-                ObjectId: 'divGridPersonContact',
+                ObjectId: 'divGridBranch',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ContactType: '@((int)BackOffice.Models.General.enumContactType.PersonContact)',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.Brach)',
                 ContactOptionList: vContactOptionList,
             });
             Provider_CompanyContactObject.RenderAsync();
