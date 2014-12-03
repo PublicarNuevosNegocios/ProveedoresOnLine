@@ -14,8 +14,11 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="divGridCertifications">
-            <label>@(Model.RelatedProvider.RelatedCertification.Select(x => x.ItemName).FirstOrDefault())</label>
-            <input type="text" value="@(Model.ProviderOptions.Select(x => x.ItemName).FirstOrDefault())" />
+            @if (Model.RelatedProvider.RelatedCertification != null)
+            {
+                <label>@(Model.RelatedProvider.RelatedCertification.Select(x => x.ItemName).FirstOrDefault())</label>
+                <input type="text" value="@(Model.ProviderOptions.Select(x => x.ItemName).FirstOrDefault())" />
+            }
         </div>
     </div>
 </div>

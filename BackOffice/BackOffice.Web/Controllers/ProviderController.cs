@@ -245,76 +245,74 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult HICertificationsUpsert(string ProviderPublicId)
         {
-            //BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            //{
-            //    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            //};
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
 
-            //if (!string.IsNullOrEmpty(ProviderPublicId))
-            //{
-            //    //get provider info
-            //    oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-            //    {
-            //        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-            //        RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
-            //    };
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
+                };
 
-            //    //get provider menu
-            //    oModel.ProviderMenu = GetProviderMenu(oModel);
-            //}
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
 
-            //return View(oModel);
-
-            return View(new Models.Provider.ProviderViewModel());
+            return View(oModel);
+            //return View(new Models.Provider.ProviderViewModel());
         }
 
         public virtual ActionResult HIHealtyPoliticUpsert(string ProviderPublicId)
         {
-            //BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            //{
-            //    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            //};
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
 
-            //if (!string.IsNullOrEmpty(ProviderPublicId))
-            //{
-            //    //get provider info
-            //    oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-            //    {
-            //        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-            //        RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyHealtyPolitic),
-            //    };
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyHealtyPolitic),
+                };
 
-            //    //get provider menu
-            //    oModel.ProviderMenu = GetProviderMenu(oModel);
-            //}
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
 
-            //return View(oModel);
-            return View(new Models.Provider.ProviderViewModel());
+            return View(oModel);
+            //return View(new Models.Provider.ProviderViewModel());
         }
 
         public virtual ActionResult HIRiskPoliciesUpsert(string ProviderPublicId)
         {
-            //BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            //{
-            //    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            //};
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
 
-            //if (!string.IsNullOrEmpty(ProviderPublicId))
-            //{
-            //    //get provider info
-            //    oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-            //    {
-            //        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-            //        RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies),
-            //    };
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies),
+                };
 
-            //    //get provider menu
-            //    oModel.ProviderMenu = GetProviderMenu(oModel);
-            //}
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
 
-            //return View(oModel);
-
-            return View(new Models.Provider.ProviderViewModel());
+            return View(oModel);
+            //return View(new Models.Provider.ProviderViewModel());
         }
 
         #endregion
