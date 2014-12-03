@@ -22,7 +22,7 @@
 
         CompanyContactType = 209,
         PersonContactType = 210,
-        
+
         LegalType = 601,
 
         ChaimberOfCommerceInfoType = 602,
@@ -75,6 +75,17 @@
         CP_Phone = 206006,
         CP_Email = 206007,
         CP_Negotiation = 206008,
+
+        //Branch
+        BR_Representative = 207001,
+        BR_Address = 207002,
+        BR_City = 207003,
+        BR_Phone = 207004,
+        BR_Fax = 207005,
+        BR_Email = 207006,
+        BR_Website = 207007,
+        BR_GeoLocation = 207008,
+
     }
 
     #endregion
@@ -91,7 +102,7 @@
     }
 
     public enum enumLegalInfoType
-    { 
+    {
         CP_ConstitutionDate = 602001,
         CP_ConstitutionEndDate = 602002,
         CP_State = 602003,
@@ -102,7 +113,7 @@
         CP_SocialObject = 602008,
         CP_PartnerName = 602009,
         CP_PartnerIdentificationNumber = 602010,
-        CP_PartnerRank = 602011,        
+        CP_PartnerRank = 602011,
     }
 
     #endregion
