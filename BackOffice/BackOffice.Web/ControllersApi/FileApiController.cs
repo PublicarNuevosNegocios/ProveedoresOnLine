@@ -34,7 +34,7 @@ namespace BackOffice.Web.ControllersApi
                     if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                     {
                         string strFile = strFolder.TrimEnd('\\') +
-                            "\\CompanyFile_" +
+                            "\\CompanyFile\\CompanyFile_" +
                             CompanyPublicId + "_" +
                             DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                             UploadFile.FileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
