@@ -1,0 +1,91 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Personas de contacto";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="divGridPersonContact"></div>
+    </div>
+    @{
+        Model.IsForm = false;
+        Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+    }
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridPersonContact_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridPersonContact_File">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
+        </div>
+    </div>
+    <div id="divGridPersonContact_FileImg">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
+            <img src="${CP_IdentificationFile}" />
+        </div>
+    </div>
+    <div id="divGridPersonContact_FilePdf">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
+            <iframe src="@(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name))?FilePath=${cp_identificationfile}" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    @{
+        //get ContactTypeValues
+        string oContactOptionList = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oContactOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vContactOptionList = @(Html.Raw(oContactOptionList));
+        $(document).ready(function () {
+            Provider_CompanyContactObject.Init({
+                ObjectId: 'divGridPersonContact',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.PersonContact)',
+                ContactOptionList: vContactOptionList,
+            });
+            Provider_CompanyContactObject.RenderAsync();
+        });
+    </script>
+}

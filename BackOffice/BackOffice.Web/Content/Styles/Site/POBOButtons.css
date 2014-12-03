@@ -1,0 +1,68 @@
+.POBOButtons, .POBOSearchButtons{
+    background-color:#ff8300;    
+    font-size:1.1em;
+    letter-spacing:-0.5px;
+    color:#fff;
+}
+.POBOButtons {
+    display: block;
+    margin: 0;
+    padding:5px 30px;
+}
+.POBOSearchButtons {
+    text-transform:uppercase;
+    background-image:url(../../Images/POBOsprite.png);
+    background-position:-246px 1px;
+    background-size:522px auto;
+    background-repeat:no-repeat;
+    padding:5px 31px 5px 10px;
+    margin:0px 0px 0px -5px;
+}
+    .POBOButtons:hover, .POBOSearchButtons:hover{
+        background-color:#ffb362;
+        text-decoration:underline;
+        color:#fff;
+    }
+/************* BOTONES SIGUIENTE ANTERIOR *************/
+    .POBOProgressButtons, .POBOProgressButtons:hover{
+        font-size:1.1em;
+        letter-spacing:-0.5px;
+        color:#4d4d4d;
+        border:1px solid #ff8300;
+        padding:5px 30px;
+        margin:0px 0px 0px 12px;
+    }
+        .POBOProgressButtons {
+            background-color:#f9f9f9;
+            display:inline-block;
+        }
+            .POBOProgressButtons:hover {
+                background-color: #e6e6e6;
+            }        
+
+.POBOProviderActions{
+    background-color: #fff;
+        border:none ;
+    display: block;
+    height: auto;
+    margin: 0 !important;
+    padding: 0;
+    position:fixed;
+    bottom:6px;
+    left:312px;
+    width:76.4%;
+}
+.POBOProviderActions li {
+    margin:0 !important;
+    display: inline-block;
+    list-style-type: none;
+}
+    li.POBOButtonsSaveProvider {
+        position: absolute;
+        right: 12px;
+        top: 0;
+    }
+    li.POBOButtonsSaveProvider a.POBOButtons{
+        padding:6px 30px !important;
+    }
+/************* ESTOS SON LOS BOTONES E IMPUTS DE LAS GRILLAS ***************/

@@ -1,0 +1,51 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts)
+{
+    <ul class="POBOProviderActions">
+        @if (Model.ProviderMenu != null &&
+            Model.ProviderMenu.Count > 0)
+        {
+            if (Model.CurrentSubMenu != null &&
+                Model.CurrentSubMenu.LastMenu != null)
+            {
+                if (Model.IsForm)
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'last'})"><< Anterior</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="@Model.CurrentSubMenu.LastMenu.Url"><< Anterior</a>
+                    </li>
+                }
+            }
+            if (Model.CurrentSubMenu != null &&
+                Model.CurrentSubMenu.NextMenu != null)
+            {
+                if (Model.IsForm)
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert',StepValue:'next'})">Siguiente >></a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="POBOProgressButtons" href="@Model.CurrentSubMenu.NextMenu.Url">Siguiente >></a>
+                    </li>
+                }
+            }
+        }
+        @if (Model.IsForm)
+        {
+            <li class="POBOButtonsSaveProvider">
+                <a class="POBOButtons" href="javascript:Provider_SubmitForm({FormId:'frmProviderUpsert'})">Guardar Proveedor</a>
+            </li>
+        }
+    </ul>
+}
+
+

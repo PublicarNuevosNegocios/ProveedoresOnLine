@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOffice.Models", "BackOffice.Models\BackOffice.Models.csproj", "{D3651A5E-1778-4701-A044-CEEB4949B042}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackOffice.Web", "BackOffice.Web\BackOffice.Web.csproj", "{6DD47AE6-1BCC-4676-A5C1-E82FB9E85B52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D3651A5E-1778-4701-A044-CEEB4949B042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3651A5E-1778-4701-A044-CEEB4949B042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3651A5E-1778-4701-A044-CEEB4949B042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3651A5E-1778-4701-A044-CEEB4949B042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD47AE6-1BCC-4676-A5C1-E82FB9E85B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD47AE6-1BCC-4676-A5C1-E82FB9E85B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD47AE6-1BCC-4676-A5C1-E82FB9E85B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD47AE6-1BCC-4676-A5C1-E82FB9E85B52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

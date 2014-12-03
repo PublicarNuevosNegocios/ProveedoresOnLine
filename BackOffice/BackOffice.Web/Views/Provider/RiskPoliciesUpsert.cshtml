@@ -1,0 +1,71 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Politicas de Seguridad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div class="POBOProviderUpsertForm" id="divRiskPoliciesContent">
+            <ul>
+                <li>
+                    <label>Sistema de Riesgos: </label>
+                    <br />
+                    <select id="listARL">
+                        <option value="0">Seleccione una ARL</option>
+                    </select>
+                </li>
+                <li>
+                    <label>Calificación de Riesgo ARL</label><br />
+                    <input type="text" value="" />
+                </li>
+                <li>
+                    <label>Afiliación ARL</label><br />
+                    <input type="file" />
+                </li>
+                <li>
+                    <label>Certificado accidentalidad ARL</label><br />
+                    <input type="file" />
+                </li>
+                <li class="POBOHSEQ">
+                    <label>Certificados de Accidentalidad</label><br />
+                    <div id="divGridRiskPolicies"></div>
+                </li>
+                <li class="POBOHSEQ">
+                    <label>Reporte LTIF</label>
+                    <ul id="ReportLITF">
+                        <li id="F1">
+                            <label>Fatalidades + Accidentes Incapacitantes</label>
+                            <hr />
+                            <label>Horas hombre trabajadas</label>
+                        </li>
+                        <li id="F2">
+                            <label>* 1'000.000</label>
+                        </li>
+                        <li id="F3">
+                            <label>Resultado LTIF</label>
+                            <label>AÑOS</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+}

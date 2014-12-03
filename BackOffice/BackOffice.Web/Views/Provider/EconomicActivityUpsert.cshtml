@@ -1,0 +1,44 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Actividades Económicas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <label>Actividades Económicas.</label>
+        <div id="divGridCertifications">            
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <label>Maestra</label>
+                    <select id="selectMaster">
+                        <option value="0">Seleccione</option>
+                    </select>
+                </li>
+                <li>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+}
+

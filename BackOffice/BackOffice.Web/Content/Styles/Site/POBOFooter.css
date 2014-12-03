@@ -1,0 +1,31 @@
+.POBOFooterWrapper {
+    border:none;
+}
+    .POBOFooterLegal, .POBOFooterLogos{
+        display:block;
+            border:none;
+        width:100%;
+        min-width:1024px;
+    }        
+        .POBOFooterLogos {
+            height:76px;
+            text-align:right;
+            background-color:#b3b3b3;
+        }
+            .POBOFooterLogos img{
+                position:relative;
+                width:auto;
+                height:auto;
+                    border:none;
+                right:12px;
+                top:13px;
+            }
+        .POBOFooterLegal {
+            height:22px;
+            background-color:#727276;
+            text-align: center;
+        }
+            .POBOFooterLegal span, .POBOFooterLegal a{
+                color: #fff;
+                font-size: 0.9em;
+            }

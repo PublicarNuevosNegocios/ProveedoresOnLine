@@ -1,0 +1,68 @@
+.logInMainWrapper {
+    display: inline-block;
+    border: none;
+    width: 104%;
+    height: 650px;
+    min-height: 400px;
+    background-image: url('../../Images/LogInBackground.jpg');
+    margin: 0px -27px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.LogoPublicar {
+    margin: 9% 9%;
+    float: right;
+}
+
+.logInElementsWrapper {
+    display: inline-block;
+    width: 30%;
+    height: 132px;
+    border: none;
+    margin: 15% 0px 0px 65%;
+    min-width: 388px;
+    text-align: center;
+    background-color: rgba(255,255,255,0.5);
+    padding-top: 13px;
+    border-radius: 3px;
+}
+
+    .logInElementsWrapper span {
+        font-size: 20px;
+        line-height: 20px;
+        letter-spacing: -1px;
+    }
+
+    .logInElementsWrapper a img {
+        display: inline-block;
+        width: 76px;
+        height: 76px;
+        border: none;
+        margin-top: 9px;
+        border-radius: 10px;
+    }
+
+    .logInElementsWrapper input [type=checkbox] {
+        display: block;
+        margin: 190px auto 18px auto;
+        width: 50%;
+        min-width: 400px;
+        text-align: center;
+        border: none;
+        font-size: small;
+    }
+
+.logInCopiright {
+    display: block;
+    margin: 140px auto 68px auto;
+    width: 50%;
+    min-width: 400px;
+    text-align: center;
+    border: none;
+    font-size: small;
+}
