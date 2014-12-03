@@ -390,6 +390,7 @@
     <Content Include="Content\Styles\Site\POBODialogs.css" />
     <Content Include="Content\Styles\Site\POBOFooter.css" />
     <Content Include="Content\Styles\Site\POBOForms.css" />
+    <Content Include="Content\Styles\Site\POBOGrids.css" />
     <Content Include="Content\Styles\Site\POBOHeader.css" />
     <Content Include="Content\Styles\Site\POBOLayout.css" />
     <Content Include="Content\Styles\Site\POBOLogIn.css" />
