@@ -1,6 +1,6 @@
 .POBOProviderWrapper {
         border:none;
-    height: 700px;
+    height:auto;
     margin: 2px 0 0 2px;
     padding: 6px 0;
     position: relative;
@@ -11,10 +11,13 @@
         display:inline-block;
         width:auto;
         height:100%;
-        padding:0 17px;
+        padding:0 21px 0 11px;
+        vertical-align:top;
     }
     .POBOProviderContentWrapper{
-            border:none;
-        float:right;
-        width:77%;
+        border: medium none;
+        display: inline-block;
+        height: auto;
+        margin:0px 0px 0px 18px;
+        width: 77%;
 }
