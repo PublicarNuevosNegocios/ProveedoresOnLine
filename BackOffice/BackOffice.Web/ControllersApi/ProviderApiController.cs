@@ -50,6 +50,8 @@ namespace BackOffice.Web.ControllersApi
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
                 !string.IsNullOrEmpty(ContactType))
             {
+                List<string> lstUsedFiles = new List<string>();
+
                 BackOffice.Models.Provider.ProviderContactViewModel oDataToUpsert =
                     (BackOffice.Models.Provider.ProviderContactViewModel)
                     (new System.Web.Script.Serialization.JavaScriptSerializer()).
@@ -155,6 +157,8 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
 
+                    lstUsedFiles.Add(oDataToUpsert.CP_IdentificationFile);
+
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CP_PhoneId) ? 0 : Convert.ToInt32(oDataToUpsert.CP_PhoneId.Trim()),
@@ -191,6 +195,9 @@ namespace BackOffice.Web.ControllersApi
 
                 oCompany = ProveedoresOnLine.Company.Controller.Company.ContactUpsert(oCompany);
                 oReturn = new Models.Provider.ProviderContactViewModel(oCompany.RelatedContact.FirstOrDefault());
+
+                //register used files
+                LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
             }
             return oReturn;
         }

@@ -110,10 +110,15 @@ namespace ProveedoresOnLine.FileManager
 
             oLoader.StartUpload();
 
-            return oLoader.UploadedFiles.Where(x => x.FilePathLocalSystem == FilePath).
+            string oReturn = oLoader.UploadedFiles.Where(x => x.FilePathLocalSystem == FilePath).
                         Select(x => x.PublishFile.ToString()).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
+
+            //save upload log file
+            LogManager.ClientLog.FileUploadCreate(new List<string>() { oReturn });
+
+            return oReturn;
         }
 
         #endregion

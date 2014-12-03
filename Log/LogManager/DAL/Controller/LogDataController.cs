@@ -35,7 +35,7 @@ namespace LogManager.DAL.Controller
 
         #endregion
 
-        #region Implemented methods
+        #region Generic Log
 
         public int LogCreate(string User, string Application, string Source, bool IsSuccess, string Message)
         {
@@ -54,5 +54,18 @@ namespace LogManager.DAL.Controller
 
         #endregion
 
+        #region File
+
+        public void FileUploadCreate(string Url)
+        {
+            DataFactory.FileUploadCreate(Url);
+        }
+
+        public void FileUsedCreate(string Url)
+        {
+            DataFactory.FileUsedCreate(Url);
+        }
+
+        #endregion
     }
 }

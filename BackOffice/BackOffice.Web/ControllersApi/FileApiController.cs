@@ -34,7 +34,7 @@ namespace BackOffice.Web.ControllersApi
                     if (UploadFile != null && !string.IsNullOrEmpty(UploadFile.FileName))
                     {
                         string strFile = strFolder.TrimEnd('\\') +
-                            "\\CompanyFile\\CompanyFile_" +
+                            "\\CompanyFile_" +
                             CompanyPublicId + "_" +
                             DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
                             UploadFile.FileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
@@ -45,8 +45,8 @@ namespace BackOffice.Web.ControllersApi
                         string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
                             (strFile,
                             BackOffice.Models.General.InternalSettings.Instance
-                                [BackOffice.Models.General.Constants.C_Settings_File_RemoteDirectory].Value +
-                                CompanyPublicId + "\\");
+                                [BackOffice.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                                "\\CompanyFile\\" + CompanyPublicId + "\\");
 
                         //remove temporal file
                         if (System.IO.File.Exists(strFile))
