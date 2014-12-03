@@ -1005,6 +1005,7 @@
     <Content Include="Views\Provider\PersonContactUpsert.cshtml" />
     <Content Include="Views\Provider\EconomicActivityUpsert.cshtml" />
     <Content Include="Views\Provider\ExperiencesUpsert.cshtml" />
+    <Content Include="Views\Provider\BranchUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

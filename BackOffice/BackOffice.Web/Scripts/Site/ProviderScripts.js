@@ -39,6 +39,9 @@ var Provider_CompanyContactObject = {
         else if (Provider_CompanyContactObject.ContactType == 11002) {
             Provider_CompanyContactObject.RenderPersonContact();
         }
+        else if (Provider_CompanyContactObject.ContactType == 11003) {
+            Provider_CompanyContactObject.RenderBranch();
+        }
     },
 
     RenderCompanyContact: function () {
@@ -399,6 +402,120 @@ var Provider_CompanyContactObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: "100px",
+            }],
+        });
+    },
+
+    RenderBranch: function () {
+        $('#' + Provider_CompanyContactObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo contacto' },
+                { name: 'save', text: 'Guardar cambios' },
+                { name: 'cancel', text: 'Descartar cambios' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "ContactId",
+                        fields: {
+                            ContactId: { editable: false, nullable: true },
+                            ContactName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            CC_CompanyContactType: { editable: true },
+                            CC_CompanyContactTypeId: { editable: false },
+
+                            CC_Value: { editable: true },
+                            CC_ValueId: { editable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'ContactId',
+                title: 'Id',
+            }, {
+                field: 'ContactName',
+                title: 'Nombre',
+            }, {
+                field: 'CC_CompanyContactType',
+                title: 'Tipo de contacto',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.CC_CompanyContactType != null) {
+                        $.each(Provider_CompanyContactObject.ContactOptionList[12], function (item, value) {
+                            if (dataItem.CC_CompanyContactType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyContactObject.ContactOptionList[12],
+                            dataTextField: "ItemName",
+                            dataValueField: "ItemId"
+                        });
+                },
+            }, {
+                field: 'CC_Value',
+                title: 'Valor',
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
             }],
         });
     },
