@@ -22,9 +22,14 @@
 
         CompanyContactType = 209,
         PersonContactType = 210,
-
-
+        
         LegalType = 601,
+
+        ChaimberOfCommerceInfoType = 602,
+        RUTInfoType = 603,
+        CIFINInfoType = 604,
+        SARLAFTInfoType = 605,
+        ResolucionesInfoType = 606,
     }
 
     #region Util
@@ -76,9 +81,44 @@
 
     #region Legal
 
+    public enum enumLegalType
+    {
+        ChaimberOfCommerce = 601001,
+        RUT = 601002,
+        CIFIN = 601003,
+        SARLAFT = 601004,
+        Resoluciones = 601005,
+    }
+
+    public enum enumLegalInfoType
+    { 
+        CP_ConstitutionDate = 602001,
+        CP_ConstitutionEndDate = 602002,
+        CP_State = 602003,
+        CP_InscriptionCity = 602004,
+        CP_InscriptionNumber = 602005,
+        CP_ExistenceAndLegalPersonCertificate = 602006,
+        CP_CertificateExpeditionDate = 602007,
+        CP_SocialObject = 602008,
+        CP_PartnerName = 602009,
+        CP_PartnerIdentificationNumber = 602010,
+        CP_PartnerRank = 602011,        
+    }
+
     #endregion
 
     #region HSEQ
+
+    /// <summary>
+    /// Company info type
+    /// </summary>
+    public enum enumHSEQType
+    {
+        Certifications = 701001,
+        CompanyHealtyPolitic = 701002,
+        CompanyRiskPolicies = 702003
+    }
+
     #endregion
 
     #region Finantial
