@@ -122,6 +122,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'ContactId',
                 title: 'Id',
+                width: "50px",
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
@@ -155,6 +156,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
+                width: "100px",
             }],
         });
     },
@@ -165,7 +167,6 @@ var Provider_CompanyContactObject = {
             navigatable: true,
             pageable: false,
             scrollable: true,
-            height: '500px',
             toolbar: [
                 { name: 'create', text: 'Nuevo contacto' },
                 { name: 'save', text: 'Guardar cambios' },
@@ -337,19 +338,14 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationFile',
                 title: 'Doc representante legal.',
-                width: "500px",
+                width: "200px",
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
-                        if (dataItem.CP_IdentificationFile.indexOf('.pdf') > 0) {
-                            oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_FilePdf').html();
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
                         }
-                        else if (dataItem.CP_IdentificationFile.indexOf('.png') > 0 || dataItem.CP_IdentificationFile.indexOf('.jpg') > 0 || dataItem.CP_IdentificationFile.indexOf('.jpeg') > 0) {
-                            oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_FileImg').html();
-                        }
-                        else {
-                            oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
-                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
                     }
                     else {
                         oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
@@ -361,7 +357,7 @@ var Provider_CompanyContactObject = {
                 },
                 editor: function (container, options) {
                     var oFileExit = true;
-                    $('<input type="file" id="files" name="files" />')
+                    $('<input type="file" id="files" name="files"/>')
                     .appendTo(container)
                     .kendoUpload({
                         multiple: false,
@@ -386,7 +382,6 @@ var Provider_CompanyContactObject = {
                             oFileExit = false;
                         },
                     });
-
                     $(container).focusout(function () {
                         if (oFileExit == false) {
                             //mantain file input focus

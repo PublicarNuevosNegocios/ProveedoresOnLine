@@ -33,18 +33,6 @@
             <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
         </div>
     </div>
-    <div id="divGridPersonContact_FileImg">
-        <div>
-            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
-            <img src="${CP_IdentificationFile}" />
-        </div>
-    </div>
-    <div id="divGridPersonContact_FilePdf">
-        <div>
-            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
-            <iframe src="@(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name))?FilePath=${cp_identificationfile}" frameborder="0"></iframe>
-        </div>
-    </div>
 </div>
 
 @{
