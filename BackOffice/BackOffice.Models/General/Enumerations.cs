@@ -108,6 +108,17 @@
     #endregion
 
     #region HSEQ
+
+    /// <summary>
+    /// Company info type
+    /// </summary>
+    public enum enumHSEQType
+    {
+        Certifications = 701001,
+        CompanyHealtyPolitic = 701002,
+        CompanyRiskPolicies = 702003
+    }
+
     #endregion
 
     #region Finantial

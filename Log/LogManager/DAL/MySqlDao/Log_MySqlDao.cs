@@ -18,7 +18,7 @@ namespace LogManager.DAL.MySqlDao
             DataInstance = new ADO.MYSQL.MySqlImplement(LogManager.Models.Constants.C_ConnectionName);
         }
 
-        #region Implemented methods
+        #region Generic Log
 
         public int LogCreate(string User, string Application, string Source, bool IsSuccess, string Message)
         {
@@ -118,5 +118,38 @@ namespace LogManager.DAL.MySqlDao
 
         #endregion
 
+        #region File
+
+        public void FileUploadCreate(string Url)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vUrl", Url));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "F_FileUpload_Create",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+        }
+
+        public void FileUsedCreate(string Url)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vUrl", Url));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "F_FileUsed_Create",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+        }
+
+        #endregion
     }
 }
