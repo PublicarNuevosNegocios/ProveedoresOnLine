@@ -140,12 +140,13 @@ var Provider_CompanyContactObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input data-bind="value:' + options.field + '"/>')
+                    $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyContactObject.ContactOptionList[209],
-                            dataTextField: "ItemName",
-                            dataValueField: "ItemId"
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
                         });
                 },
             }, {
@@ -182,7 +183,7 @@ var Provider_CompanyContactObject = {
                             CP_PersonContactType: { editable: true },
                             CP_PersonContactTypeId: { editable: false },
 
-                            CP_IdentificationType: { editable: true, defaultValue: '3001' },
+                            CP_IdentificationType: { editable: true },
                             CP_IdentificationTypeId: { editable: false },
 
                             CP_IdentificationNumber: { editable: true, validation: { required: true } },
@@ -279,12 +280,13 @@ var Provider_CompanyContactObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input data-bind="value:' + options.field + '"/>')
+                    $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyContactObject.ContactOptionList[210],
-                            dataTextField: "ItemName",
-                            dataValueField: "ItemId"
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
                         });
                 },
             }, {
@@ -303,19 +305,13 @@ var Provider_CompanyContactObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input/>')
+                    $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            value: options.model[options.field],
                             dataSource: Provider_CompanyContactObject.ContactOptionList[101],
                             dataTextField: "ItemName",
                             dataValueField: "ItemId",
-                            select: function (e) {
-                                //update grid item value
-                                options.model[options.field] = this.value();
-                                //enable made changes
-                                options.model.dirty = true;
-                            }
+                            optionLabel: 'Seleccione una opción'
                         });
                 },
             }, {
