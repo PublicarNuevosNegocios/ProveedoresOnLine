@@ -324,19 +324,24 @@ namespace BackOffice.Web.Controllers
 
         #region Legal Info
 
-        public virtual ActionResult LIChaimberOfCommerceUpsert(string CompanyPublicId)
+        public virtual ActionResult LIChaimberOfCommerceUpsert(string ProviderPublicId)
         {
-            //BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
-            //oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
-            //oModel.RelatedProvider.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    //RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, enumContactType),
+                    
+                },
+            };
 
-            //oModel.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(CompanyPublicId, (int)enumLegalType.ChaimberOfCommerce);
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
-
-            //oModel.ProviderMenu = GetProviderMenu(oModel);
-            //return View(oModel);
-
-            return View(new Models.Provider.ProviderViewModel());
+            return View(oModel);
         }
 
         #endregion
