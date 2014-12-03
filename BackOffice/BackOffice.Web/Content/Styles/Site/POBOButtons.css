@@ -47,7 +47,7 @@
     height: auto;
     margin: 0 !important;
     padding: 0;
-    position:fixed;
+    position:relative;
     bottom:6px;
     left:312px;
     width:76.4%;

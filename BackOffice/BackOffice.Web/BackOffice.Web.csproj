@@ -994,18 +994,19 @@
     <Content Include="Views\Provider\Index.cshtml" />
     <Content Include="Views\Shared\_L_Footer.cshtml" />
     <Content Include="Views\Shared\_L_Header.cshtml" />
-    <Content Include="Views\Provider\ProviderUpsert.cshtml" />
+    <Content Include="Views\Provider\GIProviderUpsert.cshtml" />
     <Content Include="Views\Shared\_P_ProviderMenu.cshtml" />
     <Content Include="Views\Shared\_P_ProviderActions.cshtml" />
-    <Content Include="Views\Provider\CompanyContactUpsert.cshtml" />
-    <Content Include="Views\Provider\CertificationsUpsert.cshtml" />
-    <Content Include="Views\Provider\ChaimberOfCommerceUpsert.cshtml" />
-    <Content Include="Views\Provider\HealtyPoliticUpsert.cshtml" />
-    <Content Include="Views\Provider\RiskPoliciesUpsert.cshtml" />
-    <Content Include="Views\Provider\PersonContactUpsert.cshtml" />
-    <Content Include="Views\Provider\EconomicActivityUpsert.cshtml" />
-    <Content Include="Views\Provider\ExperiencesUpsert.cshtml" />
-    <Content Include="Views\Provider\BranchUpsert.cshtml" />
+    <Content Include="Views\Provider\GICompanyContactUpsert.cshtml" />
+    <Content Include="Views\Provider\HICertificationsUpsert.cshtml" />
+    <Content Include="Views\Provider\LIChaimberOfCommerceUpsert.cshtml" />
+    <Content Include="Views\Provider\HIHealtyPoliticUpsert.cshtml" />
+    <Content Include="Views\Provider\HIRiskPoliciesUpsert.cshtml" />
+    <Content Include="Views\Provider\GIPersonContactUpsert.cshtml" />
+    <Content Include="Views\Provider\CIEconomicActivityUpsert.cshtml" />
+    <Content Include="Views\Provider\CIExperiencesUpsert.cshtml" />
+    <Content Include="Views\Provider\GIBranchUpsert.cshtml" />
+    <Content Include="Views\Provider\GIDistributorUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

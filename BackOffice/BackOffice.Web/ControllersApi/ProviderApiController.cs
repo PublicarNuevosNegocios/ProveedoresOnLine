@@ -11,14 +11,14 @@ namespace BackOffice.Web.ControllersApi
     {
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Provider.ProviderContactViewModel> ContactGetByType
-            (string ContactGetByType,
+        public List<BackOffice.Models.Provider.ProviderContactViewModel> GIContactGetByType
+            (string GIContactGetByType,
             string ProviderPublicId,
             string ContactType)
         {
             List<BackOffice.Models.Provider.ProviderContactViewModel> oReturn = new List<Models.Provider.ProviderContactViewModel>();
 
-            if (ContactGetByType == "true")
+            if (GIContactGetByType == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oContact = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
                     (ProviderPublicId,
@@ -39,14 +39,14 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Provider.ProviderContactViewModel ContactUpsert
-            (string ContactUpsert,
+        public BackOffice.Models.Provider.ProviderContactViewModel GIContactUpsert
+            (string GIContactUpsert,
             string ProviderPublicId,
             string ContactType)
         {
             BackOffice.Models.Provider.ProviderContactViewModel oReturn = null;
 
-            if (ContactUpsert == "true" &&
+            if (GIContactUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
                 !string.IsNullOrEmpty(ContactType))
             {

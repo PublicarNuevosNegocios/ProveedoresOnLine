@@ -33,13 +33,13 @@ var Provider_CompanyContactObject = {
     },
 
     RenderAsync: function () {
-        if (Provider_CompanyContactObject.ContactType == 11001) {
+        if (Provider_CompanyContactObject.ContactType == 204001) {
             Provider_CompanyContactObject.RenderCompanyContact();
         }
-        else if (Provider_CompanyContactObject.ContactType == 11002) {
+        else if (Provider_CompanyContactObject.ContactType == 204002) {
             Provider_CompanyContactObject.RenderPersonContact();
         }
-        else if (Provider_CompanyContactObject.ContactType == 11003) {
+        else if (Provider_CompanyContactObject.ContactType == 204003) {
             Provider_CompanyContactObject.RenderBranch();
         }
     },
@@ -75,7 +75,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -87,7 +87,7 @@ var Provider_CompanyContactObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -103,7 +103,7 @@ var Provider_CompanyContactObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -131,7 +131,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CC_CompanyContactType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[12], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ContactOptionList[209], function (item, value) {
                             if (dataItem.CC_CompanyContactType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -143,7 +143,7 @@ var Provider_CompanyContactObject = {
                     $('<input data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[12],
+                            dataSource: Provider_CompanyContactObject.ContactOptionList[209],
                             dataTextField: "ItemName",
                             dataValueField: "ItemId"
                         });
@@ -211,7 +211,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -223,7 +223,7 @@ var Provider_CompanyContactObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -239,7 +239,7 @@ var Provider_CompanyContactObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -270,7 +270,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_PersonContactType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[19], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ContactOptionList[210], function (item, value) {
                             if (dataItem.CP_PersonContactType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -282,7 +282,7 @@ var Provider_CompanyContactObject = {
                     $('<input data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[19],
+                            dataSource: Provider_CompanyContactObject.ContactOptionList[210],
                             dataTextField: "ItemName",
                             dataValueField: "ItemId"
                         });
@@ -294,7 +294,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_IdentificationType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[3], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ContactOptionList[101], function (item, value) {
                             if (dataItem.CP_IdentificationType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -307,7 +307,7 @@ var Provider_CompanyContactObject = {
                         .appendTo(container)
                         .kendoDropDownList({
                             value: options.model[options.field],
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[3],
+                            dataSource: Provider_CompanyContactObject.ContactOptionList[101],
                             dataTextField: "ItemName",
                             dataValueField: "ItemId",
                             select: function (e) {
@@ -521,11 +521,4 @@ var Provider_CompanyContactObject = {
     },
 };
 
-function checkOffset() {
-    if ($('.POBOProviderActions').offset().top + $('.POBOProviderActions').height()
-                >= $('#POBORenderFooter').offset().top - 10)
-        $('.POBOProviderActions').css('position', 'absolute');
-    if ($(document).scrollTop() + window.innerHeight < $('#POBORenderFooter').offset().top)
-        $('.POBOProviderActions').css('position', 'fixed');
-    $('.POBOProviderActions').text($(document).scrollTop() + window.innerHeight);
-}
+

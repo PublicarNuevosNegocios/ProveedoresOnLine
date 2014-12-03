@@ -22,12 +22,16 @@
         <form class="POBOProviderUpsertForm" id="frmProviderUpsert"
               method="post"
               action="@(Url.Action
-                (MVC.Provider.ActionNames.ProviderUpsert,
+                (MVC.Provider.ActionNames.GIProviderUpsert,
                 MVC.Provider.Name,
                 new
                 {
                     ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
                 }))">
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
             <span class="POBOPCompulsoryFields">Campos obligatorios *</span>
             <ul>
                 <li>
@@ -147,10 +151,4 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
-
-    <script type="text/javascript">
-        $(document).scroll(function () {
-            checkOffset();
-        });
-    </script>
 }

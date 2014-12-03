@@ -5,15 +5,31 @@
     /// </summary>
     public enum enumCatalog
     {
-        CompanyIdentificationType = 1,
-        CompanyType = 2,
-        PersonIdentificationType = 3,
+        PersonIdentificationType = 101,
+        CategoryInfoType = 102,
+        ProductType = 103,
 
-        ContactType = 11,
-        CompanyContactType = 12,
-        ContactInfoType = 18,
-        PersonContactType = 19,
+        CompanyIdentificationType = 201,
+        CompanyType = 202,
+        CompanyInfoType = 203,
+
+        ContactType = 204,
+
+        CompanyContactInfoType = 205,
+        PersonContactInfoType = 206,
+        BrachInfoType = 207,
+        DistributorInfoType = 208,
+
+        CompanyContactType = 209,
+        PersonContactType = 210,
+
+
+        LegalType = 601,
     }
+
+    #region Util
+
+    #endregion
 
     #region Company
 
@@ -22,7 +38,7 @@
     /// </summary>
     public enum enumCompanyInfoType
     {
-        SalesforceId = 4001,
+        SalesforceId = 203001,
     }
 
     /// <summary>
@@ -30,57 +46,45 @@
     /// </summary>
     public enum enumContactType
     {
-        CompanyContact = 11001,
-        PersonContact = 11002,
-        Brach = 11003,
-        Distributor = 11004
+        CompanyContact = 204001,
+        PersonContact = 204002,
+        Brach = 204003,
+        Distributor = 204004
     }
+
     /// <summary>
     /// Contact info type
     /// </summary>
     public enum enumContactInfoType
     {
-        CC_CompanyContactType = 18001,
-        CC_Value = 18002,
+        //CompanyContact
+        CC_CompanyContactType = 205001,
+        CC_Value = 205002,
 
-        CP_PersonContactType = 18003,
-        CP_IdentificationType = 18004,
-        CP_IdentificationNumber = 18005,
-        CP_IdentificationCity = 18006,
-        CP_IdentificationFile = 18007,
-        CP_Phone = 18008,
-        CP_Email = 18009,
-        CP_Negotiation = 18010,
+        //PersonContact
+        CP_PersonContactType = 206001,
+        CP_IdentificationType = 206002,
+        CP_IdentificationNumber = 206003,
+        CP_IdentificationCity = 206004,
+        CP_IdentificationFile = 206005,
+        CP_Phone = 206006,
+        CP_Email = 206007,
+        CP_Negotiation = 206008,
     }
 
     #endregion
 
     #region Legal
-    /// <summary>
-    /// Legal type
-    /// </summary>
-    public enum enumLegalType
-    {
-        ChaimberOfCommerce = 17001,
-        RUT = 17002,
-        CIFIN = 17003,
-        SARLAFT = 17004,
-        Resolution = 17005
-    }
+
     #endregion
 
     #region HSEQ
+    #endregion
 
-    /// <summary>
-    /// HSEQ type
-    /// </summary>
-    public enum enumHSEQType
-    {
-        Certifications = 16001,
-        CompanyHealtyPolitic = 16002,
-        CompanyRiskPolicies = 16003
-    }
+    #region Finantial
+    #endregion
 
+    #region Legal
     #endregion
 
 }
