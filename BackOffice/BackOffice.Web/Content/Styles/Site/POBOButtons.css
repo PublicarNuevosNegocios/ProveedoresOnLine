@@ -42,7 +42,7 @@
 
 .POBOProviderActions{
     background-color: #fff;
-    border: 1px solid blue;
+        border:none ;
     display: block;
     height: auto;
     margin: 0 !important;
@@ -65,3 +65,4 @@
     li.POBOButtonsSaveProvider a.POBOButtons{
         padding:6px 30px !important;
     }
+/************* ESTOS SON LOS BOTONES E IMPUTS DE LAS GRILLAS ***************/

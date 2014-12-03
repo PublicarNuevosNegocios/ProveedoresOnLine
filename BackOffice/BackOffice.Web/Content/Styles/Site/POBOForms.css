@@ -33,7 +33,9 @@
         display:block;
     }
 .POBOProviderUpsertForm ul li select,
-.POBOProviderUpsertForm ul li input{
+.POBOProviderUpsertForm ul li input,
+.POBOProviderUpsertForm ul li input[type=file]
+{
     background-color: #f9f9f9;
     border: 1px solid #727276;
     color: #999;
@@ -43,26 +45,28 @@
     width:400px;
 }
 .POBOProviderUpsertForm ul li select > option,
-.POBOProviderUpsertForm ul li select > option[selected="selected"]{
+.POBOProviderUpsertForm ul li select > option[selected=selected]{
     font-weight:normal;
     font-size: 0.9em;
 }
-    .POBOProviderUpsertForm ul li input[type="checkbox"] {
+    .POBOProviderUpsertForm ul li input[type=checkbox] {
         margin:0px 0 0;
         padding: 0 0 0 0px;
         width:auto;
         vertical-align:top;
     }
+
+
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
 
 .POBOProviderUpsertForm li.POBOHSEQ {
     text-align:left;
     display:block;
     width:83%;
-    border:1px solid red;
+        border:none;
 }
 #ReportLITF {
-    border: 1px solid #ff8300;
+        border-bottom:1px solid #ff8400;
     width: auto;
     text-align: center;
     padding: 15px 0px 15px 0px;
@@ -80,9 +84,15 @@
     li#F2 label {
         font-size:1.2em;
         margin:0px 8px;
-    }        
+    }
 li#F3, li#F3 label {
-    margin:0px;
-    width:auto;
-    display:block;
+    display: block;
+    width: 192px;
+    text-align: left;
+    padding:1px 4px;
 }
+li#F3 {
+    margin:0 0px 0px 58.7%;
+    background-color:#ececec;
+}
+
