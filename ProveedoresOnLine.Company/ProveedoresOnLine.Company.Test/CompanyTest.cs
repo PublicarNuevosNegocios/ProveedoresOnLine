@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
-                ("cu", 0, 20);
+                ("cu", null, 0, 20);
 
             Assert.AreEqual(true, oReturn.Count >= 10);
         }

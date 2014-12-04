@@ -403,6 +403,7 @@ var Provider_CompanyContactObject = {
             navigatable: true,
             pageable: false,
             scrollable: true,
+            height: 500,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
@@ -438,8 +439,11 @@ var Provider_CompanyContactObject = {
                             BR_Website: { editable: true },
                             BR_WebsiteId: { editable: false },
 
-                            BR_GeoLocation: { editable: true },
-                            BR_GeoLocationId: { editable: false },
+                            BR_Latitude: { editable: true },
+                            BR_LatitudeId: { editable: false },
+
+                            BR_Longitude: { editable: true },
+                            BR_LongitudeId: { editable: false },
                         }
                     }
                 },
@@ -506,6 +510,52 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_City',
                 title: 'Ciudad',
+                template: function (dataItem) {
+                    //var oReturn = '';
+                    //if (dataItem != null && dataItem.BR_City != null && dataItem.BR_City.length > 0) {
+                    //    if (dataItem.dirty != null && dataItem.dirty == true) {
+                    //        oReturn = '<span class="k-dirty"></span>';
+                    //    }
+                    //    oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
+                    //}
+                    //else {
+                    //    oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
+                    //}
+
+                    //oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
+
+                    //return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input name="' + options.field + '" />')
+                        .appendTo(container)
+                        .kendoAutoComplete({
+                            dataTextField: 'Key',
+                            dataValueField: 'Value',
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        url: BaseUrl.ApiUrl + '/UtilApi?SearchGeography=true&SearchParam=' + + '&CityId=',
+                                        dataType: 'json'
+                                    }
+                                }
+                            }
+                        });
+                    //// create an input element
+                    //var input = $("<input/>");
+                    //// set its name to the field to which the column is bound ('name' in this case)
+                    //input.attr("name", options.field);
+                    //// append it to the container
+                    //input.appendTo(container);
+                    //// initialize a Kendo UI AutoComplete
+                    //input.kendoAutoComplete({
+                    //    dataTextField: "name",
+                    //    dataSource: [
+                    //      { name: "Jane Doe" },
+                    //      { name: "John Doe" }
+                    //    ]
+                    //});
+                }
             }, {
                 field: 'BR_Phone',
                 title: 'Teléfono',
@@ -519,8 +569,11 @@ var Provider_CompanyContactObject = {
                 field: 'BR_Website',
                 title: 'Página web',
             }, {
-                field: 'BR_GeoLocation',
-                title: 'Geolocalización',
+                field: 'BR_Latitude',
+                title: 'Latitud',
+            }, {
+                field: 'BR_Longitude',
+                title: 'Longitud',
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
