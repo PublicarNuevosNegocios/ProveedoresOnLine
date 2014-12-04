@@ -14,47 +14,66 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-
+    
         <form class="POBOProviderUpsertForm" action="/" method="post">
         @{
             Model.IsForm = true;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
-            <ul>
-                <li>
-                    <label>Fecha de Constitución</label>
+        <ul>
+            <li>
+                <label>Fecha de Constitución</label>  
                     <br />
                     <input type="date" name="ConstitutionDate" value="" />
-                </li>
-                <li>
-                    <label>Fecha de Vigencia</label>
+            </li>
+            <li>
+                <label>Fecha de Vigencia</label>
                     <br />
-                    <input type="date" name="ValidityDate" value="" />
-                </li>
-                <li>
-                    <label>Departamento</label>
+                <input type="date" name="ValidityDate" value="" />
+            </li> 
+            <li>
+                <label>Departamento</label>
                     <br />
                     <select>
                         <option id="StateId" value="value">text</option>
-                    </select>
-                </li>
-                <li>
+                </select>                
+            </li> 
+            <li>
                     <label>Ciudad</label>
                     <br />
                     <select>
                         <option id="CityId" value="value">text</option>
-                    </select>
-                </li>
-            </ul>
-            <br />
-            @{
-                Model.IsForm = true;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
-        </form>
-    </div>
-
+                </select>
+            </li> 
+            <li>
+                <label>Número de Matricula</label>
+                <input type="text" name="InscriptionNumber" id="InscriptionNumberId" value="" />
+            </li>
+            <li>
+                <label>Certificado de Existencia y Representación Legal</label>
+                <input type="text" name="RepresentantLegalPerson" id="RepresentantLegalPersonId" value="" />
+            </li>
+            <li>
+                <label>Fecha de Expedición del Certificado</label>
+                <input type="Date" name="ExpeditionCertificatedDate" id="ExpeditionCertificatedDateId" value="" />
+            </li>
+            <li>
+                <label>Objeto Social</label>
+                <input type="Text" name="SocialObject" id="SocialObjectId" value="" />
+            </li>
+        </ul>
+        <div style="display:none">
+            <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+            <input type="hidden" name="StepAction" id="StepAction" value="" />
+        </div>
+        @{
+            Model.IsForm = true;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+    </form>
 </div>
+
+
 
 @{
     Model.RenderScripts = true;
