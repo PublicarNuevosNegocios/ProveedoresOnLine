@@ -84,8 +84,8 @@
         BR_Fax = 207005,
         BR_Email = 207006,
         BR_Website = 207007,
-        BR_GeoLocation = 207008,
-
+        BR_Latitude = 207008,
+        BR_Longitude = 207009,
     }
 
     #endregion

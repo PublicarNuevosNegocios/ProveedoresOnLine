@@ -13,32 +13,38 @@
     <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
-
-</div>
-
-<div class="POBOProviderContentWrapper">
-    <form class="POBOProviderUpsertForm" action="@(Url.Action(MVC.Provider.ActionNames.LIChaimberOfCommerceUpsert, MVC.Provider.Name))"method="post">
+    <div class="POBOProviderContentWrapper">
+    
+        <form class="POBOProviderUpsertForm" action="/" method="post">
+        @{
+            Model.IsForm = true;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
         <ul>
             <li>
-                <label>Fecha de Constitución</label>
-                <input type="date" name="ConstitutionDate" value="" />
+                <label>Fecha de Constitución</label>  
+                    <br />
+                    <input type="date" name="ConstitutionDate" value="" />
             </li>
             <li>
                 <label>Fecha de Vigencia</label>
+                    <br />
                 <input type="date" name="ValidityDate" value="" />
-            </li>
+            </li> 
             <li>
                 <label>Departamento</label>
-                <select name="State">
-                    <option value="value"></option>
-                </select>
-            </li>
+                    <br />
+                    <select>
+                        <option id="StateId" value="value">text</option>
+                </select>                
+            </li> 
             <li>
-                <label>Ciudad de Inscripción</label>
-                <select name="City">
-                    <option value="value"></option>
+                    <label>Ciudad</label>
+                    <br />
+                    <select>
+                        <option id="CityId" value="value">text</option>
                 </select>
-            </li>
+            </li> 
             <li>
                 <label>Número de Matricula</label>
                 <input type="text" name="InscriptionNumber" id="InscriptionNumberId" value="" />
