@@ -204,7 +204,7 @@ namespace BackOffice.Web.Controllers
                             ItemId = (int)enumLegalType.ChaimberOfCommerce,
                         },
                         ItemName = Request["ChaimberName"],
-                        Enable = Request["Enable"] == "true" ? true : false,
+                        Enable = Request["Enable"] == "true" ? true : false,                        
    
                         ItemInfo = new List<GenericItemInfoModel>
                         {   
@@ -444,6 +444,7 @@ namespace BackOffice.Web.Controllers
             {
                 ProviderModel ProviderToUpsert = new ProviderModel();
                 ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
+                ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
 
                 ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;               
 
