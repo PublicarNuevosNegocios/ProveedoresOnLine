@@ -4,7 +4,7 @@
     margin: 2px 0 0 2px;
     padding: 6px 0;
     position: relative;
-    width: 99.8%;
+    width: 99.8%;    
 }
     .POBOProviderSideMenuWrapper {
             border-right:2px solid #ff8300;
@@ -13,6 +13,7 @@
         height:100%;
         padding:0 21px 0 11px;
         vertical-align:top;
+        min-height:420px;
     }
     .POBOProviderContentWrapper{
         border: medium none;

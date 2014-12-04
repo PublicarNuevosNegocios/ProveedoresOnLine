@@ -13,34 +13,48 @@
     <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
-    
-    <form action="/" method="post">
-        <ul>
-            <li>
-                <label>Fecha de Constitución</label>  
-                <input type="date"  name="ConstitutionDate" value="" />
-            </li>
-            <li>
-                <label>Fecha de Vigencia</label>
-                <input type="date" name="ValidityDate" value="" />
-            </li> 
-            <li>
-                <label>Departamento</label>
-                <select>
-                    <option id="StateId" value="value">text</option>
-                </select>                
-            </li> 
-            <li>
-                <label>Ciudad</label>
-                <select>
-                    <option id="CityId" value="value">text</option>
-                </select>
-            </li> 
-        </ul>
+    <div class="POBOProviderContentWrapper">
 
-    </form>
-
+        <form class="POBOProviderUpsertForm" action="/" method="post">
+        @{
+            Model.IsForm = true;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+            <ul>
+                <li>
+                    <label>Fecha de Constitución</label>
+                    <br />
+                    <input type="date" name="ConstitutionDate" value="" />
+                </li>
+                <li>
+                    <label>Fecha de Vigencia</label>
+                    <br />
+                    <input type="date" name="ValidityDate" value="" />
+                </li>
+                <li>
+                    <label>Departamento</label>
+                    <br />
+                    <select>
+                        <option id="StateId" value="value">text</option>
+                    </select>
+                </li>
+                <li>
+                    <label>Ciudad</label>
+                    <br />
+                    <select>
+                        <option id="CityId" value="value">text</option>
+                    </select>
+                </li>
+            </ul>
+            <br />
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </form>
     </div>
+
+</div>
 
 @{
     Model.RenderScripts = true;
