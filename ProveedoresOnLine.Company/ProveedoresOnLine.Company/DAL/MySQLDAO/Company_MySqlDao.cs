@@ -120,11 +120,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int vPageNumber, int vRowCount)
+        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int vPageNumber, int vRowCount)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCityId", CityId));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", vPageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", vRowCount));
 

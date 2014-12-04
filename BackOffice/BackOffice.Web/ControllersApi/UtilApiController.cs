@@ -11,18 +11,21 @@ namespace BackOffice.Web.ControllersApi
     {
         [HttpPost]
         [HttpGet]
-        public List<ProveedoresOnLine.Company.Models.Util.GeographyModel> SearchGeography
-            (string SearchGeography, string SearchParam)
+        public Dictionary<string, string> SearchGeography
+            (string SearchGeography, string SearchParam, string CityId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn = new List<ProveedoresOnLine.Company.Models.Util.GeographyModel>();
+            Dictionary<string, string> oReturn = new Dictionary<string, string>();
 
             if (SearchGeography == "true")
             {
                 oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
                     (SearchParam,
+                    string.IsNullOrEmpty(CityId) ? null : (int?)Convert.ToInt32(CityId.Trim()),
                     0,
                     Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance
-                        [BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value));
+                        [BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value)).
+                    ToDictionary(k => k.Country.ItemName + "," + k.State.ItemName + "," + k.City.ItemName,
+                                v => v.City.ItemId);
             }
             return oReturn;
         }
