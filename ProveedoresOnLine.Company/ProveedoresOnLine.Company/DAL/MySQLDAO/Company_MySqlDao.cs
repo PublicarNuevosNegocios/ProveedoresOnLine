@@ -120,6 +120,52 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int vPageNumber, int vRowCount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", vPageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", vRowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByGeography",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GeographyModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from g in response.DataTableResult.AsEnumerable()
+                     where !g.IsNull("CityId")
+                     select new GeographyModel()
+                     {
+                         Country = new GenericItemModel()
+                         {
+                             ItemId = g.Field<int>("CountryId"),
+                             ItemName = g.Field<string>("CountryName"),
+                         },
+                         State = new GenericItemModel()
+                         {
+                             ItemId = g.Field<int>("StateId"),
+                             ItemName = g.Field<string>("StateName"),
+                         },
+                         City = new GenericItemModel()
+                         {
+                             ItemId = g.Field<int>("CityId"),
+                             ItemName = g.Field<string>("CityName"),
+                         },
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Company
@@ -370,40 +416,39 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          ContactEnable = co.Field<UInt64>("ContactEnable") == 1 ? true : false,
                          ContactLastModify = co.Field<DateTime>("ContactLastModify"),
                          ContactCreateDate = co.Field<DateTime>("ContactCreateDate"),
-                     }
-                         into cog
-                         select new GenericItemModel()
+                     } into cog
+                     select new GenericItemModel()
+                     {
+                         ItemId = cog.Key.ContactId,
+                         ItemType = new CatalogModel()
                          {
-                             ItemId = cog.Key.ContactId,
-                             ItemType = new CatalogModel()
-                             {
-                                 ItemId = cog.Key.ContactTypeId,
-                                 ItemName = cog.Key.ContactTypeName
-                             },
-                             ItemName = cog.Key.ContactName,
-                             Enable = cog.Key.ContactEnable,
-                             LastModify = cog.Key.ContactLastModify,
-                             CreateDate = cog.Key.ContactCreateDate,
-                             ItemInfo =
-                                 (from coinf in response.DataTableResult.AsEnumerable()
-                                  where !coinf.IsNull("ContactInfoId") &&
-                                          coinf.Field<int>("ContactId") == cog.Key.ContactId
-                                  select new GenericItemInfoModel()
+                             ItemId = cog.Key.ContactTypeId,
+                             ItemName = cog.Key.ContactTypeName
+                         },
+                         ItemName = cog.Key.ContactName,
+                         Enable = cog.Key.ContactEnable,
+                         LastModify = cog.Key.ContactLastModify,
+                         CreateDate = cog.Key.ContactCreateDate,
+                         ItemInfo =
+                             (from coinf in response.DataTableResult.AsEnumerable()
+                              where !coinf.IsNull("ContactInfoId") &&
+                                      coinf.Field<int>("ContactId") == cog.Key.ContactId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = coinf.Field<int>("ContactInfoId"),
+                                  ItemInfoType = new CatalogModel()
                                   {
-                                      ItemInfoId = coinf.Field<int>("ContactInfoId"),
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = coinf.Field<int>("ContactInfoTypeId"),
-                                          ItemName = coinf.Field<string>("ContactInfoTypeName"),
-                                      },
-                                      Value = coinf.Field<string>("Value"),
-                                      LargeValue = coinf.Field<string>("LargeValue"),
-                                      Enable = coinf.Field<UInt64>("ContactInfoEnable") == 1 ? true : false,
-                                      LastModify = coinf.Field<DateTime>("ContactInfoLastModify"),
-                                      CreateDate = coinf.Field<DateTime>("ContactInfoCreateDate"),
-                                  }).ToList(),
+                                      ItemId = coinf.Field<int>("ContactInfoTypeId"),
+                                      ItemName = coinf.Field<string>("ContactInfoTypeName"),
+                                  },
+                                  Value = coinf.Field<string>("Value"),
+                                  LargeValue = coinf.Field<string>("LargeValue"),
+                                  Enable = coinf.Field<UInt64>("ContactInfoEnable") == 1 ? true : false,
+                                  LastModify = coinf.Field<DateTime>("ContactInfoLastModify"),
+                                  CreateDate = coinf.Field<DateTime>("ContactInfoCreateDate"),
+                              }).ToList(),
 
-                         }).ToList();
+                     }).ToList();
             }
             return oReturn;
         }

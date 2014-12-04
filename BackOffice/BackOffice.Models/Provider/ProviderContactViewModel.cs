@@ -77,8 +77,11 @@ namespace BackOffice.Models.Provider
         public string BR_Website { get; set; }
         public string BR_WebsiteId { get; set; }
 
-        public string BR_GeoLocation { get; set; }
-        public string BR_GeoLocationId { get; set; }
+        public string BR_Latitude { get; set; }
+        public string BR_LatitudeId { get; set; }
+
+        public string BR_Longitude { get; set; }
+        public string BR_LongitudeId { get; set; }
 
         #endregion
 
@@ -293,13 +296,24 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            BR_GeoLocation = RelatedContact.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_GeoLocation).
+            BR_Latitude = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Latitude).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            BR_GeoLocationId = RelatedContact.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_GeoLocation).
+            BR_LatitudeId = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Latitude).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            BR_Longitude = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Longitude).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+            BR_LongitudeId = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Longitude).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();

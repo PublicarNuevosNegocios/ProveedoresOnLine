@@ -22,6 +22,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int CatalogItemUpsert(int CatalogId, int? ItemId, string Name, bool Enable);
 
+        List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int vPageNumber, int vRowCount);
+
         #endregion
 
         #region Company

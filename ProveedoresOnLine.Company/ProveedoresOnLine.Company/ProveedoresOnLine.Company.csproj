@@ -69,6 +69,7 @@
     <Compile Include="Models\Util\CatalogModel.cs" />
     <Compile Include="Models\Util\GenericItemInfoModel.cs" />
     <Compile Include="Models\Util\GenericItemModel.cs" />
+    <Compile Include="Models\Util\GeographyModel.cs" />
     <Compile Include="Models\Util\TreeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
