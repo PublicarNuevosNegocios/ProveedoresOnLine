@@ -194,19 +194,19 @@ namespace BackOffice.Web.Controllers
         {
             if (!string.IsNullOrEmpty(Request["UpsertAction"])
                && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ChaimberInfo                
+                GenericItemModel RelatedLegal = new GenericItemModel
                 {
-                    //get ChaimberInfo                
-                    GenericItemModel RelatedLegal = new GenericItemModel
+                    ItemId = 0,
+                    ItemType = new CatalogModel()
                     {
-                        ItemId = 0,
-                        ItemType = new CatalogModel()
-                        {
-                            ItemId = (int)enumLegalType.ChaimberOfCommerce,
-                        },
-                        ItemName = Request["ChaimberName"],
-                        Enable = Request["Enable"] == "true" ? true : false,
-   
-                        ItemInfo = new List<GenericItemInfoModel>
+                        ItemId = (int)enumLegalType.ChaimberOfCommerce,
+                    },
+                    ItemName = Request["ChaimberName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+
+                    ItemInfo = new List<GenericItemInfoModel>
                         {   
                             new GenericItemInfoModel()
                             {
@@ -281,9 +281,9 @@ namespace BackOffice.Web.Controllers
                                 Value = Request["SocialObject"]
                             },
                         }
-                    };
-                    return RelatedLegal;
-                }
+                };
+                return RelatedLegal;
+            }
             return null;
         }
         #endregion
@@ -445,13 +445,13 @@ namespace BackOffice.Web.Controllers
                 ProviderModel ProviderToUpsert = new ProviderModel();
                 ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
 
-                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;               
+                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;
 
                 //get request Info
                 ProviderToUpsert.RelatedLegal.Add(this.GetChaimberOfCommerceInfoRequest());
 
                 //upsert provider
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);               
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
 
                 ////eval redirect url
                 //if (!string.IsNullOrEmpty(Request["StepAction"]) &&
