@@ -9,7 +9,6 @@ function Provider_InitMenu(InitObject) {
 
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
-    debugger;
     if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
@@ -28,9 +27,11 @@ var Provider_CompanyContactObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.ProviderPublicId = vInitObject.ProviderPublicId;
         this.ContactType = vInitObject.ContactType;
-        $.each(vInitObject.ContactOptionList, function (item, value) {
-            Provider_CompanyContactObject.ContactOptionList[value.Key] = value.Value;
-        });
+        if (vInitObject.ContactOptionList != null) {
+            $.each(vInitObject.ContactOptionList, function (item, value) {
+                Provider_CompanyContactObject.ContactOptionList[value.Key] = value.Value;
+            });
+        }
     },
 
     RenderAsync: function () {
@@ -425,25 +426,26 @@ var Provider_CompanyContactObject = {
                             BR_Address: { editable: true, validation: { required: true } },
                             BR_AddressId: { editable: false },
 
-                            BR_City: { editable: true, validation: { required: true } },
+                            BR_City: { editable: false },
                             BR_CityId: { editable: false },
+                            BR_CityName: { editable: true, validation: { required: true } },
 
-                            BR_Phone: { editable: true },
+                            BR_Phone: { editable: true, validation: { required: false } },
                             BR_PhoneId: { editable: false },
 
                             BR_Fax: { editable: true },
-                            BR_FaxId: { editable: false },
+                            BR_FaxId: { editable: false, validation: { required: true } },
 
-                            BR_Email: { editable: true },
+                            BR_Email: { editable: true, validation: { required: false, email: true } },
                             BR_EmailId: { editable: false },
 
-                            BR_Website: { editable: true },
+                            BR_Website: { editable: true, validation: { required: false } },
                             BR_WebsiteId: { editable: false },
 
-                            BR_Latitude: { editable: true },
+                            BR_Latitude: { editable: true, validation: { required: false } },
                             BR_LatitudeId: { editable: false },
 
-                            BR_Longitude: { editable: true },
+                            BR_Longitude: { editable: true, validation: { required: false } },
                             BR_LongitudeId: { editable: false },
                         }
                     }
@@ -502,85 +504,179 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
+                width: "200px",
             }, {
                 field: 'BR_Representative',
                 title: 'Representante',
+                width: "200px",
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
+                width: "200px",
             }, {
-                field: 'BR_City',
+                field: 'BR_CityName',
                 title: 'Ciudad',
+                width: "350px",
                 template: function (dataItem) {
-                    //var oReturn = '';
-                    //if (dataItem != null && dataItem.BR_City != null && dataItem.BR_City.length > 0) {
-                    //    if (dataItem.dirty != null && dataItem.dirty == true) {
-                    //        oReturn = '<span class="k-dirty"></span>';
-                    //    }
-                    //    oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
-                    //}
-                    //else {
-                    //    oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
-                    //}
-
-                    //oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
-
-                    //return oReturn;
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.BR_CityName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.BR_CityName;
+                    }
+                    return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input name="' + options.field + '" />')
-                        .appendTo(container)
-                        .kendoAutoComplete({
-                            dataTextField: 'Key',
-                            dataValueField: 'Value',
-                            dataSource: {
-                                transport: {
-                                    read: {
-                                        url: BaseUrl.ApiUrl + '/UtilApi?SearchGeography=true&SearchParam=' + + '&CityId=',
-                                        dataType: 'json'
-                                    }
-                                }
+
+                    // create an input element
+                    var input = $("<input/>");
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr("value", options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: "ItemName",
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ItemName;
+                            options.model['BR_City'] = selectedItem.ItemId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: "json",
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
                             }
-                        });
-                    //// create an input element
-                    //var input = $("<input/>");
-                    //// set its name to the field to which the column is bound ('name' in this case)
-                    //input.attr("name", options.field);
-                    //// append it to the container
-                    //input.appendTo(container);
-                    //// initialize a Kendo UI AutoComplete
-                    //input.kendoAutoComplete({
-                    //    dataTextField: "name",
-                    //    dataSource: [
-                    //      { name: "Jane Doe" },
-                    //      { name: "John Doe" }
-                    //    ]
-                    //});
-                }
+                        }
+                    });
+                },
             }, {
                 field: 'BR_Phone',
                 title: 'Teléfono',
+                width: "200px",
             }, {
                 field: 'BR_Fax',
                 title: 'Fax',
+                width: "200px",
             }, {
                 field: 'BR_Email',
                 title: 'Correo electrónico',
+                width: "200px",
             }, {
                 field: 'BR_Website',
                 title: 'Página web',
+                width: "200px",
             }, {
                 field: 'BR_Latitude',
                 title: 'Latitud',
+                width: "200px",
             }, {
                 field: 'BR_Longitude',
                 title: 'Longitud',
+                width: "200px",
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: "100px",
             }],
         });
+    },
+};
+
+/*CompanyCertificationObject*/
+var Provider_CompanyCertificationObject = {
+
+    ObjectId: '',
+    ProviderPublicId: '',
+    CertificationType: '',
+    CertificationOptionList: new Array(),
+
+    Init: function (vInitiObject) {
+        this.ObjectId = vInitiObject.ObjectId;
+        this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.CertificationType = vInitiObject.CertificationType;
+        $.each(vInitiObject.CertificationOptionList, function (item, value) {
+            Provider_CompanyCertificationObject.CertificationOptionList[value.Key] = value.Value;
+        });
+    },
+
+    RenderAsync: function () {
+        if (Provider_CompanyCertificationObject.CertificationType == 701001) {
+            Provider_CompanyCertificationObject.RenderCompanyCertification();
+        }
+        else if (Provider_CompanyCertificationObject.CertificationType == 701002) {
+            Provider_CompanyCertificationObject.RenderCompanyHealthyPolitics();
+        }
+        else if (Provider_CompanyCertificationObject.CertificationType == 701003) {
+            Provider_CompanyCertificationObject.RenderCompanyRiskPolicies();
+        }
+    },
+
+    RenderCompanyCertification: function () {
+        $('#' + Provider_CompanyCertificationObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo contacto' },
+                { name: 'save', text: 'Guardar cambios' },
+                { name: 'cancel', text: 'Descartar cambios' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "CertificationId",
+                        fields: {
+                            CertificationId: { editable: false, nullable: true },
+                            CertificationName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            C_CertificationCompany: {},
+                            C_Rule: {},
+                            C_StartDateCertification: {},
+                            C_EndDataCertification: {},
+                            C_CCS: {},
+                            C_CertificationFile: {},
+                            C_Scope: {}
+                        },
+                    }
+                },
+                transport: {
+
+                },
+            },
+            columns: [{
+
+            }],
+        });
+    },
+
+    RenderCompanyHealthyPolitics: function () {
+
+    },
+
+    RenderCompanyRiskPolicies: function () {
+
     },
 };
 
