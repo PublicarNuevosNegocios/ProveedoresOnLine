@@ -1,11 +1,11 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
+
 @{
     ViewBag.Title = "Certificaciones";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Model.RenderScripts = false;
 }
-
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
@@ -13,12 +13,24 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <div id="divGridCertifications">
-            @if (Model.RelatedProvider.RelatedCertification != null)
-            {
-                <label>@(Model.RelatedProvider.RelatedCertification.Select(x => x.ItemName).FirstOrDefault())</label>
-                <input type="text" value="@(Model.ProviderOptions.Select(x => x.ItemName).FirstOrDefault())" />
-            }
+        <div id="divGridCompanyContact"></div>
+    </div>
+    @{
+        Model.IsForm = false;
+        Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+    }
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridPersonContact_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridPersonContact_File">
+        <div>
+            <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
         </div>
     </div>
 </div>
@@ -31,5 +43,38 @@
 
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
 
+    @{
+        //get CertificationTypeValues
+        string oCertificationOptionList = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        oKey = x.Key,
+                        oValue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.oKey, v => v.oValue);
+
+            oCertificationOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vContactOptionList = @(Html.Raw(oCertificationOptionList));
+        $(document).ready(function () {
+            Provider_CompanyContactObject.Init({
+                ObjectId: 'divGridPersonContact',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.PersonContact)',
+                ContactOptionList: vContactOptionList,
+            });
+            Provider_CompanyContactObject.RenderAsync();
+        });
+    </script>
 }
 
