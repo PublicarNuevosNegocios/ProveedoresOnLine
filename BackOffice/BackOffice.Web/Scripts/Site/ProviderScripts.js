@@ -620,7 +620,7 @@ var Provider_CompanyCertificationObject = {
             pageable: false,
             scrollable: true,
             toolbar: [
-                { name: 'create', text: 'Nuevo contacto' },
+                { name: 'create', text: 'Nueva certificación' },
                 { name: 'save', text: 'Guardar cambios' },
                 { name: 'cancel', text: 'Descartar cambios' }
             ],
@@ -631,24 +631,133 @@ var Provider_CompanyCertificationObject = {
                         fields: {
                             CertificationId: { editable: false, nullable: true },
                             CertificationName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: "boolean", defaultValue: true },
+                            Enable: {editable: true, type: "boolean", defaultValue: true },
 
-                            C_CertificationCompany: {},
-                            C_Rule: {},
-                            C_StartDateCertification: {},
-                            C_EndDataCertification: {},
-                            C_CCS: {},
-                            C_CertificationFile: {},
-                            C_Scope: {}
+                            C_CertificationCompany: {editable: true },
+                            C_CertificationCompanyId: {editable: false},
+
+                            C_Rule: {editable: true},
+                            C_RuleId: {editable: false},
+
+                            C_StartDateCertification: {editable: true},
+                            C_StartDateCertificationId: {editable: false},
+
+                            C_EndDateCertification: {editable: true},
+                            C_EndDateCertificationId: {editable: false},
+
+                            C_CCS: {editable: true},
+                            C_CCSId: {editable: false},
+
+                            C_CertificationFile: {editable: true},
+                            C_CertificationFileId: {editable: false},
+
+                            C_Scope: {editable: true},
+                            C_ScopeId: {editable: false},
                         },
                     }
                 },
                 transport: {
-
+                    read: function (options) {
+                        $ajax({
+                            url: BaseUrl.ApiUrl + '',
+                            dataType: 'json',
+                            success: function(result) {
+                                options.success(result);
+                            },
+                            error: function(result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $ajax({
+                            url: BaseUrl.ApiUrl + '',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $ajax({
+                            url: BaseUrl.ApiUrl + '',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
                 },
             },
             columns: [{
+                field: 'CertificationId',
+                title: 'Id',
+            }, {
+                field: 'CertificationName',
+                title: 'Nombre',
+            }, {
+                field: 'C_CertificationCompany',
+                title: 'Empresa Certificadora',
+                template: function (dataItem) {
+                    var oReturn;
 
+                    return oReturn;
+                },
+                editor: function (container, options){
+
+                },
+            }, {
+                field: 'C_Rule',
+                title: 'Norma',
+                template: function (dataItem) {
+                    var oReturn;
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                },
+            }, {
+                field: 'C_StarDateCertification',
+                title: 'Fecha Certificación',
+            }, {
+                field: 'C_EndDateCertification',
+                title: 'Fecha Caducidad',
+            }, {
+                field: 'C_CCS',
+                title: '% CCS',
+            }, {
+                field: 'C_CertificationFile',
+                title: 'Archivo Certificación',
+                width: '200px',
+                template: function (dataItem){
+                    var oReturn;
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                } ,
+            }, {
+                field: 'C_Scope',
+                title: 'Alcance'
+            }, {
+                field: 'Enable',
+                title: 'Habilitado'
             }],
         });
     },

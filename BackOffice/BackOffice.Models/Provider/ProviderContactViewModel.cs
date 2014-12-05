@@ -84,7 +84,7 @@ namespace BackOffice.Models.Provider
         public string BR_LongitudeId { get; set; }
 
         #endregion
-
+               
         public ProviderContactViewModel() { }
 
         public ProviderContactViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedContact)

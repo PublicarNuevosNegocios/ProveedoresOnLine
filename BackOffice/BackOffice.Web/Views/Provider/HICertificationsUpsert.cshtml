@@ -13,12 +13,19 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <div id="divGridCompanyContact"></div>
+        <div id="POBOProviderUpsertForm">
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridPersonContact"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
     </div>
-    @{
-        Model.IsForm = false;
-        Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-    }
 </div>
 
 <!--templates-->
@@ -45,7 +52,7 @@
 
     @{
         //get CertificationTypeValues
-        string oCertificationOptionList = "[]";
+        string oContactOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
@@ -55,17 +62,17 @@
                 Select(x =>
                     new
                     {
-                        oKey = x.Key,
-                        oValue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
-                    }).ToDictionary(k => k.oKey, v => v.oValue);
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oCertificationOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            oContactOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vContactOptionList = @(Html.Raw(oCertificationOptionList));
+        var vContactOptionList = @(Html.Raw(oContactOptionList));
         $(document).ready(function () {
             Provider_CompanyContactObject.Init({
                 ObjectId: 'divGridPersonContact',
