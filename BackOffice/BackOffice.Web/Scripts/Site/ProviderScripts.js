@@ -512,4 +512,82 @@ var Provider_CompanyContactObject = {
     },
 };
 
+/*CompanyCertificationObject*/
+var Provider_CompanyCertificationObject = {
+
+    ObjectId: '',
+    ProviderPublicId: '',
+    CertificationType: '',
+    CertificationOptionList: new Array(),
+
+    Init: function (vInitiObject) {
+        this.ObjectId = vInitiObject.ObjectId;
+        this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.CertificationType = vInitiObject.CertificationType;
+        $.each(vInitiObject.CertificationOptionList, function (item, value) {
+            Provider_CompanyCertificationObject.CertificationOptionList[value.Key] = value.Value;
+        });
+    },
+
+    RenderAsync: function () {
+        if (Provider_CompanyCertificationObject.CertificationType == 701001) {
+            Provider_CompanyCertificationObject.RenderCompanyCertification();
+        }
+        else if (Provider_CompanyCertificationObject.CertificationType == 701002) {
+            Provider_CompanyCertificationObject.RenderCompanyHealthyPolitics();
+        }
+        else if (Provider_CompanyCertificationObject.CertificationType == 701003) {
+            Provider_CompanyCertificationObject.RenderCompanyRiskPolicies();
+        }
+    },
+
+    RenderCompanyCertification: function () {
+        $('#' + Provider_CompanyCertificationObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo contacto' },
+                { name: 'save', text: 'Guardar cambios' },
+                { name: 'cancel', text: 'Descartar cambios' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "CertificationId",
+                        fields: {
+                            CertificationId: { editable: false, nullable: true },
+                            CertificationName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            C_CertificationCompany: {},
+                            C_Rule: {},
+                            C_StartDateCertification: {},
+                            C_EndDataCertification: {},
+                            C_CCS: {},
+                            C_CertificationFile: {},
+                            C_Scope: {}
+                        },
+                    }
+                },
+                transport: {
+
+                },
+            },
+            columns: [{
+
+            }],
+        });
+    },
+
+    RenderCompanyHealthyPolitics: function () {
+
+    },
+
+    RenderCompanyRiskPolicies: function () {
+
+    },
+};
+
 
