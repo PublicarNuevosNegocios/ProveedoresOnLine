@@ -62,6 +62,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CatalogItemUpsert(CatalogId, ItemId, Name, Enable);
         }
 
+        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int vPageNumber, int vRowCount)
+        {
+            return DataFactory.CategorySearchByGeography(SearchParam, CityId, vPageNumber, vRowCount);
+        }
+
         #endregion
 
         #region Company

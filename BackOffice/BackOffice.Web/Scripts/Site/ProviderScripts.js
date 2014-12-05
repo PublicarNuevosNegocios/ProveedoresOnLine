@@ -9,6 +9,7 @@ function Provider_InitMenu(InitObject) {
 
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
+    debugger;
     if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
@@ -51,9 +52,9 @@ var Provider_CompanyContactObject = {
             pageable: false,
             scrollable: true,
             toolbar: [
-                { name: 'create', text: 'Nuevo contacto' },
-                { name: 'save', text: 'Guardar cambios' },
-                { name: 'cancel', text: 'Descartar cambios' }
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
                 schema: {
@@ -168,9 +169,9 @@ var Provider_CompanyContactObject = {
             pageable: false,
             scrollable: true,
             toolbar: [
-                { name: 'create', text: 'Nuevo contacto' },
-                { name: 'save', text: 'Guardar cambios' },
-                { name: 'cancel', text: 'Descartar cambios' }
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
                 schema: {
@@ -403,10 +404,11 @@ var Provider_CompanyContactObject = {
             navigatable: true,
             pageable: false,
             scrollable: true,
+            height: 500,
             toolbar: [
-                { name: 'create', text: 'Nuevo contacto' },
-                { name: 'save', text: 'Guardar cambios' },
-                { name: 'cancel', text: 'Descartar cambios' }
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
                 schema: {
@@ -417,18 +419,39 @@ var Provider_CompanyContactObject = {
                             ContactName: { editable: true, validation: { required: true } },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CC_CompanyContactType: { editable: true },
-                            CC_CompanyContactTypeId: { editable: false },
+                            BR_Representative: { editable: true },
+                            BR_RepresentativeId: { editable: false },
 
-                            CC_Value: { editable: true },
-                            CC_ValueId: { editable: false },
+                            BR_Address: { editable: true, validation: { required: true } },
+                            BR_AddressId: { editable: false },
+
+                            BR_City: { editable: true, validation: { required: true } },
+                            BR_CityId: { editable: false },
+
+                            BR_Phone: { editable: true },
+                            BR_PhoneId: { editable: false },
+
+                            BR_Fax: { editable: true },
+                            BR_FaxId: { editable: false },
+
+                            BR_Email: { editable: true },
+                            BR_EmailId: { editable: false },
+
+                            BR_Website: { editable: true },
+                            BR_WebsiteId: { editable: false },
+
+                            BR_Latitude: { editable: true },
+                            BR_LatitudeId: { editable: false },
+
+                            BR_Longitude: { editable: true },
+                            BR_LongitudeId: { editable: false },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -440,7 +463,7 @@ var Provider_CompanyContactObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -456,7 +479,7 @@ var Provider_CompanyContactObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?ContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -475,38 +498,87 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'ContactId',
                 title: 'Id',
+                width: "50px",
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
             }, {
-                field: 'CC_CompanyContactType',
-                title: 'Tipo de contacto',
+                field: 'BR_Representative',
+                title: 'Representante',
+            }, {
+                field: 'BR_Address',
+                title: 'Dirección',
+            }, {
+                field: 'BR_City',
+                title: 'Ciudad',
                 template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.CC_CompanyContactType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[12], function (item, value) {
-                            if (dataItem.CC_CompanyContactType == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
+                    //var oReturn = '';
+                    //if (dataItem != null && dataItem.BR_City != null && dataItem.BR_City.length > 0) {
+                    //    if (dataItem.dirty != null && dataItem.dirty == true) {
+                    //        oReturn = '<span class="k-dirty"></span>';
+                    //    }
+                    //    oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
+                    //}
+                    //else {
+                    //    oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
+                    //}
+
+                    //oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
+
+                    //return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input data-bind="value:' + options.field + '"/>')
+                    $('<input name="' + options.field + '" />')
                         .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[12],
-                            dataTextField: "ItemName",
-                            dataValueField: "ItemId"
+                        .kendoAutoComplete({
+                            dataTextField: 'Key',
+                            dataValueField: 'Value',
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        url: BaseUrl.ApiUrl + '/UtilApi?SearchGeography=true&SearchParam=' + + '&CityId=',
+                                        dataType: 'json'
+                                    }
+                                }
+                            }
                         });
-                },
+                    //// create an input element
+                    //var input = $("<input/>");
+                    //// set its name to the field to which the column is bound ('name' in this case)
+                    //input.attr("name", options.field);
+                    //// append it to the container
+                    //input.appendTo(container);
+                    //// initialize a Kendo UI AutoComplete
+                    //input.kendoAutoComplete({
+                    //    dataTextField: "name",
+                    //    dataSource: [
+                    //      { name: "Jane Doe" },
+                    //      { name: "John Doe" }
+                    //    ]
+                    //});
+                }
             }, {
-                field: 'CC_Value',
-                title: 'Valor',
+                field: 'BR_Phone',
+                title: 'Teléfono',
+            }, {
+                field: 'BR_Fax',
+                title: 'Fax',
+            }, {
+                field: 'BR_Email',
+                title: 'Correo electrónico',
+            }, {
+                field: 'BR_Website',
+                title: 'Página web',
+            }, {
+                field: 'BR_Latitude',
+                title: 'Latitud',
+            }, {
+                field: 'BR_Longitude',
+                title: 'Longitud',
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
+                width: "100px",
             }],
         });
     },

@@ -4,11 +4,13 @@
     font-size: 0.9em;
     letter-spacing: -0.7px; 
 }
-.POBOProviderUpsertForm ul, 
 .POBOProviderUpsertForm ul li,
 .POBOPCompulsoryFields{
     margin:4px 0px 0px 8px;
     padding: 0;
+}
+.POBOProviderUpsertForm ul {
+    margin:0px;
 }
 .POBOProviderUpsertForm ul li{
         border:none;

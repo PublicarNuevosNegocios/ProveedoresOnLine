@@ -199,6 +199,11 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int vPageNumber, int vRowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, vPageNumber, vRowCount);
+        }
+
         #endregion
 
         #region Company

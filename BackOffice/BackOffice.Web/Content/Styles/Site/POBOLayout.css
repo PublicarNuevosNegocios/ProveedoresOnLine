@@ -11,6 +11,7 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
 /*********Body Content************/
 .POBORenderHeader, .POBORenderBody, .POBORenderFooter{
  text-align:left;
+ min-width:1024px;
 }
 div#POBORenderFooter {
     width:100%;
