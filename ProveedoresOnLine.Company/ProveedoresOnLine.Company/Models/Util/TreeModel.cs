@@ -18,7 +18,7 @@ namespace ProveedoresOnLine.Company.Models.Util
 
         public DateTime CreateDate { get; set; }
 
-        public List<GenericItemModel> RelatedCategory { get; set; }
+        //public List<GenericItemModel> RelatedCategory { get; set; }
 
     }
 }

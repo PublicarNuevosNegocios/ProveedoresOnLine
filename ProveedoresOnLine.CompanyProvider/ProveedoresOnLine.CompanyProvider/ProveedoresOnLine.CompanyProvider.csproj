@@ -69,7 +69,6 @@
     <Compile Include="Models\Provider\BalanceSheetDetailModel.cs" />
     <Compile Include="Models\Provider\BalanceSheetModel.cs" />
     <Compile Include="Models\Provider\BlackListModel.cs" />
-    <Compile Include="Models\Provider\ProviderCategoryModel.cs" />
     <Compile Include="Models\Provider\ProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

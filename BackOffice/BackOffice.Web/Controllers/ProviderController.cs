@@ -225,7 +225,7 @@ namespace BackOffice.Web.Controllers
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
                                 },
                                 Value = Request["ValidityDate"]
-                            },                            
+                            },
                             new GenericItemInfoModel()
                             {
                                 ItemInfoId =  Convert.ToInt32(Request["SelectedCityId"]),
@@ -285,45 +285,18 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult CIExperiencesUpsert(string ProviderPublicId)
         {
+            //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
-
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedExperience = ;
-                };
-
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
-
-            return View(oModel);
-        }
-
-        public virtual ActionResult CIEconomicActivityUpsert(string ProviderPublicId)
-        {
-            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                },
             };
-
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
-                };
 
                 //get provider menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
 
             return View(oModel);
         }
@@ -598,20 +571,6 @@ namespace BackOffice.Web.Controllers
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesUpsert &&
-                        oCurrentController == MVC.Provider.Name),
-                });
-
-                //Economic activity
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Actividades economicas",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.CIEconomicActivityUpsert,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 1,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.CIEconomicActivityUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

@@ -19,20 +19,22 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.CompanyProvider.Models.Constants.C_POL_CompanyProviderConnectionName);
         }
 
-        #region Provider Experience
+        #region Provider Commercial
 
-        public int ProviderCategoryUpsert(string CompanyPublicId, int CategoryId, bool Enable)
+        public int CommercialUpsert(string CompanyPublicId, int? CommercialId, int CommercialTypeId, string CommercialName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCategoryId", CategoryId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialId", CommercialId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialTypeId", CommercialTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialName", CommercialName));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "CP_CompanyCategory_Upsert",
+                CommandText = "CP_Commercial_UpSert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
@@ -40,33 +42,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int ExperienceUpsert(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
+        public int CommercialInfoUpsert(int CommercialId, int? CommercialInfoId, int CommercialInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vExperienceId", ExperienceId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vExperienceName", ExperienceName));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
-
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-            {
-                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "CP_Experience_UpSert",
-                CommandType = System.Data.CommandType.StoredProcedure,
-                Parameters = lstParams
-            });
-
-            return Convert.ToInt32(response.ScalarResult);
-        }
-
-        public int ExperienceInfoUpsert(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable)
-        {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-
-            lstParams.Add(DataInstance.CreateTypedParameter("vExperienceId", ExperienceId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vExperienceInfoId", ExperienceInfoId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vExperienceInfoTypeId", ExperienceInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialId", CommercialId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialInfoId", CommercialInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialInfoTypeId", CommercialInfoTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
@@ -74,7 +56,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {
                     CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_ExperienceInfo_Upsert",
+                    CommandText = "CP_CommercialInfo_Upsert",
                     CommandType = System.Data.CommandType.StoredProcedure,
                     Parameters = lstParams
                 });

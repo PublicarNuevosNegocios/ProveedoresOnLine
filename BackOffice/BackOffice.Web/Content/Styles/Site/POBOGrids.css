@@ -2,8 +2,9 @@
 .k-grid-content {
     overflow-y:auto;
     max-height:308px;
+    height:auto !important;
 }
-#divGridBranch{
+#divGridBranch, #divGridDistributor{
      height: auto !important;
 }
 

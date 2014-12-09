@@ -95,12 +95,6 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CIEconomicActivityUpsert()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIEconomicActivityUpsert);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult HICertificationsUpsert()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsUpsert);
@@ -146,7 +140,6 @@ namespace BackOffice.Web.Controllers
             public readonly string GIBranchUpsert = "GIBranchUpsert";
             public readonly string GIDistributorUpsert = "GIDistributorUpsert";
             public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
-            public readonly string CIEconomicActivityUpsert = "CIEconomicActivityUpsert";
             public readonly string HICertificationsUpsert = "HICertificationsUpsert";
             public readonly string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
             public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
@@ -163,7 +156,6 @@ namespace BackOffice.Web.Controllers
             public const string GIBranchUpsert = "GIBranchUpsert";
             public const string GIDistributorUpsert = "GIDistributorUpsert";
             public const string CIExperiencesUpsert = "CIExperiencesUpsert";
-            public const string CIEconomicActivityUpsert = "CIEconomicActivityUpsert";
             public const string HICertificationsUpsert = "HICertificationsUpsert";
             public const string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
             public const string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
@@ -219,14 +211,6 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_CIEconomicActivityUpsert s_params_CIEconomicActivityUpsert = new ActionParamsClass_CIEconomicActivityUpsert();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CIEconomicActivityUpsert CIEconomicActivityUpsertParams { get { return s_params_CIEconomicActivityUpsert; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CIEconomicActivityUpsert
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
-        }
         static readonly ActionParamsClass_HICertificationsUpsert s_params_HICertificationsUpsert = new ActionParamsClass_HICertificationsUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_HICertificationsUpsert HICertificationsUpsertParams { get { return s_params_HICertificationsUpsert; } }
@@ -269,7 +253,6 @@ namespace BackOffice.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string CIEconomicActivityUpsert = "CIEconomicActivityUpsert";
                 public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
                 public readonly string GIBranchUpsert = "GIBranchUpsert";
                 public readonly string GICompanyContactUpsert = "GICompanyContactUpsert";
@@ -282,7 +265,6 @@ namespace BackOffice.Web.Controllers
                 public readonly string Index = "Index";
                 public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             }
-            public readonly string CIEconomicActivityUpsert = "~/Views/Provider/CIEconomicActivityUpsert.cshtml";
             public readonly string CIExperiencesUpsert = "~/Views/Provider/CIExperiencesUpsert.cshtml";
             public readonly string GIBranchUpsert = "~/Views/Provider/GIBranchUpsert.cshtml";
             public readonly string GICompanyContactUpsert = "~/Views/Provider/GICompanyContactUpsert.cshtml";
@@ -382,18 +364,6 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             CIExperiencesUpsertOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CIEconomicActivityUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CIEconomicActivityUpsert(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIEconomicActivityUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CIEconomicActivityUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
