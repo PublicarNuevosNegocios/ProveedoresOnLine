@@ -298,7 +298,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vLegalId", LegalId));
             lstParams.Add(DataInstance.CreateTypedParameter("vLegalInfoId", LegalInfoId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vLelalInfoTypeId", LegalInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLegalInfoTypeId", LegalInfoTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
@@ -306,7 +306,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {
                     CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "CP_Legal_UpSert",
+                    CommandText = "CP_LegalInfo_Upsert",
                     CommandType = System.Data.CommandType.StoredProcedure,
                     Parameters = lstParams
                 });
