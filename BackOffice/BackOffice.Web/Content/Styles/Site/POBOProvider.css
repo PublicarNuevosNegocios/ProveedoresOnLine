@@ -1,3 +1,12 @@
+/********** LISTADO DE PROVEEDORES O NUEVO PROVEEDOR **********/
+.POBOPClientListWrapper {
+    border: 1px solid grey;
+    display: inline-block;
+    height:auto;
+    min-height:400px;
+    margin: 0 0 0 26px;
+    width: calc(100% - 315px);
+}
 .POBOProviderWrapper {
         border:none;
     height:auto;
@@ -13,22 +22,14 @@
         height:100%;
         padding:0 21px 0 11px;
         vertical-align:top;
-        min-height:420px;
+        min-height:490px;
     }
+/************ CALCULA EL ANCHO DE CONTENIDO HASTA 1024PX ************/
     .POBOProviderContentWrapper{
         border: medium none;
         display: inline-block;
         height: auto;
         margin:0px 0px 0px 18px;
-        width: 77%;
+        width:calc(100% - 305px);
 }
 
-@media screen and (max-width: 1280px) {
-    .POBOProviderContentWrapper{
-        border: medium none;
-        display: inline-block;
-        height: auto;
-        margin:0px 0px 0px 18px;
-        width: 75%;
-    } 
-}

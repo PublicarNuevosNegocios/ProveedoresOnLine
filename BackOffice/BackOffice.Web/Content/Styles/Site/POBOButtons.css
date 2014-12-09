@@ -46,16 +46,17 @@
     height: 34px;
     margin:0px 0 12px !important;
     padding: 0;
-    width:auto;
+    width:auto !important;
 }
 .POBOProviderActions li {
     margin:0 !important;
     display: inline-block;
     list-style-type: none;
+    width:auto !important;
 }
     li.POBOButtonsSaveProvider {
         float: right;
-        margin:0px 15% 0px 0px !important;
+        margin:0px 1% 0px 0px !important;
     }
     li.POBOButtonsSaveProvider a.POBOButtons{
         padding:6px 30px !important;
