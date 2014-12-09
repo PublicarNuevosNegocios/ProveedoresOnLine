@@ -18,7 +18,7 @@
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
-            <div id="divGridPersonContact"></div>
+            <div id="divGridCertification"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -30,12 +30,12 @@
 
 <!--templates-->
 <div style="display:none;">
-    <div id="divGridPersonContact_NoFile">
+    <div id="divGridCertification_NoFile">
         <div>
             <span>Seleccione un archivo</span>
         </div>
     </div>
-    <div id="divGridPersonContact_File">
+    <div id="divGridCertification_File">
         <div>
             <a target="_blank" href="${CP_IdentificationFile}">Ver archivo</a>
         </div>
@@ -51,12 +51,13 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
 
     @{
-        //get CertificationTypeValues
-        string oContactOptionList = "[]";
+        
+        //ger CertificationTypeValues
+        string oCertificationOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
-            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionCertification =
                 Model.ProviderOptions.
                 GroupBy(x => x.CatalogId).
                 Select(x =>
@@ -66,21 +67,21 @@
                         ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oContactOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+            oCertificationOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionCertification.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vContactOptionList = @(Html.Raw(oContactOptionList));
+        var vCertificationOptionList = @(Html.Raw(oCertificationOptionList));
         $(document).ready(function () {
-            Provider_CompanyContactObject.Init({
-                ObjectId: 'divGridPersonContact',
+            Provider_CompanyCertificationObject.Init({
+                ObjectId: 'divGridCertification',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ContactType: '@((int)BackOffice.Models.General.enumContactType.PersonContact)',
-                ContactOptionList: vContactOptionList,
+                CertificationType: '@((int)BackOffice.Models.General.enumHSEQType.Certifications)',
+                CertificationOptionList: vCertificationOptionList,
             });
-            Provider_CompanyContactObject.RenderAsync();
+            Provider_CompanyCertificationObject.RenderAsync();
         });
     </script>
 }
