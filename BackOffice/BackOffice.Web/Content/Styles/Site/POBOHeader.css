@@ -2,6 +2,7 @@
 .POBOHeaderWrapper {
     display:block;
     width: 100%;
+    min-width:1024px;
     height: auto;
     margin: 0px;
     text-align: left;
@@ -21,8 +22,13 @@
         border:none;
 }
 /*************** USER MENU ***************/
+.POBOMenusGrandWrapper {
+        border:none;
+    float: right;
+    margin: 2px 0 0 2px;
+    text-align: right;
+}
 .POBOUserMenu {
-    float:right;
         border:none;
     width:auto; height:auto;
     display:block;
@@ -79,11 +85,9 @@
 /*************** MAIN MENU *************/
 .POBOMainMenuWrapper {
         border:none;
-    height: 40px;
-    margin: 0;
-    position:absolute;
-    right:6px;
-    top: 62px;
+    height:auto;
+    margin:34px 0px 0px 0px;
+    display:block;
     width: auto;
     padding:0;
 }

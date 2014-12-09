@@ -22,3 +22,13 @@
         margin:0px 0px 0px 18px;
         width: 77%;
 }
+
+@media screen and (max-width: 1280px) {
+    .POBOProviderContentWrapper{
+        border: medium none;
+        display: inline-block;
+        height: auto;
+        margin:0px 0px 0px 18px;
+        width: 75%;
+    } 
+}

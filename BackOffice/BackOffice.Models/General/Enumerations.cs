@@ -139,7 +139,7 @@
         C_CertificationCompany = 702001,
         C_Rule = 702002,
         C_StartDateCertification = 702003,
-        C_EndDataCertification = 702004,
+        C_EndDateCertification = 702004,
         C_CCS = 702005,
         C_CertificationFile = 702006,
         C_Scope = 702007,

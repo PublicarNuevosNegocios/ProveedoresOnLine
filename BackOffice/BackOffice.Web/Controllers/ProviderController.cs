@@ -204,7 +204,7 @@ namespace BackOffice.Web.Controllers
                             ItemId = (int)enumLegalType.ChaimberOfCommerce,
                         },
                         ItemName = Request["ChaimberName"],
-                        Enable = Request["Enable"] == "true" ? true : false,                        
+                        Enable = Request["Enable"] == "true" ? true : false,
    
                         ItemInfo = new List<GenericItemInfoModel>
                         {   

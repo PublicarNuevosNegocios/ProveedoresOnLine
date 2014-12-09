@@ -64,6 +64,7 @@ namespace BackOffice.Models.Provider
 
         public string BR_City { get; set; }
         public string BR_CityId { get; set; }
+        public string BR_CityName { get; set; }
 
         public string BR_Phone { get; set; }
         public string BR_PhoneId { get; set; }
@@ -84,10 +85,12 @@ namespace BackOffice.Models.Provider
         public string BR_LongitudeId { get; set; }
 
         #endregion
-
+               
         public ProviderContactViewModel() { }
 
-        public ProviderContactViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedContact)
+        public ProviderContactViewModel
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedContact,
+            List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities)
         {
             RelatedContact = oRelatedContact;
 
@@ -251,6 +254,15 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            if (oCities != null && oCities.Count > 0)
+            {
+                BR_CityName = oCities.
+                    Where(x => x.City.ItemId.ToString() == BR_City).
+                    Select(x => x.Country.ItemName + "," + x.State.ItemName + "," + x.City.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
 
             BR_Phone = RelatedContact.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Phone).
