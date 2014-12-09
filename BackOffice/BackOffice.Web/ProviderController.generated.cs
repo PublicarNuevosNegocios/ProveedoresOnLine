@@ -257,7 +257,7 @@ namespace BackOffice.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_LIChaimberOfCommerceUpsert
         {
-            public readonly string CompanyPublicId = "CompanyPublicId";
+            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -434,14 +434,14 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void LIChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompanyPublicId);
+        partial void LIChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert(string CompanyPublicId)
+        public override System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert(string ProviderPublicId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompanyPublicId", CompanyPublicId);
-            LIChaimberOfCommerceUpsertOverride(callInfo, CompanyPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            LIChaimberOfCommerceUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

@@ -14,7 +14,38 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-    
+    @{
+        var ConsitutionDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                        Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ConstitutionDate).
+                                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+        var ConstitutionEndDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                        Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ConstitutionEndDate).
+                                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+        var InscriptionNumber = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                        Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionNumber).
+                                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+        var CertificateExpeditionDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                       Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                           Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_CertificateExpeditionDate).
+                               Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+        var SocialObj = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+            Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_SocialObject).
+                    Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+        var City = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+        Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).
+                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;                                                                                               
+    }
+        
         <form id="frmProviderUpsert" class="POBOProviderUpsertForm" method="post" action="@(Url.Action
                 (MVC.Provider.ActionNames.LIChaimberOfCommerceUpsert,
                 MVC.Provider.Name,
@@ -30,47 +61,52 @@
                 <li>
                     <label>Nombre</label>
                     <br />
-                    <input type="text" name="ChaimberName" value="" />
+                    <input type="text" name="ChaimberName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.Where(x => x.ItemName != null).Select(x => x.ItemName).FirstOrDefault() : string.Empty) " />
                 </li>
                 <li>
                     <label>Fecha de Constitución</label>
                     <br />
-                    <input type="date" name="ConstitutionDate" value="" />
+                    <input type="date" name="ConstitutionDate" value="@ConsitutionDate"/>
                 </li>
                 <li>
                     <label>Fecha de Vigencia</label>
                     <br />
-                    <input type="date" name="ValidityDate" value="" />
+                    <input type="date" name="ValidityDate" value="@ConstitutionEndDate" />
                 </li>
-                <li>
+                @*<li>
                     <label>Departamento</label>
                     <br />
                     <select>
                         <option id="StateId" value="value">text</option>
                     </select>
-                </li>
+                </li>*@
                 <li>
                     <label>Ciudad</label>
                     <br />
-                    <select>
-                        <option id="CityId" value="value">text</option>
-                    </select>
+                    
+                    <input type="text" id="CityId" value=""/>
+                    <input type="hidden" id="SelectedCity" name="SelectedCity" value="" />
                 </li>
                 <li>
                     <label>Número de Matricula</label>
-                    <input type="text" name="InscriptionNumber" id="InscriptionNumberId" value="" />
+                    <br />
+                    <input type="text" name="InscriptionNumber" id="InscriptionNumberId" value="@InscriptionNumber" />
                 </li>
                 <li>
                     <label>Certificado de Existencia y Representación Legal</label>
-                    <input type="text" name="RepresentantLegalPerson" id="RepresentantLegalPersonId" value="" />
+                    <br />
+                        @Html.Partial(MVC.Shared.Views._F_FileUpload)
+                    <input type="hidden" name="CertificateURL" id="CertificateURL" />
                 </li>
                 <li>
                     <label>Fecha de Expedición del Certificado</label>
-                    <input type="Date" name="ExpeditionCertificatedDate" id="ExpeditionCertificatedDateId" value="" />
+                    <br />
+                    <input type="Date" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" />
                 </li>
                 <li>
                     <label>Objeto Social</label>
-                    <input type="Text" name="SocialObject" id="SocialObjectId" value="" />
+                    <br />
+                    <input type="Text" name="SocialObject" id="SocialObjectId" value="@SocialObj" />
                 </li>
             </ul>
             <div style="display:none">
@@ -84,11 +120,29 @@
         </form>
 </div>
 
-@{
+@{ 
     Model.RenderScripts = true;
 }
 
 @section inlinescripts
 {
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    <script>
+        $(document).ready(function () {
+            Provider_LegalInfoObject.Init({
+                AutoCompleteId: 'CityId',
+                ControlToRetornACId: 'SelectedCity'
+            })
+            UploadFile({
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ControlellerResponseId: "CertificateURL",
+            });
+
+            //$('#CityId').keypress(function () {
+            //    debugger;
+            //    Provider_LegalInfoObject.AutoComplete('CityId')
+            //})
+    });
+    </script>
 }

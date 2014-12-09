@@ -1068,4 +1068,57 @@ var Provider_CompanyCertificationObject = {
     },
 };
 
+var Provider_LegalInfoObject = {
+
+    AutoCompleteId: '',
+    ControlToRetornACId: '',
+    Init: function (vInitiObject) {
+        debugger;
+        this.AutoCompleteId = vInitiObject.AutoCompleteId;
+        this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
+        Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
+
+    },
+
+    AutoComplete: function (acId, ControlToRetornACId) {
+        debugger;
+        var acValue = $('#' + acId).val();
+        $('#' + acId).kendoAutoComplete({
+            
+            dataTextField: "ItemName",
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                debugger;
+                //set server fiel name
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
+                //options.model[options.field] = selectedItem.ItemName;
+                //options.model['BR_City'] = selectedItem.ItemId;
+                //enable made changes
+                //options.model.dirty = true;
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
+        });
+    },
+    
+}
+
+
+
 

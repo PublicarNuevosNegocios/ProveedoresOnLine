@@ -242,7 +242,7 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionCity
                                 },
-                                Value = Request["City"]
+                                Value = Request["SelectedCity"]
                             },
                             new GenericItemInfoModel()
                             {
@@ -260,7 +260,7 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
                                 },
-                                Value = Request["RepresentantLegalPerson"]
+                                Value = Request["CertificateURL"]
                             },
                             new GenericItemInfoModel()
                             {
@@ -428,7 +428,7 @@ namespace BackOffice.Web.Controllers
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };
 
-            if (true)
+            if (!string.IsNullOrEmpty(ProviderPublicId))
             {
                 oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {

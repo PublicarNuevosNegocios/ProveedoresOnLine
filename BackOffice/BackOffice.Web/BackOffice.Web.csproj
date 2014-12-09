@@ -1009,6 +1009,7 @@
     <Content Include="Views\Provider\CIExperiencesUpsert.cshtml" />
     <Content Include="Views\Provider\GIBranchUpsert.cshtml" />
     <Content Include="Views\Provider\GIDistributorUpsert.cshtml" />
+    <Content Include="Views\Shared\_F_FileUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
