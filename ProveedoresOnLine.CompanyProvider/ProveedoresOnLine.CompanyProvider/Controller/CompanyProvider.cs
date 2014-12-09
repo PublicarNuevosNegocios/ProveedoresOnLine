@@ -21,8 +21,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 ProviderToUpsert.RelatedCompany = Company.Controller.Company.CompanyUpsert
                     (ProviderToUpsert.RelatedCompany);
 
-                ProviderCategoryUpsert(ProviderToUpsert);
-                ExperienceUpsert(ProviderToUpsert);
+                CommercialUpsert(ProviderToUpsert);
                 CertificationUpsert(ProviderToUpsert);
                 FinancialUpsert(ProviderToUpsert);
                 BalanceSheetUpsert(ProviderToUpsert);
@@ -48,81 +47,29 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #endregion
 
-        #region Provider Experience
+        #region Provider Commercial
 
-        public static ProviderModel ProviderCategoryUpsert(ProviderModel ProviderToUpsert)
-        {
-            if (ProviderToUpsert.RelatedCompany != null &&
-                !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
-                ProviderToUpsert.RelatedCategory != null &&
-                ProviderToUpsert.RelatedCategory.Count > 0)
-            {
-                ProviderToUpsert.RelatedCategory.All(pcat =>
-                {
-                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-                    try
-                    {
-                        pcat.CompanyCategoryId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.ProviderCategoryUpsert
-                            (ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                            pcat.RelatedCategory.ItemId,
-                            pcat.Enable);
-
-                        oLog.IsSuccess = true;
-                    }
-                    catch (Exception err)
-                    {
-                        oLog.IsSuccess = false;
-                        oLog.Message = err.Message + " - " + err.StackTrace;
-
-                        throw err;
-                    }
-                    finally
-                    {
-                        oLog.LogObject = pcat;
-
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CompanyPublicId",
-                            Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                        });
-
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CategoryId",
-                            Value = pcat.RelatedCategory.ItemId.ToString(),
-                        });
-
-                        LogManager.ClientLog.AddLog(oLog);
-                    }
-
-                    return true;
-                });
-            }
-
-            return ProviderToUpsert;
-        }
-
-        public static ProviderModel ExperienceUpsert(ProviderModel ProviderToUpsert)
+        public static ProviderModel CommercialUpsert(ProviderModel ProviderToUpsert)
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
                 ProviderToUpsert.RelatedExperience != null &&
                 ProviderToUpsert.RelatedExperience.Count > 0)
             {
-                ProviderToUpsert.RelatedExperience.All(pexp =>
+                ProviderToUpsert.RelatedExperience.All(pcom =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        pexp.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.ExperienceUpsert
+                        pcom.ItemId =
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.CommercialUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                            pexp.ItemId > 0 ? (int?)pexp.ItemId : null,
-                            pexp.ItemName,
-                            pexp.Enable);
+                            pcom.ItemId > 0 ? (int?)pcom.ItemId : null,
+                            pcom.ItemType.ItemId,
+                            pcom.ItemName,
+                            pcom.Enable);
 
-                        ExperienceInfoUpsert(pexp);
+                        CommercialInfoUpsert(pcom);
 
                         oLog.IsSuccess = true;
                     }
@@ -135,7 +82,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     }
                     finally
                     {
-                        oLog.LogObject = pexp;
+                        oLog.LogObject = pcom;
 
                         oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
                         {
@@ -153,25 +100,25 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ProviderToUpsert;
         }
 
-        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel ExperienceInfoUpsert
-            (ProveedoresOnLine.Company.Models.Util.GenericItemModel ExperienceToUpsert)
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel CommercialInfoUpsert
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel CommercialToUpsert)
         {
-            if (ExperienceToUpsert.ItemId > 0 &&
-                ExperienceToUpsert.ItemInfo != null &&
-                ExperienceToUpsert.ItemInfo.Count > 0)
+            if (CommercialToUpsert.ItemId > 0 &&
+                CommercialToUpsert.ItemInfo != null &&
+                CommercialToUpsert.ItemInfo.Count > 0)
             {
-                ExperienceToUpsert.ItemInfo.All(expinf =>
+                CommercialToUpsert.ItemInfo.All(pcominf =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        expinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.ExperienceInfoUpsert
-                            (ExperienceToUpsert.ItemId,
-                            expinf.ItemInfoId > 0 ? (int?)expinf.ItemInfoId : null,
-                            expinf.ItemInfoType.ItemId,
-                            expinf.Value,
-                            expinf.LargeValue,
-                            expinf.Enable);
+                        pcominf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.CommercialInfoUpsert
+                            (CommercialToUpsert.ItemId,
+                            pcominf.ItemInfoId > 0 ? (int?)pcominf.ItemInfoId : null,
+                            pcominf.ItemInfoType.ItemId,
+                            pcominf.Value,
+                            pcominf.LargeValue,
+                            pcominf.Enable);
 
                         oLog.IsSuccess = true;
                     }
@@ -184,12 +131,12 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     }
                     finally
                     {
-                        oLog.LogObject = expinf;
+                        oLog.LogObject = pcominf;
 
                         oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
                         {
                             LogInfoType = "ExperienceId",
-                            Value = ExperienceToUpsert.ItemId.ToString(),
+                            Value = CommercialToUpsert.ItemId.ToString(),
                         });
 
                         LogManager.ClientLog.AddLog(oLog);
@@ -199,7 +146,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 });
             }
 
-            return ExperienceToUpsert;
+            return CommercialToUpsert;
         }
 
         #endregion

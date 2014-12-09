@@ -24,6 +24,10 @@
         PersonContactType = 210,
         DistributorType = 211,
 
+        CommercialType = 301,
+
+        ExperienceInfoType = 302,
+
         LegalType = 601,
 
         ChaimberOfCommerceInfoType = 602,
@@ -97,6 +101,18 @@
         DT_DateIssue = 208006,
         DT_DueDate = 208007,
         DT_DistributorFile = 208008,
+    }
+
+    #endregion
+
+    #region Comercial
+
+    /// <summary>
+    /// Comercial type
+    /// </summary>
+    public enum enumComercialType
+    {
+        Experience = 301001,
     }
 
     #endregion

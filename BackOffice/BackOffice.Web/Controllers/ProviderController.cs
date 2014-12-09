@@ -194,19 +194,19 @@ namespace BackOffice.Web.Controllers
         {
             if (!string.IsNullOrEmpty(Request["UpsertAction"])
                && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ChaimberInfo                
+                GenericItemModel RelatedLegal = new GenericItemModel
                 {
-                    //get ChaimberInfo                
-                    GenericItemModel RelatedLegal = new GenericItemModel
+                    ItemId = 0,
+                    ItemType = new CatalogModel()
                     {
-                        ItemId = 0,
-                        ItemType = new CatalogModel()
-                        {
-                            ItemId = (int)enumLegalType.ChaimberOfCommerce,
-                        },
-                        ItemName = Request["ChaimberName"],
-                        Enable = Request["Enable"] == "true" ? true : false,
-   
-                        ItemInfo = new List<GenericItemInfoModel>
+                        ItemId = (int)enumLegalType.ChaimberOfCommerce,
+                    },
+                    ItemName = Request["ChaimberName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+
+                    ItemInfo = new List<GenericItemInfoModel>
                         {   
                             new GenericItemInfoModel()
                             {
@@ -242,7 +242,7 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionCity
                                 },
-                                Value = Request["City"]
+                                Value = Request["SelectedCity"]
                             },
                             new GenericItemInfoModel()
                             {
@@ -260,7 +260,7 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
                                 },
-                                Value = Request["RepresentantLegalPerson"]
+                                Value = Request["CertificateURL"]
                             },
                             new GenericItemInfoModel()
                             {
@@ -281,9 +281,9 @@ namespace BackOffice.Web.Controllers
                                 Value = Request["SocialObject"]
                             },
                         }
-                    };
-                    return RelatedLegal;
-                }
+                };
+                return RelatedLegal;
+            }
             return null;
         }
         #endregion
@@ -294,45 +294,18 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult CIExperiencesUpsert(string ProviderPublicId)
         {
+            //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
-
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedExperience = ;
-                };
-
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
-
-            return View(oModel);
-        }
-
-        public virtual ActionResult CIEconomicActivityUpsert(string ProviderPublicId)
-        {
-            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                },
             };
 
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
-                };
-
-                //get provider menu
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
             return View(oModel);
         }
@@ -428,7 +401,7 @@ namespace BackOffice.Web.Controllers
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };
 
-            if (true)
+            if (!string.IsNullOrEmpty(ProviderPublicId))
             {
                 oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
@@ -446,13 +419,13 @@ namespace BackOffice.Web.Controllers
                 ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
                 ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
 
-                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;               
+                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;
 
                 //get request Info
                 ProviderToUpsert.RelatedLegal.Add(this.GetChaimberOfCommerceInfoRequest());
 
                 //upsert provider
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);               
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
 
                 ////eval redirect url
                 //if (!string.IsNullOrEmpty(Request["StepAction"]) &&
@@ -607,20 +580,6 @@ namespace BackOffice.Web.Controllers
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesUpsert &&
-                        oCurrentController == MVC.Provider.Name),
-                });
-
-                //Economic activity
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Actividades economicas",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.CIEconomicActivityUpsert,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 1,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.CIEconomicActivityUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

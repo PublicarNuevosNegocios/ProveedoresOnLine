@@ -22,16 +22,16 @@ var Provider_CompanyContactObject = {
     ProviderPublicId: '',
     ContactType: '',
     DateFormat: '',
-    ContactOptionList: new Array(),
+    ProviderOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.ProviderPublicId = vInitObject.ProviderPublicId;
         this.ContactType = vInitObject.ContactType;
         this.DateFormat = vInitObject.DateFormat;
-        if (vInitObject.ContactOptionList != null) {
-            $.each(vInitObject.ContactOptionList, function (item, value) {
-                Provider_CompanyContactObject.ContactOptionList[value.Key] = value.Value;
+        if (vInitObject.ProviderOptions != null) {
+            $.each(vInitObject.ProviderOptions, function (item, value) {
+                Provider_CompanyContactObject.ProviderOptions[value.Key] = value.Value;
             });
         }
     },
@@ -139,7 +139,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CC_CompanyContactType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[209], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ProviderOptions[209], function (item, value) {
                             if (dataItem.CC_CompanyContactType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -151,7 +151,7 @@ var Provider_CompanyContactObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[209],
+                            dataSource: Provider_CompanyContactObject.ProviderOptions[209],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -279,7 +279,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_PersonContactType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[210], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ProviderOptions[210], function (item, value) {
                             if (dataItem.CP_PersonContactType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -291,7 +291,7 @@ var Provider_CompanyContactObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[210],
+                            dataSource: Provider_CompanyContactObject.ProviderOptions[210],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -304,7 +304,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_IdentificationType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[101], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ProviderOptions[101], function (item, value) {
                             if (dataItem.CP_IdentificationType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -316,7 +316,7 @@ var Provider_CompanyContactObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[101],
+                            dataSource: Provider_CompanyContactObject.ProviderOptions[101],
                             dataTextField: "ItemName",
                             dataValueField: "ItemId",
                             optionLabel: 'Seleccione una opción'
@@ -716,7 +716,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.DT_DistributorType != null) {
-                        $.each(Provider_CompanyContactObject.ContactOptionList[211], function (item, value) {
+                        $.each(Provider_CompanyContactObject.ProviderOptions[211], function (item, value) {
                             if (dataItem.DT_DistributorType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -728,7 +728,7 @@ var Provider_CompanyContactObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ContactOptionList[211],
+                            dataSource: Provider_CompanyContactObject.ProviderOptions[211],
                             dataTextField: "ItemName",
                             dataValueField: "ItemId",
                             optionLabel: 'Seleccione una opción'
@@ -880,6 +880,152 @@ var Provider_CompanyContactObject = {
         });
     },
 };
+
+/*CompanyComercialObject*/
+var Provider_CompanyComercialObject = {
+
+    ObjectId: '',
+    ProviderPublicId: '',
+    ComercialType: '',
+    DateFormat: '',
+    ProviderOptions: new Array(),
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.ProviderPublicId = vInitObject.ProviderPublicId;
+        this.ContactType = vInitObject.ContactType;
+        this.DateFormat = vInitObject.DateFormat;
+        if (vInitObject.ProviderOptions != null) {
+            $.each(vInitObject.ProviderOptions, function (item, value) {
+                Provider_CompanyComercialObject.ProviderOptions[value.Key] = value.Value;
+            });
+        }
+    },
+
+    RenderAsync: function () {
+        if (Provider_CompanyComercialObject.ComercialType == 301001) {
+            Provider_CompanyComercialObject.RenderExperience();
+        }
+    },
+
+    RenderExperience: function () {
+        //$('#' + Provider_CompanyComercialObject.ObjectId).kendoGrid({
+        //    editable: true,
+        //    navigatable: true,
+        //    pageable: false,
+        //    scrollable: true,
+        //    toolbar: [
+        //        { name: 'create', text: 'Nuevo' },
+        //        { name: 'save', text: 'Guardar' },
+        //        { name: 'cancel', text: 'Descartar' }
+        //    ],
+        //    dataSource: {
+        //        schema: {
+        //            model: {
+        //                id: "ContactId",
+        //                fields: {
+        //                    ContactId: { editable: false, nullable: true },
+        //                    ContactName: { editable: true, validation: { required: true } },
+        //                    Enable: { editable: true, type: "boolean", defaultValue: true },
+
+        //                    CC_CompanyContactType: { editable: true },
+        //                    CC_CompanyContactTypeId: { editable: false },
+
+        //                    CC_Value: { editable: true },
+        //                    CC_ValueId: { editable: false },
+        //                }
+        //            }
+        //        },
+        //        transport: {
+        //            read: function (options) {
+        //                $.ajax({
+        //                    url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+        //                    dataType: 'json',
+        //                    success: function (result) {
+        //                        options.success(result);
+        //                    },
+        //                    error: function (result) {
+        //                        options.error(result);
+        //                    }
+        //                });
+        //            },
+        //            create: function (options) {
+        //                $.ajax({
+        //                    url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+        //                    dataType: 'json',
+        //                    type: 'post',
+        //                    data: {
+        //                        DataToUpsert: kendo.stringify(options.data)
+        //                    },
+        //                    success: function (result) {
+        //                        options.success(result);
+        //                    },
+        //                    error: function (result) {
+        //                        options.error(result);
+        //                    }
+        //                });
+        //            },
+        //            update: function (options) {
+        //                $.ajax({
+        //                    url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+        //                    dataType: 'json',
+        //                    type: 'post',
+        //                    data: {
+        //                        DataToUpsert: kendo.stringify(options.data)
+        //                    },
+        //                    success: function (result) {
+        //                        options.success(result);
+        //                    },
+        //                    error: function (result) {
+        //                        options.error(result);
+        //                    }
+        //                });
+        //            },
+        //        },
+        //    },
+        //    columns: [{
+        //        field: 'ContactId',
+        //        title: 'Id',
+        //        width: "50px",
+        //    }, {
+        //        field: 'ContactName',
+        //        title: 'Nombre',
+        //    }, {
+        //        field: 'CC_CompanyContactType',
+        //        title: 'Tipo de contacto',
+        //        template: function (dataItem) {
+        //            var oReturn = 'Seleccione una opción.';
+        //            if (dataItem != null && dataItem.CC_CompanyContactType != null) {
+        //                $.each(Provider_CompanyContactObject.ProviderOptions[209], function (item, value) {
+        //                    if (dataItem.CC_CompanyContactType == value.ItemId) {
+        //                        oReturn = value.ItemName;
+        //                    }
+        //                });
+        //            }
+        //            return oReturn;
+        //        },
+        //        editor: function (container, options) {
+        //            $('<input required data-bind="value:' + options.field + '"/>')
+        //                .appendTo(container)
+        //                .kendoDropDownList({
+        //                    dataSource: Provider_CompanyContactObject.ProviderOptions[209],
+        //                    dataTextField: 'ItemName',
+        //                    dataValueField: 'ItemId',
+        //                    optionLabel: 'Seleccione una opción'
+        //                });
+        //        },
+        //    }, {
+        //        field: 'CC_Value',
+        //        title: 'Valor',
+        //    }, {
+        //        field: 'Enable',
+        //        title: 'Habilitado',
+        //        width: "100px",
+        //    }],
+        //});
+    },
+};
+
 
 /*CompanyCertificationObject*/
 var Provider_CompanyCertificationObject = {
@@ -1109,5 +1255,58 @@ var Provider_CompanyCertificationObject = {
 
     },
 };
+
+var Provider_LegalInfoObject = {
+
+    AutoCompleteId: '',
+    ControlToRetornACId: '',
+    Init: function (vInitiObject) {
+        debugger;
+        this.AutoCompleteId = vInitiObject.AutoCompleteId;
+        this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
+        Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
+
+    },
+
+    AutoComplete: function (acId, ControlToRetornACId) {
+        debugger;
+        var acValue = $('#' + acId).val();
+        $('#' + acId).kendoAutoComplete({
+            
+            dataTextField: "ItemName",
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                debugger;
+                //set server fiel name
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
+                //options.model[options.field] = selectedItem.ItemName;
+                //options.model['BR_City'] = selectedItem.ItemId;
+                //enable made changes
+                //options.model.dirty = true;
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
+        });
+    },
+    
+}
+
+
 
 

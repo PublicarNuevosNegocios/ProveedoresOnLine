@@ -120,14 +120,14 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int vPageNumber, int vRowCount)
+        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
             lstParams.Add(DataInstance.CreateTypedParameter("vCityId", CityId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", vPageNumber));
-            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", vRowCount));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -165,6 +165,21 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      }).ToList();
             }
             return oReturn;
+        }
+
+        public List<GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
