@@ -198,10 +198,10 @@ namespace BackOffice.Web.Controllers
                     //get ChaimberInfo                
                     GenericItemModel RelatedLegal = new GenericItemModel
                     {
-                        ItemId = 0,
+                        ItemId = Convert.ToInt32(Request["NameInfoId"]),
                         ItemType = new CatalogModel()
                         {
-                            ItemId = (int)enumLegalType.ChaimberOfCommerce,
+                            ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
                         },
                         ItemName = Request["ChaimberName"],
                         Enable = Request["Enable"] == "true" ? true : false,
@@ -210,7 +210,7 @@ namespace BackOffice.Web.Controllers
                         {   
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionDate
@@ -219,25 +219,16 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["ValidityDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
                                 },
                                 Value = Request["ValidityDate"]
-                            },
+                            },                            
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_State
-                                },
-                                Value = Request["State"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["SelectedCityId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionCity
@@ -246,7 +237,7 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["InscriptionNumberId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionNumber
@@ -255,7 +246,7 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["CertificateURLId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
@@ -264,7 +255,7 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["ExpeditionCertificatedDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate
@@ -273,7 +264,7 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =   Convert.ToInt32(Request["SocialObjectId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_SocialObject
