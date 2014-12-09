@@ -17,7 +17,7 @@ function Provider_SubmitForm(SubmitObject) {
 
 /*CompanyContactObject*/
 var Provider_CompanyContactObject = {
-    
+
     ObjectId: '',
     ProviderPublicId: '',
     ContactType: '',
@@ -723,7 +723,7 @@ var Provider_CompanyContactObject = {
                         });
                     }
                     return oReturn;
-                },
+    },
                 editor: function (container, options) {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
@@ -927,8 +927,8 @@ var Provider_CompanyCertificationObject = {
                         id: "CertificationId",
                         fields: {
                             CertificationId: { editable: false, nullable: true },
-                            CertificationName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: "boolean", defaultValue: true },
+                            CertificationName: { editable: true },
+                            Enable: {editable: true, type: "boolean", defaultValue: true },
 
                             C_CertificationCompany: { editable: true },
                             C_CertificationCompanyId: { editable: false },
@@ -955,8 +955,8 @@ var Provider_CompanyCertificationObject = {
                 },
                 transport: {
                     read: function (options) {
-                        $ajax({
-                            url: BaseUrl.ApiUrl + '',
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HICertificationGetByType=true&ProviderPublicId=' + Provider_CompanyCertificationObject.ProviderPublicId + '&CertificationType=' + Provider_CompanyCertificationObject.CertificationType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -967,7 +967,7 @@ var Provider_CompanyCertificationObject = {
                         });
                     },
                     create: function (options) {
-                        $ajax({
+                        $.ajax({
                             url: BaseUrl.ApiUrl + '',
                             dataType: 'json',
                             type: 'post',
@@ -983,7 +983,7 @@ var Provider_CompanyCertificationObject = {
                         });
                     },
                     update: function (options) {
-                        $ajax({
+                        $.ajax({
                             url: BaseUrl.ApiUrl + '',
                             dataType: 'json',
                             type: 'post',
@@ -1044,11 +1044,53 @@ var Provider_CompanyCertificationObject = {
                 template: function (dataItem) {
                     var oReturn;
 
+                    if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyCertificationObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
+
                     return oReturn;
                 },
                 editor: function (container, options) {
-
-                },
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyCertificationObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                } ,
             }, {
                 field: 'C_Scope',
                 title: 'Alcance'
