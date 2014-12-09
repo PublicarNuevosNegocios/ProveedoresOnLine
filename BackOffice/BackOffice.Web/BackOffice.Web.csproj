@@ -1005,7 +1005,6 @@
     <Content Include="Views\Provider\HIHealtyPoliticUpsert.cshtml" />
     <Content Include="Views\Provider\HIRiskPoliciesUpsert.cshtml" />
     <Content Include="Views\Provider\GIPersonContactUpsert.cshtml" />
-    <Content Include="Views\Provider\CIEconomicActivityUpsert.cshtml" />
     <Content Include="Views\Provider\CIExperiencesUpsert.cshtml" />
     <Content Include="Views\Provider\GIBranchUpsert.cshtml" />
     <Content Include="Views\Provider\GIDistributorUpsert.cshtml" />

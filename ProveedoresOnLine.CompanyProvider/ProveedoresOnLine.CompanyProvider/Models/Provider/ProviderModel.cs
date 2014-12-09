@@ -14,8 +14,6 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedExperience { get; set; }
 
-        public List<ProviderCategoryModel> RelatedCategory { get; set; }
-
         #endregion
 
         #region HSEQ

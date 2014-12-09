@@ -62,9 +62,24 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CatalogItemUpsert(CatalogId, ItemId, Name, Enable);
         }
 
-        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int vPageNumber, int vRowCount)
+        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
         {
-            return DataFactory.CategorySearchByGeography(SearchParam, CityId, vPageNumber, vRowCount);
+            return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount);
+        }
+
+        public List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.CategorySearchByRules(SearchParam, PageNumber, RowCount);
+        }
+
+        public List<Models.Util.GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.CategorySearchByCompanyRules(SearchParam, PageNumber, RowCount);
+        }
+
+        public List<Models.Util.GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.CategorySearchByResolution(SearchParam, PageNumber, RowCount);
         }
 
         #endregion
@@ -117,5 +132,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
+
     }
 }

@@ -199,9 +199,24 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int vPageNumber, int vRowCount)
+        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
         {
-            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, vPageNumber, vRowCount);
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount);
+        }
+
+        public static List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByRules(SearchParam, PageNumber, RowCount);
+        }
+
+        public static List<Models.Util.GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByCompanyRules(SearchParam, PageNumber, RowCount);
+        }
+
+        public static List<Models.Util.GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByResolution(SearchParam, PageNumber, RowCount);
         }
 
         #endregion
