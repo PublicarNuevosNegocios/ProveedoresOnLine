@@ -85,7 +85,36 @@ namespace BackOffice.Models.Provider
         public string BR_LongitudeId { get; set; }
 
         #endregion
-               
+
+        #region Distributor
+
+        public string DT_DistributorType { get; set; }
+        public string DT_DistributorTypeId { get; set; }
+
+        public string DT_Representative { get; set; }
+        public string DT_RepresentativeId { get; set; }
+
+        public string DT_Email { get; set; }
+        public string DT_EmailId { get; set; }
+
+        public string DT_Phone { get; set; }
+        public string DT_PhoneId { get; set; }
+
+        public string DT_City { get; set; }
+        public string DT_CityId { get; set; }
+        public string DT_CityName { get; set; }
+
+        public string DT_DateIssue { get; set; }
+        public string DT_DateIssueId { get; set; }
+
+        public string DT_DueDate { get; set; }
+        public string DT_DueDateId { get; set; }
+
+        public string DT_DistributorFile { get; set; }
+        public string DT_DistributorFileId { get; set; }
+
+        #endregion
+
         public ProviderContactViewModel() { }
 
         public ProviderContactViewModel
@@ -329,6 +358,106 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            #endregion
+
+            #region Distributor
+
+            DT_DistributorType = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DistributorType).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_DistributorTypeId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DistributorType).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+            DT_Representative = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_Representative).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_RepresentativeId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_Representative).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+            DT_Email = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_Email).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_EmailId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_Email).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+            DT_Phone = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_Phone).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_PhoneId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_Phone).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+            DT_City = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_City).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_CityId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_City).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            if (oCities != null && oCities.Count > 0)
+            {
+                DT_CityName = oCities.
+                    Where(x => x.City.ItemId.ToString() == DT_City).
+                    Select(x => x.Country.ItemName + "," + x.State.ItemName + "," + x.City.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+
+            DT_DateIssue = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DateIssue).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_DateIssueId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DateIssue).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+            DT_DueDate = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_DueDateId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+            DT_DistributorFile = RelatedContact.ItemInfo.
+                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DistributorFile).
+                   Select(y => y.Value).
+                   DefaultIfEmpty(string.Empty).
+                   FirstOrDefault();
+            DT_DistributorFileId = RelatedContact.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DistributorFile).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
 
             #endregion
 

@@ -22,6 +22,7 @@
 
         CompanyContactType = 209,
         PersonContactType = 210,
+        DistributorType = 211,
 
         LegalType = 601,
 
@@ -86,6 +87,16 @@
         BR_Website = 207007,
         BR_Latitude = 207008,
         BR_Longitude = 207009,
+
+        //Distributor
+        DT_DistributorType = 208001,
+        DT_Representative = 208002,
+        DT_Email = 208003,
+        DT_Phone = 208004,
+        DT_City = 208005,
+        DT_DateIssue = 208006,
+        DT_DueDate = 208007,
+        DT_DistributorFile = 208008,
     }
 
     #endregion
