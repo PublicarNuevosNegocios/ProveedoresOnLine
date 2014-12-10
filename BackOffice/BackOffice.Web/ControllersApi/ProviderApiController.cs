@@ -1246,5 +1246,35 @@ namespace BackOffice.Web.ControllersApi
         }
 
         #endregion
+
+        #region Legal Info
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderLegalViewModel> LILegalInfoGetByType
+            (string LILegalInfoGetByType,
+            string ProviderPublicId,
+            string LegalInfoType)
+        {
+            List<BackOffice.Models.Provider.ProviderLegalViewModel> oReturn = new List<Models.Provider.ProviderLegalViewModel>();
+
+            if (LILegalInfoGetByType == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
+                    (ProviderPublicId,
+                    string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()));
+
+                if (oCertification != null)
+                {
+                    oCertification.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x));
+                        return true;
+                    });
+                }
+            }
+            return oReturn;
+        }
+        #endregion
     }
 }
