@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Contactos";
+    ViewBag.Title = "Sucursales";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -36,7 +36,7 @@
 
     @{
         //get ContactTypeValues
-        string oContactOptionList = "[]";
+        string oProviderOptions = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
@@ -50,19 +50,19 @@
                         ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oContactOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vContactOptionList = @(Html.Raw(oContactOptionList));
+        var vProviderOptions = @(Html.Raw(oProviderOptions));
         $(document).ready(function () {
             Provider_CompanyContactObject.Init({
                 ObjectId: 'divGridBranch',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 ContactType: '@((int)BackOffice.Models.General.enumContactType.Brach)',
-                ContactOptionList: vContactOptionList,
+                ProviderOptions: vProviderOptions,
             });
             Provider_CompanyContactObject.RenderAsync();
         });

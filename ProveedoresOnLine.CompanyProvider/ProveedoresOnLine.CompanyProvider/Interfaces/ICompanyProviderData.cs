@@ -9,11 +9,9 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 {
     internal interface ICompanyProviderData
     {
-        int ProviderCategoryUpsert(string CompanyPublicId, int CategoryId, bool Enable);
+        int CommercialUpsert(string CompanyPublicId, int? CommercialId, int CommercialTypeId, string CommercialName, bool Enable);
 
-        int ExperienceUpsert(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable);
-
-        int ExperienceInfoUpsert(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable);
+        int CommercialInfoUpsert(int CommercialId, int? CommercialInfoId, int CommercialInfoTypeId, string Value, string LargeValue, bool Enable);
 
         int CertificationUpsert(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable);
 

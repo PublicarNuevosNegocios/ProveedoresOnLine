@@ -1,12 +1,11 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "ExperiencesUpsert";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Distribuidores";
+    Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
 }
-
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
@@ -14,7 +13,30 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <label>Experiencias Comerciales</label>
+        @{
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+        <div id="divExperience"></div>
+        <br />
+        @{
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divExperience_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divExperience_File">
+        <div>
+            <a target="_blank" href="${DT_DistributorFile}">Ver archivo</a>
+        </div>
     </div>
 </div>
 
@@ -22,8 +44,42 @@
     Model.RenderScripts = true;
 }
 
-@section inlinescripts{
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
-    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+    @{
+        //get ContactTypeValues
+        string oProviderOptions = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
 
+            oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vProviderOptions = @(Html.Raw(oProviderOptions));
+        $(document).ready(function () {
+            Provider_CompanyComercialObject.Init({
+                ObjectId: 'divExperience',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ContactType: '@((int)BackOffice.Models.General.enumComercialType.Experience)',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ProviderOptions: vProviderOptions,
+            });
+            Provider_CompanyComercialObject.RenderAsync();
+        });
+    </script>
 }

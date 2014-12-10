@@ -35,21 +35,16 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
-        #region Provider Experience
+        #region Provider Commercial
 
-        public int ProviderCategoryUpsert(string CompanyPublicId, int CategoryId, bool Enable)
+        public int CommercialUpsert(string CompanyPublicId, int? CommercialId, int CommercialTypeId, string CommercialName, bool Enable)
         {
-            return DataFactory.ProviderCategoryUpsert(CompanyPublicId, CategoryId, Enable);
+            return DataFactory.CommercialUpsert(CompanyPublicId, CommercialId, CommercialTypeId, CommercialName, Enable);
         }
 
-        public int ExperienceUpsert(string CompanyPublicId, int? ExperienceId, string ExperienceName, bool Enable)
+        public int CommercialInfoUpsert(int CommercialId, int? CommercialInfoId, int CommercialInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            return DataFactory.ExperienceUpsert(CompanyPublicId, ExperienceId, ExperienceName, Enable);
-        }
-
-        public int ExperienceInfoUpsert(int ExperienceId, int? ExperienceInfoId, int ExperienceInfoTypeId, string Value, string LargeValue, bool Enable)
-        {
-            return DataFactory.ExperienceInfoUpsert(ExperienceId, ExperienceInfoId, ExperienceInfoTypeId, Value, LargeValue, Enable);
+            return DataFactory.CommercialInfoUpsert(CommercialId, CommercialInfoId, CommercialInfoTypeId, Value, LargeValue, Enable);
         }
 
         #endregion
@@ -103,7 +98,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.LegalInfoUpsert(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
         }
-        
+
         public List<Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
         {
             return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType);

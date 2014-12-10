@@ -198,10 +198,10 @@ namespace BackOffice.Web.Controllers
                     //get ChaimberInfo                
                     GenericItemModel RelatedLegal = new GenericItemModel
                     {
-                        ItemId = 0,
+                        ItemId = Convert.ToInt32(Request["NameInfoId"]),
                         ItemType = new CatalogModel()
                         {
-                            ItemId = (int)enumLegalType.ChaimberOfCommerce,
+                            ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
                         },
                         ItemName = Request["ChaimberName"],
                         Enable = Request["Enable"] == "true" ? true : false,
@@ -210,7 +210,7 @@ namespace BackOffice.Web.Controllers
                         {   
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionDate
@@ -219,7 +219,7 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["ValidityDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
@@ -228,25 +228,16 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_State
-                                },
-                                Value = Request["State"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["SelectedCityId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionCity
                                 },
-                                Value = Request["City"]
+                                Value = Request["SelectedCity"]
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["InscriptionNumberId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionNumber
@@ -255,16 +246,16 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["CertificateURLId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
                                 },
-                                Value = Request["RepresentantLegalPerson"]
+                                Value = Request["CertificateURL"]
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =  Convert.ToInt32(Request["ExpeditionCertificatedDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate
@@ -273,7 +264,7 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
-                                ItemInfoId = 0,
+                                ItemInfoId =   Convert.ToInt32(Request["SocialObjectId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_SocialObject
@@ -294,45 +285,18 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult CIExperiencesUpsert(string ProviderPublicId)
         {
+            //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
-
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedExperience = ;
-                };
-
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
-
-            return View(oModel);
-        }
-
-        public virtual ActionResult CIEconomicActivityUpsert(string ProviderPublicId)
-        {
-            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                },
             };
-
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
-                };
 
                 //get provider menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
 
             return View(oModel);
         }
@@ -428,7 +392,7 @@ namespace BackOffice.Web.Controllers
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };
 
-            if (true)
+            if (!string.IsNullOrEmpty(ProviderPublicId))
             {
                 oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
@@ -607,20 +571,6 @@ namespace BackOffice.Web.Controllers
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesUpsert &&
-                        oCurrentController == MVC.Provider.Name),
-                });
-
-                //Economic activity
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Actividades economicas",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.CIEconomicActivityUpsert,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 1,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.CIEconomicActivityUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
