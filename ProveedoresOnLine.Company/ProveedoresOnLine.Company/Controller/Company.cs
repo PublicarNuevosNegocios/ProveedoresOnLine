@@ -219,6 +219,17 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByResolution(SearchParam, PageNumber, RowCount);
         }
 
+        public static List<Models.Util.GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByActivity(SearchParam, PageNumber, RowCount);
+        }
+
+        public static List<Models.Util.GenericItemModel> CategorySearchByCustomActivity(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByCustomActivity(SearchParam, PageNumber, RowCount);
+        }
+
+
         #endregion
 
         #region Company

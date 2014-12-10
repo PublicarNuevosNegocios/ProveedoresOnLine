@@ -82,6 +82,16 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByResolution(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.CategorySearchByActivity(SearchParam, PageNumber, RowCount);
+        }
+
+        public List<Models.Util.GenericItemModel> CategorySearchByCustomActivity(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.CategorySearchByCustomActivity(SearchParam, PageNumber, RowCount);
+        }
+
         #endregion
 
         #region Company
@@ -132,6 +142,5 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
-
     }
 }
