@@ -866,11 +866,21 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     string.IsNullOrEmpty(CertificationType) ? null : (int?)Convert.ToInt32(CertificationType.Trim()));
 
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+
                 if (oCertification != null)
                 {
+
+                    if (CertificationType == ((int)BackOffice.Models.General.enumHSEQType.Certifications).ToString())
+                    {
+                        oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
+                        oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
+                    }
+
                     oCertification.All(x =>
                         {
-                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x));
+                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oCompanyRule, oRule));
                             return true;
                         });
                 }
