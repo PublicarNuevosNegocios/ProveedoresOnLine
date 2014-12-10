@@ -905,7 +905,20 @@ namespace BackOffice.Web.ControllersApi
                     {
                         CompanyPublicId = ProviderPublicId,
                     },
-                    RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>(),
+                    RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = string.IsNullOrEmpty(oDataToUpsert.CertificationId) ? 0 : Convert.ToInt32(oDataToUpsert.CertificationId.Trim()),
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(CertificationType.Trim()),
+                            },
+                            ItemName = oDataToUpsert.CertificationName,
+                            Enable = oDataToUpsert.Enable,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    },
                 };
 
                 if (oProvider.RelatedCertification.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumHSEQType.Certifications)

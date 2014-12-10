@@ -1033,12 +1033,14 @@ var Provider_CompanyCertificationObject = {
     ObjectId: '',
     ProviderPublicId: '',
     CertificationType: '',
+    DateFormat: '',
     CertificationOptionList: new Array(),
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
         this.CertificationType = vInitiObject.CertificationType;
+        this.DateFormat = vInitiObject.DateFormat;
         $.each(vInitiObject.CertificationOptionList, function (item, value) {
             Provider_CompanyCertificationObject.CertificationOptionList[value.Key] = value.Value;
         });
@@ -1063,9 +1065,9 @@ var Provider_CompanyCertificationObject = {
             pageable: false,
             scrollable: true,
             toolbar: [
-                { name: 'create', text: 'Nueva certificación' },
-                { name: 'save', text: 'Guardar cambios' },
-                { name: 'cancel', text: 'Descartar cambios' }
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
                 schema: {
@@ -1114,7 +1116,7 @@ var Provider_CompanyCertificationObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HICertificationUpsert=true&ProviderPublicId=' + Provider_CompanyCertificationObject.ProviderPublicId + '&CertificationType=' + Provider_CompanyCertificationObject.CertificationType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1130,7 +1132,7 @@ var Provider_CompanyCertificationObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HICertificationUpsert=true&ProviderPublicId=' + Provider_CompanyCertificationObject.ProviderPublicId + '&CertificationType=' + Provider_CompanyCertificationObject.CertificationType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1175,11 +1177,23 @@ var Provider_CompanyCertificationObject = {
 
                 },
             }, {
-                field: 'C_StarDateCertification',
+                field: 'C_StartDateCertification',
                 title: 'Fecha Certificación',
+                format: Provider_CompanyCertificationObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                }
             }, {
                 field: 'C_EndDateCertification',
                 title: 'Fecha Caducidad',
+                format: Provider_CompanyCertificationObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                }
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
