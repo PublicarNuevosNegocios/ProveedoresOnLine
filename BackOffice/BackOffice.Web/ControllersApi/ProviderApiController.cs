@@ -866,11 +866,21 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     string.IsNullOrEmpty(CertificationType) ? null : (int?)Convert.ToInt32(CertificationType.Trim()));
 
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+
                 if (oCertification != null)
                 {
+
+                    if (CertificationType == ((int)BackOffice.Models.General.enumHSEQType.Certifications).ToString())
+                    {
+                        oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
+                        oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
+                    }
+
                     oCertification.All(x =>
                         {
-                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x));
+                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oCompanyRule, oRule));
                             return true;
                         });
                 }
@@ -1235,6 +1245,36 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        #endregion
+
+        #region Legal Info
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderLegalViewModel> LILegalInfoGetByType
+            (string LILegalInfoGetByType,
+            string ProviderPublicId,
+            string LegalInfoType)
+        {
+            List<BackOffice.Models.Provider.ProviderLegalViewModel> oReturn = new List<Models.Provider.ProviderLegalViewModel>();
+
+            if (LILegalInfoGetByType == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
+                    (ProviderPublicId,
+                    string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()));
+
+                if (oCertification != null)
+                {
+                    oCertification.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x));
+                        return true;
+                    });
+                }
+            }
+            return oReturn;
+        }
         #endregion
     }
 }
