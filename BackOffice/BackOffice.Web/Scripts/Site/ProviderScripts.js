@@ -345,7 +345,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationFile',
                 title: 'Doc representante legal.',
-                width: "200px",
+                width: "400px",
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
@@ -410,7 +410,6 @@ var Provider_CompanyContactObject = {
             navigatable: true,
             pageable: false,
             scrollable: true,
-            height: 500,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
@@ -612,7 +611,6 @@ var Provider_CompanyContactObject = {
             navigatable: true,
             pageable: false,
             scrollable: true,
-            height: 500,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
@@ -723,7 +721,7 @@ var Provider_CompanyContactObject = {
                         });
                     }
                     return oReturn;
-    },
+                },
                 editor: function (container, options) {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
@@ -825,7 +823,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'DT_DistributorFile',
                 title: 'Doc soporte.',
-                width: "200px",
+                width: "400px",
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_DistributorFile != null && dataItem.DT_DistributorFile.length > 0) {
@@ -1076,7 +1074,7 @@ var Provider_CompanyCertificationObject = {
                         fields: {
                             CertificationId: { editable: false, nullable: true },
                             CertificationName: { editable: true },
-                            Enable: {editable: true, type: "boolean", defaultValue: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             C_CertificationCompany: { editable: true },
                             C_CertificationCompanyId: { editable: false },
@@ -1250,7 +1248,7 @@ var Provider_CompanyCertificationObject = {
                             $('#files').focus();
                         }
                     });
-                } ,
+                },
             }, {
                 field: 'C_Scope',
                 title: 'Alcance'
@@ -1277,9 +1275,9 @@ var Provider_LegalInfoObject = {
     ObjectId: '',
     ProviderPublicId: '',
     LegalInfoType: '',
-    ChaimberOfComerceOptionList:'',
+    ChaimberOfComerceOptionList: '',
 
-    Init: function (vInitiObject) {        
+    Init: function (vInitiObject) {
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
         this.ObjectId = vInitiObject.ObjectId;
@@ -1289,7 +1287,7 @@ var Provider_LegalInfoObject = {
 
         //Load AutoComplete 
         Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
-        
+
         $.each(vInitiObject.ChaimberOfComerceOptionList, function (item, value) {
             Provider_LegalInfoObject.ChaimberOfComerceOptionList[value.Key] = value.Value;
         });
@@ -1504,15 +1502,15 @@ var Provider_LegalInfoObject = {
         });
     },
 
-    AutoComplete: function (acId, ControlToRetornACId) {        
+    AutoComplete: function (acId, ControlToRetornACId) {
         var acValue = $('#' + acId).val();
         $('#' + acId).kendoAutoComplete({
-            
+
             dataTextField: "ItemName",
             select: function (e) {
-                var selectedItem = this.dataItem(e.item.index());                
+                var selectedItem = this.dataItem(e.item.index());
                 //set server fiel name
-                $('#' + ControlToRetornACId).val(selectedItem.ItemId);                
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
             },
             dataSource: {
                 type: "json",
@@ -1534,7 +1532,7 @@ var Provider_LegalInfoObject = {
             }
         });
     },
-    
+
 }
 
 
