@@ -1078,9 +1078,11 @@ var Provider_CompanyCertificationObject = {
 
                             C_CertificationCompany: { editable: true },
                             C_CertificationCompanyId: { editable: false },
+                            C_CertificationCompanyName: { editable: true },
 
                             C_Rule: { editable: true },
                             C_RuleId: { editable: false },
+                            C_RuleName: { editable: true },
 
                             C_StartDateCertification: { editable: true },
                             C_StartDateCertificationId: { editable: false },
@@ -1156,23 +1158,109 @@ var Provider_CompanyCertificationObject = {
                 field: 'C_CertificationCompany',
                 title: 'Empresa Certificadora',
                 template: function (dataItem) {
-                    var oReturn;
-
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.C_CertificationCompanyName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.C_CertificationCompanyName;
+                    }
                     return oReturn;
                 },
                 editor: function (container, options) {
-
+                    // create an input element
+                    var input = $("<input/>");
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr("value", options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: "CompanyRulesName",
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ItemName;
+                            options.model['C_CertificationCompany'] = selectedItem.ItemId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: "json",
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByCompanyRule=true&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
                 },
             }, {
                 field: 'C_Rule',
                 title: 'Norma',
                 template: function (dataItem) {
-                    var oReturn;
-
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.C_RuleName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.C_RuleName;
+                    }
                     return oReturn;
                 },
                 editor: function (container, options) {
-
+                    // create an input element
+                    var input = $("<input/>");
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr("value", options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: "RuleName",
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ItemName;
+                            options.model['C_Rule'] = selectedItem.ItemId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: "json",
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByRule=true&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
                 },
             }, {
                 field: 'C_StartDateCertification',
