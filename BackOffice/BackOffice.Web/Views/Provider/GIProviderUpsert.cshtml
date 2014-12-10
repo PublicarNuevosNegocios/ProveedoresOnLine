@@ -28,6 +28,7 @@
                 {
                     ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
                 }))">
+            <label class="POBOSectionTitles">Información básica</label>
             @{
                 Model.IsForm = true;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
