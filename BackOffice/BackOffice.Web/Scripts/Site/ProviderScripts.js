@@ -1260,29 +1260,245 @@ var Provider_LegalInfoObject = {
 
     AutoCompleteId: '',
     ControlToRetornACId: '',
-    Init: function (vInitiObject) {
-        debugger;
+    ObjectId: '',
+    ProviderPublicId: '',
+    LegalInfoType: '',
+    ChaimberOfComerceOptionList:'',
+
+    Init: function (vInitiObject) {        
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
-        Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
+        this.ObjectId = vInitiObject.ObjectId;
+        this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.LegalInfoType = vInitiObject.LegalInfoType;
+        this.ChaimberOfComerceOptionList = vInitiObject.ChaimberOfComerceOptionList;
 
+        //Load AutoComplete 
+        Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
+        
+        $.each(vInitiObject.ChaimberOfComerceOptionList, function (item, value) {
+            Provider_LegalInfoObject.ChaimberOfComerceOptionList[value.Key] = value.Value;
+        });
     },
 
-    AutoComplete: function (acId, ControlToRetornACId) {
-        debugger;
+    RenderAsync: function () {
+        if (Provider_LegalInfoObject.LegalInfoType == 601001) {
+            Provider_LegalInfoObject.RenderChaimberOfComerce();
+        }
+        else if (Provider_LegalInfoObject.LegalInfoType == 601002) {
+            Provider_LegalInfoObject.RenderUniqueRegister();
+        }
+        else if (Provider_LegalInfoObject.LegalInfoType == 601003) {
+            Provider_LegalInfoObject.RenderCIFIN();
+        }
+        else if (Provider_LegalInfoObject.LegalInfoType == 601004) {
+            Provider_LegalInfoObject.RenderSARLAFT();
+        }
+        else if (Provider_LegalInfoObject.LegalInfoType == 601005) {
+            Provider_LegalInfoObject.RenderResolutions();
+        }
+    },
+
+    RenderChaimberOfComerce: function () {
+        $('#' + Provider_LegalInfoObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nueva certificación' },
+                { name: 'save', text: 'Guardar cambios' },
+                { name: 'cancel', text: 'Descartar cambios' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "LegalId",
+                        fields: {
+                            LegalId: { editable: false, nullable: true },
+                            LegalName: { editable: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            C_CertificationCompany: { editable: true },
+                            C_CertificationCompanyId: { editable: false },
+
+                            C_Rule: { editable: true },
+                            C_RuleId: { editable: false },
+
+                            C_StartDateCertification: { editable: true },
+                            C_StartDateCertificationId: { editable: false },
+
+                            C_EndDateCertification: { editable: true },
+                            C_EndDateCertificationId: { editable: false },
+
+                            C_CCS: { editable: true },
+                            C_CCSId: { editable: false },
+
+                            C_CertificationFile: { editable: true },
+                            C_CertificationFileId: { editable: false },
+
+                            C_Scope: { editable: true },
+                            C_ScopeId: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HICertificationGetByType=true&ProviderPublicId=' + Provider_CompanyCertificationObject.ProviderPublicId + '&CertificationType=' + Provider_CompanyCertificationObject.CertificationType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'CertificationId',
+                title: 'Id',
+            }, {
+                field: 'CertificationName',
+                title: 'Nombre',
+            }, {
+                field: 'C_CertificationCompany',
+                title: 'Empresa Certificadora',
+                template: function (dataItem) {
+                    var oReturn;
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                },
+            }, {
+                field: 'C_Rule',
+                title: 'Norma',
+                template: function (dataItem) {
+                    var oReturn;
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                },
+            }, {
+                field: 'C_StarDateCertification',
+                title: 'Fecha Certificación',
+            }, {
+                field: 'C_EndDateCertification',
+                title: 'Fecha Caducidad',
+            }, {
+                field: 'C_CCS',
+                title: '% CCS',
+            }, {
+                field: 'C_CertificationFile',
+                title: 'Archivo Certificación',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn;
+
+                    if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyCertificationObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyCertificationObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }, {
+                field: 'C_Scope',
+                title: 'Alcance'
+            }, {
+                field: 'Enable',
+                title: 'Habilitado'
+            }],
+        });
+    },
+
+    AutoComplete: function (acId, ControlToRetornACId) {        
         var acValue = $('#' + acId).val();
         $('#' + acId).kendoAutoComplete({
             
             dataTextField: "ItemName",
             select: function (e) {
-                var selectedItem = this.dataItem(e.item.index());
-                debugger;
+                var selectedItem = this.dataItem(e.item.index());                
                 //set server fiel name
-                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
-                //options.model[options.field] = selectedItem.ItemName;
-                //options.model['BR_City'] = selectedItem.ItemId;
-                //enable made changes
-                //options.model.dirty = true;
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);                
             },
             dataSource: {
                 type: "json",

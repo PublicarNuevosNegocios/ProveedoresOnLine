@@ -416,29 +416,38 @@ namespace BackOffice.Web.Controllers
                 ProviderToUpsert.RelatedLegal.Add(this.GetChaimberOfCommerceInfoRequest());
 
                 //upsert provider
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);               
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
 
-                ////eval redirect url
-                //if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                //    Request["StepAction"].ToLower().Trim() == "next" &&
-                //    oModel.CurrentSubMenu != null &&
-                //    oModel.CurrentSubMenu.NextMenu != null &&
-                //    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
-                //{
-                //    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
-                //}
-                //else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                //    Request["StepAction"].ToLower().Trim() == "last" &&
-                //    oModel.CurrentSubMenu != null &&
-                //    oModel.CurrentSubMenu.LastMenu != null &&
-                //    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
-                //{
-                //    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
-                //}
-                //else
-                //{
-                //    return RedirectToAction(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
-                //}
+                //Reload model
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
+
+                };
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+                else
+                {
+                    //return RedirectToAction(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+                }
             }
 
             return View(oModel);
