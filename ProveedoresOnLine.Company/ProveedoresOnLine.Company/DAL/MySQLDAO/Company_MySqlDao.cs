@@ -169,7 +169,49 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         public List<GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstparams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstparams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            //if (response.DataTableResult != null && 
+            //    response.DataTableResult.Rows.Count > 0)
+            //{
+            //    oReturn = 
+            //        (from g in response.DataTableResult.AsEnumerable()
+            //               where !g.IsNull("CityId")
+            //               select new GeographyModel()
+            //               {
+            //                   Country = new GenericItemModel()
+            //                   {
+            //                       ItemId = g.Field<int>("CountryId"),
+            //                       ItemName = g.Field<string>("CountryName"),
+            //                   },
+            //                   State = new GenericItemModel()
+            //                   {
+            //                       ItemId = g.Field<int>("StateId"),
+            //                       ItemName = g.Field<string>("StateName"),
+            //                   },
+            //                   City = new GenericItemModel()
+            //                   {
+            //                       ItemId = g.Field<int>("CityId"),
+            //                       ItemName = g.Field<string>("CityName"),
+            //                   },
+            //               }).ToList();
+            //}
+
+            return oReturn;
         }
 
         public List<GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
