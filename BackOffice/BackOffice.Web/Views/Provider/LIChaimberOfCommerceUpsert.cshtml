@@ -14,7 +14,6 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <label class="POBOSectionTitles">Camara y comercio</label>
         @{
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
@@ -96,7 +95,11 @@
                 new
                 {
                     ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
-                }))">   
+                }))">
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
             <ul>
                 <li>
                     <label>Nombre</label>
@@ -154,8 +157,13 @@
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 <input type="hidden" name="StepAction" id="StepAction" value="" />
             </div>
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </form>
-        <br />
+
+        <label>Socios, Miembros junta directiva, entre otros</label>
         <div id="divGridChaimberOfComerce"></div>
         <br />
         @{
@@ -212,5 +220,5 @@
             });
             Provider_LegalInfoObject.RenderAsync();
         });
-</script>
+    </script>
 }
