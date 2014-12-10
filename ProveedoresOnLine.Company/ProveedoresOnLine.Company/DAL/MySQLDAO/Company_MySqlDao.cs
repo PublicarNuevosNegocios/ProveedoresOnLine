@@ -182,6 +182,16 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             throw new NotImplementedException();
         }
 
+        public List<GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<GenericItemModel> CategorySearchByCustomActivity(string SearchParam, int PageNumber, int RowCount)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Company
@@ -470,5 +480,6 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
+
     }
 }

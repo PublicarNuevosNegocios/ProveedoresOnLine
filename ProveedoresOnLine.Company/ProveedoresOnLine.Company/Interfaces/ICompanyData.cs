@@ -30,9 +30,9 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount);
 
-        //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByDefaultActivity(string SearchParam, int vPageNumber, int vRowCount);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount);
 
-        //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByCustomActivity(string SearchParam, int vPageNumber, int vRowCount);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByCustomActivity(string SearchParam, int PageNumber, int RowCount);
 
         #endregion
 
