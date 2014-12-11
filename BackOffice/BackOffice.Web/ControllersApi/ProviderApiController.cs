@@ -441,28 +441,30 @@ namespace BackOffice.Web.ControllersApi
         {
             List<BackOffice.Models.Provider.ProviderComercialViewModel> oReturn = new List<Models.Provider.ProviderComercialViewModel>();
 
-            //if (CICommercialGetByType == "true")
-            //{
-            //    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCommercial = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
-            //        (ProviderPublicId,
-            //        string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()));
+            if (CICommercialGetByType == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
+                    (ProviderPublicId,
+                    string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()));
 
-            //    List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
 
-            //    if (oContact != null)
-            //    {
-            //        if (ContactType == ((int)BackOffice.Models.General.enumContactType.Brach).ToString())
-            //        {
-            //            oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0);
-            //        }
+                if (oCommercial != null)
+                {
+                    if (CommercialType == ((int)BackOffice.Models.General.enumComercialType.Experience).ToString())
+                    {
+                        oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
+                        oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
+                    }
 
-            //        oContact.All(x =>
-            //        {
-            //            oReturn.Add(new BackOffice.Models.Provider.ProviderContactViewModel(x, oCities));
-            //            return true;
-            //        });
-            //    }
-            //}
+                    oCommercial.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderComercialViewModel(x, oActivity, oCustomActivity));
+                        return true;
+                    });
+                }
+            }
 
             return oReturn;
         }

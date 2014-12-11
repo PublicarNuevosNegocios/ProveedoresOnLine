@@ -1151,11 +1151,12 @@ var Provider_CompanyCertificationObject = {
             columns: [{
                 field: 'CertificationId',
                 title: 'Id',
+                width: '50px',
             }, {
                 field: 'CertificationName',
                 title: 'Nombre',
             }, {
-                field: 'C_CertificationCompany',
+                field: 'C_CertificationCompanyName',
                 title: 'Empresa Certificadora',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
@@ -1179,7 +1180,7 @@ var Provider_CompanyCertificationObject = {
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: "CompanyRulesName",
+                        dataTextField: "ItemName",
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
@@ -1209,7 +1210,7 @@ var Provider_CompanyCertificationObject = {
                     });
                 },
             }, {
-                field: 'C_Rule',
+                field: 'C_RuleName',
                 title: 'Norma',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
@@ -1233,7 +1234,7 @@ var Provider_CompanyCertificationObject = {
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: "RuleName",
+                        dataTextField: "ItemName",
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
@@ -1265,6 +1266,7 @@ var Provider_CompanyCertificationObject = {
             }, {
                 field: 'C_StartDateCertification',
                 title: 'Fecha Certificación',
+                width: '100px',
                 format: Provider_CompanyCertificationObject.DateFormat,
                 editor: function (container, options) {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
@@ -1274,6 +1276,7 @@ var Provider_CompanyCertificationObject = {
             }, {
                 field: 'C_EndDateCertification',
                 title: 'Fecha Caducidad',
+                width: '100px',
                 format: Provider_CompanyCertificationObject.DateFormat,
                 editor: function (container, options) {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
@@ -1283,10 +1286,10 @@ var Provider_CompanyCertificationObject = {
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
+                width: '60px',
             }, {
                 field: 'C_CertificationFile',
                 title: 'Archivo Certificación',
-                width: '200px',
                 template: function (dataItem) {
                     var oReturn;
 
