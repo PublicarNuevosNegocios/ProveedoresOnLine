@@ -187,7 +187,7 @@
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
-            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionCertification =
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionLegal =
                 Model.ProviderOptions.
                 GroupBy(x => x.CatalogId).
                 Select(x =>
@@ -198,7 +198,7 @@
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
             oChaimberOfComerceOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(oOptionCertification.Select(x => new { Key = x.Key, Value = x.Value }));
+                Serialize(oOptionLegal.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
@@ -213,6 +213,7 @@
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.ChaimberOfCommerce)',
                 ChaimberOfComerceOptionList : vChaimberOfComerceOptionList,
+                LegalId: '@Model.RelatedProvider.RelatedLegal.FirstOrDefault().ItemId',
             })
             UploadFile({
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',

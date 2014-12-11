@@ -1367,16 +1367,16 @@ var Provider_LegalInfoObject = {
     ProviderPublicId: '',
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
-
+    LegalId: '',
     Init: function (vInitiObject) {
-        debugger;
+        
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
         this.LegalInfoType = vInitiObject.LegalInfoType;
         this.ChaimberOfComerceOptionList = vInitiObject.ChaimberOfComerceOptionList;
-
+        this.LegalId = vInitiObject.LegalId;
         //Load AutoComplete 
         Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
 
@@ -1436,11 +1436,11 @@ var Provider_LegalInfoObject = {
                 },
                 transport: {
                     read: function (options) {
+                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
-                            success: function (result) {
-                                debugger;
+                            success: function (result) {                                
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1448,16 +1448,15 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
-                    create: function (options) {
+                    create: function (options) {                        
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
                             type: 'post',
                             data: {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
-                            success: function (result) {
-                                debugger;
+                            success: function (result) {                                                 
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1467,7 +1466,7 @@ var Provider_LegalInfoObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1485,9 +1484,6 @@ var Provider_LegalInfoObject = {
             },
             columns: [
                 {
-                    field: 'LegalId',
-                    title: 'Id',
-                }, {
                     field: 'CP_PartnerName',
                     title: 'Nombre',
                 }, {
