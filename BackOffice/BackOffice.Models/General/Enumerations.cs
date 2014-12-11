@@ -25,7 +25,6 @@
         DistributorType = 211,
 
         CommercialType = 301,
-
         ExperienceInfoType = 302,
 
         LegalType = 601,
@@ -118,7 +117,7 @@
     /// <summary>
     /// Comercial type
     /// </summary>
-    public enum enumComercialType
+    public enum enumCommercialType
     {
         Experience = 301001,
     }

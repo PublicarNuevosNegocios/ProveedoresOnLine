@@ -380,7 +380,12 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = string.IsNullOrEmpty(oDataToUpsert.DT_DateIssue) ?
                             string.Empty :
-                            DateTime.ParseExact(oDataToUpsert.DT_DateIssue, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
+                            oDataToUpsert.DT_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.DT_DateIssue :
+                            DateTime.ParseExact(
+                                oDataToUpsert.DT_DateIssue,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
                             ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = true,
                     });
@@ -394,6 +399,8 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = string.IsNullOrEmpty(oDataToUpsert.DT_DueDate) ?
                             string.Empty :
+                            oDataToUpsert.DT_DueDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.DT_DueDate :
                             DateTime.ParseExact(oDataToUpsert.DT_DueDate, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
                             ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = true,
@@ -452,7 +459,7 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oCommercial != null)
                 {
-                    if (CommercialType == ((int)BackOffice.Models.General.enumComercialType.Experience).ToString())
+                    if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
                     {
                         oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
                         oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);

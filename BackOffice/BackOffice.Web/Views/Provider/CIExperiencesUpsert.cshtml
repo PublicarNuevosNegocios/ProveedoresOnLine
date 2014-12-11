@@ -36,7 +36,12 @@
     </div>
     <div id="divExperience_File">
         <div>
-            <a target="_blank" href="${DT_DistributorFile}">Ver archivo</a>
+            <a target="_blank" href="${EX_ExperienceFile}">Ver archivo</a>
+        </div>
+    </div>
+    <div id="divExperience_TextArea">
+        <div>
+            <textarea>${EX_ContractSubject}</textarea>
         </div>
     </div>
 </div>
@@ -73,14 +78,14 @@
     <script type="text/javascript">
         var vProviderOptions = @(Html.Raw(oProviderOptions));
         $(document).ready(function () {
-            Provider_CompanyComercialObject.Init({
+            Provider_CompanyCommercialObject.Init({
                 ObjectId: 'divExperience',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ContactType: '@((int)BackOffice.Models.General.enumComercialType.Experience)',
+                CommercialType: '@((int)BackOffice.Models.General.enumCommercialType.Experience)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 ProviderOptions: vProviderOptions,
             });
-            Provider_CompanyComercialObject.RenderAsync();
+            Provider_CompanyCommercialObject.RenderAsync();
         });
     </script>
 }

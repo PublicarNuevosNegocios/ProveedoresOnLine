@@ -65,11 +65,11 @@ var Provider_CompanyContactObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: "ContactId",
+                        id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
                             ContactName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: "boolean", defaultValue: true },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             CC_CompanyContactType: { editable: true },
                             CC_CompanyContactTypeId: { editable: false },
@@ -129,7 +129,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'ContactId',
                 title: 'Id',
-                width: "50px",
+                width: '50px',
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
@@ -163,7 +163,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
-                width: "100px",
+                width: '100px',
             }],
         });
     },
@@ -182,11 +182,11 @@ var Provider_CompanyContactObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: "ContactId",
+                        id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
                             ContactName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: "boolean", defaultValue: true },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             CP_PersonContactType: { editable: true },
                             CP_PersonContactTypeId: { editable: false },
@@ -267,15 +267,15 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'ContactId',
                 title: 'Id',
-                width: "50px",
+                width: '50px',
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'CP_PersonContactType',
                 title: 'Tipo de representante',
-                width: "200px",
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_PersonContactType != null) {
@@ -300,7 +300,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationType',
                 title: 'Tipo de identificación',
-                width: "200px",
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_IdentificationType != null) {
@@ -317,35 +317,35 @@ var Provider_CompanyContactObject = {
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyContactObject.ProviderOptions[101],
-                            dataTextField: "ItemName",
-                            dataValueField: "ItemId",
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
                         });
                 },
             }, {
                 field: 'CP_IdentificationNumber',
                 title: 'Número de identificación',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'CP_IdentificationCity',
                 title: 'Ciudad de expedicion del documento',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'CP_Email',
                 title: 'Correo electronico',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'CP_Negotiation',
                 title: 'Capacidad de negociación',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'CP_IdentificationFile',
                 title: 'Doc representante legal.',
-                width: "400px",
+                width: '400px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
@@ -399,7 +399,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
-                width: "100px",
+                width: '100px',
             }],
         });
     },
@@ -418,11 +418,11 @@ var Provider_CompanyContactObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: "ContactId",
+                        id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
                             ContactName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: "boolean", defaultValue: true },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             BR_Representative: { editable: true },
                             BR_RepresentativeId: { editable: false },
@@ -504,23 +504,23 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'ContactId',
                 title: 'Id',
-                width: "50px",
+                width: '50px',
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Representative',
                 title: 'Representante',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
-                width: "350px",
+                width: '350px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -537,14 +537,14 @@ var Provider_CompanyContactObject = {
                 editor: function (container, options) {
 
                     // create an input element
-                    var input = $("<input/>");
+                    var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
-                    input.attr("value", options.model[options.field]);
+                    input.attr('value', options.model[options.field]);
                     // append it to the container
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: "ItemName",
+                        dataTextField: 'ItemName',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
@@ -554,7 +554,7 @@ var Provider_CompanyContactObject = {
                             options.model.dirty = true;
                         },
                         dataSource: {
-                            type: "json",
+                            type: 'json',
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
@@ -576,31 +576,31 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Phone',
                 title: 'Teléfono',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Fax',
                 title: 'Fax',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Email',
                 title: 'Correo electrónico',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Website',
                 title: 'Página web',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Latitude',
                 title: 'Latitud',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'BR_Longitude',
                 title: 'Longitud',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
-                width: "100px",
+                width: '100px',
             }],
         });
     },
@@ -619,11 +619,11 @@ var Provider_CompanyContactObject = {
             dataSource: {
                 schema: {
                     model: {
-                        id: "ContactId",
+                        id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
                             ContactName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: "boolean", defaultValue: true },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             DT_DistributorType: { editable: true },
                             DT_DistributorTypeId: { editable: false },
@@ -702,15 +702,15 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'ContactId',
                 title: 'Id',
-                width: "50px",
+                width: '50px',
             }, {
                 field: 'ContactName',
                 title: 'Razón social',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'DT_DistributorType',
                 title: 'Tipo de distribuidor',
-                width: "200px",
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.DT_DistributorType != null) {
@@ -727,27 +727,27 @@ var Provider_CompanyContactObject = {
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyContactObject.ProviderOptions[211],
-                            dataTextField: "ItemName",
-                            dataValueField: "ItemId",
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
                         });
                 },
             }, {
                 field: 'DT_Representative',
                 title: 'Representante comercial',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'DT_Email',
                 title: 'Correo electronico',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'DT_Phone',
                 title: 'Telefono',
-                width: "200px",
+                width: '200px',
             }, {
                 field: 'DT_CityName',
                 title: 'Ciudad',
-                width: "350px",
+                width: '350px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.DT_CityName != null) {
@@ -764,14 +764,14 @@ var Provider_CompanyContactObject = {
                 editor: function (container, options) {
 
                     // create an input element
-                    var input = $("<input/>");
+                    var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
-                    input.attr("value", options.model[options.field]);
+                    input.attr('value', options.model[options.field]);
                     // append it to the container
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: "ItemName",
+                        dataTextField: 'ItemName',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
@@ -781,7 +781,7 @@ var Provider_CompanyContactObject = {
                             options.model.dirty = true;
                         },
                         dataSource: {
-                            type: "json",
+                            type: 'json',
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
@@ -813,7 +813,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'DT_DueDate',
                 title: 'Fecha de vencimiento',
-                width: "200px",
+                width: '200px',
                 format: Provider_CompanyContactObject.DateFormat,
                 editor: function (container, options) {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
@@ -823,7 +823,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'DT_DistributorFile',
                 title: 'Doc soporte.',
-                width: "400px",
+                width: '400px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_DistributorFile != null && dataItem.DT_DistributorFile.length > 0) {
@@ -874,153 +874,330 @@ var Provider_CompanyContactObject = {
                         }
                     });
                 },
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
             }],
         });
     },
 };
 
 /*CompanyComercialObject*/
-var Provider_CompanyComercialObject = {
+var Provider_CompanyCommercialObject = {
 
     ObjectId: '',
     ProviderPublicId: '',
-    ComercialType: '',
+    CommercialType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.ProviderPublicId = vInitObject.ProviderPublicId;
-        this.ContactType = vInitObject.ContactType;
+        this.CommercialType = vInitObject.CommercialType;
         this.DateFormat = vInitObject.DateFormat;
         if (vInitObject.ProviderOptions != null) {
             $.each(vInitObject.ProviderOptions, function (item, value) {
-                Provider_CompanyComercialObject.ProviderOptions[value.Key] = value.Value;
+                Provider_CompanyCommercialObject.ProviderOptions[value.Key] = value.Value;
             });
         }
     },
 
     RenderAsync: function () {
-        if (Provider_CompanyComercialObject.ComercialType == 301001) {
-            Provider_CompanyComercialObject.RenderExperience();
+        debugger;
+        if (Provider_CompanyCommercialObject.CommercialType == 301001) {
+            Provider_CompanyCommercialObject.RenderExperience();
         }
     },
 
     RenderExperience: function () {
-        //$('#' + Provider_CompanyComercialObject.ObjectId).kendoGrid({
-        //    editable: true,
-        //    navigatable: true,
-        //    pageable: false,
-        //    scrollable: true,
-        //    toolbar: [
-        //        { name: 'create', text: 'Nuevo' },
-        //        { name: 'save', text: 'Guardar' },
-        //        { name: 'cancel', text: 'Descartar' }
-        //    ],
-        //    dataSource: {
-        //        schema: {
-        //            model: {
-        //                id: "ContactId",
-        //                fields: {
-        //                    ContactId: { editable: false, nullable: true },
-        //                    ContactName: { editable: true, validation: { required: true } },
-        //                    Enable: { editable: true, type: "boolean", defaultValue: true },
+        $('#' + Provider_CompanyCommercialObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'CommercialId',
+                        fields: {
+                            CommercialId: { editable: false, nullable: true },
+                            CommercialName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
 
-        //                    CC_CompanyContactType: { editable: true },
-        //                    CC_CompanyContactTypeId: { editable: false },
+                            EX_ContractType: { editable: true },
+                            EX_ContractTypeId: { editable: false },
 
-        //                    CC_Value: { editable: true },
-        //                    CC_ValueId: { editable: false },
-        //                }
-        //            }
-        //        },
-        //        transport: {
-        //            read: function (options) {
-        //                $.ajax({
-        //                    url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
-        //                    dataType: 'json',
-        //                    success: function (result) {
-        //                        options.success(result);
-        //                    },
-        //                    error: function (result) {
-        //                        options.error(result);
-        //                    }
-        //                });
-        //            },
-        //            create: function (options) {
-        //                $.ajax({
-        //                    url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
-        //                    dataType: 'json',
-        //                    type: 'post',
-        //                    data: {
-        //                        DataToUpsert: kendo.stringify(options.data)
-        //                    },
-        //                    success: function (result) {
-        //                        options.success(result);
-        //                    },
-        //                    error: function (result) {
-        //                        options.error(result);
-        //                    }
-        //                });
-        //            },
-        //            update: function (options) {
-        //                $.ajax({
-        //                    url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
-        //                    dataType: 'json',
-        //                    type: 'post',
-        //                    data: {
-        //                        DataToUpsert: kendo.stringify(options.data)
-        //                    },
-        //                    success: function (result) {
-        //                        options.success(result);
-        //                    },
-        //                    error: function (result) {
-        //                        options.error(result);
-        //                    }
-        //                });
-        //            },
-        //        },
-        //    },
-        //    columns: [{
-        //        field: 'ContactId',
-        //        title: 'Id',
-        //        width: "50px",
-        //    }, {
-        //        field: 'ContactName',
-        //        title: 'Nombre',
-        //    }, {
-        //        field: 'CC_CompanyContactType',
-        //        title: 'Tipo de contacto',
-        //        template: function (dataItem) {
-        //            var oReturn = 'Seleccione una opción.';
-        //            if (dataItem != null && dataItem.CC_CompanyContactType != null) {
-        //                $.each(Provider_CompanyContactObject.ProviderOptions[209], function (item, value) {
-        //                    if (dataItem.CC_CompanyContactType == value.ItemId) {
-        //                        oReturn = value.ItemName;
-        //                    }
-        //                });
-        //            }
-        //            return oReturn;
-        //        },
-        //        editor: function (container, options) {
-        //            $('<input required data-bind="value:' + options.field + '"/>')
-        //                .appendTo(container)
-        //                .kendoDropDownList({
-        //                    dataSource: Provider_CompanyContactObject.ProviderOptions[209],
-        //                    dataTextField: 'ItemName',
-        //                    dataValueField: 'ItemId',
-        //                    optionLabel: 'Seleccione una opción'
-        //                });
-        //        },
-        //    }, {
-        //        field: 'CC_Value',
-        //        title: 'Valor',
-        //    }, {
-        //        field: 'Enable',
-        //        title: 'Habilitado',
-        //        width: "100px",
-        //    }],
-        //});
+                            EX_Currency: { editable: true },
+                            EX_CurrencyId: { editable: false },
+
+                            EX_DateIssue: { editable: true },
+                            EX_DateIssueId: { editable: false },
+
+                            EX_DueDate: { editable: true },
+                            EX_DueDateId: { editable: false },
+
+                            EX_Client: { editable: true },
+                            EX_ClientId: { editable: false },
+
+                            EX_ContractNumber: { editable: true },
+                            EX_ContractNumberId: { editable: false },
+
+                            EX_ContractValue: { editable: true },
+                            EX_ContractValueId: { editable: false },
+
+                            EX_Phone: { editable: true },
+                            EX_PhoneId: { editable: false },
+
+                            EX_BuiltArea: { editable: true },
+                            EX_BuiltAreaId: { editable: false },
+
+                            EX_BuiltUnit: { editable: true },
+                            EX_BuiltUnitId: { editable: false },
+
+                            EX_ExperienceFile: { editable: true },
+                            EX_ExperienceFileId: { editable: false },
+
+                            EX_ContractSubject: { editable: true },
+                            EX_ContractSubjectId: { editable: false },
+
+                            EX_EconomicActivity: { editable: true },
+
+                            EX_CustomEconomicActivity: { editable: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'CommercialId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'CommercialName',
+                title: 'Nombre',
+            }, {
+                field: 'EX_ContractType',
+                title: 'Tipo de contrato',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.EX_ContractType != null) {
+                        $.each(Provider_CompanyCommercialObject.ProviderOptions[303], function (item, value) {
+                            if (dataItem.EX_ContractType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[303],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'EX_Currency',
+                title: 'Moneda',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.EX_Currency != null) {
+                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
+                            if (dataItem.EX_Currency == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'EX_DateIssue',
+                title: 'Inicio',
+                width: '200px',
+                format: Provider_CompanyCommercialObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            }, {
+                field: 'EX_DueDate',
+                title: 'Fin',
+                width: '200px',
+                format: Provider_CompanyCommercialObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            }, {
+                field: 'EX_Client',
+                title: 'Cliente',
+                width: '200px',
+            }, {
+                field: 'EX_ContractNumber',
+                title: 'Número de contrato',
+                width: '200px',
+            }, {
+                field: 'EX_ContractNumber',
+                title: 'Número de contrato',
+                width: '200px',
+            }, {
+                field: 'EX_ContractValue',
+                title: 'Valor de contrato',
+                width: '200px',
+            }, {
+                field: 'EX_Phone',
+                title: 'Telefono',
+                width: '200px',
+            }, {
+                field: 'EX_BuiltArea',
+                title: 'Area contruida (m2)',
+                width: '200px',
+            }, {
+                field: 'EX_BuiltUnit',
+                title: 'Unidades construidas',
+                width: '200px',
+            }, {
+                field: 'EX_ContractSubject',
+                title: 'Objeto del contrato',
+                width: '400px',
+                template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_TextArea'),
+            }, {
+                field: 'EX_EconomicActivity',
+                title: 'Actividad economica',
+                width: '400px',
+            }, {
+                field: 'EX_CustomEconomicActivity',
+                title: 'Actividad economica personalizada',
+                width: '400px',
+            }, {
+                field: 'EX_ExperienceFile',
+                title: 'Doc soporte.',
+                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.EX_ExperienceFile != null && dataItem.EX_ExperienceFile.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyCommercialObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyCommercialObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${EX_ExperienceFile}/gi, dataItem.DT_DistributorFile);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+            }],
+        });
     },
 };
 
