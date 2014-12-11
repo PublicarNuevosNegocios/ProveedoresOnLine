@@ -20,9 +20,11 @@ namespace BackOffice.Models.Provider
 
         public string C_CertificationCompany { get; set; }
         public string C_CertificationCompanyId { get; set; }
+        public string C_CertificationCompanyName { get; set; }
 
         public string C_Rule { get; set; }
         public string C_RuleId { get; set; }
+        public string C_RuleName { get; set; }
 
         public string C_StartDateCertification { get; set; }
         public string C_StartDateCertificationId { get; set; }
@@ -111,7 +113,9 @@ namespace BackOffice.Models.Provider
 
         public ProviderHSEQViewModel() { }
 
-        public ProviderHSEQViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedCertification)
+        public ProviderHSEQViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedCertification,
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule,
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule)
         {
             RelatedCertification = oRelatedCertification;
             CertificationId = RelatedCertification.ItemId.ToString();
@@ -132,6 +136,15 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            if (oCompanyRule != null && oCompanyRule.Count > 0)
+            {
+                C_CertificationCompanyName = oCompanyRule.
+                    Where(x => x.ItemId.ToString() == C_CertificationCompany).
+                    Select(x => x.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+
             C_Rule = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.C_Rule).
                 Select(y => y.Value).
@@ -143,6 +156,15 @@ namespace BackOffice.Models.Provider
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            if (oRule != null && oRule.Count > 0)
+            {
+                C_RuleName = oRule.
+                    Where(x => x.ItemId.ToString() == C_Rule).
+                    Select(x => x.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
 
             C_StartDateCertification = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.C_StartDateCertification).

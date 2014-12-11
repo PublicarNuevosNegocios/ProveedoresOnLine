@@ -169,17 +169,113 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         public List<GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstparams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstparams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByRule",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from g in response.DataTableResult.AsEnumerable()
+                     where !g.IsNull("RuleId")
+                     select new GenericItemModel() 
+                     {
+                         ItemId = g.Field<int>("RuleId"),
+                         ItemName = g.Field<string>("RuleName"),
+                         Enable = g.Field<UInt64>("RuleEnable") == 1 ? true : false,
+                         LastModify = g.Field<DateTime>("RuleModify"),
+                         CreateDate = g.Field<DateTime>("RuleCreate"),
+                     }).ToList();
+            }
+
+            return oReturn;
         }
 
         public List<GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstparams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstparams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByCompanyRules",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from g in response.DataTableResult.AsEnumerable()
+                     where !g.IsNull("CompanyRulesId")
+                     select new GenericItemModel()
+                     {
+                         ItemId = g.Field<int>("CompanyRulesId"),
+                         ItemName = g.Field<string>("CompanyRulesName"),
+                         Enable = g.Field<UInt64>("CompanyRulesEnable") == 1 ? true : false,
+                         LastModify = g.Field<DateTime>("CompanyRulesModify"),
+                         CreateDate = g.Field<DateTime>("CompanyRulesCreate"),
+                     }).ToList();
+            }
+
+            return oReturn;
         }
 
         public List<GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstparams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstparams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByResolution",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from g in response.DataTableResult.AsEnumerable()
+                     where !g.IsNull("ResolutionId")
+                     select new GenericItemModel()
+                     {
+                         ItemId = g.Field<int>("ResolutionId"),
+                         ItemName = g.Field<string>("ResolutionName"),
+                         Enable = g.Field<UInt64>("ResolutionEnable") == 1 ? true : false,
+                         LastModify = g.Field<DateTime>("ResolutionModify"),
+                         CreateDate = g.Field<DateTime>("ResolutionCreate"),
+                     }).ToList();
+            }
+
+            return oReturn;
         }
 
         public List<GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)

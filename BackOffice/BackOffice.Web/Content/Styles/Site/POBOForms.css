@@ -4,6 +4,14 @@
     font-size: 0.9em;
     letter-spacing: -0.7px; 
 }
+.POBOSectionTitles {
+    font-size:1.5em;
+    font-weight:normal;
+    display:block;
+    margin:0px 0px 7px 8px;
+    letter-spacing:-1px;
+    color:#4d4d4d;
+}
 .POBOProviderUpsertForm ul li,
 .POBOPCompulsoryFields{
     margin:4px 0px 0px 8px;
