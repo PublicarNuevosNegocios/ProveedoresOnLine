@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Busqueda de proveedores";
+    Layout = MVC.Shared.Views._Layout;
+}
+
+<div class="POBOProviderWrapper">
+    <div class="POBOPTopSearchBar">
+        <ul>
+            <li>
+                <input class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" />
+                <a class="POBOSearchButtons" href="">Encontrar</a>
+            </li>
+            <li>
+                <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>
+            </li>
+            <li>
+                <a class="POBOButtons" href="">Dercargar excel</a>
+            </li>
+        </ul>
+    </div>
+    <div class="POBOPSideFilterWrapper">
+        <span class="POBOPSideBlockTitle">Filtrar por:</span>
+        <ul>
+            <li>
+                <input type="checkbox" /><span>Filtro 1</span>
+            </li>
+        </ul>
+    </div>
+    <div class="POBOPClientListWrapper">
+        <div id="divProviderSearch_Grid"></div>
+    </div>
+</div>
+

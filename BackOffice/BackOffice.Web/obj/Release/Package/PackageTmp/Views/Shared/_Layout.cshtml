@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - ProveedoresOnLine</title>
+    @*bundle render styles*@
+    @Styles.Render("~/site/styles/jquery")
+    @Styles.Render("~/site/styles/bootstrap")
+    @Styles.Render("~/site/styles/kendo")
+    @Styles.Render("~/site/styles")
+</head>
+<body>
+    <div class="POBORenderHeader">
+        <!--Render header-->
+        @Html.Partial(MVC.Shared.Views.ViewNames._L_Header)
+    </div>
+
+    <div class="POBORenderBody">
+        <!--Render body-->
+        @RenderBody()
+    </div>
+    <div id="POBORenderFooter">
+        <!--Render footer-->
+        @Html.Partial(MVC.Shared.Views.ViewNames._L_Footer)
+    </div>
+
+    @*bundle render scripts*@
+    @Scripts.Render("~/site/scripts/jquery")
+    @Scripts.Render("~/site/scripts/jqueryval")
+    @Scripts.Render("~/site/scripts/modernizr")
+    @Scripts.Render("~/site/scripts/bootstrap")
+    @Scripts.Render("~/site/scripts/kendo")
+    @Scripts.Render("~/site/scripts")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //start base url object
+            BaseUrl.Init({
+                ApiUrl: '@(Url.Content("~/api"))',
+                SiteUrl: '@(Url.Content("~/"))',
+            });
+        });
+    </script>
+
+    @RenderSection("inlinescripts", required: false)
+</body>
+</html>

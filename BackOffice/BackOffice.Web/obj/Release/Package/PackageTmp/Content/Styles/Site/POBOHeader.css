@@ -1,0 +1,122 @@
+/*****************UserInfo************************/
+.POBOHeaderWrapper {
+    display:block;
+    width: 100%;
+    min-width:1024px;
+    height: auto;
+    margin: 0px;
+    text-align: left;
+    border-bottom:2px solid #ff8300;
+}
+/****************Logo*******************/
+.POBOLogo{
+    display: inline-block;
+    width: 257px;
+    height: 85px;
+    vertical-align: top;
+    margin: 15px 0px 8px 14px;
+    background-image:url(../../Images/POBOsprite.png);
+    background-size:546px auto;
+    background-position:-3px -50px;
+    background-repeat:no-repeat;
+        border:none;
+}
+/*************** USER MENU ***************/
+.POBOMenusGrandWrapper {
+        border:none;
+    float: right;
+    margin: 2px 0 0 2px;
+    text-align: right;
+}
+.POBOUserMenu {
+        border:none;
+    width:auto; height:auto;
+    display:block;
+    padding:0px 8px 0px 0px;
+}
+    .POBOUserMenu img{
+        width: 22px;
+        height: 22px;
+        border:0.7px solid #4d4d4d;
+        vertical-align:top;
+    }
+    .POBOUserMenu label{
+        line-height:12px;
+        color:#666;
+        font-weight:normal;
+        vertical-align:top;
+        margin: 5px 0 0;
+    }
+    .POBOUserMenu div{
+        display:inline-block;
+        width:22px; height:22px;
+        background-image:url(../../Images/POBOsprite.png);
+        background-size:470px auto;
+        background-position:-245px -3px;
+        background-repeat:no-repeat;
+        vertical-align:top;
+        margin: 0 0 0 6px;
+    }
+.POBOUserMenuOptions{
+    background-color: #ececec;
+        border: 1px solid #666;
+    height: 26px;
+    margin: 0;
+    position: absolute;
+    right: 31px;
+    top: 23px;
+    width: 150px;
+    z-index:5;
+}
+    .POBOUserMenuOptions ul li, .POBOUserMenuOptions ul li a{
+            border:none;
+        display: block;
+        height: 26px;
+        width: 150px;
+    }
+        .POBOUserMenuOptions ul li{
+            margin: 0 -41px;            
+        }            
+        .POBOUserMenuOptions ul li a {
+            margin: 0px;
+            text-indent:12px;
+            line-height:22px;
+        }
+/*************** MAIN MENU *************/
+.POBOMainMenuWrapper {
+        border:none;
+    height:auto;
+    margin:34px 0px 0px 0px;
+    display:block;
+    width: auto;
+    padding:0;
+}
+    .POBOMainMenuWrapper li{
+        display:inline-block;
+        padding:0px;
+        text-align:center;            
+            border:none;
+        height:38px;
+        vertical-align:top;
+    }
+    .POBOMainMenuWrapper li a{
+            border:none;
+        color: #666;
+        display: inline-block;
+        font-size: 1em;
+        height: 28px;
+        margin: 7px 0;
+        padding: 0 5px;
+        vertical-align: bottom;
+        letter-spacing:-0.4px;
+    }
+        .POBOMainMenuWrapper li a:hover, .POBOMainMenuWrapper li a.selected{
+            text-decoration:none;
+            border-bottom:8px solid #ff8300;
+        }
+    li.spacers {
+        border-left: 1px solid #727276;
+        height: 36px;
+        margin-top: 1px;
+        width: 2px;
+    }
