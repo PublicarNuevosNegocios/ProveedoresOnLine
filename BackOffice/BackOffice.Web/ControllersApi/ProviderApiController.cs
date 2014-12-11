@@ -1043,6 +1043,8 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                    lstUsedFiles.Add(oDataToUpsert.CH_PoliticsSecurity);
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsNoAlcoholId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsNoAlcoholId.Trim()),
@@ -1053,6 +1055,8 @@ namespace BackOffice.Web.ControllersApi
                             Value = oDataToUpsert.CH_PoliticsNoAlcohol,
                             Enable = true,
                         });
+
+                    lstUsedFiles.Add(oDataToUpsert.CH_PoliticsNoAlcohol);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -1065,6 +1069,8 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                    lstUsedFiles.Add(oDataToUpsert.CH_ProgramOccupationalHealth);
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_RuleIndustrialSecurityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_RuleIndustrialSecurityId.Trim()),
@@ -1075,6 +1081,8 @@ namespace BackOffice.Web.ControllersApi
                             Value = oDataToUpsert.CH_RuleIndustrialSecurity,
                             Enable = true,
                         });
+
+                    lstUsedFiles.Add(oDataToUpsert.CH_RuleIndustrialSecurity);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -1087,6 +1095,8 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                    lstUsedFiles.Add(oDataToUpsert.CH_MatrixRiskControl);
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_CorporateSocialResponsabilityId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_CorporateSocialResponsabilityId.Trim()),
@@ -1097,6 +1107,8 @@ namespace BackOffice.Web.ControllersApi
                             Value = oDataToUpsert.CH_CorporateSocialResponsability,
                             Enable = true,
                         });
+
+                    lstUsedFiles.Add(oDataToUpsert.CH_CorporateSocialResponsability);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -1109,6 +1121,8 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                    lstUsedFiles.Add(oDataToUpsert.CH_ProgramEnterpriseSecurity);
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsRecruimentId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsRecruimentId.Trim()),
@@ -1120,6 +1134,8 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                    lstUsedFiles.Add(oDataToUpsert.CH_PoliticsRecruiment);
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_CertificationsFormId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_CertificationsFormId.Trim()),
@@ -1130,6 +1146,8 @@ namespace BackOffice.Web.ControllersApi
                             Value = oDataToUpsert.CH_CertificationsForm,
                             Enable = true,
                         });
+
+                    lstUsedFiles.Add(oDataToUpsert.CH_CertificationsForm);
                 }
                 else if (oProvider.RelatedCertification.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)
                 {

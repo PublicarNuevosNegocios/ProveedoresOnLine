@@ -1351,13 +1351,74 @@ var Provider_CompanyCertificationObject = {
     },
 
     RenderCompanyHealthyPolitics: function () {
+        $('#' + Provider_CompanyCertificationObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    id: "CompanyHealthyPoliticsId",
+                    fields: {
+                        CH_Year: { editable: true },
+                        CH_YearId: { editable: false },
 
+                        CH_PoliticsSecurity: { editable: true },
+                        CH_PoliticsSecurityId: { editable: false },
+
+                        CH_PoliticsNoAlcohol: { editable: true },
+                        CH_PoliticsNoAlcoholId: { editable: false },
+
+                        CH_ProgramOccupationalHealth: { editable: true },
+                        CH_ProgramOccupationalHealthId: { editable: false },
+
+                        CH_RuleIndustrialSecurity: { editable: true },
+                        CH_RuleIndustrialSecurityId: { editable: false },
+
+                        CH_MatrixRiskControl: { editable: true },
+                        CH_MatrixRiskControlId: { editable: false },
+
+                        CH_CorporateSocialResponsability: { editable: true },
+                        CH_CorporateSocialResponsability: { editable: false },
+
+                        CH_ProgramEnterpriseSecurity: { editable: true },
+                        CH_ProgramEnterpriseSecurityId: { editable: false },
+
+                        CH_PoliticsRecruiment: { editable: true },
+                        CH_PoliticsRecruiment: { editable: false },
+
+                        CH_CertificationsForm: { editable: true },
+                        CH_CertificationsForm: { editable: false },
+                    },
+                },
+                transport: {
+                    read: function (options) {
+
+                    },
+                    create: function (options) {
+
+                    },
+                    update: function (options) {
+
+                    },
+                },
+            },
+            columns: [{
+            }],
+        });
     },
 
     RenderCompanyRiskPolicies: function () {
 
     },
 };
+
+
 
 var Provider_LegalInfoObject = {
 
@@ -1369,7 +1430,7 @@ var Provider_LegalInfoObject = {
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
     Init: function (vInitiObject) {
-        
+
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
         this.ObjectId = vInitiObject.ObjectId;
@@ -1440,7 +1501,7 @@ var Provider_LegalInfoObject = {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
-                            success: function (result) {                                
+                            success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1448,7 +1509,7 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
-                    create: function (options) {                        
+                    create: function (options) {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
@@ -1456,7 +1517,7 @@ var Provider_LegalInfoObject = {
                             data: {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
-                            success: function (result) {                                                 
+                            success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
