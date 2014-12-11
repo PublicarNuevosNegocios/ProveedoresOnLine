@@ -889,7 +889,7 @@ namespace BackOffice.Web.ControllersApi
 
                     oCertification.All(x =>
                         {
-                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oCompanyRule, oRule));
+                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oRule, oCompanyRule));
                             return true;
                         });
                 }
@@ -970,7 +970,10 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.C_StartDateCertification
                         },
-                        Value = oDataToUpsert.C_StartDateCertification,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.C_StartDateCertification) ?
+                            string.Empty :
+                            DateTime.ParseExact(oDataToUpsert.C_StartDateCertification, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = true,
                     });
 
@@ -981,7 +984,10 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.C_EndDateCertification
                         },
-                        Value = oDataToUpsert.C_EndDateCertification,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.C_EndDateCertification) ?
+                            string.Empty :
+                            DateTime.ParseExact(oDataToUpsert.C_EndDateCertification, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = true,
                     });
 
@@ -1290,7 +1296,7 @@ namespace BackOffice.Web.ControllersApi
         public BackOffice.Models.Provider.ProviderLegalViewModel LILegalInfoUpsert
             (string LILegalInfoUpsert,
             string ProviderPublicId,
-            string LegalInfoType)
+            string LegalInfoType, string LegalId)
         {
             BackOffice.Models.Provider.ProviderLegalViewModel oReturn = null;
 
@@ -1314,7 +1320,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
-                            ItemId = string.IsNullOrEmpty(oDataToUpsert.LegalId) ? 0 : Convert.ToInt32(oDataToUpsert.LegalId.Trim()),
+                            ItemId = string.IsNullOrEmpty(LegalId.Trim()) ? 0 : Convert.ToInt32(LegalId.Trim()),
                             ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
                                 ItemId = Convert.ToInt32(LegalInfoType.Trim()),

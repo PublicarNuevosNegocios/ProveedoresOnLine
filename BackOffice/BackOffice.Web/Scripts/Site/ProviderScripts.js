@@ -1449,7 +1449,7 @@ var Provider_CompanyCertificationObject = {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
-                }
+                },
             }, {
                 field: 'C_EndDateCertification',
                 title: 'Fecha Caducidad',
@@ -1459,7 +1459,7 @@ var Provider_CompanyCertificationObject = {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
-                }
+                },
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
@@ -1468,18 +1468,18 @@ var Provider_CompanyCertificationObject = {
                 field: 'C_CertificationFile',
                 title: 'Archivo Certificación',
                 template: function (dataItem) {
-                    var oReturn;
-
-                    if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.C_CertificationFile != null && dataItem.C_CertificationFile.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
+                        oReturn = oReturn + $('#' + Provider_CompanyCertificationObject.ObjectId + '_File').html();
                     }
                     else {
                         oReturn = $('#' + Provider_CompanyCertificationObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
+                    oReturn = oReturn.replace(/\${C_CertificationFile}/gi, dataItem.C_CertificationFile);
 
                     return oReturn;
                 },
@@ -1544,16 +1544,16 @@ var Provider_LegalInfoObject = {
     ProviderPublicId: '',
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
-
+    LegalId: '',
     Init: function (vInitiObject) {
-        debugger;
+        
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToRetornACId = vInitiObject.ControlToRetornACId;
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
         this.LegalInfoType = vInitiObject.LegalInfoType;
         this.ChaimberOfComerceOptionList = vInitiObject.ChaimberOfComerceOptionList;
-
+        this.LegalId = vInitiObject.LegalId;
         //Load AutoComplete 
         Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
 
@@ -1613,11 +1613,11 @@ var Provider_LegalInfoObject = {
                 },
                 transport: {
                     read: function (options) {
+                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
-                            success: function (result) {
-                                debugger;
+                            success: function (result) {                                
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1625,16 +1625,15 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
-                    create: function (options) {
+                    create: function (options) {                        
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
                             type: 'post',
                             data: {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
-                            success: function (result) {
-                                debugger;
+                            success: function (result) {                                                 
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1644,7 +1643,7 @@ var Provider_LegalInfoObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1662,9 +1661,6 @@ var Provider_LegalInfoObject = {
             },
             columns: [
                 {
-                    field: 'LegalId',
-                    title: 'Id',
-                }, {
                     field: 'CP_PartnerName',
                     title: 'Nombre',
                 }, {
