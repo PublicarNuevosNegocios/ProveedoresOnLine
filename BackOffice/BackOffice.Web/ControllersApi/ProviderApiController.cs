@@ -862,18 +862,18 @@ namespace BackOffice.Web.ControllersApi
         #region HSEQ
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Provider.ProviderHSEQViewModel> HICertificationGetByType
-            (string HICertificationGetByType,
+        public List<BackOffice.Models.Provider.ProviderHSEQViewModel> HIHSEQGetByType
+            (string HIHSEQGetByType,
             string ProviderPublicId,
-            string CertificationType)
+            string HSEQType)
         {
             List<BackOffice.Models.Provider.ProviderHSEQViewModel> oReturn = new List<Models.Provider.ProviderHSEQViewModel>();
 
-            if (HICertificationGetByType == "true")
+            if (HIHSEQGetByType == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(CertificationType) ? null : (int?)Convert.ToInt32(CertificationType.Trim()));
+                    string.IsNullOrEmpty(HSEQType) ? null : (int?)Convert.ToInt32(HSEQType.Trim()));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
@@ -881,7 +881,7 @@ namespace BackOffice.Web.ControllersApi
                 if (oCertification != null)
                 {
 
-                    if (CertificationType == ((int)BackOffice.Models.General.enumHSEQType.Certifications).ToString())
+                    if (HSEQType == ((int)BackOffice.Models.General.enumHSEQType.Certifications).ToString())
                     {
                         oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
                         oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
@@ -900,16 +900,16 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Provider.ProviderHSEQViewModel HICertificationUpsert
-            (string HICertificationUpsert,
+        public BackOffice.Models.Provider.ProviderHSEQViewModel HIHSEQUpsert
+            (string HIHSEQUpsert,
             string ProviderPublicId,
-            string CertificationType)
+            string HSEQType)
         {
             BackOffice.Models.Provider.ProviderHSEQViewModel oReturn = null;
 
-            if (HICertificationUpsert == "true" &&
+            if (HIHSEQUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
-                !string.IsNullOrEmpty(CertificationType))
+                !string.IsNullOrEmpty(HSEQType))
             {
                 List<string> lstUsedFiles = new List<string>();
 
@@ -932,7 +932,7 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = string.IsNullOrEmpty(oDataToUpsert.CertificationId) ? 0 : Convert.ToInt32(oDataToUpsert.CertificationId.Trim()),
                             ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = Convert.ToInt32(CertificationType.Trim()),
+                                ItemId = Convert.ToInt32(HSEQType.Trim()),
                             },
                             ItemName = oDataToUpsert.CertificationName,
                             Enable = oDataToUpsert.Enable,
@@ -972,6 +972,8 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = string.IsNullOrEmpty(oDataToUpsert.C_StartDateCertification) ?
                             string.Empty :
+                            oDataToUpsert.C_StartDateCertification.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.C_StartDateCertification :
                             DateTime.ParseExact(oDataToUpsert.C_StartDateCertification, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
                             ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = true,
@@ -986,6 +988,8 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = string.IsNullOrEmpty(oDataToUpsert.C_EndDateCertification) ?
                             string.Empty :
+                            oDataToUpsert.C_EndDateCertification.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.C_EndDateCertification :
                             DateTime.ParseExact(oDataToUpsert.C_EndDateCertification, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
                             ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = true,
