@@ -1281,7 +1281,7 @@ namespace BackOffice.Web.ControllersApi
         public BackOffice.Models.Provider.ProviderLegalViewModel LILegalInfoUpsert
             (string LILegalInfoUpsert,
             string ProviderPublicId,
-            string LegalInfoType)
+            string LegalInfoType, string LegalId)
         {
             BackOffice.Models.Provider.ProviderLegalViewModel oReturn = null;
 
@@ -1305,7 +1305,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
-                            ItemId = string.IsNullOrEmpty(oDataToUpsert.LegalId) ? 0 : Convert.ToInt32(oDataToUpsert.LegalId.Trim()),
+                            ItemId = string.IsNullOrEmpty(LegalId.Trim()) ? 0 : Convert.ToInt32(LegalId.Trim()),
                             ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
                                 ItemId = Convert.ToInt32(LegalInfoType.Trim()),
