@@ -1366,7 +1366,7 @@ var Provider_LegalInfoObject = {
     ObjectId: '',
     ProviderPublicId: '',
     LegalInfoType: '',
-    ChaimberOfComerceOptionList: '',
+    ChaimberOfComerceOptionList: new Array(),
 
     Init: function (vInitiObject) {
         debugger;
@@ -1440,6 +1440,7 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1449,13 +1450,14 @@ var Provider_LegalInfoObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
                             type: 'post',
                             data: {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -1481,16 +1483,20 @@ var Provider_LegalInfoObject = {
                     },
                 },
             },
-            columns: [{
-                field: 'CP_PartnerName',
-                title: 'Nombre',
-            }, {
-                field: 'CP_PartnerIdentificationNumber',
-                title: 'Número de Identificación',
-            }, {
-                field: 'CP_PartnerRank',
-                title: 'Cargo',
-            }],
+            columns: [
+                {
+                    field: 'LegalId',
+                    title: 'Id',
+                }, {
+                    field: 'CP_PartnerName',
+                    title: 'Nombre',
+                }, {
+                    field: 'CP_PartnerIdentificationNumber',
+                    title: 'Número de Identificación',
+                }, {
+                    field: 'CP_PartnerRank',
+                    title: 'Cargo',
+                }],
         });
     },
 
