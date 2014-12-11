@@ -1272,7 +1272,7 @@ var Provider_CompanyCertificationObject = {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
-                }
+                },
             }, {
                 field: 'C_EndDateCertification',
                 title: 'Fecha Caducidad',
@@ -1282,7 +1282,7 @@ var Provider_CompanyCertificationObject = {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
-                }
+                },
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
@@ -1291,18 +1291,18 @@ var Provider_CompanyCertificationObject = {
                 field: 'C_CertificationFile',
                 title: 'Archivo Certificación',
                 template: function (dataItem) {
-                    var oReturn;
-
-                    if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.C_CertificationFile != null && dataItem.C_CertificationFile.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
+                        oReturn = oReturn + $('#' + Provider_CompanyCertificationObject.ObjectId + '_File').html();
                     }
                     else {
                         oReturn = $('#' + Provider_CompanyCertificationObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CP_IdentificationFile}/gi, dataItem.CP_IdentificationFile);
+                    oReturn = oReturn.replace(/\${C_CertificationFile}/gi, dataItem.C_CertificationFile);
 
                     return oReturn;
                 },
