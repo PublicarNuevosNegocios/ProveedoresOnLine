@@ -40,5 +40,61 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.General.EconomicActivityViewModel> CategorySearchByActivity
+            (string CategorySearchByActivity, string SearchParam, string IsDefault)
+        {
+            List<BackOffice.Models.General.EconomicActivityViewModel> oReturn =
+                new List<BackOffice.Models.General.EconomicActivityViewModel>();
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivities = null;
+
+            if (CategorySearchByActivity == "true" && IsDefault == "true")
+            {
+                oActivities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity
+                    (string.IsNullOrEmpty(SearchParam) ? null : SearchParam,
+                        0,
+                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
+                            BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
+                        ].Value));
+            }
+            else if (CategorySearchByActivity == "true" && IsDefault == "true")
+            {
+                oActivities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity
+                    (string.IsNullOrEmpty(SearchParam) ? null : SearchParam,
+                        0,
+                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
+                            BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
+                        ].Value));
+            }
+
+            if (oActivities != null && oActivities.Count > 0)
+            {
+                oReturn = oActivities.Select(x => new BackOffice.Models.General.EconomicActivityViewModel()
+                {
+                    EconomicActivityId = x.ItemId,
+                    Name = x.ItemName,
+                    Type = x.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Type).
+                        Select(y => y.Value + " - " + y.ValueName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault(),
+                    Group = x.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Group).
+                        Select(y => y.Value + " - " + y.ValueName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault(),
+                    Category = x.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Category).
+                        Select(y => y.Value + " - " + y.ValueName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault(),
+                }).ToList();
+            }
+
+            return oReturn;
+        }
     }
 }
