@@ -24,7 +24,7 @@ div#POBORenderFooter {
     height:610px;
     min-width:1024px;
         border:none;
-    background-image:url('/Content/Images/POBOBackground3Small.jpg');
+    background-image:url('../../Images/POBOBackground3Small.jpg');
     background-size:100% auto;
     background-repeat:no-repeat;
     background-position:0px 0px;
