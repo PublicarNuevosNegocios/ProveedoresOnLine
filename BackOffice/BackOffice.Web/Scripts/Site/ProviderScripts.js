@@ -1543,6 +1543,10 @@ var Provider_CompanyHSEQObject = {
                     model: {
                         id: "CertificationId",
                         fields: {
+                            CertificationId: { editable: false, nullable: true },
+                            CertificationName: { editable: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
                             CH_Year: { editable: true },
                             CH_YearId: { editable: false },
 
@@ -1624,7 +1628,7 @@ var Provider_CompanyHSEQObject = {
             },
             columns: [{
                 field: 'CH_Year',
-                title: 'Año',                
+                title: 'Año',
             }, {
                 field: 'CH_PoliticsSecurity',
                 title: 'Política de Seguridad, Salud y Ambiente',
@@ -1640,7 +1644,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_PoliticsSecurity}/gi, dataItem.CH_PoliticsSecurity);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_PoliticsSecurity);
 
                     return oReturn;
                 },
@@ -1693,7 +1697,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_PoliticsNoAlcohol}/gi, dataItem.CH_PoliticsNoAlcohol);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_PoliticsNoAlcohol);
 
                     return oReturn;
                 },
@@ -1746,7 +1750,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_ProgramOccupationalHealth}/gi, dataItem.CH_ProgramOccupationalHealth);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_ProgramOccupationalHealth);
 
                     return oReturn;
                 },
@@ -1799,7 +1803,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_RuleIndustrialSecurity}/gi, dataItem.CH_RuleIndustrialSecurity);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_RuleIndustrialSecurity);
 
                     return oReturn;
                 },
@@ -1852,7 +1856,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_MatrixRiskControl}/gi, dataItem.CH_MatrixRiskControl);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_MatrixRiskControl);
 
                     return oReturn;
                 },
@@ -1905,7 +1909,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_CorporateSocialResponsability}/gi, dataItem.CH_CorporateSocialResponsability);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_CorporateSocialResponsability);
 
                     return oReturn;
                 },
@@ -1958,7 +1962,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_ProgramEnterpriseSecurity}/gi, dataItem.CH_ProgramEnterpriseSecurity);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_ProgramEnterpriseSecurity);
 
                     return oReturn;
                 },
@@ -2011,7 +2015,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_PoliticsRecruiment}/gi, dataItem.CH_PoliticsRecruiment);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_PoliticsRecruiment);
 
                     return oReturn;
                 },
@@ -2064,7 +2068,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${CH_CertificationsForm}/gi, dataItem.CH_CertificationsForm);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_CertificationsForm);
 
                     return oReturn;
                 },

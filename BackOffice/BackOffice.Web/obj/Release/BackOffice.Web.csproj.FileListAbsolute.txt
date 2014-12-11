@@ -4,10 +4,14 @@ C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\R
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Web.dll.config
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Web.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Web.pdb
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Models.dll
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Models.pdb
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\obj\Release\BackOffice.Web.csprojResolveAssemblyReference.cache
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\obj\Release\BackOffice.Web.dll
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\obj\Release\BackOffice.Web.pdb
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\ADO.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\Antlr3.Runtime.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\AWSSDK.dll
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Models.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\FileRepository.Manager.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\FileRepository.S3.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\LogManager.dll
@@ -36,9 +40,6 @@ C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\S
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.WebPages.Razor.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\T4MVCExtensions.dll
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\WebGrease.dll
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\BackOffice.Models.pdb
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\Newtonsoft.Json.xml
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Net.Http.Formatting.xml
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.Helpers.xml
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.Http.xml
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.Http.WebHost.xml
@@ -48,6 +49,5 @@ C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\S
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.WebPages.Deployment.xml
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.WebPages.Razor.xml
 C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Web.Optimization.xml
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\obj\Release\BackOffice.Web.csprojResolveAssemblyReference.cache
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\obj\Release\BackOffice.Web.dll
-C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\obj\Release\BackOffice.Web.pdb
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\Newtonsoft.Json.xml
+C:\Users\JOHMARVA\Source\Repos\ProveedoresOnLine\BackOffice\BackOffice.Web\bin\System.Net.Http.Formatting.xml
