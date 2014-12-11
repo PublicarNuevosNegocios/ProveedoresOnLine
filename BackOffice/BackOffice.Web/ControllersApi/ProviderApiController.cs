@@ -880,7 +880,7 @@ namespace BackOffice.Web.ControllersApi
 
                     oCertification.All(x =>
                         {
-                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oCompanyRule, oRule));
+                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oRule, oCompanyRule));
                             return true;
                         });
                 }
