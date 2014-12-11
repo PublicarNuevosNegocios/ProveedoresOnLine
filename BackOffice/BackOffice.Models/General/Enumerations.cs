@@ -39,6 +39,14 @@
 
     #region Util
 
+    public enum enumCategoryInfoType
+    {
+        Type = 102001,
+        Category = 102002,
+        Group = 102003,
+        IsCustom = 102004,
+    }
+
     #endregion
 
     #region Company
@@ -113,6 +121,26 @@
     public enum enumComercialType
     {
         Experience = 301001,
+    }
+
+    public enum enumExperienceInfoType
+    {
+        //Experience
+        EX_ContractType = 302001,
+        EX_Currency = 302002,
+        EX_DateIssue = 302003,
+        EX_DueDate = 302004,
+        EX_Client = 302005,
+        EX_ContractNumber = 302006,
+        EX_ContractValue = 302007,
+        EX_Phone = 302008,
+        EX_BuiltArea = 302009,
+        EX_BuiltUnit = 302010,
+        EX_ExperienceFile = 302011,
+        EX_ContractSubject = 302012,
+        EX_EconomicActivity = 302013,
+        EX_CustomEconomicActivity = 302014,
+
     }
 
     #endregion

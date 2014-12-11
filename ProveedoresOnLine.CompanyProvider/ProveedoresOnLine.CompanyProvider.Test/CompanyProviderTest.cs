@@ -8,8 +8,13 @@ namespace ProveedoresOnLine.CompanyProvider.Test
     public class CompanyProviderTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CommercialGetBasicInfo()
         {
+            List<Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
+                ("1D9B9580", null);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
         }
 
         [TestMethod]

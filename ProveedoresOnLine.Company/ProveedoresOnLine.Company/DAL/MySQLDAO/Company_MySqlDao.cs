@@ -280,12 +280,156 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         public List<GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByActivity",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ea in response.DataTableResult.AsEnumerable()
+                     where !ea.IsNull("CategoryId") &&
+                            !ea.IsNull("TreeId")
+                     group ea by new
+                     {
+                         TreeId = ea.Field<int>("TreeId"),
+                         TreeName = ea.Field<string>("TreeName"),
+                         TreeEnable = ea.Field<UInt64>("TreeEnable") == 1 ? true : false,
+
+                         CategoryId = ea.Field<int>("CategoryId"),
+                         CategoryName = ea.Field<string>("CategoryName"),
+                         CategoryEnable = ea.Field<UInt64>("CategoryEnable") == 1 ? true : false,
+
+                     } into eag
+                     select new GenericItemModel()
+                     {
+                         ItemId = eag.Key.TreeId,
+                         ItemName = eag.Key.CategoryName,
+                         Enable = eag.Key.CategoryEnable,
+                         ParentItem = new GenericItemModel()
+                         {
+                             ItemId = eag.Key.TreeId,
+                             ItemName = eag.Key.TreeName,
+                             Enable = eag.Key.TreeEnable,
+                         },
+                         ItemInfo =
+                            (from eai in response.DataTableResult.AsEnumerable()
+                             where !eai.IsNull("CategoryInfoId") &&
+                                     eai.Field<int>("CategoryId") == eag.Key.CategoryId
+                             group eai by new
+                             {
+                                 CategoryInfoId = eai.Field<int>("CategoryInfoId"),
+                                 CategoryInfoType = eai.Field<int>("CategoryInfoType"),
+                                 Value = eai.Field<string>("Value"),
+                                 ValueName = !eai.IsNull("CategoryTypeName") ? eai.Field<string>("CategoryTypeName") :
+                                    !eai.IsNull("CategoryCategoryName") ? eai.Field<string>("CategoryCategoryName") :
+                                    !eai.IsNull("CategoryGorupName") ? eai.Field<string>("CategoryGorupName") : string.Empty,
+                                 LargeValue = eai.Field<string>("LargeValue"),
+                             } into eaig
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = eaig.Key.CategoryInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = eaig.Key.CategoryInfoType,
+                                 },
+                                 Value = eaig.Key.Value,
+                                 ValueName = eaig.Key.ValueName,
+                                 LargeValue = eaig.Key.LargeValue,
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
         }
 
         public List<GenericItemModel> CategorySearchByCustomActivity(string SearchParam, int PageNumber, int RowCount)
         {
-            throw new NotImplementedException();
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByCustomActivity",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ea in response.DataTableResult.AsEnumerable()
+                     where !ea.IsNull("CategoryId") &&
+                            !ea.IsNull("TreeId")
+                     group ea by new
+                     {
+                         TreeId = ea.Field<int>("TreeId"),
+                         TreeName = ea.Field<string>("TreeName"),
+                         TreeEnable = ea.Field<UInt64>("TreeEnable") == 1 ? true : false,
+
+                         CategoryId = ea.Field<int>("CategoryId"),
+                         CategoryName = ea.Field<string>("CategoryName"),
+                         CategoryEnable = ea.Field<UInt64>("CategoryEnable") == 1 ? true : false,
+
+                     } into eag
+                     select new GenericItemModel()
+                     {
+                         ItemId = eag.Key.TreeId,
+                         ItemName = eag.Key.CategoryName,
+                         Enable = eag.Key.CategoryEnable,
+                         ParentItem = new GenericItemModel()
+                         {
+                             ItemId = eag.Key.TreeId,
+                             ItemName = eag.Key.TreeName,
+                             Enable = eag.Key.TreeEnable,
+                         },
+                         ItemInfo =
+                            (from eai in response.DataTableResult.AsEnumerable()
+                             where !eai.IsNull("CategoryInfoId") &&
+                                     eai.Field<int>("CategoryId") == eag.Key.CategoryId
+                             group eai by new
+                             {
+                                 CategoryInfoId = eai.Field<int>("CategoryInfoId"),
+                                 CategoryInfoType = eai.Field<int>("CategoryInfoType"),
+                                 Value = eai.Field<string>("Value"),
+                                 ValueName = !eai.IsNull("CategoryTypeName") ? eai.Field<string>("CategoryTypeName") :
+                                    !eai.IsNull("CategoryCategoryName") ? eai.Field<string>("CategoryCategoryName") :
+                                    !eai.IsNull("CategoryGorupName") ? eai.Field<string>("CategoryGorupName") : string.Empty,
+                                 LargeValue = eai.Field<string>("LargeValue"),
+                             } into eaig
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = eaig.Key.CategoryInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = eaig.Key.CategoryInfoType,
+                                 },
+                                 Value = eaig.Key.Value,
+                                 ValueName = eaig.Key.ValueName,
+                                 LargeValue = eaig.Key.LargeValue,
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
         }
 
         #endregion

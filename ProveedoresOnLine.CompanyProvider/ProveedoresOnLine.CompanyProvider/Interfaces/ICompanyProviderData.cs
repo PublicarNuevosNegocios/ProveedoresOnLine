@@ -1,5 +1,4 @@
-﻿using ProveedoresOnLine.Company.Models.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,9 +26,11 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable);
 
-        List<GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? ContactType);
 
-        List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType);
 
         List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions();
     }

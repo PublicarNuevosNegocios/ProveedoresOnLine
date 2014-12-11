@@ -149,6 +149,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return CommercialToUpsert;
         }
 
+        public static List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.CommercialGetBasicInfo(CompanyPublicId, ContactType);
+        }
+
         #endregion
 
         #region Provider Certification

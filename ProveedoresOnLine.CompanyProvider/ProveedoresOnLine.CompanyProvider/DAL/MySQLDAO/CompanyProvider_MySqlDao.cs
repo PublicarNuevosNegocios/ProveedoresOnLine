@@ -64,6 +64,75 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCommercialType", CommercialType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_Commercial_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cm in response.DataTableResult.AsEnumerable()
+                     where !cm.IsNull("CommercialId")
+                     group cm by new
+                     {
+                         CommercialId = cm.Field<int>("CommercialId"),
+                         CommercialTypeId = cm.Field<int>("CommercialTypeId"),
+                         CommercialTypeName = cm.Field<string>("CommercialTypeName"),
+                         CommercialName = cm.Field<string>("CommercialName"),
+                         CommercialEnable = cm.Field<UInt64>("CommercialEnable") == 1 ? true : false,
+                         CommercialLastModify = cm.Field<DateTime>("CommercialLastModify"),
+                         CommercialCreateDate = cm.Field<DateTime>("CommercialCreateDate"),
+                     } into cmg
+                     select new GenericItemModel()
+                     {
+                         ItemId = cmg.Key.CommercialId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = cmg.Key.CommercialTypeId,
+                             ItemName = cmg.Key.CommercialTypeName
+                         },
+                         ItemName = cmg.Key.CommercialName,
+                         Enable = cmg.Key.CommercialEnable,
+                         LastModify = cmg.Key.CommercialLastModify,
+                         CreateDate = cmg.Key.CommercialCreateDate,
+                         ItemInfo =
+                             (from cminf in response.DataTableResult.AsEnumerable()
+                              where !cminf.IsNull("CommercialInfoId") &&
+                                      cminf.Field<int>("CommercialId") == cmg.Key.CommercialId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = cminf.Field<int>("CommercialInfoId"),
+                                  ItemInfoType = new CatalogModel()
+                                  {
+                                      ItemId = cminf.Field<int>("CommercialInfoTypeId"),
+                                      ItemName = cminf.Field<string>("CommercialInfoTypeName"),
+                                  },
+                                  Value = cminf.Field<string>("Value"),
+                                  LargeValue = cminf.Field<string>("LargeValue"),
+                                  Enable = cminf.Field<UInt64>("CommercialInfoEnable") == 1 ? true : false,
+                                  LastModify = cminf.Field<DateTime>("CommercialInfoLastModify"),
+                                  CreateDate = cminf.Field<DateTime>("CommercialInfoCreateDate"),
+                              }).ToList(),
+
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Provider Certification
@@ -180,7 +249,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
-        
+
         #endregion
 
         #region Provider financial
@@ -321,7 +390,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      where !l.IsNull("LegalId")
                      group l by new
                      {
-                         LegalId = l.Field<int>("LegalId"),                         
+                         LegalId = l.Field<int>("LegalId"),
                          LegalTypeId = l.Field<int>("LegalTypeId"),
                          LegalTypeName = l.Field<string>("LegalTypeName"),
                          LegalName = l.Field<string>("LegalName"),

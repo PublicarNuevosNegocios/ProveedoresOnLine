@@ -14,6 +14,8 @@ namespace ProveedoresOnLine.Company.Models.Util
 
         public string Value { get; set; }
 
+        public string ValueName { get; set; }
+
         public string LargeValue { get; set; }
 
         public bool Enable { get; set; }
