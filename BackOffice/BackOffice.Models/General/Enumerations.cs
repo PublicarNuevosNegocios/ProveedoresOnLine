@@ -122,7 +122,7 @@
         Experience = 301001,
     }
 
-    public enum enumExperienceInfoType
+    public enum enumCommercialInfoType
     {
         //Experience
         EX_ContractType = 302001,

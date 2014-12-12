@@ -55,8 +55,10 @@ namespace BackOffice.Models.Provider
         public string EX_ContractSubjectId { get; set; }
 
         public List<BackOffice.Models.General.EconomicActivityViewModel> EX_EconomicActivity { get; set; }
+        public string EX_EconomicActivityId { get; set; }
 
         public List<BackOffice.Models.General.EconomicActivityViewModel> EX_CustomEconomicActivity { get; set; }
+        public string EX_CustomEconomicActivityId { get; set; }
 
         #endregion
 
@@ -78,166 +80,190 @@ namespace BackOffice.Models.Provider
             #region Experience
 
             EX_ContractType = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractType).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractType).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractTypeId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractType).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractType).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_Currency = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_Currency).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Currency).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_CurrencyId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_Currency).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Currency).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_DateIssue = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_DateIssue).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_DateIssue).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_DateIssueId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_DateIssue).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_DateIssue).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_DueDate = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_DueDate).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_DueDate).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_DueDateId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_DueDate).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_DueDate).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_Client = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_Client).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Client).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ClientId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_Client).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Client).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractNumber = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractNumber).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractNumber).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractNumberId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractNumber).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractNumber).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractValue = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractValue).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractValueId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractValue).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_Phone = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_Phone).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Phone).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_PhoneId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_Phone).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Phone).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_BuiltArea = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_BuiltArea).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_BuiltAreaId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_BuiltArea).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_BuiltUnit = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_BuiltUnit).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_BuiltUnitId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_BuiltUnit).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ExperienceFile = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ExperienceFile).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ExperienceFile).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ExperienceFileId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ExperienceFile).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ExperienceFile).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractSubject = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractSubject).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractSubject).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_ContractSubjectId = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_ContractSubject).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractSubject).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             EX_EconomicActivity = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_EconomicActivity).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault().
+                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
                 Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
-                    EconomicActivityId = y.Value,
-                    ActivityName = y.ValueName,
-                }).
-                 ToList();
+                    EconomicActivityId = y,
+                    ActivityName = oActivity.
+                        Where(z => z.ItemId.ToString() == y).
+                        Select(z => z.ItemName).
+                        DefaultIfEmpty(string.Empty).FirstOrDefault()
+                }).ToList();
+
+            EX_EconomicActivityId = oRelatedCommercial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
 
             EX_CustomEconomicActivity = oRelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_CustomEconomicActivity).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault().
+                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
                 Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
-                    EconomicActivityId = y.Value,
-                    ActivityName = y.ValueName,
-                }).
-                 ToList();
+                    EconomicActivityId = y,
+                    ActivityName = oCustomActivity.
+                        Where(z => z.ItemId.ToString() == y).
+                        Select(z => z.ItemName).
+                        DefaultIfEmpty(string.Empty).FirstOrDefault()
+                }).ToList();
+
+            EX_CustomEconomicActivityId = oRelatedCommercial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
 
             #endregion
 
