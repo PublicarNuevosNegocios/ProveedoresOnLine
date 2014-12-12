@@ -75,18 +75,18 @@ namespace BackOffice.Web.ControllersApi
                 oReturn = oActivities.Select(x => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
                     EconomicActivityId = x.ItemId.ToString(),
-                    Name = x.ItemName,
-                    Type = x.ItemInfo.
+                    ActivityName = x.ItemName,
+                    ActivityType = x.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Type).
                         Select(y => y.Value + " - " + y.ValueName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault(),
-                    Group = x.ItemInfo.
+                    ActivityGroup = x.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Group).
                         Select(y => y.Value + " - " + y.ValueName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault(),
-                    Category = x.ItemInfo.
+                    ActivityCategory = x.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Category).
                         Select(y => y.Value + " - " + y.ValueName).
                         DefaultIfEmpty(string.Empty).

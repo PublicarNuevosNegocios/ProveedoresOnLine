@@ -226,7 +226,7 @@ namespace BackOffice.Models.Provider
                 Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
                     EconomicActivityId = y.Value,
-                    Name = y.ValueName,
+                    ActivityName = y.ValueName,
                 }).
                  ToList();
 
@@ -235,7 +235,7 @@ namespace BackOffice.Models.Provider
                 Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
                     EconomicActivityId = y.Value,
-                    Name = y.ValueName,
+                    ActivityName = y.ValueName,
                 }).
                  ToList();
 
