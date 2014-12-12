@@ -883,7 +883,7 @@ var Provider_CompanyContactObject = {
     },
 };
 
-/*CompanyComercialObject*/
+/*CompanyCommercialObject*/
 var Provider_CompanyCommercialObject = {
 
     ObjectId: '',
@@ -905,7 +905,6 @@ var Provider_CompanyCommercialObject = {
     },
 
     RenderAsync: function () {
-        debugger;
         if (Provider_CompanyCommercialObject.CommercialType == 301001) {
             Provider_CompanyCommercialObject.RenderExperience();
         }
@@ -1027,6 +1026,7 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'CommercialName',
                 title: 'Nombre',
+                width: '200px',
             }, {
                 field: 'EX_ContractType',
                 title: 'Tipo de contrato',
@@ -1106,10 +1106,6 @@ var Provider_CompanyCommercialObject = {
                 title: 'Número de contrato',
                 width: '200px',
             }, {
-                field: 'EX_ContractNumber',
-                title: 'Número de contrato',
-                width: '200px',
-            }, {
                 field: 'EX_ContractValue',
                 title: 'Valor de contrato',
                 width: '200px',
@@ -1129,15 +1125,167 @@ var Provider_CompanyCommercialObject = {
                 field: 'EX_ContractSubject',
                 title: 'Objeto del contrato',
                 width: '400px',
-                template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_TextArea'),
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '"></textarea>')
+                        .appendTo(container);
+                },
             }, {
                 field: 'EX_EconomicActivity',
                 title: 'Actividad economica',
                 width: '400px',
-            }, {
-                field: 'EX_CustomEconomicActivity',
-                title: 'Actividad economica personalizada',
-                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.EX_EconomicActivity != null && dataItem.EX_EconomicActivity.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        $.each(dataItem.EX_EconomicActivity, function (item, value) {
+                            oReturn = oReturn + value.Name + ',';
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<select multiple="multiple"/>')
+                        .appendTo(container)
+                        .kendoMultiSelect({
+                            minLength: 1,
+                            autoBind: false,
+                            dataTextField: 'Name',
+                            itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: options.model[options.field],
+                            dataSource: {
+                                type: "json",
+                                serverFiltering: true,
+                                transport: {
+                                    read: function (options) {
+                                        if (options.data.filter.filters != null && options.data.filter.filters.length > 0 && options.data.filter.filters[0].value != null && options.data.filter.filters[0].value.length > 0) {
+                                            $.ajax({
+                                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=true&SearchParam=' + options.data.filter.filters[0].value,
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    options.success(result);
+                                                },
+                                                error: function (result) {
+                                                    options.error(result);
+                                                }
+                                            });
+                                        }
+                                    },
+                                },
+                            },
+                            select: function (e) {
+                                var selectedItem = this.dataItem(e.item.index());
+
+                                if (options.model[options.field] == null || options.model[options.field].length == 0) {
+                                    options.model[options.field] = new Array();
+                                }
+                                options.model[options.field].push(selectedItem);
+
+                                //enable made changes
+                                options.model.dirty = true;
+                            },
+                            //change: function (e) {
+                            //    debugger;
+                            //    //get items before a change
+                            //    var previous = this._savedOld;
+                            //    //get items after a change
+                            //    var current = this.value();
+
+                            //    //eval removed items
+                            //    var diff = [];
+                            //    if (previous) {
+                            //        debugger;
+                            //        diff = $(previous).not(current).get();
+                            //    }
+                            //    this._savedOld = current.slice(0);
+                            //    if (diff.length > 0) {
+                            //        debugger;
+                            //        options.model[options.field] = $(options.model[options.field]).not(dif).get();
+                            //    }
+
+                            //    //debugger;
+                            //    //var removedItem = this.dataItem(e.item.index());
+
+                            //    //if (options.model[options.field] != null && options.model[options.field].length > 0) {
+
+                            //    //    var NewArray = new Array();
+                            //    //    $.each(options.model[options.field], function (item, value) {
+                            //    //        if (removedItem.EconomicActivityId != value.EconomicActivityId) {
+                            //    //            NewArray.push(value);
+                            //    //        }
+                            //    //    });
+
+                            //    //    options.model[options.field] = NewArray;
+                            //    //}
+
+                            //    ////enable made changes
+                            //    //options.model.dirty = true;
+                            //}
+                        });
+                },
+                //}, {
+                //    field: 'EX_CustomEconomicActivity',
+                //    title: 'Actividad economica personalizada',
+                //    width: '400px',
+                //    template: function (dataItem) {
+                //        var oReturn = '';
+                //        if (dataItem != null && dataItem.EX_CustomEconomicActivity != null && dataItem.EX_CustomEconomicActivity.length > 0) {
+                //            if (dataItem.dirty != null && dataItem.dirty == true) {
+                //                oReturn = '<span class="k-dirty"></span>';
+                //            }
+                //            $.each(dataItem.EX_CustomEconomicActivity, function (item, value) {
+                //                oReturn = oReturn + value.Item3 + ',';
+                //            });
+                //        }
+                //        return oReturn;
+                //    },
+                //    editor: function (container, options) {
+                //        $('<select multiple="multiple"/>')
+                //            .appendTo(container)
+                //            .kendoMultiSelect({
+                //                minLength: 1,
+                //                autoBind: false,
+                //                dataTextField: 'Name',
+                //                dataValueField: 'EconomicActivityId',
+                //                itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                //                dataSource: {
+                //                    type: "json",
+                //                    serverFiltering: true,
+                //                    transport: {
+                //                        read: function (options) {
+                //                            $.ajax({
+                //                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=true&SearchParam=' + options.data.filter.filters[0].value,
+                //                                dataType: 'json',
+                //                                success: function (result) {
+                //                                    options.success(result);
+                //                                },
+                //                                error: function (result) {
+                //                                    options.error(result);
+                //                                }
+                //                            });
+                //                        },
+                //                    },
+                //                },
+                //                select: function (e) {
+                //                    var selectedItem = this.dataItem(e.item.index());
+
+                //                    if (options.model[options.field] == null || options.model[options.field].length == 0) {
+                //                        options.model[options.field] = new Array();
+                //                    }
+
+                //                    options.model[options.field].push({
+                //                        Item1: 0,
+                //                        Item2: selectedItem.EconomicActivityId,
+                //                        Item3: selectedItem.Name,
+                //                    });
+
+                //                    //enable made changes
+                //                    options.model.dirty = true;
+                //                },
+                //                //value: options.model[options.field]
+                //            });
+                //    },
             }, {
                 field: 'EX_ExperienceFile',
                 title: 'Doc soporte.',
@@ -1154,7 +1302,7 @@ var Provider_CompanyCommercialObject = {
                         oReturn = $('#' + Provider_CompanyCommercialObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${EX_ExperienceFile}/gi, dataItem.DT_DistributorFile);
+                    oReturn = oReturn.replace(/\${EX_ExperienceFile}/gi, dataItem.EX_ExperienceFile);
 
                     return oReturn;
                 },
@@ -1200,7 +1348,6 @@ var Provider_CompanyCommercialObject = {
         });
     },
 };
-
 
 /*CompanyHSEQObject*/
 var Provider_CompanyHSEQObject = {

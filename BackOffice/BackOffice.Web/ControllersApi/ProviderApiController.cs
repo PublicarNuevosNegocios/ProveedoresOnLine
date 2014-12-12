@@ -441,12 +441,12 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Provider.ProviderComercialViewModel> CICommercialGetByType
+        public List<BackOffice.Models.Provider.ProviderCommercialViewModel> CICommercialGetByType
             (string CICommercialGetByType,
             string ProviderPublicId,
             string CommercialType)
         {
-            List<BackOffice.Models.Provider.ProviderComercialViewModel> oReturn = new List<Models.Provider.ProviderComercialViewModel>();
+            List<BackOffice.Models.Provider.ProviderCommercialViewModel> oReturn = new List<Models.Provider.ProviderCommercialViewModel>();
 
             if (CICommercialGetByType == "true")
             {
@@ -467,7 +467,7 @@ namespace BackOffice.Web.ControllersApi
 
                     oCommercial.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderComercialViewModel(x, oActivity, oCustomActivity));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderCommercialViewModel(x, oActivity, oCustomActivity));
                         return true;
                     });
                 }
@@ -478,12 +478,12 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public BackOffice.Models.Provider.ProviderComercialViewModel CICommercialUpsert
+        public BackOffice.Models.Provider.ProviderCommercialViewModel CICommercialUpsert
             (string CICommercialUpsert,
             string ProviderPublicId,
             string CommercialType)
         {
-            BackOffice.Models.Provider.ProviderComercialViewModel oReturn = null;
+            BackOffice.Models.Provider.ProviderCommercialViewModel oReturn = null;
 
             //if (GIContactUpsert == "true" &&
             //    !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&

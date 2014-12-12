@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BackOffice.Models.Provider
 {
-    public class ProviderComercialViewModel
+    public class ProviderCommercialViewModel
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedCommercial { get; private set; }
 
@@ -54,21 +54,15 @@ namespace BackOffice.Models.Provider
         public string EX_ContractSubject { get; set; }
         public string EX_ContractSubjectId { get; set; }
 
-        /// <summary>
-        /// ItemInfoId,Value - CategoryId, Category Name
-        /// </summary>
-        public List<Tuple<string, string, string>> EX_EconomicActivity { get; set; }
+        public List<BackOffice.Models.General.EconomicActivityViewModel> EX_EconomicActivity { get; set; }
 
-        /// <summary>
-        /// ItemInfoId,Value - CategoryId, Category Name
-        /// </summary>
-        public List<Tuple<string, string, string>> EX_CustomEconomicActivity { get; set; }
+        public List<BackOffice.Models.General.EconomicActivityViewModel> EX_CustomEconomicActivity { get; set; }
 
         #endregion
 
-        public ProviderComercialViewModel() { }
+        public ProviderCommercialViewModel() { }
 
-        public ProviderComercialViewModel
+        public ProviderCommercialViewModel
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedCommercial,
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity,
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity)
@@ -229,18 +223,20 @@ namespace BackOffice.Models.Provider
 
             EX_EconomicActivity = oRelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_EconomicActivity).
-                Select(y => new Tuple<string, string, string>
-                    (y.ItemInfoId.ToString(),
-                    y.Value,
-                    y.ValueName)).
+                Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
+                {
+                    EconomicActivityId = y.Value,
+                    Name = y.ValueName,
+                }).
                  ToList();
 
             EX_CustomEconomicActivity = oRelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumExperienceInfoType.EX_CustomEconomicActivity).
-                Select(y => new Tuple<string, string, string>
-                    (y.ItemInfoId.ToString(),
-                    y.Value,
-                    y.ValueName)).
+                Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
+                {
+                    EconomicActivityId = y.Value,
+                    Name = y.ValueName,
+                }).
                  ToList();
 
             #endregion

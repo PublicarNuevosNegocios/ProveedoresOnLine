@@ -642,8 +642,16 @@ namespace Links
             private const string URLPATH = "~/Content/Images";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
+            public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string Error_png = Url("Error.png");
+            public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
             public static readonly string logo_png = Url("logo.png");
+            public static readonly string LogoPOHeader_png = Url("LogoPOHeader.png");
+            public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
             public static readonly string logoPublicarBN_png = Url("logoPublicarBN.png");
+            public static readonly string LogoPublicarFooter_png = Url("LogoPublicarFooter.png");
+            public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
             public static readonly string POBOBackground3Small_jpg = Url("POBOBackground3Small.jpg");
             public static readonly string POBOsprite_png = Url("POBOsprite.png");
         }
