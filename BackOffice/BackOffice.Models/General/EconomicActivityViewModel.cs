@@ -8,7 +8,7 @@ namespace BackOffice.Models.General
 {
     public class EconomicActivityViewModel
     {
-        public int EconomicActivityId { get; set; }
+        public string EconomicActivityId { get; set; }
 
         public string Name { get; set; }
 
