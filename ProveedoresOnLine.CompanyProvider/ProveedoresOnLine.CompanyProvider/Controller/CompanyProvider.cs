@@ -53,10 +53,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             if (ProviderToUpsert.RelatedCompany != null &&
                 !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
-                ProviderToUpsert.RelatedExperience != null &&
-                ProviderToUpsert.RelatedExperience.Count > 0)
+                ProviderToUpsert.RelatedCommercial != null &&
+                ProviderToUpsert.RelatedCommercial.Count > 0)
             {
-                ProviderToUpsert.RelatedExperience.All(pcom =>
+                ProviderToUpsert.RelatedCommercial.All(pcom =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
