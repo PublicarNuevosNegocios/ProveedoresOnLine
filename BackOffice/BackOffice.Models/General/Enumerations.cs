@@ -153,7 +153,7 @@
         SARLAFT = 601004,
         Resoluciones = 601005,
 
-        Designations = 601006,
+        Designations = 601007,
     }
 
     public enum enumLegalInfoType

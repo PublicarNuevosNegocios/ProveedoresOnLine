@@ -2289,7 +2289,7 @@ var Provider_LegalInfoObject = {
     },
 
     RenderAsync: function () {
-        if (Provider_LegalInfoObject.LegalInfoType == 601001) {
+        if (Provider_LegalInfoObject.LegalInfoType == 601007) {
             Provider_LegalInfoObject.RenderChaimberOfComerce();
         }
         else if (Provider_LegalInfoObject.LegalInfoType == 601002) {

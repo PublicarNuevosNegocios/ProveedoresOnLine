@@ -43,23 +43,12 @@ namespace BackOffice.Models.Provider
         public string CP_SocialObject { get; set; }
         public string CP_SocialObjectId { get; set; }
 
-        public List<string> CP_Designations { get; set; }
-
-        public List<string> CP_PartnerName { get; set; }
-        public List<string> CP_PartnerNameId { get; set; }
-
         public string CP_PartnerNameItem { get; set; }
         public string CP_PartnerNameItemId { get; set; }
 
-        public List<string> CP_PartnerIdentificationNumber { get; set; }
-        public List<string> CP_PartnerIdentificationNumberId { get; set; }
-
         public string CP_PartnerIdentificationNumberItem { get; set; }
         public string CP_PartnerIdentificationNumberItemId { get; set; }
-
-        public List<string> CP_PartnerRank { get; set; }
-        public List<string> CP_PartnerRankId { get; set; }
-
+                
         public string CP_PartnerRankItem { get; set; }
         public string CP_PartnerRankItemId { get; set; }
         #endregion
@@ -203,7 +192,7 @@ namespace BackOffice.Models.Provider
 
             #endregion
 
-            #region Asignations
+            #region Designations
 
             CD_PartnerName = RelatedLegal.ItemInfo.
                  Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerName).
