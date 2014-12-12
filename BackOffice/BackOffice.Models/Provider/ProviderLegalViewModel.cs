@@ -43,14 +43,37 @@ namespace BackOffice.Models.Provider
         public string CP_SocialObject { get; set; }
         public string CP_SocialObjectId { get; set; }
 
-        public string CP_PartnerName { get; set; }
-        public string CP_PartnerNameId { get; set; }
+        public List<string> CP_Designations { get; set; }
 
-        public string CP_PartnerIdentificationNumber { get; set; }
-        public string CP_PartnerIdentificationNumberId { get; set; }
+        public List<string> CP_PartnerName { get; set; }
+        public List<string> CP_PartnerNameId { get; set; }
 
-        public string CP_PartnerRank { get; set; }
-        public string CP_PartnerRankId { get; set; }
+        public string CP_PartnerNameItem { get; set; }
+        public string CP_PartnerNameItemId { get; set; }
+
+        public List<string> CP_PartnerIdentificationNumber { get; set; }
+        public List<string> CP_PartnerIdentificationNumberId { get; set; }
+
+        public string CP_PartnerIdentificationNumberItem { get; set; }
+        public string CP_PartnerIdentificationNumberItemId { get; set; }
+
+        public List<string> CP_PartnerRank { get; set; }
+        public List<string> CP_PartnerRankId { get; set; }
+
+        public string CP_PartnerRankItem { get; set; }
+        public string CP_PartnerRankItemId { get; set; }
+        #endregion
+
+        #region Designations
+
+        public string CD_PartnerName { get; set; }
+        public string CD_PartnerNameId { get; set; }
+
+        public string CD_PartnerIdentificationNumber { get; set; }
+        public string CD_PartnerIdentificationNumberId { get; set; }
+
+        public string CD_PartnerRank { get; set; }
+        public string CD_PartnerRankId { get; set; }
         #endregion
 
         #region RUT
@@ -71,8 +94,7 @@ namespace BackOffice.Models.Provider
 
         public ProviderLegalViewModel() { }
 
-        public ProviderLegalViewModel
-            (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal)
+        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal)
         {
             RelatedLegal = oRelatedLegal;
 
@@ -83,7 +105,6 @@ namespace BackOffice.Models.Provider
             Enable = oRelatedLegal.Enable;
 
             #region ChaimberOfComerce
-
             CP_ConstitutionDate = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ConstitutionDate).
                 Select(y => y.Value).
@@ -180,41 +201,45 @@ namespace BackOffice.Models.Provider
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
-            CP_PartnerName = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerName).
+            #endregion
+
+            #region Asignations
+
+            CD_PartnerName = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerName).
                  Select(y => y.Value).
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
-            CP_PartnerNameId = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerName).
+            CD_PartnerNameId = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerName).
+               Select(y => y.ItemInfoId.ToString()).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+
+            CD_PartnerIdentificationNumber = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerIdentificationNumber).
+                 Select(y => y.Value).
+                 DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+
+            CD_PartnerIdentificationNumberId = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerIdentificationNumber).
                  Select(y => y.ItemInfoId.ToString()).
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
-            CP_PartnerIdentificationNumber = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerIdentificationNumber).
+            CD_PartnerRank = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerRank).
                  Select(y => y.Value).
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
-            CP_PartnerIdentificationNumberId = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerIdentificationNumber).
-                 Select(y => y.ItemInfoId.ToString()).
-                 DefaultIfEmpty(string.Empty).
-                 FirstOrDefault();
-
-            CP_PartnerRank = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerRank).
-                 Select(y => y.Value).
-                 DefaultIfEmpty(string.Empty).
-                 FirstOrDefault();
-
-            CP_PartnerRankId = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerRank).
-                 Select(y => y.ItemInfoId.ToString()).
-                 DefaultIfEmpty(string.Empty).
-                 FirstOrDefault();
+            CD_PartnerRankId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerRank).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
             #endregion
 
             #region CIFIN

@@ -2229,8 +2229,6 @@ var Provider_CompanyHSEQObject = {
     },
 };
 
-
-
 var Provider_LegalInfoObject = {
 
     AutoCompleteId: '',
@@ -2313,6 +2311,7 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -2356,13 +2355,13 @@ var Provider_LegalInfoObject = {
             },
             columns: [
                 {
-                    field: 'CP_PartnerName',
+                    field: 'CD_PartnerName',
                     title: 'Nombre',
                 }, {
-                    field: 'CP_PartnerIdentificationNumber',
+                    field: 'CD_PartnerIdentificationNumber',
                     title: 'Número de Identificación',
                 }, {
-                    field: 'CP_PartnerRank',
+                    field: 'CD_PartnerRank',
                     title: 'Cargo',
                 }],
         });

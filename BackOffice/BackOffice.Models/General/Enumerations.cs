@@ -145,7 +145,6 @@
     #endregion
 
     #region Legal
-
     public enum enumLegalType
     {
         ChaimberOfCommerce = 601001,
@@ -153,10 +152,13 @@
         CIFIN = 601003,
         SARLAFT = 601004,
         Resoluciones = 601005,
+
+        Designations = 601006,
     }
 
     public enum enumLegalInfoType
     {
+        //Chaimber Of Comerce
         CP_ConstitutionDate = 602001,
         CP_ConstitutionEndDate = 602002,
         CP_State = 602003,
@@ -165,9 +167,14 @@
         CP_ExistenceAndLegalPersonCertificate = 602006,
         CP_CertificateExpeditionDate = 602007,
         CP_SocialObject = 602008,
-        CP_PartnerName = 602009,
-        CP_PartnerIdentificationNumber = 602010,
-        CP_PartnerRank = 602011,
+        //CP_PartnerName = 602009,
+        //CP_PartnerIdentificationNumber = 602010,
+        //CP_PartnerRank = 602011,
+
+        //Designations
+        CD_PartnerName = 607001,
+        CD_PartnerIdentificationNumber = 607002,
+        CD_PartnerRank = 607002,
     }
 
     #endregion

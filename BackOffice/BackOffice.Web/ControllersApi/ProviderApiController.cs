@@ -1383,34 +1383,37 @@ namespace BackOffice.Web.ControllersApi
                 {
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CP_PartnerNameId) ? 0 : Convert.ToInt32(oDataToUpsert.CP_PartnerNameId.Trim()),
+                        ItemInfoId = string.IsNullOrEmpty(LegalId) ? 0 : Convert.ToInt32(LegalId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerName
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerName
                         },
-                        Value = oDataToUpsert.CP_PartnerName,
+                        Value = oDataToUpsert.CD_PartnerName,
                         Enable = true,
+                    });
+
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(LegalId) ? 0 : Convert.ToInt32(LegalId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerIdentificationNumber
+                        },
+                        Value = oDataToUpsert.CD_PartnerIdentificationNumber,
+                        Enable = true,
+
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CP_PartnerIdentificationNumberId) ? 0 : Convert.ToInt32(oDataToUpsert.CP_PartnerIdentificationNumberId.Trim()),
+                        ItemInfoId = string.IsNullOrEmpty(LegalId) ? 0 : Convert.ToInt32(LegalId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerIdentificationNumber
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerRank
                         },
-                        Value = oDataToUpsert.CP_PartnerIdentificationNumber,
+                        Value = oDataToUpsert.CD_PartnerRank,
                         Enable = true,
                     });
-                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CP_PartnerRankId) ? 0 : Convert.ToInt32(oDataToUpsert.CP_PartnerRankId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CP_PartnerRank
-                        },
-                        Value = oDataToUpsert.CP_PartnerRank,
-                        Enable = true,
-                    });
+
                 }
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalInfoUpsert(oProvider.RelatedLegal.FirstOrDefault());
             }
