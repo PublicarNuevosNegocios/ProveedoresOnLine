@@ -174,7 +174,7 @@
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
-        CD_PartnerRank = 607002,
+        CD_PartnerRank = 607003,
     }
 
     #endregion
