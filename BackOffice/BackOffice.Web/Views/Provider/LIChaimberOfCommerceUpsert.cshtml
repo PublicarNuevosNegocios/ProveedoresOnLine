@@ -68,10 +68,7 @@
                             Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_SocialObject).
                                 Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
 
-            var City = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
-                        Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
-                            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).
-                                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+            var City = Model.InscriptionCity;
 
             var CityId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                         Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
@@ -200,26 +197,30 @@
             oChaimberOfComerceOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionLegal.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+
+        var oLegalId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.FirstOrDefault().ItemId : 0;
     }
 
     <script type="text/javascript">
-        var vChaimberOfComerceOptionList = @(Html.Raw(oChaimberOfComerceOptionList));
-
+    var vChaimberOfComerceOptionList = @(Html.Raw(oChaimberOfComerceOptionList));
+        var vLegalId = @oLegalId;
+                   
         $(document).ready(function () {
-            Provider_LegalInfoObject.Init({
-                AutoCompleteId: 'CityId',
-                ControlToRetornACId: 'SelectedCity',
-                ObjectId: 'divGridChaimberOfComerce',
-                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.Designations)',
-                ChaimberOfComerceOptionList : vChaimberOfComerceOptionList,
-                LegalId: '@Model.RelatedProvider.RelatedLegal.FirstOrDefault().ItemId',
-            })
-            UploadFile({
-                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ControlellerResponseId: "CertificateURL",
-            });
-            Provider_LegalInfoObject.RenderAsync();
+            debugger;
+        Provider_LegalInfoObject.Init({
+            AutoCompleteId: 'CityId',
+            ControlToRetornACId: 'SelectedCity',
+            ObjectId: 'divGridChaimberOfComerce',
+            ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+            LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.Designations)',
+            ChaimberOfComerceOptionList : vChaimberOfComerceOptionList,
+            LegalId: vLegalId,
+        })
+        UploadFile({
+            ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+            ControlellerResponseId: "CertificateURL",
         });
-    </script>
+        Provider_LegalInfoObject.RenderAsync();
+    });
+</script>
 }

@@ -33,5 +33,7 @@ namespace BackOffice.Models.Provider
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
+
+        public string InscriptionCity { get; set; }
     }
 }

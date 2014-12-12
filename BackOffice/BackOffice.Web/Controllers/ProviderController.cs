@@ -391,7 +391,8 @@ namespace BackOffice.Web.Controllers
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };
-
+            List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
+            string oCity;
             if (!string.IsNullOrEmpty(ProviderPublicId))
             {
                 oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
@@ -400,6 +401,13 @@ namespace BackOffice.Web.Controllers
                     RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
 
                 };
+                if (oModel.RelatedProvider.RelatedLegal != null && oModel.RelatedProvider.RelatedLegal.Count() > 0)
+                {
+                    oCity = oModel.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault();
+                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
+                    oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName; 
+                }                                               
+
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
@@ -448,6 +456,13 @@ namespace BackOffice.Web.Controllers
                 {
                     //return RedirectToAction(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
                 }
+
+                if (oModel.RelatedProvider.RelatedLegal != null && oModel.RelatedProvider.RelatedLegal.Count() > 0)
+                {
+                    oCity = oModel.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault();
+                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
+                    oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName;
+                }           
             }
 
             return View(oModel);
