@@ -316,7 +316,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      } into eag
                      select new GenericItemModel()
                      {
-                         ItemId = eag.Key.TreeId,
+                         ItemId = eag.Key.CategoryId,
                          ItemName = eag.Key.CategoryName,
                          Enable = eag.Key.CategoryEnable,
                          ParentItem = new GenericItemModel()
@@ -393,7 +393,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      } into eag
                      select new GenericItemModel()
                      {
-                         ItemId = eag.Key.TreeId,
+                         ItemId = eag.Key.CategoryId,
                          ItemName = eag.Key.CategoryName,
                          Enable = eag.Key.CategoryEnable,
                          ParentItem = new GenericItemModel()

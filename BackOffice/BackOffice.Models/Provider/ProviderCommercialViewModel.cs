@@ -225,7 +225,7 @@ namespace BackOffice.Models.Provider
 
             EX_EconomicActivity = oRelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity).
-                Select(y => y.Value).
+                Select(y => y.LargeValue).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault().
                 Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
@@ -246,7 +246,7 @@ namespace BackOffice.Models.Provider
 
             EX_CustomEconomicActivity = oRelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity).
-                Select(y => y.Value).
+                Select(y => y.LargeValue).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault().
                 Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
