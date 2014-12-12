@@ -188,7 +188,7 @@
     {
         Certifications = 701001,
         CompanyHealtyPolitic = 701002,
-        CompanyRiskPolicies = 702003
+        CompanyRiskPolicies = 701003
     }
 
     /// <summary>

@@ -1397,16 +1397,16 @@ var Provider_CompanyHSEQObject = {
                         id: "CertificationId",
                         fields: {
                             CertificationId: { editable: false, nullable: true },
-                            CertificationName: { editable: true },
+                            CertificationName: { editable: true, validation: { required: true } },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             C_CertificationCompany: { editable: true },
                             C_CertificationCompanyId: { editable: false },
-                            C_CertificationCompanyName: { editable: true },
+                            C_CertificationCompanyName: { editable: true, validation: { required: true } },
 
                             C_Rule: { editable: true },
                             C_RuleId: { editable: false },
-                            C_RuleName: { editable: true },
+                            C_RuleName: { editable: true, validation: { required: true } },
 
                             C_StartDateCertification: { editable: true },
                             C_StartDateCertificationId: { editable: false },
@@ -1694,7 +1694,7 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CH_Year: { editable: true },
+                            CH_Year: { editable: true, validation: { required: true } },
                             CH_YearId: { editable: false },
 
                             CH_PoliticsSecurity: { editable: true },
@@ -2258,7 +2258,118 @@ var Provider_CompanyHSEQObject = {
     },
 
     RenderCompanyRiskPolicies: function () {
+        $('#' + Provider_CompanyHSEQObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "CertificationId",
+                        fields: {
+                            CertificationId: { editable: false, nullable: true },
+                            CertificationName: { editable: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
 
+                            CR_Year: { editable: true, validation: { required: true } },
+                            CR_YearId: { editable: false },
+
+                            CR_ManHoursWorked: { editable: true },
+                            CR_ManHoursWorkedId: { editable: false },
+
+                            CR_Fatalities: { editable: true },
+                            CR_FatalitiesId: { editable: false },
+
+                            CR_NumberAccident: { editable: true },
+                            CR_NumberAccidentId: { editable: false },
+
+                            CR_NumberAccidentDisabling: { editable: true },
+                            CR_NumberAccidentDisablingId: { editable: false },
+
+                            CR_DaysIncapacity: { editable: true },
+                            CR_DaysIncapacityId: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'CR_Year',
+                title: 'Año',
+                width: '80px',
+            }, {
+                field: 'CR_ManHoursWorked',
+                title: 'Horas Hombre Trabajadas',
+                width: '200px',
+            }, {
+                field: 'CR_Fatalities ',
+                title: 'Fatalidades',
+                width: '100px',
+            }, {
+                field: 'CR_NumberAccident',
+                title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
+                width: '200px',
+            }, {
+                field: 'CR_NumberAccidentDisabling ',
+                title: 'Número de Accidentes Incapacitantes',
+                width: '200px',
+            }, {
+                field: 'CR_DaysIncapacity',
+                title: 'Días de Incapacidad',
+                width: '180px',
+            }],
+        });
     },
 };
 
