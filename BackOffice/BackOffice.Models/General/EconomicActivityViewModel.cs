@@ -10,12 +10,12 @@ namespace BackOffice.Models.General
     {
         public string EconomicActivityId { get; set; }
 
-        public string Name { get; set; }
+        public string ActivityName { get; set; }
 
-        public string Type { get; set; }
+        public string ActivityType { get; set; }
 
-        public string Group { get; set; }
+        public string ActivityGroup { get; set; }
 
-        public string Category { get; set; }
+        public string ActivityCategory { get; set; }
     }
 }

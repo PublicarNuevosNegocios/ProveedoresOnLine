@@ -987,7 +987,7 @@ var Provider_CompanyCommercialObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1140,26 +1140,38 @@ var Provider_CompanyCommercialObject = {
                             oReturn = '<span class="k-dirty"></span>';
                         }
                         $.each(dataItem.EX_EconomicActivity, function (item, value) {
-                            oReturn = oReturn + value.Name + ',';
+                            oReturn = oReturn + value.ActivityName + ',';
                         });
                     }
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple"/>')
+                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
                         .appendTo(container)
                         .kendoMultiSelect({
-                            minLength: 1,
+                            minLength: 2,
                             autoBind: false,
-                            dataTextField: 'Name',
+                            dataTextField: 'ActivityName',
+                            //value: options.model[options.field],
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
-                            value: options.model[options.field],
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
+                                schema: {
+                                    model: {
+                                        id: 'EconomicActivityId',
+                                        fields: {
+                                            EconomicActivityId: { type: 'string', nullable: false },
+                                            ActivityName: { type: 'string', nullable: false },
+                                            ActivityType: { type: 'string', nullable: true },
+                                            ActivityGroup: { type: 'string', nullable: true },
+                                            ActivityCategory: { type: 'string', nullable: true },
+                                        }
+                                    }
+                                },
                                 transport: {
                                     read: function (options) {
-                                        if (options.data.filter.filters != null && options.data.filter.filters.length > 0 && options.data.filter.filters[0].value != null && options.data.filter.filters[0].value.length > 0) {
+                                        if (options.data != null && options.data.filter != null && options.data.filter.filters != null && options.data.filter.filters.length > 0 && options.data.filter.filters[0].value != null && options.data.filter.filters[0].value.length > 0) {
                                             $.ajax({
                                                 url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=true&SearchParam=' + options.data.filter.filters[0].value,
                                                 dataType: 'json',
@@ -1171,121 +1183,76 @@ var Provider_CompanyCommercialObject = {
                                                 }
                                             });
                                         }
+                                        else {
+                                            options.success([]);
+                                        }
                                     },
                                 },
                             },
-                            select: function (e) {
-                                var selectedItem = this.dataItem(e.item.index());
-
-                                if (options.model[options.field] == null || options.model[options.field].length == 0) {
-                                    options.model[options.field] = new Array();
-                                }
-                                options.model[options.field].push(selectedItem);
-
-                                //enable made changes
-                                options.model.dirty = true;
-                            },
-                            //change: function (e) {
-                            //    debugger;
-                            //    //get items before a change
-                            //    var previous = this._savedOld;
-                            //    //get items after a change
-                            //    var current = this.value();
-
-                            //    //eval removed items
-                            //    var diff = [];
-                            //    if (previous) {
-                            //        debugger;
-                            //        diff = $(previous).not(current).get();
-                            //    }
-                            //    this._savedOld = current.slice(0);
-                            //    if (diff.length > 0) {
-                            //        debugger;
-                            //        options.model[options.field] = $(options.model[options.field]).not(dif).get();
-                            //    }
-
-                            //    //debugger;
-                            //    //var removedItem = this.dataItem(e.item.index());
-
-                            //    //if (options.model[options.field] != null && options.model[options.field].length > 0) {
-
-                            //    //    var NewArray = new Array();
-                            //    //    $.each(options.model[options.field], function (item, value) {
-                            //    //        if (removedItem.EconomicActivityId != value.EconomicActivityId) {
-                            //    //            NewArray.push(value);
-                            //    //        }
-                            //    //    });
-
-                            //    //    options.model[options.field] = NewArray;
-                            //    //}
-
-                            //    ////enable made changes
-                            //    //options.model.dirty = true;
-                            //}
                         });
                 },
-                //}, {
-                //    field: 'EX_CustomEconomicActivity',
-                //    title: 'Actividad economica personalizada',
-                //    width: '400px',
-                //    template: function (dataItem) {
-                //        var oReturn = '';
-                //        if (dataItem != null && dataItem.EX_CustomEconomicActivity != null && dataItem.EX_CustomEconomicActivity.length > 0) {
-                //            if (dataItem.dirty != null && dataItem.dirty == true) {
-                //                oReturn = '<span class="k-dirty"></span>';
-                //            }
-                //            $.each(dataItem.EX_CustomEconomicActivity, function (item, value) {
-                //                oReturn = oReturn + value.Item3 + ',';
-                //            });
-                //        }
-                //        return oReturn;
-                //    },
-                //    editor: function (container, options) {
-                //        $('<select multiple="multiple"/>')
-                //            .appendTo(container)
-                //            .kendoMultiSelect({
-                //                minLength: 1,
-                //                autoBind: false,
-                //                dataTextField: 'Name',
-                //                dataValueField: 'EconomicActivityId',
-                //                itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
-                //                dataSource: {
-                //                    type: "json",
-                //                    serverFiltering: true,
-                //                    transport: {
-                //                        read: function (options) {
-                //                            $.ajax({
-                //                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=true&SearchParam=' + options.data.filter.filters[0].value,
-                //                                dataType: 'json',
-                //                                success: function (result) {
-                //                                    options.success(result);
-                //                                },
-                //                                error: function (result) {
-                //                                    options.error(result);
-                //                                }
-                //                            });
-                //                        },
-                //                    },
-                //                },
-                //                select: function (e) {
-                //                    var selectedItem = this.dataItem(e.item.index());
-
-                //                    if (options.model[options.field] == null || options.model[options.field].length == 0) {
-                //                        options.model[options.field] = new Array();
-                //                    }
-
-                //                    options.model[options.field].push({
-                //                        Item1: 0,
-                //                        Item2: selectedItem.EconomicActivityId,
-                //                        Item3: selectedItem.Name,
-                //                    });
-
-                //                    //enable made changes
-                //                    options.model.dirty = true;
-                //                },
-                //                //value: options.model[options.field]
-                //            });
-                //    },
+            }, {
+                field: 'EX_CustomEconomicActivity',
+                title: 'Actividad economica personalizada',
+                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.EX_CustomEconomicActivity != null && dataItem.EX_CustomEconomicActivity.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        $.each(dataItem.EX_CustomEconomicActivity, function (item, value) {
+                            oReturn = oReturn + value.ActivityName + ',';
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+                        .appendTo(container)
+                        .kendoMultiSelect({
+                            minLength: 2,
+                            autoBind: false,
+                            dataTextField: 'ActivityName',
+                            //value: options.model[options.field],
+                            itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            dataSource: {
+                                type: "json",
+                                serverFiltering: true,
+                                schema: {
+                                    model: {
+                                        id: 'EconomicActivityId',
+                                        fields: {
+                                            EconomicActivityId: { type: 'string', nullable: false },
+                                            ActivityName: { type: 'string', nullable: false },
+                                            ActivityType: { type: 'string', nullable: true },
+                                            ActivityGroup: { type: 'string', nullable: true },
+                                            ActivityCategory: { type: 'string', nullable: true },
+                                        }
+                                    }
+                                },
+                                transport: {
+                                    read: function (options) {
+                                        if (options.data != null && options.data.filter != null && options.data.filter.filters != null && options.data.filter.filters.length > 0 && options.data.filter.filters[0].value != null && options.data.filter.filters[0].value.length > 0) {
+                                            $.ajax({
+                                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=true&SearchParam=' + options.data.filter.filters[0].value,
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    options.success(result);
+                                                },
+                                                error: function (result) {
+                                                    options.error(result);
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            options.success([]);
+                                        }
+                                    },
+                                },
+                            },
+                        });
+                },
             }, {
                 field: 'EX_ExperienceFile',
                 title: 'Doc soporte.',
@@ -1397,16 +1364,16 @@ var Provider_CompanyHSEQObject = {
                         id: "CertificationId",
                         fields: {
                             CertificationId: { editable: false, nullable: true },
-                            CertificationName: { editable: true },
+                            CertificationName: { editable: true, validation: { required: true } },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             C_CertificationCompany: { editable: true },
                             C_CertificationCompanyId: { editable: false },
-                            C_CertificationCompanyName: { editable: true },
+                            C_CertificationCompanyName: { editable: true, validation: { required: true } },
 
                             C_Rule: { editable: true },
                             C_RuleId: { editable: false },
-                            C_RuleName: { editable: true },
+                            C_RuleName: { editable: true, validation: { required: true } },
 
                             C_StartDateCertification: { editable: true },
                             C_StartDateCertificationId: { editable: false },
@@ -1694,7 +1661,7 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CH_Year: { editable: true },
+                            CH_Year: { editable: true, validation: { required: true } },
                             CH_YearId: { editable: false },
 
                             CH_PoliticsSecurity: { editable: true },
@@ -2258,7 +2225,118 @@ var Provider_CompanyHSEQObject = {
     },
 
     RenderCompanyRiskPolicies: function () {
+        $('#' + Provider_CompanyHSEQObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "CertificationId",
+                        fields: {
+                            CertificationId: { editable: false, nullable: true },
+                            CertificationName: { editable: true },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
 
+                            CR_Year: { editable: true, validation: { required: true } },
+                            CR_YearId: { editable: false },
+
+                            CR_ManHoursWorked: { editable: true },
+                            CR_ManHoursWorkedId: { editable: false },
+
+                            CR_Fatalities: { editable: true },
+                            CR_FatalitiesId: { editable: false },
+
+                            CR_NumberAccident: { editable: true },
+                            CR_NumberAccidentId: { editable: false },
+
+                            CR_NumberAccidentDisabling: { editable: true },
+                            CR_NumberAccidentDisablingId: { editable: false },
+
+                            CR_DaysIncapacity: { editable: true },
+                            CR_DaysIncapacityId: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'CR_Year',
+                title: 'Año',
+                width: '80px',
+            }, {
+                field: 'CR_ManHoursWorked',
+                title: 'Horas Hombre Trabajadas',
+                width: '200px',
+            }, {
+                field: 'CR_Fatalities ',
+                title: 'Fatalidades',
+                width: '100px',
+            }, {
+                field: 'CR_NumberAccident',
+                title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
+                width: '200px',
+            }, {
+                field: 'CR_NumberAccidentDisabling ',
+                title: 'Número de Accidentes Incapacitantes',
+                width: '200px',
+            }, {
+                field: 'CR_DaysIncapacity',
+                title: 'Días de Incapacidad',
+                width: '180px',
+            }],
+        });
     },
 };
 

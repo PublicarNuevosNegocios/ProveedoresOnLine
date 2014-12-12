@@ -485,9 +485,9 @@ namespace BackOffice.Web.ControllersApi
         {
             BackOffice.Models.Provider.ProviderCommercialViewModel oReturn = null;
 
-            //if (GIContactUpsert == "true" &&
+            //if (CICommercialUpsert == "true" &&
             //    !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
-            //    !string.IsNullOrEmpty(ContactType))
+            //    !string.IsNullOrEmpty(CommercialType))
             //{
             //    List<string> lstUsedFiles = new List<string>();
 
@@ -496,6 +496,31 @@ namespace BackOffice.Web.ControllersApi
             //        (new System.Web.Script.Serialization.JavaScriptSerializer()).
             //        Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
             //                    typeof(BackOffice.Models.Provider.ProviderContactViewModel));
+
+
+            //    ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+            //    {
+            //        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+            //        {
+            //            CompanyPublicId = ProviderPublicId,
+            //        },
+
+            //        RelatedCommercial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>() 
+            //        {
+            //            new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+            //            {
+            //                ItemId = string.IsNullOrEmpty(oDataToUpsert.ContactId) ? 0 : Convert.ToInt32(oDataToUpsert.ContactId.Trim()),
+            //                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+            //                {
+            //                    ItemId = Convert.ToInt32(CommercialType.Trim()),
+            //                },
+            //                ItemName = oDataToUpsert.ContactName,
+            //                Enable = oDataToUpsert.Enable,
+            //                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            //            },
+            //        },
+            //    };
+
 
             //    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
             //    {

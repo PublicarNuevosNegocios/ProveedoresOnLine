@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
 
         #region Commercial Experience
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedExperience { get; set; }
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedCommercial { get; set; }
 
         #endregion
 

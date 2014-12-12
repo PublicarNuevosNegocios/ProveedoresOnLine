@@ -15,17 +15,28 @@
     <div class="POBOProviderContentWrapper">
         <div class="POBOProviderUpsertForm" id="divRiskPoliciesContent">
             <label class="POBOSectionTitles">Sistema de riesgos laborales</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
             <ul>
                 <li>
                     <label>Sistema de Riesgos: </label>
                     <br />
                     <select id="listARL">
-                        <option value="0">Seleccione una ARL</option>
+                        <option value="0">Seleccione una Entidad</option>
                     </select>
                 </li>
                 <li>
                     <label>Calificación de Riesgo ARL</label><br />
-                    <input type="text" value="" />
+                    <select id="listCualityARL">
+                        <option value="0">Seleccione una Calificación</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </li>
                 <li>
                     <label>Afiliación ARL</label><br />
@@ -40,6 +51,43 @@
                     <div id="divGridRiskPolicies"></div>
                 </li>
                 <li class="POBOHSEQ">
+
+                    @{
+                        string oYear = string.Empty;
+                        double oFatalities = 0;
+                        double oAccidents = 0;
+                        double oHours = 0;
+                        double oLTIF = 0;
+                        
+                        foreach (var Item in Model.RelatedProvider.RelatedCertification)
+                        {
+                            oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault() + " ";
+
+                            if (oYear.Length > 0)
+                            {
+                                oFatalities += Convert.ToDouble(Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+                                    Select(x => x.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault());
+
+                                oAccidents += Convert.ToDouble(Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
+                                    Select(y => y.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault());
+
+                                oHours += Convert.ToDouble(Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
+                                    Select(z => z.Value).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault());
+                            }
+                        }
+
+                        oLTIF = ((oFatalities + oAccidents) / oHours) * 1000000;
+                    }
+
                     <label>Reporte LTIF</label>
                     <ul id="ReportLITF">
                         <li id="F1">
@@ -51,12 +99,16 @@
                             <label>* 1'000.000</label>
                         </li>
                         <li id="F3">
-                            <label>Resultado LTIF</label>
-                            <label>AÑOS</label>
+                            <label>Resultado LTIF: @(oLTIF)</label>
+                            <label>AÑOS: @(oYear)</label>
                         </li>
                     </ul>
                 </li>
             </ul>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </div>
     </div>
 </div>
@@ -69,4 +121,16 @@
 
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Provider_CompanyHSEQObject.Init({
+                ObjectId: 'divGridRiskPolicies',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
+                DateFormat: '',
+                HSEQOptionList: '',
+            });
+            Provider_CompanyHSEQObject.RenderAsync();
+        });
+    </script>
 }
