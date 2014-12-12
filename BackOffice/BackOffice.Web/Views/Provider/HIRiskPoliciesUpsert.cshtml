@@ -19,33 +19,37 @@
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
+            <form>
+                <ul>
+                    <li>
+                        <label>Sistema de Riesgos: </label>
+                        <br />
+                        <select id="listARL">
+                            <option value="0">Seleccione una Entidad</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>Calificación de Riesgo ARL</label><br />
+                        <select id="listCualityARL">
+                            <option value="0">Seleccione una Calificación</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>Afiliación ARL</label><br />
+                        <input type="file" />
+                    </li>
+                    <li>
+                        <label>Certificado accidentalidad ARL</label><br />
+                        <input type="file" />
+                    </li>
+                </ul>
+            </form>
             <ul>
-                <li>
-                    <label>Sistema de Riesgos: </label>
-                    <br />
-                    <select id="listARL">
-                        <option value="0">Seleccione una Entidad</option>
-                    </select>
-                </li>
-                <li>
-                    <label>Calificación de Riesgo ARL</label><br />
-                    <select id="listCualityARL">
-                        <option value="0">Seleccione una Calificación</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </li>
-                <li>
-                    <label>Afiliación ARL</label><br />
-                    <input type="file" />
-                </li>
-                <li>
-                    <label>Certificado accidentalidad ARL</label><br />
-                    <input type="file" />
-                </li>
                 <li class="POBOHSEQ">
                     <label>Certificados de Accidentalidad</label><br />
                     <div id="divGridRiskPolicies"></div>
@@ -59,33 +63,36 @@
                         double oHours = 0;
                         double oLTIF = 0;
                         
-                        foreach (var Item in Model.RelatedProvider.RelatedCertification)
-                        {
-                            oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault() + " ";
-
-                            if (oYear.Length > 0)
+                        if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null)
+                        {                            
+                            foreach (var Item in Model.RelatedProvider.RelatedCertification)
                             {
-                                oFatalities += Convert.ToDouble(Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+                                oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
                                     Select(x => x.Value).
                                     DefaultIfEmpty(string.Empty).
-                                    FirstOrDefault());
+                                    FirstOrDefault() + " ";
 
-                                oAccidents += Convert.ToDouble(Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
-                                    Select(y => y.Value).
-                                    DefaultIfEmpty(string.Empty).
-                                    FirstOrDefault());
+                                if (oYear.Length > 0)
+                                {
+                                    oFatalities += Convert.ToDouble(Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+                                        Select(x => x.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault());
 
-                                oHours += Convert.ToDouble(Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
-                                    Select(z => z.Value).
-                                    DefaultIfEmpty(string.Empty).
-                                    FirstOrDefault());
+                                    oAccidents += Convert.ToDouble(Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
+                                        Select(y => y.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault());
+
+                                    oHours += Convert.ToDouble(Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
+                                        Select(z => z.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault());
+                                }
                             }
-                        }
 
-                        oLTIF = ((oFatalities + oAccidents) / oHours) * 1000000;
+                            oLTIF = ((oFatalities + oAccidents) / oHours) * 1000000;
+                        }
                     }
 
                     <label>Reporte LTIF</label>
