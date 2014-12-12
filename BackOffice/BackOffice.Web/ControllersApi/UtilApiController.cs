@@ -60,7 +60,7 @@ namespace BackOffice.Web.ControllersApi
                             BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
                         ].Value));
             }
-            else if (CategorySearchByActivity == "true" && IsDefault == "true")
+            else if (CategorySearchByActivity == "true" && IsDefault == "false")
             {
                 oActivities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity
                     (string.IsNullOrEmpty(SearchParam) ? null : SearchParam,
