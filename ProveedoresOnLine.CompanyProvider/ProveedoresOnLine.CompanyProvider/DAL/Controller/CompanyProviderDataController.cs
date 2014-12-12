@@ -47,9 +47,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CommercialInfoUpsert(CommercialId, CommercialInfoId, CommercialInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
         {
-            return DataFactory.CommercialGetBasicInfo(CompanyPublicId, ContactType);
+            return DataFactory.CommercialGetBasicInfo(CompanyPublicId, CommercialType);
         }
 
         #endregion

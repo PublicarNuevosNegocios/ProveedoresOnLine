@@ -1235,7 +1235,7 @@ var Provider_CompanyCommercialObject = {
                                     read: function (options) {
                                         if (options.data != null && options.data.filter != null && options.data.filter.filters != null && options.data.filter.filters.length > 0 && options.data.filter.filters[0].value != null && options.data.filter.filters[0].value.length > 0) {
                                             $.ajax({
-                                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=true&SearchParam=' + options.data.filter.filters[0].value,
+                                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
                                                 dataType: 'json',
                                                 success: function (result) {
                                                     options.success(result);

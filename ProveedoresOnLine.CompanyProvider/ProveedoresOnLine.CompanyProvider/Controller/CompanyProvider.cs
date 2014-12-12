@@ -149,9 +149,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return CommercialToUpsert;
         }
 
-        public static List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public static List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.CommercialGetBasicInfo(CompanyPublicId, ContactType);
+            return DAL.Controller.CompanyProviderDataController.Instance.CommercialGetBasicInfo(CompanyPublicId, CommercialType);
         }
 
         #endregion
