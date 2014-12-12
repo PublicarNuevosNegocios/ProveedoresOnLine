@@ -18,6 +18,46 @@
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+
+                var SystemOccupationalHazards = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                        Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+                var SystemOccupationalHazardsId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                    Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
+                var RateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).
+                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+                var RateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                    Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).
+                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
+                var CertificateAffiliateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
+                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+                var CertificateAffiliateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                    Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
+                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
+                var CertificateAccidentARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
+                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+                var CertificateAccidentARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                    Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
+                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
             }
             <form>
                 <ul>
@@ -25,27 +65,56 @@
                         <label>Sistema de Riesgos: </label>
                         <br />
                         <select id="listARL">
-                            <option value="0">Seleccione una Entidad</option>
+                            @{
+                                if (SystemOccupationalHazards != null)
+                                {
+                                    <option value="@SystemOccupationalHazardsId" selected>@SystemOccupationalHazards</option>
+                                    <option value="1">Empresa 1</option>
+                                    <option value="2">Empresa 2</option>
+                                    <option value="3">Empresa 3</option>
+                                }
+                                else
+                                {
+                                    <option value="0" selected>Seleccione una Entidad</option>
+                                    <option value="1">Empresa 1</option>
+                                    <option value="2">Empresa 2</option>
+                                    <option value="3">Empresa 3</option>
+                                }
+                            }
                         </select>
                     </li>
                     <li>
                         <label>Calificación de Riesgo ARL</label><br />
                         <select id="listCualityARL">
-                            <option value="0">Seleccione una Calificación</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
+                            @{
+                                if (RateARL != null)
+                                {
+                                    <option value="@RateARLId" selected>@RateARL</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                }
+                                else
+                                {
+                                    <option value="0" selected>Seleccione una Calificación</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                }
+                            }
+
                         </select>
                     </li>
                     <li>
                         <label>Afiliación ARL</label><br />
-                        <input type="file" />
+                        <input type="file" value="@CertificateAffiliateARL"/>
                     </li>
                     <li>
                         <label>Certificado accidentalidad ARL</label><br />
-                        <input type="file" />
+                        <input type="file" value="@CertificateAccidentARL"/>
                     </li>
                 </ul>
             </form>
@@ -62,9 +131,9 @@
                         double oAccidents = 0;
                         double oHours = 0;
                         double oLTIF = 0;
-                        
+
                         if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null)
-                        {                            
+                        {
                             foreach (var Item in Model.RelatedProvider.RelatedCertification)
                             {
                                 oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
