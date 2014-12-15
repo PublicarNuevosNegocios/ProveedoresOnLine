@@ -71,7 +71,7 @@ namespace BackOffice.Web.Controllers
 
                 ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel oCurrency = null;
 
-                if (olstCurrency == null && olstCurrency.Count > 0)
+                if (olstCurrency != null && olstCurrency.Count > 0)
                 {
                     //get rate for year or current year
                     oCurrency = olstCurrency.Any(x => x.IssueDate.Year == Year) ?

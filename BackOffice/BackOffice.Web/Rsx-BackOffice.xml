@@ -15,7 +15,7 @@
     <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
     <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
     
-    <key name="CurrencyExchange_USD">18001</key>
+    <key name="CurrencyExchange_USD">108001</key>
 
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
