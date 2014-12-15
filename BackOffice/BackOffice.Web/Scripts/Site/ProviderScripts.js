@@ -1003,7 +1003,7 @@ var Provider_CompanyCommercialObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1102,6 +1102,8 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
+                    $('<input style="width:45%;" required data-bind="value:' + options.field + '"/><span>&nbsp;</span>')
+                        .appendTo(container);
                     $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
                         .appendTo(container)
                         .kendoDropDownList({
@@ -1110,9 +1112,6 @@ var Provider_CompanyCommercialObject = {
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción',
                         });
-
-                    $('<span>&nbsp;</span><input style="width:45%;" required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container);
                 },
             }, {
                 field: 'EX_Phone',

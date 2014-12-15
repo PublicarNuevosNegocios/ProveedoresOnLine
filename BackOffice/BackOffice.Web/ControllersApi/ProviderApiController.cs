@@ -619,7 +619,7 @@ namespace BackOffice.Web.ControllersApi
                         //value in default rate
                         lstCurrencyConversion = new List<Tuple<decimal, decimal>>() 
                         { 
-                            new Tuple<decimal, decimal>(Convert.ToDecimal(oDataToUpsert.EX_ContractValue.Replace(" ", "").Replace(",", "")), Convert.ToDecimal(oDataToUpsert.EX_ContractValue.Replace(" ", "").Replace(",", "")))
+                            new Tuple<decimal, decimal>(Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture), Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture))
                         };
                     }
                     else
@@ -640,7 +640,7 @@ namespace BackOffice.Web.ControllersApi
                                         oDataToUpsert.EX_DateIssue,
                                         BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
                                         System.Globalization.CultureInfo.InvariantCulture)).Year,
-                                new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue.Replace(" ", "").Replace(",", "")) });
+                                new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) });
                     }
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -650,7 +650,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue
                         },
-                        Value = (lstCurrencyConversion != null && lstCurrencyConversion.Count > 0 ? lstCurrencyConversion.FirstOrDefault().Item2 : 0).ToString(),
+                        Value = (lstCurrencyConversion != null && lstCurrencyConversion.Count > 0 ? lstCurrencyConversion.FirstOrDefault().Item2 : 0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
                         Enable = true,
                     });
 
