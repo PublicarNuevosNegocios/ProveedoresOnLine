@@ -92,6 +92,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByCustomActivity(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.CurrencyExchangeModel> CurrencyExchangeGetByMoneyType(int? MoneyTypeFrom, int? MoneyTypeTo, int? Year)
+        {
+            return DataFactory.CurrencyExchangeGetByMoneyType(MoneyTypeFrom, MoneyTypeTo, Year);
+        }
+
         #endregion
 
         #region Company
@@ -142,5 +147,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
+
     }
 }

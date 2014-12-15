@@ -67,6 +67,7 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Models\Util\CatalogModel.cs" />
+    <Compile Include="Models\Util\CurrencyExchangeModel.cs" />
     <Compile Include="Models\Util\GenericItemInfoModel.cs" />
     <Compile Include="Models\Util\GenericItemModel.cs" />
     <Compile Include="Models\Util\GeographyModel.cs" />
