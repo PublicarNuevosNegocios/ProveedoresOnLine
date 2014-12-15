@@ -1053,31 +1053,6 @@ var Provider_CompanyCommercialObject = {
                         });
                 },
             }, {
-                field: 'EX_Currency',
-                title: 'Moneda',
-                width: '200px',
-                template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.EX_Currency != null) {
-                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
-                            if (dataItem.EX_Currency == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
-            }, {
                 field: 'EX_DateIssue',
                 title: 'Inicio',
                 width: '200px',
@@ -1108,7 +1083,37 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'EX_ContractValue',
                 title: 'Valor de contrato',
-                width: '200px',
+                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.EX_Currency != null && dataItem.EX_ContractValue != null) {
+
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+
+                        oReturn = oReturn + ' ' + dataItem.EX_ContractValue;
+                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
+                            if (dataItem.EX_Currency == value.ItemId) {
+                                oReturn = oReturn + value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción',
+                        });
+
+                    $('<span>&nbsp;</span><input style="width:45%;" required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container);
+                },
             }, {
                 field: 'EX_Phone',
                 title: 'Telefono',

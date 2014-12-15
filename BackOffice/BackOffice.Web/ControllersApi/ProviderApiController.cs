@@ -493,6 +493,8 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<string> lstUsedFiles = new List<string>();
 
+                List<Tuple<decimal, decimal>> lstCurrencyConversion = null;
+
                 BackOffice.Models.Provider.ProviderCommercialViewModel oDataToUpsert =
                     (BackOffice.Models.Provider.ProviderCommercialViewModel)
                     (new System.Web.Script.Serialization.JavaScriptSerializer()).
@@ -533,17 +535,6 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractType
                         },
                         Value = oDataToUpsert.EX_ContractType,
-                        Enable = true,
-                    });
-
-                    oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_CurrencyId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_CurrencyId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Currency
-                        },
-                        Value = oDataToUpsert.EX_Currency,
                         Enable = true,
                     });
 
@@ -609,6 +600,49 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
 
+
+                    oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_CurrencyId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_CurrencyId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Currency
+                        },
+                        Value = BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", ""),
+                        Enable = true,
+                    });
+
+
+                    //get experience value
+                    if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value == oDataToUpsert.EX_Currency)
+                    {
+                        //value in default rate
+                        lstCurrencyConversion = new List<Tuple<decimal, decimal>>() 
+                        { 
+                            new Tuple<decimal, decimal>(Convert.ToDecimal(oDataToUpsert.EX_ContractValue.Replace(" ", "").Replace(",", "")), Convert.ToDecimal(oDataToUpsert.EX_ContractValue.Replace(" ", "").Replace(",", "")))
+                        };
+                    }
+                    else
+                    {
+                        //value in custom rate
+                        lstCurrencyConversion =
+                        string.IsNullOrEmpty(oDataToUpsert.EX_ContractValue) || string.IsNullOrEmpty(oDataToUpsert.EX_Currency) || string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
+                            new List<Tuple<decimal, decimal>>() { new Tuple<decimal, decimal>(0, 0) } :
+                            BackOffice.Web.Controllers.BaseController.Currency_ConvertToStandar
+                                (Convert.ToInt32(oDataToUpsert.EX_Currency),
+                                Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
+                                (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                                    DateTime.ParseExact(
+                                        oDataToUpsert.EX_DateIssue,
+                                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
+                                        System.Globalization.CultureInfo.InvariantCulture) :
+                                    DateTime.ParseExact(
+                                        oDataToUpsert.EX_DateIssue,
+                                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                        System.Globalization.CultureInfo.InvariantCulture)).Year,
+                                new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue.Replace(" ", "").Replace(",", "")) });
+                    }
+
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ContractValueId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ContractValueId.Trim()),
@@ -616,7 +650,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue
                         },
-                        Value = oDataToUpsert.EX_ContractValue,
+                        Value = (lstCurrencyConversion != null && lstCurrencyConversion.Count > 0 ? lstCurrencyConversion.FirstOrDefault().Item2 : 0).ToString(),
                         Enable = true,
                     });
 
