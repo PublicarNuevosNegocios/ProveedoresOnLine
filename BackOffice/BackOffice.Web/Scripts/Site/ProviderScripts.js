@@ -1092,7 +1092,7 @@ var Provider_CompanyCommercialObject = {
                             oReturn = '<span class="k-dirty"></span>';
                         }
 
-                        oReturn = oReturn + ' ' + dataItem.EX_ContractValue;
+                        oReturn = oReturn + dataItem.EX_ContractValue + ' ';
                         $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
                             if (dataItem.EX_Currency == value.ItemId) {
                                 oReturn = oReturn + value.ItemName;
@@ -2565,11 +2565,11 @@ var Provider_LegalInfoObject = {
                 }, {
                     field: 'CD_PartnerRank',
                     title: 'Cargo',
-                },{
+                }, {
                     field: 'Enable',
                     title: 'Habilitado',
                     width: '100px',
-                 }],
+                }],
         });
     },
 
