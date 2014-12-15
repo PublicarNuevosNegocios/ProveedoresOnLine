@@ -81,6 +81,7 @@ namespace BackOffice.Models.Provider
 
         public string CR_SystemOccupationalHazards { get; set; }
         public string CR_SystemOccupationalHazardsId { get; set; }
+        public string CR_SystemOccupationalHazardsName { get; set; }
 
         public string CR_RateARL { get; set; }
         public string CR_RateARLId { get; set; }
@@ -115,7 +116,8 @@ namespace BackOffice.Models.Provider
 
         public ProviderHSEQViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedCertification,
                                      List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule,
-                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule)
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule,
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL)
         {
             RelatedCertification = oRelatedCertification;
             CertificationId = RelatedCertification.ItemId.ToString();
@@ -345,6 +347,14 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+            if (oARL != null && oARL.Count > 0)
+            {
+                CR_SystemOccupationalHazardsName = oARL.
+                    Where(x => x.ItemId.ToString() == CR_SystemOccupationalHazards).
+                    Select(x => x.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
 
             CR_RateARL = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).

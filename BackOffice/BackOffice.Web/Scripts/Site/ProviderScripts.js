@@ -2264,7 +2264,6 @@ var Provider_CompanyHSEQObject = {
 
                             CR_CertificateAccidentARL: { editable: true },
                             CR_CertificateAccidentARLId: { editable: false },
-                            CR_CertificateAccidentARLName: { editable: true },
                         },
                     }
                 },
@@ -2322,29 +2321,24 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CR_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
-                width: '200px',
             }, {
                 field: 'CR_Fatalities ',
                 title: 'Fatalidades',
-                width: '100px',
             }, {
                 field: 'CR_NumberAccident',
                 title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
-                width: '200px',
             }, {
                 field: 'CR_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
-                width: '200px',
             }, {
                 field: 'CR_DaysIncapacity',
                 title: 'Días de Incapacidad',
-                width: '180px',
             }, {
-                field: '',
-                title: '',
+                field: 'CR_CertificateAccidentARL',
+                title: 'Certificado de accidentalidad',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.C_CertificationFile != null && dataItem.C_CertificationFile.length > 0) {
+                    if (dataItem != null && dataItem.CR_CertificateAccidentARL != null && dataItem.CR_CertificateAccidentARL.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -2354,7 +2348,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.C_CertificationFile);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CR_CertificateAccidentARL);
 
                     return oReturn;
                 },

@@ -740,6 +740,7 @@ namespace BackOffice.Web.ControllersApi
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
 
                 if (oCertification != null)
                 {
@@ -749,10 +750,14 @@ namespace BackOffice.Web.ControllersApi
                         oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
                         oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
                     }
+                    else if (HSEQType == ((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies).ToString())
+                    {
+                        oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+                    }
 
                     oCertification.All(x =>
                         {
-                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oRule, oCompanyRule));
+                            oReturn.Add(new BackOffice.Models.Provider.ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
                             return true;
                         });
                 }

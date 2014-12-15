@@ -59,36 +59,30 @@
                     <li>
                         <label>Sistema de Riesgos: </label>
                         <br />
-                        <select id="listARLCompany">
-                            @{
-                                <option value="0">Seleccione una Opción</option>
-
-                                foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ARLCompany).OrderBy(x => x.ItemName))
-                                {
-                                    <option value="@Item.ItemId">@Item.ItemName</option>
-                                }
-                            }
-                        </select>
+                        <input type="text" id="OccupationalHazards" name="OccupationalHazards" value="@SystemOccupationalHazards" />
+                        <input type="hidden" id="OccupationalHazardsId" name="OccupationalHazardsId" value="@SystemOccupationalHazards" />
+                        <input type="text" name="RiskPoliciesName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemName != null).Select(x => x.ItemName).FirstOrDefault() : string.Empty) " />
+                        <input type="hidden" name="NameInfoId" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemId != null).Select(x => x.ItemId).FirstOrDefault() : 0) " />
                     </li>
                     <li>
                         <label>Calificación de Riesgo ARL</label><br />
-                        <select id="listARLRate">
+                        <select id="RateARL" name="RateARL">
                             @{
                                 <option value="0">Seleccione una Opción</option>
-                                
+
                                 foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ARLRate))
                                 {
                                     <option value="@Item.ItemId">@Item.ItemName</option>
                                 }
                             }
-
                         </select>
+                        <input type="hidden" name="RateARLId" id="RateARLId" value="@CertificateAffiliateARL" />
                     </li>
                     <li>
                         <label>Afiliación ARL</label><br />
                         <br />
                         @Html.Partial(MVC.Shared.Views._F_FileUpload)
-                        <input type="hidden" name="CertificateAffiliateARL" id="CertificateAffiliateARL" />
+                        <input type="hidden" name="CertificateAffiliateARL" id="CertificateAffiliateARL" value="@CertificateAffiliateARL"/>
                         <input type="hidden" name="CertificateAffiliateARLId" id="CertificateAffiliateARLId" value="@CertificateAffiliateARL" />
                     </li>
                 </ul>
@@ -170,12 +164,12 @@
 
 <!--templates by files-->
 <div style="display:none;">
-    <div id="divGridHealtyPolitics_NoFile">
+    <div id="divGridRiskPolicies_NoFile">
         <div>
             <span>Seleccione un archivo</span>
         </div>
     </div>
-    <div id="divGridHealtyPolitics_File">
+    <div id="divGridRiskPolicies_File">
         <div>
             <a target="_blank" href="${FileUrl}">Ver archivo</a>
         </div>
