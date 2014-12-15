@@ -447,6 +447,19 @@ namespace BackOffice.Web.Controllers
                 };
             }
 
+            List<GenericItemModel> oGenericItem = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+
+            foreach (var Item in oGenericItem)
+            {
+                oModel.ProviderOptions.Add(new CatalogModel
+                {
+                    ItemId = Item.ItemId,
+                    ItemName = Item.ItemName,
+                    ItemEnable = Item.Enable,
+                    CatalogId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards,
+                });
+            }
+
             return View(oModel);
         }
 
