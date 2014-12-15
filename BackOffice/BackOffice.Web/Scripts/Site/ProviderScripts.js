@@ -2261,6 +2261,9 @@ var Provider_CompanyHSEQObject = {
 
                             CR_DaysIncapacity: { editable: true },
                             CR_DaysIncapacityId: { editable: false },
+
+                            CR_CertificateAccidentARL: { editable: true },
+                            CR_CertificateAccidentARLId: { editable: false },
                         },
                     }
                 },
@@ -2318,23 +2321,71 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CR_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
-                width: '200px',
             }, {
                 field: 'CR_Fatalities ',
                 title: 'Fatalidades',
-                width: '100px',
             }, {
                 field: 'CR_NumberAccident',
                 title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
-                width: '200px',
             }, {
                 field: 'CR_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
-                width: '200px',
             }, {
                 field: 'CR_DaysIncapacity',
                 title: 'Días de Incapacidad',
-                width: '180px',
+            }, {
+                field: 'CR_CertificateAccidentARL',
+                title: 'Certificado de accidentalidad',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.CR_CertificateAccidentARL != null && dataItem.CR_CertificateAccidentARL.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyHSEQObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CR_CertificateAccidentARL);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
             }],
         });
     },

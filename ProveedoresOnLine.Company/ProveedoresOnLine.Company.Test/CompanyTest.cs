@@ -56,5 +56,16 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oReturn.Count >= 10);
         }
+
+        [TestMethod]
+        public void CurrencyExchangeGetByMoneyType()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetByMoneyType
+                (108001, null, null);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
     }
 }

@@ -14,10 +14,8 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
+        <label class="POBOSectionTitles">Camara y comercio</label>
         @{
-            Model.IsForm = false;
-            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-
             var ConsitutionDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                             Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                                 Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ConstitutionDate).
@@ -85,7 +83,10 @@
                             Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).
                                 Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
         }
-
+        @{
+            Model.IsForm = true;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
         <form id="frmProviderUpsert" class="POBOProviderUpsertForm" method="post" action="@(Url.Action
                 (MVC.Provider.ActionNames.LIChaimberOfCommerceUpsert,
                 MVC.Provider.Name,
@@ -93,10 +94,7 @@
                 {
                     ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
                 }))">
-            @*@{
-                Model.IsForm = true;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }*@
+
             <ul>
                 <li>
                     <label>Nombre</label>
@@ -154,12 +152,17 @@
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 <input type="hidden" name="StepAction" id="StepAction" value="" />
             </div>
-           
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </form>
-
+        <ul class="POBOCamaraComercioSociosWrapper">
+            <li class="POBOCamaraComercioSocios">
         <label>Socios, Miembros junta directiva, entre otros</label>
         <div id="divGridChaimberOfComerce"></div>
-        <br />
+            </li>
+        </ul>
         @{
             Model.IsForm = true;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
