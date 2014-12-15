@@ -118,7 +118,7 @@
                 <li>
                     <label>Ciudad</label>
                     <br />
-                    <input type="text" id="CityId" value="@City" />
+                    <input type="text" id="CityId" name="CityId" value="@City" />
                     <input type="hidden" id="SelectedCity" name="SelectedCity" value="" />
                     <input type="hidden" id="SelectedCityId" name="SelectedCityId" value="@CityId" />
                 </li>
@@ -152,15 +152,19 @@
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 <input type="hidden" name="StepAction" id="StepAction" value="" />
             </div>
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </form>
         <ul class="POBOCamaraComercioSociosWrapper">
             <li class="POBOCamaraComercioSocios">
-                <label>Socios, Miembros junta directiva, entre otros</label>
-                <div id="divGridChaimberOfComerce"></div>
+        <label>Socios, Miembros junta directiva, entre otros</label>
+        <div id="divGridChaimberOfComerce"></div>
             </li>
         </ul>
         @{
-            Model.IsForm = false;
+            Model.IsForm = true;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
     </div>
