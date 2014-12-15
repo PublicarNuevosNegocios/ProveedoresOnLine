@@ -24,6 +24,9 @@
         PersonContactType = 210,
         DistributorType = 211,
 
+        ARLRate = 212,
+        ARLCompany = 213,
+
         CommercialType = 301,
         ExperienceInfoType = 302,
 

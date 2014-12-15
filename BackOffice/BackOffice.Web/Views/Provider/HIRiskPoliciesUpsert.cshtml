@@ -48,61 +48,37 @@
                     Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                         Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
                             Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
-
-                var CertificateAccidentARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
-                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
-
-                var CertificateAccidentARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
-                    Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
-                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
             }
-            <form>
+            <form id="frmProvider" method="post" action="@(Url.Action
+            (MVC.Provider.ActionNames.HIRiskPoliciesUpsert,
+                MVC.Provider.Name,
+                new {
+                    ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
+                }))">
                 <ul>
                     <li>
                         <label>Sistema de Riesgos: </label>
                         <br />
-                        <select id="listARL">
+                        <select id="listARLCompany">
                             @{
-                                if (SystemOccupationalHazards != null)
+                                <option value="0">Seleccione una Opción</option>
+
+                                foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ARLCompany).OrderBy(x => x.ItemName))
                                 {
-                                    <option value="@SystemOccupationalHazardsId" selected>@SystemOccupationalHazards</option>
-                                    <option value="1">Empresa 1</option>
-                                    <option value="2">Empresa 2</option>
-                                    <option value="3">Empresa 3</option>
-                                }
-                                else
-                                {
-                                    <option value="0" selected>Seleccione una Entidad</option>
-                                    <option value="1">Empresa 1</option>
-                                    <option value="2">Empresa 2</option>
-                                    <option value="3">Empresa 3</option>
+                                    <option value="@Item.ItemId">@Item.ItemName</option>
                                 }
                             }
                         </select>
                     </li>
                     <li>
                         <label>Calificación de Riesgo ARL</label><br />
-                        <select id="listCualityARL">
+                        <select id="listARLRate">
                             @{
-                                if (RateARL != null)
+                                <option value="0">Seleccione una Opción</option>
+                                
+                                foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ARLRate))
                                 {
-                                    <option value="@RateARLId" selected>@RateARL</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                }
-                                else
-                                {
-                                    <option value="0" selected>Seleccione una Calificación</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="@Item.ItemId">@Item.ItemName</option>
                                 }
                             }
 
@@ -110,13 +86,16 @@
                     </li>
                     <li>
                         <label>Afiliación ARL</label><br />
-                        <input type="file" value="@CertificateAffiliateARL"/>
-                    </li>
-                    <li>
-                        <label>Certificado accidentalidad ARL</label><br />
-                        <input type="file" value="@CertificateAccidentARL"/>
+                        <br />
+                        @Html.Partial(MVC.Shared.Views._F_FileUpload)
+                        <input type="hidden" name="CertificateAffiliateARL" id="CertificateAffiliateARL" />
+                        <input type="hidden" name="CertificateAffiliateARLId" id="CertificateAffiliateARLId" value="@CertificateAffiliateARL" />
                     </li>
                 </ul>
+                <div style="display:none">
+                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                    <input type="hidden" name="StepAction" id="StepAction" value="" />
+                </div>
             </form>
             <ul>
                 <li class="POBOHSEQ">
@@ -189,6 +168,21 @@
     </div>
 </div>
 
+<!--templates by files-->
+<div style="display:none;">
+    <div id="divGridHealtyPolitics_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridHealtyPolitics_File">
+        <div>
+            <a target="_blank" href="${FileUrl}">Ver archivo</a>
+        </div>
+    </div>
+</div>
+
+
 @{
     Model.RenderScripts = true;
 }
@@ -205,6 +199,10 @@
                 HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
                 DateFormat: '',
                 HSEQOptionList: '',
+            });
+            UploadFile({
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ControlellerResponseId: "CertificateAffiliateARL",
             });
             Provider_CompanyHSEQObject.RenderAsync();
         });
