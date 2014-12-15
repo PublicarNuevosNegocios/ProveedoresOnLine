@@ -117,6 +117,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LIRutUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIRutUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -144,6 +150,7 @@ namespace BackOffice.Web.Controllers
             public readonly string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
             public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
             public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
+            public readonly string LIRutUpsert = "LIRutUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -160,6 +167,7 @@ namespace BackOffice.Web.Controllers
             public const string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
             public const string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
             public const string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
+            public const string LIRutUpsert = "LIRutUpsert";
         }
 
 
@@ -243,6 +251,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_LIRutUpsert s_params_LIRutUpsert = new ActionParamsClass_LIRutUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LIRutUpsert LIRutUpsertParams { get { return s_params_LIRutUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LIRutUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -264,6 +280,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
                 public readonly string Index = "Index";
                 public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
+                public readonly string LIRutUpsert = "LIRutUpsert";
             }
             public readonly string CIExperiencesUpsert = "~/Views/Provider/CIExperiencesUpsert.cshtml";
             public readonly string GIBranchUpsert = "~/Views/Provider/GIBranchUpsert.cshtml";
@@ -276,6 +293,7 @@ namespace BackOffice.Web.Controllers
             public readonly string HIRiskPoliciesUpsert = "~/Views/Provider/HIRiskPoliciesUpsert.cshtml";
             public readonly string Index = "~/Views/Provider/Index.cshtml";
             public readonly string LIChaimberOfCommerceUpsert = "~/Views/Provider/LIChaimberOfCommerceUpsert.cshtml";
+            public readonly string LIRutUpsert = "~/Views/Provider/LIRutUpsert.cshtml";
         }
     }
 
@@ -412,6 +430,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIChaimberOfCommerceUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LIRutUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LIRutUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIRutUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            LIRutUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

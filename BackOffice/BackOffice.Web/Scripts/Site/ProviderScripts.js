@@ -2474,7 +2474,11 @@ var Provider_LegalInfoObject = {
                 }, {
                     field: 'CD_PartnerRank',
                     title: 'Cargo',
-                }],
+                },{
+                    field: 'Enable',
+                    title: 'Habilitado',
+                    width: '100px',
+                 }],
         });
     },
 

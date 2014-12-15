@@ -1249,7 +1249,7 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerName
                         },
                         Value = oDataToUpsert.CD_PartnerName,
-                        Enable = true,
+                        Enable = oDataToUpsert.Enable,
                     });
 
                     oProviderDesignations.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1260,7 +1260,7 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerIdentificationNumber
                         },
                         Value = oDataToUpsert.CD_PartnerIdentificationNumber,
-                        Enable = true,
+                        Enable = oDataToUpsert.Enable,
 
                     });
                     oProviderDesignations.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1271,7 +1271,7 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CD_PartnerRank
                         },
                         Value = oDataToUpsert.CD_PartnerRank,
-                        Enable = true,
+                        Enable = oDataToUpsert.Enable,
                     });
 
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProviderDesignations);

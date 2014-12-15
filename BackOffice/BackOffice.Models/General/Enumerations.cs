@@ -166,15 +166,32 @@
         CP_InscriptionNumber = 602005,
         CP_ExistenceAndLegalPersonCertificate = 602006,
         CP_CertificateExpeditionDate = 602007,
-        CP_SocialObject = 602008,
-        //CP_PartnerName = 602009,
-        //CP_PartnerIdentificationNumber = 602010,
-        //CP_PartnerRank = 602011,
+        CP_SocialObject = 602008,      
+
+        //RUT
+        R_PersonType = 603001,
+        R_LargeContributor = 603002,
+        R_LargeContributorReceipt = 603003,
+        R_LargeContributorDate = 603004,
+        R_SelfRetainer = 603005,
+        R_SelfRetainerReciept = 603006,
+        R_SelfRetainerDate = 603007,
+        R_EntityType = 603008,
+        R_IVA = 603009,
+        R_TaxPayerType = 603010,
+        R_ICA = 603011,
+        R_RUTFile = 603012,
+        R_LargeContributorFile = 603013,
+        R_SelfRetainerFile = 603014,
+
 
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
         CD_PartnerRank = 607003,
+
+        //CP_
+
     }
 
     #endregion
