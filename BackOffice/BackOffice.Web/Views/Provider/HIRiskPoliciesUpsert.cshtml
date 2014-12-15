@@ -48,75 +48,50 @@
                     Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                         Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
                             Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
-
-                var CertificateAccidentARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
-                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
-
-                var CertificateAccidentARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
-                    Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
-                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
             }
-            <form>
+            <form id="frmProviderUpsert" method="post" action="@(Url.Action
+            (MVC.Provider.ActionNames.HIRiskPoliciesUpsert,
+                MVC.Provider.Name,
+                new {
+                    ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
+                }))">
                 <ul>
                     <li>
                         <label>Sistema de Riesgos: </label>
                         <br />
-                        <select id="listARL">
-                            @{
-                                if (SystemOccupationalHazards != null)
-                                {
-                                    <option value="@SystemOccupationalHazardsId" selected>@SystemOccupationalHazards</option>
-                                    <option value="1">Empresa 1</option>
-                                    <option value="2">Empresa 2</option>
-                                    <option value="3">Empresa 3</option>
-                                }
-                                else
-                                {
-                                    <option value="0" selected>Seleccione una Entidad</option>
-                                    <option value="1">Empresa 1</option>
-                                    <option value="2">Empresa 2</option>
-                                    <option value="3">Empresa 3</option>
-                                }
-                            }
-                        </select>
+                        <input type="hidden" name="RiskPoliciesName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemName != null).Select(x => x.ItemName).FirstOrDefault() : string.Empty) " />
+                        <input type="hidden" name="NameInfoId" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemId != null).Select(x => x.ItemId).FirstOrDefault() : 0) " />
+                        
+                        <input type="text" id="OccupationalHazardsId" name="OccupationalHazardsId" value="@SystemOccupationalHazards" />
+                        <input type="hidden" id="SelectedOccupationalHazards" name="SelectedOccupationalHazards" value="" />
+                        <input type="hidden" id="SelectedOccupationalHazardsId" name="SelectedOccupationalHazardsId" value="@SystemOccupationalHazardsId" />
                     </li>
                     <li>
                         <label>Calificación de Riesgo ARL</label><br />
-                        <select id="listCualityARL">
+                        <select id="RateARL" name="RateARL">
                             @{
-                                if (RateARL != null)
+                                <option value="0">Seleccione una Opción</option>
+
+                                foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ARLRate))
                                 {
-                                    <option value="@RateARLId" selected>@RateARL</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                }
-                                else
-                                {
-                                    <option value="0" selected>Seleccione una Calificación</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="@Item.ItemId">@Item.ItemName</option>
                                 }
                             }
-
                         </select>
+                        <input type="hidden" name="RateARLId" id="RateARLId" value="@CertificateAffiliateARLId" />
                     </li>
                     <li>
                         <label>Afiliación ARL</label><br />
-                        <input type="file" value="@CertificateAffiliateARL"/>
-                    </li>
-                    <li>
-                        <label>Certificado accidentalidad ARL</label><br />
-                        <input type="file" value="@CertificateAccidentARL"/>
+                        <br />
+                        @Html.Partial(MVC.Shared.Views._F_FileUpload)
+                        <input type="hidden" name="CertificateAffiliateARL" id="CertificateAffiliateARL" value="@CertificateAffiliateARL"/>
+                        <input type="hidden" name="CertificateAffiliateARLId" id="CertificateAffiliateARLId" value="@CertificateAffiliateARLId" />
                     </li>
                 </ul>
+                <div style="display:none">
+                    <input type="submit" name="UpsertAction" id="UpsertAction" value="true" />
+                    <input type="hidden" name="StepAction" id="StepAction" value="" />
+                </div>
             </form>
             <ul class="POBOHSEQWrapper">
                 <li class="POBOHSEQ">
@@ -188,6 +163,21 @@
     </div>
 </div>
 
+<!--templates by files-->
+<div style="display:none;">
+    <div id="divGridRiskPolicies_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridRiskPolicies_File">
+        <div>
+            <a target="_blank" href="${FileUrl}">Ver archivo</a>
+        </div>
+    </div>
+</div>
+
+
 @{
     Model.RenderScripts = true;
 }
@@ -199,11 +189,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
             Provider_CompanyHSEQObject.Init({
+                AutoCompleteId: 'OccupationalHazardsId',
+                ControlToRetornACId: 'SelectedOccupationalHazards',
                 ObjectId: 'divGridRiskPolicies',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
                 DateFormat: '',
                 HSEQOptionList: '',
+            });
+            UploadFile({
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ControlellerResponseId: "CertificateAffiliateARL",
             });
             Provider_CompanyHSEQObject.RenderAsync();
         });

@@ -26,6 +26,8 @@
 
         public const string C_Settings_DateFormat_Server = "DateFormat_Server";
 
+        public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
+
         #endregion
 
         #region Administrator User Roles

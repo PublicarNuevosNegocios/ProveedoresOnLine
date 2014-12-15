@@ -1003,7 +1003,7 @@ var Provider_CompanyCommercialObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1053,31 +1053,6 @@ var Provider_CompanyCommercialObject = {
                         });
                 },
             }, {
-                field: 'EX_Currency',
-                title: 'Moneda',
-                width: '200px',
-                template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.EX_Currency != null) {
-                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
-                            if (dataItem.EX_Currency == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
-            }, {
                 field: 'EX_DateIssue',
                 title: 'Inicio',
                 width: '200px',
@@ -1108,7 +1083,36 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'EX_ContractValue',
                 title: 'Valor de contrato',
-                width: '200px',
+                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.EX_Currency != null && dataItem.EX_ContractValue != null) {
+
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+
+                        oReturn = oReturn + dataItem.EX_ContractValue + ' ';
+                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
+                            if (dataItem.EX_Currency == value.ItemId) {
+                                oReturn = oReturn + value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input style="width:45%;" required data-bind="value:' + options.field + '"/><span>&nbsp;</span>')
+                        .appendTo(container);
+                    $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción',
+                        });
+                },
             }, {
                 field: 'EX_Phone',
                 title: 'Telefono',
@@ -1321,6 +1325,8 @@ var Provider_CompanyHSEQObject = {
 
     ObjectId: '',
     ProviderPublicId: '',
+    AutoCompleteId: '',
+    ControlToReturnACId: '',
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
@@ -1328,8 +1334,11 @@ var Provider_CompanyHSEQObject = {
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.AutoCompleteId = vInitiObject.AutoCompleteId;
+        this.ControlToReturnACId = vInitiObject.ControlToRetornACId;
         this.HSEQType = vInitiObject.HSEQType;
         this.DateFormat = vInitiObject.DateFormat;
+        Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
         });
@@ -2261,6 +2270,9 @@ var Provider_CompanyHSEQObject = {
 
                             CR_DaysIncapacity: { editable: true },
                             CR_DaysIncapacityId: { editable: false },
+
+                            CR_CertificateAccidentARL: { editable: true },
+                            CR_CertificateAccidentARLId: { editable: false },
                         },
                     }
                 },
@@ -2318,24 +2330,103 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CR_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
-                width: '200px',
             }, {
                 field: 'CR_Fatalities ',
                 title: 'Fatalidades',
-                width: '100px',
             }, {
                 field: 'CR_NumberAccident',
                 title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
-                width: '200px',
             }, {
                 field: 'CR_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
-                width: '200px',
             }, {
                 field: 'CR_DaysIncapacity',
                 title: 'Días de Incapacidad',
-                width: '180px',
+            }, {
+                field: 'CR_CertificateAccidentARL',
+                title: 'Certificado de accidentalidad',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.CR_CertificateAccidentARL != null && dataItem.CR_CertificateAccidentARL.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyHSEQObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CR_CertificateAccidentARL);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
             }],
+        });
+    },
+
+    AutoComplete: function (acId, ControlToRetornACId) {
+        var acValue = $('#' + acId).val();
+        $('#' + acId).kendoAutoComplete({
+
+            dataTextField: "ItemName",
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                //set server fiel name
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByARL=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
         });
     },
 };
@@ -2474,6 +2565,10 @@ var Provider_LegalInfoObject = {
                 }, {
                     field: 'CD_PartnerRank',
                     title: 'Cargo',
+                }, {
+                    field: 'Enable',
+                    title: 'Habilitado',
+                    width: '100px',
                 }],
         });
     },

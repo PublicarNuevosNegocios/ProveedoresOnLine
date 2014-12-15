@@ -155,5 +155,24 @@ namespace BackOffice.Web.ControllersApi
             }
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByARL
+            (string CategorySearchByARL, string SearchParam)
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            if (CategorySearchByARL == "true")
+            {
+                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany
+                    (SearchParam,
+                    0,
+                    Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
+                                    BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
+                                    ].Value));
+            }
+            return oReturn;
+        }
     }
 }

@@ -278,6 +278,43 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByARLCompany(string SearchParam, int PageNumber, int RowCount)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstparams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstparams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByARL",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from g in response.DataTableResult.AsEnumerable()
+                     where !g.IsNull("CompanyARLId")
+                     select new GenericItemModel()
+                     {
+                         ItemId = g.Field<int>("CompanyARLId"),
+                         ItemName = g.Field<string>("CompanyARLName"),
+                         Enable = g.Field<UInt64>("CompanyARLEnable") == 1 ? true : false,
+                         LastModify = g.Field<DateTime>("CompanyARLModify"),
+                         CreateDate = g.Field<DateTime>("CompanyARLCreate"),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();

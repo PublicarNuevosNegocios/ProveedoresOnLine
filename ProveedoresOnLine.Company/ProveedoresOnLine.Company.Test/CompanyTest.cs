@@ -62,7 +62,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetByMoneyType
-                (108001, null, null);
+                (108002, 108001, null);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
