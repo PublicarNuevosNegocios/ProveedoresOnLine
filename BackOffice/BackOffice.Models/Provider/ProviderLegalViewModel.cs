@@ -67,6 +67,21 @@ namespace BackOffice.Models.Provider
 
         #region RUT
 
+        public string R_PersonType { get; set; }
+        public string R_LargeContributor { get; set; }
+        public string R_LargeContributorReceipt { get; set; }
+        public string R_LargeContributorDate { get; set; }
+        public string R_SelfRetainer { get; set; }
+        public string R_SelfRetainerReciept { get; set; }
+        public string R_SelfRetainerDate { get; set; }
+        public string R_EntityType { get; set; }
+        public string R_IVA { get; set; }
+        public string R_TaxPayerType { get; set; }
+        public string R_ICA { get; set; }
+        public string R_RUTFile { get; set; }
+        public string R_LargeContributorFile { get; set; }
+        public string R_SelfRetainerFile { get; set; }
+
         #endregion
 
         #region CIFIN
@@ -229,6 +244,81 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+            #endregion
+
+            #region RUT
+
+            R_PersonType = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_PersonType).
+                 Select(y => y.Value).
+                 DefaultIfEmpty(string.Empty).
+                 FirstOrDefault();
+            R_LargeContributor = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributor).
+                 Select(y => y.Value).
+                 DefaultIfEmpty(string.Empty).
+                 FirstOrDefault();
+            R_LargeContributorReceipt = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributorReceipt).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+            R_LargeContributorDate = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributorDate).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_SelfRetainer = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainer).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_SelfRetainerReciept = RelatedLegal.ItemInfo.
+              Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerReciept).
+              Select(y => y.Value).
+              DefaultIfEmpty(string.Empty).
+              FirstOrDefault();
+            R_SelfRetainerDate = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerDate).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_EntityType = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_EntityType).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_IVA = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_IVA).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_TaxPayerType = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_TaxPayerType).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_ICA = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_ICA).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_RUTFile = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_RUTFile).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_LargeContributorFile = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributorFile).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            R_SelfRetainerFile = RelatedLegal.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerFile).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+
             #endregion
 
             #region CIFIN

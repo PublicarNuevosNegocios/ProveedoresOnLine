@@ -891,7 +891,7 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Registro unico tributario",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderUpsert,
+                        (MVC.Provider.ActionNames.LIRutUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
