@@ -2,7 +2,7 @@
 .POBOPCompulsoryFields {
     color: #d40000;
     font-size: 0.9em;
-    letter-spacing: -0.7px;
+    letter-spacing: -0.7px; 
 }
 
 .POBOSectionTitles {
@@ -26,32 +26,33 @@
 
     .POBOProviderUpsertForm ul li {
         border: none;
-        display: inline-block;
-        height: auto;
-        vertical-align: top;
+    display: inline-block;
+    height: auto;
+    vertical-align: top;
         width: 48.5%;
-    }
+}
 
         .POBOProviderUpsertForm ul li label {
-            color: #4d4d4d;
-            font-size: 1em;
+        color: #4d4d4d;
+    font-size: 1em;
             font-weight: normal;
-            letter-spacing: -0.7px;
+    letter-spacing: -0.7px;
             margin: 0px;
-        }
+    }
 
 a.POBOSmallCaption {
-    color: #ff8400;
-    font-size: 0.9em;
+            color: #ff8400;
+        font-size: 0.9em;
     font-weight: normal;
-    letter-spacing: -0.7px;
+        letter-spacing: -0.7px;
     margin: 0px;
     display: block;
-}
+    }
 
 .POBOProviderUpsertForm ul li select,
 .POBOProviderUpsertForm ul li input,
-.POBOProviderUpsertForm ul li input[type=file] {
+.POBOProviderUpsertForm ul li input[type=file],
+.POBOProviderUpsertForm ul li input[type=text]{
     background-color: #f9f9f9;
     border: 1px solid #727276;
     color: #999;
@@ -61,11 +62,11 @@ a.POBOSmallCaption {
     width: 100%;
 }
 
-    .POBOProviderUpsertForm ul li select > option,
+.POBOProviderUpsertForm ul li select > option,
     .POBOProviderUpsertForm ul li select > option[selected=selected] {
         font-weight: normal;
-        font-size: 0.9em;
-    }
+    font-size: 0.9em;
+}
 
     .POBOProviderUpsertForm ul li input[type=checkbox] {
         margin: 0px 0 0;
@@ -75,16 +76,18 @@ a.POBOSmallCaption {
     }
 
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
-
-.POBOProviderUpsertForm li.POBOHSEQ {
-    text-align: left;
-    display: block;
-    width: 83%;
-    border: none;
+.POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}
+.POBOProviderUpsertForm li.POBOHSEQ, .POBOCamaraComercioSocios {
+    text-align:left;
+    display:block;
+    width:98.2%;
+    margin:10px 8px;
+        border:none;
 }
 
 #ReportLITF {
-    /*border-bottom:1px solid #ff8400;*/
+        border-bottom:1px solid #ff8400;
+        border-top:1px solid #ff8400;
     width: auto;
     text-align: center;
     padding: 15px 0px 15px 0px;
@@ -103,10 +106,10 @@ a.POBOSmallCaption {
             width: 100%;
         }
 
-li#F2 label {
+    li#F2 label {
     font-size: 1.2em;
     margin: 0px 8px;
-}
+    }
 
 li#F3, li#F3 label {
     display: block;
@@ -116,6 +119,6 @@ li#F3, li#F3 label {
 }
 
 li#F3 {
-    margin: 0 0px 0px 58.7%;
-    background-color: #ececec;
+    margin:0px 0px 0px 58.7%;
+    background-color:#ececec;
 }

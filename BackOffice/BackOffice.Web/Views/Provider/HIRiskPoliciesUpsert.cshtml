@@ -97,7 +97,7 @@
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
             </form>
-            <ul>
+            <ul class="POBOHSEQWrapper">
                 <li class="POBOHSEQ">
                     <label>Certificados de Accidentalidad</label><br />
                     <div id="divGridRiskPolicies"></div>
@@ -159,7 +159,7 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+            </ul>            
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);

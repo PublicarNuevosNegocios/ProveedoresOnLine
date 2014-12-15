@@ -194,22 +194,22 @@ namespace BackOffice.Web.Controllers
         {
             if (!string.IsNullOrEmpty(Request["UpsertAction"])
                && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ChaimberInfo                
+                GenericItemModel RelatedLegal = new GenericItemModel
                 {
-                    //get ChaimberInfo                
-                    GenericItemModel RelatedLegal = new GenericItemModel
+                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
+                    ItemType = new CatalogModel()
                     {
-                        ItemId = Convert.ToInt32(Request["NameInfoId"]),
-                        ItemType = new CatalogModel()
-                        {
-                            ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
-                        },
-                        ItemName = Request["ChaimberName"],
-                        Enable = Request["Enable"] == "true" ? true : false,
-   
-                        ItemInfo = new List<GenericItemInfoModel>
-                        {   
+                        ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
+                    },
+                    ItemName = Request["ChaimberName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+
+                    ItemInfo = new List<GenericItemInfoModel>
+                        {                               
                             new GenericItemInfoModel()
-                            {
+                            {                                
                                 ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
@@ -233,7 +233,7 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionCity
                                 },
-                                Value = Request["SelectedCity"]
+                                Value = Request["SelectedCity"],
                             },
                             new GenericItemInfoModel()
                             {
@@ -272,9 +272,9 @@ namespace BackOffice.Web.Controllers
                                 Value = Request["SocialObject"]
                             },
                         }
-                    };
-                    return RelatedLegal;
-                }
+                };
+                return RelatedLegal;
+            }
             return null;
         }
         #endregion
@@ -295,8 +295,8 @@ namespace BackOffice.Web.Controllers
                 },
             };
 
-                //get provider menu
-                oModel.ProviderMenu = GetProviderMenu(oModel);
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
             return View(oModel);
         }
@@ -404,10 +404,12 @@ namespace BackOffice.Web.Controllers
                 if (oModel.RelatedProvider.RelatedLegal != null && oModel.RelatedProvider.RelatedLegal.Count() > 0)
                 {
                     oCity = oModel.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault();
-                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
-                    oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName; 
-                }                                               
-
+                    if (!string.IsNullOrWhiteSpace(oCity))
+                    {
+                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
+                        oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName;
+                    }
+                }
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
@@ -418,11 +420,17 @@ namespace BackOffice.Web.Controllers
                 ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
                 ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
 
-                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;               
+                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;
 
                 //get request Info
                 ProviderToUpsert.RelatedLegal.Add(this.GetChaimberOfCommerceInfoRequest());
 
+                if (string.IsNullOrEmpty(ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value).FirstOrDefault()))
+                {
+                    List<GeographyModel> reqCities = new List<GeographyModel>();
+                    reqCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(Request["CityId"], null, 0, 0);
+                    ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value = reqCities.FirstOrDefault().City.ItemId.ToString()).FirstOrDefault();                    
+                }
                 //upsert provider
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
 
@@ -460,9 +468,13 @@ namespace BackOffice.Web.Controllers
                 if (oModel.RelatedProvider.RelatedLegal != null && oModel.RelatedProvider.RelatedLegal.Count() > 0)
                 {
                     oCity = oModel.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault();
-                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
-                    oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName;
-                }           
+
+                    if (!string.IsNullOrWhiteSpace(oCity))
+                    {
+                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
+                        oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName;
+                    }
+                }
             }
 
             return View(oModel);
