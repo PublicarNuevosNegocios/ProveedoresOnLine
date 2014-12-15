@@ -4,44 +4,51 @@
     font-size: 0.9em;
     letter-spacing: -0.7px; 
 }
+
 .POBOSectionTitles {
-    font-size:1.5em;
-    font-weight:normal;
-    display:block;
-    margin:0px 0px 7px 8px;
-    letter-spacing:-1px;
-    color:#4d4d4d;
+    font-size: 1.5em;
+    font-weight: normal;
+    display: block;
+    margin: 0px 0px 7px 8px;
+    letter-spacing: -1px;
+    color: #4d4d4d;
 }
+
 .POBOProviderUpsertForm ul li,
-.POBOPCompulsoryFields{
-    margin:4px 0px 0px 8px;
+.POBOPCompulsoryFields {
+    margin: 4px 0px 0px 8px;
     padding: 0;
 }
+
 .POBOProviderUpsertForm ul {
-    margin:0px;
+    margin: 0px;
 }
-.POBOProviderUpsertForm ul li{
-        border:none;
+
+    .POBOProviderUpsertForm ul li {
+        border: none;
     display: inline-block;
     height: auto;
     vertical-align: top;
-    width:48.5%;
+        width: 48.5%;
 }
-    .POBOProviderUpsertForm ul li label{
+
+        .POBOProviderUpsertForm ul li label {
         color: #4d4d4d;
     font-size: 1em;
-    font-weight:normal;
+            font-weight: normal;
     letter-spacing: -0.7px;
-    margin:0px;
+            margin: 0px;
     }
-    a.POBOSmallCaption{
+
+a.POBOSmallCaption {
             color: #ff8400;
         font-size: 0.9em;
-        font-weight:normal;
+    font-weight: normal;
         letter-spacing: -0.7px;
-        margin:0px;
-        display:block;
+    margin: 0px;
+    display: block;
     }
+
 .POBOProviderUpsertForm ul li select,
 .POBOProviderUpsertForm ul li input,
 .POBOProviderUpsertForm ul li input[type=file],
@@ -52,18 +59,20 @@
     height: 36px;
     margin: 2px 0 0;
     padding: 0 0 0 5px;
-    width:100%;
+    width: 100%;
 }
+
 .POBOProviderUpsertForm ul li select > option,
-.POBOProviderUpsertForm ul li select > option[selected=selected]{
-    font-weight:normal;
+    .POBOProviderUpsertForm ul li select > option[selected=selected] {
+        font-weight: normal;
     font-size: 0.9em;
 }
+
     .POBOProviderUpsertForm ul li input[type=checkbox] {
-        margin:0px 0 0;
+        margin: 0px 0 0;
         padding: 0 0 0 0px;
-        width:auto;
-        vertical-align:top;
+        width: auto;
+        vertical-align: top;
     }
 
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
@@ -75,35 +84,41 @@
     margin:10px 8px;
         border:none;
 }
+
 #ReportLITF {
         border-bottom:1px solid #ff8400;
         border-top:1px solid #ff8400;
     width: auto;
     text-align: center;
     padding: 15px 0px 15px 0px;
+    /*margin-bottom: 15px;*/
 }
+
     #ReportLITF li {
         width: auto;
         display: inline-block;
         vertical-align: middle;
         margin: 0 -2px 0 -2px;
     }
+
         #ReportLITF li hr {
             margin: 0 !important;
             width: 100%;
         }
+
     li#F2 label {
-        font-size:1.2em;
-        margin:0px 8px;
+    font-size: 1.2em;
+    margin: 0px 8px;
     }
+
 li#F3, li#F3 label {
     display: block;
     width: 192px;
     text-align: left;
-    padding:1px 4px;
+    padding: 1px 4px;
 }
+
 li#F3 {
     margin:0px 0px 0px 58.7%;
     background-color:#ececec;
 }
-
