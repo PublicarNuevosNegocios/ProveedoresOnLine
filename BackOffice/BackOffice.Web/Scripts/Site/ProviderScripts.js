@@ -1326,6 +1326,8 @@ var Provider_CompanyHSEQObject = {
 
     ObjectId: '',
     ProviderPublicId: '',
+    AutoCompleteId: '',
+    ControlToReturnACId: '',
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
@@ -1333,8 +1335,11 @@ var Provider_CompanyHSEQObject = {
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.AutoCompleteId = vInitiObject.AutoCompleteId;
+        this.ControlToReturnACId = vInitiObject.ControlToRetornACId;
         this.HSEQType = vInitiObject.HSEQType;
         this.DateFormat = vInitiObject.DateFormat;
+        Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
         });
@@ -2392,6 +2397,37 @@ var Provider_CompanyHSEQObject = {
                     });
                 },
             }],
+        });
+    },
+
+    AutoComplete: function (acId, ControlToRetornACId) {
+        var acValue = $('#' + acId).val();
+        $('#' + acId).kendoAutoComplete({
+
+            dataTextField: "ItemName",
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                //set server fiel name
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByARL=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
         });
     },
 };

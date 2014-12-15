@@ -49,7 +49,7 @@
                         Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
                             Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
             }
-            <form id="frmProvider" method="post" action="@(Url.Action
+            <form id="frmProviderUpsert" method="post" action="@(Url.Action
             (MVC.Provider.ActionNames.HIRiskPoliciesUpsert,
                 MVC.Provider.Name,
                 new {
@@ -59,10 +59,12 @@
                     <li>
                         <label>Sistema de Riesgos: </label>
                         <br />
-                        <input type="text" id="OccupationalHazards" name="OccupationalHazards" value="@SystemOccupationalHazards" />
-                        <input type="hidden" id="OccupationalHazardsId" name="OccupationalHazardsId" value="@SystemOccupationalHazards" />
-                        <input type="text" name="RiskPoliciesName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemName != null).Select(x => x.ItemName).FirstOrDefault() : string.Empty) " />
+                        <input type="hidden" name="RiskPoliciesName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemName != null).Select(x => x.ItemName).FirstOrDefault() : string.Empty) " />
                         <input type="hidden" name="NameInfoId" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemId != null).Select(x => x.ItemId).FirstOrDefault() : 0) " />
+                        
+                        <input type="text" id="OccupationalHazardsId" name="OccupationalHazardsId" value="@SystemOccupationalHazards" />
+                        <input type="hidden" id="SelectedOccupationalHazards" name="SelectedOccupationalHazards" value="" />
+                        <input type="hidden" id="SelectedOccupationalHazardsId" name="SelectedOccupationalHazardsId" value="@SystemOccupationalHazardsId" />
                     </li>
                     <li>
                         <label>Calificación de Riesgo ARL</label><br />
@@ -76,18 +78,18 @@
                                 }
                             }
                         </select>
-                        <input type="hidden" name="RateARLId" id="RateARLId" value="@CertificateAffiliateARL" />
+                        <input type="hidden" name="RateARLId" id="RateARLId" value="@CertificateAffiliateARLId" />
                     </li>
                     <li>
                         <label>Afiliación ARL</label><br />
                         <br />
                         @Html.Partial(MVC.Shared.Views._F_FileUpload)
                         <input type="hidden" name="CertificateAffiliateARL" id="CertificateAffiliateARL" value="@CertificateAffiliateARL"/>
-                        <input type="hidden" name="CertificateAffiliateARLId" id="CertificateAffiliateARLId" value="@CertificateAffiliateARL" />
+                        <input type="hidden" name="CertificateAffiliateARLId" id="CertificateAffiliateARLId" value="@CertificateAffiliateARLId" />
                     </li>
                 </ul>
                 <div style="display:none">
-                    <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                    <input type="submit" name="UpsertAction" id="UpsertAction" value="true" />
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
             </form>
@@ -188,6 +190,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             Provider_CompanyHSEQObject.Init({
+                AutoCompleteId: 'OccupationalHazardsId',
+                ControlToRetornACId: 'SelectedOccupationalHazards',
                 ObjectId: 'divGridRiskPolicies',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
