@@ -49,6 +49,57 @@ a.POBOSmallCaption {
     display: block;
     }
 
+/****** ESTOS SON LOS CAMPOS REBELDES DE CAMARA COMERCIO ********/
+
+.POBOCamposProblematicos span.k-widget, 
+.POBOCamposProblematicos span.k-autocomplete,
+.POBOCamposProblematicos span.k-header,
+.POBOCamposProblematicos span.k-state-default,
+.POBOCamposProblematicos span.k-state-focused{
+    background-color:#fff !important;
+    border-radius:0px;
+    border:none;
+    margin:0;
+    padding:0;
+    box-shadow:none;
+    width:99%;
+    height:auto;
+}
+.POBOCamposProblematicos span > input.k-input {
+    background-color: #f9f9f9 !important;
+    border: 1px solid #727276 !important;
+    color: #999 !important;
+    height: 34px !important;
+    margin: 2px 0 0 !important;
+    padding: 0 0 0 5px !important;
+    width: 99.6% !important;
+    border-radius: 0px;
+}
+    #FileUploadForm,
+    #FileUploadForm div:first-child    {
+        border-radius:0px;
+        height: 32px;
+    }
+        #FileUploadForm{
+            border: 1px solid #727276;
+            height: 34px !important;
+        }
+        #FileUploadForm div.k-dropzone {
+            padding: 0;
+        }
+        #FileUploadForm input[type=file] {
+            border-radius: 0px;
+        }
+
+
+
+
+
+
+
+
+
+/******* ESTILOS DE LOS CAMPOS ******/
 .POBOProviderUpsertForm ul li select,
 .POBOProviderUpsertForm ul li input,
 .POBOProviderUpsertForm ul li input[type=file],
@@ -59,7 +110,7 @@ a.POBOSmallCaption {
     height: 36px;
     margin: 2px 0 0;
     padding: 0 0 0 5px;
-    width: 100%;
+    width:100%;
 }
 
 .POBOProviderUpsertForm ul li select > option,
@@ -77,7 +128,7 @@ a.POBOSmallCaption {
 
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
 .POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}
-.POBOProviderUpsertForm li.POBOHSEQ, .POBOCamaraComercioSocios {
+.POBOProviderUpsertForm li.POBOHSEQ, .POBOProviderUpsertForm li.POBOCamaraComercioSocios {
     text-align:left;
     display:block;
     width:98.2%;

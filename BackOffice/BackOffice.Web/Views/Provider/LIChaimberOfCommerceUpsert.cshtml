@@ -14,6 +14,7 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
+        <div class="POBOProviderUpsertForm">
         <label class="POBOSectionTitles">Camara y comercio</label>
         @{
             var ConsitutionDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
@@ -115,7 +116,7 @@
                     <input type="date" name="ValidityDate" value="@ConstitutionEndDate" />
                     <input type="hidden" name="ValidityDateId" value="@ConstitutionEndDateId" />
                 </li>
-                <li>
+                    <li class="POBOCamposProblematicos">
                     <label>Ciudad</label>
                     <br />
                     <input type="text" id="CityId" name="CityId" value="@City" />
@@ -151,11 +152,12 @@
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 <input type="hidden" name="StepAction" id="StepAction" value="" />
-            </div>        
+            </div>
         </form>
         <ul class="POBOCamaraComercioSociosWrapper">
             <li class="POBOCamaraComercioSocios">
         <label>Socios, Miembros junta directiva, entre otros</label>
+                    <br />
         <div id="divGridChaimberOfComerce"></div>
             </li>
         </ul>
@@ -164,6 +166,7 @@
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
     </div>
+</div>
 </div>
 @{
     Model.RenderScripts = true;
