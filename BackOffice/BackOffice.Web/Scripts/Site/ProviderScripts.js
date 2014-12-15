@@ -1003,7 +1003,7 @@ var Provider_CompanyCommercialObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1092,7 +1092,7 @@ var Provider_CompanyCommercialObject = {
                             oReturn = '<span class="k-dirty"></span>';
                         }
 
-                        oReturn = oReturn + ' ' + dataItem.EX_ContractValue;
+                        oReturn = oReturn + dataItem.EX_ContractValue + ' ';
                         $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
                             if (dataItem.EX_Currency == value.ItemId) {
                                 oReturn = oReturn + value.ItemName;
@@ -1102,6 +1102,8 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
+                    $('<input style="width:45%;" required data-bind="value:' + options.field + '"/><span>&nbsp;</span>')
+                        .appendTo(container);
                     $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
                         .appendTo(container)
                         .kendoDropDownList({
@@ -1110,9 +1112,6 @@ var Provider_CompanyCommercialObject = {
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción',
                         });
-
-                    $('<span>&nbsp;</span><input style="width:45%;" required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container);
                 },
             }, {
                 field: 'EX_Phone',
@@ -1326,6 +1325,8 @@ var Provider_CompanyHSEQObject = {
 
     ObjectId: '',
     ProviderPublicId: '',
+    AutoCompleteId: '',
+    ControlToReturnACId: '',
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
@@ -1333,8 +1334,11 @@ var Provider_CompanyHSEQObject = {
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.AutoCompleteId = vInitiObject.AutoCompleteId;
+        this.ControlToReturnACId = vInitiObject.ControlToRetornACId;
         this.HSEQType = vInitiObject.HSEQType;
         this.DateFormat = vInitiObject.DateFormat;
+        Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
         });
@@ -2394,6 +2398,37 @@ var Provider_CompanyHSEQObject = {
             }],
         });
     },
+
+    AutoComplete: function (acId, ControlToRetornACId) {
+        var acValue = $('#' + acId).val();
+        $('#' + acId).kendoAutoComplete({
+
+            dataTextField: "ItemName",
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                //set server fiel name
+                $('#' + ControlToRetornACId).val(selectedItem.ItemId);
+            },
+            dataSource: {
+                type: "json",
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByARL=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
+        });
+    },
 };
 
 var Provider_LegalInfoObject = {
@@ -2532,7 +2567,7 @@ var Provider_LegalInfoObject = {
                     field: 'Enable',
                     title: 'Habilitado',
                     width: '100px',
-                }],
+                 }],
         });
     },
 
