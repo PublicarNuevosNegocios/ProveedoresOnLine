@@ -124,6 +124,9 @@
         Experience = 301001,
     }
 
+    /// <summary>
+    /// Commercial infor types
+    /// </summary>
     public enum enumCommercialInfoType
     {
         //Experience
@@ -168,7 +171,7 @@
         CP_InscriptionNumber = 602005,
         CP_ExistenceAndLegalPersonCertificate = 602006,
         CP_CertificateExpeditionDate = 602007,
-        CP_SocialObject = 602008,      
+        CP_SocialObject = 602008,
 
         //RUT
         R_PersonType = 603001,
@@ -252,6 +255,29 @@
     #endregion
 
     #region Finantial
+
+    /// <summary>
+    /// Finantial type
+    /// </summary>
+    public enum enumfinancialType
+    {
+        BalanceSheetInfoType = 501001,
+        TaxInfoType = 501002,
+        IncomeStatementInfoType = 501003,
+        BankInfoType = 501004,
+    }
+
+    /// <summary>
+    /// Commercial infor types
+    /// </summary>
+    public enum enumfinancialInfoType
+    {
+        //Balance Sheet
+        SH_Year = 502001,
+        SH_BalanceSheetFile = 502002,
+        SH_Currency = 502003,
+    }
+
     #endregion
 
     #region Legal
