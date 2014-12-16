@@ -2594,22 +2594,22 @@ var Provider_LegalInfoObject = {
                             LegalName: { editable: true, validation: { required: true } },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            R_PersonType: { editable: true },
-                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true },
+                            R_PersonType: { editable: true, validation: { required: true } },
+                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true, validation: { required: true } },
                             R_LargeContributorReceipt: { editable: true, validation: { required: true } },
 
                             R_LargeContributorDate: { editable: true },
-                            R_SelfRetainer: { editable: true, type: "boolean", defaultValue: true },
+                            R_SelfRetainer: { editable: true,  validation: { required: true }, type: "boolean", defaultValue: true },
                             R_SelfRetainerReciept: { editable: true, validation: { required: true } },
 
                             R_SelfRetainerDate: { editable: true },
-                            R_EntityType: { editable: true },
+                            R_EntityType: { editable: true, validation: { required: true } },
 
-                            R_IVA: { editable: true, type: "boolean", defaultValue: true },
-                            R_TaxPayerType: { editable: true },
+                            R_IVA: { editable: true, type: "boolean", defaultValue: true, validation: { required: true } },
+                            R_TaxPayerType: { editable: true, validation: { required: true } },
 
-                            R_ICA: { editable: true },
-                            R_RUTFile: { editable: true },
+                            R_ICA: { editable: true, validation: { required: true } },
+                            R_RUTFile: { editable: true, validation: { required: true } },
 
                             R_LargeContributorFile: { editable: true },
                             R_SelfRetainerFile: { editable: true },
@@ -2676,7 +2676,7 @@ var Provider_LegalInfoObject = {
                 title: 'Tipo de Persona',
                 width: '200px',
                 template: function (dataItem) {
-                    debugger;
+                    
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_PersonType != null) {
                         $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[213], function (item, value) {
@@ -2738,7 +2738,7 @@ var Provider_LegalInfoObject = {
                 title: 'Tipo de Entidad',
                 width: '200px',
                 template: function (dataItem) {
-                    debugger;
+                    
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_EntityType != null) {
                         $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[214], function (item, value) {
@@ -2794,24 +2794,56 @@ var Provider_LegalInfoObject = {
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.R_PersonType != null) {
-                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[209], function (item, value) {
-                            if (dataItem.R_PersonType == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
+                    if (dataItem != null && dataItem.R_ICA != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.R_ICA;
                     }
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[209],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'ActivityName',
+                        select: function (e) {
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ActivityName;
+                            options.model['R_ICAName'] = selectedItem.EconomicActivityId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
                 },
             }, {
                 field: 'R_RUTFile',
@@ -2875,7 +2907,7 @@ var Provider_LegalInfoObject = {
                     
                     var oReturn = '';
                     if (dataItem != null && dataItem.R_RUTFile != null && dataItem.R_RUTFile.length > 0) {
-                        debugger;
+                        
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }

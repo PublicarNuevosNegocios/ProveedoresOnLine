@@ -87,6 +87,7 @@ namespace BackOffice.Models.Provider
         public string R_IVAId { get; set; }
         public string R_TaxPayerType { get; set; }
         public string R_TaxPayerTypeId { get; set; }
+        public string R_ICAName { get; set; }
         public string R_ICA { get; set; }
         public string R_ICAId { get; set; }
         public string R_RUTFile { get; set; }
@@ -112,7 +113,8 @@ namespace BackOffice.Models.Provider
 
         public ProviderLegalViewModel() { }
 
-        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal)
+        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal, 
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity)
         {
             RelatedLegal = oRelatedLegal;
 
@@ -260,7 +262,7 @@ namespace BackOffice.Models.Provider
                 FirstOrDefault();
             #endregion
 
-            #region RUT
+            #region RUT           
 
             R_PersonType = RelatedLegal.ItemInfo.
                  Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_PersonType).
@@ -392,6 +394,15 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            if (oEconomiActivity != null && oEconomiActivity.Count > 0)
+            {
+                R_ICAName = oEconomiActivity.
+                    Where(x => x.ItemId.ToString() == R_ICA).
+                    Select(x => x.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
 
             R_RUTFile = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_RUTFile).

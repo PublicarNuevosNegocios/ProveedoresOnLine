@@ -1520,11 +1520,16 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()));
 
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
+                if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
+                {
+                    oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);                    
+                }
                 if (oLegalInfo != null)
                 {
                     oLegalInfo.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oEconomiActivity));
                         return true;
                     });
                 }
@@ -1561,7 +1566,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
-                            ItemId = string.IsNullOrEmpty(LegalId.Trim()) ? 0 : Convert.ToInt32(LegalId.Trim()),
+                            ItemId = string.IsNullOrEmpty(oDataToUpsert.LegalId) ? 0 : Convert.ToInt32(oDataToUpsert.LegalId.Trim()),
                             ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
                                 ItemId = Convert.ToInt32(LegalInfoType.Trim()),
