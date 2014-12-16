@@ -297,12 +297,12 @@ namespace BackOffice.Web.Controllers
                     {
                         new GenericItemInfoModel()
                         {                                
-                            ItemInfoId = int.Parse(Request["OccupationalHazardsId"]),
+                            ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
                                 ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards
                             },
-                            Value = Request["OccupationalHazards"]
+                            Value = Request["OccupationalHazardsId"]
                         },
                         new GenericItemInfoModel()
                         {
@@ -313,17 +313,23 @@ namespace BackOffice.Web.Controllers
                             },
                             Value = Request["RateARL"]
                         },
-                        new GenericItemInfoModel()
-                        {
-                            ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
-                            },
-                            Value = Request["CertificateAffiliateARL"]
-                        },
                     },
                 };
+
+                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
+                {
+                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
+                    {
+                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                        },
+                        LargeValue = Request["CertificateAffiliateARL"]
+                    };
+
+                    RelatedARL.ItemInfo.Add(oGenericItem);
+                }
                 return RelatedARL;
             }
             return null;
