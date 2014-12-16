@@ -91,14 +91,6 @@ a.POBOSmallCaption {
             border-radius: 0px;
         }
 
-
-
-
-
-
-
-
-
 /******* ESTILOS DE LOS CAMPOS ******/
 .POBOProviderUpsertForm ul li select,
 .POBOProviderUpsertForm ul li input,
@@ -112,20 +104,27 @@ a.POBOSmallCaption {
     padding: 0 0 0 5px;
     width:100%;
 }
-
 .POBOProviderUpsertForm ul li select > option,
     .POBOProviderUpsertForm ul li select > option[selected=selected] {
         font-weight: normal;
     font-size: 0.9em;
 }
-
     .POBOProviderUpsertForm ul li input[type=checkbox] {
         margin: 0px 0 0;
         padding: 0 0 0 0px;
         width: auto;
         vertical-align: top;
     }
-
+/********* DETALLE PARA EL CAMPO HORA DENTRO DE LA GRILLA *********/
+.POBOProviderContentWrapper span.k-picker-wrap {
+    padding-right: 2em;
+}
+.POBOProviderContentWrapper span.k-select{
+    width: 2em !important;
+}
+.POBOProviderContentWrapper span.k-i-clock{
+    display:none;
+}
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
 .POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}
 .POBOProviderUpsertForm li.POBOHSEQ, .POBOProviderUpsertForm li.POBOCamaraComercioSocios {
