@@ -26,6 +26,10 @@
 
         ARLRate = 212,
 
+        PersonType = 213,
+        EntityType = 214,       
+        TaxPayerType = 215,
+
         CommercialType = 301,
         ExperienceInfoType = 302,
 
