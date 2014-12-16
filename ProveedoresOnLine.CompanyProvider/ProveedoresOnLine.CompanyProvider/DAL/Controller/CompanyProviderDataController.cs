@@ -90,6 +90,16 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BalanceSheetUpsert(FinancialId, BalanceSheetId, AccountId, Value, Enable);
         }
 
+        public List<Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            return DataFactory.FinancialGetBasicInfo(CompanyPublicId, FinancialType);
+        }
+
+        public List<Models.Provider.BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId)
+        {
+            return DataFactory.BalanceSheetGetByFinancial(FinancialId);
+        }
+
         #endregion
 
         #region Provider Legal

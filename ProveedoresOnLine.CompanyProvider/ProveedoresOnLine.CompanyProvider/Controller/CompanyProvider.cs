@@ -466,6 +466,16 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return BalanceSheetToUpsert;
         }
 
+        public static List<GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.FinancialGetBasicInfo(CompanyPublicId, FinancialType);
+        }
+
+        public static List<BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.BalanceSheetGetByFinancial(FinancialId);
+        }
+
         #endregion
 
         #region Provider Legal

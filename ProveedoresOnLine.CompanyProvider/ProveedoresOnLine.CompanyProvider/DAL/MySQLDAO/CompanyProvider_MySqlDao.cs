@@ -318,6 +318,113 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFinancialType", FinancialType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_Financial_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from fi in response.DataTableResult.AsEnumerable()
+                     where !fi.IsNull("FinancialId")
+                     group fi by new
+                     {
+                         FinancialId = fi.Field<int>("FinancialId"),
+                         FinancialTypeId = fi.Field<int>("FinancialTypeId"),
+                         FinancialTypeName = fi.Field<string>("FinancialTypeName"),
+                         FinancialName = fi.Field<string>("FinancialName"),
+                         FinancialEnable = fi.Field<UInt64>("FinancialEnable") == 1 ? true : false,
+                         FinancialLastModify = fi.Field<DateTime>("FinancialLastModify"),
+                         FinancialCreateDate = fi.Field<DateTime>("FinancialCreateDate"),
+                     } into fig
+                     select new GenericItemModel()
+                     {
+                         ItemId = fig.Key.FinancialId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = fig.Key.FinancialTypeId,
+                             ItemName = fig.Key.FinancialTypeName
+                         },
+                         ItemName = fig.Key.FinancialName,
+                         Enable = fig.Key.FinancialEnable,
+                         LastModify = fig.Key.FinancialLastModify,
+                         CreateDate = fig.Key.FinancialCreateDate,
+                         ItemInfo =
+                             (from fiinf in response.DataTableResult.AsEnumerable()
+                              where !fiinf.IsNull("FinancialInfoId") &&
+                                      fiinf.Field<int>("FinancialId") == fig.Key.FinancialId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = fiinf.Field<int>("FinancialInfoId"),
+                                  ItemInfoType = new CatalogModel()
+                                  {
+                                      ItemId = fiinf.Field<int>("FinancialInfoTypeId"),
+                                      ItemName = fiinf.Field<string>("FinancialInfoTypeName"),
+                                  },
+                                  Value = fiinf.Field<string>("Value"),
+                                  LargeValue = fiinf.Field<string>("LargeValue"),
+                                  Enable = fiinf.Field<UInt64>("FinancialInfoEnable") == 1 ? true : false,
+                                  LastModify = fiinf.Field<DateTime>("FinancialInfoLastModify"),
+                                  CreateDate = fiinf.Field<DateTime>("FinancialInfoCreateDate"),
+                              }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vFinancialId", FinancialId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_BalanceSheet_GetByFinancial",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<BalanceSheetDetailModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bs in response.DataTableResult.AsEnumerable()
+                     where !bs.IsNull("BalanceSheetId")
+                     select new BalanceSheetDetailModel()
+                     {
+                         BalanceSheetId = bs.Field<int>("BalanceSheetId"),
+                         RelatedAccount = new GenericItemModel()
+                         {
+                             ItemId = bs.Field<int>("AccountId"),
+                             ItemName = bs.Field<string>("AccountName"),
+                         },
+                         Value = bs.Field<decimal>("Value"),
+                         Enable = bs.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = bs.Field<DateTime>("LastModify"),
+                         CreateDate = bs.Field<DateTime>("CreateDate"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Provider Legal
