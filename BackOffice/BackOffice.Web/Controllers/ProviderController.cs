@@ -465,7 +465,7 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
-        #region Finantial Info
+        #region Financial Info
 
         public virtual ActionResult FIBalanceSheetUpsert(string ProviderPublicId)
         {
