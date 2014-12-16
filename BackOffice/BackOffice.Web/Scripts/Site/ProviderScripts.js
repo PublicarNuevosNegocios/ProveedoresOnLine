@@ -136,7 +136,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CC_CompanyContactType',
                 title: 'Tipo de contacto',
-                template: function (dataItem) {
+                template: function (dataItem) {                    
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CC_CompanyContactType != null) {
                         $.each(Provider_CompanyContactObject.ProviderOptions[209], function (item, value) {
@@ -2440,6 +2440,8 @@ var Provider_LegalInfoObject = {
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
+    DateFormat: '',
+
     Init: function (vInitiObject) {
 
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
@@ -2449,6 +2451,7 @@ var Provider_LegalInfoObject = {
         this.LegalInfoType = vInitiObject.LegalInfoType;
         this.ChaimberOfComerceOptionList = vInitiObject.ChaimberOfComerceOptionList;
         this.LegalId = vInitiObject.LegalId;
+        this.DateFormat = vInitiObject.DateFormat;
         //Load AutoComplete 
         Provider_LegalInfoObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
 
@@ -2592,31 +2595,31 @@ var Provider_LegalInfoObject = {
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             R_PersonType: { editable: true },
-                            R_LargeContributor: { editable: false },
+                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true },
                             R_LargeContributorReceipt: { editable: true, validation: { required: true } },
 
                             R_LargeContributorDate: { editable: true },
-                            R_SelfRetainer: { editable: false },
+                            R_SelfRetainer: { editable: true, type: "boolean", defaultValue: true },
                             R_SelfRetainerReciept: { editable: true, validation: { required: true } },
 
                             R_SelfRetainerDate: { editable: true },
-                            R_EntityType: { editable: false },
+                            R_EntityType: { editable: true },
 
-                            R_IVA: { editable: true },
-                            R_TaxPayerType: { editable: false },
+                            R_IVA: { editable: true, type: "boolean", defaultValue: true },
+                            R_TaxPayerType: { editable: true },
 
                             R_ICA: { editable: true },
-                            R_RUTFile: { editable: false },
+                            R_RUTFile: { editable: true },
 
                             R_LargeContributorFile: { editable: true },
-                            R_SelfRetainerFile: { editable: false },
+                            R_SelfRetainerFile: { editable: true },
                         },
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&HSEQType=' + Provider_LegalInfoObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2628,7 +2631,7 @@ var Provider_LegalInfoObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&HSEQType=' + Provider_LegalInfoObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2644,7 +2647,7 @@ var Provider_LegalInfoObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&HSEQType=' + Provider_LegalInfoObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2661,19 +2664,22 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
-                field: 'CertificationId',
+                field: 'LegalId',
                 title: 'Id',
                 width: '50px',
             }, {
                 field: 'LegalName',
                 title: 'Nombre',
+                width: '200px',
             }, {
                 field: 'R_PersonType',
                 title: 'Tipo de Persona',
+                width: '200px',
                 template: function (dataItem) {
+                    debugger;
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_PersonType != null) {
-                        $.each(Provider_LegalInfoObject.ProviderOptions[303], function (item, value) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[213], function (item, value) {
                             if (dataItem.R_PersonType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -2685,7 +2691,7 @@ var Provider_LegalInfoObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_LegalInfoObject.ProviderOptions[303],
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[213],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -2694,9 +2700,11 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_LargeContributor',
                 title: 'Gran Contribuyente',
+                width: '200px',
             }, {
                 field: 'R_LargeContributorReceipt',
                 title: 'Gran Contribuyente Recibo',
+                width: '200px',
             }, {
                 field: 'R_LargeContributorDate',
                 title: 'Gran Contribuyente Fecha',
@@ -2710,13 +2718,15 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_SelfRetainer',
                 title: 'Autorretenedor',
+                width: '200px',
             }, {
                 field: 'R_SelfRetainerReciept',
                 title: 'Autorretenedor Recibo',
+                width: '200px',
             }, {
                 field: 'R_SelfRetainerDate',
                 title: 'Autorretenedor Fecha',
-                width: '100px',
+                width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function (container, options) {
                     $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
@@ -2726,11 +2736,13 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_EntityType',
                 title: 'Tipo de Entidad',
+                width: '200px',
                 template: function (dataItem) {
+                    debugger;
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.R_PersonType != null) {
-                        $.each(Provider_LegalInfoObject.ProviderOptions[303], function (item, value) {
-                            if (dataItem.R_PersonType == value.ItemId) {
+                    if (dataItem != null && dataItem.R_EntityType != null) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[214], function (item, value) {
+                            if (dataItem.R_EntityType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -2741,7 +2753,7 @@ var Provider_LegalInfoObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_LegalInfoObject.ProviderOptions[303],
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[214],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -2750,14 +2762,16 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_IVA',
                 title: 'IVA',
+                width: '200px',
             }, {
                 field: 'R_TaxPayerType',
                 title: 'Tipo de Régimen',
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.R_PersonType != null) {
-                        $.each(Provider_LegalInfoObject.ProviderOptions[303], function (item, value) {
-                            if (dataItem.R_PersonType == value.ItemId) {
+                    if (dataItem != null && dataItem.R_TaxPayerType != null) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[215], function (item, value) {
+                            if (dataItem.R_TaxPayerType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -2768,7 +2782,7 @@ var Provider_LegalInfoObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_LegalInfoObject.ProviderOptions[303],
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[215],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -2777,10 +2791,11 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_ICA',
                 title: 'ICA',
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_PersonType != null) {
-                        $.each(Provider_LegalInfoObject.ProviderOptions[303], function (item, value) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[209], function (item, value) {
                             if (dataItem.R_PersonType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -2792,7 +2807,7 @@ var Provider_LegalInfoObject = {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_LegalInfoObject.ProviderOptions[303],
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[209],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -2801,6 +2816,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_RUTFile',
                 title: 'RUT Anexo',
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.R_RUTFile != null && dataItem.R_RUTFile.length > 0) {
@@ -2854,9 +2870,12 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_LargeContributorFile',
                 title: 'Gran Contribuyente Anexo',
+                width: '200px',
                 template: function (dataItem) {
+                    
                     var oReturn = '';
                     if (dataItem != null && dataItem.R_RUTFile != null && dataItem.R_RUTFile.length > 0) {
+                        debugger;
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -2864,8 +2883,7 @@ var Provider_LegalInfoObject = {
                     }
                     else {
                         oReturn = $('#' + Provider_LegalInfoObject.ObjectId + '_NoFile').html();
-                    }
-
+                    }                    
                     oReturn = oReturn.replace(/\${R_RUTFile}/gi, dataItem.R_RUTFile);
 
                     return oReturn;
@@ -2907,6 +2925,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_SelfRetainerFile',
                 title: 'Autorretenedor Anexo',
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.R_RUTFile != null && dataItem.R_RUTFile.length > 0) {
@@ -2959,7 +2978,8 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado'
+                title: 'Habilitado',
+                width: '200px',
             }],
         });
     },
