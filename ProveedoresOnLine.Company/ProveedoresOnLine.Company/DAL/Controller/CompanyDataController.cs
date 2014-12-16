@@ -97,6 +97,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByARLCompany(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.GenericItemModel> CategoryGetFinantialAccounts()
+        {
+            return DataFactory.CategoryGetFinantialAccounts();
+        }
+
         public List<Models.Util.CurrencyExchangeModel> CurrencyExchangeGetByMoneyType(int? MoneyTypeFrom, int? MoneyTypeTo, int? Year)
         {
             return DataFactory.CurrencyExchangeGetByMoneyType(MoneyTypeFrom, MoneyTypeTo, Year);
@@ -151,6 +156,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
-        #endregion        
+        #endregion
     }
 }

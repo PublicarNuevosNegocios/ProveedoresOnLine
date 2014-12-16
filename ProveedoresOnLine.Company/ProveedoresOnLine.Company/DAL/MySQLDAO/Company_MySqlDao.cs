@@ -469,6 +469,70 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategoryGetFinantialAccounts()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_GetFinantialAccounts",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from fa in response.DataTableResult.AsEnumerable()
+                     where !fa.IsNull("AccountId")
+                     group fa by new
+                     {
+                         AccountId = fa.Field<int>("AccountId"),
+                         AccountName = fa.Field<string>("AccountName"),
+                         AccountEnable = fa.Field<UInt64>("AccountEnable") == 1 ? true : false,
+
+                         ParentAccountId = fa.Field<int?>("ParentAccountId"),
+
+                     } into fag
+                     select new GenericItemModel()
+                     {
+                         ItemId = fag.Key.AccountId,
+                         ItemName = fag.Key.AccountName,
+                         Enable = fag.Key.AccountEnable,
+                         ParentItem = fag.Key.ParentAccountId == null ? null : new GenericItemModel()
+                         {
+                             ItemId = (int)fag.Key.ParentAccountId,
+                         },
+                         ItemInfo =
+                            (from fai in response.DataTableResult.AsEnumerable()
+                             where !fai.IsNull("AccountInfoId") &&
+                                     fai.Field<int>("AccountId") == fag.Key.AccountId
+                             group fai by new
+                             {
+                                 AccountInfoId = fai.Field<int>("AccountInfoId"),
+                                 AccountInfoTypeId = fai.Field<int>("AccountInfoTypeId"),
+                                 AccountInfoTypeName = fai.Field<string>("AccountInfoTypeName"),
+                                 Value = fai.Field<string>("Value"),
+                                 LargeValue = fai.Field<string>("LargeValue"),
+                             } into faig
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = faig.Key.AccountInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = faig.Key.AccountInfoTypeId,
+                                     ItemName = faig.Key.AccountInfoTypeName,
+                                 },
+                                 Value = faig.Key.Value,
+                                 LargeValue = faig.Key.LargeValue,
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         public List<CurrencyExchangeModel> CurrencyExchangeGetByMoneyType(int? MoneyTypeFrom, int? MoneyTypeTo, int? Year)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -803,6 +867,5 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
-
     }
 }
