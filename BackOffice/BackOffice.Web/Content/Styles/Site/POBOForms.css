@@ -117,13 +117,13 @@ a.POBOSmallCaption {
     }
 /********* DETALLE PARA EL CAMPO HORA DENTRO DE LA GRILLA *********/
 .POBOProviderContentWrapper span.k-picker-wrap {
-    padding-right: 2em;
+    padding-right: 2em !important;
 }
 .POBOProviderContentWrapper span.k-select{
     width: 2em !important;
 }
 .POBOProviderContentWrapper span.k-i-clock{
-    display:none;
+    display:none !important;
 }
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
 .POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}

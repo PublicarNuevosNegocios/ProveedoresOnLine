@@ -58,6 +58,15 @@ namespace ProveedoresOnLine.Company.Test
         }
 
         [TestMethod]
+        public void CategoryGetFinantialAccounts()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+            Assert.AreEqual(true, oReturn.Count >= 10);
+        }
+
+        [TestMethod]
         public void CurrencyExchangeGetByMoneyType()
         {
             List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oReturn =

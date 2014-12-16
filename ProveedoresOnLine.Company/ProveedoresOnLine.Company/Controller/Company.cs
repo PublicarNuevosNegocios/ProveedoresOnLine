@@ -234,11 +234,15 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByARLCompany(SearchParam, PageNumber, RowCount);
         }
 
+        public static List<Models.Util.GenericItemModel> CategoryGetFinantialAccounts()
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategoryGetFinantialAccounts();
+        }
+
         public static List<Models.Util.CurrencyExchangeModel> CurrencyExchangeGetByMoneyType(int? MoneyTypeFrom, int? MoneyTypeTo, int? Year)
         {
             return DAL.Controller.CompanyDataController.Instance.CurrencyExchangeGetByMoneyType(MoneyTypeFrom, MoneyTypeTo, Year);
         }
-
 
         #endregion
 

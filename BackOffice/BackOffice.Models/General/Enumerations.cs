@@ -6,7 +6,7 @@
     public enum enumCatalog
     {
         PersonIdentificationType = 101,
-        CategoryInfoType = 102,
+        ActivityInfoType = 102,
         ProductType = 103,
 
         CompanyIdentificationType = 201,
@@ -46,10 +46,19 @@
 
     public enum enumCategoryInfoType
     {
+        //economic activity info
         Type = 102001,
         Category = 102002,
         Group = 102003,
         IsCustom = 102004,
+
+        //geography info
+        GeographyType = 106001,
+        CapitalType = 106002,
+        DirespCode = 106003,
+
+        //Account info
+        Order = 109001,
     }
 
     #endregion
