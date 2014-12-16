@@ -466,6 +466,25 @@ namespace BackOffice.Web.Controllers
         #endregion
 
         #region Finantial Info
+
+        public virtual ActionResult FIBalanceSheetUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
         #endregion
 
         #region Legal Info
@@ -802,12 +821,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Balances financieros",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderUpsert,
+                        (MVC.Provider.ActionNames.FIBalanceSheetUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderUpsert &&
+                        (oCurrentAction == MVC.Provider.ActionNames.FIBalanceSheetUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

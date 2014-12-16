@@ -113,6 +113,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FIBalanceSheetUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
@@ -149,6 +155,7 @@ namespace BackOffice.Web.Controllers
             public readonly string HICertificationsUpsert = "HICertificationsUpsert";
             public readonly string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
             public readonly string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
+            public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
             public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             public readonly string LIRutUpsert = "LIRutUpsert";
         }
@@ -166,6 +173,7 @@ namespace BackOffice.Web.Controllers
             public const string HICertificationsUpsert = "HICertificationsUpsert";
             public const string HIHealtyPoliticUpsert = "HIHealtyPoliticUpsert";
             public const string HIRiskPoliciesUpsert = "HIRiskPoliciesUpsert";
+            public const string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
             public const string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             public const string LIRutUpsert = "LIRutUpsert";
         }
@@ -243,6 +251,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_FIBalanceSheetUpsert s_params_FIBalanceSheetUpsert = new ActionParamsClass_FIBalanceSheetUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_FIBalanceSheetUpsert FIBalanceSheetUpsertParams { get { return s_params_FIBalanceSheetUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_FIBalanceSheetUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_LIChaimberOfCommerceUpsert s_params_LIChaimberOfCommerceUpsert = new ActionParamsClass_LIChaimberOfCommerceUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_LIChaimberOfCommerceUpsert LIChaimberOfCommerceUpsertParams { get { return s_params_LIChaimberOfCommerceUpsert; } }
@@ -270,6 +286,7 @@ namespace BackOffice.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string CIExperiencesUpsert = "CIExperiencesUpsert";
+                public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
                 public readonly string GIBranchUpsert = "GIBranchUpsert";
                 public readonly string GICompanyContactUpsert = "GICompanyContactUpsert";
                 public readonly string GIDistributorUpsert = "GIDistributorUpsert";
@@ -283,6 +300,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string LIRutUpsert = "LIRutUpsert";
             }
             public readonly string CIExperiencesUpsert = "~/Views/Provider/CIExperiencesUpsert.cshtml";
+            public readonly string FIBalanceSheetUpsert = "~/Views/Provider/FIBalanceSheetUpsert.cshtml";
             public readonly string GIBranchUpsert = "~/Views/Provider/GIBranchUpsert.cshtml";
             public readonly string GICompanyContactUpsert = "~/Views/Provider/GICompanyContactUpsert.cshtml";
             public readonly string GIDistributorUpsert = "~/Views/Provider/GIDistributorUpsert.cshtml";
@@ -418,6 +436,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             HIRiskPoliciesUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FIBalanceSheetUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FIBalanceSheetUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            FIBalanceSheetUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

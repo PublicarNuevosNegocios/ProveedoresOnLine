@@ -1021,6 +1021,7 @@
     <Content Include="Views\Provider\GIDistributorUpsert.cshtml" />
     <Content Include="Views\Shared\_F_FileUpload.cshtml" />
     <Content Include="Views\Provider\LIRutUpsert.cshtml" />
+    <Content Include="Views\Provider\FIBalanceSheetUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
