@@ -1022,6 +1022,9 @@
     <Content Include="Views\Shared\_F_FileUpload.cshtml" />
     <Content Include="Views\Provider\LIRutUpsert.cshtml" />
     <Content Include="Views\Provider\FIBalanceSheetUpsert.cshtml" />
+    <Content Include="Views\Provider\FIBankUpsert.cshtml" />
+    <Content Include="Views\Provider\FITaxUpsert.cshtml" />
+    <Content Include="Views\Provider\FIIncomeStatementUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
