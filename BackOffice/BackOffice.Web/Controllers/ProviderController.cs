@@ -273,6 +273,14 @@ namespace BackOffice.Web.Controllers
                             },
                         }
                 };
+                //Validación del archivo cuando viene desocupado en el formulario
+                if (RelatedLegal.ItemInfo != null && RelatedLegal.ItemInfo .Count() > 0 )
+                {
+                    if (string.IsNullOrEmpty(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x.Value).FirstOrDefault()))
+                    {
+                        RelatedLegal.ItemInfo.Remove(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x).FirstOrDefault());
+                    }                   
+                }
                 return RelatedLegal;
             }
             return null;
