@@ -3716,6 +3716,206 @@ var Provider_LegalInfoObject = {
         });
     },
 
+    RenderResolutions: function () {
+        $('#' + Provider_LegalInfoObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "LegalId",
+                        fields: {
+                            LegalId: { editable: false, nullable: true },
+                            LegalName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: "boolean", defaultValue: true },
+
+                            RS_EntityType: { editable: true, validation: { required: true } },
+                            RS_EntityTypeId: { editable: false },
+
+                            RS_ResolutionFile: { editable: true, validation: { required: true } },
+                            RS_ResolutionFileId: { editable: false },
+
+                            RS_StartDate: { editable: true, validation: { required: true } },
+                            RS_StartDateId: { editable: false },
+
+                            RS_EndDate: { editable: true },
+                            RS_EndDateId: { editable: false },
+
+                            RS_Description: { editable: true },
+                            RS_DescriptionId: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoUpsert=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&LegalId=' + Provider_LegalInfoObject.LegalId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            },
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'LegalId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'RS_EntityType',
+                title: 'Tipo de Entidad',
+                width: '300px',
+                template: function (dataItem) {
+
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.RS_EntityType != null) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[218], function (item, value) {
+                            if (dataItem.RS_EntityType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[218],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'RS_StartDate',
+                title: 'Fecha Inicial',
+                width: '200px',
+                format: Provider_LegalInfoObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            }, {
+                field: 'RS_EndDate',
+                title: 'Fecha Final',
+                width: '200px',
+                format: Provider_LegalInfoObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            }, {
+                field: 'RS_Description',
+                title: 'Descripción',
+                width: '300px',
+            },{
+                field: 'RS_ResolutionFile',
+                title: 'Archivo Anexo',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.RS_ResolutionFile != null && dataItem.RS_ResolutionFile.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_LegalInfoObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_LegalInfoObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${R_RUTFile}/gi, dataItem.RS_ResolutionFile);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '200px',
+            },],
+        });
+    },
+
     AutoComplete: function (acId, ControlToRetornACId) {
         var acValue = $('#' + acId).val();
         $('#' + acId).kendoAutoComplete({

@@ -122,6 +122,17 @@ namespace BackOffice.Models.Provider
 
         #region Resolutions
 
+        public string RS_EntityType { get; set; }
+        public string RS_EntityTypeId { get; set; }
+        public string RS_ResolutionFile { get; set; }
+        public string RS_ResolutionFileId { get; set; }
+        public string RS_StartDate { get; set; }
+        public string RS_StartDateId { get; set; }
+        public string RS_EndDate { get; set; }
+        public string RS_EndDateId { get; set; }
+        public string RS_Description { get; set; }
+        public string RS_DescriptionId { get; set; }
+
         #endregion
 
         public ProviderLegalViewModel() { }
@@ -532,6 +543,72 @@ namespace BackOffice.Models.Provider
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            #endregion
+
+            #region Resolutions
+
+
+            RS_EntityType = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_EntityType).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_EntityTypeId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_EntityType).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_ResolutionFile = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_ResolutionFile).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_ResolutionFileId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_ResolutionFile).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_StartDate = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_StartDate).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_StartDateId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_StartDate).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_EndDate = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_EndDate).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_EndDateId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_EndDate).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_Description = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_Description).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            RS_DescriptionId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.RS_Description).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
 
             #endregion
 

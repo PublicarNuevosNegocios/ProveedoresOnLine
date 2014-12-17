@@ -75,16 +75,11 @@
 
                                 foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ARLRate))
                                 {
-                                    if (RateARLId != null && RateARL != null && RateARL.Length > 0)
+                                    if (RateARL != null &&
+                                        RateARL.Length > 0 &&
+                                        Item.ItemId == Convert.ToInt32(RateARL))
                                     {
-                                        if (Item.ItemId == Convert.ToInt32(RateARL))
-                                        {
-                                            <option value="@Item.ItemId" selected>@Item.ItemName</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@Item.ItemId">@Item.ItemName</option>
-                                        }
+                                        <option value="@Item.ItemId" selected>@Item.ItemName</option>
                                     }
                                     else
                                     {

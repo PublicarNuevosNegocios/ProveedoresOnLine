@@ -30,6 +30,9 @@
         EntityType = 214,
         TaxPayerType = 215,
 
+        ProviderStatus = 216,
+        ProviderPaymentInfo = 217,
+
         CommercialType = 301,
         ExperienceInfoType = 302,
 
@@ -71,6 +74,8 @@
     public enum enumCompanyInfoType
     {
         SalesforceId = 203001,
+        ProviderStatus = 203002,
+        ProviderPaymentInfo = 203003,
     }
 
     /// <summary>
@@ -212,6 +217,13 @@
         SF_PersonType = 605002,
         SF_SARLAFTFile = 605003,
 
+        //Resolutions
+        RS_EntityType = 606001,
+        RS_ResolutionFile = 606002,
+        RS_StartDate = 606003,
+        RS_EndDate = 606004,
+        RS_Description = 606005,
+
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
@@ -299,8 +311,4 @@
     }
 
     #endregion
-
-    #region Legal
-    #endregion
-
 }
