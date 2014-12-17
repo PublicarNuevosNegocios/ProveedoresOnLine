@@ -8,6 +8,12 @@
 
     int CompanyInfoIdAux = 0;
     string CompanyInfoValueAux = string.Empty;
+
+    int CompanyInfoStatusId = 0;
+    string CompanyInfoStatusValue = string.Empty;
+
+    int CompanyInfoPaymentId = 0;
+    string CompanyInfoPaymentValue = string.Empty;
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -109,6 +115,38 @@
                                 Select(x => x.Value).
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
+
+                            CompanyInfoStatusId = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoStatusValue = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+
+                            CompanyInfoPaymentId = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoPaymentValue = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
                         }
                     }
                     <label>Código de salesforce</label>
@@ -132,6 +170,46 @@
                         <input type="checkbox" name="Enable" checked="checked" />
                     }
                 </li>
+                <li>
+                    <label><span>*</span> Estado</label>
+                    <select name="ProviderStatus">
+                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderStatus))
+                        {
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
+                                Item.ItemId == Convert.ToInt32(CompanyInfoStatusValue))
+                            {
+                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
+                    <input type="hidden" id="ProviderStatusId" name="ProviderStatusId" value="@CompanyInfoStatusId" />
+                </li>
+                <li>
+                    <label><span>*</span> Información de Pago</label>
+                    <select name="ProviderPaymentInfo">
+                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo))
+                        {
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
+                                Item.ItemId == Convert.ToInt32(CompanyInfoPaymentValue))
+                            {
+                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
+                    <input type="hidden" id="ProviderPaymentInfoId" name="ProviderPaymentInfoId" value="@CompanyInfoPaymentId" />
+                </li>
             </ul>
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
@@ -145,7 +223,6 @@
         </form>
     </div>
 </div>
-
 @{
     Model.RenderScripts = true;
 }
