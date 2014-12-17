@@ -202,6 +202,10 @@
         R_LargeContributorFile = 603013,
         R_SelfRetainerFile = 603014,
 
+        //CIFIN
+        CF_QueryDate = 604001,
+        CF_ResultQuery = 604002,
+        CF_AutorizationFile = 604003,
 
         //Designations
         CD_PartnerName = 607001,
