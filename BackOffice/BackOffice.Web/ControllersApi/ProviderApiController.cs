@@ -1918,6 +1918,65 @@ namespace BackOffice.Web.ControllersApi
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
                 };
                 #endregion
+
+                #region Resolutions
+                if (oProvider.RelatedLegal.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.Resoluciones)
+                {
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_EntityTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_EntityTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_EntityType
+                        },
+                        Value = oDataToUpsert.RS_EntityType,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_ResolutionFileId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_ResolutionFileId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_ResolutionFile
+                        },
+                        Value = oDataToUpsert.RS_ResolutionFile,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_StartDateId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_StartDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_StartDate
+                        },
+                        Value = oDataToUpsert.RS_StartDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_EndDateId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_EndDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_EndDate
+                        },
+                        Value = oDataToUpsert.RS_EndDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_DescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_DescriptionId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_Description
+                        },
+                        Value = oDataToUpsert.RS_Description,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
+                };
+                #endregion
             }
 
             return oReturn;

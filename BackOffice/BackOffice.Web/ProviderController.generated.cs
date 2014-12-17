@@ -159,6 +159,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LISARLAFTUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LIResolutionUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -193,6 +199,7 @@ namespace BackOffice.Web.Controllers
             public readonly string LIRutUpsert = "LIRutUpsert";
             public readonly string LICIFINUpsert = "LICIFINUpsert";
             public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
+            public readonly string LIResolutionUpsert = "LIResolutionUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -216,6 +223,7 @@ namespace BackOffice.Web.Controllers
             public const string LIRutUpsert = "LIRutUpsert";
             public const string LICIFINUpsert = "LICIFINUpsert";
             public const string LISARLAFTUpsert = "LISARLAFTUpsert";
+            public const string LIResolutionUpsert = "LIResolutionUpsert";
         }
 
 
@@ -355,6 +363,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_LIResolutionUpsert s_params_LIResolutionUpsert = new ActionParamsClass_LIResolutionUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LIResolutionUpsert LIResolutionUpsertParams { get { return s_params_LIResolutionUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LIResolutionUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -381,6 +397,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string Index = "Index";
                 public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
                 public readonly string LICIFINUpsert = "LICIFINUpsert";
+                public readonly string LIResolutionUpsert = "LIResolutionUpsert";
                 public readonly string LIRutUpsert = "LIRutUpsert";
                 public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
             }
@@ -400,6 +417,7 @@ namespace BackOffice.Web.Controllers
             public readonly string Index = "~/Views/Provider/Index.cshtml";
             public readonly string LIChaimberOfCommerceUpsert = "~/Views/Provider/LIChaimberOfCommerceUpsert.cshtml";
             public readonly string LICIFINUpsert = "~/Views/Provider/LICIFINUpsert.cshtml";
+            public readonly string LIResolutionUpsert = "~/Views/Provider/LIResolutionUpsert.cshtml";
             public readonly string LIRutUpsert = "~/Views/Provider/LIRutUpsert.cshtml";
             public readonly string LISARLAFTUpsert = "~/Views/Provider/LISARLAFTUpsert.cshtml";
         }
@@ -622,6 +640,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LISARLAFTUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LISARLAFTUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LIResolutionUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LIResolutionUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            LIResolutionUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

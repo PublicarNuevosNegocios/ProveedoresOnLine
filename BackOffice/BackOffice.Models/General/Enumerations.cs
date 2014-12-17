@@ -212,6 +212,13 @@
         SF_PersonType = 605002,
         SF_SARLAFTFile = 605003,
 
+        //Resolutions
+        RS_EntityType = 606001,
+        RS_ResolutionFile = 606002,
+        RS_StartDate = 606003,
+        RS_EndDate = 606004,
+        RS_Description = 606005,
+
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
@@ -299,8 +306,4 @@
     }
 
     #endregion
-
-    #region Legal
-    #endregion
-
 }
