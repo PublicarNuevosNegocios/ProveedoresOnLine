@@ -1224,16 +1224,16 @@ namespace BackOffice.Web.ControllersApi
         {
             List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> oReturn = new List<Models.Provider.ProviderBalanceSheetViewModel>();
 
-            if (FIBalanceSheetGetByFinancial == "true" && !string.IsNullOrEmpty(FinancialId))
+            if (FIBalanceSheetGetByFinancial == "true")
             {
                 //get account info
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
                     ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> olstBalanceSheetDetail =
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(FinancialId));
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
 
-                if (olstBalanceSheetDetail == null) olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+                if (!string.IsNullOrEmpty(FinancialId))
+                    olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(FinancialId));
 
                 if (olstAccount != null && olstAccount.Count > 0)
                 {
@@ -1838,7 +1838,7 @@ namespace BackOffice.Web.ControllersApi
                     });
 
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
-                }; 
+                };
                 #endregion
 
                 #region CIFIN
@@ -1874,7 +1874,7 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = oDataToUpsert.CF_AutorizationFile,
                         Enable = oDataToUpsert.Enable,
-                    });                    
+                    });
 
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
                 };
