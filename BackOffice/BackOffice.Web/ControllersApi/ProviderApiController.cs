@@ -1188,42 +1188,33 @@ namespace BackOffice.Web.ControllersApi
 
         #region Finantial Info
 
-        //[HttpPost]
-        //[HttpGet]
-        //public List<BackOffice.Models.Provider.ProviderCommercialViewModel> CICommercialGetByType
-        //    (string CICommercialGetByType,
-        //    string ProviderPublicId,
-        //    string CommercialType)
-        //{
-        //    List<BackOffice.Models.Provider.ProviderCommercialViewModel> oReturn = new List<Models.Provider.ProviderCommercialViewModel>();
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderFinancialViewModel> FIFinancialGetByType
+            (string FIFinancialGetByType,
+            string ProviderPublicId,
+            string FinancialType)
+        {
+            List<BackOffice.Models.Provider.ProviderFinancialViewModel> oReturn = new List<Models.Provider.ProviderFinancialViewModel>();
 
-        //    if (CICommercialGetByType == "true")
-        //    {
-        //        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
-        //            (ProviderPublicId,
-        //            string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()));
+            if (FIFinancialGetByType == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
+                    (ProviderPublicId,
+                    string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
 
-        //        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-        //        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
+                if (oFinancial != null)
+                {
+                    oFinancial.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderFinancialViewModel(x));
+                        return true;
+                    });
+                }
+            }
 
-        //        if (oCommercial != null)
-        //        {
-        //            if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-        //            {
-        //                oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-        //                oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-        //            }
-
-        //            oCommercial.All(x =>
-        //            {
-        //                oReturn.Add(new BackOffice.Models.Provider.ProviderCommercialViewModel(x, oActivity, oCustomActivity));
-        //                return true;
-        //            });
-        //        }
-        //    }
-
-        //    return oReturn;
-        //}
+            return oReturn;
+        }
 
         //[HttpPost]
         //[HttpGet]
@@ -1523,7 +1514,7 @@ namespace BackOffice.Web.ControllersApi
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
                 if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
                 {
-                    oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);                    
+                    oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
                 }
                 if (oLegalInfo != null)
                 {

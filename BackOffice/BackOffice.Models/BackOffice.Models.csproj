@@ -63,6 +63,7 @@
     <Compile Include="General\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="General\GenericMenu.cs" />
+    <Compile Include="Provider\ProviderFinancialViewModel.cs" />
     <Compile Include="Provider\ProviderCommercialViewModel.cs" />
     <Compile Include="Provider\ProviderLegalViewModel.cs" />
     <Compile Include="Provider\ProviderContactViewModel.cs" />

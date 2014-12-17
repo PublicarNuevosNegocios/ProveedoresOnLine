@@ -18,7 +18,7 @@
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
-        <div id="divExperience"></div>
+        <div id="divBalanceSheet"></div>
         <br />
         @{
             Model.IsForm = false;
@@ -27,24 +27,15 @@
     </div>
 </div>
 
-<!--templates-->
 <div style="display:none;">
-    <div id="divExperience_NoFile">
+    <div id="divBalanceSheet_NoFile">
         <div>
             <span>Seleccione un archivo</span>
         </div>
     </div>
-    <div id="divExperience_File">
+    <div id="divBalanceSheet_File">
         <div>
-            <a target="_blank" href="${EX_ExperienceFile}">Ver archivo</a>
-        </div>
-    </div>
-    <div id="divExperience_MultiAC_ItemTemplate">
-        <div>
-            <span>Actividad: ${ActivityName}</span>
-            <span>Tipo: ${ActivityType}</span>
-            <span>Grupo: ${ActivityGroup}</span>
-            <span>Categoria: ${ActivityCategory}</span>
+            <a target="_blank" href="${SH_BalanceSheetFile}">Ver archivo</a>
         </div>
     </div>
 </div>
@@ -81,14 +72,14 @@
     <script type="text/javascript">
         var vProviderOptions = @(Html.Raw(oProviderOptions));
         $(document).ready(function () {
-            Provider_CompanyCommercialObject.Init({
-                ObjectId: 'divExperience',
+            Provider_CompanyFinancialObject.Init({
+                ObjectId: 'divBalanceSheet',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                CommercialType: '@((int)BackOffice.Models.General.enumCommercialType.Experience)',
+                FinancialType: '@((int)BackOffice.Models.General.enumfinancialType.BalanceSheetInfoType)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 ProviderOptions: vProviderOptions,
             });
-            Provider_CompanyCommercialObject.RenderAsync();
+            Provider_CompanyFinancialObject.RenderAsync();
         });
     </script>
 }
