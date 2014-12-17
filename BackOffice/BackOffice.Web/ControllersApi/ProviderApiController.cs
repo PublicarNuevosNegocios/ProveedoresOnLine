@@ -1216,6 +1216,67 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> FIBalanceSheetGetByFinancial
+            (string FIBalanceSheetGetByFinancial,
+            string FinancialId)
+        {
+            List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> oReturn = new List<Models.Provider.ProviderBalanceSheetViewModel>();
+
+            if (FIBalanceSheetGetByFinancial == "true" && !string.IsNullOrEmpty(FinancialId))
+            {
+                //get account info
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
+                    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> olstBalanceSheetDetail =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(FinancialId));
+
+                if (olstBalanceSheetDetail == null) olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+
+                if (olstAccount != null && olstAccount.Count > 0)
+                {
+                    oReturn = GetBalanceSheetViewModel(null, olstAccount, olstBalanceSheetDetail);
+                }
+            }
+
+            return oReturn;
+        }
+
+        //recursive hierarchy get account
+        private List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> GetBalanceSheetViewModel
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> lstBalanceSheetDetail)
+        {
+            List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> oReturn = new List<Models.Provider.ProviderBalanceSheetViewModel>();
+
+            lstAccount.
+                Where(ac => RelatedAccount != null ?
+                        (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
+                        (ac.ParentItem == null)).
+                OrderBy(ac => ac.ItemInfo.
+                    Where(aci => aci.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Order).
+                    Select(aci => Convert.ToInt32(aci.Value)).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                All(ac =>
+                {
+                    BackOffice.Models.Provider.ProviderBalanceSheetViewModel oItemToAdd =
+                        new Models.Provider.ProviderBalanceSheetViewModel
+                            (ac,
+                            lstBalanceSheetDetail.Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).FirstOrDefault());
+
+                    oItemToAdd.ChildBalanceSheet = GetBalanceSheetViewModel(ac, lstAccount, lstBalanceSheetDetail);
+                    oReturn.Add(oItemToAdd);
+
+                    return true;
+                });
+
+            return oReturn;
+        }
+
         //[HttpPost]
         //[HttpGet]
         //public BackOffice.Models.Provider.ProviderCommercialViewModel CICommercialUpsert

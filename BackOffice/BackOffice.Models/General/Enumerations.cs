@@ -27,7 +27,7 @@
         ARLRate = 212,
 
         PersonType = 213,
-        EntityType = 214,       
+        EntityType = 214,
         TaxPayerType = 215,
 
         CommercialType = 301,
@@ -47,18 +47,18 @@
     public enum enumCategoryInfoType
     {
         //economic activity info
-        Type = 102001,
-        Category = 102002,
-        Group = 102003,
-        IsCustom = 102004,
+        EA_Type = 102001,
+        EA_Category = 102002,
+        EA_Group = 102003,
+        EA_IsCustom = 102004,
 
         //geography info
-        GeographyType = 106001,
-        CapitalType = 106002,
-        DirespCode = 106003,
+        GI_GeographyType = 106001,
+        GI_CapitalType = 106002,
+        GI_DirespCode = 106003,
 
         //Account info
-        Order = 109001,
+        AI_Order = 109001,
     }
 
     #endregion
