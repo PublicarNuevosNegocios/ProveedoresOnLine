@@ -1818,6 +1818,45 @@ namespace BackOffice.Web.ControllersApi
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
                 };
                 #endregion
+
+                #region SARLAFT
+                if (oProvider.RelatedLegal.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.SARLAFT)
+                {
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SF_ProcessDateId) ? 0 : Convert.ToInt32(oDataToUpsert.SF_ProcessDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_ProcessDate
+                        },
+                        Value = oDataToUpsert.SF_ProcessDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SF_PersonTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.SF_PersonTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_PersonType
+                        },
+                        Value = oDataToUpsert.SF_PersonType,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SF_SARLAFTFileId) ? 0 : Convert.ToInt32(oDataToUpsert.SF_SARLAFTFileId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_SARLAFTFile
+                        },
+                        Value = oDataToUpsert.SF_SARLAFTFile,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
+                };
+                #endregion
             }
 
             return oReturn;

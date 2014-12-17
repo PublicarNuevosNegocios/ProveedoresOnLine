@@ -1026,6 +1026,7 @@
     <Content Include="Views\Provider\FITaxUpsert.cshtml" />
     <Content Include="Views\Provider\FIIncomeStatementUpsert.cshtml" />
     <Content Include="Views\Provider\LICIFINUpsert.cshtml" />
+    <Content Include="Views\Provider\LISARLAFTUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

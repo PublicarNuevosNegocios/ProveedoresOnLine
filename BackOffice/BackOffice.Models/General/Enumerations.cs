@@ -207,12 +207,15 @@
         CF_ResultQuery = 604002,
         CF_AutorizationFile = 604003,
 
+        //SARLAFT
+        SF_ProcessDate = 605001,
+        SF_PersonType = 605002,
+        SF_SARLAFTFile = 605003,
+
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
-        CD_PartnerRank = 607003,
-
-        //CP_
+        CD_PartnerRank = 607003,        
 
     }
 

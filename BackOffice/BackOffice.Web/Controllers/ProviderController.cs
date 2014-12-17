@@ -691,6 +691,29 @@ namespace BackOffice.Web.Controllers
 
             return View(oModel);
         }
+
+        public virtual ActionResult LISARLAFTUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT),
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
         #endregion
 
         #region Menu
@@ -1020,12 +1043,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "SARLAFT",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderUpsert,
+                        (MVC.Provider.ActionNames.LISARLAFTUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderUpsert &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LISARLAFTUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

@@ -111,6 +111,12 @@ namespace BackOffice.Models.Provider
         #endregion
 
         #region SARLAFT
+        public string SF_ProcessDate { get; set; }
+        public string SF_ProcessDateId { get; set; }
+        public string SF_PersonType { get; set; }
+        public string SF_PersonTypeId { get; set; }
+        public string SF_SARLAFTFile { get; set; }
+        public string SF_SARLAFTFileId { get; set; }
 
         #endregion
 
@@ -490,6 +496,42 @@ namespace BackOffice.Models.Provider
             #endregion
 
             #region SARLAFT
+
+            SF_ProcessDate = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.SF_ProcessDate).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SF_ProcessDateId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.SF_ProcessDate).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SF_PersonType = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.SF_PersonType).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SF_PersonTypeId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.SF_PersonType).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SF_SARLAFTFile = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.SF_SARLAFTFile).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SF_SARLAFTFileId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.SF_SARLAFTFile).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
 
             #endregion
 
