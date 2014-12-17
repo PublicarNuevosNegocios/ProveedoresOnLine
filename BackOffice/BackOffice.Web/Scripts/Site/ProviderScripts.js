@@ -2791,7 +2791,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_ICA',
                 title: 'ICA',
-                width: '200px',
+                width: '350px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_ICA != null) {
