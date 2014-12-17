@@ -30,6 +30,9 @@
         EntityType = 214,
         TaxPayerType = 215,
 
+        ProviderStatus = 216,
+        ProviderPaymentInfo = 217,
+
         CommercialType = 301,
         ExperienceInfoType = 302,
 
@@ -71,6 +74,8 @@
     public enum enumCompanyInfoType
     {
         SalesforceId = 203001,
+        ProviderStatus = 203002,
+        ProviderPaymentInfo = 203003,
     }
 
     /// <summary>

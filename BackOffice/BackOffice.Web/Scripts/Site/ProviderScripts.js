@@ -2464,11 +2464,12 @@ var Provider_CompanyFinancialObject = {
             navigatable: true,
             pageable: false,
             scrollable: true,
-            toolbar: [
-                { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
-            ],
+            toolbar: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail();">Nuevo</a>',
+            //toolbar: [
+            //    { name: 'create', text: 'Nuevo' },
+            //    { name: 'save', text: 'Guardar' },
+            //    { name: 'cancel', text: 'Descartar' }
+            //],
             dataSource: {
                 schema: {
                     model: {
@@ -2609,6 +2610,164 @@ var Provider_CompanyFinancialObject = {
             }],
         });
     },
+
+    RenderBalanceSheetDetail: function (vFinancialId) {
+        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'AccountId',
+                        fields: {
+                            AccountId: { editable: false, nullable: false },
+                            AccountName: { editable: false, nullable: false },
+
+                            BalanceItemId: { editable: false },
+                            BalanceItemValue: { editable: true },
+                            BalanceItemIsValue: { editable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIBalanceSheetGetByFinancial=true&FinancialId=' + (vFinancialId != null ? vFinancialId : ''),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    //create: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //        }
+                    //    });
+                    //},
+                    //update: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //        }
+                    //    });
+                    //},
+                },
+            },
+            columns: [{
+                field: 'AccountName',
+                title: 'Cuenta',
+                width: '200px',
+            }, {
+                field: 'BalanceItemValue',
+                title: 'Valor',
+                width: '200px',
+            }],
+        });
+    },
+
+    RenderBalanceSheetDetailItems: function (vDataSource) {
+        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'AccountId',
+                        fields: {
+                            AccountId: { editable: false, nullable: false },
+                            AccountName: { editable: false, nullable: false },
+
+                            BalanceItemId: { editable: false },
+                            BalanceItemValue: { editable: true },
+                            BalanceItemIsValue: { editable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIBalanceSheetGetByFinancial=true&FinancialId=' + (vFinancialId != null ? vFinancialId : ''),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    //create: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //        }
+                    //    });
+                    //},
+                    //update: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //        }
+                    //    });
+                    //},
+                },
+            },
+            columns: [{
+                field: 'AccountName',
+                title: 'Cuenta',
+                width: '200px',
+            }, {
+                field: 'BalanceItemValue',
+                title: 'Valor',
+                width: '200px',
+            }],
+        });
+    }
 };
 
 

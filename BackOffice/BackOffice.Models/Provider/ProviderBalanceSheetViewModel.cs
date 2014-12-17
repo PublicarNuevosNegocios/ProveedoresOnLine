@@ -14,6 +14,58 @@ namespace BackOffice.Models.Provider
 
         public List<ProviderBalanceSheetViewModel> ChildBalanceSheet { get; set; }
 
+
+        public string AccountId
+        {
+            get
+            {
+                if (RelatedAccount != null)
+                    return RelatedAccount.ItemId.ToString();
+                return string.Empty;
+            }
+        }
+
+        public string AccountName
+        {
+            get
+            {
+                if (RelatedAccount != null)
+                    return RelatedAccount.ItemName;
+                return string.Empty;
+            }
+        }
+
+        public string BalanceItemId
+        {
+            get
+            {
+                if (RelatedBalanceSheetDetail != null)
+                    return RelatedBalanceSheetDetail.BalanceSheetId.ToString();
+                return string.Empty;
+            }
+        }
+
+        public decimal BalanceItemValue
+        {
+            get
+            {
+                if (RelatedBalanceSheetDetail != null)
+                    return RelatedBalanceSheetDetail.Value;
+                return 0;
+            }
+        }
+
+        public bool BalanceItemIsValue
+        {
+            get
+            {
+                if (ChildBalanceSheet != null && ChildBalanceSheet.Count > 0)
+                    return false;
+                return true;
+            }
+        }
+
+
         public ProviderBalanceSheetViewModel() { }
 
         public ProviderBalanceSheetViewModel
