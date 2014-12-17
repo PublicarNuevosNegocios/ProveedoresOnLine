@@ -101,6 +101,13 @@ namespace BackOffice.Models.Provider
 
         #region CIFIN
 
+        public string CF_QueryDate { get; set; }
+        public string CF_QueryDateId { get; set; }
+        public string CF_ResultQuery { get; set; }
+        public string CF_ResultQueryId { get; set; }
+        public string CF_AutorizationFile { get; set; }
+        public string CF_AutorizationFileId { get; set; }
+
         #endregion
 
         #region SARLAFT
@@ -113,7 +120,7 @@ namespace BackOffice.Models.Provider
 
         public ProviderLegalViewModel() { }
 
-        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal, 
+        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal,
                                      List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity)
         {
             RelatedLegal = oRelatedLegal;
@@ -262,7 +269,7 @@ namespace BackOffice.Models.Provider
                 FirstOrDefault();
             #endregion
 
-            #region RUT           
+            #region RUT
 
             R_PersonType = RelatedLegal.ItemInfo.
                  Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_PersonType).
@@ -443,6 +450,42 @@ namespace BackOffice.Models.Provider
             #endregion
 
             #region CIFIN
+
+            CF_QueryDate = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CF_QueryDate).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CF_QueryDateId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CF_QueryDate).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CF_ResultQuery = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CF_ResultQuery).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CF_ResultQueryId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CF_ResultQuery).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CF_AutorizationFile = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CF_AutorizationFile).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CF_AutorizationFileId = RelatedLegal.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CF_AutorizationFile).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
 
             #endregion
 
