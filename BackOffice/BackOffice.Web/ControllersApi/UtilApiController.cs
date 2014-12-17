@@ -77,17 +77,17 @@ namespace BackOffice.Web.ControllersApi
                     EconomicActivityId = x.ItemId.ToString(),
                     ActivityName = x.ItemName,
                     ActivityType = x.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Type).
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Type).
                         Select(y => y.Value + " - " + y.ValueName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault(),
                     ActivityGroup = x.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Group).
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
                         Select(y => y.Value + " - " + y.ValueName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault(),
                     ActivityCategory = x.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.Category).
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category).
                         Select(y => y.Value + " - " + y.ValueName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault(),

@@ -1216,6 +1216,67 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> FIBalanceSheetGetByFinancial
+            (string FIBalanceSheetGetByFinancial,
+            string FinancialId)
+        {
+            List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> oReturn = new List<Models.Provider.ProviderBalanceSheetViewModel>();
+
+            if (FIBalanceSheetGetByFinancial == "true" && !string.IsNullOrEmpty(FinancialId))
+            {
+                //get account info
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
+                    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> olstBalanceSheetDetail =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(FinancialId));
+
+                if (olstBalanceSheetDetail == null) olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+
+                if (olstAccount != null && olstAccount.Count > 0)
+                {
+                    oReturn = GetBalanceSheetViewModel(null, olstAccount, olstBalanceSheetDetail);
+                }
+            }
+
+            return oReturn;
+        }
+
+        //recursive hierarchy get account
+        private List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> GetBalanceSheetViewModel
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> lstBalanceSheetDetail)
+        {
+            List<BackOffice.Models.Provider.ProviderBalanceSheetViewModel> oReturn = new List<Models.Provider.ProviderBalanceSheetViewModel>();
+
+            lstAccount.
+                Where(ac => RelatedAccount != null ?
+                        (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
+                        (ac.ParentItem == null)).
+                OrderBy(ac => ac.ItemInfo.
+                    Where(aci => aci.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Order).
+                    Select(aci => Convert.ToInt32(aci.Value)).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                All(ac =>
+                {
+                    BackOffice.Models.Provider.ProviderBalanceSheetViewModel oItemToAdd =
+                        new Models.Provider.ProviderBalanceSheetViewModel
+                            (ac,
+                            lstBalanceSheetDetail.Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).FirstOrDefault());
+
+                    oItemToAdd.ChildBalanceSheet = GetBalanceSheetViewModel(ac, lstAccount, lstBalanceSheetDetail);
+                    oReturn.Add(oItemToAdd);
+
+                    return true;
+                });
+
+            return oReturn;
+        }
+
         //[HttpPost]
         //[HttpGet]
         //public BackOffice.Models.Provider.ProviderCommercialViewModel CICommercialUpsert
@@ -1631,6 +1692,7 @@ namespace BackOffice.Web.ControllersApi
                 }
                 #endregion
 
+                #region RUT
                 if (oProvider.RelatedLegal.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.RUT)
                 {
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1776,7 +1838,145 @@ namespace BackOffice.Web.ControllersApi
                     });
 
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
+                }; 
+                #endregion
+
+                #region CIFIN
+                if (oProvider.RelatedLegal.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.CIFIN)
+                {
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CF_QueryDateId) ? 0 : Convert.ToInt32(oDataToUpsert.CF_QueryDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CF_QueryDate
+                        },
+                        Value = oDataToUpsert.CF_QueryDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CF_ResultQueryId) ? 0 : Convert.ToInt32(oDataToUpsert.CF_ResultQueryId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CF_ResultQuery
+                        },
+                        Value = oDataToUpsert.CF_ResultQuery,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CF_AutorizationFileId) ? 0 : Convert.ToInt32(oDataToUpsert.CF_AutorizationFileId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CF_AutorizationFile
+                        },
+                        Value = oDataToUpsert.CF_AutorizationFile,
+                        Enable = oDataToUpsert.Enable,
+                    });                    
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
                 };
+                #endregion
+
+                #region SARLAFT
+                if (oProvider.RelatedLegal.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.SARLAFT)
+                {
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SF_ProcessDateId) ? 0 : Convert.ToInt32(oDataToUpsert.SF_ProcessDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_ProcessDate
+                        },
+                        Value = oDataToUpsert.SF_ProcessDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SF_PersonTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.SF_PersonTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_PersonType
+                        },
+                        Value = oDataToUpsert.SF_PersonType,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SF_SARLAFTFileId) ? 0 : Convert.ToInt32(oDataToUpsert.SF_SARLAFTFileId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_SARLAFTFile
+                        },
+                        Value = oDataToUpsert.SF_SARLAFTFile,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
+                };
+                #endregion
+
+                #region Resolutions
+                if (oProvider.RelatedLegal.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.Resoluciones)
+                {
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_EntityTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_EntityTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_EntityType
+                        },
+                        Value = oDataToUpsert.RS_EntityType,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_ResolutionFileId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_ResolutionFileId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_ResolutionFile
+                        },
+                        Value = oDataToUpsert.RS_ResolutionFile,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_StartDateId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_StartDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_StartDate
+                        },
+                        Value = oDataToUpsert.RS_StartDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_EndDateId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_EndDateId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_EndDate
+                        },
+                        Value = oDataToUpsert.RS_EndDate,
+                        Enable = oDataToUpsert.Enable,
+                    });
+                    oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.RS_DescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_DescriptionId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_Description
+                        },
+                        Value = oDataToUpsert.RS_Description,
+                        Enable = oDataToUpsert.Enable,
+                    });
+
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(oProvider);
+                };
+                #endregion
             }
 
             return oReturn;

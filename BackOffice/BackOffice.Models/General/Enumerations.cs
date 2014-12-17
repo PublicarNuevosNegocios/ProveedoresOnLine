@@ -27,7 +27,7 @@
         ARLRate = 212,
 
         PersonType = 213,
-        EntityType = 214,       
+        EntityType = 214,
         TaxPayerType = 215,
 
         ProviderStatus = 216,
@@ -50,18 +50,18 @@
     public enum enumCategoryInfoType
     {
         //economic activity info
-        Type = 102001,
-        Category = 102002,
-        Group = 102003,
-        IsCustom = 102004,
+        EA_Type = 102001,
+        EA_Category = 102002,
+        EA_Group = 102003,
+        EA_IsCustom = 102004,
 
         //geography info
-        GeographyType = 106001,
-        CapitalType = 106002,
-        DirespCode = 106003,
+        GI_GeographyType = 106001,
+        GI_CapitalType = 106002,
+        GI_DirespCode = 106003,
 
         //Account info
-        Order = 109001,
+        AI_Order = 109001,
     }
 
     #endregion
@@ -207,13 +207,27 @@
         R_LargeContributorFile = 603013,
         R_SelfRetainerFile = 603014,
 
+        //CIFIN
+        CF_QueryDate = 604001,
+        CF_ResultQuery = 604002,
+        CF_AutorizationFile = 604003,
+
+        //SARLAFT
+        SF_ProcessDate = 605001,
+        SF_PersonType = 605002,
+        SF_SARLAFTFile = 605003,
+
+        //Resolutions
+        RS_EntityType = 606001,
+        RS_ResolutionFile = 606002,
+        RS_StartDate = 606003,
+        RS_EndDate = 606004,
+        RS_Description = 606005,
 
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
-        CD_PartnerRank = 607003,
-
-        //CP_
+        CD_PartnerRank = 607003,        
 
     }
 
@@ -297,8 +311,4 @@
     }
 
     #endregion
-
-    #region Legal
-    #endregion
-
 }
