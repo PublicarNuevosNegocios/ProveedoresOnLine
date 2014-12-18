@@ -135,6 +135,12 @@
                         @Html.Partial(MVC.Shared.Views._F_FileUpload)
                         <input type="hidden" name="CertificateURL" id="CertificateURL" />
                         <input type="hidden" name="CertificateURLId" id="CertificateURLId" value="@CertificateURLId" />
+                        @if (CertificateURL != null && CertificateURL.Length > 0)
+                        {
+                            <div id="CertificateARLId">
+                                <a target="_blank" href="@CertificateURL">Ver archivo</a>
+                            </div>
+                        }
                     </li>
                     <li>
                         <label>Fecha de Expedición del Certificado</label>
