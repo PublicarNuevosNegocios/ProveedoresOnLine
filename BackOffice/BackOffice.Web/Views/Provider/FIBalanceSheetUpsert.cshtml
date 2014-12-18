@@ -39,6 +39,51 @@
             <a target="_blank" href="${SH_BalanceSheetFile}">Ver archivo</a>
         </div>
     </div>
+
+    <div id="divBalanceSheet_Detail_Form">
+        <form id="divBalanceSheet_Detail_Form_${FinancialId}" action="" method="post">
+            <ul>
+                <li>
+                    <span>Nombre:</span>
+                    <input id="divBalanceSheet_Detail_Form_SH_Year_${FinancialId}" type="text" />
+                    <input id="divBalanceSheet_Detail_Form_SH_YearId_${FinancialId}" type="hidden" />
+                </li>
+                <li>
+                    <span>Año:</span>
+                    <input id="divBalanceSheet_Detail_Form_SH_Year_${FinancialId}" type="text" />
+                    <input id="divBalanceSheet_Detail_Form_SH_YearId_${FinancialId}" type="hidden" />
+                </li>
+                <li>
+                    <span>Doc soporte:</span>
+                    <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" type="text" />
+                    <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" type="hidden" />
+                </li>
+                <li>
+                    <span>Habilitado:</span>
+                    <input id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" type="text" />
+                    <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" type="hidden" />
+                </li>
+                <li id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
+
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div id="divBalanceSheet_Detail_ParentAccount">
+        <ul>
+            <li id="divBalanceSheet_Detail_ParentAccount_${AccountId}"></li>
+            <li>
+                <span>${AccountName}</span>
+                <span id="divBalanceSheet_Detail_ParentAccount_${AccountId}_Total"></span>
+            </li>
+        </ul>
+    </div>
+    <div id="divBalanceSheet_Detail_ChildAccount">
+        <li>
+            <span>${AccountName}</span>
+            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+        </li>
+    </div>
 </div>
 
 @{
