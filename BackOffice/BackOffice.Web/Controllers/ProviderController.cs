@@ -213,161 +213,6 @@ namespace BackOffice.Web.Controllers
             return oReturn;
         }
 
-        private GenericItemModel GetChaimberOfCommerceInfoRequest()
-        {
-            if (!string.IsNullOrEmpty(Request["UpsertAction"])
-               && bool.Parse(Request["UpsertAction"]))
-            {
-                //get ChaimberInfo                
-                GenericItemModel RelatedLegal = new GenericItemModel
-                {
-                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
-                    ItemType = new CatalogModel()
-                    {
-                        ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
-                    },
-                    ItemName = Request["ChaimberName"],
-                    Enable = Request["Enable"] == "true" ? true : false,
-
-                    ItemInfo = new List<GenericItemInfoModel>
-                        {                               
-                            new GenericItemInfoModel()
-                            {                                
-                                ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionDate
-                                },
-                                Value = Request["ConstitutionDate"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId =  Convert.ToInt32(Request["ValidityDateId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
-                                },
-                                Value = Request["ValidityDate"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId =  Convert.ToInt32(Request["SelectedCityId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_InscriptionCity
-                                },
-                                Value = Request["SelectedCity"],
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId =  Convert.ToInt32(Request["InscriptionNumberId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_InscriptionNumber
-                                },
-                                Value = Request["InscriptionNumber"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId =  Convert.ToInt32(Request["CertificateURLId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
-                                },
-                                Value = Request["CertificateURL"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId =  Convert.ToInt32(Request["ExpeditionCertificatedDateId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate
-                                },
-                                Value = Request["ExpeditionCertificatedDate"]
-                            },
-                            new GenericItemInfoModel()
-                            {
-                                ItemInfoId =   Convert.ToInt32(Request["SocialObjectId"]),
-                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                {
-                                    ItemId = (int)enumLegalInfoType.CP_SocialObject
-                                },
-                                Value = Request["SocialObject"]
-                            },
-                        }
-                };
-                //Validación del archivo cuando viene desocupado en el formulario
-                if (RelatedLegal.ItemInfo != null && RelatedLegal.ItemInfo .Count() > 0 )
-                {
-                    if (string.IsNullOrEmpty(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x.Value).FirstOrDefault()))
-                    {
-                        RelatedLegal.ItemInfo.Remove(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x).FirstOrDefault());
-                    }                   
-                }
-                return RelatedLegal;
-            }
-            return null;
-        }
-
-        private GenericItemModel GetHIRiskPoliciesInfoRequest()
-        {
-            if (!string.IsNullOrEmpty(Request["UpsertAction"])
-               && bool.Parse(Request["UpsertAction"]))
-            {
-                //get ARL info
-                GenericItemModel RelatedARL = new GenericItemModel
-                {
-                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
-                    ItemType = new CatalogModel()
-                    {
-                        ItemId = Convert.ToInt32(enumHSEQType.CompanyRiskPolicies),
-                    },
-                    ItemName = Request["RiskPoliciesName"],
-                    Enable = Request["Enable"] == "true" ? true : false,
-                    ItemInfo = new List<GenericItemInfoModel>
-                    {
-                        new GenericItemInfoModel()
-                        {                                
-                            ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards
-                            },
-                            Value = Request["OccupationalHazardsId"],
-                            Enable = true,
-                        },
-                        new GenericItemInfoModel()
-                        {
-                            ItemInfoId = int.Parse(Request["RateARLId"]),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumHSEQInfoType.CR_RateARL
-                            },
-                            Value = Request["RateARL"],
-                            Enable = true,
-                        },
-                    },
-                };
-
-                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
-                {
-                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
-                    {
-                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
-                        },
-                        LargeValue = Request["CertificateAffiliateARL"],
-                        Enable = true,
-                    };
-
-                    RelatedARL.ItemInfo.Add(oGenericItem);
-                }
-                return RelatedARL;
-            }
-            return null;
-        }
         #endregion
 
         #endregion
@@ -522,6 +367,38 @@ namespace BackOffice.Web.Controllers
             //get provider menu
             oModel.ProviderMenu = GetProviderMenu(oModel);
 
+            //eval upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                //get balance sheet request info
+                ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel ProviderToUpsert = GetBalanceSheetRequest();
+
+                //upsert sheet request
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderToUpsert);
+
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+                else
+                {
+                    return RedirectToAction(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = oModel.RelatedProvider.RelatedCompany.CompanyPublicId });
+                }
+            }
+
             return View(oModel);
         }
 
@@ -578,6 +455,72 @@ namespace BackOffice.Web.Controllers
 
             return View(oModel);
         }
+
+        #region Private methods
+
+        private ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel GetBalanceSheetRequest()
+        {
+            //get provider
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+            {
+                RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = Request["ProviderPublicId"],
+                },
+
+                RelatedBalanceSheet = new List<BalanceSheetModel>()
+                { 
+                    new BalanceSheetModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(Request["FinancialId"]) ? 0 : Convert.ToInt32(Request["FinancialId"]),
+                        ItemName = Request["FinancialName"],
+                        ItemType = new CatalogModel()
+                        {
+                            ItemId = (int)enumFinancialType.BalanceSheetInfoType,
+                        },
+                        Enable = !string.IsNullOrEmpty(Request["Enable"]),
+                        ItemInfo = new List<GenericItemInfoModel>()
+                        {
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = string.IsNullOrEmpty(Request["SH_YearId"]) ? 0 : Convert.ToInt32(Request["SH_YearId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumFinancialInfoType.SH_Year,
+                                },
+                                Value = Request["SH_Year"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = string.IsNullOrEmpty(Request["SH_BalanceSheetFileId"]) ? 0 : Convert.ToInt32(Request["SH_BalanceSheetFileId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumFinancialInfoType.SH_BalanceSheetFile,
+                                },
+                                Value = Request["SH_BalanceSheetFile"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = string.IsNullOrEmpty(Request["SH_CurrencyId"]) ? 0 : Convert.ToInt32(Request["SH_CurrencyId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumFinancialInfoType.SH_Currency,
+                                },
+                                Value = BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", ""),
+                                Enable = true,
+                            },
+                        },
+                        BalanceSheetInfo = new List<BalanceSheetDetailModel>(),
+                    },
+                }
+            };
+
+            return oReturn;
+        }
+
+        #endregion
 
         #endregion
 
@@ -771,6 +714,167 @@ namespace BackOffice.Web.Controllers
 
             return View(oModel);
         }
+
+        #region Private methods
+
+        private GenericItemModel GetChaimberOfCommerceInfoRequest()
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"])
+               && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ChaimberInfo                
+                GenericItemModel RelatedLegal = new GenericItemModel
+                {
+                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
+                    ItemType = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
+                    },
+                    ItemName = Request["ChaimberName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+
+                    ItemInfo = new List<GenericItemInfoModel>
+                        {                               
+                            new GenericItemInfoModel()
+                            {                                
+                                ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionDate
+                                },
+                                Value = Request["ConstitutionDate"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["ValidityDateId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
+                                },
+                                Value = Request["ValidityDate"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["SelectedCityId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_InscriptionCity
+                                },
+                                Value = Request["SelectedCity"],
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["InscriptionNumberId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_InscriptionNumber
+                                },
+                                Value = Request["InscriptionNumber"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["CertificateURLId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
+                                },
+                                Value = Request["CertificateURL"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["ExpeditionCertificatedDateId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate
+                                },
+                                Value = Request["ExpeditionCertificatedDate"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =   Convert.ToInt32(Request["SocialObjectId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_SocialObject
+                                },
+                                Value = Request["SocialObject"]
+                            },
+                        }
+                };
+                //Validación del archivo cuando viene desocupado en el formulario
+                if (RelatedLegal.ItemInfo != null && RelatedLegal.ItemInfo.Count() > 0)
+                {
+                    if (string.IsNullOrEmpty(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x.Value).FirstOrDefault()))
+                    {
+                        RelatedLegal.ItemInfo.Remove(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x).FirstOrDefault());
+                    }
+                }
+                return RelatedLegal;
+            }
+            return null;
+        }
+
+        private GenericItemModel GetHIRiskPoliciesInfoRequest()
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"])
+               && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ARL info
+                GenericItemModel RelatedARL = new GenericItemModel
+                {
+                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
+                    ItemType = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(enumHSEQType.CompanyRiskPolicies),
+                    },
+                    ItemName = Request["RiskPoliciesName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+                    ItemInfo = new List<GenericItemInfoModel>
+                    {
+                        new GenericItemInfoModel()
+                        {                                
+                            ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards
+                            },
+                            Value = Request["OccupationalHazardsId"],
+                            Enable = true,
+                        },
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = int.Parse(Request["RateARLId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_RateARL
+                            },
+                            Value = Request["RateARL"],
+                            Enable = true,
+                        },
+                    },
+                };
+
+                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
+                {
+                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
+                    {
+                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                        },
+                        LargeValue = Request["CertificateAffiliateARL"],
+                        Enable = true,
+                    };
+
+                    RelatedARL.ItemInfo.Add(oGenericItem);
+                }
+                return RelatedARL;
+            }
+            return null;
+        }
+
+        #endregion
+
         #endregion
 
         #region Menu
