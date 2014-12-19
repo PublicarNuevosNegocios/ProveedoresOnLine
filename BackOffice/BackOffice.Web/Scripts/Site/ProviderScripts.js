@@ -2550,7 +2550,9 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(dataItem.SH_BalanceSheetFile);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val(dataItem.SH_BalanceSheetFileId);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', dataItem.SH_BalanceSheetFile);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, dataItem.SH_BalanceSheetFile));
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                     }
                     else {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_FinancialName_' + oFiancialId).val('');
@@ -2565,7 +2567,9 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', '');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', '');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).hide();
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').hide();
                     }
                     $('<input type="file" id="files" name="files"/>')
                         .appendTo($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileUpload_' + oFiancialId))
@@ -2579,8 +2583,10 @@ var Provider_CompanyFinancialObject = {
                                 if (e.response != null && e.response.length > 0) {
                                     //set server fiel name
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href',e.response[0].ServerName);
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                                 }
                             },
                         });
