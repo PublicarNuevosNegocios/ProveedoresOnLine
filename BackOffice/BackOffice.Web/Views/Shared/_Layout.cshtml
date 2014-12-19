@@ -39,10 +39,10 @@
             BaseUrl.Init({
                 ApiUrl: '@(Url.Content("~/api"))',
                 SiteUrl: '@(Url.Content("~/"))',
+                PreviewPdfUrl: '@(Server.UrlDecode(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name, new { FilePath = "${FilePath}" })))',
             });
         });
     </script>
-
     @RenderSection("inlinescripts", required: false)
 </body>
 </html>

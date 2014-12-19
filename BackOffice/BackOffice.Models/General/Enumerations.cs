@@ -291,7 +291,7 @@
     /// <summary>
     /// Finantial type
     /// </summary>
-    public enum enumfinancialType
+    public enum enumFinancialType
     {
         BalanceSheetInfoType = 501001,
         TaxInfoType = 501002,
@@ -302,7 +302,7 @@
     /// <summary>
     /// Commercial infor types
     /// </summary>
-    public enum enumfinancialInfoType
+    public enum enumFinancialInfoType
     {
         //Balance Sheet
         SH_Year = 502001,

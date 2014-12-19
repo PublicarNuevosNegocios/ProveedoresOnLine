@@ -78,37 +78,37 @@ namespace BackOffice.Models.Provider
             #region Balance sheet
 
             SH_Year = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_Year).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_Year).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             SH_YearId = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_Year).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_Year).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             SH_BalanceSheetFile = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_BalanceSheetFile).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_BalanceSheetFile).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             SH_BalanceSheetFileId = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_BalanceSheetFile).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_BalanceSheetFile).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             SH_Currency = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_Currency).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_Currency).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
             SH_CurrencyId = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_Currency).
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_Currency).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
