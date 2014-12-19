@@ -227,7 +227,7 @@
         //Designations
         CD_PartnerName = 607001,
         CD_PartnerIdentificationNumber = 607002,
-        CD_PartnerRank = 607003,        
+        CD_PartnerRank = 607003,
 
     }
 
@@ -308,6 +308,17 @@
         SH_Year = 502001,
         SH_BalanceSheetFile = 502002,
         SH_Currency = 502003,
+
+        //Bank Info
+        IB_Bank = 505002,
+        IB_AccountType = 505003,
+        IB_AccountNumber = 505004,
+        IB_AccountHolder = 505005,
+        IB_ABA = 505006,
+        IB_Swift = 505007,
+        IB_IBAN = 505008,
+        IB_Customer = 505009,
+        IB_AccountFile = 505010,
     }
 
     #endregion

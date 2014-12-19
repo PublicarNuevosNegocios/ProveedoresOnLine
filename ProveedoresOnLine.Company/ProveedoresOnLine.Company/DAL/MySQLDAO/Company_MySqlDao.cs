@@ -469,6 +469,46 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByBank",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ba in response.DataTableResult.AsEnumerable()
+                     where !ba.IsNull("BankId")
+                     group ba by new
+                     {
+                         ItemId = ba.Field<int>("BankId"),
+                         ItemName = ba.Field<string>("BankName"),
+                     }
+                         into bank
+                         select new GenericItemModel()
+                         {
+                             ItemId = bank.Key.ItemId,
+                             ItemName = bank.Key.ItemName,
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<GenericItemModel> CategoryGetFinantialAccounts()
         {
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -735,7 +775,6 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             return Convert.ToInt32(response.ScalarResult);
         }
-
 
         public CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
         {

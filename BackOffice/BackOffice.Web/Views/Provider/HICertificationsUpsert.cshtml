@@ -52,8 +52,8 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
 
     @{
-        
-        //ger CertificationTypeValues
+
+        //get CertificationTypeValues
         string oCertificationOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
@@ -74,12 +74,12 @@
     }
 
     <script type="text/javascript">
-    var vCertificationOptionList = @(Html.Raw(oCertificationOptionList));
-    $(document).ready(function () {
-        Provider_CompanyHSEQObject.Init({
-            ObjectId: 'divGridCertification',
-            ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-            HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.Certifications)',
+        var vCertificationOptionList = @(Html.Raw(oCertificationOptionList));
+        $(document).ready(function () {
+            Provider_CompanyHSEQObject.Init({
+                ObjectId: 'divGridCertification',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.Certifications)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 HSEQOptionList: vCertificationOptionList,
             });

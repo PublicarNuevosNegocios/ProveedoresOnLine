@@ -2456,6 +2456,9 @@ var Provider_CompanyFinancialObject = {
         if (Provider_CompanyFinancialObject.FinancialType == 501001) {
             Provider_CompanyFinancialObject.RenderBalanceSheet();
         }
+        else if (Provider_CompanyFinancialObject.FinancialType == 501004) {
+            Provider_CompanyFinancialObject.RenderBankInfo();
+        }
     },
 
     RenderBalanceSheet: function () {
@@ -2767,7 +2770,178 @@ var Provider_CompanyFinancialObject = {
                 width: '200px',
             }],
         });
-    }
+    },
+
+    RenderBankInfo: function () {
+        $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'FinancialId',
+                        fields: {
+                            FinancialId: { editable: false, nullable: true },
+                            FinancialName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+
+                            IB_Bank: { editable: true },
+                            IB_BankId: { editable: false },
+                            IB_BankName: { editable: true },
+
+                            IB_AccountType: { editable: true },
+                            IB_AccountTypeId: { editable: false },
+
+                            IB_AccountNumber: { editable: true },
+                            IB_AccountNumberId: { editable: false },
+
+                            IB_AccountHolder: { editable: true },
+                            IB_AccountHolderId: { editable: false },
+
+                            IB_ABA: { editable: true },
+                            IB_ABAId: { editable: false },
+
+                            IB_Swift: { editable: true },
+                            IB_SwiftId: { editable: false },
+
+                            IB_IBAN: { editable: true },
+                            IB_IBANId: { editable: false },
+
+                            IB_Customer: { editable: true },
+                            IB_CustomerId: { editable: false },
+
+                            IB_AccountFile: { editable: true },
+                            IB_AccountFileId: { editable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    //create: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //        }
+                    //    });
+                    //},
+                    //update: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //        }
+                    //    });
+                    //},
+                },
+            },
+            columns: [{
+                field: 'FinancialId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'FinancialName',
+                title: 'Nombre',
+                width: '200px',
+            }, {
+                field: 'SH_Year',
+                title: 'Año',
+                width: '200px',
+            }, {
+                field: 'SH_BalanceSheetFile',
+                title: 'Doc soporte.',
+                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.SH_BalanceSheetFile != null && dataItem.SH_BalanceSheetFile.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyFinancialObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${SH_BalanceSheetFile}/gi, dataItem.EX_ExperienceFile);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+            }],
+        });
+    },
 };
 
 
@@ -3854,7 +4028,7 @@ var Provider_LegalInfoObject = {
                 field: 'RS_Description',
                 title: 'Descripción',
                 width: '300px',
-            },{
+            }, {
                 field: 'RS_ResolutionFile',
                 title: 'Archivo Anexo',
                 width: '200px',
@@ -3912,7 +4086,7 @@ var Provider_LegalInfoObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '200px',
-            },],
+            }, ],
         });
     },
 

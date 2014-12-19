@@ -29,10 +29,43 @@ namespace BackOffice.Models.Provider
 
         #endregion
 
+        #region Bank Info
+
+        public string IB_Bank { get; set; }
+        public string IB_BankId { get; set; }
+        public string IB_BankName { get; set; }
+
+        public string IB_AccountType { get; set; }
+        public string IB_AccountTypeId { get; set; }
+
+        public string IB_AccountNumber { get; set; }
+        public string IB_AccountNumberId { get; set; }
+
+        public string IB_AccountHolder { get; set; }
+        public string IB_AccountHolderId { get; set; }
+
+        public string IB_ABA { get; set; }
+        public string IB_ABAId { get; set; }
+
+        public string IB_Swift { get; set; }
+        public string IB_SwiftId { get; set; }
+
+        public string IB_IBAN { get; set; }
+        public string IB_IBANId { get; set; }
+
+        public string IB_Customer { get; set; }
+        public string IB_CustomerId { get; set; }
+
+        public string IB_AccountFile { get; set; }
+        public string IB_AccountFileId { get; set; }
+
+        #endregion
+
         public ProviderFinancialViewModel() { }
 
         public ProviderFinancialViewModel
-            (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedFinancial)
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedFinancial,
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank)
         {
             RelatedFinancial = oRelatedFinancial;
 
@@ -76,6 +109,127 @@ namespace BackOffice.Models.Provider
 
             SH_CurrencyId = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.SH_Currency).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            #endregion
+
+            #region Bank Info
+
+            IB_Bank = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_Bank).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_BankId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_Bank).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            if (oBank != null && oBank.Count > 0)
+            {
+                IB_BankName = oBank.
+                    Where(y => y.ItemId.ToString() == IB_Bank).
+                    Select(y => y.ItemName).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+
+            IB_AccountType = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountType).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountTypeId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountType).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountNumber = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountNumber).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountNumberId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountNumber).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountHolder = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountHolder).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountHolderId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountHolder).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_ABA = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_ABA).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_ABAId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_ABA).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_Swift = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_Swift).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_SwiftId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_Swift).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_IBAN = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_IBAN).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_IBANId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_IBAN).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_Customer = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_Customer).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_CustomerId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_Customer).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountFile = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountFile).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IB_AccountFileId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountFile).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();

@@ -1197,17 +1197,24 @@ namespace BackOffice.Web.ControllersApi
         {
             List<BackOffice.Models.Provider.ProviderFinancialViewModel> oReturn = new List<Models.Provider.ProviderFinancialViewModel>();
 
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank = null;
+
             if (FIFinancialGetByType == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
                     (ProviderPublicId,
                     string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
 
+                if (FinancialType == ((int)BackOffice.Models.General.enumfinancialType.BankInfoType).ToString())
+                {
+                    oBank = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank(null, 0, 0);
+                }
+
                 if (oFinancial != null)
                 {
                     oFinancial.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderFinancialViewModel(x));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderFinancialViewModel(x, oBank));
                         return true;
                     });
                 }
@@ -1279,27 +1286,24 @@ namespace BackOffice.Web.ControllersApi
 
         //[HttpPost]
         //[HttpGet]
-        //public BackOffice.Models.Provider.ProviderCommercialViewModel CICommercialUpsert
-        //    (string CICommercialUpsert,
+        //public BackOffice.Models.Provider.ProviderFinancialViewModel FIFinantialUpsert
+        //    (string FIFinantialUpsert,
         //    string ProviderPublicId,
-        //    string CommercialType)
+        //    string FinantialType)
         //{
-        //    BackOffice.Models.Provider.ProviderCommercialViewModel oReturn = null;
+        //    BackOffice.Models.Provider.ProviderFinancialViewModel oReturn = null;
 
-        //    if (CICommercialUpsert == "true" &&
+        //    if (FIFinantialUpsert == "true" &&
         //        !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
-        //        !string.IsNullOrEmpty(CommercialType))
+        //        !string.IsNullOrEmpty(FinantialType))
         //    {
         //        List<string> lstUsedFiles = new List<string>();
 
-        //        List<Tuple<decimal, decimal>> lstCurrencyConversion = null;
-
-        //        BackOffice.Models.Provider.ProviderCommercialViewModel oDataToUpsert =
-        //            (BackOffice.Models.Provider.ProviderCommercialViewModel)
+        //        BackOffice.Models.Provider.ProviderFinancialViewModel oDataToUpsert =
+        //            (BackOffice.Models.Provider.ProviderFinancialViewModel)
         //            (new System.Web.Script.Serialization.JavaScriptSerializer()).
         //            Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
-        //                        typeof(BackOffice.Models.Provider.ProviderCommercialViewModel));
-
+        //                        typeof(BackOffice.Models.Provider.ProviderFinancialViewModel));
 
         //        ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
         //        {
@@ -1307,249 +1311,47 @@ namespace BackOffice.Web.ControllersApi
         //            {
         //                CompanyPublicId = ProviderPublicId,
         //            },
-
-        //            RelatedCommercial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>() 
+        //            RelatedFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
         //            {
         //                new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
         //                {
-        //                    ItemId = string.IsNullOrEmpty(oDataToUpsert.CommercialId) ? 0 : Convert.ToInt32(oDataToUpsert.CommercialId.Trim()),
+        //                    ItemId = string.IsNullOrEmpty(oDataToUpsert.FinancialId) ? 0 : Convert.ToInt32(oDataToUpsert.FinancialId.Trim()),
         //                    ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
         //                    {
-        //                        ItemId = Convert.ToInt32(CommercialType.Trim()),
+        //                        ItemId = Convert.ToInt32(FinantialType.Trim()),
         //                    },
-        //                    ItemName = oDataToUpsert.CommercialName,
+        //                    ItemName = oDataToUpsert.FinancialName,
         //                    Enable = oDataToUpsert.Enable,
         //                    ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
         //                },
         //            },
         //        };
 
-        //        if (oProvider.RelatedCommercial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumCommercialType.Experience)
+        //        if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumfinancialType.BankInfoType)
         //        {
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ContractTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ContractTypeId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+        //            oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
         //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractType
-        //                },
-        //                Value = oDataToUpsert.EX_ContractType,
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_DateIssueId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_DateIssueId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+        //                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_BankId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_BankId.Trim()),
+        //                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+        //                    {
+        //                        ItemId = (int)BackOffice.Models.General.enumfinancialInfoType.IB_Bank
+        //                    },
+        //                    Value = oDataToUpsert.IB_Bank,
+        //                    Enable = true,
+        //                });
+        //            oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
         //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_DateIssue
-        //                },
-        //                Value = string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
-        //                    string.Empty :
-        //                    oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-        //                    oDataToUpsert.EX_DateIssue :
-        //                    DateTime.ParseExact(
-        //                        oDataToUpsert.EX_DateIssue,
-        //                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-        //                        System.Globalization.CultureInfo.InvariantCulture).
-        //                    ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
-
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_DueDateId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_DueDateId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_DueDate
-        //                },
-        //                Value = string.IsNullOrEmpty(oDataToUpsert.EX_DueDate) ?
-        //                    string.Empty :
-        //                    oDataToUpsert.EX_DueDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-        //                    oDataToUpsert.EX_DueDate :
-        //                    DateTime.ParseExact(
-        //                        oDataToUpsert.EX_DueDate,
-        //                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-        //                        System.Globalization.CultureInfo.InvariantCulture).
-        //                    ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
-
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ClientId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ClientId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Client
-        //                },
-        //                Value = oDataToUpsert.EX_Client,
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ContractNumberId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ContractNumberId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractNumber
-        //                },
-        //                Value = oDataToUpsert.EX_ContractNumber,
-        //                Enable = true,
-        //            });
-
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_CurrencyId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_CurrencyId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Currency
-        //                },
-        //                Value = BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", ""),
-        //                Enable = true,
-        //            });
-
-
-        //            //get experience value
-        //            if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value == oDataToUpsert.EX_Currency)
-        //            {
-        //                //value in default rate
-        //                lstCurrencyConversion = new List<Tuple<decimal, decimal>>() 
-        //                { 
-        //                    new Tuple<decimal, decimal>(Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture), Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture))
-        //                };
-        //            }
-        //            else
-        //            {
-        //                //value in custom rate
-        //                lstCurrencyConversion =
-        //                string.IsNullOrEmpty(oDataToUpsert.EX_ContractValue) || string.IsNullOrEmpty(oDataToUpsert.EX_Currency) || string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
-        //                    new List<Tuple<decimal, decimal>>() { new Tuple<decimal, decimal>(0, 0) } :
-        //                    BackOffice.Web.Controllers.BaseController.Currency_ConvertToStandar
-        //                        (Convert.ToInt32(oDataToUpsert.EX_Currency),
-        //                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
-        //                        (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-        //                            DateTime.ParseExact(
-        //                                oDataToUpsert.EX_DateIssue,
-        //                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
-        //                                System.Globalization.CultureInfo.InvariantCulture) :
-        //                            DateTime.ParseExact(
-        //                                oDataToUpsert.EX_DateIssue,
-        //                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-        //                                System.Globalization.CultureInfo.InvariantCulture)).Year,
-        //                        new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) });
-        //            }
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ContractValueId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ContractValueId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue
-        //                },
-        //                Value = (lstCurrencyConversion != null && lstCurrencyConversion.Count > 0 ? lstCurrencyConversion.FirstOrDefault().Item2 : 0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_PhoneId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_PhoneId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Phone
-        //                },
-        //                Value = oDataToUpsert.EX_Phone,
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_BuiltAreaId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_BuiltAreaId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea
-        //                },
-        //                Value = oDataToUpsert.EX_BuiltArea,
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_BuiltUnitId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_BuiltUnitId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit
-        //                },
-        //                Value = oDataToUpsert.EX_BuiltUnit,
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ExperienceFileId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ExperienceFileId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ExperienceFile
-        //                },
-        //                Value = oDataToUpsert.EX_ExperienceFile,
-        //                Enable = true,
-        //            });
-
-        //            lstUsedFiles.Add(oDataToUpsert.EX_ExperienceFile);
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_ContractSubjectId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_ContractSubjectId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractSubject
-        //                },
-        //                Value = oDataToUpsert.EX_ContractSubject,
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_EconomicActivityId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_EconomicActivityId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity
-        //                },
-        //                LargeValue = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
-        //                Enable = true,
-        //            });
-
-        //            oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-        //            {
-        //                ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_CustomEconomicActivityId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_CustomEconomicActivityId.Trim()),
-        //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-        //                {
-        //                    ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity
-        //                },
-        //                LargeValue = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
-        //                Enable = true,
-        //            });
+        //                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountTypeId.Trim()),
+        //                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+        //                    {
+        //                        ItemId = (int)BackOffice.Models.General.enumfinancialInfoType.IB_AccountType
+        //                    },
+        //                    Value = oDataToUpsert.IB_AccountType,
+        //                    Enable = true,
+        //                });
         //        }
-
-        //        oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialUpsert(oProvider);
-
-        //        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-        //        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
-
-        //        if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-        //        {
-        //            oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-        //            oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-        //        }
-
-        //        oReturn = new Models.Provider.ProviderCommercialViewModel
-        //            (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
-
-        //        //register used files
-        //        LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
         //    }
+
         //    return oReturn;
         //}
 
