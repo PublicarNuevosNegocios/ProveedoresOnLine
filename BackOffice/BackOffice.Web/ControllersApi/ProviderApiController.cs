@@ -1287,6 +1287,161 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Provider.ProviderFinancialViewModel FIFinancialUpsert
+            (string FIFinancialUpsert,
+            string ProviderPublicId,
+            string FinancialType)
+        {
+            BackOffice.Models.Provider.ProviderFinancialViewModel oReturn = null;
+
+            if (FIFinancialUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
+                !string.IsNullOrEmpty(FinancialType))
+            {
+                List<string> lstUsedFiles = new List<string>();
+
+                BackOffice.Models.Provider.ProviderFinancialViewModel oDataToUpsert =
+                    (BackOffice.Models.Provider.ProviderFinancialViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Provider.ProviderFinancialViewModel));
+
+                ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = ProviderPublicId,
+                    },
+                    RelatedFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = string.IsNullOrEmpty(oDataToUpsert.FinancialId) ? 0 : Convert.ToInt32(oDataToUpsert.FinancialId.Trim()),
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(FinancialType.Trim()),
+                            },
+                            ItemName = oDataToUpsert.FinancialName,
+                            Enable = oDataToUpsert.Enable,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    },
+                };
+
+                if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.BankInfoType)
+                {
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_BankId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_BankId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Bank,
+                            },
+                            Value = oDataToUpsert.IB_Bank,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountTypeId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountType,
+                            },
+                            Value = oDataToUpsert.IB_AccountType,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountNumberId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountNumberId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountNumber,
+                            },
+                            Value = oDataToUpsert.IB_AccountNumber,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountHolderId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountHolderId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountHolder,
+                        },
+                        Value = oDataToUpsert.IB_AccountHolder,
+                        Enable = true,
+                    });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_ABAId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_ABAId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_ABA,
+                            },
+                            Value = oDataToUpsert.IB_ABA,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_SwiftId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_SwiftId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Swift,
+                            },
+                            Value = oDataToUpsert.IB_Swift,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_IBANId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_IBANId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_IBAN,
+                            },
+                            Value = oDataToUpsert.IB_IBAN,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_CustomerId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_CustomerId),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_Customer,
+                            },
+                            Value = oDataToUpsert.IB_Customer,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_AccountFileId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_AccountFileId),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountFile,
+                            },
+                            LargeValue = oDataToUpsert.IB_AccountFile,
+                            Enable = true,
+                        });
+
+                    lstUsedFiles.Add(oDataToUpsert.IB_AccountFile);
+                }
+                oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oProvider);
+
+                //register used files
+                LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
+            }
+
+            return oReturn;
+        }
+
         //[HttpPost]
         //[HttpGet]
         //public BackOffice.Models.Provider.ProviderCommercialViewModel CICommercialUpsert

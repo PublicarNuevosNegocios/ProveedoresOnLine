@@ -2576,30 +2576,30 @@ var Provider_CompanyFinancialObject = {
                     }
                     $('<input type="file" id="files" name="files"/>')
                         .appendTo($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileUpload_' + oFiancialId))
-                    .kendoUpload({
-                        multiple: false,
-                        async: {
-                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
-                            autoUpload: true
-                        },
-                        success: function (e) {
-                            if (e.response != null && e.response.length > 0) {
-                                //set server fiel name
+                        .kendoUpload({
+                            multiple: false,
+                            async: {
+                                saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                                autoUpload: true
+                            },
+                            success: function (e) {
+                                if (e.response != null && e.response.length > 0) {
+                                    //set server fiel name
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
-                            }
-                        },
-                    });
+                                }
+                            },
+                        });
 
                     //init accounts object
                     Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
                     //calc total values
                     Provider_CompanyFinancialObject.CalculateBalanceSheet();
-                        }
-                },
+                }
+            },
             error: function (result) {
                 alert(result);
             }
@@ -2626,21 +2626,21 @@ var Provider_CompanyFinancialObject = {
 
                     if ($(container).find('ul').length == 0) {
                         $(container).append('<ul></ul>');
-                        }
+                    }
 
                     $(container).find('ul').append(ChildHtml);
-                    }
+                }
             });
 
             //append on focus out event
             $('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
                 if ($.isNumeric($(this).val()) == false) {
                     $(this).val(0);
-                            }
+                }
                 Provider_CompanyFinancialObject.CalculateBalanceSheet();
-                        });
+            });
         }
-            },
+    },
 
     CalculateBalanceSheet: function () {
         Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
@@ -2659,23 +2659,23 @@ var Provider_CompanyFinancialObject = {
                 }
                 else {
                     SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
-                        }
+                }
             });
-                    }
+        }
         return SumResult;
-                            },
-    
+    },
+
     CancelBalanceSheetDetail: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeOut("slow", function () {
             $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html('');
-                        });
-                    },
+        });
+    },
 
     SaveBalanceSheetDetail: function (vFinancialId) {
         if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
             $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
         }
-                },
+    },
 
     ValidateBalanceSheetDetail: function () {
         var oReturn = true;
@@ -2684,17 +2684,6 @@ var Provider_CompanyFinancialObject = {
         //Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
         return oReturn;
-            },
-            columns: [{
-                field: 'AccountName',
-                title: 'Cuenta',
-                width: '200px',
-            }, {
-                field: 'BalanceItemValue',
-                title: 'Valor',
-                width: '200px',
-            }],
-        });
     },
 
     RenderBankInfo: function () {
