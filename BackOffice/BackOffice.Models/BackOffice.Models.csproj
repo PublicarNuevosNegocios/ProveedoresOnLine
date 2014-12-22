@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminViewModel.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\EconomicActivityViewModel.cs" />
     <Compile Include="General\Enumerations.cs" />

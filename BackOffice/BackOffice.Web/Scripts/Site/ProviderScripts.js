@@ -2739,7 +2739,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2749,59 +2749,71 @@ var Provider_CompanyFinancialObject = {
                             }
                         });
                     },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //        }
-                    //    });
-                    //},
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
                 },
             },
             columns: [{
-                field: 'FinancialId',
-                title: 'Id',
+                field: 'IB_Bank',
+                title: 'Banco',
                 width: '50px',
             }, {
-                field: 'FinancialName',
-                title: 'Nombre',
-                width: '200px',
+                field: 'IB_AccountType',
+                title: 'Tipo de Cuenta',
             }, {
-                field: 'SH_Year',
-                title: 'Año',
-                width: '200px',
+                field: 'IB_AccountNumber',
+                title: 'Número de Cuenta',
             }, {
-                field: 'SH_BalanceSheetFile',
-                title: 'Doc soporte.',
-                width: '400px',
+                field: 'IB_AccountHolder',
+                title: 'Titular de la Cuenta',
+            }, {
+                field: 'IB_ABA',
+                title: 'ABA',
+            }, {
+                field: 'IB_Swift',
+                title: 'SWIFT',
+            }, {
+                field: 'IB_IBAN',
+                title: 'IBAN',
+            }, {
+                field: 'IB_Customer',
+                title: 'Comprador',
+            }, {
+                field: 'IB_AccountFile',
+                title: 'Certificado',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.SH_BalanceSheetFile != null && dataItem.SH_BalanceSheetFile.length > 0) {
+                    if (dataItem != null && dataItem.IB_AccountFile != null && dataItem.IB_AccountFile.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -2811,7 +2823,7 @@ var Provider_CompanyFinancialObject = {
                         oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${SH_BalanceSheetFile}/gi, dataItem.EX_ExperienceFile);
+                    oReturn = oReturn.replace(/\${F_UrlFile}/gi, dataItem.IB_AccountFile);
 
                     return oReturn;
                 },
@@ -2849,10 +2861,6 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
-            }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
             }],
         });
     },
