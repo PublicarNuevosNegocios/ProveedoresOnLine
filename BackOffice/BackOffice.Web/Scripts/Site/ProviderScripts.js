@@ -2546,6 +2546,7 @@ var Provider_CompanyFinancialObject = {
                     var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form').html();
                     oFormHtml = oFormHtml.replace(/\${FinancialId}/gi, oFiancialId);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html(oFormHtml);
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').hide();
 
                     //init form controls
                     if (dataItem != null) {
@@ -2606,6 +2607,8 @@ var Provider_CompanyFinancialObject = {
                     Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
                     //calc total values
                     Provider_CompanyFinancialObject.CalculateBalanceSheet();
+
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeIn('slow');
                 }
             },
             error: function (result) {
