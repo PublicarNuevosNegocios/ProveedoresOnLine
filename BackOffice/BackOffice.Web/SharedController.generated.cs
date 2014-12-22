@@ -36,6 +36,7 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _A_AdminMenu = "_A_AdminMenu";
                 public readonly string _F_FileUpload = "_F_FileUpload";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
@@ -43,6 +44,7 @@ namespace T4MVC
                 public readonly string _P_ProviderActions = "_P_ProviderActions";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
             }
+            public readonly string _A_AdminMenu = "~/Views/Shared/_A_AdminMenu.cshtml";
             public readonly string _F_FileUpload = "~/Views/Shared/_F_FileUpload.cshtml";
             public readonly string _L_Footer = "~/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
