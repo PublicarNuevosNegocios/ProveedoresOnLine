@@ -1,0 +1,12 @@
+﻿@model BackOffice.Models.Admin.AdminViewModel
+@{
+    ViewBag.Title = "Administración de Backoffice";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderWrapper">
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._A_AdminMenu, Model)
+    </div>
+</div>
