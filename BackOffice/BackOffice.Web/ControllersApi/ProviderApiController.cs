@@ -1205,7 +1205,7 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
 
-                if (FinancialType == ((int)BackOffice.Models.General.enumfinancialType.BankInfoType).ToString())
+                if (FinancialType == ((int)BackOffice.Models.General.enumFinancialType.BankInfoType).ToString())
                 {
                     oBank = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank(null, 0, 0);
                 }
