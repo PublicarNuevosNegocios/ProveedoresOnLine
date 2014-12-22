@@ -2745,7 +2745,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2757,7 +2757,7 @@ var Provider_CompanyFinancialObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2773,7 +2773,7 @@ var Provider_CompanyFinancialObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2790,9 +2790,59 @@ var Provider_CompanyFinancialObject = {
                 },
             },
             columns: [{
-                field: 'IB_Bank',
+                field: 'IB_BankName',
                 title: 'Banco',
-                width: '50px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IB_BankName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.IB_BankName;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    // create an input element
+                    var input = $("<input/>");
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr("value", options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: "ItemName",
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ItemName;
+                            options.model['IB_Bank'] = selectedItem.ItemId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: "json",
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'IB_AccountType',
                 title: 'Tipo de Cuenta',
@@ -2829,7 +2879,7 @@ var Provider_CompanyFinancialObject = {
                         oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${F_UrlFile}/gi, dataItem.IB_AccountFile);
+                    oReturn = oReturn.replace(/\${Url_File}/gi, dataItem.IB_AccountFile);
 
                     return oReturn;
                 },
