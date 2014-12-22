@@ -1197,17 +1197,24 @@ namespace BackOffice.Web.ControllersApi
         {
             List<BackOffice.Models.Provider.ProviderFinancialViewModel> oReturn = new List<Models.Provider.ProviderFinancialViewModel>();
 
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank = null;
+
             if (FIFinancialGetByType == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
                     (ProviderPublicId,
                     string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
 
+                if (FinancialType == ((int)BackOffice.Models.General.enumFinancialType.BankInfoType).ToString())
+                {
+                    oBank = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank(null, 0, 0);
+                }
+
                 if (oFinancial != null)
                 {
                     oFinancial.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderFinancialViewModel(x));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderFinancialViewModel(x, oBank));
                         return true;
                     });
                 }
@@ -1230,10 +1237,13 @@ namespace BackOffice.Web.ControllersApi
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
                     ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
-                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> olstBalanceSheetDetail = null;
 
                 if (!string.IsNullOrEmpty(FinancialId))
                     olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(FinancialId));
+
+                if (olstBalanceSheetDetail == null)
+                    olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
 
                 if (olstAccount != null && olstAccount.Count > 0)
                 {

@@ -174,5 +174,23 @@ namespace BackOffice.Web.ControllersApi
             }
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByBank
+            (string CategorySearchByBank, string SearchParam)
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            if (CategorySearchByBank == "true")
+            {
+                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank
+                    (SearchParam,
+                    0,
+                    0);
+            }
+            return oReturn;
+        }
     }
 }

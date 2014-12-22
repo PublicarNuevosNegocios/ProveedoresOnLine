@@ -2439,6 +2439,7 @@ var Provider_CompanyFinancialObject = {
     FinancialType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
+    CurrentAccounts: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -2456,20 +2457,257 @@ var Provider_CompanyFinancialObject = {
         if (Provider_CompanyFinancialObject.FinancialType == 501001) {
             Provider_CompanyFinancialObject.RenderBalanceSheet();
         }
+        else if (Provider_CompanyFinancialObject.FinancialType == 501004) {
+            Provider_CompanyFinancialObject.RenderBankInfo();
+        }
     },
 
     RenderBalanceSheet: function () {
+        $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            toolbar: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail(null);">Nuevo</a>',
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'FinancialId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'FinancialName',
+                title: 'Nombre',
+                width: '200px',
+            }, {
+                field: 'SH_Year',
+                title: 'Año',
+                width: '200px',
+            }, {
+                field: 'SH_BalanceSheetFile',
+                title: 'Doc soporte.',
+                width: '400px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.SH_BalanceSheetFile != null && dataItem.SH_BalanceSheetFile.length > 0) {
+                        oReturn = oReturn + $('#' + Provider_CompanyFinancialObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${SH_BalanceSheetFile}/gi, dataItem.EX_ExperienceFile);
+
+                    return oReturn;
+                },
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+            }],
+        });
+    },
+
+    RenderBalanceSheetDetail: function (dataItem) {
+
+        var oFiancialId = (dataItem != null ? dataItem.FinancialId : '0');
+
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?FIBalanceSheetGetByFinancial=true&FinancialId=' + oFiancialId,
+            dataType: 'json',
+            success: function (result) {
+                if (result != null && result.length > 0) {
+                    //save current accounts
+                    Provider_CompanyFinancialObject.CurrentAccounts = result;
+
+                    //insert form
+                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form').html();
+                    oFormHtml = oFormHtml.replace(/\${FinancialId}/gi, oFiancialId);
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html(oFormHtml);
+
+                    //init form controls
+                    if (dataItem != null) {
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_FinancialName_' + oFiancialId).val(dataItem.FinancialName);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Enable_' + oFiancialId).prop('checked', dataItem.Enable);
+
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_YearId_' + oFiancialId).val(dataItem.SH_YearId);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_Year_' + oFiancialId).val(dataItem.SH_Year);
+
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_CurrencyId_' + oFiancialId).val(dataItem.SH_CurrencyId);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_Currency_' + oFiancialId).val(dataItem.SH_Currency);
+
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(dataItem.SH_BalanceSheetFile);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val(dataItem.SH_BalanceSheetFileId);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', dataItem.SH_BalanceSheetFile);
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, dataItem.SH_BalanceSheetFile));
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
+                    }
+                    else {
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_FinancialName_' + oFiancialId).val('');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Enable_' + oFiancialId).prop('checked', true);
+
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_YearId_' + oFiancialId).val('');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_Year_' + oFiancialId).val('');
+
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_CurrencyId_' + oFiancialId).val('');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_Currency_' + oFiancialId).val('');
+
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val('');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val('');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', '');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', '');
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).hide();
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').hide();
+                    }
+                    $('<input type="file" id="files" name="files"/>')
+                        .appendTo($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileUpload_' + oFiancialId))
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
+                            }
+                        },
+                    });
+
+                    //init accounts object
+                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
+                    //calc total values
+                    Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                        }
+                },
+            error: function (result) {
+                alert(result);
+            }
+        });
+    },
+
+    RenderBalanceSheetDetailAccounts: function (container, lstAccounts) {
+        if (container != null && $(container).length > 0 && lstAccounts != null && lstAccounts.length > 0) {
+            $.each(lstAccounts, function (item, value) {
+                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+                    //parent node
+                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount').html();
+                    ParentHtml = ParentHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                    ParentHtml = ParentHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    $(container).append(ParentHtml);
+                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
+                }
+                else {
+                    //last node
+                    var ChildHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount').html();
+                    ChildHtml = ChildHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                    ChildHtml = ChildHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    ChildHtml = ChildHtml.replace(/\${Value}/gi, Number(value.RelatedBalanceSheetDetail != null ? value.RelatedBalanceSheetDetail.Value : '0'));
+
+                    if ($(container).find('ul').length == 0) {
+                        $(container).append('<ul></ul>');
+                        }
+
+                    $(container).find('ul').append(ChildHtml);
+                    }
+            });
+
+            //append on focus out event
+            $('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
+                if ($.isNumeric($(this).val()) == false) {
+                    $(this).val(0);
+                            }
+                Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                        });
+        }
+            },
+
+    CalculateBalanceSheet: function () {
+        Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
+    },
+
+    CalculateBalanceSheetDetail: function (lstAccounts) {
+
+        var SumResult = new Number();
+
+        if (lstAccounts != null && lstAccounts.length > 0) {
+            $.each(lstAccounts, function (item, value) {
+                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+                    value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
+                    SumResult = SumResult + Number(value.ChildSum);
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
+                }
+                else {
+                    SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
+                        }
+            });
+                    }
+        return SumResult;
+                            },
+    
+    CancelBalanceSheetDetail: function () {
+        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeOut("slow", function () {
+            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html('');
+                        });
+                    },
+
+    SaveBalanceSheetDetail: function (vFinancialId) {
+        if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
+            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
+        }
+                },
+
+    ValidateBalanceSheetDetail: function () {
+        var oReturn = true;
+
+        //validate balance values
+        //Provider_CompanyFinancialObject.CalculateBalanceSheet();
+
+        return oReturn;
+            },
+            columns: [{
+                field: 'AccountName',
+                title: 'Cuenta',
+                width: '200px',
+            }, {
+                field: 'BalanceItemValue',
+                title: 'Valor',
+                width: '200px',
+            }],
+        });
+    },
+
+    RenderBankInfo: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: false,
             scrollable: true,
-            toolbar: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail();">Nuevo</a>',
-            //toolbar: [
-            //    { name: 'create', text: 'Nuevo' },
-            //    { name: 'save', text: 'Guardar' },
-            //    { name: 'cancel', text: 'Descartar' }
-            //],
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
             dataSource: {
                 schema: {
                     model: {
@@ -2479,14 +2717,33 @@ var Provider_CompanyFinancialObject = {
                             FinancialName: { editable: true, validation: { required: true } },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
-                            SH_Year: { editable: true },
-                            SH_YearId: { editable: false },
+                            IB_Bank: { editable: true },
+                            IB_BankId: { editable: false },
+                            IB_BankName: { editable: true },
 
-                            SH_BalanceSheetFile: { editable: true },
-                            SH_BalanceSheetFileId: { editable: false },
+                            IB_AccountType: { editable: true },
+                            IB_AccountTypeId: { editable: false },
 
-                            SH_Currency: { editable: true },
-                            SH_CurrencyId: { editable: false },
+                            IB_AccountNumber: { editable: true },
+                            IB_AccountNumberId: { editable: false },
+
+                            IB_AccountHolder: { editable: true },
+                            IB_AccountHolderId: { editable: false },
+
+                            IB_ABA: { editable: true },
+                            IB_ABAId: { editable: false },
+
+                            IB_Swift: { editable: true },
+                            IB_SwiftId: { editable: false },
+
+                            IB_IBAN: { editable: true },
+                            IB_IBANId: { editable: false },
+
+                            IB_Customer: { editable: true },
+                            IB_CustomerId: { editable: false },
+
+                            IB_AccountFile: { editable: true },
+                            IB_AccountFileId: { editable: false },
                         }
                     }
                 },
@@ -2610,164 +2867,6 @@ var Provider_CompanyFinancialObject = {
             }],
         });
     },
-
-    RenderBalanceSheetDetail: function (vFinancialId) {
-        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').kendoGrid({
-            editable: true,
-            navigatable: true,
-            pageable: false,
-            scrollable: true,
-            dataSource: {
-                schema: {
-                    model: {
-                        id: 'AccountId',
-                        fields: {
-                            AccountId: { editable: false, nullable: false },
-                            AccountName: { editable: false, nullable: false },
-
-                            BalanceItemId: { editable: false },
-                            BalanceItemValue: { editable: true },
-                            BalanceItemIsValue: { editable: false },
-                        }
-                    }
-                },
-                transport: {
-                    read: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIBalanceSheetGetByFinancial=true&FinancialId=' + (vFinancialId != null ? vFinancialId : ''),
-                            dataType: 'json',
-                            success: function (result) {
-                                options.success(result);
-                            },
-                            error: function (result) {
-                                options.error(result);
-                            }
-                        });
-                    },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //        }
-                    //    });
-                    //},
-                },
-            },
-            columns: [{
-                field: 'AccountName',
-                title: 'Cuenta',
-                width: '200px',
-            }, {
-                field: 'BalanceItemValue',
-                title: 'Valor',
-                width: '200px',
-            }],
-        });
-    },
-
-    RenderBalanceSheetDetailItems: function (vDataSource) {
-        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').kendoGrid({
-            editable: true,
-            navigatable: true,
-            pageable: false,
-            scrollable: true,
-            dataSource: {
-                schema: {
-                    model: {
-                        id: 'AccountId',
-                        fields: {
-                            AccountId: { editable: false, nullable: false },
-                            AccountName: { editable: false, nullable: false },
-
-                            BalanceItemId: { editable: false },
-                            BalanceItemValue: { editable: true },
-                            BalanceItemIsValue: { editable: false },
-                        }
-                    }
-                },
-                transport: {
-                    read: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIBalanceSheetGetByFinancial=true&FinancialId=' + (vFinancialId != null ? vFinancialId : ''),
-                            dataType: 'json',
-                            success: function (result) {
-                                options.success(result);
-                            },
-                            error: function (result) {
-                                options.error(result);
-                            }
-                        });
-                    },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //        }
-                    //    });
-                    //},
-                },
-            },
-            columns: [{
-                field: 'AccountName',
-                title: 'Cuenta',
-                width: '200px',
-            }, {
-                field: 'BalanceItemValue',
-                title: 'Valor',
-                width: '200px',
-            }],
-        });
-    }
 };
 
 
@@ -3179,7 +3278,6 @@ var Provider_LegalInfoObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'ActivityName',
                         select: function (e) {
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.ActivityName;
@@ -3854,7 +3952,7 @@ var Provider_LegalInfoObject = {
                 field: 'RS_Description',
                 title: 'Descripción',
                 width: '300px',
-            },{
+            }, {
                 field: 'RS_ResolutionFile',
                 title: 'Archivo Anexo',
                 width: '200px',
@@ -3912,7 +4010,7 @@ var Provider_LegalInfoObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '200px',
-            },],
+            }, ],
         });
     },
 

@@ -13,38 +13,32 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <label class="POBOSectionTitles">Experiencias</label>
-        @{
-            Model.IsForm = false;
-            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-        }
-        <div id="divExperience"></div>
-        <br />
-        @{
-            Model.IsForm = false;
-            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-        }
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Información Bancaria.</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridBankInfo"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
     </div>
 </div>
 
 <!--templates-->
 <div style="display:none;">
-    <div id="divExperience_NoFile">
+    <div id="divGridBankInfo_NoFile">
         <div>
             <span>Seleccione un archivo</span>
         </div>
     </div>
-    <div id="divExperience_File">
+    <div id="divGridBankInfo_File">
         <div>
-            <a target="_blank" href="${EX_ExperienceFile}">Ver archivo</a>
-        </div>
-    </div>
-    <div id="divExperience_MultiAC_ItemTemplate">
-        <div>
-            <span>Actividad: ${ActivityName}</span>
-            <span>Tipo: ${ActivityType}</span>
-            <span>Grupo: ${ActivityGroup}</span>
-            <span>Categoria: ${ActivityCategory}</span>
+            <a target="_blank" href="${C_CertificationFile}">Ver archivo</a>
         </div>
     </div>
 </div>
@@ -58,12 +52,12 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
     @{
-        //get ContactTypeValues
-        string oProviderOptions = "[]";
+        //get BankInfoTypeValues
+        string oBankInfoOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
-            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionBankInfo =
                 Model.ProviderOptions.
                 GroupBy(x => x.CatalogId).
                 Select(x =>
@@ -73,22 +67,22 @@
                         ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+            oBankInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionBankInfo.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vProviderOptions = @(Html.Raw(oProviderOptions));
+        var vBankInfoOptionList = @(Html.Raw(oBankInfoOptionList));
         $(document).ready(function () {
-            Provider_CompanyCommercialObject.Init({
-                ObjectId: 'divExperience',
+            Provider_CompanyFinancialObject.Init({
+                ObjectId: 'divGridBankInfo',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                CommercialType: '@((int)BackOffice.Models.General.enumCommercialType.Experience)',
+                FinancialType: '@((int)BackOffice.Models.General.enumfinancialType.BankInfoType)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-                ProviderOptions: vProviderOptions,
+                ProviderOptions: vCertificationOptionList,
             });
-            Provider_CompanyCommercialObject.RenderAsync();
+            Provider_CompanyFinancialObject.RenderAsync();
         });
     </script>
 }

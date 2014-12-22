@@ -39,6 +39,80 @@
             <a target="_blank" href="${SH_BalanceSheetFile}">Ver archivo</a>
         </div>
     </div>
+
+    <div id="divBalanceSheet_Detail_Form">
+        <div>
+            <form id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId, UpsertAction = "true"}))" method="post">
+                <input name="FinancialId" type="hidden" value="${FinancialId}" />
+                <ul>
+                    <li>
+                        <a href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                        <a href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                    </li>
+                    <li>
+                        <span>Nombre:</span>
+                        <input id="divBalanceSheet_Detail_Form_FinancialName_${FinancialId}" name="FinancialName" type="text" />
+                    </li>
+                    <li>
+                        <span>Año:</span>
+                        <select id="divBalanceSheet_Detail_Form_SH_Year_${FinancialId}" name="SH_Year">
+                            @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <input id="divBalanceSheet_Detail_Form_SH_YearId_${FinancialId}" name="SH_YearId" type="hidden" />
+                    </li>
+                    <li>
+                        <span>Doc soporte:</span>
+                        <div id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileUpload_${FinancialId}"></div>
+                        <a id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
+                        <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
+                        <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
+                    </li>
+                    <li>
+                        <span>Moneda:</span>
+                        <select id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" name="SH_Currency">
+                            @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
+                            {
+                                <option value="@oItem.ItemId">@oItem.ItemName</option>
+                            }
+                        </select>
+                        <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" name="SH_CurrencyId" type="hidden" />
+                    </li>
+                    <li>
+                        <span>Habilitado:</span>
+                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
+                    </li>
+                    <li id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
+
+                    </li>
+                    <li>
+                        <a href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                        <a href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div>
+            <iframe></iframe>
+        </div>
+    </div>
+    <div id="divBalanceSheet_Detail_ParentAccount">
+        <ul>
+            <li id="divBalanceSheet_Detail_ParentAccount_${AccountId}"></li>
+            <li>
+                <span>${AccountName}</span>
+                <span id="divBalanceSheet_Detail_ParentAccount_${AccountId}_Total"></span>
+            </li>
+        </ul>
+    </div>
+    <div id="divBalanceSheet_Detail_ChildAccount">
+        <li>
+            <span>${AccountName}</span>
+            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+        </li>
+    </div>
 </div>
 
 @{
@@ -76,7 +150,7 @@
             Provider_CompanyFinancialObject.Init({
                 ObjectId: 'divBalanceSheet',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                FinancialType: '@((int)BackOffice.Models.General.enumfinancialType.BalanceSheetInfoType)',
+                FinancialType: '@((int)BackOffice.Models.General.enumFinancialType.BalanceSheetInfoType)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 ProviderOptions: vProviderOptions,
             });

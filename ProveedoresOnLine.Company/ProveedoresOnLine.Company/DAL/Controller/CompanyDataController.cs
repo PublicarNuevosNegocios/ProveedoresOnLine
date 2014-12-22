@@ -97,6 +97,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByARLCompany(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.CategorySearchByBank(SearchParam, PageNumber, RowCount);
+        }
+
         public List<Models.Util.GenericItemModel> CategoryGetFinantialAccounts()
         {
             return DataFactory.CategoryGetFinantialAccounts();
