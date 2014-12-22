@@ -199,7 +199,7 @@ namespace BackOffice.Models.Provider
 
             C_CertificationFile = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.C_CertificationFile).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             C_CertificationFileId = RelatedCertification.ItemInfo.
@@ -236,7 +236,7 @@ namespace BackOffice.Models.Provider
 
             CH_PoliticsSecurity = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsSecurity).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_PoliticsSecurityId = RelatedCertification.ItemInfo.
@@ -247,7 +247,7 @@ namespace BackOffice.Models.Provider
 
             CH_PoliticsNoAlcohol = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsNoAlcohol).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_PoliticsNoAlcoholId = RelatedCertification.ItemInfo.
@@ -258,7 +258,7 @@ namespace BackOffice.Models.Provider
 
             CH_ProgramOccupationalHealth = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramOccupationalHealth).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_ProgramOccupationalHealthId = RelatedCertification.ItemInfo.
@@ -269,7 +269,7 @@ namespace BackOffice.Models.Provider
 
             CH_RuleIndustrialSecurity = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_RuleIndustrialSecurity).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_RuleIndustrialSecurityId = RelatedCertification.ItemInfo.
@@ -280,7 +280,7 @@ namespace BackOffice.Models.Provider
 
             CH_MatrixRiskControl = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_MatrixRiskControl).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_MatrixRiskControlId = RelatedCertification.ItemInfo.
@@ -291,7 +291,7 @@ namespace BackOffice.Models.Provider
 
             CH_CorporateSocialResponsability = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_CorporateSocialResponsability).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_CorporateSocialResponsabilityId = RelatedCertification.ItemInfo.
@@ -302,7 +302,7 @@ namespace BackOffice.Models.Provider
 
             CH_ProgramEnterpriseSecurity = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramEnterpriseSecurity).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_ProgramEnterpriseSecurityId = RelatedCertification.ItemInfo.
@@ -313,7 +313,7 @@ namespace BackOffice.Models.Provider
 
             CH_PoliticsRecruiment = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsRecruiment).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_PoliticsRecruimentId = RelatedCertification.ItemInfo.
@@ -324,7 +324,7 @@ namespace BackOffice.Models.Provider
 
             CH_CertificationsForm = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_CertificationsForm).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CH_CertificationsFormId = RelatedCertification.ItemInfo.
@@ -369,7 +369,7 @@ namespace BackOffice.Models.Provider
 
             CR_CertificateAffiliateARL = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CR_CertificateAffiliateARLId = RelatedCertification.ItemInfo.
@@ -380,7 +380,7 @@ namespace BackOffice.Models.Provider
 
             CR_CertificateAccidentARL = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             CR_CertificateAccidentARLId = RelatedCertification.ItemInfo.

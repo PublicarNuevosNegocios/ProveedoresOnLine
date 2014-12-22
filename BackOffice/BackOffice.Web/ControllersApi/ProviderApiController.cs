@@ -718,7 +718,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity
                         },
-                        LargeValue = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        Value = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
                         Enable = true,
                     });
 
@@ -729,7 +729,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity
                         },
-                        LargeValue = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        Value = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
                         Enable = true,
                     });
                 }
@@ -915,7 +915,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.C_CertificationFile
                         },
-                        LargeValue = oDataToUpsert.C_CertificationFile,
+                        Value = oDataToUpsert.C_CertificationFile,
                         Enable = true,
                     });
 
@@ -952,7 +952,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsSecurity
                             },
-                            LargeValue = oDataToUpsert.CH_PoliticsSecurity,
+                            Value = oDataToUpsert.CH_PoliticsSecurity,
                             Enable = true,
                         });
 
@@ -965,7 +965,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsNoAlcohol
                             },
-                            LargeValue = oDataToUpsert.CH_PoliticsNoAlcohol,
+                            Value = oDataToUpsert.CH_PoliticsNoAlcohol,
                             Enable = true,
                         });
 
@@ -978,7 +978,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramOccupationalHealth
                             },
-                            LargeValue = oDataToUpsert.CH_ProgramOccupationalHealth,
+                            Value = oDataToUpsert.CH_ProgramOccupationalHealth,
                             Enable = true,
                         });
 
@@ -991,7 +991,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_RuleIndustrialSecurity
                             },
-                            LargeValue = oDataToUpsert.CH_RuleIndustrialSecurity,
+                            Value = oDataToUpsert.CH_RuleIndustrialSecurity,
                             Enable = true,
                         });
 
@@ -1004,7 +1004,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_MatrixRiskControl
                             },
-                            LargeValue = oDataToUpsert.CH_MatrixRiskControl,
+                            Value = oDataToUpsert.CH_MatrixRiskControl,
                             Enable = true,
                         });
 
@@ -1017,7 +1017,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_CorporateSocialResponsability
                             },
-                            LargeValue = oDataToUpsert.CH_CorporateSocialResponsability,
+                            Value = oDataToUpsert.CH_CorporateSocialResponsability,
                             Enable = true,
                         });
 
@@ -1030,7 +1030,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_ProgramEnterpriseSecurity
                             },
-                            LargeValue = oDataToUpsert.CH_ProgramEnterpriseSecurity,
+                            Value = oDataToUpsert.CH_ProgramEnterpriseSecurity,
                             Enable = true,
                         });
 
@@ -1043,7 +1043,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsRecruiment
                             },
-                            LargeValue = oDataToUpsert.CH_PoliticsRecruiment,
+                            Value = oDataToUpsert.CH_PoliticsRecruiment,
                             Enable = true,
                         });
 
@@ -1056,7 +1056,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_CertificationsForm
                             },
-                            LargeValue = oDataToUpsert.CH_CertificationsForm,
+                            Value = oDataToUpsert.CH_CertificationsForm,
                             Enable = true,
                         });
 
@@ -1093,7 +1093,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL
                             },
-                            LargeValue = oDataToUpsert.CR_CertificateAffiliateARL,
+                            Value = oDataToUpsert.CR_CertificateAffiliateARL,
                             Enable = true,
                         });
 
@@ -1104,7 +1104,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL
                             },
-                            LargeValue = oDataToUpsert.CR_CertificateAccidentARL,
+                            Value = oDataToUpsert.CR_CertificateAccidentARL,
                             Enable = true,
                         });
 
@@ -1394,7 +1394,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement,
                             },
-                            LargeValue = oDataToUpsert.IS_FileIncomeStatement,
+                            Value = oDataToUpsert.IS_FileIncomeStatement,
                             Enable = true,
                         });
 
@@ -1497,7 +1497,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountFile,
                             },
-                            LargeValue = oDataToUpsert.IB_AccountFile,
+                            Value = oDataToUpsert.IB_AccountFile,
                             Enable = true,
                         });
 

@@ -931,7 +931,7 @@ namespace BackOffice.Web.Controllers
                         {
                             ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
                         },
-                        LargeValue = Request["CertificateAffiliateARL"],
+                        Value = Request["CertificateAffiliateARL"],
                         Enable = true,
                     };
 

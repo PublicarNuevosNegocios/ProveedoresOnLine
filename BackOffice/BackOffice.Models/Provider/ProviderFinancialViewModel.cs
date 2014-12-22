@@ -201,7 +201,7 @@ namespace BackOffice.Models.Provider
 
             IS_FileIncomeStatement = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
@@ -322,7 +322,7 @@ namespace BackOffice.Models.Provider
 
             IB_AccountFile = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountFile).
-                Select(y => y.LargeValue).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
