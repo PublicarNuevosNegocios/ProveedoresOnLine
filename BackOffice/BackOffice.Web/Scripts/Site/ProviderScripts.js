@@ -2471,6 +2471,7 @@ var Provider_CompanyFinancialObject = {
             navigatable: false,
             pageable: false,
             scrollable: true,
+            selectable: true,
             toolbar: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail(null);">Nuevo</a>',
             dataSource: {
                 transport: {
@@ -2487,6 +2488,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+            },
+            change: function (e) {
+                var selectedRows = this.select();
+                for (var i = 0; i < selectedRows.length; i++) {
+                    Provider_CompanyFinancialObject.RenderBalanceSheetDetail(this.dataItem(selectedRows[i]));
+                }
             },
             columns: [{
                 field: 'FinancialId',
@@ -2512,8 +2519,7 @@ var Provider_CompanyFinancialObject = {
                     else {
                         oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
                     }
-
-                    oReturn = oReturn.replace(/\${SH_BalanceSheetFile}/gi, dataItem.EX_ExperienceFile);
+                    oReturn = oReturn.replace(/\${SH_BalanceSheetFile}/gi, dataItem.SH_BalanceSheetFile);
 
                     return oReturn;
                 },
@@ -2526,7 +2532,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     RenderBalanceSheetDetail: function (dataItem) {
-
+        
         var oFiancialId = (dataItem != null ? dataItem.FinancialId : '0');
 
         $.ajax({
