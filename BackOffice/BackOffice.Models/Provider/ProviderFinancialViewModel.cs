@@ -224,7 +224,7 @@ namespace BackOffice.Models.Provider
 
             IB_AccountFile = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IB_AccountFile).
-                Select(y => y.Value).
+                Select(y => y.LargeValue).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
