@@ -2529,7 +2529,6 @@ var Provider_CompanyFinancialObject = {
     },
 
     RenderBalanceSheetDetail: function (dataItem) {
-        
         var oFiancialId = (dataItem != null ? dataItem.FinancialId : '0');
 
         $.ajax({

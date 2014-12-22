@@ -460,6 +460,8 @@ namespace BackOffice.Web.Controllers
 
         private ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel GetBalanceSheetRequest()
         {
+            List<Tuple<decimal, decimal>> lstCurrencyConversion = null;
+
             //get provider
             ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
             {
@@ -530,6 +532,29 @@ namespace BackOffice.Web.Controllers
                     (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
             }
 
+            //get account values
+            List<decimal> lstAccountValuesAux = olstAccount
+                .Where(ac => !string.IsNullOrEmpty(Request["ChildAccount_" + ac.ItemId.ToString()]))
+                .Select(ac => Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
+                .ToList();
+
+            lstCurrencyConversion = new List<Tuple<decimal, decimal>>();
+            if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value ==
+                Request["SH_Currency"])
+            {
+                lstCurrencyConversion = lstAccountValuesAux
+                    .Select(ac => new Tuple<decimal, decimal>(ac, ac))
+                    .ToList();
+            }
+            else
+            {
+                lstCurrencyConversion = BaseController.Currency_ConvertToStandar
+                    (Convert.ToInt32(Request["SH_Currency"]),
+                    Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
+                    Convert.ToInt32(Request["SH_Year"]),
+                    lstAccountValuesAux);
+            }
+
             //fill account new values
             if (olstAccount != null && olstAccount.Count > 0)
             {
@@ -547,7 +572,11 @@ namespace BackOffice.Web.Controllers
                                 FirstOrDefault(),
 
                             RelatedAccount = ac,
-                            Value = Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()]),
+                            Value = lstCurrencyConversion
+                                .Where(x => x.Item1 == Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
+                                .Select(x => x.Item2)
+                                .DefaultIfEmpty(0)
+                                .FirstOrDefault(),
                             Enable = true,
                         };
 
