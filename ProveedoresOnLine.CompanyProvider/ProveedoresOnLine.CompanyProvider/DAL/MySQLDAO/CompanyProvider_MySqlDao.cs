@@ -259,7 +259,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vFunancualId", FinancialId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFinancialId", FinancialId));
             lstParams.Add(DataInstance.CreateTypedParameter("vFinancialTypeId", FinancialTypeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vFinancialName", FinancialName));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));

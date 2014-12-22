@@ -42,8 +42,7 @@
 
     <div id="divBalanceSheet_Detail_Form">
         <div>
-            <form id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId, UpsertAction = "true"}))" method="post">
-                <input name="FinancialId" type="hidden" value="${FinancialId}" />
+            <form id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
                 <ul>
                     <li>
                         <a href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
@@ -92,6 +91,10 @@
                         <a href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
                     </li>
                 </ul>
+                <div style="display:none;">
+                    <input name="FinancialId" type="hidden" value="${FinancialId}" />
+                    <input name="UpsertAction" type="hidden" value="true" />
+                </div>
             </form>
         </div>
         <div>

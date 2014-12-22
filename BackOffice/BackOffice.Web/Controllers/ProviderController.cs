@@ -374,7 +374,7 @@ namespace BackOffice.Web.Controllers
                 ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel ProviderToUpsert = GetBalanceSheetRequest();
 
                 //upsert sheet request
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderToUpsert);
+                ProviderToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderToUpsert);
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
@@ -517,41 +517,45 @@ namespace BackOffice.Web.Controllers
                 }
             };
 
-            ////get account info
-            //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
-            //    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+            //get account info
+            List<GenericItemModel> olstAccount =
+                ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
-            ////get current values
-            //if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
-            //{
-            //    oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo =
-            //        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
-            //}
+            //get current values
+            List<BalanceSheetDetailModel> olstBalanceSheetDetail = new List<BalanceSheetDetailModel>();
 
-            ////fill account new values
-            //if (olstAccount != null && olstAccount.Count > 0)
-            //{
-            //    olstAccount.All(ac =>
-            //    {
-            //        if (!string.IsNullOrEmpty(Request["ChildAccount_" + ac.ItemId.ToString()]))
-            //        {
-            //            //get current item
-            //            BalanceSheetDetailModel oBalanceDetailInfo = 
+            if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
+            {
+                olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial
+                    (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
+            }
 
+            //fill account new values
+            if (olstAccount != null && olstAccount.Count > 0)
+            {
+                olstAccount.All(ac =>
+                {
+                    if (!string.IsNullOrEmpty(Request["ChildAccount_" + ac.ItemId.ToString()]))
+                    {
+                        //get current item
+                        BalanceSheetDetailModel oBalanceDetailInfo = new BalanceSheetDetailModel()
+                        {
+                            BalanceSheetId = olstBalanceSheetDetail.
+                                Where(x => x.RelatedAccount.ItemId == ac.ItemId).
+                                Select(x => x.BalanceSheetId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault(),
 
-            //                //oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo.Where(x => x.RelatedAccount.ItemId == ac.ItemId).FirstOrDefault();
+                            RelatedAccount = ac,
+                            Value = Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()]),
+                            Enable = true,
+                        };
 
-            //            //if (oBalanceDetailInfo == null) {
-            //            //    oBalanceDetailInfo = new BalanceSheetDetailModel();
-            //            //}
-
-            //            //oBalanceDetailInfo.
-
-
-            //        }
-            //        return true;
-            //    });
-            //}
+                        oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo.Add(oBalanceDetailInfo);
+                    }
+                    return true;
+                });
+            }
 
             return oReturn;
         }
