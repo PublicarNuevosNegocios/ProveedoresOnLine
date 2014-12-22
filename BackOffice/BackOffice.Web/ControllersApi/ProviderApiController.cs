@@ -1330,7 +1330,77 @@ namespace BackOffice.Web.ControllersApi
                     },
                 };
 
-                if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.BankInfoType)
+                if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.IncomeStatementInfoType)
+                {
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_YearId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_Year,
+                            },
+                            Value = oDataToUpsert.IS_Year,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_GrossIncomeId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_GrossIncomeId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossIncome,
+                            },
+                            Value = oDataToUpsert.IS_GrossIncome,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_NetIncomeId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_NetIncomeId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_NetIncome,
+                            },
+                            Value = oDataToUpsert.IS_NetIncome,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_GrossEstateId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_GrossEstateId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossEstate,
+                            },
+                            Value = oDataToUpsert.IS_GrossEstate,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_LiquidHeritageId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_LiquidHeritageId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_LiquidHeritage,
+                            },
+                            Value = oDataToUpsert.IS_LiquidHeritage,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IS_FileIncomeStatementId) ? 0 : Convert.ToInt32(oDataToUpsert.IS_FileIncomeStatementId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement,
+                            },
+                            LargeValue = oDataToUpsert.IS_FileIncomeStatement,
+                            Enable = true,
+                        });
+
+                    lstUsedFiles.Add(oDataToUpsert.IS_FileIncomeStatement);
+                }
+                else if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.BankInfoType)
                 {
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {

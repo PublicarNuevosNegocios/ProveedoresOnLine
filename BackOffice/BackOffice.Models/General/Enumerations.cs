@@ -309,6 +309,14 @@
         SH_BalanceSheetFile = 502002,
         SH_Currency = 502003,
 
+        //IncomeStatement Info
+        IS_Year = 504001,
+        IS_GrossIncome = 504002,
+        IS_NetIncome = 504003,
+        IS_GrossEstate = 504004,
+        IS_LiquidHeritage = 504005,
+        IS_FileIncomeStatement = 504006,
+
         //Bank Info
         IB_Bank = 505002,
         IB_AccountType = 505003,

@@ -2457,6 +2457,9 @@ var Provider_CompanyFinancialObject = {
         if (Provider_CompanyFinancialObject.FinancialType == 501001) {
             Provider_CompanyFinancialObject.RenderBalanceSheet();
         }
+        else if (Provider_CompanyFinancialObject.FinancialType == 501003) {
+            Provider_CompanyFinancialObject.RenderIncomeStatementInfo();
+        }
         else if (Provider_CompanyFinancialObject.FinancialType == 501004) {
             Provider_CompanyFinancialObject.RenderBankInfo();
         }
@@ -2689,6 +2692,165 @@ var Provider_CompanyFinancialObject = {
         //Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
         return oReturn;
+    },
+
+    RenderIncomeStatementInfo: function () {
+        $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'FinancialId',
+                        fields: {
+                            FinancialId: { editable: false, nullable: true },
+                            FinancialName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+
+                            IS_Year: { editable: true },
+                            IS_YearId: { editable: false },
+
+                            IS_GrossIncome: { editable: true },
+                            IS_GrossIncomeId: { edtiable: false },
+
+                            IS_NetIncome: { editable: true },
+                            IS_NetIncomeId: { editable: false },
+
+                            IS_GrossEstate: { editable: true },
+                            IS_GrossEstateId: { editable: false },
+
+                            IS_LiquidHeritage: { editable: true },
+                            IS_LiquidHeritageId: { editable: false },
+
+                            IS_FileIncomeStatement: { editable: true },
+                            IS_FileIncomeStatementId: { editable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'IS_Year',
+                title: 'Año',
+            }, {
+                field: 'IS_GrossIncome',
+                title: 'Ingresos Brutos',
+            }, {
+                field: 'IS_NetIncome',
+                title: 'Ingresos Netos',
+            }, {
+                field: 'IS_GrossEstate',
+                title: 'Patrimonio Bruto',
+            }, {
+                field: 'IS_LiquidHeritage',
+                title: 'Patrimonio Líquido',
+            }, {
+                field: 'IS_FileIncomeStatement',
+                title: 'Declaración de Renta',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.IS_FileIncomeStatement != null && dataItem.IS_FileIncomeStatement.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyFinancialObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${Url_File}/gi, dataItem.IS_FileIncomeStatement);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }],
+        });
     },
 
     RenderBankInfo: function () {
