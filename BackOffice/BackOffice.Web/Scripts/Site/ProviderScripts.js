@@ -2751,7 +2751,7 @@ var Provider_CompanyFinancialObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -2767,7 +2767,7 @@ var Provider_CompanyFinancialObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialUpsert=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
                             dataType: 'json',
                             type: 'post',
                             data: {

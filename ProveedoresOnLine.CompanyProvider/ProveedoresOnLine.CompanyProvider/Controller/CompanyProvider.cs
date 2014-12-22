@@ -274,7 +274,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 ProviderToUpsert.RelatedFinantial != null &&
                 ProviderToUpsert.RelatedFinantial.Count > 0)
             {
-                ProviderToUpsert.RelatedCertification.All(pfin =>
+                ProviderToUpsert.RelatedFinantial.All(pfin =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
