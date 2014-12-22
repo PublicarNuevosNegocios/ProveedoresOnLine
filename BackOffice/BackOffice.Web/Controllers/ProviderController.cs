@@ -517,6 +517,42 @@ namespace BackOffice.Web.Controllers
                 }
             };
 
+            ////get account info
+            //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
+            //    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+            ////get current values
+            //if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
+            //{
+            //    oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo =
+            //        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
+            //}
+
+            ////fill account new values
+            //if (olstAccount != null && olstAccount.Count > 0)
+            //{
+            //    olstAccount.All(ac =>
+            //    {
+            //        if (!string.IsNullOrEmpty(Request["ChildAccount_" + ac.ItemId.ToString()]))
+            //        {
+            //            //get current item
+            //            BalanceSheetDetailModel oBalanceDetailInfo = 
+
+
+            //                //oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo.Where(x => x.RelatedAccount.ItemId == ac.ItemId).FirstOrDefault();
+
+            //            //if (oBalanceDetailInfo == null) {
+            //            //    oBalanceDetailInfo = new BalanceSheetDetailModel();
+            //            //}
+
+            //            //oBalanceDetailInfo.
+
+
+            //        }
+            //        return true;
+            //    });
+            //}
+
             return oReturn;
         }
 
