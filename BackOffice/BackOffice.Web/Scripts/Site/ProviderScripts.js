@@ -1,5 +1,6 @@
 ﻿/*init provider Menu*/
 function Provider_InitMenu(InitObject) {
+    debugger;
     $('#' + InitObject.ObjId).accordion({
         animate: 'swing',
         header: 'label',

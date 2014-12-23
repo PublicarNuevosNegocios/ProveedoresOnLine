@@ -10,13 +10,13 @@ namespace BackOffice.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            BackOffice.Models.Admin.AdminViewModel oModel = new Models.Admin.AdminViewModel()
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
-                AdminOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };          
 
             //get provider menu
-            oModel.AdminMenu = GetAdminMenu(oModel);
+            oModel.ProviderMenu = GetAdminMenu(oModel);
 
             return View(oModel);
         }
@@ -24,7 +24,7 @@ namespace BackOffice.Web.Controllers
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
-            (BackOffice.Models.Admin.AdminViewModel vAdminInfo)
+            (BackOffice.Models.Provider.ProviderViewModel vAdminInfo)
         {
             List<BackOffice.Models.General.GenericMenu> oReturn = new List<Models.General.GenericMenu>();
 
@@ -45,6 +45,20 @@ namespace BackOffice.Web.Controllers
             //Geolocalization
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
+                Name = "Usuarios",
+                Url = Url.Action
+                    (MVC.Provider.ActionNames.GIProviderUpsert,
+                    MVC.Provider.Name),
+                Position = 0,
+                IsSelected =
+                    (oCurrentAction == MVC.Provider.ActionNames.GIProviderUpsert &&
+                    oCurrentController == MVC.Provider.Name),
+            });
+
+
+            //Geolocalization
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
                 Name = "Geolocalización",
                 Url = Url.Action
                     (MVC.Provider.ActionNames.GIProviderUpsert,
@@ -58,7 +72,7 @@ namespace BackOffice.Web.Controllers
             //Standart Economy Activity
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "Acividades Economicas Estandar",
+                Name = "Acividades Económicas Estandar",
                 Url = Url.Action
                     (MVC.Provider.ActionNames.GICompanyContactUpsert,
                     MVC.Provider.Name),
@@ -71,7 +85,7 @@ namespace BackOffice.Web.Controllers
             //Specific Economy Activity
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "Acividades Economicas Espeficas",
+                Name = "Acividades Economicas Específicas",
                 Url = Url.Action
                     (MVC.Provider.ActionNames.GICompanyContactUpsert,
                     MVC.Provider.Name),
@@ -124,6 +138,19 @@ namespace BackOffice.Web.Controllers
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
                 Name = "Resoluciones",
+                Url = Url.Action
+                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
+                    MVC.Provider.Name),
+                Position = 1,
+                IsSelected =
+                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
+                    oCurrentController == MVC.Provider.Name),
+            });
+
+            //TRM
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "TRM",
                 Url = Url.Action
                     (MVC.Provider.ActionNames.GICompanyContactUpsert,
                     MVC.Provider.Name),

@@ -1,4 +1,4 @@
-﻿@model BackOffice.Models.Admin.AdminViewModel
+﻿@model BackOffice.Models.Provider.ProviderViewModel
 @{
     ViewBag.Title = "Administración de Backoffice";
     Layout = MVC.Shared.Views._Layout;
@@ -7,6 +7,13 @@
 }
 <div class="POBOProviderWrapper">
     <div class="POBOProviderSideMenuWrapper">
-        @Html.Partial(MVC.Shared.Views._A_AdminMenu, Model)
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
 </div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+}
