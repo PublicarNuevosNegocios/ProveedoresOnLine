@@ -1,19 +1,13 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Nuevo proveedor";
+    ViewBag.Title = "Información de proveedor";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
 
     int CompanyInfoIdAux = 0;
     string CompanyInfoValueAux = string.Empty;
-
-    int CompanyInfoStatusId = 0;
-    string CompanyInfoStatusValue = string.Empty;
-
-    int CompanyInfoPaymentId = 0;
-    string CompanyInfoPaymentValue = string.Empty;
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -93,6 +87,8 @@
                 </li>
                 <li>
                     @{
+                        //salesforce info
+
                         CompanyInfoIdAux = 0;
                         CompanyInfoValueAux = string.Empty;
 
@@ -115,38 +111,6 @@
                                 Select(x => x.Value).
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
-
-                            CompanyInfoStatusId = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
-                                Select(x => x.ItemInfoId).
-                                DefaultIfEmpty(0).
-                                FirstOrDefault();
-
-                            CompanyInfoStatusValue = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault();
-
-                            CompanyInfoPaymentId = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
-                                Select(x => x.ItemInfoId).
-                                DefaultIfEmpty(0).
-                                FirstOrDefault();
-
-                            CompanyInfoPaymentValue = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault();
                         }
                     }
                     <label>Código de salesforce</label>
@@ -156,6 +120,132 @@
                     {
                         <a class="POBOSmallCaption" target="_blank" href="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Path_SalesForce].Value.TrimEnd('/') + "/" + CompanyInfoValueAux)"> Ver en salesforce</a>
                     }
+                </li>
+                <li>
+                    @{
+                        //status info
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedProvider != null &&
+                            Model.RelatedProvider.RelatedCompany != null &&
+                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    <label><span>*</span> Estado</label>
+                    <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).ToString())_@CompanyInfoIdAux.ToString()">
+                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderStatus))
+                        {
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
+                                !string.IsNullOrEmpty(CompanyInfoValueAux) &&
+                                Item.ItemId.ToString() == CompanyInfoValueAux)
+                            {
+                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
+                    @{
+                        //payment info
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedProvider != null &&
+                            Model.RelatedProvider.RelatedCompany != null &&
+                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    <label><span>*</span> Información de Pago</label>
+                    <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).ToString())_@CompanyInfoIdAux.ToString()">
+                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo))
+                        {
+                            if (Model.RelatedProvider != null &&
+                                Model.RelatedProvider.RelatedCompany != null &&
+                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
+                                !string.IsNullOrEmpty(CompanyInfoValueAux) &&
+                                Item.ItemId.ToString() == CompanyInfoValueAux)
+                            {
+                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemName</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
+                    @{
+                        //certification date info
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedProvider != null &&
+                            Model.RelatedProvider.RelatedCompany != null &&
+                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    <label>Fecha de certificación</label>
+                    <br />
+                    <input type="text" id="iptCertificationDate" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
                 </li>
                 <li>
                     <label><span>*</span> Habilitado</label><br />
@@ -169,46 +259,6 @@
                     {
                         <input type="checkbox" name="Enable" checked="checked" />
                     }
-                </li>
-                <li>
-                    <label><span>*</span> Estado</label>
-                    <select name="ProviderStatus">
-                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderStatus))
-                        {
-                            if (Model.RelatedProvider != null &&
-                                Model.RelatedProvider.RelatedCompany != null &&
-                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
-                                Item.ItemId == Convert.ToInt32(CompanyInfoStatusValue))
-                            {
-                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
-                            }
-                            else
-                            {
-                                <option value="@Item.ItemId">@Item.ItemName</option>
-                            }
-                        }
-                    </select>
-                    <input type="hidden" id="ProviderStatusId" name="ProviderStatusId" value="@CompanyInfoStatusId" />
-                </li>
-                <li>
-                    <label><span>*</span> Información de Pago</label>
-                    <select name="ProviderPaymentInfo">
-                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo))
-                        {
-                            if (Model.RelatedProvider != null &&
-                                Model.RelatedProvider.RelatedCompany != null &&
-                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
-                                Item.ItemId == Convert.ToInt32(CompanyInfoPaymentValue))
-                            {
-                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
-                            }
-                            else
-                            {
-                                <option value="@Item.ItemId">@Item.ItemName</option>
-                            }
-                        }
-                    </select>
-                    <input type="hidden" id="ProviderPaymentInfoId" name="ProviderPaymentInfoId" value="@CompanyInfoPaymentId" />
                 </li>
             </ul>
             <div style="display:none">
@@ -230,4 +280,13 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Provider_InitUpsertProvider({
+                CertificationDateId: 'iptCertificationDate',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+            });
+        });
+    </script>
 }

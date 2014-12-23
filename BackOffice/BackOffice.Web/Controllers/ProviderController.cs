@@ -166,30 +166,6 @@ namespace BackOffice.Web.Controllers
                 CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
             };
 
-            //get company status
-            oReturn.CompanyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-            {
-                ItemInfoId = Convert.ToInt32(Request["ProviderStatusId"]),
-                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                {
-                    ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus,
-                },
-                Value = Request["ProviderStatus"],
-                Enable = true,
-            });
-
-            //get company payment info
-            oReturn.CompanyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-            {
-                ItemInfoId = Convert.ToInt32(Request["ProviderPaymentInfoId"]),
-                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                {
-                    ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo,
-                },
-                Value = Request["ProviderPaymentInfo"],
-                Enable = true,
-            });
-
             //get company info
             Request.Form.AllKeys.Where(x => x.Contains("CompanyInfoType_")).All(req =>
             {

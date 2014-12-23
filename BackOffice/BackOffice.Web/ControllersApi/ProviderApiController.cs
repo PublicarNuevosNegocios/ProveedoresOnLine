@@ -718,7 +718,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity
                         },
-                        Value = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        LargeValue = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
                         Enable = true,
                     });
 
@@ -729,7 +729,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity
                         },
-                        Value = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        LargeValue = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
                         Enable = true,
                     });
                 }
