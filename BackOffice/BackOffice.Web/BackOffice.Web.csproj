@@ -1033,6 +1033,7 @@
     <Content Include="Views\Provider\LISARLAFTUpsert.cshtml" />
     <Content Include="Views\Provider\LIResolutionUpsert.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\AdminUserUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

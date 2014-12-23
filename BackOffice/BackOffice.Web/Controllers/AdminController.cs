@@ -21,6 +21,19 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminUserUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -47,12 +60,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Usuarios",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GIProviderUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminUserUpsert,
+                    MVC.Admin.Name),
                 Position = 0,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GIProviderUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminUserUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
 
