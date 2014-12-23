@@ -274,7 +274,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 ProviderToUpsert.RelatedFinantial != null &&
                 ProviderToUpsert.RelatedFinantial.Count > 0)
             {
-                ProviderToUpsert.RelatedCertification.All(pfin =>
+                ProviderToUpsert.RelatedFinantial.All(pfin =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
@@ -374,20 +374,23 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 ProviderToUpsert.RelatedBalanceSheet != null &&
                 ProviderToUpsert.RelatedBalanceSheet.Count > 0)
             {
-                ProviderToUpsert.RelatedBalanceSheet.All(pSheet =>
+
+                ProviderToUpsert.RelatedBalanceSheet.All(pfin =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                     try
                     {
-                        pSheet.ItemId =
+                        pfin.ItemId =
                             ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
                             (ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                            pSheet.ItemId > 0 ? (int?)pSheet.ItemId : null,
-                            pSheet.ItemType.ItemId,
-                            pSheet.ItemName,
-                            pSheet.Enable);
+                            pfin.ItemId > 0 ? (int?)pfin.ItemId : null,
+                            pfin.ItemType.ItemId,
+                            pfin.ItemName,
+                            pfin.Enable);
 
-                        BalanceSheetInfoUpsert(pSheet);
+                        FinancialInfoUpsert((ProveedoresOnLine.Company.Models.Util.GenericItemModel)pfin);
+
+                        BalanceSheetInfoUpsert(pfin);
 
                         oLog.IsSuccess = true;
                     }
@@ -400,7 +403,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     }
                     finally
                     {
-                        oLog.LogObject = pSheet;
+                        oLog.LogObject = pfin;
 
                         oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
                         {

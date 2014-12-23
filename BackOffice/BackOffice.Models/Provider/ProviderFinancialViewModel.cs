@@ -29,6 +29,28 @@ namespace BackOffice.Models.Provider
 
         #endregion
 
+        #region IncomeStatement
+
+        public string IS_Year { get; set; }
+        public string IS_YearId { get; set; }
+
+        public string IS_GrossIncome { get; set; }
+        public string IS_GrossIncomeId { get; set; }
+
+        public string IS_NetIncome { get; set; }
+        public string IS_NetIncomeId { get; set; }
+
+        public string IS_GrossEstate { get; set; }
+        public string IS_GrossEstateId { get; set; }
+
+        public string IS_LiquidHeritage { get; set; }
+        public string IS_LiquidHeritageId { get; set; }
+
+        public string IS_FileIncomeStatement { get; set; }
+        public string IS_FileIncomeStatementId { get; set; }
+
+        #endregion
+
         #region Bank Info
 
         public string IB_Bank { get; set; }
@@ -109,6 +131,82 @@ namespace BackOffice.Models.Provider
 
             SH_CurrencyId = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_Currency).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            #endregion
+
+            #region Income Statement
+
+            IS_Year = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_Year).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_YearId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_Year).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_GrossIncome = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossIncome).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_GrossIncomeId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossIncome).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_NetIncome = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_NetIncome).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_NetIncomeId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_NetIncome).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_GrossEstate = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossEstate).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_GrossEstateId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_GrossEstate).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_LiquidHeritage = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_LiquidHeritage).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_LiquidHeritageId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_LiquidHeritage).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_FileIncomeStatement = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            IS_FileIncomeStatementId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.IS_FileIncomeStatement).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();

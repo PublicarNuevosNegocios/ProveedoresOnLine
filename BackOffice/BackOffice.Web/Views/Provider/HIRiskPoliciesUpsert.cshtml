@@ -43,7 +43,7 @@
                 var CertificateAffiliateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
                     Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
                         Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
-                            Select(y => y.LargeValue).FirstOrDefault()).FirstOrDefault() : string.Empty;
+                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
 
                 var CertificateAffiliateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
                     Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
