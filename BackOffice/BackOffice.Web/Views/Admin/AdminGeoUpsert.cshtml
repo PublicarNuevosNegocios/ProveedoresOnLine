@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "RUT";
+    ViewBag.Title = "Geolaclización";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Model.RenderScripts = false;
@@ -28,21 +28,6 @@
         </div>
     </div>
 </div>
-
-<!--templates-->
-<div style="display:none;">
-    <div id="divGridLegalInfo_NoFile">
-        <div>
-            <span>Seleccione un archivo</span>
-        </div>
-    </div>
-    <div id="divGridLegalInfo_File">
-        <div>
-            <a target="_blank" href="${R_RUTFile}">Ver archivo</a>
-        </div>
-    </div>    
-</div>
-
 @{
     Model.RenderScripts = true;
 }
@@ -54,11 +39,11 @@
     @{
 
         //ger CertificationTypeValues
-        string oLegalInfoOptionList = "[]";
+        string oAdminGeoInfoOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
-            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionCertification =
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionAdminGeo =
                 Model.ProviderOptions.
                 GroupBy(x => x.CatalogId).
                 Select(x =>
@@ -68,26 +53,20 @@
                         ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oLegalInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(oOptionCertification.Select(x => new { Key = x.Key, Value = x.Value }));
-        }
-        var oLegalId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.FirstOrDefault().ItemId : 0;
+            oAdminGeoInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionAdminGeo.Select(x => new { Key = x.Key, Value = x.Value }));
+        }        
     }
 
     <script type="text/javascript">
-        var vLegalInfoOptionList = @(Html.Raw(oLegalInfoOptionList));
-        var vLegalId = @oLegalId;
+        var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList));        
 
         $(document).ready(function () {
-            Provider_LegalInfoObject.Init({
-                ObjectId: 'divGridGeoInfo',
-                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.RUT)',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-                ChaimberOfComerceOptionList: vLegalInfoOptionList,
-                LegalId: vLegalId,
+            Admin_GeolocalizationObject.Init({
+                ObjectId: 'divGridGeoInfo',                                                
+                UtilOptions: vAdminGeolInfoOptionList ,                
             });
-            Provider_LegalInfoObject.RenderAsync();
+            Admin_GeolocalizationObject.RenderAsync();
         });
     </script>
 }

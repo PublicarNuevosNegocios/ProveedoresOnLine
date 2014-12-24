@@ -75,6 +75,7 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string AdminUserUpsert = "AdminUserUpsert";
+            public readonly string AdminGeoUpsert = "AdminGeoUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,6 +83,7 @@ namespace BackOffice.Web.Controllers
         {
             public const string Index = "Index";
             public const string AdminUserUpsert = "AdminUserUpsert";
+            public const string AdminGeoUpsert = "AdminGeoUpsert";
         }
 
 
@@ -129,6 +131,17 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminUserUpsert);
             AdminUserUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminGeoUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminGeoUpsert()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminGeoUpsert);
+            AdminGeoUpsertOverride(callInfo);
             return callInfo;
         }
 

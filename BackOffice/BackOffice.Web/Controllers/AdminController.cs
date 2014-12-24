@@ -34,6 +34,19 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminGeoUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -74,12 +87,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Geolocalización",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GIProviderUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminGeoUpsert,
+                    MVC.Admin.Name),
                 Position = 0,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GIProviderUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminGeoUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
             //Standart Economy Activity

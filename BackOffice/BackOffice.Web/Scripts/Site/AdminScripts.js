@@ -1,12 +1,18 @@
-﻿var Admin_GeolocalizationObject = {
-
+﻿var Admin_GeolocalizationObject = {    
     ObjectId: '',
+    AdminOptions: new Array(),
 
     Init: function(vInitObject){
         this.ObjectId = vInitObject.ObjectId;
+        if (vInitObject.UtilOptions != null) {
+            $.each(vInitObject.UtilOptions, function (item, value) {
+                Admin_GeolocalizationObject.AdminOptions[value.Key] = value.Value;
+            });
+        }
     },
     
     RenderAsync: function () {
+        debugger;
         $('#' + Admin_GeolocalizationObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -20,36 +26,43 @@
             dataSource: {
                 schema: {
                     model: {
-                        id: 'ItemId',
+                        id: 'GIT_CountryId',
                         fields: {
-                            ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
-                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+                            GIT_Country: { editable: false, nullable: true },
+                           
+                            AG_City: { editable: true },
+                            AG_CityId: { editable: false },
 
-                            CC_CompanyContactType: { editable: true },
-                            CC_CompanyContactTypeId: { editable: false },
+                            GI_CapitalType: { editable: true },
+                            GI_CapitalTypeId: { editable: false },
 
-                            CC_Value: { editable: true },
-                            CC_ValueId: { editable: false },
+                            GI_DirespCode: { editable: true },
+                            GI_DirespCodeId: { editable: false },
+
+                            GIT_State: { editable: true },
+                            GIT_StateId: { editable: false },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                        debugger;
+                        $.ajax({                            
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=',
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
+                                debugger;
                                 options.error(result);
                             }
                         });
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + 'a' + '&CityId=' + 'a',
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -65,7 +78,7 @@
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactUpsert=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + 'a' + '&CityId=' + 'a',
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -82,20 +95,38 @@
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
+                field: 'GIT_CountryId',
+                title: 'Id Pais',
                 width: '50px',
             }, {
-                field: 'ContactName',
-                title: 'Nombre',
+                field: 'GIT_Country',
+                title: 'País',
+                width: '100px',
             }, {
-                field: 'CC_CompanyContactType',
-                title: 'Tipo de contacto',
+                field: 'GIT_StateId',
+                title: 'Estado (Dpto.) Id',
+                width: '50px',
+            },{
+                field: 'GIT_State',
+                title: 'Estado (Dpto.)',
+                width: '100px',
+            },{
+                field: 'AG_CityId',
+                title: 'Id Ciudad',
+                width: '50px',
+            },{
+                field: 'AG_City',
+                title: 'Ciudad',
+                width: '100px',
+            },{
+                field: 'GI_CapitalType',
+                title: 'Tipo de Capital',
+                width: '100px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.CC_CompanyContactType != null) {
-                        $.each(Provider_CompanyContactObject.ProviderOptions[209], function (item, value) {
-                            if (dataItem.CC_CompanyContactType == value.ItemId) {
+                    if (dataItem != null && dataItem.GI_CapitalType != null) {
+                        $.each(Admin_GeolocalizationObject.AdminOptions[107], function (item, value) {
+                            if (dataItem.GI_CapitalType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -106,18 +137,15 @@
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Provider_CompanyContactObject.ProviderOptions[209],
+                            dataSource: Admin_GeolocalizationObject.AdminOptions[107],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
                         });
                 },
-            }, {
-                field: 'CC_Value',
-                title: 'Valor',
-            }, {
-                field: 'Enable',
-                title: 'Habilitado',
+            },{
+                field: 'GI_DirespCode',
+                title: 'Código Ciudad',
                 width: '100px',
             }],
         });
