@@ -1,6 +1,5 @@
 ﻿/*init provider Menu*/
 function Provider_InitMenu(InitObject) {
-    debugger;
     $('#' + InitObject.ObjId).accordion({
         animate: 'swing',
         header: 'label',
@@ -14,6 +13,14 @@ function Provider_SubmitForm(SubmitObject) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
     $('#' + SubmitObject.FormId).submit();
+}
+
+function Provider_InitUpsertProvider(vInitObject) {
+
+    //init certification date
+    $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
+        format: vInitObject.DateFormat
+    });
 }
 
 /*CompanyContactObject*/
