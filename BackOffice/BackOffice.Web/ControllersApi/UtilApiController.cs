@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackOffice.Models.Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -38,6 +39,35 @@ namespace BackOffice.Web.ControllersApi
                 }
             }
 
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminGeoViewModel> GetAllGeography
+            (string GetAllGeography, string SearchParam, string CityId)
+        {
+            List<BackOffice.Models.Admin.AdminGeoViewModel> oReturn = new List<Models.Admin.AdminGeoViewModel>();
+            if (GetAllGeography == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> Cities = 
+                    ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
+                    (string.IsNullOrEmpty(SearchParam) ? null : SearchParam,
+                        string.IsNullOrEmpty(CityId) ? null : (int?)Convert.ToInt32(CityId),
+                        0,
+                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
+                            BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
+                        ].Value));
+
+                if (Cities != null)
+                {
+                    Cities.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Admin.AdminGeoViewModel(x));
+                        return true;
+                    });
+                }                
+            }
             return oReturn;
         }
 

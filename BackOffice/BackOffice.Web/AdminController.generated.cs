@@ -95,9 +95,11 @@ namespace BackOffice.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string AdminGeoUpsert = "AdminGeoUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
             }
+            public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
         }

@@ -426,6 +426,7 @@
     <Content Include="Content\Styles\Site\POBOSideFilters.css" />
     <Content Include="Content\Styles\Site\POBOSideMenu.css" />
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
+    <Content Include="Scripts\Site\AdminScripts.js" />
     <Content Include="Scripts\Site\ProviderScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -1034,6 +1035,7 @@
     <Content Include="Views\Provider\LIResolutionUpsert.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\AdminUserUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminGeoUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

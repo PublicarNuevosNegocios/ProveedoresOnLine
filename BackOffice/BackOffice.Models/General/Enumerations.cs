@@ -55,10 +55,20 @@
         EA_Group = 102003,
         EA_IsCustom = 102004,
 
-        //geography info
+        //geography type
         GI_GeographyType = 106001,
         GI_CapitalType = 106002,
         GI_DirespCode = 106003,
+
+        //GeographyInfo Type
+        GIT_Country = 105001,
+        GIT_State = 105002,
+        GIT_City = 105003,
+
+        //CapitalType
+        CT_CountryCapital = 107001,
+        CT_CapitalState = 107002,
+        CT_IsNotCapital = 107003,
 
         //Account info
         AI_Order = 109001,
