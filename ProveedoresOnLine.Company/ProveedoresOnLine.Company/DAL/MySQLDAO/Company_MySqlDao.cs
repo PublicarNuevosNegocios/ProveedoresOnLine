@@ -621,7 +621,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         #endregion
 
-        #region Company
+        #region Company CRUD
 
         public string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable)
         {
@@ -663,49 +663,6 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 {
                     CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
                     CommandText = "C_CompanyInfo_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
-
-            return Convert.ToInt32(response.ScalarResult);
-        }
-
-        public int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
-        {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vContactId", ContactId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vContactTypeId", ContactTypeId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vContactName", ContactName));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
-
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "C_Contact_Upsert",
-                    CommandType = System.Data.CommandType.StoredProcedure,
-                    Parameters = lstParams
-                });
-
-            return Convert.ToInt32(response.ScalarResult);
-        }
-
-        public int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
-        {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-
-            lstParams.Add(DataInstance.CreateTypedParameter("vContactId", ContactId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vContactInfoId", ContactInfoId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vContactInfoTypeId", ContactInfoTypeId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
-            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
-
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                    CommandText = "C_ContactInfo_Upsert",
                     CommandType = System.Data.CommandType.StoredProcedure,
                     Parameters = lstParams
                 });
@@ -776,6 +733,40 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public void CompanyFilterFill(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "U_Tmp_CompanyFilter_Fill",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+        }
+
+        public void CompanySearchFill(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.NonQuery,
+                CommandText = "U_Tmp_CompanySearch_Fill",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+        }
+
+        #endregion
+
+        #region Company Search
+
         public CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -834,6 +825,176 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 };
             }
             return oReturn;
+        }
+
+        public List<GenericFilterModel> CompanySearchFilter(string CompanyType, string SearchParam, string SearchFilter)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyType", CompanyType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_Company_SearchFilter",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericFilterModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sf in response.DataTableResult.AsEnumerable()
+                     where !sf.IsNull("FilterTypeId")
+                     select new GenericFilterModel()
+                     {
+                         FilterType = new GenericItemModel()
+                         {
+                             ItemId = sf.Field<int>("FilterTypeId"),
+                             ItemName = sf.Field<string>("FilterTypeName"),
+                         },
+                         FilterValue = new GenericItemModel()
+                         {
+                             ItemId = Convert.ToInt32(sf.Field<string>("FilterValueId")),
+                             ItemName = sf.Field<string>("FilterValueName"),
+                         },
+                         Quantity = Convert.ToInt32(sf.Field<Int64>("Quantity")),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyType", CompanyType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_Company_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<CompanyModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sr in response.DataTableResult.AsEnumerable()
+                     where !sr.IsNull("CompanyPublicId")
+                     group sr by new
+                     {
+                         CompanyPublicId = sr.Field<string>("CompanyPublicId"),
+                         CompanyName = sr.Field<string>("CompanyName"),
+                         IdentificationTypeId = sr.Field<int>("IdentificationTypeId"),
+                         IdentificationTypeName = sr.Field<string>("IdentificationTypeName"),
+                         IdentificationNumber = sr.Field<string>("IdentificationNumber"),
+                         CompanyTypeId = sr.Field<int>("CompanyTypeId"),
+                         CompanyTypeName = sr.Field<string>("CompanyTypeName"),
+                         CompanyEnable = sr.Field<UInt64>("CompanyEnable") == 1 ? true : false,
+                         CompanyLastModify = sr.Field<DateTime>("CompanyLastModify"),
+                         CompanyCreateDate = sr.Field<DateTime>("CompanyCreateDate"),
+                     } into srg
+                     select new CompanyModel()
+                     {
+                         CompanyPublicId = srg.Key.CompanyPublicId,
+                         CompanyName = srg.Key.CompanyName,
+                         IdentificationType = new Models.Util.CatalogModel()
+                         {
+                             ItemId = srg.Key.IdentificationTypeId,
+                             ItemName = srg.Key.IdentificationTypeName,
+                         },
+                         IdentificationNumber = srg.Key.IdentificationNumber,
+                         CompanyType = new Models.Util.CatalogModel()
+                         {
+                             ItemId = srg.Key.CompanyTypeId,
+                             ItemName = srg.Key.CompanyTypeName,
+                         },
+                         Enable = srg.Key.CompanyEnable,
+                         LastModify = srg.Key.CompanyLastModify,
+                         CreateDate = srg.Key.CompanyCreateDate,
+
+                         CompanyInfo =
+                             (from ci in response.DataTableResult.AsEnumerable()
+                              where !ci.IsNull("CompanyInfoId") &&
+                                    ci.Field<string>("CompanyPublicId") == srg.Key.CompanyPublicId
+                              select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                              {
+                                  ItemInfoId = ci.Field<int>("CompanyInfoId"),
+                                  ItemInfoType = new Models.Util.CatalogModel()
+                                  {
+                                      ItemId = ci.Field<int>("CompanyInfoTypeId"),
+                                      ItemName = ci.Field<string>("CompanyInfoTypeName"),
+                                  },
+                                  Value = ci.Field<string>("Value"),
+                                  LargeValue = ci.Field<string>("LargeValue"),
+                                  Enable = ci.Field<UInt64>("CompanyInfoEnable") == 1 ? true : false,
+                                  LastModify = ci.Field<DateTime>("CompanyInfoLastModify"),
+                                  CreateDate = ci.Field<DateTime>("CompanyInfoCreateDate"),
+                              }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
+
+        #region Contact
+
+        public int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactId", ContactId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactTypeId", ContactTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactName", ContactName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_Contact_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactId", ContactId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactInfoId", ContactInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vContactInfoTypeId", ContactInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "C_ContactInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
         }
 
         public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
