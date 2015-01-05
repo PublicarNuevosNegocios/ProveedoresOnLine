@@ -1404,7 +1404,7 @@ var Provider_CompanyHSEQObject = {
                             C_CertificationFile: { editable: true },
                             C_CertificationFileId: { editable: false },
 
-                            C_Scope: { editable: true, validation: { required: true }, type: "number" },
+                            C_Scope: { editable: true, validation: { required: true } },
                             C_ScopeId: { editable: false },
                         },
                     }
