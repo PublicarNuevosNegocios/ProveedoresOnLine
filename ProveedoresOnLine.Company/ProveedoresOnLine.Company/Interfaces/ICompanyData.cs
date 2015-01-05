@@ -44,15 +44,11 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         #endregion
 
-        #region Company
+        #region Company CRUD
 
         string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable);
 
         int CompanyInfoUpsert(string CompanyPublicId, int? CompanyInfoId, int CompanyInfoTypeId, string Value, string LargeValue, bool Enable);
-
-        int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable);
-
-        int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable);
 
         int RoleCompanyUpsert(string CompanyPublicId, int? RoleCompanyId, string RoleCompanyName, int? ParentRoleCompanyId, bool Enable);
 
@@ -60,7 +56,27 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int UserCompanyUpsert(int? UserCompanyId, string User, int RoleCompanyId, bool Enable);
 
+        void CompanyFilterFill(string CompanyPublicId);
+
+        void CompanySearchFill(string CompanyPublicId);
+
+        #endregion
+
+        #region Company Search
+
         CompanyModel CompanyGetBasicInfo(string CompanyPublicId);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> CompanySearchFilter(string CompanyType, string SearchParam, string SearchFilter);
+
+        List<ProveedoresOnLine.Company.Models.Company.CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount);
+
+        #endregion
+
+        #region Contact
+
+        int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable);
+
+        int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType);
 
