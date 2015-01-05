@@ -1388,9 +1388,9 @@ var Provider_CompanyHSEQObject = {
                             C_CertificationCompanyId: { editable: false },
                             C_CertificationCompanyName: { editable: true, validation: { required: true } },
 
-                            C_Rule: { editable: true },
+                            C_Rule: { editable: true, validation: { required: true } },
                             C_RuleId: { editable: false },
-                            C_RuleName: { editable: true, validation: { required: true } },
+                            C_RuleName: { editable: true },
 
                             C_StartDateCertification: { editable: true },
                             C_StartDateCertificationId: { editable: false },
@@ -1398,13 +1398,13 @@ var Provider_CompanyHSEQObject = {
                             C_EndDateCertification: { editable: true },
                             C_EndDateCertificationId: { editable: false },
 
-                            C_CCS: { editable: true },
+                            C_CCS: { editable: true, validation: { required: true }, type: "number" },
                             C_CCSId: { editable: false },
 
                             C_CertificationFile: { editable: true },
                             C_CertificationFileId: { editable: false },
 
-                            C_Scope: { editable: true },
+                            C_Scope: { editable: true, validation: { required: true }, type: "number" },
                             C_ScopeId: { editable: false },
                         },
                     }
@@ -1678,7 +1678,7 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CH_Year: { editable: true, validation: { required: true } },
+                            CH_Year: { editable: true, validation: { required: true }, type: "number" },
                             CH_YearId: { editable: false },
 
                             CH_PoliticsSecurity: { editable: true },
@@ -2261,22 +2261,22 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CR_Year: { editable: true, validation: { required: true } },
+                            CR_Year: { editable: true, validation: { required: true }, type: "number" },
                             CR_YearId: { editable: false },
 
-                            CR_ManHoursWorked: { editable: true },
+                            CR_ManHoursWorked: { editable: true, type: "number" },
                             CR_ManHoursWorkedId: { editable: false },
 
-                            CR_Fatalities: { editable: true },
+                            CR_Fatalities: { editable: true, type: "number" },
                             CR_FatalitiesId: { editable: false },
 
-                            CR_NumberAccident: { editable: true },
+                            CR_NumberAccident: { editable: true, type: "number" },
                             CR_NumberAccidentId: { editable: false },
 
-                            CR_NumberAccidentDisabling: { editable: true },
+                            CR_NumberAccidentDisabling: { editable: true, type: "number" },
                             CR_NumberAccidentDisablingId: { editable: false },
 
-                            CR_DaysIncapacity: { editable: true },
+                            CR_DaysIncapacity: { editable: true, type: "number" },
                             CR_DaysIncapacityId: { editable: false },
 
                             CR_CertificateAccidentARL: { editable: true },
@@ -3162,13 +3162,13 @@ var Provider_LegalInfoObject = {
                             LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CP_PartnerName: { editable: true },
+                            CP_PartnerName: { editable: true, validation: { required: true } },
                             CP_PartnerNameId: { editable: false },
 
-                            CP_PartnerIdentificationNumber: { editable: true },
+                            CP_PartnerIdentificationNumber: { editable: true, validation: { required: true } },
                             CP_PartnerIdentificationNumberId: { editable: false },
 
-                            CP_PartnerRank: { editable: true },
+                            CP_PartnerRank: { editable: true, validation: { required: true } },
                             CP_PartnerRankId: { editable: false },
                         },
                     }
