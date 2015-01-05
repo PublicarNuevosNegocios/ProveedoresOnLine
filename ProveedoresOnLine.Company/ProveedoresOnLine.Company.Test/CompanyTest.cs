@@ -10,9 +10,10 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void CategorySearchByGeography()
         {
+            int oTotalCount;
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
-                ("cu", null, 0, 20);
+                ("cu", null, 0, 20, out oTotalCount);
 
             Assert.AreEqual(true, oReturn.Count >= 10);
         }
