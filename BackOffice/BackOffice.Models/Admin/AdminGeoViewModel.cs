@@ -30,6 +30,7 @@ namespace BackOffice.Models.Admin
         public string GIT_StateId { get; set; }
         public string GIT_State { get; set; }
 
+        public int AllTotalRows { get; set; }
         #endregion
 
         public AdminGeoViewModel() { }
