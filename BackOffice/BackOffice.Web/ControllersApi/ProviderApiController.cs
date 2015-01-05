@@ -9,6 +9,12 @@ namespace BackOffice.Web.ControllersApi
 {
     public class ProviderApiController : BaseApiController
     {
+        #region Search Methods
+
+
+
+        #endregion
+
         #region Generic Info
 
         [HttpPost]

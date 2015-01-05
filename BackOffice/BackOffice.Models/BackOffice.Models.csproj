@@ -71,6 +71,7 @@
     <Compile Include="Provider\ProviderLegalViewModel.cs" />
     <Compile Include="Provider\ProviderContactViewModel.cs" />
     <Compile Include="Provider\ProviderHSEQViewModel.cs" />
+    <Compile Include="Provider\ProviderSearchViewModel.cs" />
     <Compile Include="Provider\ProviderViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
