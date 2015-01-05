@@ -871,8 +871,10 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount)
+        public List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
         {
+            TotalRows = 0;
+
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyType", CompanyType));
@@ -894,6 +896,8 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
                 oReturn =
                     (from sr in response.DataTableResult.AsEnumerable()
                      where !sr.IsNull("CompanyPublicId")
