@@ -131,7 +131,7 @@
                                     DefaultIfEmpty(string.Empty).
                                     FirstOrDefault() + " ";
 
-                                if (oYear.Length > 0)
+                                if (oYear.Length > 0 && oYear != null)
                                 {
                                     oFatalities += Convert.ToDouble(Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
                                         Select(x => x.Value).
