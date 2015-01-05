@@ -523,9 +523,9 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CompanySearchFilter(CompanyType, SearchParam, SearchFilter);
         }
 
-        public static List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount)
+        public static List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.CompanyDataController.Instance.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount);
+            return DAL.Controller.CompanyDataController.Instance.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion

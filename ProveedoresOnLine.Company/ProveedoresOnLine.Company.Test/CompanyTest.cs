@@ -100,11 +100,15 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void CompanySearch()
         {
+            int oTotalRows;
+
             List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CompanySearch
-                ("202001,202003", null, null, 0, 20);
+                ("202001,202003", null, null, 1, 5, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
         }
 
     }

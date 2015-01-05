@@ -165,9 +165,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CompanySearchFilter(CompanyType, SearchParam, SearchFilter);
         }
 
-        public List<Models.Company.CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount)
+        public List<Models.Company.CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount);
+            return DataFactory.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion
