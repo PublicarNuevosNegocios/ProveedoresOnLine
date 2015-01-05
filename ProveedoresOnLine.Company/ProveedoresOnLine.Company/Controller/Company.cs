@@ -199,9 +199,9 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
+        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount);
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
 
         public static List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)

@@ -62,9 +62,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CatalogItemUpsert(CatalogId, ItemId, Name, Enable);
         }
 
-        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
+        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount);
+            return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
 
         public List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)

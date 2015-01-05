@@ -22,7 +22,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int CatalogItemUpsert(int CatalogId, int? ItemId, string Name, bool Enable);
 
-        List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount);
+        List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount);
 

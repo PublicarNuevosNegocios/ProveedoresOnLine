@@ -120,7 +120,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
+        public List<GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -138,10 +138,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             });
 
             List<GeographyModel> oReturn = null;
+            TotalRows = 0;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
                 oReturn =
                     (from g in response.DataTableResult.AsEnumerable()
                      where !g.IsNull("CityId")
