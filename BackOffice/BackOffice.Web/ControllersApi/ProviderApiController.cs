@@ -18,6 +18,7 @@ namespace BackOffice.Web.ControllersApi
             string ProviderPublicId,
             string ContactType)
         {
+            int oTotalRows;
             List<BackOffice.Models.Provider.ProviderContactViewModel> oReturn = new List<Models.Provider.ProviderContactViewModel>();
 
             if (GIContactGetByType == "true")
@@ -33,7 +34,7 @@ namespace BackOffice.Web.ControllersApi
                     if (ContactType == ((int)BackOffice.Models.General.enumContactType.Brach).ToString() ||
                         ContactType == ((int)BackOffice.Models.General.enumContactType.Distributor).ToString())
                     {
-                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0);
+                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
                     }
 
                     oContact.All(x =>
@@ -54,6 +55,7 @@ namespace BackOffice.Web.ControllersApi
             string ProviderPublicId,
             string ContactType)
         {
+            int oTotalCount;
             BackOffice.Models.Provider.ProviderContactViewModel oReturn = null;
 
             if (GIContactUpsert == "true" &&
@@ -426,7 +428,7 @@ namespace BackOffice.Web.ControllersApi
 
                 if (ContactType == ((int)BackOffice.Models.General.enumContactType.Brach).ToString())
                 {
-                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0);
+                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalCount);
                 }
 
                 oReturn = new Models.Provider.ProviderContactViewModel(oCompany.RelatedContact.FirstOrDefault(), oCities);
