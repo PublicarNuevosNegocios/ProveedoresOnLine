@@ -29,7 +29,7 @@
                 schema: {
                     total: function (data) {
                         if (data && data.length > 0) {
-                            return 20;
+                            return data[0].AllTotalRows;
                         }
                         return 0;
                     },
