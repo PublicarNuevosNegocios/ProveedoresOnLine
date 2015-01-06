@@ -1523,6 +1523,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error');
                             },
                         });
                     },
@@ -1536,9 +1537,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error');
                             },
                         });
                     },
@@ -1552,9 +1555,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error');
                             },
                         });
                     },
@@ -4512,4 +4517,24 @@ var Provider_LegalInfoObject = {
         });
     },
 
+}
+
+function Message(style) {
+    if ($('div.message').length) {
+        $('div.message').remove();
+    }
+
+    var mess = '';
+    if (style == 'error') {
+        mess = 'Hay un error!';
+    }
+    else {
+        mess = 'Se realizó la operación!';
+    }
+
+    $('<div class="message m_' + style + '">' + mess + '</div>').css({
+        top: $(window).scrollTop() + 'px'
+    }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
+        $(this).remove();
+    });
 }
