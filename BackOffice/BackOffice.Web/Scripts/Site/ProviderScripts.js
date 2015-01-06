@@ -201,6 +201,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -214,9 +215,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -230,9 +233,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -339,6 +344,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -352,9 +358,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -368,9 +376,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -576,6 +586,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -589,9 +600,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -605,9 +618,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -774,6 +789,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -787,9 +803,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -803,9 +821,12 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
+
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1094,6 +1115,7 @@ var Provider_CompanyCommercialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1107,9 +1129,11 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1123,9 +1147,11 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1523,7 +1549,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error');
+                                Message('error', '');
                             },
                         });
                     },
@@ -1537,11 +1563,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success');
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error');
+                                Message('error', '');
                             },
                         });
                     },
@@ -1555,11 +1581,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success');
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error');
+                                Message('error', '');
                             },
                         });
                     },
@@ -1829,6 +1855,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -1842,9 +1869,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -1858,9 +1887,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -2403,6 +2434,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -2416,9 +2448,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -2432,9 +2466,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -2604,6 +2640,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -2733,6 +2770,7 @@ var Provider_CompanyFinancialObject = {
             },
             error: function (result) {
                 alert(result);
+                Message('error', '');
             }
         });
     },
@@ -2855,6 +2893,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -2868,9 +2907,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -2884,9 +2925,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -2912,8 +2955,8 @@ var Provider_CompanyFinancialObject = {
 
                     oReturn = oReturn.replace(/\${Url_File}/gi, dataItem.TX_TaxFile);
 
-        return oReturn;
-    },
+                    return oReturn;
+                },
                 editor: function (container, options) {
                     var oFileExit = true;
                     $('<input type="file" id="files" name="files"/>')
@@ -3002,6 +3045,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -3015,9 +3059,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -3031,9 +3077,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -3171,6 +3219,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -3184,9 +3233,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -3200,9 +3251,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -3430,6 +3483,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -3443,9 +3497,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -3459,9 +3515,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -3559,6 +3617,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -3572,9 +3631,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -3588,9 +3649,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -3989,6 +4052,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4002,9 +4066,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4018,9 +4084,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4147,6 +4215,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4160,9 +4229,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4176,9 +4247,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4333,6 +4406,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4346,9 +4420,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4362,9 +4438,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', Provider_CompanyContactObject.ProviderPublicId);
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             },
                         });
                     },
@@ -4519,7 +4597,8 @@ var Provider_LegalInfoObject = {
 
 }
 
-function Message(style) {
+/*Message*/
+function Message(style, idfield) {
     if ($('div.message').length) {
         $('div.message').remove();
     }
@@ -4528,8 +4607,10 @@ function Message(style) {
     if (style == 'error') {
         mess = 'Hay un error!';
     }
-    else {
-        mess = 'Se realizó la operación!';
+    else if (idfield == '0') {
+        mess = 'Se creó el registro.';
+    } else {
+        mess = 'Se editó el proveedor ' + idfield + '.';
     }
 
     $('<div class="message m_' + style + '">' + mess + '</div>').css({
