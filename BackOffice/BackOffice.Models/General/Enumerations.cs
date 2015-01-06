@@ -78,6 +78,14 @@
 
     #region Company
 
+    public enum enumCompanyType
+    {
+        Buyer = 202001,
+        Provider = 202002,
+        BuyerProvider = 202003,
+
+    }
+
     /// <summary>
     /// Company info type
     /// </summary>
