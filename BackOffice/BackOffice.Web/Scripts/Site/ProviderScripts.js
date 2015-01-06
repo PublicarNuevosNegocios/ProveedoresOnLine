@@ -37,6 +37,14 @@ var Provider_SearchObject = {
 
     RenderAsync: function () {
 
+        //init input
+        $('#' + Provider_SearchObject.ObjectId + '_txtSearch').keypress(function (e) {
+            if (e.which == 13) {
+                Provider_SearchObject.SearchEvent(null);
+            }
+        });
+
+
         //init grid
         $('#' + Provider_SearchObject.ObjectId).kendoGrid({
             editable: false,
@@ -76,14 +84,14 @@ var Provider_SearchObject = {
             change: function (arg) {
                 $.map(this.select(), function (item) {
                     if ($(item).find('td').length >= 2 && $($(item).find('td')[1]).text().length > 0) {
-                        window.location = BaseUrl.SiteUrl + 'Provider/GIProviderUpsert?ProviderPublicId=' + $($(item).find('td')[1]).text().replace(/ /gi,'');
+                        window.location = BaseUrl.SiteUrl + 'Provider/GIProviderUpsert?ProviderPublicId=' + $($(item).find('td')[1]).text().replace(/ /gi, '');
                     }
                 });
             },
             columns: [{
                 field: 'ImageUrl',
                 title: 'Logo',
-                template: '<img src="${ImageUrl}" />',
+                template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
             }, {
                 field: 'ProviderPublicId',
@@ -108,6 +116,14 @@ var Provider_SearchObject = {
                 width: '100px',
             }],
         });
+    },
+
+    SearchEvent: function (vSearchFilter) {
+        if (vSearchFilter != null) {
+            Provider_SearchObject.SearchFilter = Provider_SearchObject.SearchFilter + ',' + vSearchFilter;
+        }
+        var oSearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearch').val();
+        window.location = BaseUrl.SiteUrl + 'Provider/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter;
     },
 };
 

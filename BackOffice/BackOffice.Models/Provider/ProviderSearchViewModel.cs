@@ -12,7 +12,17 @@ namespace BackOffice.Models.Provider
 
         public int TotalRows { get; set; }
 
-        public string ImageUrl { get { return string.Empty; } }
+        public string ImageUrl
+        {
+            get
+            {
+                return RelatedCompany.CompanyInfo.
+                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderLogo).
+                    Select(x => x.Value).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
 
         public string ProviderPublicId { get { return RelatedCompany.CompanyPublicId; } }
 
