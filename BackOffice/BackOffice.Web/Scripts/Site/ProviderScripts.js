@@ -69,7 +69,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' }
-            ],
+            ],  
             dataSource: {
                 schema: {
                     model: {
@@ -283,7 +283,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_PersonContactType',
                 title: 'Tipo de representante',
-                width: '200px',
+                width: '190px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_PersonContactType != null) {
@@ -308,7 +308,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationType',
                 title: 'Tipo de identificación',
-                width: '200px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CP_IdentificationType != null) {
@@ -333,7 +333,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationNumber',
                 title: 'Número de identificación',
-                width: '200px',
+                width: '180px',
             }, {
                 field: 'CP_IdentificationCity',
                 title: 'Ciudad de expedicion del documento',
@@ -341,7 +341,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
-                width: '200px',
+                width: '120px',
             }, {
                 field: 'CP_Email',
                 title: 'Correo electronico',
@@ -349,11 +349,11 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_Negotiation',
                 title: 'Capacidad de negociación',
-                width: '200px',
+                width: '190px',
             }, {
                 field: 'CP_IdentificationFile',
                 title: 'Doc representante legal.',
-                width: '400px',
+                width: '292px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.CP_IdentificationFile != null && dataItem.CP_IdentificationFile.length > 0) {

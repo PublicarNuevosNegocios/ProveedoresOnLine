@@ -38,7 +38,6 @@ namespace BackOffice.Web.ControllersApi
                     }).ToList();
                 }
             }
-
             return oReturn;
         }
 
@@ -76,6 +75,10 @@ namespace BackOffice.Web.ControllersApi
             }
             return oReturn;
         }
+
+        //public AdminGeoViewModel 
+
+
 
         [HttpPost]
         [HttpGet]
@@ -228,5 +231,7 @@ namespace BackOffice.Web.ControllersApi
             }
             return oReturn;
         }
+
+
     }
 }

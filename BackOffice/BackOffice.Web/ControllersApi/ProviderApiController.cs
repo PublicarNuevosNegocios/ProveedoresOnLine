@@ -9,6 +9,31 @@ namespace BackOffice.Web.ControllersApi
 {
     public class ProviderApiController : BaseApiController
     {
+        #region Search Methods
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderSearchViewModel> SMProviderSearch
+            (string SMProviderSearch,
+            string SearchParam,
+            string SearchFilter,
+            string PageNumber)
+        {
+            return null;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> SMProviderSearchFilter
+            (string SMProviderSearchFilter,
+            string SearchParam,
+            string SearchFilter)
+        {
+            return null;
+        }
+
+        #endregion
+
         #region Generic Info
 
         [HttpPost]
