@@ -62,3 +62,32 @@
         padding:6px 30px !important;
     }
 /************* ESTOS SON LOS BOTONES E InPUTS DE LAS GRILLAS ***************/
+/********* BOTON PARA LA CARGA DE ARCHIVOS DENTRO DE LA GRILLA *********/
+.k-grid tbody .k-button{
+        background-color:#f9f9f9;        
+        font-size:1.1em;
+        letter-spacing:-0.5px;
+        color:#4d4d4d;
+        border:1px solid #ff8300;
+        padding: 0 12px;
+        margin:0px 0px 0px 8px;
+        border-radius: 1px;
+        background-image:none;
+}
+    .k-grid tbody .k-button:hover,
+    .k-grid tbody .k-button:active{
+        background-color: #e6e6e6;
+        background-image:none;
+    }
+    .k-widget .k-upload .k-header {
+        background-color: #fff;
+        border-radius: 1px;
+        padding: 0 0 4px;
+    }
+    .k-grid .k-edit-cell {
+        padding:0px;
+    }
+    .k-file .k-file-error{
+        width:95%;
+    }
+/***********************/
