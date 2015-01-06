@@ -41,6 +41,7 @@ namespace T4MVC
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
                 public readonly string _P_ProviderActions = "_P_ProviderActions";
+                public readonly string _P_ProviderFilter = "_P_ProviderFilter";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
             }
             public readonly string _F_FileUpload = "~/Views/Shared/_F_FileUpload.cshtml";
@@ -48,6 +49,7 @@ namespace T4MVC
             public readonly string _L_Header = "~/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
             public readonly string _P_ProviderActions = "~/Views/Shared/_P_ProviderActions.cshtml";
+            public readonly string _P_ProviderFilter = "~/Views/Shared/_P_ProviderFilter.cshtml";
             public readonly string _P_ProviderMenu = "~/Views/Shared/_P_ProviderMenu.cshtml";
         }
     }

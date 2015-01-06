@@ -1,6 +1,10 @@
-﻿@{
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
     ViewBag.Title = "Busqueda de proveedores";
     Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
 }
 
 <div class="POBOProviderWrapper">
@@ -8,7 +12,7 @@
         <ul>
             <li>
                 <input id="divProviderSearch_txtSearch" class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" value="@Request["SearchParam"]" />
-                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null);">Encontrar</a>
+                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null,null);">Encontrar</a>
             </li>
             <li>
                 <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>
@@ -18,18 +22,15 @@
             </li>
         </ul>
     </div>
-    <div class="POBOPSideFilterWrapper">
-        <span class="POBOPSideBlockTitle">Filtrar por:</span>
-        <ul>
-            <li>
-                <input type="checkbox" /><span>Filtro 1</span>
-            </li>
-        </ul>
-    </div>
+    @Html.Partial(MVC.Shared.Views._P_ProviderFilter, Model)
     <div class="POBOPClientListWrapper">
         <div id="divProviderSearch"></div>
     </div>
 </div>
+
+@{
+    Model.RenderScripts = true;
+}
 
 @section inlinescripts
 {
