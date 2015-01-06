@@ -37,6 +37,14 @@ var Provider_SearchObject = {
 
     RenderAsync: function () {
 
+        //init input
+        $('#' + Provider_SearchObject.ObjectId + '_txtSearch').keypress(function (e) {
+            if (e.which == 13) {
+                Provider_SearchObject.SearchEvent(null);
+            }
+        });
+
+
         //init grid
         $('#' + Provider_SearchObject.ObjectId).kendoGrid({
             editable: false,
@@ -83,7 +91,7 @@ var Provider_SearchObject = {
             columns: [{
                 field: 'ImageUrl',
                 title: 'Logo',
-                template: '<img src="${ImageUrl}" />',
+                template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
             }, {
                 field: 'ProviderPublicId',
@@ -108,6 +116,14 @@ var Provider_SearchObject = {
                 width: '100px',
             }],
         });
+    },
+
+    SearchEvent: function (vSearchFilter) {
+        if (vSearchFilter != null) {
+            Provider_SearchObject.SearchFilter = Provider_SearchObject.SearchFilter + ',' + vSearchFilter;
+        }
+        var oSearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearch').val();
+        window.location = BaseUrl.SiteUrl + 'Provider/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter;
     },
 };
 
@@ -2891,8 +2907,8 @@ var Provider_CompanyFinancialObject = {
 
                     oReturn = oReturn.replace(/\${Url_File}/gi, dataItem.TX_TaxFile);
 
-                    return oReturn;
-                },
+        return oReturn;
+    },
                 editor: function (container, options) {
                     var oFileExit = true;
                     $('<input type="file" id="files" name="files"/>')
