@@ -20,7 +20,9 @@ namespace BackOffice.Web.ControllersApi
             string PageNumber,
             string RowCount)
         {
-            string oSearchFilter = string.IsNullOrEmpty(SearchFilter) ? null : SearchFilter;
+            string oSearchFilter = string.Join(",", (SearchFilter ?? string.Empty).Replace(" ", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+            oSearchFilter = string.IsNullOrEmpty(oSearchFilter) ? null : oSearchFilter;
+
             string oCompanyType =
                     ((int)(BackOffice.Models.General.enumCompanyType.Provider)).ToString() + "," +
                     ((int)(BackOffice.Models.General.enumCompanyType.BuyerProvider)).ToString();

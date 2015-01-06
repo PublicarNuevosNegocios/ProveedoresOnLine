@@ -40,7 +40,7 @@ var Provider_SearchObject = {
         //init input
         $('#' + Provider_SearchObject.ObjectId + '_txtSearch').keypress(function (e) {
             if (e.which == 13) {
-                Provider_SearchObject.SearchEvent(null);
+                Provider_SearchObject.SearchEvent(null, null);
             }
         });
 
@@ -118,9 +118,14 @@ var Provider_SearchObject = {
         });
     },
 
-    SearchEvent: function (vSearchFilter) {
-        if (vSearchFilter != null) {
-            Provider_SearchObject.SearchFilter = Provider_SearchObject.SearchFilter + ',' + vSearchFilter;
+    SearchEvent: function (vSearchFilter, vSelected) {
+        if (vSearchFilter != null && vSelected != null) {
+            if (vSelected == true) {
+                Provider_SearchObject.SearchFilter = vSearchFilter + ',' + Provider_SearchObject.SearchFilter;
+            }
+            else {
+                Provider_SearchObject.SearchFilter = Provider_SearchObject.SearchFilter.replace(new RegExp(vSearchFilter, 'gi'), '');
+            }
         }
         var oSearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearch').val();
         window.location = BaseUrl.SiteUrl + 'Provider/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter;

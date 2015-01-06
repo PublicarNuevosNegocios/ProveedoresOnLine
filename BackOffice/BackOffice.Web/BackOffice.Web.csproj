@@ -1036,6 +1036,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\AdminUserUpsert.cshtml" />
     <Content Include="Views\Admin\AdminGeoUpsert.cshtml" />
+    <Content Include="Views\Shared\_P_ProviderFilter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

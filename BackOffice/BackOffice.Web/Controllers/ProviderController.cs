@@ -13,7 +13,25 @@ namespace BackOffice.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            return View();
+            string oSearchParam = string.IsNullOrEmpty(Request["SearchParam"]) ? null : Request["SearchParam"];
+            string oSearchFilter = string.Join(",", (Request["SearchFilter"] ?? string.Empty).Replace(" ", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+            oSearchFilter = string.IsNullOrEmpty(oSearchFilter) ? null : oSearchFilter;
+
+            string oCompanyType =
+                    ((int)(BackOffice.Models.General.enumCompanyType.Provider)).ToString() + "," +
+                    ((int)(BackOffice.Models.General.enumCompanyType.BuyerProvider)).ToString();
+
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                SearchFilter = ProveedoresOnLine.Company.Controller.Company.CompanySearchFilter(oCompanyType, oSearchParam, oSearchFilter),
+            };
+
+            if (oModel.SearchFilter == null)
+                oModel.SearchFilter = new List<GenericFilterModel>();
+
+            return View(oModel);
         }
 
         #region General Info
@@ -578,7 +596,7 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };                       
+            };
             if (!string.IsNullOrEmpty(ProviderPublicId))
             {
                 oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
@@ -586,7 +604,7 @@ namespace BackOffice.Web.Controllers
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
                     RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
 
-                };               
+                };
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
@@ -636,7 +654,7 @@ namespace BackOffice.Web.Controllers
                     !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
                 {
                     return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
-                }               
+                }
             }
 
             return View(oModel);
