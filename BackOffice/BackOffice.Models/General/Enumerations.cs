@@ -95,6 +95,7 @@
         ProviderStatus = 203002,
         ProviderPaymentInfo = 203003,
         CertificationDate = 203004,
+        ProviderLogo = 203005,
     }
 
     /// <summary>
