@@ -199,9 +199,9 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
+        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount);
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
 
         public static List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
@@ -251,9 +251,7 @@ namespace ProveedoresOnLine.Company.Controller
 
         #endregion
 
-        #region Company
-
-        #region Crud Methods
+        #region Company CRUD
 
         public static CompanyModel CompanyUpsert(CompanyModel CompanyToUpsert)
         {
@@ -337,104 +335,6 @@ namespace ProveedoresOnLine.Company.Controller
             }
 
             return CompanyToUpsert;
-        }
-
-        public static CompanyModel ContactUpsert(CompanyModel CompanyToUpsert)
-        {
-            if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
-                CompanyToUpsert.RelatedContact != null &&
-                CompanyToUpsert.RelatedContact.Count > 0)
-            {
-                CompanyToUpsert.RelatedContact.All(cmpinf =>
-                {
-                    LogManager.Models.LogModel oLog = GetGenericLogModel();
-                    try
-                    {
-                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.ContactUpsert
-                            (CompanyToUpsert.CompanyPublicId,
-                            cmpinf.ItemId > 0 ? (int?)cmpinf.ItemId : null,
-                            cmpinf.ItemType.ItemId,
-                            cmpinf.ItemName,
-                            cmpinf.Enable);
-
-                        ContactInfoUpsert(cmpinf);
-
-                        oLog.IsSuccess = true;
-
-                    }
-                    catch (Exception err)
-                    {
-                        oLog.IsSuccess = false;
-                        oLog.Message = err.Message + " - " + err.StackTrace;
-
-                        throw err;
-                    }
-                    finally
-                    {
-                        oLog.LogObject = cmpinf;
-
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CompanyPublicId",
-                            Value = CompanyToUpsert.CompanyPublicId,
-                        });
-
-                        LogManager.ClientLog.AddLog(oLog);
-                    }
-
-                    return true;
-                });
-            }
-
-            return CompanyToUpsert;
-        }
-
-        public static GenericItemModel ContactInfoUpsert(GenericItemModel ContactToUpsert)
-        {
-            if (ContactToUpsert.ItemId > 0 &&
-                ContactToUpsert.ItemInfo != null &&
-                ContactToUpsert.ItemInfo.Count > 0)
-            {
-                ContactToUpsert.ItemInfo.All(ctinf =>
-                {
-                    LogManager.Models.LogModel oLog = GetGenericLogModel();
-                    try
-                    {
-                        ctinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.ContactInfoUpsert
-                            (ContactToUpsert.ItemId,
-                            ctinf.ItemInfoId > 0 ? (int?)ctinf.ItemInfoId : null,
-                            ctinf.ItemInfoType.ItemId,
-                            ctinf.Value,
-                            ctinf.LargeValue,
-                            ctinf.Enable);
-
-                        oLog.IsSuccess = true;
-                    }
-                    catch (Exception err)
-                    {
-                        oLog.IsSuccess = false;
-                        oLog.Message = err.Message + " - " + err.StackTrace;
-
-                        throw err;
-                    }
-                    finally
-                    {
-                        oLog.LogObject = ctinf;
-
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "ContactId",
-                            Value = ContactToUpsert.ItemId.ToString(),
-                        });
-
-                        LogManager.ClientLog.AddLog(oLog);
-                    }
-
-                    return true;
-                });
-            }
-
-            return ContactToUpsert;
         }
 
         public static CompanyModel RoleCompanyUpsert(CompanyModel CompanyToUpsert)
@@ -563,21 +463,177 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
+        public static void CompanyFilterFill(string CompanyPublicId)
+        {
+            LogManager.Models.LogModel oLog = GetGenericLogModel();
+            try
+            {
+                DAL.Controller.CompanyDataController.Instance.CompanyFilterFill(CompanyPublicId);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = CompanyPublicId;
+                LogManager.ClientLog.AddLog(oLog);
+            }
+        }
+
+        public static void CompanySearchFill(string CompanyPublicId)
+        {
+            LogManager.Models.LogModel oLog = GetGenericLogModel();
+            try
+            {
+                DAL.Controller.CompanyDataController.Instance.CompanySearchFill(CompanyPublicId);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = CompanyPublicId;
+                LogManager.ClientLog.AddLog(oLog);
+            }
+        }
+
         #endregion
 
-        #region Get Methods
+        #region Company Search
 
         public static CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
         {
             return DAL.Controller.CompanyDataController.Instance.CompanyGetBasicInfo(CompanyPublicId);
         }
 
+        public static List<GenericFilterModel> CompanySearchFilter(string CompanyType, string SearchParam, string SearchFilter)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CompanySearchFilter(CompanyType, SearchParam, SearchFilter);
+        }
+
+        public static List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount, out TotalRows);
+        }
+
+        #endregion
+
+        #region Contact
+
+        public static CompanyModel ContactUpsert(CompanyModel CompanyToUpsert)
+        {
+            if (!string.IsNullOrEmpty(CompanyToUpsert.CompanyPublicId) &&
+                CompanyToUpsert.RelatedContact != null &&
+                CompanyToUpsert.RelatedContact.Count > 0)
+            {
+                CompanyToUpsert.RelatedContact.All(cmpinf =>
+                {
+                    LogManager.Models.LogModel oLog = GetGenericLogModel();
+                    try
+                    {
+                        cmpinf.ItemId = DAL.Controller.CompanyDataController.Instance.ContactUpsert
+                            (CompanyToUpsert.CompanyPublicId,
+                            cmpinf.ItemId > 0 ? (int?)cmpinf.ItemId : null,
+                            cmpinf.ItemType.ItemId,
+                            cmpinf.ItemName,
+                            cmpinf.Enable);
+
+                        ContactInfoUpsert(cmpinf);
+
+                        oLog.IsSuccess = true;
+
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = cmpinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CompanyPublicId",
+                            Value = CompanyToUpsert.CompanyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return CompanyToUpsert;
+        }
+
+        public static GenericItemModel ContactInfoUpsert(GenericItemModel ContactToUpsert)
+        {
+            if (ContactToUpsert.ItemId > 0 &&
+                ContactToUpsert.ItemInfo != null &&
+                ContactToUpsert.ItemInfo.Count > 0)
+            {
+                ContactToUpsert.ItemInfo.All(ctinf =>
+                {
+                    LogManager.Models.LogModel oLog = GetGenericLogModel();
+                    try
+                    {
+                        ctinf.ItemInfoId = DAL.Controller.CompanyDataController.Instance.ContactInfoUpsert
+                            (ContactToUpsert.ItemId,
+                            ctinf.ItemInfoId > 0 ? (int?)ctinf.ItemInfoId : null,
+                            ctinf.ItemInfoType.ItemId,
+                            ctinf.Value,
+                            ctinf.LargeValue,
+                            ctinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = ctinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ContactId",
+                            Value = ContactToUpsert.ItemId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ContactToUpsert;
+        }
+
         public static List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
         {
             return DAL.Controller.CompanyDataController.Instance.ContactGetBasicInfo(CompanyPublicId, ContactType);
         }
-
-        #endregion
 
         #endregion
 

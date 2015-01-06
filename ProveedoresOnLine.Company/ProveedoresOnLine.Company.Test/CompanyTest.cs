@@ -10,9 +10,10 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void CategorySearchByGeography()
         {
+            int oTotalCount;
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
-                ("cu", null, 0, 20);
+                ("cu", null, 0, 20, out oTotalCount);
 
             Assert.AreEqual(true, oReturn.Count >= 10);
         }
@@ -74,6 +75,40 @@ namespace ProveedoresOnLine.Company.Test
                 (108002, 108001, null);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void CompanyGetBasicInfo()
+        {
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo
+                ("2F8EF68D");
+
+            Assert.IsNotNull(oReturn);
+        }
+
+        [TestMethod]
+        public void CompanySearchFilter()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CompanySearchFilter
+                ("202001,202003", null, null);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void CompanySearch()
+        {
+            int oTotalRows;
+
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CompanySearch
+                ("202001,202003", null, null, 1, 5, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
         }
 
     }

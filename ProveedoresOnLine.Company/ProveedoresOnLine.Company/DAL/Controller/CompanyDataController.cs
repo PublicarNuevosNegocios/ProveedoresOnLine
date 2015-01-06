@@ -62,9 +62,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CatalogItemUpsert(CatalogId, ItemId, Name, Enable);
         }
 
-        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount)
+        public List<Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount);
+            return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
 
         public List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
@@ -114,7 +114,7 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #endregion
 
-        #region Company
+        #region Company CRUD
 
         public string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable)
         {
@@ -124,16 +124,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         public int CompanyInfoUpsert(string CompanyPublicId, int? CompanyInfoId, int CompanyInfoTypeId, string Value, string LargeValue, bool Enable)
         {
             return DataFactory.CompanyInfoUpsert(CompanyPublicId, CompanyInfoId, CompanyInfoTypeId, Value, LargeValue, Enable);
-        }
-
-        public int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
-        {
-            return DataFactory.ContactUpsert(CompanyPublicId, ContactId, ContactTypeId, ContactName, Enable);
-        }
-
-        public int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
-        {
-            return DataFactory.ContactInfoUpsert(ContactId, ContactInfoId, ContactInfoTypeId, Value, LargeValue, Enable);
         }
 
         public int RoleCompanyUpsert(string CompanyPublicId, int? RoleCompanyId, string RoleCompanyName, int? ParentRoleCompanyId, bool Enable)
@@ -151,9 +141,47 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.UserCompanyUpsert(UserCompanyId, User, RoleCompanyId, Enable);
         }
 
+        public void CompanyFilterFill(string CompanyPublicId)
+        {
+            DataFactory.CompanyFilterFill(CompanyPublicId);
+        }
+
+        public void CompanySearchFill(string CompanyPublicId)
+        {
+            DataFactory.CompanySearchFill(CompanyPublicId);
+        }
+
+        #endregion
+
+        #region Company Search
+
         public Models.Company.CompanyModel CompanyGetBasicInfo(string CompanyPublicId)
         {
             return DataFactory.CompanyGetBasicInfo(CompanyPublicId);
+        }
+
+        public List<Models.Util.GenericFilterModel> CompanySearchFilter(string CompanyType, string SearchParam, string SearchFilter)
+        {
+            return DataFactory.CompanySearchFilter(CompanyType, SearchParam, SearchFilter);
+        }
+
+        public List<Models.Company.CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount, out TotalRows);
+        }
+
+        #endregion
+
+        #region Contact
+
+        public int ContactUpsert(string CompanyPublicId, int? ContactId, int ContactTypeId, string ContactName, bool Enable)
+        {
+            return DataFactory.ContactUpsert(CompanyPublicId, ContactId, ContactTypeId, ContactName, Enable);
+        }
+
+        public int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.ContactInfoUpsert(ContactId, ContactInfoId, ContactInfoTypeId, Value, LargeValue, Enable);
         }
 
         public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
@@ -162,5 +190,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
+
     }
 }

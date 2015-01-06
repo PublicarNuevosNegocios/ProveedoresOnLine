@@ -573,6 +573,7 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult LIChaimberOfCommerceUpsert(string ProviderPublicId)
         {
+            int oTotalRows;
             //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -593,7 +594,7 @@ namespace BackOffice.Web.Controllers
                     oCity = oModel.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oCity))
                     {
-                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
+                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0, out oTotalRows);
                         oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName;
                     }
                     oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -603,7 +604,7 @@ namespace BackOffice.Web.Controllers
 
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
-            {
+            {                
                 ProviderModel ProviderToUpsert = new ProviderModel();
                 ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
                 ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
@@ -616,7 +617,7 @@ namespace BackOffice.Web.Controllers
                 if (string.IsNullOrEmpty(ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value).FirstOrDefault()))
                 {
                     List<GeographyModel> reqCities = new List<GeographyModel>();
-                    reqCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(Request["CityId"], null, 0, 0);
+                    reqCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(Request["CityId"], null, 0, 0, out oTotalRows);
                     ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value = reqCities.FirstOrDefault().City.ItemId.ToString()).FirstOrDefault();
                 }
                 //upsert provider
@@ -659,7 +660,7 @@ namespace BackOffice.Web.Controllers
 
                     if (!string.IsNullOrWhiteSpace(oCity))
                     {
-                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0);
+                        oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0, out oTotalRows);
                         oModel.InscriptionCity = oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName;
                     }
                 }

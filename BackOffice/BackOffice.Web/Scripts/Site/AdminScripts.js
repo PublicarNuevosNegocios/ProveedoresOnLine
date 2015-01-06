@@ -16,7 +16,7 @@
         $('#' + Admin_GeolocalizationObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
-            pageable: false,
+            pageable: true,
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
@@ -24,7 +24,15 @@
                 { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
+                pageSize: 20,
+                serverPaging: true,
                 schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
                     model: {
                         id: 'GIT_CountryId',
                         fields: {
@@ -45,10 +53,9 @@
                     }
                 },
                 transport: {
-                    read: function (options) {
-                        debugger;
+                    read: function (options) {                        
                         $.ajax({                            
-                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=',
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
                             success: function (result) {
                                 debugger;

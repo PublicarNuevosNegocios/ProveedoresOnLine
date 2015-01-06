@@ -17,7 +17,7 @@ namespace BackOffice.Web.ControllersApi
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
-
+            int oTotalRows;
             if (CategorySearchByGeography == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> Cities =
@@ -27,7 +27,7 @@ namespace BackOffice.Web.ControllersApi
                         0,
                         Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
                             BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
-                        ].Value));
+                        ].Value), out oTotalRows);
 
                 if (Cities != null && Cities.Count > 0)
                 {
@@ -45,28 +45,34 @@ namespace BackOffice.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public List<AdminGeoViewModel> GetAllGeography
-            (string GetAllGeography, string SearchParam, string CityId)
+            (string GetAllGeography, string SearchParam, string CityId, int PageNumber, int RowCount)
         {
+            
             List<BackOffice.Models.Admin.AdminGeoViewModel> oReturn = new List<Models.Admin.AdminGeoViewModel>();
             if (GetAllGeography == "true")
             {
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> Cities = 
+                int oTotalCount;
+                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> Cities =
                     ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
                     (string.IsNullOrEmpty(SearchParam) ? null : SearchParam,
-                        string.IsNullOrEmpty(CityId) ? null : (int?)Convert.ToInt32(CityId),
-                        0,
-                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
-                            BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
-                        ].Value));
+                        string.IsNullOrEmpty(CityId) ? null : (int?)Convert.ToInt32(CityId), PageNumber,
+                        Convert.ToInt32(RowCount), out oTotalCount);
 
                 if (Cities != null)
                 {
                     Cities.All(x =>
                     {
                         oReturn.Add(new BackOffice.Models.Admin.AdminGeoViewModel(x));
+
                         return true;
                     });
-                }                
+                }
+
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
             }
             return oReturn;
         }
