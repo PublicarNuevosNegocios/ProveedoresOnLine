@@ -10,7 +10,9 @@ namespace BackOffice.Models.Provider
     {
         public ProveedoresOnLine.Company.Models.Company.CompanyModel RelatedCompany { get; private set; }
 
-        //public string ProviderPublicId
+        public int TotalRows { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public ProviderSearchViewModel(ProveedoresOnLine.Company.Models.Company.CompanyModel oRelatedCompany)
         {

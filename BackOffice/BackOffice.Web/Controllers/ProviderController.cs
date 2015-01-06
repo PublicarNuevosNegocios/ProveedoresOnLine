@@ -604,7 +604,7 @@ namespace BackOffice.Web.Controllers
 
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
-            {                
+            {
                 ProviderModel ProviderToUpsert = new ProviderModel();
                 ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
                 ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
