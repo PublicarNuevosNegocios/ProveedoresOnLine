@@ -329,9 +329,9 @@
         SH_BalanceSheetFile = 502002,
         SH_Currency = 502003,
 
-        //Taxes
-        TX_Year = 506001,
-        TX_TaxesFile = 506002,
+        //Taxes Info
+        TX_Year = 503001,
+        TX_TaxFile = 503002,
 
         //IncomeStatement Info
         IS_Year = 504001,

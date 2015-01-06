@@ -29,6 +29,16 @@ namespace BackOffice.Models.Provider
 
         #endregion
 
+        #region Taxes
+
+        public string TX_Year { get; set; }
+        public string TX_YearId { get; set; }
+
+        public string TX_TaxFile { get; set; }
+        public string TX_TaxFileId { get; set; }
+
+        #endregion
+
         #region IncomeStatement
 
         public string IS_Year { get; set; }
@@ -131,6 +141,34 @@ namespace BackOffice.Models.Provider
 
             SH_CurrencyId = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.SH_Currency).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            #endregion
+
+            #region Taxes
+
+            TX_Year = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.TX_Year).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            TX_YearId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.TX_Year).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            TX_TaxFile = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.TX_TaxFile).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            TX_TaxFileId = RelatedFinancial.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumFinancialInfoType.TX_TaxFile).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
