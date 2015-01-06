@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Información de proveedor";
+    ViewBag.Title = "Información General";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -260,6 +260,46 @@
                         <input type="checkbox" name="Enable" checked="checked" />
                     }
                 </li>
+                <li>
+                    <label>Logo</label><br />
+
+                    @{
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedProvider != null &&
+                            Model.RelatedProvider.RelatedCompany != null &&
+                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedProvider.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    @Html.Partial(MVC.Shared.Views._F_FileUpload)
+                    <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoIdAux" />
+                    @if (CompanyInfoValueAux != null && CompanyInfoValueAux.Length > 0)
+                    {
+                        <div>
+                            <a target="_blank" href="@CompanyInfoValueAux">Ver archivo</a>
+                        </div>
+                        <div>
+                            <img src="@CompanyInfoValueAux" style="width: 50px; height: 50px;"/>
+                        </div>
+                    }
+                </li>
             </ul>
             <div style="display:none">
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
@@ -286,6 +326,10 @@
             Provider_InitUpsertProvider({
                 CertificationDateId: 'iptCertificationDate',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+            });
+            UploadFile({
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ControlellerResponseId: "iptLogo",
             });
         });
     </script>

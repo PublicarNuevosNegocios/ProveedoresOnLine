@@ -7,8 +7,8 @@
     <div class="POBOPTopSearchBar">
         <ul>
             <li>
-                <input class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" />
-                <a class="POBOSearchButtons" href="">Encontrar</a>
+                <input id="divProviderSearch_txtSearch" class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" value="@Request["SearchParam"]" />
+                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null);">Encontrar</a>
             </li>
             <li>
                 <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>
@@ -27,7 +27,20 @@
         </ul>
     </div>
     <div class="POBOPClientListWrapper">
-        <div id="divProviderSearch_Grid"></div>
+        <div id="divProviderSearch"></div>
     </div>
 </div>
 
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Provider_SearchObject.Init({
+                ObjectId: 'divProviderSearch',
+                SearchFilter: '@Request["SearchFilter"]',
+                PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
+            });
+            Provider_SearchObject.RenderAsync();
+        });
+    </script>
+}

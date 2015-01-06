@@ -23,6 +23,110 @@ function Provider_InitUpsertProvider(vInitObject) {
     });
 }
 
+/*Provider search object*/
+var Provider_SearchObject = {
+    ObjectId: '',
+    SearchFilter: '',
+    PageSize: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchFilter = vInitObject.SearchFilter;
+        this.PageSize = vInitObject.PageSize;
+    },
+
+    RenderAsync: function () {
+
+        //init input
+        $('#' + Provider_SearchObject.ObjectId + '_txtSearch').keypress(function (e) {
+            if (e.which == 13) {
+                Provider_SearchObject.SearchEvent(null);
+            }
+        });
+
+
+        //init grid
+        $('#' + Provider_SearchObject.ObjectId).kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: true,
+            scrollable: true,
+            selectable: true,
+            dataSource: {
+                pageSize: Provider_SearchObject.PageSize,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    }
+                },
+                transport: {
+                    read: function (options) {
+
+                        var oSearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearch').val();
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?SMProviderSearch=true&SearchParam=' + oSearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            change: function (arg) {
+                $.map(this.select(), function (item) {
+                    if ($(item).find('td').length >= 2 && $($(item).find('td')[1]).text().length > 0) {
+                        window.location = BaseUrl.SiteUrl + 'Provider/GIProviderUpsert?ProviderPublicId=' + $($(item).find('td')[1]).text().replace(/ /gi, '');
+                    }
+                });
+            },
+            columns: [{
+                field: 'ImageUrl',
+                title: 'Logo',
+                template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
+                width: '50px',
+            }, {
+                field: 'ProviderPublicId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'ProviderName',
+                title: 'Nombre',
+                width: '50px',
+            }, {
+                field: 'ProviderType',
+                title: 'Tipo',
+                width: '50px',
+            }, {
+                field: 'IdentificationType',
+                title: 'Identification',
+                template: '${IdentificationType} ${IdentificationNumber}',
+                width: '50px',
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+            }],
+        });
+    },
+
+    SearchEvent: function (vSearchFilter) {
+        if (vSearchFilter != null) {
+            Provider_SearchObject.SearchFilter = Provider_SearchObject.SearchFilter + ',' + vSearchFilter;
+        }
+        var oSearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearch').val();
+        window.location = BaseUrl.SiteUrl + 'Provider/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Provider_SearchObject.SearchFilter;
+    },
+};
+
 /*CompanyContactObject*/
 var Provider_CompanyContactObject = {
 
@@ -69,7 +173,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' }
-            ],  
+            ],
             dataSource: {
                 schema: {
                     model: {
@@ -1421,6 +1525,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error');
                             },
                         });
                     },
@@ -1434,9 +1539,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error');
                             },
                         });
                     },
@@ -1450,9 +1557,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error');
                             },
                         });
                     },
@@ -2489,6 +2598,9 @@ var Provider_CompanyFinancialObject = {
         if (Provider_CompanyFinancialObject.FinancialType == 501001) {
             Provider_CompanyFinancialObject.RenderBalanceSheet();
         }
+        else if (Provider_CompanyFinancialObject.FinancialType == 501002) {
+            Provider_CompanyFinancialObject.RenderTaxesInfo();
+        }
         else if (Provider_CompanyFinancialObject.FinancialType == 501003) {
             Provider_CompanyFinancialObject.RenderIncomeStatementInfo();
         }
@@ -2727,6 +2839,141 @@ var Provider_CompanyFinancialObject = {
         //Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
         return oReturn;
+    },
+
+    RenderTaxesInfo: function () {
+        $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: 'FinancialId',
+                        fields: {
+                            FinancialId: { editable: false, nullable: true },
+                            FinancialName: { editable: true, validation: { required: true } },
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+
+                            TX_Year: { editable: true, validation: { required: true }, type: "number" },
+                            TX_YearId: { editable: false },
+
+                            TX_TaxFile: { editable: true },
+                            TX_TaxFileId: { edtiable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialUpsert=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'TX_Year',
+                title: 'Año',
+            }, {
+                field: 'TX_TaxFile',
+                title: 'Impuesto',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.TX_TaxFile != null && dataItem.TX_TaxFile.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyFinancialObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyFinancialObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${Url_File}/gi, dataItem.TX_TaxFile);
+
+        return oReturn;
+    },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }],
+        });
     },
 
     RenderIncomeStatementInfo: function () {
@@ -4312,4 +4559,24 @@ var Provider_LegalInfoObject = {
         });
     },
 
+}
+
+function Message(style) {
+    if ($('div.message').length) {
+        $('div.message').remove();
+    }
+
+    var mess = '';
+    if (style == 'error') {
+        mess = 'Hay un error!';
+    }
+    else {
+        mess = 'Se realizó la operación!';
+    }
+
+    $('<div class="message m_' + style + '">' + mess + '</div>').css({
+        top: $(window).scrollTop() + 'px'
+    }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
+        $(this).remove();
+    });
 }

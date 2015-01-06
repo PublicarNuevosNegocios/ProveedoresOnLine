@@ -34,18 +34,5 @@ namespace BackOffice.Models.Provider
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
-
-        public string InscriptionCity { get; set; }
-
-        #region Search Attributes
-
-        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> SPRelatedProviderFilters { get; set; }
-
-        public List<ProviderSearchViewModel> SPProviderResult { get; set; }
-
-        public int SPTotalRows { get; set; }
-
-        #endregion
-
     }
 }
