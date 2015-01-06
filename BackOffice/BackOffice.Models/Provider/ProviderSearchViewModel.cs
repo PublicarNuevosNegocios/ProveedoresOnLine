@@ -17,7 +17,7 @@ namespace BackOffice.Models.Provider
             get
             {
                 return RelatedCompany.CompanyInfo.
-                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderLogo).
+                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
                     Select(x => x.Value).
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();
