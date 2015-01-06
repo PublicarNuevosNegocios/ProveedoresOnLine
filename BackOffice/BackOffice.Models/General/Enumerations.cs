@@ -87,7 +87,7 @@
         ProviderStatus = 203002,
         ProviderPaymentInfo = 203003,
         CertificationDate = 203004,
-        ProviderLogo = 203005,
+        CompanyLogo = 203005,
     }
 
     /// <summary>
@@ -320,6 +320,10 @@
         SH_Year = 502001,
         SH_BalanceSheetFile = 502002,
         SH_Currency = 502003,
+
+        //Taxes
+        TX_Year = 506001,
+        TX_TaxesFile = 506002,
 
         //IncomeStatement Info
         IS_Year = 504001,

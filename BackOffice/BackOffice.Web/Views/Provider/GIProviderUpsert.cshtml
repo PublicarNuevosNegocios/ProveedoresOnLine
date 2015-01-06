@@ -274,7 +274,7 @@
                             CompanyInfoIdAux = Model.RelatedProvider.
                                 RelatedCompany.
                                 CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderLogo).
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
                                 Select(x => x.ItemInfoId).
                                 DefaultIfEmpty(0).
                                 FirstOrDefault();
@@ -282,14 +282,14 @@
                             CompanyInfoValueAux = Model.RelatedProvider.
                                 RelatedCompany.
                                 CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderLogo).
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
                                 Select(x => x.Value).
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
                         }
                     }
                     @Html.Partial(MVC.Shared.Views._F_FileUpload)
-                    <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ProviderLogo).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoIdAux" />
+                    <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoIdAux" />
                     @if (CompanyInfoValueAux != null && CompanyInfoValueAux.Length > 0)
                     {
                         <div>
