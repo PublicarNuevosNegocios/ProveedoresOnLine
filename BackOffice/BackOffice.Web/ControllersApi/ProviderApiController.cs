@@ -1453,6 +1453,31 @@ namespace BackOffice.Web.ControllersApi
 
                     lstUsedFiles.Add(oDataToUpsert.IS_FileIncomeStatement);
                 }
+                else if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.TaxInfoType)
+                {
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.TX_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.TX_YearId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.TX_Year,
+                            },
+                            Value = oDataToUpsert.TX_Year,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.TX_TaxFileId) ? 0 : Convert.ToInt32(oDataToUpsert.TX_TaxFileId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumFinancialInfoType.TX_TaxFile,
+                        },
+                        Value = oDataToUpsert.TX_TaxFile,
+                        Enable = true,
+                    });
+                    lstUsedFiles.Add(oDataToUpsert.TX_TaxFile);
+                }
                 else if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.BankInfoType)
                 {
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()

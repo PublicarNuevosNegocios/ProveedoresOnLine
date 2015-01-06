@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Balances financieros";
+    ViewBag.Title = "Información Financiera";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -13,38 +13,32 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <label class="POBOSectionTitles">Impuestos</label>
-        @{
-            Model.IsForm = false;
-            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-        }
-        <div id="divExperience"></div>
-        <br />
-        @{
-            Model.IsForm = false;
-            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-        }
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Impuestos</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridTaxes"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
     </div>
 </div>
 
-<!--templates-->
+<!--templates by files-->
 <div style="display:none;">
-    <div id="divExperience_NoFile">
+    <div id="divGridTaxes_NoFile">
         <div>
             <span>Seleccione un archivo</span>
         </div>
     </div>
-    <div id="divExperience_File">
+    <div id="divGridTaxes_File">
         <div>
-            <a target="_blank" href="${EX_ExperienceFile}">Ver archivo</a>
-        </div>
-    </div>
-    <div id="divExperience_MultiAC_ItemTemplate">
-        <div>
-            <span>Actividad: ${ActivityName}</span>
-            <span>Tipo: ${ActivityType}</span>
-            <span>Grupo: ${ActivityGroup}</span>
-            <span>Categoria: ${ActivityCategory}</span>
+            <a target="_blank" href="${Url_File}">Ver archivo</a>
         </div>
     </div>
 </div>
@@ -57,13 +51,16 @@
 {
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
+
     @{
-        //get ContactTypeValues
-        string oProviderOptions = "[]";
+
+        //get TaxTypeValues
+        string oTaxesOptionList = "[]";
+
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
-            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionTaxesOption =
                 Model.ProviderOptions.
                 GroupBy(x => x.CatalogId).
                 Select(x =>
@@ -73,22 +70,22 @@
                         ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+            oTaxesOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionTaxesOption.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vProviderOptions = @(Html.Raw(oProviderOptions));
+    var vProviderOptions = @(Html.Raw(oTaxesOptionList));
         $(document).ready(function () {
-            Provider_CompanyCommercialObject.Init({
-                ObjectId: 'divExperience',
+            Provider_CompanyFinancialObject.Init({
+                ObjectId: 'divGridTaxes',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                CommercialType: '@((int)BackOffice.Models.General.enumCommercialType.Experience)',
+                FinancialType: '@((int)BackOffice.Models.General.enumFinancialType.TaxInfoType)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 ProviderOptions: vProviderOptions,
             });
-            Provider_CompanyCommercialObject.RenderAsync();
+            Provider_CompanyFinancialObject.RenderAsync();
         });
     </script>
 }
