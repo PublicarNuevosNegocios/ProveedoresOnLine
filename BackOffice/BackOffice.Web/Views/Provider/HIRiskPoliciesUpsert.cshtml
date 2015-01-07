@@ -133,20 +133,28 @@
 
                                 if (oYear.Length > 0 && oYear != null)
                                 {
-                                    oFatalities += Convert.ToDouble(Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+                                    string oReturn = string.Empty;
+
+                                    oReturn = Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
                                         Select(x => x.Value).
                                         DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault());
+                                        FirstOrDefault();
+                                    
+                                    oFatalities += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
 
-                                    oAccidents += Convert.ToDouble(Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
+                                    oReturn = Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
                                         Select(y => y.Value).
                                         DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault());
+                                        FirstOrDefault();
 
-                                    oHours += Convert.ToDouble(Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
+                                    oAccidents += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
+
+                                    oReturn = Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
                                         Select(z => z.Value).
                                         DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault());
+                                        FirstOrDefault();
+
+                                    oHours += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
                                 }
                             }
 

@@ -333,7 +333,6 @@ namespace ProveedoresOnLine.Company.Controller
                     return true;
                 });
             }
-
             return CompanyToUpsert;
         }
 
@@ -526,6 +525,66 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<CompanyModel> CompanySearch(string CompanyType, string SearchParam, string SearchFilter, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.CompanyDataController.Instance.CompanySearch(CompanyType, SearchParam, SearchFilter, PageNumber, RowCount, out TotalRows);
+        }
+
+        #endregion
+
+        #region Company Index
+
+        public static List<int> InfoTypeRegenerateIndex
+        {
+            get
+            {
+                if (oInfoTypeRegenerateIndex == null)
+                {
+                    oInfoTypeRegenerateIndex = new List<int>() 
+                    { 
+                        //for principal tables first digit of asigned catalogs 2 for company
+                        2,
+                        203002,
+                        203003,
+                        203004,
+                        602007,
+                        702004,
+                        302013,
+                        302014,
+                    };
+                }
+                return oInfoTypeRegenerateIndex;
+            }
+        }
+        private static List<int> oInfoTypeRegenerateIndex;
+
+        public static void CompanyPartialIndex(string CompanyPublicId, List<int> InfoTypeModified)
+        {
+            if (!string.IsNullOrEmpty(CompanyPublicId) &&
+                InfoTypeModified != null &&
+                InfoTypeModified.Count > 0)
+            {
+                bool oDoPartialIndex = InfoTypeRegenerateIndex.Any(x => InfoTypeModified.Any(y => x == y));
+
+                if (oDoPartialIndex)
+                {
+                    LogManager.Models.LogModel oLog = GetGenericLogModel();
+                    try
+                    {
+                        CompanySearchFill(CompanyPublicId);
+                        CompanyFilterFill(CompanyPublicId);
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = CompanyPublicId;
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+                }
+            }
         }
 
         #endregion
