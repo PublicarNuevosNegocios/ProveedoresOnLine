@@ -21,7 +21,7 @@
         <div id="divBalanceSheet"></div>
         <div id="divBalanceSheet_Detail"></div>
         <br />
-        @{
+        @{  
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
@@ -41,62 +41,71 @@
     </div>
 
     <div id="divBalanceSheet_Detail_Form">
-        <div>
-            <form id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
-                <ul>
-                    <li>
-                        <a href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
-                        <a href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
-                    </li>
-                    <li>
-                        <span>Nombre:</span>
-                        <input id="divBalanceSheet_Detail_Form_FinancialName_${FinancialId}" name="FinancialName" type="text" />
-                    </li>
-                    <li>
-                        <span>Año:</span>
-                        <select id="divBalanceSheet_Detail_Form_SH_Year_${FinancialId}" name="SH_Year">
-                            @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
-                            {
-                                <option value="@i">@i</option>
-                            }
-                        </select>
-                        <input id="divBalanceSheet_Detail_Form_SH_YearId_${FinancialId}" name="SH_YearId" type="hidden" />
-                    </li>
-                    <li>
-                        <span>Doc soporte:</span>
-                        <div id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileUpload_${FinancialId}"></div>
-                        <a id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
-                        <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
-                        <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
-                    </li>
-                    <li>
-                        <span>Moneda:</span>
-                        <select id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" name="SH_Currency">
-                            @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
-                            {
-                                <option value="@oItem.ItemId">@oItem.ItemName</option>
-                            }
-                        </select>
-                        <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" name="SH_CurrencyId" type="hidden" />
-                    </li>
-                    <li>
-                        <span>Habilitado:</span>
-                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
-                    </li>
-                    <li id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
 
-                    </li>
-                    <li>
-                        <a href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
-                        <a href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
-                    </li>
-                </ul>
-                <div style="display:none;">
-                    <input name="FinancialId" type="hidden" value="${FinancialId}" />
-                    <input name="UpsertAction" type="hidden" value="true" />
-                </div>
-            </form>
-        </div>
+        <form class="POBOProviderUpsertForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
+            <ul class="POBOProviderActions">
+                <li>
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                </li>
+                <li class="POBOButtonsSaveProvider">
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <label>Nombre:</label>
+                    <input id="divBalanceSheet_Detail_Form_FinancialName_${FinancialId}" name="FinancialName" type="text" />
+                </li>
+                <li>
+                    <label>Año:</label>
+                    <select id="divBalanceSheet_Detail_Form_SH_Year_${FinancialId}" name="SH_Year">
+                        @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                    <input id="divBalanceSheet_Detail_Form_SH_YearId_${FinancialId}" name="SH_YearId" type="hidden" />
+                </li>
+                <li>
+                    <label>Doc soporte:</label>
+                    <div id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileUpload_${FinancialId}"></div>
+                    <a id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
+                    <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
+                    <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
+                </li>
+                <li>
+                    <span>Moneda:</span>
+                    <select id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" name="SH_Currency">
+                        @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
+                        {
+                            <option value="@oItem.ItemId">@oItem.ItemName</option>
+                        }
+                    </select>
+                    <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" name="SH_CurrencyId" type="hidden" />
+                </li>
+                <li>
+                    <span>Habilitado:</span>
+                    <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
+                </li>
+                <li id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
+
+                </li>
+            </ul>
+
+            <ul class="POBOProviderActions">
+                <li>
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                </li>
+                <li class="POBOProgressButtons">
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                </li>
+            </ul>
+
+            <div style="display:none;">
+                <input name="FinancialId" type="hidden" value="${FinancialId}" />
+                <input name="UpsertAction" type="hidden" value="true" />
+            </div>
+        </form>
         <div>
             <iframe></iframe>
         </div>
@@ -111,10 +120,10 @@
         </ul>
     </div>
     <div id="divBalanceSheet_Detail_ChildAccount">
-        <li>
-            <span>${AccountName}</span>
-            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
-        </li>
+            <li>
+                <span>${AccountName}</span>
+                <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+            </li>
     </div>
 </div>
 

@@ -206,3 +206,23 @@ li#F3 {
     margin:0px 0px 0px 58.7%;
     background-color:#ececec;
 }
+/******** FORMULARIO DE CARGA DE BALANCES FINANCIEROS ********/
+
+#divBalanceSheet_Detail {
+    border:1px solid red;
+}
+#divBalanceSheet_Detail form{
+        border:1px solid green;
+}
+#divBalanceSheet_Detail ul{
+        border:1px solid blue;
+}
+#divBalanceSheet_Detail li{
+        border:1px solid brown;
+}
+#divBalanceSheet_Detail a{
+        border:1px solid purple;
+}
+#divBalanceSheet_Detail span{
+        border:1px solid green;
+}
