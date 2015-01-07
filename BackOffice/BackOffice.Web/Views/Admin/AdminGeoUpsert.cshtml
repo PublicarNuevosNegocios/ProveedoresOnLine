@@ -62,11 +62,12 @@
         var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList));        
 
         $(document).ready(function () {
-            Admin_GeolocalizationObject.Init({
+            Admin_CategoryObject.Init({
                 ObjectId: 'divGridGeoInfo',                                                
-                UtilOptions: vAdminGeolInfoOptionList ,                
+                UtilOptions: vAdminGeolInfoOptionList ,   
+                CategoryType: 'AdminGeo',
             });
-            Admin_GeolocalizationObject.RenderAsync();
+            Admin_CategoryObject.RenderAsync();
         });
     </script>
 }
