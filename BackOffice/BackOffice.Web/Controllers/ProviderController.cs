@@ -64,6 +64,11 @@ namespace BackOffice.Web.Controllers
                 //upsert provider
                 CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
 
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 2 };
+                InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(CompanyToUpsert.CompanyPublicId, InfoTypeModified);
+
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
                     Request["StepAction"].ToLower().Trim() == "next" &&
@@ -370,6 +375,17 @@ namespace BackOffice.Web.Controllers
                 //upsert sheet request
                 ProviderToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderToUpsert);
 
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 5 };
+
+                ProviderToUpsert.RelatedBalanceSheet.All(x =>
+                {
+                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                    return true;
+                });
+
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
                     Request["StepAction"].ToLower().Trim() == "next" &&
@@ -596,17 +612,16 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
                     RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
 
-                };
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
@@ -627,16 +642,18 @@ namespace BackOffice.Web.Controllers
                     ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value = reqCities.FirstOrDefault().City.ItemId.ToString()).FirstOrDefault();
                 }
                 //upsert provider
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
+                ProviderToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
 
-                //Reload model
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 6 };
+
+                ProviderToUpsert.RelatedLegal.All(x =>
                 {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
+                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                    return true;
+                });
 
-                };
-                oModel.ProviderMenu = GetProviderMenu(oModel);
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&

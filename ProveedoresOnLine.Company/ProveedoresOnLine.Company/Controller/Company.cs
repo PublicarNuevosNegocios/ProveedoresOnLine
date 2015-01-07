@@ -539,7 +539,12 @@ namespace ProveedoresOnLine.Company.Controller
                 {
                     oInfoTypeRegenerateIndex = new List<int>() 
                     { 
-                        //for principal tables first digit of asigned catalogs 2 for company
+                        //for principal tables first digit of asigned catalogs 
+                        //2 for company
+                        //3 for commercial
+                        //7 for HSEQ
+                        //5 for finantial
+                        //6 for legal
                         2,
                         203002,
                         203003,
