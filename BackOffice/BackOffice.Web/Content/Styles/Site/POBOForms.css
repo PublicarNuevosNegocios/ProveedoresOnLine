@@ -85,35 +85,47 @@ a.POBOSmallCaption {
             height: 34px !important;
         }
         #FileUploadForm div.k-dropzone {
-            padding: 0;
+                border:none;
+            height:auto;
+            margin: 0 !important;
+            padding: 0 !important;
         }
         #FileUploadForm input[type=file] {
             border-radius: 0px;
         }
 /******** ESTE ES EL CONTROL DE CARGA DE ARCHIVOS EN LOS FORMULARIOS ********/
-
-#FileUploadForm ul.k-upload-files, #FileUploadForm ul.k-reset{
-    border-width: 0;
-    height: auto;
-    left:100px;
-    line-height: 36px;
-    margin: 0px;
-    position: absolute;
-    top:0px;
-    width: 66%;
-}
-.k-file, .k-file-error {
-}
-#FileUploadForm .k-upload-status,
-#FileUploadForm .k-upload-status-total {
-
-}
 #FileUploadForm div.k-upload{
-    height: 35px !important;
+        border:none;
+    height: auto !important;
     margin: 0 !important;
-    width: 95% !important;
-    border:0px;
+    padding: 0 !important;
+    width: 100% !important;
 }
+    #FileUploadForm ul.k-upload-files, 
+    #FileUploadForm ul.k-reset{
+            border:none;
+        height: auto;
+        left: 100px;
+        line-height: 30px;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        width: 54%;
+    }
+        #FileUploadForm .k-file,
+        #FileUploadForm .k-file-error {
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        #FileUploadForm .k-upload-status,
+        #FileUploadForm .k-upload-status-total {
+            line-height: 1.1em !important;
+            position: absolute;
+            right: 12px;
+            top: 5px;
+        }
 
 /******* ESTILOS DE LOS CAMPOS ******/
 .POBOProviderUpsertForm ul li select,
@@ -166,7 +178,6 @@ a.POBOSmallCaption {
     padding: 15px 0px 15px 0px;
     /*margin-bottom: 15px;*/
 }
-
     #ReportLITF li {
         width: auto;
         display: inline-block;
