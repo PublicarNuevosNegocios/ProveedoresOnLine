@@ -66,6 +66,10 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
+        public List<Models.Util.GeographyModel> CategorySearchByGeographyFull(int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByGeographyFull(PageNumber, RowCount, out TotalRows);
+        }
 
         public List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
         {
@@ -190,6 +194,5 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
-
     }
 }

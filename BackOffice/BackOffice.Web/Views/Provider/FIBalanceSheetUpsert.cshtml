@@ -71,9 +71,9 @@
                     <label>Doc soporte:</label>
                     <div id="FileUploadForm">
                         <div id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileUpload_${FinancialId}">
-                            <a id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
-                            <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
-                            <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
+                    <a id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
+                    <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
+                    <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
                         </div>
                     </div>
                 </li>
@@ -112,6 +112,9 @@
                 <input name="UpsertAction" type="hidden" value="true" />
             </div>
         </form>
+        <div>
+            <iframe></iframe>
+        </div>
     </div>
     <div id="divBalanceSheet_Detail_ParentAccount">
         <ul>
@@ -123,10 +126,10 @@
         </ul>
     </div>
     <div id="divBalanceSheet_Detail_ChildAccount">
-        <li>
+            <li>
             <label>${AccountName}</label>
-            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
-        </li>
+                <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+            </li>
     </div>
 </div>
 

@@ -204,6 +204,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeographyFull(int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByGeographyFull(PageNumber, RowCount, out TotalRows);
+        }
+
         public static List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByRules(SearchParam, PageNumber, RowCount);

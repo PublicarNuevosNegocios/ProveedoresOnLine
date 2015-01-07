@@ -24,6 +24,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeography(string SearchParam, int? CityId, int PageNumber, int RowCount, out int TotalRows);
 
+        List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByGeographyFull(int PageNumber, int RowCount, out int TotalRows);
+
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount);
