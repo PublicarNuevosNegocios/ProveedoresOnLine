@@ -1141,17 +1141,6 @@ namespace BackOffice.Web.ControllersApi
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_CertificateAffiliateARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_CertificateAffiliateARLId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL
-                            },
-                            Value = oDataToUpsert.CR_CertificateAffiliateARL,
-                            Enable = true,
-                        });
-
-                    oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                        {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_CertificateAccidentARLId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
@@ -1160,6 +1149,8 @@ namespace BackOffice.Web.ControllersApi
                             Value = oDataToUpsert.CR_CertificateAccidentARL,
                             Enable = true,
                         });
+
+                    lstUsedFiles.Add(oDataToUpsert.CR_CertificateAccidentARL);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
