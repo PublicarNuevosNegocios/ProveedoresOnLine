@@ -207,22 +207,66 @@ li#F3 {
     background-color:#ececec;
 }
 /******** FORMULARIO DE CARGA DE BALANCES FINANCIEROS ********/
-
 #divBalanceSheet_Detail {
-    border:1px solid red;
+    margin:12px 0px 0px 0px;
 }
-#divBalanceSheet_Detail form{
-        border:1px solid green;
+/*DATOS GENERALES*/
+.POBOBalanceSheet_mainInfo {
+    margin:-10px 0px 0px 0px !important;
 }
-#divBalanceSheet_Detail ul{
-        border:1px solid blue;
+.POBOBalanceSheet_mainInfo label{
+    font-size:0.9em !important;    
 }
-#divBalanceSheet_Detail li{
-        border:1px solid brown;
+.POBOBalanceSheet_mainInfo li select,
+.POBOBalanceSheet_mainInfo li input,
+.POBOBalanceSheet_mainInfo li input[type="file"],
+.POBOBalanceSheet_mainInfo li input[type="text"]{
+    height: 28px !important;
 }
-#divBalanceSheet_Detail a{
-        border:1px solid purple;
+.POBOProviderActions div#FileUploadForm {
+    margin:3px 0 0;
 }
-#divBalanceSheet_Detail span{
-        border:1px solid green;
+/*DATOS FINANCIEROS*/
+.POBOBalanceSheet_Detail  {
+        border:none;
+    width: 100% !important;    
 }
+    .POBOBalanceSheet_Detail ul{
+            border:none;
+        width:100%;
+    }
+            .POBOBalanceSheet_Detail ul > li > ul{
+                    border-top:1px solid #999;
+                    margin:5px 0 0 0;
+                    padding:5px 0px;
+                }
+            .POBOBalanceSheet_Detail ul > li > ul > li > ul{
+                    border-top:none;
+                    border-bottom:none;
+                    margin:0;
+                }
+        .POBOBalanceSheet_Detail li{
+                border: none;
+            margin: 0 !important;
+            width: 98% !important;
+        }
+.POBOBalanceSheet_Detail label{
+        border:none;
+    font-size:0.9em !important;
+}
+.POBOBalanceSheet_Detail input{
+    height:28px !important;
+}
+.POBOBalanceSheet_Detail span,
+.POBOBalanceSheet_Detail label.ParentAccount{
+    font-weight:bold !important;
+    font-style:italic;    
+    letter-spacing:0.3px;
+}
+    .POBOBalanceSheet_Detail span {
+        font-size:1.3em;
+        color:#727276;
+    }
+    .POBOBalanceSheet_Detail label.ParentAccount {
+        color:inherit;
+    }
