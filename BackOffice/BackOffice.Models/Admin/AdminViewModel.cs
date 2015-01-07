@@ -31,8 +31,6 @@ namespace BackOffice.Models.Admin
             }
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> AdminOptions { get; set; }
-
-        public string InscriptionCity { get; set; }
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> AdminOptions { get; set; }        
     }
 }

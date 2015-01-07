@@ -1,19 +1,21 @@
-﻿var Admin_GeolocalizationObject = {    
+﻿var Admin_CategoryObject = {    
     ObjectId: '',
     AdminOptions: new Array(),
+    CategoryType: '', 
 
     Init: function(vInitObject){
         this.ObjectId = vInitObject.ObjectId;
+        this.CategoryType = vInitObject.CategoryType
         if (vInitObject.UtilOptions != null) {
             $.each(vInitObject.UtilOptions, function (item, value) {
-                Admin_GeolocalizationObject.AdminOptions[value.Key] = value.Value;
+                Admin_CategoryObject.AdminOptions[value.Key] = value.Value;
             });
         }
     },
     
     RenderAsync: function () {
         debugger;
-        $('#' + Admin_GeolocalizationObject.ObjectId).kendoGrid({
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: true,
@@ -36,19 +38,30 @@
                     model: {
                         id: 'GIT_CountryId',
                         fields: {
-                            GIT_Country: { editable: false, nullable: true },
+                            GIT_Country: { editable: true, nullable: false },
                            
-                            AG_City: { editable: true },
-                            AG_CityId: { editable: false },
+                            GIT_CountryDirespCode: { editable: true, nullable: true },
+                            GIT_CountryDirespCodeId: { editable: false},
 
-                            GI_CapitalType: { editable: true },
+                            GIT_CountryType: { editable: true, nullable: true },
+                            GIT_CountryTypeId: { editable: false },
+
+                            AG_City: { editable: true, nullable: false },
+                            AG_CityId: { editable: false},
+
+                            GI_CapitalType: { editable: true, nullable: false },
                             GI_CapitalTypeId: { editable: false },
 
-                            GI_DirespCode: { editable: true },
-                            GI_DirespCodeId: { editable: false },
+                            GI_CityDirespCode: { editable: true, nullable: false },
+                            GI_CityDirespCodeId: { editable: false },
 
-                            GIT_State: { editable: true },
+                            GIT_State: { editable: true, nullable: false },
                             GIT_StateId: { editable: false },
+
+                            GIT_StateDirespCode: { editable: true, nullable: false },
+                            GIT_StateDirespCodeId: { editable: false },
+
+                            Enable: { editable: true, type: 'boolean', defaultValue: true },
                         }
                     }
                 },
@@ -69,7 +82,7 @@
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + 'a' + '&CityId=' + 'a',
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -85,7 +98,7 @@
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + 'a' + '&CityId=' + 'a',
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -101,38 +114,38 @@
                     },
                 },
             },
-            columns: [{
-                field: 'GIT_CountryId',
-                title: 'Id Pais',
-                width: '50px',
-            }, {
+            columns: [ {
                 field: 'GIT_Country',
                 title: 'País',
                 width: '100px',
             }, {
-                field: 'GIT_StateId',
-                title: 'Estado (Dpto.) Id',
-                width: '50px',
+                field: 'GIT_CountryDirespCode',
+                title: 'País DirespCode',
+                width: '100px',
             },{
                 field: 'GIT_State',
                 title: 'Estado (Dpto.)',
                 width: '100px',
-            },{
-                field: 'AG_CityId',
-                title: 'Id Ciudad',
-                width: '50px',
+            }, {
+                field: 'GIT_StateDirespCode',
+                title: 'Estado DirespCode',
+                width: '100px',
             },{
                 field: 'AG_City',
                 title: 'Ciudad',
                 width: '100px',
-            },{
+            }, {
+                field: 'GI_CityDirespCode',
+                title: 'Ciudad DirespCode',
+                width: '100px',
+            }, {
                 field: 'GI_CapitalType',
                 title: 'Tipo de Capital',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.GI_CapitalType != null) {
-                        $.each(Admin_GeolocalizationObject.AdminOptions[107], function (item, value) {
+                        $.each(Admin_CategoryObject.AdminOptions[107], function (item, value) {
                             if (dataItem.GI_CapitalType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
@@ -144,17 +157,17 @@
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Admin_GeolocalizationObject.AdminOptions[107],
+                            dataSource: Admin_CategoryObject.AdminOptions[107],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
                         });
                 },
             },{
-                field: 'GI_DirespCode',
-                title: 'Código Ciudad',
-                width: '100px',
-            }],
+                field: 'Enable',
+                title: 'Enable',
+                width: '50px',
+            },],
         });
     },
 }
