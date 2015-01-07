@@ -555,7 +555,7 @@ namespace ProveedoresOnLine.Company.Controller
         }
         private static List<int> oInfoTypeRegenerateIndex;
 
-        public static void PartialCompanyIndex(string CompanyPublicId, List<int> InfoTypeModified)
+        public static void CompanyPartialIndex(string CompanyPublicId, List<int> InfoTypeModified)
         {
             if (!string.IsNullOrEmpty(CompanyPublicId) &&
                 InfoTypeModified != null &&
