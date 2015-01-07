@@ -43,6 +43,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            CategoryId = CategoryId == 0 ? null : CategoryId;
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCategoryId", CategoryId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCategoryName", CategoryName));
@@ -168,6 +169,118 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public List<GeographyModel> CategorySearchByGeographyFull(int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+                       
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByGeographyFull",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GeographyModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn =
+                     (from g in response.DataTableResult.AsEnumerable()
+                      where !g.IsNull("CityId")
+                      select new GeographyModel()
+                     {
+                         Country = new GenericItemModel()
+                         {
+                             ItemId = g.Field<int>("CountryId"),
+                             ItemName = g.Field<string>("Country"),
+                             ItemInfo =
+                            (from eai in response.DataTableResult.AsEnumerable()
+                             where !eai.IsNull("CountryCatInfoId") 
+                             group eai by new
+                             {
+                                 
+                                 CategoryInfoId = eai.Field<int>("CountryCatInfoId"),
+                                 CategoryInfoType = eai.Field<int>("CountryCatInfoType"),
+                                 Value = eai.Field<string>("CountryCatinfoValue"),
+                                 Enable = eai.Field<UInt64>("CountryCatEnable") == 1 ? true : false,                           
+                             } into eaig
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = eaig.Key.CategoryInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = eaig.Key.CategoryInfoType,
+                                 },
+                                 Value = eaig.Key.Value,
+                                 Enable = Convert.ToBoolean(eaig.Key.Enable),                            
+                             }).ToList(),                             
+                         },
+                         State = new GenericItemModel()
+                         {
+                             ItemId = g.Field<int>("StateId"),
+                             ItemName = g.Field<string>("State"),
+
+                             ItemInfo =
+                            (from eai in response.DataTableResult.AsEnumerable()
+                             where !eai.IsNull("StateCatInfoId")
+                             group eai by new
+                             {
+                                 CategoryInfoId = eai.Field<int>("StateCatInfoId"),
+                                 CategoryInfoType = eai.Field<int>("StateCatInfoType"),
+                                 Value = eai.Field<string>("StateCatInfoValue"),                                 
+                                 Enable = eai.Field<UInt64>("StateCatEnable") == 1 ? true : false,
+                             } into eaig
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = eaig.Key.CategoryInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = eaig.Key.CategoryInfoType,
+                                 },
+                                 Value = eaig.Key.Value,
+                                 Enable = Convert.ToBoolean(eaig.Key.Enable),
+                             }).ToList(),   
+                         },
+                         City = new GenericItemModel() 
+                         {
+                             ItemId = g.Field<int>("CityId"),
+                             ItemName = g.Field<string>("City"),
+
+                             ItemInfo =
+                            (from eai in response.DataTableResult.AsEnumerable()
+                             where !eai.IsNull("CityCatInfoId")
+                             group eai by new
+                             {
+                                 CategoryInfoId = eai.Field<int>("CityCatInfoId"),
+                                 CategoryInfoType = eai.Field<int>("CityCatInfoType"),
+                                 Value = eai.Field<string>("CityCatInfoValue"),                                 
+                                 Enable = eai.Field<UInt64>("CityCatEnable") == 1 ? true : false,
+                             } into eaig
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = eaig.Key.CategoryInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = eaig.Key.CategoryInfoType,
+                                 },
+                                 Value = eaig.Key.Value,
+                                 Enable = Convert.ToBoolean(eaig.Key.Enable),
+                             }).ToList(),   
+                         }                        
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
 
         public List<GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
         {
