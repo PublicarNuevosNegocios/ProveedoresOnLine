@@ -21,7 +21,7 @@
         <div id="divBalanceSheet"></div>
         <div id="divBalanceSheet_Detail"></div>
         <br />
-        @{  
+        @{
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
@@ -120,10 +120,10 @@
         </ul>
     </div>
     <div id="divBalanceSheet_Detail_ChildAccount">
-            <li>
-                <span>${AccountName}</span>
-                <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
-            </li>
+        <li>
+            <span>${AccountName}</span>
+            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+        </li>
     </div>
 </div>
 
