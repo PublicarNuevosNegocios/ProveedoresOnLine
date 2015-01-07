@@ -67,11 +67,12 @@
                                 Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_SocialObject).
                                     Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
 
-                var oCity = Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault();
+                var oCity = Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
 
                 int oTotalRows;
+            
+                var oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(!string.IsNullOrEmpty(oCity) ? oCity : "0"), 0, 0, out oTotalRows);
                 
-                var oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(oCity), 0, 0, out oTotalRows);
 
                 var City = oCities != null ? oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName : string.Empty;
                     
