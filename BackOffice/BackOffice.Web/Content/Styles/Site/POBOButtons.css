@@ -79,15 +79,32 @@
         background-color: #e6e6e6;
         background-image:none;
     }
-    .k-widget .k-upload .k-header {
+    .k-upload {
         background-color: #fff;
         border-radius: 1px;
         padding: 0 0 4px;
+        border-left:0!important;
+        border-right:0!important;
     }
-    .k-grid .k-edit-cell {
-        padding:0px;
+    .k-grid, .k-edit-cell {
+        padding:0px !important;
+        margin: 4px 0 0 7px !important;
     }
-    .k-file .k-file-error{
-        width:95%;
+    .k-file, .k-file-error{
+        width:95% !important;
     }
+        .k-filename {
+            font-size: 0.8em;
+        }
+        button.k-button, .k-button-bare{
+            min-width:0px !important;
+        }
+        .k-button-bare, .k-upload-action {
+            border:none !important;
+        }
+
+
+.k-upload-status .k-button, .k-upload-status .k-warning {
+    vertical-align: middle !important;
+}
 /***********************/

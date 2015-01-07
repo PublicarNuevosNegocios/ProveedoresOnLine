@@ -34,5 +34,7 @@ namespace BackOffice.Models.Provider
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> SearchFilter { get; set; }
     }
 }

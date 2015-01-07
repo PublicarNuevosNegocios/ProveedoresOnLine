@@ -90,6 +90,30 @@ a.POBOSmallCaption {
         #FileUploadForm input[type=file] {
             border-radius: 0px;
         }
+/******** ESTE ES EL CONTROL DE CARGA DE ARCHIVOS EN LOS FORMULARIOS ********/
+
+#FileUploadForm ul.k-upload-files, #FileUploadForm ul.k-reset{
+    border-width: 0;
+    height: auto;
+    left:100px;
+    line-height: 36px;
+    margin: 0px;
+    position: absolute;
+    top:0px;
+    width: 66%;
+}
+.k-file, .k-file-error {
+}
+#FileUploadForm .k-upload-status,
+#FileUploadForm .k-upload-status-total {
+
+}
+#FileUploadForm div.k-upload{
+    height: 35px !important;
+    margin: 0 !important;
+    width: 95% !important;
+    border:0px;
+}
 
 /******* ESTILOS DE LOS CAMPOS ******/
 .POBOProviderUpsertForm ul li select,

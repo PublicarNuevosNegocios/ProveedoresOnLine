@@ -8,6 +8,7 @@
         PersonIdentificationType = 101,
         ActivityInfoType = 102,
         ProductType = 103,
+        FilterTypeBackOffice = 111,
 
         CompanyIdentificationType = 201,
         CompanyType = 202,
