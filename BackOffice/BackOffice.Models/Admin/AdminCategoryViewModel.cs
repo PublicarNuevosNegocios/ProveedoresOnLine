@@ -22,7 +22,17 @@ namespace BackOffice.Models.Admin
         public string GIT_CountryDirespCodeId { get; set; }
 
         public string GIT_CountryType { get; set; }
-        public string GIT_CountryTypeId { get; set; }        
+        public string GIT_CountryTypeId { get; set; }
+
+        public bool GIT_CountryEnable { get; set; }
+               
+        public string GIT_StateId { get; set; }
+        public string GIT_State { get; set; }
+
+        public string GIT_StateDirespCode { get; set; }
+        public string GIT_StateDirespCodeId { get; set; }
+
+        public bool GIT_StateEnable { get; set; }
 
         public string AG_City { get; set; }
         public string AG_CityId { get; set; }
@@ -33,11 +43,7 @@ namespace BackOffice.Models.Admin
         public string GI_CityDirespCode { get; set; }
         public string GI_CityDirespCodeId { get; set; }
 
-        public string GIT_StateId { get; set; }
-        public string GIT_State { get; set; }
-
-        public string GIT_StateDirespCode { get; set; }
-        public string GIT_StateDirespCodeId { get; set; }
+        public bool GI_CityEnable { get; set; }
 
         public int AllTotalRows { get; set; }
         #endregion
@@ -48,6 +54,7 @@ namespace BackOffice.Models.Admin
         {
             #region Geolocalization
 
+            #region Country
             GIT_Country = oRelatedGeoGraphy.Country.ItemName;
             GIT_CountryId = oRelatedGeoGraphy.Country.ItemId.ToString();
 
@@ -75,6 +82,30 @@ namespace BackOffice.Models.Admin
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault() : string.Empty;
 
+            GIT_CountryEnable = oRelatedGeoGraphy.Country.Enable;
+
+            #endregion            
+
+            #region State
+            GIT_State = oRelatedGeoGraphy.State.ItemName;
+            GIT_StateId = oRelatedGeoGraphy.State.ItemId.ToString();
+
+            GIT_StateDirespCode = oRelatedGeoGraphy.State.ItemInfo != null ? oRelatedGeoGraphy.State.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode).
+                            Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
+            GIT_StateDirespCodeId = oRelatedGeoGraphy.State.ItemInfo != null ? oRelatedGeoGraphy.State.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode).
+                            Select(y => y.ItemInfoId.ToString()).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
+            GIT_StateEnable = oRelatedGeoGraphy.State.Enable;
+            #endregion
+
+            #region City
             AG_City = oRelatedGeoGraphy.City.ItemName;
             AG_CityId = oRelatedGeoGraphy.City.ItemId.ToString();
 
@@ -101,21 +132,10 @@ namespace BackOffice.Models.Admin
                              Select(y => y.ItemInfoId.ToString()).
                              DefaultIfEmpty(string.Empty).
                              FirstOrDefault() : string.Empty;
+            
+            GI_CityEnable = oRelatedGeoGraphy.City.Enable;
 
-            GIT_State = oRelatedGeoGraphy.State.ItemName;
-            GIT_StateId = oRelatedGeoGraphy.State.ItemId.ToString();
-
-            GIT_StateDirespCode = oRelatedGeoGraphy.State.ItemInfo != null ? oRelatedGeoGraphy.State.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode).
-                            Select(y => y.Value).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault() : string.Empty;
-
-            GIT_StateDirespCodeId = oRelatedGeoGraphy.State.ItemInfo != null ? oRelatedGeoGraphy.State.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode).
-                            Select(y => y.ItemInfoId.ToString()).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault() : string.Empty;
+            #endregion
 
             #endregion
         }

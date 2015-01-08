@@ -46,6 +46,8 @@
                             GIT_CountryType: { editable: true, nullable: true },
                             GIT_CountryTypeId: { editable: false },
 
+                            GIT_CountryEnable: { editable: true, type: 'boolean', defaultValue: true },
+
                             AG_City: { editable: true, nullable: false },
                             AG_CityId: { editable: false},
 
@@ -55,13 +57,15 @@
                             GI_CityDirespCode: { editable: true, nullable: false },
                             GI_CityDirespCodeId: { editable: false },
 
+                            GI_CityEnable: { editable: true, type: 'boolean', defaultValue: true },
+
                             GIT_State: { editable: true, nullable: false },
                             GIT_StateId: { editable: false },
 
                             GIT_StateDirespCode: { editable: true, nullable: false },
                             GIT_StateDirespCodeId: { editable: false },
 
-                            Enable: { editable: true, type: 'boolean', defaultValue: true },
+                            GIT_StateEnable: { editable: true, type: 'boolean', defaultValue: true },
                         }
                     }
                 },
@@ -123,14 +127,22 @@
                 title: 'País DirespCode',
                 width: '100px',
             },{
+                field: 'GIT_CountryEnable',
+                title: 'Enable Pais',
+                width: '50px',
+            },{
                 field: 'GIT_State',
                 title: 'Estado (Dpto.)',
                 width: '100px',
             }, {
-                field: 'GIT_StateDirespCode',
+                field: 'GIT_StateDirespCode', 
                 title: 'Estado DirespCode',
                 width: '100px',
-            },{
+            }, {
+                field: 'GIT_StateEnable',
+                title: 'Enable Estado (Dpto)',
+                width: '50px',
+            }, {
                 field: 'AG_City',
                 title: 'Ciudad',
                 width: '100px',
@@ -164,8 +176,8 @@
                         });
                 },
             },{
-                field: 'Enable',
-                title: 'Enable',
+                field: 'GI_CityEnable',
+                title: 'Enable Ciudad',
                 width: '50px',
             },],
         });

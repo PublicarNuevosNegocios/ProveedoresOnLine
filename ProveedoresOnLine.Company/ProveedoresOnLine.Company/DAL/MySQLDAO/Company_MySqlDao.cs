@@ -224,10 +224,10 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                   where ginf.Field<int>("CountryId") == gg.Key.CountryId
                                   group ginf by new
                                   {
-                                      CountryInfoId = ginf.Field<int>("CountryInfoId"),
-                                      CountryInfoType = ginf.Field<int>("CountryInfoType"),
-                                      CountryValue = ginf.Field<string>("CountryValue"),
-                                      CountryLargeValue = ginf.Field<string>("CountryLargeValue"),
+                                      CountryInfoId = !ginf.IsNull("CountryInfoId") ? ginf.Field<int>("CountryInfoId") : 0,
+                                      CountryInfoType = !ginf.IsNull("CountryInfoType") ? ginf.Field<int>("CountryInfoType") : 0,
+                                      CountryValue =  !ginf.IsNull("CountryValue") ? ginf.Field<string>("CountryValue") : string.Empty,
+                                      CountryLargeValue = !ginf.IsNull("CountryValue") ? ginf.Field<string>("CountryLargeValue") : string.Empty,
                                   } into gginfg
                                   select new GenericItemInfoModel()
                                   {
@@ -248,8 +248,8 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
                               ItemInfo =
                                  (from ginf in response.DataTableResult.AsEnumerable()
-                                  where !ginf.IsNull("StateId") && 
-                                        ginf.Field<int>("StateId") == gg.Key.CountryId
+                                  where !ginf.IsNull("StateId")
+                                        && ginf.Field<int>("StateId") == gg.Key.StateId
                                   group ginf by new
                                   {
                                       StateInfoId = ginf.Field<int>("StateInfoId"),
@@ -276,8 +276,8 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
                               ItemInfo =
                                  (from ginf in response.DataTableResult.AsEnumerable()
-                                  where !ginf.IsNull("CityId") &&
-                                        ginf.Field<int>("CityId") == gg.Key.CountryId
+                                  where !ginf.IsNull("CityId")
+                                        && ginf.Field<int>("CityId") == gg.Key.CityId
                                   group ginf by new
                                   {
                                       CityInfoId = ginf.Field<int>("CityInfoId"),

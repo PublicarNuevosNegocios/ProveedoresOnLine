@@ -47,16 +47,13 @@ namespace BackOffice.Web.ControllersApi
         public List<AdminCategoryViewModel> GetAllGeography
             (string GetAllGeography, string SearchParam, string CityId, int PageNumber, int RowCount)
         {
-
             List<BackOffice.Models.Admin.AdminCategoryViewModel> oReturn = new List<Models.Admin.AdminCategoryViewModel>();
             if (GetAllGeography == "true")
             {
                 int oTotalCount;
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> Cities =
-                    ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
-                    (string.IsNullOrEmpty(SearchParam) ? null : SearchParam,
-                        string.IsNullOrEmpty(CityId) ? null : (int?)Convert.ToInt32(CityId), PageNumber,
-                        Convert.ToInt32(RowCount), out oTotalCount);
+                    ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyAdmin
+                    (SearchParam, PageNumber, Convert.ToInt32(RowCount), out oTotalCount);
 
                 if (Cities != null)
                 {
@@ -71,9 +68,9 @@ namespace BackOffice.Web.ControllersApi
                 {
                     x.AllTotalRows = oTotalCount;
                     return true;
-                });
+                });                
             }
-            return oReturn.OrderBy(x => x.GIT_Country).ToList();
+            return oReturn;
         }
 
         [HttpPost]
@@ -106,7 +103,7 @@ namespace BackOffice.Web.ControllersApi
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
                        
                         ItemName = oDataToUpsert.GIT_Country,
-                        Enable = oDataToUpsert.Enable,
+                        Enable = oDataToUpsert.GIT_CountryEnable,
                         ItemInfo = new List<GenericItemInfoModel>()
                     };
                 oCountryInfo.Add(new GenericItemInfoModel()
@@ -117,8 +114,21 @@ namespace BackOffice.Web.ControllersApi
                         ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
                     },
                     Value = Convert.ToString((int)BackOffice.Models.General.enumCategoryInfoType.GIT_Country),
-                    Enable = oDataToUpsert.Enable,
+                    Enable = oDataToUpsert.GIT_CountryEnable,
                 });
+
+                oCountryInfo.Add(new GenericItemInfoModel()
+                {
+                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryDirespCodeId.Trim()),
+                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
+                    },
+                    Value = oDataToUpsert.GIT_CountryDirespCode,
+                    Enable = oDataToUpsert.GIT_CountryEnable,
+                });
+
+                oCountryToUpsert.ItemInfo.AddRange(oCountryInfo);
 
                 //City
                 oCityToUpsert = new GenericItemModel()
@@ -126,7 +136,7 @@ namespace BackOffice.Web.ControllersApi
                         ItemId = string.IsNullOrEmpty(oDataToUpsert.AG_CityId) ? 0 : Convert.ToInt32(oDataToUpsert.AG_CityId),
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),                        
                         ItemName = oDataToUpsert.AG_City,
-                        Enable = oDataToUpsert.Enable,
+                        Enable = oDataToUpsert.GI_CityEnable,
                         ItemInfo = new List<GenericItemInfoModel>()
                     };
 
@@ -138,7 +148,7 @@ namespace BackOffice.Web.ControllersApi
                         ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_CapitalType
                     },
                     Value = oDataToUpsert.GI_CapitalType,
-                    Enable = oDataToUpsert.Enable,
+                    Enable = oDataToUpsert.GI_CityEnable,
                 });
 
                 oCityInfo.Add(new GenericItemInfoModel()
@@ -149,7 +159,7 @@ namespace BackOffice.Web.ControllersApi
                         ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
                     },
                     Value = oDataToUpsert.GI_CityDirespCode,
-                    Enable = oDataToUpsert.Enable,
+                    Enable = oDataToUpsert.GI_CityEnable,
                 });
 
                 oCityToUpsert.ItemInfo.AddRange(oCityInfo);
@@ -160,7 +170,7 @@ namespace BackOffice.Web.ControllersApi
                     ItemId = string.IsNullOrEmpty(oDataToUpsert.GIT_StateId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_StateId),
                     ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
                     ItemName = oDataToUpsert.GIT_State,
-                    Enable = oDataToUpsert.Enable,
+                    Enable = oDataToUpsert.GIT_StateEnable,
                     ItemInfo = new List<GenericItemInfoModel>()
                 };
 
@@ -172,13 +182,14 @@ namespace BackOffice.Web.ControllersApi
                         ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
                     },
                     Value = oDataToUpsert.GIT_StateDirespCode,
-                    Enable = oDataToUpsert.Enable,
+                    Enable = oDataToUpsert.GIT_StateEnable,
                 });
 
                 oStateToUpsert.ItemInfo.AddRange(oStateInfo);
 
                 GenericItemModel CountryResult = new GenericItemModel();
                 GenericItemModel StateResult = new GenericItemModel();
+                GenericItemModel CityResult = new GenericItemModel();
 
                 CountryResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCountryToUpsert);
 
@@ -186,8 +197,16 @@ namespace BackOffice.Web.ControllersApi
                 StateResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oStateToUpsert);
 
                 oCityToUpsert.ParentItem = new GenericItemModel(){ItemId = StateResult.ItemId};
-                ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCityToUpsert);
-            }            
+                CityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCityToUpsert);
+
+                GeographyModel oResult = new GeographyModel();
+
+                oResult.Country = CountryResult;
+                oResult.State = StateResult;
+                oResult.City = CityResult;
+
+                oReturn = new AdminCategoryViewModel(oResult);
+            }                       
             return oReturn;
         }
 
