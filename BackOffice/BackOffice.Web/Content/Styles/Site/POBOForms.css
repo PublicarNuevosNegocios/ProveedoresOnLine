@@ -208,7 +208,16 @@ li#F3 {
 }
 /******** FORMULARIO DE CARGA DE BALANCES FINANCIEROS ********/
 #divBalanceSheet_Detail {
-    margin:12px 0px 0px 0px;
+    margin:12px 0px 10px 7px;
+    border:1px solid #c5c5c5;
+}
+.POBOBalanceSheetScrollWrapper {
+    height:350px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    padding:12px 0px;
+    border-bottom: 1px solid #c5c5c5;
+    margin-bottom:4px;
 }
 /*DATOS GENERALES*/
 .POBOBalanceSheet_mainInfo {
@@ -270,3 +279,12 @@ li#F3 {
     .POBOBalanceSheet_Detail label.ParentAccount {
         color:inherit;
     }
+.BalanceSheetActions li{
+    padding:6px !important;
+}
+.BalanceSheetActions a.POBOButtons,
+.BalanceSheetActions a.POBOProgressButtons{
+    font-size: 0.9em;
+    border-radius:2px;
+    padding:6px 25px !important;  
+}
