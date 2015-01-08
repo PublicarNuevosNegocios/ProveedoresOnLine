@@ -115,10 +115,10 @@ namespace ProveedoresOnLine.Company.Test
         public void CategorySearchByGeographyFull()
         {
             int oTotalRows;
-
+             
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
-                ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyFull
-                (0, 5, out oTotalRows);
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyAdmin
+                ("Colo", 0, 5, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 

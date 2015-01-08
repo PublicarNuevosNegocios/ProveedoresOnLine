@@ -170,17 +170,18 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GeographyModel> CategorySearchByGeographyFull(int PageNumber, int RowCount, out int TotalRows)
+        public List<GeographyModel> CategorySearchByGeographyAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
-                       
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "U_Category_SearchByGeographyFull",
+                CommandText = "U_Category_SearchByGeographyAdmin",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -194,88 +195,108 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
                 oReturn =
                      (from g in response.DataTableResult.AsEnumerable()
-                      where !g.IsNull("CityId")
+                      where !g.IsNull("CountryId")
+                      group g by new
+                      {
+                          CountryId = g.Field<int>("CountryId"),
+                          CountryName = g.Field<string>("CountryName"),
+                          CountryEnable = g.Field<UInt64>("CountryEnable") == 1 ? true : false,   
+                        
+                          StateId =  !g.IsNull("StateId") ? g.Field<int>("StateId") : 0,
+                          StateName = !g.IsNull("StateName") ? g.Field<string>("StateName") : string.Empty,
+                          StateEnable = !g.IsNull("StateEnable") ? g.Field<UInt64>("StateEnable") == 1 ? true : false : false,   
+
+                          CityId = !g.IsNull("CityId") ? g.Field<int>("CityId") : 0,
+                          CityName = !g.IsNull("CityName") ? g.Field<string>("CityName") : string.Empty,
+                          CityEnable = !g.IsNull("CityEnable") ? g.Field<UInt64>("CityEnable") == 1 ? true : false : false,   
+
+                      } into gg
                       select new GeographyModel()
-                     {
-                         Country = new GenericItemModel()
-                         {
-                             ItemId = g.Field<int>("CountryId"),
-                             ItemName = g.Field<string>("Country"),
-                             ItemInfo =
-                            (from eai in response.DataTableResult.AsEnumerable()
-                             where !eai.IsNull("CountryCatInfoId") 
-                             group eai by new
-                             {
-                                 
-                                 CategoryInfoId = eai.Field<int>("CountryCatInfoId"),
-                                 CategoryInfoType = eai.Field<int>("CountryCatInfoType"),
-                                 Value = eai.Field<string>("CountryCatinfoValue"),
-                                 Enable = eai.Field<UInt64>("CountryCatEnable") == 1 ? true : false,                           
-                             } into eaig
-                             select new GenericItemInfoModel()
-                             {
-                                 ItemInfoId = eaig.Key.CategoryInfoId,
-                                 ItemInfoType = new CatalogModel()
-                                 {
-                                     ItemId = eaig.Key.CategoryInfoType,
-                                 },
-                                 Value = eaig.Key.Value,
-                                 Enable = Convert.ToBoolean(eaig.Key.Enable),                            
-                             }).ToList(),                             
-                         },
-                         State = new GenericItemModel()
-                         {
-                             ItemId = g.Field<int>("StateId"),
-                             ItemName = g.Field<string>("State"),
+                      {
+                          Country = new GenericItemModel()
+                          {
+                              ItemId = gg.Key.CountryId,
+                              ItemName = gg.Key.CountryName,
+                              Enable = gg.Key.CountryEnable,
 
-                             ItemInfo =
-                            (from eai in response.DataTableResult.AsEnumerable()
-                             where !eai.IsNull("StateCatInfoId")
-                             group eai by new
-                             {
-                                 CategoryInfoId = eai.Field<int>("StateCatInfoId"),
-                                 CategoryInfoType = eai.Field<int>("StateCatInfoType"),
-                                 Value = eai.Field<string>("StateCatInfoValue"),                                 
-                                 Enable = eai.Field<UInt64>("StateCatEnable") == 1 ? true : false,
-                             } into eaig
-                             select new GenericItemInfoModel()
-                             {
-                                 ItemInfoId = eaig.Key.CategoryInfoId,
-                                 ItemInfoType = new CatalogModel()
-                                 {
-                                     ItemId = eaig.Key.CategoryInfoType,
-                                 },
-                                 Value = eaig.Key.Value,
-                                 Enable = Convert.ToBoolean(eaig.Key.Enable),
-                             }).ToList(),   
-                         },
-                         City = new GenericItemModel() 
-                         {
-                             ItemId = g.Field<int>("CityId"),
-                             ItemName = g.Field<string>("City"),
+                              ItemInfo =
+                                 (from ginf in response.DataTableResult.AsEnumerable()
+                                  where ginf.Field<int>("CountryId") == gg.Key.CountryId
+                                  group ginf by new
+                                  {
+                                      CountryInfoId = ginf.Field<int>("CountryInfoId"),
+                                      CountryInfoType = ginf.Field<int>("CountryInfoType"),
+                                      CountryValue = ginf.Field<string>("CountryValue"),
+                                      CountryLargeValue = ginf.Field<string>("CountryLargeValue"),
+                                  } into gginfg
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = gginfg.Key.CountryInfoId,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = gginfg.Key.CountryInfoType,
+                                      },
+                                      Value = gginfg.Key.CountryValue,
+                                      LargeValue = gginfg.Key.CountryLargeValue,
+                                  }).ToList(),
+                          },
+                          State = new GenericItemModel()
+                          {
+                              ItemId = gg.Key.StateId,
+                              ItemName = gg.Key.StateName,
+                              Enable = gg.Key.StateEnable,
 
-                             ItemInfo =
-                            (from eai in response.DataTableResult.AsEnumerable()
-                             where !eai.IsNull("CityCatInfoId")
-                             group eai by new
-                             {
-                                 CategoryInfoId = eai.Field<int>("CityCatInfoId"),
-                                 CategoryInfoType = eai.Field<int>("CityCatInfoType"),
-                                 Value = eai.Field<string>("CityCatInfoValue"),                                 
-                                 Enable = eai.Field<UInt64>("CityCatEnable") == 1 ? true : false,
-                             } into eaig
-                             select new GenericItemInfoModel()
-                             {
-                                 ItemInfoId = eaig.Key.CategoryInfoId,
-                                 ItemInfoType = new CatalogModel()
-                                 {
-                                     ItemId = eaig.Key.CategoryInfoType,
-                                 },
-                                 Value = eaig.Key.Value,
-                                 Enable = Convert.ToBoolean(eaig.Key.Enable),
-                             }).ToList(),   
-                         }                        
-                     }).ToList();
+                              ItemInfo =
+                                 (from ginf in response.DataTableResult.AsEnumerable()
+                                  where !ginf.IsNull("StateId") && 
+                                        ginf.Field<int>("StateId") == gg.Key.CountryId
+                                  group ginf by new
+                                  {
+                                      StateInfoId = ginf.Field<int>("StateInfoId"),
+                                      StateInfoType = ginf.Field<int>("StateInfoType"),
+                                      StateValue = ginf.Field<string>("StateValue"),
+                                      StateLargeValue = ginf.Field<string>("StateLargeValue"),
+                                  } into gginfg
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = gginfg.Key.StateInfoId,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = gginfg.Key.StateInfoType,
+                                      },
+                                      Value = gginfg.Key.StateValue,
+                                      LargeValue = gginfg.Key.StateLargeValue,
+                                  }).ToList(),
+                          },
+                          City = new GenericItemModel()
+                          {
+                              ItemId = gg.Key.CityId,
+                              ItemName = gg.Key.CityName,
+                              Enable = gg.Key.CityEnable,
+
+                              ItemInfo =
+                                 (from ginf in response.DataTableResult.AsEnumerable()
+                                  where !ginf.IsNull("CityId") &&
+                                        ginf.Field<int>("CityId") == gg.Key.CountryId
+                                  group ginf by new
+                                  {
+                                      CityInfoId = ginf.Field<int>("CityInfoId"),
+                                      CityInfoType = ginf.Field<int>("CityInfoType"),
+                                      CityValue = ginf.Field<string>("CityValue"),
+                                      CityLargeValue = ginf.Field<string>("CityLargeValue"),
+                                  } into gginfg
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = gginfg.Key.CityInfoId,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = gginfg.Key.CityInfoType,
+                                      },
+                                      Value = gginfg.Key.CityValue,
+                                      LargeValue = gginfg.Key.CityLargeValue,
+                                  }).ToList(),
+                          },
+                      }).ToList();
             }
 
             return oReturn;
