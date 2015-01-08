@@ -66,9 +66,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
-        public List<Models.Util.GeographyModel> CategorySearchByGeographyFull(int PageNumber, int RowCount, out int TotalRows)
+        public List<Models.Util.GeographyModel> CategorySearchByGeographyAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.CategorySearchByGeographyFull(PageNumber, RowCount, out TotalRows);
+            return DataFactory.CategorySearchByGeographyAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
         }
 
         public List<Models.Util.GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
