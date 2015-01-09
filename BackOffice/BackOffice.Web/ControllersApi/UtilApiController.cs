@@ -255,6 +255,52 @@ namespace BackOffice.Web.ControllersApi
                     BankResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(11, oBankToUpsert);
                 }
                 #endregion
+
+                #region CompanyRules
+
+                if (CategoryType == "AdminCompanyRules")
+                {
+                    GenericItemModel oCompanyRulesToUpsert = new GenericItemModel();
+
+                    oCompanyRulesToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.CR_CompanyRuleId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_CompanyRuleId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.CR_CompanyRule,
+                        Enable = oDataToUpsert.CR_CompanyRuleEnable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
+
+                    GenericItemModel CompanyRuleResult = new GenericItemModel();
+
+                    CompanyRuleResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(2, oCompanyRulesToUpsert);
+                }
+
+                #endregion
+
+                #region Rules
+
+                if (CategoryType == "AdminRules")
+                {
+                    GenericItemModel oRulesToUpsert = new GenericItemModel();
+
+                    oRulesToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.R_RuleId) ? 0 : Convert.ToInt32(oDataToUpsert.R_RuleId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.R_Rule,
+                        Enable = oDataToUpsert.R_RuleEnable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
+
+                    GenericItemModel RuleResult = new GenericItemModel();
+
+                    RuleResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(3, oRulesToUpsert);
+                }
+
+                #endregion
             }
             return oReturn;
         }

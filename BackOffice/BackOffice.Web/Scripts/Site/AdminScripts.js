@@ -493,8 +493,13 @@
         });
     },
 
-    RenderCompanyRulesAsync: function () {
+    RenderCompanyRulesAsync: function (param) {
+        if (param != true) {
             var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -503,7 +508,9 @@
             toolbar:
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }, ],
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderCompanyRulesAsync(" + "true" + ");'>Buscar</a" }],
             dataSource: {
                 pageSize: 20,
                 serverPaging: true,
@@ -581,8 +588,13 @@
         });
     },
 
-    RenderRulesAsync: function () {
-        var vSearchParam = '';
+    RenderRulesAsync: function (param) {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -591,7 +603,9 @@
             toolbar:
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }, ],
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderRulesAsync(" + "true" + ");'>Buscar</a" }],
             dataSource: {
                 pageSize: 20,
                 serverPaging: true,
