@@ -412,6 +412,7 @@
     <Content Include="Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Content\Styles\Site\POBOAdmin.css" />
     <Content Include="Content\Styles\Site\POBOButtons.css" />
     <Content Include="Content\Styles\Site\POBOCustomer.css" />
     <Content Include="Content\Styles\Site\POBODialogs.css" />

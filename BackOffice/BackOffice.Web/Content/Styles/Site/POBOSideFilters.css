@@ -52,4 +52,8 @@
                 }
                 span.POBOFilterText {
                     width:240px !important;
+                    margin: 0 0 0 -5px !important;
                 }
+                    .AdminRolesHeader {
+                        display:none;
+                    }
