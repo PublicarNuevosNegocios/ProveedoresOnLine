@@ -63,7 +63,7 @@
                         <label>Doc soporte:</label>
                         <div id="FileUploadForm">
                             <div id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileUpload_${FinancialId}">
-                                <a id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
+                                <a class="POBOBalanceSheetFile" id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
                                 <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
                                 <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
                             </div>
@@ -85,10 +85,13 @@
                     </li>
                 </ul>
                 @*AQUI SE INSERTAN LOS CAMPOS DE DATOS FINANCIEROS*@
-                <ul>
+                <ul class="POBOBalanceSheet_DetailWrapper">
                     <li class="POBOBalanceSheet_Detail" id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
                     </li>
                 </ul>
+                <div class="POBOBalanceSheet_DocPreview">
+                    <iframe></iframe>
+                </div>
             </div>
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
             <ul class="POBOProviderActions BalanceSheetActions">
@@ -113,10 +116,7 @@
                 <input name="FinancialId" type="hidden" value="${FinancialId}" />
                 <input name="UpsertAction" type="hidden" value="true" />
             </div>
-        </form>
-        <div>
-            <iframe></iframe>
-        </div>
+        </form>        
     </div>
     <div id="divBalanceSheet_Detail_ParentAccount">
         <ul>
@@ -129,7 +129,7 @@
     </div>
     <div id="divBalanceSheet_Detail_ChildAccount">
             <li>
-            <label>${AccountName}</label>
+                <label>${AccountName}</label>
                 <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
             </li>
     </div>
