@@ -77,6 +77,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminUserUpsert = "AdminUserUpsert";
             public readonly string AdminGeoUpsert = "AdminGeoUpsert";
             public readonly string AdminBankUpsert = "AdminBankUpsert";
+            public readonly string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -86,6 +87,7 @@ namespace BackOffice.Web.Controllers
             public const string AdminUserUpsert = "AdminUserUpsert";
             public const string AdminGeoUpsert = "AdminGeoUpsert";
             public const string AdminBankUpsert = "AdminBankUpsert";
+            public const string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
         }
 
 
@@ -100,11 +102,13 @@ namespace BackOffice.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string AdminBankUpsert = "AdminBankUpsert";
+                public readonly string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
             }
             public readonly string AdminBankUpsert = "~/Views/Admin/AdminBankUpsert.cshtml";
+            public readonly string AdminCompanyRulesUpsert = "~/Views/Admin/AdminCompanyRulesUpsert.cshtml";
             public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
@@ -157,6 +161,17 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminBankUpsert);
             AdminBankUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminCompanyRulesUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminCompanyRulesUpsert()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminCompanyRulesUpsert);
+            AdminCompanyRulesUpsertOverride(callInfo);
             return callInfo;
         }
 

@@ -17,6 +17,9 @@
         if (Admin_CategoryObject.CategoryType == "AdminGeo") {
             Admin_CategoryObject.RenderGeoAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminCompanyRules") {
+            Admin_CategoryObject.RenderRulesAsync();
+        }
     },
 
     RenderGeoAsync: function (param) {
@@ -259,6 +262,10 @@
                 width: '50px',
             }, ],
         });
+    },
+
+    RenderRulesAsync: function (param){
+        
     },
 
     RenderBankAsync: function ()
