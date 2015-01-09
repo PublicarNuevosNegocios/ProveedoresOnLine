@@ -249,6 +249,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByBank(SearchParam, PageNumber, RowCount);
         }
 
+        public static List<GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByBankAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public static List<Models.Util.GenericItemModel> CategoryGetFinantialAccounts()
         {
             return DAL.Controller.CompanyDataController.Instance.CategoryGetFinantialAccounts();

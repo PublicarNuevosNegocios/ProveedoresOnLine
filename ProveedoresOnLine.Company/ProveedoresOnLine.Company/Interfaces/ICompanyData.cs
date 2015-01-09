@@ -42,6 +42,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount);
 
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategoryGetFinantialAccounts();
 
         List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> CurrencyExchangeGetByMoneyType(int? MoneyTypeFrom, int? MoneyTypeTo, int? Year);
