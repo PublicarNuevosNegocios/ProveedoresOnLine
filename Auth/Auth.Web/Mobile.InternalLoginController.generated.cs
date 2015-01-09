@@ -57,6 +57,12 @@ namespace Auth.Web.Areas.Mobile.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public InternalLoginController Actions { get { return MVC.Mobile.InternalLogin; } }
@@ -74,15 +80,27 @@ namespace Auth.Web.Areas.Mobile.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string oauth2callback = "oauth2callback";
+            public readonly string oobActionUrl = "oobActionUrl";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string oauth2callback = "oauth2callback";
+            public const string oobActionUrl = "oobActionUrl";
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string UrlRetorno = "UrlRetorno";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -105,13 +123,36 @@ namespace Auth.Web.Areas.Mobile.Controllers
         public T4MVC_InternalLoginController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string UrlRetorno);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(string UrlRetorno)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "UrlRetorno", UrlRetorno);
+            IndexOverride(callInfo, UrlRetorno);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void oauth2callbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult oauth2callback()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.oauth2callback);
+            oauth2callbackOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void oobActionUrlOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult oobActionUrl()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.oobActionUrl);
+            oobActionUrlOverride(callInfo);
             return callInfo;
         }
 

@@ -14,6 +14,10 @@
     </key>
 
     <!--Internal Login-->
+    <key name="IL_local_Enabled">true</key>
+    <key name="IL_local_ApiKey">AIzaSyDAX1BrSL8YIN16DsMEiGINLlvv2xuirV4</key>
+    <key name="IL_local_ApiName">App local</key>
+    <key name="IL_local_Cookie">GitKitCookie</key>
 
     <!--Facebook-->
     <key name="FB_local_Enabled">true</key>

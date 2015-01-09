@@ -11,6 +11,11 @@
 
         public const string C_AppConfig = "AppConfig";
 
+        public const string C_IL_Enabled = "IL_{AppName}_Enabled";
+        public const string C_IL_ApiKey = "IL_{AppName}_ApiKey";
+        public const string C_IL_ApiName = "IL_{AppName}_ApiName";
+        public const string C_IL_Cookie = "IL_{AppName}_Cookie";
+
         public const string C_FB_Enabled = "FB_{AppName}_Enabled";
         public const string C_FB_AppId = "FB_{AppName}_AppId";
         public const string C_FB_AppSecret = "FB_{AppName}_AppSecret";
