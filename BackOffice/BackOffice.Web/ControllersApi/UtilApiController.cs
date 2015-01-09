@@ -369,6 +369,43 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByBankAdmin
+            (string CategorySearchByBankAdmin, string SearchParam, int PageNumber, int RowCount, string IsAutoComplete)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBanks =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
 
+            int oTotalCount = 0;
+            if (CategorySearchByBankAdmin == "true")
+            {
+                oBanks = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBankAdmin
+                    (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oBanks != null)
+            {
+                oBanks.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });                
+            }
+            if (IsAutoComplete == "true")
+            {
+                oReturn = oReturn.Where(x => x.B_Bank.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList();
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }         
+            return oReturn;
+        }
     }
 }

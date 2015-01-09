@@ -302,6 +302,67 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
+
+            lstparams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstparams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstparams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByBankAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstparams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+            if (response.DataTableResult != null &&
+               response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                   (from b in response.DataTableResult.AsEnumerable()
+                    where !b.IsNull("BankId")
+                    group b by new
+                      {
+                          BankId = b.Field<int>("BankId"),
+                          BankName = b.Field<string>("BankName"),
+                          BankEnable = b.Field<UInt64>("BankEnable") == 1 ? true : false,   
+                      } into bg
+                       select new GenericItemModel()
+                      {
+                            ItemId = bg.Key.BankId,
+                            ItemName = bg.Key.BankName,
+                            Enable = bg.Key.BankEnable,
+
+                            ItemInfo =
+                            (from binf in response.DataTableResult.AsEnumerable()
+                                where !binf.IsNull("BankId")
+                                    && binf.Field<int>("BankId") == bg.Key.BankId
+                                group binf by new
+                                {
+                                    CityId = binf.Field<int>("CityId"),
+                                    CityName = binf.Field<string>("CityName"),                                   
+                                    CityType = binf.Field<int>("CityType"),   
+                                } into bginfg
+                                select new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = bginfg.Key.CityId,
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = bginfg.Key.CityType,                                        
+                                    },
+                                    Value = bginfg.Key.CityName,                                    
+                                }).ToList(),                    
+                      }).ToList();
+            }
+            return oReturn;
+        }
 
         public List<GenericItemModel> CategorySearchByRules(string SearchParam, int PageNumber, int RowCount)
         {
@@ -372,6 +433,51 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          LastModify = g.Field<DateTime>("CompanyRulesModify"),
                          CreateDate = g.Field<DateTime>("CompanyRulesCreate"),
                      }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<GenericItemModel> CategorySearchByCompanyRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByCompanyRulesAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (true)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from cr in response.DataTableResult.AsEnumerable()
+                           where (!cr.IsNull("CompanyRuleId"))
+                           group cr by new
+                           {
+                               CompanyRuleId = cr.Field<int>("CompanyRuleId"),
+                               CompanyRuleName = cr.Field<string>("CompanyRuleName"),
+                               CompanyRuleEnable = cr.Field<UInt64>("CompanyRuleEnable") == 1 ? true : false,
+                               CompanyRuleCreate = cr.Field<DateTime>("CompanyRuleCreate"),
+                               CompanyRuleModify = cr.Field<DateTime>("CompanyRuleModify"),
+                           } into crr
+                           select new GenericItemModel()
+                           {
+                               ItemId = crr.Key.CompanyRuleId,
+                               ItemName = crr.Key.CompanyRuleName,
+                               Enable = crr.Key.CompanyRuleEnable,
+                               CreateDate = crr.Key.CompanyRuleCreate,
+                               LastModify = crr.Key.CompanyRuleModify,
+                           }).ToList();
             }
 
             return oReturn;

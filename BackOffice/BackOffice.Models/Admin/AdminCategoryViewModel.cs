@@ -48,6 +48,17 @@ namespace BackOffice.Models.Admin
         public int AllTotalRows { get; set; }
         #endregion
 
+        #region Banks
+
+        public string B_Bank { get; set; }
+        public string B_BankId { get; set; }
+        public bool B_BankEnable { get; set; }
+        
+        public string B_CityId { get; set; }
+        public string B_City { get; set; }
+
+        #endregion
+
         public AdminCategoryViewModel() { }
 
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GeographyModel oRelatedGeoGraphy)
@@ -136,6 +147,29 @@ namespace BackOffice.Models.Admin
             GI_CityEnable = oRelatedGeoGraphy.City.Enable;
 
             #endregion
+
+            #endregion
+        }
+
+        public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oCategory)
+        {
+            #region Banks
+
+            B_Bank = oCategory.ItemName;
+            B_BankId = oCategory.ItemId.ToString();
+            B_BankEnable = oCategory.Enable;
+
+            B_City = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null).
+                            Select(y => y.Value.ToString()).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
+            B_CityId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null).
+                            Select(y => y.ItemInfoId.ToString()).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
 
             #endregion
         }

@@ -30,6 +30,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount);
 
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByCompanyRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount);
@@ -39,6 +41,8 @@ namespace ProveedoresOnLine.Company.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByARLCompany(string SearchParam, int PageNumber, int RowCount);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategoryGetFinantialAccounts();
 

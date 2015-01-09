@@ -1038,6 +1038,7 @@
     <Content Include="Views\Admin\AdminGeoUpsert.cshtml" />
     <Content Include="Views\Shared\_P_ProviderFilter.cshtml" />
     <Content Include="Views\Admin\AdminBankUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminCompanyRulesUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

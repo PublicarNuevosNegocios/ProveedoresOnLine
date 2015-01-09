@@ -219,6 +219,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByCompanyRules(SearchParam, PageNumber, RowCount);
         }
 
+        public static List<Models.Util.GenericItemModel> CategorySearchByCompanyRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByCompanyRulesAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public static List<Models.Util.GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByResolution(SearchParam, PageNumber, RowCount);
@@ -242,6 +247,11 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByBank(SearchParam, PageNumber, RowCount);
+        }
+
+        public static List<GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByBankAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
         }
 
         public static List<Models.Util.GenericItemModel> CategoryGetFinantialAccounts()

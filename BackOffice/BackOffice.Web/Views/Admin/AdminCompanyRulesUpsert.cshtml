@@ -1,11 +1,10 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Bancos";
+    ViewBag.Title = "Empresas Certificadoras";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
-    Model.RenderScripts = false;
 }
+
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
@@ -14,12 +13,12 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de Bancos</label>
+            <label class="POBOSectionTitles">Administración de Empresas Certificadoras</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
-            <div id="divGridBankInfo"></div>
+            <div id="divGridCompanyRulesInfo"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -28,7 +27,6 @@
         </div>
     </div>
 </div>
-
 
 @{
     Model.RenderScripts = true;
@@ -39,37 +37,37 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
 
     @{
-        //ger CertificationTypeValues
-        string oAdminBankInfoOptionList = "[]";
-        if (Model.ProviderOptions != null &&
+
+        //ger CompanyRulesTypeValues
+        string oAdminCompanyRulesInfoOptionList = "[]";
+        if (Model.ProviderOptions != null && 
             Model.ProviderOptions.Count > 0)
         {
-            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionAdminGeo =
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionAdminRules =
                 Model.ProviderOptions.
                 GroupBy(x => x.CatalogId).
                 Select(x =>
-                    new
-                    {
-                        okey = x.Key,
-                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
-                    }).ToDictionary(k => k.okey, v => v.ovalue);
+                new
+                {
+                    okey = x.Key,
+                    ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oAdminBankInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                Serialize(oOptionAdminGeo.Select(x => new { Key = x.Key, Value = x.Value }));
+            oAdminCompanyRulesInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionAdminRules.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
 
     <script type="text/javascript">
-        var vAdminBanklInfoOptionList = @(Html.Raw(oAdminBankInfoOptionList));
+        var vAdminCompanyRulesInfoOptionList = @(Html.Raw(oAdminCompanyRulesInfoOptionList));
 
         $(document).ready(function () {
             Admin_CategoryObject.Init({
-                ObjectId: 'divGridBankInfo',
-                UtilOptions: vAdminBanklInfoOptionList ,
-                CategoryType: 'AdminBank',
+                ObjectId: 'divGridCompanyRulesInfo',
+                UtilOptions: vAdminCompanyRulesInfoOptionList ,
+                CategoryType: 'AdminCompanyRules',
             });
             Admin_CategoryObject.RenderAsync();
         });
     </script>
 }
-
