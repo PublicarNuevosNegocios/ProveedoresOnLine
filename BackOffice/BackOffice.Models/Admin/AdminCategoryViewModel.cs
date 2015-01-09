@@ -69,6 +69,16 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        #region Rules
+
+        public string R_Rule { get; set; }
+        public string R_RuleId { get; set; }
+        public bool R_RuleEnable { get; set; }
+        public string R_RuleCreate { get; set; }
+        public string R_RuleModify { get; set; }
+
+        #endregion
+
         public AdminCategoryViewModel() { }
 
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GeographyModel oRelatedGeoGraphy)
@@ -192,6 +202,17 @@ namespace BackOffice.Models.Admin
             CR_CompanyRuleModify = oCategory.LastModify.ToString();
 
             #endregion
+
+            #region Rules
+
+            R_Rule = oCategory.ItemName;
+            R_RuleId = oCategory.ItemId.ToString();
+            R_RuleEnable = oCategory.Enable;
+            R_RuleCreate = oCategory.CreateDate.ToString();
+            R_RuleModify = oCategory.LastModify.ToString();
+
+            #endregion
         }
     }
 }
+

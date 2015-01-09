@@ -13,7 +13,7 @@
         }
     },
 
-    RenderAsync: function(){
+    RenderAsync: function () {
         if (Admin_CategoryObject.CategoryType == "AdminGeo") {
             Admin_CategoryObject.RenderGeoAsync();
         }
@@ -21,6 +21,9 @@
             Admin_CategoryObject.RenderBankAsync();
         }
         else if (Admin_CategoryObject.CategoryType == "AdminCompanyRules") {
+            Admin_CategoryObject.RenderCompanyRulesAsync();
+        }
+        else if (Admin_CategoryObject.CategoryType == "AdminRules") {
             Admin_CategoryObject.RenderRulesAsync();
         }
     },
@@ -169,10 +172,10 @@
                     input.kendoAutoComplete({
                         dataTextField: 'GIT_Country',
                         
-                        change: function (e) {
+                        change: function (e) {                            
                             if (isSelected == false) {
-                                options.model['GIT_CountryId'] = 0;
-                                options.model['GIT_Country'] = e.sender._old;
+                            options.model['GIT_CountryId'] = 0;
+                            options.model['GIT_Country'] = e.sender._old;
                             }                            
                         },
 
@@ -393,11 +396,11 @@
                         change: function (e) {
                             debugger;
                             if (isSelected == false) {
-                                options.model['B_BankId'] = 0;
-                                options.model['B_Bank'] = e.sender._old;
+                            options.model['B_BankId'] = 0;
+                            options.model['B_Bank'] = e.sender._old;
                             }                            
                         },
-                        select: function (e) {
+                        select: function (e) {                            
                             debugger;
                             var selectedItem = this.dataItem(e.item.index());
 
@@ -499,14 +502,8 @@
         });
     },
 
-    RenderRulesAsync: function ()
-    {
-        if (param != true) {
+    RenderCompanyRulesAsync: function () {
             var vSearchParam = '';
-        }
-        else {
-            var vSearchParam = $('#SearchBoxId').val();
-        }
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -531,6 +528,94 @@
                         fields: {
                             CR_CompanyRule: { editable: true, nullable: false },
                             CR_CompanyRuleEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByCompanyRulesAdmin=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'CR_CompanyRule',
+                title: 'Empresa Certificadora',
+                width: '150px',
+            }, {
+                field: 'CR_CompanyRuleEnable',
+                title: 'Habilitado',
+                width: '50px',
+            }, ],
+        });
+    },
+
+    RenderRulesAsync: function () {
+        var vSearchParam = '';
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }, ],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'R_RuleId',
+                        fields: {
+                            R_Rule: { editable: true, nullable: false },
+                            R_RuleEnable: { editable: true, type: 'boolean', defaultValue: true },
                         }
                     }
                 },
@@ -582,11 +667,11 @@
                 },
             },
             columns: [{
-                field: 'CR_CompanyRule',
-                title: 'Empresa Certificadora',
+                field: 'R_Rule',
+                title: 'Certificado',
                 width: '150px',
             }, {
-                field: 'CR_CompanyRuleEnable',
+                field: 'R_RuleEnable',
                 title: 'Habilitado',
                 width: '50px',
             }, ],

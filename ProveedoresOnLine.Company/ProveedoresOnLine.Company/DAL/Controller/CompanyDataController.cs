@@ -77,6 +77,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByRules(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchByRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByRulesAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public List<Models.Util.GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
         {
             return DataFactory.CategorySearchByCompanyRules(SearchParam, PageNumber, RowCount);
