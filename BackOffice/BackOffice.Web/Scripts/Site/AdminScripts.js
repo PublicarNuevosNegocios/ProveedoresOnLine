@@ -29,13 +29,13 @@
     },
 
     RenderGeoAsync: function (param) {
-
-        if (param != true) {
+       
+        if (param != true) {            
             var vSearchParam = '';
         }
         else {
             var vSearchParam = $('#SearchBoxId').val();
-        }
+        }        
 
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
@@ -44,13 +44,13 @@
             scrollable: true,
             toolbar:
                 [
-
+                    
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
                 { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderGeoAsync(" + "true" + ");'>Buscar</a" }
-                ],
+            ],            
             dataSource: {
                 pageSize: 20,
                 serverPaging: true,
@@ -170,15 +170,13 @@
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'GIT_Country',
-
+                        
                         change: function (e) {
-                            debugger;
                             options.model['GIT_CountryId'] = 0;
                             options.model['GIT_Country'] = e.sender._old;
                         },
 
                         select: function (e) {
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['GIT_CountryId'] = selectedItem.GIT_CountryId;
@@ -270,7 +268,8 @@
         });
     },
 
-    RenderBankAsync: function () {
+    RenderBankAsync: function (param)
+    {
         if (param != true) {
             var vSearchParam = '';
         }
@@ -285,7 +284,9 @@
             toolbar:
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }, ],
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderBankAsync(" + "true" + ");'>Buscar</a" }],
             dataSource: {
                 pageSize: 20,
                 serverPaging: true,
@@ -299,9 +300,12 @@
                     model: {
                         id: 'B_BankId',
                         fields: {
-                            B_Bank: { editable: true, nullable: false },
+                            GIT_Country: { editable: true, nullable: false },
+                            GIT_CountryId: { editable: true, nullable: false },
 
-                            B_City: { editable: true, nullable: true },
+                            B_Bank: { editable: true, nullable: false, validation: { required: true } },
+
+                            B_City: { editable: true, nullable: false },
                             B_CityId: { editable: false },
 
                             B_BankEnable: { editable: true, type: 'boolean', defaultValue: true },
@@ -382,7 +386,7 @@
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'B_Bank',
+                        dataTextField: 'ItemName',
 
                         change: function (e) {
                             debugger;
@@ -391,11 +395,10 @@
                         },
 
                         select: function (e) {
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model['B_BankId'] = selectedItem.ItemName;
-                            options.model['B_Bank'] = selectedItem.ItemId;
+                            options.model['B_BankId'] = selectedItem.ItemId;
+                            options.model['B_Bank'] = selectedItem.ItemName;
 
                             //enable made changes
                             options.model.dirty = true;
@@ -424,8 +427,64 @@
                 },
             }, {
                 field: 'B_City',
-                title: 'Ciudad',
+                title: 'País',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.B_City != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.B_City;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'GIT_Country',
+
+                        select: function (e) {
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model['B_CityId'] = selectedItem.GIT_CountryId;
+                            options.model['B_City'] = selectedItem.GIT_Country;
+
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {                                    
+                                    $.ajax({
+                                        //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'B_BankEnable',
                 title: 'Enable',
@@ -435,7 +494,7 @@
     },
 
     RenderCompanyRulesAsync: function () {
-        var vSearchParam = '';
+            var vSearchParam = '';
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
