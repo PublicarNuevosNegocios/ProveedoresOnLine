@@ -157,7 +157,7 @@ namespace ProveedoresOnLine.Company.Test
             int oTotalRows;
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByRulesAdmin
-                ("is", 0, 5, out oTotalRows);
+                ("", 0, 5, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 

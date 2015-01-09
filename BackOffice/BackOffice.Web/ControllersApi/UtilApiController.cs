@@ -410,6 +410,42 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByCompanyRulesAdmin
+            (string CategorySearchByCompanyRulesAdmin, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRules =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByCompanyRulesAdmin == "true")
+            {
+                oCompanyRules = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRulesAdmin
+                            (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oCompanyRules != null)
+            {
+                oCompanyRules.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
         public List<AdminCategoryViewModel> CategorySearchByRulesAdmin
             (string CategorySearchByRulesAdmin, string SearchParam, int PageNumber, int RowCount)
         {
@@ -420,7 +456,7 @@ namespace BackOffice.Web.ControllersApi
             int oTotalCount = 0;
             if (CategorySearchByRulesAdmin == "true")
             {
-                oRules = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRulesAdmin
+                oRules = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRulesAdmin
                             (SearchParam, PageNumber, RowCount, out oTotalCount);
             }
 
