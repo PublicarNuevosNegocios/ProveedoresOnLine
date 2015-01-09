@@ -20,6 +20,9 @@
         else if (Admin_CategoryObject.CategoryType == "AdminBank") {
             Admin_CategoryObject.RenderBankAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminCompanyRules") {
+            Admin_CategoryObject.RenderRulesAsync();
+        }
     },
 
     RenderGeoAsync: function (param) {
@@ -264,7 +267,7 @@
         });
     },
 
-    RenderBankAsync: function (param)
+    RenderBankAsync: function ()
     {
         if (param != true) {
             var vSearchParam = '';
@@ -298,7 +301,7 @@
 
                             B_City: { editable: true, nullable: true },
                             B_CityId: { editable: false },
-                            
+
                             B_BankEnable: { editable: true, type: 'boolean', defaultValue: true },
                         }
                     }
