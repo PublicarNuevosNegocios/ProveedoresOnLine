@@ -6,9 +6,10 @@
 
 @if (!Model.RenderScripts)
 {
-    <div class="POBOPSideFilterWrapper">
+    <div class="POBOProviderSideMenuWrapper">
         <span class="POBOPSideBlockTitle">Filtrar por:</span>
-        <ul>
+
+        <ul class="POBOFilterCategoryList">
             @foreach (ProveedoresOnLine.Company.Models.Util.CatalogModel oFilterType in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.FilterTypeBackOffice).ToList())
             {
                 <li>
@@ -33,9 +34,8 @@
                                     </li>
                                 }
                             </ul>
-                                break;
-
-                        case 111002:
+                            break;
+                            case 111002:
 
                         <span>@oFilterType.ItemName</span>
                         <ul>
@@ -55,53 +55,52 @@
                             }
                         </ul>
                             break;
-
-                        case 111003:
-
-                            if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
-                            {
-                                <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
-                            }
-                            else
-                            {
-                                <input type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
-                            }
-                            <span>@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
-                            break;
-
-                        case 111004:
+                            case 111003:
 
                             if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
                             {
-                                <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
+                                <input class="POBOFilterCheckBox" type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
                             }
                             else
                             {
-                                <input type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
+                                <input class="POBOFilterCheckBox" type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
                             }
-                            <span>@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
-                            break;
+                            <span class="POBOFilterText">@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
 
-                        case 111005:
+                            break;
+                            case 111004:
 
                             if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
                             {
-                                <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
+                            <input class="POBOFilterCheckBox" type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
                             }
                             else
                             {
-                                <input type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
+                            <input class="POBOFilterCheckBox" type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
                             }
-                            <span>@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+                            <span class="POBOFilterText">@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+
+                            break;
+                            case 111005:
+
+                            if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
+                            {
+                            <input class="POBOFilterCheckBox" type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
+                            }
+                            else
+                            {
+                            <input class="POBOFilterCheckBox" type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
+                            }
+                            <span class="POBOFilterText">@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
                             break;
 
-                        default:
+                            default:
                             break;
                     }
                 </li>
             }
-        </ul>
-    </div>
+            </ul>
+        </div>
 }
 else
 {

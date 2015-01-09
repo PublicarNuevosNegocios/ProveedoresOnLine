@@ -1,11 +1,11 @@
 /********** LISTADO DE PROVEEDORES O NUEVO PROVEEDOR **********/
 .POBOPClientListWrapper {
-    border: 1px solid grey;
+        border: none;
     display: inline-block;
     height:auto;
     min-height:400px;
-    margin: 0 0 0 26px;
-    width: calc(100% - 315px);
+    margin: 0 0 0 6px;
+    width: calc(100% - 317px);
 }
 .POBOProviderWrapper {
         border:none;
