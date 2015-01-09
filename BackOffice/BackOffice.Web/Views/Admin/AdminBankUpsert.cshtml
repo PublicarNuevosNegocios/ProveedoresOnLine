@@ -39,7 +39,6 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
 
     @{
-
         //ger CertificationTypeValues
         string oAdminBankInfoOptionList = "[]";
         if (Model.ProviderOptions != null &&
@@ -65,9 +64,9 @@
 
         $(document).ready(function () {
             Admin_CategoryObject.Init({
-                ObjectId: 'divGridGeoInfo',
+                ObjectId: 'divGridBankInfo',
                 UtilOptions: vAdminBanklInfoOptionList ,
-                CategoryType: 'AdminGeo',
+                CategoryType: 'AdminBank',
             });
             Admin_CategoryObject.RenderAsync();
         });

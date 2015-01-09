@@ -17,6 +17,9 @@
         if (Admin_CategoryObject.CategoryType == "AdminGeo") {
             Admin_CategoryObject.RenderGeoAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminBank") {
+            Admin_CategoryObject.RenderGeoAsync();
+        }
     },
 
     RenderGeoAsync: function (param) {
@@ -283,43 +286,21 @@
                         return 0;
                     },
                     model: {
-                        id: 'GIT_CountryId',
+                        id: 'B_BankId',
                         fields: {
-                            GIT_Country: { editable: true, nullable: false },
+                            B_Bank: { editable: true, nullable: false },
 
-                            GIT_CountryDirespCode: { editable: true, nullable: true },
-                            GIT_CountryDirespCodeId: { editable: false },
-
-                            GIT_CountryType: { editable: true, nullable: true },
-                            GIT_CountryTypeId: { editable: false },
-
-                            GIT_CountryEnable: { editable: true, type: 'boolean', defaultValue: true },
-
-                            AG_City: { editable: true, nullable: false },
-                            AG_CityId: { editable: false },
-
-                            GI_CapitalType: { editable: true, nullable: false },
-                            GI_CapitalTypeId: { editable: false },
-
-                            GI_CityDirespCode: { editable: true, nullable: false },
-                            GI_CityDirespCodeId: { editable: false },
-
-                            GI_CityEnable: { editable: true, type: 'boolean', defaultValue: true },
-
-                            GIT_State: { editable: true, nullable: false },
-                            GIT_StateId: { editable: false },
-
-                            GIT_StateDirespCode: { editable: true, nullable: false },
-                            GIT_StateDirespCodeId: { editable: false },
-
-                            GIT_StateEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            B_City: { editable: true, nullable: true },
+                            B_CityId: { editable: false },
+                            
+                            B_BankEnable: { editable: true, type: 'boolean', defaultValue: true },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false',
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBankAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -364,19 +345,19 @@
                 },
             },
             columns: [{
-                field: 'GIT_Country',
-                title: 'País',
+                field: 'B_Bank',
+                title: 'Banco',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.GIT_Country != null) {
+                    if (dataItem != null && dataItem.B_Bank != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.GIT_Country;
+                        oReturn = oReturn + dataItem.B_Bank;
                     }
                     return oReturn;
                 },
@@ -390,20 +371,20 @@
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'GIT_Country',
+                        dataTextField: 'B_Bank',
 
                         change: function (e) {
                             debugger;
-                            options.model['GIT_CountryId'] = 0;
-                            options.model['GIT_Country'] = e.sender._old;
+                            options.model['B_BankId'] = 0;
+                            options.model['B_Bank'] = e.sender._old;
                         },
 
                         select: function (e) {
                             debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model['GIT_CountryId'] = selectedItem.GIT_CountryId;
-                            options.model['GIT_Country'] = selectedItem.GIT_Country;
+                            options.model['B_BankId'] = selectedItem.ItemName;
+                            options.model['B_Bank'] = selectedItem.ItemId;
 
                             //enable made changes
                             options.model.dirty = true;
@@ -416,7 +397,7 @@
                                     debugger;
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
-                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
                                         dataType: 'json',
                                         success: function (result) {
                                             options.success(result);
@@ -431,8 +412,8 @@
                     });
                 },
             }, {
-                field: 'GIT_CountryDirespCode',
-                title: 'País DirespCode',
+                field: 'B_City',
+                title: 'Ciudad',
                 width: '100px',
             }, {
                 field: 'GIT_CountryEnable',
@@ -458,34 +439,9 @@
                 field: 'GI_CityDirespCode',
                 title: 'Ciudad DirespCode',
                 width: '100px',
-            }, {
-                field: 'GI_CapitalType',
-                title: 'Tipo de Capital',
-                width: '100px',
-                template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.GI_CapitalType != null) {
-                        $.each(Admin_CategoryObject.AdminOptions[107], function (item, value) {
-                            if (dataItem.GI_CapitalType == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Admin_CategoryObject.AdminOptions[107],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
-            }, {
-                field: 'GI_CityEnable',
-                title: 'Enable Ciudad',
+            },  {
+                field: 'B_BankEnable',
+                title: 'Enable',
                 width: '50px',
             }, ],
         });
