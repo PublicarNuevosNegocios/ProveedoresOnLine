@@ -66,7 +66,7 @@ namespace BackOffice.Web.ControllersApi
 
                 if (IsAutoComplete == "true")
                 {
-                    oReturn = oReturn.Where(x => x.GIT_Country.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList(); 
+                    oReturn = oReturn.Where(x => x.GIT_Country.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList();
                 }
                 else
                 {
@@ -74,8 +74,8 @@ namespace BackOffice.Web.ControllersApi
                     {
                         x.AllTotalRows = oTotalCount;
                         return true;
-                    });                
-                }                
+                    });
+                }
             }
             return oReturn;
         }
@@ -108,7 +108,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         ItemId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryId),
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
-                       
+
                         ItemName = oDataToUpsert.GIT_Country,
                         Enable = oDataToUpsert.GIT_CountryEnable,
                         ItemInfo = new List<GenericItemInfoModel>()
@@ -141,7 +141,7 @@ namespace BackOffice.Web.ControllersApi
                 oCityToUpsert = new GenericItemModel()
                     {
                         ItemId = string.IsNullOrEmpty(oDataToUpsert.AG_CityId) ? 0 : Convert.ToInt32(oDataToUpsert.AG_CityId),
-                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),                        
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
                         ItemName = oDataToUpsert.AG_City,
                         Enable = oDataToUpsert.GI_CityEnable,
                         ItemInfo = new List<GenericItemInfoModel>()
@@ -203,7 +203,7 @@ namespace BackOffice.Web.ControllersApi
                 oStateToUpsert.ParentItem = new GenericItemModel() { ItemId = CountryResult.ItemId };
                 StateResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oStateToUpsert);
 
-                oCityToUpsert.ParentItem = new GenericItemModel(){ItemId = StateResult.ItemId};
+                oCityToUpsert.ParentItem = new GenericItemModel() { ItemId = StateResult.ItemId };
                 CityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCityToUpsert);
 
                 GeographyModel oResult = new GeographyModel();
@@ -213,7 +213,7 @@ namespace BackOffice.Web.ControllersApi
                 oResult.City = CityResult;
 
                 oReturn = new AdminCategoryViewModel(oResult);
-            }                       
+            }
             return oReturn;
         }
 
@@ -391,7 +391,7 @@ namespace BackOffice.Web.ControllersApi
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
-                });                
+                });
             }
             if (IsAutoComplete == "true")
             {
@@ -404,7 +404,43 @@ namespace BackOffice.Web.ControllersApi
                     x.AllTotalRows = oTotalCount;
                     return true;
                 });
-            }         
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByRulesAdmin
+            (string CategorySearchByRulesAdmin, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRules =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByRulesAdmin == "true")
+            {
+                oRules = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRulesAdmin
+                            (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oRules != null)
+            {
+                oRules.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }
+
             return oReturn;
         }
     }

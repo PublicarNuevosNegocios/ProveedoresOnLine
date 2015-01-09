@@ -431,4 +431,98 @@
             }, ],
         });
     },
+
+    RenderRulesAsync: function ()
+    {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }, ],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'CR_CompanyRuleId',
+                        fields: {
+                            CR_CompanyRule: { editable: true, nullable: false },
+                            CR_CompanyRuleEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByRulesAdmin=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'CR_CompanyRule',
+                title: 'Empresa Certificadora',
+                width: '150px',
+            }, {
+                field: 'CR_CompanyRuleEnable',
+                title: 'Habilitado',
+                width: '50px',
+            }, ],
+        });
+    },
 }

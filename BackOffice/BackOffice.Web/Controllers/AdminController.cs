@@ -125,11 +125,11 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Acividades Económicas Estandar",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminCompanyRulesUpsert,
+                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
                     MVC.Provider.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminCompanyRulesUpsert &&
+                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
                     oCurrentController == MVC.Provider.Name),
             });
 
@@ -164,11 +164,11 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Empresas Certificadoras",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
+                    (MVC.Admin.ActionNames.AdminCompanyRulesUpsert,
                     MVC.Provider.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminCompanyRulesUpsert &&
                     oCurrentController == MVC.Provider.Name),
             });
 
