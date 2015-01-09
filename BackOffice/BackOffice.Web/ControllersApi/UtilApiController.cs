@@ -66,7 +66,7 @@ namespace BackOffice.Web.ControllersApi
 
                 if (IsAutoComplete == "true")
                 {
-                    oReturn = oReturn.Where(x => x.GIT_Country.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList(); 
+                    oReturn = oReturn.Where(x => x.GIT_Country.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList();
                 }
                 else
                 {
@@ -74,8 +74,8 @@ namespace BackOffice.Web.ControllersApi
                     {
                         x.AllTotalRows = oTotalCount;
                         return true;
-                    });                
-                }                
+                    });
+                }
             }
             return oReturn;
         }
@@ -85,8 +85,9 @@ namespace BackOffice.Web.ControllersApi
         public AdminCategoryViewModel CategoryUpsert(string CategoryUpsert, string CategoryType)
         {
             AdminCategoryViewModel oReturn = null;
+
             if (CategoryUpsert == "true" && !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"])
-                && !string.IsNullOrEmpty(CategoryType))
+              && !string.IsNullOrEmpty(CategoryType))
             {
                 AdminCategoryViewModel oDataToUpsert =
                     (AdminCategoryViewModel)
@@ -94,126 +95,213 @@ namespace BackOffice.Web.ControllersApi
                     Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
                                 typeof(AdminCategoryViewModel));
 
-                GenericItemModel oCountryToUpsert = new GenericItemModel();
-                List<GenericItemInfoModel> oCountryInfo = new List<GenericItemInfoModel>();
+                #region Geolocalization
+                if (CategoryType == "AdminGeo")
+                {
 
-                GenericItemModel oCityToUpsert = new GenericItemModel();
-                List<GenericItemInfoModel> oCityInfo = new List<GenericItemInfoModel>();
+                    GenericItemModel oCountryToUpsert = new GenericItemModel();
+                    List<GenericItemInfoModel> oCountryInfo = new List<GenericItemInfoModel>();
 
-                GenericItemModel oStateToUpsert = new GenericItemModel();
-                List<GenericItemInfoModel> oStateInfo = new List<GenericItemInfoModel>();
+                    GenericItemModel oCityToUpsert = new GenericItemModel();
+                    List<GenericItemInfoModel> oCityInfo = new List<GenericItemInfoModel>();
 
-                //Country
-                oCountryToUpsert = new GenericItemModel()
+                    GenericItemModel oStateToUpsert = new GenericItemModel();
+                    List<GenericItemInfoModel> oStateInfo = new List<GenericItemInfoModel>();
+
+                    //Country
+                    oCountryToUpsert = new GenericItemModel()
                     {
                         ItemId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryId),
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
-                       
+
                         ItemName = oDataToUpsert.GIT_Country,
                         Enable = oDataToUpsert.GIT_CountryEnable,
                         ItemInfo = new List<GenericItemInfoModel>()
                     };
-                oCountryInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryTypeId.Trim()),
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    oCountryInfo.Add(new GenericItemInfoModel()
                     {
-                        ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
-                    },
-                    Value = Convert.ToString((int)BackOffice.Models.General.enumCategoryInfoType.GIT_Country),
-                    Enable = oDataToUpsert.GIT_CountryEnable,
-                });
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
+                        },
+                        Value = Convert.ToString((int)BackOffice.Models.General.enumCategoryInfoType.GIT_Country),
+                        Enable = oDataToUpsert.GIT_CountryEnable,
+                    });
 
-                oCountryInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryDirespCodeId.Trim()),
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    oCountryInfo.Add(new GenericItemInfoModel()
                     {
-                        ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
-                    },
-                    Value = oDataToUpsert.GIT_CountryDirespCode,
-                    Enable = oDataToUpsert.GIT_CountryEnable,
-                });
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_CountryDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_CountryDirespCodeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
+                        },
+                        Value = oDataToUpsert.GIT_CountryDirespCode,
+                        Enable = oDataToUpsert.GIT_CountryEnable,
+                    });
 
-                oCountryToUpsert.ItemInfo.AddRange(oCountryInfo);
+                    oCountryToUpsert.ItemInfo.AddRange(oCountryInfo);
 
-                //City
-                oCityToUpsert = new GenericItemModel()
+                    //City
+                    oCityToUpsert = new GenericItemModel()
                     {
                         ItemId = string.IsNullOrEmpty(oDataToUpsert.AG_CityId) ? 0 : Convert.ToInt32(oDataToUpsert.AG_CityId),
-                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),                        
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
                         ItemName = oDataToUpsert.AG_City,
                         Enable = oDataToUpsert.GI_CityEnable,
                         ItemInfo = new List<GenericItemInfoModel>()
                     };
 
-                oCityInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GI_CapitalTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.GI_CapitalTypeId.Trim()),
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    oCityInfo.Add(new GenericItemInfoModel()
                     {
-                        ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_CapitalType
-                    },
-                    Value = oDataToUpsert.GI_CapitalType,
-                    Enable = oDataToUpsert.GI_CityEnable,
-                });
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GI_CapitalTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.GI_CapitalTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_CapitalType
+                        },
+                        Value = oDataToUpsert.GI_CapitalType,
+                        Enable = oDataToUpsert.GI_CityEnable,
+                    });
 
-                oCityInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GI_CityDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GI_CityDirespCodeId.Trim()),
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    oCityInfo.Add(new GenericItemInfoModel()
                     {
-                        ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
-                    },
-                    Value = oDataToUpsert.GI_CityDirespCode,
-                    Enable = oDataToUpsert.GI_CityEnable,
-                });
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GI_CityDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GI_CityDirespCodeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
+                        },
+                        Value = oDataToUpsert.GI_CityDirespCode,
+                        Enable = oDataToUpsert.GI_CityEnable,
+                    });
 
-                oCityToUpsert.ItemInfo.AddRange(oCityInfo);
+                    oCityToUpsert.ItemInfo.AddRange(oCityInfo);
 
-                //State
-                oStateToUpsert = new GenericItemModel()
-                {
-                    ItemId = string.IsNullOrEmpty(oDataToUpsert.GIT_StateId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_StateId),
-                    ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
-                    ItemName = oDataToUpsert.GIT_State,
-                    Enable = oDataToUpsert.GIT_StateEnable,
-                    ItemInfo = new List<GenericItemInfoModel>()
-                };
-
-                oStateInfo.Add(new GenericItemInfoModel()
-                {
-                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_StateDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_StateDirespCodeId.Trim()),
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    //State
+                    oStateToUpsert = new GenericItemModel()
                     {
-                        ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
-                    },
-                    Value = oDataToUpsert.GIT_StateDirespCode,
-                    Enable = oDataToUpsert.GIT_StateEnable,
-                });
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.GIT_StateId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_StateId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+                        ItemName = oDataToUpsert.GIT_State,
+                        Enable = oDataToUpsert.GIT_StateEnable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
 
-                oStateToUpsert.ItemInfo.AddRange(oStateInfo);
+                    oStateInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GIT_StateDirespCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.GIT_StateDirespCodeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_DirespCode
+                        },
+                        Value = oDataToUpsert.GIT_StateDirespCode,
+                        Enable = oDataToUpsert.GIT_StateEnable,
+                    });
 
-                GenericItemModel CountryResult = new GenericItemModel();
-                GenericItemModel StateResult = new GenericItemModel();
-                GenericItemModel CityResult = new GenericItemModel();
+                    oStateToUpsert.ItemInfo.AddRange(oStateInfo);
 
-                CountryResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCountryToUpsert);
+                    GenericItemModel CountryResult = new GenericItemModel();
+                    GenericItemModel StateResult = new GenericItemModel();
+                    GenericItemModel CityResult = new GenericItemModel();
 
-                oStateToUpsert.ParentItem = new GenericItemModel() { ItemId = CountryResult.ItemId };
-                StateResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oStateToUpsert);
+                    CountryResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCountryToUpsert);
 
-                oCityToUpsert.ParentItem = new GenericItemModel(){ItemId = StateResult.ItemId};
-                CityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCityToUpsert);
+                    oStateToUpsert.ParentItem = new GenericItemModel() { ItemId = CountryResult.ItemId };
+                    StateResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oStateToUpsert);
 
-                GeographyModel oResult = new GeographyModel();
+                    oCityToUpsert.ParentItem = new GenericItemModel() { ItemId = StateResult.ItemId };
+                    CityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(1, oCityToUpsert);
 
-                oResult.Country = CountryResult;
-                oResult.State = StateResult;
-                oResult.City = CityResult;
+                    GeographyModel oResult = new GeographyModel();
 
-                oReturn = new AdminCategoryViewModel(oResult);
-            }                       
+                    oResult.Country = CountryResult;
+                    oResult.State = StateResult;
+                    oResult.City = CityResult;
+
+                    oReturn = new AdminCategoryViewModel(oResult);
+                }
+
+                #endregion
+
+                #region Banks
+                if (CategoryType == "AdminBank")
+                {
+                    GenericItemModel oBankToUpsert = new GenericItemModel();
+                    List<GenericItemInfoModel> oBankInfo = new List<GenericItemInfoModel>();
+
+                    //Country
+                    oBankToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.B_BankId) ? 0 : Convert.ToInt32(oDataToUpsert.B_BankId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.B_Bank,
+                        Enable = oDataToUpsert.B_BankEnable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
+                    oBankInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.B_CityId) ? 0 : Convert.ToInt32(oDataToUpsert.B_CityId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
+                        },
+                        Value = oDataToUpsert.B_CityId,
+                        Enable = oDataToUpsert.B_BankEnable,
+                    });
+
+                    GenericItemModel BankResult = new GenericItemModel();
+
+                    oBankToUpsert.ItemInfo.AddRange(oBankInfo);
+                    BankResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(11, oBankToUpsert);
+                }
+                #endregion
+
+                #region CompanyRules
+
+                if (CategoryType == "AdminCompanyRules")
+                {
+                    GenericItemModel oCompanyRulesToUpsert = new GenericItemModel();
+
+                    oCompanyRulesToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.CR_CompanyRuleId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_CompanyRuleId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.CR_CompanyRule,
+                        Enable = oDataToUpsert.CR_CompanyRuleEnable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
+
+                    GenericItemModel CompanyRuleResult = new GenericItemModel();
+
+                    CompanyRuleResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(2, oCompanyRulesToUpsert);
+                }
+
+                #endregion
+
+                #region Rules
+
+                if (CategoryType == "AdminRules")
+                {
+                    GenericItemModel oRulesToUpsert = new GenericItemModel();
+
+                    oRulesToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.R_RuleId) ? 0 : Convert.ToInt32(oDataToUpsert.R_RuleId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.R_Rule,
+                        Enable = oDataToUpsert.R_RuleEnable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
+
+                    GenericItemModel RuleResult = new GenericItemModel();
+
+                    RuleResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(3, oRulesToUpsert);
+                }
+
+                #endregion
+            }
             return oReturn;
         }
 
@@ -391,7 +479,7 @@ namespace BackOffice.Web.ControllersApi
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
-                });                
+                });
             }
             if (IsAutoComplete == "true")
             {
@@ -404,7 +492,79 @@ namespace BackOffice.Web.ControllersApi
                     x.AllTotalRows = oTotalCount;
                     return true;
                 });
-            }         
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByCompanyRulesAdmin
+            (string CategorySearchByCompanyRulesAdmin, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRules =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByCompanyRulesAdmin == "true")
+            {
+                oCompanyRules = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRulesAdmin
+                            (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oCompanyRules != null)
+            {
+                oCompanyRules.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByRulesAdmin
+            (string CategorySearchByRulesAdmin, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRules =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByRulesAdmin == "true")
+            {
+                oRules = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRulesAdmin
+                            (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oRules != null)
+            {
+                oRules.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }
+
             return oReturn;
         }
     }

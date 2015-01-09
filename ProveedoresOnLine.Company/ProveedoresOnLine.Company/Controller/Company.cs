@@ -214,6 +214,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByRules(SearchParam, PageNumber, RowCount);
         }
 
+        public static List<Models.Util.GenericItemModel> CategorySearchByRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByRulesAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public static List<Models.Util.GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByCompanyRules(SearchParam, PageNumber, RowCount);

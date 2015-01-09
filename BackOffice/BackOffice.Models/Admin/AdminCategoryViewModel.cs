@@ -59,6 +59,26 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        #region CompanyRules 
+
+        public string CR_CompanyRule { get; set; }
+        public string CR_CompanyRuleId { get; set; }
+        public bool CR_CompanyRuleEnable { get; set; }
+        public string CR_CompanyRuleCreate { get; set; }
+        public string CR_CompanyRuleModify { get; set; }
+
+        #endregion
+
+        #region Rules
+
+        public string R_Rule { get; set; }
+        public string R_RuleId { get; set; }
+        public bool R_RuleEnable { get; set; }
+        public string R_RuleCreate { get; set; }
+        public string R_RuleModify { get; set; }
+
+        #endregion
+
         public AdminCategoryViewModel() { }
 
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GeographyModel oRelatedGeoGraphy)
@@ -172,6 +192,27 @@ namespace BackOffice.Models.Admin
                             FirstOrDefault() : string.Empty;
 
             #endregion
+
+            #region CompanyRules
+
+            CR_CompanyRule = oCategory.ItemName;
+            CR_CompanyRuleId = oCategory.ItemId.ToString();
+            CR_CompanyRuleEnable = oCategory.Enable;
+            CR_CompanyRuleCreate = oCategory.CreateDate.ToString();
+            CR_CompanyRuleModify = oCategory.LastModify.ToString();
+
+            #endregion
+
+            #region Rules
+
+            R_Rule = oCategory.ItemName;
+            R_RuleId = oCategory.ItemId.ToString();
+            R_RuleEnable = oCategory.Enable;
+            R_RuleCreate = oCategory.CreateDate.ToString();
+            R_RuleModify = oCategory.LastModify.ToString();
+
+            #endregion
         }
     }
 }
+

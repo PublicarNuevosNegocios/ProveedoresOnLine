@@ -401,6 +401,52 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "U_Category_SearchByRuleAdmin",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from r in response.DataTableResult.AsEnumerable()
+                           where (!r.IsNull("RuleId"))
+                           group r by new
+                           {
+                               CompanyRuleId = r.Field<int>("RuleId"),
+                               CompanyRuleName = r.Field<string>("RuleName"),
+                               CompanyRuleEnable = r.Field<UInt64>("RuleEnable") == 1 ? true : false,
+                               CompanyRuleCreate = r.Field<DateTime>("RuleCreate"),
+                               CompanyRuleModify = r.Field<DateTime>("RuleModify"),
+                           } into rr
+                           select new GenericItemModel()
+                           {
+                               ItemId = rr.Key.CompanyRuleId,
+                               ItemName = rr.Key.CompanyRuleName,
+                               Enable = rr.Key.CompanyRuleEnable,
+                               CreateDate = rr.Key.CompanyRuleCreate,
+                               LastModify = rr.Key.CompanyRuleModify,
+                           }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<GenericItemModel> CategorySearchByCompanyRules(string SearchParam, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
@@ -457,7 +503,8 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<GenericItemModel> oReturn = null;
             TotalRows = 0;
 
-            if (true)
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
             {
                 TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
                 oReturn = (from cr in response.DataTableResult.AsEnumerable()

@@ -72,6 +72,18 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminRulesUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -125,11 +137,11 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Acividades Económicas Estandar",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminCompanyRulesUpsert,
+                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
                     MVC.Provider.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminCompanyRulesUpsert &&
+                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
                     oCurrentController == MVC.Provider.Name),
             });
 
@@ -164,12 +176,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Empresas Certificadoras",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminCompanyRulesUpsert,
+                    MVC.Admin.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminCompanyRulesUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
             //Certificados
@@ -177,12 +189,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Certificados",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminRulesUpsert,
+                    MVC.Admin.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminRulesUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
             //Resoluciones
