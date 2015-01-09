@@ -245,7 +245,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
                         },
-                        Value = oDataToUpsert.B_City,
+                        Value = oDataToUpsert.B_CityId,
                         Enable = oDataToUpsert.B_BankEnable,
                     });
 

@@ -160,6 +160,7 @@
 
                     // create an input element
                     var input = $('<input/>');
+                    var isSelected = false;
                     // set its name to the field to which the column is bound ('name' in this case)
                     input.attr('value', options.model[options.field]);
                     // append it to the container
@@ -168,13 +169,16 @@
                     input.kendoAutoComplete({
                         dataTextField: 'GIT_Country',
                         
-                        change: function (e) {                            
-                            options.model['GIT_CountryId'] = 0;
-                            options.model['GIT_Country'] = e.sender._old;
+                        change: function (e) {
+                            if (isSelected == false) {
+                                options.model['GIT_CountryId'] = 0;
+                                options.model['GIT_Country'] = e.sender._old;
+                            }                            
                         },
 
                         select: function (e) {                            
                             var selectedItem = this.dataItem(e.item.index());
+                            isSelected = true;
                             //set server fiel name
                             options.model['GIT_CountryId'] = selectedItem.GIT_CountryId;
                             options.model['GIT_Country'] = selectedItem.GIT_Country;
@@ -377,6 +381,7 @@
 
                     // create an input element
                     var input = $('<input/>');
+                    var isSelected = false;
                     // set its name to the field to which the column is bound ('name' in this case)
                     input.attr('value', options.model[options.field]);
                     // append it to the container
@@ -387,12 +392,16 @@
 
                         change: function (e) {
                             debugger;
-                            options.model['B_BankId'] = 0;
-                            options.model['B_Bank'] = e.sender._old;
+                            if (isSelected == false) {
+                                options.model['B_BankId'] = 0;
+                                options.model['B_Bank'] = e.sender._old;
+                            }                            
                         },
-
-                        select: function (e) {                            
+                        select: function (e) {
+                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
+
+                            isSelected = true;
                             //set server fiel name
                             options.model['B_BankId'] = selectedItem.ItemId;
                             options.model['B_Bank'] = selectedItem.ItemName;
