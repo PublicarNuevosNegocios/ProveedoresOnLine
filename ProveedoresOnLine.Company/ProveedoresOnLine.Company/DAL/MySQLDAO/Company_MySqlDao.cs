@@ -377,6 +377,51 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByCompanyRulesAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByCompanyRulesAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (true)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from cr in response.DataTableResult.AsEnumerable()
+                           where (!cr.IsNull("CompanyRuleId"))
+                           group cr by new
+                           {
+                               CompanyRuleId = cr.Field<int>("CompanyRuleId"),
+                               CompanyRuleName = cr.Field<string>("CompanyRuleName"),
+                               CompanyRuleEnable = cr.Field<UInt64>("CompanyRuleEnable") == 1 ? true : false,
+                               CompanyRuleCreate = cr.Field<DateTime>("CompanyRuleCreate"),
+                               CompanyRuleModify = cr.Field<DateTime>("CompanyRuleModify"),
+                           } into crr
+                           select new GenericItemModel()
+                           {
+                               ItemId = crr.Key.CompanyRuleId,
+                               ItemName = crr.Key.CompanyRuleName,
+                               Enable = crr.Key.CompanyRuleEnable,
+                               CreateDate = crr.Key.CompanyRuleCreate,
+                               LastModify = crr.Key.CompanyRuleModify,
+                           }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<GenericItemModel> CategorySearchByResolution(string SearchParam, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
