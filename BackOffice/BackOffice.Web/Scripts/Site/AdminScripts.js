@@ -18,12 +18,12 @@
             Admin_CategoryObject.RenderGeoAsync();
         }
         else if (Admin_CategoryObject.CategoryType == "AdminBank") {
-            Admin_CategoryObject.RenderGeoAsync();
+            Admin_CategoryObject.RenderBankAsync();
         }
     },
 
     RenderGeoAsync: function (param) {
-        debugger;
+       
         if (param != true) {            
             var vSearchParam = '';
         }
@@ -264,8 +264,14 @@
         });
     },
 
-    RenderBankAsync: function ()
+    RenderBankAsync: function (param)
     {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
@@ -416,30 +422,6 @@
                 title: 'Ciudad',
                 width: '100px',
             }, {
-                field: 'GIT_CountryEnable',
-                title: 'Enable Pais',
-                width: '50px',
-            }, {
-                field: 'GIT_State',
-                title: 'Estado (Dpto.)',
-                width: '100px',
-            }, {
-                field: 'GIT_StateDirespCode',
-                title: 'Estado DirespCode',
-                width: '100px',
-            }, {
-                field: 'GIT_StateEnable',
-                title: 'Enable Estado (Dpto)',
-                width: '50px',
-            }, {
-                field: 'AG_City',
-                title: 'Ciudad',
-                width: '100px',
-            }, {
-                field: 'GI_CityDirespCode',
-                title: 'Ciudad DirespCode',
-                width: '100px',
-            },  {
                 field: 'B_BankEnable',
                 title: 'Enable',
                 width: '50px',
