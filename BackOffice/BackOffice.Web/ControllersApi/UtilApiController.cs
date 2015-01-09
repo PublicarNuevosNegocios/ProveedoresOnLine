@@ -45,30 +45,37 @@ namespace BackOffice.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public List<AdminCategoryViewModel> GetAllGeography
-            (string GetAllGeography, string SearchParam, string CityId, int PageNumber, int RowCount)
+            (string GetAllGeography, string SearchParam, string CityId, int PageNumber, int RowCount, string IsAutoComplete)
         {
             List<BackOffice.Models.Admin.AdminCategoryViewModel> oReturn = new List<Models.Admin.AdminCategoryViewModel>();
             if (GetAllGeography == "true")
             {
                 int oTotalCount;
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> Cities =
+                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> GeographyAdmin =
                     ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyAdmin
                     (SearchParam, PageNumber, Convert.ToInt32(RowCount), out oTotalCount);
 
-                if (Cities != null)
+                if (GeographyAdmin != null)
                 {
-                    Cities.All(x =>
+                    GeographyAdmin.All(x =>
                     {
                         oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                         return true;
                     });
                 }
 
-                oReturn.All(x =>
+                if (IsAutoComplete == "true")
                 {
-                    x.AllTotalRows = oTotalCount;
-                    return true;
-                });                
+                    oReturn = oReturn.Where(x => x.GIT_Country.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList(); 
+                }
+                else
+                {
+                    oReturn.All(x =>
+                    {
+                        x.AllTotalRows = oTotalCount;
+                        return true;
+                    });                
+                }                
             }
             return oReturn;
         }

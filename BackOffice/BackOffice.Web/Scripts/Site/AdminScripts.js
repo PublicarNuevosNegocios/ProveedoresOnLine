@@ -1,9 +1,9 @@
-﻿var Admin_CategoryObject = {    
+﻿var Admin_CategoryObject = {
     ObjectId: '',
     AdminOptions: new Array(),
-    CategoryType: '', 
+    CategoryType: '',
 
-    Init: function(vInitObject){
+    Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CategoryType = vInitObject.CategoryType
         if (vInitObject.UtilOptions != null) {
@@ -12,19 +12,36 @@
             });
         }
     },
-    
-    RenderAsync: function () {
+
+    RenderAsync: function(){
+        if (Admin_CategoryObject.CategoryType == "AdminGeo") {
+            Admin_CategoryObject.RenderGeoAsync();
+        }
+    },
+
+    RenderGeoAsync: function (param) {
         debugger;
+        if (param != true) {            
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }        
+
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: true,
             scrollable: true,
-            toolbar: [
+            toolbar:
+                [
+                    
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
-            ],
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderGeoAsync(" + "true" + ");'>Buscar</a" }
+            ],            
             dataSource: {
                 pageSize: 20,
                 serverPaging: true,
@@ -39,9 +56,9 @@
                         id: 'GIT_CountryId',
                         fields: {
                             GIT_Country: { editable: true, nullable: false },
-                           
+
                             GIT_CountryDirespCode: { editable: true, nullable: true },
-                            GIT_CountryDirespCodeId: { editable: false},
+                            GIT_CountryDirespCodeId: { editable: false },
 
                             GIT_CountryType: { editable: true, nullable: true },
                             GIT_CountryTypeId: { editable: false },
@@ -49,7 +66,7 @@
                             GIT_CountryEnable: { editable: true, type: 'boolean', defaultValue: true },
 
                             AG_City: { editable: true, nullable: false },
-                            AG_CityId: { editable: false},
+                            AG_CityId: { editable: false },
 
                             GI_CapitalType: { editable: true, nullable: false },
                             GI_CapitalTypeId: { editable: false },
@@ -70,16 +87,14 @@
                     }
                 },
                 transport: {
-                    read: function (options) {                        
-                        $.ajax({                            
-                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false',
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
-                                debugger;
                                 options.error(result);
                             }
                         });
@@ -118,24 +133,87 @@
                     },
                 },
             },
-            columns: [ {
+            columns: [{
                 field: 'GIT_Country',
                 title: 'País',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.GIT_Country != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.GIT_Country;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'GIT_Country',
+                        
+                        change: function (e) {
+                            debugger;
+                            options.model['GIT_CountryId'] = 0;
+                            options.model['GIT_Country'] = e.sender._old;
+                        },
+
+                        select: function (e) {
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model['GIT_CountryId'] = selectedItem.GIT_CountryId;
+                            options.model['GIT_Country'] = selectedItem.GIT_Country;
+
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    debugger;
+                                    $.ajax({
+                                        //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'GIT_CountryDirespCode',
                 title: 'País DirespCode',
                 width: '100px',
-            },{
+            }, {
                 field: 'GIT_CountryEnable',
                 title: 'Enable Pais',
                 width: '50px',
-            },{
+            }, {
                 field: 'GIT_State',
                 title: 'Estado (Dpto.)',
                 width: '100px',
             }, {
-                field: 'GIT_StateDirespCode', 
+                field: 'GIT_StateDirespCode',
                 title: 'Estado DirespCode',
                 width: '100px',
             }, {
@@ -175,11 +253,241 @@
                             optionLabel: 'Seleccione una opción'
                         });
                 },
-            },{
+            }, {
                 field: 'GI_CityEnable',
                 title: 'Enable Ciudad',
                 width: '50px',
-            },],
+            }, ],
+        });
+    },
+
+    RenderBankAsync: function ()
+    {
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'GIT_CountryId',
+                        fields: {
+                            GIT_Country: { editable: true, nullable: false },
+
+                            GIT_CountryDirespCode: { editable: true, nullable: true },
+                            GIT_CountryDirespCodeId: { editable: false },
+
+                            GIT_CountryType: { editable: true, nullable: true },
+                            GIT_CountryTypeId: { editable: false },
+
+                            GIT_CountryEnable: { editable: true, type: 'boolean', defaultValue: true },
+
+                            AG_City: { editable: true, nullable: false },
+                            AG_CityId: { editable: false },
+
+                            GI_CapitalType: { editable: true, nullable: false },
+                            GI_CapitalTypeId: { editable: false },
+
+                            GI_CityDirespCode: { editable: true, nullable: false },
+                            GI_CityDirespCodeId: { editable: false },
+
+                            GI_CityEnable: { editable: true, type: 'boolean', defaultValue: true },
+
+                            GIT_State: { editable: true, nullable: false },
+                            GIT_StateId: { editable: false },
+
+                            GIT_StateDirespCode: { editable: true, nullable: false },
+                            GIT_StateDirespCodeId: { editable: false },
+
+                            GIT_StateEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'GIT_Country',
+                title: 'País',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.GIT_Country != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.GIT_Country;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'GIT_Country',
+
+                        change: function (e) {
+                            debugger;
+                            options.model['GIT_CountryId'] = 0;
+                            options.model['GIT_Country'] = e.sender._old;
+                        },
+
+                        select: function (e) {
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model['GIT_CountryId'] = selectedItem.GIT_CountryId;
+                            options.model['GIT_Country'] = selectedItem.GIT_Country;
+
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    debugger;
+                                    $.ajax({
+                                        //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
+            }, {
+                field: 'GIT_CountryDirespCode',
+                title: 'País DirespCode',
+                width: '100px',
+            }, {
+                field: 'GIT_CountryEnable',
+                title: 'Enable Pais',
+                width: '50px',
+            }, {
+                field: 'GIT_State',
+                title: 'Estado (Dpto.)',
+                width: '100px',
+            }, {
+                field: 'GIT_StateDirespCode',
+                title: 'Estado DirespCode',
+                width: '100px',
+            }, {
+                field: 'GIT_StateEnable',
+                title: 'Enable Estado (Dpto)',
+                width: '50px',
+            }, {
+                field: 'AG_City',
+                title: 'Ciudad',
+                width: '100px',
+            }, {
+                field: 'GI_CityDirespCode',
+                title: 'Ciudad DirespCode',
+                width: '100px',
+            }, {
+                field: 'GI_CapitalType',
+                title: 'Tipo de Capital',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.GI_CapitalType != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[107], function (item, value) {
+                            if (dataItem.GI_CapitalType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[107],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'GI_CityEnable',
+                title: 'Enable Ciudad',
+                width: '50px',
+            }, ],
         });
     },
 }

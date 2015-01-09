@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "Geolaclización";
+    ViewBag.Title = "Bancos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Model.RenderScripts = false;
@@ -14,12 +14,12 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de Información Geográfica</label>
+            <label class="POBOSectionTitles">Administración de Bancos</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
-            <div id="divGridGeoInfo"></div>
+            <div id="divGridBankInfo"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -41,7 +41,7 @@
     @{
 
         //ger CertificationTypeValues
-        string oAdminGeoInfoOptionList = "[]";
+        string oAdminBankInfoOptionList = "[]";
         if (Model.ProviderOptions != null &&
             Model.ProviderOptions.Count > 0)
         {
@@ -55,18 +55,18 @@
                         ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
                     }).ToDictionary(k => k.okey, v => v.ovalue);
 
-            oAdminGeoInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            oAdminBankInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionAdminGeo.Select(x => new { Key = x.Key, Value = x.Value }));
-        }        
+        }
     }
 
     <script type="text/javascript">
-        var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList));        
+        var vAdminBanklInfoOptionList = @(Html.Raw(oAdminBankInfoOptionList));
 
         $(document).ready(function () {
             Admin_CategoryObject.Init({
-                ObjectId: 'divGridGeoInfo',                                                
-                UtilOptions: vAdminGeolInfoOptionList ,   
+                ObjectId: 'divGridGeoInfo',
+                UtilOptions: vAdminBanklInfoOptionList ,
                 CategoryType: 'AdminGeo',
             });
             Admin_CategoryObject.RenderAsync();
