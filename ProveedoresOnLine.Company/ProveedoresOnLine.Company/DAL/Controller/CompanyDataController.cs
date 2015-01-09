@@ -66,6 +66,7 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CategorySearchByGeography(SearchParam, CityId, PageNumber, RowCount, out TotalRows);
         }
+
         public List<Models.Util.GeographyModel> CategorySearchByGeographyAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             return DataFactory.CategorySearchByGeographyAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
@@ -104,6 +105,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         public List<Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount)
         {
             return DataFactory.CategorySearchByBank(SearchParam, PageNumber, RowCount);
+        }
+
+        public List<Models.Util.GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByBankAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
         }
 
         public List<Models.Util.GenericItemModel> CategoryGetFinantialAccounts()
