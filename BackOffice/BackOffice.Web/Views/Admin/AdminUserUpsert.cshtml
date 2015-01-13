@@ -15,20 +15,8 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Registro unico tributario</label>
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }            
-            <div>
-                <iframe src="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_AdminRoles].Value)" style="width:900px;height:800px"></iframe>
-            </div>
-
+            <iframe class="POBOAdminIframe" src="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_AdminRoles].Value)"></iframe>
             <div id="divGridLegalInfo"></div>
-            <br />
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
         </div>
     </div>
 </div>

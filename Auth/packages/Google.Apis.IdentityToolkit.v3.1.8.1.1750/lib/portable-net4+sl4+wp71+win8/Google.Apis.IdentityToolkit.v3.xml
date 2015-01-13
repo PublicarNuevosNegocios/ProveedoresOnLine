@@ -1,0 +1,875 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Google.Apis.IdentityToolkit.v3</name>
+    </assembly>
+    <members>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse">
+            <summary>Response of creating the IDP authentication URL.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse.AuthUri">
+            <summary>The URI used by the IDP to authenticate the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse.Kind">
+            <summary>The fixed string identitytoolkit#CreateAuthUriResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse.ProviderId">
+            <summary>The provider ID of the auth URI.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse.Providers">
+            <summary>Existing IDP's for the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse.Registered">
+            <summary>Whether the user is registered if the identifier is an email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.CreateAuthUriResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.DeleteAccountResponse">
+            <summary>Respone of deleting account.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.DeleteAccountResponse.Kind">
+            <summary>The fixed string "identitytoolkit#DeleteAccountResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.DeleteAccountResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.DownloadAccountResponse">
+            <summary>Respone of downloading accounts in batch.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.DownloadAccountResponse.Kind">
+            <summary>The fixed string "identitytoolkit#DownloadAccountResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.DownloadAccountResponse.NextPageToken">
+            <summary>The next page token. To be used in a subsequent request to return the next page of
+            results.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.DownloadAccountResponse.Users">
+            <summary>The user accounts data.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.DownloadAccountResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.GetAccountInfoResponse">
+            <summary>Response of getting account information.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.GetAccountInfoResponse.Kind">
+            <summary>The fixed string "identitytoolkit#GetAccountInfoResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.GetAccountInfoResponse.Users">
+            <summary>The info of the users.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.GetAccountInfoResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.GetOobConfirmationCodeResponse">
+            <summary>Response of getting a code for user confirmation (reset password, change email etc.).</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.GetOobConfirmationCodeResponse.Kind">
+            <summary>The fixed string "identitytoolkit#GetOobConfirmationCodeResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.GetOobConfirmationCodeResponse.OobCode">
+            <summary>The code to be send to the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.GetOobConfirmationCodeResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest">
+            <summary>Request to get the IDP authentication URL.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.AppId">
+            <summary>The app ID of the mobile app, base64(CERT_SHA1):PACKAGE_NAME for Android, BUNDLE_ID for
+            iOS.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.ClientId">
+            <summary>The relying party OAuth client ID.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.Context">
+            <summary>The opaque value used by the client to maintain context info between the authentication request and
+            the IDP callback.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.ContinueUri">
+            <summary>The URI to which the IDP redirects the user after the federated login flow.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.Identifier">
+            <summary>The email or federated ID of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.OpenidRealm">
+            <summary>Optional realm for OpenID protocol. The sub string "scheme://domain:port" of the param
+            "continueUri" is used if this is not set.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.OtaApp">
+            <summary>The native app package for OTA installation.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.ProviderId">
+            <summary>The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and
+            yahoo.com. For other OpenID IdPs it's the OP identifier.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDeleteAccountRequest">
+            <summary>Request to delete account.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDeleteAccountRequest.LocalId">
+            <summary>The local ID of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDeleteAccountRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDownloadAccountRequest">
+            <summary>Request to download user account in batch.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDownloadAccountRequest.MaxResults">
+            <summary>The max number of results to return in the response.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDownloadAccountRequest.NextPageToken">
+            <summary>The token for the next page. This should be taken from the previous response.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDownloadAccountRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest">
+            <summary>Request to get the account information.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest.Email">
+            <summary>The list of emails of the users to inquiry.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest.IdToken">
+            <summary>The GITKit token of the authenticated user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest.LocalId">
+            <summary>The list of local ID's of the users to inquiry.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest">
+            <summary>Request to reset the password.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest.Email">
+            <summary>The email address of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest.NewPassword">
+            <summary>The new password inputted by the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest.OldPassword">
+            <summary>The old password inputted by the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest.OobCode">
+            <summary>The confirmation code.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest">
+            <summary>Request to set the account information.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.CaptchaChallenge">
+            <summary>The captcha challenge.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.CaptchaResponse">
+            <summary>Response to the captcha.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.DisplayName">
+            <summary>The name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.Email">
+            <summary>The email of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.EmailVerified">
+            <summary>Mark the email as verified or not.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.IdToken">
+            <summary>The GITKit token of the authenticated user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.LocalId">
+            <summary>The local ID of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.OobCode">
+            <summary>The out-of-band code of the change email request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.Password">
+            <summary>The new password of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.Provider">
+            <summary>The associated IDPs of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.UpgradeToFederatedLogin">
+            <summary>Mark the user to upgrade to federated login.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyUploadAccountRequest">
+            <summary>Request to upload user account in batch.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyUploadAccountRequest.Users">
+            <summary>The account info to be stored.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyUploadAccountRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest">
+            <summary>Request to verify the IDP assertion.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest.PendingIdToken">
+            <summary>The GITKit token for the non-trusted IDP pending to be confirmed by the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest.PostBody">
+            <summary>The post body if the request is a HTTP POST.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest.RequestUri">
+            <summary>The URI to which the IDP redirects the user back. It may contain federated login result params
+            added by the IDP.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest">
+            <summary>Request to verify the password.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest.CaptchaChallenge">
+            <summary>The captcha challenge.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest.CaptchaResponse">
+            <summary>Response to the captcha.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest.Email">
+            <summary>The email of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest.Password">
+            <summary>The password inputed by the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest.PendingIdToken">
+            <summary>The GITKit token for the non-trusted IDP, which is to be confirmed by the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.Relyingparty">
+            <summary>Request of getting a code for user confirmation (reset password, change email etc.)</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.CaptchaResp">
+            <summary>The recaptcha response from the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.Challenge">
+            <summary>The recaptcha challenge presented to the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.Email">
+            <summary>The email of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.IdToken">
+            <summary>The user's Gitkit login token for email change.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.Kind">
+            <summary>The fixed string "identitytoolkit#relyingparty".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.NewEmail">
+            <summary>The new email if the code is for email change.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.RequestType">
+            <summary>The request type.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.UserIp">
+            <summary>The IP address of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.Relyingparty.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.ResetPasswordResponse">
+            <summary>Response of resetting the password.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.ResetPasswordResponse.Email">
+            <summary>The user's email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.ResetPasswordResponse.Kind">
+            <summary>The fixed string "identitytoolkit#ResetPasswordResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.ResetPasswordResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse">
+            <summary>Respone of setting the account information.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.DisplayName">
+            <summary>The name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.Email">
+            <summary>The email of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.IdToken">
+            <summary>The Gitkit id token to login the newly sign up user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.Kind">
+            <summary>The fixed string "identitytoolkit#SetAccountInfoResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.ProviderUserInfo">
+            <summary>The user's profiles at the associated IdPs.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.ProviderUserInfoData.DisplayName">
+            <summary>The user's display name at the IDP.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.ProviderUserInfoData.PhotoUrl">
+            <summary>The user's photo url at the IDP.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.SetAccountInfoResponse.ProviderUserInfoData.ProviderId">
+            <summary>The IdP ID. For whitelisted IdPs it's a short domain name, e.g., google.com, aol.com, live.net
+            and yahoo.com. For other OpenID IdPs it's the OP identifier.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.UploadAccountResponse">
+            <summary>Respone of uploading accounts in batch.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UploadAccountResponse.Error">
+            <summary>The error encountered while processing the account info.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UploadAccountResponse.Kind">
+            <summary>The fixed string "identitytoolkit#UploadAccountResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UploadAccountResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UploadAccountResponse.ErrorData.Index">
+            <summary>The index of the malformed account, starting from 0.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UploadAccountResponse.ErrorData.Message">
+            <summary>Detailed error message for the account info.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.UserInfo">
+            <summary>Template for an individual account info.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.DisplayName">
+            <summary>The name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.Email">
+            <summary>The email of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.EmailVerified">
+            <summary>Whether the email has been verified.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.LocalId">
+            <summary>The local ID of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.PasswordHash">
+            <summary>The user's hashed password.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.PasswordUpdatedAt">
+            <summary>The timestamp when the password was last updated.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.PhotoUrl">
+            <summary>The URL of the user profile photo.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.ProviderUserInfo">
+            <summary>The IDP of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.Salt">
+            <summary>The user's password salt.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.Version">
+            <summary>Version of the user's password.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.ProviderUserInfoData.DisplayName">
+            <summary>The user's display name at the IDP.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.ProviderUserInfoData.FederatedId">
+            <summary>User's identifier at IDP.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.ProviderUserInfoData.PhotoUrl">
+            <summary>The user's photo url at the IDP.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.UserInfo.ProviderUserInfoData.ProviderId">
+            <summary>The IdP ID. For white listed IdPs it's a short domain name, e.g., google.com, aol.com, live.net
+            and yahoo.com. For other OpenID IdPs it's the OP identifier.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse">
+            <summary>Response of verifying the IDP assertion.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.Action">
+            <summary>The action code.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.AppInstallationUrl">
+            <summary>URL for OTA app installation.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.AppScheme">
+            <summary>The custom scheme used by mobile app.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.Context">
+            <summary>The opaque value used by the client to maintain context info between the authentication request and
+            the IDP callback.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.DateOfBirth">
+            <summary>The birth date of the IdP account.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.DisplayName">
+            <summary>The display name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.Email">
+            <summary>The email returned by the IdP. NOTE: The federated login user may not own the email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.EmailRecycled">
+            <summary>It's true if the email is recycled.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.EmailVerified">
+            <summary>The value is true if the IDP is also the email provider. It means the user owns the
+            email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.FederatedId">
+            <summary>The unique ID identifies the IdP account.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.FirstName">
+            <summary>The first name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.FullName">
+            <summary>The full name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.IdToken">
+            <summary>The ID token.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.InputEmail">
+            <summary>It's the identifier param in the createAuthUri request if the identifier is an email. It can be
+            used to check whether the user input email is different from the asserted email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.Kind">
+            <summary>The fixed string "identitytoolkit#VerifyAssertionResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.Language">
+            <summary>The language preference of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.LastName">
+            <summary>The last name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.LocalId">
+            <summary>The RP local ID if it's already been mapped to the IdP account identified by the federated
+            ID.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.NeedConfirmation">
+            <summary>Whether the assertion is from a non-trusted IDP and need account linking confirmation.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.NickName">
+            <summary>The nick name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.OauthRequestToken">
+            <summary>The user approved request token for the OpenID OAuth extension.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.OauthScope">
+            <summary>The scope for the OpenID OAuth extension.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.OriginalEmail">
+            <summary>The original email stored in the mapping storage. It's returned when the federated ID is associated
+            to a different email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.PhotoUrl">
+            <summary>The URI of the public accessible profiel picture.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.ProviderId">
+            <summary>The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and
+            yahoo.com. If the "providerId" param is set to OpenID OP identifer other than the whilte listed IdPs the OP
+            identifier is returned. If the "identifier" param is federated ID in the createAuthUri request. The domain
+            part of the federated ID is returned.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.TimeZone">
+            <summary>The timezone of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.VerifiedProvider">
+            <summary>When action is 'map', contains the idps which can be used for confirmation.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyAssertionResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse">
+            <summary>Request of verifying the password.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.DisplayName">
+            <summary>The name of the user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.Email">
+            <summary>The email returned by the IdP. NOTE: The federated login user may not own the email.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.IdToken">
+            <summary>The GITKit token for authenticated user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.Kind">
+            <summary>The fixed string "identitytoolkit#VerifyPasswordResponse".</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.LocalId">
+            <summary>The RP local ID if it's already been mapped to the IdP account identified by the federated
+            ID.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.PhotoUrl">
+            <summary>The URI of the user's photo at IdP</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.Registered">
+            <summary>Whether the email is registered.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.Data.VerifyPasswordResponse.ETag">
+            <summary>The ETag of the item.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.IdentityToolkitService">
+            <summary>The IdentityToolkit Service.</summary>
+        </member>
+        <member name="F:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.Version">
+            <summary>The API version.</summary>
+        </member>
+        <member name="F:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.DiscoveryVersionUsed">
+            <summary>The discovery version used to generate this service.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.#ctor">
+            <summary>Constructs a new service.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.#ctor(Google.Apis.Services.BaseClientService.Initializer)">
+            <summary>Constructs a new service.</summary>
+            <param name="initializer">The service initializer.</param>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.Features">
+            <summary>Gets the service supported features.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.Name">
+            <summary>Gets the service name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.BaseUri">
+            <summary>Gets the service base URI.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.BasePath">
+            <summary>Gets the service base path.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitService.Relyingparty">
+            <summary>Gets the Relyingparty resource.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1">
+            <summary>A base abstract class for IdentityToolkit requests.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new IdentityToolkitBaseServiceRequest instance.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.InitParameters">
+            <summary>Initializes IdentityToolkit parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.Alt">
+            <summary>Data format for the response.</summary>
+            [default: json]
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.Fields">
+            <summary>Selector specifying which fields to include in a partial response.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.Key">
+            <summary>API key. Your API key identifies your project and provides you with API access, quota, and reports.
+            Required unless you provide an OAuth 2.0 token.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.OauthToken">
+            <summary>OAuth 2.0 token for the current user.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.PrettyPrint">
+            <summary>Returns response with indentations and line breaks.</summary>
+            [default: true]
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.QuotaUser">
+            <summary>Available to use for quota purposes for server-side applications. Can be any arbitrary string
+            assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.UserIp">
+            <summary>IP address of the site where the request originates. Use this if you want to enforce per-user
+            limits.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.AltEnum">
+            <summary>Data format for the response.</summary>
+        </member>
+        <member name="F:Google.Apis.IdentityToolkit.v3.IdentityToolkitBaseServiceRequest`1.AltEnum.Json">
+            <summary>Responses with Content-Type of application/json</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource">
+            <summary>The "relyingparty" collection of methods.</summary>
+        </member>
+        <member name="F:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.service">
+            <summary> The service whih this resource is belong to.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.#ctor(Google.Apis.Services.IClientService)">
+            <summary>Constructs a new resource.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUri(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest)">
+            <summary>Creates the URI used by the IdP to authenticate the user.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccount(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDeleteAccountRequest)">
+            <summary>Delete user account.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccount(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDownloadAccountRequest)">
+            <summary>Batch download user accounts.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfo(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest)">
+            <summary>Returns the account info.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCode(Google.Apis.IdentityToolkit.v3.Data.Relyingparty)">
+            <summary>Get a code for user action confirmation.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPassword(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest)">
+            <summary>Set account info for a user.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfo(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest)">
+            <summary>Set account info for a user.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccount(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyUploadAccountRequest)">
+            <summary>Batch upload existing user accounts.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertion(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest)">
+            <summary>Verifies the assertion returned by the IdP.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPassword(Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest)">
+            <summary>Verifies the user entered password.</summary>
+            <param name="body">The body of the request.</param>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest">
+            <summary>Creates the URI used by the IdP to authenticate the user.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyCreateAuthUriRequest)">
+            <summary>Constructs a new CreateAuthUri request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.InitParameters">
+            <summary>Initializes CreateAuthUri parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.CreateAuthUriRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest">
+            <summary>Delete user account.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDeleteAccountRequest)">
+            <summary>Constructs a new DeleteAccount request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.InitParameters">
+            <summary>Initializes DeleteAccount parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DeleteAccountRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest">
+            <summary>Batch download user accounts.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyDownloadAccountRequest)">
+            <summary>Constructs a new DownloadAccount request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.InitParameters">
+            <summary>Initializes DownloadAccount parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.DownloadAccountRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest">
+            <summary>Returns the account info.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest)">
+            <summary>Constructs a new GetAccountInfo request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.InitParameters">
+            <summary>Initializes GetAccountInfo parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetAccountInfoRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest">
+            <summary>Get a code for user action confirmation.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.Relyingparty)">
+            <summary>Constructs a new GetOobConfirmationCode request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.InitParameters">
+            <summary>Initializes GetOobConfirmationCode parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest">
+            <summary>Set account info for a user.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyResetPasswordRequest)">
+            <summary>Constructs a new ResetPassword request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.InitParameters">
+            <summary>Initializes ResetPassword parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.ResetPasswordRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest">
+            <summary>Set account info for a user.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartySetAccountInfoRequest)">
+            <summary>Constructs a new SetAccountInfo request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.InitParameters">
+            <summary>Initializes SetAccountInfo parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.SetAccountInfoRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest">
+            <summary>Batch upload existing user accounts.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyUploadAccountRequest)">
+            <summary>Constructs a new UploadAccount request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.InitParameters">
+            <summary>Initializes UploadAccount parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.UploadAccountRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest">
+            <summary>Verifies the assertion returned by the IdP.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyAssertionRequest)">
+            <summary>Constructs a new VerifyAssertion request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.InitParameters">
+            <summary>Initializes VerifyAssertion parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyAssertionRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+        <member name="T:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest">
+            <summary>Verifies the user entered password.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.#ctor(Google.Apis.Services.IClientService,Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyVerifyPasswordRequest)">
+            <summary>Constructs a new VerifyPassword request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.GetBody">
+            <summary>Returns the body of the request.</summary>
+        </member>
+        <member name="M:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.InitParameters">
+            <summary>Initializes VerifyPassword parameter list.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.Body">
+            <summary>Gets or sets the body of this request.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.MethodName">
+            <summary>Gets the method name.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.HttpMethod">
+            <summary>Gets the HTTP method.</summary>
+        </member>
+        <member name="P:Google.Apis.IdentityToolkit.v3.RelyingpartyResource.VerifyPasswordRequest.RestPath">
+            <summary>Gets the REST path.</summary>
+        </member>
+    </members>
+</doc>
