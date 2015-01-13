@@ -942,6 +942,8 @@ namespace Links
                 private const string URLPATH = "~/Content/Styles/Site";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string POBOAdmin_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOAdmin.min.css") ? Url("POBOAdmin.min.css") : Url("POBOAdmin.css");
+                     
                 public static readonly string POBOButtons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOButtons.min.css") ? Url("POBOButtons.min.css") : Url("POBOButtons.css");
                      
                 public static readonly string POBOCustomer_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOCustomer.min.css") ? Url("POBOCustomer.min.css") : Url("POBOCustomer.css");

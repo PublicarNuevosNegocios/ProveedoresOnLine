@@ -2041,7 +2041,13 @@ namespace BackOffice.Web.ControllersApi
                 });
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
-            }
+
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
+                
+                oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
+                
+                oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), oEconomiActivity);
+            }            
 
             return oReturn;
         }

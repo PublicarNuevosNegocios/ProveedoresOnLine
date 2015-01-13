@@ -510,16 +510,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                CompanyRuleId = cr.Field<int>("CompanyRuleId"),
                                CompanyRuleName = cr.Field<string>("CompanyRuleName"),
                                CompanyRuleEnable = cr.Field<UInt64>("CompanyRuleEnable") == 1 ? true : false,
-                               CompanyRuleCreate = cr.Field<DateTime>("CompanyRuleCreate"),
-                               CompanyRuleModify = cr.Field<DateTime>("CompanyRuleModify"),
                            } into crr
                            select new GenericItemModel()
                            {
                                ItemId = crr.Key.CompanyRuleId,
                                ItemName = crr.Key.CompanyRuleName,
                                Enable = crr.Key.CompanyRuleEnable,
-                               CreateDate = crr.Key.CompanyRuleCreate,
-                               LastModify = crr.Key.CompanyRuleModify,
                            }).ToList();
             }
 

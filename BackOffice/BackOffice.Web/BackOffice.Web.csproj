@@ -1042,6 +1042,7 @@
     <Content Include="Views\Admin\AdminBankUpsert.cshtml" />
     <Content Include="Views\Admin\AdminCompanyRulesUpsert.cshtml" />
     <Content Include="Views\Admin\AdminRulesUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminResolutionUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

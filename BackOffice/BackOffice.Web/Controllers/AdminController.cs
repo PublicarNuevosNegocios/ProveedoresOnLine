@@ -84,6 +84,18 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminResolutionUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -202,12 +214,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Resoluciones",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminResolutionUpsert,
+                    MVC.Admin.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminResolutionUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
             //TRM

@@ -301,6 +301,28 @@ namespace BackOffice.Web.ControllersApi
                 }
 
                 #endregion
+
+                #region Resolution
+
+                if (CategoryType == "AdminResolution")
+                {
+                    GenericItemModel oResolutionToUpsert = new GenericItemModel();
+
+                    oResolutionToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.RS_ResolutionId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_ResolutionId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.RS_Resolution,
+                        Enable = oDataToUpsert.RS_ResolutionEnable,
+                        ItemInfo = new List<GenericItemInfoModel>(),
+                    };
+
+                    GenericItemModel ResolutionResult = new GenericItemModel();
+                    ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(8, oResolutionToUpsert);
+                }
+
+                #endregion
             }
             return oReturn;
         }
@@ -551,6 +573,42 @@ namespace BackOffice.Web.ControllersApi
             if (oRules != null)
             {
                 oRules.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByResolutionAdmin
+            (string CategorySearchByResolutionAdmin, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oResolution =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByResolutionAdmin == "true")
+            {
+                oResolution = ProveedoresOnLine.Company.Controller.Company.CategorySearchByResolutionAdmin
+                            (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oResolution != null)
+            {
+                oResolution.All(x =>
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
