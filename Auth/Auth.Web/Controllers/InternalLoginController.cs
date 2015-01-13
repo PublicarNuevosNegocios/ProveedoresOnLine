@@ -17,9 +17,18 @@ namespace Auth.Web.Controllers
             string oAppName = base.GetAppNameByDomain(oReturnUrl);
             ViewBag.AppName = oAppName;
 
+            //get Cookie name
+            string oCookieName = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                    [Auth.Interfaces.Constants.C_SettingsModuleName]
+                    [Auth.Interfaces.Constants.C_IL_Cookie.Replace("{AppName}", oAppName)].Value;
+
+            //preserve return url before request
+            base.ReturnUrl = oReturnUrl;
+
             return RedirectToAction
                 (MVC.InternalLogin.ActionNames.oauth2callback,
-                MVC.InternalLogin.Name);
+                MVC.InternalLogin.Name,
+                new { mode = "select" });
         }
 
         public virtual ActionResult oauth2callback()
@@ -34,10 +43,13 @@ namespace Auth.Web.Controllers
                     [Auth.Interfaces.Constants.C_IL_Cookie.Replace("{AppName}", oAppName)].Value;
 
             //validate user login
-            if (Request.Cookies.AllKeys.Any(x => x == oCookieName))
+            if (Request.Cookies.AllKeys.Any(x => x == oCookieName) &&
+                Request.Url.Query.Replace(" ", "").Length == 0)
             {
-                Google.Apis.IdentityToolkit.v3.IdentityToolkitService service = GetILClient(oAppName);
+                //get service client
+                Google.Apis.IdentityToolkit.v3.IdentityToolkitService service = GetILClient(false, oAppName);
 
+                //validate client login
                 Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest oRequestData =
                     new Google.Apis.IdentityToolkit.v3.Data.IdentitytoolkitRelyingpartyGetAccountInfoRequest()
                     {
@@ -106,51 +118,119 @@ namespace Auth.Web.Controllers
 
         public virtual JsonResult oobActionUrl()
         {
-            Google.Apis.IdentityToolkit.v3.IdentityToolkitService service =
-                new Google.Apis.IdentityToolkit.v3.IdentityToolkitService(new Google.Apis.Services.BaseClientService.Initializer()
-                {
-                    ApiKey = "AIzaSyB2uX9RlXiwvVZd6Dj82NmFrMYObmXnUqQ",
-                    ApplicationName = "app 1",
-                });
+            //get current application name
+            string oAppName = base.GetAppNameByDomain(base.ReturnUrl);
+            ViewBag.AppName = oAppName;
 
-            Google.Apis.IdentityToolkit.v3.Data.Relyingparty oRequestData1 =
-                new Google.Apis.IdentityToolkit.v3.Data.Relyingparty()
-                {
-                    Kind = "identitytoolkit#relyingparty",
-                    RequestType = "PASSWORD_RESET",
-                    //RequestType = Request["action"],
-                    Email = Request["email"],
-                    Challenge = Request["challenge"],
-                    CaptchaResp = Request["response"],
-                    UserIp = Request.UserHostAddress,
-                };
+            //validate reset password
+            if (!string.IsNullOrEmpty(Request["action"]) &&
+                Request["action"].Trim().ToLower() == "resetpassword")
+            {
+                //get service client
+                Google.Apis.IdentityToolkit.v3.IdentityToolkitService service = GetILClient(true, oAppName);
 
-            Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest oRequest1 = service.Relyingparty.GetOobConfirmationCode(oRequestData1);
+                //get reset password url
+                Google.Apis.IdentityToolkit.v3.Data.Relyingparty oRequestData =
+                    new Google.Apis.IdentityToolkit.v3.Data.Relyingparty()
+                    {
+                        Kind = "identitytoolkit#relyingparty",
+                        RequestType = "PASSWORD_RESET",
+                        Email = Request["email"],
+                        Challenge = Request["challenge"],
+                        CaptchaResp = Request["response"],
+                        UserIp = Request.UserHostAddress,
+                    };
 
-            Google.Apis.IdentityToolkit.v3.Data.GetOobConfirmationCodeResponse oResponse1 = oRequest1.Execute();
+                Google.Apis.IdentityToolkit.v3.RelyingpartyResource.GetOobConfirmationCodeRequest oRequest =
+                    service.Relyingparty.GetOobConfirmationCode(oRequestData);
 
-            return Json(new { kind = "identitytoolkit#GetOobConfirmationCodeResponse", oobCode = oResponse1.OobCode });
+                Google.Apis.IdentityToolkit.v3.Data.GetOobConfirmationCodeResponse oResponse = oRequest.Execute();
+
+                //email to regenerate psw
+                string oUrlRegeneratePsw = Request.Url.ToString().Replace(Request.Url.PathAndQuery, string.Empty) +
+                    Url.Action
+                    (MVC.InternalLogin.ActionNames.oauth2callback,
+                    MVC.InternalLogin.Name,
+                    new
+                    {
+                        mode = "resetPassword",
+                        oobCode = oResponse.OobCode,
+                    });
+
+                //TODO:Send regenerate psw email
+
+                //return success service
+                return Json(new { success = true, kind = "identitytoolkit#GetOobConfirmationCodeResponse", oobCode = oResponse.OobCode, email = Request["email"] });
+            }
+            //return unsuccess service
+            return Json(new { success = false, kind = string.Empty, oobCode = string.Empty, email = Request["email"] });
+        }
+
+        public virtual ActionResult ResetPassword(string Success, string Email)
+        {
+            return View();
         }
 
         #region private methods
 
         //create google instance
-        Google.Apis.IdentityToolkit.v3.IdentityToolkitService GetILClient(string AppName)
+        Google.Apis.IdentityToolkit.v3.IdentityToolkitService GetILClient(bool IsService, string AppName)
         {
-            string oApiKey = SettingsManager.SettingsController.SettingsInstance.ModulesParams
-                    [Auth.Interfaces.Constants.C_SettingsModuleName]
-                    [Auth.Interfaces.Constants.C_IL_ApiKey.Replace("{AppName}", AppName)].Value;
+            Google.Apis.IdentityToolkit.v3.IdentityToolkitService client = null;
 
-            string oApiName = SettingsManager.SettingsController.SettingsInstance.ModulesParams
-                                [Auth.Interfaces.Constants.C_SettingsModuleName]
-                                [Auth.Interfaces.Constants.C_IL_ApiName.Replace("{AppName}", AppName)].Value;
+            if (IsService)
+            {
+                //get service client 
 
-            Google.Apis.IdentityToolkit.v3.IdentityToolkitService client =
-                new Google.Apis.IdentityToolkit.v3.IdentityToolkitService(new Google.Apis.Services.BaseClientService.Initializer()
-                {
-                    ApiKey = oApiKey,
-                    ApplicationName = oApiName,
-                });
+                string serviceAccountEmail = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                        [Auth.Interfaces.Constants.C_SettingsModuleName]
+                        [Auth.Interfaces.Constants.C_IL_Service_Email.Replace("{AppName}", AppName)].Value;
+
+                string p12FileLocation = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                        [Auth.Interfaces.Constants.C_SettingsModuleName]
+                        [Auth.Interfaces.Constants.C_IL_Service_p12File.Replace("{AppName}", AppName)].Value;
+
+                string oApiName = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                        [Auth.Interfaces.Constants.C_SettingsModuleName]
+                        [Auth.Interfaces.Constants.C_IL_ApiName.Replace("{AppName}", AppName)].Value;
+
+                var certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2
+                    (p12FileLocation,
+                    "notasecret",
+                    System.Security.Cryptography.X509Certificates.X509KeyStorageFlags.Exportable);
+
+                Google.Apis.Auth.OAuth2.ServiceAccountCredential credential = new Google.Apis.Auth.OAuth2.ServiceAccountCredential(
+                   new Google.Apis.Auth.OAuth2.ServiceAccountCredential.Initializer(serviceAccountEmail)
+                   {
+                       Scopes = new[] { "https://www.googleapis.com/auth/identitytoolkit" }
+                   }.FromCertificate(certificate));
+
+                client =
+                    new Google.Apis.IdentityToolkit.v3.IdentityToolkitService(new Google.Apis.Services.BaseClientService.Initializer()
+                    {
+                        HttpClientInitializer = credential,
+                        ApplicationName = oApiName,
+                    });
+            }
+            else
+            {
+                //get web client
+
+                string oApiKey = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                        [Auth.Interfaces.Constants.C_SettingsModuleName]
+                        [Auth.Interfaces.Constants.C_IL_ApiKey.Replace("{AppName}", AppName)].Value;
+
+                string oApiName = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                                    [Auth.Interfaces.Constants.C_SettingsModuleName]
+                                    [Auth.Interfaces.Constants.C_IL_ApiName.Replace("{AppName}", AppName)].Value;
+
+                client =
+                    new Google.Apis.IdentityToolkit.v3.IdentityToolkitService(new Google.Apis.Services.BaseClientService.Initializer()
+                    {
+                        ApiKey = oApiKey,
+                        ApplicationName = oApiName,
+                    });
+            }
 
             return client;
         }

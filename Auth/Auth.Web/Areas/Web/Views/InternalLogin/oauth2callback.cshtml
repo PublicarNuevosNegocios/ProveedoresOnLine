@@ -1,7 +1,65 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ingresar";
     Layout = "~/Areas/Web/Views/Shared/_Layout.cshtml";
+
+    string oApiKey = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+            [Auth.Interfaces.Constants.C_SettingsModuleName]
+            [Auth.Interfaces.Constants.C_IL_ApiKey.Replace("{AppName}", ViewBag.AppName)].Value;
+
+    string oApiName = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+            [Auth.Interfaces.Constants.C_SettingsModuleName]
+            [Auth.Interfaces.Constants.C_IL_ApiName.Replace("{AppName}", ViewBag.AppName)].Value;
+
+    string oCookieName = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+            [Auth.Interfaces.Constants.C_SettingsModuleName]
+            [Auth.Interfaces.Constants.C_IL_Cookie.Replace("{AppName}", ViewBag.AppName)].Value;
 }
 
+<div>
+    <div id="gitkitWidgetDiv"></div>
+</div>
 
+@section inlinescripts {
+    <script type="text/javascript" src="//www.gstatic.com/authtoolkit/js/gitkit.js"></script>
+    <link type="text/css" rel="stylesheet" href="//www.gstatic.com/authtoolkit/css/gitkit.css" />
 
+    <script type="text/javascript">
+        var config = {
+            apiKey: '@oApiKey',
+            siteName: '@oApiName',
+            signInSuccessUrl: '@Url.Action(MVC.InternalLogin.ActionNames.oauth2callback,MVC.InternalLogin.Name)',
+            callbackUrl: '@Url.Action(MVC.InternalLogin.ActionNames.oauth2callback,MVC.InternalLogin.Name)',
+            idps: [],
+            oobActionUrl: '@Url.Action(MVC.InternalLogin.ActionNames.oobActionUrl,MVC.InternalLogin.Name)',
+            language: 'es',
+            cookieName: '@oCookieName',
+
+            ajaxSender: function (url, data, completed) {
+
+                var oUrlSender = '@Url.Action(MVC.InternalLogin.ActionNames.ResetPassword, MVC.InternalLogin.Name, new { Success = "{success}", Email = "{email}" })'
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    cache: false,
+                    success: function (result) {
+                        if (result != null && result.success == true) {
+                            completed(result || {});
+                        }
+                        //window.location = oUrlSender.replace(/{success}/gi, result.success).replace(/{email}/gi, result.email);
+                    },
+                    error: function (event, jqXHR, ajaxSettings, thrownError) {
+                        window.location = oUrlSender.replace(/{success}/gi, '').replace(/{email}/gi, '');
+                    },
+                });
+            },
+        };
+
+        // The HTTP POST body should be escaped by the server to prevent XSS
+        window.google.identitytoolkit.start(
+            '#gitkitWidgetDiv', // accepts any CSS selector
+            config,
+            'JAVASCRIPT_ESCAPED_POST_BODY');
+    </script>
+}

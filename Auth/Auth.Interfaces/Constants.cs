@@ -13,6 +13,8 @@
 
         public const string C_IL_Enabled = "IL_{AppName}_Enabled";
         public const string C_IL_ApiKey = "IL_{AppName}_ApiKey";
+        public const string C_IL_Service_p12File = "IL_{AppName}_Service_p12File";
+        public const string C_IL_Service_Email = "IL_{AppName}_Service_Email";
         public const string C_IL_ApiName = "IL_{AppName}_ApiName";
         public const string C_IL_Cookie = "IL_{AppName}_Cookie";
 
