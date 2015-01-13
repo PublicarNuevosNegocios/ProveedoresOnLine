@@ -2417,7 +2417,7 @@ var Provider_CompanyHSEQObject = {
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar' },
+                { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
@@ -2792,7 +2792,7 @@ var Provider_CompanyFinancialObject = {
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
+                                    $('#' + Provider_CompanyFinancialObject.ObjectId + ' _Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                                 }
                             },
@@ -2851,12 +2851,12 @@ var Provider_CompanyFinancialObject = {
 
     CalculateBalanceSheet: function () {
         Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
+        //Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts); Operaciones de Utilidades
     },
 
     CalculateBalanceSheetDetail: function (lstAccounts) {
 
         var SumResult = new Number();
-
         if (lstAccounts != null && lstAccounts.length > 0) {
             $.each(lstAccounts, function (item, value) {
                 if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
@@ -2870,6 +2870,90 @@ var Provider_CompanyFinancialObject = {
             });
         }
         return SumResult;
+    },
+
+    CalculateBalanceSheetUtility: function (lstAccounts) {
+        var oTotalResult = 0;
+        var oUtilidadBruta = 0;
+        var oUtilidadOperacional = 0;
+        var oUtilidadAntesImpuestos = 0;
+        var oUtilidadDespuesImpuestos = 0;
+        var oUtilidadEjercicio = 0;
+
+        if (lstAccounts != null && lstAccounts.length > 0) {
+            $.each(lstAccounts, function (item, value) {
+                if (value.RelatedAccount.ItemName == "Estado de Resultados") {
+                    if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+                        value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(value.ChildBalanceSheet);
+                        $.each(value.ChildBalanceSheet, function (item, value) {
+                            if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
+                                    if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
+                                        $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
+                                        $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
+                                        $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
+                                        $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
+                                    }
+                                    else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
+                                        $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
+                                        $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
+                                        $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
+                                        $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
+                                    }
+                                });
+                            }
+                            else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {   
+
+                                oUtilidadOperacional = oUtilidadBruta;
+
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
+                                });
+
+                                $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
+                            }
+                            else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
+
+                                oUtilidadAntesImpuestos = oUtilidadOperacional;
+
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    if (value.RelatedAccount.ItemName == "Ingresos No Operacionales") {
+                                        oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
+                                    }
+                                    else {
+                                        oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+                                    }
+                                });
+
+                                $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
+
+                                
+                            }
+                            else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
+
+                                oUtilidadDespuesImpuestos = oUtilidadAntesImpuestos;
+
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+                                });
+                                
+                                $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
+                            }
+                            else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
+                                oUtilidadEjercicio = oUtilidadDespuesImpuestos;
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
+                                });
+
+                                $('#divBalanceSheet_Detail_ParentAccount_3820_Total').html(oUtilidadEjercicio);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        return oTotalResult;
     },
 
     CancelBalanceSheetDetail: function () {
@@ -3308,7 +3392,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'IB_BankName',
                 title: 'Banco',
-                width: '80px',
+                width: '190px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.IB_BankName != null) {
@@ -3503,7 +3587,7 @@ var Provider_LegalInfoObject = {
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar cambios' },
+                { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' }
             ],
             dataSource: {
@@ -4673,7 +4757,7 @@ function Message(style, idfield) {
         }
         else if (idfield == '') {
             mess = 'Operación exitosa.';
-        }else {
+        } else {
             mess = 'Se editó la fila con el id ' + idfield + '.';
         }
     }

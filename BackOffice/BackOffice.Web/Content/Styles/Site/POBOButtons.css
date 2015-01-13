@@ -62,6 +62,21 @@
         padding:6px 30px !important;
     }
 /************* ESTOS SON LOS BOTONES E InPUTS DE LAS GRILLAS ***************/
+/************************* BOTON GUARDAR *********************/
+.k-grid-save-changes {
+    background-color:#ff8300 !important;
+    border-radius:2px !important;
+    border:1px solid #727276 !important;
+    background-image:none !important;
+    color:#fff !important;
+}
+    .k-grid-save-changes:hover {
+        background-color:#ff8300 !important;
+        border-radius:1.5px !important;
+        border:1px solid #666 !important;
+        background-image:none !important;
+        color:#fff !important;
+    }
 /********* BOTON PARA LA CARGA DE ARCHIVOS DENTRO DE LA GRILLA *********/
 .k-grid tbody .k-button{
         background-color:#f9f9f9;        
