@@ -3392,7 +3392,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'IB_BankName',
                 title: 'Banco',
-                width: '80px',
+                width: '190px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.IB_BankName != null) {
