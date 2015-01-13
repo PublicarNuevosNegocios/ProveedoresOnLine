@@ -235,6 +235,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\arrowSelectedMenuSmall.png" />
     <Content Include="Content\Images\cerrar.png" />
+    <Content Include="Content\Images\dafaultProvider.png" />
     <Content Include="Content\Images\Error.png" />
     <Content Include="Content\Images\Google-plus-icon.png" />
     <Content Include="Content\Images\logo.png" />

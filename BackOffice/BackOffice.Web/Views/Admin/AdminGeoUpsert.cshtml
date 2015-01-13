@@ -15,16 +15,7 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Administración de Información Geográfica</label>
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
-            <div id="divGridGeoInfo"></div>
-            <br />
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
+            <div id="divGridGeoInfo"></div>           
         </div>
     </div>
 </div>

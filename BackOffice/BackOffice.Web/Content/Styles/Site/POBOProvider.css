@@ -7,6 +7,12 @@
     margin: 0 0 0 6px;
     width: calc(100% - 317px);
 }
+            .POBOPClientListWrapper tr{
+                cursor:pointer;
+            }
+                .POBOPClientListWrapper tr:hover {
+                    background-color:#e4e4e4;
+                }
 .POBOProviderWrapper {
         border:none;
     height:auto;

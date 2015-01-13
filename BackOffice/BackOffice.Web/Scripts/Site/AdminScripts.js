@@ -145,7 +145,7 @@
             columns: [{
                 field: 'GIT_Country',
                 title: 'País',
-                width: '100px',
+                width: '90px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.GIT_Country != null) {
@@ -214,35 +214,35 @@
             }, {
                 field: 'GIT_CountryDirespCode',
                 title: 'País DirespCode',
-                width: '100px',
+                width: '130px',
             }, {
                 field: 'GIT_CountryEnable',
                 title: 'Enable Pais',
-                width: '50px',
+                width: '120px',
             }, {
                 field: 'GIT_State',
                 title: 'Estado (Dpto.)',
-                width: '100px',
+                width: '120px',
             }, {
                 field: 'GIT_StateDirespCode',
                 title: 'Estado DirespCode',
-                width: '100px',
+                width: '140px',
             }, {
                 field: 'GIT_StateEnable',
                 title: 'Enable Estado (Dpto)',
-                width: '50px',
+                width: '150px',
             }, {
                 field: 'AG_City',
                 title: 'Ciudad',
-                width: '100px',
+                width: '150px',
             }, {
                 field: 'GI_CityDirespCode',
                 title: 'Ciudad DirespCode',
-                width: '100px',
+                width: '150px',
             }, {
                 field: 'GI_CapitalType',
                 title: 'Tipo de Capital',
-                width: '100px',
+                width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.GI_CapitalType != null) {
@@ -267,7 +267,7 @@
             }, {
                 field: 'GI_CityEnable',
                 title: 'Enable Ciudad',
-                width: '50px',
+                width: '110px',
             }, ],
         });
     },

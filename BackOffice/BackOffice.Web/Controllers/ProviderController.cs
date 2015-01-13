@@ -1214,7 +1214,7 @@ namespace BackOffice.Web.Controllers
                 //chaimber of commerce
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Camara y comercio",
+                    Name = "Cámara de comercio",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.LIChaimberOfCommerceUpsert,
                         MVC.Provider.Name,
@@ -1228,7 +1228,7 @@ namespace BackOffice.Web.Controllers
                 //RUT
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Registro unico tributario",
+                    Name = "Registro único tributario",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.LIRutUpsert,
                         MVC.Provider.Name,
