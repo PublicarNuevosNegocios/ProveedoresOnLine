@@ -64,8 +64,6 @@ namespace BackOffice.Models.Admin
         public string CR_CompanyRule { get; set; }
         public string CR_CompanyRuleId { get; set; }
         public bool CR_CompanyRuleEnable { get; set; }
-        public string CR_CompanyRuleCreate { get; set; }
-        public string CR_CompanyRuleModify { get; set; }
 
         #endregion
 
@@ -74,8 +72,14 @@ namespace BackOffice.Models.Admin
         public string R_Rule { get; set; }
         public string R_RuleId { get; set; }
         public bool R_RuleEnable { get; set; }
-        public string R_RuleCreate { get; set; }
-        public string R_RuleModify { get; set; }
+
+        #endregion
+
+        #region Resolution
+
+        public string RS_Resolution { get; set; }
+        public string RS_ResolutionId { get; set; }
+        public bool RS_ResolutionEnable { get; set; }
 
         #endregion
 
@@ -198,8 +202,6 @@ namespace BackOffice.Models.Admin
             CR_CompanyRule = oCategory.ItemName;
             CR_CompanyRuleId = oCategory.ItemId.ToString();
             CR_CompanyRuleEnable = oCategory.Enable;
-            CR_CompanyRuleCreate = oCategory.CreateDate.ToString();
-            CR_CompanyRuleModify = oCategory.LastModify.ToString();
 
             #endregion
 
@@ -208,8 +210,14 @@ namespace BackOffice.Models.Admin
             R_Rule = oCategory.ItemName;
             R_RuleId = oCategory.ItemId.ToString();
             R_RuleEnable = oCategory.Enable;
-            R_RuleCreate = oCategory.CreateDate.ToString();
-            R_RuleModify = oCategory.LastModify.ToString();
+
+            #endregion
+
+            #region Resolutions
+
+            RS_Resolution = oCategory.ItemName;
+            RS_ResolutionId = oCategory.ItemId.ToString();
+            RS_ResolutionEnable = oCategory.Enable;
 
             #endregion
         }
