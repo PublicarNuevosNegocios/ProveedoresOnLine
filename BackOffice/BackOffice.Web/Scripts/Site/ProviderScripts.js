@@ -2417,7 +2417,7 @@ var Provider_CompanyHSEQObject = {
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar' },
+                { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar' }
             ],
             dataSource: {
@@ -3575,7 +3575,7 @@ var Provider_LegalInfoObject = {
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar cambios' },
+                { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' }
             ],
             dataSource: {
