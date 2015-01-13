@@ -1279,9 +1279,9 @@ namespace BackOffice.Web.ControllersApi
 
             if (FIFinancialGetByType == "true")
             {
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
-                    (ProviderPublicId,
-                    string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = 
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
+                    (ProviderPublicId, string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
 
                 if (FinancialType == ((int)BackOffice.Models.General.enumFinancialType.BankInfoType).ToString())
                 {
@@ -1373,7 +1373,7 @@ namespace BackOffice.Web.ControllersApi
             string FinancialType)
         {
             BackOffice.Models.Provider.ProviderFinancialViewModel oReturn = null;
-
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank = null;
             if (FIFinancialUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
                 !string.IsNullOrEmpty(FinancialType))
@@ -1505,6 +1505,9 @@ namespace BackOffice.Web.ControllersApi
                 }
                 else if (oProvider.RelatedFinantial.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumFinancialType.BankInfoType)
                 {
+
+                    oBank = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank(null, 0, 0);
+
                     oProvider.RelatedFinantial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.IB_BankId) ? 0 : Convert.ToInt32(oDataToUpsert.IB_BankId.Trim()),
@@ -1620,6 +1623,7 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
+                oReturn = new Models.Provider.ProviderFinancialViewModel(oProvider.RelatedFinantial.FirstOrDefault(), oBank);
 
                 //register used files
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
