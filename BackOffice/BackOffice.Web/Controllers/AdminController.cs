@@ -93,7 +93,7 @@ namespace BackOffice.Web.Controllers
 
             oModel.ProviderMenu = GetAdminMenu(oModel);
 
-            return View();
+            return View(oModel);
         }
 
         #region Menu

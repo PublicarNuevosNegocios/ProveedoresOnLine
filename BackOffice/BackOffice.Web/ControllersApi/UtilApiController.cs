@@ -301,6 +301,28 @@ namespace BackOffice.Web.ControllersApi
                 }
 
                 #endregion
+
+                #region Resolution
+
+                if (CategoryType == "AdminResolution")
+                {
+                    GenericItemModel oResolutionToUpsert = new GenericItemModel();
+
+                    oResolutionToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.RS_ResolutionId) ? 0 : Convert.ToInt32(oDataToUpsert.RS_ResolutionId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.RS_Resolution,
+                        Enable = oDataToUpsert.RS_ResolutionEnable,
+                        ItemInfo = new List<GenericItemInfoModel>(),
+                    };
+
+                    GenericItemModel ResolutionResult = new GenericItemModel();
+                    ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(8, oResolutionToUpsert);
+                }
+
+                #endregion
             }
             return oReturn;
         }
