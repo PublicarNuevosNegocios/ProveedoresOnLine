@@ -242,6 +242,14 @@ li#F3 {
             right:16px;
             z-index: 10;
         }
+
+            #divBalanceSheet tr{
+                cursor:pointer;
+            }
+                #divBalanceSheet tr:hover {
+                    background-color:#e4e4e4;
+                }
+
 /*DATOS FINANCIEROS*/
 .POBOBalanceSheet_DetailWrapper{
     width:49.4%;
@@ -299,7 +307,7 @@ li#F3 {
                                     float: right;
                                     margin: 8px 11px 0 0;
                                     width: 48.4%;
-                                    height: 1695px;
+                                    height: 600px;
                                 }
                                     .POBOBalanceSheet_DocPreview iframe {
                                         width:100%;
