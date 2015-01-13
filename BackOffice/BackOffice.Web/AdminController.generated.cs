@@ -79,6 +79,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminBankUpsert = "AdminBankUpsert";
             public readonly string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
             public readonly string AdminRulesUpsert = "AdminRulesUpsert";
+            public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +91,7 @@ namespace BackOffice.Web.Controllers
             public const string AdminBankUpsert = "AdminBankUpsert";
             public const string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
             public const string AdminRulesUpsert = "AdminRulesUpsert";
+            public const string AdminResolutionUpsert = "AdminResolutionUpsert";
         }
 
 
@@ -106,6 +108,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminBankUpsert = "AdminBankUpsert";
                 public readonly string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
+                public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
@@ -113,6 +116,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminBankUpsert = "~/Views/Admin/AdminBankUpsert.cshtml";
             public readonly string AdminCompanyRulesUpsert = "~/Views/Admin/AdminCompanyRulesUpsert.cshtml";
             public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
+            public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
@@ -187,6 +191,17 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRulesUpsert);
             AdminRulesUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminResolutionUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminResolutionUpsert()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminResolutionUpsert);
+            AdminResolutionUpsertOverride(callInfo);
             return callInfo;
         }
 

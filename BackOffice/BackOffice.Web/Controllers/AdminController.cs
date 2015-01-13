@@ -214,12 +214,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Resoluciones",
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminResolutionUpsert,
+                    MVC.Admin.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminResolutionUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
             //TRM
