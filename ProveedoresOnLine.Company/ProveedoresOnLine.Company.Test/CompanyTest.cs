@@ -163,5 +163,18 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oTotalRows > 0);
         }
+
+        [TestMethod]
+        public void CategorySearcgByResolutionAdmin()
+        {
+            int oTotalRows;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByResolutionAdmin
+                ("", 0, 5, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
+        }
     }
 }

@@ -431,16 +431,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                CompanyRuleId = r.Field<int>("RuleId"),
                                CompanyRuleName = r.Field<string>("RuleName"),
                                CompanyRuleEnable = r.Field<UInt64>("RuleEnable") == 1 ? true : false,
-                               CompanyRuleCreate = r.Field<DateTime>("RuleCreate"),
-                               CompanyRuleModify = r.Field<DateTime>("RuleModify"),
                            } into rr
                            select new GenericItemModel()
                            {
                                ItemId = rr.Key.CompanyRuleId,
                                ItemName = rr.Key.CompanyRuleName,
                                Enable = rr.Key.CompanyRuleEnable,
-                               CreateDate = rr.Key.CompanyRuleCreate,
-                               LastModify = rr.Key.CompanyRuleModify,
                            }).ToList();
             }
 
@@ -562,6 +558,48 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          LastModify = g.Field<DateTime>("ResolutionModify"),
                          CreateDate = g.Field<DateTime>("ResolutionCreate"),
                      }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<GenericItemModel> CategorySearchByResolutionAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByResolutionAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from cr in response.DataTableResult.AsEnumerable()
+                           where (!cr.IsNull("ResolutionId"))
+                           group cr by new
+                           {
+                               CompanyRuleId = cr.Field<int>("ResolutionId"),
+                               CompanyRuleName = cr.Field<string>("ResolutionName"),
+                               CompanyRuleEnable = cr.Field<UInt64>("ResolutionEnable") == 1 ? true : false,
+                           } into crr
+                           select new GenericItemModel()
+                           {
+                               ItemId = crr.Key.CompanyRuleId,
+                               ItemName = crr.Key.CompanyRuleName,
+                               Enable = crr.Key.CompanyRuleEnable,
+                           }).ToList();
             }
 
             return oReturn;

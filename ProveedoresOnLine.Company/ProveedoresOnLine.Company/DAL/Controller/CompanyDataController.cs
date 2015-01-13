@@ -97,6 +97,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByResolution(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchByResolutionAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByResolutionAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public List<Models.Util.GenericItemModel> CategorySearchByActivity(string SearchParam, int PageNumber, int RowCount)
         {
             return DataFactory.CategorySearchByActivity(SearchParam, PageNumber, RowCount);
