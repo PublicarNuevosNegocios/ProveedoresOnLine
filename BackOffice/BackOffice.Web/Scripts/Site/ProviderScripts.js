@@ -2851,7 +2851,7 @@ var Provider_CompanyFinancialObject = {
 
     CalculateBalanceSheet: function () {
         Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
-        Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
+        //Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts); Operaciones de Utilidades
     },
 
     CalculateBalanceSheetDetail: function (lstAccounts) {
@@ -2873,7 +2873,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     CalculateBalanceSheetUtility: function (lstAccounts) {
-        var oResult = 0;
+        var oTotalResult = 0;
         var oUtilidadBruta = 0;
         var oUtilidadOperacional = 0;
         var oUtilidadAntesImpuestos = 0;
@@ -2931,17 +2931,29 @@ var Provider_CompanyFinancialObject = {
                                 
                             }
                             else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
-                                oResult += value.ChildBalanceSheet.Value;
+
+                                oUtilidadDespuesImpuestos = oUtilidadAntesImpuestos;
+
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+                                });
+                                
+                                $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
                             }
                             else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
-                                oResult += value.ChildBalanceSheet.Value;
+                                oUtilidadEjercicio = oUtilidadDespuesImpuestos;
+                                $.each(value.ChildBalanceSheet, function (item, value) {
+                                    oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
+                                });
+
+                                $('#divBalanceSheet_Detail_ParentAccount_3820_Total').html(oUtilidadEjercicio);
                             }
                         });
                     }
                 }
             });
         }
-        return oResult;
+        return oTotalResult;
     },
 
     CancelBalanceSheetDetail: function () {
