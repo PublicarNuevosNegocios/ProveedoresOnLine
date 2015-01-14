@@ -23,7 +23,7 @@ namespace MarketPlace.Web
 
             //default route
             routes.MapRoute(
-                name: "Default",
+                name: MarketPlace.Models.General.Constants.C_Routes_Default,
                 url: "{controller}/{action}",
                 defaults: new
                 {
