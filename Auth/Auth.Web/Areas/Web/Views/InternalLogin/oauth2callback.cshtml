@@ -27,8 +27,8 @@
         var config = {
             apiKey: '@oApiKey',
             siteName: '@oApiName',
-            signInSuccessUrl: '@Url.Action(MVC.InternalLogin.ActionNames.oauth2callback,MVC.InternalLogin.Name)',
-            callbackUrl: '@Url.Action(MVC.InternalLogin.ActionNames.oauth2callback,MVC.InternalLogin.Name)',
+            signInSuccessUrl: '@ViewBag.CallbackUrl',
+            callbackUrl: '@ViewBag.CallbackUrl',
             idps: [],
             oobActionUrl: '@Url.Action(MVC.InternalLogin.ActionNames.oobActionUrl,MVC.InternalLogin.Name)',
             language: 'es',
