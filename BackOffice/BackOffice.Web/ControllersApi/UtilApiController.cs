@@ -625,5 +625,39 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByEcoActivityAdmin
+            (string CategorySearchByEcoActivityAdmin, string SearchParam, int PageNumber, int RowCount, int TreeId)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oStandarActivityAdmin =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByEcoActivityAdmin == "true")
+            {
+                oStandarActivityAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoActivityAdmin
+                            (SearchParam, PageNumber, RowCount, TreeId, out oTotalCount);
+            }
+
+            if (oStandarActivityAdmin != null)
+            {
+                oStandarActivityAdmin.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+
+            oReturn.All(x =>
+            {
+                x.AllTotalRows = oTotalCount;
+                return true;
+            });
+
+            return oReturn;
+        }
     }
 }

@@ -200,15 +200,15 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                       {
                           CountryId = g.Field<int>("CountryId"),
                           CountryName = g.Field<string>("CountryName"),
-                          CountryEnable = g.Field<UInt64>("CountryEnable") == 1 ? true : false,   
-                        
-                          StateId =  !g.IsNull("StateId") ? g.Field<int>("StateId") : 0,
+                          CountryEnable = g.Field<UInt64>("CountryEnable") == 1 ? true : false,
+
+                          StateId = !g.IsNull("StateId") ? g.Field<int>("StateId") : 0,
                           StateName = !g.IsNull("StateName") ? g.Field<string>("StateName") : string.Empty,
-                          StateEnable = !g.IsNull("StateEnable") ? g.Field<UInt64>("StateEnable") == 1 ? true : false : false,   
+                          StateEnable = !g.IsNull("StateEnable") ? g.Field<UInt64>("StateEnable") == 1 ? true : false : false,
 
                           CityId = !g.IsNull("CityId") ? g.Field<int>("CityId") : 0,
                           CityName = !g.IsNull("CityName") ? g.Field<string>("CityName") : string.Empty,
-                          CityEnable = !g.IsNull("CityEnable") ? g.Field<UInt64>("CityEnable") == 1 ? true : false : false,   
+                          CityEnable = !g.IsNull("CityEnable") ? g.Field<UInt64>("CityEnable") == 1 ? true : false : false,
 
                       } into gg
                       select new GeographyModel()
@@ -226,7 +226,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                   {
                                       CountryInfoId = !ginf.IsNull("CountryInfoId") ? ginf.Field<int>("CountryInfoId") : 0,
                                       CountryInfoType = !ginf.IsNull("CountryInfoType") ? ginf.Field<int>("CountryInfoType") : 0,
-                                      CountryValue =  !ginf.IsNull("CountryValue") ? ginf.Field<string>("CountryValue") : string.Empty,
+                                      CountryValue = !ginf.IsNull("CountryValue") ? ginf.Field<string>("CountryValue") : string.Empty,
                                       CountryLargeValue = !ginf.IsNull("CountryValue") ? ginf.Field<string>("CountryLargeValue") : string.Empty,
                                   } into gginfg
                                   select new GenericItemInfoModel()
@@ -332,34 +332,34 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                       {
                           BankId = b.Field<int>("BankId"),
                           BankName = b.Field<string>("BankName"),
-                          BankEnable = b.Field<UInt64>("BankEnable") == 1 ? true : false,   
+                          BankEnable = b.Field<UInt64>("BankEnable") == 1 ? true : false,
                       } into bg
-                       select new GenericItemModel()
-                      {
-                            ItemId = bg.Key.BankId,
-                            ItemName = bg.Key.BankName,
-                            Enable = bg.Key.BankEnable,
+                    select new GenericItemModel()
+                   {
+                       ItemId = bg.Key.BankId,
+                       ItemName = bg.Key.BankName,
+                       Enable = bg.Key.BankEnable,
 
-                            ItemInfo =
-                            (from binf in response.DataTableResult.AsEnumerable()
-                                where !binf.IsNull("BankId")
-                                    && binf.Field<int>("BankId") == bg.Key.BankId
-                                group binf by new
-                                {
-                                    CityId = binf.Field<int>("CityId"),
-                                    CityName = binf.Field<string>("CityName"),                                   
-                                    CityType = binf.Field<int>("CityType"),   
-                                } into bginfg
-                                select new GenericItemInfoModel()
-                                {
-                                    ItemInfoId = bginfg.Key.CityId,
-                                    ItemInfoType = new CatalogModel()
-                                    {
-                                        ItemId = bginfg.Key.CityType,                                        
-                                    },
-                                    Value = bginfg.Key.CityName,                                    
-                                }).ToList(),                    
-                      }).ToList();
+                       ItemInfo =
+                       (from binf in response.DataTableResult.AsEnumerable()
+                        where !binf.IsNull("BankId")
+                            && binf.Field<int>("BankId") == bg.Key.BankId
+                        group binf by new
+                        {
+                            CityId = binf.Field<int>("CityId"),
+                            CityName = binf.Field<string>("CityName"),
+                            CityType = binf.Field<int>("CityType"),
+                        } into bginfg
+                        select new GenericItemInfoModel()
+                        {
+                            ItemInfoId = bginfg.Key.CityId,
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = bginfg.Key.CityType,
+                            },
+                            Value = bginfg.Key.CityName,
+                        }).ToList(),
+                   }).ToList();
             }
             return oReturn;
         }
@@ -966,48 +966,42 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 response.DataTableResult.Rows.Count > 0)
             {
                 TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
-                oReturn = (from e in response.DataTableResult.AsEnumerable()
-                           where (!e.IsNull("TreeCategoryId"))
-                           group e by new
-                           {
-                               TreeCategoryId = e.Field<int>("TreeCategoryId"),
-                               ActivityName = e.Field<string>("ActivityName"),
+                oReturn =
+                     (from g in response.DataTableResult.AsEnumerable()
+                      where !g.IsNull("TreeCategoryId")
+                      group g by new
+                      {
+                          TreeCategoryId = g.Field<int>("TreeCategoryId"),
+                          ActivityName = g.Field<string>("ActivityName"),
+                          Enable = g.Field<UInt64>("Enable") == 1 ? true : false,
+                      } into gg
+                      select new GenericItemModel()
+                      {
+                          ItemId = gg.Key.TreeCategoryId,
+                          ItemName = gg.Key.ActivityName,
+                          Enable = gg.Key.Enable,
 
-                               TypeId = e.Field<string>("TypeId"),
-                               CategoryId = e.Field<string>("CategoryId"),
-                               GroupId = e.Field<string>("GroupId"),
-                               MasterName = e.Field<string>("MasterName"),
-                               
-                               Enable = e.Field<UInt64>("Enable") == 1 ? true : false,
-                           } into cgi
-                           select new GenericItemModel()
-                           {
-                               ItemId = cgi.Key.TreeCategoryId,
-                               ItemName = cgi.Key.ActivityName,
-                               ParentItem = new GenericItemModel()
-                                {ItemId = Convert.ToInt32(cgi.Key.GroupId), 
-                                ItemName = cgi.Key.MasterName},
-
-                               ItemInfo =
-                                    (from eai in response.DataTableResult.AsEnumerable()
-                                     where !eai.IsNull("TreeCategoryId")                                       
-                                     group eai by new
-                                     {
-                                         CategoryInfoId = eai.Field<string>("CategoryId"),
-                                         CategoryInfoType = eai.Field<string>("TypeId"),
-                                         Value = eai.Field<string>("GroupId"),                                       
-                                     } into eaig
-                                     select new GenericItemInfoModel()
-                                     {
-                                         ItemInfoId = Convert.ToInt32(eaig.Key.CategoryInfoId),
-                                         ItemInfoType = new CatalogModel()
-                                         {
-                                             ItemId = Convert.ToInt32(eaig.Key.CategoryInfoType),
-                                         },
-                                         Value = eaig.Key.Value,                                    
-                                     }).ToList(),
-                           }).ToList();
+                          ItemInfo =
+                              (from ginf in response.DataTableResult.AsEnumerable()
+                               where ginf.Field<int>("TreeCategoryId") == gg.Key.TreeCategoryId
+                               group ginf by new
+                               {
+                                   ItemInfoId = ginf.Field<string>("TypeId"),
+                                   ItemInfoType = ginf.Field<int>("InfoType"),
+                                   MasterName = ginf.Field<string>("MasterName"),
+                               } into gginfg
+                               select new GenericItemInfoModel()
+                               {
+                                   ItemInfoId = Convert.ToInt32(gginfg.Key.ItemInfoId),
+                                   ItemInfoType = new CatalogModel()
+                                   {
+                                       ItemId = Convert.ToInt32(gginfg.Key.ItemInfoType),
+                                   },
+                                   Value = gginfg.Key.MasterName,
+                               }).ToList(),
+                      }).ToList();
             }
+
 
             return oReturn;
         }
