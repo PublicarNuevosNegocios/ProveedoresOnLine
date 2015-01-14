@@ -296,7 +296,7 @@
                             <a target="_blank" href="@CompanyInfoValueAux">Ver archivo</a>
                         </div>
                         <div>
-                            <img src="@CompanyInfoValueAux" style="width: 50px; height: 50px;"/>
+                            <img src="@CompanyInfoValueAux" style="width: 50px; height: 50px;" />
                         </div>
                     }
                 </li>
@@ -327,10 +327,10 @@
                 CertificationDateId: 'iptCertificationDate',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
             });
-            UploadFile({
-                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ControlellerResponseId: "iptLogo",
-            });
+            @if(Model.RelatedProvider!= null && Model.RelatedProvider.RelatedCompany != null)
+            {
+                Html.Raw("UploadFile({ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',ControlellerResponseId: 'iptLogo'});");
+            }
         });
     </script>
 }

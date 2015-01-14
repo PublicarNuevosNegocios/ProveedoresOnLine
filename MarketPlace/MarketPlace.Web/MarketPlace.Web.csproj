@@ -171,12 +171,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
     <Compile Include="Areas\Desktop\DesktopAreaRegistration.cs" />
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ProviderController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Desktop.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -865,6 +869,8 @@
     <Content Include="Areas\Desktop\Scripts\_references.js" />
     <Content Include="Areas\Desktop\Views\Shared\_L_Footer.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_L_Header.cshtml" />
+    <Content Include="Areas\Desktop\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\Index.cshtml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

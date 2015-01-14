@@ -23,13 +23,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace MarketPlace.Web.Areas.Desktop.Controllers
 {
-    public partial class HomeController
+    public partial class ProviderController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
+        public ProviderController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected HomeController(Dummy d) { }
+        protected ProviderController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -59,13 +59,13 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
 
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController Actions { get { return MVC.Desktop.Home; } }
+        public ProviderController Actions { get { return MVC.Desktop.Provider; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "Desktop";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Home";
+        public readonly string Name = "Provider";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Home";
+        public const string NameConst = "Provider";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -74,14 +74,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string LogOutUser = "LogOutUser";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string LogOutUser = "LogOutUser";
         }
 
 
@@ -97,14 +95,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             {
                 public readonly string Index = "Index";
             }
-            public readonly string Index = "~/Areas/Desktop/Views/Home/Index.cshtml";
+            public readonly string Index = "~/Areas/Desktop/Views/Provider/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : MarketPlace.Web.Areas.Desktop.Controllers.HomeController
+    public partial class T4MVC_ProviderController : MarketPlace.Web.Areas.Desktop.Controllers.ProviderController
     {
-        public T4MVC_HomeController() : base(Dummy.Instance) { }
+        public T4MVC_ProviderController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
@@ -114,17 +112,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LogOutUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult LogOutUser()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LogOutUser);
-            LogOutUserOverride(callInfo);
             return callInfo;
         }
 
