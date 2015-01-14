@@ -33,7 +33,7 @@ namespace BackOffice.Web.Controllers
 
         public virtual ActionResult LogOutUser()
         {
-            base.LogOut();
+            SessionManager.SessionController.Logout();
             return RedirectToAction(MVC.Home.ActionNames.Index, MVC.Home.Name);
         }
     }
