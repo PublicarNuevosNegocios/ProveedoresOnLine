@@ -42,5 +42,11 @@
 
         #endregion
 
+        #region Routes
+
+        public const string C_Routes_Default = "Default";
+
+        #endregion
+
     }
 }

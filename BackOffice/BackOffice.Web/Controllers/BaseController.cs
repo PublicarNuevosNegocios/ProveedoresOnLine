@@ -28,16 +28,6 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
-        #region Session methods
-
-        public void LogOut()
-        {
-            SessionManager.SessionController.Logout();
-            Response.Redirect(Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name));
-        }
-
-        #endregion
-
         #region generic file actions
 
         public virtual FileResult GetPdfFileBytes(string FilePath)

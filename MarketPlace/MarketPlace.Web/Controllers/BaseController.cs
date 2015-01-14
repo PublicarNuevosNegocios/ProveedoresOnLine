@@ -8,7 +8,6 @@ namespace MarketPlace.Web.Controllers
 {
     public partial class BaseController : Controller
     {
-
         #region generic file actions
 
         public virtual FileResult GetPdfFileBytes(string FilePath)

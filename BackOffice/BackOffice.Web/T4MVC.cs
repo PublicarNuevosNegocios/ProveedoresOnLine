@@ -646,6 +646,7 @@ namespace Links
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
             public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string dafaultProvider_png = Url("dafaultProvider.png");
             public static readonly string Error_png = Url("Error.png");
             public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
             public static readonly string logo_png = Url("logo.png");

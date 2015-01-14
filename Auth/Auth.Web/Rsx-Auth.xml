@@ -7,7 +7,7 @@
           <applications>
             <key name="local">https://localhost:44305/,http://localhost:49341/</key>
             <key name="documentmanagement">https://localhost:44306/,http://localhost:16135/</key>
-            <key name="marketplace"></key>
+            <key name="marketplace">https://localhost:44309/,http://localhost:40464/</key>
             <key name="backoffice">https://localhost:44307/,http://localhost:55537/</key>
           </applications>
       ]]>
