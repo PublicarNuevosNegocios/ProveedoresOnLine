@@ -942,6 +942,76 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByEcoActivityAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchByEcoActivityAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from e in response.DataTableResult.AsEnumerable()
+                           where (!e.IsNull("TreeCategoryId"))
+                           group e by new
+                           {
+                               TreeCategoryId = e.Field<int>("TreeCategoryId"),
+                               ActivityName = e.Field<string>("ActivityName"),
+
+                               TypeId = e.Field<string>("TypeId"),
+                               CategoryId = e.Field<string>("CategoryId"),
+                               GroupId = e.Field<string>("GroupId"),
+                               MasterName = e.Field<string>("MasterName"),
+                               
+                               Enable = e.Field<UInt64>("Enable") == 1 ? true : false,
+                           } into cgi
+                           select new GenericItemModel()
+                           {
+                               ItemId = cgi.Key.TreeCategoryId,
+                               ItemName = cgi.Key.ActivityName,
+                               ParentItem = new GenericItemModel()
+                                {ItemId = Convert.ToInt32(cgi.Key.GroupId), 
+                                ItemName = cgi.Key.MasterName},
+
+                               ItemInfo =
+                                    (from eai in response.DataTableResult.AsEnumerable()
+                                     where !eai.IsNull("TreeCategoryId")                                       
+                                     group eai by new
+                                     {
+                                         CategoryInfoId = eai.Field<string>("CategoryId"),
+                                         CategoryInfoType = eai.Field<string>("TypeId"),
+                                         Value = eai.Field<string>("GroupId"),                                       
+                                     } into eaig
+                                     select new GenericItemInfoModel()
+                                     {
+                                         ItemInfoId = Convert.ToInt32(eaig.Key.CategoryInfoId),
+                                         ItemInfoType = new CatalogModel()
+                                         {
+                                             ItemId = Convert.ToInt32(eaig.Key.CategoryInfoType),
+                                         },
+                                         Value = eaig.Key.Value,                                    
+                                     }).ToList(),
+                           }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Company CRUD
