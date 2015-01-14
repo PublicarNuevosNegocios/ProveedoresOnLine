@@ -137,6 +137,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CurrencyExchangeGetByMoneyType(MoneyTypeFrom, MoneyTypeTo, Year);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchByEcoActivityAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByEcoActivityAdmin(SearchParam, PageNumber, RowCount,TreeId, out TotalRows);
+        }
+
         #endregion
 
         #region Company CRUD
@@ -214,6 +219,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
-        #endregion
+        #endregion       
     }
 }
