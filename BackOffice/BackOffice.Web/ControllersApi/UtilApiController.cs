@@ -82,7 +82,7 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public AdminCategoryViewModel CategoryUpsert(string CategoryUpsert, string CategoryType)
+        public AdminCategoryViewModel CategoryUpsert(string CategoryUpsert, string CategoryType, string TreeId)
         {
             AdminCategoryViewModel oReturn = null;
 
@@ -375,7 +375,7 @@ namespace BackOffice.Web.ControllersApi
                     GenericItemModel oActivityResult = new GenericItemModel();
 
                     oActivityToUpsert.ItemInfo.AddRange(oActivityInfo);
-                    oActivityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(4, oActivityToUpsert);
+                    oActivityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(Convert.ToInt32(TreeId), oActivityToUpsert);
                 }
 
                 #endregion
@@ -766,6 +766,39 @@ namespace BackOffice.Web.ControllersApi
             oReturn.All(x =>
             {
                 x.AllTotalRows = oTotalCount;
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByTreeAdmin
+            (string CategorySearchByTreeAdmin, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oTreeAdmin =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                        
+            if (CategorySearchByTreeAdmin == "true")
+            {
+                oTreeAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
+                            (SearchParam, PageNumber, RowCount);
+            }
+
+            if (oTreeAdmin != null)
+            {
+                oTreeAdmin.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+
+            oReturn.All(x =>
+            {
+                x.AllTotalRows = oTreeAdmin.Count();
                 return true;
             });
 

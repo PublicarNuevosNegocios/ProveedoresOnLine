@@ -1,0 +1,79 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "AdminTreeUpsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Administración de Maestras</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridTreeInfo"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<div id="templateName">
+    <a href="@(Url.Action(MVC.Admin.ActionNames.AdminEcoActivityUpsert, MVC.Admin.Name) + "?TreeId=${T_TreeId}")">Agregar Items</a>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+    @{
+
+        //ger GroupTypeValues
+        string oAdminTreeInfoOptionList = "[]";
+
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionAdminTree =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                new
+                {
+                    okey = x.Key,
+                    ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oAdminTreeInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionAdminTree.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+    var vAdminTreeInfoOptionList = @(Html.Raw(oAdminTreeInfoOptionList));
+        
+        $(document).ready(function () {
+            Admin_CategoryObject.Init({
+                ObjectId: 'divGridTreeInfo',
+                UtilOptions: vAdminTreeInfoOptionList,
+                CategoryType: 'AdminTree',
+
+            });
+            Admin_CategoryObject.RenderAsync();
+        });
+    </script>
+}

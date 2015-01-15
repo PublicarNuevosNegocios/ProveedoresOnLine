@@ -57,6 +57,12 @@ namespace BackOffice.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminEcoActivityUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoActivityUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AdminController Actions { get { return MVC.Admin; } }
@@ -82,6 +88,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
             public readonly string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
             public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
+            public readonly string AdminTreeUpsert = "AdminTreeUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -96,9 +103,18 @@ namespace BackOffice.Web.Controllers
             public const string AdminResolutionUpsert = "AdminResolutionUpsert";
             public const string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
             public const string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
+            public const string AdminTreeUpsert = "AdminTreeUpsert";
         }
 
 
+        static readonly ActionParamsClass_AdminEcoActivityUpsert s_params_AdminEcoActivityUpsert = new ActionParamsClass_AdminEcoActivityUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminEcoActivityUpsert AdminEcoActivityUpsertParams { get { return s_params_AdminEcoActivityUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminEcoActivityUpsert
+        {
+            public readonly string TreeId = "TreeId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -116,6 +132,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
+                public readonly string AdminTreeUpsert = "AdminTreeUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
             }
@@ -126,6 +143,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
             public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
+            public readonly string AdminTreeUpsert = "~/Views/Admin/AdminTreeUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
         }
@@ -214,13 +232,14 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void AdminEcoActivityUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void AdminEcoActivityUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int TreeId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AdminEcoActivityUpsert()
+        public override System.Web.Mvc.ActionResult AdminEcoActivityUpsert(int TreeId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoActivityUpsert);
-            AdminEcoActivityUpsertOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "TreeId", TreeId);
+            AdminEcoActivityUpsertOverride(callInfo, TreeId);
             return callInfo;
         }
 
@@ -232,6 +251,17 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoGroupUpsert);
             AdminEcoGroupUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminTreeUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminTreeUpsert()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminTreeUpsert);
+            AdminTreeUpsertOverride(callInfo);
             return callInfo;
         }
 
