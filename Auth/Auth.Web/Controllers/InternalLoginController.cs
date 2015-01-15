@@ -48,7 +48,7 @@ namespace Auth.Web.Controllers
 
             //validate user login
             if (Request.Cookies.AllKeys.Any(x => x == oCookieName) &&
-                oCallbackUrl == Request.Url.LocalPath)
+                oCallbackUrl == Request.Url.PathAndQuery)
             {
                 //get service client
                 Google.Apis.IdentityToolkit.v3.IdentityToolkitService service = GetILClient(false, oAppName);

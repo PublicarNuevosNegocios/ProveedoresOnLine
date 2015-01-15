@@ -48,5 +48,10 @@
 
         #endregion
 
+        #region ViewData
+
+        public const string C_ViewData_UserNotAutorizedText = "UserNotAutorizedText";
+
+        #endregion
     }
 }

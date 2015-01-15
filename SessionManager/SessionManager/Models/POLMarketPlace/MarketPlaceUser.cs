@@ -8,7 +8,7 @@ namespace SessionManager.Models.POLMarketPlace
 {
     public class MarketPlaceUser
     {
-        SessionManager.Models.Auth.User RelatedUser { get; set; }
+        public SessionManager.Models.Auth.User RelatedUser { get; set; }
 
         public List<Session_CompanyModel> RelatedCompany { get; set; }
     }

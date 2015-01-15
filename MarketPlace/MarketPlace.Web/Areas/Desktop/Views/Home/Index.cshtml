@@ -3,5 +3,36 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
 
-<h2>Index</h2>
+<div>
+    @{
+        //get login urls
+        string RetUrl = Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Home.Name,
+                    action = MVC.Home.ActionNames.Index
+                },
+                Request.Url.Scheme);
+
+        string InternalLoginUrl = MarketPlace.Models.General.InternalSettings.Instance
+            [MarketPlace.Models.General.Constants.C_Settings_Login_InternalLogin]
+            .Value.Replace("{{UrlRetorno}}", RetUrl);
+    }
+    <div>
+        <img src="" />
+    </div>
+    <div>
+        <label>Bienvenido a Proveedores Online</label>
+        <a href="@InternalLoginUrl">
+            Ingresar
+        </a>
+        @if (ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
+                !string.IsNullOrEmpty(ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
+        {
+            <label>@ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</label>
+        }
+    </div>
+
+</div>
+
 
