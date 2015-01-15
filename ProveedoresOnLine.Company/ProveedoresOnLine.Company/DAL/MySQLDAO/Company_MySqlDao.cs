@@ -1007,7 +1007,49 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             return oReturn;
         }
+        
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByEcoGroupAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "U_Category_SearchByEcoGroupAdmin",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null && 
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from cr in response.DataTableResult.AsEnumerable()
+                           where (!cr.IsNull("GroupId"))
+                           group cr by new
+                           {
+                               CompanyRuleId = cr.Field<int>("GroupId"),
+                               CompanyRuleName = cr.Field<string>("GroupName"),
+                               CompanyRuleEnable = cr.Field<UInt64>("GroupEnable") == 1 ? true : false,
+                           } into crr
+                           select new GenericItemModel()
+                           {
+                               ItemId = crr.Key.CompanyRuleId,
+                               ItemName = crr.Key.CompanyRuleName,
+                               Enable = crr.Key.CompanyRuleEnable,
+                           }).ToList();
+            }
+
+            return oReturn;
+        }
         #endregion
 
         #region Company CRUD
