@@ -139,7 +139,7 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         public List<Models.Util.GenericItemModel> CategorySearchByEcoActivityAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
         {
-            return DataFactory.CategorySearchByEcoActivityAdmin(SearchParam, PageNumber, RowCount,TreeId, out TotalRows);
+            return DataFactory.CategorySearchByEcoActivityAdmin(SearchParam, PageNumber, RowCount, TreeId, out TotalRows);
         }
         
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByEcoGroupAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
@@ -223,6 +223,16 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
-        #endregion       
+        #endregion
+
+        #region User Roles
+
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
+        {
+            return DataFactory.MP_RoleCompanyGetByUser(User);
+        }
+
+        #endregion
+
     }
 }

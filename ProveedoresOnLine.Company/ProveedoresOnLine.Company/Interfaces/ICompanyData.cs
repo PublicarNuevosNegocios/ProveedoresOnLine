@@ -94,5 +94,11 @@ namespace ProveedoresOnLine.Company.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType);
 
         #endregion
+
+        #region User Roles
+
+        List<CompanyModel> MP_RoleCompanyGetByUser(string User);
+
+        #endregion
     }
 }

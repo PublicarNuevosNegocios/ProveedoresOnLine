@@ -202,5 +202,15 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oTotalRows > 0);
         }
+
+        [TestMethod]
+        public void MP_RoleCompanyGetByUser()
+        {
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser
+                ("noexiste1@correo.com");
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
     }
 }
