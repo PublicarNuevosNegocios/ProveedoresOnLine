@@ -29,16 +29,20 @@
         else if (Admin_CategoryObject.CategoryType == "AdminResolution") {
             Admin_CategoryObject.RenderResolutionAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminEcoAcEstandar") {
+            Admin_CategoryObject.RenderActivityStandarAsync();
+        }
+
     },
 
     RenderGeoAsync: function (param) {
-       
-        if (param != true) {            
+
+        if (param != true) {
             var vSearchParam = '';
         }
         else {
             var vSearchParam = $('#SearchBoxId').val();
-        }        
+        }
 
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
@@ -47,13 +51,13 @@
             scrollable: true,
             toolbar:
                 [
-                    
+
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
                 { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderGeoAsync(" + "true" + ");'>Buscar</a" }
-            ],            
+                ],
             dataSource: {
                 pageSize: 20,
                 serverPaging: true,
@@ -174,15 +178,15 @@
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'GIT_Country',
-                        
-                        change: function (e) {                            
+
+                        change: function (e) {
                             if (isSelected == false) {
-                            options.model['GIT_CountryId'] = 0;
-                            options.model['GIT_Country'] = e.sender._old;
-                            }                            
+                                options.model['GIT_CountryId'] = 0;
+                                options.model['GIT_Country'] = e.sender._old;
+                            }
                         },
 
-                        select: function (e) {                            
+                        select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             isSelected = true;
                             //set server fiel name
@@ -275,8 +279,7 @@
         });
     },
 
-    RenderBankAsync: function (param)
-    {
+    RenderBankAsync: function (param) {
         if (param != true) {
             var vSearchParam = '';
         }
@@ -399,11 +402,11 @@
                         change: function (e) {
                             debugger;
                             if (isSelected == false) {
-                            options.model['B_BankId'] = 0;
-                            options.model['B_Bank'] = e.sender._old;
-                            }                            
+                                options.model['B_BankId'] = 0;
+                                options.model['B_Bank'] = e.sender._old;
+                            }
                         },
-                        select: function (e) {                            
+                        select: function (e) {
                             debugger;
                             var selectedItem = this.dataItem(e.item.index());
 
@@ -480,7 +483,7 @@
                             type: 'json',
                             serverFiltering: true,
                             transport: {
-                                read: function (options) {                                    
+                                read: function (options) {
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
@@ -693,8 +696,7 @@
         });
     },
 
-    RenderResolutionAsync: function (param)
-    {
+    RenderResolutionAsync: function (param) {
         if (param != true) {
             var vSearchParam = '';
         }
@@ -784,6 +786,278 @@
                 field: 'RS_ResolutionEnable',
                 title: 'Habilitado',
             }, ],
-        });               
+        });
     },
+
+    RenderActivityStandarAsync: function (param) {
+
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
+
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [
+
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderActivityStandarAsync(" + "true" + ");'>Buscar</a" }
+                ],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'ECS_EconomyActivityId',
+                        fields: {
+                            ECS_EconomyActivity: { editable: true, nullable: false },
+
+                            ECS_TypeId: { editable: true, nullable: false },
+                            ECS_CategoryId: { editable: true, nullable: false },
+                            ECS_GroupId: { editable: true, nullable: false },
+                            ECS_GroupName: { editable: true, nullable: false },
+                            ECS_Enable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByEcoActivityAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false&TreeId=4',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'ECS_EconomyActivity',
+                title: 'Actividad Económica',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ECS_EconomyActivity != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.ECS_EconomyActivity;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'ActivityName',
+                        change: function (e) {                            
+                            if (isSelected == false) {
+                                options.model['ECS_EconomyActivityId'] = 0;
+                                options.model['ECS_EconomyActivity'] = e.sender._old;
+                            }
+                        },
+                        select: function (e) {
+                            isSelected = true;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
+                            options.model['ECS_EconomyActivity'] = selectedItem.ActivityName;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
+            },{
+                field: 'ECS_TypeId',
+                title: 'Tipo',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ECS_TypeId != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[103], function (item, value) {
+                            if (dataItem.ECS_TypeId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[103],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'ECS_CategoryId',
+                title: 'Categoría',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ECS_CategoryId != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[104], function (item, value) {
+                            if (dataItem.ECS_CategoryId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[104],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'ECS_GroupId',
+                title: 'Grupo',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.ECS_EconomyActivity != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.ECS_EconomyActivity;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'ActivityName',                        
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
+                            options.model['ECS_EconomyActivity'] = selectedItem.ActivityName;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
+            }, {
+                field: 'ECS_Enable',
+                title: 'Enable',
+                width: '110px',
+            }, ],
+        });
+    },
+
+
 }

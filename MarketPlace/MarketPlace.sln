@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Models", "MarketPlace.Models\MarketPlace.Models.csproj", "{66EC7C93-67CA-40F7-A052-573AE60084A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketPlace.Web", "MarketPlace.Web\MarketPlace.Web.csproj", "{9CF6AB3D-CA7F-42F2-87D2-ED881F9064FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66EC7C93-67CA-40F7-A052-573AE60084A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66EC7C93-67CA-40F7-A052-573AE60084A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66EC7C93-67CA-40F7-A052-573AE60084A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66EC7C93-67CA-40F7-A052-573AE60084A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CF6AB3D-CA7F-42F2-87D2-ED881F9064FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CF6AB3D-CA7F-42F2-87D2-ED881F9064FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CF6AB3D-CA7F-42F2-87D2-ED881F9064FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CF6AB3D-CA7F-42F2-87D2-ED881F9064FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

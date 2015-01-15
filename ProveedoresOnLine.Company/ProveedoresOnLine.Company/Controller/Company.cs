@@ -274,6 +274,10 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CurrencyExchangeGetByMoneyType(MoneyTypeFrom, MoneyTypeTo, Year);
         }
 
+        public static List<Models.Util.GenericItemModel> CategorySearchByEcoActivityAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByEcoActivityAdmin(SearchParam, PageNumber, RowCount, TreeId, out TotalRows);
+        }
         #endregion
 
         #region Company CRUD

@@ -176,5 +176,18 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oTotalRows > 0);
         }
+
+        [TestMethod]
+        public void CategorySearchByEcoActivityAdmin()
+        {
+            int oTotalRows;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoActivityAdmin
+                ("", 0, 20, 4, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
+        }
     }
 }

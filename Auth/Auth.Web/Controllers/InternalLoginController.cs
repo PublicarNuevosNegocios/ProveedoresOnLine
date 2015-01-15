@@ -42,9 +42,13 @@ namespace Auth.Web.Controllers
                     [Auth.Interfaces.Constants.C_SettingsModuleName]
                     [Auth.Interfaces.Constants.C_IL_Cookie.Replace("{AppName}", oAppName)].Value;
 
+            //get callback url
+            string oCallbackUrl = Url.Action(MVC.InternalLogin.ActionNames.oauth2callback, MVC.InternalLogin.Name);
+            ViewBag.CallbackUrl = oCallbackUrl;
+
             //validate user login
             if (Request.Cookies.AllKeys.Any(x => x == oCookieName) &&
-                Request.Url.Query.Replace(" ", "").Length == 0)
+                oCallbackUrl == Request.Url.LocalPath)
             {
                 //get service client
                 Google.Apis.IdentityToolkit.v3.IdentityToolkitService service = GetILClient(false, oAppName);

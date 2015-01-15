@@ -83,6 +83,21 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        #region StandarCustomerActivity
+
+        public int ECS_EconomyActivityId { get; set; }
+        public string ECS_EconomyActivity { get; set; }
+        
+        public int ECS_TypeId { get; set; }
+        public int ECS_CategoryId { get; set; }
+        
+        public int ECS_GroupId { get; set; }
+        public string ECS_GroupName { get; set; }
+
+        public bool ECS_Enable { get; set; }
+        
+        #endregion
+
         public AdminCategoryViewModel() { }
 
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GeographyModel oRelatedGeoGraphy)
@@ -219,6 +234,39 @@ namespace BackOffice.Models.Admin
             RS_ResolutionId = oCategory.ItemId.ToString();
             RS_ResolutionEnable = oCategory.Enable;
 
+            #endregion
+
+            #region StandarCustomerActivity
+
+            ECS_EconomyActivityId = oCategory.ItemId;
+            ECS_EconomyActivity = oCategory.ItemName;
+
+            ECS_TypeId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null).
+                            Select(y => Convert.ToInt32(y.ItemInfoType.ItemId)).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault() : 0;
+            ECS_CategoryId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null).
+                            Select(y => Convert.ToInt32(y.ItemInfoId)).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault() : 0;
+
+            ECS_GroupId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null).
+                            Select(y => Convert.ToInt32(y.Value)).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault() : 0;
+
+
+            //ECS_GroupName = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+            //                Where(y => y.ItemInfoType.ItemId != null).
+            //                Select(y => y.LargeValue.ToString()).
+            //                DefaultIfEmpty(string.Empty).
+            //                FirstOrDefault() : string.Empty;
+
+            ECS_Enable = oCategory.Enable;
+            
             #endregion
         }
     }
