@@ -906,7 +906,7 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
+                    var isSelected = false;
                     // create an input element
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
