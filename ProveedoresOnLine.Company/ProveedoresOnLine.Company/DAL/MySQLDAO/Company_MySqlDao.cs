@@ -1051,7 +1051,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.TreeModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -1067,7 +1067,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                     Parameters = lstParams,
                 });
 
-            List<ProveedoresOnLine.Company.Models.Util.TreeModel> oReturn = null;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
             TotalRows = 0;
 
             if (response.DataTableResult != null &&
@@ -1082,10 +1082,10 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                TreeAdminName = tr.Field<string>("TreeName"),
                                TreeAdminEnable = tr.Field<UInt64>("TreeEnable") == 1 ? true : false,
                            } into trr
-                           select new TreeModel
+                           select new GenericItemModel()
                            {
-                               TreeId = trr.Key.TreeAdminId,
-                               TreeName = trr.Key.TreeAdminName,
+                               ItemId = trr.Key.TreeAdminId,
+                               ItemName = trr.Key.TreeAdminName,
                                Enable = trr.Key.TreeAdminEnable,
                            }).ToList();
             }

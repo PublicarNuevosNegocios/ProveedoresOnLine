@@ -218,7 +218,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             int oTotalRows;
 
-            List<ProveedoresOnLine.Company.Models.Util.TreeModel> oReturn =
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
                     ("", 0, 20, out oTotalRows);
 

@@ -284,7 +284,7 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByEcoGroupAdmin(SearchParam, PageNumber, RowCount, TreeId, out TotalRows);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.TreeModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByTreeAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
         }
