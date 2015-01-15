@@ -323,6 +323,84 @@ namespace BackOffice.Web.ControllersApi
                 }
 
                 #endregion
+
+                #region Standar Economy Activities
+
+                if (CategoryType == "AdminEcoAcEstandar")
+                {
+                    GenericItemModel oActivityToUpsert = new GenericItemModel();
+                    List<GenericItemInfoModel> oActivityInfo = new List<GenericItemInfoModel>();
+
+                    //Activity
+                    oActivityToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.ECS_EconomyActivityId) ? 0 : Convert.ToInt32(oDataToUpsert.ECS_EconomyActivityId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.ECS_EconomyActivity,
+                        Enable = oDataToUpsert.ECS_Enable,
+                        ItemInfo = new List<GenericItemInfoModel>()
+                    };
+                    oActivityInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ECS_TypeId) ? 0 : Convert.ToInt32(oDataToUpsert.ECS_TypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_Type
+                        },
+                        Value = oDataToUpsert.ECS_Type,
+                        Enable = oDataToUpsert.ECS_Enable,
+                    });
+                    oActivityInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ECS_GroupId) ? 0 : Convert.ToInt32(oDataToUpsert.ECS_GroupId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group
+                        },
+                        Value = oDataToUpsert.ECS_Group,
+                        Enable = oDataToUpsert.ECS_Enable,
+                    });
+                    oActivityInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ECS_CategoryId) ? 0 : Convert.ToInt32(oDataToUpsert.ECS_CategoryId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category
+                        },
+                        Value = oDataToUpsert.ECS_Group,
+                        Enable = oDataToUpsert.ECS_Enable,
+                    });
+
+                    GenericItemModel oActivityResult = new GenericItemModel();
+
+                    oActivityToUpsert.ItemInfo.AddRange(oActivityInfo);
+                    oActivityResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(4, oActivityToUpsert);
+                }
+
+                #endregion
+
+                #region Group
+
+                if (CategoryType == "AdminEcoGroupEstandar")
+                {
+                    GenericItemModel oGroupToUpsert = new GenericItemModel();
+
+                    oGroupToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.G_GroupId) ? 0 : Convert.ToInt32(oDataToUpsert.G_GroupId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.G_Group,
+                        Enable = oDataToUpsert.G_GroupEnable,
+                        ItemInfo = new List<GenericItemInfoModel>(),
+                    };
+
+                    GenericItemModel ResolutionResult = new GenericItemModel();
+                    ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(7, oGroupToUpsert);
+                }
+
+                #endregion
             }
             return oReturn;
         }
@@ -645,6 +723,40 @@ namespace BackOffice.Web.ControllersApi
             if (oStandarActivityAdmin != null)
             {
                 oStandarActivityAdmin.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+
+            oReturn.All(x =>
+            {
+                x.AllTotalRows = oTotalCount;
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByEcoGroupAdmin
+            (string CategotySearchByGroupStandarAdmin, string SearchParam, int PageNumber, int RowCount, int TreeId)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oStandarGroupAdmin =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategotySearchByGroupStandarAdmin == "true")
+            {
+                oStandarGroupAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoGroupAdmin
+                            (SearchParam, PageNumber, RowCount, TreeId, out oTotalCount);
+            }
+
+            if (oStandarGroupAdmin != null)
+            {
+                oStandarGroupAdmin.All(x =>
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;

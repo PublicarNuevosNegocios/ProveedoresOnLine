@@ -81,6 +81,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminRulesUpsert = "AdminRulesUpsert";
             public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
             public readonly string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
+            public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,6 +95,7 @@ namespace BackOffice.Web.Controllers
             public const string AdminRulesUpsert = "AdminRulesUpsert";
             public const string AdminResolutionUpsert = "AdminResolutionUpsert";
             public const string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
+            public const string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
         }
 
 
@@ -110,6 +112,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminBankUpsert = "AdminBankUpsert";
                 public readonly string AdminCompanyRulesUpsert = "AdminCompanyRulesUpsert";
                 public readonly string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
+                public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
@@ -119,6 +122,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminBankUpsert = "~/Views/Admin/AdminBankUpsert.cshtml";
             public readonly string AdminCompanyRulesUpsert = "~/Views/Admin/AdminCompanyRulesUpsert.cshtml";
             public readonly string AdminEcoActivityUpsert = "~/Views/Admin/AdminEcoActivityUpsert.cshtml";
+            public readonly string AdminEcoGroupUpsert = "~/Views/Admin/AdminEcoGroupUpsert.cshtml";
             public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
             public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
@@ -217,6 +221,17 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoActivityUpsert);
             AdminEcoActivityUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminEcoGroupUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminEcoGroupUpsert()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoGroupUpsert);
+            AdminEcoGroupUpsertOverride(callInfo);
             return callInfo;
         }
 

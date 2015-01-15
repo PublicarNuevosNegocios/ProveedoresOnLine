@@ -115,7 +115,7 @@ namespace ProveedoresOnLine.Company.Test
         public void CategorySearchByGeographyAdmin()
         {
             int oTotalRows;
-
+             
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyAdmin
                 ("Colo", 0, 5, out oTotalRows);
@@ -136,7 +136,7 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn.Count >= 1);
 
             Assert.AreEqual(true, oTotalRows > 0);
-        }
+        }        
 
         [TestMethod]
         public void CategorySearchByCompanyRuleAdmin()
@@ -184,6 +184,19 @@ namespace ProveedoresOnLine.Company.Test
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoActivityAdmin
                 ("", 0, 20, 4, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
+        }
+
+        [TestMethod]
+        public void CategorySearchByEcoGroupAdmin()
+        {
+            int oTotalRows;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoGroupAdmin
+                ("sumi", 0, 20, 7, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 

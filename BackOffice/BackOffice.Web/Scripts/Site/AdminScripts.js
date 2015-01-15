@@ -32,6 +32,9 @@
         else if (Admin_CategoryObject.CategoryType == "AdminEcoAcEstandar") {
             Admin_CategoryObject.RenderActivityStandarAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminEcoGroupEstandar") {
+            Admin_CategoryObject.RenderGroupStandarAsync();
+        }
 
     },
 
@@ -827,9 +830,15 @@
                         fields: {
                             ECS_EconomyActivity: { editable: true, nullable: false },
 
-                            ECS_TypeId: { editable: true, nullable: false },
-                            ECS_CategoryId: { editable: true, nullable: false },
-                            ECS_GroupId: { editable: true, nullable: false },
+                            ECS_TypeId: { editable: false, nullable: false },
+                            ECS_Type: { editable: true, nullable: false },
+
+                            ECS_CategoryId: { editable: false, nullable: false },
+                            ECS_Category: { editable: true, nullable: false },
+
+                            ECS_GroupId: { editable: false, nullable: false },
+                            ECS_Group: { editable: true, nullable: false },
+
                             ECS_GroupName: { editable: true, nullable: false },
                             ECS_Enable: { editable: true, type: 'boolean', defaultValue: true },
                         }
@@ -900,7 +909,7 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
+                    var isSelected = false;
                     // create an input element
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
@@ -946,14 +955,14 @@
                     });
                 },
             },{
-                field: 'ECS_TypeId',
+                field: 'ECS_Type',
                 title: 'Tipo',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_TypeId != null) {
+                    if (dataItem != null && dataItem.ECS_Type != null) {
                         $.each(Admin_CategoryObject.AdminOptions[103], function (item, value) {
-                            if (dataItem.ECS_TypeId == value.ItemId) {
+                            if (dataItem.ECS_Type == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -971,14 +980,14 @@
                         });
                 },
             }, {
-                field: 'ECS_CategoryId',
+                field: 'ECS_Category',
                 title: 'Categoría',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_CategoryId != null) {
+                    if (dataItem != null && dataItem.ECS_Category != null) {
                         $.each(Admin_CategoryObject.AdminOptions[104], function (item, value) {
-                            if (dataItem.ECS_CategoryId == value.ItemId) {
+                            if (dataItem.ECS_Category == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -996,19 +1005,19 @@
                         });
                 },
             }, {
-                field: 'ECS_GroupId',
+                field: 'ECS_Group',
                 title: 'Grupo',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_EconomyActivity != null) {
+                    if (dataItem != null && dataItem.ECS_Group != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.ECS_EconomyActivity;
+                        oReturn = oReturn + dataItem.ECS_Group;
                     }
                     return oReturn;
                 },
@@ -1022,12 +1031,12 @@
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'ActivityName',                        
+                        dataTextField: 'ActivityGroup',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
-                            options.model['ECS_EconomyActivity'] = selectedItem.ActivityName;
+                            //options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
+                            options.model['ECS_Group'] = selectedItem.ActivityGroup;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -1059,5 +1068,97 @@
         });
     },
 
-
+    RenderGroupStandarAsync: function (param)
+    {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderGroupStandarAsync(" + "true" + ");'>Buscar</a" }],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'G_GroupId',
+                        fields: {
+                            G_Group: { editable: true, nullable: false },
+                            G_GroupEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategotySearchByGroupStandarAdmin=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&TreeId=7',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'G_Group',
+                title: 'Grupo',
+            }, {
+                field: 'G_GroupEnable',
+                title: 'Habilitado',
+            }, ],
+        });
+    },
 }
