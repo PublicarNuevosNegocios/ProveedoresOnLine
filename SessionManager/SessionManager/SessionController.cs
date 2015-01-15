@@ -39,7 +39,7 @@ namespace SessionManager
             }
         }
 
-        public static SessionManager.Models.POLMarketPlace.MarketPlaceUser MarketPlace_MarketPlaceUserLogin
+        public static SessionManager.Models.POLMarketPlace.MarketPlaceUser POLMarketPlace_MarketPlaceUserLogin
         {
             get
             {

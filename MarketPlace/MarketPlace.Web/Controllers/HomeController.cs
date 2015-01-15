@@ -13,6 +13,9 @@ namespace MarketPlace.Web.Controllers
             //validate user loggin
             if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn)
             {
+
+
+
                 //if (BackOffice.Models.General.SessionModel.UserIsAutorized)
                 //{
                 //    //redirect to provider
