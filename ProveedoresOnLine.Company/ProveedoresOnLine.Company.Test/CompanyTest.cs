@@ -115,7 +115,7 @@ namespace ProveedoresOnLine.Company.Test
         public void CategorySearchByGeographyAdmin()
         {
             int oTotalRows;
-             
+
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyAdmin
                 ("Colo", 0, 5, out oTotalRows);
@@ -136,7 +136,7 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn.Count >= 1);
 
             Assert.AreEqual(true, oTotalRows > 0);
-        }        
+        }
 
         [TestMethod]
         public void CategorySearchByCompanyRuleAdmin()
@@ -188,6 +188,16 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn.Count >= 1);
 
             Assert.AreEqual(true, oTotalRows > 0);
+        }
+
+        [TestMethod]
+        public void MP_RoleCompanyGetByUser()
+        {
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser
+                ("noexiste1@correo.com");
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
         }
     }
 }

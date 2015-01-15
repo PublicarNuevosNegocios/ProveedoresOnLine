@@ -3,6 +3,9 @@
     public static class Constants
     {
         public const string C_Session_Auth_ReturnUrl = "Auth_ReturnUrl";
+
         public const string C_Session_Auth_UserLogin = "Auth_UserLogin";
+
+        public const string C_Session_POLMarketPlace_MarketPlaceUserLogin = "POLMarketPlace_MarketPlaceUserLogin";
     }
 }

@@ -730,6 +730,15 @@ namespace ProveedoresOnLine.Company.Controller
 
         #endregion
 
+        #region User Roles
+
+        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
+        {
+            return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
+        }
+
+        #endregion
+
         #region Generic Log
 
         public static LogManager.Models.LogModel GetGenericLogModel()

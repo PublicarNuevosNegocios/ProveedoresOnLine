@@ -1458,5 +1458,143 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region User Roles
+
+        public List<CompanyModel> MP_RoleCompanyGetByUser(string User)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_C_RoleCompany_GetByUser",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<CompanyModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("CompanyPublicId")
+                     group c by new
+                     {
+                         CompanyPublicId = c.Field<string>("CompanyPublicId"),
+                         CompanyName = c.Field<string>("CompanyName"),
+                         IdentificationTypeId = c.Field<int>("IdentificationTypeId"),
+                         IdentificationTypeName = c.Field<string>("IdentificationTypeName"),
+                         IdentificationNumber = c.Field<string>("IdentificationNumber"),
+                         CompanyTypeId = c.Field<int>("CompanyTypeId"),
+                         CompanyTypeName = c.Field<string>("CompanyTypeName"),
+                     } into cg
+                     select new CompanyModel()
+                     {
+                         CompanyPublicId = cg.Key.CompanyPublicId,
+                         CompanyName = cg.Key.CompanyName,
+                         IdentificationType = new Models.Util.CatalogModel()
+                         {
+                             ItemId = cg.Key.IdentificationTypeId,
+                             ItemName = cg.Key.IdentificationTypeName,
+                         },
+                         IdentificationNumber = cg.Key.IdentificationNumber,
+                         CompanyType = new Models.Util.CatalogModel()
+                         {
+                             ItemId = cg.Key.CompanyTypeId,
+                             ItemName = cg.Key.CompanyTypeName,
+                         },
+
+                         CompanyInfo =
+                             (from ci in response.DataTableResult.AsEnumerable()
+                              where !ci.IsNull("CompanyInfoId") &&
+                                    ci.Field<string>("CompanyPublicId") == cg.Key.CompanyPublicId
+                              group ci by new
+                              {
+                                  CompanyInfoId = ci.Field<int>("CompanyInfoId"),
+                                  CompanyInfoTypeId = ci.Field<int>("CompanyInfoTypeId"),
+                                  CompanyInfoTypeName = ci.Field<string>("CompanyInfoTypeName"),
+                                  CompanyInfoValue = ci.Field<string>("CompanyInfoValue"),
+                                  CompanyInfoLargeValue = ci.Field<string>("CompanyInfoLargeValue"),
+                              } into cig
+                              select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                              {
+                                  ItemInfoId = cig.Key.CompanyInfoId,
+                                  ItemInfoType = new Models.Util.CatalogModel()
+                                  {
+                                      ItemId = cig.Key.CompanyInfoTypeId,
+                                      ItemName = cig.Key.CompanyInfoTypeName,
+                                  },
+                                  Value = cig.Key.CompanyInfoValue,
+                                  LargeValue = cig.Key.CompanyInfoLargeValue,
+                              }).ToList(),
+
+                         RelatedUser =
+                            (from uc in response.DataTableResult.AsEnumerable()
+                             where !uc.IsNull("UserCompanyId") &&
+                                   uc.Field<string>("CompanyPublicId") == cg.Key.CompanyPublicId
+                             group uc by new
+                             {
+                                 UserCompanyId = uc.Field<int>("UserCompanyId"),
+                                 User = uc.Field<string>("User"),
+                             } into ucg
+                             select new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                             {
+                                 UserCompanyId = ucg.Key.UserCompanyId,
+                                 User = ucg.Key.User,
+
+                                 RelatedRole =
+                                    (from ucr in response.DataTableResult.AsEnumerable()
+                                     where !ucr.IsNull("RoleCompanyId") &&
+                                           ucr.Field<string>("CompanyPublicId") == cg.Key.CompanyPublicId
+                                     group ucr by new
+                                     {
+                                         RoleCompanyId = ucr.Field<int>("RoleCompanyId"),
+                                         RoleCompanyName = ucr.Field<string>("RoleCompanyName"),
+                                         ParentRoleCompany = ucr.Field<int?>("ParentRoleCompany"),
+                                     } into ucrg
+                                     select new GenericItemModel()
+                                     {
+                                         ItemId = ucrg.Key.RoleCompanyId,
+                                         ItemName = ucrg.Key.RoleCompanyName,
+                                         ParentItem = ucrg.Key.ParentRoleCompany == null ? null : new GenericItemModel()
+                                         {
+                                             ItemId = ucrg.Key.ParentRoleCompany.Value,
+                                         },
+                                         ItemInfo =
+                                            (from ucrinf in response.DataTableResult.AsEnumerable()
+                                             where !ucrinf.IsNull("RoleCompanyInfoId") &&
+                                                   ucrinf.Field<int>("RoleCompanyId") == ucrg.Key.RoleCompanyId
+                                             group ucrinf by new
+                                             {
+                                                 RoleCompanyInfoId = ucrinf.Field<int>("RoleCompanyInfoId"),
+                                                 RoleCompanyInfoTypeId = ucrinf.Field<int>("RoleCompanyInfoTypeId"),
+                                                 RoleCompanyInfoTypeName = ucrinf.Field<string>("RoleCompanyInfoTypeName"),
+                                                 RoleCompanyInfoValue = ucrinf.Field<string>("RoleCompanyInfoValue"),
+                                                 RoleCompanyInfoLargeValue = ucrinf.Field<string>("RoleCompanyInfoLargeValue"),
+                                             } into ucrinfg
+                                             select new GenericItemInfoModel()
+                                             {
+                                                 ItemInfoId = ucrinfg.Key.RoleCompanyInfoId,
+                                                 ItemInfoType = new CatalogModel()
+                                                 {
+                                                     ItemId = ucrinfg.Key.RoleCompanyInfoTypeId,
+                                                     ItemName = ucrinfg.Key.RoleCompanyInfoTypeName,
+                                                 },
+                                                 Value = ucrinfg.Key.RoleCompanyInfoValue,
+                                                 LargeValue = ucrinfg.Key.RoleCompanyInfoLargeValue,
+                                             }).ToList()
+                                     }).FirstOrDefault(),
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
     }
 }
