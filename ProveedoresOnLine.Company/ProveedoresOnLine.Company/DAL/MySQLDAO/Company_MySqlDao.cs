@@ -986,9 +986,10 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                where ginf.Field<int>("TreeCategoryId") == gg.Key.TreeCategoryId
                                group ginf by new
                                {
-                                   ItemInfoId = ginf.Field<string>("TypeId"),
+                                   ItemInfoId = ginf.Field<int>("InfoId"),
+                                   TypeId = ginf.Field<string>("TypeId"),
                                    ItemInfoType = ginf.Field<int>("InfoType"),
-                                   MasterName = ginf.Field<string>("MasterName"),
+                                   GroupName = ginf.Field<string>("GroupName"),
                                } into gginfg
                                select new GenericItemInfoModel()
                                {
@@ -996,8 +997,9 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                    ItemInfoType = new CatalogModel()
                                    {
                                        ItemId = Convert.ToInt32(gginfg.Key.ItemInfoType),
+                                       ItemName = gginfg.Key.TypeId,
                                    },
-                                   Value = gginfg.Key.MasterName,
+                                   Value = gginfg.Key.GroupName,
                                }).ToList(),
                       }).ToList();
             }

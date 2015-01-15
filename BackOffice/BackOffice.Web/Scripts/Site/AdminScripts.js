@@ -830,9 +830,15 @@
                         fields: {
                             ECS_EconomyActivity: { editable: true, nullable: false },
 
-                            ECS_TypeId: { editable: true, nullable: false },
-                            ECS_CategoryId: { editable: true, nullable: false },
-                            ECS_GroupId: { editable: true, nullable: false },
+                            ECS_TypeId: { editable: false, nullable: false },
+                            ECS_Type: { editable: true, nullable: false },
+
+                            ECS_CategoryId: { editable: false, nullable: false },
+                            ECS_Category: { editable: true, nullable: false },
+
+                            ECS_GroupId: { editable: false, nullable: false },
+                            ECS_Group: { editable: true, nullable: false },
+
                             ECS_GroupName: { editable: true, nullable: false },
                             ECS_Enable: { editable: true, type: 'boolean', defaultValue: true },
                         }
@@ -949,14 +955,14 @@
                     });
                 },
             },{
-                field: 'ECS_TypeId',
+                field: 'ECS_Type',
                 title: 'Tipo',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_TypeId != null) {
+                    if (dataItem != null && dataItem.ECS_Type != null) {
                         $.each(Admin_CategoryObject.AdminOptions[103], function (item, value) {
-                            if (dataItem.ECS_TypeId == value.ItemId) {
+                            if (dataItem.ECS_Type == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -974,14 +980,14 @@
                         });
                 },
             }, {
-                field: 'ECS_CategoryId',
+                field: 'ECS_Category',
                 title: 'Categoría',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_CategoryId != null) {
+                    if (dataItem != null && dataItem.ECS_Category != null) {
                         $.each(Admin_CategoryObject.AdminOptions[104], function (item, value) {
-                            if (dataItem.ECS_CategoryId == value.ItemId) {
+                            if (dataItem.ECS_Category == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -999,19 +1005,19 @@
                         });
                 },
             }, {
-                field: 'ECS_GroupId',
+                field: 'ECS_Group',
                 title: 'Grupo',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_EconomyActivity != null) {
+                    if (dataItem != null && dataItem.ECS_Group != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.ECS_EconomyActivity;
+                        oReturn = oReturn + dataItem.ECS_Group;
                     }
                     return oReturn;
                 },
@@ -1025,12 +1031,12 @@
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'ActivityName',                        
+                        dataTextField: 'ActivityGroup',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
-                            options.model['ECS_EconomyActivity'] = selectedItem.ActivityName;
+                            //options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
+                            options.model['ECS_Group'] = selectedItem.ActivityGroup;
                             //enable made changes
                             options.model.dirty = true;
                         },
