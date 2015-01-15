@@ -146,6 +146,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CategorySearchByEcoGroupAdmin(SearchParam, PageNumber, RowCount, TreeId, out TotalRows);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByTreeAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
         #endregion
 
         #region Company CRUD

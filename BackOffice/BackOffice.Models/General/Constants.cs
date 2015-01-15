@@ -28,6 +28,8 @@
 
         public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
 
+        public const string C_Settings_DefaultImage = "DefaultImage";
+
         #endregion
 
         #region Administrator User Roles
