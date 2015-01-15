@@ -26,6 +26,8 @@ namespace MarketPlace.Models.General
 
         public static SessionManager.Models.POLMarketPlace.Session_CompanyModel CurrentCompany { get { return CurrentCompanyLoginUser.RelatedCompany.Where(x => x.CurrentSessionCompany == true).FirstOrDefault(); } }
 
+        public static enumCompanyType CurrentCompanyType { get { return CurrentCompany == null ? enumCompanyType.Provider : (enumCompanyType)CurrentCompany.CompanyType.ItemId; } }
+
         #region Session methods
 
         public static void InitCompanyLogin(List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany)
@@ -60,6 +62,24 @@ namespace MarketPlace.Models.General
                              ItemId = uc.CompanyType.ItemId,
                              ItemName = uc.CompanyType.ItemName,
                          },
+
+                         CompanyInfo =
+                            (from cinf in uc.CompanyInfo
+                             select new SessionManager.Models.POLMarketPlace.Session_GenericItemInfoModel()
+                             {
+                                 ItemInfoId = cinf.ItemInfoId,
+                                 ItemInfoType = new SessionManager.Models.POLMarketPlace.Session_CatalogModel()
+                                 {
+                                     CatalogId = cinf.ItemInfoType.CatalogId,
+                                     CatalogName = cinf.ItemInfoType.CatalogName,
+                                     ItemId = cinf.ItemInfoType.ItemId,
+                                     ItemName = cinf.ItemInfoType.ItemName
+                                 },
+                                 Value = cinf.Value,
+                                 LargeValue = cinf.LargeValue,
+                             }).
+                             ToList(),
+
                          RelatedUser =
                             (from ru in uc.RelatedUser
                              select new SessionManager.Models.POLMarketPlace.Session_UserCompany()

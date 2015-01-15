@@ -22,7 +22,7 @@ namespace MarketPlace.Web.Controllers
                 //validate user authorized
                 if (MarketPlace.Models.General.SessionModel.IsUserAuthorized())
                 {
-                    if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyType.ItemId == (int)MarketPlace.Models.General.enumCompanyType.Provider)
+                    if (MarketPlace.Models.General.SessionModel.CurrentCompanyType == MarketPlace.Models.General.enumCompanyType.Provider)
                     {
                         //redirect to provider home
                         return RedirectToRoute

@@ -1,8 +1,66 @@
-﻿<div>
-    <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                new
+﻿@if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn &&
+    MarketPlace.Models.General.SessionModel.IsUserAuthorized())
+{
+    //get company logo
+    string strCompanyLogo = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.
+        Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CompanyLogo && !string.IsNullOrEmpty(x.Value)).
+        Select(x => x.Value).
+        DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value).
+        FirstOrDefault();
+
+    //get user logo
+    string strUserLogo = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedUserInfo.
+        Where(x => x.UserInfoType == SessionManager.Models.Auth.enumUserInfoType.ProfileImage && !string.IsNullOrEmpty(x.Value)).
+        Select(x => x.Value).
+        DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Login_DefaultUserUrl].Value).
+        FirstOrDefault();
+
+    //get header menu
+    List<MarketPlace.Models.General.GenericMenu> oHeaderMenu = (ViewContext.Controller as MarketPlace.Web.Controllers.BaseController).GetHeaderMenu();
+
+    <!--Company Logo-->
+    <div>
+        <img src="@strCompanyLogo" />
+    </div>
+
+    <div>
+        <div>
+            <!--User options-->
+            <div onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');">
+                <img src="@strUserLogo" />
+                <label><span>Bienvenido: </span>@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Name</label>
+            </div>
+            <div id="divHeader_UserMenu" style="display:none;">
+                <ul>
+                    <li>
+                        <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Home.Name,
+                                    action = MVC.Home.ActionNames.LogOutUser
+                                }))">Salir</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <!--Header menu-->
+            <ul>
+                @foreach (MarketPlace.Models.General.GenericMenu oMenuItem in oHeaderMenu.OrderBy(x => x.Position))
                 {
-                    controller = MVC.Home.Name,
-                    action = MVC.Home.ActionNames.LogOutUser
-                }))">Salir</a>
-</div>
+                    string strSelectedClass = string.Empty;
+                    if (oMenuItem.IsSelected)
+                    {
+                        strSelectedClass = "selected";
+                    }
+
+                    <li class="@strSelectedClass">
+                        <a href="@oMenuItem.Url">
+                            @oMenuItem.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

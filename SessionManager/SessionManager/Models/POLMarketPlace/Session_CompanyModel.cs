@@ -18,6 +18,8 @@ namespace SessionManager.Models.POLMarketPlace
 
         public Session_CatalogModel CompanyType { get; set; }
 
+        public List<Session_GenericItemInfoModel> CompanyInfo { get; set; }
+
         public List<Session_UserCompany> RelatedUser { get; set; }
 
         public bool CurrentSessionCompany { get; set; }

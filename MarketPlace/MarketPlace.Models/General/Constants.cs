@@ -18,6 +18,8 @@
 
         public const string C_Settings_Login_UserNotAutorized = "Login_UserNotAutorized";
 
+        public const string C_Settings_Login_DefaultUserUrl = "Login_DefaultUserUrl";
+
         #endregion
 
         #region Generic params
@@ -37,6 +39,12 @@
         public const string C_Settings_File_TempDirectory = "File_TempDirectory";
 
         public const string C_Settings_File_RemoteDirectory = "File_RemoteDirectory";
+
+        #endregion
+
+        #region Company
+
+        public const string C_Settings_Company_DefaultLogoUrl = "Company_DefaultLogoUrl";
 
         #endregion
 

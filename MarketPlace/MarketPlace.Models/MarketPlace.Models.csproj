@@ -52,6 +52,7 @@
     <Compile Include="General\AreaModel.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\Enumerations.cs" />
+    <Compile Include="General\GenericMenu.cs" />
     <Compile Include="General\InternalSettings.cs" />
     <Compile Include="General\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
