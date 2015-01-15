@@ -13,7 +13,7 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };          
+            };
 
             //get provider menu
             oModel.ProviderMenu = GetAdminMenu(oModel);
@@ -108,6 +108,18 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminEcoGroupUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -181,6 +193,19 @@ namespace BackOffice.Web.Controllers
                     (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
                     oCurrentController == MVC.Provider.Name),
             });
+
+            //Stantart Group
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Grupos Estandar",
+                    Url = Url.Action
+                            (MVC.Admin.ActionNames.AdminEcoGroupUpsert,
+                            MVC.Admin.Name),
+                    Position = 1,
+                    IsSelected =
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminEcoGroupUpsert &&
+                    oCurrentController == MVC.Admin.Name),
+                });
 
             //Banks
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()

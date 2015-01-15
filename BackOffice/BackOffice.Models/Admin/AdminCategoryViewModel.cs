@@ -25,7 +25,7 @@ namespace BackOffice.Models.Admin
         public string GIT_CountryTypeId { get; set; }
 
         public bool GIT_CountryEnable { get; set; }
-               
+
         public string GIT_StateId { get; set; }
         public string GIT_State { get; set; }
 
@@ -53,13 +53,13 @@ namespace BackOffice.Models.Admin
         public string B_Bank { get; set; }
         public string B_BankId { get; set; }
         public bool B_BankEnable { get; set; }
-        
+
         public string B_CityId { get; set; }
         public string B_City { get; set; }
 
         #endregion
 
-        #region CompanyRules 
+        #region CompanyRules
 
         public string CR_CompanyRule { get; set; }
         public string CR_CompanyRuleId { get; set; }
@@ -85,17 +85,29 @@ namespace BackOffice.Models.Admin
 
         #region StandarCustomerActivity
 
-        public int ECS_EconomyActivityId { get; set; }
+        public string ECS_EconomyActivityId { get; set; }
         public string ECS_EconomyActivity { get; set; }
-        
-        public int ECS_TypeId { get; set; }
-        public int ECS_CategoryId { get; set; }
-        
-        public int ECS_GroupId { get; set; }
+
+        public string ECS_TypeId { get; set; }
+        public string ECS_Type { get; set; }
+
+        public string ECS_CategoryId { get; set; }
+        public string ECS_Category { get; set; }
+
+        public string ECS_GroupId { get; set; }
+        public string ECS_Group { get; set; }
         public string ECS_GroupName { get; set; }
 
         public bool ECS_Enable { get; set; }
-        
+
+        #endregion
+
+        #region Group
+
+        public string G_Group { get; set; }
+        public string G_GroupId { get; set; }
+        public bool G_GroupEnable { get; set; }
+
         #endregion
 
         public AdminCategoryViewModel() { }
@@ -134,7 +146,7 @@ namespace BackOffice.Models.Admin
 
             GIT_CountryEnable = oRelatedGeoGraphy.Country.Enable;
 
-            #endregion            
+            #endregion
 
             #region State
             GIT_State = oRelatedGeoGraphy.State.ItemName;
@@ -182,7 +194,7 @@ namespace BackOffice.Models.Admin
                              Select(y => y.ItemInfoId.ToString()).
                              DefaultIfEmpty(string.Empty).
                              FirstOrDefault() : string.Empty;
-            
+
             GI_CityEnable = oRelatedGeoGraphy.City.Enable;
 
             #endregion
@@ -200,7 +212,7 @@ namespace BackOffice.Models.Admin
 
             B_City = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                             Where(y => y.ItemInfoType.ItemId != null).
-                            Select(y => y.Value.ToString()).
+                            Select(y => !string.IsNullOrEmpty(y.Value) ? y.Value.ToString() : string.Empty).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault() : string.Empty;
 
@@ -238,35 +250,57 @@ namespace BackOffice.Models.Admin
 
             #region StandarCustomerActivity
 
-            ECS_EconomyActivityId = oCategory.ItemId;
+            ECS_EconomyActivityId = oCategory.ItemId.ToString();
             ECS_EconomyActivity = oCategory.ItemName;
+            
 
             ECS_TypeId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
-                            Select(y => Convert.ToInt32(y.ItemInfoType.ItemId)).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault() : 0;
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Type).
+                        Select(y => y.ItemInfoId.ToString()).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
+
+            ECS_Type = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                       Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Type).
+                       Select(y => y.ItemInfoType.ItemName).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault() : string.Empty;
+
             ECS_CategoryId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
-                            Select(y => Convert.ToInt32(y.ItemInfoId)).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault() : 0;
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category).
+                        Select(y => y.ItemInfoId.ToString()).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
+
+            ECS_Category = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category).
+                        Select(y => y.ItemInfoType.ItemName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
 
             ECS_GroupId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
-                            Select(y => Convert.ToInt32(y.Value)).
-                            DefaultIfEmpty(0).
-                            FirstOrDefault() : 0;
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
+                        Select(y => y.ItemInfoId.ToString()).
+                         DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
 
+            ECS_Group = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
 
-            //ECS_GroupName = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-            //                Where(y => y.ItemInfoType.ItemId != null).
-            //                Select(y => y.LargeValue.ToString()).
-            //                DefaultIfEmpty(string.Empty).
-            //                FirstOrDefault() : string.Empty;
 
             ECS_Enable = oCategory.Enable;
-            
+
+            #endregion
+
+            #region Group
+
+            G_Group = oCategory.ItemName;
+            G_GroupId = oCategory.ItemId.ToString();
+            G_GroupEnable = oCategory.Enable;
+
             #endregion
         }
     }
