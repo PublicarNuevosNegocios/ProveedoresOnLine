@@ -13,22 +13,46 @@ namespace MarketPlace.Web.Controllers
             //validate user loggin
             if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn)
             {
+                //get user company info
+                List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany =
+                    ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
 
+                MarketPlace.Models.General.SessionModel.InitCompanyLogin(UserCompany);
 
-
-                //if (BackOffice.Models.General.SessionModel.UserIsAutorized)
-                //{
-                //    //redirect to provider
-                //    return RedirectToAction(MVC.Provider.ActionNames.Index, MVC.Provider.Name);
-                //}
-                //else
-                //{
-                //    //user is not autorized
-                //    ViewData[BackOffice.Models.General.Constants.C_ViewData_UserNotAutorizedText] =
-                //        BackOffice.Models.General.InternalSettings.Instance
-                //        [BackOffice.Models.General.Constants.C_Settings_Login_UserNotAutorized].Value.
-                //        Replace("{UserName}", BackOffice.Models.General.SessionModel.CurrentLoginUser.Email);
-                //}
+                //validate user authorized
+                if (MarketPlace.Models.General.SessionModel.IsUserAuthorized())
+                {
+                    if (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyType.ItemId == (int)MarketPlace.Models.General.enumCompanyType.Provider)
+                    {
+                        //redirect to provider home
+                        return RedirectToRoute
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Index
+                            });
+                    }
+                    else
+                    {
+                        //redirect to customer home
+                        return RedirectToRoute
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Customer.Name,
+                                action = MVC.Customer.ActionNames.Index
+                            });
+                    }
+                }
+                else
+                {
+                    //user is not autorized
+                    ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText] =
+                        MarketPlace.Models.General.InternalSettings.Instance
+                        [MarketPlace.Models.General.Constants.C_Settings_Login_UserNotAutorized].Value.
+                        Replace("{UserName}", MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+                }
             }
             else
             {
@@ -53,14 +77,13 @@ namespace MarketPlace.Web.Controllers
         {
             SessionManager.SessionController.Logout();
 
-            return RedirectToRoute(Url.RouteUrl(
+            return RedirectToRoute(
                 MarketPlace.Models.General.Constants.C_Routes_Default,
                     new
                     {
                         controller = MVC.Home.Name,
                         action = MVC.Home.ActionNames.Index
-                    },
-                    Request.Url.Scheme));
+                    });
         }
     }
 }

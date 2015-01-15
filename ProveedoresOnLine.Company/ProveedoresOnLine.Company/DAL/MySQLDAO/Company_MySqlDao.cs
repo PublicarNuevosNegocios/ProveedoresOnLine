@@ -1051,7 +1051,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -1068,12 +1068,10 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 });
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
-            TotalRows = 0;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
-                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
                 oReturn = (from tr in response.DataTableResult.AsEnumerable()
                            where (!tr.IsNull("TreeId"))
                            group tr by new
