@@ -32,6 +32,9 @@
         else if (Admin_CategoryObject.CategoryType == "AdminEcoAcEstandar") {
             Admin_CategoryObject.RenderActivityStandarAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminEcoGroupEstandar") {
+            Admin_CategoryObject.RenderGroupStandarAsync();
+        }
 
     },
 
@@ -1065,5 +1068,97 @@
         });
     },
 
-
+    RenderGroupStandarAsync: function (param)
+    {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderGroupStandarAsync(" + "true" + ");'>Buscar</a" }],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'G_GroupId',
+                        fields: {
+                            G_Group: { editable: true, nullable: false },
+                            G_GroupEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategotySearchByGroupStandarAdmin=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&TreeId=7',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'G_Group',
+                title: 'Grupo',
+            }, {
+                field: 'G_GroupEnable',
+                title: 'Habilitado',
+            }, ],
+        });
+    },
 }

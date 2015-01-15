@@ -379,6 +379,28 @@ namespace BackOffice.Web.ControllersApi
                 }
 
                 #endregion
+
+                #region Group
+
+                if (CategoryType == "AdminEcoGroupEstandar")
+                {
+                    GenericItemModel oGroupToUpsert = new GenericItemModel();
+
+                    oGroupToUpsert = new GenericItemModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(oDataToUpsert.G_GroupId) ? 0 : Convert.ToInt32(oDataToUpsert.G_GroupId),
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.G_Group,
+                        Enable = oDataToUpsert.G_GroupEnable,
+                        ItemInfo = new List<GenericItemInfoModel>(),
+                    };
+
+                    GenericItemModel ResolutionResult = new GenericItemModel();
+                    ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(7, oGroupToUpsert);
+                }
+
+                #endregion
             }
             return oReturn;
         }
@@ -701,6 +723,40 @@ namespace BackOffice.Web.ControllersApi
             if (oStandarActivityAdmin != null)
             {
                 oStandarActivityAdmin.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+
+            oReturn.All(x =>
+            {
+                x.AllTotalRows = oTotalCount;
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByEcoGroupAdmin
+            (string CategotySearchByGroupStandarAdmin, string SearchParam, int PageNumber, int RowCount, int TreeId)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oStandarGroupAdmin =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategotySearchByGroupStandarAdmin == "true")
+            {
+                oStandarGroupAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoGroupAdmin
+                            (SearchParam, PageNumber, RowCount, TreeId, out oTotalCount);
+            }
+
+            if (oStandarGroupAdmin != null)
+            {
+                oStandarGroupAdmin.All(x =>
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;

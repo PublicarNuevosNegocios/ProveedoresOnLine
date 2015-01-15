@@ -102,6 +102,14 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        #region Group
+
+        public string G_Group { get; set; }
+        public string G_GroupId { get; set; }
+        public bool G_GroupEnable { get; set; }
+
+        #endregion
+
         public AdminCategoryViewModel() { }
 
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GeographyModel oRelatedGeoGraphy)
@@ -284,6 +292,14 @@ namespace BackOffice.Models.Admin
 
 
             ECS_Enable = oCategory.Enable;
+
+            #endregion
+
+            #region Group
+
+            G_Group = oCategory.ItemName;
+            G_GroupId = oCategory.ItemId.ToString();
+            G_GroupEnable = oCategory.Enable;
 
             #endregion
         }

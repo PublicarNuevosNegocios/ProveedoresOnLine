@@ -1044,6 +1044,7 @@
     <Content Include="Views\Admin\AdminRulesUpsert.cshtml" />
     <Content Include="Views\Admin\AdminResolutionUpsert.cshtml" />
     <Content Include="Views\Admin\AdminEcoActivityUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminEcoGroupUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
