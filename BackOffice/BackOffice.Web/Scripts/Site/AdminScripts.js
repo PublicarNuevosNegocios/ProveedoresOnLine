@@ -2,10 +2,12 @@
     ObjectId: '',
     AdminOptions: new Array(),
     CategoryType: '',
+    TreeId:'',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CategoryType = vInitObject.CategoryType
+        this.TreeId = vInitObject.TreeId != "0" ? vInitObject.TreeId : "4"
         if (vInitObject.UtilOptions != null) {
             $.each(vInitObject.UtilOptions, function (item, value) {
                 Admin_CategoryObject.AdminOptions[value.Key] = value.Value;
@@ -34,6 +36,9 @@
         }
         else if (Admin_CategoryObject.CategoryType == "AdminEcoGroupEstandar") {
             Admin_CategoryObject.RenderGroupStandarAsync();
+        }
+        else if (Admin_CategoryObject.CategoryType == "AdminTree") {
+            Admin_CategoryObject.RenderTreeAsync();
         }
 
     },
@@ -847,7 +852,7 @@
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByEcoActivityAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false&TreeId=4',
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByEcoActivityAdmin=true&SearchParam=' + vSearchParam + '&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&IsAutoComplete=false' + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1159,6 +1164,106 @@
                 title: 'Grupo',
             }, {
                 field: 'G_GroupEnable',
+                title: 'Habilitado',
+            }, ],
+        });
+    },
+
+    RenderTreeAsync: function (param) {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
+                { name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderTreeAsync(" + "true" + ");'>Buscar</a" }],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'T_TreeId',
+                        fields: {
+                            T_TreeName: { editable: true, nullable: false },
+                            T_TreeEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByTreeAdmin=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'T_TreeId',
+                title: 'Id',
+            },{
+                field: 'T_TreeName',
+                title: 'Nombre del Árbol',
+            }, {
+                field: "T_TreeId",
+                title: "Agregar Items",
+                template: $("#templateName").html()
+            }, {
+                field: 'T_TreeEnable',
                 title: 'Habilitado',
             }, ],
         });

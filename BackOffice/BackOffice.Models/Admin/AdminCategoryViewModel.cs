@@ -110,6 +110,14 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        public string T_TreeId { get; set; }
+        public string T_TreeName { get; set; }
+        public bool T_TreeEnable { get; set; }
+        
+        #region Tree
+		
+	    #endregion
+
         public AdminCategoryViewModel() { }
 
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.GeographyModel oRelatedGeoGraphy)
@@ -305,6 +313,14 @@ namespace BackOffice.Models.Admin
             G_Group = oCategory.ItemName;
             G_GroupId = oCategory.ItemId.ToString();
             G_GroupEnable = oCategory.Enable;
+
+            #endregion
+
+            #region Tree
+
+            T_TreeId = oCategory.ItemId.ToString();
+            T_TreeName = oCategory.ItemName;
+            T_TreeEnable = oCategory.Enable;
 
             #endregion
         }

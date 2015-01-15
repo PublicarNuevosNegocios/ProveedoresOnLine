@@ -96,7 +96,7 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult AdminEcoActivityUpsert()
+        public virtual ActionResult AdminEcoActivityUpsert(int TreeId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -119,6 +119,18 @@ namespace BackOffice.Web.Controllers
 
             return View(oModel);
         }
+
+        public virtual ActionResult AdminTreeUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),                
+            };           
+            
+            oModel.ProviderMenu = GetAdminMenu(oModel);            
+            return View(oModel);
+        }
+
 
         #region Menu
 
@@ -174,10 +186,23 @@ namespace BackOffice.Web.Controllers
                 Name = "Acividades Económicas Estandar",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
-                    MVC.Admin.Name),
+                    MVC.Admin.Name, new { TreeId = 0 }),
                 Position = 1,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminEcoActivityUpsert &&
+                    oCurrentController == MVC.Admin.Name),
+            });
+
+            //Arboles
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "Maestras",
+                Url = Url.Action
+                    (MVC.Admin.ActionNames.AdminTreeUpsert,
+                    MVC.Admin.Name),
+                Position = 1,
+                IsSelected =
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminTreeUpsert &&
                     oCurrentController == MVC.Admin.Name),
             });
 

@@ -216,15 +216,11 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void CategorySearchByTreeAdmin()
         {
-            int oTotalRows;
-
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
-                    ("", 0, 20, out oTotalRows);
+                    ("", 0, 20);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
-
-            Assert.AreEqual(true, oTotalRows > 0);
         }
     }
 }

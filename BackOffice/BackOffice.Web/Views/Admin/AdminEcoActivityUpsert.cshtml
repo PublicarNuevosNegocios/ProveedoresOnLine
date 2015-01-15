@@ -52,13 +52,14 @@
     }
 
     <script type="text/javascript">
-        var vAdminEcoAclInfoOptionList = @(Html.Raw(oAdminEcoActivityInfoOptionList));
-
+    var vAdminEcoAclInfoOptionList = @(Html.Raw(oAdminEcoActivityInfoOptionList));
+    var vTreeId = @(Request["TreeId"]);
         $(document).ready(function () {
             Admin_CategoryObject.Init({
                 ObjectId: 'divGridEcoActInfo',
                 UtilOptions: vAdminEcoAclInfoOptionList ,
                 CategoryType: 'AdminEcoAcEstandar',
+                TreeId: vTreeId,
             });
             Admin_CategoryObject.RenderAsync();
         });
