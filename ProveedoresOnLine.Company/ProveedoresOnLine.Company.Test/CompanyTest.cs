@@ -212,5 +212,19 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
+
+        [TestMethod]
+        public void CategorySearchByTreeAdmin()
+        {
+            int oTotalRows;
+
+            List<ProveedoresOnLine.Company.Models.Util.TreeModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
+                    ("", 0, 20, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
+        }
     }
 }

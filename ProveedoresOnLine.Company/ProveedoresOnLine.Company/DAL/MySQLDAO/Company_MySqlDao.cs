@@ -1007,7 +1007,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             return oReturn;
         }
-        
+
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByEcoGroupAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -1028,7 +1028,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
             TotalRows = 0;
 
-            if (response.DataTableResult != null && 
+            if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
                 TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
@@ -1045,6 +1045,48 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                ItemId = crr.Key.CompanyRuleId,
                                ItemName = crr.Key.CompanyRuleName,
                                Enable = crr.Key.CompanyRuleEnable,
+                           }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.TreeModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "U_Category_SearchByTreeAdmin",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<ProveedoresOnLine.Company.Models.Util.TreeModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn = (from tr in response.DataTableResult.AsEnumerable()
+                           where (!tr.IsNull("TreeId"))
+                           group tr by new
+                           {
+                               TreeAdminId = tr.Field<int>("TreeId"),
+                               TreeAdminName = tr.Field<string>("TreeName"),
+                               TreeAdminEnable = tr.Field<UInt64>("TreeEnable") == 1 ? true : false,
+                           } into trr
+                           select new TreeModel
+                           {
+                               TreeId = trr.Key.TreeAdminId,
+                               TreeName = trr.Key.TreeAdminName,
+                               Enable = trr.Key.TreeAdminEnable,
                            }).ToList();
             }
 
