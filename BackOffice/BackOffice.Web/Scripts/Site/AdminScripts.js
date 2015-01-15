@@ -923,6 +923,7 @@
                             if (isSelected == false) {
                                 options.model['ECS_EconomyActivityId'] = 0;
                                 options.model['ECS_EconomyActivity'] = e.sender._old;
+                                debugger;
                             }
                         },
                         select: function (e) {
@@ -1005,19 +1006,19 @@
                         });
                 },
             }, {
-                field: 'ECS_Group',
+                field: 'ECS_GroupName',
                 title: 'Grupo',
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.ECS_Group != null) {
+                    if (dataItem != null && dataItem.ECS_GroupName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.ECS_Group;
+                        oReturn = oReturn + dataItem.ECS_GroupName;
                     }
                     return oReturn;
                 },
@@ -1031,12 +1032,13 @@
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'ActivityGroup',
+                        dataTextField: 'G_Group',
                         select: function (e) {
+                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name
-                            //options.model['ECS_EconomyActivityId'] = selectedItem.EconomicActivityId;
-                            options.model['ECS_Group'] = selectedItem.ActivityGroup;
+                            //set server fiel name                            
+                            options.model['ECS_Group'] = selectedItem.G_GroupId;
+                            options.model['ECS_GroupName'] = selectedItem.G_Group;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -1046,7 +1048,7 @@
                             transport: {
                                 read: function (options) {
                                     $.ajax({
-                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategotySearchByGroupStandarAdmin=true&SearchParam=' + options.data.filter.filters[0].value + '&PageNumber=0' + '&RowCount=650000&TreeId=7',
                                         dataType: 'json',
                                         success: function (result) {
                                             options.success(result);

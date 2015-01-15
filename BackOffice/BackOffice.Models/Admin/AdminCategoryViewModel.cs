@@ -286,16 +286,21 @@ namespace BackOffice.Models.Admin
 
             ECS_Group = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
-                        Select(y => y.Value).
+                        Select(y => y.ItemInfoType.ItemName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault() : string.Empty;
 
+            ECS_GroupName = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
 
             ECS_Enable = oCategory.Enable;
 
             #endregion
 
-            #region Group
+            #region Standar Group
 
             G_Group = oCategory.ItemName;
             G_GroupId = oCategory.ItemId.ToString();
