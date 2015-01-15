@@ -368,7 +368,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category
                         },
-                        Value = oDataToUpsert.ECS_Group,
+                        Value = oDataToUpsert.ECS_Category,
                         Enable = oDataToUpsert.ECS_Enable,
                     });
 
