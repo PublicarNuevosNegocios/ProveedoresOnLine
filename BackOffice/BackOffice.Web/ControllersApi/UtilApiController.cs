@@ -398,7 +398,7 @@ namespace BackOffice.Web.ControllersApi
 
                     GenericItemModel ResolutionResult = new GenericItemModel();
                     ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(7, oGroupToUpsert);
-            }
+                }
 
                 #endregion
             }
