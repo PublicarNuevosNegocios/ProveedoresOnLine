@@ -405,20 +405,16 @@ namespace BackOffice.Web.ControllersApi
                 #region Tree
                 if (CategoryType == "TreeAdmin")
                 {
-                    GenericItemModel oGroupToUpsert = new GenericItemModel();
+                    TreeModel oTreeModel = new TreeModel();
 
-                    oGroupToUpsert = new GenericItemModel()
+                    oTreeModel = new TreeModel()
                     {
-                        ItemId = string.IsNullOrEmpty(oDataToUpsert.G_GroupId) ? 0 : Convert.ToInt32(oDataToUpsert.G_GroupId),
-                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
-
-                        ItemName = oDataToUpsert.G_Group,
-                        Enable = oDataToUpsert.G_GroupEnable,
-                        ItemInfo = new List<GenericItemInfoModel>(),
+                        TreeId = string.IsNullOrEmpty(oDataToUpsert.T_TreeId) ? 0 : Convert.ToInt32(oDataToUpsert.T_TreeId),
+                        TreeName = oDataToUpsert.T_TreeName,
+                        Enable = oDataToUpsert.T_TreeEnable,
                     };
-
-                    GenericItemModel ResolutionResult = new GenericItemModel();
-                    ResolutionResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(7, oGroupToUpsert);
+                    
+                    ProveedoresOnLine.Company.Controller.Company.TreeUpsert(oTreeModel);
                 }
                 #endregion
             }
