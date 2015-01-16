@@ -120,6 +120,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -134,9 +135,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -153,6 +156,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -341,6 +345,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -354,9 +359,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -373,6 +380,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -502,6 +510,7 @@
                                         },
                                         error: function (result) {
                                             options.error(result);
+                                            Message('error', '');
                                         }
                                     });
                                 },
@@ -563,6 +572,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -576,9 +586,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -595,6 +607,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -658,6 +671,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -671,9 +685,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -690,6 +706,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -751,6 +768,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -764,9 +782,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -783,6 +803,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -873,9 +894,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -892,6 +915,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -954,6 +978,7 @@
                                         },
                                         error: function (result) {
                                             options.error(result);
+                                            Message('error', '');
                                         }
                                     });
                                 },
@@ -1061,6 +1086,7 @@
                                         },
                                         error: function (result) {
                                             options.error(result);
+                                            Message('error', '');
                                         }
                                     });
                                 },
@@ -1123,6 +1149,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1136,9 +1163,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1155,6 +1184,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1217,6 +1247,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1230,9 +1261,11 @@
                             },
                             success: function (result) {
                                 options.success(result);
+                                Message('success', '0');
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1249,6 +1282,7 @@
                             },
                             error: function (result) {
                                 options.error(result);
+                                Message('error', '');
                             }
                         });
                     },
@@ -1270,4 +1304,36 @@
             }, ],
         });
     },
+}
+
+/*Message*/
+function Message(style, idfield) {
+    if ($('div.message').length) {
+        $('div.message').remove();
+    }
+
+    var mess = '';
+    if (style == 'error') {
+        if (idfield.length > 0) {
+            mess = 'Error en la fila con el id ' + idfield + '.';
+        }
+        else {
+            mess = 'Hay un error!';
+        }
+    } else {
+        if (idfield == '0') {
+            mess = 'Se creó el registro.';
+        }
+        else if (idfield == '') {
+            mess = 'Operación exitosa.';
+        } else {
+            mess = 'Se editó la fila con el id ' + idfield + '.';
+        }
+    }
+
+    $('<div class="message m_' + style + '">' + mess + '</div>').css({
+        top: $(window).scrollTop() + 'px'
+    }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
+        $(this).remove();
+    });
 }
