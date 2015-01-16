@@ -131,7 +131,6 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -183,7 +182,7 @@ namespace BackOffice.Web.Controllers
             //Standart Economy Activity
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "Acividades Económicas Estandar",
+                Name = "Acividades Económicas",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
                     MVC.Admin.Name, new { TreeId = 0 }),
@@ -205,24 +204,11 @@ namespace BackOffice.Web.Controllers
                     (oCurrentAction == MVC.Admin.ActionNames.AdminTreeUpsert &&
                     oCurrentController == MVC.Admin.Name),
             });
-
-            //Specific Economy Activity
-            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-            {
-                Name = "Acividades Economicas Específicas",
-                Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
-                    MVC.Provider.Name),
-                Position = 1,
-                IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
-                    oCurrentController == MVC.Provider.Name),
-            });
-
+         
             //Stantart Group
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Grupos Estandar",
+                    Name = "Grupos",
                     Url = Url.Action
                             (MVC.Admin.ActionNames.AdminEcoGroupUpsert,
                             MVC.Admin.Name),
