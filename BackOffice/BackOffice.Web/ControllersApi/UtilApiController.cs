@@ -415,7 +415,7 @@ namespace BackOffice.Web.ControllersApi
                 #endregion
 
                 #region Tree
-                if (CategoryType == "TreeAdmin")
+                if (CategoryType == "AdminTree")
                 {
                     TreeModel oTreeModel = new TreeModel();
 
@@ -425,8 +425,45 @@ namespace BackOffice.Web.ControllersApi
                         TreeName = oDataToUpsert.T_TreeName,
                         Enable = oDataToUpsert.T_TreeEnable,
                     };
-                    
-                    ProveedoresOnLine.Company.Controller.Company.TreeUpsert(oTreeModel);
+
+                    TreeModel oTreeResult = new TreeModel();
+
+                    //Create the category default
+                    GenericItemModel oTreeToUpsert = new GenericItemModel();
+                    List<GenericItemInfoModel> oTreeInfo = new List<GenericItemInfoModel>();
+                    GenericItemModel oTreeCategoryResult = new GenericItemModel();
+
+                    oTreeToUpsert = new GenericItemModel()
+                    {
+                        ItemId = 0,
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
+
+                        ItemName = oDataToUpsert.T_TreeName + "_" + "Activity Default",
+                        Enable = true,
+                        ItemInfo = new List<GenericItemInfoModel>(),
+                    };
+
+                    oTreeInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_IsCustom
+                        },
+                        Value = "true",
+                        Enable = true,
+                    });
+
+                    oTreeToUpsert.ItemInfo.AddRange(oTreeInfo);
+
+                    //Save Tree
+                    oTreeResult = ProveedoresOnLine.Company.Controller.Company.TreeUpsert(oTreeModel);
+                    //Save Category
+                    oTreeCategoryResult = ProveedoresOnLine.Company.Controller.Company.CategoryUpsert(oTreeResult.TreeId, oTreeToUpsert);
+
+                    oReturn = new AdminCategoryViewModel();
+                    oReturn.T_TreeId = oTreeResult.TreeId.ToString();
+                    oReturn.T_TreeName = oTreeResult.TreeName;
                 }
                 #endregion
             }
@@ -808,7 +845,7 @@ namespace BackOffice.Web.ControllersApi
             List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oTreeAdmin =
                 new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
-                        
+
             if (CategorySearchByTreeAdmin == "true")
             {
                 oTreeAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
