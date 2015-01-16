@@ -193,9 +193,9 @@
                         dataTextField: 'GIT_Country',
 
                         change: function (e) {
-                            if (isSelected == false) {
-                                options.model['GIT_CountryId'] = 0;
-                                options.model['GIT_Country'] = e.sender._old;
+                            if (isSelected == false) {                                
+                                options.model['GIT_Country'] = e.sender._old;                                
+                                options.model.dirty = true;              
                             }
                         },
 
@@ -418,9 +418,9 @@
 
                         change: function (e) {
                             debugger;
-                            if (isSelected == false) {
-                                options.model['B_BankId'] = 0;
+                            if (isSelected == false) {                                
                                 options.model['B_Bank'] = e.sender._old;
+                                options.model.dirty = true;
                             }
                         },
                         select: function (e) {
@@ -885,6 +885,7 @@
                         });
                     },
                     create: function (options) {
+                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -903,6 +904,7 @@
                         });
                     },
                     update: function (options) {
+                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -950,10 +952,9 @@
                     input.kendoAutoComplete({
                         dataTextField: 'ActivityName',
                         change: function (e) {                            
-                            if (isSelected == false) {
-                                options.model['ECS_EconomyActivityId'] = 0;
+                            if (isSelected == false) {                                
                                 options.model['ECS_EconomyActivity'] = e.sender._old;
-                                debugger;
+                                options.model.dirty = true;                                
                             }
                         },
                         select: function (e) {
