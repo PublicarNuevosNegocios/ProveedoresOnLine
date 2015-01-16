@@ -371,7 +371,19 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.ECS_Category,
                         Enable = oDataToUpsert.ECS_Enable,
                     });
-
+                    if (TreeId != "4")
+                    {
+                        oActivityInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_IsCustom
+                                },
+                                Value = "true",
+                                Enable = true,
+                            });
+                    }
                     GenericItemModel oActivityResult = new GenericItemModel();
 
                     oActivityToUpsert.ItemInfo.AddRange(oActivityInfo);
