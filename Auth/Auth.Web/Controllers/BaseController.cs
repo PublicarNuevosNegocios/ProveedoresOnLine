@@ -93,8 +93,7 @@ namespace Auth.Web.Controllers
             string strUrlToEval = OriginUrl.ToString().Replace(" ", "").ToLower();
 
             oRetorno = lstDomainApp.
-                OrderByDescending(x => x.Key.Length).
-                Where(x => strUrlToEval.Contains(x.Key)).
+                Where(x => strUrlToEval.StartsWith(x.Key)).
                 Select(x => x.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
