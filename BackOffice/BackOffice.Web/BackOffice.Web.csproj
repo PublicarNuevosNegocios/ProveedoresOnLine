@@ -478,6 +478,7 @@
     <Content Include="fonts\OpenSans-Regular.otf" />
     <Content Include="fonts\OpenSans-Regular.ttf" />
     <Content Include="fonts\OpenSans-Regular.woff" />
+    <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Rsx-BackOffice.xml">
