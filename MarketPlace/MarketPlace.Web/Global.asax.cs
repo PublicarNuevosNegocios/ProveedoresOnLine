@@ -32,13 +32,15 @@ namespace MarketPlace.Web
 
         protected void Application_BeginRequest(Object source, EventArgs e)
         {
-            FirstRequestInitialization.Initialize(((HttpApplication)source).Context);
-
             if (EnableSSL)
             {
                 //ensure only https navigation
                 if (!Context.Request.IsSecureConnection)
                     Response.Redirect(Context.Request.Url.ToString().Replace("http:", "https:"), true);
+            }
+            else
+            {
+                FirstRequestInitialization.Initialize(((HttpApplication)source).Context);
             }
         }
     }
