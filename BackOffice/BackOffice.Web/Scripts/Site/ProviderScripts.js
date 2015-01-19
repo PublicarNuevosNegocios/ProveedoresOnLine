@@ -29,11 +29,13 @@ var Provider_SearchObject = {
     ObjectId: '',
     SearchFilter: '',
     PageSize: '',
+    DefaultImage: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchFilter = vInitObject.SearchFilter;
         this.PageSize = vInitObject.PageSize;
+        this.DefaultImage = vInitObject.DefaultImage;
     },
 
     RenderAsync: function () {
@@ -92,7 +94,19 @@ var Provider_SearchObject = {
             columns: [{
                 field: 'ImageUrl',
                 title: 'Logo',
-                template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    debugger;
+                    if (dataItem.ImageUrl != null && dataItem.ImageUrl.length > 0) {
+                        oReturn = '<img style="width:50px;height:50px;" src="' + dataItem.ImageUrl + '" />';
+                    }
+                    else {
+                        oReturn = '<img style="width:50px;height:50px;" src="' + Provider_SearchObject.DefaultImage + '" />';
+                    }
+
+                    return oReturn;
+                },
+
                 width: '50px',
             }, {
                 field: 'ProviderPublicId',
