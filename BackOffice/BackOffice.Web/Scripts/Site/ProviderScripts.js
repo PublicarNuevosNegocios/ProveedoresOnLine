@@ -96,7 +96,6 @@ var Provider_SearchObject = {
                 title: 'Logo',
                 template: function (dataItem) {
                     var oReturn = '';
-                    debugger;
                     if (dataItem.ImageUrl != null && dataItem.ImageUrl.length > 0) {
                         oReturn = '<img style="width:50px;height:50px;" src="' + dataItem.ImageUrl + '" />';
                     }
@@ -3963,9 +3962,7 @@ var Provider_LegalInfoObject = {
                 title: 'Tipo de Persona',
                 width: '180px',
                 template: function (dataItem) {
-
                     var oReturn = 'Seleccione una opción.';
-                    debugger;
                     if (dataItem != null && dataItem.R_PersonType != null) {
                         $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[213], function (item, value) {
                             if (dataItem.R_PersonType == value.ItemId) {

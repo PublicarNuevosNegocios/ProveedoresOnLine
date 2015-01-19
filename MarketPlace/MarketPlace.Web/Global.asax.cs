@@ -38,10 +38,7 @@ namespace MarketPlace.Web
                 if (!Context.Request.IsSecureConnection)
                     Response.Redirect(Context.Request.Url.ToString().Replace("http:", "https:"), true);
             }
-            else
-            {
-                FirstRequestInitialization.Initialize(((HttpApplication)source).Context);
-            }
+            FirstRequestInitialization.Initialize(((HttpApplication)source).Context);
         }
     }
 
