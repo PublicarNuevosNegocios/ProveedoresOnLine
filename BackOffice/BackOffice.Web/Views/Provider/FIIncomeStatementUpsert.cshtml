@@ -70,10 +70,25 @@
             oIncomeStatementList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionIncomeStatementInfo.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+
+        string oYearList = "[]";
+        Dictionary<int, string> oYearOption = new Dictionary<int, string>();
+        int i = 0;
+        for (int date = DateTime.Now.Year; date >= (DateTime.Now.Year - 19); date--)
+        {
+            oYearOption.Add(i, date.ToString());
+            i++;
+        }
+
+        oYearOption = oYearOption.ToDictionary(k => k.Key, v => v.Value);
+
+        oYearList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oYearOption.Select(x => new { Key = x.Key, Value = x.Value }));
     }
 
     <script type="text/javascript">
         var vIncomeStatementOptionList = @(Html.Raw(oIncomeStatementList));
+        var vYearOptionList = @(Html.Raw(oYearList));
         $(document).ready(function () {
             Provider_CompanyFinancialObject.Init({
                 ObjectId: 'divGridIncomeStatement',
@@ -81,6 +96,7 @@
                 FinancialType: '@((int)BackOffice.Models.General.enumFinancialType.IncomeStatementInfoType)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 ProviderOptions: vIncomeStatementOptionList,
+                YearOptionList: vYearOptionList,
             });
             Provider_CompanyFinancialObject.RenderAsync();
         });

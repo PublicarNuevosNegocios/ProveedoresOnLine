@@ -1476,6 +1476,7 @@ var Provider_CompanyHSEQObject = {
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
+    YearOptionList: new Array(),
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
@@ -1487,7 +1488,12 @@ var Provider_CompanyHSEQObject = {
         Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
             Provider_CompanyHSEQObject.HSEQOptionList[value.Key] = value.Value;
-        });    
+        });
+        if (vInitiObject.YearOptionList != null) {
+            $.each(vInitiObject.YearOptionList, function (item, value) {
+                Provider_CompanyHSEQObject.YearOptionList[value.Key] = value.Value;
+            });
+        }
     },
 
     RenderAsync: function () {
@@ -1919,6 +1925,27 @@ var Provider_CompanyHSEQObject = {
                 field: 'CH_Year',
                 title: 'Año',
                 width: '120px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.CH_Year != null) {
+                        $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
+                            if (dataItem.CH_Year == value) {
+                                oReturn = value;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyHSEQObject.YearOptionList,
+                            dataTextField: '',
+                            dataValueField: '',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'CH_PoliticsSecurity',
                 title: 'Política de Seguridad, Salud y Ambiente',
@@ -2512,6 +2539,27 @@ var Provider_CompanyHSEQObject = {
                 field: 'CR_Year',
                 title: 'Año',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.CR_Year != null) {
+                        $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
+                            if (dataItem.CR_Year == value) {
+                                oReturn = value;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyHSEQObject.YearOptionList,
+                            dataTextField: '',
+                            dataValueField: '',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'CR_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
@@ -2630,6 +2678,7 @@ var Provider_CompanyFinancialObject = {
     FinancialType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
+    YearOptionList: new Array(),
     CurrentAccounts: new Array(),
 
     Init: function (vInitObject) {
@@ -2640,6 +2689,11 @@ var Provider_CompanyFinancialObject = {
         if (vInitObject.ProviderOptions != null) {
             $.each(vInitObject.ProviderOptions, function (item, value) {
                 Provider_CompanyFinancialObject.ProviderOptions[value.Key] = value.Value;
+            });
+        }
+        if (vInitObject.YearOptionList != null) {
+            $.each(vInitObject.YearOptionList, function (item, value) {
+                Provider_CompanyFinancialObject.YearOptionList[value.Key] = value.Value;
             });
         }
     },
@@ -3101,6 +3155,27 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'TX_Year',
                 title: 'Año',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.TX_Year != null) {
+                        $.each(Provider_CompanyFinancialObject.YearOptionList, function (item, value) {
+                            if (dataItem.TX_Year == value) {
+                                oReturn = value;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyFinancialObject.YearOptionList,
+                            dataTextField: '',
+                            dataValueField: '',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'TX_TaxFile',
                 title: 'Impuesto',
@@ -3253,7 +3328,28 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'IS_Year',
                 title: 'Año',
-                width: '80px'
+                width: '80px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IS_Year != null) {
+                        $.each(Provider_CompanyFinancialObject.YearOptionList, function (item, value) {
+                            if (dataItem.IS_Year == value) {
+                                oReturn = value;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyFinancialObject.YearOptionList,
+                            dataTextField: '',
+                            dataValueField: '',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'IS_GrossIncome',
                 title: 'Ingresos Brutos',
@@ -3855,6 +3951,7 @@ var Provider_LegalInfoObject = {
                 template: function (dataItem) {
 
                     var oReturn = 'Seleccione una opción.';
+                    debugger;
                     if (dataItem != null && dataItem.R_PersonType != null) {
                         $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[213], function (item, value) {
                             if (dataItem.R_PersonType == value.ItemId) {

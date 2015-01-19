@@ -73,9 +73,24 @@
             oHealtyPoliticsOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionoHealtyPoliticsOption.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+
+        string oYearList = "[]";
+        Dictionary<int, string> oYearOption = new Dictionary<int, string>();
+        int i = 0;
+        for (int date = DateTime.Now.Year; date >= (DateTime.Now.Year - 19); date--)
+        {            
+            oYearOption.Add(i, date.ToString());
+            i++;
+        }
+
+        oYearOption = oYearOption.ToDictionary(k => k.Key, v => v.Value);
+        
+        oYearList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oYearOption.Select(x => new {Key = x.Key, Value = x.Value}));
     }
 
     <script type="text/javascript">
+        var vYearOptionList = @(Html.Raw(oYearList));
         var vHealtyPoliticsOptionList = @(Html.Raw(oHealtyPoliticsOptionList));
         $(document).ready(function () {
             Provider_CompanyHSEQObject.Init({
@@ -84,6 +99,7 @@
                 HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyHealtyPolitic)',
                 DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 HSEQOptionList: vHealtyPoliticsOptionList,
+                YearOptionList: vYearOptionList,
             });
             Provider_CompanyHSEQObject.RenderAsync();
         });

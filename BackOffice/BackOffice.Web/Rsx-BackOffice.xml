@@ -17,7 +17,7 @@
     
     <key name="CurrencyExchange_USD">108001</key>
 
-    <key name="DefaultImage">\Content\Images\dafaultProvider.png</key>
+    <key name="DefaultImage">..\Content\Images\dafaultProvider.png</key>
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
