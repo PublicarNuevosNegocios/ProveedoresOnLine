@@ -208,15 +208,32 @@
 @section inlinescripts{
 
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    @{
+        string oYearList = "[]";
+        Dictionary<int, string> oYearOption = new Dictionary<int, string>();
+        int i = 0;
+        for (int date = DateTime.Now.Year; date >= (DateTime.Now.Year - 19); date--)
+        {
+            oYearOption.Add(i, date.ToString());
+            i++;
+        }
+
+        oYearOption = oYearOption.ToDictionary(k => k.Key, v => v.Value);
+
+        oYearList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oYearOption.Select(x => new { Key = x.Key, Value = x.Value }));
+    }
 
     <script type="text/javascript">
         $(document).ready(function () {
+            var vYearOptionList = @(Html.Raw(oYearList));
             Provider_CompanyHSEQObject.Init({
                 AutoCompleteId: 'OccupationalHazardsId',
                 ControlToRetornACId: 'SelectedOccupationalHazards',
                 ObjectId: 'divGridRiskPolicies',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
+                YearOptionList: vYearOptionList,
                 DateFormat: '',
                 HSEQOptionList: '',
             });
