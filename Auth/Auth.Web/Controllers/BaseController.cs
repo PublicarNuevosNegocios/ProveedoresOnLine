@@ -40,6 +40,43 @@ namespace Auth.Web.Controllers
             }
         }
 
+        ///<domain,application>
+        public Dictionary<string, string> lstDomainApp
+        {
+            get
+            {
+                if (olstDomainApp == null)
+                {
+                    olstDomainApp = new Dictionary<string, string>();
+
+                    XDocument xDoc = XDocument.Parse(SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                        [Auth.Interfaces.Constants.C_SettingsModuleName][Auth.Interfaces.Constants.C_AppConfig].Value);
+
+                    xDoc.Descendants("applications").Descendants("key").All(app =>
+                    {
+                        app.Value.
+                            Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                            All(appd =>
+                            {
+                                string strCurrentDomain = appd.Replace(" ", "").ToLower();
+                                if (!lstDomainApp.ContainsKey(strCurrentDomain))
+                                {
+                                    lstDomainApp.Add(strCurrentDomain, app.Attribute("name").Value);
+                                }
+
+                                return true;
+                            });
+                        return true;
+                    });
+
+                    olstDomainApp = olstDomainApp.OrderByDescending(x => x.Key.Length).ToDictionary(k => k.Key, v => v.Value);
+                }
+
+                return olstDomainApp;
+            }
+        }
+        private Dictionary<string, string> olstDomainApp;
+
         #endregion
 
         #region public methods
@@ -53,20 +90,14 @@ namespace Auth.Web.Controllers
         {
             string oRetorno = string.Empty;
 
-            string strDomain = OriginUrl.GetLeftPart(UriPartial.Authority).ToLower().TrimEnd('/');
+            string strUrlToEval = OriginUrl.ToString().Replace(" ", "").ToLower();
 
-            XDocument xDoc = XDocument.Parse(SettingsManager.SettingsController.SettingsInstance.ModulesParams
-                [Auth.Interfaces.Constants.C_SettingsModuleName][Auth.Interfaces.Constants.C_AppConfig].Value);
-
-            xDoc.Descendants("applications").Descendants("key").All(app =>
-            {
-                if (app.Value.Split(',').Any(x => x.ToLower().TrimEnd('/') == strDomain) &&
-                    string.IsNullOrEmpty(oRetorno))
-                {
-                    oRetorno = app.Attribute("name").Value;
-                }
-                return true;
-            });
+            oRetorno = lstDomainApp.
+                OrderByDescending(x => x.Key.Length).
+                Where(x => strUrlToEval.Contains(x.Key)).
+                Select(x => x.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
 
             return oRetorno;
         }
