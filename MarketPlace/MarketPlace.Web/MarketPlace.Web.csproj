@@ -886,6 +886,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_L_Header.cshtml" />
     <Content Include="Areas\Desktop\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
