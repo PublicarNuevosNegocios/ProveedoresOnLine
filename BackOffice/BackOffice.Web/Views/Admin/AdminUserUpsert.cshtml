@@ -15,8 +15,16 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Administración de Usuarios</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
             <iframe class="POBOAdminIframe" src="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_AdminRoles].Value)"></iframe>
             <div id="divGridLegalInfo"></div>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </div>
     </div>
 </div>

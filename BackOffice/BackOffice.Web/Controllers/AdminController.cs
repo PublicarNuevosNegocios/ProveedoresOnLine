@@ -170,7 +170,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminUserUpsert,
                     MVC.Admin.Name),
-                Position = 0,
+                Position = 1,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminUserUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -184,7 +184,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminGeoUpsert,
                     MVC.Admin.Name),
-                Position = 0,
+                Position = 2,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminGeoUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -197,7 +197,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
                     MVC.Admin.Name, new { TreeId = 0 }),
-                Position = 1,
+                Position = 3,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminEcoActivityUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -210,7 +210,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminTreeUpsert,
                     MVC.Admin.Name),
-                Position = 1,
+                Position = 4,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminTreeUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -223,7 +223,7 @@ namespace BackOffice.Web.Controllers
                     Url = Url.Action
                             (MVC.Admin.ActionNames.AdminEcoGroupUpsert,
                             MVC.Admin.Name),
-                    Position = 1,
+                    Position = 5,
                     IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminEcoGroupUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -236,7 +236,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminBankUpsert,
                     MVC.Admin.Name),
-                Position = 1,
+                Position = 6,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminBankUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -249,7 +249,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminCompanyRulesUpsert,
                     MVC.Admin.Name),
-                Position = 1,
+                Position = 7,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminCompanyRulesUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -262,7 +262,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminRulesUpsert,
                     MVC.Admin.Name),
-                Position = 1,
+                Position = 8,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminRulesUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -275,7 +275,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminResolutionUpsert,
                     MVC.Admin.Name),
-                Position = 1,
+                Position = 9,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminResolutionUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -288,7 +288,7 @@ namespace BackOffice.Web.Controllers
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminTRMUpsert,
                     MVC.Admin.Name),
-                Position = 1,
+                Position = 10,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminTRMUpsert &&
                     oCurrentController == MVC.Admin.Name),
@@ -296,6 +296,29 @@ namespace BackOffice.Web.Controllers
 
             //add menu
             oReturn.Add(oMenuAux);
+
+            #endregion
+
+            #region last next menu
+
+            BackOffice.Models.General.GenericMenu MenuAux = null;
+
+            oReturn.OrderBy(x => x.Position).All(pm =>
+            {
+                pm.ChildMenu.OrderBy(x => x.Position).All(sm =>
+                {
+                    if (MenuAux != null)
+                    {
+                        MenuAux.NextMenu = sm;
+                    }
+                    sm.LastMenu = MenuAux;
+                    MenuAux = sm;
+
+                    return true;
+                });
+
+                return true;
+            });
 
             #endregion
 

@@ -14,7 +14,15 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Administración de Empresas Certificadoras</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
             <div id="divGridCompanyRulesInfo"></div>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
     </div>
 </div>
 
