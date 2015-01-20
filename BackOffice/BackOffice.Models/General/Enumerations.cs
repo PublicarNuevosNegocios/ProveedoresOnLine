@@ -8,7 +8,8 @@
         PersonIdentificationType = 101,
         ActivityInfoType = 102,
         ProductType = 103,
-        FilterTypeBackOffice = 111,
+        FilterType = 111,
+        FilterTypeCustomerProvider = 112,
 
         CompanyIdentificationType = 201,
         CompanyType = 202,
@@ -31,7 +32,6 @@
         EntityType = 214,
         TaxPayerType = 215,
 
-        ProviderStatus = 216,
         ProviderPaymentInfo = 217,
 
         CommercialType = 301,
@@ -44,6 +44,8 @@
         CIFINInfoType = 604,
         SARLAFTInfoType = 605,
         ResolucionesInfoType = 606,
+
+        ProviderStatus = 902,
     }
 
     #region Util
