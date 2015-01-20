@@ -110,12 +110,26 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        #region Current Exchange
+
+        public string C_CurrentExchangeId { get; set; }
+        public string C_IssueDate { get; set; }
+        public string C_MoneyTypeFromId { get; set; }
+        public string C_MoneyTypeFromName { get; set; }
+        public string C_MoneyTypeToId { get; set; }
+        public string C_MoneyTypeToName { get; set; }
+        public string C_Rate { get; set; }
+        public string C_CreateDate { get; set; }
+        public string C_LastModify { get; set; }
+        
+        #endregion
+
+        #region Tree
+
         public string T_TreeId { get; set; }
         public string T_TreeName { get; set; }
         public bool T_TreeEnable { get; set; }
         
-        #region Tree
-		
 	    #endregion
 
         public AdminCategoryViewModel() { }
@@ -323,6 +337,19 @@ namespace BackOffice.Models.Admin
             T_TreeEnable = oCategory.Enable;
 
             #endregion
+        }
+
+        public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel oCurrency)
+        {
+            C_CurrentExchangeId = oCurrency.CurrencyExchangeId.ToString();
+            C_IssueDate = oCurrency.IssueDate.ToString();
+            C_MoneyTypeFromId = oCurrency.MoneyTypeFrom.ItemId.ToString();
+            C_MoneyTypeFromName = oCurrency.MoneyTypeFrom.ItemName.ToString();
+            C_MoneyTypeToId = oCurrency.MoneyTypeTo.ItemId.ToString();
+            C_MoneyTypeToName = oCurrency.MoneyTypeTo.ItemName.ToString();
+            C_Rate = oCurrency.Rate.ToString();
+            C_CreateDate = oCurrency.CreateDate.ToString();
+            C_LastModify = oCurrency.LastModify.ToString();
         }
     }
 }

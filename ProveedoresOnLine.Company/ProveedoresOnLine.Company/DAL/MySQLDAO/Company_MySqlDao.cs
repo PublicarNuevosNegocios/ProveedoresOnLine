@@ -1132,6 +1132,26 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vIssueDate", IssueDate));
+            lstParams.Add(DataInstance.CreateTypedParameter("vMoneyTypeFrom", MoneyTypeFrom));
+            lstParams.Add(DataInstance.CreateTypedParameter("vMoneyTypeTo", MoneyTypeTo));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRate", Rate));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_CurrencyExchange_Insert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
         #endregion
 
         #region Company CRUD

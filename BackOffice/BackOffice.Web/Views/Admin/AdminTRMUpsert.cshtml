@@ -50,16 +50,14 @@
                 Serialize(oOptionTRM.Select(x => new { Key = x.Key, Value = x.Value }));
         }
     }
-
+     
     <script type="text/javascript">
-    var vAdminTRMOptionList = @(Html.Raw(oAdminTRMInfoOptionList));
-    var vTreeId = @(Request["TreeId"]);
+        var vAdminTRMInfoOptionList = @(Html.Raw(oAdminTRMInfoOptionList));
         $(document).ready(function () {
             Admin_CategoryObject.Init({
                 ObjectId: 'divGridTRMInfo',
                 UtilOptions: vAdminTRMInfoOptionList ,
-                CategoryType: 'AdminTRM',
-                TreeId: vTreeId,
+                CategoryType: 'AdminTRM',                
             });
             Admin_CategoryObject.RenderAsync();
         });

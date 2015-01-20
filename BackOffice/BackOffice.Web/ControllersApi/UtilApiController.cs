@@ -880,18 +880,17 @@ namespace BackOffice.Web.ControllersApi
             (string CategorySearchByTreeAdmin)
         {
             List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oTreeAdmin =
-                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oExchange =
+                new List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel>();
 
             if (CategorySearchByTreeAdmin == "true")
             {
-                //oTreeAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
-                //            (SearchParam, PageNumber, RowCount);
+                oExchange = ProveedoresOnLine.Company.Controller.Company.CurrentExchangeGetAllAdmin();
             }
 
-            if (oTreeAdmin != null)
+            if (oExchange != null)
             {
-                oTreeAdmin.All(x =>
+                oExchange.All(x =>
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;

@@ -293,6 +293,10 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.CurrentExchangeGetAllAdmin();
         }
+        public static int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CurrencyExchangeInsert(IssueDate, MoneyTypeFrom, MoneyTypeTo, Rate);
+        }
 
         #endregion
 
