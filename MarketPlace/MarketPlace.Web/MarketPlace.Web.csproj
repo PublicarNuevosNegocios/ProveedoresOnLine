@@ -388,6 +388,19 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POBMPLayout.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPAdmin.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPButtons.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPCustomer.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPDialogs.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPFooter.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPForms.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPGrids.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPHeader.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProvider.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideFilters.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideMenu.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPTopSearchBar.css" />
     <Content Include="Areas\Desktop\Content\themes\base\accordion.css" />
     <Content Include="Areas\Desktop\Content\themes\base\all.css" />
     <Content Include="Areas\Desktop\Content\themes\base\autocomplete.css" />
@@ -435,6 +448,10 @@
     <Content Include="Areas\Desktop\Views\web.config" />
     <Content Include="Areas\Desktop\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Desktop\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.eot" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.otf" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.ttf" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.woff" />
     <None Include="Areas\Desktop\Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Rsx-MarketPlace.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -969,7 +986,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />
-    <Folder Include="Areas\Desktop\Content\Styles\Site\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
