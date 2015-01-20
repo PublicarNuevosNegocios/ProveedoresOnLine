@@ -78,6 +78,7 @@
         display: block;
         margin:0px;
         text-align:left;
+        min-width:140px;
     }
         .POBOUserMenuOptions ul li:first-child {
             border-top:none;
@@ -89,7 +90,6 @@
         .POBOUserMenuOptions ul li a,
         .POBOUserMenuOptions ul li a:hover{
             margin:0px 0px 0px 8px;
-            width:140px;
             color:#666;
             text-decoration:none;
         }
