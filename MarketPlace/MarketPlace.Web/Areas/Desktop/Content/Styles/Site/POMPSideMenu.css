@@ -1,0 +1,67 @@
+/******** ESTE ES EL MENU ESTE ES EL MENU ********/
+.POMPProviderSideMenu {
+        border:none;
+    width:248px;
+    letter-spacing: -1px;
+}
+    .POMPProviderSideMenu > ul > li.principalmenuselected > label, .POMPProviderSideMenu > ul > li > label:hover{
+        background-image: none !important;
+        background-color:#ff8300;
+            border:none;
+        border-radius: 1px;
+        color: #fefefe;
+        display: block;
+        font-size: 1.1em;
+        margin: 0;
+        padding: 4px 0 6px 32px;
+    }
+    .POMPProviderSideMenu > ul > li > label{
+        background-color: #fff;
+        background-image: none !important;
+        border: medium none;
+        border-radius: 1px;
+        color: #222;
+        display: block !important;
+        font-size: 1.1em !important;
+        margin: 0 !important;
+        padding: 4px 0 6px 32px !important;
+    }
+    .POMPProviderSideMenu > ul > li > label:hover {
+        text-decoration:underline;
+    }
+        .POMPProviderSideMenu > ul > li > label > span {
+            background-position: -104px -29px;
+            background-size: 400px auto;
+        }
+
+/********* AQUI INICIA EL SUBMENU ESTE ES EL SUBMENU *********/
+    .POMPProviderSideSubMenu {
+        padding:4px 0px 6px 24px !important;
+        margin:0;
+        border:none;
+        height:auto !important;
+    }
+    .POMPProviderSideSubMenu > li{
+            border:none;
+        padding:0px;
+    }
+        .POMPProviderSideSubMenu > li:hover, .POMPProviderSideSubMenu > li.secundarymenuselected {
+            background-color:#ff8300;
+            cursor:pointer;
+        }
+        .POMPProviderSideSubMenu > li > a {
+            font-size:0.9em;
+            display:block;
+            width:auto; height:auto;
+                border:none;
+            margin:0;
+            padding: 5px 0 4px 7px;
+        }
+            .POMPProviderSideSubMenu > li > a:hover {
+                text-decoration:underline;
+                color:#fff;
+            }
+            li.secundarymenuselected > a {
+                color:#fff;
+                text-decoration:none;   
+            }

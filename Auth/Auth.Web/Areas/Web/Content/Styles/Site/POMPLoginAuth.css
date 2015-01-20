@@ -8,6 +8,7 @@
     height: auto;
     margin: 0;
     min-width: 1024px;
+    min-height:600px;
     width: 100%;
 }
     .POMPPOMPInternalLoginHeader{

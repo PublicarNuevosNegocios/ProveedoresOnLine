@@ -1,0 +1,322 @@
+/************ PROVIDER UPSERT FORM *********/
+.POMPPCompulsoryFields {
+    color: #d40000;
+    font-size: 0.9em;
+    letter-spacing: -0.7px; 
+}
+
+.POMPSectionTitles {
+    font-size: 1.5em;
+    font-weight: normal;
+    display: block;
+    margin: 0px 0px 7px 8px;
+    letter-spacing: -1px;
+    color: #4d4d4d;
+}
+
+.POMPProviderUpsertForm ul li,
+.POMPPCompulsoryFields {
+    margin: 4px 0px 0px 8px;
+    padding: 0;
+}
+
+.POMPProviderUpsertForm ul {
+    margin: 0px;
+}
+
+    .POMPProviderUpsertForm ul li {
+        border: none;
+    display: inline-block;
+    height: auto;
+    vertical-align: top;
+        width: 48.5%;
+}
+
+        .POMPProviderUpsertForm ul li label {
+        color: #4d4d4d;
+    font-size: 1em;
+            font-weight: normal;
+    letter-spacing: -0.7px;
+            margin: 0px;
+    }
+
+a.POMPSmallCaption {
+            color: #ff8400;
+        font-size: 0.9em;
+    font-weight: normal;
+        letter-spacing: -0.7px;
+    margin: 0px;
+    display: block;
+    }
+
+/****** ESTOS SON LOS CAMPOS REBELDES DE CAMARA COMERCIO ********/
+
+.POMPCamposProblematicos span.k-widget, 
+.POMPCamposProblematicos span.k-autocomplete,
+.POMPCamposProblematicos span.k-header,
+.POMPCamposProblematicos span.k-state-default,
+.POMPCamposProblematicos span.k-state-focused{
+    background-color:#fff !important;
+    border-radius:0px;
+    border:none;
+    margin:0;
+    padding:0;
+    box-shadow:none;
+    width:99%;
+    height:auto;
+}
+.POMPCamposProblematicos span > input.k-input {
+    background-color: #f9f9f9 !important;
+    border: 1px solid #727276 !important;
+    color: #999 !important;
+    height: 34px !important;
+    margin: 2px 0 0 !important;
+    padding: 0 0 0 5px !important;
+    width: 99.6% !important;
+    border-radius: 0px;
+}
+    #FileUploadForm,
+    #FileUploadForm div:first-child    {
+        border-radius:0px;
+        height: 32px;
+    }
+        #FileUploadForm{
+            border: 1px solid #727276;
+            height: 34px !important;
+        }
+        #FileUploadForm div.k-dropzone {
+                border:none;
+            height:auto;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        #FileUploadForm input[type=file] {
+            border-radius: 0px;
+        }
+/******** ESTE ES EL CONTROL DE CARGA DE ARCHIVOS EN LOS FORMULARIOS ********/
+#FileUploadForm div.k-upload{
+        border:none;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+    #FileUploadForm ul.k-upload-files, 
+    #FileUploadForm ul.k-reset{
+            border:none;
+        height: auto;
+        left: 100px;
+        line-height: 30px;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        width: 54%;
+    }
+        #FileUploadForm .k-file,
+        #FileUploadForm .k-file-error {
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        #FileUploadForm .k-upload-status,
+        #FileUploadForm .k-upload-status-total {
+            line-height: 1.1em !important;
+            position: absolute;
+            right: 12px;
+            top: 5px;
+        }
+
+/******* ESTILOS DE LOS CAMPOS ******/
+.POMPProviderUpsertForm ul li select,
+.POMPProviderUpsertForm ul li input,
+.POMPProviderUpsertForm ul li input[type=file],
+.POMPProviderUpsertForm ul li input[type=text]{
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    color: #999;
+    height: 36px;
+    margin: 2px 0 0;
+    padding: 0 0 0 5px;
+    width:100%;
+}
+.POMPProviderUpsertForm ul li select > option,
+    .POMPProviderUpsertForm ul li select > option[selected=selected] {
+        font-weight: normal;
+    font-size: 0.9em;
+}
+    .POMPProviderUpsertForm ul li input[type=checkbox] {
+        margin: 0px 0 0;
+        padding: 0 0 0 0px;
+        width: auto;
+        vertical-align: top;
+    }
+/********* DETALLE PARA EL CAMPO HORA DENTRO DE LA GRILLA *********/
+.POMPProviderContentWrapper span.k-picker-wrap {
+    padding-right: 2em !important;
+}
+.POMPProviderContentWrapper span.k-select{
+    width: 2em !important;
+}
+.POMPProviderContentWrapper span.k-i-clock{
+    display:none !important;
+}
+/************ SISTEMA DE RIESGOS LABORALES FORM *********/
+.POMPHSEQWrapper, .POMPCamaraComercioSociosWrapper{padding:0 !important;}
+.POMPProviderUpsertForm li.POMPHSEQ, .POMPProviderUpsertForm li.POMPCamaraComercioSocios {
+    text-align:left;
+    display:block;
+    width:98.2%;
+    margin:10px 8px;
+        border:none;
+}
+#ReportLITF {
+        border-bottom:1px solid #ff8400;
+        border-top:1px solid #ff8400;
+    width: auto;
+    text-align: center;
+    padding: 15px 0px 15px 0px;
+    /*margin-bottom: 15px;*/
+}
+    #ReportLITF li {
+        width: auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 -2px 0 -2px;
+    }
+
+        #ReportLITF li hr {
+            margin: 0 !important;
+            width: 100%;
+        }
+
+    li#F2 label {
+    font-size: 1.2em;
+    margin: 0px 8px;
+    }
+
+li#F3, li#F3 label {
+    display: block;
+    width: 192px;
+    text-align: left;
+    padding: 1px 4px;
+}
+
+li#F3 {
+    margin:0px 0px 0px 58.7%;
+    background-color:#ececec;
+}
+/******** FORMULARIO DE CARGA DE BALANCES FINANCIEROS ********/
+#divBalanceSheet_Detail {
+    margin:12px 0px 10px 7px;
+    border:1px solid #c5c5c5;
+}
+.POMPBalanceSheetScrollWrapper {
+    height:350px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    padding:12px 0px;
+    border-bottom: 1px solid #c5c5c5;
+    margin-bottom:4px;
+}
+/*DATOS GENERALES*/
+.POMPBalanceSheet_mainInfo {
+    margin:-10px 0px 0px 0px !important;
+}
+.POMPBalanceSheet_mainInfo label{
+    font-size:0.9em !important;    
+}
+.POMPBalanceSheet_mainInfo li select,
+.POMPBalanceSheet_mainInfo li input,
+.POMPBalanceSheet_mainInfo li input[type="file"],
+.POMPBalanceSheet_mainInfo li input[type="text"]{
+    height: 28px !important;
+}
+    .POMPProviderActions div#FileUploadForm {
+        margin:3px 0 0;
+    }
+        a.POMPBalanceSheetFile{
+            float: right;
+            margin: 7px 0 0;
+            position: relative;
+            right:16px;
+            z-index: 10;
+        }
+
+            #divBalanceSheet tr{
+                cursor:pointer;
+            }
+                #divBalanceSheet tr:hover {
+                    background-color:#e4e4e4;
+                }
+
+/*DATOS FINANCIEROS*/
+.POMPBalanceSheet_DetailWrapper{
+    width:49.4%;
+    display: inline-block;
+}
+.POMPBalanceSheet_Detail  {
+        border:none;
+    width: 100% !important;    
+}
+    .POMPBalanceSheet_Detail > ul{
+            border:none;
+        width:100%;
+    }
+            .POMPBalanceSheet_Detail > ul > li > ul{
+                    border-top:1px solid #999;
+                    margin:5px 0 0 0;
+                    padding:5px 0px;
+                    width:100%
+                }
+            .POMPBalanceSheet_Detail > ul > li > ul > li > ul{
+                    border-top:none;
+                    border-bottom:none;
+                    margin:0;
+                }
+        .POMPBalanceSheet_Detail li{
+                border: none;
+            margin: 0 !important;
+            width: 98% !important;
+        }
+.POMPBalanceSheet_Detail label{
+        border:none;
+    font-size:0.9em !important;
+}
+.POMPBalanceSheet_Detail input{
+    height:28px !important;
+}
+.POMPBalanceSheet_Detail span,
+.POMPBalanceSheet_Detail label.ParentAccount{
+    font-weight:bold !important;
+    font-style:italic;    
+    letter-spacing:0.3px;
+}
+    .POMPBalanceSheet_Detail span {
+        font-size:1.3em;
+        color:#727276;
+    }
+    .POMPBalanceSheet_Detail label.ParentAccount {
+        color:inherit;
+    }
+.BalanceSheetActions li{
+    padding:6px !important;
+}
+                                .POMPBalanceSheet_DocPreview {
+                                    border:1px solid #ececec;
+                                    float: right;
+                                    margin: 8px 11px 0 0;
+                                    width: 48.4%;
+                                    height: 600px;
+                                }
+                                    .POMPBalanceSheet_DocPreview iframe {
+                                        width:100%;
+                                        height:100%;
+                                        border:none;
+                                    }
+.BalanceSheetActions a.POMPButtons,
+.BalanceSheetActions a.POMPProgressButtons{
+    font-size: 0.9em;
+    border-radius:2px;
+    padding:6px 25px !important;  
+}
