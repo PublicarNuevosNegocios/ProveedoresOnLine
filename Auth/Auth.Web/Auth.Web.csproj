@@ -669,10 +669,16 @@
     <Content Include="Areas\Web\Content\Styles\bootstrap.min.css" />
     <Content Include="Areas\Web\Content\Styles\Site.css" />
     <Content Include="Areas\Web\Content\Styles\Site\AdminRoles.css" />
+    <Content Include="Areas\Web\Content\Styles\Site\POMPLayout.css" />
+    <Content Include="Areas\Web\Content\Styles\Site\POMPLoginAuth.css" />
     <Content Include="Areas\Web\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\Web\Scripts\bootstrap.js" />
     <Content Include="Areas\Web\Scripts\bootstrap.min.js" />
     <Content Include="Areas\Mobile\Views\AdminRoles\Index.cshtml" />
+    <Content Include="Areas\Web\fonts\OpenSans-Regular.eot" />
+    <Content Include="Areas\Web\fonts\OpenSans-Regular.otf" />
+    <Content Include="Areas\Web\fonts\OpenSans-Regular.ttf" />
+    <Content Include="Areas\Web\fonts\OpenSans-Regular.woff" />
     <None Include="Areas\Web\Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Areas\Web\Scripts\jquery-2.1.1.js" />
     <Content Include="Areas\Web\Scripts\jquery-2.1.1.min.js" />
