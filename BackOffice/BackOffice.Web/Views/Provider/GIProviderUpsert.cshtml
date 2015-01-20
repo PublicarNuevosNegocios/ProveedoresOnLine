@@ -123,53 +123,6 @@
                 </li>
                 <li>
                     @{
-                        //status info
-
-                        CompanyInfoIdAux = 0;
-                        CompanyInfoValueAux = string.Empty;
-
-                        if (Model.RelatedProvider != null &&
-                            Model.RelatedProvider.RelatedCompany != null &&
-                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
-                        {
-                            CompanyInfoIdAux = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
-                                Select(x => x.ItemInfoId).
-                                DefaultIfEmpty(0).
-                                FirstOrDefault();
-
-                            CompanyInfoValueAux = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault();
-                        }
-                    }
-                    <label><span>*</span> Estado</label>
-                    <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ProviderStatus).ToString())_@CompanyInfoIdAux.ToString()">
-                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderStatus))
-                        {
-                            if (Model.RelatedProvider != null &&
-                                Model.RelatedProvider.RelatedCompany != null &&
-                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
-                                !string.IsNullOrEmpty(CompanyInfoValueAux) &&
-                                Item.ItemId.ToString() == CompanyInfoValueAux)
-                            {
-                                <option value="@Item.ItemId" selected>@Item.ItemName</option>
-                            }
-                            else
-                            {
-                                <option value="@Item.ItemId">@Item.ItemName</option>
-                            }
-                        }
-                    </select>
-                </li>
-                <li>
-                    @{
                         //payment info
 
                         CompanyInfoIdAux = 0;
