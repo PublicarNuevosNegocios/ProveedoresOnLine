@@ -1048,6 +1048,8 @@
     <Content Include="Views\Admin\AdminEcoActivityUpsert.cshtml" />
     <Content Include="Views\Admin\AdminEcoGroupUpsert.cshtml" />
     <Content Include="Views\Admin\AdminTreeUpsert.cshtml" />
+    <Content Include="Views\Provider\CPCustomerProviderStatus.cshtml" />
+    <Content Include="Views\Admin\AdminTRMUpsert .cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

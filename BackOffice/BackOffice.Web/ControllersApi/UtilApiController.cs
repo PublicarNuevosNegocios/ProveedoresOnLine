@@ -466,6 +466,10 @@ namespace BackOffice.Web.ControllersApi
                     oReturn.T_TreeName = oTreeResult.TreeName;
                 }
                 #endregion
+
+                #region TRM
+                
+                #endregion
             }
             return oReturn;
         }
@@ -866,6 +870,33 @@ namespace BackOffice.Web.ControllersApi
                 x.AllTotalRows = oTreeAdmin.Count();
                 return true;
             });
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByTRAdmin
+            (string CategorySearchByTreeAdmin)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oTreeAdmin =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            if (CategorySearchByTreeAdmin == "true")
+            {
+                //oTreeAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
+                //            (SearchParam, PageNumber, RowCount);
+            }
+
+            if (oTreeAdmin != null)
+            {
+                oTreeAdmin.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }         
 
             return oReturn;
         }
