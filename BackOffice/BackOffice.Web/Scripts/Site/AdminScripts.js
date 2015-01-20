@@ -1318,13 +1318,13 @@
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
-            pageable: true,
+            //pageable: true,
             scrollable: true,
             toolbar:
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" }],
+                { name: 'cancel', text: 'Descartar' }],
+                //{ name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" }],
                 //{ name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderTreeAsync(" + "true" + ");'>Buscar</a" }],
             dataSource: {
                 pageSize: 20,
@@ -1340,11 +1340,11 @@
                         id: 'C_CurrentExchangeId',
                         fields: {
                             C_CurrentExchangeId: { editable: false, nullable: false },
-                            C_IssueDate: { editable: false, nullable: false },
-                            C_MoneyTypeFromId: { editable: false, nullable: false},
-                            C_MoneyTypeToId: { editable: false, nullable: false },
-                            C_MoneyTypeToName: { editable: false, nullable: false },
-                            C_Rate: { editable: false, nullable: false },
+                            C_IssueDate: { editable: true, nullable: false },
+                            C_MoneyTypeFromId: { editable: true, nullable: false},
+                            C_MoneyTypeToId: { editable: true, nullable: false },
+                            C_MoneyTypeToName: { editable: true, nullable: false },
+                            C_Rate: { editable: true, nullable: false },
                             C_CreateDate: { editable: false, nullable: false },
                             C_LastModify: { editable: false, nullable: false },
                         }
@@ -1381,24 +1381,7 @@
                                 Message('error', '');
                             }
                         });
-                    },
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', '');
-                    //        }
-                    //    });
-                    //},
+                    },                    
                 },
             },
             columns: [{
@@ -1407,6 +1390,13 @@
             },{
                 field: 'C_IssueDate',
                 title: 'TRM Fecha',
+                width: '160px',
+                format: Provider_CompanyContactObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
             },{
                 field: 'C_MoneyTypeFromId',
                 title: 'Conversión desde',
@@ -1451,7 +1441,7 @@
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: Admin_CategoryObject.AdminOptions[107],
+                            dataSource: Admin_CategoryObject.AdminOptions[108],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
                             optionLabel: 'Seleccione una opción'
@@ -1460,10 +1450,7 @@
             },{
                 field: "C_Rate",
                 title: "Tarifa",                
-            }, {
-                field: 'C_CreateDate',
-                title: 'Fecha de Creación',
-            }, ],
+            },],
         });
     },
 }

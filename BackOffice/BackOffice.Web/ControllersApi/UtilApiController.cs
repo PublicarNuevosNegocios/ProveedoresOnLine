@@ -468,7 +468,27 @@ namespace BackOffice.Web.ControllersApi
                 #endregion
 
                 #region TRM
-                
+                if (CategoryType == "AdminTRM")
+                {
+                    CurrencyExchangeModel oExchangeToUpsert = new CurrencyExchangeModel();
+
+                    oExchangeToUpsert = new CurrencyExchangeModel()
+                    {
+                        IssueDate = DateTime.Parse(oDataToUpsert.C_IssueDate),
+                        MoneyTypeFrom = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeFromId), ItemName = oDataToUpsert.C_MoneyTypeFromName},
+                        MoneyTypeTo = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeToId), ItemName = oDataToUpsert.C_MoneyTypeToName},
+                        Rate = Convert.ToDecimal(oDataToUpsert.C_Rate),                        
+                    };
+
+                    oExchangeToUpsert.CurrencyExchangeId = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeInsert(oExchangeToUpsert);
+                    oReturn = new AdminCategoryViewModel();
+                    
+                    oReturn.C_CurrentExchangeId = oExchangeToUpsert.CurrencyExchangeId.ToString();                    
+                    oReturn.C_IssueDate = oDataToUpsert.C_IssueDate;
+                    oReturn.C_MoneyTypeFromId = oDataToUpsert.C_MoneyTypeFromId;
+                    oReturn.C_MoneyTypeToId = oDataToUpsert.C_MoneyTypeToId;
+                    oReturn.C_Rate = oDataToUpsert.C_Rate;
+                }
                 #endregion
             }
             return oReturn;
@@ -899,5 +919,6 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
     }
 }
