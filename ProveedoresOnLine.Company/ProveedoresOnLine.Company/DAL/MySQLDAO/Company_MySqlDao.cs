@@ -1326,7 +1326,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      {
                          FilterType = new GenericItemModel()
                          {
-                             ItemId = sf.Field<int>("FilterTypeId"),
+                             ItemId = (int)sf.Field<Int64>("FilterTypeId"),
                              ItemName = sf.Field<string>("FilterTypeName"),
                          },
                          FilterValue = new GenericItemModel()
