@@ -43,7 +43,6 @@
         else if (Admin_CategoryObject.CategoryType == "AdminTRM") {
             Admin_CategoryObject.RenderTRMAsync();
         }
-
     },
 
     RenderGeoAsync: function (param) {
@@ -128,7 +127,7 @@
                         });
                     },
                     create: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -217,7 +216,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
+                                    
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
@@ -420,14 +419,14 @@
                         dataTextField: 'ItemName',
 
                         change: function (e) {
-                            debugger;
+                            
                             if (isSelected == false) {                                
                                 options.model['B_Bank'] = e.sender._old;
                                 options.model.dirty = true;
                             }
                         },
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
 
                             isSelected = true;
@@ -443,7 +442,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
+                                    
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
@@ -490,7 +489,7 @@
                         dataTextField: 'GIT_Country',
 
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['B_CityId'] = selectedItem.GIT_CountryId;
@@ -888,7 +887,7 @@
                         });
                     },
                     create: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -907,7 +906,7 @@
                         });
                     },
                     update: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -1069,7 +1068,7 @@
                     input.kendoAutoComplete({
                         dataTextField: 'G_Group',
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name                            
                             options.model['ECS_Group'] = selectedItem.G_GroupId;
@@ -1319,13 +1318,13 @@
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
-            pageable: true,
+            //pageable: true,
             scrollable: true,
             toolbar:
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" }],
+                { name: 'cancel', text: 'Descartar' }],
+                //{ name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" }],
                 //{ name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderTreeAsync(" + "true" + ");'>Buscar</a" }],
             dataSource: {
                 pageSize: 20,
@@ -1338,18 +1337,23 @@
                         return 0;
                     },
                     model: {
-                        id: 'T_TreeId',
+                        id: 'C_CurrentExchangeId',
                         fields: {
-                            T_TreeId: { editable: false, nullable: false },
-                            T_TreeName: { editable: true, nullable: false },
-                            T_TreeEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            C_CurrentExchangeId: { editable: false, nullable: false },
+                            C_IssueDate: { editable: true, nullable: false },
+                            C_MoneyTypeFromId: { editable: true, nullable: false},
+                            C_MoneyTypeToId: { editable: true, nullable: false },
+                            C_MoneyTypeToName: { editable: true, nullable: false },
+                            C_Rate: { editable: true, nullable: false },
+                            C_CreateDate: { editable: false, nullable: false },
+                            C_LastModify: { editable: false, nullable: false },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByTreeAdmin=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByTreeAdmin=true',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1377,40 +1381,76 @@
                                 Message('error', '');
                             }
                         });
-                    },
-                    update: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
-                            dataType: 'json',
-                            type: 'post',
-                            data: {
-                                DataToUpsert: kendo.stringify(options.data)
-                            },
-                            success: function (result) {
-                                options.success(result);
-                            },
-                            error: function (result) {
-                                options.error(result);
-                                Message('error', '');
-                            }
-                        });
-                    },
+                    },                    
                 },
             },
             columns: [{
-                field: 'T_TreeId',
+                field: 'C_CurrentExchangeId',
                 title: 'Id',
-            }, {
-                field: 'T_TreeName',
-                title: 'Nombre del Árbol',
-            }, {
-                field: "T_TreeId",
-                title: "Agregar Items",
-                template: $("#templateName").html()
-            }, {
-                field: 'T_TreeEnable',
-                title: 'Habilitado',
-            }, ],
+            },{
+                field: 'C_IssueDate',
+                title: 'TRM Fecha',
+                width: '160px',
+                format: Provider_CompanyContactObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            },{
+                field: 'C_MoneyTypeFromId',
+                title: 'Conversión desde',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.C_MoneyTypeFromId != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[108], function (item, value) {
+                            if (dataItem.C_MoneyTypeFromId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            },{
+                field: 'C_MoneyTypeToId',
+                title: 'Moneda Destino',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.C_MoneyTypeToId != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[108], function (item, value) {
+                            if (dataItem.C_MoneyTypeToId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            },{
+                field: "C_Rate",
+                title: "Tarifa",                
+            },],
         });
     },
 }

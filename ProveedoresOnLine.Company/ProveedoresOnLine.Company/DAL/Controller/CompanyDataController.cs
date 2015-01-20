@@ -156,6 +156,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CurrentExchangeGetAllAdmin();
         }
+
+        public int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate)
+        {
+            return DataFactory.CurrencyExchangeInsert(IssueDate, MoneyTypeFrom, MoneyTypeTo, Rate);
+        }
         #endregion
 
         #region Company CRUD

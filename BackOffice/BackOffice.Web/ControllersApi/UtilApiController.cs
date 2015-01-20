@@ -468,7 +468,27 @@ namespace BackOffice.Web.ControllersApi
                 #endregion
 
                 #region TRM
-                
+                if (CategoryType == "AdminTRM")
+                {
+                    CurrencyExchangeModel oExchangeToUpsert = new CurrencyExchangeModel();
+
+                    oExchangeToUpsert = new CurrencyExchangeModel()
+                    {
+                        IssueDate = DateTime.Parse(oDataToUpsert.C_IssueDate),
+                        MoneyTypeFrom = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeFromId), ItemName = oDataToUpsert.C_MoneyTypeFromName},
+                        MoneyTypeTo = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeToId), ItemName = oDataToUpsert.C_MoneyTypeToName},
+                        Rate = Convert.ToDecimal(oDataToUpsert.C_Rate),                        
+                    };
+
+                    oExchangeToUpsert.CurrencyExchangeId = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeInsert(oExchangeToUpsert);
+                    oReturn = new AdminCategoryViewModel();
+                    
+                    oReturn.C_CurrentExchangeId = oExchangeToUpsert.CurrencyExchangeId.ToString();                    
+                    oReturn.C_IssueDate = oDataToUpsert.C_IssueDate;
+                    oReturn.C_MoneyTypeFromId = oDataToUpsert.C_MoneyTypeFromId;
+                    oReturn.C_MoneyTypeToId = oDataToUpsert.C_MoneyTypeToId;
+                    oReturn.C_Rate = oDataToUpsert.C_Rate;
+                }
                 #endregion
             }
             return oReturn;
@@ -880,18 +900,17 @@ namespace BackOffice.Web.ControllersApi
             (string CategorySearchByTreeAdmin)
         {
             List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oTreeAdmin =
-                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oExchange =
+                new List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel>();
 
             if (CategorySearchByTreeAdmin == "true")
             {
-                //oTreeAdmin = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin
-                //            (SearchParam, PageNumber, RowCount);
+                oExchange = ProveedoresOnLine.Company.Controller.Company.CurrentExchangeGetAllAdmin();
             }
 
-            if (oTreeAdmin != null)
+            if (oExchange != null)
             {
-                oTreeAdmin.All(x =>
+                oExchange.All(x =>
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
@@ -900,5 +919,6 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
     }
 }
