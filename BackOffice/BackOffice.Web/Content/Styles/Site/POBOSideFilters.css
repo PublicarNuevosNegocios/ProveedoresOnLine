@@ -1,15 +1,59 @@
-.POBOPSideFilterWrapper {
-    display:inline-block;
-    margin:0 0 0 9px; padding:3px 0 0 14px;
-    border:1px solid #b6ff00;
-    min-height:192px;
-    width:274px;
-    vertical-align:top;
-    float:left;
-    text-align:left;
-}
     .POBOPSideBlockTitle{
-        font-size:1.3em;
-        letter-spacing:-0.5px;
-        color:#4d4d4d;
+        color: #4d4d4d;
+        display: block;
+        font-size: 1.5em;
+        font-weight: normal;
+        letter-spacing: -1px;
+        margin: 0 0 7px 8px;
     }
+        .POBOFilterCategoryList{
+                border:none;
+            margin:0px 0px 0px 10px;
+            padding:0px;
+            width:258px;
+        }
+            .POBOFilterCategoryList > li,
+            .POBOFilterCategoryList > li > ul > li {
+                list-style-type:none;
+            }
+            .POBOFilterCategoryList > li > span{
+                background-color: #ececec;
+                    border: none;
+                display: inline-block;
+                font-size: 1em;
+                letter-spacing: -0.6px;
+                line-height: 0.9em;
+                margin: 0 0 5px;
+                padding: 7px 5px;
+                width: 100%;
+            }
+            .POBOFilterCategoryList > li > ul{
+                    border:none;
+                margin: 0 0 8px;
+                padding:0px 0px 0px 12px;
+            }
+                .POBOFilterCategoryList > li > ul > li{
+                        border:none;
+                    margin:0px;
+                }
+                .POBOFilterCategoryList > li > ul > li > span{
+                        border:none;
+                    font-size:0.9em;
+                }
+            .POBOFilterCategoryList > li > input {
+                display:inline-block;
+            }
+                input.POBOFilterCheckBox,
+                span.POBOFilterText{
+                    display:inline-block !important;
+                }
+                input.POBOFilterCheckBox {
+                    line-height:1px;
+                }
+                span.POBOFilterText {
+                    width:240px !important;
+                    margin: 0 0 0 -4px !important;
+                }
+                    .AdminRolesHeader {
+                        display:none;
+                    }

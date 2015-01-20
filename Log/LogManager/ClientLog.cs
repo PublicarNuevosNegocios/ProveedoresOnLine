@@ -17,5 +17,40 @@ namespace LogManager
         {
             return DAL.Controller.LogDataController.Instance.LogSearch(LogInfoType, Value);
         }
+
+        //static on line methods
+        public static void FileUploadCreate(List<string> LogFiles)
+        {
+            if (LogFiles != null && LogFiles.Count > 0)
+            {
+                LogFiles.All(lf =>
+                {
+                    try
+                    {
+                        DAL.Controller.LogDataController.Instance.FileUploadCreate(lf);
+                    }
+                    catch { }
+                    return true;
+                });
+            }
+
+        }
+
+        public static void FileUsedCreate(List<string> LogFiles)
+        {
+            if (LogFiles != null && LogFiles.Count > 0)
+            {
+                LogFiles.All(lf =>
+                {
+                    try
+                    {
+                        DAL.Controller.LogDataController.Instance.FileUsedCreate(lf);
+                    }
+                    catch { }
+                    return true;
+                });
+            }
+
+        }
     }
 }

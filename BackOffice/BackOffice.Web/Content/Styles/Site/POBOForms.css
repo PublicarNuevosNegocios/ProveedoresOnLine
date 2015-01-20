@@ -4,72 +4,179 @@
     font-size: 0.9em;
     letter-spacing: -0.7px; 
 }
-.POBOProviderUpsertForm ul, 
+
+.POBOSectionTitles {
+    font-size: 1.5em;
+    font-weight: normal;
+    display: block;
+    margin: 0px 0px 7px 8px;
+    letter-spacing: -1px;
+    color: #4d4d4d;
+}
+
 .POBOProviderUpsertForm ul li,
-.POBOPCompulsoryFields{
-    margin:4px 0px 0px 8px;
+.POBOPCompulsoryFields {
+    margin: 4px 0px 0px 8px;
     padding: 0;
 }
-.POBOProviderUpsertForm ul li{
-        border:none;
+
+.POBOProviderUpsertForm ul {
+    margin: 0px;
+}
+
+    .POBOProviderUpsertForm ul li {
+        border: none;
     display: inline-block;
     height: auto;
     vertical-align: top;
-    width:auto;
+        width: 48.5%;
 }
-    .POBOProviderUpsertForm ul li label{
+
+        .POBOProviderUpsertForm ul li label {
         color: #4d4d4d;
     font-size: 1em;
-    font-weight:normal;
+            font-weight: normal;
     letter-spacing: -0.7px;
-    margin:0px;
+            margin: 0px;
     }
-    a.POBOSmallCaption{
+
+a.POBOSmallCaption {
             color: #ff8400;
         font-size: 0.9em;
-        font-weight:normal;
+    font-weight: normal;
         letter-spacing: -0.7px;
-        margin:0px;
-        display:block;
+    margin: 0px;
+    display: block;
     }
+
+/****** ESTOS SON LOS CAMPOS REBELDES DE CAMARA COMERCIO ********/
+
+.POBOCamposProblematicos span.k-widget, 
+.POBOCamposProblematicos span.k-autocomplete,
+.POBOCamposProblematicos span.k-header,
+.POBOCamposProblematicos span.k-state-default,
+.POBOCamposProblematicos span.k-state-focused{
+    background-color:#fff !important;
+    border-radius:0px;
+    border:none;
+    margin:0;
+    padding:0;
+    box-shadow:none;
+    width:99%;
+    height:auto;
+}
+.POBOCamposProblematicos span > input.k-input {
+    background-color: #f9f9f9 !important;
+    border: 1px solid #727276 !important;
+    color: #999 !important;
+    height: 34px !important;
+    margin: 2px 0 0 !important;
+    padding: 0 0 0 5px !important;
+    width: 99.6% !important;
+    border-radius: 0px;
+}
+    #FileUploadForm,
+    #FileUploadForm div:first-child    {
+        border-radius:0px;
+        height: 32px;
+    }
+        #FileUploadForm{
+            border: 1px solid #727276;
+            height: 34px !important;
+        }
+        #FileUploadForm div.k-dropzone {
+                border:none;
+            height:auto;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        #FileUploadForm input[type=file] {
+            border-radius: 0px;
+        }
+/******** ESTE ES EL CONTROL DE CARGA DE ARCHIVOS EN LOS FORMULARIOS ********/
+#FileUploadForm div.k-upload{
+        border:none;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+    #FileUploadForm ul.k-upload-files, 
+    #FileUploadForm ul.k-reset{
+            border:none;
+        height: auto;
+        left: 100px;
+        line-height: 30px;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        width: 54%;
+    }
+        #FileUploadForm .k-file,
+        #FileUploadForm .k-file-error {
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        #FileUploadForm .k-upload-status,
+        #FileUploadForm .k-upload-status-total {
+            line-height: 1.1em !important;
+            position: absolute;
+            right: 12px;
+            top: 5px;
+        }
+
+/******* ESTILOS DE LOS CAMPOS ******/
 .POBOProviderUpsertForm ul li select,
 .POBOProviderUpsertForm ul li input,
-.POBOProviderUpsertForm ul li input[type=file]
-{
+.POBOProviderUpsertForm ul li input[type=file],
+.POBOProviderUpsertForm ul li input[type=text]{
     background-color: #f9f9f9;
     border: 1px solid #727276;
     color: #999;
     height: 36px;
     margin: 2px 0 0;
     padding: 0 0 0 5px;
-    width:400px;
+    width:100%;
 }
 .POBOProviderUpsertForm ul li select > option,
-.POBOProviderUpsertForm ul li select > option[selected=selected]{
-    font-weight:normal;
+    .POBOProviderUpsertForm ul li select > option[selected=selected] {
+        font-weight: normal;
     font-size: 0.9em;
 }
     .POBOProviderUpsertForm ul li input[type=checkbox] {
-        margin:0px 0 0;
+        margin: 0px 0 0;
         padding: 0 0 0 0px;
-        width:auto;
-        vertical-align:top;
+        width: auto;
+        vertical-align: top;
     }
-
-
+/********* DETALLE PARA EL CAMPO HORA DENTRO DE LA GRILLA *********/
+.POBOProviderContentWrapper span.k-picker-wrap {
+    padding-right: 2em !important;
+}
+.POBOProviderContentWrapper span.k-select{
+    width: 2em !important;
+}
+.POBOProviderContentWrapper span.k-i-clock{
+    display:none !important;
+}
 /************ SISTEMA DE RIESGOS LABORALES FORM *********/
-
-.POBOProviderUpsertForm li.POBOHSEQ {
+.POBOHSEQWrapper, .POBOCamaraComercioSociosWrapper{padding:0 !important;}
+.POBOProviderUpsertForm li.POBOHSEQ, .POBOProviderUpsertForm li.POBOCamaraComercioSocios {
     text-align:left;
     display:block;
-    width:83%;
+    width:98.2%;
+    margin:10px 8px;
         border:none;
 }
 #ReportLITF {
         border-bottom:1px solid #ff8400;
+        border-top:1px solid #ff8400;
     width: auto;
     text-align: center;
     padding: 15px 0px 15px 0px;
+    /*margin-bottom: 15px;*/
 }
     #ReportLITF li {
         width: auto;
@@ -77,22 +184,139 @@
         vertical-align: middle;
         margin: 0 -2px 0 -2px;
     }
+
         #ReportLITF li hr {
             margin: 0 !important;
             width: 100%;
         }
+
     li#F2 label {
-        font-size:1.2em;
-        margin:0px 8px;
+    font-size: 1.2em;
+    margin: 0px 8px;
     }
+
 li#F3, li#F3 label {
     display: block;
     width: 192px;
     text-align: left;
-    padding:1px 4px;
-}
-li#F3 {
-    margin:0 0px 0px 58.7%;
-    background-color:#ececec;
+    padding: 1px 4px;
 }
 
+li#F3 {
+    margin:0px 0px 0px 58.7%;
+    background-color:#ececec;
+}
+/******** FORMULARIO DE CARGA DE BALANCES FINANCIEROS ********/
+#divBalanceSheet_Detail {
+    margin:12px 0px 10px 7px;
+    border:1px solid #c5c5c5;
+}
+.POBOBalanceSheetScrollWrapper {
+    height:350px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    padding:12px 0px;
+    border-bottom: 1px solid #c5c5c5;
+    margin-bottom:4px;
+}
+/*DATOS GENERALES*/
+.POBOBalanceSheet_mainInfo {
+    margin:-10px 0px 0px 0px !important;
+}
+.POBOBalanceSheet_mainInfo label{
+    font-size:0.9em !important;    
+}
+.POBOBalanceSheet_mainInfo li select,
+.POBOBalanceSheet_mainInfo li input,
+.POBOBalanceSheet_mainInfo li input[type="file"],
+.POBOBalanceSheet_mainInfo li input[type="text"]{
+    height: 28px !important;
+}
+    .POBOProviderActions div#FileUploadForm {
+        margin:3px 0 0;
+    }
+        a.POBOBalanceSheetFile{
+            float: right;
+            margin: 7px 0 0;
+            position: relative;
+            right:16px;
+            z-index: 10;
+        }
+
+            #divBalanceSheet tr{
+                cursor:pointer;
+            }
+                #divBalanceSheet tr:hover {
+                    background-color:#e4e4e4;
+                }
+
+/*DATOS FINANCIEROS*/
+.POBOBalanceSheet_DetailWrapper{
+    width:49.4%;
+    display: inline-block;
+}
+.POBOBalanceSheet_Detail  {
+        border:none;
+    width: 100% !important;    
+}
+    .POBOBalanceSheet_Detail > ul{
+            border:none;
+        width:100%;
+    }
+            .POBOBalanceSheet_Detail > ul > li > ul{
+                    border-top:1px solid #999;
+                    margin:5px 0 0 0;
+                    padding:5px 0px;
+                    width:100%
+                }
+            .POBOBalanceSheet_Detail > ul > li > ul > li > ul{
+                    border-top:none;
+                    border-bottom:none;
+                    margin:0;
+                }
+        .POBOBalanceSheet_Detail li{
+                border: none;
+            margin: 0 !important;
+            width: 98% !important;
+        }
+.POBOBalanceSheet_Detail label{
+        border:none;
+    font-size:0.9em !important;
+}
+.POBOBalanceSheet_Detail input{
+    height:28px !important;
+}
+.POBOBalanceSheet_Detail span,
+.POBOBalanceSheet_Detail label.ParentAccount{
+    font-weight:bold !important;
+    font-style:italic;    
+    letter-spacing:0.3px;
+}
+    .POBOBalanceSheet_Detail span {
+        font-size:1.3em;
+        color:#727276;
+    }
+    .POBOBalanceSheet_Detail label.ParentAccount {
+        color:inherit;
+    }
+.BalanceSheetActions li{
+    padding:6px !important;
+}
+                                .POBOBalanceSheet_DocPreview {
+                                    border:1px solid #ececec;
+                                    float: right;
+                                    margin: 8px 11px 0 0;
+                                    width: 48.4%;
+                                    height: 600px;
+                                }
+                                    .POBOBalanceSheet_DocPreview iframe {
+                                        width:100%;
+                                        height:100%;
+                                        border:none;
+                                    }
+.BalanceSheetActions a.POBOButtons,
+.BalanceSheetActions a.POBOProgressButtons{
+    font-size: 0.9em;
+    border-radius:2px;
+    padding:6px 25px !important;  
+}

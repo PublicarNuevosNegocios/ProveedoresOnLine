@@ -1,0 +1,112 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    string oSearchFilter = string.IsNullOrEmpty(Request["SearchFilter"]) ? string.Empty : Request["SearchFilter"].Replace(" ", "");
+}
+
+@if (!Model.RenderScripts)
+{
+    <div class="POBOProviderSideMenuWrapper">
+        <span class="POBOPSideBlockTitle">Filtrar por:</span>
+
+        <ul class="POBOFilterCategoryList">
+            @foreach (ProveedoresOnLine.Company.Models.Util.CatalogModel oFilterType in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.FilterTypeBackOffice).ToList())
+            {
+                <li>
+                    @switch (oFilterType.ItemId)
+                    {
+                        case 111001:
+
+                            <span>@oFilterType.ItemName</span>
+                            <ul>
+                                @foreach (ProveedoresOnLine.Company.Models.Util.CatalogModel oItemType in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderStatus).ToList())
+                                {
+                                    <li>
+                                        @if (oSearchFilter.IndexOf(oFilterType.ItemId + ";" + oItemType.ItemId) >= 0)
+                                        {
+                                            <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@(oFilterType.ItemId + ";" + oItemType.ItemId)', false);" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@(oFilterType.ItemId + ";" + oItemType.ItemId)', true);" />
+                                        }
+                                        <span>@oItemType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId && x.FilterValue.ItemId == oItemType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+                                    </li>
+                                }
+                            </ul>
+                            break;
+                            case 111002:
+
+                        <span>@oFilterType.ItemName</span>
+                        <ul>
+                            @foreach (ProveedoresOnLine.Company.Models.Util.CatalogModel oItemType in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo).ToList())
+                            {
+                                <li>
+                                    @if (oSearchFilter.IndexOf(oFilterType.ItemId + ";" + oItemType.ItemId) >= 0)
+                                    {
+                                        <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@(oFilterType.ItemId + ";" + oItemType.ItemId)', false);" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@(oFilterType.ItemId + ";" + oItemType.ItemId)', true);" />
+                                    }
+                                    <span>@oItemType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId && x.FilterValue.ItemId == oItemType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+                                </li>
+                            }
+                        </ul>
+                            break;
+                            case 111003:
+
+                            if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
+                            {
+                                <input class="POBOFilterCheckBox" type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
+                            }
+                            else
+                            {
+                                <input class="POBOFilterCheckBox" type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
+                            }
+                            <span class="POBOFilterText">@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+
+                            break;
+                            case 111004:
+
+                            if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
+                            {
+                            <input class="POBOFilterCheckBox" type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
+                            }
+                            else
+                            {
+                            <input class="POBOFilterCheckBox" type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
+                            }
+                            <span class="POBOFilterText">@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+
+                            break;
+                            case 111005:
+
+                            if (oSearchFilter.IndexOf(oFilterType.ItemId.ToString()) >= 0)
+                            {
+                            <input class="POBOFilterCheckBox" type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', false);" />
+                            }
+                            else
+                            {
+                            <input class="POBOFilterCheckBox" type="checkbox" onchange="javascript: Provider_SearchObject.SearchEvent('@oFilterType.ItemId', true);" />
+                            }
+                            <span class="POBOFilterText">@oFilterType.ItemName (@(Model.SearchFilter.Where(x => x.FilterType.ItemId == oFilterType.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
+                            break;
+
+                            default:
+                            break;
+                    }
+                </li>
+            }
+            </ul>
+        </div>
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+}
+

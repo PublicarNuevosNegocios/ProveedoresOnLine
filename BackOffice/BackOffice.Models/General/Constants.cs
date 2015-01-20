@@ -20,6 +20,16 @@
 
         public const string C_Settings_Path_SalesForce = "Path_Salesforce";
 
+        public const string C_Settings_DateFormat_Kendo = "DateFormat_Kendo";
+
+        public const string C_Settings_DateFormat_KendoToServer = "DateFormat_KendoToServer";
+
+        public const string C_Settings_DateFormat_Server = "DateFormat_Server";
+
+        public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
+
+        public const string C_Settings_DefaultImage = "DefaultImage";
+
         #endregion
 
         #region Administrator User Roles

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <MarketPlace>
+    <!--Area domains-->
+    <key name="Area_HostConfig"><![CDATA[https://localhost:44309,Desktop;http://localhost:40464,Desktop;]]></key>
+
+    <!--Login Module-->
+    <key name="Login_InternalLogin">https://localhost:44305/InternalLogin/Index?UrlRetorno={{UrlRetorno}}</key>
+
+    <key name="Login_UserNotAutorized">El usuario {UserName} no esta autorizado para ingresar a la plataforma.</key>
+    
+    <key name="Login_DefaultUserUrl">https://www.google.com/a/publicar.com/images/logo.gif</key>
+
+    <!--Generic params-->
+    <key name="Grid_RowCountDefault">20</key>
+
+    <key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>
+    <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
+    <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
+
+    <!--File Params-->
+    <key name="File_TempDirectory">/TempDirectory/</key>
+    <key name="File_RemoteDirectory">\MarketPlace\</key>
+
+    <!--Company params-->
+    <key name="Company_DefaultLogoUrl">https://www.google.com/a/publicar.com/images/logo.gif</key>
+
+  </MarketPlace>
+</Settings>
+

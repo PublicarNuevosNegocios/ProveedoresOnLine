@@ -1,0 +1,104 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Información Financiera";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Declaración de Renta</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridIncomeStatement"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridIncomeStatement_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridIncomeStatement_File">
+        <div>
+            <a target="_blank" href="${Url_File}">Ver archivo</a>
+        </div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    @{
+        //get IncomeStatementTypeValues
+        string oIncomeStatementList = "[]";
+        if (Model.ProviderOptions != null && 
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionIncomeStatementInfo =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemEnable).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oIncomeStatementList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionIncomeStatementInfo.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+
+        string oYearList = "[]";
+        Dictionary<int, string> oYearOption = new Dictionary<int, string>();
+        int i = 0;
+        for (int date = DateTime.Now.Year; date >= (DateTime.Now.Year - 19); date--)
+        {
+            oYearOption.Add(i, date.ToString());
+            i++;
+        }
+
+        oYearOption = oYearOption.ToDictionary(k => k.Key, v => v.Value);
+
+        oYearList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oYearOption.Select(x => new { Key = x.Key, Value = x.Value }));
+    }
+
+    <script type="text/javascript">
+        var vIncomeStatementOptionList = @(Html.Raw(oIncomeStatementList));
+        var vYearOptionList = @(Html.Raw(oYearList));
+        $(document).ready(function () {
+            Provider_CompanyFinancialObject.Init({
+                ObjectId: 'divGridIncomeStatement',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                FinancialType: '@((int)BackOffice.Models.General.enumFinancialType.IncomeStatementInfoType)',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ProviderOptions: vIncomeStatementOptionList,
+                YearOptionList: vYearOptionList,
+            });
+            Provider_CompanyFinancialObject.RenderAsync();
+        });
+    </script>
+}

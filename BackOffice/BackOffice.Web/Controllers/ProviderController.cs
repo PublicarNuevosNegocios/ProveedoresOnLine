@@ -1,4 +1,6 @@
 ﻿using BackOffice.Models.General;
+using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,30 @@ namespace BackOffice.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            return View();
+            string oSearchParam = string.IsNullOrEmpty(Request["SearchParam"]) ? null : Request["SearchParam"];
+            string oSearchFilter = string.Join(",", (Request["SearchFilter"] ?? string.Empty).Replace(" ", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+            oSearchFilter = string.IsNullOrEmpty(oSearchFilter) ? null : oSearchFilter;
+
+            string oCompanyType =
+                    ((int)(BackOffice.Models.General.enumCompanyType.Provider)).ToString() + "," +
+                    ((int)(BackOffice.Models.General.enumCompanyType.BuyerProvider)).ToString();
+
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                SearchFilter = ProveedoresOnLine.Company.Controller.Company.CompanySearchFilter(oCompanyType, oSearchParam, oSearchFilter),
+            };
+
+            if (oModel.SearchFilter == null)
+                oModel.SearchFilter = new List<GenericFilterModel>();
+
+            return View(oModel);
         }
 
         #region General Info
 
-        public virtual ActionResult ProviderUpsert(string ProviderPublicId)
+        public virtual ActionResult GIProviderUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -44,6 +64,11 @@ namespace BackOffice.Web.Controllers
                 //upsert provider
                 CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
 
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 2 };
+                InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(CompanyToUpsert.CompanyPublicId, InfoTypeModified);
+
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&
                     Request["StepAction"].ToLower().Trim() == "next" &&
@@ -63,14 +88,14 @@ namespace BackOffice.Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction(MVC.Provider.ActionNames.ProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
+                    return RedirectToAction(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
                 }
             }
 
             return View(oModel);
         }
 
-        public virtual ActionResult CompanyContactUpsert(string ProviderPublicId)
+        public virtual ActionResult GICompanyContactUpsert(string ProviderPublicId)
         {
             //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
@@ -88,7 +113,7 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult PersonContactUpsert(string ProviderPublicId)
+        public virtual ActionResult GIPersonContactUpsert(string ProviderPublicId)
         {
             //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
@@ -106,7 +131,25 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult BranchUpsert(string ProviderPublicId)
+        public virtual ActionResult GIBranchUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult GIDistributorUpsert(string ProviderPublicId)
         {
             //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
@@ -166,7 +209,6 @@ namespace BackOffice.Web.Controllers
                 }
                 return true;
             });
-
             return oReturn;
         }
 
@@ -175,57 +217,30 @@ namespace BackOffice.Web.Controllers
         #endregion
 
         #region Commercial Info
-    
-        public virtual ActionResult ExperiencesUpsert(string ProviderPublicId)
+
+        public virtual ActionResult CIExperiencesUpsert(string ProviderPublicId)
         {
+            //generic model info
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
-
-            if(!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedExperience = ;
-                };
-
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
-
-            return View(oModel);
-        }
-            
-        public virtual ActionResult EconomicActivityUpsert(string ProviderPublicId)
-        {
-            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                },
             };
 
-            if (!string.IsNullOrEmpty(ProviderPublicId))
-            {
-                //get provider info
-                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    //RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications),
-                };
-
-                //get provider menu
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
             return View(oModel);
         }
 
         #endregion
 
-        #region HSEQ
+        #region HSEQ Info
 
-        public virtual ActionResult CertificationsUpsert(string ProviderPublicId)
+        public virtual ActionResult HICertificationsUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -246,9 +261,10 @@ namespace BackOffice.Web.Controllers
             }
 
             return View(oModel);
+            //return View(new Models.Provider.ProviderViewModel());
         }
 
-        public virtual ActionResult HealtyPoliticUpsert(string ProviderPublicId)
+        public virtual ActionResult HIHealtyPoliticUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -269,9 +285,10 @@ namespace BackOffice.Web.Controllers
             }
 
             return View(oModel);
+            //return View(new Models.Provider.ProviderViewModel());
         }
 
-        public virtual ActionResult RiskPoliciesUpsert(string ProviderPublicId)
+        public virtual ActionResult HIRiskPoliciesUpsert(string ProviderPublicId)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -291,25 +308,626 @@ namespace BackOffice.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
 
+            //eval request
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                ProviderModel ProviderToUpsert = new ProviderModel();
+                ProviderToUpsert.RelatedCertification = new List<GenericItemModel>();
+                ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
+
+                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;
+
+                //get request info
+                ProviderToUpsert.RelatedCertification.Add(this.GetHIRiskPoliciesInfoRequest());
+
+                //upsert provider info
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(ProviderToUpsert);
+
+                //reload model
+                oModel.RelatedProvider = new ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies),
+                };
+            }
+
+            List<GenericItemModel> oGenericItem = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+
+            foreach (var Item in oGenericItem)
+            {
+                oModel.ProviderOptions.Add(new CatalogModel
+                {
+                    ItemId = Item.ItemId,
+                    ItemName = Item.ItemName,
+                    ItemEnable = Item.Enable,
+                    CatalogId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards,
+                });
+            }
+
             return View(oModel);
         }
 
         #endregion
 
-        #region Información legal
+        #region Financial Info
 
-        public virtual ActionResult ChaimberOfCommerceUpsert(string CompanyPublicId)
+        public virtual ActionResult FIBalanceSheetUpsert(string ProviderPublicId)
         {
-            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel();
-            oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
-            oModel.RelatedProvider.RelatedLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
 
-            oModel.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(CompanyPublicId, (int)enumLegalType.ChaimberOfCommerce);
-            
-
+            //get provider menu
             oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            //eval upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                //get balance sheet request info
+                ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel ProviderToUpsert = GetBalanceSheetRequest();
+
+                //upsert sheet request
+                ProviderToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderToUpsert);
+
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 5 };
+
+                ProviderToUpsert.RelatedBalanceSheet.All(x =>
+                {
+                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                    return true;
+                });
+
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+                else
+                {
+                    return RedirectToAction(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = oModel.RelatedProvider.RelatedCompany.CompanyPublicId });
+                }
+            }
+
             return View(oModel);
         }
+
+        public virtual ActionResult FITaxUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult FIIncomeStatementUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult FIBankUpsert(string ProviderPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            return View(oModel);
+        }
+
+        #region Private methods
+
+        private ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel GetBalanceSheetRequest()
+        {
+            List<Tuple<decimal, decimal>> lstCurrencyConversion = null;
+
+            //get provider
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oReturn = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+            {
+                RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = Request["ProviderPublicId"],
+                },
+
+                RelatedBalanceSheet = new List<BalanceSheetModel>()
+                { 
+                    new BalanceSheetModel()
+                    {
+                        ItemId = string.IsNullOrEmpty(Request["FinancialId"]) ? 0 : Convert.ToInt32(Request["FinancialId"]),
+                        ItemName = Request["FinancialName"],
+                        ItemType = new CatalogModel()
+                        {
+                            ItemId = (int)enumFinancialType.BalanceSheetInfoType,
+                        },
+                        Enable = !string.IsNullOrEmpty(Request["Enable"]),
+                        ItemInfo = new List<GenericItemInfoModel>()
+                        {
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = string.IsNullOrEmpty(Request["SH_YearId"]) ? 0 : Convert.ToInt32(Request["SH_YearId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumFinancialInfoType.SH_Year,
+                                },
+                                Value = Request["SH_Year"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = string.IsNullOrEmpty(Request["SH_BalanceSheetFileId"]) ? 0 : Convert.ToInt32(Request["SH_BalanceSheetFileId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumFinancialInfoType.SH_BalanceSheetFile,
+                                },
+                                Value = Request["SH_BalanceSheetFile"],
+                                Enable = true,
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId = string.IsNullOrEmpty(Request["SH_CurrencyId"]) ? 0 : Convert.ToInt32(Request["SH_CurrencyId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumFinancialInfoType.SH_Currency,
+                                },
+                                Value = BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", ""),
+                                Enable = true,
+                            },
+                        },
+                        BalanceSheetInfo = new List<BalanceSheetDetailModel>(),
+                    },
+                }
+            };
+
+            //get account info
+            List<GenericItemModel> olstAccount =
+                ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+            //get current values
+            List<BalanceSheetDetailModel> olstBalanceSheetDetail = new List<BalanceSheetDetailModel>();
+
+            if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
+            {
+                olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial
+                    (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
+            }
+
+            //get account values
+            List<decimal> lstAccountValuesAux = olstAccount
+                .Where(ac => !string.IsNullOrEmpty(Request["ChildAccount_" + ac.ItemId.ToString()]))
+                .Select(ac => Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
+                .ToList();
+
+            lstCurrencyConversion = new List<Tuple<decimal, decimal>>();
+            if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value ==
+                Request["SH_Currency"])
+            {
+                lstCurrencyConversion = lstAccountValuesAux
+                    .Select(ac => new Tuple<decimal, decimal>(ac, ac))
+                    .ToList();
+            }
+            else
+            {
+                lstCurrencyConversion = BaseController.Currency_ConvertToStandar
+                    (Convert.ToInt32(Request["SH_Currency"]),
+                    Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
+                    Convert.ToInt32(Request["SH_Year"]),
+                    lstAccountValuesAux);
+            }
+
+            //fill account new values
+            if (olstAccount != null && olstAccount.Count > 0)
+            {
+                olstAccount.All(ac =>
+                {
+                    if (!string.IsNullOrEmpty(Request["ChildAccount_" + ac.ItemId.ToString()]))
+                    {
+                        //get current item
+                        BalanceSheetDetailModel oBalanceDetailInfo = new BalanceSheetDetailModel()
+                        {
+                            BalanceSheetId = olstBalanceSheetDetail.
+                                Where(x => x.RelatedAccount.ItemId == ac.ItemId).
+                                Select(x => x.BalanceSheetId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault(),
+
+                            RelatedAccount = ac,
+                            Value = lstCurrencyConversion
+                                .Where(x => x.Item1 == Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
+                                .Select(x => x.Item2)
+                                .DefaultIfEmpty(0)
+                                .FirstOrDefault(),
+                            Enable = true,
+                        };
+
+                        oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo.Add(oBalanceDetailInfo);
+                    }
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Legal Info
+
+        public virtual ActionResult LIChaimberOfCommerceUpsert(string ProviderPublicId)
+        {
+            int oTotalRows;
+            //generic model info
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
+
+                },
+            };
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
+
+            //eval upsert action
+            if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
+            {
+                ProviderModel ProviderToUpsert = new ProviderModel();
+                ProviderToUpsert.RelatedLegal = new List<GenericItemModel>();
+                ProviderToUpsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
+
+                ProviderToUpsert.RelatedCompany.CompanyPublicId = ProviderPublicId;
+
+                //get request Info
+                ProviderToUpsert.RelatedLegal.Add(this.GetChaimberOfCommerceInfoRequest());
+
+                if (string.IsNullOrEmpty(ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value).FirstOrDefault()))
+                {
+                    List<GeographyModel> reqCities = new List<GeographyModel>();
+                    reqCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(Request["CityId"], null, 0, 0, out oTotalRows);
+                    ProviderToUpsert.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_InscriptionCity).Select(x => x.Value = reqCities.FirstOrDefault().City.ItemId.ToString()).FirstOrDefault();
+                }
+                //upsert provider
+                ProviderToUpsert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalUpsert(ProviderToUpsert);
+
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 6 };
+
+                ProviderToUpsert.RelatedLegal.All(x =>
+                {
+                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                    return true;
+                });
+
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult LIRutUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.RUT),
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult LICIFINUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.CIFIN),
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult LISARLAFTUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT),
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult LIResolutionUpsert(string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info
+                oModel.RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                    RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT),
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+
+            return View(oModel);
+        }
+
+        #region Private methods
+
+        private GenericItemModel GetChaimberOfCommerceInfoRequest()
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"])
+               && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ChaimberInfo                
+                GenericItemModel RelatedLegal = new GenericItemModel
+                {
+                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
+                    ItemType = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
+                    },
+                    ItemName = Request["ChaimberName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+
+                    ItemInfo = new List<GenericItemInfoModel>
+                        {                               
+                            new GenericItemInfoModel()
+                            {                                
+                                ItemInfoId = int.Parse(Request["ConstitutionDateId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionDate
+                                },
+                                Value = Request["ConstitutionDate"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["ValidityDateId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
+                                },
+                                Value = Request["ValidityDate"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["SelectedCityId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_InscriptionCity
+                                },
+                                Value = Request["SelectedCity"],
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["InscriptionNumberId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_InscriptionNumber
+                                },
+                                Value = Request["InscriptionNumber"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["CertificateURLId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
+                                },
+                                Value = Request["CertificateURL"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =  Convert.ToInt32(Request["ExpeditionCertificatedDateId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate
+                                },
+                                Value = Request["ExpeditionCertificatedDate"]
+                            },
+                            new GenericItemInfoModel()
+                            {
+                                ItemInfoId =   Convert.ToInt32(Request["SocialObjectId"]),
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_SocialObject
+                                },
+                                Value = Request["SocialObject"]
+                            },
+                        }
+                };
+                //Validación del archivo cuando viene desocupado en el formulario
+                if (RelatedLegal.ItemInfo != null && RelatedLegal.ItemInfo.Count() > 0)
+                {
+                    if (string.IsNullOrEmpty(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x.Value).FirstOrDefault()))
+                    {
+                        RelatedLegal.ItemInfo.Remove(RelatedLegal.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate).Select(x => x).FirstOrDefault());
+                    }
+                }
+                return RelatedLegal;
+            }
+            return null;
+        }
+
+        private GenericItemModel GetHIRiskPoliciesInfoRequest()
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"])
+               && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ARL info
+                GenericItemModel RelatedARL = new GenericItemModel
+                {
+                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
+                    ItemType = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(enumHSEQType.CompanyRiskPolicies),
+                    },
+                    ItemName = Request["RiskPoliciesName"],
+                    Enable = Request["Enable"] == "true" ? true : false,
+                    ItemInfo = new List<GenericItemInfoModel>
+                    {
+                        new GenericItemInfoModel()
+                        {                                
+                            ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards
+                            },
+                            Value = Request["OccupationalHazardsId"],
+                            Enable = true,
+                        },
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = int.Parse(Request["RateARLId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_RateARL
+                            },
+                            Value = Request["RateARL"],
+                            Enable = true,
+                        },
+                    },
+                };
+
+                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
+                {
+                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
+                    {
+                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                        },
+                        Value = Request["CertificateAffiliateARL"],
+                        Enable = true,
+                    };
+
+                    RelatedARL.ItemInfo.Add(oGenericItem);
+                }
+                return RelatedARL;
+            }
+            return null;
+        }
+
+        #endregion
 
         #endregion
 
@@ -343,12 +961,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información básica",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.GIProviderUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.ProviderUpsert &&
+                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -357,12 +975,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información de contacto de empresa",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.CompanyContactUpsert,
+                        (MVC.Provider.ActionNames.GICompanyContactUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.CompanyContactUpsert &&
+                        (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -371,12 +989,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información de personas de contacto",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.PersonContactUpsert,
+                        (MVC.Provider.ActionNames.GIPersonContactUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.PersonContactUpsert &&
+                        (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -386,12 +1004,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Sucursales",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.BranchUpsert,
+                        (MVC.Provider.ActionNames.GIBranchUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.BranchUpsert &&
+                        (oCurrentAction == MVC.Provider.ActionNames.GIBranchUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -400,12 +1018,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Distribuidores",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.GIDistributorUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.GIDistributorUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -432,26 +1050,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Experiencias",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ExperiencesUpsert,
+                        (MVC.Provider.ActionNames.CIExperiencesUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
-                        oCurrentController == MVC.Provider.Name),
-                });
-
-                //Economic activity
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Actividades economicas",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.EconomicActivityUpsert,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 1,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -478,12 +1082,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Certificaciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.CertificationsUpsert,
+                        (MVC.Provider.ActionNames.HICertificationsUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.HICertificationsUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -492,12 +1096,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Salud, medio ambiente y seguridad",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.HealtyPoliticUpsert,
+                        (MVC.Provider.ActionNames.HIHealtyPoliticUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.HIHealtyPoliticUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -506,12 +1110,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Sistema de riesgos laborales",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.RiskPoliciesUpsert,
+                        (MVC.Provider.ActionNames.HIRiskPoliciesUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.HIRiskPoliciesUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -538,12 +1142,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Balances financieros",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.FIBalanceSheetUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.FIBalanceSheetUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -552,26 +1156,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Impuestos",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.FITaxUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
-                        oCurrentController == MVC.Provider.Name),
-                });
-
-                //money laundering
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Lavado de activos",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 2,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.FITaxUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -580,12 +1170,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Declaración de renta",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.FIIncomeStatementUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 3,
+                    Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.FIIncomeStatementUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -594,12 +1184,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Información bancaria",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.FIBankUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 4,
+                    Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.FIBankUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -624,28 +1214,28 @@ namespace BackOffice.Web.Controllers
                 //chaimber of commerce
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Camara y comercio",
+                    Name = "Cámara de comercio",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ChaimberOfCommerceUpsert,
+                        (MVC.Provider.ActionNames.LIChaimberOfCommerceUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LIChaimberOfCommerceUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
                 //RUT
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Registro unico tributario",
+                    Name = "Registro único tributario",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.LIRutUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LIRutUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -654,12 +1244,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "CIFIN",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.LICIFINUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LICIFINUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -668,12 +1258,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "SARLAFT",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.LISARLAFTUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LISARLAFTUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -682,12 +1272,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Resoluciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.ProviderUpsert,
+                        (MVC.Provider.ActionNames.LIResolutionUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.Index &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LIResolutionUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -722,8 +1312,6 @@ namespace BackOffice.Web.Controllers
 
                 #endregion
             }
-
-
             return oReturn;
         }
 

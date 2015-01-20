@@ -2,6 +2,7 @@
 .POBOHeaderWrapper {
     display:block;
     width: 100%;
+    min-width:1024px;
     height: auto;
     margin: 0px;
     text-align: left;
@@ -10,19 +11,24 @@
 /****************Logo*******************/
 .POBOLogo{
     display: inline-block;
-    width: 257px;
-    height: 85px;
+    width:222px;
+    height: 72px;
     vertical-align: top;
-    margin: 15px 0px 8px 14px;
+    margin:9px 0px 4px 14px;
     background-image:url(../../Images/POBOsprite.png);
-    background-size:546px auto;
-    background-position:-3px -50px;
+    background-size:473px auto;
+    background-position:-3px -43px;
     background-repeat:no-repeat;
         border:none;
 }
 /*************** USER MENU ***************/
+.POBOMenusGrandWrapper {
+        border:none;
+    float: right;
+    margin: 2px 0 0 2px;
+    text-align: right;
+}
 .POBOUserMenu {
-    float:right;
         border:none;
     width:auto; height:auto;
     display:block;
@@ -52,38 +58,47 @@
         margin: 0 0 0 6px;
     }
 .POBOUserMenuOptions{
-    background-color: #ececec;
-        border: 1px solid #666;
-    height: 26px;
+    background-color: #f5f5f5;
+    border: 1px solid #ececec;
+    height: auto;
     margin: 0;
+    padding: 0 4px;
     position: absolute;
-    right: 31px;
-    top: 23px;
-    width: 150px;
-    z-index:5;
+    right: 72px;
+    top: 24px;
+    width: auto;
+    z-index: 5;
 }
-    .POBOUserMenuOptions ul li, .POBOUserMenuOptions ul li a{
-            border:none;
-        display: block;
-        height: 26px;
-        width: 150px;
+    .POBOUserMenuOptions ul{
+        margin:0px !important;
+        padding:0 !important;
     }
-        .POBOUserMenuOptions ul li{
-            margin: 0 -41px;            
-        }            
-        .POBOUserMenuOptions ul li a {
-            margin: 0px;
-            text-indent:12px;
-            line-height:22px;
+    .POBOUserMenuOptions ul li{
+            border-top:1px solid #3f3f3f;
+        display: block;
+        margin:0px;
+        text-align:left;
+    }
+        .POBOUserMenuOptions ul li:first-child {
+            border-top:none;
+        }
+        .POBOUserMenuOptions ul li:hover{
+            background-color:#ececec;
+            cursor:pointer;
+        }
+        .POBOUserMenuOptions ul li a,
+        .POBOUserMenuOptions ul li a:hover{
+            margin:0px 0px 0px 8px;
+            width:140px;
+            color:#666;
+            text-decoration:none;
         }
 /*************** MAIN MENU *************/
 .POBOMainMenuWrapper {
         border:none;
-    height: 40px;
-    margin: 0;
-    position:absolute;
-    right:6px;
-    top: 62px;
+    height:auto;
+    margin:18px 0px 0px 0px;
+    display:block;
     width: auto;
     padding:0;
 }

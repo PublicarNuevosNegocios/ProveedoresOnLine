@@ -1,7 +1,7 @@
 /******** ESTE ES EL MENU ESTE ES EL MENU ********/
 .POBOProviderSideMenu {
         border:none;
-    width:257px;
+    width:248px;
     letter-spacing: -1px;
 }
     .POBOProviderSideMenu > ul > li.principalmenuselected > label, .POBOProviderSideMenu > ul > li > label:hover{

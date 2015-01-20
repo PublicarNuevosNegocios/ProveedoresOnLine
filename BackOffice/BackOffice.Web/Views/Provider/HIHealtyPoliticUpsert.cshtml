@@ -1,0 +1,107 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "HSEQ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Salud, medio ambiente y seguridad</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridHealtyPolitics"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates by files-->
+<div style="display:none;">
+    <div id="divGridHealtyPolitics_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridHealtyPolitics_File">
+        <div>
+            <a target="_blank" href="${FileUrl}">Ver archivo</a>
+        </div>
+    </div>
+</div>
+
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+
+    @{
+
+        //ger CertificationTypeValues
+        string oHealtyPoliticsOptionList = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionoHealtyPoliticsOption =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oHealtyPoliticsOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionoHealtyPoliticsOption.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+
+        string oYearList = "[]";
+        Dictionary<int, string> oYearOption = new Dictionary<int, string>();
+        int i = 0;
+        for (int date = DateTime.Now.Year; date >= (DateTime.Now.Year - 19); date--)
+        {            
+            oYearOption.Add(i, date.ToString());
+            i++;
+        }
+
+        oYearOption = oYearOption.ToDictionary(k => k.Key, v => v.Value);
+        
+        oYearList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(oYearOption.Select(x => new {Key = x.Key, Value = x.Value}));
+    }
+
+    <script type="text/javascript">
+        var vYearOptionList = @(Html.Raw(oYearList));
+        var vHealtyPoliticsOptionList = @(Html.Raw(oHealtyPoliticsOptionList));
+        $(document).ready(function () {
+            Provider_CompanyHSEQObject.Init({
+                ObjectId: 'divGridHealtyPolitics',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyHealtyPolitic)',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                HSEQOptionList: vHealtyPoliticsOptionList,
+                YearOptionList: vYearOptionList,
+            });
+            Provider_CompanyHSEQObject.RenderAsync();
+        });
+    </script>
+}

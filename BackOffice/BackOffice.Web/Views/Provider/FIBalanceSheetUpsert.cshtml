@@ -1,0 +1,180 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Información Financiera";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <label class="POBOSectionTitles">Balances Financieros</label>
+        @{
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+        <div id="divBalanceSheet"></div>
+        <div id="divBalanceSheet_Detail"></div>
+        @{  
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+    </div>
+</div>
+
+<div style="display:none;">
+    <div id="divBalanceSheet_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divBalanceSheet_File">
+        <div>
+            <a target="_blank" href="${SH_BalanceSheetFile}">Ver archivo</a>
+        </div>
+    </div>
+
+    <div id="divBalanceSheet_Detail_Form">
+
+        <form class="POBOProviderUpsertForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
+            <div class="POBOBalanceSheetScrollWrapper">
+                @*AQUI ESTAN LOS DATOS BASICOS DEL FORM*@
+                <ul class="POBOBalanceSheet_mainInfo">
+                    <li>
+                        <label>Nombre:</label>
+                        <input id="divBalanceSheet_Detail_Form_FinancialName_${FinancialId}" name="FinancialName" type="text" />
+                    </li>
+                    <li>
+                        <label>Año:</label>
+                        <select id="divBalanceSheet_Detail_Form_SH_Year_${FinancialId}" name="SH_Year">
+                            @for (int i = DateTime.Now.Year; i >= (DateTime.Now.Year - 10); i--)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <input id="divBalanceSheet_Detail_Form_SH_YearId_${FinancialId}" name="SH_YearId" type="hidden" />
+                    </li>
+                    <li>
+                        <label>Doc soporte:</label>
+                        <div id="FileUploadForm">
+                            <div id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileUpload_${FinancialId}">
+                                <a class="POBOBalanceSheetFile" id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileLink_${FinancialId}" target="_blank">Ver archivo</a>
+                                <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFile_${FinancialId}" name="SH_BalanceSheetFile" type="hidden" />
+                                <input id="divBalanceSheet_Detail_Form_SH_BalanceSheetFileId_${FinancialId}" name="SH_BalanceSheetFileId" type="hidden" />
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label>Moneda:</label>
+                        <select id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" name="SH_Currency">
+                            @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
+                            {
+                                <option value="@oItem.ItemId">@oItem.ItemName</option>
+                            }
+                        </select>
+                        <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" name="SH_CurrencyId" type="hidden" />
+                    </li>
+                    <li>
+                        <label>Habilitado:</label>
+                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
+                    </li>
+                </ul>
+                @*AQUI SE INSERTAN LOS CAMPOS DE DATOS FINANCIEROS*@
+                <ul class="POBOBalanceSheet_DetailWrapper">
+                    <li class="POBOBalanceSheet_Detail" id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
+                    </li>
+                </ul>
+                <div class="POBOBalanceSheet_DocPreview">
+                    <iframe></iframe>
+                </div>
+            </div>
+            @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
+            <ul class="POBOProviderActions BalanceSheetActions">
+                <li class="POBOButtonsSaveProvider">
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                </li>
+                <li class="POBOButtonsSaveProvider">
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                </li>
+            </ul>
+            @*MAS ACCIONES*@
+            @*<ul class="POBOProviderActions ProviderActions">
+                <li>
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                </li>
+                <li class="POBOButtonsSaveProvider">
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                </li>
+            </ul>*@
+
+            <div style="display:none;">
+                <input name="FinancialId" type="hidden" value="${FinancialId}" />
+                <input name="UpsertAction" type="hidden" value="true" />
+            </div>
+        </form>        
+    </div>
+    <div id="divBalanceSheet_Detail_ParentAccount">
+        <ul>
+            <li id="divBalanceSheet_Detail_ParentAccount_${AccountId}"></li>
+            <li>
+                <label class="ParentAccount">${AccountName}</label>
+                <span id="divBalanceSheet_Detail_ParentAccount_${AccountId}_Total"></span>
+            </li>
+        </ul>
+    </div>
+    <div id="divBalanceSheet_Detail_ChildAccount">
+            <li>
+                <label>${AccountName}</label>
+                <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+            </li>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    @{
+        //get ContactTypeValues
+        string oProviderOptions = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vProviderOptions = @(Html.Raw(oProviderOptions));
+        $(document).ready(function () {
+            Provider_CompanyFinancialObject.Init({
+                ObjectId: 'divBalanceSheet',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                FinancialType: '@((int)BackOffice.Models.General.enumFinancialType.BalanceSheetInfoType)',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ProviderOptions: vProviderOptions,
+            });
+            Provider_CompanyFinancialObject.RenderAsync();
+        });
+    </script>
+}

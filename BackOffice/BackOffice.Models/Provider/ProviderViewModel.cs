@@ -23,6 +23,7 @@ namespace BackOffice.Models.Provider
                 if (ProviderMenu != null)
                 {
                     return ProviderMenu.
+                                Where(x => x.ChildMenu.Any(y => y.IsSelected && !string.IsNullOrEmpty(y.Url))).
                                 Select(x => x.ChildMenu.
                                     Where(y => y.IsSelected && !string.IsNullOrEmpty(y.Url)).
                                     FirstOrDefault()).
@@ -33,5 +34,7 @@ namespace BackOffice.Models.Provider
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> SearchFilter { get; set; }
     }
 }

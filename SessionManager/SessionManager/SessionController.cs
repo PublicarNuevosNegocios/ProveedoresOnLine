@@ -39,6 +39,18 @@ namespace SessionManager
             }
         }
 
+        public static SessionManager.Models.POLMarketPlace.MarketPlaceUser POLMarketPlace_MarketPlaceUserLogin
+        {
+            get
+            {
+                return (SessionManager.Models.POLMarketPlace.MarketPlaceUser)System.Web.HttpContext.Current.Session[SessionManager.Models.Constants.C_Session_POLMarketPlace_MarketPlaceUserLogin];
+            }
+            set
+            {
+                System.Web.HttpContext.Current.Session[SessionManager.Models.Constants.C_Session_POLMarketPlace_MarketPlaceUserLogin] = value;
+            }
+        }
+
         #endregion
     }
 }

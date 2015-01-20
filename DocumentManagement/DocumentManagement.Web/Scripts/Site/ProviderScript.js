@@ -25,9 +25,6 @@
                     if (oFormParam == null) {
                         oFormParam = "";
                     }
-                    if (oSearchParam != '' || oCustomerParam != '' || oFormParam != '' || oUniqueParam != '') {
-                        options.data.page = 1;
-                    }
 
                     $.ajax({
                         url: BaseUrl.ApiUrl + '/ProviderApi?ProviderSearchVal=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize + '&CustomerPublicId=' + oCustomerParam + '&FormPublicId=' + oFormParam + '&Unique=' + oUniqueParam,
@@ -100,7 +97,7 @@
     $('#' + vidDiv + '_SearchButton').click(function () {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
-    $('#' + cmbCustomer).change(function () {
+    $('#' + cmbCustomer).change(function () {        
         initCmb('Form', cmbCustomer);
     });
 }
@@ -132,8 +129,8 @@ function initCmb(cmbForm, cmbCustomer) {
         success: function (result) {
             $('#' + cmbForm).html('');
             $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
-            for (item in result.RelatedForm) {
-                $('#' + cmbForm).append('<option value="' + result.RelatedForm[item].FormPublicId + '">' + result.RelatedForm[item].Name + '</option>')
+            for (item in result.RelatedForm) {                
+                $('#' + cmbForm).append('<option value="' + result.RelatedForm[0].FormPublicId + '">' + result.RelatedForm[0].Name + '</option>')
             }
         },
         error: function (result) {

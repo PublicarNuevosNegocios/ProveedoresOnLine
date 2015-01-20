@@ -85,8 +85,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Data.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="MySql.Web, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -189,6 +191,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -196,10 +201,12 @@
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\UtilApiController.cs" />
     <Compile Include="ControllersApi\FileApiController.cs" />
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,8 +233,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\arrowSelectedMenuSmall.png" />
+    <Content Include="Content\Images\cerrar.png" />
+    <Content Include="Content\Images\dafaultProvider.png" />
+    <Content Include="Content\Images\Error.png" />
+    <Content Include="Content\Images\Google-plus-icon.png" />
     <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\LogoPOHeader.png" />
+    <Content Include="Content\Images\LogoPOLogInAlpha.png" />
     <Content Include="Content\Images\logoPublicarBN.png" />
+    <Content Include="Content\Images\LogoPublicarFooter.png" />
+    <Content Include="Content\Images\LogoPublicarFooterBlack.png" />
     <Content Include="Content\Images\POBOBackground3Small.jpg" />
     <Content Include="Content\Images\POBOsprite.png" />
     <Content Include="Content\kendo\2014.1.318\Black\editor.png" />
@@ -397,6 +413,7 @@
     <Content Include="Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Content\Styles\Site\POBOAdmin.css" />
     <Content Include="Content\Styles\Site\POBOButtons.css" />
     <Content Include="Content\Styles\Site\POBOCustomer.css" />
     <Content Include="Content\Styles\Site\POBODialogs.css" />
@@ -411,6 +428,7 @@
     <Content Include="Content\Styles\Site\POBOSideFilters.css" />
     <Content Include="Content\Styles\Site\POBOSideMenu.css" />
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
+    <Content Include="Scripts\Site\AdminScripts.js" />
     <Content Include="Scripts\Site\ProviderScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -460,6 +478,8 @@
     <Content Include="fonts\OpenSans-Regular.otf" />
     <Content Include="fonts\OpenSans-Regular.ttf" />
     <Content Include="fonts\OpenSans-Regular.woff" />
+    <None Include="Properties\PublishProfiles\P1.pubxml" />
+    <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Rsx-BackOffice.xml">
@@ -996,18 +1016,38 @@
     <Content Include="Views\Provider\Index.cshtml" />
     <Content Include="Views\Shared\_L_Footer.cshtml" />
     <Content Include="Views\Shared\_L_Header.cshtml" />
-    <Content Include="Views\Provider\ProviderUpsert.cshtml" />
+    <Content Include="Views\Provider\GIProviderUpsert.cshtml" />
     <Content Include="Views\Shared\_P_ProviderMenu.cshtml" />
     <Content Include="Views\Shared\_P_ProviderActions.cshtml" />
-    <Content Include="Views\Provider\CompanyContactUpsert.cshtml" />
-    <Content Include="Views\Provider\CertificationsUpsert.cshtml" />
-    <Content Include="Views\Provider\ChaimberOfCommerceUpsert.cshtml" />
-    <Content Include="Views\Provider\HealtyPoliticUpsert.cshtml" />
-    <Content Include="Views\Provider\RiskPoliciesUpsert.cshtml" />
-    <Content Include="Views\Provider\PersonContactUpsert.cshtml" />
-    <Content Include="Views\Provider\EconomicActivityUpsert.cshtml" />
-    <Content Include="Views\Provider\ExperiencesUpsert.cshtml" />
-    <Content Include="Views\Provider\BranchUpsert.cshtml" />
+    <Content Include="Views\Provider\GICompanyContactUpsert.cshtml" />
+    <Content Include="Views\Provider\HICertificationsUpsert.cshtml" />
+    <Content Include="Views\Provider\LIChaimberOfCommerceUpsert.cshtml" />
+    <Content Include="Views\Provider\HIHealtyPoliticUpsert.cshtml" />
+    <Content Include="Views\Provider\HIRiskPoliciesUpsert.cshtml" />
+    <Content Include="Views\Provider\GIPersonContactUpsert.cshtml" />
+    <Content Include="Views\Provider\CIExperiencesUpsert.cshtml" />
+    <Content Include="Views\Provider\GIBranchUpsert.cshtml" />
+    <Content Include="Views\Provider\GIDistributorUpsert.cshtml" />
+    <Content Include="Views\Shared\_F_FileUpload.cshtml" />
+    <Content Include="Views\Provider\LIRutUpsert.cshtml" />
+    <Content Include="Views\Provider\FIBalanceSheetUpsert.cshtml" />
+    <Content Include="Views\Provider\FIBankUpsert.cshtml" />
+    <Content Include="Views\Provider\FITaxUpsert.cshtml" />
+    <Content Include="Views\Provider\FIIncomeStatementUpsert.cshtml" />
+    <Content Include="Views\Provider\LICIFINUpsert.cshtml" />
+    <Content Include="Views\Provider\LISARLAFTUpsert.cshtml" />
+    <Content Include="Views\Provider\LIResolutionUpsert.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\AdminUserUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminGeoUpsert.cshtml" />
+    <Content Include="Views\Shared\_P_ProviderFilter.cshtml" />
+    <Content Include="Views\Admin\AdminBankUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminCompanyRulesUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminRulesUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminResolutionUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminEcoActivityUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminEcoGroupUpsert.cshtml" />
+    <Content Include="Views\Admin\AdminTreeUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

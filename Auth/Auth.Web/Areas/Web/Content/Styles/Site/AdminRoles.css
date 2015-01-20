@@ -8,7 +8,6 @@
     height: 100px;
     text-align: center;
 }
-
     .AdminRolesHeader label {
         margin: 3.6% 22% 0 auto;
         font-size: 25px;
@@ -17,7 +16,6 @@
         letter-spacing: -0.5px;
         color: #ff8300;
     }
-
     .AdminRolesHeader img {
         float: left;
         height: auto;
@@ -26,40 +24,53 @@
         width: 300px;
         height: auto;
     }
-
 /*************Body*************/
 .AdminRolesBody {
     /*border: 1px solid blue;*/
     width: 100%;
     min-height: 410px;
+    margin:-50px 0px 0px 0px;
 }
-
 div#divGridAutorization {
-    width: 90%;
-    margin-left: 5%;
-    margin-top: 5%;
+    width:99.8%;
+    margin-left:0;
+    margin-top:0;
 }
-
-.OptionsList {
-    list-style: none;
-}
-
-    .OptionsList li {
-        display: inline-block;
-        margin-left: 5%;
+    .OptionsList {
+        margin:0px;
+        padding:0px;
     }
-
-.DMButtonsForm {
-    border: none;
-    width: auto;
-    height: auto;
+        .OptionsList li {
+            margin:6px 0px 0px 0px;
+        }
+        .OptionsList li,
+        .OptionsList li label,
+        .OptionsList li select,
+        .OptionsList li input{
+            display: inline-block !important;
+            width:auto;
+        }
+        .OptionsList li label{
+            font-size:1em !important;
+            margin:0px 0px 0px 10px !important;
+        }
+            .OptionsList li select,
+            .OptionsList li input {
+                border: 1px solid #ececec;
+                font-size: 1em;
+                padding: 3px 10px 3px 3px;
+            }
+input.DMButtonsForm {
     background-color: #ff8300;
+    border: medium none;
+    border-radius: 1px;
     color: #fff;
-    font-size: 1.3em;
-    padding: 3px 38px;
-    margin: 5px 0px 8px -10px;
+    font-size: 1.1em;
+    height: auto;
+    padding: 3px 31px !important;
+    margin:0px 0px 0px 10px;
+    width: auto;
 }
-
 .DMButtonsDeleteForm {
     border: none;
     width: auto;
@@ -69,9 +80,18 @@ div#divGridAutorization {
     padding: 3px 38px;
     background-color: transparent;
 }
-
 th.k-header {
     text-align: center !important;
+}
+/********** AQUI VA EL FORMULARIO DE USUARIO POR ROL ***********/
+
+#AutorizationId label{
+    color: #4d4d4d;
+    display: block;
+    font-size: 1.2em;
+    font-weight: normal;
+    letter-spacing: -0.5px;
+    margin: 0 0 7px 8px;
 }
 
 /**********Validate***************/

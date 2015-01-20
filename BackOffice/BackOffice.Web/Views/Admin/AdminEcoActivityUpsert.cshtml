@@ -1,0 +1,68 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Actividades Económicas Estandar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Administración de las Actividades Económicas</label>
+            <div id="divGridEcoActInfo"></div>
+        </div>
+    </div>
+</div>
+
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+    @{
+
+        //ger CertificationTypeValues
+        string oAdminEcoActivityInfoOptionList = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionAdminAcEco =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oAdminEcoActivityInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionAdminAcEco.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+    var vAdminEcoAclInfoOptionList = @(Html.Raw(oAdminEcoActivityInfoOptionList));
+    var vTreeId = @(Request["TreeId"]);
+        $(document).ready(function () {
+            Admin_CategoryObject.Init({
+                ObjectId: 'divGridEcoActInfo',
+                UtilOptions: vAdminEcoAclInfoOptionList ,
+                CategoryType: 'AdminEcoAcEstandar',
+                TreeId: vTreeId,
+            });
+            Admin_CategoryObject.RenderAsync();
+        });
+    </script>
+}
+

@@ -66,3 +66,23 @@
     border: none;
     font-size: small;
 }
+
+/******** ALERTAAAAAAAAAA **********/
+p.alert {
+      position: absolute;
+    display: block;
+        border:none;
+    color: #0066ae;
+    font-size: 1.2em;
+    margin: 0px;
+    padding: 32px 22px 32px 22px;
+    width: 400px;
+    height: auto;
+    line-height: 18px;
+    z-index: 10;
+    background-color: #fff;
+    letter-spacing: -0.5px;
+    border-radius: 0;
+    top:26%; left:32%;
+    text-align:center;
+}

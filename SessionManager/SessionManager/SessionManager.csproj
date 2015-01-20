@@ -71,6 +71,12 @@
     <Compile Include="Models\Auth\UserInfo.cs" />
     <Compile Include="Models\Auth\UserProvider.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_CatalogModel.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_CompanyModel.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_GenericItemModel.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_GenericItemInfoModel.cs" />
+    <Compile Include="Models\POLMarketPlace\MarketPlaceUser.cs" />
+    <Compile Include="Models\POLMarketPlace\Session_UserCompany.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionController.cs" />
   </ItemGroup>

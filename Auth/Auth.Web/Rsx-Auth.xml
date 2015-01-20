@@ -7,13 +7,40 @@
           <applications>
             <key name="local">https://localhost:44305/,http://localhost:49341/</key>
             <key name="documentmanagement">https://localhost:44306/,http://localhost:16135/</key>
-            <key name="marketplace"></key>
+            <key name="marketplace">https://localhost:44309/,http://localhost:40464/</key>
             <key name="backoffice">https://localhost:44307/,http://localhost:55537/</key>
           </applications>
       ]]>
     </key>
 
     <!--Internal Login-->
+    <key name="IL_local_Enabled">true</key>
+    <key name="IL_local_ApiKey">AIzaSyDAX1BrSL8YIN16DsMEiGINLlvv2xuirV4</key>
+    <key name="IL_local_Service_p12File">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Auth\stgproveedoresonline-efd5ad398b1d.p12</key>
+    <key name="IL_local_Service_Email">529355985464-req3prfqvcmdpmjlo2gqbhv9fvnu11b0@developer.gserviceaccount.com</key>
+    <key name="IL_local_ApiName">App local</key>
+    <key name="IL_local_Cookie">TestCookie</key>
+
+    <key name="IL_documentmanagement_Enabled">false</key>
+    <key name="IL_documentmanagement_ApiKey"></key>
+    <key name="IL_documentmanagement_Service_p12File"></key>
+    <key name="IL_documentmanagement_Service_Email"></key>
+    <key name="IL_documentmanagement_ApiName"></key>
+    <key name="IL_documentmanagement_Cookie"></key>
+
+    <key name="IL_marketplace_Enabled">true</key>
+    <key name="IL_marketplace_ApiKey">AIzaSyDAX1BrSL8YIN16DsMEiGINLlvv2xuirV4</key>
+    <key name="IL_marketplace_Service_p12File">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Auth\stgproveedoresonline-efd5ad398b1d.p12</key>
+    <key name="IL_marketplace_Service_Email">529355985464-req3prfqvcmdpmjlo2gqbhv9fvnu11b0@developer.gserviceaccount.com</key>
+    <key name="IL_marketplace_ApiName">STG Proveedores OnLine</key>
+    <key name="IL_marketplace_Cookie">GitKitCookie</key>
+
+    <key name="IL_backoffice_Enabled">false</key>
+    <key name="IL_backoffice_ApiKey"></key>
+    <key name="IL_backoffice_Service_p12File"></key>
+    <key name="IL_backoffice_Service_Email"></key>
+    <key name="IL_backoffice_ApiName"></key>
+    <key name="IL_backoffice_Cookie"></key>
 
     <!--Facebook-->
     <key name="FB_local_Enabled">true</key>

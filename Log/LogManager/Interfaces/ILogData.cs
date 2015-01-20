@@ -12,6 +12,10 @@ namespace LogManager.Interfaces
 
         void LogInfoCreate(int LogId, string LogInfoType, string Value);
 
-        List<LogManager.Models.LogModel> LogSearch(string LogInfoType,string Value);
+        List<LogManager.Models.LogModel> LogSearch(string LogInfoType, string Value);
+
+        void FileUploadCreate(string Url);
+
+        void FileUsedCreate(string Url);
     }
 }

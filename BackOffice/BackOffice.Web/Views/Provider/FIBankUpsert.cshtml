@@ -1,0 +1,88 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Información Financiera";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Información Bancaria.</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridBankInfo"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridBankInfo_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridBankInfo_File">
+        <div>
+            <a target="_blank" href="${Url_File}">Ver archivo</a>
+        </div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    @{
+        //get BankInfoTypeValues
+        string oBankInfoOptionList = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionBankInfo =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oBankInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionBankInfo.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vBankInfoOptionList = @(Html.Raw(oBankInfoOptionList));
+        $(document).ready(function () {
+            Provider_CompanyFinancialObject.Init({
+                ObjectId: 'divGridBankInfo',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                FinancialType: '@((int)BackOffice.Models.General.enumFinancialType.BankInfoType)',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ProviderOptions: vBankInfoOptionList,
+            });
+            Provider_CompanyFinancialObject.RenderAsync();
+        });
+    </script>
+}

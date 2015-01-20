@@ -30,7 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ProveedoresOnLine.Company">
+    <Reference Include="ProveedoresOnLine.Company, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
     <Reference Include="ProveedoresOnLine.CompanyCustomer">
@@ -54,14 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AdminViewModel.cs" />
+    <Compile Include="Admin\AdminCategoryViewModel.cs" />
     <Compile Include="General\Constants.cs" />
+    <Compile Include="General\EconomicActivityViewModel.cs" />
     <Compile Include="General\Enumerations.cs" />
     <Compile Include="General\FileUploadModel.cs" />
     <Compile Include="General\InternalSettings.cs" />
     <Compile Include="General\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="General\GenericMenu.cs" />
+    <Compile Include="Provider\ProviderBalanceSheetViewModel.cs" />
+    <Compile Include="Provider\ProviderFinancialViewModel.cs" />
+    <Compile Include="Provider\ProviderCommercialViewModel.cs" />
+    <Compile Include="Provider\ProviderLegalViewModel.cs" />
     <Compile Include="Provider\ProviderContactViewModel.cs" />
+    <Compile Include="Provider\ProviderHSEQViewModel.cs" />
+    <Compile Include="Provider\ProviderSearchViewModel.cs" />
     <Compile Include="Provider\ProviderViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

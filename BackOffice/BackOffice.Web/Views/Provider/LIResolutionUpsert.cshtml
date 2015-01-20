@@ -1,0 +1,94 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Información Legal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Resoluciones</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <div id="divGridLegalInfo"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+    <div id="divGridLegalInfo_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
+        </div>
+    </div>
+    <div id="divGridLegalInfo_File">
+        <div>
+            <a target="_blank" href="${R_RUTFile}">Ver archivo</a>
+        </div>
+    </div>    
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model);
+
+    @{
+
+        //ger CertificationTypeValues
+        string oLegalInfoOptionList = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionCertification =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oLegalInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionCertification.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+        var oLegalId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.FirstOrDefault().ItemId : 0;
+    }
+
+    <script type="text/javascript">
+        var vLegalInfoOptionList = @(Html.Raw(oLegalInfoOptionList));
+        var vLegalId = @oLegalId;
+
+        $(document).ready(function () {
+            Provider_LegalInfoObject.Init({
+                ObjectId: 'divGridLegalInfo',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.Resoluciones)',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ChaimberOfComerceOptionList: vLegalInfoOptionList,
+                LegalId: vLegalId,
+            });
+            Provider_LegalInfoObject.RenderAsync();
+        });
+    </script>
+}
+

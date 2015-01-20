@@ -1,0 +1,71 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Información General";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <label class="POBOSectionTitles">Sucursales</label>
+        @{
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+        <div id="divGridBranch"></div>
+        <br />
+        @{
+            Model.IsForm = false;
+            Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+        }
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    @{
+        //get ContactTypeValues
+        string oProviderOptions = "[]";
+        if (Model.ProviderOptions != null &&
+            Model.ProviderOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionContact =
+                Model.ProviderOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProviderOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oProviderOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionContact.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
+    <script type="text/javascript">
+        var vProviderOptions = @(Html.Raw(oProviderOptions));
+        $(document).ready(function () {
+            Provider_CompanyContactObject.Init({
+                ObjectId: 'divGridBranch',
+                ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.Brach)',
+                ProviderOptions: vProviderOptions,
+            });
+            Provider_CompanyContactObject.RenderAsync();
+        });
+    </script>
+}

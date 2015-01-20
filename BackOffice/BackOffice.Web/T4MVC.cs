@@ -25,6 +25,7 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    public static BackOffice.Web.Controllers.AdminController Admin = new BackOffice.Web.Controllers.T4MVC_AdminController();
     public static BackOffice.Web.Controllers.BaseController Base = new BackOffice.Web.Controllers.T4MVC_BaseController();
     public static BackOffice.Web.Controllers.HomeController Home = new BackOffice.Web.Controllers.T4MVC_HomeController();
     public static BackOffice.Web.Controllers.ProviderController Provider = new BackOffice.Web.Controllers.T4MVC_ProviderController();
@@ -46,21 +47,6 @@ namespace T4MVC
 }
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-internal partial class T4MVC_System_Web_Mvc_FileResult : System.Web.Mvc.FileResult, IT4MVCActionResult
-{
-    public T4MVC_System_Web_Mvc_FileResult(string area, string controller, string action, string protocol = null): base(" ")
-    {
-        this.InitMVCT4Result(area, controller, action, protocol);
-    }
-     
-    protected override void WriteFile(System.Web.HttpResponseBase response) { }
-    
-    public string Controller { get; set; }
-    public string Action { get; set; }
-    public string Protocol { get; set; }
-    public RouteValueDictionary RouteValueDictionary { get; set; }
-}
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult
 {
     public T4MVC_System_Web_Mvc_ActionResult(string area, string controller, string action, string protocol = null): base()
@@ -69,6 +55,21 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     }
      
     public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_FileResult : System.Web.Mvc.FileResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_FileResult(string area, string controller, string action, string protocol = null): base(" ")
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
+     
+    protected override void WriteFile(System.Web.HttpResponseBase response) { }
     
     public string Controller { get; set; }
     public string Action { get; set; }
@@ -618,6 +619,7 @@ namespace Links
             private const string URLPATH = "~/Scripts/Site";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string AdminScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AdminScripts.min.js") ? Url("AdminScripts.min.js") : Url("AdminScripts.js");
             public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
             public static readonly string ProviderScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProviderScripts.min.js") ? Url("ProviderScripts.min.js") : Url("ProviderScripts.js");
         }
@@ -642,8 +644,17 @@ namespace Links
             private const string URLPATH = "~/Content/Images";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
+            public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string dafaultProvider_png = Url("dafaultProvider.png");
+            public static readonly string Error_png = Url("Error.png");
+            public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
             public static readonly string logo_png = Url("logo.png");
+            public static readonly string LogoPOHeader_png = Url("LogoPOHeader.png");
+            public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
             public static readonly string logoPublicarBN_png = Url("logoPublicarBN.png");
+            public static readonly string LogoPublicarFooter_png = Url("LogoPublicarFooter.png");
+            public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
             public static readonly string POBOBackground3Small_jpg = Url("POBOBackground3Small.jpg");
             public static readonly string POBOsprite_png = Url("POBOsprite.png");
         }
@@ -932,6 +943,8 @@ namespace Links
                 private const string URLPATH = "~/Content/Styles/Site";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string POBOAdmin_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOAdmin.min.css") ? Url("POBOAdmin.min.css") : Url("POBOAdmin.css");
+                     
                 public static readonly string POBOButtons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOButtons.min.css") ? Url("POBOButtons.min.css") : Url("POBOButtons.css");
                      
                 public static readonly string POBOCustomer_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOCustomer.min.css") ? Url("POBOCustomer.min.css") : Url("POBOCustomer.css");
@@ -941,6 +954,8 @@ namespace Links
                 public static readonly string POBOFooter_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOFooter.min.css") ? Url("POBOFooter.min.css") : Url("POBOFooter.css");
                      
                 public static readonly string POBOForms_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOForms.min.css") ? Url("POBOForms.min.css") : Url("POBOForms.css");
+                     
+                public static readonly string POBOGrids_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOGrids.min.css") ? Url("POBOGrids.min.css") : Url("POBOGrids.css");
                      
                 public static readonly string POBOHeader_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOHeader.min.css") ? Url("POBOHeader.min.css") : Url("POBOHeader.css");
                      
