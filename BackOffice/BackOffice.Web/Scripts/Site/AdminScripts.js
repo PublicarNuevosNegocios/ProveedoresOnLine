@@ -127,7 +127,7 @@
                         });
                     },
                     create: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -216,7 +216,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
+                                    
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
@@ -419,14 +419,14 @@
                         dataTextField: 'ItemName',
 
                         change: function (e) {
-                            debugger;
+                            
                             if (isSelected == false) {                                
                                 options.model['B_Bank'] = e.sender._old;
                                 options.model.dirty = true;
                             }
                         },
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
 
                             isSelected = true;
@@ -442,7 +442,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
+                                    
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
@@ -489,7 +489,7 @@
                         dataTextField: 'GIT_Country',
 
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['B_CityId'] = selectedItem.GIT_CountryId;
@@ -887,7 +887,7 @@
                         });
                     },
                     create: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -906,7 +906,7 @@
                         });
                     },
                     update: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -1068,7 +1068,7 @@
                     input.kendoAutoComplete({
                         dataTextField: 'G_Group',
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name                            
                             options.model['ECS_Group'] = selectedItem.G_GroupId;
