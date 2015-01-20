@@ -18,7 +18,7 @@ namespace BackOffice.Models.General
             {
                 return CurrentLoginUser.
                             RelatedApplicationRole.
-                            Any(x => x.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement);
+                            Any(x => x.Application == SessionManager.Models.Auth.enumApplication.Backoffice);
             }
         }
     }
