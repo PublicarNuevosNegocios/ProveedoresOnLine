@@ -11,8 +11,8 @@
 /****************Logo*******************/
 .POMPLogo{
     display: inline-block;
-    width:222px;
-    height: 72px;
+    width:auto;
+    height:85px;
     vertical-align: top;
     margin:9px 0px 4px 14px;
         border:none;

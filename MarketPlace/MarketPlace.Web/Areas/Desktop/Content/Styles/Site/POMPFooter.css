@@ -12,6 +12,10 @@
             text-align:right;
             background-color:#b3b3b3;
         }
+            .POMPFooterLogos img:first-child {
+                width:auto; height:57px;
+                float:left; left:12px; top:8px;
+            }
             .POMPFooterLogos img{
                 position:relative;
                 width:auto;
