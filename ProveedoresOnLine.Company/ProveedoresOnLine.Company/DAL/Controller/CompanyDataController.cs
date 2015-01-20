@@ -151,6 +151,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CategorySearchByTreeAdmin(SearchParam, PageNumber, RowCount);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
+        {
+            return DataFactory.CurrentExchangeGetAllAdmin();
+        }
         #endregion
 
         #region Company CRUD
@@ -238,6 +243,5 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
-
     }
 }

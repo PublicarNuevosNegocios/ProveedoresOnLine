@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Provider.ProviderViewModel
 
 @{
-    ViewBag.Title = "RUT";
+    ViewBag.Title = "Usuarios";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     //Model.RenderScripts = false;
@@ -14,7 +14,7 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Registro único tributario</label>
+            <label class="POBOSectionTitles">Administración de Usuarios</label>
             <iframe class="POBOAdminIframe" src="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_AdminRoles].Value)"></iframe>
             <div id="divGridLegalInfo"></div>
         </div>

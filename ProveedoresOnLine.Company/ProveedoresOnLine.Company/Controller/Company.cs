@@ -288,6 +288,12 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByTreeAdmin(SearchParam, PageNumber, RowCount);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
+        {
+            return DAL.Controller.CompanyDataController.Instance.CurrentExchangeGetAllAdmin();
+        }
+
         #endregion
 
         #region Company CRUD
