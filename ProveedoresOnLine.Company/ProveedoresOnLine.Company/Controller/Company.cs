@@ -293,9 +293,9 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.CurrentExchangeGetAllAdmin();
         }
-        public static int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate)
+        public static int CurrencyExchangeInsert(ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel CurrencyExchange)
         {
-            return DAL.Controller.CompanyDataController.Instance.CurrencyExchangeInsert(IssueDate, MoneyTypeFrom, MoneyTypeTo, Rate);
+            return DAL.Controller.CompanyDataController.Instance.CurrencyExchangeInsert(CurrencyExchange.IssueDate, CurrencyExchange.MoneyTypeFrom.ItemId, CurrencyExchange.MoneyTypeTo.ItemId, CurrencyExchange.Rate);
         }
 
         #endregion
