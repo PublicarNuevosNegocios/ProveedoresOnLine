@@ -89,6 +89,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
             public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
             public readonly string AdminTreeUpsert = "AdminTreeUpsert";
+            public readonly string AdminTRMUpsert = "AdminTRMUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -104,6 +105,7 @@ namespace BackOffice.Web.Controllers
             public const string AdminEcoActivityUpsert = "AdminEcoActivityUpsert";
             public const string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
             public const string AdminTreeUpsert = "AdminTreeUpsert";
+            public const string AdminTRMUpsert = "AdminTRMUpsert";
         }
 
 
@@ -133,6 +135,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
+                public readonly string AdminTRMUpsert_ = "AdminTRMUpsert ";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
             }
@@ -144,6 +147,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Admin/AdminTreeUpsert.cshtml";
+            public readonly string AdminTRMUpsert_ = "~/Views/Admin/AdminTRMUpsert .cshtml";
             public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
         }
@@ -262,6 +266,17 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminTreeUpsert);
             AdminTreeUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminTRMUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminTRMUpsert()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminTRMUpsert);
+            AdminTRMUpsertOverride(callInfo);
             return callInfo;
         }
 

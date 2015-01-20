@@ -131,6 +131,17 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminTRMUpsert()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+              {
+                  ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+              };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -273,14 +284,14 @@ namespace BackOffice.Web.Controllers
             //TRM
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "TRM",
+                Name = "TRM",                
                 Url = Url.Action
-                    (MVC.Provider.ActionNames.GICompanyContactUpsert,
-                    MVC.Provider.Name),
+                    (MVC.Admin.ActionNames.AdminTRMUpsert,
+                    MVC.Admin.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactUpsert &&
-                    oCurrentController == MVC.Provider.Name),
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminTRMUpsert &&
+                    oCurrentController == MVC.Admin.Name),
             });
 
             //add menu
