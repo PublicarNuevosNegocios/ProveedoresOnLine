@@ -14,16 +14,7 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Administración de Maestras</label>
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
             <div id="divGridTreeInfo"></div>
-            <br />
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
         </div>
     </div>
 </div>
