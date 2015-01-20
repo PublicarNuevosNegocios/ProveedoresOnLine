@@ -1,0 +1,124 @@
+.POMPButtons, .POMPSearchButtons{
+    background-color:#ff8300;    
+    font-size:1.1em;
+    letter-spacing:-0.5px;
+    color:#fff;
+}
+.POMPButtons {
+    display: block;
+    margin: 0;
+    padding:5px 30px;
+}
+.POMPSearchButtons {
+    text-transform:uppercase;
+    background-image:url(../../Images/POMPsprite.png);
+    background-position:-246px 1px;
+    background-size:522px auto;
+    background-repeat:no-repeat;
+    padding:5px 31px 5px 10px;
+    margin:0px 0px 0px -5px;
+}
+    .POMPButtons:hover, .POMPSearchButtons:hover{
+        background-color:#ffb362;
+        text-decoration:underline;
+        color:#fff;
+    }
+/************* BOTONES SIGUIENTE ANTERIOR *************/
+    .POMPProgressButtons, .POMPProgressButtons:hover{
+        font-size:1.1em;
+        letter-spacing:-0.5px;
+        color:#4d4d4d;
+        border:1px solid #ff8300;
+        padding:5px 30px;
+        margin:0px 0px 0px 8px;
+    }
+        .POMPProgressButtons {
+            background-color:#f9f9f9;
+            display:inline-block;
+        }
+            .POMPProgressButtons:hover {
+                background-color: #e6e6e6;
+            }        
+.POMPProviderActions{
+    background-color: #fff;
+        border:none;
+    display: block;
+    height: 34px;
+    margin:0px 0 12px !important;
+    padding: 0;
+    width:auto !important;
+}
+.POMPProviderActions li {
+    margin:0 !important;
+    display: inline-block;
+    list-style-type: none;
+    width:auto !important;
+}
+    li.POMPButtonsSaveProvider {
+        float: right;
+        margin:0px 1% 0px 0px !important;
+    }
+    li.POMPButtonsSaveProvider a.POMPButtons{
+        padding:6px 30px !important;
+    }
+/************* ESTOS SON LOS BOTONES E InPUTS DE LAS GRILLAS ***************/
+/********************** BOTON GUARDAR *********************/
+.k-grid-save-changes {
+    background-color:#ff8300 !important;
+    border-radius:2px !important;
+    border:1px solid #727276 !important;
+    background-image:none !important;
+    color:#fff !important;
+}
+    .k-grid-save-changes:hover {
+        background-color:#ff8300 !important;
+        border-radius:1.5px !important;
+        border:1px solid #666 !important;
+        background-image:none !important;
+        color:#fff !important;
+    }
+/********* BOTON PARA LA CARGA DE ARCHIVOS DENTRO DE LA GRILLA *********/
+.k-grid tbody .k-button{
+        background-color:#f9f9f9;        
+        font-size:1.1em;
+        letter-spacing:-0.5px;
+        color:#4d4d4d;
+        border:1px solid #ff8300;
+        padding: 0 12px;
+        margin:0px 0px 0px 8px;
+        border-radius: 1px;
+        background-image:none;
+}
+    .k-grid tbody .k-button:hover,
+    .k-grid tbody .k-button:active{
+        background-color: #e6e6e6;
+        background-image:none;
+    }
+    .k-upload {
+        background-color: #fff;
+        border-radius: 1px;
+        padding: 0 0 4px;
+        border-left:0!important;
+        border-right:0!important;
+    }
+    .k-grid, .k-edit-cell {
+        padding:0px !important;
+        margin: 4px 0 0 7px !important;
+    }
+    .k-file, .k-file-error{
+        width:95% !important;
+    }
+        .k-filename {
+            font-size: 0.8em;
+        }
+        button.k-button, .k-button-bare{
+            min-width:0px !important;
+        }
+        .k-button-bare, .k-upload-action {
+            border:none !important;
+        }
+
+.k-upload-status .k-button, .k-upload-status .k-warning {
+    vertical-align: middle !important;
+}
+/***********************/

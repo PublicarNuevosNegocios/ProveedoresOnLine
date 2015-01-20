@@ -1,5 +1,5 @@
 /*****************UserInfo************************/
-.POBOHeaderWrapper {
+.POMPHeaderWrapper {
     display:block;
     width: 100%;
     min-width:1024px;
@@ -9,55 +9,51 @@
     border-bottom:2px solid #ff8300;
 }
 /****************Logo*******************/
-.POBOLogo{
+.POMPLogo{
     display: inline-block;
-    width:222px;
-    height: 72px;
+    width:auto;
+    height:85px;
     vertical-align: top;
     margin:9px 0px 4px 14px;
-    background-image:url(../../Images/POBOsprite.png);
-    background-size:473px auto;
-    background-position:-3px -43px;
-    background-repeat:no-repeat;
         border:none;
 }
 /*************** USER MENU ***************/
-.POBOMenusGrandWrapper {
+.POMPMenusGrandWrapper {
         border:none;
     float: right;
     margin: 2px 0 0 2px;
     text-align: right;
 }
-.POBOUserMenu {
+.POMPUserMenu {
         border:none;
     width:auto; height:auto;
     display:block;
     padding:0px 8px 0px 0px;
 }
-    .POBOUserMenu img{
+    .POMPUserMenu img{
         width: 22px;
         height: 22px;
         border:0.7px solid #4d4d4d;
         vertical-align:top;
     }
-    .POBOUserMenu label{
+    .POMPUserMenu label{
         line-height:12px;
         color:#666;
         font-weight:normal;
         vertical-align:top;
         margin: 5px 0 0;
     }
-    .POBOUserMenu div{
+    .POMPUserMenu div{
         display:inline-block;
         width:22px; height:22px;
-        background-image:url(../../Images/POBOsprite.png);
+        background-image:url(../../Images/POMPsprite.png);
         background-size:470px auto;
         background-position:-245px -3px;
         background-repeat:no-repeat;
         vertical-align:top;
         margin: 0 0 0 6px;
     }
-.POBOUserMenuOptions{
+.POMPUserMenuOptions{
     background-color: #f5f5f5;
     border: 1px solid #ececec;
     height: auto;
@@ -69,32 +65,32 @@
     width: auto;
     z-index: 5;
 }
-    .POBOUserMenuOptions ul{
+    .POMPUserMenuOptions ul{
         margin:0px !important;
         padding:0 !important;
     }
-    .POBOUserMenuOptions ul li{
+    .POMPUserMenuOptions ul li{
             border-top:1px solid #3f3f3f;
         display: block;
         margin:0px;
         text-align:left;
         min-width:140px;
     }
-        .POBOUserMenuOptions ul li:first-child {
+        .POMPUserMenuOptions ul li:first-child {
             border-top:none;
         }
-        .POBOUserMenuOptions ul li:hover{
+        .POMPUserMenuOptions ul li:hover{
             background-color:#ececec;
             cursor:pointer;
         }
-        .POBOUserMenuOptions ul li a,
-        .POBOUserMenuOptions ul li a:hover{
+        .POMPUserMenuOptions ul li a,
+        .POMPUserMenuOptions ul li a:hover{
             margin:0px 0px 0px 8px;
             color:#666;
             text-decoration:none;
         }
 /*************** MAIN MENU *************/
-.POBOMainMenuWrapper {
+.POMPMainMenuWrapper {
         border:none;
     height:auto;
     margin:18px 0px 0px 0px;
@@ -102,7 +98,7 @@
     width: auto;
     padding:0;
 }
-    .POBOMainMenuWrapper li{
+    .POMPMainMenuWrapper li{
         display:inline-block;
         padding:0px;
         text-align:center;            
@@ -110,18 +106,18 @@
         height:38px;
         vertical-align:top;
     }
-    .POBOMainMenuWrapper li a{
+    .POMPMainMenuWrapper li a{
             border:none;
         color: #666;
         display: inline-block;
         font-size: 1em;
         height: 28px;
         margin: 7px 0;
-        padding: 0 5px;
+            padding: 0 5px;
         vertical-align: bottom;
         letter-spacing:-0.4px;
     }
-        .POBOMainMenuWrapper li a:hover, .POBOMainMenuWrapper li a.selected{
+        .POMPMainMenuWrapper li a:hover, .POMPMainMenuWrapper li a.selected{
             text-decoration:none;
             border-bottom:8px solid #ff8300;
         }

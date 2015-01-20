@@ -13,17 +13,17 @@
 </head>
 <body>
 
-    <div>
+    <div class="POMPRenderHeader">
         <!--Render header-->
         @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Header)
     </div>
 
-    <div>
+    <div class="POMPRenderBody">
         <!--Render body-->
         @RenderBody()
     </div>
 
-    <div>
+    <div id="POMPRenderFooter" class="POMPRenderFooter">
         <!--Render footer-->
         @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
     </div>
