@@ -1090,6 +1090,48 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             return oReturn;
         }
+
+        public List<CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_CurrentExchange_GetAllAdmin",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<CurrencyExchangeModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ce in response.DataTableResult.AsEnumerable()
+                     where !ce.IsNull("CurrencyExchangeId")
+                     select new CurrencyExchangeModel()
+                     {
+                         CurrencyExchangeId = ce.Field<int>("CurrencyExchangeId"),
+                         IssueDate = ce.Field<DateTime>("IssueDate"),
+                         MoneyTypeFrom = new CatalogModel()
+                         {
+                             ItemId = ce.Field<int>("MoneyTypeFromId"),
+                             ItemName = ce.Field<string>("MoneyTypeFromName"),
+                         },
+                         MoneyTypeTo = new CatalogModel()
+                         {
+                             ItemId = ce.Field<int>("MoneyTypeToId"),
+                             ItemName = ce.Field<string>("MoneyTypeToName"),
+                         },
+                         Rate = ce.Field<decimal>("Rate"),
+                         LastModify = ce.Field<DateTime>("LastModify"),
+                         CreateDate = ce.Field<DateTime>("CreateDate"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
 
         #region Company CRUD
