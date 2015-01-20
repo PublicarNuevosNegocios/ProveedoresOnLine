@@ -344,6 +344,24 @@ namespace BackOffice.Web.Controllers
                 });
             }
 
+            //eval redirect url
+            if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                Request["StepAction"].ToLower().Trim() == "next" &&
+                oModel.CurrentSubMenu != null &&
+                oModel.CurrentSubMenu.NextMenu != null &&
+                !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+            {
+                return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+            }
+            else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                Request["StepAction"].ToLower().Trim() == "last" &&
+                oModel.CurrentSubMenu != null &&
+                oModel.CurrentSubMenu.LastMenu != null &&
+                !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+            {
+                return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+            }
+
             return View(oModel);
         }
 

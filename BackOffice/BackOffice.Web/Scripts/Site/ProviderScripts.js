@@ -9,7 +9,8 @@ function Provider_InitMenu(InitObject) {
 
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
-    if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
+    debugger;
+    if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {        
         $('#StepAction').val(SubmitObject.StepValue);
     }
     $('#' + SubmitObject.FormId).submit();

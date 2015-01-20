@@ -15,7 +15,15 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Administración de las Actividades Económicas</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
             <div id="divGridEcoActInfo"></div>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
         </div>
     </div>
 </div>

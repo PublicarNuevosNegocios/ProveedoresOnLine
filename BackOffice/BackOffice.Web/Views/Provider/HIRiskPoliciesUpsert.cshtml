@@ -17,9 +17,6 @@
         <div class="POBOProviderUpsertForm" id="divRiskPoliciesContent">
             <label class="POBOSectionTitles">Sistema de riesgos laborales</label>
             @{
-                Model.IsForm = true;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-
                 var SystemOccupationalHazards = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
                         Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
                             Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
@@ -49,6 +46,10 @@
                     Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
                         Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
                             Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+            }
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <form id="frmProviderUpsert" method="post" action="@(Url.Action
                 (MVC.Provider.ActionNames.HIRiskPoliciesUpsert,
