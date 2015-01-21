@@ -19,7 +19,7 @@
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
-            <div id="divGridGeoInfo"></div>           
+            <div id="divGridGeoInfo"></div>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
@@ -60,7 +60,7 @@
     }
 
     <script type="text/javascript">
-        var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList));        
+        var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList))        
 
         $(document).ready(function () {
             Admin_CategoryObject.Init({

@@ -129,5 +129,24 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         }
 
         #endregion
+
+        #region MarketPlace
+
+        public List<Models.Provider.ProviderModel> MPProviderSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.MPProviderSearch(CustomerPublicId, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
+        }
+
+        public List<Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
+        {
+            return DataFactory.MPProviderSearchFilter(CustomerPublicId, SearchParam, SearchFilter);
+        }
+
+        public List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
+        {
+            return DataFactory.MPProviderSearchById(CustomerPublicId, lstProviderPublicId);
+        }
+
+        #endregion
     }
 }

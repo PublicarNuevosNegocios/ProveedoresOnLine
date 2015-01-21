@@ -41,5 +41,14 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
         public List<BlackListModel> RelatedBlackList { get; set; }
 
         #endregion
+
+        #region Related Customer Info
+
+        /// <summary>
+        /// CustomerPublicId,CustomerProviderInfo
+        /// </summary>
+        public Dictionary<string, ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedCustomerInfo { get; set; }
+
+        #endregion
     }
 }
