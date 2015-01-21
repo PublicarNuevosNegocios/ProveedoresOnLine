@@ -356,4 +356,15 @@
     }
 
     #endregion
+
+    #region ProviderCustomer
+
+    public enum enumProviderCustomerType
+    {
+        InternalMonitoring = 901001,
+        CustomerMonitoring = 901002,
+        RateCustomer = 901003,
+    }
+
+    #endregion
 }

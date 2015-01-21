@@ -59,14 +59,13 @@
     <script type="text/javascript">
         var vProviderOptions = @(Html.Raw(oProviderOptions));
         $(document).ready(function () {
-            @*Provider_CompanyCommercialObject.Init({
+            Provider_CustomerInfoObject.Init({
                 ObjectId: 'divCustomerProviderStatus',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                CommercialType: '@((int)BackOffice.Models.General.enumCommercialType.Experience)',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ProviderCustomerInfoType: '@((int)BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring)',
                 ProviderOptions: vProviderOptions,
             });
-            Provider_CompanyCommercialObject.RenderAsync();*@
+            Provider_CustomerInfoObject.RenderAsync();
         });
     </script>
 }
