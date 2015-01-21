@@ -89,6 +89,12 @@
     <Reference Include="ProveedoresOnLine.Company">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyCustomer">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyCustomer\developer\ProveedoresOnLine.CompanyCustomer.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyProvider">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -921,6 +927,10 @@
     <Content Include="Areas\Desktop\Views\Provider\LICIFINInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\LISARLAFTInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\LIResolutionInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderSearch_Filter.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderSearch_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderSearch_Comparison.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderSearch_Result_Item.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />

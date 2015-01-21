@@ -8,9 +8,66 @@ namespace MarketPlace.Web.Controllers
 {
     public partial class ProviderController : BaseController
     {
-        public virtual ActionResult Index()
+        public virtual ActionResult Index
+            (string SearchParam,
+            string SearchFilter,
+            string SearchOrderType,
+            string OrderOrientation,
+            string PageNumber)
         {
-            return View();
+            MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
+
+            if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            {
+
+                //get basic search model
+                oModel = new Models.Provider.ProviderSearchViewModel()
+                {
+                    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                    SearchParam = SearchParam,
+                    SearchFilter = SearchFilter,
+                    SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSearchOrderType.Relevance : (MarketPlace.Models.General.enumSearchOrderType)Convert.ToInt32(SearchOrderType),
+                    OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : (OrderOrientation.Trim().ToLower() == "true"),
+                    PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
+                    ProviderSearchResult = new List<Models.Provider.ProviderLiteViewModel>(),
+                };
+
+                //search providers
+                int oTotalRowsAux;
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearch
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    oModel.SearchParam,
+                    oModel.SearchFilter,
+                    (int)oModel.SearchOrderType,
+                    oModel.OrderOrientation,
+                    oModel.PageNumber,
+                    oModel.RowCount,
+                    out oTotalRowsAux);
+
+                oModel.TotalRows = oTotalRowsAux;
+                oModel.ProviderFilterResult =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    oModel.SearchParam,
+                    oModel.SearchFilter);
+
+                //parse view model
+                if (oProviderResult != null && oProviderResult.Count > 0)
+                {
+                    oProviderResult.All(prv =>
+                    {
+                        oModel.ProviderSearchResult.Add
+                            (new MarketPlace.Models.Provider.ProviderLiteViewModel(prv));
+
+                        return true;
+                    });
+
+                }
+            }
+
+            return View(oModel);
         }
 
         #region General Info
