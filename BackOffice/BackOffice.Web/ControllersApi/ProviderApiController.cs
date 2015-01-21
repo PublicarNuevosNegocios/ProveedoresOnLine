@@ -2057,5 +2057,40 @@ namespace BackOffice.Web.ControllersApi
         }
 
         #endregion
+
+        #region Customer Provider
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderStatus
+        (string CPCustomerProviderStatus,
+            string ProviderPublicId)
+        {
+            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+
+            if (CPCustomerProviderStatus == "true")
+            {
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId);
+
+                if (oCustomerByProvider != null)
+                {
+                    oCustomerByProvider.All(x =>
+                        {
+                            oReturn.Add(new BackOffice.Models.Provider.ProviderCustomerViewModel
+                                (x.RelatedProvider.Select(y => y.CustomerProviderId).FirstOrDefault().ToString()
+                                , x.RelatedProvider.Select(y => y.RelatedProvider).FirstOrDefault()
+                                , x.RelatedProvider.Select(y => y.Status).FirstOrDefault()
+                                , x.RelatedProvider.Select(y => y.Enable).FirstOrDefault()
+                                ));
+                                return true;
+                        });
+                }
+            }
+            
+            return oReturn;
+        }
+
+        #endregion
     }
 }

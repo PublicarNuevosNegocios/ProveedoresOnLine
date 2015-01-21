@@ -10,7 +10,7 @@ function Provider_InitMenu(InitObject) {
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
     debugger;
-    if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {        
+    if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
     $('#' + SubmitObject.FormId).submit();
@@ -4885,6 +4885,133 @@ var Provider_LegalInfoObject = {
         });
     },
 
+}
+
+var Provider_CustomerInfoObject = {
+
+    ObjectId: '',
+    ProviderPublicId: '',
+    ProviderCustomerInfoType: '',
+    ProviderOptions: new Array(),
+
+    Init: function (vInitiObject) {
+        this.ObjectId = vInitiObject.ObjectId;
+        this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.ProviderCustomerInfoType = vInitiObject.ProviderCustomerInfoType;
+        $.each(vInitiObject.ProviderOptions, function (item, value) {
+            Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
+        });
+        debugger;
+    },
+
+    RenderAsync: function () {
+        debugger;
+        if (Provider_CustomerInfoObject.ProviderCustomerInfoType == 901001) {
+            Provider_CustomerInfoObject.RenderCustomerByProvider();
+        }
+    },
+
+    RenderCustomerByProvider: function () {
+        $('#' + Provider_CustomerInfoObject.ObjectId).kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            selectable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+            ],
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            },
+                        });
+                    },
+                },
+            },
+            change: function (e) {
+                var selectedRows = this.select();
+                for (var i = 0; i < selectedRows.length; i++) {
+                    debugger;
+                    Provider_CustomerInfoObject.RenderCustomerByProviderDetail(this.dataItem(selectedRows[i]));
+                }
+            },
+            columns: [{
+                field: 'ProviderCustomerId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'RelatedCompany.CompanyName',
+                title: 'Comprador',
+                width: '100px',
+            }, {
+                field: 'RelatedStatus.ItemName',
+                title: 'Estado',
+                width: '100px',
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+            }],
+        });
+    },
+
+    RenderCustomerByProviderDetail: function (oCustomerProviderId) {
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            selectable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+            ],
+            dataSource: {
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderDetail=true&CustomerProviderId=' + oCustomerProviderId,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            },
+                        });
+                    },
+                },
+            },
+
+            columns: [{
+                field: 'ProviderCustomerId',
+                title: 'Id',
+                width: '50px',
+            }, {
+                field: 'RelatedCompany.CompanyName',
+                title: 'Comprador',
+                width: '100px',
+            }, {
+                field: 'RelatedStatus.ItemName',
+                title: 'Estado',
+                width: '100px',
+            }, {
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+            }],
+        });
+    },
 }
 
 /*Message*/

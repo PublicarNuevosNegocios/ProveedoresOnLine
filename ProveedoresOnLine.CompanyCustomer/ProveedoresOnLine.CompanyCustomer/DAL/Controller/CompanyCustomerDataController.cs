@@ -52,6 +52,11 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
             return DataFactory.GetCustomerByProvider(ProviderPublicId);
         }
 
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
+        {
+            return DataFactory.GetCustomerInfoByProvider(CustomerProviderId);
+        }
+
         #endregion
 
         #region Survey

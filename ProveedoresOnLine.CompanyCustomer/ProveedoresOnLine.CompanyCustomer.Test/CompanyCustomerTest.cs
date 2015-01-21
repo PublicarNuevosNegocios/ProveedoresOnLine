@@ -20,5 +20,14 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
+
+        [TestMethod]
+        public void GetCustomerInfoByProvider()
+        {
+            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn =
+                CompanyCustomer.Controller.Customer.GetCustomerInfoByProvider(2);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
     }
 }
