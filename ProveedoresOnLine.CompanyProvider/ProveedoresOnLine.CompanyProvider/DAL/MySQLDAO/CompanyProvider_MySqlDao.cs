@@ -575,5 +575,308 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region MarketPlace
+
+        public List<ProviderModel> MPProviderSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            TotalRows = 0;
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchOrderType", SearchOrderType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vOrderOrientation", OrderOrientation));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Provider_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<ProviderModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from p in response.DataTableResult.AsEnumerable()
+                     where !p.IsNull("CompanyPublicId")
+                     group p by new
+                     {
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),
+                         CompanyName = p.Field<string>("CompanyName"),
+                         IdentificationTypeId = p.Field<int>("IdentificationTypeId"),
+                         IdentificationTypeName = p.Field<string>("IdentificationTypeName"),
+                         IdentificationNumber = p.Field<string>("IdentificationNumber"),
+                         CompanyTypeId = p.Field<int>("CompanyTypeId"),
+                         CompanyTypeName = p.Field<string>("CompanyTypeName"),
+                     } into pg
+                     select new ProviderModel()
+                     {
+                         RelatedCompany = new Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = pg.Key.CompanyPublicId,
+                             CompanyName = pg.Key.CompanyName,
+                             IdentificationType = new CatalogModel()
+                             {
+                                 ItemId = pg.Key.IdentificationTypeId,
+                                 ItemName = pg.Key.IdentificationTypeName,
+                             },
+                             IdentificationNumber = pg.Key.IdentificationNumber,
+                             CompanyType = new CatalogModel()
+                             {
+                                 ItemId = pg.Key.CompanyTypeId,
+                                 ItemName = pg.Key.CompanyTypeName
+                             },
+
+                             CompanyInfo =
+                                 (from pi in response.DataTableResult.AsEnumerable()
+                                  where !pi.IsNull("CompanyInfoId") && pi.Field<string>("CompanyPublicId") == pg.Key.CompanyPublicId
+                                  group pi by new
+                                  {
+                                      CompanyInfoId = pi.Field<int>("CompanyInfoId"),
+                                      CompanyInfoTypeId = pi.Field<int>("CompanyInfoTypeId"),
+                                      CompanyInfoTypeName = pi.Field<string>("CompanyInfoTypeName"),
+                                      CompanyInfoValue = pi.Field<string>("CompanyInfoValue"),
+                                      CompanyInfoLargeValue = pi.Field<string>("CompanyInfoLargeValue"),
+                                  } into pig
+                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = pig.Key.CompanyInfoId,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = pig.Key.CompanyInfoTypeId,
+                                          ItemName = pig.Key.CompanyInfoTypeName,
+                                      },
+                                      Value = pig.Key.CompanyInfoValue,
+                                      LargeValue = pig.Key.CompanyInfoLargeValue,
+                                  }).ToList(),
+                         },
+                         RelatedCustomerInfo =
+                            (from rc in response.DataTableResult.AsEnumerable()
+                             where !rc.IsNull("CustomerProviderId") && rc.Field<string>("CompanyPublicId") == pg.Key.CompanyPublicId
+                             group rc by new
+                             {
+                                 CustomerPublicId = rc.Field<string>("CustomerPublicId"),
+                                 CustomerProviderId = rc.Field<int>("CustomerProviderId"),
+                                 CustomerProviderStatusId = rc.Field<int>("CustomerProviderStatusId"),
+                                 CustomerProviderStatusName = rc.Field<string>("CustomerProviderStatusName"),
+                             } into rcg
+                             select new
+                             {
+                                 oKey = rcg.Key.CustomerPublicId,
+                                 oValue = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                 {
+                                     ItemId = rcg.Key.CustomerProviderId,
+                                     ItemType = new CatalogModel()
+                                     {
+                                         ItemId = rcg.Key.CustomerProviderStatusId,
+                                         ItemName = rcg.Key.CustomerProviderStatusName,
+                                     },
+                                     ItemInfo =
+                                        (from rci in response.DataTableResult.AsEnumerable()
+                                         where !rci.IsNull("CustomerProviderInfoId") && rci.Field<int>("CustomerProviderId") == rcg.Key.CustomerProviderId
+                                         group rci by new
+                                         {
+                                             CustomerProviderInfoId = rci.Field<int>("CustomerProviderInfoId"),
+                                             CustomerProviderInfoTypeId = rci.Field<int>("CustomerProviderInfoTypeId"),
+                                             CustomerProviderInfoTypeName = rci.Field<string>("CustomerProviderInfoTypeName"),
+                                             CustomerProviderInfoValue = rci.Field<string>("CustomerProviderInfoValue"),
+                                             CustomerProviderInfoLargeValue = rci.Field<string>("CustomerProviderInfoLargeValue"),
+                                         } into rcig
+                                         select new GenericItemInfoModel()
+                                         {
+                                             ItemInfoId = rcig.Key.CustomerProviderInfoId,
+                                             ItemInfoType = new CatalogModel()
+                                             {
+                                                 ItemId = rcig.Key.CustomerProviderInfoTypeId,
+                                                 ItemName = rcig.Key.CustomerProviderInfoTypeName,
+                                             },
+                                             Value = rcig.Key.CustomerProviderInfoValue,
+                                             LargeValue = rcig.Key.CustomerProviderInfoLargeValue,
+                                         }).ToList()
+                                 }
+                             }).ToDictionary(k => k.oKey, v => v.oValue),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchFilter", SearchFilter));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Provider_SearchFilter",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericFilterModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sf in response.DataTableResult.AsEnumerable()
+                     where !sf.IsNull("FilterTypeId")
+                     select new GenericFilterModel()
+                     {
+                         FilterType = new GenericItemModel()
+                         {
+                             ItemId = (int)sf.Field<Int64>("FilterTypeId"),
+                             ItemName = sf.Field<string>("FilterTypeName"),
+                         },
+                         FilterValue = new GenericItemModel()
+                         {
+                             ItemId = Convert.ToInt32(sf.Field<string>("FilterValueId")),
+                             ItemName = sf.Field<string>("FilterValueName"),
+                         },
+                         Quantity = Convert.ToInt32(sf.Field<Int64>("Quantity")),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vlstProviderPublicId", lstProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Provider_SearchById",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<ProviderModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from p in response.DataTableResult.AsEnumerable()
+                     where !p.IsNull("CompanyPublicId")
+                     group p by new
+                     {
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),
+                         CompanyName = p.Field<string>("CompanyName"),
+                         IdentificationTypeId = p.Field<int>("IdentificationTypeId"),
+                         IdentificationTypeName = p.Field<string>("IdentificationTypeName"),
+                         IdentificationNumber = p.Field<string>("IdentificationNumber"),
+                         CompanyTypeId = p.Field<int>("CompanyTypeId"),
+                         CompanyTypeName = p.Field<string>("CompanyTypeName"),
+                     } into pg
+                     select new ProviderModel()
+                     {
+                         RelatedCompany = new Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = pg.Key.CompanyPublicId,
+                             CompanyName = pg.Key.CompanyName,
+                             IdentificationType = new CatalogModel()
+                             {
+                                 ItemId = pg.Key.IdentificationTypeId,
+                                 ItemName = pg.Key.IdentificationTypeName,
+                             },
+                             IdentificationNumber = pg.Key.IdentificationNumber,
+                             CompanyType = new CatalogModel()
+                             {
+                                 ItemId = pg.Key.CompanyTypeId,
+                                 ItemName = pg.Key.CompanyTypeName
+                             },
+
+                             CompanyInfo =
+                                 (from pi in response.DataTableResult.AsEnumerable()
+                                  where !pi.IsNull("CompanyInfoId") && pi.Field<string>("CompanyPublicId") == pg.Key.CompanyPublicId
+                                  group pi by new
+                                  {
+                                      CompanyInfoId = pi.Field<int>("CompanyInfoId"),
+                                      CompanyInfoTypeId = pi.Field<int>("CompanyInfoTypeId"),
+                                      CompanyInfoTypeName = pi.Field<string>("CompanyInfoTypeName"),
+                                      CompanyInfoValue = pi.Field<string>("CompanyInfoValue"),
+                                      CompanyInfoLargeValue = pi.Field<string>("CompanyInfoLargeValue"),
+                                  } into pig
+                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = pig.Key.CompanyInfoId,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = pig.Key.CompanyInfoTypeId,
+                                          ItemName = pig.Key.CompanyInfoTypeName,
+                                      },
+                                      Value = pig.Key.CompanyInfoValue,
+                                      LargeValue = pig.Key.CompanyInfoLargeValue,
+                                  }).ToList(),
+                         },
+                         RelatedCustomerInfo =
+                            (from rc in response.DataTableResult.AsEnumerable()
+                             where !rc.IsNull("CustomerProviderId") && rc.Field<string>("CompanyPublicId") == pg.Key.CompanyPublicId
+                             group rc by new
+                             {
+                                 CustomerPublicId = rc.Field<string>("CustomerPublicId"),
+                                 CustomerProviderId = rc.Field<int>("CustomerProviderId"),
+                                 CustomerProviderStatusId = rc.Field<int>("CustomerProviderStatusId"),
+                                 CustomerProviderStatusName = rc.Field<string>("CustomerProviderStatusName"),
+                             } into rcg
+                             select new
+                             {
+                                 oKey = rcg.Key.CustomerPublicId,
+                                 oValue = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                 {
+                                     ItemId = rcg.Key.CustomerProviderId,
+                                     ItemType = new CatalogModel()
+                                     {
+                                         ItemId = rcg.Key.CustomerProviderStatusId,
+                                         ItemName = rcg.Key.CustomerProviderStatusName,
+                                     },
+                                     ItemInfo =
+                                        (from rci in response.DataTableResult.AsEnumerable()
+                                         where !rci.IsNull("CustomerProviderInfoId") && rci.Field<int>("CustomerProviderId") == rcg.Key.CustomerProviderId
+                                         group rci by new
+                                         {
+                                             CustomerProviderInfoId = rci.Field<int>("CustomerProviderInfoId"),
+                                             CustomerProviderInfoTypeId = rci.Field<int>("CustomerProviderInfoTypeId"),
+                                             CustomerProviderInfoTypeName = rci.Field<string>("CustomerProviderInfoTypeName"),
+                                             CustomerProviderInfoValue = rci.Field<string>("CustomerProviderInfoValue"),
+                                             CustomerProviderInfoLargeValue = rci.Field<string>("CustomerProviderInfoLargeValue"),
+                                         } into rcig
+                                         select new GenericItemInfoModel()
+                                         {
+                                             ItemInfoId = rcig.Key.CustomerProviderInfoId,
+                                             ItemInfoType = new CatalogModel()
+                                             {
+                                                 ItemId = rcig.Key.CustomerProviderInfoTypeId,
+                                                 ItemName = rcig.Key.CustomerProviderInfoTypeName,
+                                             },
+                                             Value = rcig.Key.CustomerProviderInfoValue,
+                                             LargeValue = rcig.Key.CustomerProviderInfoLargeValue,
+                                         }).ToList()
+                                 }
+                             }).ToDictionary(k => k.oKey, v => v.oValue),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
     }
 }
