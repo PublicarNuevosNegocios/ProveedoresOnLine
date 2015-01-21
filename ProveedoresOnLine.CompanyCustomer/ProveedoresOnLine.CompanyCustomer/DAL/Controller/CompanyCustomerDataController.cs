@@ -47,6 +47,11 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
             throw new NotImplementedException();
         }
 
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId)
+        {
+            return DataFactory.GetCustomerByProvider(ProviderPublicId);
+        }
+
         #endregion
 
         #region Survey
