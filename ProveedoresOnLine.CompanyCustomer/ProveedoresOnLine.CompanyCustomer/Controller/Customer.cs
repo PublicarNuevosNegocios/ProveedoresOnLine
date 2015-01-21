@@ -150,6 +150,11 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerProviderToUpsert;
         }
 
+        public static List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId)
+        {
+            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId);
+        }
+
         #endregion
 
         #region Customer Survey

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
@@ -58,6 +59,69 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 });
 
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "CC_GetCustomerByProvider",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from p in response.DataTableResult.AsEnumerable()
+                     where !p.IsNull("CustomerProviderId")
+                     group p by new
+                     {
+                         CustomerProviderId = p.Field<int>("CustomerProviderId"),
+                     }
+                         into pp
+                         select new CompanyCustomer.Models.Customer.CustomerModel()
+                         {
+                             RelatedProvider =
+                             (from c in response.DataTableResult.AsEnumerable()
+                              where !c.IsNull("CustomerProviderId")
+                              group c by new
+                              {
+                                  CustomerProviderId = c.Field<int>("CustomerProviderId"),
+                                  CustomerPublicId = c.Field<string>("CompanyPublicId"),
+                                  Customer = c.Field<String>("Customer"),
+                                  Status = c.Field<int>("Status"),
+                                  StatusName = c.Field<string>("StatusName"),
+                                  Enable = c.Field<UInt64>("Enable") == 1 ? true : false,
+                              }
+                                  into cc
+                                  select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
+                                  {
+                                      CustomerProviderId = cc.Key.CustomerProviderId,
+                                      RelatedProvider = new Company.Models.Company.CompanyModel()
+                                      {
+                                          CompanyPublicId = cc.Key.CustomerPublicId,
+                                          CompanyName = cc.Key.Customer,
+                                      },
+                                      Status = new Company.Models.Util.CatalogModel()
+                                      {
+                                          ItemId = cc.Key.Status,
+                                          ItemName = cc.Key.StatusName,
+                                      },
+                                      Enable = cc.Key.Enable,
+                                  }).ToList(),
+                         }).ToList();
+            }
+
+            return oReturn;
         }
 
         #endregion

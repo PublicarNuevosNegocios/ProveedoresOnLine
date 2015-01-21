@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace ProveedoresOnLine.CompanyCustomer.Test
 {
@@ -9,6 +10,15 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         [TestMethod]
         public void TestMethod1()
         {
+        }
+
+        [TestMethod]
+        public void GetCustomerByProvider()
+        {
+            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn =
+                CompanyCustomer.Controller.Customer.GetCustomerByProvider("1A9863BD");
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
         }
     }
 }
