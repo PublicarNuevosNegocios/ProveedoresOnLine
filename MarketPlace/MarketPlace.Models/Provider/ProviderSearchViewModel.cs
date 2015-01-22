@@ -29,5 +29,26 @@ namespace MarketPlace.Models.Provider
         public int RowCount { get { return Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()); } }
 
         public int TotalRows { get; set; }
+
+        #region methods
+
+        public List<Tuple<string, string>> GetlstSearchFilter()
+        {
+            List<Tuple<string, string>> oReturn = new List<Tuple<string, string>>();
+
+            if (!string.IsNullOrEmpty(SearchFilter))
+            {
+                oReturn = SearchFilter.Replace(" ", "").
+                    Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                    Where(x => x.IndexOf(';') >= 0).
+                    Select(x => new Tuple<string, string>(x.Split(';')[0], x.Split(';')[1])).
+                    Where(x => !string.IsNullOrEmpty(x.Item1) && !string.IsNullOrEmpty(x.Item2)).
+                    ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

@@ -8,7 +8,15 @@ namespace MarketPlace.Web.Controllers
 {
     public partial class ProviderController : BaseController
     {
-        public virtual ActionResult Index
+
+        public virtual ActionResult Index()
+        {
+            return View();
+        }
+
+        #region Provider search
+
+        public virtual ActionResult Search
             (string SearchParam,
             string SearchFilter,
             string SearchOrderType,
@@ -69,6 +77,8 @@ namespace MarketPlace.Web.Controllers
 
             return View(oModel);
         }
+
+        #endregion
 
         #region General Info
 

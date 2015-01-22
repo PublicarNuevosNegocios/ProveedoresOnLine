@@ -1,0 +1,36 @@
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+
+@if (Model.RenderScripts)
+{
+    if (Model.ProviderSearchResult != null && Model.ProviderSearchResult.Count > 0)
+    {
+        <div>
+            @*Pager*@
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
+        </div>
+        <div>
+            @*Orders*@
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Order, Model)
+        </div>
+        <div>
+            @*SearchResult*@
+            <ul>
+                @foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oSearchItem in Model.ProviderSearchResult)
+                {
+                    <li>
+                        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, oSearchItem)
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div>
+            @*Pager*@
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
+        </div>
+    }
+    else
+    {
+        <div>No se encontraron resultados</div>
+    }
+}

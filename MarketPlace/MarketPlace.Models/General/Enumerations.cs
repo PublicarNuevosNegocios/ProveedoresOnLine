@@ -1,5 +1,15 @@
 ﻿namespace MarketPlace.Models.General
 {
+    #region General Enum
+
+    public enum enumCatalog
+    {
+        ProviderStatus = 902,
+
+    }
+
+    #endregion
+
     #region Site Enum
 
     public enum enumSiteArea
@@ -62,6 +72,23 @@
         CustomerRate = 113001,
         Relevance = 113002,
         Alphabetic = 113003,
+    }
+
+    public enum enumFilterType
+    {
+        EconomicActivity = 111006,
+        CustomEconomicActivity = 111007,
+        City = 111008,
+
+        ProviderStatus = 112001,
+        ProviderRate = 112002,
+        IsRelatedProvider = 112003,
+    }
+
+    public enum enumCustomerProviderInfoType
+    {
+        CustomerNotes = 901002,
+        ProviderRate = 901003
     }
 
     #endregion
