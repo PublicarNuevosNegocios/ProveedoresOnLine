@@ -908,7 +908,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_L_Footer.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_L_Header.cshtml" />
     <Content Include="Areas\Desktop\Views\Customer\Index.cshtml" />
-    <Content Include="Areas\Desktop\Views\Provider\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\Search.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\FIBalanceSheetInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GICompanyContactInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GIPersonContactInfo.cshtml" />
@@ -932,6 +932,13 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_ProviderSearch_Comparison.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_ProviderSearch_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_ProviderMenuHeader.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Filter.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result_Pager.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Order.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
