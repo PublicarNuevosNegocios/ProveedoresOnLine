@@ -1,0 +1,20 @@
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+
+@{
+    Tuple<int, int> oPageInfo = Model.GetStartEndPage();
+}
+
+@if (Model.RenderScripts)
+{
+    if (oPageInfo.Item2 > oPageInfo.Item1)
+    {
+        <ul>
+            <li><a>Anterior</a></li>
+            @for (int i = oPageInfo.Item1; i <= oPageInfo.Item2; i++)
+            {
+                <li><a>@i</a></li>
+            }
+            <li><a>Siguiente</a></li>
+        </ul>
+    }
+}

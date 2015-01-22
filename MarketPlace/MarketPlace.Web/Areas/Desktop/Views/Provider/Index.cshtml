@@ -1,45 +1,7 @@
-﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
-
-@{
-    ViewBag.Title = "Búsqueda de proveedores";
+﻿@{
+    ViewBag.Title = "Proveedores";
     Layout = MVC.Desktop.Shared.Views._Layout;
-
-    Model.RenderScripts = false;
 }
 
-<div>
-    <div>
-        @*SearchBox*@
-        <input id="txtSearchBox" type="text" />
-        <a href="">Encontrar</a>
-    </div>
-    <div>
-        <div>
-            @*SearchFilter*@
-            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderSearch_Filter, Model)
-        </div>
-        <div>
-            @*SearchResult*@
-            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderSearch_Result, Model)
-        </div>
-        <div>
-            @*Comparison*@
-            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderSearch_Comparison, Model)
-        </div>
-    </div>
-</div>
-@{
-    Model.RenderScripts = true;
-}
+<h2>Index</h2>
 
-@section inlinescripts
-{
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderSearch_Filter, Model)
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderSearch_Result, Model)
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderSearch_Comparison, Model)
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-        });
-    </script>
-}

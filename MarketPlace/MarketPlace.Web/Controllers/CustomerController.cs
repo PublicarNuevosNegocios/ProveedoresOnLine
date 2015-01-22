@@ -10,7 +10,16 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            return View();
+            //temporaly redirect to provider search
+            return RedirectToRoute
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.Search
+                });
+
+            //return View();
         }
     }
 }

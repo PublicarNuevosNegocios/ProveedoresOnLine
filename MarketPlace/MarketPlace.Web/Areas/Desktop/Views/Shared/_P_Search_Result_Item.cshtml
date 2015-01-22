@@ -1,0 +1,41 @@
+﻿@model MarketPlace.Models.Provider.ProviderLiteViewModel
+
+<div>
+    <div>
+        @*Check certificacion*@
+        @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+        {
+            <img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
+        }
+    </div>
+    <div>
+        <img src="@Model.ProviderLogoUrl" />
+        @if (Model.ProviderRate != null)
+        {
+            <span>@Model.ProviderRate</span>
+        }
+    </div>
+    <div>
+        <div>
+            <a>@Model.RelatedProvider.RelatedCompany.CompanyName</a>
+            <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName : @Model.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+        </div>
+        <div>
+            @if (Model.IsProviderCustomer)
+            {
+                @*Actions for related provider *@
+                <ul>
+                    <li><a>Agregar a comparación</a></li>
+                    <li><a>Ver detalle</a></li>
+                </ul>
+            }
+            else
+            {
+                @*Actions for not related provider *@
+                <ul>
+                    <li><a>Hacerlo mi proveedor</a></li>
+                </ul>
+            }
+        </div>
+    </div>
+</div>

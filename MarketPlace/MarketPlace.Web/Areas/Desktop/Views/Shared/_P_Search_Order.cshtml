@@ -1,0 +1,17 @@
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+
+@if (Model.RenderScripts)
+{
+    <div>
+        <ul>
+            <li>
+                <input type="radio" name="rbOrder" />
+                <span>Orden por calificación</span>
+            </li>
+            <li>
+                <input type="radio" name="rbOrder" />
+                <span>Orden alfabético</span>
+            </li>
+        </ul>
+    </div>
+}
