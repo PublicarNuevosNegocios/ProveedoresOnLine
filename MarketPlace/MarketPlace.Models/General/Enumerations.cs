@@ -30,7 +30,6 @@
 
     #endregion
 
-
     #region Company enum
 
     public enum enumCompanyType
@@ -52,6 +51,17 @@
     public enum enumRoleCompanyInfoType
     {
         Modules = 801001,
+    }
+
+    #endregion
+
+    #region Provider enum
+
+    public enum enumSearchOrderType
+    {
+        CustomerRate = 113001,
+        Relevance = 113002,
+        Alphabetic = 113003,
     }
 
     #endregion

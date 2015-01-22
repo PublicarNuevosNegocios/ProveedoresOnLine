@@ -59,6 +59,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult GIProviderInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIProviderInfo);
@@ -227,6 +233,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string SearchParam = "SearchParam";
+            public readonly string SearchFilter = "SearchFilter";
+            public readonly string SearchOrderType = "SearchOrderType";
+            public readonly string OrderOrientation = "OrderOrientation";
+            public readonly string PageNumber = "PageNumber";
+        }
         static readonly ActionParamsClass_GIProviderInfo s_params_GIProviderInfo = new ActionParamsClass_GIProviderInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GIProviderInfo GIProviderInfoParams { get { return s_params_GIProviderInfo; } }
@@ -429,13 +447,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public T4MVC_ProviderController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string SearchParam, string SearchFilter, string SearchOrderType, string OrderOrientation, string PageNumber);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(string SearchParam, string SearchFilter, string SearchOrderType, string OrderOrientation, string PageNumber)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
+            IndexOverride(callInfo, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber);
             return callInfo;
         }
 
