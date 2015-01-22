@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BackOffice.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyCustomer.Models.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -1279,7 +1282,7 @@ namespace BackOffice.Web.ControllersApi
 
             if (FIFinancialGetByType == "true")
             {
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = 
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
                     (ProviderPublicId, string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
 
@@ -2047,11 +2050,11 @@ namespace BackOffice.Web.ControllersApi
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
-                
+
                 oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                
+
                 oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), oEconomiActivity);
-            }            
+            }
 
             return oReturn;
         }
@@ -2078,16 +2081,54 @@ namespace BackOffice.Web.ControllersApi
                     oCustomerByProvider.All(x =>
                         {
                             oReturn.Add(new BackOffice.Models.Provider.ProviderCustomerViewModel
-                                (x.RelatedProvider.Select(y => y.CustomerProviderId).FirstOrDefault().ToString()
-                                , x.RelatedProvider.Select(y => y.RelatedProvider).FirstOrDefault()
-                                , x.RelatedProvider.Select(y => y.Status).FirstOrDefault()
-                                , x.RelatedProvider.Select(y => y.Enable).FirstOrDefault()
+                                (
+                                    x.RelatedProvider.Select(y => y.CustomerProviderId).FirstOrDefault().ToString()
+                                    , x.RelatedProvider.Where(y => y.RelatedProvider != null).Select(y => y.RelatedProvider).FirstOrDefault()
+                                    , x.RelatedProvider.Select(y => y.Status).FirstOrDefault()
+                                    , x.RelatedProvider.Select(y => y.Enable).FirstOrDefault()
                                 ));
-                                return true;
+                            return true;
                         });
                 }
             }
-            
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderInfo
+        (string CPCustomerProviderInfo,
+            int CustomerProviderId)
+        {
+            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+
+            if (CPCustomerProviderInfo == "true")
+            {
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerProviderInfo =
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerInfoByProvider(CustomerProviderId);
+
+                if (oCustomerProviderInfo != null)
+                {
+
+                    //recorrer el papa
+                    //recorrer el info del papa
+                    //Obtener los info recorridos
+
+                    List<CustomerProviderModel> oSon = new List<CustomerProviderModel>();
+                    List<GenericItemInfoModel> oSonInfo = new List<GenericItemInfoModel>();
+
+                    oSon = oCustomerProviderInfo.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
+                    oSonInfo = oSon.Where(x => x.CustomerProviderInfo != null).Select(x => x.CustomerProviderInfo.FirstOrDefault()).ToList();
+
+                    oSonInfo.All(x =>
+                    {
+                        oReturn.Add(new ProviderCustomerViewModel(x));
+                        return true;
+                    });                         
+                }
+            }
+
             return oReturn;
         }
 
