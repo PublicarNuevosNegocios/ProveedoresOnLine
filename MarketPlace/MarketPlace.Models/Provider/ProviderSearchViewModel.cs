@@ -49,6 +49,18 @@ namespace MarketPlace.Models.Provider
             return oReturn;
         }
 
+        public Tuple<int, int> GetStartEndPage()
+        {
+            int ItemsxPage = 10;
+
+            decimal oTotalPages = Math.Ceiling((decimal)((decimal)TotalRows / (decimal)RowCount));
+
+            int oStart = (int)((PageNumber - (ItemsxPage / 2)) > 0 ? (PageNumber - (ItemsxPage / 2)) : 1);
+            int oEnd = (int)(oTotalPages >= oStart + (ItemsxPage / 2) ? oStart + (ItemsxPage / 2) : oTotalPages);
+
+            return new Tuple<int, int>(oStart, oEnd);
+        }
+
         #endregion
     }
 }
