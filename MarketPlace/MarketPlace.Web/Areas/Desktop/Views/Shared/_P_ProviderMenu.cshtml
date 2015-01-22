@@ -1,0 +1,27 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (Model.ProviderMenu != null && Model.ProviderMenu.Count > 0)
+{
+    if (!Model.RenderScripts)
+    {
+        <div id="MenuHeader">
+            @{
+                <img src="@{Model.RelatedProvider.RelatedCompany.CompanyInfo.
+                                    Where(x => x.ItemInfoType.ItemId == 203005).
+                                    Select(x => x.Value).FirstOrDefault();}"
+                     alt="Alternate Text" />
+                if (Model.IsOwnProvider == true)
+                {
+
+                }
+            };
+        </div>
+        <div>
+            <ul>
+                <li></li>
+            </ul>
+
+        </div>
+
+    }
+}
