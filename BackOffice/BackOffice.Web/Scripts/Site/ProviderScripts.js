@@ -4919,9 +4919,20 @@ var Provider_CustomerInfoObject = {
             scrollable: true,
             selectable: true,
             toolbar: [
-                { name: 'create', text: 'Nuevo' },
+                { name: 'createCustomer', text: 'Agregar Comprador' },
+                { name: 'createTraking', text: 'Agregar Seguimiento' },
             ],
             dataSource: {
+                schema: {
+                    model: {
+                        fields: {
+                            CP_CustomerProviderId: { editable: false },
+                            CP_Customer: { editable: false },
+                            CP_Status: { editable: false },
+                            CP_Enable: { editable: false },
+                        },
+                    }
+                },
                 transport: {
                     read: function (options) {
                         $.ajax({
@@ -4939,33 +4950,33 @@ var Provider_CustomerInfoObject = {
                 },
             },
             change: function (e) {
+                debugger;
                 var selectedRows = this.select();
                 for (var i = 0; i < selectedRows.length; i++) {
-                    debugger;
-                    Provider_CustomerInfoObject.RenderCustomerByProviderDetail(this.dataItem(selectedRows[i]));
+                    Provider_CustomerInfoObject.RenderCustomerByProviderDetail(this.dataItem(selectedRows[i]).CP_CustomerProviderId);
                 }
             },
             columns: [{
-                field: 'ProviderCustomerId',
+                field: 'CP_CustomerProviderId',
                 title: 'Id',
                 width: '50px',
             }, {
-                field: 'RelatedCompany.CompanyName',
+                field: 'CP_Customer',
                 title: 'Comprador',
                 width: '100px',
             }, {
-                field: 'RelatedStatus.ItemName',
+                field: 'CP_Status',
                 title: 'Estado',
                 width: '100px',
             }, {
-                field: 'Enable',
+                field: 'CP_Enable',
                 title: 'Habilitado',
                 width: '100px',
             }],
         });
     },
 
-    RenderCustomerByProviderDetail: function (oCustomerProviderId) {
+    RenderCustomerByProviderDetail: function (oData) {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').kendoGrid({
             editable: false,
             navigatable: false,
@@ -4976,12 +4987,25 @@ var Provider_CustomerInfoObject = {
                 { name: 'create', text: 'Nuevo' },
             ],
             dataSource: {
+                schema: {
+                    model: {
+                        fields: {
+                            CPI_CustomerProviderInfoId: { editable: false },
+                            CPI_TrackingType: { editable: false },
+                            CPI_Tracking: { editable: false },
+                            CPI_LastModify: { editable: false },
+                            CPI_Enable: { editable: false },
+                        },
+                    }
+                },
                 transport: {
                     read: function (options) {
+                        debugger;
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderDetail=true&CustomerProviderId=' + oCustomerProviderId,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4994,19 +5018,23 @@ var Provider_CustomerInfoObject = {
             },
 
             columns: [{
-                field: 'ProviderCustomerId',
+                field: 'CPI_CustomerProviderInfoId',
                 title: 'Id',
                 width: '50px',
             }, {
-                field: 'RelatedCompany.CompanyName',
-                title: 'Comprador',
+                field: 'CPI_TrackingType',
+                title: 'Tipo de Seguimiento',
                 width: '100px',
             }, {
-                field: 'RelatedStatus.ItemName',
-                title: 'Estado',
+                field: 'CPI_Tracking',
+                title: 'Seguimiento',
                 width: '100px',
             }, {
-                field: 'Enable',
+                field: 'CPI_LastModify',
+                title: 'Fecha de Edición',
+                width: '100px',
+            }, {
+                field: 'CPI_Enable',
                 title: 'Habilitado',
                 width: '100px',
             }],

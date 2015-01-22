@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,28 @@ namespace BackOffice.Models.Provider
 
         public ProveedoresOnLine.Company.Models.Util.CatalogModel RelatedStatus { get; set; }
 
+        public ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel RelatedCompanyProviderInfo { get; set; }
+
         public bool Enable { get; set; }
+
+        #region CustomerProvider
+
+        public string CP_CustomerProviderId { get; set; }
+        public string CP_Customer { get; set; }
+        public string CP_Status { get; set; }
+        public string CP_Enable { get; set; }
+
+        #endregion
+
+        #region CustomerProviderInfo
+
+        public string CPI_CustomerProviderInfoId { get; set; }
+        public string CPI_TrackingType { get; set; }
+        public string CPI_Tracking { get; set; }
+        public string CPI_LastModify { get; set; }
+        public string CPI_Enable { get; set; }
+
+        #endregion
 
         public ProviderCustomerViewModel() { }
 
@@ -23,10 +45,19 @@ namespace BackOffice.Models.Provider
                                         , ProveedoresOnLine.Company.Models.Util.CatalogModel oRelatedStatus
                                         , bool oEnable)
         {
-            ProviderCustomerId = oProviderCustomerId;
-            RelatedCompany = oRelatedCompany;
-            RelatedStatus = oRelatedStatus;
-            Enable = oEnable;
-        }        
+            CP_CustomerProviderId = oProviderCustomerId;
+            CP_Customer = oRelatedCompany.CompanyName;
+            CP_Status = oRelatedStatus.ItemName;
+            CP_Enable = Enable.ToString();
+        }
+
+        public ProviderCustomerViewModel(GenericItemInfoModel oRelatedCustomerProviderInfo)
+        {
+            CPI_CustomerProviderInfoId = oRelatedCustomerProviderInfo.ItemInfoId.ToString();
+            CPI_TrackingType = oRelatedCustomerProviderInfo.ItemInfoType.ItemName;
+            CPI_Tracking = oRelatedCustomerProviderInfo.Value;
+            CPI_LastModify = oRelatedCustomerProviderInfo.LastModify.ToString();
+            CPI_Enable = oRelatedCustomerProviderInfo.Enable.ToString();
+        }
     }
 }
