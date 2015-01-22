@@ -47,9 +47,9 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
             throw new NotImplementedException();
         }
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId)
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId, string CustomerSearch)
         {
-            return DataFactory.GetCustomerByProvider(ProviderPublicId);
+            return DataFactory.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
         }
 
         public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)

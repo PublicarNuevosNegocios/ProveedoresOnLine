@@ -4936,7 +4936,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=true',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4950,7 +4950,6 @@ var Provider_CustomerInfoObject = {
                 },
             },
             change: function (e) {
-                debugger;
                 var selectedRows = this.select();
                 for (var i = 0; i < selectedRows.length; i++) {
                     Provider_CustomerInfoObject.RenderCustomerByProviderDetail(this.dataItem(selectedRows[i]).CP_CustomerProviderId);
@@ -4983,9 +4982,6 @@ var Provider_CustomerInfoObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: [
-                { name: 'create', text: 'Nuevo' },
-            ],
             dataSource: {
                 schema: {
                     model: {
@@ -5000,7 +4996,6 @@ var Provider_CustomerInfoObject = {
                 },
                 transport: {
                     read: function (options) {
-                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
                             dataType: 'json',
@@ -5039,6 +5034,11 @@ var Provider_CustomerInfoObject = {
                 width: '100px',
             }],
         });
+    },
+
+    CreateCustomerByProvider: function()
+    {
+
     },
 }
 

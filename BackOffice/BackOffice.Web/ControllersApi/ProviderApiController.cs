@@ -2067,28 +2067,33 @@ namespace BackOffice.Web.ControllersApi
         [HttpGet]
         public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderStatus
         (string CPCustomerProviderStatus,
-            string ProviderPublicId)
+            string ProviderPublicId,
+            string CustomerSearch)
         {
             List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
 
             if (CPCustomerProviderStatus == "true")
             {
                 List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId);
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
 
                 if (oCustomerByProvider != null)
                 {
-                    oCustomerByProvider.All(x =>
-                        {
-                            oReturn.Add(new BackOffice.Models.Provider.ProviderCustomerViewModel
-                                (
-                                    x.RelatedProvider.Select(y => y.CustomerProviderId).FirstOrDefault().ToString()
-                                    , x.RelatedProvider.Where(y => y.RelatedProvider != null).Select(y => y.RelatedProvider).FirstOrDefault()
-                                    , x.RelatedProvider.Select(y => y.Status).FirstOrDefault()
-                                    , x.RelatedProvider.Select(y => y.Enable).FirstOrDefault()
-                                ));
-                            return true;
-                        });
+
+                    List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
+
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
+
+                    
+                    foreach (var item in oCustomerProvider)
+                    {
+                        oReturn.Add(new ProviderCustomerViewModel(
+                                item.CustomerProviderId.ToString(),
+                                item.RelatedProvider,
+                                item.Status,
+                                item.Enable
+                            ));
+                    }
                 }
             }
 
@@ -2110,22 +2115,14 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oCustomerProviderInfo != null)
                 {
+                    List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
-                    //recorrer el papa
-                    //recorrer el info del papa
-                    //Obtener los info recorridos
+                    oCustomerProvider = oCustomerProviderInfo.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
 
-                    List<CustomerProviderModel> oSon = new List<CustomerProviderModel>();
-                    List<GenericItemInfoModel> oSonInfo = new List<GenericItemInfoModel>();
-
-                    oSon = oCustomerProviderInfo.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
-                    oSonInfo = oSon.Where(x => x.CustomerProviderInfo != null).Select(x => x.CustomerProviderInfo.FirstOrDefault()).ToList();
-
-                    oSonInfo.All(x =>
+                    foreach (var item in oCustomerProvider.Select(x => x.CustomerProviderInfo).FirstOrDefault())
                     {
-                        oReturn.Add(new ProviderCustomerViewModel(x));
-                        return true;
-                    });                         
+                        oReturn.Add(new ProviderCustomerViewModel(item));
+                    }           
                 }
             }
 

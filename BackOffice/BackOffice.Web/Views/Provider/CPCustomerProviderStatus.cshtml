@@ -29,6 +29,30 @@
     </div>
 </div>
 
+<div id="templates" style="display:none;">
+    <div id="divCustomerProvider_Header">
+        <a href="javascript:Provider_CustomerInfoObject.CreateCustomerByProvider();">Agregar Comprador</a>
+        <a href="javascript:Provider_CustomerInfoObject.CreateTracking();">Agregar Seguimiento</a>
+    </div>
+</div>
+
+<div id="dialog" style="display:none;">
+    <div id="divCustomerProviderStatus_Upsert_Customer">
+        <ul>
+            <li>
+
+            </li>
+        </ul>
+    </div>
+    <div id="divCustomerProviderStatus_Upsert_Tracking">
+        <ul>
+            <li>
+
+            </li>
+        </ul>
+    </div>
+</div>
+
 @{
     Model.RenderScripts = true;
 }
