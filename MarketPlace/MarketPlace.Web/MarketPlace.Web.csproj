@@ -441,6 +441,7 @@
     <Content Include="Areas\Desktop\Content\themes\base\theme.css" />
     <Content Include="Areas\Desktop\Content\themes\base\tooltip.css" />
     <Content Include="Areas\Desktop\Scripts\Site\GeneralScripts.js" />
+    <Content Include="Areas\Desktop\Scripts\Site\ProviderScripts.js" />
     <Content Include="favicon.ico" />
     <Content Include="Areas\Desktop\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

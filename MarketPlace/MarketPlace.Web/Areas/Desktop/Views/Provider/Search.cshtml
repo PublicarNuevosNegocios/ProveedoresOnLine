@@ -10,8 +10,8 @@
 <div>
     <div>
         @*SearchBox*@
-        <input id="txtSearchBox" type="text" />
-        <a href="">Encontrar</a>
+        <input id="Search_txtSearchBox" type="text" value="@Model.SearchParam" />
+        <a href="javascript:Provider_SearchObject.Search();">Encontrar</a>
     </div>
     <div>
         <div>
@@ -40,6 +40,20 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            Provider_SearchObject.Init({
+                ObjectId: 'Search',
+                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+                SearchParam: '@Model.SearchParam',
+                SearchFilter: '@Model.SearchFilter',
+                SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
+                OrderOrientation: @Model.OrderOrientation,
+                PageNumber: @Model.PageNumber,
+            });
         });
     </script>
 }
