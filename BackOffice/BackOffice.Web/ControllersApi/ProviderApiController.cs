@@ -731,29 +731,7 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = oDataToUpsert.EX_Phone,
                         Enable = true,
-                    });
-
-                    oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_BuiltAreaId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_BuiltAreaId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea
-                        },
-                        Value = oDataToUpsert.EX_BuiltArea,
-                        Enable = true,
-                    });
-
-                    oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_BuiltUnitId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_BuiltUnitId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit
-                        },
-                        Value = oDataToUpsert.EX_BuiltUnit,
-                        Enable = true,
-                    });
+                    });                    
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {

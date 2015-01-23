@@ -190,10 +190,10 @@ namespace BackOffice.Web.Controllers
                     oCurrentController == MVC.Admin.Name),
             });
 
-            //Standart Economy Activity
+            //Standart Economy Activity standar
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "Acividades Económicas",
+                Name = "Maestras Estandar",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
                     MVC.Admin.Name, new { TreeId = 0 }),
@@ -206,7 +206,7 @@ namespace BackOffice.Web.Controllers
             //Arboles
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "Maestras",
+                Name = "Maestras Personalizadas",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminTreeUpsert,
                     MVC.Admin.Name),
