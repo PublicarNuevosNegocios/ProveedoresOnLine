@@ -2142,13 +2142,6 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
-        
-        [HttpPost]
-        [HttpGet]
-        public int UpsertCPCustomerProviderInfo()
-        {
-            return 0;
-        }
 
         #endregion
     }
