@@ -9,7 +9,6 @@ function Provider_InitMenu(InitObject) {
 
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
-    debugger;
     if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
@@ -168,6 +167,38 @@ var Provider_CompanyContactObject = {
         else if (Provider_CompanyContactObject.ContactType == 204004) {
             Provider_CompanyContactObject.RenderDistributor();
         }
+
+        //focus on the grid
+        $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Provider_CompanyContactObject.ConfigKeyBoard();
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+ctrl+g
+
+                //save
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+ctrl+n
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+ctrl+d
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderCompanyContact: function () {
@@ -4888,11 +4919,9 @@ var Provider_CustomerInfoObject = {
         $.each(vInitiObject.ProviderOptions, function (item, value) {
             Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
         });
-        debugger;
     },
 
     RenderAsync: function () {
-        debugger;
         if (Provider_CustomerInfoObject.ProviderCustomerInfoType == 901001) {
             Provider_CustomerInfoObject.RenderCustomerByProvider();
         }
@@ -4987,7 +5016,6 @@ var Provider_CustomerInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
