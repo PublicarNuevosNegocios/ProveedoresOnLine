@@ -40,13 +40,7 @@ namespace BackOffice.Models.Provider
         public string EX_ContractValueId { get; set; }
 
         public string EX_Phone { get; set; }
-        public string EX_PhoneId { get; set; }
-
-        public string EX_BuiltArea { get; set; }
-        public string EX_BuiltAreaId { get; set; }
-
-        public string EX_BuiltUnit { get; set; }
-        public string EX_BuiltUnitId { get; set; }
+        public string EX_PhoneId { get; set; }       
 
         public string EX_ExperienceFile { get; set; }
         public string EX_ExperienceFileId { get; set; }
@@ -173,31 +167,7 @@ namespace BackOffice.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Phone).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_BuiltArea = RelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_BuiltAreaId = RelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea).
-                Select(y => y.ItemInfoId.ToString()).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_BuiltUnit = RelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_BuiltUnitId = RelatedCommercial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit).
-                Select(y => y.ItemInfoId.ToString()).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
+                FirstOrDefault();            
 
             EX_ExperienceFile = RelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ExperienceFile).

@@ -86,25 +86,37 @@ namespace MarketPlace.Web.Controllers
         #region General Info
 
         public virtual ActionResult GIProviderInfo(string ProviderPublicId)
-        {            
+        {
             ProviderViewModel oModel = new ProviderViewModel()
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };
-            List<ProviderModel> oModelpr = new List<ProviderModel>();
 
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
 
-            if (!string.IsNullOrEmpty(ProviderPublicId))
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
             {
-                //get provider info                
-
-                //oModel.RelatedProvider = 
-                oModelpr = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-                
-                //get provider menu
-                //oModel.ProviderMenu = GetProviderMenu(oModel);                
+                //return url provider not allowed
             }
-            return View();
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                //oModel.RelatedLiteProvider.RelatedProvider.RelatedBalanceSheet = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPGeLegal();
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult GICompanyContactInfo(string ProviderPublicId)
@@ -237,8 +249,8 @@ namespace MarketPlace.Web.Controllers
                     Name = "Información básica",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.GIProviderInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.FirstOrDefault().RelatedProvider.RelatedCompany.CompanyPublicId }),
+                        MVC.Provider.Name,          
+                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&

@@ -5,8 +5,16 @@
 {
     if (Model.RenderScripts)
     {
-        <div id="HeaderMenu">
-            @{Html.RenderPartial(MVC.Desktop.Shared.Views._P_ProviderMenuHeader, Model);}
+        <div>
+            @if (Model.RelatedLiteProvider != null && Model.RelatedLiteProvider.RelatedProvider != null && Model.RelatedLiteProvider.RelatedProvider.RelatedCompany != null)
+            {
+                <div>
+                    <img src="@(Model.RelatedLiteProvider.ProviderLogoUrl)" />
+                    <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</span>
+                    <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+                    <span>@Model.RelatedLiteProvider.ProviderRate</span>
+                </div>
+            }
         </div>
 
         <div class="POBOProviderSideMenu">

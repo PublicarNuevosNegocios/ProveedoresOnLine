@@ -1126,13 +1126,7 @@ var Provider_CompanyCommercialObject = {
 
                             EX_Phone: { editable: true },
                             EX_PhoneId: { editable: false },
-
-                            EX_BuiltArea: { editable: true },
-                            EX_BuiltAreaId: { editable: false },
-
-                            EX_BuiltUnit: { editable: true },
-                            EX_BuiltUnitId: { editable: false },
-
+                            
                             EX_ExperienceFile: { editable: true },
                             EX_ExperienceFileId: { editable: false },
 
@@ -1296,14 +1290,6 @@ var Provider_CompanyCommercialObject = {
                 title: 'Telefono',
                 width: '170px',
             }, {
-                field: 'EX_BuiltArea',
-                title: 'Area contruida (m2)',
-                width: '170px',
-            }, {
-                field: 'EX_BuiltUnit',
-                title: 'Unidades construidas',
-                width: '170px',
-            }, {
                 field: 'EX_ContractSubject',
                 title: 'Objeto del contrato',
                 width: '400px',
@@ -1313,7 +1299,7 @@ var Provider_CompanyCommercialObject = {
                 },
             }, {
                 field: 'EX_EconomicActivity',
-                title: 'Actividad economica',
+                title: 'Mestra Estandar',
                 width: '380px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -1375,7 +1361,7 @@ var Provider_CompanyCommercialObject = {
                 },
             }, {
                 field: 'EX_CustomEconomicActivity',
-                title: 'Actividad economica personalizada',
+                title: 'Maestra personalizada',
                 width: '380px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -3616,7 +3602,28 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'IB_AccountType',
                 title: 'Tipo de Cuenta',
-                width: '160px',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IB_AccountTypeId != null) {
+                        $.each(Provider_CompanyFinancialObject.ProviderOptions[1001], function (item, value) {
+                            if (dataItem.IB_AccountType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyFinancialObject.ProviderOptions[1001],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'IB_AccountNumber',
                 title: 'Número de Cuenta',
@@ -4934,10 +4941,9 @@ var Provider_CustomerInfoObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: [
-                { name: 'createCustomer', text: 'Agregar Comprador' },
-                { name: 'createTraking', text: 'Agregar Seguimiento' },
-            ],
+            toolbar: [{
+                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProvider();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateTracking();">Agregar Seguimiento</a>',
+            }],
             dataSource: {
                 schema: {
                     model: {
@@ -5052,6 +5058,38 @@ var Provider_CustomerInfoObject = {
     },
 
     CreateCustomerByProvider: function()
+    {
+        debugger;
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<option value="' + "" + '">' + " " + '</option>')
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].RelatedCompany.Enable == true) {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" checked /></li>')
+                    }
+                    else {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" /></li>')
+                    }
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                }
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog();
+    },
+
+    UpsertCustomerByProvider: function()
+    {
+
+    },
+
+    CreateTracking: function()
     {
 
     },
