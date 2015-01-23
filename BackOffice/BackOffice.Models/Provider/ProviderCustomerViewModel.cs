@@ -59,5 +59,10 @@ namespace BackOffice.Models.Provider
             CPI_LastModify = oRelatedCustomerProviderInfo.LastModify.ToString();
             CPI_Enable = oRelatedCustomerProviderInfo.Enable.ToString();
         }
+
+        public ProviderCustomerViewModel(ProveedoresOnLine.Company.Models.Company.CompanyModel oRelatedCompany)
+        {
+            RelatedCompany = oRelatedCompany;
+        }
     }
 }

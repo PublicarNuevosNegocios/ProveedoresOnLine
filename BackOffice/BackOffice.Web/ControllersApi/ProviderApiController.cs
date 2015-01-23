@@ -2077,22 +2077,36 @@ namespace BackOffice.Web.ControllersApi
                 List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
                     ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
 
+                List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
+
                 if (oCustomerByProvider != null)
                 {
-
-                    List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
-
                     oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
 
-                    
-                    foreach (var item in oCustomerProvider)
+                    if (CustomerSearch != null && oCustomerProvider != null)
                     {
-                        oReturn.Add(new ProviderCustomerViewModel(
-                                item.CustomerProviderId.ToString(),
-                                item.RelatedProvider,
-                                item.Status,
-                                item.Enable
-                            ));
+                        foreach (var item in oCustomerProvider)
+                        {
+                            oReturn.Add(new ProviderCustomerViewModel(
+                                    item.CustomerProviderId.ToString(),
+                                    item.RelatedProvider,
+                                    item.Status,
+                                    item.Enable
+                                ));
+                        }
+                    }
+                    else
+                    {
+                        List<CustomerProviderModel> oCustomer = new List<CustomerProviderModel>();
+
+                        oCustomer = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
+                        if (oCustomer != null && oCustomer.Count > 0)
+                        {
+                            foreach (var it in oCustomer)
+                            {
+                                oReturn.Add(new ProviderCustomerViewModel(it.RelatedProvider));
+                            }
+                        }
                     }
                 }
             }
@@ -2122,11 +2136,18 @@ namespace BackOffice.Web.ControllersApi
                     foreach (var item in oCustomerProvider.Select(x => x.CustomerProviderInfo).FirstOrDefault())
                     {
                         oReturn.Add(new ProviderCustomerViewModel(item));
-                    }           
+                    }
                 }
             }
 
             return oReturn;
+        }
+        
+        [HttpPost]
+        [HttpGet]
+        public int UpsertCPCustomerProviderInfo()
+        {
+            return 0;
         }
 
         #endregion

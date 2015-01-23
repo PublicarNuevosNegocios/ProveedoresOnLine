@@ -4918,10 +4918,9 @@ var Provider_CustomerInfoObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: [
-                { name: 'createCustomer', text: 'Agregar Comprador' },
-                { name: 'createTraking', text: 'Agregar Seguimiento' },
-            ],
+            toolbar: [{
+                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProvider();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateTracking();">Agregar Seguimiento</a>',
+            }],
             dataSource: {
                 schema: {
                     model: {
@@ -5000,7 +4999,6 @@ var Provider_CustomerInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -5037,6 +5035,38 @@ var Provider_CustomerInfoObject = {
     },
 
     CreateCustomerByProvider: function()
+    {
+        debugger;
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<option value="' + "" + '">' + " " + '</option>')
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].RelatedCompany.Enable == true) {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" checked /></li>')
+                    }
+                    else {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" /></li>')
+                    }
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                }
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog();
+    },
+
+    UpsertCustomerByProvider: function()
+    {
+
+    },
+
+    CreateTracking: function()
     {
 
     },
