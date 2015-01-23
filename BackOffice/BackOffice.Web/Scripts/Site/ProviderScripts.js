@@ -181,19 +181,19 @@ var Provider_CompanyContactObject = {
     ConfigKeyBoard: function () {
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
-                //alt+ctrl+g
+                //alt+shift+g
 
                 //save
                 $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").saveChanges();
             }
             else if (e.altKey && e.shiftKey && e.keyCode == 78) {
-                //alt+ctrl+n
+                //alt+shift+n
 
                 //new field
                 $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").addRow();
             }
             else if (e.altKey && e.shiftKey && e.keyCode == 68) {
-                //alt+ctrl+d
+                //alt+shift+d
 
                 //new field
                 $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").cancelChanges();
