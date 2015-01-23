@@ -12,7 +12,10 @@
         <ul>
             <li>
                 <input id="divProviderSearch_txtSearch" class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" value="@Request["SearchParam"]" />
-                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null,null);">Encontrar</a>
+                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null,null);">
+                    Encontrar
+                    <span class="POBOSearchButtonsLupita"></span>
+                </a>
             </li>
             <li>
                 <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>

@@ -11,13 +11,21 @@
 }
 .POBOSearchButtons {
     text-transform:uppercase;
-    background-image:url(../../Images/POBOsprite.png);
-    background-position:-246px 1px;
-    background-size:522px auto;
-    background-repeat:no-repeat;
-    padding:5px 31px 5px 10px;
+    padding:5px 8px 4px 10px;
     margin:0px 0px 0px -5px;
+    line-height:12px;
 }
+    .POBOSearchButtonsLupita {
+            border:none;
+        background-image:url(../../Images/POBOsprite.png);
+        background-position:-347px -5px;
+        background-size:522px auto;
+        background-repeat:no-repeat;
+        display:inline-block;
+        width:24px; height:23px;
+        vertical-align:text-bottom;
+
+    }
     .POBOButtons:hover, .POBOSearchButtons:hover{
         background-color:#ffb362;
         text-decoration:underline;
