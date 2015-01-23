@@ -39,6 +39,11 @@ namespace T4MVC.Desktop
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
+                public readonly string _P_ProviderMenuHeader = "_P_ProviderMenuHeader";
+                public readonly string _P_ProviderSearch_Comparison = "_P_ProviderSearch_Comparison";
+                public readonly string _P_ProviderSearch_Filter = "_P_ProviderSearch_Filter";
+                public readonly string _P_ProviderSearch_Result = "_P_ProviderSearch_Result";
+                public readonly string _P_ProviderSearch_Result_Item = "_P_ProviderSearch_Result_Item";
                 public readonly string _P_Search_Comparison = "_P_Search_Comparison";
                 public readonly string _P_Search_Filter = "_P_Search_Filter";
                 public readonly string _P_Search_Order = "_P_Search_Order";
@@ -49,6 +54,11 @@ namespace T4MVC.Desktop
             public readonly string _L_Footer = "~/Areas/Desktop/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Areas/Desktop/Views/Shared/_Layout.cshtml";
+            public readonly string _P_ProviderMenuHeader = "~/Areas/Desktop/Views/Shared/_P_ProviderMenuHeader.cshtml";
+            public readonly string _P_ProviderSearch_Comparison = "~/Areas/Desktop/Views/Shared/_P_ProviderSearch_Comparison.cshtml";
+            public readonly string _P_ProviderSearch_Filter = "~/Areas/Desktop/Views/Shared/_P_ProviderSearch_Filter.cshtml";
+            public readonly string _P_ProviderSearch_Result = "~/Areas/Desktop/Views/Shared/_P_ProviderSearch_Result.cshtml";
+            public readonly string _P_ProviderSearch_Result_Item = "~/Areas/Desktop/Views/Shared/_P_ProviderSearch_Result_Item.cshtml";
             public readonly string _P_Search_Comparison = "~/Areas/Desktop/Views/Shared/_P_Search_Comparison.cshtml";
             public readonly string _P_Search_Filter = "~/Areas/Desktop/Views/Shared/_P_Search_Filter.cshtml";
             public readonly string _P_Search_Order = "~/Areas/Desktop/Views/Shared/_P_Search_Order.cshtml";
