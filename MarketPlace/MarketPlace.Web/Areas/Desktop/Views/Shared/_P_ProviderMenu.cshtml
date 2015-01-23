@@ -1,0 +1,53 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (Model.ProviderMenu != null &&
+    Model.ProviderMenu.Count > 0)
+{
+    if (Model.RenderScripts)
+    {
+        <div id="HeaderMenu">
+            @{Html.RenderPartial(MVC.Desktop.Shared.Views._P_ProviderMenuHeader, Model);}
+        </div>
+
+        <div class="POBOProviderSideMenu">
+            <ul id="ulProviderMenu">
+                @foreach (MarketPlace.Models.General.GenericMenu pm in Model.ProviderMenu.OrderBy(x => x.Position))
+                {
+                    string strSeleClass = string.Empty;
+                    if (pm.IsSelected)
+                    {
+                        strSeleClass = "principalmenuselected";
+                    }
+
+                    <li class="@strSeleClass">
+                        <label>@pm.Name</label>
+                        <ul class="POBOProviderSideSubMenu">
+                            @foreach (MarketPlace.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
+                            {
+                                strSeleClass = string.Empty;
+                                if (sm.IsSelected)
+                                {
+                                    strSeleClass = "secundarymenuselected";
+                                }
+                                <li class="@strSeleClass">
+                                    <a href="@sm.Url">@sm.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Provider_InitMenu({
+                    ObjId: 'ulProviderMenu',
+                    active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),
+                });
+            });
+        </script>
+    }
+}
