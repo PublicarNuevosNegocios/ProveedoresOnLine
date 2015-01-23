@@ -17,7 +17,15 @@
     </div>
     <div>
         <div>
-            <a>@Model.RelatedProvider.RelatedCompany.CompanyName</a>
+            <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.GIProviderInfo,
+                    ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
+                @Model.RelatedProvider.RelatedCompany.CompanyName
+            </a>
             <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName : @Model.RelatedProvider.RelatedCompany.IdentificationNumber</span>
         </div>
         <div>
@@ -26,7 +34,17 @@
                 @*Actions for related provider *@
                 <ul>
                     <li><a>Agregar a comparación</a></li>
-                    <li><a>Ver detalle</a></li>
+                    <li>
+                        <a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIProviderInfo,
+                                ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
+                            Ver detalle
+                        </a>
+                    </li>
                 </ul>
             }
             else
