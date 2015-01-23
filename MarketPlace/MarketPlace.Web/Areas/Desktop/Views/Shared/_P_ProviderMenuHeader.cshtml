@@ -2,9 +2,12 @@
 
 @if (Model.RenderScripts)
 {
-    if (true)
+    <img src="@{Model.RelatedProvider.Where(x => x.ProviderLogoUrl != null).Select(x => x.ProviderLogoUrl).FirstOrDefault();}"
+         alt="@{Model.RelatedProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.RelatedCompany.CompanyName).FirstOrDefault();}" />
+
+    if (Model.IsOwnProvider)
     {
-        
+        <img src="@{Model.RelatedProvider.Where(x => x.ProviderRate != null).Select(x => x.ProviderRate).FirstOrDefault();}" />
     }
 }
 else

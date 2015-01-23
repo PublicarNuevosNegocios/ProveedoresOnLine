@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using MarketPlace.Models.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -186,6 +188,42 @@ namespace MarketPlace.Web.Controllers
         public virtual ActionResult LIResolutionInfo(string ProviderPublicId)
         {
             return View();
+        }
+
+        #endregion
+
+        #region Menu
+
+        private List<GenericMenu> GetProviderMenu(ProviderViewModel vProviderInfo)
+        {
+            List<GenericMenu> oReturn = new List<GenericMenu>();
+
+            if (vProviderInfo.RelatedProvider != null)
+            {
+                string oCurrentController = MarketPlace.Web.Controllers.BaseController.CurrentControllerName;
+                string oCurrentAction = MarketPlace.Web.Controllers.BaseController.CurrentActionName;
+
+                #region GeneralInfo
+
+                #endregion
+
+                #region Commercial Info
+
+                #endregion
+
+                #region HSEQ Info
+
+                #endregion
+
+                #region Financial Info
+
+                #endregion
+
+                #region Legal Info
+
+                #endregion
+            }
+            return oReturn;
         }
 
         #endregion

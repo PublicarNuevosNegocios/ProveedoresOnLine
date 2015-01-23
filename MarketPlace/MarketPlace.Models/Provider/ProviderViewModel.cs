@@ -31,6 +31,8 @@ namespace MarketPlace.Models.Provider
                 }
                 return null;
             }
-        }        
+        }
+
+        public bool IsOwnProvider { get; set; }
     }
 }

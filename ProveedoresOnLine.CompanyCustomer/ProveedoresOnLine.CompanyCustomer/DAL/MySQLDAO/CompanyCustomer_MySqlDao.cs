@@ -81,45 +81,82 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
-                oReturn =
-                    (from p in response.DataTableResult.AsEnumerable()
-                     where !p.IsNull("CustomerProviderId")
-                     group p by new
-                     {
-                         CustomerProviderId = p.Field<int>("CustomerProviderId"),
-                     }
-                         into pp
-                         select new CompanyCustomer.Models.Customer.CustomerModel()
+                if (CustomerSearch != null)
+                {
+
+                    oReturn =
+                        (from p in response.DataTableResult.AsEnumerable()
+                         where !p.IsNull("CustomerProviderId")
+                         group p by new
                          {
-                             RelatedProvider =
-                             (from c in response.DataTableResult.AsEnumerable()
-                              where !c.IsNull("CustomerProviderId")
-                              group c by new
-                              {
-                                  CustomerProviderId = c.Field<int>("CustomerProviderId"),
-                                  CustomerPublicId = c.Field<string>("CompanyPublicId"),
-                                  Customer = c.Field<String>("Customer"),
-                                  Status = c.Field<int>("Status"),
-                                  StatusName = c.Field<string>("StatusName"),
-                                  Enable = c.Field<UInt64>("Enable") == 1 ? true : false,
-                              }
-                                  into cc
-                                  select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
+                             CustomerProviderId = p.Field<int>("CustomerProviderId"),
+                         }
+                             into pp
+                             select new CompanyCustomer.Models.Customer.CustomerModel()
+                             {
+                                 RelatedProvider =
+                                 (from c in response.DataTableResult.AsEnumerable()
+                                  where !c.IsNull("CustomerProviderId")
+                                  group c by new
                                   {
-                                      CustomerProviderId = cc.Key.CustomerProviderId,
-                                      RelatedProvider = new Company.Models.Company.CompanyModel()
+                                      CustomerProviderId = c.Field<int>("CustomerProviderId"),
+                                      CustomerPublicId = c.Field<string>("CompanyPublicId"),
+                                      Customer = c.Field<string>("Customer"),
+                                      Status = c.Field<int>("Status"),
+                                      StatusName = c.Field<string>("StatusName"),
+                                      Enable = c.Field<UInt64>("Enable") == 1 ? true : false,
+                                  }
+                                      into cc
+                                      select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
                                       {
-                                          CompanyPublicId = cc.Key.CustomerPublicId,
-                                          CompanyName = cc.Key.Customer,
-                                      },
-                                      Status = new Company.Models.Util.CatalogModel()
+                                          CustomerProviderId = cc.Key.CustomerProviderId,
+                                          RelatedProvider = new Company.Models.Company.CompanyModel()
+                                          {
+                                              CompanyPublicId = cc.Key.CustomerPublicId,
+                                              CompanyName = cc.Key.Customer,
+                                          },
+                                          Status = new Company.Models.Util.CatalogModel()
+                                          {
+                                              ItemId = cc.Key.Status,
+                                              ItemName = cc.Key.StatusName,
+                                          },
+                                          Enable = cc.Key.Enable,
+                                      }).ToList(),
+                             }).ToList();
+                }
+                else
+                {
+                    oReturn =
+                        (from p in response.DataTableResult.AsEnumerable()
+                         where !p.IsNull("CompanyId")
+                         group p by new
+                         {
+                             CustomerProviderId = p.Field<int>("CompanyId"),
+                         }
+                             into pp
+                             select new CompanyCustomer.Models.Customer.CustomerModel()
+                             {
+                                 RelatedProvider =
+                                 (from c in response.DataTableResult.AsEnumerable()
+                                  where !c.IsNull("CompanyId")
+                                  group c by new
+                                  {
+                                      CustomerPublicId = c.Field<string>("CompanyPublicId"),
+                                      Customer = c.Field<string>("CompanyName"),
+                                      Enable = c.Field<int>("IsRelatedCustomer") == 1 ? true : false,
+                                  }
+                                      into cc
+                                      select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
                                       {
-                                          ItemId = cc.Key.Status,
-                                          ItemName = cc.Key.StatusName,
-                                      },
-                                      Enable = cc.Key.Enable,
-                                  }).ToList(),
-                         }).ToList();
+                                          RelatedProvider = new Company.Models.Company.CompanyModel()
+                                          {
+                                              CompanyPublicId = cc.Key.CustomerPublicId,
+                                              CompanyName = cc.Key.Customer,
+                                              Enable = cc.Key.Enable,
+                                          },
+                                      }).ToList(),
+                             }).ToList();
+                }       
             }
 
             return oReturn;
