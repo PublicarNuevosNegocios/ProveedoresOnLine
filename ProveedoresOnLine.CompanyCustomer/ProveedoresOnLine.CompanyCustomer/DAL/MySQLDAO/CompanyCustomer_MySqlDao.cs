@@ -141,16 +141,16 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                   where !c.IsNull("CompanyId")
                                   group c by new
                                   {
-                                      CustomerPublicId = c.Field<string>("CompanyPublicId"),
+                                      CompanyId = c.Field<int>("CompanyId"),
                                       Customer = c.Field<string>("CompanyName"),
                                       Enable = c.Field<int>("IsRelatedCustomer") == 1 ? true : false,
                                   }
                                       into cc
                                       select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
                                       {
+                                          
                                           RelatedProvider = new Company.Models.Company.CompanyModel()
                                           {
-                                              CompanyPublicId = cc.Key.CustomerPublicId,
                                               CompanyName = cc.Key.Customer,
                                               Enable = cc.Key.Enable,
                                           },

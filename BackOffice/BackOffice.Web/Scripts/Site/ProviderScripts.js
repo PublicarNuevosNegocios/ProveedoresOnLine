@@ -9,7 +9,6 @@ function Provider_InitMenu(InitObject) {
 
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
-    debugger;
     if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
@@ -168,6 +167,38 @@ var Provider_CompanyContactObject = {
         else if (Provider_CompanyContactObject.ContactType == 204004) {
             Provider_CompanyContactObject.RenderDistributor();
         }
+
+        //focus on the grid
+        $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Provider_CompanyContactObject.ConfigKeyBoard();
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+ctrl+g
+
+                //save
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+ctrl+n
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+ctrl+d
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderCompanyContact: function () {
@@ -3983,7 +4014,7 @@ var Provider_LegalInfoObject = {
                 width: '190px',
             }, {
                 field: 'R_LargeContributorReceipt',
-                title: 'Gran Contribuyente Recibo',
+                title: 'Gran contribuyente resolución',
                 width: '190px',
             }, {
                 field: 'R_LargeContributorDate',
@@ -4784,7 +4815,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'RS_Description',
-                title: 'Descripción',
+                title: 'Alcance',
                 width: '300px',
             }, {
                 field: 'RS_ResolutionFile',
@@ -4895,11 +4926,9 @@ var Provider_CustomerInfoObject = {
         $.each(vInitiObject.ProviderOptions, function (item, value) {
             Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
         });
-        debugger;
     },
 
     RenderAsync: function () {
-        debugger;
         if (Provider_CustomerInfoObject.ProviderCustomerInfoType == 901001) {
             Provider_CustomerInfoObject.RenderCustomerByProvider();
         }
@@ -4912,10 +4941,9 @@ var Provider_CustomerInfoObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: [
-                { name: 'createCustomer', text: 'Agregar Comprador' },
-                { name: 'createTraking', text: 'Agregar Seguimiento' },
-            ],
+            toolbar: [{
+                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProvider();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateTracking();">Agregar Seguimiento</a>',
+            }],
             dataSource: {
                 schema: {
                     model: {
@@ -4994,7 +5022,6 @@ var Provider_CustomerInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -5031,6 +5058,38 @@ var Provider_CustomerInfoObject = {
     },
 
     CreateCustomerByProvider: function()
+    {
+        debugger;
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<option value="' + "" + '">' + " " + '</option>')
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].RelatedCompany.Enable == true) {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" checked /></li>')
+                    }
+                    else {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" /></li>')
+                    }
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                }
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog();
+    },
+
+    UpsertCustomerByProvider: function()
+    {
+
+    },
+
+    CreateTracking: function()
     {
 
     },
