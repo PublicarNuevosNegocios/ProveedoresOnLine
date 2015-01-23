@@ -3976,7 +3976,7 @@ var Provider_LegalInfoObject = {
                 width: '190px',
             }, {
                 field: 'R_LargeContributorReceipt',
-                title: 'Gran Contribuyente Recibo',
+                title: 'Gran contribuyente resolución',
                 width: '190px',
             }, {
                 field: 'R_LargeContributorDate',
@@ -4777,7 +4777,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'RS_Description',
-                title: 'Descripción',
+                title: 'Alcance',
                 width: '300px',
             }, {
                 field: 'RS_ResolutionFile',
