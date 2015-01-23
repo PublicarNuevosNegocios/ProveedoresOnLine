@@ -36,12 +36,10 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            var oDefaultImage = '@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DefaultImage].Value)'; 
             Provider_SearchObject.Init({
                 ObjectId: 'divProviderSearch',
                 SearchFilter: '@Request["SearchFilter"]',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
-                DefaultImage: oDefaultImage,
             });
             Provider_SearchObject.RenderAsync();
         });
