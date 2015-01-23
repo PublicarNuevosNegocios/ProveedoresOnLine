@@ -9,7 +9,6 @@ function Provider_InitMenu(InitObject) {
 
 /*Generic provider submit form*/
 function Provider_SubmitForm(SubmitObject) {
-    debugger;
     if (SubmitObject.StepValue != null && SubmitObject.StepValue.length > 0 && $('#StepAction').length > 0) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
@@ -30,13 +29,11 @@ var Provider_SearchObject = {
     ObjectId: '',
     SearchFilter: '',
     PageSize: '',
-    DefaultImage: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchFilter = vInitObject.SearchFilter;
         this.PageSize = vInitObject.PageSize;
-        this.DefaultImage = vInitObject.DefaultImage;
     },
 
     RenderAsync: function () {
@@ -95,18 +92,7 @@ var Provider_SearchObject = {
             columns: [{
                 field: 'ImageUrl',
                 title: 'Logo',
-                template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem.ImageUrl != null && dataItem.ImageUrl.length > 0) {
-                        oReturn = '<img style="width:50px;height:50px;" src="' + dataItem.ImageUrl + '" />';
-                    }
-                    else {
-                        oReturn = '<img style="width:50px;height:50px;" src="' + Provider_SearchObject.DefaultImage + '" />';
-                    }
-
-                    return oReturn;
-                },
-
+                template:'<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
             }, {
                 field: 'ProviderPublicId',
@@ -181,6 +167,38 @@ var Provider_CompanyContactObject = {
         else if (Provider_CompanyContactObject.ContactType == 204004) {
             Provider_CompanyContactObject.RenderDistributor();
         }
+
+        //focus on the grid
+        $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Provider_CompanyContactObject.ConfigKeyBoard();
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+ctrl+g
+
+                //save
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+ctrl+n
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+ctrl+d
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderCompanyContact: function () {
@@ -3989,7 +4007,7 @@ var Provider_LegalInfoObject = {
                 width: '190px',
             }, {
                 field: 'R_LargeContributorReceipt',
-                title: 'Gran Contribuyente Recibo',
+                title: 'Gran contribuyente resolución',
                 width: '190px',
             }, {
                 field: 'R_LargeContributorDate',
@@ -4790,7 +4808,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'RS_Description',
-                title: 'Descripción',
+                title: 'Alcance',
                 width: '300px',
             }, {
                 field: 'RS_ResolutionFile',
@@ -4901,11 +4919,9 @@ var Provider_CustomerInfoObject = {
         $.each(vInitiObject.ProviderOptions, function (item, value) {
             Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
         });
-        debugger;
     },
 
     RenderAsync: function () {
-        debugger;
         if (Provider_CustomerInfoObject.ProviderCustomerInfoType == 901001) {
             Provider_CustomerInfoObject.RenderCustomerByProvider();
         }

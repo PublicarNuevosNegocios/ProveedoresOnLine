@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,9 +37,9 @@ namespace MarketPlace.Web.Controllers
                 {
                     ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
                     SearchParam = SearchParam,
-                    SearchFilter = SearchFilter,
+                    SearchFilter = SearchFilter == null ? null : (SearchFilter.Trim(new char[] { ',' }).Length > 0 ? SearchFilter.Trim(new char[] { ',' }) : null),
                     SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSearchOrderType.Relevance : (MarketPlace.Models.General.enumSearchOrderType)Convert.ToInt32(SearchOrderType),
-                    OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : (OrderOrientation.Trim().ToLower() == "true"),
+                    OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
                     PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
                     ProviderSearchResult = new List<Models.Provider.ProviderLiteViewModel>(),
                 };
@@ -85,7 +86,24 @@ namespace MarketPlace.Web.Controllers
         #region General Info
 
         public virtual ActionResult GIProviderInfo(string ProviderPublicId)
-        {
+        {            
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+            List<ProviderModel> oModelpr = new List<ProviderModel>();
+
+
+            if (!string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get provider info                
+
+                //oModel.RelatedProvider = 
+                oModelpr = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+                
+                //get provider menu
+                //oModel.ProviderMenu = GetProviderMenu(oModel);                
+            }
             return View();
         }
 
@@ -198,12 +216,37 @@ namespace MarketPlace.Web.Controllers
         {
             List<GenericMenu> oReturn = new List<GenericMenu>();
 
-            if (vProviderInfo.RelatedProvider != null)
+            if (vProviderInfo.RelatedLiteProvider != null)
             {
                 string oCurrentController = MarketPlace.Web.Controllers.BaseController.CurrentControllerName;
                 string oCurrentAction = MarketPlace.Web.Controllers.BaseController.CurrentActionName;
 
                 #region GeneralInfo
+
+                //header
+                MarketPlace.Models.General.GenericMenu oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Información general",
+                    Position = 0,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //Basic info
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Información básica",
+                    Url = Url.Action
+                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        MVC.Provider.Name,
+                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.FirstOrDefault().RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //add menu
+                oReturn.Add(oMenuAux);
 
                 #endregion
 
@@ -222,6 +265,30 @@ namespace MarketPlace.Web.Controllers
                 #region Legal Info
 
                 #endregion
+
+                #region last next menu
+
+                MarketPlace.Models.General.GenericMenu MenuAux = null;
+
+                oReturn.OrderBy(x => x.Position).All(pm =>
+                {
+                    pm.ChildMenu.OrderBy(x => x.Position).All(sm =>
+                    {
+                        if (MenuAux != null)
+                        {
+                            MenuAux.NextMenu = sm;
+                        }
+                        sm.LastMenu = MenuAux;
+                        MenuAux = sm;
+
+                        return true;
+                    });
+
+                    return true;
+                });
+
+                #endregion
+
             }
             return oReturn;
         }

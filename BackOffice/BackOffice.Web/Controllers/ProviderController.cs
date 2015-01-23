@@ -1184,7 +1184,7 @@ namespace BackOffice.Web.Controllers
                 //Balancesheet info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Balances financieros",
+                    Name = "Estados financieros",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.FIBalanceSheetUpsert,
                         MVC.Provider.Name,

@@ -38,6 +38,13 @@
                     </li>
                 }
             }
+            else if (Model.CurrentSubMenu != null &&
+                Model.CurrentSubMenu.NextMenu == null)
+            {
+                <li>
+                    <a class="POBOProgressButtons" href="@(Url.Action(MVC.Provider.ActionNames.Index, MVC.Provider.Name))">Finalizar</a>
+                </li>
+            }
         }
         @if (Model.IsForm)
         {
