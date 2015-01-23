@@ -20,11 +20,20 @@
     },
 
     RenderAsync: function () {
+
+        //init search orient controls
+        $('input[name="Search_rbOrder"]').change(function () {
+            if ($(this) != null && $(this).attr('searchordertype') != null && $(this).attr('orderorientation') != null) {
+                Provider_SearchObject.Search({
+                    SearchOrderType: $(this).attr('searchordertype'),
+                    OrderOrientation: $(this).attr('orderorientation')
+                });
+            }
+        });
     },
 
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
-
         /*get serach param*/
         this.SearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val();
 
@@ -32,11 +41,14 @@
             /*get filter values*/
             if (vSearchObject.SearchFilter != null) {
                 if (vSearchObject.SearchFilter.Enable == true) {
-                    this.SearchFilter += ',' + vSearchObject.SearchFilter.Value;
+                    this.SearchFilter += vSearchObject.SearchFilter.Value + ',';
                 }
                 else {
-                    this.SearchFilter = this.SearchFilter.replace(new RegExp(vSearchObject.SearchFilter.Value, gi), '');
+                    this.SearchFilter = this.SearchFilter.replace(new RegExp(vSearchObject.SearchFilter.Value, 'gi'), '').replace(/,,/gi, '');
                 }
+
+                /*Init pager*/
+                this.PageNumber = 0;
             }
 
             /*get order*/
@@ -44,7 +56,7 @@
                 this.SearchOrderType = vSearchObject.SearchOrderType;
             }
             if (vSearchObject.OrderOrientation != null) {
-                this.SearchOrderType = vSearchObject.OrderOrientation;
+                this.OrderOrientation = vSearchObject.OrderOrientation;
             }
 
             /*get page*/
@@ -52,14 +64,14 @@
                 this.PageNumber = vSearchObject.PageNumber;
             }
         }
-        window.location = GetSearchUrl();
+        window.location = Provider_SearchObject.GetSearchUrl();
     },
 
     GetSearchUrl: function () {
 
         var oUrl = this.SearchUrl;
 
-        oUrl += '?SearchParam=' + this.SearchUrl;
+        oUrl += '?SearchParam=' + this.SearchParam;
         oUrl += '&SearchFilter=' + this.SearchFilter;
         oUrl += '&SearchOrderType=' + this.SearchOrderType;
         oUrl += '&OrderOrientation=' + this.OrderOrientation;

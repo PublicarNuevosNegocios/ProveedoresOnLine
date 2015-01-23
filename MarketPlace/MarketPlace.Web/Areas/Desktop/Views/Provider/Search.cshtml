@@ -51,9 +51,11 @@
                 SearchParam: '@Model.SearchParam',
                 SearchFilter: '@Model.SearchFilter',
                 SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
-                OrderOrientation: @Model.OrderOrientation,
+                OrderOrientation: @Model.OrderOrientation.ToString().ToLower(),
                 PageNumber: @Model.PageNumber,
             });
+
+            Provider_SearchObject.RenderAsync();
         });
     </script>
 }
