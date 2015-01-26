@@ -46,6 +46,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId);
 
+        Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId);
         #endregion
 
     }

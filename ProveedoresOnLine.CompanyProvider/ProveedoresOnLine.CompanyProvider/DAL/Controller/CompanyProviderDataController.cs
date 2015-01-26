@@ -147,6 +147,10 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPProviderSearchById(CustomerPublicId, lstProviderPublicId);
         }
 
+        public Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DataFactory.MPCompanyGetBasicInfo(CompanyPublicId);
+        }
         #endregion
     }
 }

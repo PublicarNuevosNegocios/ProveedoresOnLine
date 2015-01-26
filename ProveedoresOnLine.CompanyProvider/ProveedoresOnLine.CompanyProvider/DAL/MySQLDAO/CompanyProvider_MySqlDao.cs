@@ -877,6 +877,65 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_C_Company_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            Company.Models.Company.CompanyModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = response.DataTableResult.Rows[0].Field<string>("CompanyPublicId"),
+                    CompanyName = response.DataTableResult.Rows[0].Field<string>("CompanyName"),
+                    IdentificationType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("IdentificationTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("IdentificationTypeName"),
+                    },
+                    IdentificationNumber = response.DataTableResult.Rows[0].Field<string>("IdentificationNumber"),
+                    CompanyType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = response.DataTableResult.Rows[0].Field<int>("CompanyTypeId"),
+                        ItemName = response.DataTableResult.Rows[0].Field<string>("CompanyTypeName"),
+                    },
+                    Enable = response.DataTableResult.Rows[0].Field<UInt64>("CompanyEnable") == 1 ? true : false,
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("CompanyLastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CompanyCreateDate"),
+
+                    CompanyInfo =
+                        (from ci in response.DataTableResult.AsEnumerable()
+                         where !ci.IsNull("CompanyInfoId")
+                         select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                         {
+                             ItemInfoId = ci.Field<int>("CompanyInfoId"),
+                             ItemInfoType = new Company.Models.Util.CatalogModel()
+                             {
+                                 ItemId = ci.Field<int>("CompanyInfoTypeId"),
+                                 ItemName = ci.Field<string>("CompanyInfoTypeName"),
+                             },
+                             Value = ci.Field<string>("Value"),
+                             LargeValue = ci.Field<string>("LargeValue"),
+                             Enable = ci.Field<UInt64>("CompanyInfoEnable") == 1 ? true : false,
+                             LastModify = ci.Field<DateTime>("CompanyInfoLastModify"),
+                             CreateDate = ci.Field<DateTime>("CompanyInfoCreateDate"),
+                         }).ToList(),
+                };
+            }
+            return oReturn;
+        }
         #endregion
     }
 }
