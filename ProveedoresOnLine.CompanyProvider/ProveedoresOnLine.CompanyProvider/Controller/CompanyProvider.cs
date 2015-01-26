@@ -616,6 +616,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPProviderSearchById(CustomerPublicId, lstProviderPublicId);
         }
 
+        public static Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);
+        }
         #endregion
     }
 }
