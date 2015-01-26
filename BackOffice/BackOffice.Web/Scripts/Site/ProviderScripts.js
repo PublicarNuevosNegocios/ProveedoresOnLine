@@ -92,7 +92,7 @@ var Provider_SearchObject = {
             columns: [{
                 field: 'ImageUrl',
                 title: 'Logo',
-                template:'<img style="width:50px;height:50px;" src="${ImageUrl}" />',
+                template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
             }, {
                 field: 'ProviderPublicId',
@@ -1126,7 +1126,7 @@ var Provider_CompanyCommercialObject = {
 
                             EX_Phone: { editable: true },
                             EX_PhoneId: { editable: false },
-                            
+
                             EX_ExperienceFile: { editable: true },
                             EX_ExperienceFileId: { editable: false },
 
@@ -4942,13 +4942,14 @@ var Provider_CustomerInfoObject = {
             scrollable: true,
             selectable: true,
             toolbar: [{
-                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProvider();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateTracking();">Agregar Seguimiento</a>',
+                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>',
             }],
             dataSource: {
                 schema: {
                     model: {
                         fields: {
                             CP_CustomerProviderId: { editable: false },
+                            CP_CustomerPublicId: { editable: false },
                             CP_Customer: { editable: false },
                             CP_Status: { editable: false },
                             CP_Enable: { editable: false },
@@ -4981,6 +4982,10 @@ var Provider_CustomerInfoObject = {
                 field: 'CP_CustomerProviderId',
                 title: 'Id',
                 width: '50px',
+            }, {
+                field: 'CP_CustomerPublicId',
+                title: 'Id Comprador',
+                width: '100px',
             }, {
                 field: 'CP_Customer',
                 title: 'Comprador',
@@ -5057,24 +5062,23 @@ var Provider_CustomerInfoObject = {
         });
     },
 
-    CreateCustomerByProvider: function()
-    {
-        debugger;
+    CreateCustomerByProviderStatus: function () {
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
             dataType: "json",
             type: "POST",
             success: function (result) {
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').html('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<option value="' + "" + '">' + " " + '</option>')
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<option value="' + "" + '">' + " " + '</option>')
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" checked /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input type="checkbox" checked /></li>')
                     }
                     else {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li><input type="checkbox" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input type="checkbox" /></li>')
                     }
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Customer').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
                 }
             },
             error: function (result) {
@@ -5084,14 +5088,85 @@ var Provider_CustomerInfoObject = {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog();
     },
 
-    UpsertCustomerByProvider: function()
-    {
+    UpsertCustomerByProvider: function () {
+        var oUpsert = '';
+        var oCompanyPublicId = $('#PublicId').val();
+        var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val();
+        var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val();
 
+        //update
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicId=' + oCompanyPublicId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                Message('success', '0');
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog("close");
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val('');
+
+                Provider_CustomerInfoObject.RenderCustomerByProvider();
+            },
+            error: function (result) {
+                Message('error', '');
+            }
+        });
     },
 
-    CreateTracking: function()
-    {
+    CreateCustomerByProviderTracking: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<option value="' + "" + '">' + " " + '</option>')
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].RelatedCompany.Enable == true) {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input type="checkbox" checked /></li>')
+                    }
+                    else {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input type="checkbox" /></li>')
+                    }
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
+                }
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog();
+    },
 
+    UpsertCustomerByProviderTraking: function () {
+        var oUpsert = '';
+        var oCompanyPublicId = $('#PublicId').val();
+        var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
+        var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val();
+        var oStatusId = $('#' + Provider_CustomerInfoObject.ObjectId + '_Status').val();
+
+        //update
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicId=' + oCompanyPublicId + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                Message('success', '0');
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog("close");
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val('');
+
+                Provider_CustomerInfoObject.RenderCustomerByProvider();
+            },
+            error: function (result) {
+                Message('error', '');
+            }
+        });
     },
 }
 
