@@ -22,6 +22,7 @@ namespace BackOffice.Models.Provider
         #region CustomerProvider
 
         public string CP_CustomerProviderId { get; set; }
+        public string CP_CustomerPublicId { get; set; }
         public string CP_Customer { get; set; }
         public string CP_Status { get; set; }
         public string CP_Enable { get; set; }
@@ -46,6 +47,7 @@ namespace BackOffice.Models.Provider
                                         , bool oEnable)
         {
             CP_CustomerProviderId = oProviderCustomerId;
+            CP_CustomerPublicId = oRelatedCompany.CompanyPublicId;
             CP_Customer = oRelatedCompany.CompanyName;
             CP_Status = oRelatedStatus.ItemName;
             CP_Enable = Enable.ToString();

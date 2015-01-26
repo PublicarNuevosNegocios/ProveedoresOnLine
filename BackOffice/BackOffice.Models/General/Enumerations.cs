@@ -364,5 +364,14 @@
         RateCustomer = 901003,
     }
 
+    public enum enumProviderCustomerStatus
+    {
+        Creation = 902001,
+        Process = 902002,
+        Upgrade = 902003,
+        Basic_Validate = 902004,
+        Full_Validate = 902005,
+    }
+
     #endregion
 }

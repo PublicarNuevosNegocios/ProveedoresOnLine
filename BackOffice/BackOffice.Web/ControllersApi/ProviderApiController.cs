@@ -731,7 +731,7 @@ namespace BackOffice.Web.ControllersApi
                         },
                         Value = oDataToUpsert.EX_Phone,
                         Enable = true,
-                    });                    
+                    });
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
@@ -2105,7 +2105,7 @@ namespace BackOffice.Web.ControllersApi
                 List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerProviderInfo =
                     ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerInfoByProvider(CustomerProviderId);
 
-                if (oCustomerProviderInfo != null)
+                if (oCustomerProviderInfo != null && oCustomerProviderInfo.Count > 0)
                 {
                     List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
@@ -2119,6 +2119,131 @@ namespace BackOffice.Web.ControllersApi
             }
 
             return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public void CPCustomerProviderUpsert
+            (string UpsertCustomerByProvider,
+            string oProviderPublicId,
+            string oCompanyPublicId,
+            string oInternalTracking,
+            string oExternalTracking)
+        {
+
+            if (UpsertCustomerByProvider == "true")
+            {
+                List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
+
+                if (oInternalTracking != null && oInternalTracking.Length > 0)
+                {
+                    oInfoModel.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
+                        },
+                        Value = oInternalTracking,
+                    });
+                }
+                if (oExternalTracking != null && oExternalTracking.Length > 0)
+                {
+                    oInfoModel.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
+                        },
+                        Value = oExternalTracking,
+                    });
+                }
+
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicId);
+
+                CustomerModel oCustomerModel = new CustomerModel();
+                oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
+
+                oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                    {
+                        RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = oProviderPublicId,
+                        },
+                        Status = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
+                        },
+                        CustomerProviderInfo = oInfoModel,
+                        Enable = true,
+                    });
+
+                oCustomerModel.RelatedCompany = oCompanyModel;
+
+                ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+            }
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public void CPCustomerProvierInfoUpsert
+        (string UpsertCustomerInfoByProvider,
+            string oProviderPublicId,
+            string oCompanyPublicId,
+            string oStatusId,
+            string oInternalTracking,
+            string oExternalTracking)
+        {
+            if (UpsertCustomerInfoByProvider == "true")
+            {
+                List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
+
+                if (oInternalTracking != null && oInternalTracking.Length > 0)
+                {
+                    oInfoModel.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
+                        },
+                        Value = oInternalTracking,
+                    });
+                }
+                if (oExternalTracking != null && oExternalTracking.Length > 0)
+                {
+                    oInfoModel.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
+                        },
+                        Value = oExternalTracking,
+                    });
+                }
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oCompanyPublicId);
+
+                CustomerModel oCustomerModel = new CustomerModel();
+                oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
+
+                oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                {
+                    RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = oProviderPublicId,
+                    },
+                    Status = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(oStatusId),
+                    },
+                    CustomerProviderInfo = oInfoModel,
+                    Enable = true,
+                });
+
+                oCustomerModel.RelatedCompany = oCompanyModel;
+
+                ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+            }
         }
 
         #endregion
