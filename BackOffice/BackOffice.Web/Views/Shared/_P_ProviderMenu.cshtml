@@ -8,7 +8,7 @@
         <div class="POBOProviderSideMenu">
             @if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null)
             {
-                <div>
+                <div class="POBOProviderTagWrapper">
                     <img src="@(Model.RelatedProvider.
                                 RelatedCompany.
                                 CompanyInfo.
@@ -16,8 +16,10 @@
                                 Select(x => x.Value).
                                 DefaultIfEmpty(Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DefaultImage].Value)).
                                 FirstOrDefault())" />
-                    <span>@Model.RelatedProvider.RelatedCompany.CompanyName</span>
-                    <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName @Model.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+                    <div>
+                        <span>@Model.RelatedProvider.RelatedCompany.CompanyName</span>
+                        <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName @Model.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+                    </div>
                 </div>
             }
             <ul id="ulProviderMenu">
