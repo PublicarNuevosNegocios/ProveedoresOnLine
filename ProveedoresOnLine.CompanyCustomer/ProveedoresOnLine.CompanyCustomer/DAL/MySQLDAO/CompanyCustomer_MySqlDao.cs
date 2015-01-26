@@ -143,6 +143,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                   {
                                       CompanyId = c.Field<int>("CompanyId"),
                                       Customer = c.Field<string>("CompanyName"),
+                                      CustomerPublicId = c.Field<string>("CompanyPublicId"),
                                       Enable = c.Field<int>("IsRelatedCustomer") == 1 ? true : false,
                                   }
                                       into cc
@@ -153,6 +154,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                           {
                                               CompanyName = cc.Key.Customer,
                                               Enable = cc.Key.Enable,
+                                              CompanyPublicId = cc.Key.CustomerPublicId,
                                           },
                                       }).ToList(),
                              }).ToList();

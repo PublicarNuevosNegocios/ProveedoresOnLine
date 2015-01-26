@@ -39,12 +39,12 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         public int CustomerProviderUpsert(string CustomerPublicId, string ProviderPublicId, int StatusId, bool Enable)
         {
-            throw new NotImplementedException();
+            return DataFactory.CustomerProviderUpsert(CustomerPublicId, ProviderPublicId, StatusId, Enable);
         }
 
         public int CustomerProviderInfoUpsert(int CustomerProviderId, int? CustomerProviderInfoId, int CustomerProviderInfoTypeId, string Value, string LargeValue, bool Enable)
         {
-            throw new NotImplementedException();
+            return DataFactory.CustomerProviderInfoUpsert(CustomerProviderId, CustomerProviderInfoId, CustomerProviderInfoTypeId, Value, LargeValue, Enable);
         }
 
         public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId, string CustomerSearch)
