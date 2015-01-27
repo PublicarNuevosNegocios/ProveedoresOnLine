@@ -4936,7 +4936,7 @@ var Provider_CustomerInfoObject = {
 
     RenderCustomerByProvider: function () {
         $('#' + Provider_CustomerInfoObject.ObjectId).kendoGrid({
-            editable: false,
+            editable: true,
             navigatable: false,
             pageable: false,
             scrollable: true,
@@ -4952,7 +4952,7 @@ var Provider_CustomerInfoObject = {
                             CP_CustomerPublicId: { editable: false },
                             CP_Customer: { editable: false },
                             CP_Status: { editable: false },
-                            CP_Enable: { editable: true },
+                            CP_Enable: { editable: true, type: "boolean" },
                         },
                     }
                 },
@@ -5129,7 +5129,7 @@ var Provider_CustomerInfoObject = {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<option value="' + "" + '">' + " " + '</option>')
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
                     }                    
