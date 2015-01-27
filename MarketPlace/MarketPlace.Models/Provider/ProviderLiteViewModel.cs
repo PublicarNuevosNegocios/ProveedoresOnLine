@@ -85,7 +85,6 @@ namespace MarketPlace.Models.Provider
         public ProviderLiteViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oRelatedProvider)
         {
             RelatedProvider = oRelatedProvider;
-
         }
     }
 }

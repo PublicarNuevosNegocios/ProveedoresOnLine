@@ -620,6 +620,12 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPCompanyGetBasicInfo(CompanyPublicId);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPContactGetBasicInfo(CompanyPublicId, ContactType);
+        }
+
         #endregion
     }
 }

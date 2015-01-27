@@ -58,6 +58,17 @@
         CompanyLogo = 203005,
     }
 
+    /// <summary>
+    /// Contact type
+    /// </summary>
+    public enum enumContactType
+    {
+        CompanyContact = 204001,
+        PersonContact = 204002,
+        Brach = 204003,
+        Distributor = 204004
+    }
+
     public enum enumRoleCompanyInfoType
     {
         Modules = 801001,

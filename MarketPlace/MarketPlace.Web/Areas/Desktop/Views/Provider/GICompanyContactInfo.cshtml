@@ -1,9 +1,28 @@
-﻿
-
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Información Básica";
+    ViewBag.Title = "Información de contacto de empresa";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = true;
+}
+@{
+    //Model.RenderScripts = true;
+}
+<div class="">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+
+<div>
+    <ul>
+        <li>Nombre</li>
+        @{
+            foreach (var item in Model.ContactCompanyInfo.Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 205002)
+                                                                .Select(y => y).ToList() != null).Select(x => x).ToList())
+            {                
+                <li>@item.ItemName</li>
+    <li>@item.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).FirstOrDefault()</li>
+            }
 }
 
-
-
+    </ul>
+</div>

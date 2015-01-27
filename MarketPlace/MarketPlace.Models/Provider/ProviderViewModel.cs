@@ -33,6 +33,6 @@ namespace MarketPlace.Models.Provider
             }
         }
 
-        public bool IsOwnProvider { get; set; }
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactCompanyInfo { get; set; }
     }
 }
