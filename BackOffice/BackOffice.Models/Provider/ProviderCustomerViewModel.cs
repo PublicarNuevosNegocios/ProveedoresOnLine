@@ -66,5 +66,16 @@ namespace BackOffice.Models.Provider
         {
             RelatedCompany = oRelatedCompany;
         }
+
+        public ProviderCustomerViewModel(string oProviderCustomerId
+                                       , ProveedoresOnLine.Company.Models.Company.CompanyModel oRelatedCompany                                       
+                                       , bool oEnable)
+        {
+            CP_CustomerProviderId = oProviderCustomerId;
+            CP_CustomerPublicId = oRelatedCompany.CompanyPublicId;
+            CP_Customer = oRelatedCompany.CompanyName;            
+            CP_Enable = Enable.ToString();
+        }
+
     }
 }

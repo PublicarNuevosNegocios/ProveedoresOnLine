@@ -135,7 +135,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
-                public readonly string AdminTRMUpsert_ = "AdminTRMUpsert ";
+                public readonly string AdminTRMUpsert = "AdminTRMUpsert";
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
             }
@@ -147,7 +147,7 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Admin/AdminTreeUpsert.cshtml";
-            public readonly string AdminTRMUpsert_ = "~/Views/Admin/AdminTRMUpsert .cshtml";
+            public readonly string AdminTRMUpsert = "~/Views/Admin/AdminTRMUpsert.cshtml";
             public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
             public readonly string Index = "~/Views/Admin/Index.cshtml";
         }
