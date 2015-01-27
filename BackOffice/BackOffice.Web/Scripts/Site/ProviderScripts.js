@@ -4941,9 +4941,12 @@ var Provider_CustomerInfoObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: [{
-                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>',
-            }],
+            toolbar: [
+                { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
+                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+            ],
             dataSource: {
                 schema: {
                     model: {
@@ -4968,6 +4971,43 @@ var Provider_CustomerInfoObject = {
                                 options.error(result);
                                 Message('error', '');
                             },
+                        });
+                    },
+                    create: function (options) {
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=true',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', options.data.CP_CustomerProviderId);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=false',
+                            dataType: "json",
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', '0');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            }
                         });
                     },
                 },
@@ -5008,7 +5048,6 @@ var Provider_CustomerInfoObject = {
             navigatable: false,
             pageable: false,
             scrollable: true,
-            selectable: true,
             dataSource: {
                 schema: {
                     model: {
@@ -5096,7 +5135,6 @@ var Provider_CustomerInfoObject = {
         });
         var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val();
         var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val();
-        debugger;
 
         //update
         $.ajax({
@@ -5132,7 +5170,7 @@ var Provider_CustomerInfoObject = {
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
-                    }                    
+                    }
                 }
             },
             error: function (result) {
@@ -5173,6 +5211,7 @@ var Provider_CustomerInfoObject = {
             }
         });
     },
+
 }
 
 /*Message*/
