@@ -4952,7 +4952,7 @@ var Provider_CustomerInfoObject = {
                             CP_CustomerPublicId: { editable: false },
                             CP_Customer: { editable: false },
                             CP_Status: { editable: false },
-                            CP_Enable: { editable: false },
+                            CP_Enable: { editable: true },
                         },
                     }
                 },
@@ -5072,10 +5072,10 @@ var Provider_CustomerInfoObject = {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<option value="' + "" + '">' + " " + '</option>')
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input type="checkbox" checked /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
                     }
                     else {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input type="checkbox" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
                     }
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
@@ -5089,14 +5089,18 @@ var Provider_CustomerInfoObject = {
     },
 
     UpsertCustomerByProvider: function () {
-        var oUpsert = '';
-        var oCompanyPublicId = $('#PublicId').val();
+
+        var oCompanyPublicList = new Array();
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog input:checked').each(function () {
+            oCompanyPublicList.push($(this).attr('id'));
+        });
         var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val();
         var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val();
+        debugger;
 
         //update
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicId=' + oCompanyPublicId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
             dataType: "json",
             type: "POST",
             success: function (result) {
@@ -5126,12 +5130,9 @@ var Provider_CustomerInfoObject = {
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
-                    }
-                    else {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input type="checkbox" /></li>')
-                    }
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
+                    }                    
                 }
             },
             error: function (result) {
@@ -5142,12 +5143,10 @@ var Provider_CustomerInfoObject = {
     },
 
     UpsertCustomerByProviderTraking: function () {
-        var oUpsert = '';
-        var oCompanyPublicId = $('#PublicId').val();
-        debugger;
-        var selected = [];
+
+        var oCompanyPublicList = new Array();
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking input:checked').each(function () {
-            selected.push($(this).attr('id'));
+            oCompanyPublicList.push($(this).attr('id'));
         });
         var oCustomers = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').val();
         var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
@@ -5156,7 +5155,7 @@ var Provider_CustomerInfoObject = {
 
         //update
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicId=' + oCompanyPublicId + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
             dataType: "json",
             type: "POST",
             success: function (result) {
