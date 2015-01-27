@@ -38,15 +38,15 @@
     border-bottom: 1px solid #999;
     display: inline-block;
     height: auto;
-    margin: 0;
-    padding: 0 0 10px 5px;
+    margin: 0px 0px 7px 0px;
+    padding: 0 0 8px 5px;
     width: auto;
 }
     .POBOProviderTagWrapper img {
             border:none;
         display: inline-block;
-        height: 80px;
-        width: auto;
+        height:auto;
+        width:62px;
         margin:0px; padding:0px;
         vertical-align:top;
     }
@@ -55,7 +55,7 @@
         display: inline-block;
         margin: 0px 0px 0px 4px;
         padding: 0;
-        max-width: 182px;
+        max-width: 173px;
         vertical-align:bottom;
     }
     .POBOProviderTagWrapper span {
