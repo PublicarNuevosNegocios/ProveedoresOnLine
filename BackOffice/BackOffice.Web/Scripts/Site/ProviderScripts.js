@@ -5125,7 +5125,7 @@ var Provider_CustomerInfoObject = {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<option value="' + "" + '">' + " " + '</option>')
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input type="checkbox" checked /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
                     }
                     else {
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input type="checkbox" /></li>')
@@ -5144,6 +5144,12 @@ var Provider_CustomerInfoObject = {
     UpsertCustomerByProviderTraking: function () {
         var oUpsert = '';
         var oCompanyPublicId = $('#PublicId').val();
+        debugger;
+        var selected = [];
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking input:checked').each(function () {
+            selected.push($(this).attr('id'));
+        });
+        var oCustomers = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').val();
         var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
         var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val();
         var oStatusId = $('#' + Provider_CustomerInfoObject.ObjectId + '_Status').val();
