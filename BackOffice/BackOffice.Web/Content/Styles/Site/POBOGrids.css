@@ -18,3 +18,30 @@
         width: 199px;
         z-index: 0;
     }*/
+/********** ESAS SON LOS AUTOCOMPLETE COMPUESTOS DE ACTIVIDAD, NOMBRE, TIPO, GRUPO Y CATEGORIA ***********/
+.POBOProviderCompoundAutocomplete{
+    border-bottom:1px solid #333;
+    background-color: #f9f9f9;
+    padding:6px 5px 0px 5px !important; margin:0px !important;
+
+}
+.POBOProviderCompoundAutocomplete:hover {
+    background-color: #e6e6e6;
+}
+.POBOProviderCompoundAutocomplete label{
+        border:none;
+    font-size:1em;   
+    line-height:1em;
+    width:100%;
+    padding:0px !important; margin:0px !important;
+    color:#666;
+    font-weight:normal;
+}
+    .POBOProviderCompoundAutocomplete label span{
+            border:none;
+        display:block;
+        font-size:1.2em;
+        line-height:1.2em;
+        letter-spacing:-1px;
+        padding:0px !important; margin:0px !important;
+    }
