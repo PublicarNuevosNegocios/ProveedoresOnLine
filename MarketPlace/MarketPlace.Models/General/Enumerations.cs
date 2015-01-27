@@ -102,5 +102,14 @@
         ProviderRate = 901003
     }
 
+    public enum enumContactInfoType
+    {
+        Telefono = 209001 ,
+        Celular = 209002,
+        PaginaWeb = 209003,
+        CódigoPostal = 209004,	
+        Fax = 209005,
+        Email = 209006
+    }
     #endregion
 }

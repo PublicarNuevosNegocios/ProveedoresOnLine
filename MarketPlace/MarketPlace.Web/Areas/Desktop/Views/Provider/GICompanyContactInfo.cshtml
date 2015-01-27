@@ -13,16 +13,38 @@
 </div>
 
 <div>
-    <ul>
-        <li>Nombre</li>
+    <ul>        
         @{
-            foreach (var item in Model.ContactCompanyInfo.Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 205002)
-                                                                .Select(y => y).ToList() != null).Select(x => x).ToList())
-            {                
+            foreach (var item in Model.ContactCompanyInfo)
+            {   
                 <li>@item.ItemName</li>
-    <li>@item.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).FirstOrDefault()</li>
-            }
-}
 
+                if (item.ItemInfo.Where(x => x.Value == "209002").Select(x => x.Value).FirstOrDefault() == "209002")
+                {                
+                    <li>Celular</li>
+                }
+                else if (item.ItemInfo.Where(x => x.Value == "209001").Select(x => x.Value).FirstOrDefault() == "209001")
+                {                 
+                    <li>Teléfono</li>
+                }
+                else if (item.ItemInfo.Where(x => x.Value == "209003").Select(x => x.Value).FirstOrDefault() == "209003")
+                {                 
+                    <li>Página Web</li>
+                }
+                else if (item.ItemInfo.Where(x => x.Value == "209004").Select(x => x.Value).FirstOrDefault() == "209004")
+                {                 
+                    <li>Código Postal</li>
+                }
+                else if (item.ItemInfo.Where(x => x.Value == "209005").Select(x => x.Value).FirstOrDefault() == "209005")
+                {                    
+                    <li>Fax</li>
+                }
+                else if (item.ItemInfo.Where(x => x.Value == "209006").Select(x => x.Value).FirstOrDefault() == "209006")
+                {                    
+                    <li>Email</li>
+                }
+                <li>@item.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).FirstOrDefault()</li>
+            }
+        }
     </ul>
 </div>
