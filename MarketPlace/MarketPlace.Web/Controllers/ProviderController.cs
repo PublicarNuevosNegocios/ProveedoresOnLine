@@ -152,7 +152,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.CompanyContact);
-
+                                
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);

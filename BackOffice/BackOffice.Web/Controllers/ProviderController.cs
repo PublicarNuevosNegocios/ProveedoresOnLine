@@ -672,6 +672,19 @@ namespace BackOffice.Web.Controllers
                 });
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                
+                oModel = new Models.Provider.ProviderViewModel()
+                {
+                    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                    RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                        RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
+                    },
+                };
+                
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
 
                 //eval redirect url
                 if (!string.IsNullOrEmpty(Request["StepAction"]) &&

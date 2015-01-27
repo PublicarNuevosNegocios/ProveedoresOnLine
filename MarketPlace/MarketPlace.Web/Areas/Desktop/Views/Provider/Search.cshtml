@@ -7,11 +7,13 @@
     Model.RenderScripts = false;
 }
 
-<div>
-    <div>
+    <div class="POMPProviderSearchBox">
         @*SearchBox*@
-        <input id="Search_txtSearchBox" type="text" value="@Model.SearchParam" />
-        <a href="javascript:Provider_SearchObject.Search();">Encontrar</a>
+        <input class="POMPTextField" id="Search_txtSearchBox" type="text" value="@Model.SearchParam" />
+        <a class="POMPButtons POMPSearchButtons" href="javascript:Provider_SearchObject.Search();">
+            Encontrar
+            <span class="POMPSearchButtonsLupita"></span>
+        </a>
     </div>
     <div>
         <div>
@@ -27,7 +29,6 @@
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
         </div>
     </div>
-</div>
 @{
     Model.RenderScripts = true;
 }

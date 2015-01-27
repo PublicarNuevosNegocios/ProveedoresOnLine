@@ -17,7 +17,7 @@ function Provider_SubmitForm(SubmitObject) {
 }
 
 function Provider_InitUpsertProvider(vInitObject) {
-
+    debugger;
     //init certification date
     $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
         format: vInitObject.DateFormat
@@ -3643,11 +3643,66 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'IB_IBAN',
                 title: 'IBAN',
-                width: '120px',
+                width: '120px',                         
             }, {
                 field: 'IB_Customer',
                 title: 'Comprador',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IB_Customer != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.IB_Customer;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var isSelected = false;
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'CP_Customer',
+                        select: function (e) {
+                            isSelected = true;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.CP_CustomerPublicId;
+                            options.model['IB_Customer'] = selectedItem.CP_Customer;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    debugger;
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                            Message('error', '');
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'IB_AccountFile',
                 title: 'Certificado',
@@ -4022,7 +4077,7 @@ var Provider_LegalInfoObject = {
                 width: '190px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                    $('<input  data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
                 },
@@ -4040,7 +4095,7 @@ var Provider_LegalInfoObject = {
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                    $('<input placeholder"yyyy-mm-dd" data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
                 },

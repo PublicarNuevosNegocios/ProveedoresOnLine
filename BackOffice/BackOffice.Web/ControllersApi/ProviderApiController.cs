@@ -2257,6 +2257,42 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> GetAllCustomers
+        (string GetAllCustomers,
+            string ProviderPublicId)
+        {
+            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+
+            if (GetAllCustomers == "true")
+            {
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, null);
+
+                List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
+
+                if (oCustomerByProvider != null)
+                {
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
+                    foreach (var item in oCustomerProvider)
+                    {
+                        oReturn.Add(new ProviderCustomerViewModel(
+                                item.CustomerProviderId.ToString(),
+                                item.RelatedProvider,                                
+                                item.Enable
+                            ));
+                    }
+                    oReturn.Add(new ProviderCustomerViewModel
+                    {
+                        CP_Customer = "A Quien Interese",
+                        CP_CustomerPublicId = "00000000",
+                    });
+                }
+            }
+            return oReturn.OrderBy(x => x.CP_CustomerPublicId).Select(x => x).ToList();
+        }
+
+        [HttpPost]
+        [HttpGet]
         public void CPUpsertCustomerByProviderStatus
         (string UpsertCustomerByProviderStatus,
          bool oIsCreate)
