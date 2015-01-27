@@ -151,6 +151,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.MPCompanyGetBasicInfo(CompanyPublicId);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DataFactory.MPContactGetBasicInfo(CompanyPublicId, ContactType);
+        }
         #endregion
     }
 }
