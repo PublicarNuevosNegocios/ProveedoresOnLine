@@ -17,7 +17,6 @@ function Provider_SubmitForm(SubmitObject) {
 }
 
 function Provider_InitUpsertProvider(vInitObject) {
-    debugger;
     //init certification date
     $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
         format: vInitObject.DateFormat
@@ -1081,6 +1080,32 @@ var Provider_CompanyCommercialObject = {
         if (Provider_CompanyCommercialObject.CommercialType == 301001) {
             Provider_CompanyCommercialObject.RenderExperience();
         }
+
+        //config keyboard
+        Provider_CompanyCommercialObject.ConfigKeyBoard();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyCommercialObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyCommercialObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyCommercialObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderExperience: function () {
@@ -1524,6 +1549,32 @@ var Provider_CompanyHSEQObject = {
         else if (Provider_CompanyHSEQObject.HSEQType == 701003) {
             Provider_CompanyHSEQObject.RenderCompanyRiskPolicies();
         }
+
+        //config keyboard
+        Provider_CompanyHSEQObject.ConfigKeyBoard();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyHSEQObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyHSEQObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyHSEQObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderCompanyCertification: function () {
@@ -2729,6 +2780,32 @@ var Provider_CompanyFinancialObject = {
         else if (Provider_CompanyFinancialObject.FinancialType == 501004) {
             Provider_CompanyFinancialObject.RenderBankInfo();
         }
+
+        //config keyboard
+        Provider_CompanyFinancialObject.ConfigKeyBoard();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyFinancialObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyFinancialObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyFinancialObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderBalanceSheet: function () {
@@ -3808,6 +3885,32 @@ var Provider_LegalInfoObject = {
         else if (Provider_LegalInfoObject.LegalInfoType == 601005) {
             Provider_LegalInfoObject.RenderResolutions();
         }
+
+        //config keyboard
+        Provider_LegalInfoObject.ConfigKeyBoard();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderChaimberOfComerce: function () {

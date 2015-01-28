@@ -43,6 +43,32 @@
         else if (Admin_CategoryObject.CategoryType == "AdminTRM") {
             Admin_CategoryObject.RenderTRMAsync();
         }
+
+        //config keyboard
+        Admin_CategoryObject.ConfigKeyBoard();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Admin_CategoryObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Admin_CategoryObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Admin_CategoryObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderGeoAsync: function (param) {

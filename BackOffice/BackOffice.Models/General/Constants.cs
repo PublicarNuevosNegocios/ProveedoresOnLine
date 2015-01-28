@@ -30,6 +30,8 @@
 
         public const string C_Settings_DefaultImage = "DefaultImage";
 
+        public const string C_Settings_InfoTooltip = "InfoTooltip";
+
         #endregion
 
         #region Administrator User Roles
