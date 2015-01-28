@@ -81,3 +81,10 @@
     },
 
 };
+
+var Provider_GeneralInfoObject = {
+
+    ObjectId: '',
+    UlrContent: '',
+   
+}

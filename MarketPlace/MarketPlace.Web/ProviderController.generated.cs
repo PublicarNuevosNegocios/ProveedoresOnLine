@@ -171,6 +171,12 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.FileResult GetProviderFileBytes()
+        {
+            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetProviderFileBytes);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -207,6 +213,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string LICIFINInfo = "LICIFINInfo";
             public readonly string LISARLAFTInfo = "LISARLAFTInfo";
             public readonly string LIResolutionInfo = "LIResolutionInfo";
+            public readonly string GetProviderFileBytes = "GetProviderFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -232,6 +239,7 @@ namespace MarketPlace.Web.Controllers
             public const string LICIFINInfo = "LICIFINInfo";
             public const string LISARLAFTInfo = "LISARLAFTInfo";
             public const string LIResolutionInfo = "LIResolutionInfo";
+            public const string GetProviderFileBytes = "GetProviderFileBytes";
         }
 
 
@@ -390,6 +398,14 @@ namespace MarketPlace.Web.Controllers
         public class ActionParamsClass_LIResolutionInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_GetProviderFileBytes s_params_GetProviderFileBytes = new ActionParamsClass_GetProviderFileBytes();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetProviderFileBytes GetProviderFileBytesParams { get { return s_params_GetProviderFileBytes; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetProviderFileBytes
+        {
+            public readonly string FilePath = "FilePath";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -650,6 +666,18 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIResolutionInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetProviderFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
+
+        [NonAction]
+        public override System.Web.Mvc.FileResult GetProviderFileBytes(string FilePath)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetProviderFileBytes);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
+            GetProviderFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

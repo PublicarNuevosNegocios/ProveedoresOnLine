@@ -957,8 +957,6 @@ namespace Links
                         private const string URLPATH = "~/Areas/Desktop/Content/Styles/Site";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string POBMPLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBMPLayout.min.css") ? Url("POBMPLayout.min.css") : Url("POBMPLayout.css");
-                             
                         public static readonly string POMPAdmin_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPAdmin.min.css") ? Url("POMPAdmin.min.css") : Url("POMPAdmin.css");
                              
                         public static readonly string POMPButtons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPButtons.min.css") ? Url("POMPButtons.min.css") : Url("POMPButtons.css");
@@ -975,7 +973,13 @@ namespace Links
                              
                         public static readonly string POMPHeader_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPHeader.min.css") ? Url("POMPHeader.min.css") : Url("POMPHeader.css");
                              
+                        public static readonly string POMPLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPLayout.min.css") ? Url("POMPLayout.min.css") : Url("POMPLayout.css");
+                             
+                        public static readonly string POMPLogIn_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPLogIn.min.css") ? Url("POMPLogIn.min.css") : Url("POMPLogIn.css");
+                             
                         public static readonly string POMPProvider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPProvider.min.css") ? Url("POMPProvider.min.css") : Url("POMPProvider.css");
+                             
+                        public static readonly string POMPSearchResults_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSearchResults.min.css") ? Url("POMPSearchResults.min.css") : Url("POMPSearchResults.css");
                              
                         public static readonly string POMPSideFilters_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSideFilters.min.css") ? Url("POMPSideFilters.min.css") : Url("POMPSideFilters.css");
                              
