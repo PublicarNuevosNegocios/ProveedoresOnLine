@@ -19,7 +19,7 @@
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
-    <!--Document Managment-->
+    <!--BackOffice-->
     <key name="URL_BackOffice">http://localhost:55537/</key>
 
     <!--File Params-->
