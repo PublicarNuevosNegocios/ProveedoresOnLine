@@ -5,62 +5,228 @@
     <span class="POMPComparisonTitle">Análisis de Competencias</span>
     <div class="POMPComparisonActionWrapper">
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Guardar</span>
         </a>
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Editar</span>
         </a>
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Abrir</span>
         </a>
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Comparar</span>
         </a>
         <a class="POMPComparisonActionNew" href="" title="">
-            <span></span>
+            <div></div>
+            <span>Iniciar un Nuevo
+Proceso de Selección</span>
         </a>
     </div>
-    <span class="POMPComparisonTitle"></span>
+    
+    <span class="POMPComparisonSelectionTitle">Constructores Marzo 10 2014 V0.1</span>
 
     <ul class="POMPComparisonProvListWrapper">
         <li>
-            <div class="POMPComparisonLineOneWrapper">
-                <div></div>
-                <a href="" title=""></a>
-                <div>
-                    <span></span>
-                    <span></span>
+            <div class="POMPComparisonResultLineOne">
+
+                @*Check certificacion*@
+                @*@if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+                    { }*@
+
+                <img class="POMPComparisonResultStatusCertified" src="" />
+
+                <img class="POMPComparisonResultProvLogo" src="" />
+
+                <div class="POMPComparisonResultProvDataWrapper">
+                    <a href="">
+                        Nombre de la Compagnia
+                    </a>
+                    <label><span>NIT</span> 79982871456</label>
+                    @*<label><span>Actividad Principal:</span> Fundición de partes en acero forjado y cobre mecanizado para la industria siderúrgica</label>*@
                 </div>
-                <a href="" title=""></a>
-                <a href="" title=""></a>
+                <a class="POMPComparisonResultProvAlert" href="" title=""></a>
+                <a class="POMPComparisonResultIncludeCoparisonIcon" href="" title=""></a>
+
             </div>
-            <div class="POMPComparisonLineTwoWrapper">
-                <a href="" title=""></a>
-                <a href="" title=""></a>
-                <a href="" title=""></a>
-                <a href="" title=""></a>
+            <div class="POMPComparisonResultLineTwo">
+
+                <div class="POMPComparisonResultProvRating">*****</div>
+
+                @*@if (Model.ProviderRate != null)
+                    {}*@
+
+                @*@if (Model.IsProviderCustomer)
+                    {}
+                    else
+                    {}*@
+
+                @*Actions for related provider *@
+                <div class="POMPComparisonResultProvActions">
+                    <a href="" title="">Agregar a comparación</a>
+                    <a href="">Ver detalle</a>
+                    @*Actions for not related provider *@
+                    <a href="" title="">Hacerlo mi proveedor</a>
+                </div>
             </div>
         </li>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>
+            <div class="POMPComparisonResultLineOne">
+
+                @*Check certificacion*@
+                @*@if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+            { }*@
+
+                <img class="POMPComparisonResultStatusCertified" src="" />
+
+                <img class="POMPComparisonResultProvLogo" src="" />
+
+                <div class="POMPComparisonResultProvDataWrapper">
+                    <a href="">
+                        Nombre de la Compagnia
+                    </a>
+                    <label><span>NIT</span> 79982871456</label>
+                    @*<label><span>Actividad Principal:</span> Fundición de partes en acero forjado y cobre mecanizado para la industria siderúrgica</label>*@
+                </div>
+                <a class="POMPComparisonResultProvAlert" href="" title=""></a>
+                <a class="POMPComparisonResultIncludeCoparisonIcon" href="" title=""></a>
+
+            </div>
+            <div class="POMPComparisonResultLineTwo">
+
+                <div class="POMPComparisonResultProvRating">*****</div>
+
+                @*@if (Model.ProviderRate != null)
+            {}*@
+
+                @*@if (Model.IsProviderCustomer)
+            {}
+            else
+            {}*@
+
+                @*Actions for related provider *@
+                <div class="POMPComparisonResultProvActions">
+                    <a href="" title="">Agregar a comparación</a>
+                    <a href="">Ver detalle</a>
+                    @*Actions for not related provider *@
+                    <a href="" title="">Hacerlo mi proveedor</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="POMPComparisonResultLineOne">
+
+                @*Check certificacion*@
+                @*@if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+            { }*@
+
+                <img class="POMPComparisonResultStatusCertified" src="" />
+
+                <img class="POMPComparisonResultProvLogo" src="" />
+
+                <div class="POMPComparisonResultProvDataWrapper">
+                    <a href="">
+                        Nombre de la Compagnia
+                    </a>
+                    <label><span>NIT</span> 79982871456</label>
+                    @*<label><span>Actividad Principal:</span> Fundición de partes en acero forjado y cobre mecanizado para la industria siderúrgica</label>*@
+                </div>
+                <a class="POMPComparisonResultProvAlert" href="" title=""></a>
+                <a class="POMPComparisonResultIncludeCoparisonIcon" href="" title=""></a>
+
+            </div>
+            <div class="POMPComparisonResultLineTwo">
+
+                <div class="POMPComparisonResultProvRating">*****</div>
+
+                @*@if (Model.ProviderRate != null)
+            {}*@
+
+                @*@if (Model.IsProviderCustomer)
+            {}
+            else
+            {}*@
+
+                @*Actions for related provider *@
+                <div class="POMPComparisonResultProvActions">
+                    <a href="" title="">Agregar a comparación</a>
+                    <a href="">Ver detalle</a>
+                    @*Actions for not related provider *@
+                    <a href="" title="">Hacerlo mi proveedor</a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="POMPComparisonResultLineOne">
+
+                @*Check certificacion*@
+                @*@if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+            { }*@
+
+                <img class="POMPComparisonResultStatusCertified" src="" />
+
+                <img class="POMPComparisonResultProvLogo" src="" />
+
+                <div class="POMPComparisonResultProvDataWrapper">
+                    <a href="">
+                        Nombre de la Compagnia
+                    </a>
+                    <label><span>NIT</span> 79982871456</label>
+                    @*<label><span>Actividad Principal:</span> Fundición de partes en acero forjado y cobre mecanizado para la industria siderúrgica</label>*@
+                </div>
+                <a class="POMPComparisonResultProvAlert" href="" title=""></a>
+                <a class="POMPComparisonResultIncludeCoparisonIcon" href="" title=""></a>
+
+            </div>
+            <div class="POMPComparisonResultLineTwo">
+
+                <div class="POMPComparisonResultProvRating">*****</div>
+
+                @*@if (Model.ProviderRate != null)
+            {}*@
+
+                @*@if (Model.IsProviderCustomer)
+            {}
+            else
+            {}*@
+
+                @*Actions for related provider *@
+                <div class="POMPComparisonResultProvActions">
+                    <a href="" title="">Agregar a comparación</a>
+                    <a href="">Ver detalle</a>
+                    @*Actions for not related provider *@
+                    <a href="" title="">Hacerlo mi proveedor</a>
+                </div>
+            </div>
+        </li>
     </ul>
 
     <div class="POMPComparisonActionWrapper">
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Guardar</span>
         </a>
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Editar</span>
         </a>
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Abrir</span>
         </a>
         <a href="" title="">
-            <span></span>
+            <div></div>
+            <span>Comparar</span>
         </a>
-        <a class="POMPComparisonActionWrapper" href="" title="">
-            <span></span>
+        <a class="POMPComparisonActionNew" href="" title="">
+            <div></div>
+            <span>
+                Iniciar un Nuevo
+                Proceso de Selección
+            </span>
         </a>
     </div>
 }

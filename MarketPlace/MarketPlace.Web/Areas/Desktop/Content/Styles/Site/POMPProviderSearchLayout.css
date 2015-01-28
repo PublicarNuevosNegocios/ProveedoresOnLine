@@ -21,7 +21,7 @@
     height:auto;
     min-height:400px;
     margin: 0 0 0 6px;
-    width: calc(100% - 602px);
+    width: calc(100% - 654px);
 }
             .POMPProviderListWrapper tr{
                 cursor:pointer;
@@ -34,14 +34,10 @@
         border-left: 2px solid #ff8300;
     display: inline-block;
     height:auto; min-height:400px;
-    margin: 0 0 0 6px; padding: 0 13px 0 11px;
-    width:auto;
+    margin: 0px 8px 0px 6px; padding: 0px 0px 0px 10px;
+    width:auto; min-width:340px;
     vertical-align:top;
 }
-
-
-
-
 /************ CALCULA EL ANCHO DE CONTENIDO HASTA 1024PX ************/
 .POMPProviderContentWrapper{
     border: medium none;
