@@ -1,7 +1,99 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Información de contacto de empresa";
     Layout = MVC.Desktop.Shared.Views._Layout;
-}
 
-<h2>Index</h2>
+    Model.RenderScripts = true;
+}
+<div class="">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.ContactCompanyInfo)
+            {
+                <li>@item.ItemName</li>
+                <li>Tipo de Contacto</li>
+                if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210001")
+                {
+                    <li>Comercial</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210002")
+                {
+                    <li>Legal</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210003")
+                {
+                    <li>Legal suplente</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210004")
+                {
+                    <li>Legal y comercial</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210005")
+                {
+                    <li>Financiero</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210006")
+                {
+                    <li>HSEQ - SMS</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210007")
+                {
+                    <li>Jurídico</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210008")
+                {
+                    <li>Técnico</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210009")
+                {
+                    <li>Compras y contratos</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210010")
+                {
+                    <li>Seguridad física</li>
+                }
+                <li>Tipo de Identificación</li>
+                if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault() == "101001")
+                {
+                    <li>Cédula de Ciudadanía</li>
+                    <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault()</li>
+                }
+                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault() == "101002")
+                {
+                    <li>Pasaporte</li>
+                    <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault()</li>
+                }
+
+                <li>Ciudad de Expedición del Documento</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206004).Select(x => x.Value).FirstOrDefault()</li>
+            
+                <li>Teléfono</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206006).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>Email</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206007).Select(x => x.Value).FirstOrDefault()</li>
+                         
+                <li>Capacidad de Negociación</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206008).Select(x => x.Value).FirstOrDefault()</li>
+
+
+                var UlrContent = item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206005).Select(x => x.Value).FirstOrDefault();
+                if (!string.IsNullOrEmpty(UlrContent))
+                {   
+                    <li>Archivo del Representante Legal </li>
+                    <li>                        
+                        <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
+                    </li>
+                    <li>
+                        <a src="@UlrContent"  >Ver Archivo</a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</div>
+
 
