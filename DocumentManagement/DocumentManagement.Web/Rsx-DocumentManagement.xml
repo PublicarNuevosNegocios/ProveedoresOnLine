@@ -19,6 +19,9 @@
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
+    <!--Document Managment-->
+    <key name="URL_BackOffice">http://localhost:55537/</key>
+
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\DocumentManagment\CustomerLogo\</key>

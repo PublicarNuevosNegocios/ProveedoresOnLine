@@ -39,10 +39,10 @@
 <div id="dialog" style="display:none;">
 
     <div id="divCustomerProviderStatus_Dialog" style="width:380px;">
-        <div style="position:relative; height: 150px !important; border: 1px solid; overflow:scroll;">
+        <div style="position:relative; height: 150px !important; overflow:scroll;">
             <ul id="divCustomerProviderStatus_Customer_List_Dialog" style="list-style:none;"></ul>
         </div>
-        <div style="position:relative; border: 1px solid red; text-align:center;">
+        <div style="position:relative; text-align:center;">
             <label>Nota Interna</label>
             <textarea id="divCustomerProviderStatus_Internal"></textarea>
             <label>Nota del Comprador</label>
@@ -52,10 +52,10 @@
     </div>
 
     <div id="divCustomerProviderStatus_Tracking_Dialog" style="width:380px;">
-        <div style="position:relative; height: 150px !important; border: 1px solid; overflow:scroll;">
+        <div style="position:relative; height: 150px !important; overflow:scroll;">
             <ul id="divCustomerProviderStatus_Customer_List_Tracking" style="list-style:none;"></ul>
         </div>
-        <div style="position:relative; border: 1px solid red; text-align:center;">
+        <div style="position:relative; text-align:center;">
             <label>Estado del Proveedor:</label>
             <select id="divCustomerProviderStatus_Status" name="SH_Currency">
                 @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 902).OrderBy(x => x.ItemName))

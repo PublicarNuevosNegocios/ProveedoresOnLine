@@ -5102,8 +5102,8 @@ var Provider_CustomerInfoObject = {
             toolbar: [
                 { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
                 { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>' },
-                { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
+                //{ name: 'save', text: 'Guardar' },
+                //{ name: 'cancel', text: 'Descartar' },
             ],
             dataSource: {
                 schema: {
