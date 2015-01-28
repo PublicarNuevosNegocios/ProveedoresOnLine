@@ -19,9 +19,4 @@ div#POMPRenderFooter {
     width:100%;
     height:auto;
 }
-/********* RENDER BODY *********/
-.POMProviderSearchGreatWrapper {
-    display:block;
-    width:100%;
-    border:1px solid orange;
-}
+

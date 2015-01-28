@@ -43,8 +43,9 @@
     margin:0px; padding:0px 24px;
 }
     .POMPSearchResultsList li{
-        border:1px solid red;
+        border-bottom:1px solid #ececec;
         list-style-type:none;
+        margin:0px 0px 10px 0px;
     }
         .POMPSearchResultsList li a{
             border:1px solid blue;
@@ -56,3 +57,83 @@
 .selected {
     font-weight:bold;
 }
+/************** MUESTRA CADA RESULTADO ***************/
+.POMPSearchResultLineOne {
+    border:1px solid red;
+    display:block;
+    margin:0px; padding:0px;
+    width:100%; height:auto;
+    max-width:692px;
+}
+    .POMPSearchResultStatusCertified{
+        border:1px solid blue;
+        display:inline-block;
+        width:69px; height:auto;
+        vertical-align:top;
+    }
+        .POMPSearchResultProvLogo {
+            border:1px solid brown;
+            display:inline-block;
+            width:98px; height:auto;
+            vertical-align:middle;
+        }
+        .POMPSearchResultProvDataWrapper {
+            border:1px solid purple;
+            display:inline-block;
+            width:auto; height:auto;
+            vertical-align:top;
+            max-width:350px;
+        }
+            .POMPSearchResultProvDataWrapper a{
+                border:1px solid purple;
+                display:block;
+                font-size:1.26em; line-height:1.1em; font-weight:normal;
+                letter-spacing:-0.8px;
+            }
+            .POMPSearchResultProvDataWrapper label, .POMPSearchResultProvDataWrapper span{
+                border:1px solid green;                
+                font-size:1em; line-height:1.3em; font-weight:normal;
+                letter-spacing:-0.6px;
+                color:#4d4d4d;
+            }
+            .POMPSearchResultProvDataWrapper label span {
+                font-weight:bold;
+            }
+        .POMPSearchResultProvAlert{
+            border:1px solid purple;
+            display:inline-block;
+            width:24px; height:24px;
+            margin:0px 0px 0px 6px; padding:0px;
+            vertical-align:top;
+        }
+        .POMPSearchResultIncludeCoparisonIcon {
+            border:1px solid purple;
+            float:right;
+            width:22px; height:22px;
+            margin:0px 10px 0px 0px; padding:0px;
+        }
+.POMPSearchResultLineTwo {
+    border:1px solid red;
+    display:block;
+    margin:0px; padding:0px;
+    width:100%; height:34px;
+    max-width:692px;
+}
+    .POMPSearchResultProvRating{
+        border:1px solid red;
+        display:inline-block;
+        width:98px; height:24px;
+        margin:9px 0px 0px 73px;
+    }
+        .POMPSearchResultProvActions{
+            border:1px solid orange;
+            float:right;
+            margin:9px 10px 0px 0px;
+        }
+        div.POMPSearchResultProvActions a{
+            border-right:1px solid #666;
+            margin:0px 0px 0px 7px;
+        }
+        div.POMPSearchResultProvActions a:nth-child(3){
+            border-right:none;
+        }
