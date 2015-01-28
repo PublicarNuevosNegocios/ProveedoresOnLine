@@ -17,7 +17,7 @@ function Provider_SubmitForm(SubmitObject) {
 }
 
 function Provider_InitUpsertProvider(vInitObject) {
-
+    debugger;
     //init certification date
     $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
         format: vInitObject.DateFormat
@@ -3643,11 +3643,66 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'IB_IBAN',
                 title: 'IBAN',
-                width: '120px',
+                width: '120px',                         
             }, {
                 field: 'IB_Customer',
                 title: 'Comprador',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IB_Customer != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.IB_Customer;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var isSelected = false;
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'CP_Customer',
+                        select: function (e) {
+                            isSelected = true;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.CP_CustomerPublicId;
+                            options.model['IB_Customer'] = selectedItem.CP_Customer;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    debugger;
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                            Message('error', '');
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'IB_AccountFile',
                 title: 'Certificado',
@@ -4022,7 +4077,7 @@ var Provider_LegalInfoObject = {
                 width: '190px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                    $('<input  data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
                 },
@@ -4040,7 +4095,7 @@ var Provider_LegalInfoObject = {
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                    $('<input placeholder"yyyy-mm-dd" data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
                         .appendTo(container)
                         .kendoDateTimePicker({});
                 },
@@ -4941,9 +4996,12 @@ var Provider_CustomerInfoObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: [{
-                template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a> <a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>',
-            }],
+            toolbar: [
+                { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
+                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+            ],
             dataSource: {
                 schema: {
                     model: {
@@ -4968,6 +5026,43 @@ var Provider_CustomerInfoObject = {
                                 options.error(result);
                                 Message('error', '');
                             },
+                        });
+                    },
+                    create: function (options) {
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=true',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', options.data.CP_CustomerProviderId);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=false',
+                            dataType: "json",
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', '0');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            }
                         });
                     },
                 },
@@ -5008,7 +5103,6 @@ var Provider_CustomerInfoObject = {
             navigatable: false,
             pageable: false,
             scrollable: true,
-            selectable: true,
             dataSource: {
                 schema: {
                     model: {
@@ -5096,7 +5190,6 @@ var Provider_CustomerInfoObject = {
         });
         var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val();
         var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val();
-        debugger;
 
         //update
         $.ajax({
@@ -5132,7 +5225,7 @@ var Provider_CustomerInfoObject = {
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
-                    }                    
+                    }
                 }
             },
             error: function (result) {
@@ -5173,6 +5266,7 @@ var Provider_CustomerInfoObject = {
             }
         });
     },
+
 }
 
 /*Message*/
