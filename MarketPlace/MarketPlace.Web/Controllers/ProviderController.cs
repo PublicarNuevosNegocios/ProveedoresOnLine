@@ -160,7 +160,39 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult GIPersonContactInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult GIBranchInfo(string ProviderPublicId)
@@ -310,12 +342,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Información de personas de contacto",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.GIPersonContactInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -647,6 +679,17 @@ namespace MarketPlace.Web.Controllers
             return oReturn;
         }
 
-        #endregion
+        #endregion       
+
+        public virtual FileResult GetProviderFileBytes(string FilePath)
+        {
+            byte[] bytes = new byte[] { };
+            if (!string.IsNullOrEmpty(FilePath) && FilePath.IndexOf(".pdf") > 0)
+            {
+                bytes = (new System.Net.WebClient()).DownloadData(FilePath);
+            }
+            return File(bytes, "application/pdf");
+        }
+
     }
 }

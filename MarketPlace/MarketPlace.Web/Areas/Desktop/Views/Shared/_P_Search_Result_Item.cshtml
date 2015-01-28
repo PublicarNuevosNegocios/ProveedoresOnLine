@@ -1,57 +1,85 @@
 ﻿@model MarketPlace.Models.Provider.ProviderLiteViewModel
 
 
+        @*ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES*@
 
-        @*Check certificacion*@
-        @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
-        {
-            <img src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
-        }
+<div class="POMPSearchResultLineOne">
 
-        <img src="@Model.ProviderLogoUrl" />
-        @if (Model.ProviderRate != null)
-        {
-            <span>@Model.ProviderRate</span>
-        }
+    @*Check certificacion*@
+    @*@if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+    { }*@
 
-    <div>
-        <div>
+    <img class="POMPSearchResultStatusCertified" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
+
+    <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
+
+    <div class="POMPSearchResultProvDataWrapper">
+        <a href="@(Url.RouteUrl
+                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Provider.Name,
+                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
+            @Model.RelatedProvider.RelatedCompany.CompanyName
+        </a>
+        <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
+        <label><span>Actividad Principal:</span> Fundición de partes en acero forjado y cobre mecanizado para la industria siderúrgica</label>
+    </div>
+    <a class="POMPSearchResultProvAlert" href="" title=""></a>
+    <a class="POMPSearchResultIncludeCoparisonIcon" href="" title=""></a>
+
+</div>
+
+<div class="POMPSearchResultLineTwo">
+
+    <div class="POMPSearchResultProvRating">@Model.ProviderRate</div>
+
+    @*@if (Model.ProviderRate != null)
+    {}*@
+    
+    @*@if (Model.IsProviderCustomer)
+    {}
+    else
+    {}*@
+
+        @*Actions for related provider *@
+        <div class="POMPSearchResultProvActions">
+            <a href="" title="">Agregar a comparación</a>
             <a href="@(Url.RouteUrl
-                (MarketPlace.Models.General.Constants.C_Routes_Default,
-                new
-                {
-                    controller = MVC.Provider.Name,
-                    action = MVC.Provider.ActionNames.GIProviderInfo,
-                    ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-                @Model.RelatedProvider.RelatedCompany.CompanyName
+                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Provider.Name,
+                            action = MVC.Provider.ActionNames.GIProviderInfo,
+                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
+                Ver detalle
             </a>
-            <span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName : @Model.RelatedProvider.RelatedCompany.IdentificationNumber</span>
-        </div>
-        <div>
-            @if (Model.IsProviderCustomer)
-            {
-                @*Actions for related provider *@
-                <ul>
-                    <li><a>Agregar a comparación</a></li>
-                    <li>
-                        <a href="@(Url.RouteUrl
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.GIProviderInfo,
-                                ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-                            Ver detalle
-                        </a>
-                    </li>
-                </ul>
-            }
-            else
-            {
-                @*Actions for not related provider *@
-                <ul>
-                    <li><a>Hacerlo mi proveedor</a></li>
-                </ul>
-            }
+            @*Actions for not related provider *@
+            <a href="" title="">Hacerlo mi proveedor</a>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
