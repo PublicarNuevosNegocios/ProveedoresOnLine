@@ -406,7 +406,7 @@
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPForms.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPGrids.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPHeader.css" />
-    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProvider.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProviderSearchLayout.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideFilters.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideMenu.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPTopSearchBar.css" />
