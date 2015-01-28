@@ -1,0 +1,58 @@
+/********** MUESTRA LA PAGINACION **********/
+.POMPSearchResultsPager,
+.POMPSearchResultsOrder,
+.POMPSearchResultsList{
+    border:1px solid purple;
+    display:block;
+    width:auto;
+    height:auto;
+}
+.POMPSearchResultsPager {
+    padding: 10px 55px 10px 0;
+    text-align: right;
+}
+    .POMPSearchResultsPager ul,
+    .POMPSearchResultsOrder ul{
+        display:inline-block;
+        border:1px solid red;
+        margin:0px; padding:0px;
+    }
+        .POMPSearchResultsPager ul li,
+        .POMPSearchResultsOrder ul li{
+            display:inline-block;
+            border:1px solid purple;
+        }
+        .POMPSearchResultsPager ul li a{
+            font-size:1.3em;
+            letter-spacing:-1px;
+            line-height:1em;
+        }
+/******* MUESTRA EL ORDENAMIENTO *******/
+.POMPSearchResultsOrder {
+    padding:0px 0px 12px 40px;
+    text-align:left;
+}
+        .POMPSearchResultsOrder ul li span{
+            font-size:1.12em;
+            letter-spacing:-1px;
+            line-height:1em;
+        }
+
+/********** MUESTRA LA LISTA DE PROVEEDORES **********/
+.POMPSearchResultsList {
+    margin:0px; padding:0px 32px;
+}
+    .POMPSearchResultsList li{
+        border:1px solid red;
+        list-style-type:none;
+    }
+        .POMPSearchResultsList li a{
+            border:1px solid blue;
+        }
+        .POMPSearchResultsList li span{
+            border:1px solid green;
+        }
+/*********** ENLACES **********/
+.selected {
+    font-weight:bold;
+}

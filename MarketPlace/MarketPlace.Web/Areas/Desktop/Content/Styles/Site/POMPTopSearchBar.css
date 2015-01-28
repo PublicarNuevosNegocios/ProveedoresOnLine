@@ -5,6 +5,7 @@
     width:62%;
     padding:6px 0px 6px 0px;
     margin:0px auto;
+    text-align:center;
 }
     .POMPTextField{
         border:1px solid #727276;
@@ -12,8 +13,9 @@
         padding:7px 4px 4px 10px;
         letter-spacing:-0.5px;
         width:440px;
-        margin: 0px 0px 0px 32px;
+        margin: 0px;
     }
     .POMPTextField [placeholder=""] {
         padding:7px 10px 7px 10px;
     }
+

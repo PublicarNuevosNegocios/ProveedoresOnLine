@@ -1,0 +1,27 @@
+/*********fonts************/
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('../../../fonts/OpenSans-Regular.eot');
+    src: url('../../../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('../../../fonts/OpenSans-Regular.woff') format('woff'), url('../../../fonts/OpenSans-Regular.ttf') format('truetype');
+
+}
+p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
+    font-family: 'OpenSans-Regular', Fallback, sans-serif;
+}
+/*********Body Content************/
+.POMPRenderHeader, .POMPRenderBody, .POMPRenderFooter{
+     text-align:left;
+     min-width:1024px;
+     display:block;
+     border:1px solid green;
+}
+div#POMPRenderFooter {
+    width:100%;
+    height:auto;
+}
+/********* RENDER BODY *********/
+.POMProviderSearchGreatWrapper {
+    display:block;
+    width:100%;
+    border:1px solid orange;
+}
