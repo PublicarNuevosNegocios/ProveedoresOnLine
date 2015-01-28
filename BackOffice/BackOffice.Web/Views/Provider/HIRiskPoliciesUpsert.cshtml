@@ -128,7 +128,7 @@
                         {
                             foreach (var Item in Model.RelatedProvider.RelatedCertification)
                             {
-                                oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
+                                oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year).
                                     Select(x => x.Value).
                                     DefaultIfEmpty(string.Empty).
                                     FirstOrDefault() + " ";
@@ -137,21 +137,21 @@
                                 {
                                     string oReturn = string.Empty;
 
-                                    oReturn = Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+                                    oReturn = Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities).
                                         Select(x => x.Value).
                                         DefaultIfEmpty(string.Empty).
                                         FirstOrDefault();
                                     
                                     oFatalities += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
 
-                                    oReturn = Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
+                                    oReturn = Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling).
                                         Select(y => y.Value).
                                         DefaultIfEmpty(string.Empty).
                                         FirstOrDefault();
 
                                     oAccidents += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
 
-                                    oReturn = Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
+                                    oReturn = Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked).
                                         Select(z => z.Value).
                                         DefaultIfEmpty(string.Empty).
                                         FirstOrDefault();
@@ -234,7 +234,7 @@
                 ControlToRetornACId: 'SelectedOccupationalHazards',
                 ObjectId: 'divGridRiskPolicies',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
+                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CertificatesAccident)',
                 YearOptionList: vYearOptionList,
                 DateFormat: '',
                 HSEQOptionList: '',

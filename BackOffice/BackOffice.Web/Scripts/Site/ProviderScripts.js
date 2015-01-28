@@ -1546,7 +1546,7 @@ var Provider_CompanyHSEQObject = {
         else if (Provider_CompanyHSEQObject.HSEQType == 701002) {
             Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics();
         }
-        else if (Provider_CompanyHSEQObject.HSEQType == 701003) {
+        else if (Provider_CompanyHSEQObject.HSEQType == 701004) {
             Provider_CompanyHSEQObject.RenderCompanyRiskPolicies();
         }
 
@@ -2525,26 +2525,26 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CR_Year: { editable: true, validation: { required: true }, type: "number" },
-                            CR_YearId: { editable: false },
+                            CA_Year: { editable: true, validation: { required: true }, type: "number" },
+                            CA_YearId: { editable: false },
 
-                            CR_ManHoursWorked: { editable: true, type: "number" },
-                            CR_ManHoursWorkedId: { editable: false },
+                            CA_ManHoursWorked: { editable: true, type: "number" },
+                            CA_ManHoursWorkedId: { editable: false },
 
-                            CR_Fatalities: { editable: true, type: "number" },
-                            CR_FatalitiesId: { editable: false },
+                            CA_Fatalities: { editable: true, type: "number" },
+                            CA_FatalitiesId: { editable: false },
 
-                            CR_NumberAccident: { editable: true, type: "number" },
-                            CR_NumberAccidentId: { editable: false },
+                            CA_NumberAccident: { editable: true, type: "number" },
+                            CA_NumberAccidentId: { editable: false },
 
-                            CR_NumberAccidentDisabling: { editable: true, type: "number" },
-                            CR_NumberAccidentDisablingId: { editable: false },
+                            CA_NumberAccidentDisabling: { editable: true, type: "number" },
+                            CA_NumberAccidentDisablingId: { editable: false },
 
-                            CR_DaysIncapacity: { editable: true, type: "number" },
-                            CR_DaysIncapacityId: { editable: false },
+                            CA_DaysIncapacity: { editable: true, type: "number" },
+                            CA_DaysIncapacityId: { editable: false },
 
-                            CR_CertificateAccidentARL: { editable: true },
-                            CR_CertificateAccidentARLId: { editable: false },
+                            CA_CertificateAccidentARL: { editable: true },
+                            CA_CertificateAccidentARLId: { editable: false },
                         },
                     }
                 },
@@ -2601,18 +2601,14 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
-            }, {
-                field: 'CR_Year',
+                field: 'CA_Year',
                 title: 'Año',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.CR_Year != null) {
+                    if (dataItem != null && dataItem.CA_Year != null) {
                         $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
-                            if (dataItem.CR_Year == value) {
+                            if (dataItem.CA_Year == value) {
                                 oReturn = value;
                             }
                         });
@@ -2630,32 +2626,32 @@ var Provider_CompanyHSEQObject = {
                         });
                 },
             }, {
-                field: 'CR_ManHoursWorked',
+                field: 'CA_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
                 width: '160px',
             }, {
-                field: 'CR_Fatalities ',
+                field: 'CA_Fatalities ',
                 title: 'Fatalidades',
                 width: '160px',
             }, {
-                field: 'CR_NumberAccident',
+                field: 'CA_NumberAccident',
                 title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
                 width: '160px',
             }, {
-                field: 'CR_NumberAccidentDisabling ',
+                field: 'CA_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
                 width: '160px',
             }, {
-                field: 'CR_DaysIncapacity',
+                field: 'CA_DaysIncapacity',
                 title: 'Días de Incapacidad',
                 width: '160px',
             }, {
-                field: 'CR_CertificateAccidentARL',
+                field: 'CA_CertificateAccidentARL',
                 title: 'Certificado de accidentalidad',
                 width: '292px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.CR_CertificateAccidentARL != null && dataItem.CR_CertificateAccidentARL.length > 0) {
+                    if (dataItem != null && dataItem.CA_CertificateAccidentARL != null && dataItem.CA_CertificateAccidentARL.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -2665,7 +2661,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CR_CertificateAccidentARL);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CA_CertificateAccidentARL);
 
                     return oReturn;
                 },

@@ -303,10 +303,10 @@ namespace BackOffice.Web.Controllers
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
                     RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies),
                 };
-
-                //get provider menu
-                oModel.ProviderMenu = GetProviderMenu(oModel);
             }
+
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
 
             //eval request
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
@@ -323,43 +323,47 @@ namespace BackOffice.Web.Controllers
                 //upsert provider info
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertificationUpsert(ProviderToUpsert);
 
-                //reload model
-                oModel.RelatedProvider = new ProviderModel()
-                {
-                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
-                    RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies),
-                };
-            }
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 2 };
 
-            List<GenericItemModel> oGenericItem = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
-
-            foreach (var Item in oGenericItem)
-            {
-                oModel.ProviderOptions.Add(new CatalogModel
+                ProviderToUpsert.RelatedCertification.All(x =>
                 {
-                    ItemId = Item.ItemId,
-                    ItemName = Item.ItemName,
-                    ItemEnable = Item.Enable,
-                    CatalogId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards,
+                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                    return true;
                 });
-            }
 
-            //eval redirect url
-            if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                Request["StepAction"].ToLower().Trim() == "next" &&
-                oModel.CurrentSubMenu != null &&
-                oModel.CurrentSubMenu.NextMenu != null &&
-                !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
-            {
-                return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
-            }
-            else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                Request["StepAction"].ToLower().Trim() == "last" &&
-                oModel.CurrentSubMenu != null &&
-                oModel.CurrentSubMenu.LastMenu != null &&
-                !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
-            {
-                return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
+
+                oModel = new Models.Provider.ProviderViewModel()
+                {
+                    ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                    RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId),
+                        RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo(ProviderPublicId, (int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies),
+                    },
+                };
+
+                //get provider menu
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
             }
 
             return View(oModel);
@@ -672,7 +676,7 @@ namespace BackOffice.Web.Controllers
                 });
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(ProviderToUpsert.RelatedCompany.CompanyPublicId, InfoTypeModified);
-                
+
                 oModel = new Models.Provider.ProviderViewModel()
                 {
                     ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
@@ -682,7 +686,7 @@ namespace BackOffice.Web.Controllers
                         RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce),
                     },
                 };
-                
+
                 //get provider menu
                 oModel.ProviderMenu = GetProviderMenu(oModel);
 
@@ -935,24 +939,43 @@ namespace BackOffice.Web.Controllers
                             Value = Request["RateARL"],
                             Enable = true,
                         },
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                            },
+                            Value = Request["CertificateAffiliateARL"],
+                            Enable = true,
+                        },
                     },
                 };
 
-                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
-                {
-                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
-                    {
-                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
-                        },
-                        Value = Request["CertificateAffiliateARL"],
-                        Enable = true,
-                    };
+                //if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
+                //{
+                //    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
+                //    {
+                //        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                //        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                //        {
+                //            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                //        },
+                //        Value = Request["CertificateAffiliateARL"],
+                //        Enable = true,
+                //    };
 
-                    RelatedARL.ItemInfo.Add(oGenericItem);
+                //    RelatedARL.ItemInfo.Add(oGenericItem);
+                //}
+                //Validación del archivo cuando viene desocupado en el formulario
+                if (RelatedARL.ItemInfo != null && RelatedARL.ItemInfo.Count() > 0)
+                {
+                    if (string.IsNullOrEmpty(RelatedARL.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumHSEQInfoType.CR_CertificateAffiliateARL).Select(x => x.Value).FirstOrDefault()))
+                    {
+                        RelatedARL.ItemInfo.Remove(RelatedARL.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumHSEQInfoType.CR_CertificateAffiliateARL).Select(x => x).FirstOrDefault());
+                    }
                 }
+
                 return RelatedARL;
             }
             return null;
