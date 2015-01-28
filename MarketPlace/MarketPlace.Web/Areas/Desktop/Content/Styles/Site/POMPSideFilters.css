@@ -1,4 +1,4 @@
-    .POMPPSideBlockTitle{
+    .POMPSideBlockTitle{
         color: #4d4d4d;
         display: block;
         font-size: 1.5em;
@@ -10,7 +10,7 @@
                 border:none;
             margin:0px 0px 0px 10px;
             padding:0px;
-            width:258px;
+            width:246px;
         }
             .POMPFilterCategoryList > li,
             .POMPFilterCategoryList > li > ul > li {

@@ -1,5 +1,5 @@
 /********** LISTADO DE PROVEEDORES O NUEVO PROVEEDOR **********/
-.POMPPClientListWrapper {
+.POMPProviderListWrapper {
         border: none;
     display: inline-block;
     height:auto;
@@ -7,10 +7,10 @@
     margin: 0 0 0 6px;
     width: calc(100% - 317px);
 }
-            .POMPPClientListWrapper tr{
+            .POMPProviderListWrapper tr{
                 cursor:pointer;
             }
-                .POMPPClientListWrapper tr:hover {
+                .POMPProviderListWrapper tr:hover {
                     background-color:#e4e4e4;
                 }
 .POMPProviderWrapper {
@@ -21,7 +21,7 @@
     position: relative;
     width: 99.8%;    
 }
-    .POMPProviderSideMenuWrapper {
+    .POMPProviderFilterMenuWrapper {
             border-right:2px solid #ff8300;
         display:inline-block;
         width:auto;

@@ -4,17 +4,16 @@
 {
     if (Model.ProviderSearchResult != null && Model.ProviderSearchResult.Count > 0)
     {
-        <div>
+        <div class="POMPSearchResultsPager">
             @*Pager*@
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
         </div>
-        <div>
+        <div class="POMPSearchResultsOrder">
             @*Orders*@
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Order, Model)
-        </div>
-        <div>
+        </div>    
             @*SearchResult*@
-            <ul>
+            <ul class="POMPSearchResultsList">
                 @foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oSearchItem in Model.ProviderSearchResult)
                 {
                     <li>
@@ -22,12 +21,10 @@
                     </li>
                 }
             </ul>
-        </div>
-
-        <div>
+        <div class="POMPSearchResultsPager">
             @*Pager*@
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
-        </div>
+        </div>        
     }
     else
     {

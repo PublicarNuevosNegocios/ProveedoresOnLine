@@ -23,7 +23,6 @@
     border-bottom:1px solid #333;
     background-color: #f9f9f9;
     padding:6px 5px 0px 5px !important; margin:0px !important;
-
 }
 .POBOProviderCompoundAutocomplete:hover {
     background-color: #e6e6e6;
@@ -45,3 +44,8 @@
         letter-spacing:-1px;
         padding:0px !important; margin:0px !important;
     }
+#divGridCompanyContact_kbtooltip {
+    margin:0px 0px 1px 10px;
+    width:24px; height:auto;
+    cursor:pointer;
+}

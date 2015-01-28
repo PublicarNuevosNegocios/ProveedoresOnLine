@@ -2291,6 +2291,24 @@ namespace BackOffice.Web.ControllersApi
             return oReturn.OrderBy(x => x.CP_CustomerPublicId).Select(x => x).ToList();
         }
 
+        [HttpPost]
+        [HttpGet]
+        public void CPUpsertCustomerByProviderStatus
+        (string UpsertCustomerByProviderStatus,
+         bool oIsCreate)
+        {
+            if (UpsertCustomerByProviderStatus == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) && 
+                oIsCreate != null)
+            {
+                ProviderCustomerViewModel oDataToUpsert =
+                    (ProviderCustomerViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(ProviderCustomerViewModel));
+            }
+        }
+
         #endregion
     }
 }
