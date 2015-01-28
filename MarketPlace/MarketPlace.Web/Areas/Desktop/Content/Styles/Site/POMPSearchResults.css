@@ -8,7 +8,7 @@
     height:auto;
 }
 .POMPSearchResultsPager {
-    padding: 10px 55px 10px 0;
+    padding: 10px 25px 10px 0;
     text-align: right;
 }
     .POMPSearchResultsPager ul,
@@ -29,7 +29,7 @@
         }
 /******* MUESTRA EL ORDENAMIENTO *******/
 .POMPSearchResultsOrder {
-    padding:0px 0px 12px 40px;
+    padding:0px 0px 12px 24px;
     text-align:left;
 }
         .POMPSearchResultsOrder ul li span{
@@ -40,7 +40,7 @@
 
 /********** MUESTRA LA LISTA DE PROVEEDORES **********/
 .POMPSearchResultsList {
-    margin:0px; padding:0px 32px;
+    margin:0px; padding:0px 24px;
 }
     .POMPSearchResultsList li{
         border:1px solid red;

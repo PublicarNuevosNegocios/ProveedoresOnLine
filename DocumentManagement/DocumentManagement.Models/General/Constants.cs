@@ -6,6 +6,8 @@
 
         public const string C_SettingsModuleName = "DocumentManagement";
 
+        public const string C_URL_BackOffice = "URL_BackOffice";
+
         #region LoginModule
 
         public const string C_Settings_Login_GoogleUrl = "Login_GoogleUrl";

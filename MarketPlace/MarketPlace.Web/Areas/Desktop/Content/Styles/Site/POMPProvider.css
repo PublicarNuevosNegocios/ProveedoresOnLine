@@ -26,19 +26,18 @@
         display:inline-block;
         width:auto;
         height:100%;
-        padding:0 21px 0 11px;
+        padding:0 13px 0 11px;
         vertical-align:top;
         min-height:490px;
     }
 /************ CALCULA EL ANCHO DE CONTENIDO HASTA 1024PX ************/
-    .POMPProviderContentWrapper{
-        border: medium none;
-        display: inline-block;
-        height: auto;
-        margin:0px 0px 0px 18px;
-        width:calc(100% - 305px);
+.POMPProviderContentWrapper{
+    border: medium none;
+    display: inline-block;
+    height: auto;
+    margin:0px 0px 0px 18px;
+    width:calc(100% - 305px);
 }
-
 /*Message*/
 
 .message{

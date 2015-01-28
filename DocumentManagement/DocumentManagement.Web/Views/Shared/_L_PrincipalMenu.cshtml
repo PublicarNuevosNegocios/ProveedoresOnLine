@@ -21,8 +21,8 @@ else
         <li class="MenuButtons_Customer">
             <a href="@Url.Action(MVC.Customer.ActionNames.ListCustomer, MVC.Customer.Name)">Compradores</a>
         </li>
-        @*<li class="MenuButtons_BO">
-                <a href="">Ir a Backoffice</a>
-            </li>*@
+        <li class="MenuButtons_BO">
+            <a target="_blank" href="@DocumentManagement.Models.General.InternalSettings.Instance[DocumentManagement.Models.General.Constants.C_URL_BackOffice].Value">Ir a Backoffice</a>
+        </li>
     </ul>
 }
