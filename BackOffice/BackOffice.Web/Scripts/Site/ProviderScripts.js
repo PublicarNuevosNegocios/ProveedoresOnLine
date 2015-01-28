@@ -2555,6 +2555,7 @@ var Provider_CompanyHSEQObject = {
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
+                                Provider_CompanyHSEQObject.CalculateLTIF(result);
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2573,6 +2574,7 @@ var Provider_CompanyHSEQObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', '0');
+                                Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2591,6 +2593,7 @@ var Provider_CompanyHSEQObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', options.data.CertificationId);
+                                Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2732,6 +2735,49 @@ var Provider_CompanyHSEQObject = {
                 }
             }
         });
+    },
+
+    ObtainData: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+            dataType: 'json',
+            success: function (result) {
+                Provider_CompanyHSEQObject.CalculateLTIF(result);
+            },
+            error: function (result) {
+            },
+        });
+    },
+
+    CalculateLTIF: function (result) {
+
+        var oYear = '';
+        var oFatalities = 0.0;
+        var oAccidents = 0.0;
+        var oHours = 0.0;
+        var LTIF = 0.0;
+
+        if (result.length > 0) {           
+
+            for (var i = 0; i < result.length; i++) {
+
+                oYear += result[i].CA_Year + '   ';
+                oFatalities = oFatalities + parseInt(result[i].CA_Fatalities);
+                oAccidents = oAccidents + parseInt(result[i].CA_NumberAccidentDisabling);
+                oHours = oHours + parseInt(result[i].CA_ManHoursWorked);
+            }
+
+            LTIF = ((oFatalities + oAccidents) / oHours) * 100000;
+
+            $('#F3').html('');
+            $('#F3').append('<label>Resultado LTIF: ' + LTIF.toFixed(3) + '</label>');
+            $('#F3').append('<label>AÑOS: ' + oYear + '</label>')
+        }
+        else {
+            $('#F3').html('');
+            $('#F3').append('<label>Resultado LTIF: ' + LTIF + '</label>');
+            $('#F3').append('<label>AÑOS: ' + oYear + '</label>')
+        }
     },
 };
 
@@ -3716,7 +3762,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'IB_IBAN',
                 title: 'IBAN',
-                width: '120px',                         
+                width: '120px',
             }, {
                 field: 'IB_Customer',
                 title: 'Comprador',
