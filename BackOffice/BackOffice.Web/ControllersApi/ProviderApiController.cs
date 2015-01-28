@@ -1143,82 +1143,86 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                }
+                else if (oProvider.RelatedCertification.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumHSEQType.CertificatesAccident)
+                {
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_CertificateAccidentARLId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_CertificateAccidentARLId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL
                             },
-                            Value = oDataToUpsert.CR_CertificateAccidentARL,
+                            Value = oDataToUpsert.CA_CertificateAccidentARL,
                             Enable = true,
                         });
 
-                    lstUsedFiles.Add(oDataToUpsert.CR_CertificateAccidentARL);
+                    lstUsedFiles.Add(oDataToUpsert.CA_CertificateAccidentARL);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_YearId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_YearId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year
                             },
-                            Value = oDataToUpsert.CR_Year,
-                            Enable = true,
-                        });
-
-                    oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                        {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_ManHoursWorkedId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_ManHoursWorkedId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked
-                            },
-                            Value = oDataToUpsert.CR_ManHoursWorked,
+                            Value = oDataToUpsert.CA_Year,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_FatalitiesId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_FatalitiesId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_ManHoursWorkedId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_ManHoursWorkedId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked
                             },
-                            Value = oDataToUpsert.CR_Fatalities,
+                            Value = oDataToUpsert.CA_ManHoursWorked,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_NumberAccidentId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_NumberAccidentId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_FatalitiesId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_FatalitiesId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccident
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities
                             },
-                            Value = oDataToUpsert.CR_NumberAccident,
+                            Value = oDataToUpsert.CA_Fatalities,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_NumberAccidentDisablingId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_NumberAccidentDisablingId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccident
                             },
-                            Value = oDataToUpsert.CR_NumberAccidentDisabling,
+                            Value = oDataToUpsert.CA_NumberAccident,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_DaysIncapacityId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_DaysIncapacityId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentDisablingId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentDisablingId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_DaysIncapacity
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling
                             },
-                            Value = oDataToUpsert.CR_DaysIncapacity,
+                            Value = oDataToUpsert.CA_NumberAccidentDisabling,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_DaysIncapacityId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_DaysIncapacityId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_DaysIncapacity
+                            },
+                            Value = oDataToUpsert.CA_DaysIncapacity,
                             Enable = true,
                         });
                 }

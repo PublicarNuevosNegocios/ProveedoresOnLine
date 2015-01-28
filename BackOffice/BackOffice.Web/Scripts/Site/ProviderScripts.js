@@ -1546,7 +1546,7 @@ var Provider_CompanyHSEQObject = {
         else if (Provider_CompanyHSEQObject.HSEQType == 701002) {
             Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics();
         }
-        else if (Provider_CompanyHSEQObject.HSEQType == 701003) {
+        else if (Provider_CompanyHSEQObject.HSEQType == 701004) {
             Provider_CompanyHSEQObject.RenderCompanyRiskPolicies();
         }
 
@@ -2525,26 +2525,26 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CR_Year: { editable: true, validation: { required: true }, type: "number" },
-                            CR_YearId: { editable: false },
+                            CA_Year: { editable: true, validation: { required: true }, type: "number" },
+                            CA_YearId: { editable: false },
 
-                            CR_ManHoursWorked: { editable: true, type: "number" },
-                            CR_ManHoursWorkedId: { editable: false },
+                            CA_ManHoursWorked: { editable: true, type: "number" },
+                            CA_ManHoursWorkedId: { editable: false },
 
-                            CR_Fatalities: { editable: true, type: "number" },
-                            CR_FatalitiesId: { editable: false },
+                            CA_Fatalities: { editable: true, type: "number" },
+                            CA_FatalitiesId: { editable: false },
 
-                            CR_NumberAccident: { editable: true, type: "number" },
-                            CR_NumberAccidentId: { editable: false },
+                            CA_NumberAccident: { editable: true, type: "number" },
+                            CA_NumberAccidentId: { editable: false },
 
-                            CR_NumberAccidentDisabling: { editable: true, type: "number" },
-                            CR_NumberAccidentDisablingId: { editable: false },
+                            CA_NumberAccidentDisabling: { editable: true, type: "number" },
+                            CA_NumberAccidentDisablingId: { editable: false },
 
-                            CR_DaysIncapacity: { editable: true, type: "number" },
-                            CR_DaysIncapacityId: { editable: false },
+                            CA_DaysIncapacity: { editable: true, type: "number" },
+                            CA_DaysIncapacityId: { editable: false },
 
-                            CR_CertificateAccidentARL: { editable: true },
-                            CR_CertificateAccidentARLId: { editable: false },
+                            CA_CertificateAccidentARL: { editable: true },
+                            CA_CertificateAccidentARLId: { editable: false },
                         },
                     }
                 },
@@ -2555,6 +2555,7 @@ var Provider_CompanyHSEQObject = {
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
+                                Provider_CompanyHSEQObject.CalculateLTIF(result);
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2573,6 +2574,7 @@ var Provider_CompanyHSEQObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', '0');
+                                Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2591,6 +2593,7 @@ var Provider_CompanyHSEQObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', options.data.CertificationId);
+                                Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -2601,18 +2604,14 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
-            }, {
-                field: 'CR_Year',
+                field: 'CA_Year',
                 title: 'Año',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.CR_Year != null) {
+                    if (dataItem != null && dataItem.CA_Year != null) {
                         $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
-                            if (dataItem.CR_Year == value) {
+                            if (dataItem.CA_Year == value) {
                                 oReturn = value;
                             }
                         });
@@ -2630,32 +2629,32 @@ var Provider_CompanyHSEQObject = {
                         });
                 },
             }, {
-                field: 'CR_ManHoursWorked',
+                field: 'CA_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
                 width: '160px',
             }, {
-                field: 'CR_Fatalities ',
+                field: 'CA_Fatalities ',
                 title: 'Fatalidades',
                 width: '160px',
             }, {
-                field: 'CR_NumberAccident',
+                field: 'CA_NumberAccident',
                 title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
                 width: '160px',
             }, {
-                field: 'CR_NumberAccidentDisabling ',
+                field: 'CA_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
                 width: '160px',
             }, {
-                field: 'CR_DaysIncapacity',
+                field: 'CA_DaysIncapacity',
                 title: 'Días de Incapacidad',
                 width: '160px',
             }, {
-                field: 'CR_CertificateAccidentARL',
+                field: 'CA_CertificateAccidentARL',
                 title: 'Certificado de accidentalidad',
                 width: '292px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.CR_CertificateAccidentARL != null && dataItem.CR_CertificateAccidentARL.length > 0) {
+                    if (dataItem != null && dataItem.CA_CertificateAccidentARL != null && dataItem.CA_CertificateAccidentARL.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -2665,7 +2664,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CR_CertificateAccidentARL);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CA_CertificateAccidentARL);
 
                     return oReturn;
                 },
@@ -2736,6 +2735,49 @@ var Provider_CompanyHSEQObject = {
                 }
             }
         });
+    },
+
+    ObtainData: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+            dataType: 'json',
+            success: function (result) {
+                Provider_CompanyHSEQObject.CalculateLTIF(result);
+            },
+            error: function (result) {
+            },
+        });
+    },
+
+    CalculateLTIF: function (result) {
+
+        var oYear = '';
+        var oFatalities = 0.0;
+        var oAccidents = 0.0;
+        var oHours = 0.0;
+        var LTIF = 0.0;
+
+        if (result.length > 0) {           
+
+            for (var i = 0; i < result.length; i++) {
+
+                oYear += result[i].CA_Year + '   ';
+                oFatalities = oFatalities + parseInt(result[i].CA_Fatalities);
+                oAccidents = oAccidents + parseInt(result[i].CA_NumberAccidentDisabling);
+                oHours = oHours + parseInt(result[i].CA_ManHoursWorked);
+            }
+
+            LTIF = ((oFatalities + oAccidents) / oHours) * 100000;
+
+            $('#F3').html('');
+            $('#F3').append('<label>Resultado LTIF: ' + LTIF.toFixed(3) + '</label>');
+            $('#F3').append('<label>AÑOS: ' + oYear + '</label>')
+        }
+        else {
+            $('#F3').html('');
+            $('#F3').append('<label>Resultado LTIF: ' + LTIF + '</label>');
+            $('#F3').append('<label>AÑOS: ' + oYear + '</label>')
+        }
     },
 };
 
@@ -3720,7 +3762,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'IB_IBAN',
                 title: 'IBAN',
-                width: '120px',                         
+                width: '120px',
             }, {
                 field: 'IB_Customer',
                 title: 'Comprador',

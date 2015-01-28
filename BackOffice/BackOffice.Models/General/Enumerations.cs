@@ -262,7 +262,9 @@
     {
         Certifications = 701001,
         CompanyHealtyPolitic = 701002,
-        CompanyRiskPolicies = 701003
+        CompanyRiskPolicies = 701003,
+
+        CertificatesAccident = 701004
     }
 
     /// <summary>
@@ -294,14 +296,24 @@
         //CompanyRiskPolicies
         CR_SystemOccupationalHazards = 704001,
         CR_RateARL = 704002,
-        CR_CertificateAffiliateARL = 704003,
-        CR_CertificateAccidentARL = 704004,
-        CR_Year = 704005,
-        CR_ManHoursWorked = 704006,
-        CR_Fatalities = 704007,
-        CR_NumberAccident = 704008,
-        CR_NumberAccidentDisabling = 704009,
-        CR_DaysIncapacity = 704010,
+        CR_CertificateAffiliateARL = 704003,        
+
+        //CertficatesAccident
+        CA_Year = 705001,
+        CA_ManHoursWorked = 705002,
+        CA_Fatalities = 705003,
+        CA_NumberAccident = 705004,
+        CA_NumberAccidentDisabling = 705005,
+        CA_DaysIncapacity = 705006,
+        CA_CertificateAccidentARL = 705007,
+
+        //CR_Year = 704005,
+        //CR_ManHoursWorked = 704006,
+        //CR_Fatalities = 704007,
+        //CR_NumberAccident = 704008,
+        //CR_NumberAccidentDisabling = 704009,
+        //CR_DaysIncapacity = 704010,
+        //CR_CertificateAccidentARL = 704004,
     }
 
     #endregion
