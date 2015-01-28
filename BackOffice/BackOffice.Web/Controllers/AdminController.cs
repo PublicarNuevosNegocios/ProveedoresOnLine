@@ -96,7 +96,7 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult AdminEcoActivityUpsert(int TreeId)
+        public virtual ActionResult AdminEcoActivityUpsert(int TreeId, string TreeName)
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
@@ -196,7 +196,7 @@ namespace BackOffice.Web.Controllers
                 Name = "Maestras Estandar",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
-                    MVC.Admin.Name, new { TreeId = 0 }),
+                    MVC.Admin.Name, new { TreeId = 0, TreeName = ""}),
                 Position = 3,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminEcoActivityUpsert &&

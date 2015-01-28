@@ -116,6 +116,7 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_AdminEcoActivityUpsert
         {
             public readonly string TreeId = "TreeId";
+            public readonly string TreeName = "TreeName";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -236,14 +237,15 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void AdminEcoActivityUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int TreeId);
+        partial void AdminEcoActivityUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int TreeId, string TreeName);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AdminEcoActivityUpsert(int TreeId)
+        public override System.Web.Mvc.ActionResult AdminEcoActivityUpsert(int TreeId, string TreeName)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoActivityUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "TreeId", TreeId);
-            AdminEcoActivityUpsertOverride(callInfo, TreeId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "TreeName", TreeName);
+            AdminEcoActivityUpsertOverride(callInfo, TreeId, TreeName);
             return callInfo;
         }
 

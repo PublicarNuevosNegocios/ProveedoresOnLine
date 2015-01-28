@@ -12,6 +12,7 @@
     <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
+    
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Administración de las Actividades Económicas</label>
@@ -20,6 +21,7 @@
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+            <label class="POBOSectionTitles">@(Request["TreeName"])</label>  
             <div id="divGridEcoActInfo"></div>
             @{
                 Model.IsForm = false;
