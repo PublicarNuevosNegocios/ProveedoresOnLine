@@ -11,14 +11,16 @@
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
     <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
-    </div>
+    </div>           
+    
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de las Actividades Económicas</label>
+            <label class="POBOSectionTitles">Administración de las Actividades Económicas</label>            
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
+            <label class="POBOSectionTitles">@(Request["TreeName"])</label>  
             <div id="divGridEcoActInfo"></div>
             @{
                 Model.IsForm = false;
