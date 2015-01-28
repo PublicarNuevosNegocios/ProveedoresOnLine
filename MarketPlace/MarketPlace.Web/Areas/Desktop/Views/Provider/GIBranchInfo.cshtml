@@ -1,7 +1,47 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Sucursales";
     Layout = MVC.Desktop.Shared.Views._Layout;
-}
 
-<h2>Index</h2>
+    Model.RenderScripts = true;
+}
+<div class="">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.ContactCompanyInfo)
+            {
+                <li>Nombre Sucursal</li>
+                <li>@item.ItemName</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207001).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207001).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207002).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207002).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207003).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207003).Select(x => x.Value).FirstOrDefault()</li>
+             
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207004).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207004).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207005).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207005).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207006).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207006).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207007).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207007).Select(x => x.Value).FirstOrDefault()</li>
+
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207008).Select(x => x.ItemInfoType.ItemName).FirstOrDefault()</li>
+                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 207008).Select(x => x.Value).FirstOrDefault()</li>
+            }
+        }
+    </ul>
+</div>
+
 
