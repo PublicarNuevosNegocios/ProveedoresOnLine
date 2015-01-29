@@ -3,48 +3,46 @@
     ViewBag.Title = "Información de contacto de empresa";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
-    Model.RenderScripts = true;
+    Model.RenderScripts = false;
 }
-@{
-    //Model.RenderScripts = true;
-}
+
 <div class="">
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 </div>
 
 <div>
-    <ul>        
-        @{
-            foreach (var item in Model.ContactCompanyInfo)
-            {   
-                <li>@item.ItemName</li>
-
-                if (item.ItemInfo.Where(x => x.Value == "209002").Select(x => x.Value).FirstOrDefault() == "209002")
-                {                
-                    <li>Celular</li>
-                }
-                else if (item.ItemInfo.Where(x => x.Value == "209001").Select(x => x.Value).FirstOrDefault() == "209001")
-                {                 
+    <ul>
+        @foreach (var item in Model.RelatedGeneralInfo)
+        {
+            <li>Nombre de información de contacto</li>
+            <li>
+                @item.CI_ContactName
+            </li>
+            <li>Tipo de Contacto</li>
+            
+                if (item.CI_ContactType == "209001")
+                {
                     <li>Teléfono</li>
                 }
-                else if (item.ItemInfo.Where(x => x.Value == "209003").Select(x => x.Value).FirstOrDefault() == "209003")
-                {                 
+                else if (item.CI_ContactType == "209002")
+                {
+                    <li>Celular</li>
+                }
+                else if (item.CI_ContactType == "209003")
+                {
                     <li>Página Web</li>
                 }
-                else if (item.ItemInfo.Where(x => x.Value == "209004").Select(x => x.Value).FirstOrDefault() == "209004")
-                {                 
-                    <li>Código Postal</li>
-                }
-                else if (item.ItemInfo.Where(x => x.Value == "209005").Select(x => x.Value).FirstOrDefault() == "209005")
-                {                    
-                    <li>Fax</li>
-                }
-                else if (item.ItemInfo.Where(x => x.Value == "209006").Select(x => x.Value).FirstOrDefault() == "209006")
-                {                    
-                    <li>Email</li>
-                }
-                <li>@item.ItemInfo.Where(x => x.Value != null).Select(x => x.Value).FirstOrDefault()</li>
-            }
-        }
+
+            <li>
+                @item.CI_Value
+            </li>
+        }        
     </ul>
 </div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}

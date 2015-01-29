@@ -3,7 +3,7 @@
     ViewBag.Title = "Información Básica";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
-    Model.RenderScripts = true;
+    Model.RenderScripts = false;
 }
 @{
     //Model.RenderScripts = true;
@@ -26,3 +26,10 @@
         </ul>
     </div>
 </div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}

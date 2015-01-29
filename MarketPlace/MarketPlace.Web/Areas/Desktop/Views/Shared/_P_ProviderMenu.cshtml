@@ -3,10 +3,9 @@
 @if (Model.ProviderMenu != null &&
     Model.ProviderMenu.Count > 0)
 {
-    if (Model.RenderScripts)
+    if (!Model.RenderScripts)
     {
-        <div class="POMPProviderSideMenu">
-
+        <div class="POBOProviderSideMenu">
             @if (Model.RelatedLiteProvider != null && Model.RelatedLiteProvider.RelatedProvider != null && Model.RelatedLiteProvider.RelatedProvider.RelatedCompany != null)
             {
                 <div class="POMPProviderTagWrapper">
@@ -18,7 +17,6 @@
                     </div>
                 </div>
             }
-
                 <ul id="ulProviderMenu">
                     @foreach (MarketPlace.Models.General.GenericMenu pm in Model.ProviderMenu.OrderBy(x => x.Position))
             {
@@ -59,5 +57,4 @@
                 });
             </script>
             }
-    
 }
