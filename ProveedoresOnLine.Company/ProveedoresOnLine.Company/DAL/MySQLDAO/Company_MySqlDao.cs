@@ -342,22 +342,22 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
                        ItemInfo =
                        (from binf in response.DataTableResult.AsEnumerable()
-                        where !binf.IsNull("BankId")
+                        where !binf.IsNull("BankInfoId")
                             && binf.Field<int>("BankId") == bg.Key.BankId
                         group binf by new
                         {
-                            CityId = binf.Field<int>("CityId"),
-                            CityName = binf.Field<string>("CityName"),
-                            CityType = binf.Field<int>("CityType"),
+                            BankInfoId = binf.Field<Int64>("BankInfoId"),
+                            BankInfoValue = binf.Field<string>("BankInfoValue"),
+                            BankInfoType = binf.Field<int>("BankInfoType"),
                         } into bginfg
                         select new GenericItemInfoModel()
                         {
-                            ItemInfoId = bginfg.Key.CityId,
+                            ItemInfoId = Convert.ToInt32(bginfg.Key.BankInfoId),
                             ItemInfoType = new CatalogModel()
                             {
-                                ItemId = bginfg.Key.CityType,
+                                ItemId = bginfg.Key.BankInfoType,
                             },
-                            Value = bginfg.Key.CityName,
+                            Value = bginfg.Key.BankInfoValue,
                         }).ToList(),
                    }).ToList();
             }

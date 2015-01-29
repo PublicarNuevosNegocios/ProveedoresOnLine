@@ -131,7 +131,7 @@ namespace ProveedoresOnLine.Company.Test
             int oTotalRows;
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
-                ProveedoresOnLine.Company.Controller.Company.CategorySearchByBankAdmin("Colo", 0, 5, out oTotalRows);
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByBankAdmin(null, 0, 0, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 
