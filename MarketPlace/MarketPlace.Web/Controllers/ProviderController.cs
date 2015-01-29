@@ -288,8 +288,7 @@ namespace MarketPlace.Web.Controllers
                 //return url provider not allowed
             }
             else
-            {
-                //get provider view model
+            {               
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
@@ -317,7 +316,52 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult CIExperiencesInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                               
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo(ProviderPublicId, (int)enumCommercialType.Experience);
+                oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();
+            
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
+
+                oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
+                oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.All(x =>
+                {
+                    oModel.RelatedComercialInfo.Add(new ProviderComercialViewModel(x, oActivity, oCustomActivity));
+                    return true;
+                });
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         #endregion
@@ -508,12 +552,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Experiencias",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.CIExperiencesInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

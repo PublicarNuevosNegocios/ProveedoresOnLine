@@ -36,5 +36,7 @@ namespace MarketPlace.Models.Provider
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactCompanyInfo { get; set; }
 
         public List<ProviderContactViewModel> RelatedGeneralInfo { get; set; }
+
+        public List<ProviderComercialViewModel> RelatedComercialInfo { get; set; }
     }
 }
