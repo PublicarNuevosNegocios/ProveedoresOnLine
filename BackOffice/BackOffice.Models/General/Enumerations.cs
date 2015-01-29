@@ -75,6 +75,10 @@
 
         //Account info
         AI_Order = 109001,
+
+        //Bank Info
+        B_Location = 505001,
+        B_Code = 505011,
     }
 
     #endregion

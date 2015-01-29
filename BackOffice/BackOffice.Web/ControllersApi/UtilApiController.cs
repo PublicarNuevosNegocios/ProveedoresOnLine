@@ -243,9 +243,19 @@ namespace BackOffice.Web.ControllersApi
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.B_CityId) ? 0 : Convert.ToInt32(oDataToUpsert.B_CityId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.B_Location,
                         },
                         Value = oDataToUpsert.B_CityId,
+                        Enable = oDataToUpsert.B_BankEnable,
+                    });
+                    oBankInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.B_BankCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.B_BankCodeId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.B_Code,
+                        },
+                        Value = oDataToUpsert.B_BankCode,
                         Enable = oDataToUpsert.B_BankEnable,
                     });
 

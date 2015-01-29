@@ -54,6 +54,9 @@ namespace BackOffice.Models.Admin
         public string B_BankId { get; set; }
         public bool B_BankEnable { get; set; }
 
+        public string B_BankCodeId { get; set; }
+        public string B_BankCode { get; set; }
+
         public string B_CityId { get; set; }
         public string B_City { get; set; }
 
@@ -232,14 +235,26 @@ namespace BackOffice.Models.Admin
             B_BankId = oCategory.ItemId.ToString();
             B_BankEnable = oCategory.Enable;
 
+            B_BankCodeId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Code).
+                            Select(y => y.ItemInfoId.ToString()).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
+            B_BankCode = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Code).
+                            Select(y => !string.IsNullOrEmpty(y.Value) ? y.Value.ToString() : string.Empty).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
             B_City = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Location).
                             Select(y => !string.IsNullOrEmpty(y.Value) ? y.Value.ToString() : string.Empty).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault() : string.Empty;
 
             B_CityId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Location).
                             Select(y => y.ItemInfoId.ToString()).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault() : string.Empty;
