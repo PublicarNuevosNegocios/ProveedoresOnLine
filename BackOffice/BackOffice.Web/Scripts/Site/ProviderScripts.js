@@ -1158,9 +1158,9 @@ var Provider_CompanyCommercialObject = {
                             EX_ContractSubject: { editable: true },
                             EX_ContractSubjectId: { editable: false },
 
-                            EX_EconomicActivity: { editable: true },
+                            EX_EconomicActivity: { editable: true, defaultValue: null },
 
-                            EX_CustomEconomicActivity: { editable: true },
+                            EX_CustomEconomicActivity: { editable: true, defaultValue: null },
                         }
                     }
                 },
@@ -2757,7 +2757,7 @@ var Provider_CompanyHSEQObject = {
         var oHours = 0.0;
         var LTIF = 0.0;
 
-        if (result.length > 0) {           
+        if (result.length > 0) {
 
             for (var i = 0; i < result.length; i++) {
 

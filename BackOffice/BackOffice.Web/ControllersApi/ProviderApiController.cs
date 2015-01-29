@@ -764,7 +764,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity
                         },
-                        LargeValue = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        LargeValue = oDataToUpsert.EX_EconomicActivity != null ? string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()) : string.Empty,
                         Enable = true,
                     });
 
@@ -775,7 +775,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity
                         },
-                        LargeValue = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        LargeValue = oDataToUpsert.EX_CustomEconomicActivity != null ? string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()) : string.Empty,
                         Enable = true,
                     });
                 }
