@@ -3,13 +3,13 @@
     ViewBag.Title = "Distribuidores";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
-    Model.RenderScripts = true;
+    Model.RenderScripts = false;
 }
-<div class="">
+<div class="POBOProviderSideMenuWrapper">
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 </div>
 <div>
-    <ul>      
+    <ul>
         @{
             foreach (var item in Model.RelatedGeneralInfo)
             {
@@ -19,7 +19,7 @@
                 <li>Tipo de Distribuidor</li>
                 if (item.DT_DistributorType == "211001")
                 {
-                    <li>Comercializador</li>    
+                    <li>Comercializador</li>
                 }
                 else if (item.DT_DistributorType == "211002")
                 {
@@ -59,7 +59,7 @@
                 var UlrContent = item.DT_DistributorFile;
                 if (!string.IsNullOrEmpty(UlrContent))
                 {
-                    <li>Documento Soporte</li>                                
+                    <li>Documento Soporte</li>
                     <li>
                         <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
                     </li>
@@ -71,5 +71,14 @@
         }
     </ul>
 </div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
 
 
