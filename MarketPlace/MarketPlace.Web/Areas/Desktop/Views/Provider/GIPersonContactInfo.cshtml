@@ -11,76 +11,34 @@
 <div>
     <ul>
         @{
-            foreach (var item in Model.ContactCompanyInfo)
+            foreach (var item in Model.RelatedGeneralInfo)
             {
-                <li>@item.ItemName</li>
+                <li>Nombre de Contacto</li>
+                <li>@item.PC_ContactName</li>
+            
                 <li>Tipo de Contacto</li>
-                if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210001")
-                {
-                    <li>Comercial</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210002")
-                {
-                    <li>Legal</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210003")
-                {
-                    <li>Legal suplente</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210004")
-                {
-                    <li>Legal y comercial</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210005")
-                {
-                    <li>Financiero</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210006")
-                {
-                    <li>HSEQ - SMS</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210007")
-                {
-                    <li>Jurídico</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210008")
-                {
-                    <li>Técnico</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210009")
-                {
-                    <li>Compras y contratos</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206001).Select(x => x.Value).FirstOrDefault() == "210010")
-                {
-                    <li>Seguridad física</li>
-                }
+                <li>@item.PC_RepresentantType</li>               
+            
                 <li>Tipo de Identificación</li>
-                if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault() == "101001")
-                {
-                    <li>Cédula de Ciudadanía</li>
-                    <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault()</li>
-                }
-                else if (item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault() == "101002")
-                {
-                    <li>Pasaporte</li>
-                    <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206002).Select(x => x.Value).FirstOrDefault()</li>
-                }
+                <li>@item.PC_IdentificationType</li>
+            
+                <li>Número de Identificación</li>
+                <li>@item.PC_IdentificationNumber</li>    
 
                 <li>Ciudad de Expedición del Documento</li>
-                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206004).Select(x => x.Value).FirstOrDefault()</li>
-            
+                <li>@item.PC_ExpeditionDocumentCity</li>
+
                 <li>Teléfono</li>
-                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206006).Select(x => x.Value).FirstOrDefault()</li>
+                <li>@item.PC_TelephoneNumber</li>
 
                 <li>Email</li>
-                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206007).Select(x => x.Value).FirstOrDefault()</li>
+                <li>@item.PC_Email</li>
                          
                 <li>Capacidad de Negociación</li>
-                <li>@item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206008).Select(x => x.Value).FirstOrDefault()</li>
+                <li>@item.PC_Negotiation</li>
 
 
-                var UlrContent = item.ItemInfo.Where(x => x.ItemInfoType.ItemId == 206005).Select(x => x.Value).FirstOrDefault();
+                var UlrContent = item.PC_LegalFile;
                 if (!string.IsNullOrEmpty(UlrContent))
                 {   
                     <li>Archivo del Representante Legal </li>

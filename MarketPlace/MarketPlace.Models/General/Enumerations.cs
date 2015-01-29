@@ -104,12 +104,45 @@
 
     public enum enumContactInfoType
     {
-        Telefono = 209001 ,
-        Celular = 209002,
-        PaginaWeb = 209003,
-        CódigoPostal = 209004,	
-        Fax = 209005,
-        Email = 209006
+        //CompanyContact
+        CompanyContactType = 205001,
+        Value = 205002,
+
+        //PersonContact
+        PersonContactType = 206001,
+        IdentificationType = 206002,
+        IdentificationNumber = 206003,
+        IdentificationCity = 206004,
+        IdentificationFile = 206005,
+        Phone = 206006,
+        Email = 206007,
+        Negotiation = 206008,
+
+        //Branch
+        B_Representative = 207001,
+        B_Address = 207002,
+        B_City = 207003,
+        B_Phone = 207004,
+        B_Fax = 207005,
+        B_Email = 207006,
+        B_Website = 207007,
+        B_Latitude = 207008,
+        B_Longitude = 207009,
+
+        //Distributor
+        D_DistributorType = 208001,
+        D_Representative = 208002,
+        D_Email = 208003,
+        D_Phone = 208004,
+        D_City = 208005,
+        D_DateIssue = 208006,
+        D_DueDate = 208007,
+        D_DistributorFile = 208008,
+
+
+        C_Telefono = 209001,
+        C_Celular = 209002,
+        C_PaginaWeb = 209003
     }
     #endregion
 }
