@@ -1324,7 +1324,7 @@ var Provider_CompanyCommercialObject = {
                 },
             }, {
                 field: 'EX_EconomicActivity',
-                title: 'Mestra Estandar',
+                title: 'Maestra Estandar',
                 width: '380px',
                 template: function (dataItem) {
                     var oReturn = '';
