@@ -19,7 +19,7 @@
                 </div>
             }
 
-                <ul id="ulProviderMenu">
+            <ul id="ulProviderMenu">
                     @foreach (MarketPlace.Models.General.GenericMenu pm in Model.ProviderMenu.OrderBy(x => x.Position))
             {
                 string strSeleClass = string.Empty;
@@ -45,19 +45,19 @@
                     </ul>
                 </li>
             }
-                </ul>
+            </ul>
         </div>
     }
     else
     {
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    Provider_InitMenu({
-                        ObjId: 'ulProviderMenu',
-                        active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),
-                    });
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Provider_InitMenu({
+                    ObjId: 'ulProviderMenu',
+                    active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),
                 });
-            </script>
-            }
+            });
+        </script>
+        }
     
 }
