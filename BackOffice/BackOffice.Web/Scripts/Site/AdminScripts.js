@@ -356,6 +356,9 @@
 
                             B_Bank: { editable: true, nullable: false, validation: { required: true } },
 
+                            B_BankCode: { editable: true, nullable: false },
+                            B_BankCodeId: { editable: false },
+
                             B_City: { editable: true, nullable: false },
                             B_CityId: { editable: false },
 
@@ -486,6 +489,10 @@
                     });
                 },
             }, {
+                field: 'B_BankCode',
+                title: 'Código',
+                width: '50px',
+            }, {
                 field: 'B_City',
                 title: 'País',
                 width: '100px',
@@ -550,7 +557,7 @@
                 field: 'B_BankEnable',
                 title: 'Enable',
                 width: '50px',
-            }, ],
+            }],
         });
     },
 

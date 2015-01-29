@@ -76,6 +76,40 @@
 
     #endregion
 
+    #region Comercial
+
+    /// <summary>
+    /// Comercial type
+    /// </summary>
+    public enum enumCommercialType
+    {
+        Experience = 301001,
+    }
+
+    /// <summary>
+    /// Commercial infor types
+    /// </summary>
+    public enum enumCommercialInfoType
+    {
+        //Experience
+        EX_ContractType = 302001,
+        EX_Currency = 302002,
+        EX_DateIssue = 302003,
+        EX_DueDate = 302004,
+        EX_Client = 302005,
+        EX_ContractNumber = 302006,
+        EX_ContractValue = 302007,
+        EX_Phone = 302008,
+        EX_ExperienceFile = 302011,
+        EX_ContractSubject = 302012,
+        EX_EconomicActivity = 302013,
+        EX_CustomEconomicActivity = 302014,
+
+    }
+
+    #endregion
+
+
     #region Provider enum
 
     public enum enumSearchOrderType

@@ -626,6 +626,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType);
+        }
+
         #endregion
     }
 }
