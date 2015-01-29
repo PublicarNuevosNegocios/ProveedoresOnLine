@@ -1,0 +1,30 @@
+/*************** AQUI VA TODA LA INFORMACION 
+    DETALLADA DEL PROVEEDOR  *************/
+.POMPProviderInfoWrapper {
+    border: medium none;
+    height: auto;
+    margin: 2px 0 0 2px;
+    padding: 6px 0;
+    position: relative;
+    width: 99.8%;
+}
+/*********** CONTENEDOR DE EL MENU LATERAL ***********/
+.POMPProviderSideMenuWrapper {
+    border-right: 2px solid #ff8300;
+    display: inline-block;
+    height: 100%;
+    min-height: 490px;
+    padding: 0 21px 0 11px;
+    vertical-align: top;
+    width: auto;
+}
+/*********** CONTENEDOR DE INFORMACION PROVEDOR ***********/
+.POMPProviderDataWrapper {
+    border: medium none;
+    display: inline-block;
+    height: auto;
+    margin: 0 0 0 6px;
+    min-height: 400px;
+    width: calc(100% - 317px);
+}
+    

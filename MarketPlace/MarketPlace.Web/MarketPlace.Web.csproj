@@ -394,6 +394,7 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProviderInfo.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSearchComparison.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSearchResults.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPLogIn.css" />

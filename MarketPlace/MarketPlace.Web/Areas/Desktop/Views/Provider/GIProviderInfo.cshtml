@@ -8,23 +8,21 @@
 @{
     //Model.RenderScripts = true;
 }
-<div class="">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
+<div class="POMPProviderInfoWrapper">
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-<div>
-    <ul>
-        <li>Tipo de Identificación</li>
-        <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName</li>
-
-        <li>Número de Identificación</li>
-        <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</li>
-
-        <li>Razón Social</li>
-        <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</li>
-
-        <li>Fecha de Certificación</li>
-        <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203004).Select(x => x.Value).FirstOrDefault()</li>
-
-    </ul>
+    <div class="POMPProviderDataWrapper">
+        <ul>
+            <li>Tipo de Identificación</li>
+            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName</li>
+            <li>Número de Identificación</li>
+            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</li>
+            <li>Razón Social</li>
+            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</li>
+            <li>Fecha de Certificación</li>
+            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203004).Select(x => x.Value).FirstOrDefault()</li>
+        </ul>
+    </div>
 </div>
