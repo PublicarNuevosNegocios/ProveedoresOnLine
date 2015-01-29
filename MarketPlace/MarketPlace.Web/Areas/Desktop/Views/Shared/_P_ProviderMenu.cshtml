@@ -3,10 +3,9 @@
 @if (Model.ProviderMenu != null &&
     Model.ProviderMenu.Count > 0)
 {
-    if (Model.RenderScripts)
+    if (!Model.RenderScripts)
     {
-        <div class="POMPProviderSideMenu">
-
+        <div class="POBOProviderSideMenu">
             @if (Model.RelatedLiteProvider != null && Model.RelatedLiteProvider.RelatedProvider != null && Model.RelatedLiteProvider.RelatedProvider.RelatedCompany != null)
             {
                 <div class="POMPProviderTagWrapper">
@@ -18,8 +17,7 @@
                     </div>
                 </div>
             }
-
-            <ul id="ulProviderMenu">
+                <ul id="ulProviderMenu">
                     @foreach (MarketPlace.Models.General.GenericMenu pm in Model.ProviderMenu.OrderBy(x => x.Position))
             {
                 string strSeleClass = string.Empty;
@@ -45,19 +43,18 @@
                     </ul>
                 </li>
             }
-            </ul>
+                </ul>
         </div>
     }
     else
     {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                Provider_InitMenu({
-                    ObjId: 'ulProviderMenu',
-                    active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    Provider_InitMenu({
+                        ObjId: 'ulProviderMenu',
+                        active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),
+                    });
                 });
-            });
-        </script>
-        }
-    
+            </script>
+            }
 }
