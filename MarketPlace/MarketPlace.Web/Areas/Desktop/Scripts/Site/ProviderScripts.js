@@ -1,4 +1,13 @@
-﻿var Provider_SearchObject = {
+﻿/*init provider Menu*/
+function Provider_InitMenu(InitObject) {
+    $('#' + InitObject.ObjId).accordion({
+        animate: 'swing',
+        header: 'label',
+        active: InitObject.active
+    });
+}
+
+var Provider_SearchObject = {
 
     ObjectId: '',
     SearchUrl: '',
