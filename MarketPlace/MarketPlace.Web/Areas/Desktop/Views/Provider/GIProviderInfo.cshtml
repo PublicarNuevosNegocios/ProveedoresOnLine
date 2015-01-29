@@ -8,21 +8,39 @@
 @{
     //Model.RenderScripts = true;
 }
-<div class="POMPProviderInfoWrapper">
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
     <div class="POMPProviderSideMenuWrapper">
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
-
     <div class="POMPProviderDataWrapper">
-        <ul>
-            <li>Tipo de Identificación</li>
-            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName</li>
-            <li>Número de Identificación</li>
-            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</li>
-            <li>Razón Social</li>
-            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</li>
-            <li>Fecha de Certificación</li>
-            <li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203004).Select(x => x.Value).FirstOrDefault()</li>
+        <label class="POMPSectionTitles">Información básica</label>
+        <ul class="POMPProviderInformationDisplayList">
+            <li>
+                <label>
+                    Tipo de Identificación
+                    <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    Número de Identificación
+                    <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    Razón Social
+                    <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</span>
+                </label>
+            </li>
+            <li><label>
+                    Fecha de Certificación
+                    <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203004).Select(x => x.Value).FirstOrDefault()</span>
+                </label>
+            </li>
         </ul>
     </div>
 </div>
