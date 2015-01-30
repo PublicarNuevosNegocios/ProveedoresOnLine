@@ -5,59 +5,77 @@
 
     Model.RenderScripts = false;
 }
-<div class="">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedGeneralInfo)
-            {
-                <li>Nombre de Contacto</li>
-                <li>@item.PC_ContactName</li>
-            
-                <li>Tipo de Contacto</li>
-                <li>@item.PC_RepresentantType</li>               
-            
-                <li>Tipo de Identificación</li>
-                <li>@item.PC_IdentificationType</li>
-            
-                <li>Número de Identificación</li>
-                <li>@item.PC_IdentificationNumber</li>    
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-                <li>Ciudad de Expedición del Documento</li>
-                <li>@item.PC_ExpeditionDocumentCity</li>
-
-                <li>Teléfono</li>
-                <li>@item.PC_TelephoneNumber</li>
-
-                <li>Email</li>
-                <li>@item.PC_Email</li>
-                         
-                <li>Capacidad de Negociación</li>
-                <li>@item.PC_Negotiation</li>
-
-
-                var UlrContent = item.PC_LegalFile;
-                if (!string.IsNullOrEmpty(UlrContent))
-                {   
-                    <li>Archivo del Representante Legal </li>
-                    <li>                        
-                        <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
-                    </li>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Información de contacto de empresa</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedGeneralInfo)
+                {
                     <li>
-                        <a href="@UlrContent"  >Ver Archivo</a>
+                        <label>
+                            Nombre de Contacto
+                            <span>@item.PC_ContactName</span>
+                        </label>
+                        <label>
+                            Tipo de Contacto
+                            <span>@item.PC_RepresentantType</span>
+                        </label>
+
+                        <label>
+                            Tipo de Identificación
+                            <span>@item.PC_IdentificationType</span>
+                        </label>
+
+                        <label>
+                            Número de Identificación
+                            <span>@item.PC_IdentificationNumber</span>
+                        </label>
+
+                        <label>
+                            Ciudad de Expedición del Documento
+                            <span>@item.PC_ExpeditionDocumentCity</span>
+                        </label>
+                        <label>
+                            Teléfono
+                            <span>@item.PC_TelephoneNumber</span>
+                        </label>
+                        <label>
+                            Email
+                            <span title="@item.PC_Email">@item.PC_Email</span>
+                        </label>
+                        <label>
+                            Capacidad de Negociación
+                            <span>@item.PC_Negotiation</span>
+                        </label>
+                        <label>
+                            Archivo Representante Legal
+                        @{
+                            var UlrContent = item.PC_LegalFile;
+                            if (!string.IsNullOrEmpty(UlrContent))
+                            {
+                                <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
+                                <a href="@UlrContent">Ver Archivo</a>
+                            }
+                        }
+                        </label>
                     </li>
                 }
-            }
-        }
-    </ul>
+           }                
+        </ul>
+    </div>
 </div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 

@@ -20,11 +20,7 @@
             {
                 <li>
                     <label>
-                        Nombre de información de contacto                
-                        <span>@item.CI_ContactName</span>
-                    </label>
-                    <label>
-                        Tipo de Contacto
+                        @item.CI_ContactName
                     </label>
                     <label class="POMPProviderTypeOption">
                         @if (item.CI_ContactType == "209001")
@@ -40,7 +36,7 @@
                             <span>Página Web: </span>
                         }
 
-                        <span class="POMPProviderTypeOptionValue">@item.CI_Value</span>
+                        <span>@item.CI_Value</span>
                     </label>
 
                 </li>
