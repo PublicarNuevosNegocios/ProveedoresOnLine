@@ -6,43 +6,52 @@
     Model.RenderScripts = false;
 }
 
-<div class="">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-<div>
-    <ul>
-        @foreach (var item in Model.RelatedGeneralInfo)
-        {
-            <li>Nombre de información de contacto</li>
-            <li>
-                @item.CI_ContactName
-            </li>
-            <li>Tipo de Contacto</li>
-            
-                if (item.CI_ContactType == "209001")
-                {
-                    <li>Teléfono</li>
-                }
-                else if (item.CI_ContactType == "209002")
-                {
-                    <li>Celular</li>
-                }
-                else if (item.CI_ContactType == "209003")
-                {
-                    <li>Página Web</li>
-                }
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Información de contacto de empresa</label>
+        <ul class="POMPProviderInfoDisplayList">
+            @foreach (var item in Model.RelatedGeneralInfo)
+            {
+                <li>
+                    <label>
+                        Nombre de información de contacto                
+                        <span>@item.CI_ContactName</span>
+                    </label>
+                    <label>
+                        Tipo de Contacto
+                    </label>
+                    <label class="POMPProviderTypeOption">
+                        @if (item.CI_ContactType == "209001")
+                        {
+                            <span>Teléfono: </span>
+                        }
+                        else if (item.CI_ContactType == "209002")
+                        {
+                            <span>Celular: </span>
+                        }
+                        else if (item.CI_ContactType == "209003")
+                        {
+                            <span>Página Web: </span>
+                        }
 
-            <li>
-                @item.CI_Value
-            </li>
-        }        
-    </ul>
+                        <span class="POMPProviderTypeOptionValue">@item.CI_Value</span>
+                    </label>
+
+                </li>
+            }
+        </ul>
+    </div>
 </div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }

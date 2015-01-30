@@ -31,12 +31,21 @@
             color: #0066ae;
             font-size: 1.35em; font-weight:normal;
             letter-spacing:0.8px; line-height:1.5em;
-            margin: 0px;
+            margin: 0px; width:89%;
     }
         .POMPProviderInfoDisplayList li label > span {
             display: block; font-size: 0.7em;
             font-weight: normal; letter-spacing: -0.5px;
             line-height: 1em; color:#666;
+        }
+        /********** MUESTRA EL CASO DE TIPO Y VALOR ***********/
+        .POMPProviderTypeOption span {
+            display:inline !important;
+        }
+        span.POMPProviderTypeOptionValue {
+            display:inline !important;
+            font-weight:bold !important;
+            font-size:0.9em !important;
         }
 
 a.POMPSmallCaption {
