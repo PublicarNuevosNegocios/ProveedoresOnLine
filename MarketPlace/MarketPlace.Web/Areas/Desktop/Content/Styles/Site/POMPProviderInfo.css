@@ -14,25 +14,29 @@
     background-image:url(http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/BGScatterLogoSmall.png);
     background-position:238px -165px; background-size:941px auto; background-repeat:no-repeat;
 }
-    .POMPProviderInformationDisplayList ul li {
-        border: none;
+.POMPProviderInfoDisplayList {
+    padding:0px;
+}
+    .POMPProviderInfoDisplayList li {
         display:block;
         height: auto;
         vertical-align: top;
-        width: 48.5%;
-        margin: 4px 0px 0px 8px;
-        padding: 0;
+        width: 48%;
+        margin: 0px 0px 0px 8px;
+        padding: 0 0 4px 17px;
         list-style-type:none;
+        border-bottom: 2px dotted #ddd;
     }
-        .POMPProviderInformationDisplayList ul li label {
-            color: #4d4d4d;
-            font-size: 2em; font-weight:bold;
-            font-weight: normal;
-            letter-spacing:0.8px;
+        .POMPProviderInfoDisplayList li label {
+            color: #0066ae;
+            font-size: 1.35em; font-weight:normal;
+            letter-spacing:0.8px; line-height:1.5em;
             margin: 0px;
     }
-        .POMPProviderInformationDisplayList ul li label > span {
-
+        .POMPProviderInfoDisplayList li label > span {
+            display: block; font-size: 0.7em;
+            font-weight: normal; letter-spacing: -0.5px;
+            line-height: 1em; color:#666;
         }
 
 a.POMPSmallCaption {

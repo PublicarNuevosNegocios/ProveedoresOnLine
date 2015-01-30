@@ -17,7 +17,7 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información básica</label>
-        <ul class="POMPProviderInformationDisplayList">
+        <ul class="POMPProviderInfoDisplayList">
             <li>
                 <label>
                     Tipo de Identificación
@@ -36,7 +36,8 @@
                     <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</span>
                 </label>
             </li>
-            <li><label>
+            <li>
+                <label>
                     Fecha de Certificación
                     <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203004).Select(x => x.Value).FirstOrDefault()</span>
                 </label>
