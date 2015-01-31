@@ -5,46 +5,63 @@
 
     Model.RenderScripts = false;
 }
-<div class="">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedGeneralInfo)
-            {
-                <li>Nombre Sucursal</li>
-                <li>@item.BR_Name</li>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-                <li>Representante</li>
-                <li>@item.BR_Representative</li>
-
-                <li>Dirección</li>
-                <li>@item.BR_Address</li>
-
-                <li>Ciudad</li>
-                <li>@item.BR_City</li>
-
-                <li>Teléfono</li>
-                <li>@item.BR_Phone</li>
-
-                <li>Fax</li>
-                <li>@item.BR_Fax</li>
-
-                <li>Correo Electrónico</li>
-                <li>@item.BR_Email</li>
-
-                <li>Página Web</li>
-                <li>@item.BR_Website</li>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Sucursales</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedGeneralInfo)
+                {
+                    <li>
+                        <label>
+                            Nombre Sucursal
+                            <span>@item.BR_Name</span>
+                        </label>
+                        <label>
+                            Representante
+                            <span>@item.BR_Representative</span>
+                        </label>
+                        <label>
+                            Dirección
+                            <span>@item.BR_Address</span>
+                        </label>
+                        <label>
+                            Ciudad
+                            <span>@item.BR_City</span>
+                        </label>
+                        <label>
+                            Teléfono
+                            <span> @item.BR_Phone</span>
+                        </label>
+                        <label>
+                            Fax
+                            <span> @item.BR_Fax</span>
+                        </label>
+                        <label>
+                            Correo Electrónico
+                            <span>  @item.BR_Email</span>
+                        </label>
+                        <label>
+                            Página Web
+                            <span> @item.BR_Website</span>
+                        </label>
+                    </li>
+                }
             }
-        }
-    </ul>
+        </ul>
+    </div>
 </div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 

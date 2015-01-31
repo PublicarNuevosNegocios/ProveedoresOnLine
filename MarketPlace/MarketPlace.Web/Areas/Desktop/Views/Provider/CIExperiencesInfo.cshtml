@@ -5,69 +5,99 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedComercialInfo)
-            {
-                <li>Tipo de Contrato</li>
-                if (item.EX_ContractType == "303001")
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Experiencias</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedComercialInfo)
                 {
-                    <li>Contratos / Servicios</li>
+                    <li>
+                        <label>
+                        Tipo de Contrato
+                        @if (item.EX_ContractType == "303001")
+                        {
+                        <span>Contratos / Servicios</span>
+                        }
+                        else if (item.EX_ContractType == "303002")
+                        {
+                        <span>Ordenes de compra</span>
+                        }
+                        </label>
+                        <label>
+                                Fecha Inicial
+                            <span>@item.EX_DateIssue</span>
+                        </label>
+                        <label>
+                                Fecha Final
+                            <span>@item.EX_DueDate</span>
+                        </label>
+                        <label>
+                                Cliente
+                            <span>@item.EX_Client</span>
+                        </label>
+                        <label>
+                            Número de Contacto
+                            <span>@item.EX_ContractNumber</span>
+                        </label>
+                        <label>
+                                Valor del Contrato
+                            <span>@item.EX_ContractValue</span>
+                        </label>
+                        <label>
+                                Teléfono
+                            <span>@item.EX_Phone</span>
+                        </label>
+                        <label>
+                            Objeto del Contrato
+                            <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
+                        </label>
+                        <label>
+                            Maestra Estandar                    
+                            @foreach (var ActivityItem in item.EX_EconomicActivity)
+                            {
+                                <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
+                            }
+                        </label>
+                        <label>
+                            Maestra Personalizada
+                            @foreach (var ActivityItem in item.EX_CustomEconomicActivity)
+                            {
+                                <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
+                            }
+                        </label>
+
+
+                        <label>
+                            Archivo de Soporte
+                            @{
+                            var UlrContent = item.EX_ExperienceFile;
+                            if (!string.IsNullOrEmpty(UlrContent))
+                            {
+                            <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
+                            <a target="_blank" href="@UlrContent">Ver Archivo</a>
+                            }
+                            }
+                        </label>
+                    </li>
+
                 }
-                else if (item.EX_ContractType == "303002")
-                {
-                    <li>Ordenes de compra</li>    
-                }
-            <li>Fecha Inicial</li>
-            <li>@item.EX_DateIssue</li>
-            <li>Fecha Final</li>
-            <li>@item.EX_DueDate</li>
-            <li>Cliente</li>
-            <li>@item.EX_Client</li>
-            <li>Número de Contacto</li>
-            <li>@item.EX_ContractNumber</li>
-            <li>Valor del Contrato</li>
-            <li>@item.EX_ContractValue</li>
-            <li>Teléfono</li>
-            <li>@item.EX_Phone</li>
-            <li>Objeto del Contrato</li>
-            <li>@item.EX_ContractSubject</li>
-            <li>Maestra Estandar</li>
-                foreach (var ActivityItem in item.EX_EconomicActivity)
-                {                     
-                    <li>@ActivityItem.ActivityName</li>
-                }          
-            <li>Maestra Personalizada</li>
-                foreach (var ActivityItem in item.EX_CustomEconomicActivity)
-	            {
-		            <li>@ActivityItem.ActivityName</li> 
-	            }
-            var UlrContent = item.EX_ExperienceFile;
-            if (!string.IsNullOrEmpty(UlrContent))
-            {
-                <li>Archivo de Soporte</li>
-                <li>
-                    <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
-                </li>
-                <li>
-                    <a target="_blank" href="@UlrContent">Ver Archivo</a>
-                </li>
             }
-            }
-        }
-    </ul>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+        </ul>
+    </div>
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 

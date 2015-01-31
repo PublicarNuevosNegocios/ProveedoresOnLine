@@ -350,7 +350,7 @@ var Provider_CompanyContactObject = {
                             CP_IdentificationType: { editable: true },
                             CP_IdentificationTypeId: { editable: false },
 
-                            CP_IdentificationNumber: { editable: true, validation: { required: true } },
+                            CP_IdentificationNumber: { editable: true, validation: { required: false } },
                             CP_IdentificationNumberId: { editable: false },
 
                             CP_IdentificationCity: { editable: true, validation: { required: false } },
@@ -4082,19 +4082,19 @@ var Provider_LegalInfoObject = {
                             R_PersonType: { editable: true, validation: { required: true } },
                             R_PersonTypeId: { editable: false },
 
-                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true, validation: { required: true } },
+                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true },
                             R_LargeContributorId: { editable: false },
 
-                            R_LargeContributorReceipt: { editable: true, validation: { required: true } },
+                            R_LargeContributorReceipt: { editable: true },
                             R_LargeContributorReceiptId: { editable: false },
 
                             R_LargeContributorDate: { editable: true },
                             R_LargeContributorDateId: { editable: false },
 
-                            R_SelfRetainer: { editable: true, validation: { required: true }, type: "boolean", defaultValue: true },
+                            R_SelfRetainer: { editable: true, type: "boolean", defaultValue: true },
                             R_SelfRetainerId: { editable: false },
 
-                            R_SelfRetainerReciept: { editable: true, validation: { required: true } },
+                            R_SelfRetainerReciept: { editable: true },
                             R_SelfRetainerRecieptId: { editable: false },
 
                             R_SelfRetainerDate: { editable: true },
@@ -4103,7 +4103,7 @@ var Provider_LegalInfoObject = {
                             R_EntityType: { editable: true, validation: { required: true } },
                             R_EntityTypeId: { editable: false },
 
-                            R_IVA: { editable: true, type: "boolean", defaultValue: true, validation: { required: true } },
+                            R_IVA: { editable: true, type: "boolean", defaultValue: true },
                             R_IVAId: { editable: false },
 
                             R_TaxPayerType: { editable: true, validation: { required: true } },
@@ -4344,7 +4344,9 @@ var Provider_LegalInfoObject = {
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
                                         dataType: 'json',
                                         success: function (result) {
-                                            options.success(result);
+                                            if (result.length > 0) {
+                                                options.success(result);
+                                            }
                                         },
                                         error: function (result) {
                                             options.error(result);
