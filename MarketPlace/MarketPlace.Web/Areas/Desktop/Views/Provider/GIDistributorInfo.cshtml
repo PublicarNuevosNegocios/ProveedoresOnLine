@@ -5,79 +5,94 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedGeneralInfo)
-            {
-                <li>Razón Social</li>
-                <li>@item.DT_SocialReazon</li>
-
-                <li>Tipo de Distribuidor</li>
-                if (item.DT_DistributorType == "211001")
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Distribuidores</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedGeneralInfo)
                 {
-                    <li>Comercializador</li>
-                }
-                else if (item.DT_DistributorType == "211002")
-                {
-                    <li>Distribuido por</li>
-                }
-                else if (item.DT_DistributorType == "211003")
-                {
-                    <li>Distribuidor de</li>
-                }
-                else if (item.DT_DistributorType == "211004")
-                {
-                    <li>Representado por</li>
-                }
-                else if (item.DT_DistributorType == "211005")
-                {
-                    <li>Representante de</li>
-                }
-
-                <li>Representante Comercial</li>
-                <li>@item.DT_Representative</li>
-
-                <li>Correo Electrónico</li>
-                <li>@item.DT_Email</li>
-
-                <li>Teléfono</li>
-                <li>@item.DT_Phone</li>
-
-                <li>Ciudad</li>
-                <li>@item.DT_City</li>
-
-                <li>Fecha de Expedición</li>
-                <li>@item.DT_DateIssue</li>
-
-                <li>Fecha de Vencimiento</li>
-                <li>@item.DT_DueDate</li>
-
-                var UlrContent = item.DT_DistributorFile;
-                if (!string.IsNullOrEmpty(UlrContent))
-                {
-                    <li>Documento Soporte</li>
                     <li>
-                        <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
-                    </li>
-                    <li>
-                        <a target="_blank" href="@UlrContent">Ver Archivo</a>
-                    </li>
+                        <label>
+                            Razón Social
+                            <span>@item.DT_SocialReazon</span>
+                        </label>
+                        <label>
+                            Tipo de Distribuidor
+
+                            @if (item.DT_DistributorType == "211001")
+                            {
+                            <span>Comercializador</span>
+                            }
+                            else if (item.DT_DistributorType == "211002")
+                            {
+                            <span>Distribuido por</span>
+                            }
+                            else if (item.DT_DistributorType == "211003")
+                            {
+                            <span>Distribuidor de</span>
+                            }
+                            else if (item.DT_DistributorType == "211004")
+                            {
+                            <span>Representado por</span>
+                            }
+                            else if (item.DT_DistributorType == "211005")
+                            {
+                            <span>Representante de</span>
+                            }
+                        </label>
+                        <label>
+                            Representante Comercial
+                            <span>@item.DT_Representative</span>
+                        </label>
+                        <label>
+                            Correo Electrónico
+                            <span>@item.DT_Email</span>
+                        </label>
+                        <label>
+                            Teléfono
+                            <span>@item.DT_Phone</span>
+                        </label>
+                        <label>
+                            Ciudad
+                            <span>@item.DT_City</span>
+                        </label>
+                        <label>
+                            Fecha de Expedición
+                            <span>@item.DT_DateIssue</span>
+                        </label>
+                        <label>
+                            Fecha de Vencimiento
+                            <span>@item.DT_DueDate</span>
+                        </label>            
+                        <label>
+                            Documento Soporte
+                            @{
+                                var UlrContent = item.DT_DistributorFile;
+                                if (!string.IsNullOrEmpty(UlrContent))
+                                {
+                                    <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
+                                    <a target="_blank" href="@UlrContent">Ver Archivo</a>
+                                }
+                            }
+                        </label>
+                   </li>
                 }
             }
-        }
-    </ul>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+        </ul>
+    </div>
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 
