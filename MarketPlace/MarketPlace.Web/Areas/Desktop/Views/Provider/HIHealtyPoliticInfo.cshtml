@@ -1,7 +1,104 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Healty Politics";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderSideMenuWrapper">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.RelatedHSEQlInfo)
+            {
+                <li>Año</li>
+                <li>@item.CH_Year</li>
+
+                <li>Política de Seguridad, Salud y Ambiente</li>
+                if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Política de no Alcohol, Drogas y Fumadores</li>
+                if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Programa de Salud Ocupacional</li>
+                if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Reglamento de Higiene y Seguridad</li>
+                if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</li>
+                if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Responsabilidad Social Empresarial</li>
+                if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Programa de Seguridad Empresarial y Logística</li>
+                if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Política de Contratación de Personal</li>
+                if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo</a>
+                    </li>
+                }
+                
+                <li>Formulario de Certificaciones</li>
+                if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
+                {
+                    <li>
+                        <a target="_blank" href="@item.CH_CertificationsForm">Ver Archivo</a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

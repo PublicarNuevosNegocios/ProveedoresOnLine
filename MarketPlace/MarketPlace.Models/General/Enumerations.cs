@@ -109,6 +109,62 @@
 
     #endregion
 
+    #region HSEQ
+
+    /// <summary>
+    /// HSEQ type
+    /// </summary>
+    public enum enumHSEQType
+    {
+        Certifications = 701001,
+        CompanyHealtyPolitic = 701002,
+        CompanyRiskPolicies = 701003,
+
+        CertificatesAccident = 701004
+    }
+
+    /// <summary>
+    /// HSEQ info type
+    /// </summary>
+    public enum enumHSEQInfoType
+    {
+        //Certifications
+        C_CertificationCompany = 702001,
+        C_Rule = 702002,
+        C_StartDateCertification = 702003,
+        C_EndDateCertification = 702004,
+        C_CCS = 702005,
+        C_CertificationFile = 702006,
+        C_Scope = 702007,
+
+        //CompanyHealtyPolitic
+        CH_Year = 703001,
+        CH_PoliticsSecurity = 703002,
+        CH_PoliticsNoAlcohol = 703003,
+        CH_ProgramOccupationalHealth = 703004,
+        CH_RuleIndustrialSecurity = 703005,
+        CH_MatrixRiskControl = 703006,
+        CH_CorporateSocialResponsability = 703007,
+        CH_ProgramEnterpriseSecurity = 703008,
+        CH_PoliticsRecruiment = 703009,
+        CH_CertificationsForm = 703010,
+
+        //CompanyRiskPolicies
+        CR_SystemOccupationalHazards = 704001,
+        CR_RateARL = 704002,
+        CR_CertificateAffiliateARL = 704003,
+
+        //CertficatesAccident
+        CA_Year = 705001,
+        CA_ManHoursWorked = 705002,
+        CA_Fatalities = 705003,
+        CA_NumberAccident = 705004,
+        CA_NumberAccidentDisabling = 705005,
+        CA_DaysIncapacity = 705006,
+        CA_CertificateAccidentARL = 705007,        
+    }
+
+    #endregion
 
     #region Provider enum
 

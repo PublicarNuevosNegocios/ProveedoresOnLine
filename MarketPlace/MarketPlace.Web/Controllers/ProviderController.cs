@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
@@ -370,17 +371,178 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult HICertificationsInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+            
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                                
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
+
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLTIFResult = null;
+                oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
+                oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
+                oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
+                    {
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL, oLTIFResult));
+                        return true;
+                    });
+                }
+                else
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                }
+             
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);                
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult HIHealtyPoliticInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyHealtyPolitic);
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
+
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
+                List<GenericItemModel> oLTIFResult = null;
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
+                    {
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL, oLTIFResult));
+                        return true;
+                    });
+                }
+                else
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                }
+
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult HIRiskPoliciesInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+
+                List<GenericItemModel> oLTIFResult = null;
+
+                oLTIFResult = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
+
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
+
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
+                    {
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL, oLTIFResult));
+                        return true;
+                    });
+
+                    oModel.RelatedHSEQlInfo = this.GetLTIFResult(oModel.RelatedHSEQlInfo);
+                }
+                else
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                }
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         #endregion
@@ -584,12 +746,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Certificaciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.HICertificationsInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.HICertificationsInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -598,12 +760,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Salud, medio ambiente y seguridad",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.HIHealtyPoliticInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.HIHealtyPoliticInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -612,12 +774,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Salud de riesgos laborales",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.HIRiskPoliciesInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.HIRiskPoliciesInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -815,6 +977,34 @@ namespace MarketPlace.Web.Controllers
             return oReturn;
         }
 
+        #endregion
+
+        #region Privated Functions
+
+        public List<ProviderHSEQViewModel> GetLTIFResult(List<ProviderHSEQViewModel> oLTIFInfo)
+        {
+            List<ProviderHSEQViewModel> oResult = new List<ProviderHSEQViewModel>();
+            oResult = oLTIFInfo;
+
+            decimal ManWorkersHours = 0;
+            decimal Fatalities = 0;
+            decimal DaysIncapacity = 0;
+            string Years = "";
+            
+            foreach (ProviderHSEQViewModel item in oLTIFInfo)
+            {
+                ManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_ManHoursWorked) ? item.CA_ManHoursWorked : "0");
+                Fatalities += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_Fatalities) ? item.CA_Fatalities : "0");
+                DaysIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_DaysIncapacity) ? item.CA_DaysIncapacity : "0");
+                Years += item.CA_Year + " ";
+            }
+
+            if (ManWorkersHours != 0)            
+                oResult.FirstOrDefault().CA_LTIFResult = (((Fatalities + DaysIncapacity) / ManWorkersHours) * 1000000).ToString();           
+           
+            oResult.FirstOrDefault().CA_YearsResult = Years;
+            return oResult;
+        }
         #endregion
 
         public virtual FileResult GetProviderFileBytes(string FilePath)

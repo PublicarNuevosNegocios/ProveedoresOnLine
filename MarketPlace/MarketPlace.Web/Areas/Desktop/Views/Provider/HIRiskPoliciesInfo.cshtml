@@ -1,7 +1,46 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Risk Policies";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderSideMenuWrapper">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            <li>Sistema de Riesgos</li>
+            @*<li>@Model.RelatedLiteProvider.RelatedProvider.RelatedCertification.Where(x => x.)</li>*@
+            foreach (var item in Model.RelatedHSEQlInfo)
+            {
+                <li>Sistema de Riesgos</li>
+                <li>@item.CR_SystemOccupationalHazardsName</li>
+
+                <li>Calificación de Riesgo ARL</li>
+                <li>@item.CR_RateARL</li>
+
+                <li>Calificación de Riesgo ARL</li>
+                <li>@item.CR_CertificateAffiliateARL</li>
+
+                <li>Resultado LTIF:</li>
+                <li>@item.CA_LTIFResult</li>
+
+                <li>Años:</li>
+                <li>@item.CA_YearsResult</li>
+            }
+        }
+    </ul>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

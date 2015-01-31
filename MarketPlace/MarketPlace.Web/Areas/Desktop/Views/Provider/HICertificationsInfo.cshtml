@@ -1,7 +1,58 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Certification";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderSideMenuWrapper">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.RelatedHSEQlInfo)
+            {
+                <li>Empresa Certificadora</li>
+                <li>@item.C_CertificationCompanyName</li>
+
+                <li>Norma</li>
+                <li>@item.C_RuleName</li>
+
+                <li>Fecha de Certificación</li>
+                <li>@item.C_StartDateCertification</li>
+
+                <li>Fecha de Caducidad</li>
+                <li>@item.C_EndDateCertification</li>
+
+                <li>% CCS</li>
+                <li>@item.C_CCS</li>
+                var UlrContent = item.C_CertificationFile;
+                if (!string.IsNullOrEmpty(UlrContent))
+                {
+                    <li>Archivo de Alcance</li>
+                    <li>
+                        <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@UlrContent">Ver Archivo</a>
+                    </li>
+                }
+
+                <li>Alcance</li>
+                <li>@item.C_Scope</li>
+            }
+        }
+    </ul>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

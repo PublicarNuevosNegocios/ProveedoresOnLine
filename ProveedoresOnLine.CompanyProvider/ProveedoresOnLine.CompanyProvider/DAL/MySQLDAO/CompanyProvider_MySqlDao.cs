@@ -1074,6 +1074,76 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public List<GenericItemModel> MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCertificationType", CertificationType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_Certification_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("CertificationId")
+                     group c by new
+                     {
+                         CertificationId = c.Field<int>("CertificationId"),
+                         CertificationTypeId = c.Field<int>("CertificationTypeId"),
+                         CertificationTypeName = c.Field<string>("CertificationTypeName"),
+                         CertificationName = c.Field<string>("CertificationName"),
+                         CertificationEnable = c.Field<UInt64>("CertificationEnable") == 1 ? true : false,
+                         CertificationLastModify = c.Field<DateTime>("CertificationLastModify"),
+                         CertificationCreateDate = c.Field<DateTime>("CertificationCreateDate"),
+                     }
+                         into cog
+                         select new GenericItemModel()
+                         {
+                             ItemId = cog.Key.CertificationId,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.CertificationTypeId,
+                                 ItemName = cog.Key.CertificationTypeName
+                             },
+                             ItemName = cog.Key.CertificationName,
+                             Enable = cog.Key.CertificationEnable,
+                             LastModify = cog.Key.CertificationLastModify,
+                             CreateDate = cog.Key.CertificationCreateDate,
+                             ItemInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("CertificationInfoId") &&
+                                          coinf.Field<int>("CertificationId") == cog.Key.CertificationId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("CertificationInfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = coinf.Field<int>("CertificationInfoTypeId"),
+                                          ItemName = coinf.Field<string>("CertificationInfoTypeName"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      LargeValue = coinf.Field<string>("LargeValue"),
+                                      Enable = coinf.Field<UInt64>("CertificationInfoEnable") == 1 ? true : false,
+                                      LastModify = coinf.Field<DateTime>("CertificationInfoLastModify"),
+                                      CreateDate = coinf.Field<DateTime>("CertificationInfoCreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
     }
 }
