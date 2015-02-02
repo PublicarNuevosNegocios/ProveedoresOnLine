@@ -49,27 +49,12 @@ namespace MarketPlace.Models.Provider
         public string CR_RateARL { get; set; }
         public string CR_CertificateAffiliateARL { get; set; }
 
-        #endregion
-
-        #region CertificatesAccident
-
-        public string CA_Year { get; set; }       
-        public string CA_ManHoursWorked { get; set; }        
-        public string CA_Fatalities { get; set; }
-        public string CA_NumberAccident { get; set; }
-        public string CA_NumberAccidentDisabling { get; set; }        
-        public string CA_DaysIncapacity { get; set; }
-        public string CA_CertificateAccidentARL { get; set; }
-        public string CA_LTIFResult { get; set; }
-        public string CA_YearsResult { get; set; }
-
-        #endregion
+        #endregion        
 
         public ProviderHSEQViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedCertification,
                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule,
                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule,
-                                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL,
-                                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLTIFResult)
+                                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL)
         {
             #region Certifications
 
@@ -233,54 +218,7 @@ namespace MarketPlace.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
          
-            #endregion
-
-            #region CertificatesAcccident
-
-            //CA_Year = oLTIFResult.
-            //    Where(y => y.ItemInfo.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_Year).
-            //    Select(y => y.Value).
-            //    DefaultIfEmpty(string.Empty).
-            //    FirstOrDefault();
-
-            CA_ManHoursWorked = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_ManHoursWorked).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-         
-            CA_Fatalities = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_Fatalities).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CA_NumberAccident = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_NumberAccident).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CA_NumberAccidentDisabling = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CA_DaysIncapacity = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_DaysIncapacity).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();           
-
-            CA_CertificateAccidentARL = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-           
-            #endregion
-
+            #endregion        
         }
 
         public ProviderHSEQViewModel() { }

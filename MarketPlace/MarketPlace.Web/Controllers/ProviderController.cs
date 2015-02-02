@@ -405,7 +405,7 @@ namespace MarketPlace.Web.Controllers
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLTIFResult = null;
+                
                 oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
                 oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
                 oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
@@ -414,7 +414,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
-                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL, oLTIFResult));
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
                         return true;
                     });
                 }
@@ -465,12 +465,12 @@ namespace MarketPlace.Web.Controllers
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
-                List<GenericItemModel> oLTIFResult = null;
+                
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
-                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL, oLTIFResult));
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
                         return true;
                     });
                 }
@@ -520,25 +520,35 @@ namespace MarketPlace.Web.Controllers
                 List<GenericItemModel> oLTIFResult = null;
 
                 oLTIFResult = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
-                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
+                oModel.RelatedLTIFlInfo = new List<ProviderLTIFViewModel>();
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
-                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL, oLTIFResult));
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
                         return true;
-                    });
-
-                    oModel.RelatedHSEQlInfo = this.GetLTIFResult(oModel.RelatedHSEQlInfo);
+                    });                    
                 }
                 else
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                }
+                oModel.RelatedLTIFlInfo = new List<ProviderLTIFViewModel>();
+                if (oLTIFResult != null && oLTIFResult.Count > 0)
+                {
+                    oLTIFResult.All(x =>
+                    {
+                        oModel.RelatedLTIFlInfo.Add(new ProviderLTIFViewModel(x));
+                        return true;
+                    });
+
+                    oModel.RelatedLTIFlInfo = this.GetLTIFResult(oModel.RelatedLTIFlInfo);
                 }
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -981,17 +991,17 @@ namespace MarketPlace.Web.Controllers
 
         #region Privated Functions
 
-        public List<ProviderHSEQViewModel> GetLTIFResult(List<ProviderHSEQViewModel> oLTIFInfo)
+        public List<ProviderLTIFViewModel> GetLTIFResult(List<ProviderLTIFViewModel> oLTIFInfo)
         {
-            List<ProviderHSEQViewModel> oResult = new List<ProviderHSEQViewModel>();
+            List<ProviderLTIFViewModel> oResult = new List<ProviderLTIFViewModel>();
             oResult = oLTIFInfo;
 
             decimal ManWorkersHours = 0;
             decimal Fatalities = 0;
             decimal DaysIncapacity = 0;
             string Years = "";
-            
-            foreach (ProviderHSEQViewModel item in oLTIFInfo)
+
+            foreach (ProviderLTIFViewModel item in oLTIFInfo)
             {
                 ManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_ManHoursWorked) ? item.CA_ManHoursWorked : "0");
                 Fatalities += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_Fatalities) ? item.CA_Fatalities : "0");
