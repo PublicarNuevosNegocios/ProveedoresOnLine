@@ -13,15 +13,14 @@
     </div>
 
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Información de contacto de empresa</label>
+        <label class="POMPSectionTitles">Información de personas de contacto</label>
         <ul class="POMPProviderInfoMultipleValues">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <li>
-                        <label>
-                            Nombre de Contacto
-                            <span>@item.PC_ContactName</span>
+                        <label class="POMPProviderDataSubtitle">
+                            Nombre de Contacto: @item.PC_ContactName
                         </label>
                         <label>
                             Tipo de Contacto

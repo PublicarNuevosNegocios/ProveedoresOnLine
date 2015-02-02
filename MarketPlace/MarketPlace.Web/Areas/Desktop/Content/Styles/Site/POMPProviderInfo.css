@@ -24,7 +24,7 @@
         display:inline-block;
         height: auto;
         vertical-align: top;
-        width: 42%;
+        width: 45%;
         margin: 0px 0px 0px 48px;
         padding:12px 0 2px 12px;
         list-style-type:none;
@@ -58,12 +58,28 @@
         display:inline-block;
         height: auto;
         vertical-align: top;
-        width: 88%;
-        margin: 0px 0px 0px 48px;
-        padding:12px 0 10px 12px;
+        width: 97.8%;
+        margin: 0px 0px 0px 0px;
+        padding:0px 0 0px 0px;
         list-style-type:none;
         border-top: 1px solid #ff8300;
     }
+    /*********** MUESTRA LOS SUBTITULOS DE CADA REGISTRO ************/
+label.POMPProviderDataSubtitle {
+    display:block; 
+    width:100% !important; 
+    max-width:100% !important; 
+    height:auto;
+    margin:0px !important;
+    padding:0px !important;
+    border-bottom:2px dotted #5d5d5d !important;
+    border-top:none !important;
+    font-size:1.36em !important;
+    line-height:1em !important;
+    color:#5d5d5d !important;
+    background-color:#EEEEEE;
+}
+    /***********************************/
     .POMPProviderInfoMultipleValues li:first-child {
         border-top:none;
     }
@@ -72,9 +88,9 @@
             font-size: 1.14em; font-weight:normal;
             letter-spacing:-0.2px; line-height:1em;
             margin:0px 5px 0px 0px; width:32%; max-width:232px;
-            padding:6px 0px; border-top:1px solid #d4d4d4;
+            padding:6px 0px; border-bottom:1px solid #d4d4d4;
             vertical-align:top;
-    }
+        }
         .POMPProviderInfoMultipleValues li label > span {
             display: block; font-size: 0.93em;
             font-weight: normal; letter-spacing: -0.5px;
@@ -104,12 +120,6 @@
             display: block;
             font-size:0.8em;
         }
-
-
-
-
-
-
 a.POMPSmallCaption {
         color: #ff8400;
         font-size: 0.9em;

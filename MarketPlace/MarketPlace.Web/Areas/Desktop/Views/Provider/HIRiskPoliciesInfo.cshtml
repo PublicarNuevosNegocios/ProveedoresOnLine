@@ -5,39 +5,52 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-            <li>Sistema de Riesgos</li>
-            <li>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).FirstOrDefault()</li>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Información de contacto de empresa</label>
+        <ul class="POMPProviderInfoMultipleValues">
+                @{
+                    <li>
+                        <label>
+                            Sistema de Riesgos
+                            <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).FirstOrDefault()</span>
+                        </label>
+                        <label>
+                            Calificación de Riesgo ARL
+                            <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_RateARL != null).Select(x => x.CR_RateARL).FirstOrDefault()</span>
+                        </label>
+                        <label>
+                            Certificado de Accidentalidad
+                            <a class="POMPProviderDocumetIcon" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()" title=""></a>
+                            <a target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo</a>
+                        </label>
 
-            <li>Calificación de Riesgo ARL</li>
-            <li>@Model.RelatedHSEQlInfo.Where(x => x.CR_RateARL != null).Select(x => x.CR_RateARL).FirstOrDefault()</li>
-
-            <li>Certificado de Accidentalidad</li>
-            <li>
-                <a target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo</a>
-            </li>
-
-            <li>Resultado LTIF:</li>
-            <li>@Model.RelatedLTIFlInfo.FirstOrDefault().CA_LTIFResult</li>
-
-            <li>Años:</li>
-            <li>@Model.RelatedLTIFlInfo.FirstOrDefault().CA_YearsResult</li>
-        }
-    </ul>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
-{
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+                        <label>
+                            Resultado LTIF:
+                            <span title="@Model.RelatedLTIFlInfo.FirstOrDefault().CA_LTIFResult">@Model.RelatedLTIFlInfo.FirstOrDefault().CA_LTIFResult</span>
+                        </label>
+                        <label>
+                            Años:
+                            <span>@Model.RelatedLTIFlInfo.FirstOrDefault().CA_YearsResult</span>
+                        </label>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    @{
+        Model.RenderScripts = true;
+    }
+        @section inlinescripts
+    {
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 
