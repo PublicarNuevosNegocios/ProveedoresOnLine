@@ -205,11 +205,11 @@ namespace MarketPlace.Models.Provider
 
             #region RiskPolicies
 
-            CR_SystemOccupationalHazards = oLTIFResult.
-               Where(y => y.ItemType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
-               Select(y => y.ItemType.).
-               DefaultIfEmpty(string.Empty).
-               FirstOrDefault();
+            CR_SystemOccupationalHazards = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
           
             if (oARL != null && oARL.Count > 0)
             {
