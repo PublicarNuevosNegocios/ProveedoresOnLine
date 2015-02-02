@@ -9,14 +9,14 @@
 <div class="POMPProviderGreatWrapper">
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
     <div class="POMPProviderSideMenuWrapper">
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    </div>
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Información de contacto de empresa</label>
         <ul class="POMPProviderInfoMultipleValues">
                 @{
-                    <li>
+            <li>
                         <label>
                             Sistema de Riesgos
                             <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).FirstOrDefault()</span>
@@ -28,7 +28,7 @@
                         <label>
                             Certificado de Accidentalidad
                             <a class="POMPProviderDocumetIcon" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()" title=""></a>
-                            <a target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo</a>
+                <a target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo</a>
                         </label>
 
                         <label>
@@ -39,18 +39,18 @@
                             Años:
                             <span>@Model.RelatedLTIFlInfo.FirstOrDefault().CA_YearsResult</span>
                         </label>
-                    </li>
-                }
-            </ul>
-        </div>
+            </li>
+        }
+    </ul>
+</div>
     </div>
-    @{
-        Model.RenderScripts = true;
-    }
-        @section inlinescripts
-    {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 
 
 

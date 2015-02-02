@@ -1,7 +1,37 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Tax";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderSideMenuWrapper">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.RelatedFinancialInfo)
+            {
+                <li>Año</li>
+                <li>@item.TX_Year</li>
+
+                <li>Impuesto</li>
+                <li>
+                    <a target="_blank" href="@item.TX_TaxFile">Ver Archivo</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

@@ -166,6 +166,55 @@
 
     #endregion
 
+    #region Finantial
+
+    /// <summary>
+    /// Finantial type
+    /// </summary>
+    public enum enumFinancialType
+    {
+        BalanceSheetInfoType = 501001,
+        TaxInfoType = 501002,
+        IncomeStatementInfoType = 501003,
+        BankInfoType = 501004,
+    }
+
+    /// <summary>
+    /// Commercial infor types
+    /// </summary>
+    public enum enumFinancialInfoType
+    {
+        //Balance Sheet
+        SH_Year = 502001,
+        SH_BalanceSheetFile = 502002,
+        SH_Currency = 502003,
+
+        //Taxes Info
+        TX_Year = 503001,
+        TX_TaxFile = 503002,
+
+        //IncomeStatement Info
+        IS_Year = 504001,
+        IS_GrossIncome = 504002,
+        IS_NetIncome = 504003,
+        IS_GrossEstate = 504004,
+        IS_LiquidHeritage = 504005,
+        IS_FileIncomeStatement = 504006,
+
+        //Bank Info
+        IB_Bank = 505002,
+        IB_AccountType = 505003,
+        IB_AccountNumber = 505004,
+        IB_AccountHolder = 505005,
+        IB_ABA = 505006,
+        IB_Swift = 505007,
+        IB_IBAN = 505008,
+        IB_Customer = 505009,
+        IB_AccountFile = 505010,
+    }
+
+    #endregion
+
     #region Provider enum
 
     public enum enumSearchOrderType

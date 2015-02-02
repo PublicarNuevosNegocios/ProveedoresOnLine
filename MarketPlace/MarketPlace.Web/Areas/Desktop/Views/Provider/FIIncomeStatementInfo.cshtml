@@ -1,7 +1,49 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Income Statement";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderSideMenuWrapper">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.RelatedFinancialInfo)
+            {
+                <li>Año</li>
+                <li>@item.IS_Year</li>
+
+                <li>Ingresos Brutos</li>
+                <li>@item.IS_GrossIncome</li>
+
+                <li>Ingresos Netos</li>
+                <li>@item.IS_NetIncome</li>
+
+                <li>Patrimonio Bruto</li>
+                <li>@item.IS_GrossEstate</li>
+
+                <li>Patrimonio Líquido</li>
+                <li>@item.IS_LiquidHeritage</li>
+
+                <li>Declaración de Renta</li>
+                <li>
+                    <a target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 
