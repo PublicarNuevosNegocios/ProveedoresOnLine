@@ -1,7 +1,73 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Bank Info";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POBOProviderSideMenuWrapper">
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+</div>
+<div>
+    <ul>
+        @{
+            foreach (var item in Model.RelatedFinancialInfo)
+            {
+                <li>Banco</li>
+                <li>@item.IB_BankName</li>
+
+                <li>Tipo de Cuenta</li>
+                if (item.IB_AccountType != null && item.IB_AccountType == "1001001")
+                {
+                    <li>Cuenta Corriente</li>
+                }
+                else if (item.IB_AccountType != null && item.IB_AccountType == "1001002")
+                {
+                    <li>Cuenta de Ahorros</li>
+                }
+                else if (item.IB_AccountType != null && item.IB_AccountType == "1001003")
+                {
+                    <li>Cuenta Corriente Extranjera</li>
+                }
+                else if (item.IB_AccountType != null && item.IB_AccountType == "1001004")
+                {
+                    <li>Cuenta de Ahorros Extranjera</li>
+                }
+                               
+                <li>Número de Cuenta</li>
+                <li>@item.IB_AccountNumber</li>
+
+                <li>Titular de la Cuenta</li>
+                <li>@item.IB_AccountHolder</li>
+
+                <li>ABA</li>
+                <li>@item.IB_ABA</li>
+
+                <li>SWIFT</li>
+                <li>@item.IB_Swift</li>
+
+                <li>IBAN</li>
+                <li>@item.IB_IBAN</li>
+                
+                <li>Comprador</li>
+                <li>@item.IB_Customer</li>
+
+                <li>Certificado</li>
+                <li>
+                    <a target="_blank" href="@item.IB_AccountFile">Ver Archivo</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

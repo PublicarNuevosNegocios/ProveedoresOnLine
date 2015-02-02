@@ -1085,7 +1085,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "CP_Certification_GetBasicInfo",
+                CommandText = "MP_CP_Certification_GetBasicInfo",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
@@ -1141,6 +1141,74 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                                   }).ToList(),
 
                          }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<GenericItemModel> MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFinancialType", FinancialType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_Financial_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from fi in response.DataTableResult.AsEnumerable()
+                     where !fi.IsNull("FinancialId")
+                     group fi by new
+                     {
+                         FinancialId = fi.Field<int>("FinancialId"),
+                         FinancialTypeId = fi.Field<int>("FinancialTypeId"),
+                         FinancialTypeName = fi.Field<string>("FinancialTypeName"),
+                         FinancialName = fi.Field<string>("FinancialName"),
+                         FinancialEnable = fi.Field<UInt64>("FinancialEnable") == 1 ? true : false,
+                         FinancialLastModify = fi.Field<DateTime>("FinancialLastModify"),
+                         FinancialCreateDate = fi.Field<DateTime>("FinancialCreateDate"),
+                     } into fig
+                     select new GenericItemModel()
+                     {
+                         ItemId = fig.Key.FinancialId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = fig.Key.FinancialTypeId,
+                             ItemName = fig.Key.FinancialTypeName
+                         },
+                         ItemName = fig.Key.FinancialName,
+                         Enable = fig.Key.FinancialEnable,
+                         LastModify = fig.Key.FinancialLastModify,
+                         CreateDate = fig.Key.FinancialCreateDate,
+                         ItemInfo =
+                             (from fiinf in response.DataTableResult.AsEnumerable()
+                              where !fiinf.IsNull("FinancialInfoId") &&
+                                      fiinf.Field<int>("FinancialId") == fig.Key.FinancialId
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = fiinf.Field<int>("FinancialInfoId"),
+                                  ItemInfoType = new CatalogModel()
+                                  {
+                                      ItemId = fiinf.Field<int>("FinancialInfoTypeId"),
+                                      ItemName = fiinf.Field<string>("FinancialInfoTypeName"),
+                                  },
+                                  Value = fiinf.Field<string>("Value"),
+                                  LargeValue = fiinf.Field<string>("LargeValue"),
+                                  Enable = fiinf.Field<UInt64>("FinancialInfoEnable") == 1 ? true : false,
+                                  LastModify = fiinf.Field<DateTime>("FinancialInfoLastModify"),
+                                  CreateDate = fiinf.Field<DateTime>("FinancialInfoCreateDate"),
+                              }).ToList(),
+                     }).ToList();
             }
             return oReturn;
         }
