@@ -5,99 +5,125 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedHSEQlInfo)
-            {
-                <li>Año</li>
-                <li>@item.CH_Year</li>
-
-                <li>Política de Seguridad, Salud y Ambiente</li>
-                if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo</a>
-                    </li>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Salud, medio ambiente y seguridad</label>
+            <ul class="POMPProviderInfoMultipleValues">
+                @{
+                foreach (var item in Model.RelatedHSEQlInfo)
+                    {
+                        <li>
+                            <label>
+                                Año
+                                <span>@item.CH_Year</span>
+                            </label>
+                            <label>
+                                Política de Seguridad, Salud y Ambiente
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_PoliticsSecurity" title=""></a>
+                                    <a target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Política de no Alcohol, Drogas y Fumadores
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_PoliticsNoAlcohol" title=""></a>
+                                    <a target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo</a>
+                                    }               
+                                }
+                            </label>
+                            <label>
+                                Programa de Salud Ocupacional
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_ProgramOccupationalHealth" title=""></a>
+                                    <a target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Reglamento de Higiene y Seguridad
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_RuleIndustrialSecurity" title=""></a>
+                                    <a target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Matriz de Identificación de Peligros, Evaluación y Control de Riesgos
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_MatrixRiskControl" title=""></a>
+                                    <a target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Responsabilidad Social Empresarial
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_CorporateSocialResponsability" title=""></a>
+                                    <a target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Programa de Seguridad Empresarial y Logística       
+                                @{
+                                    if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
+                                    {
+                                                                    <a class="POMPProviderDocumetIcon" href="@item.CH_PoliticsSecurity" title=""></a>
+                                    <a target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Política de Contratación de Personal
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_PoliticsRecruiment" title=""></a>
+                                    <a target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo</a>           
+                                    }
+                                }
+                            </label>
+                            <label>
+                                Formulario de Certificaciones
+                                @{
+                        if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
+                        {
+                            <a class="POMPProviderDocumetIcon" href="@item.CH_CertificationsForm" title=""></a>
+                                    <a target="_blank" href="@item.CH_CertificationsForm">Ver Archivo</a>
+                                    }
+                                }
+                            </label>
+                        </li>
+                   }
                 }
-
-                <li>Política de no Alcohol, Drogas y Fumadores</li>
-                if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo</a>
-                    </li>
-                }
-
-                <li>Programa de Salud Ocupacional</li>
-                if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo</a>
-                    </li>
-                }
-
-                <li>Reglamento de Higiene y Seguridad</li>
-                if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo</a>
-                    </li>
-                }
-
-                <li>Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</li>
-                if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo</a>
-                    </li>
-                }
-
-                <li>Responsabilidad Social Empresarial</li>
-                if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo</a>
-                    </li>
-                }
-
-                <li>Programa de Seguridad Empresarial y Logística</li>
-                if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo</a>
-                    </li>
-                }
-
-                <li>Política de Contratación de Personal</li>
-                if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo</a>
-                    </li>
-                }
-                
-                <li>Formulario de Certificaciones</li>
-                if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
-                {
-                    <li>
-                        <a target="_blank" href="@item.CH_CertificationsForm">Ver Archivo</a>
-                    </li>
-                }
-            }
-        }
-    </ul>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
-{
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        </ul>
+    </div>
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
+    {
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 
