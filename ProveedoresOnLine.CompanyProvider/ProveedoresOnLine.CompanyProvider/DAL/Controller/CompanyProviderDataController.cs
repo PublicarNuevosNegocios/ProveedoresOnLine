@@ -166,6 +166,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.MPCertificationGetBasicInfo(CompanyPublicId, CertificationType);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            return DataFactory.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
+        }
         #endregion
     }
 }

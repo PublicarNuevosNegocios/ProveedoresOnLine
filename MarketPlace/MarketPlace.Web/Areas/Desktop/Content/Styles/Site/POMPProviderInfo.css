@@ -24,9 +24,9 @@
         display:inline-block;
         height: auto;
         vertical-align: top;
-        width: 42%;
-        margin: 0px 0px 0px 48px;
-        padding:12px 0 2px 12px;
+        width: 45%;
+        margin: 0px 0px 0px 24px;
+        padding:6px 0 2px 12px;
         list-style-type:none;
         border-bottom: 2px dotted #ddd;
     }
@@ -55,26 +55,43 @@
 /*********** ESTOS ESTILOS MUESTRAN LA INFORMACION DE PROVEEDOR
         CUANDO LA LISTA TIENE MULTIPLES TIPOS Y UN VALORES POR ITEM ************/
     .POMPProviderInfoMultipleValues li {
-        display:inline-block;
+        display:block;
         height: auto;
         vertical-align: top;
-        width: 88%;
-        margin: 0px 0px 0px 48px;
-        padding:12px 0 10px 12px;
+        width: 94.5%;
+        margin: 15px auto  0px auto;
+        padding:0px;
         list-style-type:none;
         border-top: 1px solid #ff8300;
     }
+    /*********** MUESTRA LOS SUBTITULOS DE CADA REGISTRO ************/
+label.POMPProviderDataSubtitle {
+    display:block; 
+    width:42% !important; 
+    max-width:100% !important; 
+    height:auto;
+    margin:13px 0px 0px 0px !important;
+    padding:8px 0 5px 0 !important;
+    border-bottom:1px dotted #5d5d5d !important;
+    border-top:none !important;
+    font-size:1.36em !important;
+    line-height:1em !important;
+    color:#5d5d5d !important;
+    background-color:#EEEEEE;
+}
+    /***********************************/
     .POMPProviderInfoMultipleValues li:first-child {
         border-top:none;
+        margin:0px auto !important;
     }
         .POMPProviderInfoMultipleValues li label {
             color: #0066ae;
             font-size: 1.14em; font-weight:normal;
             letter-spacing:-0.2px; line-height:1em;
-            margin:0px 5px 0px 0px; width:32%; max-width:232px;
-            padding:6px 0px; border-top:1px solid #d4d4d4;
+            margin:0px 5px 0px 0px; width:32.1%; min-width:213px;
+            padding:6px 0px; border-bottom:1px solid #d4d4d4;
             vertical-align:top;
-    }
+        }
         .POMPProviderInfoMultipleValues li label > span {
             display: block; font-size: 0.93em;
             font-weight: normal; letter-spacing: -0.5px;
@@ -83,21 +100,33 @@
             overflow:hidden !important;
             text-overflow: ellipsis;
         }
-        .POMPProviderInfoMultipleValues li label > iframe {
-            width:230px; height:100px;
+        .POMPProviderInfoMultipleValues li label > iframe,
+        .POMPProviderDocumetIcon{
             border: 1px solid #d4d4d4;
-            margin: 5px 0 0; padding: 2px;            
+            margin: 5px 0 0; padding: 2px;          
         }
+            .POMPProviderInfoMultipleValues li label > iframe{
+                width:230px; height:100px;
+            }
+            /********** MUESTRA EL ICONO DE VER DOCUMENTO PDF *********/
+            a.POMPProviderDocumetIcon {
+                display:block;
+                background-size:20px auto;
+                background-position:4px 4px;
+                background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/documentIconSmall.png');
+                background-repeat:no-repeat;
+                width:100px; height:35px;
+                text-align: right;
+            }
+            a.POMPProviderDocumetIcon span{
+                display:block;
+                height: 14px;
+                margin: 14px 0 0;
+            }
         .POMPProviderInfoMultipleValues li label > a{
             display: block;
             font-size:0.8em;
         }
-
-
-
-
-
-
 a.POMPSmallCaption {
         color: #ff8400;
         font-size: 0.9em;

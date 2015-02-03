@@ -13,15 +13,14 @@
     </div>
 
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Información de contacto de empresa</label>
+        <label class="POMPSectionTitles">Información de personas de contacto</label>
         <ul class="POMPProviderInfoMultipleValues">
             @{
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <li>
-                        <label>
-                            Nombre de Contacto
-                            <span>@item.PC_ContactName</span>
+                        <label class="POMPProviderDataSubtitle">
+                            Nombre de Contacto: @item.PC_ContactName
                         </label>
                         <label>
                             Tipo de Contacto
@@ -57,11 +56,11 @@
                             var UlrContent = item.PC_LegalFile;
                             if (!string.IsNullOrEmpty(UlrContent))
                             {
-                                <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
-                                <a href="@UlrContent">Ver Archivo</a>
-                            }
-                        }
-                        </label>
+                                @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                <a class="POMPProviderDocumetIcon" href="@UlrContent" title=""><span>Ver Archivo</span></a>
+                                }
+                                }
+</label>
                     </li>
                 }
            }                
