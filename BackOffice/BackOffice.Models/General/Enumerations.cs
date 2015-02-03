@@ -76,6 +76,9 @@
         //Account info
         AI_Order = 109001,
 
+        //ICA Info
+        I_ICACode = 608001,
+
         //Bank Info
         B_Location = 505001,
         B_Code = 505011,

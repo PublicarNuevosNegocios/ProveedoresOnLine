@@ -1636,16 +1636,17 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()));
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA = null;
+                int TotalRows = 0;
                 if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
                 {
-                    oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
+                    oICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out TotalRows);
                 }
                 if (oLegalInfo != null)
                 {
                     oLegalInfo.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oEconomiActivity));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oICA));
                         return true;
                     });
                 }

@@ -138,7 +138,7 @@ namespace BackOffice.Models.Provider
         public ProviderLegalViewModel() { }
 
         public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal,
-                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity)
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA)
         {
             RelatedLegal = oRelatedLegal;
 
@@ -419,9 +419,9 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            if (oEconomiActivity != null && oEconomiActivity.Count > 0)
+            if (oICA != null && oICA.Count > 0)
             {
-                R_ICAName = oEconomiActivity.
+                R_ICAName = oICA.
                     Where(x => x.ItemId.ToString() == R_ICA).
                     Select(x => x.ItemName).
                     DefaultIfEmpty(string.Empty).

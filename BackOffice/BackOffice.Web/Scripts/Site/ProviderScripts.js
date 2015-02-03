@@ -4322,16 +4322,17 @@ var Provider_LegalInfoObject = {
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
                     input.attr('value', options.model[options.field]);
+                    debugger;
                     // append it to the container
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'ActivityName',
+                        dataTextField: 'I_ICACode',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model[options.field] = selectedItem.ActivityName;
-                            options.model['R_ICAName'] = selectedItem.EconomicActivityId;
+                            options.model[options.field] = selectedItem.I_ICA;
+                            options.model['R_ICAName'] = selectedItem.I_ICAId;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -4341,7 +4342,7 @@ var Provider_LegalInfoObject = {
                             transport: {
                                 read: function (options) {
                                     $.ajax({
-                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByICA=true&SearchParam=' + options.data.filter.filters[0].value + '&PageNumber=0&RowCount=0',
                                         dataType: 'json',
                                         success: function (result) {
                                             if (result.length > 0) {
