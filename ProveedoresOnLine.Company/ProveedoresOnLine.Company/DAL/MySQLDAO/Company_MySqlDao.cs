@@ -302,7 +302,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GenericItemModel> CategorySearcgByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        public List<GenericItemModel> CategorySearchByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -354,7 +354,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                   select new GenericItemInfoModel()
                                   {
                                       ItemInfoId = inf.Key.ICAInfoId,
-                                      LargeValue = inf.Key.ICAValue,
+                                      Value = inf.Key.ICAValue,
                                       ItemInfoType = new CatalogModel()
                                       {
                                           ItemId = inf.Key.ICAInfoType,

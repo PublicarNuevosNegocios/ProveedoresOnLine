@@ -42,7 +42,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByARLCompany(string SearchParam, int PageNumber, int RowCount);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearcgByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount);
 

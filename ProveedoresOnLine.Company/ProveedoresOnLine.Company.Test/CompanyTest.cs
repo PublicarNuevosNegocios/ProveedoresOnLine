@@ -229,7 +229,7 @@ namespace ProveedoresOnLine.Company.Test
             int oTotalRows = 0;
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
-                ProveedoresOnLine.Company.Controller.Company.CategorySearcgByICA
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA
                     ("", 0, 20, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
