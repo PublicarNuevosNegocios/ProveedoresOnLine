@@ -302,6 +302,70 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearcgByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "U_Category_SearchByICA",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null && 
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn = 
+                    (from b in response.DataTableResult.AsEnumerable()
+                         where !b.IsNull("ICAId")
+                         group b by new
+                         {
+                            ICAId = b.Field<int>("ICAId"),
+                            ICAName = b.Field<string>("ICAName"),
+                            ICAEnable = b.Field<UInt64>("ICAEnable") == 1 ? true : false,
+                         }into bg
+                         select new GenericItemModel()
+                         {
+                             ItemId = bg.Key.ICAId,
+                             ItemName = bg.Key.ICAName,
+                             Enable = bg.Key.ICAEnable,
+
+                             ItemInfo = 
+                             (from binf in response.DataTableResult.AsEnumerable()
+                                  where !binf.IsNull("ICAInfoId")
+                                        && binf.Field<int>("ICAId") == bg.Key.ICAId
+                                  group binf by new
+                                  {
+                                      ICAInfoId = binf.Field<int>("ICAInfoId"),
+                                      ICAValue = binf.Field<string>("ICAValue"),
+                                      ICAInfoType = binf.Field<int>("ICAInfoType"),
+                                  } into inf
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = inf.Key.ICAInfoId,
+                                      LargeValue = inf.Key.ICAValue,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = inf.Key.ICAInfoType,
+                                      }
+                                  }).ToList(),
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
@@ -1094,7 +1158,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         public List<CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-            
+
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,

@@ -222,5 +222,17 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
+
+        [TestMethod]
+        public void CategorySearchByICA()
+        {
+            int oTotalRows = 0;
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearcgByICA
+                    ("", 0, 20, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
     }
 }
