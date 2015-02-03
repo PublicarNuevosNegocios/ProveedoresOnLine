@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ProviderComercialViewModel.cs" />
     <Compile Include="Provider\ProviderFinancialViewModel.cs" />
+    <Compile Include="Provider\ProviderLegalViewModel.cs" />
     <Compile Include="Provider\ProviderLTIFViewModel.cs" />
     <Compile Include="Provider\ProviderHSEQViewModel.cs" />
     <Compile Include="Provider\ProviderLiteViewModel.cs" />

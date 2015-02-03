@@ -171,6 +171,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DataFactory.MPLegalGetBasicInfo(CompanyPublicId, LegalType);
+        }
         #endregion
     }
 }

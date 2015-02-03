@@ -109,6 +109,72 @@
 
     #endregion
 
+    #region Legal
+    public enum enumLegalType
+    {
+        ChaimberOfCommerce = 601001,
+        RUT = 601002,
+        CIFIN = 601003,
+        SARLAFT = 601004,
+        Resoluciones = 601005,
+
+        Designations = 601007,
+    }
+
+    public enum enumLegalInfoType
+    {
+        //Chaimber Of Comerce
+        CP_ConstitutionDate = 602001,
+        CP_ConstitutionEndDate = 602002,
+        CP_State = 602003,
+        CP_InscriptionCity = 602004,
+        CP_InscriptionNumber = 602005,
+        CP_ExistenceAndLegalPersonCertificate = 602006,
+        CP_CertificateExpeditionDate = 602007,
+        CP_SocialObject = 602008,
+
+        //RUT
+        R_PersonType = 603001,
+        R_LargeContributor = 603002,
+        R_LargeContributorReceipt = 603003,
+        R_LargeContributorDate = 603004,
+        R_SelfRetainer = 603005,
+        R_SelfRetainerReciept = 603006,
+        R_SelfRetainerDate = 603007,
+        R_EntityType = 603008,
+        R_IVA = 603009,
+        R_TaxPayerType = 603010,
+        R_ICA = 603011,
+        R_RUTFile = 603012,
+        R_LargeContributorFile = 603013,
+        R_SelfRetainerFile = 603014,
+
+        //CIFIN
+        CF_QueryDate = 604001,
+        CF_ResultQuery = 604002,
+        CF_AutorizationFile = 604003,
+
+        //SARLAFT
+        SF_ProcessDate = 605001,
+        SF_PersonType = 605002,
+        SF_SARLAFTFile = 605003,
+
+        //Resolutions
+        RS_EntityType = 606001,
+        RS_ResolutionFile = 606002,
+        RS_StartDate = 606003,
+        RS_EndDate = 606004,
+        RS_Description = 606005,
+
+        //Designations
+        CD_PartnerName = 607001,
+        CD_PartnerIdentificationNumber = 607002,
+        CD_PartnerRank = 607003,
+
+    }
+
+    #endregion
+
     #region HSEQ
 
     /// <summary>

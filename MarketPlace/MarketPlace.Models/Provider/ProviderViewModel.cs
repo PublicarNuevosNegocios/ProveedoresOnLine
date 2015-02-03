@@ -44,5 +44,7 @@ namespace MarketPlace.Models.Provider
         public List<ProviderLTIFViewModel> RelatedLTIFInfo { get; set; }
 
         public List<ProviderFinancialViewModel> RelatedFinancialInfo { get; set; }
+
+        public List<ProviderLegalViewModel> RelatedLegalInfo { get; set; }   
     }
 }

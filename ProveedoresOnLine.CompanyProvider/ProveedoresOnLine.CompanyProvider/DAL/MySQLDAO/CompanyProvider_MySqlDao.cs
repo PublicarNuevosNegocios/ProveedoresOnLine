@@ -1212,6 +1212,76 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
+        public List<GenericItemModel> MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLegalType", LegalType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Legal_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from l in response.DataTableResult.AsEnumerable()
+                     where !l.IsNull("LegalId")
+                     group l by new
+                     {
+                         LegalId = l.Field<int>("LegalId"),
+                         LegalTypeId = l.Field<int>("LegalTypeId"),
+                         LegalTypeName = l.Field<string>("LegalTypeName"),
+                         LegalName = l.Field<string>("LegalName"),
+                         LegalEnable = l.Field<UInt64>("LegalEnable") == 1 ? true : false,
+                         LegalLastModify = l.Field<DateTime>("LegalLastModify"),
+                         LegalCreateDate = l.Field<DateTime>("LegalCreateDate"),
+                     }
+                         into cog
+                         select new GenericItemModel()
+                         {
+                             ItemId = cog.Key.LegalId,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.LegalTypeId,
+                                 ItemName = cog.Key.LegalTypeName
+                             },
+                             ItemName = cog.Key.LegalName,
+                             Enable = cog.Key.LegalEnable,
+                             LastModify = cog.Key.LegalLastModify,
+                             CreateDate = cog.Key.LegalCreateDate,
+                             ItemInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("LegalInfoId") &&
+                                          coinf.Field<int>("LegalId") == cog.Key.LegalId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("LegalInfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = coinf.Field<int>("LegalInfoTypeId"),
+                                          ItemName = coinf.Field<string>("LegalInfoTypeName"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      LargeValue = coinf.Field<string>("LargeValue"),
+                                      Enable = coinf.Field<UInt64>("LegalInfoEnable") == 1 ? true : false,
+                                      LastModify = coinf.Field<DateTime>("LegalInfoLastModify"),
+                                      CreateDate = coinf.Field<DateTime>("LegalInfoCreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
     }
 }

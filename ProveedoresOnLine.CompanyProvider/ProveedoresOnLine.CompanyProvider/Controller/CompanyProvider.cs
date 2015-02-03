@@ -640,6 +640,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPLegalGetBasicInfo(CompanyPublicId, LegalType);
+        }
         #endregion
     }
 }
