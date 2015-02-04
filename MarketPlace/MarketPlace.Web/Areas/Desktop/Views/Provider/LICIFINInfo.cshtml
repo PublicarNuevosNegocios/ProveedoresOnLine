@@ -1,7 +1,50 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "CIFIN";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">CIFIN</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+                    <li>
+                        @foreach (var item in Model.RelatedLegalInfo)
+                        {
+                            <label>Fecha de Consulta</label>                            
+                            <span>@item.CF_QueryDate</span>
+                            
+                            <label>Resultado de la Consulta</label>
+                            <span>@item.CF_ResultQuery</span>
+                                                       
+                            <label>Archivo de Autorización</label>
+                            <a class="POMPProviderDocumetIcon" href="@item.CF_AutorizationFile"></a>
+                            <a target="_blank" href="@item.CF_AutorizationFile">Ver Archivo</a>                           
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

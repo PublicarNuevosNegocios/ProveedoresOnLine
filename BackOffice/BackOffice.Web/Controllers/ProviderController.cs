@@ -820,7 +820,7 @@ namespace BackOffice.Web.Controllers
                         ItemId = Convert.ToInt32(enumLegalType.ChaimberOfCommerce),
                     },
                     ItemName = Request["ChaimberName"],
-                    Enable = Request["Enable"] == "true" ? true : false,
+                    Enable = true,
 
                     ItemInfo = new List<GenericItemInfoModel>
                         {                               
@@ -831,7 +831,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionDate
                                 },
-                                Value = Request["ConstitutionDate"]
+                                Value = Request["ConstitutionDate"],
+                                Enable = true
                             },
                             new GenericItemInfoModel()
                             {
@@ -849,7 +850,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate
                                 },
-                                Value = Request["ValidityDate"]
+                                Value = Request["ValidityDate"],
+                                Enable = true
                             },
                             new GenericItemInfoModel()
                             {
@@ -859,6 +861,7 @@ namespace BackOffice.Web.Controllers
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionCity
                                 },
                                 Value = Request["SelectedCity"],
+                                Enable = true
                             },
                             new GenericItemInfoModel()
                             {
@@ -867,7 +870,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionNumber
                                 },
-                                Value = Request["InscriptionNumber"]
+                                Value = Request["InscriptionNumber"],
+                                Enable = true
                             },
                             new GenericItemInfoModel()
                             {
@@ -876,7 +880,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate
                                 },
-                                Value = Request["CertificateURL"]
+                                Value = Request["CertificateURL"],
+                                Enable = true
                             },
                             new GenericItemInfoModel()
                             {
@@ -885,7 +890,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate
                                 },
-                                Value = Request["ExpeditionCertificatedDate"]
+                                Value = Request["ExpeditionCertificatedDate"],
+                                Enable = true
                             },
                             new GenericItemInfoModel()
                             {
@@ -894,7 +900,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_SocialObject
                                 },
-                                Value = Request["SocialObject"]
+                                Value = Request["SocialObject"],
+                                Enable = true
                             },
                         }
                 };

@@ -1,7 +1,60 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "SARLAFT";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">SARLAFT</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+                    <li>
+                        @foreach (var item in Model.RelatedLegalInfo)
+                        {
+                            <label>Fecha de Diligenciamiento</label>
+                            <span>@item.SF_ProcessDate</span>
+
+                            <label>Tipo de Persona</label>
+                            if (item.SF_PersonType == "213001")
+                            {
+                                <span>Jurídica</span>
+                            }
+                            else if (item.SF_PersonType == "213002")
+                            {
+                                <span>Natural</span>
+                            }
+                            else if (item.SF_PersonType == "213003")
+                            {
+                                <span>Persona Extranjera</span>
+                            }
+                            <label>Archivo Anexo</label>
+                            <a class="POMPProviderDocumetIcon" href="@item.SF_SARLAFTFile"></a>
+                            <a target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo</a>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

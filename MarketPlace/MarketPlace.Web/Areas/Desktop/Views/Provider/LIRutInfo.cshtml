@@ -1,7 +1,130 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "RUT";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">RUT</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+                    <li>
+                        @foreach (var item in Model.RelatedLegalInfo)
+                        {
+
+                            <label>Tipo de Persona</label>
+                            if (item.R_PersonType == "213001")
+                            {
+                                <span>Jurídica</span>
+                            }
+                            else if (item.R_PersonType == "213002")
+                            {
+                                <span>Natural</span>
+                            }
+                            else if (item.R_PersonType == "213003")
+                            {
+                                <span>Persona Extranjera</span>
+                            }
+                            <label>Gran Contribuyente</label>
+                            if (item.R_LargeContributor == true)
+                            {
+                                <span>Si</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+
+
+                            <label>Gran Contribuyente Resolución</label>
+                            <span>@item.R_LargeContributorReceipt</span>
+
+                            <label>Fecha Resolución Gran Contribuyente</label>
+                            <span>@item.R_LargeContributorDate</span>
+
+                            <label>Autorretenedor</label>
+                            if (item.R_SelfRetainer == true)
+                            {
+                                <span>Si</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                            <label>Autorretendor Recibo</label>
+                            <span>@item.R_SelfRetainerReciept</span>
+
+                            <label>Autorretendor Fecha</label>
+                            <span>@item.R_SelfRetainerDate</span>
+
+                            <label>Tipo de Entidad</label>
+                            if (item.R_EntityType == "214001")
+                            {
+                                <span>No Aplica</span>
+                            }
+                            else if (item.R_EntityType == "214002")
+                            {
+                                <span>Oficial</span>
+                            }
+                            else if (item.R_EntityType == "214003")
+                            {
+                                <span>Sin Ánimo de Lucro</span>
+                            }
+
+                            <label>Iva</label>
+                            if (item.R_IVA == true)
+                            {
+                                <span>Si</span>
+                            }
+                            else
+                            {
+                                <span>No</span>
+                            }
+                            <label>Tipo de Régimen</label>
+                            if (item.R_TaxPayerType == "215001")
+                            {
+                                <span>Común</span>
+                            }
+                            else if (item.R_TaxPayerType == "215002")
+                            {
+                                <span>Simplificado</span>
+                            }
+                            <label>RUT Anexo</label>
+                            <a class="POMPProviderDocumetIcon" href="@item.R_RUTFile"></a>
+                            <a target="_blank" href="@item.R_RUTFile">Ver Archivo</a>
+
+                            <label>Gran Contribuyente Anexo</label>
+                            <a class="POMPProviderDocumetIcon" href="@item.R_LargeContributorFile"></a>
+                            <a target="_blank" href="@item.R_LargeContributorFile">Ver Archivo</a>
+
+                            <label>Autorretendor Anexo</label>
+                            <a class="POMPProviderDocumetIcon" href="@item.R_SelfRetainerFile"></a>
+                            <a target="_blank" href="@item.R_SelfRetainerFile">Ver Archivo</a>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 

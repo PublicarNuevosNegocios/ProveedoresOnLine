@@ -4091,6 +4091,7 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {

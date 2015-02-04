@@ -303,7 +303,7 @@ namespace BackOffice.Models.Provider
             R_LargeContributor = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributor).
                 Select(y => (y.Value)).
-                FirstOrDefault() == "true" ? true : false;
+                FirstOrDefault() == "True" ? true : false;
 
             R_LargeContributorId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributor).
@@ -339,7 +339,7 @@ namespace BackOffice.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainer).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault() == "true" ? true : false;
+                FirstOrDefault() == "True" ? true : false;
 
             R_SelfRetainerId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainer).
@@ -387,7 +387,7 @@ namespace BackOffice.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_IVA).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault() == "true" ? true : false;
+                FirstOrDefault() == "True" ? true : false;
 
             R_IVAId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_IVA).
@@ -611,11 +611,6 @@ namespace BackOffice.Models.Provider
 
 
             #endregion
-
-            #region Resolutions
-
-            #endregion
-
         }
     }
 }
