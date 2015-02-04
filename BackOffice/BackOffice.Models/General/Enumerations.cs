@@ -76,6 +76,9 @@
         //Account info
         AI_Order = 109001,
 
+        //ICA Info
+        I_ICACode = 608001,
+
         //Bank Info
         B_Location = 505001,
         B_Code = 505011,
@@ -214,6 +217,7 @@
         CP_ExistenceAndLegalPersonCertificate = 602006,
         CP_CertificateExpeditionDate = 602007,
         CP_SocialObject = 602008,
+        CP_UndefinedDate = 602012,
 
         //RUT
         R_PersonType = 603001,

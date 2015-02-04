@@ -127,6 +127,15 @@ namespace BackOffice.Models.Admin
         
         #endregion
 
+        #region ICA
+
+        public string I_ICA { get; set; }
+        public string I_ICAId { get; set; }
+        public bool I_ICAEnable { get; set; }
+        public string I_ICACode { get; set; }
+
+        #endregion
+
         #region Tree
 
         public string T_TreeId { get; set; }
@@ -342,6 +351,20 @@ namespace BackOffice.Models.Admin
             G_Group = oCategory.ItemName;
             G_GroupId = oCategory.ItemId.ToString();
             G_GroupEnable = oCategory.Enable;
+
+            #endregion
+
+            #region ICA
+
+            I_ICA = oCategory.ItemName;
+            I_ICAId = oCategory.ItemId.ToString();
+            I_ICAEnable = oCategory.Enable;
+            string codeICA = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                                                            Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.I_ICACode).
+                                                            Select(y => y.Value).
+                                                            DefaultIfEmpty(string.Empty).
+                                                            FirstOrDefault().Trim() : string.Empty.Trim();
+            I_ICACode = oCategory.ItemName.Trim() + " - " + codeICA;
 
             #endregion
 

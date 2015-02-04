@@ -281,10 +281,6 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'ContactName',
                 title: 'Nombre',
                 width: '400px',
@@ -426,10 +422,6 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'ContactName',
                 title: 'Nombre',
                 width: '200px',
@@ -668,10 +660,6 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'ContactName',
                 title: 'Nombre',
                 width: '200px',
@@ -872,10 +860,6 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'ContactName',
                 title: 'Razón social',
                 width: '200px',
@@ -1217,12 +1201,12 @@ var Provider_CompanyCommercialObject = {
                 },
             },
             columns: [{
-                field: 'CommercialId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'CommercialName',
                 title: 'Nombre',
+                width: '200px',
+            }, {
+                field: 'EX_Client',
+                title: 'Cliente',
                 width: '200px',
             }, {
                 field: 'EX_ContractType',
@@ -1250,33 +1234,17 @@ var Provider_CompanyCommercialObject = {
                         });
                 },
             }, {
-                field: 'EX_DateIssue',
-                title: 'Inicio',
-                width: '160px',
-                format: Provider_CompanyCommercialObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            }, {
-                field: 'EX_DueDate',
-                title: 'Fin',
-                width: '160px',
-                format: Provider_CompanyCommercialObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            }, {
-                field: 'EX_Client',
-                title: 'Cliente',
-                width: '200px',
-            }, {
                 field: 'EX_ContractNumber',
                 title: 'Número de contrato',
                 width: '160px',
+            }, {
+                field: 'EX_ContractSubject',
+                title: 'Objeto del contrato',
+                width: '400px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '"></textarea>')
+                        .appendTo(container);
+                },
             }, {
                 field: 'EX_ContractValue',
                 title: 'Valor de contrato',
@@ -1315,12 +1283,24 @@ var Provider_CompanyCommercialObject = {
                 title: 'Telefono',
                 width: '170px',
             }, {
-                field: 'EX_ContractSubject',
-                title: 'Objeto del contrato',
-                width: '400px',
+                field: 'EX_DateIssue',
+                title: 'Inicio',
+                width: '160px',
+                format: Provider_CompanyCommercialObject.DateFormat,
                 editor: function (container, options) {
-                    $('<textarea data-bind="value: ' + options.field + '"></textarea>')
-                        .appendTo(container);
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            }, {
+                field: 'EX_DueDate',
+                title: 'Fin',
+                width: '160px',
+                format: Provider_CompanyCommercialObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
                 },
             }, {
                 field: 'EX_EconomicActivity',
@@ -1675,10 +1655,6 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'CertificationName',
                 title: 'Nombre',
                 width: '190px',
@@ -1793,6 +1769,10 @@ var Provider_CompanyHSEQObject = {
                     });
                 },
             }, {
+                field: 'C_Scope',
+                title: 'Alcance',
+                width: '100px',
+            }, {
                 field: 'C_StartDateCertification',
                 title: 'Fecha Certificación',
                 width: '160px',
@@ -1870,10 +1850,6 @@ var Provider_CompanyHSEQObject = {
                         }
                     });
                 },
-            }, {
-                field: 'C_Scope',
-                title: 'Alcance',
-                width: '100px',
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
@@ -1987,10 +1963,6 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'CH_Year',
                 title: 'Año',
                 width: '120px',
@@ -2125,7 +2097,7 @@ var Provider_CompanyHSEQObject = {
                 },
             }, {
                 field: 'CH_ProgramOccupationalHealth',
-                title: 'Programa de Salud Ocupacional',
+                title: 'Sistema de Gestión de Seguridad y Salud en el Trabajo',
                 width: '292px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -2882,10 +2854,6 @@ var Provider_CompanyFinancialObject = {
                 }
             },
             columns: [{
-                field: 'FinancialId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'FinancialName',
                 title: 'Nombre',
                 width: '180px',
@@ -4177,10 +4145,6 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'LegalName',
                 title: 'Nombre',
                 width: '200px',
@@ -4323,16 +4287,17 @@ var Provider_LegalInfoObject = {
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
                     input.attr('value', options.model[options.field]);
+                    debugger;
                     // append it to the container
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'ActivityName',
+                        dataTextField: 'I_ICACode',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model[options.field] = selectedItem.ActivityName;
-                            options.model['R_ICAName'] = selectedItem.EconomicActivityId;
+                            options.model[options.field] = selectedItem.I_ICA;
+                            options.model['R_ICAName'] = selectedItem.I_ICAId;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -4342,7 +4307,7 @@ var Provider_LegalInfoObject = {
                             transport: {
                                 read: function (options) {
                                     $.ajax({
-                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByICA=true&SearchParam=' + options.data.filter.filters[0].value + '&PageNumber=0&RowCount=0',
                                         dataType: 'json',
                                         success: function (result) {
                                             if (result.length > 0) {
@@ -4613,10 +4578,6 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'CF_QueryDate',
                 title: 'Fecha de Consulta',
                 width: '160px',
@@ -4776,10 +4737,6 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'SF_ProcessDate',
                 title: 'Fecha de Diligenciamiento',
                 width: '200px',
@@ -4967,10 +4924,6 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'RS_EntityType',
                 title: 'Tipo de Entidad',
                 width: '300px',
@@ -5222,10 +5175,6 @@ var Provider_CustomerInfoObject = {
                 }
             },
             columns: [{
-                field: 'CP_CustomerProviderId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'CP_CustomerPublicId',
                 title: 'Id Comprador',
                 width: '100px',

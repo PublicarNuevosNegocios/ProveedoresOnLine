@@ -37,6 +37,16 @@
                                     Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ConstitutionEndDate).
                                         Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
 
+                var UndefinedDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                                Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                                    Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_UndefinedDate).
+                                        Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+                var UndefinedDateId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                                Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                                    Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_UndefinedDate).
+                                        Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
                 var InscriptionNumber = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                                 Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                                     Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionNumber).
@@ -70,12 +80,12 @@
                 var oCity = Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
 
                 int oTotalRows;
-            
+
                 var oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(!string.IsNullOrEmpty(oCity) ? oCity : "0"), 0, 0, out oTotalRows);
-                
+
 
                 var City = oCities != null ? oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName : string.Empty;
-                    
+
                 var CityId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                             Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                                 Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).
@@ -123,6 +133,20 @@
                         <input type="text" id="ValidityDateId" name="ValidityDate" value="@ConstitutionEndDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ValidityDateId" value="@ConstitutionEndDateId" />
                     </li>
+                    <li>
+                        <label>Fecha Indefinida</label>
+                        <br />
+                        @if (UndefinedDate == "on")
+                        {
+                            <input type="checkbox" id="UndefinedDate" name="UndefinedDate" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="UndefinedDate" name="UndefinedDate" />
+                        }
+
+                        <input type="hidden" name="UndefinedDateId" id="UndefinedDateId" value="@UndefinedDateId" />
+                    </li>
                     <li class="POBOCamposProblematicos">
                         <label>Ciudad</label>
                         <br />
@@ -152,7 +176,7 @@
                     <li>
                         <label>Fecha de Expedición del Certificado</label>
                         <br />
-                        <input type="text" id="ExpeditionCertificatedDateId" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" placeholder="yyyy-mm-dd"/>
+                        <input type="text" id="ExpeditionCertificatedDateId" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ExpeditionCertificatedDateId" value="@CertificateExpeditionDateId" />
                     </li>
                     <li>
@@ -226,7 +250,7 @@
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.Designations)',
                 ChaimberOfComerceOptionList : vChaimberOfComerceOptionList,
-                LegalId: vLegalId,                
+                LegalId: vLegalId,
             })
             UploadFile({
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',

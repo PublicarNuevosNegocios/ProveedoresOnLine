@@ -836,6 +836,15 @@ namespace BackOffice.Web.Controllers
                             },
                             new GenericItemInfoModel()
                             {
+                                ItemInfoId = int.Parse(Request["UndefinedDateId"]),
+                                ItemInfoType = new CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_UndefinedDate,
+                                },
+                                Value = Request["UndefinedDate"] == null ? "off" : Request["UndefinedDate"],
+                            },
+                            new GenericItemInfoModel()
+                            {
                                 ItemInfoId =  Convert.ToInt32(Request["ValidityDateId"]),
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {

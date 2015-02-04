@@ -1418,9 +1418,6 @@
                 },
             },
             columns: [{
-                field: 'C_CurrentExchangeId',
-                title: 'Id',
-            },{
                 field: 'C_IssueDate',
                 title: 'TRM Fecha',
                 width: '160px',
