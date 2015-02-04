@@ -239,7 +239,7 @@ namespace MarketPlace.Web.Controllers
                 //return url provider not allowed
             }
             else
-            {                
+            {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
@@ -289,7 +289,7 @@ namespace MarketPlace.Web.Controllers
                 //return url provider not allowed
             }
             else
-            {               
+            {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
@@ -344,10 +344,10 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                               
+
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo(ProviderPublicId, (int)enumCommercialType.Experience);
                 oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();
-            
+
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
 
@@ -375,7 +375,7 @@ namespace MarketPlace.Web.Controllers
             {
                 ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
             };
-            
+
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -398,14 +398,14 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                                
+
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
-                
+
                 oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
                 oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
                 oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
@@ -422,9 +422,9 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
-             
 
-                oModel.ProviderMenu = GetProviderMenu(oModel);                
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
         }
@@ -465,7 +465,7 @@ namespace MarketPlace.Web.Controllers
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
-                
+
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
@@ -533,7 +533,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
                         return true;
-                    });                    
+                    });
                 }
                 else
                 {
@@ -605,7 +605,7 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x, oBank));
                         return true;
                     });
-                }                
+                }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -716,27 +716,259 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult LIChaimberOfCommerceInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce);
+
+                List<GenericItemModel> oDesignations = null;
+
+                oDesignations = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Designations);
+                oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
+
+                List<GenericItemModel> oEconomiActivity = null;
+
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity));
+                        return true;
+                    });
+                }
+                else
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                }
+                oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
+                if (oDesignations != null && oDesignations.Count > 0)
+                {
+                    oDesignations.All(x =>
+                    {
+                        oModel.RelatedDesignationsInfo.Add(new ProviderDesignationsViewModel(x));
+                        return true;
+                    });                    
+                }
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult LIRutInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.RUT);
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+
+                List<GenericItemModel> oEconomiActivity = null;
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity));
+                        return true;
+                    });
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult LICIFINInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.CIFIN);
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+
+                List<GenericItemModel> oEconomiActivity = null;
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity));
+                        return true;
+                    });
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult LISARLAFTInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT);
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+
+                List<GenericItemModel> oEconomiActivity = null;
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity));
+                        return true;
+                    });
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult LIResolutionInfo(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Resoluciones);
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+
+                List<GenericItemModel> oEconomiActivity = null;
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity));
+                        return true;
+                    });
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         #endregion
@@ -1019,12 +1251,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Cámara de comercio",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LIChaimberOfCommerceInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -1033,12 +1265,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Registro único tributario",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.LIRutInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 1,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LIRutInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -1047,12 +1279,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "CIFIN",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.LICIFINInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 2,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LICIFINInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -1061,12 +1293,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "SARLAFT",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.LISARLAFTInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 3,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LISARLAFTInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -1074,12 +1306,12 @@ namespace MarketPlace.Web.Controllers
                 {
                     Name = "Resoluciones",
                     Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
+                        (MVC.Provider.ActionNames.LIResolutionInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
                     Position = 4,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.LIResolutionInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
@@ -1140,9 +1372,9 @@ namespace MarketPlace.Web.Controllers
                 Years += item.CA_Year + " ";
             }
 
-            if (ManWorkersHours != 0)            
-                oResult.FirstOrDefault().CA_LTIFResult = (((Fatalities + DaysIncapacity) / ManWorkersHours) * 1000000).ToString();           
-           
+            if (ManWorkersHours != 0)
+                oResult.FirstOrDefault().CA_LTIFResult = (((Fatalities + DaysIncapacity) / ManWorkersHours) * 1000000).ToString();
+
             oResult.FirstOrDefault().CA_YearsResult = Years;
             return oResult;
         }

@@ -28,16 +28,16 @@
                         <label>
                             Certificado de Accidentalidad
                             <a class="POMPProviderDocumetIcon" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()" title=""></a>
-                <a target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo</a>
+                            <a target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo</a>
                         </label>
 
                         <label>
                             Resultado LTIF:
-                            <span title="@Model.RelatedLTIFlInfo.FirstOrDefault().CA_LTIFResult">@Model.RelatedLTIFlInfo.FirstOrDefault().CA_LTIFResult</span>
+                            <span title="@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult">@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult</span>
                         </label>
                         <label>
                             Años:
-                            <span>@Model.RelatedLTIFlInfo.FirstOrDefault().CA_YearsResult</span>
+                            <span>@Model.RelatedLTIFInfo.FirstOrDefault().CA_YearsResult</span>
                         </label>
             </li>
         }

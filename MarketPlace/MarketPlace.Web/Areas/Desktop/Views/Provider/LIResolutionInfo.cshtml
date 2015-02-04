@@ -1,7 +1,59 @@
-﻿@{
-    ViewBag.Title = "Proveedores";
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Resolutions";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Resoluciones</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+                    <li>
+                        @foreach (var item in Model.RelatedLegalInfo)
+                        {
+                            <label>Tipo de Entidad</label>
+                            <span>@item.RS_EntityType</span>
+
+                            <label>Fecha Inicial</label>
+                            <span>@item.RS_StartDate</span>
+
+                            <label>Fecha Final</label>
+                            <span>@item.RS_EndDate</span>
+
+                            <label>Alcance</label>
+                            <span>@item.RS_Description</span>
+
+                            <label>Alcance</label>
+                            <span>@item.RS_Description</span>
+
+                            <label>Archivo Anexo</label>
+                            <a class="POMPProviderDocumetIcon" href="@item.RS_ResolutionFile"></a>
+                            <a target="_blank" href="@item.RS_ResolutionFile">Ver Archivo</a>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
-<h2>Index</h2>
+
+
 
