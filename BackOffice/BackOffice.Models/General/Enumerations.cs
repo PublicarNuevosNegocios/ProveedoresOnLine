@@ -155,7 +155,6 @@
         DT_Phone = 208004,
         DT_City = 208005,
         DT_DateIssue = 208006,
-        DT_DueDate = 208007,
         DT_DistributorFile = 208008,
     }
 

@@ -967,16 +967,6 @@ var Provider_CompanyContactObject = {
                         .kendoDateTimePicker({});
                 },
             }, {
-                field: 'DT_DueDate',
-                title: 'Fecha de vencimiento',
-                width: '160px',
-                format: Provider_CompanyContactObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            }, {
                 field: 'DT_DistributorFile',
                 title: 'Doc soporte.',
                 width: '292px',
@@ -3675,7 +3665,11 @@ var Provider_CompanyFinancialObject = {
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
                                         dataType: 'json',
                                         success: function (result) {
-                                            options.success(result);
+                                            if (result != null) {
+                                                if (result.length > 0) {
+                                                    options.success(result);
+                                                }
+                                            }
                                         },
                                         error: function (result) {
                                             options.error(result);

@@ -107,9 +107,6 @@ namespace BackOffice.Models.Provider
         public string DT_DateIssue { get; set; }
         public string DT_DateIssueId { get; set; }
 
-        public string DT_DueDate { get; set; }
-        public string DT_DueDateId { get; set; }
-
         public string DT_DistributorFile { get; set; }
         public string DT_DistributorFileId { get; set; }
 
@@ -437,16 +434,16 @@ namespace BackOffice.Models.Provider
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();
 
-            DT_DueDate = RelatedContact.ItemInfo.
-                   Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate).
-                   Select(y => y.Value).
-                   DefaultIfEmpty(string.Empty).
-                   FirstOrDefault();
-            DT_DueDateId = RelatedContact.ItemInfo.
-                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate).
-                    Select(y => y.ItemInfoId.ToString()).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
+            //DT_DueDate = RelatedContact.ItemInfo.
+            //       Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate).
+            //       Select(y => y.Value).
+            //       DefaultIfEmpty(string.Empty).
+            //       FirstOrDefault();
+            //DT_DueDateId = RelatedContact.ItemInfo.
+            //        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate).
+            //        Select(y => y.ItemInfoId.ToString()).
+            //        DefaultIfEmpty(string.Empty).
+            //        FirstOrDefault();
 
             DT_DistributorFile = RelatedContact.ItemInfo.
                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.DT_DistributorFile).

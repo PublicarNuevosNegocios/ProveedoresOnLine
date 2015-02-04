@@ -448,22 +448,6 @@ namespace BackOffice.Web.ControllersApi
 
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.DT_DueDateId) ? 0 : Convert.ToInt32(oDataToUpsert.DT_DueDateId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate
-                        },
-                        Value = string.IsNullOrEmpty(oDataToUpsert.DT_DueDate) ?
-                            string.Empty :
-                            oDataToUpsert.DT_DueDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-                            oDataToUpsert.DT_DueDate :
-                            DateTime.ParseExact(oDataToUpsert.DT_DueDate, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
-                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
-                        Enable = true,
-                    });
-
-                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.DT_DistributorFileId) ? 0 : Convert.ToInt32(oDataToUpsert.DT_DistributorFileId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
