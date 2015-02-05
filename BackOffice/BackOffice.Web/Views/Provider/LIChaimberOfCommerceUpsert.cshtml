@@ -250,6 +250,7 @@
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.Designations)',
                 ChaimberOfComerceOptionList : vChaimberOfComerceOptionList,
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 LegalId: vLegalId,
             })
             UploadFile({

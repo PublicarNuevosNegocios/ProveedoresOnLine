@@ -1759,7 +1759,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributorDate
                         },
-                        Value = oDataToUpsert.R_LargeContributorDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.R_LargeContributorDate) ?
+                            string.Empty :
+                            oDataToUpsert.R_LargeContributorDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.R_LargeContributorDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.R_LargeContributorDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1789,7 +1797,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerDate
                         },
-                        Value = oDataToUpsert.R_SelfRetainerDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.R_SelfRetainerDate) ?
+                            string.Empty :
+                            oDataToUpsert.R_SelfRetainerDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.R_SelfRetainerDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.R_SelfRetainerDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1877,7 +1893,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CF_QueryDate
                         },
-                        Value = oDataToUpsert.CF_QueryDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.CF_QueryDate) ?
+                            string.Empty :
+                            oDataToUpsert.CF_QueryDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.CF_QueryDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.CF_QueryDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
 
@@ -1916,7 +1940,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_ProcessDate
                         },
-                        Value = oDataToUpsert.SF_ProcessDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.SF_ProcessDate) ?
+                            string.Empty :
+                            oDataToUpsert.SF_ProcessDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.SF_ProcessDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.SF_ProcessDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
 
@@ -1976,7 +2008,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_StartDate
                         },
-                        Value = oDataToUpsert.RS_StartDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.RS_StartDate) ?
+                            string.Empty :
+                            oDataToUpsert.RS_StartDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.RS_StartDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.RS_StartDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1986,7 +2026,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_EndDate
                         },
-                        Value = oDataToUpsert.RS_EndDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.RS_EndDate) ?
+                            string.Empty :
+                            oDataToUpsert.RS_EndDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.RS_EndDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.RS_EndDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()

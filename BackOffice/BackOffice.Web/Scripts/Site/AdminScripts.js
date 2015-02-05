@@ -557,6 +557,17 @@
                 field: 'B_BankEnable',
                 title: 'Enable',
                 width: '50px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -1134,6 +1145,17 @@
                 field: 'ECS_Enable',
                 title: 'Enable',
                 width: '110px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, ],
         });
     },

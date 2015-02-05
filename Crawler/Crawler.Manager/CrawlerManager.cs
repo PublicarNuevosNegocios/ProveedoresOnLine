@@ -373,7 +373,7 @@ namespace Crawler.Manager
         {
             System.Net.WebRequest w = base.GetWebRequest(uri);
             w.Timeout = 20 * 60 * 1000;
-            return w;
+            return w; 
         }
     }
 }
