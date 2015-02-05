@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,7 +46,9 @@ namespace MarketPlace.Models.Provider
 
         #endregion
 
-        public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial, List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank)
+        public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial, 
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank
+                , List<CatalogModel> oOptions)
         {
             #region TAX
             TX_Year = RelatedFinancial.ItemInfo.
@@ -121,7 +124,10 @@ namespace MarketPlace.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountType).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();          
+                FirstOrDefault();
+
+            IB_AccountType = !string.IsNullOrEmpty(IB_AccountType) && oOptions != null && oOptions.Count > 0 ?
+              oOptions.Where(x => x.ItemId.ToString() == IB_AccountType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
 
             IB_AccountNumber = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountNumber).

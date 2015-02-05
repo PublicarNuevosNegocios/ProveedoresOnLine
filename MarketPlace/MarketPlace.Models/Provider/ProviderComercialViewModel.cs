@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,10 +30,10 @@ namespace MarketPlace.Models.Provider
 
         #endregion
 
-
         public ProviderComercialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo,
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity,
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity)
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity
+            , List<CatalogModel> oOptions)
         {
             RelatedContactInfo = oRelatedInfo;
 
@@ -42,6 +43,9 @@ namespace MarketPlace.Models.Provider
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+          
+            EX_ContractType = !string.IsNullOrEmpty(EX_ContractType) && oOptions != null && oOptions.Count > 0 ?
+              oOptions.Where(x => x.ItemId.ToString() == EX_ContractType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
 
             EX_Currency = oRelatedInfo.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Currency).
@@ -128,6 +132,7 @@ namespace MarketPlace.Models.Provider
                }).ToList();
             #endregion
         }
+
         public ProviderComercialViewModel() { }
     }
 }

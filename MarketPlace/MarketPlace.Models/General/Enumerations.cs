@@ -5,7 +5,7 @@
     public enum enumCatalog
     {
         ProviderStatus = 902,
-
+        personContactType = 210,
     }
 
     #endregion

@@ -23,18 +23,7 @@
                         @item.CI_ContactName
                     </label>
                     <label class="POMPProviderTypeOption">
-                        @if (item.CI_ContactType == "209001")
-                        {
-                            <span>Teléfono: </span>
-                        }
-                        else if (item.CI_ContactType == "209002")
-                        {
-                            <span>Celular: </span>
-                        }
-                        else if (item.CI_ContactType == "209003")
-                        {
-                            <span>Página Web: </span>
-                        }
+                        <span>@item.CI_ContactType</span>
 
                         <span>@item.CI_Value</span>
                     </label>

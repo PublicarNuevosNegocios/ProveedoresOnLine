@@ -59,19 +59,18 @@
         height: auto;
         vertical-align: top;
         width: 94.5%;
-        margin: 15px auto  0px auto;
+        margin: 0px auto;
         padding:0px;
         list-style-type:none;
-        border-top: 1px solid #ff8300;
     }
     /*********** MUESTRA LOS SUBTITULOS DE CADA REGISTRO ************/
 label.POMPProviderDataSubtitle {
     display:block; 
-    width:42% !important; 
+    width:100% !important; 
     max-width:100% !important; 
-    height:auto;
-    margin:13px 0px 0px 0px !important;
-    padding:8px 0 5px 0 !important;
+    min-height:33px !important;
+    margin:8px 0 6px 0px !important;
+    padding:8px 0px 0px 0px !important;
     border-bottom:1px dotted #5d5d5d !important;
     border-top:none !important;
     font-size:1.36em !important;
@@ -89,8 +88,8 @@ label.POMPProviderDataSubtitle {
             font-size: 1.14em; font-weight:normal;
             letter-spacing:-0.2px; line-height:1em;
             margin:0px 5px 0px 0px; width:32.1%; min-width:213px;
-            padding:6px 0px; border-bottom:1px solid #d4d4d4;
-            vertical-align:top;
+            padding:4px 0px 0px 0px; border-bottom:1px solid #d4d4d4;
+            vertical-align:top; min-height:62px;
         }
         .POMPProviderInfoMultipleValues li label > span {
             display: block; font-size: 0.93em;
@@ -100,8 +99,7 @@ label.POMPProviderDataSubtitle {
             overflow:hidden !important;
             text-overflow: ellipsis;
         }
-        .POMPProviderInfoMultipleValues li label > iframe,
-        .POMPProviderDocumetIcon{
+        .POMPProviderInfoMultipleValues li label > iframe{
             border: 1px solid #d4d4d4;
             margin: 5px 0 0; padding: 2px;          
         }
@@ -115,17 +113,13 @@ label.POMPProviderDataSubtitle {
                 background-position:4px 4px;
                 background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/documentIconSmall.png');
                 background-repeat:no-repeat;
-                width:100px; height:35px;
-                text-align: right;
-            }
-            a.POMPProviderDocumetIcon span{
-                display:block;
-                height: 14px;
-                margin: 14px 0 0;
+                width:100%; height:35px;
+                margin:0px;
+                padding:0px 0px 0px 32px;
             }
         .POMPProviderInfoMultipleValues li label > a{
             display: block;
-            font-size:0.8em;
+            font-size:0.9em;
         }
 a.POMPSmallCaption {
         color: #ff8400;

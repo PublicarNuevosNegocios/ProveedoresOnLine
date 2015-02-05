@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -88,7 +89,10 @@ namespace MarketPlace.Models.Provider
 
         #endregion
 
-        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegal, List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity)
+        public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegal,
+                                        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity,
+                                        List<CatalogModel> oEntitieType,
+                                        List<CatalogModel> oOptions)
         {
             #region ChaimberOfComerce
             CP_ConstitutionDate = RelatedLegal.ItemInfo.
@@ -149,6 +153,9 @@ namespace MarketPlace.Models.Provider
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
+            R_PersonType = !string.IsNullOrEmpty(R_PersonType) && oOptions != null && oOptions.Count > 0 ?
+              oOptions.Where(x => x.ItemId.ToString() == R_PersonType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
+
             R_LargeContributor = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_LargeContributor).
                 Select(y => (y.Value)).
@@ -178,7 +185,6 @@ namespace MarketPlace.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-
             R_SelfRetainerDate = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_SelfRetainerDate).
                 Select(y => y.Value).
@@ -191,6 +197,9 @@ namespace MarketPlace.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            R_EntityType = !string.IsNullOrEmpty(R_EntityType) && oOptions != null && oOptions.Count > 0 ?
+              oOptions.Where(x => x.ItemId.ToString() == R_EntityType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
+
             R_IVA = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_IVA).
                 Select(y => y.Value).
@@ -202,6 +211,9 @@ namespace MarketPlace.Models.Provider
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            R_TaxPayerType = !string.IsNullOrEmpty(R_TaxPayerType) && oOptions != null && oOptions.Count > 0 ?
+            oOptions.Where(x => x.ItemId.ToString() == R_TaxPayerType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
 
             R_ICA = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_ICA).
@@ -274,6 +286,9 @@ namespace MarketPlace.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            SF_PersonType = !string.IsNullOrEmpty(SF_PersonType) && oOptions != null && oOptions.Count > 0 ?
+             oOptions.Where(x => x.ItemId.ToString() == SF_PersonType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
+
             SF_SARLAFTFile = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.SF_SARLAFTFile).
                 Select(y => y.Value).
@@ -281,7 +296,7 @@ namespace MarketPlace.Models.Provider
                 FirstOrDefault();
 
             #endregion
-            
+
             #region Resolutions
 
             RS_EntityType = RelatedLegal.ItemInfo.
@@ -289,6 +304,8 @@ namespace MarketPlace.Models.Provider
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            RS_EntityType = oEntitieType != null && oEntitieType.Count > 0 ? oEntitieType.Where(x => x.ItemId.ToString() == RS_EntityType).Select(x => x.ItemName).FirstOrDefault() : RS_EntityType;
 
             RS_ResolutionFile = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.RS_ResolutionFile).
