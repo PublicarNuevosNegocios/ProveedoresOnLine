@@ -18,7 +18,7 @@
                 else
                 {
                     <li>
-                        <a class="POBOProgressButtons" href="@Model.CurrentSubMenu.LastMenu.Url"><< Anterior</a>
+                        <a class="POBOProgressButtons" href="javascript:Provider_Navigate({Url: '@Model.CurrentSubMenu.LastMenu.Url'}, {GridName:'@Model.GridToSave'}, {ButtonClass:'POBOProgressButtons' })"><< Anterior</a>
                     </li>
                 }
             }
@@ -33,8 +33,8 @@
                 }
                 else
                 {
-                    <li>
-                        <a class="POBOProgressButtons" href="@Model.CurrentSubMenu.NextMenu.Url">Siguiente >></a>
+                    <li>                                                                    
+                        <a class="POBOProgressButtons" href="javascript:Provider_Navigate({Url: '@Model.CurrentSubMenu.NextMenu.Url'}, {GridName:'@Model.GridToSave'}, {ButtonClass:'POBOProgressButtons' })">Siguiente >></a>
                     </li>
                 }
             }

@@ -16,6 +16,16 @@ function Provider_SubmitForm(SubmitObject) {
     Message('success', '');
 }
 
+function Provider_Navigate(Url, GridName, ButtonClass)
+{
+    debugger;    
+    $('#' + GridName.GridName).data("kendoGrid").saveChanges();
+    $('.' + ButtonClass.ButtonClass).attr('href', Url.Url);    
+    
+    window.location = $('.' + ButtonClass.ButtonClass).attr("href");
+
+}
+
 function Provider_InitUpsertProvider(vInitObject) {
     //init certification date
     $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
