@@ -122,7 +122,7 @@ var Provider_SearchObject = {
                 width: '50px',
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -335,7 +335,7 @@ var Provider_CompanyContactObject = {
                 title: 'Valor',
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -583,7 +583,7 @@ var Provider_CompanyContactObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -796,7 +796,7 @@ var Provider_CompanyContactObject = {
                 width: '200px',
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -1076,7 +1076,7 @@ var Provider_CompanyContactObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -1537,7 +1537,7 @@ var Provider_CompanyCommercialObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -1918,7 +1918,7 @@ var Provider_CompanyHSEQObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '80px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -2956,7 +2956,7 @@ var Provider_CompanyFinancialObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -4134,7 +4134,7 @@ var Provider_LegalInfoObject = {
                     },
                 }, {
                     field: 'Enable',
-                    title: 'Habilitado',
+                    title: 'Visible en Market Place',
                     width: '100px',
                     template: function (dataItem) {
                         var oReturn = '';
@@ -4611,7 +4611,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -4781,7 +4781,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -4973,7 +4973,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -5185,7 +5185,7 @@ var Provider_LegalInfoObject = {
                 },
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -5355,7 +5355,7 @@ var Provider_CustomerInfoObject = {
                 width: '100px',
             }, {
                 field: 'CP_Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
             }],
         });
@@ -5414,7 +5414,7 @@ var Provider_CustomerInfoObject = {
                 width: '100px',
             }, {
                 field: 'CPI_Enable',
-                title: 'Habilitado',
+                title: 'Visible en Market Place',
                 width: '100px',
             }],
         });

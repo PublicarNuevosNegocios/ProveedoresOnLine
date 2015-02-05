@@ -27,6 +27,7 @@ public static partial class MVC
 {
     public static BackOffice.Web.Controllers.AdminController Admin = new BackOffice.Web.Controllers.T4MVC_AdminController();
     public static BackOffice.Web.Controllers.BaseController Base = new BackOffice.Web.Controllers.T4MVC_BaseController();
+    public static BackOffice.Web.Controllers.CustomerController Customer = new BackOffice.Web.Controllers.T4MVC_CustomerController();
     public static BackOffice.Web.Controllers.HomeController Home = new BackOffice.Web.Controllers.T4MVC_HomeController();
     public static BackOffice.Web.Controllers.ProviderController Provider = new BackOffice.Web.Controllers.T4MVC_ProviderController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();

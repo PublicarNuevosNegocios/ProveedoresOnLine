@@ -201,14 +201,19 @@
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\CustomerApiController.cs" />
     <Compile Include="ControllersApi\UtilApiController.cs" />
     <Compile Include="ControllersApi\FileApiController.cs" />
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -429,6 +434,7 @@
     <Content Include="Content\Styles\Site\POBOSideMenu.css" />
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
     <Content Include="Scripts\Site\AdminScripts.js" />
+    <Content Include="Scripts\Site\CustomerScripts.js" />
     <Content Include="Scripts\Site\ProviderScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -1050,6 +1056,7 @@
     <Content Include="Views\Admin\AdminTreeUpsert.cshtml" />
     <Content Include="Views\Provider\CPCustomerProviderStatus.cshtml" />
     <Content Include="Views\Admin\AdminTRMUpsert.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
