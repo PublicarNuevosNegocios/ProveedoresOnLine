@@ -114,6 +114,17 @@ var Provider_SearchObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -316,6 +327,17 @@ var Provider_CompanyContactObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -553,6 +575,17 @@ var Provider_CompanyContactObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -755,6 +788,17 @@ var Provider_CompanyContactObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -1024,6 +1068,17 @@ var Provider_CompanyContactObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -1474,6 +1529,17 @@ var Provider_CompanyCommercialObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -1844,6 +1910,17 @@ var Provider_CompanyHSEQObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '80px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -2871,6 +2948,17 @@ var Provider_CompanyFinancialObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -4017,7 +4105,7 @@ var Provider_LegalInfoObject = {
                         var oReturn = 'Seleccione una opción.';
                         if (dataItem != null && dataItem.CD_PartnerRank != null) {
                             $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[219], function (item, value) {
-                                if (dataItem.CD_PartnerRank.ItemId == value.ItemId) {
+                                if (dataItem.CD_PartnerRank == value.ItemId) {
                                     oReturn = value.ItemName;
                                 }
                             });
@@ -4038,6 +4126,17 @@ var Provider_LegalInfoObject = {
                     field: 'Enable',
                     title: 'Habilitado',
                     width: '100px',
+                    template: function (dataItem) {
+                        var oReturn = '';
+
+                        if (dataItem.Enable == true) {
+                            oReturn = 'Si'
+                        }
+                        else {
+                            oReturn = 'No'
+                        }
+                        return oReturn;
+                    },
                 }],
         });
     },
@@ -4504,6 +4603,17 @@ var Provider_LegalInfoObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -4663,6 +4773,17 @@ var Provider_LegalInfoObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -4844,6 +4965,17 @@ var Provider_LegalInfoObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -5045,6 +5177,17 @@ var Provider_LegalInfoObject = {
                 field: 'Enable',
                 title: 'Habilitado',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, ],
         });
     },
