@@ -212,7 +212,7 @@ li#F3 {
     border:1px solid #c5c5c5;
 }
 .POBOBalanceSheetScrollWrapper {
-    height:350px;
+    height:auto;
     overflow-y:scroll;
     overflow-x:hidden;
     padding:12px 0px;
@@ -252,7 +252,7 @@ li#F3 {
 
 /*DATOS FINANCIEROS*/
 .POBOBalanceSheet_DetailWrapper{
-    width:49.4%;
+    width:30%;
     display: inline-block;
 }
 .POBOBalanceSheet_Detail  {
@@ -306,7 +306,7 @@ li#F3 {
                                     border:1px solid #ececec;
                                     float: right;
                                     margin: 8px 11px 0 0;
-                                    width: 48.4%;
+                                    width: 65%;
                                     height: 600px;
                                 }
                                     .POBOBalanceSheet_DocPreview iframe {
