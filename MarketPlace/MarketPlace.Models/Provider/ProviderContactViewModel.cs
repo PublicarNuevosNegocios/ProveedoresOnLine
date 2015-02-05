@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -69,7 +70,7 @@ namespace MarketPlace.Models.Provider
 
         #endregion
 
-        public ProviderContactViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo)
+        public ProviderContactViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo, List<CatalogModel> oOptions)
         {
             RelatedContactInfo = oRelatedInfo;
 
@@ -82,11 +83,15 @@ namespace MarketPlace.Models.Provider
                DefaultIfEmpty(string.Empty).
                FirstOrDefault();
 
+            CI_ContactType = !string.IsNullOrEmpty(CI_ContactType) && oOptions != null && oOptions.Count > 0 ?
+                oOptions.Where(x => x.ItemId.ToString() == CI_ContactType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
+
             CI_Value = oRelatedInfo.ItemInfo.
                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.Value).
                Select(y => y.Value).
                DefaultIfEmpty(string.Empty).
                FirstOrDefault(); 
+
             #endregion
 
             #region PersonContact
@@ -99,11 +104,17 @@ namespace MarketPlace.Models.Provider
                DefaultIfEmpty(string.Empty).
                FirstOrDefault();
 
+            PC_RepresentantType = !string.IsNullOrEmpty(PC_RepresentantType) && oOptions != null && oOptions.Count > 0 ?
+                oOptions.Where(x => x.ItemId.ToString() == PC_RepresentantType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
+            
             PC_IdentificationType = oRelatedInfo.ItemInfo.
                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.IdentificationType).
                Select(y => y.Value).
                DefaultIfEmpty(string.Empty).
                FirstOrDefault();
+
+            PC_IdentificationType = !string.IsNullOrEmpty(PC_IdentificationType) && oOptions != null && oOptions.Count > 0 ?
+                oOptions.Where(x => x.ItemId.ToString() == PC_IdentificationType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
 
             PC_IdentificationNumber = oRelatedInfo.ItemInfo.
                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.IdentificationNumber).
@@ -143,7 +154,9 @@ namespace MarketPlace.Models.Provider
             #endregion           
         }
 
-        public ProviderContactViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo, List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities)
+        public ProviderContactViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo, 
+            List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities
+            , List<CatalogModel> oOptions)
         {
             #region Branch
 
@@ -167,8 +180,8 @@ namespace MarketPlace.Models.Provider
                DefaultIfEmpty(string.Empty).
                FirstOrDefault();
 
-            BR_City = !string.IsNullOrEmpty(DT_City) ?
-                oCities.Where(x => x.City.ItemId == Convert.ToInt32(DT_City)).Select(x => x.City.ItemName).FirstOrDefault() : string.Empty;
+            BR_City = !string.IsNullOrEmpty(BR_City) ?
+                oCities.Where(x => x.City.ItemId == Convert.ToInt32(BR_City)).Select(x => x.City.ItemName).FirstOrDefault() : string.Empty;
 
             BR_Phone = oRelatedInfo.ItemInfo.
                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Phone).
@@ -206,6 +219,9 @@ namespace MarketPlace.Models.Provider
               DefaultIfEmpty(string.Empty).
               FirstOrDefault();
 
+            DT_DistributorType = !string.IsNullOrEmpty(DT_DistributorType) && oOptions != null && oOptions.Count > 0 ?
+                oOptions.Where(x => x.ItemId.ToString() == DT_DistributorType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
+
             DT_Representative = oRelatedInfo.ItemInfo.
               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_Representative).
               Select(y => y.Value).
@@ -236,13 +252,7 @@ namespace MarketPlace.Models.Provider
               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_DateIssue).
               Select(y => y.Value).
               DefaultIfEmpty(string.Empty).
-              FirstOrDefault();
-
-            DT_DueDate = oRelatedInfo.ItemInfo.
-              Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_DueDate).
-              Select(y => y.Value).
-              DefaultIfEmpty(string.Empty).
-              FirstOrDefault();
+              FirstOrDefault();        
 
             DT_DistributorFile = oRelatedInfo.ItemInfo.
               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_DistributorFile).

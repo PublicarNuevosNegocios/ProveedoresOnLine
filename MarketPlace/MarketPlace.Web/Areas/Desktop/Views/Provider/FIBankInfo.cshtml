@@ -17,22 +17,7 @@
                 <li>@item.IB_BankName</li>
 
                 <li>Tipo de Cuenta</li>
-                if (item.IB_AccountType != null && item.IB_AccountType == "1001001")
-                {
-                    <li>Cuenta Corriente</li>
-                }
-                else if (item.IB_AccountType != null && item.IB_AccountType == "1001002")
-                {
-                    <li>Cuenta de Ahorros</li>
-                }
-                else if (item.IB_AccountType != null && item.IB_AccountType == "1001003")
-                {
-                    <li>Cuenta Corriente Extranjera</li>
-                }
-                else if (item.IB_AccountType != null && item.IB_AccountType == "1001004")
-                {
-                    <li>Cuenta de Ahorros Extranjera</li>
-                }
+               <span>@item.IB_AccountType</span>
                                
                 <li>Número de Cuenta</li>
                 <li>@item.IB_AccountNumber</li>

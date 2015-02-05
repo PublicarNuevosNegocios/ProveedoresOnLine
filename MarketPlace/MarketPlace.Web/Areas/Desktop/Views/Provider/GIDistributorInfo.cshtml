@@ -24,27 +24,7 @@
                         </label>
                         <label>
                             Tipo de Distribuidor
-
-                            @if (item.DT_DistributorType == "211001")
-                            {
-                            <span>Comercializador</span>
-                            }
-                            else if (item.DT_DistributorType == "211002")
-                            {
-                            <span>Distribuido por</span>
-                            }
-                            else if (item.DT_DistributorType == "211003")
-                            {
-                            <span>Distribuidor de</span>
-                            }
-                            else if (item.DT_DistributorType == "211004")
-                            {
-                            <span>Representado por</span>
-                            }
-                            else if (item.DT_DistributorType == "211005")
-                            {
-                            <span>Representante de</span>
-                            }
+                            <span>@item.DT_DistributorType</span>                           
                         </label>
                         <label>
                             Representante Comercial
@@ -65,11 +45,7 @@
                         <label>
                             Fecha de Expedición
                             <span>@item.DT_DateIssue</span>
-                        </label>
-                        <label>
-                            Fecha de Vencimiento
-                            <span>@item.DT_DueDate</span>
-                        </label>            
+                        </label>                            
                         <label>
                             Documento Soporte
                             @{

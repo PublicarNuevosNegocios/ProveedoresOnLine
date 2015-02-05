@@ -21,14 +21,9 @@
                     <li>
                         <label>
                         Tipo de Contrato
-                        @if (item.EX_ContractType == "303001")
-                        {
-                        <span>Contratos / Servicios</span>
-                        }
-                        else if (item.EX_ContractType == "303002")
-                        {
-                        <span>Ordenes de compra</span>
-                        }
+                        
+                        <span>@item.EX_ContractType</span>
+                        
                         </label>
                         <label>
                                 Fecha Inicial

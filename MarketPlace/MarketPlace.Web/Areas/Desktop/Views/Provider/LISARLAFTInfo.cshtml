@@ -25,18 +25,7 @@
                             <span>@item.SF_ProcessDate</span>
 
                             <label>Tipo de Persona</label>
-                            if (item.SF_PersonType == "213001")
-                            {
-                                <span>Jurídica</span>
-                            }
-                            else if (item.SF_PersonType == "213002")
-                            {
-                                <span>Natural</span>
-                            }
-                            else if (item.SF_PersonType == "213003")
-                            {
-                                <span>Persona Extranjera</span>
-                            }
+                            <span>@item.SF_PersonType</span>
                             <label>Archivo Anexo</label>
                             <a class="POMPProviderDocumetIcon" href="@item.SF_SARLAFTFile"></a>
                             <a target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo</a>
