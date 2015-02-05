@@ -4013,6 +4013,27 @@ var Provider_LegalInfoObject = {
                     field: 'CD_PartnerRank',
                     title: 'Cargo',
                     width: '200px',
+                    template: function (dataItem) {
+                        var oReturn = 'Seleccione una opción.';
+                        if (dataItem != null && dataItem.CD_PartnerRank != null) {
+                            $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[219], function (item, value) {
+                                if (dataItem.CD_PartnerRank.ItemId == value.ItemId) {
+                                    oReturn = value.ItemName;
+                                }
+                            });
+                        }
+                        return oReturn;
+                    },
+                    editor: function (container, options) {
+                        $('<input required data-bind="value:' + options.field + '"/>')
+                            .appendTo(container)
+                            .kendoDropDownList({
+                                dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[219],
+                                dataTextField: 'ItemName',
+                                dataValueField: 'ItemId',
+                                optionLabel: 'Seleccione una opción'
+                            });
+                    },
                 }, {
                     field: 'Enable',
                     title: 'Habilitado',
@@ -4091,7 +4112,6 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
