@@ -5516,15 +5516,14 @@ var Provider_CustomerInfoObject = {
             type: "POST",
             success: function (result) {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').html('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<option value="' + "" + '">' + " " + '</option>')
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
                     }
                     else {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
                     }
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
                 }
             },
@@ -5541,21 +5540,16 @@ var Provider_CustomerInfoObject = {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog input:checked').each(function () {
             oCompanyPublicList.push($(this).attr('id'));
         });
-        var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val();
-        var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val();
 
         //update
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList,
             dataType: "json",
             type: "POST",
             success: function (result) {
                 Message('success', '0');
 
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog("close");
-
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal').val('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer').val('');
 
                 Provider_CustomerInfoObject.RenderCustomerByProvider();
             },
@@ -5572,11 +5566,10 @@ var Provider_CustomerInfoObject = {
             type: "POST",
             success: function (result) {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<option value="' + "" + '">' + " " + '</option>')
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li>' + result[i].RelatedCompany.CompanyName + '</li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
                     }
                 }
