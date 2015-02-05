@@ -11,28 +11,31 @@
     <div class="POMPProviderSideMenuWrapper">
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
-
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">SARLAFT</label>
         <ul class="POMPProviderInfoMultipleValues">
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
-                    <li>
+
                         @foreach (var item in Model.RelatedLegalInfo)
                         {
-                            <label>Fecha de Diligenciamiento</label>
-                            <span>@item.SF_ProcessDate</span>
-
-                            <label>Tipo de Persona</label>
-                            <span>@item.SF_PersonType</span>
-                            <label>Archivo Anexo</label>
-                            <a class="POMPProviderDocumetIcon" href="@item.SF_SARLAFTFile"></a>
-                            <a target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo</a>
+                            <li>
+                                <label class="POMPProviderDataSubtitle">
+                                    <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
+                                </label>
+                                <label>
+                                    Tipo de Persona
+                                    <span>@item.SF_PersonType</span>
+                                </label>
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
+                                </label>
+                            </li>
                         }
-                    </li>
+
                 }
-            }
+}
         </ul>
     </div>
 </div>

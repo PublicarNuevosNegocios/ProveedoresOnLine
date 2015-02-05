@@ -19,11 +19,8 @@
                 foreach (var item in Model.RelatedComercialInfo)
                 {
                     <li>
-                        <label>
-                        Tipo de Contrato
-                        
-                        <span>@item.EX_ContractType</span>
-                        
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@item.EX_ContractType para @item.EX_Client</span>
                         </label>
                         <label>
                                 Fecha Inicial
@@ -32,10 +29,6 @@
                         <label>
                                 Fecha Final
                             <span>@item.EX_DueDate</span>
-                        </label>
-                        <label>
-                                Cliente
-                            <span>@item.EX_Client</span>
                         </label>
                         <label>
                             Número de Contacto
@@ -67,18 +60,14 @@
                                 <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
                             }
                         </label>
-
-
-                        <label>
-                            Archivo de Soporte
+                        <label>                            
                             @{
                             var UlrContent = item.EX_ExperienceFile;
                             if (!string.IsNullOrEmpty(UlrContent))
                             {
-                                <a class="POMPProviderDocumetIcon" href="@UlrContent" title=""></a>
                             @*ESTE IFRAME SE CAMBIA POR UN ICONO PARA IR AL ARCHIVO*@
                             @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                            <a target="_blank" href="@UlrContent">Ver Archivo</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Soporte</a>
                             }
                             }
                         </label>

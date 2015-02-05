@@ -5,32 +5,38 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedFinancialInfo)
-            {
-                <li>Año</li>
-                <li>@item.TX_Year</li>
-
-                <li>Impuesto</li>
-                <li>
-                    <a target="_blank" href="@item.TX_TaxFile">Ver Archivo</a>
-                </li>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Impuestos</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedFinancialInfo)
+                {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
+                                <span>@item.TX_Year</span>
+                            </label>
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.TX_TaxFile">Ver Archivo del Impuesto</a>
+                            </label>
+                        </li>
+                }
             }
-        }
-    </ul>
+        </ul>
+    </div>
 </div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
-{
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
+    {
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 

@@ -5,44 +5,55 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedFinancialInfo)
-            {
-                <li>Año</li>
-                <li>@item.IS_Year</li>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-                <li>Ingresos Brutos</li>
-                <li>@item.IS_GrossIncome</li>
-
-                <li>Ingresos Netos</li>
-                <li>@item.IS_NetIncome</li>
-
-                <li>Patrimonio Bruto</li>
-                <li>@item.IS_GrossEstate</li>
-
-                <li>Patrimonio Líquido</li>
-                <li>@item.IS_LiquidHeritage</li>
-
-                <li>Declaración de Renta</li>
-                <li>
-                    <a target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo</a>
-                </li>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Declaración de renta</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedFinancialInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>Año: @item.IS_Year</span>
+                        </label>
+                        <label>
+                            Ingresos Brutos
+                            <span>@item.IS_GrossIncome</span>
+                        </label>
+                        <label>
+                            Ingresos Netos
+                            <span>@item.IS_NetIncome</span>
+                        </label>
+                        <label>
+                            Patrimonio Bruto
+                            <span>@item.IS_GrossEstate</span>
+                        </label>
+                        <label>
+                            Patrimonio Líquido
+                            <span>@item.IS_LiquidHeritage</span>
+                        </label>
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
+                        </label>
+                    </li>
+                }
             }
-        }
-    </ul>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+            </ul>
+        </div>
+        </div>
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 
