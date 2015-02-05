@@ -665,7 +665,7 @@
                 width: '150px',
             }, {
                 field: 'CR_CompanyRuleEnable',
-                title: 'Visible en Market Place',
+                title: 'Enable',
                 width: '50px',
             }, ],
         });

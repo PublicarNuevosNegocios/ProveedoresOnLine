@@ -1,13 +1,14 @@
 /*********** ENCABEZADO DE GRILLAS ***********/
 .k-grid-content {
-    overflow-y:scroll;
-    max-height:308px;
-    height:auto !important;
+    overflow-y: scroll;
+    max-height: 308px;
+    height: auto !important;
 }
-#divGridBranch, #divGridDistributor{
-     height: auto !important;
+
+#divGridBranch, #divGridDistributor {
+    height: auto !important;
 }
-    /*.k-dirty{
+/*.k-dirty{
         background-color: rgba(255, 131, 0, 0.21);
         border: medium none;
         height: 34px;
@@ -19,33 +20,47 @@
         z-index: 0;
     }*/
 /********** ESAS SON LOS AUTOCOMPLETE COMPUESTOS DE ACTIVIDAD, NOMBRE, TIPO, GRUPO Y CATEGORIA ***********/
-.POBOProviderCompoundAutocomplete{
-    border-bottom:1px solid #333;
+.POBOProviderCompoundAutocomplete {
+    border-bottom: 1px solid #333;
     background-color: #f9f9f9;
-    padding:6px 5px 0px 5px !important; margin:0px !important;
+    padding: 6px 5px 0px 5px !important;
+    margin: 0px !important;
 }
-.POBOProviderCompoundAutocomplete:hover {
-    background-color: #e6e6e6;
-}
-.POBOProviderCompoundAutocomplete label{
-        border:none;
-    font-size:1em;   
-    line-height:1em;
-    width:100%;
-    padding:0px !important; margin:0px !important;
-    color:#666;
-    font-weight:normal;
-}
-    .POBOProviderCompoundAutocomplete label span{
-            border:none;
-        display:block;
-        font-size:1.2em;
-        line-height:1.2em;
-        letter-spacing:-1px;
-        padding:0px !important; margin:0px !important;
+
+    .POBOProviderCompoundAutocomplete:hover {
+        background-color: #e6e6e6;
     }
+
+    .POBOProviderCompoundAutocomplete label {
+        border: none;
+        font-size: 1em;
+        line-height: 1em;
+        width: 100%;
+        padding: 0px !important;
+        margin: 0px !important;
+        color: #666;
+        font-weight: normal;
+    }
+
+        .POBOProviderCompoundAutocomplete label span {
+            border: none;
+            display: block;
+            font-size: 1.2em;
+            line-height: 1.2em;
+            letter-spacing: -1px;
+            padding: 0px !important;
+            margin: 0px !important;
+        }
+
 #divGridCompanyContact_kbtooltip {
-    margin:0px 0px 1px 10px;
-    width:24px; height:auto;
-    cursor:pointer;
+    margin: 0px 0px 1px 10px;
+    width: 24px;
+    height: auto;
+    cursor: pointer;
+}
+
+/*****PLACEHOLDER******/
+label.PlaceHolder {
+    color: rgb(166, 166, 166);
+    font-size: 0.9em;
 }

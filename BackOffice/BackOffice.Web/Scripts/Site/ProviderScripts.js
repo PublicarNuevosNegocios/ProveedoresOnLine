@@ -16,12 +16,11 @@ function Provider_SubmitForm(SubmitObject) {
     Message('success', '');
 }
 
-function Provider_Navigate(Url, GridName, ButtonClass)
-{
-    debugger;    
+function Provider_Navigate(Url, GridName, ButtonClass) {
+    debugger;
     $('#' + GridName.GridName).data("kendoGrid").saveChanges();
-    $('.' + ButtonClass.ButtonClass).attr('href', Url.Url);    
-    
+    $('.' + ButtonClass.ButtonClass).attr('href', Url.Url);
+
     window.location = $('.' + ButtonClass.ButtonClass).attr("href");
 
 }
@@ -123,7 +122,7 @@ var Provider_SearchObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -333,10 +332,38 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CC_Value',
                 title: 'Valor',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.CC_Value == '') {
+                        if (dataItem.CC_CompanyContactType == "209001") {
+                            oReturn = '<label class="PlaceHolder">Ej: 7560000</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209002") {
+                            oReturn = '<label class="PlaceHolder">Ej: 3161234567</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209003") {
+                            oReturn = '<label class="PlaceHolder">Ej: www.prueba.com</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209004") {
+                            oReturn = '<label class="PlaceHolder">Ej: 110221</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209005") {
+                            oReturn = '<label class="PlaceHolder">Ej: 7560000</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209006") {
+                            oReturn = '<label class="PlaceHolder">Ej: prueba@prueba.com</label>'
+                        }
+                    }
+                    else {
+                        oReturn = dataItem.CC_Value;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -518,7 +545,19 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
-                width: '120px',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_Phone;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'CP_Email',
                 title: 'Correo electronico',
@@ -584,7 +623,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -797,7 +836,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -954,6 +993,18 @@ var Provider_CompanyContactObject = {
                 field: 'DT_Phone',
                 title: 'Telefono',
                 width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.DT_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
+                    }
+                    else {
+                        oReturn = dataItem.DT_Phone;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'DT_CityName',
                 title: 'Ciudad',
@@ -1077,7 +1128,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1263,6 +1314,18 @@ var Provider_CompanyCommercialObject = {
                 field: 'EX_Client',
                 title: 'Cliente',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.EX_Client == '') {
+                        oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>'
+                    }
+                    else {
+                        oReturn = dataItem.EX_Client;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'EX_ContractType',
                 title: 'Tipo de contrato',
@@ -1337,6 +1400,18 @@ var Provider_CompanyCommercialObject = {
                 field: 'EX_Phone',
                 title: 'Telefono',
                 width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.EX_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">(57)7655454</label>'
+                    }
+                    else {
+                        oReturn = dataItem.EX_Phone;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'EX_DateIssue',
                 title: 'Inicio',
@@ -1538,7 +1613,7 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1919,7 +1994,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '80px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2957,7 +3032,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4103,6 +4178,20 @@ var Provider_LegalInfoObject = {
                     field: 'CD_PartnerName',
                     title: 'Nombre',
                     width: '200px',
+                    template: function (dataItem) {
+                        var oReturn = '';
+                        debugger;
+                        if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
+                            if (dataItem.CP_PartnerName == '') {
+                                oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>';
+                            }
+                        }
+                        else {
+                            oReturn = dataItem.CD_PartnerName;
+                        }
+
+                        return oReturn;
+                    },
                 }, {
                     field: 'CD_PartnerIdentificationNumber',
                     title: 'Número de Identificación',
@@ -4135,7 +4224,7 @@ var Provider_LegalInfoObject = {
                 }, {
                     field: 'Enable',
                     title: 'Visible en Market Place',
-                    width: '100px',
+                    width: '170px',
                     template: function (dataItem) {
                         var oReturn = '';
 
@@ -4612,7 +4701,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4782,7 +4871,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '200px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4974,7 +5063,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '200px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5186,7 +5275,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '200px',
+                width: '170px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5356,7 +5445,7 @@ var Provider_CustomerInfoObject = {
             }, {
                 field: 'CP_Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
             }],
         });
     },
@@ -5415,7 +5504,7 @@ var Provider_CustomerInfoObject = {
             }, {
                 field: 'CPI_Enable',
                 title: 'Visible en Market Place',
-                width: '100px',
+                width: '170px',
             }],
         });
     },
