@@ -64,3 +64,51 @@ label.PlaceHolder {
     color: rgb(166, 166, 166);
     font-size: 0.9em;
 }
+
+/*******DIALOGS********/
+.StatusDialog {
+    width: 400px;
+}
+
+    .StatusDialog label {
+        font-size: 1.2em !important;
+        margin: 10px 0px 0px 0px !important;
+    }
+
+    .StatusDialog select {
+        width: 100%;
+    }
+
+    .StatusDialog textarea {
+        width: 100%;
+    }
+
+.ListContent {
+    position: relative;
+    height: 170px !important;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin: 5px 0px 10px 0px;
+    border: 1px solid rgb(199, 199, 199);
+}
+
+.ContentTracking {
+    position: relative;
+}
+
+.CompanyList {
+    width: 100%;
+    margin-left: -15px;
+}
+
+.Company {
+    width: 100%;
+    display: inline-block;
+}
+
+.CompanyCheck {
+    width: 10%;
+    display: inline-block;
+    text-align: center;
+    margin-left: -21px;
+}

@@ -38,38 +38,34 @@
 </div>
 
 <div id="dialog" style="display:none;">
-
-    <div id="divCustomerProviderStatus_Dialog" style="width:380px;">
-        <div style="position:relative; height: 150px !important; overflow:scroll;">
-            <ul id="divCustomerProviderStatus_Customer_List_Dialog" style="list-style:none;"></ul>
+    
+    <div id="divCustomerProviderStatus_Dialog" class="StatusDialog">
+        <label class="POBOSectionTitles">Compradores:</label>
+        <div class="ListContent">
+            <ul id="divCustomerProviderStatus_Customer_List_Dialog" class="CompanyList" style="list-style:none;"></ul>
         </div>
-        <div style="position:relative; text-align:center;">
-            <label>Nota Interna</label>
-            <textarea id="divCustomerProviderStatus_Internal"></textarea>
-            <label>Nota del Comprador</label>
-            <textarea id="divCustomerProviderStatus_Customer"></textarea>
-        </div>
-        <a href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProvider();">Guardar</a>
+        <a class="POBOProgressButtons" href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProvider();">Guardar</a>
     </div>
 
-    <div id="divCustomerProviderStatus_Tracking_Dialog" style="width:380px;">
-        <div style="position:relative; height: 150px !important; overflow:scroll;">
-            <ul id="divCustomerProviderStatus_Customer_List_Tracking" style="list-style:none;"></ul>
+    <div id="divCustomerProviderStatus_Tracking_Dialog" class="StatusDialog">
+        <label class="POBOSectionTitles">Compradores Relacionados:</label>
+        <div class="ListContent">
+            <ul id="divCustomerProviderStatus_Customer_List_Tracking" class="CompanyList" style="list-style:none;"></ul>
         </div>
-        <div style="position:relative; text-align:center;">
-            <label>Estado del Proveedor:</label>
+        <div class="ContentTracking">
+            <label class="POBOSectionTitles">Estado del Proveedor:</label>
             <select id="divCustomerProviderStatus_Status" name="SH_Currency">
                 @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 902).OrderBy(x => x.ItemName))
                 {
                     <option value="@oItem.ItemId">@oItem.ItemName</option>
                 }
             </select>
-            <label>Nota Interna</label>
+            <label class="POBOSectionTitles">Seguimiento Interno</label>
             <textarea id="divCustomerProviderStatus_Internal_Tracking"></textarea>
-            <label>Nota del Comprador</label>
+            <label class="POBOSectionTitles">Seguimiento para el Comprador</label>
             <textarea id="divCustomerProviderStatus_Customer_Tracking"></textarea>
         </div>
-        <a href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProviderTraking();">Guardar</a>
+        <a class="POBOProgressButtons" href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProviderTraking();">Guardar</a>
     </div>
 
 </div>

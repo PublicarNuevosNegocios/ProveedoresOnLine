@@ -2163,38 +2163,11 @@ namespace BackOffice.Web.ControllersApi
         public void CPCustomerProviderUpsert
             (string UpsertCustomerByProvider,
             string oProviderPublicId,
-            string oCompanyPublicList,
-            string oInternalTracking,
-            string oExternalTracking)
+            string oCompanyPublicList)
         {
 
             if (UpsertCustomerByProvider == "true")
             {
-                List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
-
-                if (oInternalTracking != null && oInternalTracking.Length > 0)
-                {
-                    oInfoModel.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoType = new CatalogModel()
-                        {
-                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
-                        },
-                        Value = oInternalTracking,
-                    });
-                }
-                if (oExternalTracking != null && oExternalTracking.Length > 0)
-                {
-                    oInfoModel.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoType = new CatalogModel()
-                        {
-                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
-                        },
-                        Value = oExternalTracking,
-                    });
-                }
-
                 string[] oCustomerPublicId = oCompanyPublicList.Split(new char[] { ',' });
 
                 foreach (var item in oCustomerPublicId)
@@ -2214,7 +2187,6 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
                             },
-                            CustomerProviderInfo = oInfoModel,
                             Enable = true,
                         });
 
