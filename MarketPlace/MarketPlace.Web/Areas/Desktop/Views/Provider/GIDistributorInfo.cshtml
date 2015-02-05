@@ -18,13 +18,8 @@
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <li>
-                        <label>
-                            Razón Social
-                            <span>@item.DT_SocialReazon</span>
-                        </label>
-                        <label>
-                            Tipo de Distribuidor
-                            <span>@item.DT_DistributorType</span>                           
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@item.DT_DistributorType, @item.DT_SocialReazon</span>
                         </label>
                         <label>
                             Representante Comercial
@@ -47,13 +42,12 @@
                             <span>@item.DT_DateIssue</span>
                         </label>                            
                         <label>
-                            Documento Soporte
                             @{
                                 var UlrContent = item.DT_DistributorFile;
                                 if (!string.IsNullOrEmpty(UlrContent))
                                 {
-                                    <iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>
-                                    <a target="_blank" href="@UlrContent">Ver Archivo</a>
+                                    @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent" >Ver Documento Soporte</a>
                                 }
                             }
                         </label>

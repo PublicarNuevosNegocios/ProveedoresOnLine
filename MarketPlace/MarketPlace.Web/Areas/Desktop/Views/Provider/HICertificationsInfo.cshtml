@@ -19,13 +19,12 @@
                 foreach (var item in Model.RelatedHSEQlInfo)
                 {
                     <li>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@item.C_RuleName, Alcance: @item.C_Scope</span>
+                        </label>
                             <label>
                                 Empresa Certificadora
                                 <span>@item.C_CertificationCompanyName</span>
-                            </label>
-                            <label>
-                                Norma
-                                <span>@item.C_RuleName</span>
                             </label>
                             <label>
                                 Fecha de Certificación
@@ -38,20 +37,14 @@
                             <label>
                                 % CCS
                                 <span>@item.C_CCS</span>
-                            </label>                            
-                            <label>
-                                Alcance
-                                <span>@item.C_Scope</span>
                             </label>
                         <label>
-                            Archivo de Alcance
                             @{
                                 var UlrContent = item.C_CertificationFile;
                                 if (!string.IsNullOrEmpty(UlrContent))
                                 {
-                                    <a class="POMPProviderDocumetIcon" href="@UlrContent" title=""></a>
-                                            @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                                            <a target="_blank" href="@UlrContent">Ver Archivo</a>
+                                    @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
                                 }
                             }
                         </label>

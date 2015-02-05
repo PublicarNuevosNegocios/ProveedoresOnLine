@@ -13,67 +13,71 @@
     </div>
 
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">RUT</label>
+        <label class="POMPSectionTitles">Registro único tributario</label>
         <ul class="POMPProviderInfoMultipleValues">
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
-                    <li>
-                        @foreach (var item in Model.RelatedLegalInfo)
+                    
+                        foreach (var item in Model.RelatedLegalInfo)
                         {
-
-                            <label>Tipo de Persona</label>
-                            <span>@item.R_PersonType</span>
-
-                            <label>Gran Contribuyente Resolución</label>
-                            <span>@item.R_LargeContributorReceipt</span>
-
-                            <label>Fecha Resolución Gran Contribuyente</label>
-                            <span>@item.R_LargeContributorDate</span>
-
-                            <label>Autorretenedor</label>
-                            if (item.R_SelfRetainer == true)
-                            {
-                                <span>Si</span>
-                            }
-                            else
-                            {
-                                <span>No</span>
-                            }
-                            <label>Autorretendor Recibo</label>
-                            <span>@item.R_SelfRetainerReciept</span>
-
-                            <label>Autorretendor Fecha</label>
-                            <span>@item.R_SelfRetainerDate</span>
-
-                            <label>Tipo de Entidad</label>
-                            <span>@item.R_EntityType</span>
-
-                            <label>Iva</label>
-                            if (item.R_IVA == true)
-                            {
-                                <span>Si</span>
-                            }
-                            else
-                            {
-                                <span>No</span>
-                            }
-                            <label>Tipo de Régimen</label>
-                            <span>@item.R_TaxPayerType</span>
-
-                            <label>RUT Anexo</label>
-                            <a class="POMPProviderDocumetIcon" href="@item.R_RUTFile"></a>
-                            <a target="_blank" href="@item.R_RUTFile">Ver Archivo</a>
-
-                            <label>Gran Contribuyente Anexo</label>
-                            <a class="POMPProviderDocumetIcon" href="@item.R_LargeContributorFile"></a>
-                            <a target="_blank" href="@item.R_LargeContributorFile">Ver Archivo</a>
-
-                            <label>Autorretendor Anexo</label>
-                            <a class="POMPProviderDocumetIcon" href="@item.R_SelfRetainerFile"></a>
-                            <a target="_blank" href="@item.R_SelfRetainerFile">Ver Archivo</a>
+                            <li>
+                                <label class="POMPProviderDataSubtitle">
+                                    <span>@item.R_PersonType, Gran Contribuyente Resolución: @item.R_LargeContributorReceipt</span>
+                                </label>
+                                <label>
+                                    Fecha Resolución Gran Contribuyente
+                                    <span>@item.R_LargeContributorDate</span>
+                                </label>
+                                <label>
+                                    Autorretenedor
+                                    @if (item.R_SelfRetainer == true)
+                                    {
+                                    <span>Si</span>
+                                    }
+                                    else
+                                    {
+                                    <span>No</span>
+                                    }
+                                </label>
+                                <label>
+                                    Autorretendor Recibo
+                                    <span>@item.R_SelfRetainerReciept</span>
+                                </label>
+                                <label>
+                                    Autorretendor Fecha
+                                    <span>@item.R_SelfRetainerDate</span>
+                                </label>
+                                <label>
+                                    Tipo de Entidad
+                                    <span>@item.R_EntityType</span>
+                                </label>
+                                <label>
+                                    Iva
+                                    @if (item.R_IVA == true)
+                                    {
+                                    <span>Si</span>
+                                    }
+                                    else
+                                    {
+                                    <span>No</span>
+                                    }
+                                </label>
+                                <label>
+                                    Tipo de Régimen
+                                    <span>@item.R_TaxPayerType</span>
+                                </label>
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_RUTFile">Ver Archivo RUT Anexo</a>
+                                </label>
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_LargeContributorFile">Ver Archivo Gran Contribuyente Anexo</a>
+                                </label>
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_SelfRetainerFile">Ver Archivo Autorretendor Anexo</a>
+                                </label>                                                    
+                            </li>                
                         }
-                    </li>
                 }
             }
         </ul>

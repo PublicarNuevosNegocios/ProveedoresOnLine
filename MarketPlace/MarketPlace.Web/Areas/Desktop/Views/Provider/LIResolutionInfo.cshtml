@@ -18,31 +18,34 @@
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
-                    <li>
-                        @foreach (var item in Model.RelatedLegalInfo)
+
+                        foreach (var item in Model.RelatedLegalInfo)
                         {
-                            <label>Tipo de Entidad</label>
-                            <span>@item.RS_EntityType</span>
+                            <li>
+                                <label class="POMPProviderDataSubtitle">
+                                <span>@item.RS_EntityType, Alcance: @item.RS_Description</span>
+                                </label>
+                                <label>
+                                    Fecha Inicial
+                                    <span>@item.RS_StartDate</span>
+                                </label>
 
-                            <label>Fecha Inicial</label>
-                            <span>@item.RS_StartDate</span>
-
-                            <label>Fecha Final</label>
-                            <span>@item.RS_EndDate</span>
-
-                            <label>Alcance</label>
-                            <span>@item.RS_Description</span>
-
-                            <label>Alcance</label>
-                            <span>@item.RS_Description</span>
-
-                            <label>Archivo Anexo</label>
-                            <a class="POMPProviderDocumetIcon" href="@item.RS_ResolutionFile"></a>
-                            <a target="_blank" href="@item.RS_ResolutionFile">Ver Archivo</a>
+                                <label>
+                                    Fecha Final
+                                    <span>@item.RS_EndDate</span>
+                                </label>
+                                <label>
+                                    Alcance
+                                    <span>@item.RS_Description</span>
+                                </label>
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
+                                </label>
+                            </li>
                         }
-                    </li>
+
                 }
-            }
+}
         </ul>
     </div>
 </div>

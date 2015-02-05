@@ -19,9 +19,8 @@
                 foreach (var item in Model.RelatedGeneralInfo)
                 {
                     <li>
-                        <label>
-                            Nombre Sucursal
-                            <span>@item.BR_Name</span>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@item.BR_City, @item.BR_Name</span>
                         </label>
                         <label>
                             Representante
@@ -30,10 +29,6 @@
                         <label>
                             Dirección
                             <span>@item.BR_Address</span>
-                        </label>
-                        <label>
-                            Ciudad
-                            <span>@item.BR_City</span>
                         </label>
                         <label>
                             Teléfono
@@ -49,7 +44,7 @@
                         </label>
                         <label>
                             Página Web
-                            <span> @item.BR_Website</span>
+                            <span><a href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
                         </label>
                     </li>
                 }

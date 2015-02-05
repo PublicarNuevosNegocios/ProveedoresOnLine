@@ -5,53 +5,63 @@
 
     Model.RenderScripts = false;
 }
-<div class="POBOProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-<div>
-    <ul>
-        @{
-            foreach (var item in Model.RelatedFinancialInfo)
-            {
-                <li>Banco</li>
-                <li>@item.IB_BankName</li>
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
 
-                <li>Tipo de Cuenta</li>
-               <span>@item.IB_AccountType</span>
-                               
-                <li>Número de Cuenta</li>
-                <li>@item.IB_AccountNumber</li>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Información Bancaria</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedFinancialInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@item.IB_BankName, @item.IB_AccountType</span>
+                        </label>
+                        <label>
+                            Número de Cuenta
+                            <span>@item.IB_AccountNumber</span>
+                        </label>
+                        <label>
+                            Titular de la Cuenta
+                            <span>@item.IB_AccountHolder</span>
+                        </label>
+                        <label>
+                            ABA
+                            <span>@item.IB_ABA</span>
+                        </label>
+                        <label>
+                            SWIFT
+                            <span>@item.IB_Swift</span>
+                        </label>
+                        <label>
+                            IBAN
+                            <span>@item.IB_IBAN</span>
+                        </label>
+                        <label>
+                            Comprador
+                            <span>@item.IB_Customer</span>
+                        </label>
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
+                        </label>
+                    </li>
 
-                <li>Titular de la Cuenta</li>
-                <li>@item.IB_AccountHolder</li>
-
-                <li>ABA</li>
-                <li>@item.IB_ABA</li>
-
-                <li>SWIFT</li>
-                <li>@item.IB_Swift</li>
-
-                <li>IBAN</li>
-                <li>@item.IB_IBAN</li>
-                
-                <li>Comprador</li>
-                <li>@item.IB_Customer</li>
-
-                <li>Certificado</li>
-                <li>
-                    <a target="_blank" href="@item.IB_AccountFile">Ver Archivo</a>
-                </li>
+              }
             }
-        }
-    </ul>
-</div>
-@{
-    Model.RenderScripts = true;
-}
-@section inlinescripts
+        </ul>
+        </div>
+    </div>
+    @{
+        Model.RenderScripts = true;
+    }
+    @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-}
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    }
 
 
 

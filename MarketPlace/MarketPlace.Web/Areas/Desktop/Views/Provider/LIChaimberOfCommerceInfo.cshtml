@@ -19,13 +19,16 @@
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
                     <li>
-                        <label>
-                            Fecha de Constitución
-                            <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()</span>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>Fecha de Expedición del Certificado: @Model.RelatedLegalInfo.Where(x => x.CP_CertificateExpeditionDate != null).Select(x => x.CP_CertificateExpeditionDate).FirstOrDefault()</span>
                         </label>
                         <label>
                             Fecha de Vigencia
                             <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()</span>
+                        </label>
+                        <label>
+                            Fecha de Constitución
+                            <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()</span>
                         </label>
                         <label>
                             Indefinido
@@ -40,32 +43,30 @@
                             <span>@Model.RelatedLegalInfo.Where(x => x.CP_InscriptionNumber != null).Select(x => x.CP_InscriptionNumber).FirstOrDefault()</span>
                         </label>
                         <label>
-                            Certificado de Existencia y Representación Legal
-                            <a class="POMPProviderDocumetIcon" href="@Model.RelatedLegalInfo.Where(x => x.CP_ExistenceAndLegalPersonCertificate != null).Select(x => x.CP_ExistenceAndLegalPersonCertificate).FirstOrDefault()" title=""></a>
-                            <a target="_blank" href="@Model.RelatedLegalInfo.Where(x => x.CP_ExistenceAndLegalPersonCertificate != null).Select(x => x.CP_ExistenceAndLegalPersonCertificate).FirstOrDefault()">Ver Archivo</a>
-                        </label>
-
-                        <label>
-                            Fecha de Expedición del Certificado
-                            <span>@Model.RelatedLegalInfo.Where(x => x.CP_CertificateExpeditionDate != null).Select(x => x.CP_CertificateExpeditionDate).FirstOrDefault()</span>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedLegalInfo.Where(x => x.CP_ExistenceAndLegalPersonCertificate != null).Select(x => x.CP_ExistenceAndLegalPersonCertificate).FirstOrDefault()">Ver Archivo Certificado de Existencia y Representación Legal</a>
                         </label>
                         <label>
                             Objeto Social
                             <span>@Model.RelatedLegalInfo.Where(x => x.CP_SocialObject != null).Select(x => x.CP_SocialObject).FirstOrDefault()</span>
                         </label>
-                        <label>
+                        <label class="POMPProviderDataSubtitle">
                             Socios, Miembros junta directiva, entre otros
                         </label>
                         @foreach (var item in Model.RelatedDesignationsInfo)
                         {
-                            <label>Nombre</label>
-                            <span>@item.CD_PartnerName</span>
+                            <label>
+                                Nombre
+                                <span>@item.CD_PartnerName</span>
+                            </label>
+    <label>
+        Número de Identificación
+        <span>@item.CD_PartnerIdentificationNumber</span>
+    </label>
 
-                            <label>Número de Identificación</label>
-                            <span>@item.CD_PartnerIdentificationNumber</span>
-
-                            <label>Cargo</label>
-                            <span>@item.CD_PartnerRank</span>
+    <label>
+        Cargo
+        <span>@item.CD_PartnerRank</span>
+    </label>
                         }
                     </li>
                 }
