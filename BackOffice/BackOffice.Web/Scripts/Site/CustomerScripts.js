@@ -106,6 +106,7 @@ var Customer_SearchObject = {
     },
 
     SearchEvent: function (vSearchFilter, vSelected) {
+        debugger;
         if (vSearchFilter != null && vSelected != null) {
             if (vSelected == true) {
                 Customer_SearchObject.SearchFilter = vSearchFilter + ',' + Customer_SearchObject.SearchFilter;
@@ -115,6 +116,6 @@ var Customer_SearchObject = {
             }
         }
         var oSearchParam = $('#' + Customer_SearchObject.ObjectId + '_txtSearch').val();
-        window.location = BaseUrl.SiteUrl + 'Provider/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Customer_SearchObject.SearchFilter;
+        window.location = BaseUrl.SiteUrl + 'Customer/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Customer_SearchObject.SearchFilter;
     },
 };
