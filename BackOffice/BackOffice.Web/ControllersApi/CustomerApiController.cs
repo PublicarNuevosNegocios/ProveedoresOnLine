@@ -21,8 +21,7 @@ namespace BackOffice.Web.ControllersApi
             string SearchParam,            
             string PageNumber,
             string RowCount)
-        {
-            
+        {            
             string oCompanyType =
                     ((int)(BackOffice.Models.General.enumCompanyType.Buyer)).ToString() + "," +
                     ((int)(BackOffice.Models.General.enumCompanyType.BuyerProvider)).ToString();
