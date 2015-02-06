@@ -17,7 +17,6 @@ function Provider_SubmitForm(SubmitObject) {
 }
 
 function Provider_Navigate(Url, GridName, ButtonClass) {
-    debugger;
     $('#' + GridName.GridName).data("kendoGrid").saveChanges();
     $('.' + ButtonClass.ButtonClass).attr('href', Url.Url);
 
@@ -1912,7 +1911,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'C_Scope',
                 title: 'Alcance',
-                width: '100px',
+                width: '550px',
             }, {
                 field: 'C_StartDateCertification',
                 title: 'Fecha Certificación',
@@ -3940,7 +3939,6 @@ var Provider_CompanyFinancialObject = {
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
                                         dataType: 'json',
@@ -4180,7 +4178,6 @@ var Provider_LegalInfoObject = {
                     width: '200px',
                     template: function (dataItem) {
                         var oReturn = '';
-                        debugger;
                         if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
                             if (dataItem.CP_PartnerName == '') {
                                 oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>';
@@ -4499,7 +4496,6 @@ var Provider_LegalInfoObject = {
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
                     input.attr('value', options.model[options.field]);
-                    debugger;
                     // append it to the container
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete

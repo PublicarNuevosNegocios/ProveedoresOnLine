@@ -5,14 +5,12 @@ var Customer_SearchObject = {
     PageSize: '',
 
     Init: function (vInitObject) {
-        debugger;
         this.ObjectId = vInitObject.ObjectId;
         this.SearchFilter = vInitObject.SearchFilter;
         this.PageSize = vInitObject.PageSize;
     },
 
     RenderAsync: function () {
-        debugger;
         //init input
         $('#' + Customer_SearchObject.ObjectId + '_txtSearch').keypress(function (e) {
             if (e.which == 13) {
@@ -106,7 +104,6 @@ var Customer_SearchObject = {
     },
 
     SearchEvent: function (vSearchFilter, vSelected) {
-        debugger;
         if (vSearchFilter != null && vSelected != null) {
             if (vSelected == true) {
                 Customer_SearchObject.SearchFilter = vSearchFilter + ',' + Customer_SearchObject.SearchFilter;
