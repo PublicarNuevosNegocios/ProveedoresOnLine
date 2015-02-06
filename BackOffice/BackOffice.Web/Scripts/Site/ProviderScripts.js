@@ -4108,14 +4108,14 @@ var Provider_LegalInfoObject = {
                             LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CP_PartnerName: { editable: true, validation: { required: true } },
-                            CP_PartnerNameId: { editable: false },
+                            CD_PartnerName: { editable: true, validation: { required: true } },
+                            CD_PartnerNameId: { editable: false },
 
-                            CP_PartnerIdentificationNumber: { editable: true, validation: { required: true } },
-                            CP_PartnerIdentificationNumberId: { editable: false },
+                            CD_PartnerIdentificationNumber: { editable: true, validation: { required: true } },
+                            CD_PartnerIdentificationNumberId: { editable: false },
 
-                            CP_PartnerRank: { editable: true, validation: { required: true } },
-                            CP_PartnerRankId: { editable: false },
+                            CD_PartnerRank: { editable: true, validation: { required: true } },
+                            CD_PartnerRankId: { editable: false },
                         },
                     }
                 },
@@ -4208,6 +4208,7 @@ var Provider_LegalInfoObject = {
                         }
                         return oReturn;
                     },
+
                     editor: function (container, options) {
                         $('<input required data-bind="value:' + options.field + '"/>')
                             .appendTo(container)
