@@ -649,9 +649,7 @@ namespace BackOffice.Web.ControllersApi
             if (CategorySearchByBank == "true")
             {
                 oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank
-                    (SearchParam,
-                    0,
-                    0);
+                    (SearchParam,0,0);
             }
             return oReturn;
         }

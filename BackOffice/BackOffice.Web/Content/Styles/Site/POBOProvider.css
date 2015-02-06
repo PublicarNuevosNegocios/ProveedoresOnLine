@@ -76,3 +76,12 @@
     border-color: #af1900;
     border-color: rgba(226,31,0,.5);
 }
+
+.POBOPBuyersListWrapper {
+        border: medium none;
+    display: inline-block;
+    height: auto;
+    margin: 10px auto 0px auto ;
+    min-height: 400px;
+    width: 95.2%;
+}
