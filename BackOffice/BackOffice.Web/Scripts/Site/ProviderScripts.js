@@ -2754,19 +2754,19 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CA_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
-                width: '160px',
+                width: '200px',
             }, {
                 field: 'CA_Fatalities ',
                 title: 'Fatalidades',
                 width: '160px',
             }, {
                 field: 'CA_NumberAccident',
-                title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
-                width: '160px',
+                title: 'Total de Incidentes (excluye Accidentes Incapacitantes)',
+                width: '292px',
             }, {
                 field: 'CA_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
-                width: '160px',
+                width: '260px',
             }, {
                 field: 'CA_DaysIncapacity',
                 title: 'Días de Incapacidad',
@@ -2774,7 +2774,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CA_CertificateAccidentARL',
                 title: 'Certificado de accidentalidad',
-                width: '292px',
+                width: '250px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.CA_CertificateAccidentARL != null && dataItem.CA_CertificateAccidentARL.length > 0) {
