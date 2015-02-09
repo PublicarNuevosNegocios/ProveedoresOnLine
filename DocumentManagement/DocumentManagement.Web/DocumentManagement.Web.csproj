@@ -1063,6 +1063,7 @@
     <Content Include="Views\Shared\_P_FieldMultipleFile.cshtml" />
     <Content Include="Views\LogFile\Index.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\ProviderForm\AdminLogProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -54,6 +54,11 @@ namespace DocumentManagement.Provider.DAL.Controller
             return DataFactory.ProviderSearch(SearchParam, CustomerPublicId, FormPublicId, PageNumber, RowCount, out TotalRows, isUnique);
         }
 
+        public List<LogManager.Models.LogModel> ProviderLog(string ProviderPublicId)
+        {
+            return DataFactory.ProviderLog(ProviderPublicId);
+        }
+
         public Models.Provider.ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
             return DataFactory.ProviderGetByIdentification(IdentificationNumber, IdenificationTypeId, CustomerPublicId);
