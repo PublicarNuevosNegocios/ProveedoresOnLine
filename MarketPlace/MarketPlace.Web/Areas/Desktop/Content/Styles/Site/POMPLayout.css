@@ -13,7 +13,7 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
      text-align:left;
      min-width:1024px;
      display:block;
-     border:1px solid green;
+        border:none;
 }
 div#POMPRenderFooter {
     width:100%;

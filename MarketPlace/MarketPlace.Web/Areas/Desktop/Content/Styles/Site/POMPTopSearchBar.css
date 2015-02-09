@@ -1,6 +1,6 @@
 /********** SEARCH PROVIDER BOX **********/
 .POMPProviderSearchBox{
-    border:1px solid blue;
+        border:none;
     display:block;
     width:62%;
     padding:6px 0px 6px 0px;
