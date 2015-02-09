@@ -39,7 +39,7 @@
                     });
                 }
             },
-        },        
+        },
         columns: [{
             field: "RelatedProvider.ProviderPublicId",
             title: "Id Proveedor",
@@ -75,7 +75,7 @@
             width: 150
         }, {
             field: "codSalesforce",
-            title: "URL SalesForce",         
+            title: "URL SalesForce",
             template: '<a href="${codSalesforce}" target="_blank">Ver lead en Salesfoce</a>',
             width: 150
         }, {
@@ -97,25 +97,24 @@
     $('#' + vidDiv + '_SearchButton').click(function () {
         $('#' + vidDiv).getKendoGrid().dataSource.read();
     });
-    $('#' + cmbCustomer).change(function () {        
+    $('#' + cmbCustomer).change(function () {
         initCmb('Form', cmbCustomer);
     });
 }
 
-function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email,SalesForceCode, CustomerPublicId, ProviderName, infoId)
-{    
+function EditDialog(ProviderPublicId, IdentificationType, IdentificationNumber, Email, SalesForceCode, CustomerPublicId, ProviderName, infoId) {
     $('#EditProviderDialog').show;
     $('#EditProviderDialog').dialog({ title: "Editar Proveedor" });
-    
+
     $('#RazonSocial').val(ProviderName);
     $('#ProviderPublicIdEdit').val(ProviderPublicId);
     $('#TipoIdentificacion').val(IdentificationType);
     $('#NumeroIdentificacion').val(IdentificationNumber);
-    $('#ProviderCustomerIdEdit').val(CustomerPublicId);    
+    $('#ProviderCustomerIdEdit').val(CustomerPublicId);
     $('#Email').val(Email);
-    $('#ProviderInfoIdEdit').val(infoId); 
-    
-    $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi,''));
+    $('#ProviderInfoIdEdit').val(infoId);
+
+    $('#SalesForceCode').val(SalesForceCode.replace(/https:\/\/na2.salesforce.com\//gi, ''));
 }
 
 function initCmb(cmbForm, cmbCustomer) {
@@ -129,7 +128,7 @@ function initCmb(cmbForm, cmbCustomer) {
         success: function (result) {
             $('#' + cmbForm).html('');
             $('#' + cmbForm).append('<option value="' + "" + '">' + " " + '</option>')
-            for (item in result.RelatedForm) {                
+            for (item in result.RelatedForm) {
                 $('#' + cmbForm).append('<option value="' + result.RelatedForm[0].FormPublicId + '">' + result.RelatedForm[0].Name + '</option>')
             }
         },
@@ -138,3 +137,66 @@ function initCmb(cmbForm, cmbCustomer) {
         }
     });
 }
+
+var L_AdminLogProvider = {
+    DivId: '',
+    ProviderPublicId: '',
+    DateFormat: '',
+
+    Init: function (vInitObject) {
+        this.DivId = vInitObject.DivId;
+        this.ProviderPublicId = vInitObject.ProviderPublicId;
+        this.DateFormat = vInitObject.DateFormat;
+    },
+
+    RenderAsync: function () {
+        $('#' + L_AdminLogProvider.DivId).kendoGrid({
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            dataSource: {
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].oTotalRows;
+                        }
+                        return 0;
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?ProviderLog=true&ProviderPublicId=' + L_AdminLogProvider.ProviderPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                debugger;
+                                if (result != null) {
+                                    options.success(result);
+                                }                                
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            },
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'User',
+                title: 'Usuario',
+            }, {
+                field: 'CreateDate',
+                title: 'Fecha de Creación',
+                format: L_AdminLogProvider.DateFormat,
+            }, {
+                field: 'RelatedLogInfo[0].Value',
+                title: 'Campo Editado',
+            }, {
+                field: 'Source',
+                title: 'Url Formulario',
+                template: '<a target="_blank" href="${Source}">Ir al Formulario</a>'
+            }]
+        });
+    },
+};

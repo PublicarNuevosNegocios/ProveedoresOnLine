@@ -136,6 +136,23 @@ namespace DocumentManagement.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminLogProvider(string ProviderPublicId, string FormPublicId)
+        {
+            ProviderFormModel oModel = new ProviderFormModel()
+            {
+                ProviderOptions = DocumentManagement.Provider.Controller.Provider.CatalogGetProviderOptions(),
+                RealtedCustomer = DocumentManagement.Customer.Controller.Customer.CustomerGetByFormId(FormPublicId),
+                RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetById(ProviderPublicId, null),
+            };
+
+            oModel.RealtedForm = oModel.RealtedCustomer.
+                RelatedForm.
+                Where(x => x.FormPublicId == FormPublicId).
+                FirstOrDefault();
+
+            return View(oModel);
+        }
+
         public virtual ActionResult UpsertAdminProvider(string ProviderPublicId, string FormPublicId)
         {
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"] == "true")
