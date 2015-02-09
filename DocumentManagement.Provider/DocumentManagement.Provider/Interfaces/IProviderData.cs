@@ -16,6 +16,8 @@ namespace DocumentManagement.Provider.Interfaces
 
         List<DocumentManagement.Provider.Models.Provider.ProviderModel> ProviderSearch(string SearchParam, string CustomerPublicId, string FormPublicId, int PageNumber, int RowCount, out int TotalRows, bool isUnique);
 
+        List<LogManager.Models.LogModel> ProviderLog(string ProviderPublicId);
+
         DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId);
 
         DocumentManagement.Provider.Models.Provider.ProviderModel ProviderGetById(string ProviderPublicId, int? StepId);

@@ -171,6 +171,59 @@ namespace DocumentManagement.Provider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<LogManager.Models.LogModel> ProviderLog(string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "P_ProviderLog_ByPublicId",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<LogManager.Models.LogModel> oReturn = null;
+
+            if (response.DataTableResult != null && 
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from l in response.DataTableResult.AsEnumerable()
+                     where !l.IsNull("LogId")
+                     group l by new
+                     {
+                         LogId = l.Field<int>("LogId"),
+                         User = l.Field<string>("User"),
+                         Source = l.Field<string>("Source"),
+                         LogInfoId = l.Field<int>("LogInfoId"),
+                         LogInfoType = l.Field<string>("LogInfoType"),
+                         Name = l.Field<string>("Name"),
+                         CreateDate = l.Field<DateTime>("CreateDate"),
+                     }
+                         into li
+                         select new LogManager.Models.LogModel()
+                         {
+                             LogId = li.Key.LogId,
+                             User = li.Key.User,
+                             Source = li.Key.Source,
+                             CreateDate = li.Key.CreateDate,
+                             RelatedLogInfo = new List<LogManager.Models.LogInfoModel>()
+                             {
+                                 new LogManager.Models.LogInfoModel()
+                                 {
+                                     LogInfoId = li.Key.LogInfoId,
+                                     LogInfoType = li.Key.LogInfoType,
+                                     Value = li.Key.Name,
+                                 }
+                             }
+                         }).ToList();                           
+            }
+            return oReturn;
+        }
+
         public ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
