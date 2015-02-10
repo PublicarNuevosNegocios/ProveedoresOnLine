@@ -50,7 +50,7 @@ namespace BackOffice.Models.Provider
             CP_CustomerPublicId = oRelatedCompany.CompanyPublicId;
             CP_Customer = oRelatedCompany.CompanyName;
             CP_Status = oRelatedStatus.ItemName;
-            CP_Enable = Enable.ToString();
+            CP_Enable = oEnable.ToString();
         }
 
         public ProviderCustomerViewModel(GenericItemInfoModel oRelatedCustomerProviderInfo)
