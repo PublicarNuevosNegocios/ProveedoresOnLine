@@ -10,26 +10,61 @@
 }
 .POMPComparisonActionWrapper {
     display:block;
-    border:1px solid green;
+        border:none;
     width:auto; height:auto;
     margin:0px; padding:0px;
 }
     .POMPComparisonActionWrapper a{
         display:inline-block;
-        border:1px solid green;
+        /*border:1px solid green;*/
         width:auto; height:auto;
         margin:0px; padding:0px;
         text-align:center;
         vertical-align:top;
     }
-        .POMPComparisonActionWrapper a div{
-            display:block;
-            border:1px solid green;
-            width:42px; height:42px;
-            margin:0px auto; padding:0px;
+    /********* ESTAS SON LAS DIFERENTES ACCIONES DE LA LISTA DE COMPARACION ********/
+    .POMPComparisonActionSave,
+    .POMPComparisonActionEdit,
+    .POMPComparisonActionOpen,
+    .POMPComparisonActionCompare,
+    .POMPComparisonActionNewComparison{
+        display:block;
+        /*border:1px solid green;*/
+        width:30px; height:31px;
+        margin:0px auto; padding:0px;
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+    }
+    .POMPComparisonActionSave{        
+        background-repeat:no-repeat;
+        background-position:-70px -35px;
+        background-size:132px auto;
+    }
+    .POMPComparisonActionEdit{        
+        background-repeat:no-repeat;
+        background-position:-37px -37px;
+        background-size:140px auto;
+    }
+    .POMPComparisonActionOpen{        
+        background-repeat:no-repeat;
+        background-position:-68px -2px;
+        background-size:132px auto;
+    }
+    .POMPComparisonActionCompare{        
+        background-repeat:no-repeat;
+        background-position:-115px -3px;
+        background-size:148px auto;
+    }
+    .POMPComparisonActionNewComparison{        
+        background-repeat:no-repeat;
+        background-position:-2px -33px;
+        background-size:128px auto;
+    }
+        .POMPComparisonActionNew span{
+            display:block !important;
+            line-height:11px !important;
         }
         .POMPComparisonActionWrapper a span{
-            border:1px solid blue;
+            /*border:1px solid blue;*/
             width:auto; height:auto;
             margin:0px; padding:0px;
             color:#337ab7;
@@ -73,10 +108,11 @@
         background-size:151px auto;
     }
         .POMPComparisonResultProvLogo {
-            border:1px solid brown;
+            border:1px solid #999;
             display:inline-block;
             width:60px; height:auto;
             vertical-align:middle;
+            padding:2px;
         }
         .POMPComparisonResultProvDataWrapper {
             border:1px solid purple;

@@ -32,7 +32,7 @@
 
 <div class="POMPSearchResultLineTwo">
 
-    <div class="POMPSearchResultProvRating">@Model.ProviderRate</div>
+    <div class="POMPSearchResultProvRating">* * * * * * @Model.ProviderRate</div>
 
     @*@if (Model.ProviderRate != null)
     {}*@
@@ -51,9 +51,7 @@
                         {
                             controller = MVC.Provider.Name,
                             action = MVC.Provider.ActionNames.GIProviderInfo,
-                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-                Ver detalle
-            </a>
+                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">Ver detalle</a>
             @*Actions for not related provider *@
             <a href="" title="">Hacerlo mi proveedor</a>
         </div>

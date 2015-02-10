@@ -14,13 +14,13 @@
     .POMPSearchResultsPager ul,
     .POMPSearchResultsOrder ul{
         display:inline-block;
-        border:1px solid red;
+        /*border:1px solid red;*/
         margin:0px; padding:0px;
     }
         .POMPSearchResultsPager ul li,
         .POMPSearchResultsOrder ul li{
             display:inline-block;
-            border:1px solid purple;
+            /*border:1px solid purple;*/
         }
         .POMPSearchResultsPager ul li a{
             font-size:1.3em;
@@ -43,15 +43,14 @@
     margin:0px; padding:0px 24px;
 }
     .POMPSearchResultsList li{
-        border-bottom:1px solid #ececec;
         list-style-type:none;
         margin:0px 0px 12px 0px;
     }
         .POMPSearchResultsList li a{
-            border:1px solid blue;
+            /*border:1px solid blue;*/
         }
         .POMPSearchResultsList li span{
-            border:1px solid green;
+            /*border:1px solid green;*/
         }
 /*********** ENLACES **********/
 .selected {
@@ -59,7 +58,7 @@
 }
 /************** MUESTRA CADA RESULTADO ***************/
 .POMPSearchResultLineOne {
-    border:1px solid red;
+        /*border:1px solid red;*/
     display:block;
     margin:0px; padding:0px;
     width:100%; height:auto;
@@ -76,26 +75,27 @@
         background-size:273px auto;
     }
         .POMPSearchResultProvLogo {
-            border:1px solid brown;
+            border:1px solid #999;
             display:inline-block;
             width:98px; height:auto;
             vertical-align:middle;
+            padding:2px;
         }
         .POMPSearchResultProvDataWrapper {
-            border:1px solid purple;
+            /*border:1px solid purple;*/
             display:inline-block;
             width:auto; height:auto;
             vertical-align:top;
             max-width:350px;
         }
             .POMPSearchResultProvDataWrapper a{
-                border:1px solid purple;
+                /*border:1px solid purple;*/
                 display:block;
                 font-size:1.26em; line-height:1.1em; font-weight:normal;
                 letter-spacing:-0.8px;
             }
             .POMPSearchResultProvDataWrapper label, .POMPSearchResultProvDataWrapper span{
-                border:1px solid green;                
+                /*border:1px solid green;*/                
                 font-size:1em; line-height:1.3em; font-weight:normal;
                 letter-spacing:-0.6px;
                 color:#4d4d4d;
@@ -135,16 +135,19 @@
         border:1px solid red;
         display:inline-block;
         width:98px; height:24px;
-        margin:6px 0px 0px 73px;
+        margin:6px 0px 0px 60px;
+        text-align:center;
     }
         .POMPSearchResultProvActions{
-            border:1px solid orange;
+            /*border:1px solid orange;*/
             float:right;
             margin:6px 10px 0px 0px;
         }
         div.POMPSearchResultProvActions a{
             border-right:1px solid #666;
-            margin:0px 0px 0px 7px;
+            margin:0px auto 0px -3px;
+            padding:0px 4px;
+            font-size:0.9em;
         }
         div.POMPSearchResultProvActions a:nth-child(3){
             border-right:none;
