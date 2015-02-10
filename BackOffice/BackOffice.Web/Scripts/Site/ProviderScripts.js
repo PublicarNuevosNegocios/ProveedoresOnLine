@@ -300,9 +300,20 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
-                field: 'ContactName',
-                title: 'Nombre',
-                width: '400px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CC_CompanyContactType',
                 title: 'Tipo de contacto',
@@ -359,21 +370,15 @@ var Provider_CompanyContactObject = {
 
                     return oReturn;
                 },
+                width: '190px',
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'ContactName',
+                title: 'Nombre',
+                width: '400px',
+            }, {
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '400px',
             }],
         });
     },
@@ -480,6 +485,21 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'ContactName',
                 title: 'Nombre',
                 width: '200px',
@@ -620,20 +640,9 @@ var Provider_CompanyContactObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '400px',
             }],
         });
     },
@@ -741,9 +750,20 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
-                field: 'ContactName',
-                title: 'Nombre',
-                width: '200px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Representative',
                 title: 'Representante',
@@ -833,20 +853,13 @@ var Provider_CompanyContactObject = {
                 title: 'Longitud',
                 width: '200px',
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'ContactName',
+                title: 'Nombre',
+                width: '200px',
+            }, {
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '400px',
             }],
         });
     },
@@ -952,6 +965,21 @@ var Provider_CompanyContactObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'ContactName',
                 title: 'Razón social',
                 width: '200px',
@@ -1125,20 +1153,9 @@ var Provider_CompanyContactObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '400px',
             }],
         });
     },
@@ -1306,8 +1323,8 @@ var Provider_CompanyCommercialObject = {
                 },
             },
             columns: [{
-                field: 'CommercialName',
-                title: 'Nombre',
+                field: 'CommercialId',
+                title: 'Id Interno',
                 width: '200px',
             }, {
                 field: 'EX_Client',
@@ -1624,6 +1641,10 @@ var Provider_CompanyCommercialObject = {
                     }
                     return oReturn;
                 },
+            }, {
+                field: 'CommercialName',
+                title: 'Nombre',
+                width: '200px',
             }],
         });
     },
@@ -1795,9 +1816,20 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
-                field: 'CertificationName',
-                title: 'Nombre',
-                width: '190px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'C_CertificationCompanyName',
                 title: 'Empresa Certificadora',
@@ -1991,20 +2023,13 @@ var Provider_CompanyHSEQObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'CertificationName',
+                title: 'Nombre',
+                width: '190px',
+            }, {
+                field: 'CertificationId',
+                title: 'Id Interno',
+                width: '190px',
             }],
         });
     },
@@ -2624,7 +2649,11 @@ var Provider_CompanyHSEQObject = {
                         }
                     });
                 },
-            }],
+            }, {
+                field: 'CertificationId',
+                title: 'Id Interno',
+                width: '190px',
+            }, ],
         });
     },
 
@@ -2825,7 +2854,11 @@ var Provider_CompanyHSEQObject = {
                         }
                     });
                 },
-            }],
+            }, {
+                field: 'CertificationId',
+                title: 'Id Interno',
+                width: '190px',
+            }, ],
         });
     },
 
@@ -3005,9 +3038,20 @@ var Provider_CompanyFinancialObject = {
                 }
             },
             columns: [{
-                field: 'FinancialName',
-                title: 'Nombre',
-                width: '180px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SH_Year',
                 title: 'Año',
@@ -3029,21 +3073,14 @@ var Provider_CompanyFinancialObject = {
                     return oReturn;
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
-            }],
+                field: 'FinancialName',
+                title: 'Nombre',
+                width: '180px',
+            }, {
+                field: 'FinancialName',
+                title: 'Nombre',
+                width: '180px',
+            }, ],
         });
     },
 
@@ -3420,6 +3457,21 @@ var Provider_CompanyFinancialObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'TX_Year',
                 title: 'Año',
                 template: function (dataItem) {
@@ -3496,6 +3548,10 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
+            }, {
+                field: 'FinancialId',
+                title: 'Id Interno',
+                width: '100px',
             }],
         });
     },
@@ -3593,6 +3649,21 @@ var Provider_CompanyFinancialObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'IS_Year',
                 title: 'Año',
                 width: '80px',
@@ -3687,6 +3758,10 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
+            }, {
+                field: 'FinancialId',
+                title: 'Id Interno',
+                width: '100px',
             }],
         });
     },
@@ -3794,6 +3869,21 @@ var Provider_CompanyFinancialObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'IB_BankName',
                 title: 'Banco',
                 width: '190px',
@@ -4009,6 +4099,10 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
+            }, {
+                field: 'FinancialId',
+                title: 'Id Interno',
+                width: '100px',
             }],
         });
     },
@@ -4171,70 +4265,73 @@ var Provider_LegalInfoObject = {
                     },
                 },
             },
-            columns: [
-                {
-                    field: 'CD_PartnerName',
-                    title: 'Nombre',
-                    width: '200px',
-                    template: function (dataItem) {
-                        var oReturn = '';
-                        if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
-                            if (dataItem.CP_PartnerName == '') {
-                                oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>';
+            columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'CD_PartnerName',
+                title: 'Nombre',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
+                        if (dataItem.CP_PartnerName == '') {
+                            oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>';
+                        }
+                    }
+                    else {
+                        oReturn = dataItem.CD_PartnerName;
+                    }
+
+                    return oReturn;
+                },
+            }, {
+                field: 'CD_PartnerIdentificationNumber',
+                title: 'Número de Identificación',
+                width: '180px',
+            }, {
+                field: 'CD_PartnerRank',
+                title: 'Cargo',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.CD_PartnerRank != null) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[219], function (item, value) {
+                            if (dataItem.CD_PartnerRank == value.ItemId) {
+                                oReturn = value.ItemName;
                             }
-                        }
-                        else {
-                            oReturn = dataItem.CD_PartnerName;
-                        }
+                        });
+                    }
+                    return oReturn;
+                },
 
-                        return oReturn;
-                    },
-                }, {
-                    field: 'CD_PartnerIdentificationNumber',
-                    title: 'Número de Identificación',
-                    width: '180px',
-                }, {
-                    field: 'CD_PartnerRank',
-                    title: 'Cargo',
-                    width: '200px',
-                    template: function (dataItem) {
-                        var oReturn = 'Seleccione una opción.';
-                        if (dataItem != null && dataItem.CD_PartnerRank != null) {
-                            $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[219], function (item, value) {
-                                if (dataItem.CD_PartnerRank == value.ItemId) {
-                                    oReturn = value.ItemName;
-                                }
-                            });
-                        }
-                        return oReturn;
-                    },
-
-                    editor: function (container, options) {
-                        $('<input required data-bind="value:' + options.field + '"/>')
-                            .appendTo(container)
-                            .kendoDropDownList({
-                                dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[219],
-                                dataTextField: 'ItemName',
-                                dataValueField: 'ItemId',
-                                optionLabel: 'Seleccione una opción'
-                            });
-                    },
-                }, {
-                    field: 'Enable',
-                    title: 'Visible en Market Place',
-                    width: '170px',
-                    template: function (dataItem) {
-                        var oReturn = '';
-
-                        if (dataItem.Enable == true) {
-                            oReturn = 'Si'
-                        }
-                        else {
-                            oReturn = 'No'
-                        }
-                        return oReturn;
-                    },
-                }],
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[219],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '100px',
+            }],
         });
     },
 
@@ -4355,9 +4452,20 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
-                field: 'LegalName',
-                title: 'Nombre',
-                width: '200px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'R_PersonType',
                 title: 'Tipo de Persona',
@@ -4696,21 +4804,10 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
-            }],
+                field: 'LegalName',
+                title: 'Nombre',
+                width: '200px',
+            }, ],
         });
     },
 
@@ -4798,6 +4895,21 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'CF_QueryDate',
                 title: 'Fecha de Consulta',
                 width: '160px',
@@ -4866,20 +4978,9 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '100px',
             }],
         });
     },
@@ -4967,7 +5068,22 @@ var Provider_LegalInfoObject = {
                     },
                 },
             },
-            columns: [{
+            columns: [ {
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            },{
                 field: 'SF_ProcessDate',
                 title: 'Fecha de Diligenciamiento',
                 width: '200px',
@@ -5058,20 +5174,9 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '100px',
             }],
         });
     },
@@ -5166,6 +5271,21 @@ var Provider_LegalInfoObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'RS_EntityType',
                 title: 'Tipo de Entidad',
                 width: '300px',
@@ -5269,22 +5389,11 @@ var Provider_LegalInfoObject = {
                         }
                     });
                 },
-            }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
-            }, ],
+            },  {
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '100px',
+            }],
         });
     },
 
