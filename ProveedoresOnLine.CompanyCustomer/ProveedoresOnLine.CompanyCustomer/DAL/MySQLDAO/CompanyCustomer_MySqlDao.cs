@@ -168,7 +168,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {
                     CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "GetCustomerInfoByProvider",
+                    CommandText = "CC_GetCustomerInfoByProvider",
                     CommandType = CommandType.StoredProcedure,
                     Parameters = lstParams,
                 });
@@ -179,53 +179,43 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
-                    (from ci in response.DataTableResult.AsEnumerable()
-                     where !ci.IsNull("CustomerProviderInfoId")
-                     group ci by new
+                    (from cpi in response.DataTableResult.AsEnumerable()
+                     where !cpi.IsNull("CustomerProviderInfoId")
+                     group cpi by new
                      {
-                         CustomerProviderInfoId = ci.Field<int>("CustomerProviderInfoId"),
+                         CustomerProviderInfoId = cpi.Field<int>("CustomerProviderInfoId"),
+                         CustomerProviderId = cpi.Field<int>("CustomerProviderId"),
+                         TrackingId = cpi.Field<int>("TrackingId"),
+                         TrackingName = cpi.Field<string>("TrackingName"),
+                         TrackingValue = cpi.Field<string>("TrackingValue"),
+                         Enable = cpi.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = cpi.Field<DateTime>("LastModify"),
                      }
-                         into cii
-                         select new CompanyCustomer.Models.Customer.CustomerModel()
+                         into cpinf
+                         select new CompanyCustomer.Models.Customer.CustomerModel() 
                          {
-                             RelatedProvider =
-                             (from rp in response.DataTableResult.AsEnumerable()
-                              where !rp.IsNull("CustomerProviderId")
-                              group rp by new
-                              {
-                                  CustomerProviderId = rp.Field<int>("CustomerProviderId"),
-                              }
-                                  into rpi
-                                  select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
-                                  {
-                                      CustomerProviderId = rpi.Key.CustomerProviderId,
-                                      CustomerProviderInfo =
-                                      (from cpi in response.DataTableResult.AsEnumerable()
-                                       where !cpi.IsNull("CustomerProviderInfoId")
-                                       group cpi by new
-                                       {
-                                           CustomerProviderInfoId = cpi.Field<int>("CustomerProviderInfoId"),
-                                           CustomerProviderId = cpi.Field<int>("CustomerProviderId"),
-                                           TrackingId = cpi.Field<int>("TrackingId"),
-                                           TrackingName = cpi.Field<string>("TrackingName"),
-                                           TrackingValue = cpi.Field<string>("TrackingValue"),
-                                           Enable = cpi.Field<UInt64>("Enable") == 1 ? true : false,
-                                           LastModify = cpi.Field<DateTime>("LastModify"),
-                                       }
-                                       into cpii
-                                           select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                           {
-                                               ItemInfoId = cpii.Key.CustomerProviderInfoId,
-                                               ItemInfoType = new Company.Models.Util.CatalogModel()
-                                               {
-                                                   ItemId = cpii.Key.TrackingId,
-                                                   ItemName = cpii.Key.TrackingName
-                                               },
-                                               Value = cpii.Key.TrackingValue,
-                                               Enable = cpii.Key.Enable,
-                                               LastModify = cpii.Key.LastModify,
-                                           }).ToList(),
-                                  }).ToList(),
+                             RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
+                             {
+                                 new Models.Customer.CustomerProviderModel()
+                                 {
+                                     CustomerProviderId = cpinf.Key.CustomerProviderId,
+                                     CustomerProviderInfo = new List<Company.Models.Util.GenericItemInfoModel>()
+                                     {
+                                         new Company.Models.Util.GenericItemInfoModel()
+                                         {
+                                             ItemInfoId = cpinf.Key.CustomerProviderInfoId,
+                                             ItemInfoType = new Company.Models.Util.CatalogModel()
+                                             {
+                                                 ItemId = cpinf.Key.TrackingId,
+                                                 ItemName = cpinf.Key.TrackingName,
+                                             },
+                                             Value = cpinf.Key.TrackingValue,
+                                             Enable = cpinf.Key.Enable,
+                                             LastModify = cpinf.Key.LastModify,
+                                         },
+                                     },
+                                 },
+                             },
                          }).ToList();
             }
             return oReturn;
