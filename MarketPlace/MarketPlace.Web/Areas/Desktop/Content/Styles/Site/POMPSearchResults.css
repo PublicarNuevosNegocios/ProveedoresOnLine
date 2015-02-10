@@ -29,8 +29,11 @@
         }
 /******* MUESTRA EL ORDENAMIENTO *******/
 .POMPSearchResultsOrder {
-    padding:0px 0px 12px 24px;
-    text-align:left;
+    border-bottom: 1px solid #ff8300;
+    margin: 0 auto 10px;
+    padding: 0 0 6px 6px;
+    text-align: left;
+    width: 93%;
 }
         .POMPSearchResultsOrder ul li span{
             font-size:1.12em;

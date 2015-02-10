@@ -78,11 +78,13 @@
             font-size: 1.12em !important;
             letter-spacing: -1px !important;
             line-height: 1em !important;
+            margin: 17px auto !important;
+            max-width: none;
         }
 /********** MUESTRA LA LISTA DE PROVEEDORES SELECCIONADOS PARA COMPARACION **********/
 .POMPComparisonProvListWrapper {
             display:block;
-        border:1px solid green;
+        /*border:1px solid green;*/
         width:auto; height:auto;
         margin:0px; padding:0px;
 }
@@ -91,7 +93,7 @@
             margin:0px 0px 10px 0px;
         }
 .POMPComparisonResultLineOne {
-    border:1px solid red;
+    /*border:1px solid red;*/
     display:block;
     margin:0px; padding:0px;
     width:100%; height:auto;
@@ -115,20 +117,20 @@
             padding:2px;
         }
         .POMPComparisonResultProvDataWrapper {
-            border:1px solid purple;
+            /*border:1px solid purple;*/
             display:inline-block;
             width:auto; height:auto;
             vertical-align:top;
             max-width:170px;
         }
             .POMPComparisonResultProvDataWrapper a{
-                border:1px solid purple;
+                /*border:1px solid purple;*/
                 display:block;
-                font-size:1.1em; line-height:1.1em; font-weight:normal;
+                font-size:1em; line-height:1.1em; font-weight:normal;
                 letter-spacing:-0.8px;
             }
             .POMPComparisonResultProvDataWrapper label, .POMPComparisonResultProvDataWrapper span{
-                border:1px solid green;                
+                /*border:1px solid green;*/                
                 font-size:0.9em; line-height:1.3em; font-weight:normal;
                 letter-spacing:-0.1px;
                 color:#4d4d4d;
@@ -167,11 +169,11 @@
     .POMPComparisonResultProvRating{
         border:1px solid red;
         display:inline-block;
-        width:84px; height:24px;
-        margin:4px 0px 0px 23px;
+        width:74px; height:20px;
+        margin:4px 0px 0px 28px;
     }
         .POMPComparisonResultProvActions{
-            border:1px solid orange;
+            /*border:1px solid orange;*/
             display:block;
             margin:4px 0px 0px 0px;
             font-size:0.8em;
