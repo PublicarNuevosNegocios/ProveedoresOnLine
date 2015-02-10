@@ -1080,21 +1080,6 @@ namespace BackOffice.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
-                //Person contact info
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Información de personas de contacto",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GIPersonContactUpsert,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 2,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactUpsert &&
-                        oCurrentController == MVC.Provider.Name),
-                });
-
-
                 //Branch info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
@@ -1103,12 +1088,26 @@ namespace BackOffice.Web.Controllers
                         (MVC.Provider.ActionNames.GIBranchUpsert,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 3,
+                    Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIBranchUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
+                //Person contact info
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Información de personas de contacto",
+                    Url = Url.Action
+                        (MVC.Provider.ActionNames.GIPersonContactUpsert,
+                        MVC.Provider.Name,
+                        new { ProviderPublicId = vProviderInfo.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Position = 3,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactUpsert &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+              
                 //Distributor info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {

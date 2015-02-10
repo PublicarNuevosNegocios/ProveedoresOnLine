@@ -2096,7 +2096,9 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oCustomerByProvider != null)
                 {
-                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
+
+                    //oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();                   
 
                     if (CustomerSearch != null && oCustomerProvider != null)
                     {
