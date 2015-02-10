@@ -85,43 +85,38 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 {
 
                     oReturn =
-                        (from p in response.DataTableResult.AsEnumerable()
-                         where !p.IsNull("CustomerProviderId")
-                         group p by new
+                        (from cp in response.DataTableResult.AsEnumerable()
+                         where !cp.IsNull("CustomerProviderId")
+                         group cp by new
                          {
-                             CustomerProviderId = p.Field<int>("CustomerProviderId"),
+                             CustomerProviderId = cp.Field<int>("CustomerProviderId"),
+                             CompanyPublicId = cp.Field<string>("CompanyPublicId"),
+                             CompanyName = cp.Field<string>("CompanyName"),
+                             Status = cp.Field<int>("Status"),
+                             StatusName = cp.Field<string>("StatusName"),
+                             Enable = cp.Field<UInt64>("Enable") == 1 ? true : false,
                          }
-                             into pp
+                             into cpi
                              select new CompanyCustomer.Models.Customer.CustomerModel()
-                             {
-                                 RelatedProvider =
-                                 (from c in response.DataTableResult.AsEnumerable()
-                                  where !c.IsNull("CustomerProviderId")
-                                  group c by new
-                                  {
-                                      CustomerProviderId = c.Field<int>("CustomerProviderId"),
-                                      CustomerPublicId = c.Field<string>("CompanyPublicId"),
-                                      Customer = c.Field<string>("Customer"),
-                                      Status = c.Field<int>("Status"),
-                                      StatusName = c.Field<string>("StatusName"),
-                                      Enable = c.Field<UInt64>("Enable") == 1 ? true : false,
-                                  }
-                                      into cc
-                                      select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
-                                      {
-                                          CustomerProviderId = cc.Key.CustomerProviderId,
-                                          RelatedProvider = new Company.Models.Company.CompanyModel()
-                                          {
-                                              CompanyPublicId = cc.Key.CustomerPublicId,
-                                              CompanyName = cc.Key.Customer,
-                                          },
-                                          Status = new Company.Models.Util.CatalogModel()
-                                          {
-                                              ItemId = cc.Key.Status,
-                                              ItemName = cc.Key.StatusName,
-                                          },
-                                          Enable = cc.Key.Enable,
-                                      }).ToList(),
+                             {                                 
+                                 RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
+                                 {
+                                     new Models.Customer.CustomerProviderModel()
+                                     {
+                                         CustomerProviderId = cpi.Key.CustomerProviderId,
+                                         RelatedProvider = new Company.Models.Company.CompanyModel()
+                                         {
+                                             CompanyPublicId = cpi.Key.CompanyPublicId,
+                                             CompanyName = cpi.Key.CompanyName,
+                                         },
+                                         Status = new Company.Models.Util.CatalogModel()
+                                         {
+                                             ItemId = cpi.Key.Status,
+                                             ItemName = cpi.Key.StatusName,
+                                         },
+                                         Enable = cpi.Key.Enable,
+                                     }
+                                 }
                              }).ToList();
                 }
                 else
