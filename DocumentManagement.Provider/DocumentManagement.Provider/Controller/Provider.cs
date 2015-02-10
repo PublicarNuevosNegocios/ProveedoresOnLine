@@ -111,6 +111,11 @@ namespace DocumentManagement.Provider.Controller
             return DAL.Controller.ProviderDataController.Instance.ProviderSearch(SearchParam, CustomerPublicId, FormPublicId, PageNumber, RowCount, out TotalRows, isUnique);
         }
 
+        public static List<LogManager.Models.LogModel> ProviderLog(string ProviderPublicId)
+        {
+            return DAL.Controller.ProviderDataController.Instance.ProviderLog(ProviderPublicId);
+        }
+
         public static ProviderModel ProviderGetByIdentification(string IdentificationNumber, int IdenificationTypeId, string CustomerPublicId)
         {
             return DAL.Controller.ProviderDataController.Instance.ProviderGetByIdentification(IdentificationNumber, IdenificationTypeId, CustomerPublicId);

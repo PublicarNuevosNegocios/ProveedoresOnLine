@@ -61,5 +61,21 @@ namespace DocumentManagement.Web.ControllersApi
 
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public List<LogManager.Models.LogModel> ProviderLogByPublicId
+        (string ProviderLog,
+            string ProviderPublicId)
+        {
+            List<LogManager.Models.LogModel> oReturn = null;
+
+            if (ProviderLog == "true")
+            {
+                oReturn = DocumentManagement.Provider.Controller.Provider.ProviderLog(ProviderPublicId);
+            }
+
+            return oReturn;
+        }
     }
 }

@@ -2,7 +2,7 @@
 .POMProviderSearchGreatWrapper {
     display:block;
     width:100%;
-    border:1px solid orange;
+        border:none;
 }
 /*********** MUESTRA LOS FILTROS LATERALES EN RESULTADOS ***********/
  .POMPProviderFilterMenuWrapper {

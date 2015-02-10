@@ -62,5 +62,14 @@ namespace DocumentManagement.Provider_Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
+        [TestMethod]
+        public void ProviderLogByPublicId()
+        {
+            List<LogManager.Models.LogModel> oReturn = DocumentManagement.Provider.Controller.Provider.ProviderLog
+                ("73D4E957");
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
     }
 }
