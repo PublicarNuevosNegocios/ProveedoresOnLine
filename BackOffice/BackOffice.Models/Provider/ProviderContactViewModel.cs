@@ -84,6 +84,9 @@ namespace BackOffice.Models.Provider
         public string BR_Longitude { get; set; }
         public string BR_LongitudeId { get; set; }
 
+        public bool BR_IsPrincipal { get; set; }
+        public string BR_IsPrincipalId { get; set; }
+
         #endregion
 
         #region Distributor
@@ -352,6 +355,17 @@ namespace BackOffice.Models.Provider
                 FirstOrDefault();
             BR_LongitudeId = RelatedContact.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Longitude).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            BR_IsPrincipal = RelatedContact.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_IsPrincipal).
+               Select(y => y.Value == "1" ? true:false).
+               DefaultIfEmpty().
+               FirstOrDefault();
+            BR_IsPrincipalId = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_IsPrincipal).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();

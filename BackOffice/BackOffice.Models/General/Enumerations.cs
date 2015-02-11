@@ -93,7 +93,6 @@
         Buyer = 202001,
         Provider = 202002,
         BuyerProvider = 202003,
-
     }
 
     /// <summary>
@@ -147,6 +146,7 @@
         BR_Website = 207007,
         BR_Latitude = 207008,
         BR_Longitude = 207009,
+        BR_IsPrincipal = 207010,
 
         //Distributor
         DT_DistributorType = 208001,

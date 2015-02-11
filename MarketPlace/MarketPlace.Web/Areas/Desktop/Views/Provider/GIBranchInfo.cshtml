@@ -46,17 +46,21 @@
                             Página Web
                             <span><a href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
                         </label>
+                        <label>
+                            Sucursal Principal
+                            <span>@item.BR_IsPrincipal</span>
+                        </label>
                     </li>
                 }
             }
         </ul>
     </div>
 </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 

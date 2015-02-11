@@ -53,7 +53,7 @@ namespace MarketPlace.Models.Provider
         public string BR_Website { get; set; }
         public string BR_Latitude { get; set; }
         public string BR_Longitude { get; set; }
-
+        public string BR_IsPrincipal { get; set; }
         #endregion
 
         #region Distributor
@@ -205,6 +205,12 @@ namespace MarketPlace.Models.Provider
                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Website).
                Select(y => y.Value).
                DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+
+            BR_IsPrincipal = oRelatedInfo.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.BR_IsPrincipal).
+               Select(y => y.Value == "1" ? "Si" : "No").
+               DefaultIfEmpty("No").
                FirstOrDefault();
 
             #endregion
