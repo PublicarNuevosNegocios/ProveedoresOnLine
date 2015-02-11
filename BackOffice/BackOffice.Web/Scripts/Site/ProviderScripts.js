@@ -397,7 +397,7 @@ var Provider_CompanyContactObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: '', template: '<label>Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderPersonContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -664,7 +664,7 @@ var Provider_CompanyContactObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: '', template: '<label>Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderBranch, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -883,7 +883,7 @@ var Provider_CompanyContactObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: '', template: '<label>Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderDistributor, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -1236,7 +1236,7 @@ var Provider_CompanyCommercialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: '', template: '<label>Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyCommercialObject.RenderExperience, Provider_CompanyCommercialObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -1286,7 +1286,7 @@ var Provider_CompanyCommercialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType + '&ViewEnable=' + Provider_CompanyCommercialObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1336,10 +1336,21 @@ var Provider_CompanyCommercialObject = {
                 },
             },
             columns: [{
-                field: 'CommercialId',
-                title: 'Id Interno',
-                width: '200px',
-            }, {
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            },  {
                 field: 'EX_Client',
                 title: 'Cliente',
                 width: '200px',
@@ -1640,25 +1651,14 @@ var Provider_CompanyCommercialObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
-                template: function (dataItem) {
-                    var oReturn = '';
-
-                    if (dataItem.Enable == true) {
-                        oReturn = 'Si'
-                    }
-                    else {
-                        oReturn = 'No'
-                    }
-                    return oReturn;
-                },
-            }, {
                 field: 'CommercialName',
                 title: 'Nombre',
                 width: '200px',
-            }],
+            },{
+                field: 'CommercialId',
+                title: 'Id Interno',
+                width: '200px',
+            },],
         });
     },
 };
@@ -1674,6 +1674,7 @@ var Provider_CompanyHSEQObject = {
     DateFormat: '',
     HSEQOptionList: new Array(),
     YearOptionList: new Array(),
+    Enable: 'true',
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
@@ -1740,7 +1741,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyCertification, Provider_CompanyHSEQObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -1779,7 +1782,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2056,7 +2059,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics, Provider_CompanyHSEQObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -2102,7 +2107,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2152,6 +2157,21 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'CH_Year',
                 title: 'Año',
                 width: '120px',
@@ -2679,7 +2699,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyRiskPolicies, Provider_CompanyHSEQObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -2716,7 +2738,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2769,6 +2791,21 @@ var Provider_CompanyHSEQObject = {
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'CA_Year',
                 title: 'Año',
                 width: '100px',
@@ -2960,6 +2997,7 @@ var Provider_CompanyFinancialObject = {
     ProviderOptions: new Array(),
     YearOptionList: new Array(),
     CurrentAccounts: new Array(),
+    Enable: 'true',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -3398,7 +3436,9 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderTaxesInfo, Provider_CompanyFinancialObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -3420,7 +3460,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3578,7 +3618,9 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderIncomeStatementInfo, Provider_CompanyFinancialObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -3612,7 +3654,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3788,7 +3830,9 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderBankInfo, Provider_CompanyFinancialObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -3832,7 +3876,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4121,7 +4165,6 @@ var Provider_CompanyFinancialObject = {
     },
 };
 
-
 var Provider_LegalInfoObject = {
 
     AutoCompleteId: '',
@@ -4132,6 +4175,7 @@ var Provider_LegalInfoObject = {
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
     DateFormat: '',
+    Enable: 'true',
 
     Init: function (vInitiObject) {
 
@@ -4204,7 +4248,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar cambios' }
+                { name: 'cancel', text: 'Descartar cambios' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderChaimberOfComerce, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -4229,7 +4275,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4357,7 +4403,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderUniqueRegister, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -4415,7 +4463,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4833,7 +4881,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderCIFIN, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -4858,7 +4908,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType  + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5007,7 +5057,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderSARLAFT, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -5032,7 +5084,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5203,7 +5255,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderResolutions, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -5234,7 +5288,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);

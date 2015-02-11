@@ -12,9 +12,9 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
-                ("1D9B9580", null);
+                ("1D9B9580", null, false);
 
-            Assert.AreEqual(true, oReturn.Count >= 1);
+            Assert.AreEqual(true, oReturn != null && oReturn.Count >= 1);
         }
 
         [TestMethod]
@@ -22,7 +22,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
-                ("1D9B9580", null);
+                ("1D9B9580", null, true);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }

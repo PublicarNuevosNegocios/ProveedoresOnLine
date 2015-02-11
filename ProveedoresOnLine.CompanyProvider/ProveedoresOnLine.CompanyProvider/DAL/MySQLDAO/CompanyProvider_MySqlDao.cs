@@ -64,12 +64,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public List<GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCommercialType", CommercialType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -180,12 +181,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        public List<GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCertificationType", CertificationType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -318,12 +320,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public List<GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vFinancialType", FinancialType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -472,12 +475,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        public List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vLegalType", LegalType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

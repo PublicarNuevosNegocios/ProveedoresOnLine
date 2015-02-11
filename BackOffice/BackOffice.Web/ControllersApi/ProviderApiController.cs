@@ -499,7 +499,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderCommercialViewModel> CICommercialGetByType
             (string CICommercialGetByType,
             string ProviderPublicId,
-            string CommercialType)
+            string CommercialType,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderCommercialViewModel> oReturn = new List<Models.Provider.ProviderCommercialViewModel>();
 
@@ -507,7 +508,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()));
+                    string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
@@ -804,7 +805,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderHSEQViewModel> HIHSEQGetByType
             (string HIHSEQGetByType,
             string ProviderPublicId,
-            string HSEQType)
+            string HSEQType,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderHSEQViewModel> oReturn = new List<Models.Provider.ProviderHSEQViewModel>();
 
@@ -812,7 +814,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(HSEQType) ? null : (int?)Convert.ToInt32(HSEQType.Trim()));
+                    string.IsNullOrEmpty(HSEQType) ? null : (int?)Convert.ToInt32(HSEQType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
@@ -1241,7 +1243,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderFinancialViewModel> FIFinancialGetByType
             (string FIFinancialGetByType,
             string ProviderPublicId,
-            string FinancialType)
+            string FinancialType
+            , string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderFinancialViewModel> oReturn = new List<Models.Provider.ProviderFinancialViewModel>();
 
@@ -1251,7 +1254,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
-                    (ProviderPublicId, string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
+                    (ProviderPublicId, string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 if (FinancialType == ((int)BackOffice.Models.General.enumFinancialType.BankInfoType).ToString())
                 {
@@ -1611,7 +1614,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderLegalViewModel> LILegalInfoGetByType
             (string LILegalInfoGetByType,
             string ProviderPublicId,
-            string LegalInfoType)
+            string LegalInfoType
+            , string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderLegalViewModel> oReturn = new List<Models.Provider.ProviderLegalViewModel>();
 
@@ -1619,7 +1623,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegalInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()));
+                    string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA = null;
                 int TotalRows = 0;

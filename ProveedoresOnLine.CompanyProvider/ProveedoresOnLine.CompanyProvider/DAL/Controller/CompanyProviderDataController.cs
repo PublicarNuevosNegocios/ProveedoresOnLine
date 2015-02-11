@@ -47,9 +47,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CommercialInfoUpsert(CommercialId, CommercialInfoId, CommercialInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, bool Enable)
         {
-            return DataFactory.CommercialGetBasicInfo(CompanyPublicId, CommercialType);
+            return DataFactory.CommercialGetBasicInfo(CompanyPublicId, CommercialType, Enable);
         }
 
         #endregion
@@ -66,9 +66,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CertificationInfoUpsert(CertificationId, CertificationInfoId, CertificationInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        public List<Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType, bool Enable)
         {
-            return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
+            return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType, Enable);
         }
 
         #endregion
@@ -90,9 +90,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BalanceSheetUpsert(FinancialId, BalanceSheetId, AccountId, Value, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public List<Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
-            return DataFactory.FinancialGetBasicInfo(CompanyPublicId, FinancialType);
+            return DataFactory.FinancialGetBasicInfo(CompanyPublicId, FinancialType, Enable);
         }
 
         public List<Models.Provider.BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId)
@@ -114,9 +114,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.LegalInfoUpsert(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        public List<Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable)
         {
-            return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType);
+            return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType, Enable);
         }
 
         #endregion

@@ -26,15 +26,15 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         int LegalInfoUpsert(int LegalId, int? LegalInfoId, int LegalInfoTypeId, string Value, string LargeValue, bool Enable);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, bool Enable);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType, bool Enable);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable);
 
         List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions();
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable);
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId);
 

@@ -149,9 +149,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return CommercialToUpsert;
         }
 
-        public static List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public static List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, bool Enable)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.CommercialGetBasicInfo(CompanyPublicId, CommercialType);
+            return DAL.Controller.CompanyProviderDataController.Instance.CommercialGetBasicInfo(CompanyPublicId, CommercialType, Enable);
         }
 
         #endregion
@@ -258,9 +258,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return CertificationToUpsert;
         }
 
-        public static List<GenericItemModel> CertficationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        public static List<GenericItemModel> CertficationGetBasicInfo(string CompanyPublicId, int? CertificationType, bool Enable)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
+            return DAL.Controller.CompanyProviderDataController.Instance.CertificationGetBasicInfo(CompanyPublicId, CertificationType, Enable);
         }
 
         #endregion
@@ -469,9 +469,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return BalanceSheetToUpsert;
         }
 
-        public static List<GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public static List<GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.FinancialGetBasicInfo(CompanyPublicId, FinancialType);
+            return DAL.Controller.CompanyProviderDataController.Instance.FinancialGetBasicInfo(CompanyPublicId, FinancialType, Enable);
         }
 
         public static List<BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId)
@@ -583,9 +583,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return LegalToUpsert;
         }
 
-        public static List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        public static List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.LegalGetBasicInfo(CompanyPublicId, LegalType);
+            return DAL.Controller.CompanyProviderDataController.Instance.LegalGetBasicInfo(CompanyPublicId, LegalType, Enable);
         }
 
         #endregion
