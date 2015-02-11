@@ -333,6 +333,7 @@
         B_Website = 207007,
         B_Latitude = 207008,
         B_Longitude = 207009,
+        BR_IsPrincipal = 207010,
 
         //Distributor
         D_DistributorType = 208001,

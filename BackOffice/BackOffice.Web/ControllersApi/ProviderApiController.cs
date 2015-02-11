@@ -359,6 +359,16 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.BR_Longitude,
                         Enable = true,
                     });
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.BR_IsPrincipalId) ? 0 : Convert.ToInt32(oDataToUpsert.BR_IsPrincipalId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.BR_IsPrincipal
+                        },
+                        Value = Convert.ToBoolean(oDataToUpsert.BR_IsPrincipal) == true ? "1" : "0",
+                        Enable = true,
+                    });
                 }
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.Distributor)
                 {
