@@ -1092,7 +1092,7 @@ namespace BackOffice.Web.Controllers
                 //Company contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información de contacto de empresa",
+                    Name = "Contacto principal de la empresa",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.GICompanyContactUpsert,
                         MVC.Provider.Name,
@@ -1117,6 +1117,7 @@ namespace BackOffice.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
+
                 //Person contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
@@ -1130,7 +1131,7 @@ namespace BackOffice.Web.Controllers
                         (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
-              
+
                 //Distributor info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {

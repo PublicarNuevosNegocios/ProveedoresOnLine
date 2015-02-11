@@ -2,7 +2,8 @@
 .POMProviderSearchGreatWrapper {
     display:block;
     width:100%;
-        border:none;
+    border:none;
+    min-width: 1251px;
 }
 /*********** MUESTRA LOS FILTROS LATERALES EN RESULTADOS ***********/
  .POMPProviderFilterMenuWrapper {
@@ -22,6 +23,7 @@
     min-height:400px;
     margin: 0 0 0 6px;
     width: calc(100% - 654px);
+    min-width:600px;
 }
             .POMPProviderListWrapper tr{
                 cursor:pointer;

@@ -1012,19 +1012,19 @@ namespace MarketPlace.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
-                //Company Contact info
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Información de contacto de empresa",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GICompanyContactInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 1,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactInfo &&
-                        oCurrentController == MVC.Provider.Name),
-                });
+                ////Company Contact info
+                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                //{
+                //    Name = "Información de contacto de empresa",
+                //    Url = Url.Action
+                //        (MVC.Provider.ActionNames.GICompanyContactInfo,
+                //        MVC.Provider.Name,
+                //        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                //    Position = 1,
+                //    IsSelected =
+                //        (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactInfo &&
+                //        oCurrentController == MVC.Provider.Name),
+                //});
 
                 //Company persons Contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -1034,7 +1034,7 @@ namespace MarketPlace.Web.Controllers
                         (MVC.Provider.ActionNames.GIPersonContactInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 2,
+                    Position = 1,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactInfo &&
                         oCurrentController == MVC.Provider.Name),
@@ -1048,11 +1048,12 @@ namespace MarketPlace.Web.Controllers
                         (MVC.Provider.ActionNames.GIBranchInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 3,
+                    Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIBranchInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
+
 
                 //Distributors
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -1062,7 +1063,7 @@ namespace MarketPlace.Web.Controllers
                         (MVC.Provider.ActionNames.GIDistributorInfo,
                         MVC.Provider.Name,
                         new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                    Position = 4,
+                    Position = 3,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
                         oCurrentController == MVC.Provider.Name),

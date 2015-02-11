@@ -13,17 +13,25 @@
     letter-spacing: -1px;
     color: #4d4d4d;
 }
+.POBOProviderClarifyNotice {
+    color: darkred;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: normal;
+    letter-spacing: -0.6px;
+    margin: 0 0 0 10px;
+    /*border:1px solid darkred;*/
+}
+
 
 .POBOProviderUpsertForm ul li,
 .POBOPCompulsoryFields {
     margin: 4px 0px 0px 8px;
     padding: 0;
 }
-
 .POBOProviderUpsertForm ul {
     margin: 0px;
 }
-
     .POBOProviderUpsertForm ul li {
         border: none;
     display: inline-block;
