@@ -1,5 +1,7 @@
 ﻿using BackOffice.Models.General;
+using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyCustomer.Models.Customer;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
@@ -63,6 +65,27 @@ namespace BackOffice.Web.Controllers
 
                 //upsert provider
                 CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
+
+                //Create Provider By Customer Publicar
+                CustomerModel oCustomerModel = new CustomerModel();
+                oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
+
+                oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                {
+                    RelatedProvider = new CompanyModel()
+                    {
+                        CompanyPublicId = CompanyToUpsert.CompanyPublicId,
+                    },
+                    Status = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
+                    },
+                    Enable = true,
+                });               
+
+                oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
+
+                ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
 
                 //eval company partial index
                 List<int> InfoTypeModified = new List<int>() { 2 };
@@ -1069,7 +1092,7 @@ namespace BackOffice.Web.Controllers
                 //Company contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información de contacto de empresa",
+                    Name = "Contacto principal de la empresa",
                     Url = Url.Action
                         (MVC.Provider.ActionNames.GICompanyContactUpsert,
                         MVC.Provider.Name,
@@ -1094,6 +1117,7 @@ namespace BackOffice.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
+
                 //Person contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
@@ -1107,7 +1131,7 @@ namespace BackOffice.Web.Controllers
                         (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactUpsert &&
                         oCurrentController == MVC.Provider.Name),
                 });
-              
+
                 //Distributor info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {

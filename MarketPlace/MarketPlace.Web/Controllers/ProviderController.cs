@@ -120,7 +120,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
-        }     
+        }
 
         public virtual ActionResult GIPersonContactInfo(string ProviderPublicId)
         {
@@ -965,7 +965,7 @@ namespace MarketPlace.Web.Controllers
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
                         oCurrentController == MVC.Provider.Name),
-                });              
+                });
 
                 //Company persons Contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -994,6 +994,7 @@ namespace MarketPlace.Web.Controllers
                         (oCurrentAction == MVC.Provider.ActionNames.GIBranchInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
+
 
                 //Distributors
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()

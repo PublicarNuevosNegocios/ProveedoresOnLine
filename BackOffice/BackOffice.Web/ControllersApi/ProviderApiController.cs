@@ -2097,9 +2097,7 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oCustomerByProvider != null)
                 {
-                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
-
-                    //oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();                   
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();            
 
                     if (CustomerSearch != null && oCustomerProvider != null)
                     {
@@ -2151,9 +2149,13 @@ namespace BackOffice.Web.ControllersApi
 
                     oCustomerProvider = oCustomerProviderInfo.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
 
-                    foreach (var item in oCustomerProvider.Select(x => x.CustomerProviderInfo).FirstOrDefault())
+                    foreach (var item in oCustomerProvider)
                     {
-                        oReturn.Add(new ProviderCustomerViewModel(item));
+                        item.CustomerProviderInfo.All(x =>
+                        {
+                            oReturn.Add(new ProviderCustomerViewModel(x));
+                            return true;
+                        });
                     }
                 }
             }

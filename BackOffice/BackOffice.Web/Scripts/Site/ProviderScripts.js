@@ -5081,7 +5081,7 @@ var Provider_LegalInfoObject = {
                     },
                 },
             },
-            columns: [ {
+            columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
                 width: '170px',
@@ -5096,7 +5096,7 @@ var Provider_LegalInfoObject = {
                     }
                     return oReturn;
                 },
-            },{
+            }, {
                 field: 'SF_ProcessDate',
                 title: 'Fecha de Diligenciamiento',
                 width: '200px',
@@ -5402,7 +5402,7 @@ var Provider_LegalInfoObject = {
                         }
                     });
                 },
-            },  {
+            }, {
                 field: 'LegalId',
                 title: 'Id Interno',
                 width: '100px',
@@ -5474,7 +5474,7 @@ var Provider_CustomerInfoObject = {
             selectable: true,
             toolbar: [
                 { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
-                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>' },
+                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking(null);">Agregar Seguimiento</a>' },
                 //{ name: 'save', text: 'Guardar' },
                 //{ name: 'cancel', text: 'Descartar' },
             ],
@@ -5575,6 +5575,7 @@ var Provider_CustomerInfoObject = {
             navigatable: false,
             pageable: false,
             scrollable: true,
+            selectable: true,
             dataSource: {
                 schema: {
                     model: {
@@ -5603,7 +5604,12 @@ var Provider_CustomerInfoObject = {
                     },
                 },
             },
-
+            change: function (e) {
+                var selectedRows = this.select();
+                for (var i = 0; i < selectedRows.length; i++) {
+                    Provider_CustomerInfoObject.CreateCustomerByProviderTracking(this.dataItem(selectedRows[i]));
+                }
+            },
             columns: [{
                 field: 'CPI_CustomerProviderInfoId',
                 title: 'Id',
@@ -5678,19 +5684,27 @@ var Provider_CustomerInfoObject = {
         });
     },
 
-    CreateCustomerByProviderTracking: function () {
+    CreateCustomerByProviderTracking: function (TrackingInfo) {
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
             dataType: "json",
             type: "POST",
             success: function (result) {
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');                
                 for (var i = 0; i < result.length; i++) {
                     if (result[i].RelatedCompany.Enable == true) {
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
                         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
                     }
+                }
+                if (TrackingInfo.CPI_TrackingType == "Seguimientos internos") {
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').append(TrackingInfo.CPI_Tracking)
+                }
+                else if (TrackingInfo.CPI_TrackingType == "Seguimientos del comprador") {
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').append(TrackingInfo.CPI_Tracking)
                 }
             },
             error: function (result) {

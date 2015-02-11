@@ -32,6 +32,8 @@
 
         public const string C_Settings_InfoTooltip = "InfoTooltip";
 
+        public const string C_Settings_PublicarPublicId = "PublicarPublicId";
+
         #endregion
 
         #region Administrator User Roles

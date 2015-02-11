@@ -15,12 +15,13 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div class="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Información de contacto de empresa</label>
+            <label class="POBOSectionTitles">Contacto principal de la empresa</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+            <label class="POBOProviderClarifyNotice">* Esta información de contacto de la empresa no es visible en Market Place, ya que solo será utilizada por el área de operaciones.</label>
             <div id="divGridCompanyContact"></div>
             <br />
             @{
