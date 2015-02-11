@@ -159,6 +159,7 @@ var Provider_CompanyContactObject = {
     ContactType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
+    Enable:'true',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -217,7 +218,7 @@ var Provider_CompanyContactObject = {
                 $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").cancelChanges();
             }
         });
-    },
+    },       
 
     RenderCompanyContact: function () {
         $('#' + Provider_CompanyContactObject.ObjectId).kendoGrid({
@@ -228,7 +229,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                {name: '', template:'<label>Ver solo los habilitados </label>'},
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -236,7 +239,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             CC_CompanyContactType: { editable: true },
@@ -247,10 +250,10 @@ var Provider_CompanyContactObject = {
                         }
                     }
                 },
-                transport: {
-                    read: function (options) {
+                transport: {                    
+                    read: function (options) {                        
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -392,7 +395,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -400,7 +405,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true},
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             CP_PersonContactType: { editable: true },
@@ -434,8 +439,9 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
+                        debugger;
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType  + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -656,7 +662,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -664,7 +672,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             BR_Representative: { editable: true },
@@ -700,7 +708,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -873,7 +881,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -881,7 +891,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true},
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             DT_DistributorType: { editable: true },
@@ -914,7 +924,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1169,6 +1179,7 @@ var Provider_CompanyCommercialObject = {
     CommercialType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
+    Enable: 'true',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -1223,7 +1234,9 @@ var Provider_CompanyCommercialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -1231,7 +1244,7 @@ var Provider_CompanyCommercialObject = {
                         id: 'CommercialId',
                         fields: {
                             CommercialId: { editable: false, nullable: true },
-                            CommercialName: { editable: true, validation: { required: true } },
+                            CommercialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             EX_ContractType: { editable: true },
@@ -1735,7 +1748,7 @@ var Provider_CompanyHSEQObject = {
                         id: "CertificationId",
                         fields: {
                             CertificationId: { editable: false, nullable: true },
-                            CertificationName: { editable: true, validation: { required: true } },
+                            CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             C_CertificationCompany: { editable: true },
@@ -3393,7 +3406,7 @@ var Provider_CompanyFinancialObject = {
                         id: 'FinancialId',
                         fields: {
                             FinancialId: { editable: false, nullable: true },
-                            FinancialName: { editable: true, validation: { required: true } },
+                            FinancialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             TX_Year: { editable: true, validation: { required: true }, type: "number" },
@@ -3573,7 +3586,7 @@ var Provider_CompanyFinancialObject = {
                         id: 'FinancialId',
                         fields: {
                             FinancialId: { editable: false, nullable: true },
-                            FinancialName: { editable: true, validation: { required: true } },
+                            FinancialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             IS_Year: { editable: true },
@@ -3783,7 +3796,7 @@ var Provider_CompanyFinancialObject = {
                         id: 'FinancialId',
                         fields: {
                             FinancialId: { editable: false, nullable: true },
-                            FinancialName: { editable: true, validation: { required: true } },
+                            FinancialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             IB_Bank: { editable: true },
@@ -4352,7 +4365,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true},
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             R_PersonType: { editable: true, validation: { required: true } },
@@ -4828,7 +4841,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             CF_QueryDate: { editable: true },
@@ -5002,7 +5015,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true},
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             SF_ProcessDate: { editable: true },
@@ -5198,7 +5211,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             RS_EntityType: { editable: true, validation: { required: true } },
@@ -5765,4 +5778,12 @@ function Message(style, idfield) {
     }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
         $(this).remove();
     });
+}
+
+/*Manage ViewAll info*/
+function ViewEnable(objName,objFunctionName, chkName)
+{
+    debugger;
+    objFunctionName.Enable = chkName.checked;
+    objName();
 }

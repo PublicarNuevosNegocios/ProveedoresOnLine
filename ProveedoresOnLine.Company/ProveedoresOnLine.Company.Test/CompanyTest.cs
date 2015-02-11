@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
-                ("1D9B9580", null);
+                ("186C3052", null, true);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }

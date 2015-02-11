@@ -122,51 +122,6 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult GICompanyContactInfo(string ProviderPublicId)
-        {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
-
-            //get basic provider info
-            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
-                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
-
-            var oProvider = olstProvider.
-                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
-                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
-                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
-                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
-                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
-                FirstOrDefault();
-
-            //validate provider permisions
-            if (oProvider == null)
-            {
-                //return url provider not allowed
-            }
-            else
-            {
-                //get provider view model
-                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);                
-
-                oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.CompanyContact);
-                oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
-
-                oModel.ContactCompanyInfo.All(x =>
-                {
-                    oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oModel.ProviderOptions));
-                    return true;
-                });
-
-                oModel.ProviderMenu = GetProviderMenu(oModel);
-            }
-            return View(oModel);
-        }
-
         public virtual ActionResult GIPersonContactInfo(string ProviderPublicId)
         {
             ProviderViewModel oModel = new ProviderViewModel()
@@ -1012,20 +967,6 @@ namespace MarketPlace.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
-                ////Company Contact info
-                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                //{
-                //    Name = "Información de contacto de empresa",
-                //    Url = Url.Action
-                //        (MVC.Provider.ActionNames.GICompanyContactInfo,
-                //        MVC.Provider.Name,
-                //        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
-                //    Position = 1,
-                //    IsSelected =
-                //        (oCurrentAction == MVC.Provider.ActionNames.GICompanyContactInfo &&
-                //        oCurrentController == MVC.Provider.Name),
-                //});
-
                 //Company persons Contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
@@ -1384,16 +1325,5 @@ namespace MarketPlace.Web.Controllers
             return oResult;
         }
         #endregion
-
-        public virtual FileResult GetProviderFileBytes(string FilePath)
-        {
-            byte[] bytes = new byte[] { };
-            if (!string.IsNullOrEmpty(FilePath) && FilePath.IndexOf(".pdf") > 0)
-            {
-                bytes = (new System.Net.WebClient()).DownloadData(FilePath);
-            }
-            return File(bytes, "application/pdf");
-        }
-
     }
 }
