@@ -5604,10 +5604,6 @@ var Provider_CustomerInfoObject = {
                 }
             },
             columns: [{
-                field: 'CP_CustomerPublicId',
-                title: 'Id Comprador',
-                width: '100px',
-            }, {
                 field: 'CP_Customer',
                 title: 'Comprador',
                 width: '100px',
@@ -5616,9 +5612,9 @@ var Provider_CustomerInfoObject = {
                 title: 'Estado',
                 width: '100px',
             }, {
-                field: 'CP_Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
+                field: 'CP_CustomerPublicId',
+                title: 'Id Comprador',
+                width: '100px',
             }],
         });
     },
@@ -5665,10 +5661,6 @@ var Provider_CustomerInfoObject = {
                 }
             },
             columns: [{
-                field: 'CPI_CustomerProviderInfoId',
-                title: 'Id',
-                width: '50px',
-            }, {
                 field: 'CPI_TrackingType',
                 title: 'Tipo de Seguimiento',
                 width: '100px',
@@ -5681,9 +5673,9 @@ var Provider_CustomerInfoObject = {
                 title: 'Fecha de Edición',
                 width: '100px',
             }, {
-                field: 'CPI_Enable',
-                title: 'Visible en Market Place',
-                width: '170px',
+                field: 'CPI_CustomerProviderInfoId',
+                title: 'Id',
+                width: '50px',
             }],
         });
     },
