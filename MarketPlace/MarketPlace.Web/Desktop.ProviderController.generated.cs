@@ -71,12 +71,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult GICompanyContactInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GICompanyContactInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult GIPersonContactInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIPersonContactInfo);
@@ -171,12 +165,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.FileResult GetProviderFileBytes()
-        {
-            return new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetProviderFileBytes);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Desktop.Provider; } }
@@ -196,7 +184,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string Index = "Index";
             public readonly string Search = "Search";
             public readonly string GIProviderInfo = "GIProviderInfo";
-            public readonly string GICompanyContactInfo = "GICompanyContactInfo";
             public readonly string GIPersonContactInfo = "GIPersonContactInfo";
             public readonly string GIBranchInfo = "GIBranchInfo";
             public readonly string GIDistributorInfo = "GIDistributorInfo";
@@ -213,7 +200,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string LICIFINInfo = "LICIFINInfo";
             public readonly string LISARLAFTInfo = "LISARLAFTInfo";
             public readonly string LIResolutionInfo = "LIResolutionInfo";
-            public readonly string GetProviderFileBytes = "GetProviderFileBytes";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -222,7 +208,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string Index = "Index";
             public const string Search = "Search";
             public const string GIProviderInfo = "GIProviderInfo";
-            public const string GICompanyContactInfo = "GICompanyContactInfo";
             public const string GIPersonContactInfo = "GIPersonContactInfo";
             public const string GIBranchInfo = "GIBranchInfo";
             public const string GIDistributorInfo = "GIDistributorInfo";
@@ -239,7 +224,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string LICIFINInfo = "LICIFINInfo";
             public const string LISARLAFTInfo = "LISARLAFTInfo";
             public const string LIResolutionInfo = "LIResolutionInfo";
-            public const string GetProviderFileBytes = "GetProviderFileBytes";
         }
 
 
@@ -260,14 +244,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public ActionParamsClass_GIProviderInfo GIProviderInfoParams { get { return s_params_GIProviderInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_GIProviderInfo
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
-        }
-        static readonly ActionParamsClass_GICompanyContactInfo s_params_GICompanyContactInfo = new ActionParamsClass_GICompanyContactInfo();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GICompanyContactInfo GICompanyContactInfoParams { get { return s_params_GICompanyContactInfo; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GICompanyContactInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -399,14 +375,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_GetProviderFileBytes s_params_GetProviderFileBytes = new ActionParamsClass_GetProviderFileBytes();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetProviderFileBytes GetProviderFileBytesParams { get { return s_params_GetProviderFileBytes; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetProviderFileBytes
-        {
-            public readonly string FilePath = "FilePath";
-        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -423,7 +391,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string FIIncomeStatementInfo = "FIIncomeStatementInfo";
                 public readonly string FITaxInfo = "FITaxInfo";
                 public readonly string GIBranchInfo = "GIBranchInfo";
-                public readonly string GICompanyContactInfo = "GICompanyContactInfo";
                 public readonly string GIDistributorInfo = "GIDistributorInfo";
                 public readonly string GIPersonContactInfo = "GIPersonContactInfo";
                 public readonly string GIProviderInfo = "GIProviderInfo";
@@ -444,7 +411,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string FIIncomeStatementInfo = "~/Areas/Desktop/Views/Provider/FIIncomeStatementInfo.cshtml";
             public readonly string FITaxInfo = "~/Areas/Desktop/Views/Provider/FITaxInfo.cshtml";
             public readonly string GIBranchInfo = "~/Areas/Desktop/Views/Provider/GIBranchInfo.cshtml";
-            public readonly string GICompanyContactInfo = "~/Areas/Desktop/Views/Provider/GICompanyContactInfo.cshtml";
             public readonly string GIDistributorInfo = "~/Areas/Desktop/Views/Provider/GIDistributorInfo.cshtml";
             public readonly string GIPersonContactInfo = "~/Areas/Desktop/Views/Provider/GIPersonContactInfo.cshtml";
             public readonly string GIProviderInfo = "~/Areas/Desktop/Views/Provider/GIProviderInfo.cshtml";
@@ -502,18 +468,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIProviderInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             GIProviderInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GICompanyContactInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult GICompanyContactInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GICompanyContactInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            GICompanyContactInfoOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
@@ -706,18 +660,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIResolutionInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void GetProviderFileBytesOverride(T4MVC_System_Web_Mvc_FileResult callInfo, string FilePath);
-
-        [NonAction]
-        public override System.Web.Mvc.FileResult GetProviderFileBytes(string FilePath)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_FileResult(Area, Name, ActionNames.GetProviderFileBytes);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FilePath", FilePath);
-            GetProviderFileBytesOverride(callInfo, FilePath);
             return callInfo;
         }
 

@@ -748,9 +748,9 @@ namespace ProveedoresOnLine.Company.Controller
             return ContactToUpsert;
         }
 
-        public static List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public static List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool GetAll)
         {
-            return DAL.Controller.CompanyDataController.Instance.ContactGetBasicInfo(CompanyPublicId, ContactType);
+            return DAL.Controller.CompanyDataController.Instance.ContactGetBasicInfo(CompanyPublicId, ContactType, GetAll);
         }
 
         #endregion

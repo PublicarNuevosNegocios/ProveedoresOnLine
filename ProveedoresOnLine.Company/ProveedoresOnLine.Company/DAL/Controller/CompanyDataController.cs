@@ -238,9 +238,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ContactInfoUpsert(ContactId, ContactInfoId, ContactInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool GetAll)
         {
-            return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType);
+            return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType, GetAll);
         }
 
         #endregion

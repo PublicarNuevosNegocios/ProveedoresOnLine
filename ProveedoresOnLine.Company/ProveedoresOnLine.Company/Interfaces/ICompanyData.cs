@@ -99,7 +99,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int ContactInfoUpsert(int ContactId, int? ContactInfoId, int ContactInfoTypeId, string Value, string LargeValue, bool Enable);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool GetAll);
 
         #endregion
 

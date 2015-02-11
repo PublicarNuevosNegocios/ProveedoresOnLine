@@ -70,7 +70,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderContactViewModel> GIContactGetByType
             (string GIContactGetByType,
             string ProviderPublicId,
-            string ContactType)
+            string ContactType,
+            string ViewEnable)
         {
             int oTotalRows;
             List<BackOffice.Models.Provider.ProviderContactViewModel> oReturn = new List<Models.Provider.ProviderContactViewModel>();
@@ -79,7 +80,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oContact = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(ContactType) ? null : (int?)Convert.ToInt32(ContactType.Trim()));
+                    string.IsNullOrEmpty(ContactType) ? null : (int?)Convert.ToInt32(ContactType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
 

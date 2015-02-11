@@ -1598,12 +1598,13 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vContactType", ContactType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 :0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

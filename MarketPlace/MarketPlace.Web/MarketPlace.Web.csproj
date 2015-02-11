@@ -922,7 +922,6 @@
     <Content Include="Areas\Desktop\Views\Customer\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\Search.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\FIBalanceSheetInfo.cshtml" />
-    <Content Include="Areas\Desktop\Views\Provider\GICompanyContactInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GIPersonContactInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GIBranchInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GIDistributorInfo.cshtml" />
