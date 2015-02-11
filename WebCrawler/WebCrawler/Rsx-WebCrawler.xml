@@ -18,7 +18,8 @@
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
 
     <!--All Menu Keys-->
-    <key name="CrawlerTags">GeneralInfo,Certifications,Experience,GeneralBalance,LegalInfo,HSE,Representation,OtherInfo,</key>
+    <!--GeneralInfo,Certifications,Experience,GeneralBalance,LegalInfo,HSE,Representation,OtherInfo,-->
+    <key name="CrawlerTags">GeneralInfo,</key>
 
     <!--PAR Modules-->
     
