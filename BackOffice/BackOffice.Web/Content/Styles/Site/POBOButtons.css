@@ -129,4 +129,18 @@
 .k-upload-status .k-button, .k-upload-status .k-warning {
     vertical-align: middle !important;
 }
-/***********************/
+/*********** CHECK PARA VER SOLO LOS REGISTROS VISIBES EN MARKET PLACE ***********/
+
+.POBOProviderGridVerSoloTrue,
+#EnableContact {
+    display:inline-block;
+    float:right;
+    width:auto; height:auto;
+    font-size:0.95em; font-weight:normal; line-height:normal;
+    margin: 4px 0px 0px 0px;
+    padding: 0 15px 0 10px;
+    color:darkred;
+}
+    #EnableContact {
+        height:23px;
+    }

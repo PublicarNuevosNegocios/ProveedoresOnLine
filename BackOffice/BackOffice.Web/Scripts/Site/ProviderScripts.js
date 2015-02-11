@@ -230,7 +230,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                {name: '', template:'<label>Ver solo los habilitados </label>'},
+                {name: '', template:'<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>'},
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
