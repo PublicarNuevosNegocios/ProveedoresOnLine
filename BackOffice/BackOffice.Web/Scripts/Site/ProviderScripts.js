@@ -230,7 +230,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                {name: '', template:'<label>Ver solo los habilitados </label>'},
+                {name: '', template:'<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>'},
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
@@ -702,6 +702,9 @@ var Provider_CompanyContactObject = {
 
                             BR_Longitude: { editable: true, validation: { required: false } },
                             BR_LongitudeId: { editable: false },
+
+                            BR_IsPrincipal: { editable: true, type: 'boolean', defaultValue: true },
+                            BR_IsPrincipalId: { editable: false },
                         }
                     }
                 },
@@ -765,6 +768,21 @@ var Provider_CompanyContactObject = {
                     var oReturn = '';
 
                     if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'BR_IsPrincipal',
+                title: 'Sucursal Principal',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.BR_IsPrincipal == true) {
                         oReturn = 'Si'
                     }
                     else {
@@ -5494,7 +5512,6 @@ var Provider_LegalInfoObject = {
             }
         });
     },
-
 }
 
 var Provider_CustomerInfoObject = {
