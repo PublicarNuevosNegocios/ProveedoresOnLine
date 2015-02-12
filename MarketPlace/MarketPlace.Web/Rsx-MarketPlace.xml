@@ -9,7 +9,7 @@
 
     <key name="Login_UserNotAutorized">El usuario {UserName} no esta autorizado para ingresar a la plataforma.</key>
     
-    <key name="Login_DefaultUserUrl">https://www.google.com/a/publicar.com/images/logo.gif</key>
+    <key name="Login_DefaultUserUrl">http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/dafaultProvider.png</key>
 
     <!--Generic params-->
     <key name="Grid_RowCountDefault">20</key>
