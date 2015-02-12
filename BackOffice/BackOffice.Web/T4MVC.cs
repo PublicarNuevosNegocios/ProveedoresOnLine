@@ -621,6 +621,7 @@ namespace Links
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string AdminScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AdminScripts.min.js") ? Url("AdminScripts.min.js") : Url("AdminScripts.js");
+            public static readonly string CustomerScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CustomerScripts.min.js") ? Url("CustomerScripts.min.js") : Url("CustomerScripts.js");
             public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
             public static readonly string ProviderScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProviderScripts.min.js") ? Url("ProviderScripts.min.js") : Url("ProviderScripts.js");
         }

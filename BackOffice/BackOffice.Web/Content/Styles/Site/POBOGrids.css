@@ -19,6 +19,18 @@
         width: 199px;
         z-index: 0;
     }*/
+/***** SUCURSAL PRINCIPAL *****/
+
+.POBOMainBranch{
+    /*border:1px solid red;*/
+    display:block;
+    width:64px; height:31px;
+    background-repeat:no-repeat;
+    background-image:url(http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/mainBranchSmall.png);
+    background-position:32px;
+    background-size:31px auto;
+}
+
 /********** ESAS SON LOS AUTOCOMPLETE COMPUESTOS DE ACTIVIDAD, NOMBRE, TIPO, GRUPO Y CATEGORIA ***********/
 .POBOProviderCompoundAutocomplete {
     border-bottom: 1px solid #333;

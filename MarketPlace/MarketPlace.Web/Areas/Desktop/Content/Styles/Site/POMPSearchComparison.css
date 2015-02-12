@@ -167,10 +167,14 @@
     max-width:327px;
 }
     .POMPComparisonResultProvRating{
-        border:1px solid red;
+        /*border:1px solid red;*/
         display:inline-block;
-        width:74px; height:20px;
+        width:74px; height:16px;
         margin:4px 0px 0px 28px;
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/starsSmall.png');
+        background-repeat:no-repeat;
+        background-position:0px 0px;
+        background-size:72px auto;
     }
         .POMPComparisonResultProvActions{
             /*border:1px solid orange;*/

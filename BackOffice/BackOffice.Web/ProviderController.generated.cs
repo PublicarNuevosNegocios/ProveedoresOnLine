@@ -171,6 +171,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCustomerProviderStatus);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DownloadFile()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadFile);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -207,6 +213,7 @@ namespace BackOffice.Web.Controllers
             public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
             public readonly string LIResolutionUpsert = "LIResolutionUpsert";
             public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
+            public readonly string DownloadFile = "DownloadFile";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -232,6 +239,7 @@ namespace BackOffice.Web.Controllers
             public const string LISARLAFTUpsert = "LISARLAFTUpsert";
             public const string LIResolutionUpsert = "LIResolutionUpsert";
             public const string CPCustomerProviderStatus = "CPCustomerProviderStatus";
+            public const string DownloadFile = "DownloadFile";
         }
 
 
@@ -386,6 +394,15 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_CPCustomerProviderStatus
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_DownloadFile s_params_DownloadFile = new ActionParamsClass_DownloadFile();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DownloadFile DownloadFileParams { get { return s_params_DownloadFile; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DownloadFile
+        {
+            public readonly string SearchParam = "SearchParam";
+            public readonly string SearchFilter = "SearchFilter";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -682,6 +699,19 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCustomerProviderStatus);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             CPCustomerProviderStatusOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DownloadFileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string SearchParam, string SearchFilter);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DownloadFile(string SearchParam, string SearchFilter)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DownloadFile);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
+            DownloadFileOverride(callInfo, SearchParam, SearchFilter);
             return callInfo;
         }
 

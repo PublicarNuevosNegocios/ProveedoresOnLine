@@ -1253,8 +1253,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderFinancialViewModel> FIFinancialGetByType
             (string FIFinancialGetByType,
             string ProviderPublicId,
-            string FinancialType
-            , string ViewEnable)
+            string FinancialType,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderFinancialViewModel> oReturn = new List<Models.Provider.ProviderFinancialViewModel>();
 
@@ -2111,7 +2111,7 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oCustomerByProvider != null)
                 {
-                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();            
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
 
                     if (CustomerSearch != null && oCustomerProvider != null)
                     {
@@ -2305,7 +2305,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         oReturn.Add(new ProviderCustomerViewModel(
                                 item.CustomerProviderId.ToString(),
-                                item.RelatedProvider,                                
+                                item.RelatedProvider,
                                 item.Enable
                             ));
                     }
@@ -2326,7 +2326,7 @@ namespace BackOffice.Web.ControllersApi
          bool oIsCreate)
         {
             if (UpsertCustomerByProviderStatus == "true" &&
-                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) && 
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
                 oIsCreate != null)
             {
                 ProviderCustomerViewModel oDataToUpsert =
