@@ -396,8 +396,8 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderPersonContact, Provider_CompanyContactObject,this)"/>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
+                { name: "chkViewEnable", template: '<input name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderPersonContact, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
                 schema: {
@@ -663,7 +663,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderBranch, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
@@ -763,7 +763,8 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                alt: 'Visible en Market Place',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -778,12 +779,12 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_IsPrincipal',
                 title: 'Sucursal Principal',
-                width: '200px',
+                width: '136px',
                 template: function (dataItem) {
                     var oReturn = '';
 
                     if (dataItem.BR_IsPrincipal == true) {
-                        oReturn = 'Si'
+                        oReturn = '<div class="POBOMainBranch">Si</div>';
                     }
                     else {
                         oReturn = 'No'
@@ -793,7 +794,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Representative',
                 title: 'Representante',
-                width: '200px',
+                width: '110px',
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
@@ -801,7 +802,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
-                width: '350px',
+                width: '200px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -857,11 +858,11 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Phone',
                 title: 'Teléfono',
-                width: '200px',
+                width: '120px',
             }, {
                 field: 'BR_Fax',
                 title: 'Fax',
-                width: '200px',
+                width: '120px',
             }, {
                 field: 'BR_Email',
                 title: 'Correo electrónico',
@@ -873,19 +874,19 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Latitude',
                 title: 'Latitud',
-                width: '200px',
+                width: '70px',
             }, {
                 field: 'BR_Longitude',
                 title: 'Longitud',
-                width: '200px',
+                width: '80px',
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
-                width: '200px',
+                width: '160px',
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -900,7 +901,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderDistributor, Provider_CompanyContactObject,this)"/>' },
             ],
             dataSource: {
@@ -1253,7 +1254,7 @@ var Provider_CompanyCommercialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyCommercialObject.RenderExperience, Provider_CompanyCommercialObject, this)"/>' },
             ],
             dataSource: {
@@ -1760,7 +1761,7 @@ var Provider_CompanyHSEQObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyCertification, Provider_CompanyHSEQObject, this)"/>' },
             ],
             dataSource: {
@@ -2078,7 +2079,7 @@ var Provider_CompanyHSEQObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics, Provider_CompanyHSEQObject, this)"/>' },
             ],
             dataSource: {
@@ -2718,7 +2719,7 @@ var Provider_CompanyHSEQObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyRiskPolicies, Provider_CompanyHSEQObject, this)"/>' },
             ],
             dataSource: {
@@ -3455,7 +3456,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderTaxesInfo, Provider_CompanyFinancialObject, this)"/>' },
             ],
             dataSource: {
@@ -3637,7 +3638,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderIncomeStatementInfo, Provider_CompanyFinancialObject, this)"/>' },
             ],
             dataSource: {
@@ -3849,7 +3850,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderBankInfo, Provider_CompanyFinancialObject, this)"/>' },
             ],
             dataSource: {
@@ -4267,7 +4268,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderChaimberOfComerce, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
@@ -4422,7 +4423,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderUniqueRegister, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
@@ -4900,7 +4901,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderCIFIN, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
@@ -5076,7 +5077,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderSARLAFT, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
@@ -5274,7 +5275,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label>Ver solo los habilitados </label>' },
+                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
                 { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderResolutions, Provider_LegalInfoObject, this)"/>' },
             ],
             dataSource: {
