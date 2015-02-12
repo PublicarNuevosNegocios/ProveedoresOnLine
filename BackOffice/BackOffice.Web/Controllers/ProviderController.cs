@@ -6,6 +6,7 @@ using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -1467,5 +1468,54 @@ namespace BackOffice.Web.Controllers
         }
 
         #endregion
+
+
+        public virtual ActionResult DownloadFile(string SearchParam, string SearchFilter)
+        {
+            string oSearchParam = string.IsNullOrEmpty(Request["SearchParam"]) ? null : Request["SearchParam"];
+            string oSearchFilter = string.Join(",", (Request["SearchFilter"] ?? string.Empty).Replace(" ", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
+            oSearchFilter = string.IsNullOrEmpty(oSearchFilter) ? null : oSearchFilter;
+
+
+            string oCompanyType =
+                    ((int)(BackOffice.Models.General.enumCompanyType.Provider)).ToString() + "," +
+                    ((int)(BackOffice.Models.General.enumCompanyType.BuyerProvider)).ToString();
+
+            int oPageNumber = 0;
+            int oRowCount = 65000;
+            int oTotalRows;
+
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oProviders =
+                ProveedoresOnLine.Company.Controller.Company.CompanySearch
+                    (oCompanyType,
+                    null,
+                    oSearchFilter,
+                    oPageNumber,
+                    oRowCount,
+                    out oTotalRows);
+
+
+            foreach (ProveedoresOnLine.Company.Models.Company.CompanyModel item in oProviders)
+            {
+                //item.
+            }
+            
+            
+            
+            StringBuilder data = new StringBuilder();
+
+            //foreach (var item in oSearchResult)
+            //{
+                
+            //}
+
+            //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegalInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
+            //      (ProviderPublicId,
+            //      string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
+        
+    
+            
+            return View();
+        }
     }
 }
