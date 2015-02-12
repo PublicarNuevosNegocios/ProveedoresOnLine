@@ -14,8 +14,50 @@ namespace WebCrawler.Manager
     {
         public static void WebCrawlerInfo(string ParId, string PublicId)
         {
-            Console.WriteLine("\n Registro del proveedor: " + PublicId + " y ParId: " + ParId);
-            Console.WriteLine("\n Start Date: " + DateTime.Now.ToString());
+            Console.WriteLine("Registro del proveedor: " + PublicId + " y ParId: " + ParId + "\n");
+            Console.WriteLine("Start Date: " + DateTime.Now.ToString() + "\n");
+
+            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel();
+
+            List<string> oSettingsList = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_CrawlerTags].Value.
+               Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+               ToList();
+            
+            //redirect submenu
+            foreach (var item in oSettingsList)
+            {
+                if (item.ToString() == enumMenu.GeneralInfo.ToString())
+                {
+                    oProvider.RelatedCompany = GeneralInfo(ParId, PublicId);
+                }
+            }
+
+            try
+            {
+                //Provider upsert
+                //oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
+                Console.WriteLine("Se agregó el proveedor " + oProvider.RelatedCompany.CompanyName + "\n");
+
+                //Relation Provider with Publicar
+                //SetCompanyProvider(oProvider.RelatedCompany.CompanyPublicId);
+
+                //Update search filters
+                //ProveedoresOnLine.Company.Controller.Company.CompanySearchFill(oProvider.RelatedCompany.CompanyPublicId);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyFilterFill(oProvider.RelatedCompany.CompanyPublicId);
+            }
+            catch (System.Exception e)
+            {                
+                Console.WriteLine("Error, " + e.Message + "\n");
+            }
+
+            Console.WriteLine("Finalizó el proceso. " + DateTime.Now.ToString() + "\n");
+        }
+
+        #region Get Html Document
+
+        public static HtmlDocument GetHtmlDocumnet(string ParId, string Setting)
+        {
+            HtmlDocument htmlDoc = new HtmlDocument();
 
             MyWebClient oWebClient = new MyWebClient();
 
@@ -23,51 +65,74 @@ namespace WebCrawler.Manager
                                                 [Constants.C_Settings_SessionKey].
                                                 Value);
 
-            List<string> oSettingsList = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_CrawlerTags].Value.
-                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                ToList();
-
-            foreach (var item in oSettingsList)
-            {
-                string settings = item.ToString();
-
-                string oParURL = WebCrawler.Manager.General.InternalSettings.Instance
-                    ["CrawlerURL_" + settings].
+            string oParURL = WebCrawler.Manager.General.InternalSettings.Instance
+                    ["CrawlerURL_" + Setting].
                     Value.
                     Replace("{{ParProviderId}}", ParId);
 
-                Console.WriteLine("\n Descargando Información de " + settings);
+            string strHtml = oWebClient.DownloadString(oParURL);
 
-                string strHtml = oWebClient.DownloadString(oParURL);
+            htmlDoc.LoadHtml(strHtml);
 
-                HtmlDocument HtmlDoc = new HtmlDocument();
-                HtmlDoc.LoadHtml(strHtml);
-
-                if (settings == enumMenu.GeneralInfo.ToString())
-                {
-                    GetGeneralInfo(HtmlDoc);
-                }
-            }
+            return htmlDoc;
         }
+
+        #endregion
 
         #region General Info
 
-        public static void GetGeneralInfo(HtmlDocument HtmlDoc)
+        public static ProveedoresOnLine.Company.Models.Company.CompanyModel GeneralInfo(string ParId, string ProviderPublicId)
         {
-            if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
+
+            HtmlDocument HtmlDoc = GetHtmlDocumnet(ParId, enumMenu.GeneralInfo.ToString());
+
+            if (HtmlDoc.DocumentNode.SelectNodes("//input") != null) // General Info
             {
-                HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
-                HtmlNodeCollection cells = table[0].SelectNodes("//tr/td");
-                string a = string.Empty;
-                foreach (var c in cells)
+                foreach (HtmlNode node in HtmlDoc.DocumentNode.SelectNodes("//input"))
                 {
-                    HtmlAttribute att = c.Attributes["input"];
-                    if (att != null)
+                    HtmlAttribute AttId = node.Attributes["id"];
+                    HtmlAttribute AttValue = node.Attributes["value"];
+                    if (AttId != null && AttValue != null)
                     {
-                        if (att.Value.Contains("nit2"))
+                        //get provider nit
+                        if (AttId.Value == "nit2")//Nit
                         {
-                            a += att.Value.ToString() + "\n";
+                            oCompany.IdentificationNumber = AttValue.Value.ToString();
                         }
+                        else if (AttId.Value == "b")//Dígito de Verificación
+                        {
+                            oCompany.IdentificationNumber += AttValue.Value.ToString();
+                        }
+                        else if (AttId.Value == "razon")//Razón Social
+                        {
+                            oCompany.CompanyName = AttValue.Value.ToString();
+                        }
+                        else if (AttId.Value == "razon2")//Nombre Comercial
+                        {
+                            oCompany.CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            {
+                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumCompanyInfoType.ComercialName,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                }
+                            };
+                        }
+                    }
+                }
+            }
+            else if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']/tr") != null)
+            {
+                foreach (HtmlNode node in HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']/tr"))
+                {
+                    foreach (HtmlNode item in node.SelectNodes("//td"))
+                    {
+                        string a = item.ToString();
                     }
                 }
             }
@@ -75,9 +140,53 @@ namespace WebCrawler.Manager
             {
                 Console.WriteLine("la sección " + enumMenu.GeneralInfo.ToString() + " no tiene información para descargar." + "\n");
             }
+
+            oCompany.CompanyInfo.Add(
+                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                {
+                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = (int)enumCompanyInfoType.ProviderPaymentInfo,
+                    },
+                    Value = Convert.ToString((int)enumCategoryInfoType.NotApplicate),
+                });
+
+            oCompany.IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+            {
+                ItemId = (int)enumCategoryInfoType.NIT,
+            };
+            oCompany.CompanyType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+            {
+                ItemId = (int)enumCategoryInfoType.Provider,
+            };
+            oCompany.Enable = true;
+
+            return oCompany;
         }
 
         #endregion
+
+        #region Commercial Info
+
+        #endregion
+
+        #region Certification Info
+
+        #endregion
+
+        #region Finantial Info
+
+        #endregion
+
+        #region BalanceSheet Info
+
+        #endregion
+
+        #region Legal Info
+
+        #endregion
+
+        #region Upload File
 
         public static string UploadFile(
             string ProviderPublicId,
@@ -106,6 +215,36 @@ namespace WebCrawler.Manager
 
             return strRemoteFile;
         }
+
+        #endregion
+
+        #region Asociate to Customer Publicar
+
+        public static void SetCompanyProvider(string ProviderId)
+        {
+            //Create Provider By Customer Publicar
+            ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerModel = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel();
+            oCustomerModel.RelatedProvider = new List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel>();
+
+            oCustomerModel.RelatedProvider.Add(new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
+            {
+                RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = ProviderId,
+                },
+                Status = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = Convert.ToInt32(enumProviderCustomerStatus.Creation),
+                },
+                Enable = true,
+            });
+
+            oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(WebCrawler.Manager.General.InternalSettings.Instance[WebCrawler.Manager.General.Constants.C_Settings_PublicarPublicId].Value);
+
+            ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+        }
+
+        #endregion
 
         public class MyWebClient : System.Net.WebClient
         {

@@ -20,6 +20,8 @@ namespace WebCrawler.Manager.General
 
         public const string C_Settings_File_RemoteDirectoryProvider = "File_RemoteDirectoryProvider";
 
+        public const string C_Settings_PublicarPublicId = "PublicarPublicId";
+
         #endregion
 
         #region Crawler Settings
