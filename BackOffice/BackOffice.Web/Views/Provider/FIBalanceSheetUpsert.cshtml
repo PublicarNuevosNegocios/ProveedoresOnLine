@@ -22,7 +22,7 @@
         <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
         <div id="divBalanceSheet"></div>
         <div id="divBalanceSheet_Detail"></div>
-        @{  
+        @{
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
@@ -30,6 +30,11 @@
 </div>
 
 <div style="display:none;">
+    <div id="divBalanceSheet_ViewEnablesTemplate">
+        <label>Ver solo los habilitados</label>
+        <input id="divBalanceSheet_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
     <div id="divBalanceSheet_NoFile">
         <div>
             <span>Seleccione un archivo</span>
@@ -106,19 +111,19 @@
             </ul>
             @*MAS ACCIONES*@
             @*<ul class="POBOProviderActions ProviderActions">
-                <li>
-                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
-                </li>
-                <li class="POBOButtonsSaveProvider">
-                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
-                </li>
-            </ul>*@
+                    <li>
+                        <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                    </li>
+                    <li class="POBOButtonsSaveProvider">
+                        <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                    </li>
+                </ul>*@
 
             <div style="display:none;">
                 <input name="FinancialId" type="hidden" value="${FinancialId}" />
                 <input name="UpsertAction" type="hidden" value="true" />
             </div>
-        </form>        
+        </form>
     </div>
     <div id="divBalanceSheet_Detail_ParentAccount">
         <ul>
@@ -130,10 +135,10 @@
         </ul>
     </div>
     <div id="divBalanceSheet_Detail_ChildAccount">
-            <li>
-                <label>${AccountName}</label>
-                <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
-            </li>
+        <li>
+            <label>${AccountName}</label>
+            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+        </li>
     </div>
 </div>
 
