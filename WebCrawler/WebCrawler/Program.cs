@@ -28,7 +28,6 @@ namespace WebCrawler
                     return true;
                 });
 
-            Console.WriteLine("\n Finalizó el proceso. " + DateTime.Now.ToString());
             Console.ReadLine();
         }
     }
