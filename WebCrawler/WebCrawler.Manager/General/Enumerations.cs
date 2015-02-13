@@ -69,7 +69,22 @@
         CC_Email = 209006,
         CC_Fax = 209005,
         CC_WebPage = 209003,
-        CC_Telephone = 209001
+        CC_Telephone = 209001,
+
+        //Type Person Contact Info
+        CP_Commercial = 210001,
+        CP_Legal = 210002,
+        CP_CommercialLegal = 210003,
+        CP_Finantial = 210004,
+        CP_HSEQ = 210005,
+        CP_Judicial = 210006,
+        CP_Technical = 210007,
+        CP_Buy = 210008,
+        CP_Security = 210009,
+
+        //Identifiation Type
+        CP_CC = 101001,
+        CP_Passport = 101002,
     }
 
     #endregion
