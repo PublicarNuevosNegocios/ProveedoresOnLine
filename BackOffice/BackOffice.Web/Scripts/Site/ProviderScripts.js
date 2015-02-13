@@ -3093,6 +3093,8 @@ var Provider_CompanyFinancialObject = {
         return $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
+    /***************************Start balance sheet functions***********************************************/
+
     RenderBalanceSheet: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
             editable: false,
@@ -3186,7 +3188,7 @@ var Provider_CompanyFinancialObject = {
                     Provider_CompanyFinancialObject.CurrentAccounts = result;
 
                     //insert form
-                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form').html();
+                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_Form').html();
                     oFormHtml = oFormHtml.replace(/\${FinancialId}/gi, oFiancialId);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html(oFormHtml);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').hide();
@@ -3205,9 +3207,7 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(dataItem.SH_BalanceSheetFile);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val(dataItem.SH_BalanceSheetFileId);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', dataItem.SH_BalanceSheetFile);
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, dataItem.SH_BalanceSheetFile));
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                     }
                     else {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_FinancialName_' + oFiancialId).val('');
@@ -3222,9 +3222,7 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', '');
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', '');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).hide();
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').hide();
                     }
                     $('<input type="file" id="files" name="files"/>')
                         .appendTo($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileUpload_' + oFiancialId))
@@ -3239,9 +3237,7 @@ var Provider_CompanyFinancialObject = {
                                     //set server fiel name
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + ' _Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                                 }
                             },
                         });
@@ -3249,7 +3245,7 @@ var Provider_CompanyFinancialObject = {
                     //init accounts object
                     Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
                     //calc total values
-                    Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                    //Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeIn('slow');
                 }
@@ -3264,185 +3260,223 @@ var Provider_CompanyFinancialObject = {
     RenderBalanceSheetDetailAccounts: function (container, lstAccounts) {
         if (container != null && $(container).length > 0 && lstAccounts != null && lstAccounts.length > 0) {
             $.each(lstAccounts, function (item, value) {
-                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-                    //parent node
-                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount').html();
+                if (value.AccountIsParetn) {
+                    //master account
+
+                    //get master template
+                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountParent').html();
                     ParentHtml = ParentHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
                     ParentHtml = ParentHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    //add parent account html
                     $(container).append(ParentHtml);
-                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
+                    //render child accounts
+                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
                 }
                 else {
-                    //last node
-                    var ChildHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount').html();
-                    ChildHtml = ChildHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
-                    ChildHtml = ChildHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
-                    ChildHtml = ChildHtml.replace(/\${Value}/gi, Number(value.RelatedBalanceSheetDetail != null ? value.RelatedBalanceSheetDetail.Value : '0'));
+                    //child account
 
-                    if ($(container).find('ul').length == 0) {
-                        $(container).append('<ul></ul>');
+                    var ChildContainer = container
+
+                    if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+
+                        //render subitems
+
+                        //get subitem template
+                        var SubItemHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountChild').html();
+                        SubItemHtml = SubItemHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                        SubItemHtml = SubItemHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                        //add child account html
+                        $(container).append(SubItemHtml);
+
+                        //get subitems container
+                        ChildContainer = $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId);
+
+                        //render subitems accounts
+                        Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts(ChildContainer, value.ChildBalanceSheet);
                     }
+                    //get child content
+                    var ChildValueHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountType_' + value.AccountType).html();
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    //add account html content
+                    $(ChildContainer).append(ChildValueHtml);
+                }
 
-                    $(container).find('ul').append(ChildHtml);
+
+                //set account value
+                var oCurrentAccountValue = 0;
+
+                if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
+                    oCurrentAccountValue = value.RelatedBalanceSheetDetail.Value;
+                }
+                if (value.AccountType == 1)
+                {
+                    //account is value
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(oCurrentAccountValue);
+                }
+                else if (value.AccountType == 0)
+                {
+                    //account is formula
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).html(oCurrentAccountValue);
                 }
             });
 
-            //append on focus out event
-            $('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
-                if ($.isNumeric($(this).val()) == false) {
-                    $(this).val(0);
-                }
-                Provider_CompanyFinancialObject.CalculateBalanceSheet();
-            });
+            ////append on focus out event
+            //$('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
+            //    if ($.isNumeric($(this).val()) == false) {
+            //        $(this).val(0);
+            //    }
+            //    Provider_CompanyFinancialObject.CalculateBalanceSheet();
+            //});
         }
     },
 
     CalculateBalanceSheet: function () {
-        Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
-        Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
+        //Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
+        //Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
     },
 
     CalculateBalanceSheetDetail: function (lstAccounts) {
 
-        var SumResult = new Number();
-        if (lstAccounts != null && lstAccounts.length > 0) {
-            $.each(lstAccounts, function (item, value) {
-                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-                    value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
-                    SumResult = SumResult + Number(value.ChildSum);
-                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
-                }
-                else {
-                    SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
-                }
-            });
-        }
-        return SumResult;
+        //var SumResult = new Number();
+        //if (lstAccounts != null && lstAccounts.length > 0) {
+        //    $.each(lstAccounts, function (item, value) {
+        //        if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+        //            value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
+        //            SumResult = SumResult + Number(value.ChildSum);
+        //            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
+        //        }
+        //        else {
+        //            SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
+        //        }
+        //    });
+        //}
+        //return SumResult;
     },
 
     CalculateBalanceSheetUtility: function (lstAccounts) {
-        var oUtilidadBruta = new Number();
-        var oUtilidadOperacional = new Number();
-        var oUtilidadAntesImpuestos = new Number();
-        var oUtilidadDespuesImpuestos = new Number();
-        var oUtilidadEjercicio = new Number();
+        //var oUtilidadBruta = new Number();
+        //var oUtilidadOperacional = new Number();
+        //var oUtilidadAntesImpuestos = new Number();
+        //var oUtilidadDespuesImpuestos = new Number();
+        //var oUtilidadEjercicio = new Number();
 
-        if (lstAccounts != null && lstAccounts.length > 0) {
-            if (fieldsLoad = true) {
-                $.each(lstAccounts, function (item, value) {
-                    if (value.RelatedAccount.ItemName == "Estado de Resultados") {
-                        $.each(value.ChildBalanceSheet, function (item, value) {
-                            if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
+        //if (lstAccounts != null && lstAccounts.length > 0) {
+        //    if (fieldsLoad = true) {
+        //        $.each(lstAccounts, function (item, value) {
+        //            if (value.RelatedAccount.ItemName == "Estado de Resultados") {
+        //                $.each(value.ChildBalanceSheet, function (item, value) {
+        //                    if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
 
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas") {
-                                            oUtilidadOperacional += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas") {
+        //                                    oUtilidadOperacional += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
 
-                                        if (value.RelatedAccount.ItemName == "Gastos de Administración") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3830').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3838').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3847').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Gastos de Ventas") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3831').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3839').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3848').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Depreciación y Amortización") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3832').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3840').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3849').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+        //                                if (value.RelatedAccount.ItemName == "Gastos de Administración") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3830').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3838').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3847').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Gastos de Ventas") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3831').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3839').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3848').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Depreciación y Amortización") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3832').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3840').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3849').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
 
-                                        if (value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3841').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3850').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Intereses") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3842').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3851').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Otros Gastos no Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3843').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3852').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadDespuesImpuestos += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+        //                                if (value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3841').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3850').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Intereses") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3842').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3851').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Otros Gastos no Operacionales") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3843').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3852').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    oUtilidadDespuesImpuestos += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
 
-                                        if (value.RelatedAccount.ItemName == "Impuestos") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3853').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadEjercicio += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3820_Total').val(oUtilidadEjercicio);
-                            }
-                        });
-                    }
-                    $('#divBalanceSheet_Detail_ParentAccount_3813_Total').val(oUtilidadEjercicio);
-                });
-            }
-        }
+        //                                if (value.RelatedAccount.ItemName == "Impuestos") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3853').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    oUtilidadEjercicio += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3820_Total').val(oUtilidadEjercicio);
+        //                    }
+        //                });
+        //            }
+        //            $('#divBalanceSheet_Detail_ParentAccount_3813_Total').val(oUtilidadEjercicio);
+        //        });
+        //    }
+        //}
     },
 
     CancelBalanceSheetDetail: function () {
@@ -3452,19 +3486,21 @@ var Provider_CompanyFinancialObject = {
     },
 
     SaveBalanceSheetDetail: function (vFinancialId) {
-        if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
-            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
-        }
+        //if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
+        //    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
+        //}
     },
 
     ValidateBalanceSheetDetail: function () {
-        var oReturn = true;
+        //var oReturn = true;
 
-        //validate balance values
-        //Provider_CompanyFinancialObject.CalculateBalanceSheet();
+        ////validate balance values
+        ////Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
-        return oReturn;
+        //return oReturn;
     },
+
+    /***************************End balance sheet functions***********************************************/
 
     RenderTaxesInfo: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({

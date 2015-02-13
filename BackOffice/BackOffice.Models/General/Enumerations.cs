@@ -75,6 +75,12 @@
 
         //Account info
         AI_Order = 109001,
+        AI_IsValue = 109002,
+        AI_Formula = 109003,
+        AI_ValidationRule = 109004,
+        AI_Description = 109005,
+        AI_FormulaText = 109006,
+        AI_Unit = 109007,
 
         //ICA Info
         I_ICACode = 608001,
