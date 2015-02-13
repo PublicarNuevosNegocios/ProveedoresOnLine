@@ -3351,6 +3351,7 @@ var Provider_CompanyFinancialObject = {
                     var ChildValueHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountType_' + value.AccountType).html();
                     ChildValueHtml = ChildValueHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
                     ChildValueHtml = ChildValueHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountUnit}/gi, value.AccountUnit);
 
                     if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
 

@@ -22,15 +22,11 @@ namespace BackOffice.Models.Provider
 
         public string AccountValidateFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_ValidationRule).Select(x => x.LargeValue).DefaultIfEmpty(null).FirstOrDefault(); } }
 
+        public string AccountUnit { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Unit).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
+
         #endregion
 
         public ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel RelatedBalanceSheetDetail { get; private set; }
-
-        #region BalanceSheetGetValues
-
-        #endregion
-
-
 
         public List<ProviderBalanceSheetViewModel> ChildBalanceSheet { get; set; }
 
