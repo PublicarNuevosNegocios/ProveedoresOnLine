@@ -192,14 +192,15 @@ var Provider_CompanyContactObject = {
         //config keyboard
         Provider_CompanyContactObject.ConfigKeyBoard();
 
-        //init keyboard tooltip
-        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
-        
-          //Config Events
+        //Config Events
         Provider_CompanyContactObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -223,7 +224,7 @@ var Provider_CompanyContactObject = {
     },
 
     ConfigEvents: function () {
-        
+
         //config grid visible enables event
         $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyContactObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -231,7 +232,7 @@ var Provider_CompanyContactObject = {
     },
 
     GetViewEnable: function () {
-        
+
         return $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -246,6 +247,7 @@ var Provider_CompanyContactObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -266,7 +268,7 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
@@ -411,7 +413,8 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                   { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -677,6 +680,7 @@ var Provider_CompanyContactObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -912,8 +916,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1208,7 +1213,7 @@ var Provider_CompanyCommercialObject = {
     ProviderPublicId: '',
     CommercialType: '',
     DateFormat: '',
-    ProviderOptions: new Array(),    
+    ProviderOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -1235,6 +1240,10 @@ var Provider_CompanyCommercialObject = {
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -1279,6 +1288,7 @@ var Provider_CompanyCommercialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1715,7 +1725,7 @@ var Provider_CompanyHSEQObject = {
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
-    YearOptionList: new Array(),    
+    YearOptionList: new Array(),
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
@@ -1754,6 +1764,10 @@ var Provider_CompanyHSEQObject = {
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyHSEQObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -1796,8 +1810,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2113,8 +2128,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2752,8 +2768,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3126,7 +3143,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     ConfigEvents: function () {
-        
+
         //config grid visible enables event
         $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyFinancialObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -3134,7 +3151,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     GetViewEnable: function () {
-        
+
         return $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -3362,24 +3379,24 @@ var Provider_CompanyFinancialObject = {
                         if (value.AccountType == 0 || value.AccountType == 1) {
                             //add account html content
                             $(ChildContainer).append(ChildValueHtml);
-                    }
+                        }
                     }
                     else {
                         //no subitems
 
-                    //add account html content
-                    $(ChildContainer).append(ChildValueHtml);
-                }
+                        //add account html content
+                        $(ChildContainer).append(ChildValueHtml);
+                    }
                 }
 
                 //set account value
                 if (value.AccountType == 0 || value.AccountType == 1) {
-                if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
+                    if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(value.RelatedBalanceSheetDetail.Value);
-                }
+                    }
                     else {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(0);
-                }
+                    }
                 }
 
                 //add item to formula variables
@@ -3409,7 +3426,7 @@ var Provider_CompanyFinancialObject = {
             $('.' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_Selector').focusout(function () {
                 if ($.isNumeric($(this).val()) == false) {
                     $(this).val(0);
-        }
+                }
                 Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
             });
         }
@@ -3519,6 +3536,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3700,6 +3718,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3911,6 +3930,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4252,7 +4272,7 @@ var Provider_LegalInfoObject = {
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
-    DateFormat: '',   
+    DateFormat: '',
 
     Init: function (vInitiObject) {
 
@@ -4292,11 +4312,15 @@ var Provider_LegalInfoObject = {
         //config keyboard
         Provider_LegalInfoObject.ConfigKeyBoard();
 
-           //Config Events
+        //Config Events
         Provider_LegalInfoObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_LegalInfoObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -4342,6 +4366,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4496,6 +4521,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4975,6 +5001,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5150,6 +5177,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5347,6 +5375,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5617,8 +5646,6 @@ var Provider_CustomerInfoObject = {
             toolbar: [
                 { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
                 { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking(null);">Agregar Seguimiento</a>' },
-                //{ name: 'save', text: 'Guardar' },
-                //{ name: 'cancel', text: 'Descartar' },
             ],
             dataSource: {
                 schema: {
