@@ -194,6 +194,9 @@ var Provider_CompanyContactObject = {
 
         //init keyboard tooltip
         $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+        
+          //Config Events
+        Provider_CompanyContactObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -220,6 +223,7 @@ var Provider_CompanyContactObject = {
     },
 
     ConfigEvents: function () {
+        
         //config grid visible enables event
         $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyContactObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -227,6 +231,7 @@ var Provider_CompanyContactObject = {
     },
 
     GetViewEnable: function () {
+        
         return $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -239,7 +244,7 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
+                { name: 'cancel', text: 'Descartar' },                
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
@@ -261,6 +266,7 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
@@ -447,7 +453,7 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
@@ -1224,6 +1230,9 @@ var Provider_CompanyCommercialObject = {
 
         //config keyboard
         Provider_CompanyCommercialObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyCommercialObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -1740,6 +1749,9 @@ var Provider_CompanyHSEQObject = {
 
         //config keyboard
         Provider_CompanyHSEQObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyHSEQObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -3105,6 +3117,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     ConfigEvents: function () {
+        
         //config grid visible enables event
         $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyFinancialObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -3112,6 +3125,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     GetViewEnable: function () {
+        
         return $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -4307,6 +4321,9 @@ var Provider_LegalInfoObject = {
 
         //config keyboard
         Provider_LegalInfoObject.ConfigKeyBoard();
+
+           //Config Events
+        Provider_LegalInfoObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -4330,6 +4347,18 @@ var Provider_LegalInfoObject = {
                 $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").cancelChanges();
             }
         });
+    },
+
+    ConfigEvents: function () {
+
+        //config grid visible enables event
+        $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_LegalInfoObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     RenderChaimberOfComerce: function () {
@@ -4557,6 +4586,7 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4574,6 +4604,7 @@ var Provider_LegalInfoObject = {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                                 Message('success', '0');
                             },
