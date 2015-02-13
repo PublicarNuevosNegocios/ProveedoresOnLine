@@ -24,10 +24,10 @@
 .POBOMainBranch{
     /*border:1px solid red;*/
     display:block;
-    width:64px; height:31px;
+    width:52px; height:27px;
     background-repeat:no-repeat;
-    background-image:url(http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/mainBranchSmall.png);
-    background-position:32px;
+    background-image:url(http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/industryIconSmall.png);
+    background-position:20px -2px;
     background-size:31px auto;
 }
 

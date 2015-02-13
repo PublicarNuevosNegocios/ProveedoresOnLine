@@ -121,7 +121,7 @@ var Provider_SearchObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -305,7 +305,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -377,11 +377,11 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
-                width: '400px',
+                width: '180px',
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -493,7 +493,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -566,7 +566,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationCity',
                 title: 'Ciudad de expedicion del documento',
-                width: '200px',
+                width: '180px',
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
@@ -648,7 +648,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -802,7 +802,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
-                width: '200px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -996,7 +996,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1184,7 +1184,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -1357,7 +1357,7 @@ var Provider_CompanyCommercialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1672,11 +1672,11 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'CommercialName',
                 title: 'Nombre',
-                width: '200px',
+                width: '160px',
             }, {
                 field: 'CommercialId',
                 title: 'Id Interno',
-                width: '200px',
+                width: '78px',
             }, ],
         });
     },
@@ -1853,7 +1853,7 @@ var Provider_CompanyHSEQObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2064,7 +2064,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CertificationId',
                 title: 'Id Interno',
-                width: '190px',
+                width: '78px',
             }],
         });
     },
@@ -2178,7 +2178,7 @@ var Provider_CompanyHSEQObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2704,7 +2704,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CertificationId',
                 title: 'Id Interno',
-                width: '190px',
+                width: '78px',
             }, ],
         });
     },
@@ -2812,7 +2812,7 @@ var Provider_CompanyHSEQObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2926,7 +2926,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CertificationId',
                 title: 'Id Interno',
-                width: '190px',
+                width: '78px',
             }, ],
         });
     },
@@ -3130,7 +3130,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -3551,7 +3551,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -3643,7 +3643,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'FinancialId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -3745,7 +3745,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -3855,7 +3855,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'FinancialId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -3967,7 +3967,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4198,7 +4198,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'FinancialId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -4366,7 +4366,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4381,7 +4381,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'CD_PartnerName',
                 title: 'Nombre',
-                width: '200px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
@@ -4428,7 +4428,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -4554,7 +4554,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4999,7 +4999,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5082,7 +5082,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -5175,7 +5175,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5280,7 +5280,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -5379,7 +5379,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5498,7 +5498,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
