@@ -18,6 +18,10 @@ namespace BackOffice.Models.Provider
 
         public int AccountType { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_IsValue).Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).DefaultIfEmpty(1).FirstOrDefault(); } }
 
+        public string AccountFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Formula).Select(x => x.LargeValue).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
+
+        public string AccountValidateFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_ValidationRule).Select(x => x.LargeValue).DefaultIfEmpty(null).FirstOrDefault(); } }
+
         #endregion
 
         public ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel RelatedBalanceSheetDetail { get; private set; }
