@@ -121,7 +121,7 @@ var Provider_SearchObject = {
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -159,7 +159,6 @@ var Provider_CompanyContactObject = {
     ContactType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
-    Enable: 'true',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -195,6 +194,9 @@ var Provider_CompanyContactObject = {
 
         //init keyboard tooltip
         $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+        
+          //Config Events
+        Provider_CompanyContactObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -220,6 +222,19 @@ var Provider_CompanyContactObject = {
         });
     },
 
+    ConfigEvents: function () {
+        
+        //config grid visible enables event
+        $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyContactObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        
+        return $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderCompanyContact: function () {
         $('#' + Provider_CompanyContactObject.ObjectId).kendoGrid({
             editable: true,
@@ -229,9 +244,8 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -252,8 +266,9 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
+                        
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -305,7 +320,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -377,11 +392,11 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
-                width: '400px',
+                width: '180px',
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -396,8 +411,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderPersonContact, Provider_CompanyContactObject,this)"/>' },
+                   { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -439,9 +453,9 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
-                        debugger;
+                        
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -493,7 +507,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -566,7 +580,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationCity',
                 title: 'Ciudad de expedicion del documento',
-                width: '200px',
+                width: '180px',
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
@@ -648,7 +662,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -663,8 +677,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderBranch, Provider_CompanyContactObject,this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -711,7 +724,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -802,7 +815,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
-                width: '200px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -900,9 +913,8 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderDistributor, Provider_CompanyContactObject,this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -943,7 +955,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -996,7 +1008,7 @@ var Provider_CompanyContactObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1184,7 +1196,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'ContactId',
                 title: 'Id Interno',
-                width: '400px',
+                width: '78px',
             }],
         });
     },
@@ -1197,8 +1209,7 @@ var Provider_CompanyCommercialObject = {
     ProviderPublicId: '',
     CommercialType: '',
     DateFormat: '',
-    ProviderOptions: new Array(),
-    Enable: 'true',
+    ProviderOptions: new Array(),    
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -1219,6 +1230,9 @@ var Provider_CompanyCommercialObject = {
 
         //config keyboard
         Provider_CompanyCommercialObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyCommercialObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -1244,6 +1258,17 @@ var Provider_CompanyCommercialObject = {
         });
     },
 
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyCommercialObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderExperience: function () {
         $('#' + Provider_CompanyCommercialObject.ObjectId).kendoGrid({
             editable: true,
@@ -1254,8 +1279,7 @@ var Provider_CompanyCommercialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyCommercialObject.RenderExperience, Provider_CompanyCommercialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1305,7 +1329,7 @@ var Provider_CompanyCommercialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType + '&ViewEnable=' + Provider_CompanyCommercialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType + '&ViewEnable=' + Provider_CompanyCommercialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1357,7 +1381,7 @@ var Provider_CompanyCommercialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -1672,11 +1696,11 @@ var Provider_CompanyCommercialObject = {
             }, {
                 field: 'CommercialName',
                 title: 'Nombre',
-                width: '200px',
+                width: '160px',
             }, {
                 field: 'CommercialId',
                 title: 'Id Interno',
-                width: '200px',
+                width: '78px',
             }, ],
         });
     },
@@ -1692,8 +1716,7 @@ var Provider_CompanyHSEQObject = {
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
-    YearOptionList: new Array(),
-    Enable: 'true',
+    YearOptionList: new Array(),    
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
@@ -1726,6 +1749,9 @@ var Provider_CompanyHSEQObject = {
 
         //config keyboard
         Provider_CompanyHSEQObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyHSEQObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -1751,6 +1777,17 @@ var Provider_CompanyHSEQObject = {
         });
     },
 
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyHSEQObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderCompanyCertification: function () {
         $('#' + Provider_CompanyHSEQObject.ObjectId).kendoGrid({
             editable: true,
@@ -1760,9 +1797,8 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyCertification, Provider_CompanyHSEQObject, this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1801,7 +1837,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1853,7 +1889,7 @@ var Provider_CompanyHSEQObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2064,7 +2100,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CertificationId',
                 title: 'Id Interno',
-                width: '190px',
+                width: '78px',
             }],
         });
     },
@@ -2078,9 +2114,8 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics, Provider_CompanyHSEQObject, this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2126,7 +2161,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2178,7 +2213,7 @@ var Provider_CompanyHSEQObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2704,7 +2739,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CertificationId',
                 title: 'Id Interno',
-                width: '190px',
+                width: '78px',
             }, ],
         });
     },
@@ -2718,9 +2753,8 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyRiskPolicies, Provider_CompanyHSEQObject, this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2757,7 +2791,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2812,7 +2846,7 @@ var Provider_CompanyHSEQObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -2926,7 +2960,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CertificationId',
                 title: 'Id Interno',
-                width: '190px',
+                width: '78px',
             }, ],
         });
     },
@@ -3083,6 +3117,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     ConfigEvents: function () {
+        
         //config grid visible enables event
         $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyFinancialObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -3090,8 +3125,11 @@ var Provider_CompanyFinancialObject = {
     },
 
     GetViewEnable: function () {
+        
         return $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
+
+    /***************************Start balance sheet functions***********************************************/
 
     RenderBalanceSheet: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
@@ -3130,7 +3168,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -3186,7 +3224,7 @@ var Provider_CompanyFinancialObject = {
                     Provider_CompanyFinancialObject.CurrentAccounts = result;
 
                     //insert form
-                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form').html();
+                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_Form').html();
                     oFormHtml = oFormHtml.replace(/\${FinancialId}/gi, oFiancialId);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html(oFormHtml);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').hide();
@@ -3205,9 +3243,7 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(dataItem.SH_BalanceSheetFile);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val(dataItem.SH_BalanceSheetFileId);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', dataItem.SH_BalanceSheetFile);
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, dataItem.SH_BalanceSheetFile));
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                     }
                     else {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_FinancialName_' + oFiancialId).val('');
@@ -3222,9 +3258,7 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', '');
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', '');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).hide();
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').hide();
                     }
                     $('<input type="file" id="files" name="files"/>')
                         .appendTo($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileUpload_' + oFiancialId))
@@ -3239,9 +3273,7 @@ var Provider_CompanyFinancialObject = {
                                     //set server fiel name
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + ' _Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                                 }
                             },
                         });
@@ -3249,7 +3281,7 @@ var Provider_CompanyFinancialObject = {
                     //init accounts object
                     Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
                     //calc total values
-                    Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                    //Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeIn('slow');
                 }
@@ -3264,185 +3296,223 @@ var Provider_CompanyFinancialObject = {
     RenderBalanceSheetDetailAccounts: function (container, lstAccounts) {
         if (container != null && $(container).length > 0 && lstAccounts != null && lstAccounts.length > 0) {
             $.each(lstAccounts, function (item, value) {
-                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-                    //parent node
-                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount').html();
+                if (value.AccountIsParetn) {
+                    //master account
+
+                    //get master template
+                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountParent').html();
                     ParentHtml = ParentHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
                     ParentHtml = ParentHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    //add parent account html
                     $(container).append(ParentHtml);
-                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
+                    //render child accounts
+                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
                 }
                 else {
-                    //last node
-                    var ChildHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount').html();
-                    ChildHtml = ChildHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
-                    ChildHtml = ChildHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
-                    ChildHtml = ChildHtml.replace(/\${Value}/gi, Number(value.RelatedBalanceSheetDetail != null ? value.RelatedBalanceSheetDetail.Value : '0'));
+                    //child account
 
-                    if ($(container).find('ul').length == 0) {
-                        $(container).append('<ul></ul>');
+                    var ChildContainer = container
+
+                    if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+
+                        //render subitems
+
+                        //get subitem template
+                        var SubItemHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountChild').html();
+                        SubItemHtml = SubItemHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                        SubItemHtml = SubItemHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                        //add child account html
+                        $(container).append(SubItemHtml);
+
+                        //get subitems container
+                        ChildContainer = $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId);
+
+                        //render subitems accounts
+                        Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts(ChildContainer, value.ChildBalanceSheet);
                     }
+                    //get child content
+                    var ChildValueHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountType_' + value.AccountType).html();
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    //add account html content
+                    $(ChildContainer).append(ChildValueHtml);
+                }
 
-                    $(container).find('ul').append(ChildHtml);
+
+                //set account value
+                var oCurrentAccountValue = 0;
+
+                if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
+                    oCurrentAccountValue = value.RelatedBalanceSheetDetail.Value;
+                }
+                if (value.AccountType == 1)
+                {
+                    //account is value
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(oCurrentAccountValue);
+                }
+                else if (value.AccountType == 0)
+                {
+                    //account is formula
+                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).html(oCurrentAccountValue);
                 }
             });
 
-            //append on focus out event
-            $('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
-                if ($.isNumeric($(this).val()) == false) {
-                    $(this).val(0);
-                }
-                Provider_CompanyFinancialObject.CalculateBalanceSheet();
-            });
+            ////append on focus out event
+            //$('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
+            //    if ($.isNumeric($(this).val()) == false) {
+            //        $(this).val(0);
+            //    }
+            //    Provider_CompanyFinancialObject.CalculateBalanceSheet();
+            //});
         }
     },
 
     CalculateBalanceSheet: function () {
-        Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
-        Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
+        //Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
+        //Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
     },
 
     CalculateBalanceSheetDetail: function (lstAccounts) {
 
-        var SumResult = new Number();
-        if (lstAccounts != null && lstAccounts.length > 0) {
-            $.each(lstAccounts, function (item, value) {
-                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-                    value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
-                    SumResult = SumResult + Number(value.ChildSum);
-                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
-                }
-                else {
-                    SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
-                }
-            });
-        }
-        return SumResult;
+        //var SumResult = new Number();
+        //if (lstAccounts != null && lstAccounts.length > 0) {
+        //    $.each(lstAccounts, function (item, value) {
+        //        if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+        //            value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
+        //            SumResult = SumResult + Number(value.ChildSum);
+        //            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
+        //        }
+        //        else {
+        //            SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
+        //        }
+        //    });
+        //}
+        //return SumResult;
     },
 
     CalculateBalanceSheetUtility: function (lstAccounts) {
-        var oUtilidadBruta = new Number();
-        var oUtilidadOperacional = new Number();
-        var oUtilidadAntesImpuestos = new Number();
-        var oUtilidadDespuesImpuestos = new Number();
-        var oUtilidadEjercicio = new Number();
+        //var oUtilidadBruta = new Number();
+        //var oUtilidadOperacional = new Number();
+        //var oUtilidadAntesImpuestos = new Number();
+        //var oUtilidadDespuesImpuestos = new Number();
+        //var oUtilidadEjercicio = new Number();
 
-        if (lstAccounts != null && lstAccounts.length > 0) {
-            if (fieldsLoad = true) {
-                $.each(lstAccounts, function (item, value) {
-                    if (value.RelatedAccount.ItemName == "Estado de Resultados") {
-                        $.each(value.ChildBalanceSheet, function (item, value) {
-                            if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
+        //if (lstAccounts != null && lstAccounts.length > 0) {
+        //    if (fieldsLoad = true) {
+        //        $.each(lstAccounts, function (item, value) {
+        //            if (value.RelatedAccount.ItemName == "Estado de Resultados") {
+        //                $.each(value.ChildBalanceSheet, function (item, value) {
+        //                    if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
 
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas") {
-                                            oUtilidadOperacional += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas") {
+        //                                    oUtilidadOperacional += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
 
-                                        if (value.RelatedAccount.ItemName == "Gastos de Administración") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3830').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3838').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3847').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Gastos de Ventas") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3831').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3839').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3848').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Depreciación y Amortización") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3832').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3840').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3849').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+        //                                if (value.RelatedAccount.ItemName == "Gastos de Administración") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3830').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3838').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3847').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Gastos de Ventas") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3831').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3839').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3848').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Depreciación y Amortización") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3832').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3840').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3849').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
 
-                                        if (value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3841').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3850').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Intereses") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3842').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3851').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Otros Gastos no Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3843').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3852').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadDespuesImpuestos += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+        //                                if (value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3841').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3850').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Intereses") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3842').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3851').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                                else if (value.RelatedAccount.ItemName == "Otros Gastos no Operacionales") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3843').val(value.RelatedBalanceSheetDetail.Value);
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3852').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    oUtilidadDespuesImpuestos += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
 
-                                        if (value.RelatedAccount.ItemName == "Impuestos") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3853').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadEjercicio += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3820_Total').val(oUtilidadEjercicio);
-                            }
-                        });
-                    }
-                    $('#divBalanceSheet_Detail_ParentAccount_3813_Total').val(oUtilidadEjercicio);
-                });
-            }
-        }
+        //                                if (value.RelatedAccount.ItemName == "Impuestos") {
+        //                                    $('#divBalanceSheet_Detail_ChildAccount_3853').val(value.RelatedBalanceSheetDetail.Value);
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
+        //                    }
+        //                    else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
+        //                        $.each(value.ChildBalanceSheet, function (item, value) {
+        //                            if (value.RelatedBalanceSheetDetail != null) {
+        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
+        //                                    oUtilidadEjercicio += value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                                else {
+        //                                    oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
+        //                                }
+        //                            }
+        //                        });
+        //                        $('#divBalanceSheet_Detail_ParentAccount_3820_Total').val(oUtilidadEjercicio);
+        //                    }
+        //                });
+        //            }
+        //            $('#divBalanceSheet_Detail_ParentAccount_3813_Total').val(oUtilidadEjercicio);
+        //        });
+        //    }
+        //}
     },
 
     CancelBalanceSheetDetail: function () {
@@ -3452,19 +3522,21 @@ var Provider_CompanyFinancialObject = {
     },
 
     SaveBalanceSheetDetail: function (vFinancialId) {
-        if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
-            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
-        }
+        //if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
+        //    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
+        //}
     },
 
     ValidateBalanceSheetDetail: function () {
-        var oReturn = true;
+        //var oReturn = true;
 
-        //validate balance values
-        //Provider_CompanyFinancialObject.CalculateBalanceSheet();
+        ////validate balance values
+        ////Provider_CompanyFinancialObject.CalculateBalanceSheet();
 
-        return oReturn;
+        //return oReturn;
     },
+
+    /***************************End balance sheet functions***********************************************/
 
     RenderTaxesInfo: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
@@ -3476,8 +3548,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderTaxesInfo, Provider_CompanyFinancialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3499,7 +3570,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3551,7 +3622,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -3643,7 +3714,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'FinancialId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -3658,8 +3729,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderIncomeStatementInfo, Provider_CompanyFinancialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3693,7 +3763,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3745,7 +3815,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -3855,7 +3925,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'FinancialId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -3870,8 +3940,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderBankInfo, Provider_CompanyFinancialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3915,7 +3984,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3967,7 +4036,7 @@ var Provider_CompanyFinancialObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4198,7 +4267,7 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'FinancialId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -4213,8 +4282,7 @@ var Provider_LegalInfoObject = {
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
-    DateFormat: '',
-    Enable: 'true',
+    DateFormat: '',   
 
     Init: function (vInitiObject) {
 
@@ -4253,6 +4321,9 @@ var Provider_LegalInfoObject = {
 
         //config keyboard
         Provider_LegalInfoObject.ConfigKeyBoard();
+
+           //Config Events
+        Provider_LegalInfoObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
@@ -4278,6 +4349,18 @@ var Provider_LegalInfoObject = {
         });
     },
 
+    ConfigEvents: function () {
+
+        //config grid visible enables event
+        $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_LegalInfoObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderChaimberOfComerce: function () {
         $('#' + Provider_LegalInfoObject.ObjectId).kendoGrid({
             editable: true,
@@ -4288,8 +4371,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderChaimberOfComerce, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4314,7 +4396,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4366,7 +4448,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4381,7 +4463,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'CD_PartnerName',
                 title: 'Nombre',
-                width: '200px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
@@ -4428,7 +4510,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -4443,8 +4525,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderUniqueRegister, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4502,9 +4583,10 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4522,6 +4604,7 @@ var Provider_LegalInfoObject = {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
                             success: function (result) {
+                                debugger;
                                 options.success(result);
                                 Message('success', '0');
                             },
@@ -4554,7 +4637,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4921,8 +5004,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderCIFIN, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4947,7 +5029,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4999,7 +5081,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5082,7 +5164,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -5097,8 +5179,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderSARLAFT, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5123,7 +5204,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5175,7 +5256,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5280,7 +5361,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -5295,8 +5376,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderResolutions, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5327,7 +5407,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5379,7 +5459,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '170px',
+                width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -5498,7 +5578,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'LegalId',
                 title: 'Id Interno',
-                width: '100px',
+                width: '78px',
             }],
         });
     },
@@ -5864,8 +5944,4 @@ function Message(style, idfield) {
     });
 }
 
-/*Manage ViewAll info*/
-function ViewEnable(objName, objFunctionName, chkName) {
-    objFunctionName.Enable = chkName.checked;
-    objName();
-}
+

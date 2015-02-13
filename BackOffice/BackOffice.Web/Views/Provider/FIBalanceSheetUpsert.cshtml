@@ -46,7 +46,7 @@
         </div>
     </div>
 
-    <div id="divBalanceSheet_Detail_Form">
+    <div id="divBalanceSheet_Template_Form">
 
         <form class="POBOProviderUpsertForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
             <div class="POBOBalanceSheetScrollWrapper">
@@ -77,6 +77,10 @@
                         </div>
                     </li>
                     <li>
+                        <label>Habilitado:</label>
+                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
+                    </li>
+                    <li>
                         <label>Moneda:</label>
                         <select id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" name="SH_Currency">
                             @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
@@ -86,19 +90,12 @@
                         </select>
                         <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" name="SH_CurrencyId" type="hidden" />
                     </li>
-                    <li>
-                        <label>Habilitado:</label>
-                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
-                    </li>
                 </ul>
                 @*AQUI SE INSERTAN LOS CAMPOS DE DATOS FINANCIEROS*@
                 <ul class="POBOBalanceSheet_DetailWrapper">
                     <li class="POBOBalanceSheet_Detail" id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
                     </li>
                 </ul>
-                <div class="POBOBalanceSheet_DocPreview">
-                    <iframe></iframe>
-                </div>
             </div>
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
             <ul class="POBOProviderActions BalanceSheetActions">
@@ -109,15 +106,6 @@
                     <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
                 </li>
             </ul>
-            @*MAS ACCIONES*@
-            @*<ul class="POBOProviderActions ProviderActions">
-                    <li>
-                        <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
-                    </li>
-                    <li class="POBOButtonsSaveProvider">
-                        <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
-                    </li>
-                </ul>*@
 
             <div style="display:none;">
                 <input name="FinancialId" type="hidden" value="${FinancialId}" />
@@ -125,21 +113,37 @@
             </div>
         </form>
     </div>
-    <div id="divBalanceSheet_Detail_ParentAccount">
-        <ul>
-            <li id="divBalanceSheet_Detail_ParentAccount_${AccountId}"></li>
-            <li>
-                <label class="ParentAccount">${AccountName}</label>
-                <span id="divBalanceSheet_Detail_ParentAccount_${AccountId}_Total"></span>
-            </li>
-        </ul>
+
+    <div id="divBalanceSheet_Template_AccountParent">
+        <div>
+            <label>${AccountName}</label>
+            <ul id="divBalanceSheet_AccountContent_${AccountId}"></ul>
+        </div>
     </div>
-    <div id="divBalanceSheet_Detail_ChildAccount">
+
+    <ul id="divBalanceSheet_Template_AccountChild">
+        <li>
+            <ul id="divBalanceSheet_AccountContent_${AccountId}"></ul>
+        </li>
+    </ul>
+
+    <ul id="divBalanceSheet_Template_AccountType_0">
         <li>
             <label>${AccountName}</label>
-            <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
+            <span id="divBalanceSheet_AccountContent_Value_${AccountId}"></span>
         </li>
-    </div>
+    </ul>
+    <ul id="divBalanceSheet_Template_AccountType_1">
+        <li>
+            <label>${AccountName}</label>
+            <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" />
+        </li>
+    </ul>
+    <ul id="divBalanceSheet_Template_AccountType_2">
+        <li>
+            <label>${AccountName}</label>
+        </li>
+    </ul>
 </div>
 
 @{
