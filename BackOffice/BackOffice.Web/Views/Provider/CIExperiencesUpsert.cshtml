@@ -19,7 +19,6 @@
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
-        <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
         <div id="divExperience"></div>
         <br />
         @{
@@ -31,6 +30,11 @@
 
 <!--templates-->
 <div style="display:none;">
+    <div id="divExperience_ShortcutToolTipTemplate">
+        <img id="divExperience_kbtooltip" style="width:30px;height:30px;" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+
     <div id="divExperience_ViewEnablesTemplate">
         <label>Ver solo los habilitados</label>
         <input id="divExperience_ViewEnable" type="checkbox" checked="checked" />

@@ -20,7 +20,6 @@
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
-            <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
             <div id="divGridLegalInfo"></div>
             <br />
             @{
@@ -33,6 +32,10 @@
 
 <!--templates-->
 <div style="display:none;">
+
+    <div id="divGridLegalInfo_ShortcutToolTipTemplate">
+        <img id="divGridLegalInfo_kbtooltip" style="width:30px;height:30px;" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
 
     <div id="divGridLegalInfo_ViewEnablesTemplate">
         <label>Ver solo los habilitados</label>
