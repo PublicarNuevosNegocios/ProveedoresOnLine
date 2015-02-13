@@ -22,7 +22,7 @@ namespace WebCrawler.Manager
             List<string> oSettingsList = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_CrawlerTags].Value.
                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
                ToList();
-            
+
             //redirect submenu
             foreach (var item in oSettingsList)
             {
@@ -46,7 +46,7 @@ namespace WebCrawler.Manager
                 //ProveedoresOnLine.Company.Controller.Company.CompanyFilterFill(oProvider.RelatedCompany.CompanyPublicId);
             }
             catch (System.Exception e)
-            {                
+            {
                 Console.WriteLine("Error, " + e.Message + "\n");
             }
 
@@ -83,12 +83,51 @@ namespace WebCrawler.Manager
 
         public static ProveedoresOnLine.Company.Models.Company.CompanyModel GeneralInfo(string ParId, string ProviderPublicId)
         {
-            ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
+            //Create model
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumCompanyInfoType.ProviderPaymentInfo,
+                            },
+                            Value = Convert.ToString((int)enumCategoryInfoType.NotApplicate),
+                        },
+                    },
+                    CompanyType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = (int)enumCategoryInfoType.Provider,
+                    },
+                    IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = (int)enumCategoryInfoType.NIT,
+                    },
+                    Enable = true,
+                };
 
             HtmlDocument HtmlDoc = GetHtmlDocumnet(ParId, enumMenu.GeneralInfo.ToString());
 
             if (HtmlDoc.DocumentNode.SelectNodes("//input") != null) // General Info
             {
+                Console.WriteLine("\nGeneral Info\n");
+
+                oCompany.RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                {
+                    new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                    {
+                        ItemId = 0,
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumContactType.CompanyContact, 
+                        },
+                        Enable = true,
+                        ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                    },
+                };
+
                 foreach (HtmlNode node in HtmlDoc.DocumentNode.SelectNodes("//input"))
                 {
                     HtmlAttribute AttId = node.Attributes["id"];
@@ -110,8 +149,7 @@ namespace WebCrawler.Manager
                         }
                         else if (AttId.Value == "razon2")//Nombre Comercial
                         {
-                            oCompany.CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oCompany.CompanyInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
@@ -121,18 +159,234 @@ namespace WebCrawler.Manager
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
                                 }
-                            };
+                            );
+                        }
+                        else if (AttId.Value == "tel0")
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                    },
+                                    Value = Convert.ToString((int)enumCategoryInfoType.CC_Telephone),
+                                    Enable = true,
+                                });
+
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_Value,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                });
+                        }
+                        else if (AttId.Value == "postal")
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                    },
+                                    Value = Convert.ToString((int)enumCategoryInfoType.CC_PostalCode),
+                                    Enable = true,
+                                });
+
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_Value,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                });
+                        }
+                        else if (AttId.Value == "tel")
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                    },
+                                    Value = Convert.ToString((int)enumCategoryInfoType.CC_Cellphone),
+                                    Enable = true,
+                                });
+
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_Value,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                });
+                        }
+                        else if (AttId.Value == "fax")
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                    },
+                                    Value = Convert.ToString((int)enumCategoryInfoType.CC_Fax),
+                                    Enable = true,
+                                });
+
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_Value,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                });
+                        }
+                        else if (AttId.Value == "telefono_3")
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                    },
+                                    Value = Convert.ToString((int)enumCategoryInfoType.CC_Telephone),
+                                    Enable = true,
+                                });
+
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_Value,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                });
+                        }
+                        else if (AttId.Value == "web")
+                        {
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                               {
+                                   ItemInfoId = 0,
+                                   ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                   {
+                                       ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                   },
+                                   Value = Convert.ToString((int)enumCategoryInfoType.CC_WebPage),
+                                   Enable = true,
+                               });
+
+                            oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_Value,
+                                    },
+                                    Value = AttValue.Value.ToString(),
+                                    Enable = true,
+                                });
                         }
                     }
                 }
             }
             else if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']/tr") != null)
             {
-                foreach (HtmlNode node in HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']/tr"))
+                HtmlNodeCollection tables = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
+
+                Console.WriteLine("\nContact Info\n");
+
+                HtmlNodeCollection rowsTable1 = tables[1].SelectNodes(".//tr");
+                if (rowsTable1 != null)
                 {
-                    foreach (HtmlNode item in node.SelectNodes("//td"))
+                    oCompany.RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
                     {
-                        string a = item.ToString();
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumContactType.PersonContact, 
+                            },
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                    for (int i = 1; i < rowsTable1.Count; i++)
+                    {
+                        HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
+
+                        Console.WriteLine("\nDocumento de Identidad " + cols[0].InnerText.ToString());                        
+                        Console.WriteLine("Nombre " + cols[1].InnerText.ToString());
+                        Console.WriteLine("Tipo Documento " + cols[2].InnerText.ToString());
+                        Console.WriteLine("Tipo Representante " + cols[3].InnerText.ToString());
+                        Console.WriteLine("Teléfono " + cols[4].InnerText.ToString());
+                        Console.WriteLine("Ciudad Expedición " + cols[5].InnerText.ToString());
+                        Console.WriteLine("Capacidad Negociación " + cols[6].InnerText.ToString());
+                        Console.WriteLine("Sin Límite " + cols[7].InnerText.ToString());
+                        Console.WriteLine("E-mail " + cols[8].InnerText.ToString());
+                        if (cols[9].InnerHtml.Contains("href"))
+                        {
+                            if (cols[9].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
+                            {
+                                cols[9].ChildNodes["a"].Attributes["href"].Value = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("../", "https://www.parservicios.com/parservi/procesos/");
+                            }
+                            Console.WriteLine("Documento " + cols[9].ChildNodes["a"].Attributes["href"].Value);
+                        }
+                    }
+                }
+
+                Console.WriteLine("\nLocations Info\n");
+
+                HtmlNodeCollection rowsTable2 = tables[2].SelectNodes(".//tr");
+
+                if (rowsTable2 != null)
+                {
+                    oCompany.RelatedContact = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>()
+                    {
+                        new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumContactType.Brach, 
+                            },
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        },
+                    };
+
+                    for (int i = 1; i < rowsTable2.Count; i++)
+                    {
+                        HtmlNodeCollection cols = rowsTable2[i].SelectNodes(".//td");
+
+                        Console.WriteLine("\nNombre " + cols[0].InnerText.ToString());
+                        Console.WriteLine("Dirección " + cols[1].InnerText.ToString());
+                        Console.WriteLine("Ciudad " + cols[2].InnerText.ToString());
+                        Console.WriteLine("Teléfono " + cols[3].InnerText.ToString());
+                        Console.WriteLine("Fax " + cols[4].InnerText.ToString());
+                        Console.WriteLine("Representante " + cols[5].InnerText.ToString());
+                        Console.WriteLine("E-mail " + cols[6].InnerText.ToString());
+                        Console.WriteLine("Página Web " + cols[7].InnerText.ToString());
                     }
                 }
             }
@@ -140,26 +394,6 @@ namespace WebCrawler.Manager
             {
                 Console.WriteLine("la sección " + enumMenu.GeneralInfo.ToString() + " no tiene información para descargar." + "\n");
             }
-
-            oCompany.CompanyInfo.Add(
-                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                {
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                    {
-                        ItemId = (int)enumCompanyInfoType.ProviderPaymentInfo,
-                    },
-                    Value = Convert.ToString((int)enumCategoryInfoType.NotApplicate),
-                });
-
-            oCompany.IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-            {
-                ItemId = (int)enumCategoryInfoType.NIT,
-            };
-            oCompany.CompanyType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-            {
-                ItemId = (int)enumCategoryInfoType.Provider,
-            };
-            oCompany.Enable = true;
 
             return oCompany;
         }

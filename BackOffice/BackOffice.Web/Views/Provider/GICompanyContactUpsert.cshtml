@@ -20,7 +20,6 @@
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
-            <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
             <label class="POBOProviderClarifyNotice">* Esta información de contacto de la empresa no es visible en Market Place, ya que solo será utilizada por el área de operaciones.</label>
             <div id="divGridCompanyContact"></div>
             <br />
@@ -33,6 +32,10 @@
 
 </div>
 <div style="display:none;">
+
+    <div id="divGridCompanyContact_ShortcutToolTipTemplate">
+        <img id="divGridCompanyContact_kbtooltip" style="width:30px;height:30px;" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
 
     <div id="divGridCompanyContact_ViewEnablesTemplate">
         <label>Ver solo los habilitados</label>

@@ -114,7 +114,6 @@
             <ul class="POBOHSEQWrapper">
                 <li class="POBOHSEQ">
                     <label>Certificados de Accidentalidad</label><br />
-                    <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
                     <div id="divGridRiskPolicies"></div>
                 </li>
                 <li class="POBOHSEQ">
@@ -189,6 +188,11 @@
 
 <!--templates by files-->
 <div style="display:none;">
+
+    <div id="divGridRiskPolicies_ShortcutToolTipTemplate">
+        <img id="divGridRiskPolicies_kbtooltip" style="width:30px;height:30px;" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
     <div id="divGridRiskPolicies_ViewEnablesTemplate">
         <label>Ver solo los habilitados</label>
         <input id="divGridRiskPolicies_ViewEnable" type="checkbox" checked="checked" />

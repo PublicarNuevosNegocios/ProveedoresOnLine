@@ -19,7 +19,6 @@
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
-        <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
         <div id="divBalanceSheet"></div>
         <div id="divBalanceSheet_Detail"></div>
         @{
@@ -30,6 +29,11 @@
 </div>
 
 <div style="display:none;">
+
+    <div id="divBalanceSheet_ShortcutToolTipTemplate">
+        <img id="divBalanceSheet_kbtooltip" style="width:30px;height:30px;" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
     <div id="divBalanceSheet_ViewEnablesTemplate">
         <label>Ver solo los habilitados</label>
         <input id="divBalanceSheet_ViewEnable" type="checkbox" checked="checked" />
@@ -49,6 +53,17 @@
     <div id="divBalanceSheet_Template_Form">
 
         <form class="POBOProviderUpsertForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
+
+            @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
+            <ul class="POBOProviderActions BalanceSheetActions">
+                <li class="POBOButtonsSaveProvider">
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                </li>
+                <li class="POBOButtonsSaveProvider">
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                </li>
+            </ul>
+
             <div class="POBOBalanceSheetScrollWrapper">
                 @*AQUI ESTAN LOS DATOS BASICOS DEL FORM*@
                 <ul class="POBOBalanceSheet_mainInfo">
@@ -100,10 +115,10 @@
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
             <ul class="POBOProviderActions BalanceSheetActions">
                 <li class="POBOButtonsSaveProvider">
-                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
                 </li>
                 <li class="POBOButtonsSaveProvider">
-                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
                 </li>
             </ul>
 
@@ -130,13 +145,15 @@
     <ul id="divBalanceSheet_Template_AccountType_0">
         <li>
             <label>${AccountName}</label>
-            <span id="divBalanceSheet_AccountContent_Value_${AccountId}"></span>
+            <span>${AccountUnit}</span>
+            <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" disabled="disabled" />
         </li>
     </ul>
     <ul id="divBalanceSheet_Template_AccountType_1">
         <li>
             <label>${AccountName}</label>
-            <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" />
+            <span>${AccountUnit}</span>
+            <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" />
         </li>
     </ul>
     <ul id="divBalanceSheet_Template_AccountType_2">

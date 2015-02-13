@@ -13,7 +13,7 @@ function Provider_SubmitForm(SubmitObject) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
     $('#' + SubmitObject.FormId).submit();
-    Message('success', '');
+    Message('success', null);
 }
 
 function Provider_Navigate(Url, GridName, ButtonClass) {
@@ -192,14 +192,15 @@ var Provider_CompanyContactObject = {
         //config keyboard
         Provider_CompanyContactObject.ConfigKeyBoard();
 
-        //init keyboard tooltip
-        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
-        
-          //Config Events
+        //Config Events
         Provider_CompanyContactObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -223,7 +224,7 @@ var Provider_CompanyContactObject = {
     },
 
     ConfigEvents: function () {
-        
+
         //config grid visible enables event
         $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyContactObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -231,7 +232,7 @@ var Provider_CompanyContactObject = {
     },
 
     GetViewEnable: function () {
-        
+
         return $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -244,8 +245,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -266,7 +268,7 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
@@ -275,7 +277,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -289,11 +291,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -307,11 +309,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
@@ -411,7 +413,8 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                   { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -453,7 +456,6 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
-                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
@@ -462,7 +464,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -476,11 +478,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -494,11 +496,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
@@ -678,6 +680,7 @@ var Provider_CompanyContactObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -731,7 +734,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -745,11 +748,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -763,11 +766,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
@@ -913,8 +916,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -962,7 +966,7 @@ var Provider_CompanyContactObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -976,11 +980,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -994,12 +998,12 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
 
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
@@ -1209,7 +1213,7 @@ var Provider_CompanyCommercialObject = {
     ProviderPublicId: '',
     CommercialType: '',
     DateFormat: '',
-    ProviderOptions: new Array(),    
+    ProviderOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -1236,6 +1240,10 @@ var Provider_CompanyCommercialObject = {
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -1280,6 +1288,7 @@ var Provider_CompanyCommercialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1336,7 +1345,7 @@ var Provider_CompanyCommercialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -1350,11 +1359,11 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -1368,11 +1377,11 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             }
                         });
                     },
@@ -1716,7 +1725,7 @@ var Provider_CompanyHSEQObject = {
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
-    YearOptionList: new Array(),    
+    YearOptionList: new Array(),
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
@@ -1755,6 +1764,10 @@ var Provider_CompanyHSEQObject = {
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyHSEQObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -1797,8 +1810,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1844,7 +1858,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -1858,11 +1872,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -1876,11 +1890,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             },
                         });
                     },
@@ -2114,8 +2128,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2168,7 +2183,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -2182,11 +2197,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -2200,11 +2215,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             },
                         });
                     },
@@ -2753,8 +2768,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar' },                
+                { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2799,7 +2815,7 @@ var Provider_CompanyHSEQObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -2813,12 +2829,12 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                                 Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -2832,12 +2848,12 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
                                 Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             },
                         });
                     },
@@ -3043,6 +3059,7 @@ var Provider_CompanyHSEQObject = {
 /*CompanyFinancialObject*/
 var Provider_CompanyFinancialObject = {
 
+    //init properties
     ObjectId: '',
     ProviderPublicId: '',
     FinancialType: '',
@@ -3050,6 +3067,11 @@ var Provider_CompanyFinancialObject = {
     ProviderOptions: new Array(),
     YearOptionList: new Array(),
     CurrentAccounts: new Array(),
+
+    //internal process properties
+    ValueAccounts: new Array(),
+    FormulaAccounts: new Array(),
+    ValidateFormulaAccounts: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -3094,6 +3116,10 @@ var Provider_CompanyFinancialObject = {
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyFinancialObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -3117,7 +3143,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     ConfigEvents: function () {
-        
+
         //config grid visible enables event
         $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').change(function () {
             $('#' + Provider_CompanyFinancialObject.ObjectId).data('kendoGrid').dataSource.read();
@@ -3125,7 +3151,7 @@ var Provider_CompanyFinancialObject = {
     },
 
     GetViewEnable: function () {
-        
+
         return $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
@@ -3141,6 +3167,7 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', template: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail(null);">Nuevo</a>' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 transport: {
@@ -3153,7 +3180,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3278,23 +3305,29 @@ var Provider_CompanyFinancialObject = {
                             },
                         });
 
+                    //init formula variables
+                    Provider_CompanyFinancialObject.ValueAccounts = new Array();
+                    Provider_CompanyFinancialObject.FormulaAccounts = new Array();
+                    Provider_CompanyFinancialObject.ValidateFormulaAccounts = new Array();
+
                     //init accounts object
                     Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
-                    //calc total values
-                    //Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                    //calc formula fields
+                    //Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
 
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeIn('slow');
                 }
             },
             error: function (result) {
-                alert(result);
-                Message('error', '');
+                Message('error', result);
             }
         });
     },
 
     RenderBalanceSheetDetailAccounts: function (container, lstAccounts) {
+
         if (container != null && $(container).length > 0 && lstAccounts != null && lstAccounts.length > 0) {
+
             $.each(lstAccounts, function (item, value) {
                 if (value.AccountIsParetn) {
                     //master account
@@ -3311,7 +3344,14 @@ var Provider_CompanyFinancialObject = {
                 else {
                     //child account
 
-                    var ChildContainer = container
+                    //get child container
+                    var ChildContainer = container;
+
+                    //get child content
+                    var ChildValueHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountType_' + value.AccountType).html();
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountUnit}/gi, value.AccountUnit);
 
                     if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
 
@@ -3327,192 +3367,145 @@ var Provider_CompanyFinancialObject = {
                         //get subitems container
                         ChildContainer = $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId);
 
+                        //add account html content for title account types
+                        if (value.AccountType == 2) {
+                            //add account html content
+                            $(ChildContainer).append(ChildValueHtml);
+                        }
+
                         //render subitems accounts
                         Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts(ChildContainer, value.ChildBalanceSheet);
-                    }
-                    //get child content
-                    var ChildValueHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountType_' + value.AccountType).html();
-                    ChildValueHtml = ChildValueHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
-                    ChildValueHtml = ChildValueHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
-                    //add account html content
-                    $(ChildContainer).append(ChildValueHtml);
-                }
 
+                        //add account html content for value account types
+                        if (value.AccountType == 0 || value.AccountType == 1) {
+                            //add account html content
+                            $(ChildContainer).append(ChildValueHtml);
+                        }
+                    }
+                    else {
+                        //no subitems
+
+                        //add account html content
+                        $(ChildContainer).append(ChildValueHtml);
+                    }
+                }
 
                 //set account value
-                var oCurrentAccountValue = 0;
+                if (value.AccountType == 0 || value.AccountType == 1) {
+                    if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(value.RelatedBalanceSheetDetail.Value);
+                    }
+                    else {
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(0);
+                    }
+                }
 
-                if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
-                    oCurrentAccountValue = value.RelatedBalanceSheetDetail.Value;
+                //add item to formula variables
+                if (value.AccountType == 0) {
+                    //formula field list
+                    Provider_CompanyFinancialObject.FormulaAccounts.push(new Object({
+                        AccountId: value.RelatedAccount.ItemId,
+                        Control: $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId),
+                        Formula: value.AccountFormula,
+                    }));
                 }
-                if (value.AccountType == 1)
-                {
-                    //account is value
-                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(oCurrentAccountValue);
+
+                if (value.AccountValidateFormula != null) {
+
+                    Provider_CompanyFinancialObject.ValidateFormulaAccounts.push(new Object({
+                        AccountId: value.RelatedAccount.ItemId,
+                        Control: $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId),
+                        Formula: value.AccountValidateFormula,
+                    }));
                 }
-                else if (value.AccountType == 0)
-                {
-                    //account is formula
-                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).html(oCurrentAccountValue);
-                }
+
+                //value field list
+                Provider_CompanyFinancialObject.ValueAccounts[value.RelatedAccount.ItemId] = $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId);
             });
 
-            ////append on focus out event
-            //$('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
-            //    if ($.isNumeric($(this).val()) == false) {
-            //        $(this).val(0);
-            //    }
-            //    Provider_CompanyFinancialObject.CalculateBalanceSheet();
-            //});
+            //append on focus out event
+            $('.' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_Selector').focusout(function () {
+                if ($.isNumeric($(this).val()) == false) {
+                    $(this).val(0);
+                }
+                Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
+            });
         }
     },
 
-    CalculateBalanceSheet: function () {
-        //Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
-        //Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
+    EvalBalanceSheetFormula: function () {
+
+        if (Provider_CompanyFinancialObject.FormulaAccounts != null && Provider_CompanyFinancialObject.FormulaAccounts.length > 0) {
+
+            $.each(Provider_CompanyFinancialObject.FormulaAccounts, function (item, value) {
+
+                if (value.Formula != null && value.Formula.length > 0) {
+                    //get formula exclude averange calc and spaces
+                    var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
+
+                    //get variables in formula [AccountId]
+                    var olstFormulaVariables = oFormulaToEval.match(new RegExp('[\\[\\d\\]]+', 'gi'));
+
+                    //replace all variable for values
+                    $.each(olstFormulaVariables, function (item, value) {
+                        //get current account id
+                        var oAccountId = value.replace(/\[/gi, '').replace(/\]/gi, '');
+
+                        if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
+                            //replace input value into formula expression
+                            oFormulaToEval = oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
+                        }
+                    });
+                    //eval formula and show in input value
+
+                    var oResult = eval(oFormulaToEval);
+
+                    if ($.isNumeric(oResult)) {
+                        value.Control.val(oResult);
+                    }
+                    else {
+                        value.Control.val('0');
+                    }
+                }
+            });
+        }
     },
 
-    CalculateBalanceSheetDetail: function (lstAccounts) {
+    ValidateBalanceSheetDetail: function () {
+        var oReturn = true;
 
-        //var SumResult = new Number();
-        //if (lstAccounts != null && lstAccounts.length > 0) {
-        //    $.each(lstAccounts, function (item, value) {
-        //        if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-        //            value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
-        //            SumResult = SumResult + Number(value.ChildSum);
-        //            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
-        //        }
-        //        else {
-        //            SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
-        //        }
-        //    });
-        //}
-        //return SumResult;
-    },
+        if (Provider_CompanyFinancialObject.ValidateFormulaAccounts != null && Provider_CompanyFinancialObject.ValidateFormulaAccounts.length > 0) {
 
-    CalculateBalanceSheetUtility: function (lstAccounts) {
-        //var oUtilidadBruta = new Number();
-        //var oUtilidadOperacional = new Number();
-        //var oUtilidadAntesImpuestos = new Number();
-        //var oUtilidadDespuesImpuestos = new Number();
-        //var oUtilidadEjercicio = new Number();
+            $.each(Provider_CompanyFinancialObject.ValidateFormulaAccounts, function (item, value) {
 
-        //if (lstAccounts != null && lstAccounts.length > 0) {
-        //    if (fieldsLoad = true) {
-        //        $.each(lstAccounts, function (item, value) {
-        //            if (value.RelatedAccount.ItemName == "Estado de Resultados") {
-        //                $.each(value.ChildBalanceSheet, function (item, value) {
-        //                    if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
-        //                        $.each(value.ChildBalanceSheet, function (item, value) {
-        //                            if (value.RelatedBalanceSheetDetail != null) {
-        //                                oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
+                if (value.Formula != null && value.Formula.length > 0) {
+                    //get formula exclude averange calc and spaces
+                    var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
 
-        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                                else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                            }
-        //                        });
-        //                    }
-        //                    else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {
-        //                        $.each(value.ChildBalanceSheet, function (item, value) {
-        //                            if (value.RelatedBalanceSheetDetail != null) {
-        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas") {
-        //                                    oUtilidadOperacional += value.RelatedBalanceSheetDetail.Value;
-        //                                }
-        //                                else {
-        //                                    oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
-        //                                }
+                    //get variables in formula [AccountId]
+                    var olstFormulaVariables = oFormulaToEval.match(new RegExp('[\\[\\d\\]]+', 'gi'));
 
-        //                                if (value.RelatedAccount.ItemName == "Gastos de Administración") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3830').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3838').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3847').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                                else if (value.RelatedAccount.ItemName == "Gastos de Ventas") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3831').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3839').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3848').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                                else if (value.RelatedAccount.ItemName == "Depreciación y Amortización") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3832').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3840').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3849').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                            }
-        //                        });
-        //                        $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
-        //                    }
-        //                    else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
-        //                        $.each(value.ChildBalanceSheet, function (item, value) {
-        //                            if (value.RelatedBalanceSheetDetail != null) {
-        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-        //                                    oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
-        //                                }
-        //                                else {
-        //                                    oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-        //                                }
+                    //replace all variable for values
+                    $.each(olstFormulaVariables, function (item, value) {
+                        //get current account id
+                        var oAccountId = value.replace(/\[/gi, '').replace(/\]/gi, '');
 
-        //                                if (value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3841').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3850').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                                else if (value.RelatedAccount.ItemName == "Intereses") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3842').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3851').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                                else if (value.RelatedAccount.ItemName == "Otros Gastos no Operacionales") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3843').val(value.RelatedBalanceSheetDetail.Value);
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3852').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                            }
-        //                        });
-        //                        $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
-        //                    }
-        //                    else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
-        //                        $.each(value.ChildBalanceSheet, function (item, value) {
-        //                            if (value.RelatedBalanceSheetDetail != null) {
-        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-        //                                    oUtilidadDespuesImpuestos += value.RelatedBalanceSheetDetail.Value;
-        //                                }
-        //                                else {
-        //                                    oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-        //                                }
+                        if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
+                            //replace input value into formula expression
+                            oFormulaToEval = oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
+                        }
+                    });
+                    //eval formula and show in input value
+                    var oResult = eval(oFormulaToEval);
 
-        //                                if (value.RelatedAccount.ItemName == "Impuestos") {
-        //                                    $('#divBalanceSheet_Detail_ChildAccount_3853').val(value.RelatedBalanceSheetDetail.Value);
-        //                                }
-        //                            }
-        //                        });
-        //                        $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
-        //                    }
-        //                    else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
-        //                        $.each(value.ChildBalanceSheet, function (item, value) {
-        //                            if (value.RelatedBalanceSheetDetail != null) {
-        //                                if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-        //                                    oUtilidadEjercicio += value.RelatedBalanceSheetDetail.Value;
-        //                                }
-        //                                else {
-        //                                    oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
-        //                                }
-        //                            }
-        //                        });
-        //                        $('#divBalanceSheet_Detail_ParentAccount_3820_Total').val(oUtilidadEjercicio);
-        //                    }
-        //                });
-        //            }
-        //            $('#divBalanceSheet_Detail_ParentAccount_3813_Total').val(oUtilidadEjercicio);
-        //        });
-        //    }
-        //}
+                    if (oResult == false) {
+                        oReturn = false;
+                    }
+                }
+            });
+        }
+
+        return oReturn;
     },
 
     CancelBalanceSheetDetail: function () {
@@ -3522,18 +3515,13 @@ var Provider_CompanyFinancialObject = {
     },
 
     SaveBalanceSheetDetail: function (vFinancialId) {
-        //if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
-        //    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
-        //}
-    },
 
-    ValidateBalanceSheetDetail: function () {
-        //var oReturn = true;
-
-        ////validate balance values
-        ////Provider_CompanyFinancialObject.CalculateBalanceSheet();
-
-        //return oReturn;
+        if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
+            $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
+        }
+        else {
+            Message('error', 'El balance no cumple con las validaciones, por favor revise los datos.');
+        }
     },
 
     /***************************End balance sheet functions***********************************************/
@@ -3549,6 +3537,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3577,7 +3566,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3591,11 +3580,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3609,11 +3598,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.FinancialId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.FinancialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.FinancialId);
+                                Message('error', 'Error en la fila con el id ' + options.data.FinancialId + '.');
                             }
                         });
                     },
@@ -3730,6 +3719,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3770,7 +3760,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3784,11 +3774,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3802,11 +3792,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.FinancialId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.FinancialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.FinancialId);
+                                Message('error', 'Error en la fila con el id ' + options.data.FinancialId + '.');
                             }
                         });
                     },
@@ -3941,6 +3931,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3991,7 +3982,7 @@ var Provider_CompanyFinancialObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -4005,11 +3996,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -4023,11 +4014,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.FinancialId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.FinancialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.FinancialId);
+                                Message('error', 'Error en la fila con el id ' + options.data.FinancialId + '.');
                             }
                         });
                     },
@@ -4202,7 +4193,7 @@ var Provider_CompanyFinancialObject = {
                                         },
                                         error: function (result) {
                                             options.error(result);
-                                            Message('error', '');
+                                            Message('error', result);
                                         }
                                     });
                                 },
@@ -4282,7 +4273,7 @@ var Provider_LegalInfoObject = {
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
-    DateFormat: '',   
+    DateFormat: '',
 
     Init: function (vInitiObject) {
 
@@ -4322,11 +4313,15 @@ var Provider_LegalInfoObject = {
         //config keyboard
         Provider_LegalInfoObject.ConfigKeyBoard();
 
-           //Config Events
+        //Config Events
         Provider_LegalInfoObject.ConfigEvents();
     },
 
     ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_LegalInfoObject.ObjectId + '_kbtooltip').tooltip();
+
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
@@ -4372,6 +4367,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4403,7 +4399,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4417,11 +4413,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4435,11 +4431,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
@@ -4526,6 +4522,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4591,7 +4588,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4606,11 +4603,11 @@ var Provider_LegalInfoObject = {
                             success: function (result) {
                                 debugger;
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4624,11 +4621,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
@@ -5005,6 +5002,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5036,7 +5034,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5050,11 +5048,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5068,11 +5066,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
@@ -5180,6 +5178,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5211,7 +5210,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5225,11 +5224,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5243,11 +5242,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
@@ -5377,6 +5376,7 @@ var Provider_LegalInfoObject = {
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5414,7 +5414,7 @@ var Provider_LegalInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5428,11 +5428,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5446,11 +5446,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
@@ -5647,8 +5647,6 @@ var Provider_CustomerInfoObject = {
             toolbar: [
                 { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
                 { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking(null);">Agregar Seguimiento</a>' },
-                //{ name: 'save', text: 'Guardar' },
-                //{ name: 'cancel', text: 'Descartar' },
             ],
             dataSource: {
                 schema: {
@@ -5672,7 +5670,7 @@ var Provider_CustomerInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5687,11 +5685,11 @@ var Provider_CustomerInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CP_CustomerProviderId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -5705,11 +5703,11 @@ var Provider_CustomerInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -5766,7 +5764,7 @@ var Provider_CustomerInfoObject = {
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -5836,14 +5834,14 @@ var Provider_CustomerInfoObject = {
             dataType: "json",
             type: "POST",
             success: function (result) {
-                Message('success', '0');
+                Message('success', 'Se creó el registro.');
 
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog("close");
 
                 Provider_CustomerInfoObject.RenderCustomerByProvider();
             },
             error: function (result) {
-                Message('error', '');
+                Message('error', result);
             }
         });
     },
@@ -5895,7 +5893,7 @@ var Provider_CustomerInfoObject = {
             dataType: "json",
             type: "POST",
             success: function (result) {
-                Message('success', '0');
+                Message('success', 'Se creó el registro.');
 
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog("close");
 
@@ -5905,43 +5903,10 @@ var Provider_CustomerInfoObject = {
                 Provider_CustomerInfoObject.RenderCustomerByProvider();
             },
             error: function (result) {
-                Message('error', '');
+                Message('error', result);
             }
         });
     },
-
-}
-
-/*Message*/
-function Message(style, idfield) {
-    if ($('div.message').length) {
-        $('div.message').remove();
-    }
-
-    var mess = '';
-    if (style == 'error') {
-        if (idfield.length > 0) {
-            mess = 'Error en la fila con el id ' + idfield + '.';
-        }
-        else {
-            mess = 'Hay un error!';
-        }
-    } else {
-        if (idfield == '0') {
-            mess = 'Se creó el registro.';
-        }
-        else if (idfield == '') {
-            mess = 'Operación exitosa.';
-        } else {
-            mess = 'Se editó la fila con el id ' + idfield + '.';
-        }
-    }
-
-    $('<div class="message m_' + style + '">' + mess + '</div>').css({
-        top: $(window).scrollTop() + 'px'
-    }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
-        $(this).remove();
-    });
 }
 
 
