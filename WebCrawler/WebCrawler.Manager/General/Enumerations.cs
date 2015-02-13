@@ -62,6 +62,14 @@
 
         //Payment Info
         NotApplicate = 217001,
+
+        //Company Type Info
+        CC_Cellphone = 209002,
+        CC_PostalCode = 209004,
+        CC_Email = 209006,
+        CC_Fax = 209005,
+        CC_WebPage = 209003,
+        CC_Telephone = 209001
     }
 
     #endregion

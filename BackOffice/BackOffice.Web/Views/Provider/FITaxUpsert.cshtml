@@ -32,22 +32,22 @@
 </div>
 
 <!--templates by files-->
-<div style="display:none;">    
+<div style="display:none;">
     <div id="divGridTaxes_ViewEnablesTemplate">
         <label>Ver solo los habilitados</label>
         <input id="divGridTaxes_ViewEnable" type="checkbox" checked="checked" />
     </div>
-        <div id="divGridTaxes_NoFile">
-            <div>
-                <span>Seleccione un archivo</span>
-            </div>
-        </div>
-        <div id="divGridTaxes_File">
-            <div>
-                <a target="_blank" href="${Url_File}">Ver archivo</a>
-            </div>
+    <div id="divGridTaxes_NoFile">
+        <div>
+            <span>Seleccione un archivo</span>
         </div>
     </div>
+    <div id="divGridTaxes_File">
+        <div>
+            <a target="_blank" href="${Url_File}">Ver archivo</a>
+        </div>
+    </div>
+</div>
 
 @{
     Model.RenderScripts = true;
