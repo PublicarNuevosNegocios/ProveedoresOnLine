@@ -159,7 +159,6 @@ var Provider_CompanyContactObject = {
     ContactType: '',
     DateFormat: '',
     ProviderOptions: new Array(),
-    Enable: 'true',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -220,6 +219,17 @@ var Provider_CompanyContactObject = {
         });
     },
 
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyContactObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderCompanyContact: function () {
         $('#' + Provider_CompanyContactObject.ObjectId).kendoGrid({
             editable: true,
@@ -230,8 +240,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderCompanyContact, Provider_CompanyContactObject,this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -253,7 +262,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -396,8 +405,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderPersonContact, Provider_CompanyContactObject,this)"/>' },
+                   { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -441,7 +449,7 @@ var Provider_CompanyContactObject = {
                     read: function (options) {
                         debugger;
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -663,8 +671,7 @@ var Provider_CompanyContactObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderBranch, Provider_CompanyContactObject,this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -711,7 +718,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -900,9 +907,8 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyContactObject.RenderDistributor, Provider_CompanyContactObject,this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -943,7 +949,7 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1197,8 +1203,7 @@ var Provider_CompanyCommercialObject = {
     ProviderPublicId: '',
     CommercialType: '',
     DateFormat: '',
-    ProviderOptions: new Array(),
-    Enable: 'true',
+    ProviderOptions: new Array(),    
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -1244,6 +1249,17 @@ var Provider_CompanyCommercialObject = {
         });
     },
 
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyCommercialObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderExperience: function () {
         $('#' + Provider_CompanyCommercialObject.ObjectId).kendoGrid({
             editable: true,
@@ -1254,8 +1270,7 @@ var Provider_CompanyCommercialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyCommercialObject.RenderExperience, Provider_CompanyCommercialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1305,7 +1320,7 @@ var Provider_CompanyCommercialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType + '&ViewEnable=' + Provider_CompanyCommercialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType + '&ViewEnable=' + Provider_CompanyCommercialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1692,8 +1707,7 @@ var Provider_CompanyHSEQObject = {
     HSEQType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
-    YearOptionList: new Array(),
-    Enable: 'true',
+    YearOptionList: new Array(),    
 
     Init: function (vInitiObject) {
         this.ObjectId = vInitiObject.ObjectId;
@@ -1751,6 +1765,17 @@ var Provider_CompanyHSEQObject = {
         });
     },
 
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyHSEQObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
     RenderCompanyCertification: function () {
         $('#' + Provider_CompanyHSEQObject.ObjectId).kendoGrid({
             editable: true,
@@ -1760,9 +1785,8 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyCertification, Provider_CompanyHSEQObject, this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1801,7 +1825,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2078,9 +2102,8 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics, Provider_CompanyHSEQObject, this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2126,7 +2149,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -2718,9 +2741,8 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyHSEQObject.RenderCompanyRiskPolicies, Provider_CompanyHSEQObject, this)"/>' },
+                { name: 'cancel', text: 'Descartar' },                
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2757,7 +2779,7 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3476,8 +3498,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderTaxesInfo, Provider_CompanyFinancialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3499,7 +3520,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3658,8 +3679,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderIncomeStatementInfo, Provider_CompanyFinancialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3693,7 +3713,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -3870,8 +3890,7 @@ var Provider_CompanyFinancialObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_CompanyFinancialObject.RenderBankInfo, Provider_CompanyFinancialObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3915,7 +3934,7 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4213,8 +4232,7 @@ var Provider_LegalInfoObject = {
     LegalInfoType: '',
     ChaimberOfComerceOptionList: new Array(),
     LegalId: '',
-    DateFormat: '',
-    Enable: 'true',
+    DateFormat: '',   
 
     Init: function (vInitiObject) {
 
@@ -4288,8 +4306,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar cambios' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderChaimberOfComerce, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4314,7 +4331,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4443,8 +4460,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderUniqueRegister, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4502,7 +4518,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -4921,8 +4937,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderCIFIN, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4947,7 +4962,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5097,8 +5112,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderSARLAFT, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5123,7 +5137,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5295,8 +5309,7 @@ var Provider_LegalInfoObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
-                { name: '', template: '<label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados </label>' },
-                { name: "chkViewEnable", template: '<input  name="EnableContact" id="EnableContact" type="checkbox" checked="checked" onclick="ViewEnable(Provider_LegalInfoObject.RenderResolutions, Provider_LegalInfoObject, this)"/>' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5327,7 +5340,7 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.Enable,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5864,8 +5877,4 @@ function Message(style, idfield) {
     });
 }
 
-/*Manage ViewAll info*/
-function ViewEnable(objName, objFunctionName, chkName) {
-    objFunctionName.Enable = chkName.checked;
-    objName();
-}
+
