@@ -15,6 +15,57 @@
         OtherInfo = 8,
     }
 
+    #region Util
+
+    public enum enumCategoryInfoType
+    {
+        //identification type
+        RUT = 201001,
+        NIT = 201002,
+        TAX_ID = 201003,
+
+        //company type
+        Customer = 202001,
+        Provider = 202002,
+        Customer_Provider = 202003,
+
+        //economic activity info
+        EA_Type = 102001,
+        EA_Category = 102002,
+        EA_Group = 102003,
+        EA_IsCustom = 102004,
+
+        //geography type
+        GI_GeographyType = 106001,
+        GI_CapitalType = 106002,
+        GI_DirespCode = 106003,
+
+        //GeographyInfo Type
+        GIT_Country = 105001,
+        GIT_State = 105002,
+        GIT_City = 105003,
+
+        //CapitalType
+        CT_CountryCapital = 107001,
+        CT_CapitalState = 107002,
+        CT_IsNotCapital = 107003,
+
+        //Account info
+        AI_Order = 109001,
+
+        //ICA Info
+        I_ICACode = 608001,
+
+        //Bank Info
+        B_Location = 505001,
+        B_Code = 505011,
+
+        //Payment Info
+        NotApplicate = 217001,
+    }
+
+    #endregion
+
     #region Company
 
     public enum enumCompanyType
@@ -33,6 +84,7 @@
         ProviderPaymentInfo = 203003,
         CertificationDate = 203004,
         CompanyLogo = 203005,
+        ComercialName = 203007,
     }
 
     /// <summary>

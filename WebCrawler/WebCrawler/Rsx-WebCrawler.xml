@@ -3,10 +3,13 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=pfdrj76rkkn0d3ldh0285dqni0]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=1uihh7qh18cinq3a8lqkfn7291]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
+
+    <!--Publicar Id-->
+    <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
 
     <!--Folder-->
     <key name="FolderSave">D:\WebCrawler</key>

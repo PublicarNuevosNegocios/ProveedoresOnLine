@@ -110,6 +110,7 @@
         ProviderPaymentInfo = 203003,
         CertificationDate = 203004,
         CompanyLogo = 203005,
+        ComercialName = 203007,
     }
 
     /// <summary>
