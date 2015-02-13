@@ -82,7 +82,7 @@ namespace BackOffice.Web.Controllers
                         ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
                     },
                     Enable = true,
-                });               
+                });
 
                 oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
 
@@ -1469,13 +1469,11 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
-
         public virtual ActionResult DownloadFile(string SearchParam, string SearchFilter)
         {
             string oSearchParam = string.IsNullOrEmpty(Request["SearchParam"]) ? null : Request["SearchParam"];
             string oSearchFilter = string.Join(",", (Request["SearchFilter"] ?? string.Empty).Replace(" ", "").Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
             oSearchFilter = string.IsNullOrEmpty(oSearchFilter) ? null : oSearchFilter;
-
 
             string oCompanyType =
                     ((int)(BackOffice.Models.General.enumCompanyType.Provider)).ToString() + "," +
@@ -1485,7 +1483,7 @@ namespace BackOffice.Web.Controllers
             int oRowCount = 65000;
             int oTotalRows;
 
-            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oProviders =
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oCompanyList =
                 ProveedoresOnLine.Company.Controller.Company.CompanySearch
                     (oCompanyType,
                     null,
@@ -1494,28 +1492,93 @@ namespace BackOffice.Web.Controllers
                     oRowCount,
                     out oTotalRows);
 
+            //Get the providers
+            List<ProviderModel> oProviders = new List<ProviderModel>();
 
-            foreach (ProveedoresOnLine.Company.Models.Company.CompanyModel item in oProviders)
+            oCompanyList.All(x =>
             {
-                //item.
-            }
-            
-            
-            
+                oProviders.Add(new ProviderModel
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(x.CompanyPublicId),
+                });
+                return true;
+            });
+
+            //Set the legal i
+            oProviders.All(x =>
+            {
+                x.RelatedLegal = new List<GenericItemModel>();
+                x.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
+                    (x.RelatedCompany.CompanyPublicId, (int)enumLegalType.Designations, true);
+                return true;
+            });
+
+            //Write the document
             StringBuilder data = new StringBuilder();
+            string strSep = ";";
 
-            //foreach (var item in oSearchResult)
-            //{
-                
-            //}
+            oProviders.All(x =>
+            {
+                if (oProviders.IndexOf(x) == 0)
+                {
+                    data.AppendLine
+                    ("\"" + "NOMBRE" + "\"" + strSep +
+                        "\"" + "TIPO IDENTIFICACION" + "\"" + strSep +
+                        "\"" + "NUMERO IDENTIFICACION" + "\"" + strSep +
+                        "\"" + "TIPO" + "\"" + strSep +
+                        "\"" + "ID INTERNO" + "\"");
+                    data.AppendLine
+                        ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                        "\"" + "Company" + "\"" + strSep +
+                        "\"" + x.RelatedCompany.CompanyPublicId + "\"");
+                    if (x.RelatedLegal != null && x.RelatedLegal.Count > 0)
+                    {
+                        x.RelatedLegal.All(y =>
+                        {
+                            data.AppendLine
+                                (
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                    "\"" + "CC" + "\"" + strSep +
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                    "\"" + "Person" + "\"" + strSep +
+                                    "\"" + x.RelatedCompany.CompanyPublicId + "\""
+                                );
+                            return true;
+                        });
+                    }
+                }
+                else
+                {
+                    data.AppendLine
+                        ("\"" + x.RelatedCompany.CompanyName + "\"" + "" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationType.ItemName + "\"" + strSep +
+                        "\"" + x.RelatedCompany.IdentificationNumber + "\"" + strSep +
+                        "\"" + "Company" + "\"" + strSep +
+                        "\"" + x.RelatedCompany.CompanyPublicId + "\"");
+                    if (x.RelatedLegal != null && x.RelatedLegal.Count > 0)
+                    {
+                        x.RelatedLegal.All(y =>
+                        {
+                            data.AppendLine
+                                (
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerName).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                    "\"" + "CC" + "\"" + strSep +
+                                    "\"" + y.ItemInfo.Where(n => n.ItemInfoType.ItemId == (int)enumLegalInfoType.CD_PartnerIdentificationNumber).Select(n => n.Value).FirstOrDefault() + "\"" + "" + strSep +
+                                    "\"" + "Person" + "\"" + strSep +
+                                    "\"" + x.RelatedCompany.CompanyPublicId + "\""
+                                );
+                            return true;
+                        });
+                    }
+                }
+                return true;
+            });
 
-            //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegalInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
-            //      (ProviderPublicId,
-            //      string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
-        
-    
-            
-            return View();
+            byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
+
+            return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
         }
     }
 }
