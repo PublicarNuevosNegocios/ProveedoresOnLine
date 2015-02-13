@@ -90,6 +90,8 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
             public readonly string AdminTreeUpsert = "AdminTreeUpsert";
             public readonly string AdminTRMUpsert = "AdminTRMUpsert";
+            public readonly string AdminRLDownloadProvider = "AdminRLDownloadProvider";
+            public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -106,6 +108,8 @@ namespace BackOffice.Web.Controllers
             public const string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
             public const string AdminTreeUpsert = "AdminTreeUpsert";
             public const string AdminTRMUpsert = "AdminTRMUpsert";
+            public const string AdminRLDownloadProvider = "AdminRLDownloadProvider";
+            public const string AdminRLUploadProvider = "AdminRLUploadProvider";
         }
 
 
@@ -134,6 +138,8 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
+                public readonly string AdminRLDownloadProvider = "AdminRLDownloadProvider";
+                public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
                 public readonly string AdminTRMUpsert = "AdminTRMUpsert";
@@ -146,6 +152,8 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminEcoGroupUpsert = "~/Views/Admin/AdminEcoGroupUpsert.cshtml";
             public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
             public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
+            public readonly string AdminRLDownloadProvider = "~/Views/Admin/AdminRLDownloadProvider.cshtml";
+            public readonly string AdminRLUploadProvider = "~/Views/Admin/AdminRLUploadProvider.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Admin/AdminTreeUpsert.cshtml";
             public readonly string AdminTRMUpsert = "~/Views/Admin/AdminTRMUpsert.cshtml";
@@ -279,6 +287,28 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminTRMUpsert);
             AdminTRMUpsertOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminRLDownloadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminRLDownloadProvider()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRLDownloadProvider);
+            AdminRLDownloadProviderOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminRLUploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminRLUploadProvider()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRLUploadProvider);
+            AdminRLUploadProviderOverride(callInfo);
             return callInfo;
         }
 
