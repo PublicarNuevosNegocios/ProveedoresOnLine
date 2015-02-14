@@ -31,7 +31,9 @@ namespace WebCrawler.Manager
         {
             ProveedoresOnLine.Company.Models.Util.GeographyModel oReturn = null;
 
-            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            string[] oSearchParam = SearchParam.Split(new char[] { '/' });
+
+            SearchParam = oSearchParam[0].Normalize(NormalizationForm.FormD);
             Regex reg = new Regex("[^a-zA-Z0-9 ]");
             SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
 

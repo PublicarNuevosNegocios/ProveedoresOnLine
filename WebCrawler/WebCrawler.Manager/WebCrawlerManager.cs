@@ -43,15 +43,16 @@ namespace WebCrawler.Manager
             try
             {
                 //Provider upsert
-                //oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
+                
+                oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
                 Console.WriteLine("Se agregó el proveedor " + oProvider.RelatedCompany.CompanyName + "\n");
 
                 //Relation Provider with Publicar
-                //SetCompanyProvider(oProvider.RelatedCompany.CompanyPublicId);
+                SetCompanyProvider(oProvider.RelatedCompany.CompanyPublicId);
 
                 //Update search filters
-                //ProveedoresOnLine.Company.Controller.Company.CompanySearchFill(oProvider.RelatedCompany.CompanyPublicId);
-                //ProveedoresOnLine.Company.Controller.Company.CompanyFilterFill(oProvider.RelatedCompany.CompanyPublicId);
+                ProveedoresOnLine.Company.Controller.Company.CompanySearchFill(oProvider.RelatedCompany.CompanyPublicId);
+                ProveedoresOnLine.Company.Controller.Company.CompanyFilterFill(oProvider.RelatedCompany.CompanyPublicId);
             }
             catch (System.Exception e)
             {
@@ -126,6 +127,7 @@ namespace WebCrawler.Manager
                 ProveedoresOnLine.Company.Models.Util.GenericItemModel oGeneralInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                     {
                         ItemId = 0,
+                        ItemName = string.Empty,
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
                             ItemId = (int)enumContactType.CompanyContact,
@@ -352,7 +354,6 @@ namespace WebCrawler.Manager
 
                 //Add General Info
                 oCompany.RelatedContact.Add(oGeneralInfo);
-
             }
             else
             {
@@ -371,6 +372,7 @@ namespace WebCrawler.Manager
                     ProveedoresOnLine.Company.Models.Util.GenericItemModel oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                     {
                         ItemId = 0,
+                        ItemName = string.Empty,
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
                             ItemId = (int)enumContactType.PersonContact,
@@ -498,6 +500,7 @@ namespace WebCrawler.Manager
                     ProveedoresOnLine.Company.Models.Util.GenericItemModel oLocationsInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                     {
                         ItemId = 0,
+                        ItemName = string.Empty,
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
                             ItemId = (int)enumContactType.Brach,
