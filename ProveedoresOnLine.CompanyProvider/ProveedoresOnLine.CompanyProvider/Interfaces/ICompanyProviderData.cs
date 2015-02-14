@@ -38,6 +38,10 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId);
 
+        int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl);
+
+        int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value);
+
         #region MarketPlace
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> MPProviderSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
