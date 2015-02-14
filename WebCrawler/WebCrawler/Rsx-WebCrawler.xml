@@ -3,7 +3,7 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=q331s0l28b5jof8bq9qrsik5k1]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=eg4ab2clv5n0lmef38dtf02l72]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
@@ -15,7 +15,7 @@
     <key name="FolderSave">D:\WebCrawler</key>
 
     <!--File Params-->
-    <key name="File_RemoteDirectoryProvider">\DocumentManagment\ProviderFile\</key>
+    <key name="File_RemoteDirectory">\BackOffice\</key>
 
     <!--Url download-->
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>

@@ -18,7 +18,7 @@ namespace WebCrawler.Manager.General
 
         public const string C_Settings_FolderSave = "FolderSave";
 
-        public const string C_Settings_File_RemoteDirectoryProvider = "File_RemoteDirectoryProvider";
+        public const string C_Settings_File_RemoteDirectory = "File_RemoteDirectory";
 
         public const string C_Settings_PublicarPublicId = "PublicarPublicId";
 
