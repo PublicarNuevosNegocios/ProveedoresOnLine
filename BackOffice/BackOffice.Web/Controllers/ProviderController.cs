@@ -576,146 +576,182 @@ namespace BackOffice.Web.Controllers
                 }
             };
 
-            //get account info
-            List<GenericItemModel> olstAccount =
-                ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
-            //get current values
-            List<BalanceSheetDetailModel> olstBalanceSheetDetail = null;
+            StringBuilder strAux = new StringBuilder();
 
-            if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
+            Request.Form.AllKeys.All(rq =>
             {
-                olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial
-                    (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
-            }
-
-            if (olstBalanceSheetDetail == null)
-                olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
-
-
-            //get Currency GetRate 
-            decimal oCurrencyRate = Currency_GetRate
-                (Convert.ToInt32(Request["SH_Currency"]),
-                Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
-                Convert.ToInt32(Request["SH_Year"]));
-
-            //get account info
-
-            //key: AccountId
-            //Tuple<Order,AccountObject,BalanceObject,RequestValue,CurrencyValue>
-            Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>> AccountValues = new Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>>();
-
-            //fill account object
-            GetAccountArray(
-                AccountValues,
-                oCurrencyRate,
-                null,
-                olstAccount,
-                olstBalanceSheetDetail);
-
-            //execute account formula and refresh related balancesheet
-            AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
-            {
-                int oAccountInfoType = aci.Item2.ItemInfo.
-                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_IsValue).
-                    Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).
-                    DefaultIfEmpty(1).
-                    FirstOrDefault();
-
-                //balance only for value types exlude title types (2)
-                if (oAccountInfoType == 0 || oAccountInfoType == 1)
+                if (rq.StartsWith("AccountPostName_"))
                 {
-                    decimal oAccountDecimalValue = 0;
-
-                    #region Get account value
-
-                    if (oAccountInfoType == 0)
-                    {
-                        //is formula field
-                        string strFormula = aci.Item2.ItemInfo.
-                            Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Formula).
-                            Select(x => x.LargeValue).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault().ToLower().Replace(" ", "");
-
-                        if (!string.IsNullOrEmpty(strFormula))
+                    oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo.Add
+                        (new BalanceSheetDetailModel()
                         {
-                            foreach (var RegexResult in (new Regex("\\[+\\d*\\]+", RegexOptions.IgnoreCase)).Matches(strFormula))
+                            RelatedAccount = new GenericItemModel()
                             {
-                                int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+                                ItemId = Convert.ToInt32(rq.Split('_')[1].Trim())
+                            },
+                            Value = Convert.ToDecimal(Request[rq]),
+                        });
 
-                                strFormula = strFormula.Replace(RegexResult.ToString(), AccountValues[oAccountId].Item5.ToString());
-                            }
-                            oAccountDecimalValue = MathEval(strFormula);
-                        }
-                    }
-                    else if (oAccountInfoType == 1)
-                    {
-                        //is value field
-                        oAccountDecimalValue = aci.Item5;
-                    }
+                    strAux.AppendLine("                            new Models.Provider.BalanceSheetDetailModel()");
+                    strAux.AppendLine("                            {");
+                    strAux.AppendLine("                                RelatedAccount = new Company.Models.Util.GenericItemModel()");
+                    strAux.AppendLine("                                {");
+                    strAux.AppendLine("                                    ItemId = " + rq.Split('_')[1].Trim() + ",");
+                    strAux.AppendLine("                                },");
+                    strAux.AppendLine("                                Value = Convert.ToDecimal(\"" + Request[rq] + "\"),");
+                    strAux.AppendLine("                            },");
 
-                    #endregion
-
-                    #region refresh balance object
-
-                    if (aci.Item3.BalanceSheetId > 0)
-                    {
-                        //update balance value
-                        aci.Item3.Value = oAccountDecimalValue;
-                        aci.Item3.Enable = true;
-                    }
-                    else
-                    {
-                        //new balance
-                        aci.Item3.RelatedAccount = aci.Item2;
-                        aci.Item3.Value = oAccountDecimalValue;
-                        aci.Item3.Enable = true;
-                    }
-                    #endregion
-                }
-                else
-                {
-                    //-1 to exlude balance sheet item in database
-                    aci.Item3.BalanceSheetId = -1;
                 }
                 return true;
             });
 
-            //execute validations
-            AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
-            {
-                //is formula field
-                string strValidationFormula = aci.Item2.ItemInfo.
-                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_ValidationRule).
-                    Select(x => x.LargeValue).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault().ToLower().Replace(" ", "");
+            string x = strAux.ToString();
 
-                if (!string.IsNullOrEmpty(strValidationFormula))
-                {
-                    foreach (var RegexResult in (new Regex("[\\[\\d\\]]+", RegexOptions.IgnoreCase)).Matches(strValidationFormula))
-                    {
-                        int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+            #region Metodo 1
 
-                        strValidationFormula = strValidationFormula.Replace(RegexResult.ToString(), AccountValues[oAccountId].Item5.ToString());
-                    }
-                    if (!MathComparison(strValidationFormula))
-                    {
-                        throw new Exception("No se cumple la regla de validación para la cuenta " + aci.Item2.ItemId + "-" + aci.Item2.ItemInfo);
-                    }
-                }
-                return true;
-            });
+            ////get account info
+            //List<GenericItemModel> olstAccount =
+            //    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
-            //add balancesheet to result
+            ////get current values
+            //List<BalanceSheetDetailModel> olstBalanceSheetDetail = null;
 
-            oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo = AccountValues.
-                Select(aci => aci.Value).
-                Where(aci => aci.Item3.BalanceSheetId > -1).
-                OrderBy(aci => aci.Item1).
-                Select(aci => aci.Item3).
-                ToList();
+            //if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
+            //{
+            //    olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial
+            //        (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
+            //}
+
+            //if (olstBalanceSheetDetail == null)
+            //    olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+
+
+            ////get Currency GetRate 
+            //decimal oCurrencyRate = Currency_GetRate
+            //    (Convert.ToInt32(Request["SH_Currency"]),
+            //    Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
+            //    Convert.ToInt32(Request["SH_Year"]));
+
+            ////get account info
+
+            ////key: AccountId
+            ////Tuple<Order,AccountObject,BalanceObject,RequestValue,CurrencyValue>
+            //Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>> AccountValues = new Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>>();
+
+            ////fill account object
+            //GetAccountArray(
+            //    AccountValues,
+            //    oCurrencyRate,
+            //    null,
+            //    olstAccount,
+            //    olstBalanceSheetDetail);
+
+            ////execute account formula and refresh related balancesheet
+            //AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
+            //{
+            //    int oAccountInfoType = aci.Item2.ItemInfo.
+            //        Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_IsValue).
+            //        Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).
+            //        DefaultIfEmpty(1).
+            //        FirstOrDefault();
+
+            //    //balance only for value types exlude title types (2)
+            //    if (oAccountInfoType == 0 || oAccountInfoType == 1)
+            //    {
+            //        decimal oAccountDecimalValue = 0;
+
+            //        #region Get account value
+
+            //        if (oAccountInfoType == 0)
+            //        {
+            //            //is formula field
+            //            string strFormula = aci.Item2.ItemInfo.
+            //                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Formula).
+            //                Select(x => x.LargeValue).
+            //                DefaultIfEmpty(string.Empty).
+            //                FirstOrDefault().ToLower().Replace(" ", "");
+
+            //            if (!string.IsNullOrEmpty(strFormula))
+            //            {
+            //                foreach (var RegexResult in (new Regex("\\[+\\d*\\]+", RegexOptions.IgnoreCase)).Matches(strFormula))
+            //                {
+            //                    int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+
+            //                    strFormula = strFormula.Replace(RegexResult.ToString(), AccountValues[oAccountId].Item5.ToString());
+            //                }
+            //                oAccountDecimalValue = MathEval(strFormula);
+            //            }
+            //        }
+            //        else if (oAccountInfoType == 1)
+            //        {
+            //            //is value field
+            //            oAccountDecimalValue = aci.Item5;
+            //        }
+
+            //        #endregion
+
+            //        #region refresh balance object
+
+            //        if (aci.Item3.BalanceSheetId > 0)
+            //        {
+            //            //update balance value
+            //            aci.Item3.Value = oAccountDecimalValue;
+            //            aci.Item3.Enable = true;
+            //        }
+            //        else
+            //        {
+            //            //new balance
+            //            aci.Item3.RelatedAccount = aci.Item2;
+            //            aci.Item3.Value = oAccountDecimalValue;
+            //            aci.Item3.Enable = true;
+            //        }
+            //        #endregion
+            //    }
+            //    else
+            //    {
+            //        //-1 to exlude balance sheet item in database
+            //        aci.Item3.BalanceSheetId = -1;
+            //    }
+            //    return true;
+            //});
+
+            ////execute validations
+            //AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
+            //{
+            //    //is formula field
+            //    string strValidationFormula = aci.Item2.ItemInfo.
+            //        Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_ValidationRule).
+            //        Select(x => x.LargeValue).
+            //        DefaultIfEmpty(string.Empty).
+            //        FirstOrDefault().ToLower().Replace(" ", "");
+
+            //    if (!string.IsNullOrEmpty(strValidationFormula))
+            //    {
+            //        foreach (var RegexResult in (new Regex("[\\[\\d\\]]+", RegexOptions.IgnoreCase)).Matches(strValidationFormula))
+            //        {
+            //            int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+
+            //            strValidationFormula = strValidationFormula.Replace(RegexResult.ToString(), AccountValues[oAccountId].Item5.ToString());
+            //        }
+            //        if (!MathComparison(strValidationFormula))
+            //        {
+            //            throw new Exception("No se cumple la regla de validación para la cuenta " + aci.Item2.ItemId + "-" + aci.Item2.ItemInfo);
+            //        }
+            //    }
+            //    return true;
+            //});
+
+            ////add balancesheet to result
+
+            //oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo = AccountValues.
+            //    Select(aci => aci.Value).
+            //    Where(aci => aci.Item3.BalanceSheetId > -1).
+            //    OrderBy(aci => aci.Item1).
+            //    Select(aci => aci.Item3).
+            //    ToList();
+
+            #endregion
 
             return oReturn;
         }
