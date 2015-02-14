@@ -33,12 +33,12 @@
 <!--templates-->
 <div style="display:none;">
     <div id="divGridLegalInfo_ShortcutToolTipTemplate">
-        <img id="divGridLegalInfo_kbtooltip" style="width:30px;height:30px;" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+        <img id="divGridLegalInfo_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
     </div>
 
     <div id="divGridLegalInfo_ViewEnablesTemplate">
-        <label>Ver solo los habilitados</label>
-        <input id="divGridLegalInfo_ViewEnable" type="checkbox" checked="checked" />
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridLegalInfo_ViewEnable" type="checkbox" checked="checked" />
     </div>
     <div id="divGridLegalInfo_NoFile">
         <div>

@@ -10,15 +10,16 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
     {
         public int BlackListId { get; set; }
 
+        public string CompanyPublicId { get; set; }
+
         public ProveedoresOnLine.Company.Models.Util.CatalogModel BlackListStatus { get; set; }
 
-        public ProveedoresOnLine.Company.Models.Util.CatalogModel BlackListType { get; set; }
+        public string User{ get; set; }
 
-        public DateTime LastModify { get; set; }
+        public string FileUrl { get; set; }       
 
         public DateTime CreateDate { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> BlackListInfo { get; set; }
-
     }
 }

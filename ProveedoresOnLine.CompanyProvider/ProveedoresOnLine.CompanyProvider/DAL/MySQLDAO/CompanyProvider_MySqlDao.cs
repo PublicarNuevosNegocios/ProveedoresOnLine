@@ -547,6 +547,49 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         }
         #endregion
 
+        #region Provider Black List
+
+        public int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vBlackListStatus", BlackListStatus));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
+            lstParams.Add(DataInstance.CreateTypedParameter("vFileUrl", FileUrl));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_BlackList_Insert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vBlackListId", BlackListId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vBlackListInfoType", BlackListInfoType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_BlackListInfo_Insert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        #endregion
+
         #region Util
 
         public List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions()
