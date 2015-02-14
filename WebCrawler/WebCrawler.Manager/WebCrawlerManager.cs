@@ -43,7 +43,7 @@ namespace WebCrawler.Manager
             try
             {
                 //Provider upsert
-                
+
                 oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
                 Console.WriteLine("Se agregó el proveedor " + oProvider.RelatedCompany.CompanyName + "\n");
 
@@ -64,12 +64,10 @@ namespace WebCrawler.Manager
 
         #region Get Html Document
 
+        public static MyWebClient oWebClient = new MyWebClient();
+
         public static HtmlDocument GetHtmlDocumnet(string ParId, string Setting)
         {
-            HtmlDocument htmlDoc = new HtmlDocument();
-
-            MyWebClient oWebClient = new MyWebClient();
-
             oWebClient.Headers.Add("Cookie", WebCrawler.Manager.General.InternalSettings.Instance
                                                 [Constants.C_Settings_SessionKey].
                                                 Value);
@@ -80,6 +78,8 @@ namespace WebCrawler.Manager
                     Replace("{{ParProviderId}}", ParId);
 
             string strHtml = oWebClient.DownloadString(oParURL);
+
+            HtmlDocument htmlDoc = new HtmlDocument();
 
             htmlDoc.LoadHtml(strHtml);
 
@@ -124,7 +124,13 @@ namespace WebCrawler.Manager
             {
                 Console.WriteLine("\nGeneral Info\n");
 
-                ProveedoresOnLine.Company.Models.Util.GenericItemModel oGeneralInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                ProveedoresOnLine.Company.Models.Util.GenericItemModel oGeneralInfo = null;
+
+                ProveedoresOnLine.Company.Models.Util.GenericItemModel oContactInfo = null;
+
+                foreach (HtmlNode node in HtmlDoc.DocumentNode.SelectNodes("//input"))
+                {
+                    oGeneralInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                     {
                         ItemId = 0,
                         ItemName = string.Empty,
@@ -136,8 +142,6 @@ namespace WebCrawler.Manager
                         ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                     };
 
-                foreach (HtmlNode node in HtmlDoc.DocumentNode.SelectNodes("//input"))
-                {
                     HtmlAttribute AttId = node.Attributes["id"];
                     HtmlAttribute AttValue = node.Attributes["value"];
                     if (AttId != null && AttValue != null)
@@ -171,8 +175,19 @@ namespace WebCrawler.Manager
                         }
                         else if (AttId.Value == "tel0")
                         {
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
+                                ItemId = 0,
+                                ItemName = string.Empty,
+                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumContactType.CompanyContact,
+                                },
+                                Enable = true,
+                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                            };
+
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -182,11 +197,9 @@ namespace WebCrawler.Manager
                                     },
                                     Value = Convert.ToString((int)enumCategoryInfoType.CC_Telephone),
                                     Enable = true,
-                                }
-                            };
+                                });
 
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oGeneralInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -196,13 +209,24 @@ namespace WebCrawler.Manager
                                     },
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
-                                }
-                            };
+                                });
                         }
                         else if (AttId.Value == "postal")
                         {
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
+                                ItemId = 0,
+                                ItemName = string.Empty,
+                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumContactType.CompanyContact,
+                                },
+                                Enable = true,
+                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                            };
+
+                            oContactInfo.ItemInfo.Add
+                            (
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -213,10 +237,9 @@ namespace WebCrawler.Manager
                                     Value = Convert.ToString((int)enumCategoryInfoType.CC_PostalCode),
                                     Enable = true,
                                 }
-                            };
+                            );
 
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -226,13 +249,23 @@ namespace WebCrawler.Manager
                                     },
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
-                                }
-                            };
+                                });
                         }
                         else if (AttId.Value == "tel")
                         {
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
+                                ItemId = 0,
+                                ItemName = string.Empty,
+                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumContactType.CompanyContact,
+                                },
+                                Enable = true,
+                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                            };
+
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -242,11 +275,9 @@ namespace WebCrawler.Manager
                                     },
                                     Value = Convert.ToString((int)enumCategoryInfoType.CC_Cellphone),
                                     Enable = true,
-                                }
-                            };
+                                });
 
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oGeneralInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -256,13 +287,23 @@ namespace WebCrawler.Manager
                                     },
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
-                                }
-                            };
+                                });
                         }
                         else if (AttId.Value == "fax")
                         {
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
+                                ItemId = 0,
+                                ItemName = string.Empty,
+                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumContactType.CompanyContact,
+                                },
+                                Enable = true,
+                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                            };
+
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -272,11 +313,9 @@ namespace WebCrawler.Manager
                                     },
                                     Value = Convert.ToString((int)enumCategoryInfoType.CC_Fax),
                                     Enable = true,
-                                }
-                            };
+                                });
 
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -286,13 +325,23 @@ namespace WebCrawler.Manager
                                     },
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
-                                }
-                            };
+                                });
                         }
                         else if (AttId.Value == "telefono_3")
                         {
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
+                                ItemId = 0,
+                                ItemName = string.Empty,
+                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumContactType.CompanyContact,
+                                },
+                                Enable = true,
+                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                            };
+
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -302,11 +351,9 @@ namespace WebCrawler.Manager
                                     },
                                     Value = Convert.ToString((int)enumCategoryInfoType.CC_Telephone),
                                     Enable = true,
-                                }
-                            };
+                                });
 
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -316,27 +363,35 @@ namespace WebCrawler.Manager
                                     },
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
-                                }
-                            };
+                                });
                         }
                         else if (AttId.Value == "web")
                         {
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+                            oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
-                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                ItemId = 0,
+                                ItemName = string.Empty,
+                                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
-                                   ItemInfoId = 0,
-                                   ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                                   {
-                                       ItemId = (int)enumContactInfoType.CC_CompanyContactType,
-                                   },
-                                   Value = Convert.ToString((int)enumCategoryInfoType.CC_WebPage),
-                                   Enable = true,
-                               }
+                                    ItemId = (int)enumContactType.CompanyContact,
+                                },
+                                Enable = true,
+                                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                             };
 
-                            oGeneralInfo.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
-                            {
+                            oContactInfo.ItemInfo.Add(
+                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumContactInfoType.CC_CompanyContactType,
+                                    },
+                                    Value = Convert.ToString((int)enumCategoryInfoType.CC_WebPage),
+                                    Enable = true,
+                                });
+
+                            oContactInfo.ItemInfo.Add(
                                 new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -346,14 +401,23 @@ namespace WebCrawler.Manager
                                     },
                                     Value = AttValue.Value.ToString(),
                                     Enable = true,
-                                }
-                            };
+                                });
                         }
                     }
                 }
 
+                //Upsert Provider
+                oCompany = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(oCompany);
+
                 //Add General Info
                 oCompany.RelatedContact.Add(oGeneralInfo);
+
+                //Add Contact Info
+                if (oContactInfo != null)
+	            {
+                    oCompany.RelatedContact.Add(oContactInfo);
+	            }
+                
             }
             else
             {
@@ -369,20 +433,22 @@ namespace WebCrawler.Manager
                 HtmlNodeCollection rowsTable1 = tables[1].SelectNodes(".//tr");
                 if (rowsTable1 != null)
                 {
-                    ProveedoresOnLine.Company.Models.Util.GenericItemModel oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                    {
-                        ItemId = 0,
-                        ItemName = string.Empty,
-                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)enumContactType.PersonContact,
-                        },
-                        Enable = true,
-                        ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
-                    };
+                    ProveedoresOnLine.Company.Models.Util.GenericItemModel oContactInfo = null; 
 
                     for (int i = 1; i < rowsTable1.Count; i++)
                     {
+                        oContactInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemName = string.Empty,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumContactType.PersonContact,
+                            },
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        };
+
                         HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
 
                         //Get person contact type
@@ -426,7 +492,7 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.CP_IdentificationNumber,
                                 },
-                                Value = cols[0].InnerText.ToString(),
+                                Value = cols[0].InnerText.ToString() != "&nbsp;" ? cols[0].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
@@ -437,18 +503,32 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.CP_IdentificationCity,
                                 },
-                                Value = cols[5].InnerText.ToString(),
+                                Value = cols[5].InnerText.ToString() != "&nbsp;" ? cols[5].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
                         if (cols[9].InnerHtml.Contains("href"))
                         {
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
+
                             if (cols[9].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                cols[9].ChildNodes["a"].Attributes["href"].Value = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("../", "https://www.parservicios.com/parservi/procesos/");
+                                urlDownload = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                             }
 
-                            Console.WriteLine("Documento " + cols[9].ChildNodes["a"].Attributes["href"].Value);
+                            urlS3 = UploadFile(urlDownload, enumContactType.PersonContact.ToString(), oCompany.CompanyPublicId);
+
+                            oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumContactInfoType.CP_IdentificationFile,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
                         }
 
                         oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -458,7 +538,7 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.CP_Phone,
                                 },
-                                Value = cols[4].InnerText.ToString(),
+                                Value = cols[4].InnerText.ToString() != "&nbsp;" ? cols[4].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
@@ -469,7 +549,7 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.CP_Email,
                                 },
-                                Value = cols[8].InnerText.ToString(),
+                                Value = cols[8].InnerText.ToString() != "&nbsp;" ? cols[8].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
@@ -480,15 +560,15 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.CP_Negotiation,
                                 },
-                                Value = cols[6].InnerText.ToString(),
+                                Value = cols[6].InnerText.ToString() != "&nbsp;" ? cols[6].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
-                        oContactInfo.ItemName = cols[1].InnerText.ToString();
-                    }
+                        oContactInfo.ItemName = cols[1].InnerText.ToString() != "&nbsp;" ? cols[1].InnerText.ToString() : string.Empty;
 
-                    //Add Conctact Person Info
-                    oCompany.RelatedContact.Add(oContactInfo);
+                        //Add Conctact Person Info
+                        oCompany.RelatedContact.Add(oContactInfo);
+                    }
                 }
 
                 Console.WriteLine("\nLocations Info\n");
@@ -497,20 +577,22 @@ namespace WebCrawler.Manager
 
                 if (rowsTable2 != null)
                 {
-                    ProveedoresOnLine.Company.Models.Util.GenericItemModel oLocationsInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                    {
-                        ItemId = 0,
-                        ItemName = string.Empty,
-                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)enumContactType.Brach,
-                        },
-                        Enable = true,
-                        ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
-                    };
+                    ProveedoresOnLine.Company.Models.Util.GenericItemModel oLocationsInfo = null;
 
                     for (int i = 1; i < rowsTable2.Count; i++)
                     {
+                        oLocationsInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = 0,
+                            ItemName = string.Empty,
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumContactType.Brach,
+                            },
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                        };
+
                         HtmlNodeCollection cols = rowsTable2[i].SelectNodes(".//td");
 
                         oLocationsInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -520,7 +602,7 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.BR_Representative,
                                 },
-                                Value = cols[5].InnerText.ToString(),
+                                Value = cols[5].InnerText.ToString() != "&nbsp;" ? cols[5].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
@@ -531,7 +613,7 @@ namespace WebCrawler.Manager
                                 {
                                     ItemId = (int)enumContactInfoType.BR_Email,
                                 },
-                                Value = cols[1].InnerText.ToString(),
+                                Value = cols[1].InnerText.ToString() != "&nbsp;" ? cols[1].InnerText.ToString() : string.Empty,
                                 Enable = true,
                             });
 
@@ -557,7 +639,7 @@ namespace WebCrawler.Manager
                             {
                                 ItemId = (int)enumContactInfoType.BR_Phone,
                             },
-                            Value = cols[3].InnerText.ToString(),
+                            Value = cols[3].InnerText.ToString() != "&nbsp;" ? cols[3].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -568,7 +650,7 @@ namespace WebCrawler.Manager
                             {
                                 ItemId = (int)enumContactInfoType.BR_Fax,
                             },
-                            Value = cols[4].InnerText.ToString(),
+                            Value = cols[4].InnerText.ToString() != "&nbsp;" ? cols[4].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -579,7 +661,7 @@ namespace WebCrawler.Manager
                             {
                                 ItemId = (int)enumContactInfoType.BR_Email,
                             },
-                            Value = cols[6].InnerText.ToString(),
+                            Value = cols[6].InnerText.ToString() != "&nbsp;" ? cols[6].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -590,13 +672,13 @@ namespace WebCrawler.Manager
                             {
                                 ItemId = (int)enumContactInfoType.BR_Website,
                             },
-                            Value = cols[7].InnerText.ToString(),
+                            Value = cols[7].InnerText.ToString() != "&nbsp;" ? cols[7].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
-                    }
 
-                    //Add Location Info
-                    oCompany.RelatedContact.Add(oLocationsInfo);
+                        //Add Location Info
+                        oCompany.RelatedContact.Add(oLocationsInfo);
+                    }
                 }
             }
             else
@@ -608,48 +690,67 @@ namespace WebCrawler.Manager
         }
 
         #endregion
-
-        #region Commercial Info
-
-
-
-        #endregion
-
-        #region Finantial Info
-
-        #endregion
-
-        #region BalanceSheet Info
-
-        #endregion
-
+                
         #region Upload File
 
         public static string UploadFile(
-            string ProviderPublicId,
             string UrlFile,
-            string UrlNewFile)
+            string Setting,
+            string ProviderPublicId)
         {
             string strRemoteFile = string.Empty;
+            string folderSave = string.Empty;
 
-            string strFile = string.Empty;
+            //Create folder save
+            folderSave = WebCrawler.Manager.General.InternalSettings.Instance
+                                                                [WebCrawler.Manager.General.Constants.C_Settings_FolderSave].
+                                                                Value
+                                                                + "\\"
+                                                                + ProviderPublicId
+                                                                + "\\"
+                                                                + Setting;
 
-            strFile = UrlNewFile +
-                "\\ProviderFile_" +
-                ProviderPublicId + "_" +
-                "0" + "_" +
-                DateTime.Now.ToString("yyyyMMddHHmmss") + ".pdf";
-            File.Copy(UrlFile, strFile);
+            if (!File.Exists(folderSave))
+            {
+                System.IO.Directory.CreateDirectory(folderSave);
+            }
+
+            //Get file name
+            string[] files = UrlFile.Split(new char[] { '&' });
+            string fileName = files[1].ToString();
+
+            fileName = fileName.Substring(fileName.IndexOf("=") + 1, fileName.Length - fileName.IndexOf("=") - 1).Replace(@"\", @"").Replace('"', ' ');
+
+            //Download file
+            Console.WriteLine("Start download file" + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
+            oWebClient.DownloadFile(UrlFile, folderSave + "//" + fileName);
+            Console.WriteLine("End download file" + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
+
+            //Upload S3
+            string strFile = folderSave.TrimEnd('\\') +
+                           "\\CompanyFile_" +
+                           ProviderPublicId + "_" +
+                           DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                           fileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
+
+            File.Copy(folderSave + "//" + fileName, strFile);
 
             //load file to s3
             strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                        (strFile,
-                        WebCrawler.Manager.General.InternalSettings.Instance
-                        [WebCrawler.Manager.General.Constants.C_Settings_File_RemoteDirectoryProvider].Value +
-                            ProviderPublicId + "\\");
+                (strFile,
+                WebCrawler.Manager.General.InternalSettings.Instance
+                [Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                    "\\CompanyFile\\" + ProviderPublicId + "\\");
 
-            File.Delete(strFile);
+            //remove temporal file
+            if (System.IO.File.Exists(strFile))
+                System.IO.File.Delete(strFile);
 
+
+            //Timer Sleep
+            System.Threading.Thread.Sleep(
+                                    Convert.ToInt32(WebCrawler.Manager.General.InternalSettings.Instance
+                                    [WebCrawler.Manager.General.Constants.C_Settings_TimerSleep].Value));
             return strRemoteFile;
         }
 
