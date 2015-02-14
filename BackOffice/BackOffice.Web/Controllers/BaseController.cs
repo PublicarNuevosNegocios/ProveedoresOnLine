@@ -87,6 +87,40 @@ namespace BackOffice.Web.Controllers
             return oReturn;
         }
 
+        public static decimal Currency_GetRate
+                    (int MoneyFrom,
+                    int MoneyTo,
+                    int Year)
+        {
+            decimal oReturn = 1;
+
+            //get rate
+            List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> olstCurrency =
+                ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetByMoneyType
+                    (MoneyFrom, MoneyTo, null);
+
+            ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel oCurrency = null;
+
+            if (olstCurrency != null && olstCurrency.Count > 0)
+            {
+                //get rate for year or current year
+                oCurrency = olstCurrency.Any(x => x.IssueDate.Year == Year) ?
+                    olstCurrency.Where(x => x.IssueDate.Year == Year).FirstOrDefault() :
+                    olstCurrency.OrderByDescending(x => x.IssueDate.Year).FirstOrDefault();
+            }
+
+            if (oCurrency == null)
+            {
+                //rate not found
+                oCurrency = new ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel()
+                {
+                    Rate = 1,
+                };
+            }
+
+            return oReturn;
+        }
+
         #endregion
     }
 }

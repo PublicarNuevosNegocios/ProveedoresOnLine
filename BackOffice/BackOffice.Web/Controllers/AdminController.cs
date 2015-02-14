@@ -142,6 +142,28 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult AdminRLDownloadProvider()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
+        public virtual ActionResult AdminRLUploadProvider()
+        {
+            BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
+            return View(oModel);
+        }
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetAdminMenu
@@ -293,6 +315,50 @@ namespace BackOffice.Web.Controllers
                     (oCurrentAction == MVC.Admin.ActionNames.AdminTRMUpsert &&
                     oCurrentController == MVC.Admin.Name),
             });
+
+            //add menu
+            oReturn.Add(oMenuAux);
+
+            #endregion
+
+            #region Restrictive List
+
+            //header
+            oMenuAux = new Models.General.GenericMenu()
+            {
+                Name = "Listas Restrictivas",
+                Position = 1,
+                ChildMenu = new List<Models.General.GenericMenu>(),
+            };
+            
+            //DownLoad File
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "Descarga de Provedores",
+                Url = Url.Action
+                    (MVC.Admin.ActionNames.AdminRLDownloadProvider,
+                    MVC.Admin.Name),
+                Position = 0,
+                IsSelected =
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminRLDownloadProvider &&
+                    oCurrentController == MVC.Admin.Name),
+            });
+
+            //UpLoad File
+            oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+            {
+                Name = "Carga de Provedores",
+                Url = Url.Action
+                    (MVC.Admin.ActionNames.AdminRLUploadProvider,
+                    MVC.Admin.Name),
+                Position = 1,
+                IsSelected =
+                    (oCurrentAction == MVC.Admin.ActionNames.AdminRLUploadProvider &&
+                    oCurrentController == MVC.Admin.Name),
+            });
+
+            //get is selected menu
+            oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
             //add menu
             oReturn.Add(oMenuAux);
