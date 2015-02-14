@@ -9,13 +9,13 @@ using WebCrawler.Manager.General;
 
 namespace WebCrawler.Manager.CrawlerInfo
 {
-    public class LegalInfo
+    public class ExperiencesInfo
     {
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetLegalInfo(string ParId, string PublicId)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetExperiencesInfo(string ParId, string PublicId)
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
 
-            HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.LegalInfo.ToString());
+            HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.Experience.ToString());
 
             return oReturn;
         }
