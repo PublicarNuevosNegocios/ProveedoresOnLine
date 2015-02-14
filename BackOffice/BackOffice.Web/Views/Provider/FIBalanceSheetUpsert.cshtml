@@ -203,6 +203,11 @@
                 ProviderOptions: vProviderOptions,
             });
             Provider_CompanyFinancialObject.RenderAsync();
+
+            @if (!string.IsNullOrEmpty(Request["Msj"])) 
+            {
+                Html.Raw("Message('error', Request[\"Msj\"]);");
+            }
         });
     </script>
 }

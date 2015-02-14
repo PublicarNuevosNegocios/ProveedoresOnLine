@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyProvider.Controller
@@ -369,65 +370,55 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         public static ProviderModel BalanceSheetUpsert(ProviderModel ProviderToUpsert)
         {
+            if (ProviderToUpsert.RelatedBalanceSheet != null && ProviderToUpsert.RelatedBalanceSheet.Count > 0)
+            {
+                ProviderToUpsert.RelatedBalanceSheet.All(rbs =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        //get and validate balancesheet
+                        rbs = ValidateBalanceSheet(rbs);
 
+                        rbs.ItemId =
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
+                            (ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                            rbs.ItemId > 0 ? (int?)rbs.ItemId : null,
+                            rbs.ItemType.ItemId,
+                            rbs.ItemName,
+                            rbs.Enable);
 
+                        FinancialInfoUpsert((ProveedoresOnLine.Company.Models.Util.GenericItemModel)rbs);
 
-            return null;
+                        BalanceSheetInfoUpsert(rbs);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = rbs;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CompanyPublicId",
+                            Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+            return ProviderToUpsert;
         }
-
-        //public static ProviderModel BalanceSheetUpsert(ProviderModel ProviderToUpsert)
-        //{
-        //    if (ProviderToUpsert.RelatedCompany != null &&
-        //        !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
-        //        ProviderToUpsert.RelatedBalanceSheet != null &&
-        //        ProviderToUpsert.RelatedBalanceSheet.Count > 0)
-        //    {
-
-        //        ProviderToUpsert.RelatedBalanceSheet.All(pfin =>
-        //        {
-        //            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-        //            try
-        //            {
-        //                pfin.ItemId =
-        //                    ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
-        //                    (ProviderToUpsert.RelatedCompany.CompanyPublicId,
-        //                    pfin.ItemId > 0 ? (int?)pfin.ItemId : null,
-        //                    pfin.ItemType.ItemId,
-        //                    pfin.ItemName,
-        //                    pfin.Enable);
-
-        //                FinancialInfoUpsert((ProveedoresOnLine.Company.Models.Util.GenericItemModel)pfin);
-
-        //                BalanceSheetInfoUpsert(pfin);
-
-        //                oLog.IsSuccess = true;
-        //            }
-        //            catch (Exception err)
-        //            {
-        //                oLog.IsSuccess = false;
-        //                oLog.Message = err.Message + " - " + err.StackTrace;
-
-        //                throw err;
-        //            }
-        //            finally
-        //            {
-        //                oLog.LogObject = pfin;
-
-        //                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-        //                {
-        //                    LogInfoType = "CompanyPublicId",
-        //                    Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
-        //                });
-
-        //                LogManager.ClientLog.AddLog(oLog);
-        //            }
-
-        //            return true;
-        //        });
-        //    }
-
-        //    return ProviderToUpsert;
-        //}
 
         public static BalanceSheetModel BalanceSheetInfoUpsert
             (BalanceSheetModel BalanceSheetToUpsert)
@@ -487,9 +478,292 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.BalanceSheetGetByFinancial(FinancialId);
         }
 
+        #region generic Math operations
+
+        /// <summary>
+        /// evaluate comparison expressions only constants
+        /// </summary>
+        /// <param name="Expression">5==(4+1)==(5*1)</param>
+        /// <returns></returns>
+        public static bool MathComparison(string Expression)
+        {
+            bool oReturn = true;
+
+            decimal? oTmpResult = null;
+
+            Expression.Split(new string[] { "==" }, StringSplitOptions.RemoveEmptyEntries).All(exp =>
+            {
+                decimal oCurrentResult = MathEval(exp);
+                if (oTmpResult != null && oCurrentResult != oTmpResult.Value)
+                {
+                    oReturn = false;
+                }
+                oTmpResult = oCurrentResult;
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        /// <summary>
+        /// evaluate math expression only constants
+        /// </summary>
+        /// <param name="Expression">3+5*(1+2)</param>
+        /// <returns></returns>
+        public static decimal MathEval(string Expression)
+        {
+            try
+            {
+                var oDataTable = new System.Data.DataTable();
+                var oDataColumn = new System.Data.DataColumn("Eval", typeof(decimal), Expression);
+                oDataTable.Columns.Add(oDataColumn);
+                oDataTable.Rows.Add(0);
+                return (decimal)(oDataTable.Rows[0]["Eval"]);
+            }
+            catch { }
+
+            return 0;
+        }
+
+        #endregion
+
         #region Private Methods
 
+        private static BalanceSheetModel ValidateBalanceSheet(BalanceSheetModel BalanceToEval)
+        {
+            //duplicate balance model to return
+            BalanceSheetModel oReturn = new BalanceSheetModel()
+            {
+                ItemId = BalanceToEval.ItemId,
+                ItemName = BalanceToEval.ItemName,
+                ItemType = BalanceToEval.ItemType,
+                ItemInfo = BalanceToEval.ItemInfo,
+                Enable = BalanceToEval.Enable,
+                ParentItem = BalanceToEval.ParentItem,
 
+                BalanceSheetInfo = new List<Models.Provider.BalanceSheetDetailModel>(),
+            };
+
+            //get account info
+            List<GenericItemModel> olstAccount =
+                ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+            //get current values
+            List<BalanceSheetDetailModel> olstBalanceSheetDetail = null;
+
+            if (BalanceToEval.ItemId > 0)
+            {
+                olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial
+                    (BalanceToEval.ItemId);
+            }
+
+            if (olstBalanceSheetDetail == null)
+                olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+
+
+            //get Currency GetRate 
+            //decimal oCurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+            //    (BalanceToEval.ItemInfo.Where(x => x.ItemInfoType.ItemId == 502003).Select(x => Convert.ToInt32(x.Value)).DefaultIfEmpty(0).FirstOrDefault(),
+            //    Convert.ToInt32(ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
+            //    BalanceToEval.ItemInfo.Where(x => x.ItemInfoType.ItemId == 502003).Select(x => Convert.ToInt32(x.Value)).DefaultIfEmpty(0).FirstOrDefault());
+
+            //change currency to default
+            //oReturn.ItemInfo.
+            //    Where(x => x.ItemInfoType.ItemId == 502003).
+            //    All(x =>
+            //    {
+            //        x.Value = ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "");
+            //        return true;
+            //    });
+
+
+            //get account info
+
+            //key: AccountId
+            //Tuple<Order,AccountObject,BalanceObject,OriginalValue,CurrencyValue>
+            Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>> AccountValues = new Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>>();
+
+            //fill account object
+            GetAccountArray(
+                AccountValues,
+
+                BalanceToEval,
+                //oCurrencyRate,
+                null,
+
+                olstAccount,
+                olstBalanceSheetDetail);
+
+            //execute account formula and refresh related balancesheet
+            AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
+            {
+                int oAccountInfoType = aci.Item2.ItemInfo.
+                    Where(x => x.ItemInfoType.ItemId == 109002).
+                    Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(1).
+                    FirstOrDefault();
+
+                //balance only for value types exlude title types (2)
+                if (oAccountInfoType == 0 || oAccountInfoType == 1)
+                {
+                    decimal oAccountDecimalValue = 0;
+
+                    #region Get account value
+
+                    if (oAccountInfoType == 0)
+                    {
+                        //is formula field
+                        string strFormula = aci.Item2.ItemInfo.
+                            Where(x => x.ItemInfoType.ItemId == 109003).
+                            Select(x => x.LargeValue).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault().ToLower().Replace(" ", "");
+
+                        if (!string.IsNullOrEmpty(strFormula))
+                        {
+                            foreach (var RegexResult in (new Regex("\\[+\\d*\\]+", RegexOptions.IgnoreCase)).Matches(strFormula))
+                            {
+                                int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+
+                                strFormula = strFormula.Replace
+                                    (RegexResult.ToString(),
+                                    AccountValues[oAccountId].Item3.Value.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+                            }
+                            oAccountDecimalValue = MathEval(strFormula);
+                        }
+                    }
+                    else if (oAccountInfoType == 1)
+                    {
+                        //is value field
+                        oAccountDecimalValue = aci.Item5;
+                    }
+
+                    #endregion
+
+                    #region refresh balance object
+
+                    if (aci.Item3.BalanceSheetId > 0)
+                    {
+                        //update balance value
+                        aci.Item3.Value = oAccountDecimalValue;
+                        aci.Item3.Enable = true;
+                    }
+                    else
+                    {
+                        //new balance
+                        aci.Item3.RelatedAccount = aci.Item2;
+                        aci.Item3.Value = oAccountDecimalValue;
+                        aci.Item3.Enable = true;
+                    }
+                    #endregion
+                }
+                else
+                {
+                    //-1 to exlude balance sheet item in database
+                    aci.Item3.BalanceSheetId = -1;
+                }
+                return true;
+            });
+
+            //execute validations
+            AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
+            {
+                //is formula field
+                string strValidationFormula = aci.Item2.ItemInfo.
+                    Where(x => x.ItemInfoType.ItemId == 109004).
+                    Select(x => x.LargeValue).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault().ToLower().Replace(" ", "");
+
+                if (!string.IsNullOrEmpty(strValidationFormula))
+                {
+                    foreach (var RegexResult in (new Regex("[\\[\\d\\]]+", RegexOptions.IgnoreCase)).Matches(strValidationFormula))
+                    {
+                        int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+
+                        strValidationFormula = strValidationFormula.Replace
+                            (RegexResult.ToString(),
+                            AccountValues[oAccountId].Item3.Value.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+                    }
+                    if (!MathComparison(strValidationFormula))
+                    {
+                        throw new Exception("No se cumple la regla de validación para la cuenta " + aci.Item2.ItemId + "-" + aci.Item2.ItemInfo);
+                    }
+                }
+                return true;
+            });
+
+            //add balancesheet to result
+
+            oReturn.BalanceSheetInfo = AccountValues.
+                Select(aci => aci.Value).
+                Where(aci => aci.Item3.BalanceSheetId > -1).
+                OrderBy(aci => aci.Item1).
+                Select(aci => aci.Item3).
+                ToList();
+
+            return oReturn;
+        }
+
+        //recursive hierarchy get account
+        private static void GetAccountArray
+            (Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>> AccountValues,
+
+            BalanceSheetModel BalanceToEval,
+            //decimal CurrencyRate,
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
+
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> lstBalanceSheetDetail)
+        {
+            lstAccount.
+                Where(ac => RelatedAccount != null ?
+                        (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
+                        (ac.ParentItem == null)).
+                OrderBy(ac => ac.ItemInfo.
+                    Where(aci => aci.ItemInfoType.ItemId == 109001).
+                    Select(aci => Convert.ToInt32(aci.Value)).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                All(ac =>
+                {
+                    GetAccountArray(
+                        AccountValues,
+
+                        BalanceToEval,
+                        //CurrencyRate,
+                        ac,
+
+                        lstAccount,
+                        lstBalanceSheetDetail);
+
+                    decimal oCurrentOriginalValue = BalanceToEval.BalanceSheetInfo.
+                        Where(bsi => bsi.RelatedAccount.ItemId == ac.ItemId).
+                        Select(x => x.Value).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
+
+                    string oAccountUnit = ac.ItemInfo.
+                        Where(aci => aci.ItemInfoType.ItemId == 109007).
+                        Select(aci => aci.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    AccountValues[ac.ItemId] = new Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>
+                        (AccountValues.Count,
+                        ac,
+                        lstBalanceSheetDetail.
+                            Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).
+                            DefaultIfEmpty(new BalanceSheetDetailModel()).
+                            FirstOrDefault(),
+                        oCurrentOriginalValue,
+                        oCurrentOriginalValue);
+                    //oAccountUnit.IndexOf("$") >= 0 ? oCurrentOriginalValue * CurrencyRate : oCurrentOriginalValue);
+
+                    return true;
+                });
+        }
 
         #endregion
 
