@@ -150,6 +150,7 @@
         BR_Website = 207007,
         BR_Latitude = 207008,
         BR_Longitude = 207009,
+        BR_IsPrincipal = 207010,
 
         //Distributor
         DT_DistributorType = 208001,

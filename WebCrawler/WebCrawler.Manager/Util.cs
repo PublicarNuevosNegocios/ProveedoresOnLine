@@ -89,7 +89,7 @@ namespace WebCrawler.Manager
                 {
                     oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == "ceduladeciudadania").FirstOrDefault();
                 }
-                else
+                else if (SearchParam == "pp")
                 {
                     oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == "pasaporte").FirstOrDefault();
                 }
@@ -107,47 +107,6 @@ namespace WebCrawler.Manager
 
                 oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
             }
-
-            //if (cols[3].InnerText == "Comercial")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Commercial);
-            //}
-            //else if (cols[3].InnerText == "Legal")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Legal);
-            //}
-            //else if (cols[3].InnerText == "Legal Suplente")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Legal);
-            //}
-            //else if (cols[3].InnerText == "Comercial y Legal")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_CommercialLegal);
-            //}
-            //else if (cols[3].InnerText == "Financiero")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Finantial);
-            //}
-            //else if (cols[3].InnerText == "HSE - SMS")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_HSEQ);
-            //}
-            //else if (cols[3].InnerText == "Jurídico")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Judicial);
-            //}
-            //else if (cols[3].InnerText == "Técnico")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Technical);
-            //}
-            //else if (cols[3].InnerText == "Compras y Contratos")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Buy);
-            //}
-            //else if (cols[3].InnerText == "Seguridad Física")
-            //{
-            //    CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Security);
-            //}
 
             return oReturn;
         }
