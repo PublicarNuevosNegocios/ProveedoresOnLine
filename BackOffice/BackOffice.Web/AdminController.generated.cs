@@ -63,6 +63,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminEcoActivityUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminRLUploadProvider()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRLUploadProvider);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AdminController Actions { get { return MVC.Admin; } }
@@ -90,7 +96,6 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
             public readonly string AdminTreeUpsert = "AdminTreeUpsert";
             public readonly string AdminTRMUpsert = "AdminTRMUpsert";
-            public readonly string AdminRLDownloadProvider = "AdminRLDownloadProvider";
             public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
         }
 
@@ -108,7 +113,6 @@ namespace BackOffice.Web.Controllers
             public const string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
             public const string AdminTreeUpsert = "AdminTreeUpsert";
             public const string AdminTRMUpsert = "AdminTRMUpsert";
-            public const string AdminRLDownloadProvider = "AdminRLDownloadProvider";
             public const string AdminRLUploadProvider = "AdminRLUploadProvider";
         }
 
@@ -121,6 +125,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string TreeId = "TreeId";
             public readonly string TreeName = "TreeName";
+        }
+        static readonly ActionParamsClass_AdminRLUploadProvider s_params_AdminRLUploadProvider = new ActionParamsClass_AdminRLUploadProvider();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminRLUploadProvider AdminRLUploadProviderParams { get { return s_params_AdminRLUploadProvider; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminRLUploadProvider
+        {
+            public readonly string ExcelFile = "ExcelFile";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -138,7 +150,6 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminEcoGroupUpsert = "AdminEcoGroupUpsert";
                 public readonly string AdminGeoUpsert = "AdminGeoUpsert";
                 public readonly string AdminResolutionUpsert = "AdminResolutionUpsert";
-                public readonly string AdminRLDownloadProvider = "AdminRLDownloadProvider";
                 public readonly string AdminRLUploadProvider = "AdminRLUploadProvider";
                 public readonly string AdminRulesUpsert = "AdminRulesUpsert";
                 public readonly string AdminTreeUpsert = "AdminTreeUpsert";
@@ -152,7 +163,6 @@ namespace BackOffice.Web.Controllers
             public readonly string AdminEcoGroupUpsert = "~/Views/Admin/AdminEcoGroupUpsert.cshtml";
             public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
             public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
-            public readonly string AdminRLDownloadProvider = "~/Views/Admin/AdminRLDownloadProvider.cshtml";
             public readonly string AdminRLUploadProvider = "~/Views/Admin/AdminRLUploadProvider.cshtml";
             public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
             public readonly string AdminTreeUpsert = "~/Views/Admin/AdminTreeUpsert.cshtml";
@@ -291,24 +301,14 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void AdminRLDownloadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void AdminRLUploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Web.HttpPostedFileBase ExcelFile);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AdminRLDownloadProvider()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRLDownloadProvider);
-            AdminRLDownloadProviderOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AdminRLUploadProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AdminRLUploadProvider()
+        public override System.Web.Mvc.ActionResult AdminRLUploadProvider(System.Web.HttpPostedFileBase ExcelFile)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminRLUploadProvider);
-            AdminRLUploadProviderOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ExcelFile", ExcelFile);
+            AdminRLUploadProviderOverride(callInfo, ExcelFile);
             return callInfo;
         }
 

@@ -1076,7 +1076,6 @@
     <Content Include="Views\Provider\CPCustomerProviderStatus.cshtml" />
     <Content Include="Views\Admin\AdminTRMUpsert.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Admin\AdminRLDownloadProvider.cshtml" />
     <Content Include="Views\Admin\AdminRLUploadProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>

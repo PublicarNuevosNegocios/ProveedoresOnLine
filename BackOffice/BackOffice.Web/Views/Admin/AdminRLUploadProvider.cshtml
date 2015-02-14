@@ -13,19 +13,40 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Administración de Usuarios</label>
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
-            <iframe class="POBOAdminIframe" src="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_AdminRoles].Value)"></iframe>
-            <div id="divGridLegalInfo"></div>
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-            }
-        </div>
+        <form action="@Url.Action(MVC.Admin.ActionNames.AdminRLUploadProvider, MVC.Admin.Name)" method="post" enctype="multipart/form-data">
+            <ul>
+                <li>
+                    <span>Archivo a cargar:</span>
+                    <input type="file" name="ExcelFile" id="ExcelFile" />
+                </li>
+                <li><input class="BOButtons" type="submit" value="Validar en World Check" /></li>
+                @if (!string.IsNullOrEmpty(Request["ErrorFile"]))
+                {
+                    <li>
+                        <a target="_blank" href="@Request["ErrorFile"]">Ver log de proceso.</a>
+                    </li>
+                }
+                
+                @{
+                    var stringList = ViewData["UrlReturn"] as List<string>;
+                    if (stringList != null && stringList.Count() != 0)
+                    {
+                        for (int i = 0; i < stringList.Count(); i++)
+                        {
+                            if (i == 0)
+                            {
+                                <li><a target="_blank" href="@stringList[i]">Descargar ProviderFile.xls</a></li>
+                            }
+                            else
+                            {
+                                <li><a target="_blank" href="@stringList[i]">Descargar LogProvider.xls</a></li>
+                            }
+                        }
+                    }
+                }
+
+            </ul>
+        </form>
     </div>
 </div>
 

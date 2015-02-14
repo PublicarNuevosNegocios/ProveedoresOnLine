@@ -67,6 +67,8 @@
     <Compile Include="General\GenericMenu.cs" />
     <Compile Include="Provider\ProviderCustomerViewModel.cs" />
     <Compile Include="Provider\ProviderBalanceSheetViewModel.cs" />
+    <Compile Include="Provider\ProviderExcelResultModel.cs" />
+    <Compile Include="Provider\ProviderExcelModel.cs" />
     <Compile Include="Provider\ProviderFinancialViewModel.cs" />
     <Compile Include="Provider\ProviderCommercialViewModel.cs" />
     <Compile Include="Provider\ProviderLegalViewModel.cs" />

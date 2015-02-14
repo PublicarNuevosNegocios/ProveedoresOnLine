@@ -111,6 +111,7 @@
         CertificationDate = 203004,
         CompanyLogo = 203005,
         ComercialName = 203007,
+        Alert = 203008,
     }
 
     /// <summary>
@@ -379,6 +380,14 @@
         IB_AccountFile = 505010,
     }
 
+    #endregion
+
+    #region BlackList
+    public enum enumBlackList
+    {
+        BL_ShowAlert = 1101001,
+        BL_DontShowAlert = 1101002,
+    }
     #endregion
 
     #region ProviderCustomer
