@@ -354,11 +354,11 @@ namespace WebCrawler.Manager
                 oCompany.RelatedContact.Add(oGeneralInfo);
 
             }
-            else 
+            else
             {
                 Console.WriteLine("la sección " + enumMenu.GeneralInfo.ToString() + " no tiene información para descargar." + "\n");
             }
-                
+
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']/tr") != null)
             {
                 HtmlNodeCollection tables = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
@@ -383,89 +383,39 @@ namespace WebCrawler.Manager
                     {
                         HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
 
-                        #region Validaciones Tipo de Representante
+                        //Get person contact type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oPersonContactInfo = Util.ProviderOptions_GetByName(210, cols[3].InnerText.ToString());
 
-                        string CommercialType = string.Empty;
-
-                        if (cols[3].InnerText == "Comercial")
+                        if (oPersonContactInfo != null)
                         {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Commercial);
-                        }
-                        else if (cols[3].InnerText == "Legal")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Legal);
-                        }
-                        else if (cols[3].InnerText == "Legal Suplente")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Legal);
-                        }
-                        else if (cols[3].InnerText == "Comercial y Legal")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_CommercialLegal);
-                        }
-                        else if (cols[3].InnerText == "Financiero")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Finantial);
-                        }
-                        else if (cols[3].InnerText == "HSE - SMS")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_HSEQ);
-                        }
-                        else if (cols[3].InnerText == "Jurídico")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Judicial);
-                        }
-                        else if (cols[3].InnerText == "Técnico")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Technical);
-                        }
-                        else if (cols[3].InnerText == "Compras y Contratos")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Buy);
-                        }
-                        else if (cols[3].InnerText == "Seguridad Física")
-                        {
-                            CommercialType = Convert.ToString((int)enumCategoryInfoType.CP_Security);
-                        }
-
-                        #endregion
-
-                        oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 0,
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumContactInfoType.CP_PersonContactType,
                                 },
-                                Value = CommercialType,
+                                Value = oPersonContactInfo.ItemId.ToString(),
                                 Enable = true,
                             });
-
-                        #region Validaciones Tipo de Documento
-
-                        string IdentificationType = string.Empty;
-
-                        if (cols[2].InnerText == "C.C.")
-                        {
-                            IdentificationType = Convert.ToString((int)enumCategoryInfoType.CP_CC);
-                        }
-                        else if (cols[2].InnerText == "P.P.")
-                        {
-                            IdentificationType = Convert.ToString((int)enumCategoryInfoType.CP_Passport);
                         }
 
-                        #endregion
+                        //Get document type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oDocumentType = Util.ProviderOptions_GetByName(101, cols[2].InnerText.ToString());
 
-                        oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        if (oDocumentType != null)
+                        {
+                            oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 0,
                                 ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                                 {
                                     ItemId = (int)enumContactInfoType.CP_IdentificationType,
                                 },
-                                Value = IdentificationType,
+                                Value = oDocumentType.ItemId.ToString(),
                                 Enable = true,
                             });
+                        }
 
                         oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -582,7 +532,20 @@ namespace WebCrawler.Manager
                                 Enable = true,
                             });
 
-                        Console.WriteLine("Ciudad " + cols[2].InnerText.ToString());
+                        //Get city
+                        ProveedoresOnLine.Company.Models.Util.GeographyModel oGeograghy = Util.Geography_GetByName(cols[2].InnerText.ToString());
+
+                        oLocationsInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumContactInfoType.BR_City,
+                            },
+                            Value = oGeograghy.City.ItemId.ToString(),
+                            Enable = true,
+                        });
+
 
                         oLocationsInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -645,7 +608,7 @@ namespace WebCrawler.Manager
 
         #region Commercial Info
 
-        
+
 
         #endregion
 
