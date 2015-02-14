@@ -132,7 +132,7 @@
 /*********** CHECK PARA VER SOLO LOS REGISTROS VISIBES EN MARKET PLACE ***********/
 
 .POBOProviderGridVerSoloTrue,
-#EnableContact {
+.POBOProviderGridEnableContact{
     display:inline-block;
     float:right;
     width:auto; height:auto;
@@ -141,6 +141,6 @@
     padding: 0 15px 0 10px;
     color:darkred;
 }
-    #EnableContact {
+    .POBOProviderGridEnableContact {
         height:23px;
     }
