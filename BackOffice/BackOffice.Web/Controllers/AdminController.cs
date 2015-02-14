@@ -1,5 +1,6 @@
 ﻿using BackOffice.Models.General;
 using BackOffice.Models.Provider;
+using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
@@ -128,10 +129,10 @@ namespace BackOffice.Web.Controllers
         {
             BackOffice.Models.Provider.ProviderViewModel oModel = new Models.Provider.ProviderViewModel()
             {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),                
-            };           
-            
-            oModel.ProviderMenu = GetAdminMenu(oModel);            
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            oModel.ProviderMenu = GetAdminMenu(oModel);
             return View(oModel);
         }
 
@@ -175,8 +176,23 @@ namespace BackOffice.Web.Controllers
                     BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
 
                 //update file into db          
-                string logFile = this.ProcessProviderFile(strFile, ErrorFilePath);
-                
+                string logFile = this.ProcessProviderFile(strFile, ErrorFilePath, strRemoteFile);
+
+                //remove temporal file
+                if (System.IO.File.Exists(strFile))
+                    System.IO.File.Delete(strFile);
+
+                //ViewData.Add(strRemoteFile);
+                List<string> urlList = new List<string>();
+                urlList.Add(strRemoteFile);
+                urlList.Add(logFile);
+
+                ViewData["UrlReturn"] = urlList;
+
+            }
+            else
+            {
+                ViewData["UrlReturn"] = "No has seleccionado ningún archivo";
             }
 
 
@@ -238,7 +254,7 @@ namespace BackOffice.Web.Controllers
                 Name = "Maestras Estandar",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
-                    MVC.Admin.Name, new { TreeId = 0, TreeName = ""}),
+                    MVC.Admin.Name, new { TreeId = 0, TreeName = "" }),
                 Position = 3,
                 IsSelected =
                     (oCurrentAction == MVC.Admin.ActionNames.AdminEcoActivityUpsert &&
@@ -257,7 +273,7 @@ namespace BackOffice.Web.Controllers
                     (oCurrentAction == MVC.Admin.ActionNames.AdminTreeUpsert &&
                     oCurrentController == MVC.Admin.Name),
             });
-         
+
             //Stantart Group
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
@@ -326,7 +342,7 @@ namespace BackOffice.Web.Controllers
             //TRM
             oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
             {
-                Name = "TRM",                
+                Name = "TRM",
                 Url = Url.Action
                     (MVC.Admin.ActionNames.AdminTRMUpsert,
                     MVC.Admin.Name),
@@ -402,7 +418,7 @@ namespace BackOffice.Web.Controllers
 
         #region Private Functions
 
-        private string ProcessProviderFile(string FilePath, string ErrorFilePath)
+        private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile)
         {
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
@@ -411,25 +427,30 @@ namespace BackOffice.Web.Controllers
                 (from x in XlsInfo.Worksheet<ProviderExcelModel>(0)
                  select x).ToList();
 
-            //List<ExcelProviderResultModel> oPrvToProcessResult = new List<ExcelProviderResultModel>();
+            List<ProviderExcelResultModel> oPrvToProcessResult = new List<ProviderExcelResultModel>();
 
             oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId)).All(prv =>
             {
                 try
                 {
+                    #region Operation                           
+
                     ProviderModel oProviderToInsert = new ProviderModel();
                     oProviderToInsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
                     oProviderToInsert.RelatedCompany.CompanyInfo = new List<GenericItemInfoModel>();
                     oProviderToInsert.RelatedCompany.CompanyPublicId = prv.ProviderPublicId;
                     oProviderToInsert.RelatedBlackList = new List<BlackListModel>();
+
+                    CompanyModel BasicInfo = new CompanyModel();
+                    BasicInfo = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(prv.ProviderPublicId);
                     oProviderToInsert.RelatedBlackList.Add(new BlackListModel
                     {
                         BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = prv.BlackListSatatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,                            
+                            ItemId = prv.BlackListSatatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
                         },
                         User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
-                        FileUrl = FilePath,  
+                        FileUrl = StrRemoteFile,
                         BlackListInfo = new List<GenericItemInfoModel>()
 
                     });
@@ -461,46 +482,111 @@ namespace BackOffice.Web.Controllers
                         },
                         Value = prv.SearchType
                     });
-                   
+
                     if (prv.BlackListSatatus == "si")
                     {
+                        
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                         {
-                            ItemInfoId = 0,
+                            ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
                             ItemInfoType = new CatalogModel()
                             {
                                 ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
                             },
                             Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
-                        });                       
+                        });
                     }
                     else
                     {
+                        
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                         {
-                            ItemInfoId = 0,
+                            ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
+                                        .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
                             ItemInfoType = new CatalogModel()
                             {
                                 ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
                             },
                             Value = ((int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert).ToString(),
-                        });                       
+                        });
                     }
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert);
                     ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
+                    #endregion
                 }
-                catch (Exception)
+                catch (Exception err)
                 {
-                    
-                    throw;
+                    oPrvToProcessResult.Add(new ProviderExcelResultModel()
+                    {
+                        PrvModel = prv,
+                        Success = false,
+                        Error = "Error :: " + err.Message + " :: " +
+                                    err.StackTrace +
+                                    (err.InnerException == null ? string.Empty :
+                                    " :: " + err.InnerException.Message + " :: " +
+                                    err.InnerException.StackTrace),
+                    });
                 }
                 return true;
             });
 
-            string aaaaa = "";
-            return aaaaa;
-        }
+            //save log file
+            #region Error log file
+            try
+            {
+                using (System.IO.StreamWriter sw = new System.IO.StreamWriter(ErrorFilePath))
+                {
+                    string strSep = ";";
 
+                    sw.WriteLine
+                            ("\"RazonSocial\"" + strSep +
+                            "\"IdentificationType\"" + strSep +
+                            "\"IdentificationNumber\"" + strSep +
+                            "\"SearchType\"" + strSep +
+                            "\"ProviderPublicId\"" + strSep +
+                            "\"BlackListStatus\"" + strSep +
+                            
+                            "\"Success\"" + strSep +
+                            "\"Error\"");
+
+                    oPrvToProcessResult.All(lg =>
+                    {
+                        sw.WriteLine
+                            ("\"" + lg.PrvModel.RazonSocial + "\"" + strSep +
+                            "\"" + lg.PrvModel.IdentificationType + "\"" + strSep +
+                            "\"" + lg.PrvModel.IdentifiationNumber + "\"" + strSep +
+                            "\"" + lg.PrvModel.SearchType + "\"" + strSep +
+                            "\"" + lg.PrvModel.ProviderPublicId + "\"" + strSep +
+                            "\"" + lg.PrvModel.BlackListSatatus + "\"" + strSep +
+
+                            "\"" + lg.Success + "\"" + strSep +
+                            "\"" + lg.Error + "\"");
+
+                        return true;
+                    });
+
+                    sw.Flush();
+                    sw.Close();
+                }
+
+                //load file to s3
+                string strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                    (ErrorFilePath,
+                    BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
+                //remove temporal file
+                if (System.IO.File.Exists(ErrorFilePath))
+                    System.IO.File.Delete(ErrorFilePath);
+
+                return strRemoteFile;
+            }
+            catch { }
+
+            return null;
+            #endregion            
+        }
         #endregion
     }
 }
