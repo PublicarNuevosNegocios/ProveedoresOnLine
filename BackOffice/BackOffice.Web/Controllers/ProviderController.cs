@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -580,7 +581,7 @@ namespace BackOffice.Web.Controllers
                 ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
             //get current values
-            List<BalanceSheetDetailModel> olstBalanceSheetDetail = new List<BalanceSheetDetailModel>();
+            List<BalanceSheetDetailModel> olstBalanceSheetDetail = null;
 
             if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
             {
@@ -588,97 +589,172 @@ namespace BackOffice.Web.Controllers
                     (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
             }
 
+            if (olstBalanceSheetDetail == null)
+                olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
 
 
+            //get Currency GetRate 
+            decimal oCurrencyRate = Currency_GetRate
+                (Convert.ToInt32(Request["SH_Currency"]),
+                Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
+                Convert.ToInt32(Request["SH_Year"]));
 
-            ////get account values
-            //List<decimal> lstAccountValuesAux = olstAccount
-            //    .Where(ac => !string.IsNullOrEmpty(Request["AccountPostName_" + ac.ItemId.ToString()]))
-            //    .Select(ac => Convert.ToDecimal(Request["AccountPostName_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
-            //    .ToList();
+            //get account info
 
+            //key: AccountId
+            //Tuple<Order,AccountObject,BalanceObject,RequestValue,CurrencyValue>
+            Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>> AccountValues = new Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>>();
 
+            //fill account object
+            GetAccountArray(
+                AccountValues,
+                oCurrencyRate,
+                null,
+                olstAccount,
+                olstBalanceSheetDetail);
 
+            //execute account formula and refresh related balancesheet
+            AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
+            {
+                int oAccountInfoType = aci.Item2.ItemInfo.
+                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_IsValue).
+                    Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(1).
+                    FirstOrDefault();
 
+                //balance only for value types exlude title types (2)
+                if (oAccountInfoType == 0 || oAccountInfoType == 1)
+                {
+                    decimal oAccountDecimalValue = 0;
 
+                    #region Get account value
 
+                    if (oAccountInfoType == 0)
+                    {
+                        //is formula field
+                        string strFormula = aci.Item2.ItemInfo.
+                            Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Formula).
+                            Select(x => x.LargeValue).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault().ToLower().Replace(" ", "");
 
+                        if (!string.IsNullOrEmpty(strFormula))
+                        {
+                            foreach (var RegexResult in (new Regex("\\[+\\d*\\]+", RegexOptions.IgnoreCase)).Matches(strFormula))
+                            {
+                                int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
 
+                                strFormula = strFormula.Replace(RegexResult.ToString(), AccountValues[oAccountId].Item5.ToString());
+                            }
+                            oAccountDecimalValue = MathEval(strFormula);
+                        }
+                    }
+                    else if (oAccountInfoType == 1)
+                    {
+                        //is value field
+                        oAccountDecimalValue = aci.Item5;
+                    }
 
+                    #endregion
 
+                    #region refresh balance object
 
+                    if (aci.Item3.BalanceSheetId > 0)
+                    {
+                        //update balance value
+                        aci.Item3.Value = oAccountDecimalValue;
+                        aci.Item3.Enable = true;
+                    }
+                    else
+                    {
+                        //new balance
+                        aci.Item3.RelatedAccount = aci.Item2;
+                        aci.Item3.Value = oAccountDecimalValue;
+                        aci.Item3.Enable = true;
+                    }
+                    #endregion
+                }
+                else
+                {
+                    //-1 to exlude balance sheet item in database
+                    aci.Item3.BalanceSheetId = -1;
+                }
+                return true;
+            });
 
+            //execute validations
+            AccountValues.Select(aci => aci.Value).OrderBy(aci => aci.Item1).All(aci =>
+            {
+                //is formula field
+                string strValidationFormula = aci.Item2.ItemInfo.
+                    Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_ValidationRule).
+                    Select(x => x.LargeValue).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault().ToLower().Replace(" ", "");
 
+                if (!string.IsNullOrEmpty(strValidationFormula))
+                {
+                    foreach (var RegexResult in (new Regex("[\\[\\d\\]]+", RegexOptions.IgnoreCase)).Matches(strValidationFormula))
+                    {
+                        int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
 
+                        strValidationFormula = strValidationFormula.Replace(RegexResult.ToString(), AccountValues[oAccountId].Item5.ToString());
+                    }
+                    if (!MathComparison(strValidationFormula))
+                    {
+                        throw new Exception("No se cumple la regla de validación para la cuenta " + aci.Item2.ItemId + "-" + aci.Item2.ItemInfo);
+                    }
+                }
+                return true;
+            });
 
-            ////get account info
-            //List<GenericItemModel> olstAccount =
-            //    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+            //add balancesheet to result
 
-            ////get current values
-            //List<BalanceSheetDetailModel> olstBalanceSheetDetail = new List<BalanceSheetDetailModel>();
-
-            //if (oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId > 0)
-            //{
-            //    olstBalanceSheetDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial
-            //        (Convert.ToInt32(oReturn.RelatedBalanceSheet.FirstOrDefault().ItemId));
-            //}
-
-            ////get account values
-            //List<decimal> lstAccountValuesAux = olstAccount
-            //    .Where(ac => !string.IsNullOrEmpty(Request["AccountPostName_" + ac.ItemId.ToString()]))
-            //    .Select(ac => Convert.ToDecimal(Request["AccountPostName_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
-            //    .ToList();
-
-            //lstCurrencyConversion = new List<Tuple<decimal, decimal>>();
-            //if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value ==
-            //    Request["SH_Currency"])
-            //{
-            //    lstCurrencyConversion = lstAccountValuesAux
-            //        .Select(ac => new Tuple<decimal, decimal>(ac, ac))
-            //        .ToList();
-            //}
-            //else
-            //{
-            //    lstCurrencyConversion = BaseController.Currency_ConvertToStandar
-            //        (Convert.ToInt32(Request["SH_Currency"]),
-            //        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
-            //        Convert.ToInt32(Request["SH_Year"]),
-            //        lstAccountValuesAux);
-            //}
-
-            ////fill account new values
-            //if (olstAccount != null && olstAccount.Count > 0)
-            //{
-            //    olstAccount.All(ac =>
-            //    {
-            //        if (!string.IsNullOrEmpty(Request["AccountPostName_" + ac.ItemId.ToString()]))
-            //        {
-            //            //get current item
-            //            BalanceSheetDetailModel oBalanceDetailInfo = new BalanceSheetDetailModel()
-            //            {
-            //                BalanceSheetId = olstBalanceSheetDetail.
-            //                    Where(x => x.RelatedAccount.ItemId == ac.ItemId).
-            //                    Select(x => x.BalanceSheetId).
-            //                    DefaultIfEmpty(0).
-            //                    FirstOrDefault(),
-
-            //                RelatedAccount = ac,
-            //                Value = lstCurrencyConversion
-            //                    .Where(x => x.Item1 == Convert.ToDecimal(Request["ChildAccount_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture))
-            //                    .Select(x => x.Item2)
-            //                    .DefaultIfEmpty(0)
-            //                    .FirstOrDefault(),
-            //                Enable = true,
-            //            };
-
-            //            oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo.Add(oBalanceDetailInfo);
-            //        }
-            //        return true;
-            //    });
-            //}
+            oReturn.RelatedBalanceSheet.FirstOrDefault().BalanceSheetInfo = AccountValues.
+                Select(aci => aci.Value).
+                Where(aci => aci.Item3.BalanceSheetId > -1).
+                OrderBy(aci => aci.Item1).
+                Select(aci => aci.Item3).
+                ToList();
 
             return oReturn;
+        }
+
+        //recursive hierarchy get account
+        private void GetAccountArray
+            (Dictionary<int, Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>> AccountValues,
+            decimal CurrencyRate,
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> lstBalanceSheetDetail)
+        {
+            lstAccount.
+                Where(ac => RelatedAccount != null ?
+                        (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
+                        (ac.ParentItem == null)).
+                OrderBy(ac => ac.ItemInfo.
+                    Where(aci => aci.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Order).
+                    Select(aci => Convert.ToInt32(aci.Value)).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                All(ac =>
+                {
+                    GetAccountArray(
+                        AccountValues,
+                        CurrencyRate,
+                        ac,
+                        lstAccount,
+                        lstBalanceSheetDetail);
+
+                    AccountValues[ac.ItemId] = new Tuple<int, GenericItemModel, BalanceSheetDetailModel, decimal, decimal>
+                        (AccountValues.Count,
+                        ac,
+                        lstBalanceSheetDetail.Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).DefaultIfEmpty(new BalanceSheetDetailModel()).FirstOrDefault(),
+                        Convert.ToDecimal(Request["AccountPostName_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture),
+                        Convert.ToDecimal(Request["AccountPostName_" + ac.ItemId.ToString()], System.Globalization.CultureInfo.InvariantCulture) * CurrencyRate);
+
+                    return true;
+                });
         }
 
         #endregion

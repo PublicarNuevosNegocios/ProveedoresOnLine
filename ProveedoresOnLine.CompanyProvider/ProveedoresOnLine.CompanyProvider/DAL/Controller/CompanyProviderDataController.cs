@@ -121,6 +121,20 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
+        #region Provider BlackList
+
+        public int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl)
+        {
+            return DataFactory.BlackListInsert(CompanyPublicId, BlackListStatus, User, FileUrl);
+        }
+
+        public int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value)
+        {
+            return DataFactory.BlackListInfoInsert(BlackListId, BlackListInfoType, Value);
+        }
+
+        #endregion
+
         #region Util
 
         public List<Company.Models.Util.CatalogModel> CatalogGetProviderOptions()

@@ -688,23 +688,23 @@ namespace BackOffice.Web.ControllersApi
                     }
                     else
                     {
-                        //value in custom rate
-                        lstCurrencyConversion =
-                        string.IsNullOrEmpty(oDataToUpsert.EX_ContractValue) || string.IsNullOrEmpty(oDataToUpsert.EX_Currency) || string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
-                            new List<Tuple<decimal, decimal>>() { new Tuple<decimal, decimal>(0, 0) } :
-                            BackOffice.Web.Controllers.BaseController.Currency_ConvertToStandar
-                                (Convert.ToInt32(oDataToUpsert.EX_Currency),
-                                Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
-                                (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-                                    DateTime.ParseExact(
-                                        oDataToUpsert.EX_DateIssue,
-                                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
-                                        System.Globalization.CultureInfo.InvariantCulture) :
-                                    DateTime.ParseExact(
-                                        oDataToUpsert.EX_DateIssue,
-                                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-                                        System.Globalization.CultureInfo.InvariantCulture)).Year,
-                                new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) });
+                        ////value in custom rate
+                        //lstCurrencyConversion =
+                        //string.IsNullOrEmpty(oDataToUpsert.EX_ContractValue) || string.IsNullOrEmpty(oDataToUpsert.EX_Currency) || string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
+                        //    new List<Tuple<decimal, decimal>>() { new Tuple<decimal, decimal>(0, 0) } :
+                        //    BackOffice.Web.Controllers.BaseController.Currency_ConvertToStandar
+                        //        (Convert.ToInt32(oDataToUpsert.EX_Currency),
+                        //        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
+                        //        (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                        //            DateTime.ParseExact(
+                        //                oDataToUpsert.EX_DateIssue,
+                        //                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
+                        //                System.Globalization.CultureInfo.InvariantCulture) :
+                        //            DateTime.ParseExact(
+                        //                oDataToUpsert.EX_DateIssue,
+                        //                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                        //                System.Globalization.CultureInfo.InvariantCulture)).Year,
+                        //        new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) });
                     }
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
