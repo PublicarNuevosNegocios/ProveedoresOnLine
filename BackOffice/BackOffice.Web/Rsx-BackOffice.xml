@@ -31,6 +31,7 @@
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\BackOffice\</key>
+    <key name="File_ExcelDirectory">\BackOffice\0XlsProvider\</key>
 
   </BackOffice>
 </Settings>
