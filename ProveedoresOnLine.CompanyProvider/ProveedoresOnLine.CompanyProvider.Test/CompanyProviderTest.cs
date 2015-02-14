@@ -44,6 +44,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
             //return (LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
         }
 
+        [TestMethod]
         public void BalanceSheetUpsert()
         {
             ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel ProviderToUpsert = GetBalanceSheetUpsertModel();
