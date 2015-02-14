@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrawlerInfo\CertificationInfo.cs" />
+    <Compile Include="CrawlerInfo\ExperiencesInfo.cs" />
     <Compile Include="CrawlerInfo\LegalInfo.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\Enumerations.cs" />

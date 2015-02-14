@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WebCrawler.Manager.General;
 
 namespace WebCrawler.Manager
 {
@@ -29,16 +31,22 @@ namespace WebCrawler.Manager
         {
             ProveedoresOnLine.Company.Models.Util.GeographyModel oReturn = null;
 
+            string[] oSearchParam = SearchParam.Split(new char[] { '/' });
+
+            SearchParam = oSearchParam[0].Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
             if (oReturn == null)
             {
                 //exact search
-                oReturn = GeographyValues.Where(x => x.City.ItemName.ToLower().Replace(" ", "") == SearchParam.ToLower().Replace(" ", "")).FirstOrDefault();
+                oReturn = GeographyValues.Where(x => reg.Replace(x.City.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
             }
 
             if (oReturn == null)
             {
                 //like search
-                oReturn = GeographyValues.Where(x => x.City.ItemName.Contains(SearchParam)).FirstOrDefault();
+                oReturn = GeographyValues.Where(x => x.City.ItemName.ToLower().Replace(" ", "").Contains(SearchParam.ToLower().Replace(" ", ""))).FirstOrDefault();
             }
 
             if (oReturn == null)
@@ -67,13 +75,38 @@ namespace WebCrawler.Manager
             }
         }
 
-        public ProveedoresOnLine.Company.Models.Util.CatalogModel ProviderOptions_GetByName(int CatalogId, string SearchParam)
+        public static ProveedoresOnLine.Company.Models.Util.CatalogModel ProviderOptions_GetByName(int CatalogId, string SearchParam)
         {
             ProveedoresOnLine.Company.Models.Util.CatalogModel oReturn = null;
 
-            
+            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
 
+            if (CatalogId == 101)
+            {
+                if (SearchParam == "cc")
+                {
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == "ceduladeciudadania").FirstOrDefault();
+                }
+                else if (SearchParam == "pp")
+                {
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == "pasaporte").FirstOrDefault();
+                }
+            }
+            else if (CatalogId == 210)
+            {
+                if (SearchParam == "comercialylegal")
+                {
+                    SearchParam = "legalycomercial";
+                }
+                else if (SearchParam == "hsesms")
+                {
+                    SearchParam = "hseq";
+                }
 
+                oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
 
             return oReturn;
         }

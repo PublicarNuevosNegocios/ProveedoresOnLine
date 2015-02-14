@@ -369,57 +369,65 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         public static ProviderModel BalanceSheetUpsert(ProviderModel ProviderToUpsert)
         {
-            if (ProviderToUpsert.RelatedCompany != null &&
-                !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
-                ProviderToUpsert.RelatedBalanceSheet != null &&
-                ProviderToUpsert.RelatedBalanceSheet.Count > 0)
-            {
 
-                ProviderToUpsert.RelatedBalanceSheet.All(pfin =>
-                {
-                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-                    try
-                    {
-                        pfin.ItemId =
-                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
-                            (ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                            pfin.ItemId > 0 ? (int?)pfin.ItemId : null,
-                            pfin.ItemType.ItemId,
-                            pfin.ItemName,
-                            pfin.Enable);
 
-                        FinancialInfoUpsert((ProveedoresOnLine.Company.Models.Util.GenericItemModel)pfin);
 
-                        BalanceSheetInfoUpsert(pfin);
-
-                        oLog.IsSuccess = true;
-                    }
-                    catch (Exception err)
-                    {
-                        oLog.IsSuccess = false;
-                        oLog.Message = err.Message + " - " + err.StackTrace;
-
-                        throw err;
-                    }
-                    finally
-                    {
-                        oLog.LogObject = pfin;
-
-                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
-                        {
-                            LogInfoType = "CompanyPublicId",
-                            Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
-                        });
-
-                        LogManager.ClientLog.AddLog(oLog);
-                    }
-
-                    return true;
-                });
-            }
-
-            return ProviderToUpsert;
+            return null;
         }
+
+        //public static ProviderModel BalanceSheetUpsert(ProviderModel ProviderToUpsert)
+        //{
+        //    if (ProviderToUpsert.RelatedCompany != null &&
+        //        !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
+        //        ProviderToUpsert.RelatedBalanceSheet != null &&
+        //        ProviderToUpsert.RelatedBalanceSheet.Count > 0)
+        //    {
+
+        //        ProviderToUpsert.RelatedBalanceSheet.All(pfin =>
+        //        {
+        //            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+        //            try
+        //            {
+        //                pfin.ItemId =
+        //                    ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
+        //                    (ProviderToUpsert.RelatedCompany.CompanyPublicId,
+        //                    pfin.ItemId > 0 ? (int?)pfin.ItemId : null,
+        //                    pfin.ItemType.ItemId,
+        //                    pfin.ItemName,
+        //                    pfin.Enable);
+
+        //                FinancialInfoUpsert((ProveedoresOnLine.Company.Models.Util.GenericItemModel)pfin);
+
+        //                BalanceSheetInfoUpsert(pfin);
+
+        //                oLog.IsSuccess = true;
+        //            }
+        //            catch (Exception err)
+        //            {
+        //                oLog.IsSuccess = false;
+        //                oLog.Message = err.Message + " - " + err.StackTrace;
+
+        //                throw err;
+        //            }
+        //            finally
+        //            {
+        //                oLog.LogObject = pfin;
+
+        //                oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+        //                {
+        //                    LogInfoType = "CompanyPublicId",
+        //                    Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
+        //                });
+
+        //                LogManager.ClientLog.AddLog(oLog);
+        //            }
+
+        //            return true;
+        //        });
+        //    }
+
+        //    return ProviderToUpsert;
+        //}
 
         public static BalanceSheetModel BalanceSheetInfoUpsert
             (BalanceSheetModel BalanceSheetToUpsert)
@@ -478,6 +486,12 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.BalanceSheetGetByFinancial(FinancialId);
         }
+
+        #region Private Methods
+
+
+
+        #endregion
 
         #endregion
 
@@ -586,6 +600,99 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         public static List<GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable)
         {
             return DAL.Controller.CompanyProviderDataController.Instance.LegalGetBasicInfo(CompanyPublicId, LegalType, Enable);
+        }
+
+        #endregion
+
+        #region Provider BlackList
+
+        public static ProviderModel BlackListInsert(ProviderModel ProviderToUpsert)
+        {
+            if (ProviderToUpsert.RelatedCompany != null &&
+                !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
+                ProviderToUpsert.RelatedBlackList != null &&
+                ProviderToUpsert.RelatedBlackList.Count > 0)
+            {
+
+                ProviderToUpsert.RelatedBlackList.All(bList =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        bList.BlackListId =
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.BlackListInsert
+                            (ProviderToUpsert.RelatedCompany.CompanyPublicId, bList.BlackListStatus.ItemId, bList.User, bList.FileUrl);
+
+                        BlackListInfoInsert(bList);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = bList;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CompanyPublicId",
+                            Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+            return ProviderToUpsert;
+        }
+
+        public static ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel BlackListInfoInsert
+          (ProveedoresOnLine.CompanyProvider.Models.Provider.BlackListModel BlackListToInsert)
+        {
+            if (BlackListToInsert.BlackListInfo != null &&
+                BlackListToInsert.BlackListInfo.Count > 0)
+            {
+                BlackListToInsert.BlackListInfo.All(blackinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        blackinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.BlackListInfoInsert
+                            (BlackListToInsert.BlackListId, blackinf.ItemInfoType.ItemName, blackinf.Value);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = blackinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "LegalId",
+                            Value = BlackListToInsert.BlackListId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+            return BlackListToInsert;
         }
 
         #endregion
