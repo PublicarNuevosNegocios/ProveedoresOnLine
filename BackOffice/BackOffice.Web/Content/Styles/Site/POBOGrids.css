@@ -63,14 +63,28 @@
             padding: 0px !important;
             margin: 0px !important;
         }
-
-#divGridCompanyContact_kbtooltip {
+#divGridCompanyContact_kbtooltip,
+#divGridBranch_kbtooltip,
+#divGridExperience_kbtooltip,
+#divBalanceSheet_kbtooltip,
+#divGridBankInfo_kbtooltip,
+#divGridIncomeStatement_kbtooltip,
+#divGridTaxes_kbtooltip,
+#divGridDistributor_kbtooltip,
+#divGridPersonContact_kbtooltip,
+#divGridCertification_kbtooltip,
+#divGridHealtyPolitics_kbtooltip,
+#divGridRiskPolicies_kbtooltip,
+#divGridChaimberOfComerce_kbtooltip,
+#divGridLegalInfo_kbtooltip,
+#divGridLegalInfo_kbtooltip,
+#divGridLegalInfo_kbtooltip
+{
     margin: 0px 0px 1px 10px;
-    width: 24px;
+    width: 22px;
     height: auto;
     cursor: pointer;
 }
-
 /*****PLACEHOLDER******/
 label.PlaceHolder {
     color: rgb(166, 166, 166);
