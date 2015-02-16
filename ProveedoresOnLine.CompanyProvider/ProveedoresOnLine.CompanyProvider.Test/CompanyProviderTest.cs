@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
-                ("1D9B9580", null, false);
+                ("1D9B9580", 301001, true);
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count >= 1);
         }
