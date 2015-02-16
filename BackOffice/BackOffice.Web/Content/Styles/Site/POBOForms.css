@@ -275,51 +275,28 @@ li#F3 {
 .POBOBalanceSheet_Detail, .POBOBalanceSheet_Detail li{
     width: 100% !important;    
     margin:0px !important;
-    padding:0px !important;
 }
     .POBOBalanceSheet_Detail div{
       border-top: 1px solid #c5c5c5;
-        padding:8px;
+      padding:8px;
     }
         .POBOBalanceSheet_Detail > div > label{
-            font-size:1.2em !important;
+            font-size:1.4em !important;
+            padding:0 0 3px 15px;
         }
 /********* TEMPLATES DE GRUPOS Y TIPOS DE CUENTAS DE BALANCES *********/
-.POBOBalanceSheet_Template_Account {
-    border:1px solid green;
-    display:block;
-    width:100%;
-}
-    .POBOBalanceSheet_Template_Account li{
-        /*border:1px solid blue !important;*/
-        padding:4px 0px !important;
-    }
-        .POBOBalanceSheet_Template_Account li label {
-            max-width: 244px !important;
-            min-width: 244px !important;
-        }
-        .POBOBalanceSheet_Template_Account li label,
-        .POBOBalanceSheet_Template_Account li span{
-            /*border:1px solid purple;*/
-            font-size: 0.9em !important;
-            letter-spacing: -0.4px !important;
-            vertical-align:top;
-            min-height: 27px;
-            display:inline-block;
-        }
-        .POBOBalanceSheet_Template_Account li span{
-            /*border:1px solid red;*/
-        }
-        .POBOBalanceSheet_Template_Account li input{
-            display:inline-block !important;
-            border:1px solid #666 !important;
-            height:27px!important; width:244px!important;
-            vertical-align:top !important;
-            margin:0px !important;
-        }
+
+/******** ESTOS SON LOS TEXTOS Y CAMPOS PARA TODOS LOS CASOS
+    DE CAMPOS CALCULADOS ********/
 li.POBOBalanceSheetCamposCalculados {
     border-top:2px solid #ff8300 !important;
     width:510px !important;
+    background-color:#fff !important;
+    padding:5px 0px 0px 26px !important;
+    margin: 5px 0 5px 0px !important;
+}
+li.POBOBalanceSheetCamposCalculados > label {
+    width:232px;
 }
 li.POBOBalanceSheetCamposCalculados > label,
 li.POBOBalanceSheetCamposCalculados > span,
@@ -327,12 +304,54 @@ li.POBOBalanceSheetCamposCalculados > input{
     color: #444 !important;
     font-size: 1em !important;
     font-weight: bold !important;
+    height: 26px !important;    
+    vertical-align: top;
+    line-height: 16px;
 }
     li.POBOBalanceSheetCamposCalculados > input {
         border:none !important;
         background-color:#fff !important;
         width: auto !important;
+        height:auto !important;
+        margin: 0px !important;
     }
+/******** ESTOS SON LOS LIST ITEMS DE LOS CAMPOS DE VALORES GENERICOS 
+               Y LOS SUBTITULOS DE SUB-GRUPO Indicadores Financieros*******/
+.POBOBalanceSheetCamposEstandarOne{
+    font-size: 0.9em !important;
+    letter-spacing: -0.4px !important;
+    min-height: 27px;
+    padding:1px 0px 1px 16px !important;
+}
+    .POBOBalanceSheetCamposEstandarOne label {
+        max-width: 244px !important;
+        min-width: 244px !important;
+    }
+    .POBOBalanceSheetCamposEstandarOne label,
+    .POBOBalanceSheetCamposEstandarOne span{
+        display:inline-block;
+        line-height:15px;
+        padding:4px 0px 0px 0px;
+    }
+    .POBOBalanceSheetCamposEstandarOne span{
+        vertical-align:top;
+    }
+    .POBOBalanceSheetCamposEstandarOne input{
+        display:inline-block !important;
+        border:1px solid #666 !important;
+        height:27px!important; width:244px!important;
+        vertical-align:top !important;
+        margin:0px !important;
+    }
+.POBOBalanceSheetCamposEstandarOne:nth-child(odd) {background-color:#f5f5f5;}
+.POBOBalanceSheetCamposEstandarOne:nth-child(even) {background-color:#fff;}
+
+.POBOBalanceSheetCamposEstandarTwo{
+    color:#4d4d4d !important;
+    font-size:1.16em !important;
+    margin:0px 0px 0px 15px !important;
+
+}
 /***** ACCIONES DE GUARDAR Y CANCELAR DENTRO DE BALANCES ******/
 
 .BalanceSheetActions{
