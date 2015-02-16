@@ -25,7 +25,7 @@
         .POMPSearchResultsPager ul li a{
             font-size:1.3em;
             letter-spacing:-1px;
-            line-height:1em;
+            line-height:1.1em;
         }
 /******* MUESTRA EL ORDENAMIENTO *******/
 .POMPSearchResultsOrder {
@@ -36,7 +36,7 @@
     width: 93%;
 }
         .POMPSearchResultsOrder ul li span{
-            font-size:1.12em;
+            font-size:1.1em;
             letter-spacing:-1px;
             line-height:1em;
         }
@@ -65,42 +65,43 @@
     display:block;
     margin:0px; padding:0px;
     width:100%; height:auto;
-    max-width:692px;
 }
     .POMPSearchResultStatusCertified{
             border:none;
         display:inline-block;
-        width:55px; height:64px;
+        width:46px; height:52px;
         vertical-align:top;
         background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
         background-repeat:no-repeat;
-        background-position:-12px -3px;
-        background-size:273px auto;
+        background-position:-10px -3px;
+        background-size:230px auto;
     }
         .POMPSearchResultProvLogo {
             border:1px solid #999;
             display:inline-block;
-            width:98px; height:auto;
+            min-width:76px;
+            width:15%; 
+            height:auto;
             vertical-align:middle;
             padding:2px;
         }
         .POMPSearchResultProvDataWrapper {
             /*border:1px solid purple;*/
             display:inline-block;
-            width:auto; height:auto;
+            height:auto;
             vertical-align:top;
-            max-width:350px;
+            width:49%; min-width:202px;
         }
             .POMPSearchResultProvDataWrapper a{
                 /*border:1px solid purple;*/
                 display:block;
-                font-size:1.26em; line-height:1.1em; font-weight:normal;
+                font-size:1.2em; line-height:1.1em; font-weight:normal;
                 letter-spacing:-0.8px;
             }
-            .POMPSearchResultProvDataWrapper label, .POMPSearchResultProvDataWrapper span{
+            .POMPSearchResultProvDataWrapper label, .POMPSearchResultProvDataWrapper label span{
                 /*border:1px solid green;*/                
-                font-size:1em; line-height:1.3em; font-weight:normal;
-                letter-spacing:-0.6px;
+                font-size:0.97em; line-height:1.3em; font-weight:normal;
+                letter-spacing:-0.2px; margin:0px;
                 color:#4d4d4d;
             }
             .POMPSearchResultProvDataWrapper label span {
@@ -110,7 +111,7 @@
                border:none !important;
             display:inline-block;
             width:27px; height:24px;
-            margin:0px 0px 0px 6px; padding:0px;
+            margin:0px 0px 0px 3px; padding:0px;
             vertical-align:top;
             background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
             background-repeat:no-repeat;
@@ -121,7 +122,7 @@
               border:none !important;
             float:right;
             width:22px; height:26px;
-            margin:0px 10px 0px 0px; padding:0px;
+            margin:0px 3px 0px 0px; padding:0px;
             background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
             background-repeat:no-repeat;
             background-position:-81px -26px;
@@ -131,30 +132,29 @@
     border-bottom:1px solid #ff8300;
     display:block;
     margin:0px; padding:0px;
-    width:100%; height:42px;
-    max-width:692px;
+    width:100%; height:auto;
 }
     .POMPSearchResultProvRating{
         /*border:1px solid red;*/
         display:inline-block;
-        width:106px; height:22px;
-        margin:6px 0px 0px 55px;
+        width:96px; height:22px;
+        margin:0px 6%;
         text-align:center;
         background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/starsSmall.png');
         background-repeat:no-repeat;
         background-position:0px 1px;
-        background-size:105px auto;
+        background-size:96px auto;
     }
         .POMPSearchResultProvActions{
             /*border:1px solid orange;*/
             float:right;
-            margin:6px 10px 0px 0px;
+            margin:0px 0px 0px 0px;
         }
         div.POMPSearchResultProvActions a{
             border-right:1px solid #666;
             margin:0px auto 0px -3px;
             padding:0px 4px;
-            font-size:0.9em;
+            font-size:10px;
         }
         div.POMPSearchResultProvActions a:nth-child(3){
             border-right:none;

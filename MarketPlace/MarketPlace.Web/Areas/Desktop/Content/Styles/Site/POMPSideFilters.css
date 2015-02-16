@@ -5,12 +5,12 @@
         font-weight: normal;
         letter-spacing: -1px;
         margin: 0 0 7px 8px;
+        max-width:;
     }
         .POMPFilterCategoryList{
                 border:none;
             margin:0px 0px 0px 10px;
             padding:0px;
-            width:246px;
         }
             .POMPFilterCategoryList > li,
             .POMPFilterCategoryList > li > ul > li {

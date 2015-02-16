@@ -3,27 +3,26 @@
     display:block;
     width:100%;
     border:none;
-    min-width: 1251px;
 }
 /*********** MUESTRA LOS FILTROS LATERALES EN RESULTADOS ***********/
  .POMPProviderFilterMenuWrapper {
-            border-right:2px solid #ff8300;
+        border-right:2px solid #ff8300;
         display:inline-block;
-        width:auto;
         height:100%;
+        min-height:490px;
         padding:0 13px 0 11px;
         vertical-align:top;
-        min-height:490px;
+        width:23%;
+        min-width:219px;
     }
  /************ MUESTRA LA LISTA DE PROVEEDORES DE RESULTADOS ************/
 .POMPProviderListWrapper {
-        border: none;
     display: inline-block;
     height:auto;
     min-height:400px;
     margin: 0 0 0 6px;
-    width: calc(100% - 654px);
-    min-width:600px;
+    width:48%;
+    min-width:462px;
 }
             .POMPProviderListWrapper tr{
                 cursor:pointer;
