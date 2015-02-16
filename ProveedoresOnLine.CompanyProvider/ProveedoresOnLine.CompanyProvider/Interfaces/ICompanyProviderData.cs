@@ -38,6 +38,8 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId);
 
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel> BalanceSheetGetCompanyAverage(string CompanyPublicId, int Year);
+
         int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl);
 
         int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value);

@@ -60,6 +60,102 @@ namespace WebCrawler.Manager
 
         #endregion
 
+        #region Certification Company
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertificationCompany;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CertificationCompany
+        {
+            get
+            {
+                if (oCertificationCompany == null)
+                {
+                    int oTotalCount;
+                    oCertificationCompany = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRulesAdmin
+                        (null, 0, 1000000, out oTotalCount);
+                }
+                return oCertificationCompany;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel CertificationCompany_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = null;
+
+            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oReturn == null)
+            {
+                //exact search
+                oReturn = CertificationCompany.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //like search
+                oReturn = CertificationCompany.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //get default certification company
+                oReturn = CertificationCompany.Where(x => x.ItemId == 1).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
+        #region Certifications
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertifications;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> Certifications
+        {
+            get
+            {
+                if (oCertifications == null)
+                {
+                    int oTotalCount;
+                    oCertifications = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRulesAdmin
+                        (null, 0, 1000000, out oTotalCount);
+                }
+
+                return oCertifications;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel Certifications_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = null;
+
+            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oReturn == null)
+            {
+                //exact search
+                oReturn = Certifications.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //like search
+                oReturn = Certifications.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //get default certification
+                oReturn = Certifications.Where(x => x.ItemId == 1).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+        #endregion
+
         #region Provider Options
 
         private static List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oProviderOptions;

@@ -22,6 +22,8 @@ namespace WebCrawler.Manager.General
 
         public const string C_Settings_PublicarPublicId = "PublicarPublicId";
 
+        public const string C_Settings_DateFormat_Server = "DateFormat_Server";
+
         #endregion
 
         #region Crawler Settings

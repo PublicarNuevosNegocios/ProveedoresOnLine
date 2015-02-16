@@ -1,10 +1,12 @@
 ﻿using BackOffice.Models.General;
 using BackOffice.Models.Provider;
+using LinqToExcel;
 using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -176,7 +178,7 @@ namespace BackOffice.Web.Controllers
                     BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_File_ExcelDirectory].Value);
 
                 //update file into db          
-                string logFile = this.ProcessProviderFile(strFile, ErrorFilePath, strRemoteFile);
+                string logFile = this.ProcessProviderFile(strFile, ErrorFilePath, strRemoteFile, ExcelFile.FileName);
 
                 //remove temporal file
                 if (System.IO.File.Exists(strFile))
@@ -418,8 +420,10 @@ namespace BackOffice.Web.Controllers
 
         #region Private Functions
 
-        private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile)
+        private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile, string FileName)
         {
+            var excel = new ExcelQueryFactory(FilePath);          
+
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
 
@@ -433,6 +437,9 @@ namespace BackOffice.Web.Controllers
             {
                 try
                 {
+                    FileName = FileName.Replace(Path.GetExtension(FileName), "");
+                    List<string> Columns = excel.GetColumnNames(FileName).ToList();
+
                     #region Operation                           
 
                     ProviderModel oProviderToInsert = new ProviderModel();
@@ -447,43 +454,33 @@ namespace BackOffice.Web.Controllers
                     {
                         BlackListStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = prv.BlackListSatatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
+                            ItemId = prv.BlackListStatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
                         },
                         User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
                         FileUrl = StrRemoteFile,
                         BlackListInfo = new List<GenericItemInfoModel>()
-
-                    });
-                    oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoId = 0,
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCatalog.PersonIdentificationType,
-                            ItemName = BackOffice.Models.General.enumCatalog.PersonIdentificationType.ToString(),
-                        },
-                        Value = prv.IdentifiationNumber
-                    });
-                    oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoId = 0,
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemName = "RazonSocial"
-                        },
-                        Value = prv.RazonSocial
-                    });
-                    oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoId = 0,
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemName = "SearchType"
-                        },
-                        Value = prv.SearchType
                     });
 
-                    if (prv.BlackListSatatus == "si")
+                    var Rows = from c in excel.Worksheet(FileName)
+                               where c["ProviderPublicId"] == prv.ProviderPublicId
+                               select c;
+
+                    //Load the BlackList info
+                    foreach (string item in Columns)
+                    {
+                        int index = Columns.IndexOf(item);
+                        oProviderToInsert.RelatedBlackList.FirstOrDefault().BlackListInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemName = item,
+                            },
+                            Value = Rows.First()[index].Value.ToString(),
+                        });
+                    }
+
+                    if (prv.BlackListStatus == "si")
                     {
                         
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
@@ -542,10 +539,7 @@ namespace BackOffice.Web.Controllers
                     string strSep = ";";
 
                     sw.WriteLine
-                            ("\"RazonSocial\"" + strSep +
-                            "\"IdentificationType\"" + strSep +
-                            "\"IdentificationNumber\"" + strSep +
-                            "\"SearchType\"" + strSep +
+                            (
                             "\"ProviderPublicId\"" + strSep +
                             "\"BlackListStatus\"" + strSep +
                             
@@ -555,15 +549,12 @@ namespace BackOffice.Web.Controllers
                     oPrvToProcessResult.All(lg =>
                     {
                         sw.WriteLine
-                            ("\"" + lg.PrvModel.RazonSocial + "\"" + strSep +
-                            "\"" + lg.PrvModel.IdentificationType + "\"" + strSep +
-                            "\"" + lg.PrvModel.IdentifiationNumber + "\"" + strSep +
-                            "\"" + lg.PrvModel.SearchType + "\"" + strSep +
-                            "\"" + lg.PrvModel.ProviderPublicId + "\"" + strSep +
-                            "\"" + lg.PrvModel.BlackListSatatus + "\"" + strSep +
+                        (
+                        "\"" + lg.PrvModel.ProviderPublicId + "\"" + strSep +
+                        "\"" + lg.PrvModel.BlackListStatus + "\"" + strSep +
 
-                            "\"" + lg.Success + "\"" + strSep +
-                            "\"" + lg.Error + "\"");
+                        "\"" + lg.Success + "\"" + strSep +
+                        "\"" + lg.Error + "\"");
 
                         return true;
                     });

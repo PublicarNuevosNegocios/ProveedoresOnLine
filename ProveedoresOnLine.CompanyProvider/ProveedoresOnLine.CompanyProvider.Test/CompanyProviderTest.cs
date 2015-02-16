@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
-                ("1D9B9580", null, false);
+                ("1D9B9580", 301001, true);
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count >= 1);
         }
@@ -67,6 +67,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                     {
                         ItemId = 3,
                         ItemName = "balance test",
+                        Enable = true,
                         ItemType = new Company.Models.Util.CatalogModel()
                         {
                             ItemId = 501001,
@@ -77,7 +78,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                             {
                                 ItemInfoType = new Company.Models.Util.CatalogModel()
                                 {
-                                    ItemId = 502002,
+                                    ItemId = 502001,
                                 },
                                 Value = "2014",
                                 Enable = true,
