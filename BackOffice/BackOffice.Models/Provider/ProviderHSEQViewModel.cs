@@ -214,7 +214,7 @@ namespace BackOffice.Models.Provider
 
             C_Scope = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.C_Scope).
-                Select(y => y.Value).
+                Select(y => y.LargeValue).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             C_ScopeId = RelatedCertification.ItemInfo.
