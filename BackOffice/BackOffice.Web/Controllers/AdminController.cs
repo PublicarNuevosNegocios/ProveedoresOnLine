@@ -422,10 +422,7 @@ namespace BackOffice.Web.Controllers
 
         private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile, string FileName)
         {
-            var excel = new ExcelQueryFactory(FilePath);
-
-            FileName = FileName.Replace(Path.GetExtension(FileName), "");
-            List<string> Columns = excel.GetColumnNames(FileName).ToList();
+            var excel = new ExcelQueryFactory(FilePath);          
 
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
@@ -440,6 +437,9 @@ namespace BackOffice.Web.Controllers
             {
                 try
                 {
+                    FileName = FileName.Replace(Path.GetExtension(FileName), "");
+                    List<string> Columns = excel.GetColumnNames(FileName).ToList();
+
                     #region Operation                           
 
                     ProviderModel oProviderToInsert = new ProviderModel();
