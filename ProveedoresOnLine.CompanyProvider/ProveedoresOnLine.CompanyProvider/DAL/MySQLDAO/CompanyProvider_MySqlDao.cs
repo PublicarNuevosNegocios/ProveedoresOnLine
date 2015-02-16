@@ -428,6 +428,42 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<BalanceSheetDetailModel> BalanceSheetGetCompanyAverage(string CompanyPublicId, int Year)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vYear", Year));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_BalanceSheet_GetCompanyAverage",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<BalanceSheetDetailModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bs in response.DataTableResult.AsEnumerable()
+                     where !bs.IsNull("AccountId")
+                     select new BalanceSheetDetailModel()
+                     {
+                         RelatedAccount = new GenericItemModel()
+                         {
+                             ItemId = bs.Field<int>("AccountId"),
+                             ItemName = bs.Field<string>("AccountName"),
+                         },
+                         Value = bs.Field<decimal>("Value"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Provider Legal
@@ -556,7 +592,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vBlackListStatus", BlackListStatus));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
-            lstParams.Add(DataInstance.CreateTypedParameter("vFileUrl", FileUrl));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vFileUrl", FileUrl));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -575,7 +611,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vBlackListId", BlackListId));
             lstParams.Add(DataInstance.CreateTypedParameter("vBlackListInfoType", BlackListInfoType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

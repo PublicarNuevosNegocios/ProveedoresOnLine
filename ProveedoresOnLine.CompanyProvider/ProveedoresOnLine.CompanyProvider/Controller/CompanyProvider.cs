@@ -378,7 +378,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     try
                     {
                         //get and validate balancesheet
-                        rbs = ValidateBalanceSheet(rbs);
+                        rbs = ValidateBalanceSheet(rbs, ProviderToUpsert.RelatedCompany.CompanyPublicId);
 
                         rbs.ItemId =
                             ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.FinancialUpsert
@@ -529,7 +529,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Private Methods
 
-        private static BalanceSheetModel ValidateBalanceSheet(BalanceSheetModel BalanceToEval)
+        private static BalanceSheetModel ValidateBalanceSheet(BalanceSheetModel BalanceToEval, string ProviderPublicId)
         {
             //duplicate balance model to return
             BalanceSheetModel oReturn = new BalanceSheetModel()
@@ -559,6 +559,19 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
             if (olstBalanceSheetDetail == null)
                 olstBalanceSheetDetail = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
+
+            //get averange
+            List<BalanceSheetDetailModel> olstBalanceSheetAverange =
+                ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.BalanceSheetGetCompanyAverage
+                    (ProviderPublicId,
+                    BalanceToEval.ItemInfo.
+                        Where(x => x.ItemInfoType.ItemId == 502001).
+                        Select(x => Convert.ToInt32(x.Value) - 1).
+                        DefaultIfEmpty(DateTime.Now.Year - 1).
+                        FirstOrDefault());
+
+            if (olstBalanceSheetAverange == null)
+                olstBalanceSheetAverange = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
 
 
             //get Currency GetRate 
@@ -621,6 +634,25 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                         if (!string.IsNullOrEmpty(strFormula))
                         {
+                            //loop for prom values
+                            foreach (var RegexResult in (new Regex("prom+\\(+\\[+\\d*\\]+\\)+", RegexOptions.IgnoreCase)).Matches(strFormula))
+                            {
+                                int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("prom([", "").Replace("])", ""));
+
+                                decimal PromValue = olstBalanceSheetAverange.
+                                    Where(x => x.RelatedAccount.ItemId == oAccountId).
+                                    Select(x => x.Value).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault();
+
+                                PromValue = (PromValue + AccountValues[oAccountId].Item3.Value) / 2;
+
+                                strFormula = strFormula.Replace
+                                    (RegexResult.ToString(),
+                                    PromValue.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+                            }
+
+                            //loop for standar values
                             foreach (var RegexResult in (new Regex("\\[+\\d*\\]+", RegexOptions.IgnoreCase)).Matches(strFormula))
                             {
                                 int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));

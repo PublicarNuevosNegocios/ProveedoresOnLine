@@ -100,6 +100,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BalanceSheetGetByFinancial(FinancialId);
         }
 
+        public List<Models.Provider.BalanceSheetDetailModel> BalanceSheetGetCompanyAverage(string CompanyPublicId, int Year)
+        {
+            return DataFactory.BalanceSheetGetCompanyAverage(CompanyPublicId, Year);
+        }
+
         #endregion
 
         #region Provider Legal
@@ -176,7 +181,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)        
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
         {
             return DataFactory.MPCertificationGetBasicInfo(CompanyPublicId, CertificationType);
         }
