@@ -40,7 +40,7 @@ namespace BackOffice.Models.Provider
         public string EX_ContractValueId { get; set; }
 
         public string EX_Phone { get; set; }
-        public string EX_PhoneId { get; set; }       
+        public string EX_PhoneId { get; set; }
 
         public string EX_ExperienceFile { get; set; }
         public string EX_ExperienceFileId { get; set; }
@@ -59,9 +59,7 @@ namespace BackOffice.Models.Provider
         public ProviderCommercialViewModel() { }
 
         public ProviderCommercialViewModel
-            (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedCommercial,
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity,
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity)
+                    (ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedCommercial)
         {
             RelatedCommercial = oRelatedCommercial;
 
@@ -167,7 +165,7 @@ namespace BackOffice.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_Phone).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();            
+                FirstOrDefault();
 
             EX_ExperienceFile = RelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ExperienceFile).
@@ -195,17 +193,15 @@ namespace BackOffice.Models.Provider
 
             EX_EconomicActivity = RelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity).
-                Select(y => y.LargeValue).
+                Select(y => y.ValueName).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault().
-                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
                 Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
-                    EconomicActivityId = y,
-                    ActivityName = oActivity.
-                        Where(z => z.ItemId.ToString() == y).
-                        Select(z => z.ItemName).
-                        DefaultIfEmpty(string.Empty).FirstOrDefault()
+                    EconomicActivityId = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                    ActivityName = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[1],
                 }).ToList();
 
             EX_EconomicActivityId = RelatedCommercial.ItemInfo.
@@ -216,17 +212,15 @@ namespace BackOffice.Models.Provider
 
             EX_CustomEconomicActivity = RelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity).
-                Select(y => y.LargeValue).
+                Select(y => y.ValueName).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault().
-                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
                 Select(y => new BackOffice.Models.General.EconomicActivityViewModel()
                 {
-                    EconomicActivityId = y,
-                    ActivityName = oCustomActivity.
-                        Where(z => z.ItemId.ToString() == y).
-                        Select(z => z.ItemName).
-                        DefaultIfEmpty(string.Empty).FirstOrDefault()
+                    EconomicActivityId = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                    ActivityName = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[1],
                 }).ToList();
 
             EX_CustomEconomicActivityId = RelatedCommercial.ItemInfo.

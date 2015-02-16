@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
-                ("1D9B9580", null, false);
+                ("1D9B9580", 301001, true);
 
             Assert.AreEqual(true, oReturn != null && oReturn.Count >= 1);
         }
@@ -67,6 +67,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                     {
                         ItemId = 3,
                         ItemName = "balance test",
+                        Enable = true,
                         ItemType = new Company.Models.Util.CatalogModel()
                         {
                             ItemId = 501001,
@@ -77,9 +78,10 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                             {
                                 ItemInfoType = new Company.Models.Util.CatalogModel()
                                 {
-                                    ItemId = 502002,
+                                    ItemId = 502001,
                                 },
-                                Value = "2014"
+                                Value = "2014",
+                                Enable = true,
                             },
                             new Company.Models.Util.GenericItemInfoModel()
                             {
@@ -87,7 +89,8 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                                 {
                                     ItemId = 502002,
                                 },
-                                Value = "http://devproveedoresonline.s3-website-us-east-1.amazonaws.com/BackOffice/CompanyFile/1D9B9580/CompanyFile_1D9B9580_20141222165937.txt"
+                                Value = "http://devproveedoresonline.s3-website-us-east-1.amazonaws.com/BackOffice/CompanyFile/1D9B9580/CompanyFile_1D9B9580_20141222165937.txt",
+                                Enable = true,
                             },
                             new Company.Models.Util.GenericItemInfoModel()
                             {
@@ -95,7 +98,8 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                                 {
                                     ItemId = 502003,
                                 },
-                                Value = "108001"
+                                Value = "108002",
+                                Enable = true,
                             }
                         },
 

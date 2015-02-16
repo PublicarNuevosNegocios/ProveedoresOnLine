@@ -56,17 +56,18 @@
 
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
             <ul class="POBOProviderActions BalanceSheetActions">
-                <li class="POBOButtonsSaveProvider">
+                <li>
                     <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
                 </li>
-                <li class="POBOButtonsSaveProvider">
+                <li>
                     <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
                 </li>
             </ul>
 
             <div class="POBOBalanceSheetScrollWrapper">
-                @*AQUI ESTAN LOS DATOS BASICOS DEL FORM*@
+                @*AQUI ESTAN LOS DATOS BASICOS DEL FORM*@                
                 <ul class="POBOBalanceSheet_mainInfo">
+                    <li><label>Datos Básicos del balance</label></li>
                     <li>
                         <label>Nombre:</label>
                         <input id="divBalanceSheet_Detail_Form_FinancialName_${FinancialId}" name="FinancialName" type="text" />
@@ -92,10 +93,6 @@
                         </div>
                     </li>
                     <li>
-                        <label>Habilitado:</label>
-                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
-                    </li>
-                    <li>
                         <label>Moneda:</label>
                         <select id="divBalanceSheet_Detail_Form_SH_Currency_${FinancialId}" name="SH_Currency">
                             @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
@@ -105,6 +102,10 @@
                         </select>
                         <input id="divBalanceSheet_Detail_Form_SH_CurrencyId_${FinancialId}" name="SH_CurrencyId" type="hidden" />
                     </li>
+                    <li>
+                        <label>Habilitado:</label>
+                        <input id="divBalanceSheet_Detail_Form_Enable_${FinancialId}" name="Enable" type="checkbox" checked="checked" />
+                    </li>
                 </ul>
                 @*AQUI SE INSERTAN LOS CAMPOS DE DATOS FINANCIEROS*@
                 <ul class="POBOBalanceSheet_DetailWrapper">
@@ -113,11 +114,11 @@
                 </ul>
             </div>
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
-            <ul class="POBOProviderActions BalanceSheetActions">
-                <li class="POBOButtonsSaveProvider">
+            <ul class="POBOProviderActions BalanceSheetActions BalanceSheetActionsBottom">
+                <li>
                     <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
                 </li>
-                <li class="POBOButtonsSaveProvider">
+                <li>
                     <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
                 </li>
             </ul>
@@ -129,6 +130,7 @@
         </form>
     </div>
 
+    @*ESTE TEMPLATE PINTA EL CONTENEDOR GENERAL DE LAS TRES CUENTAS PRINCIPALES*@
     <div id="divBalanceSheet_Template_AccountParent">
         <div>
             <label>${AccountName}</label>
@@ -138,12 +140,14 @@
 
     <ul id="divBalanceSheet_Template_AccountChild">
         <li>
-            <ul id="divBalanceSheet_AccountContent_${AccountId}"></ul>
+            @*ESTE MUESTRA EL SUBGRUPO DE CUENTAS*@
+            <ul class="POBOBalanceSheet_Template_Account" id="divBalanceSheet_AccountContent_${AccountId}">-- group --</ul>
         </li>
     </ul>
 
     <ul id="divBalanceSheet_Template_AccountType_0">
-        <li>
+        <li class="POBOBalanceSheetCamposCalculados">
+            @*ESTE MUESTRA LOS TIPS DE CUENTA CAMPOS CALCULADOS QUE NO SON EDITABLES*@
             <label>${AccountName}</label>
             <span>${AccountUnit}</span>
             <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" disabled="disabled" />
@@ -151,6 +155,7 @@
     </ul>
     <ul id="divBalanceSheet_Template_AccountType_1">
         <li>
+            @*ESTE MUESTRA LOS TIPOS DE CUENTA 2*@
             <label>${AccountName}</label>
             <span>${AccountUnit}</span>
             <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" />
@@ -158,6 +163,7 @@
     </ul>
     <ul id="divBalanceSheet_Template_AccountType_2">
         <li>
+            @*ESTE MUESTRA LOS TIPOS DE CUENTA 3*@
             <label>${AccountName}</label>
         </li>
     </ul>
@@ -203,6 +209,11 @@
                 ProviderOptions: vProviderOptions,
             });
             Provider_CompanyFinancialObject.RenderAsync();
+
+            @if (!string.IsNullOrEmpty(Request["Msj"])) 
+            {
+                Html.Raw("Message('error', Request[\"Msj\"]);");
+            }
         });
     </script>
 }

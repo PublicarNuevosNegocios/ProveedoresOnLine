@@ -520,20 +520,11 @@ namespace BackOffice.Web.ControllersApi
                     (ProviderPublicId,
                     string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()), Convert.ToBoolean(ViewEnable));
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
-
                 if (oCommercial != null)
                 {
-                    if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-                    {
-                        oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                        oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-                    }
-
                     oCommercial.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderCommercialViewModel(x, oActivity, oCustomActivity));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderCommercialViewModel(x));
                         return true;
                     });
                 }
@@ -798,8 +789,11 @@ namespace BackOffice.Web.ControllersApi
                     oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
                 }
 
+                //oReturn = new Models.Provider.ProviderCommercialViewModel
+                //    (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
+
                 oReturn = new Models.Provider.ProviderCommercialViewModel
-                    (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
+                    (oProvider.RelatedCommercial.FirstOrDefault());
 
                 //register used files
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);

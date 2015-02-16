@@ -449,6 +449,9 @@
     <Content Include="Content\Styles\Site\POBOSideFilters.css" />
     <Content Include="Content\Styles\Site\POBOSideMenu.css" />
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
+    <Content Include="Rsx-Company.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Site\AdminScripts.js" />
     <Content Include="Scripts\Site\CustomerScripts.js" />
     <Content Include="Scripts\Site\ProviderScripts.js" />
@@ -1120,7 +1123,8 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y
-XCOPY "$(ProjectDir)$(OutDir)Rsx-BackOffice.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y</PostBuildEvent>
+XCOPY "$(ProjectDir)$(OutDir)Rsx-BackOffice.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y
+XCOPY "$(ProjectDir)$(OutDir)Rsx-Company.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -66,6 +66,10 @@
       <Name>ProveedoresOnLine.CompanyProvider</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rsx-Company.xml" />
+    <Content Include="Rsx-SettingsConfig.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
