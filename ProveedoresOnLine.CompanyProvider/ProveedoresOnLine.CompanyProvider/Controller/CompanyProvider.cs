@@ -642,7 +642,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                                 decimal PromValue = olstBalanceSheetAverange.
                                     Where(x => x.RelatedAccount.ItemId == oAccountId).
                                     Select(x => x.Value).
-                                    DefaultIfEmpty(0).
+                                    DefaultIfEmpty(AccountValues[oAccountId].Item3.Value).
                                     FirstOrDefault();
 
                                 PromValue = (PromValue + AccountValues[oAccountId].Item3.Value) / 2;
