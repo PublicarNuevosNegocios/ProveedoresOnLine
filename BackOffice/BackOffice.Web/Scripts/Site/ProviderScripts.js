@@ -1245,6 +1245,7 @@ var Provider_CompanyCommercialObject = {
         $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
+
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
 
@@ -1541,14 +1542,29 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+
+                    //get current values
+                    var oCurrentValue = new Array();
+                    $.each(options.model[options.field], function (item, value) {
+                        oCurrentValue.push({
+                            EconomicActivityId: value.EconomicActivityId,
+                            ActivityName: value.ActivityName,
+                            ActivityType: value.ActivityType,
+                            ActivityGroup: value.ActivityGroup,
+                            ActivityCategory: value.ActivityCategory
+                        });
+                    });
+
+                    //init multiselect
+                    $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect" multiple="multiple" />')
                         .appendTo(container)
                         .kendoMultiSelect({
                             minLength: 2,
-                            autoBind: false,
+                            dataValueField: 'EconomicActivityId',
                             dataTextField: 'ActivityName',
-                            //value: options.model[options.field],
+                            autoBind: false,
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
@@ -1574,7 +1590,7 @@ var Provider_CompanyCommercialObject = {
                                                     options.success(result);
                                                 },
                                                 error: function (result) {
-                                                    options.error(result);
+                                                    options.success([]);
                                                 }
                                             });
                                         }
@@ -1585,6 +1601,14 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
+
+                    $(container).focusout(function () {
+                        //get selected values
+                        if ($('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').length > 0) {
+                            options.model[options.field] = $('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').data('kendoMultiSelect')._dataItems;
+                            options.model.dirty = true;
+                        }
+                    });
                 },
             }, {
                 field: 'EX_CustomEconomicActivity',
@@ -1603,14 +1627,29 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+
+                    //get current values
+                    var oCurrentValue = new Array();
+                    $.each(options.model[options.field], function (item, value) {
+                        oCurrentValue.push({
+                            EconomicActivityId: value.EconomicActivityId,
+                            ActivityName: value.ActivityName,
+                            ActivityType: value.ActivityType,
+                            ActivityGroup: value.ActivityGroup,
+                            ActivityCategory: value.ActivityCategory
+                        });
+                    });
+
+                    //init multiselect
+                    $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect" multiple="multiple" />')
                         .appendTo(container)
                         .kendoMultiSelect({
                             minLength: 2,
-                            autoBind: false,
+                            dataValueField: 'EconomicActivityId',
                             dataTextField: 'ActivityName',
-                            //value: options.model[options.field],
+                            autoBind: false,
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
@@ -1636,7 +1675,7 @@ var Provider_CompanyCommercialObject = {
                                                     options.success(result);
                                                 },
                                                 error: function (result) {
-                                                    options.error(result);
+                                                    options.success([]);
                                                 }
                                             });
                                         }
@@ -1647,6 +1686,14 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
+
+                    $(container).focusout(function () {
+                        //get selected values
+                        if ($('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').length > 0) {
+                            options.model[options.field] = $('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').data('kendoMultiSelect')._dataItems;
+                            options.model.dirty = true;
+                        }
+                    });
                 },
             }, {
                 field: 'EX_ExperienceFile',
@@ -4583,7 +4630,6 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4601,7 +4647,6 @@ var Provider_LegalInfoObject = {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
                             },
