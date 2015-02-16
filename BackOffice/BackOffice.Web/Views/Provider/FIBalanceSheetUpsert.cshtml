@@ -141,11 +141,11 @@
     <ul id="divBalanceSheet_Template_AccountChild">
         <li>
             @*ESTE MUESTRA EL SUBGRUPO DE CUENTAS*@
-            <ul class="POBOBalanceSheet_Template_Account" id="divBalanceSheet_AccountContent_${AccountId}">-- group --</ul>
+            <ul id="divBalanceSheet_AccountContent_${AccountId}"></ul>
         </li>
     </ul>
 
-    <ul id="divBalanceSheet_Template_AccountType_0">
+    <ul id="divBalanceSheet_Template_AccountType_0" >
         <li class="POBOBalanceSheetCamposCalculados">
             @*ESTE MUESTRA LOS TIPS DE CUENTA CAMPOS CALCULADOS QUE NO SON EDITABLES*@
             <label>${AccountName}</label>
@@ -154,8 +154,8 @@
         </li>
     </ul>
     <ul id="divBalanceSheet_Template_AccountType_1">
-        <li>
-            @*ESTE MUESTRA LOS TIPOS DE CUENTA 2*@
+        <li class="POBOBalanceSheetCamposEstandarOne">
+            @*ESTE MUESTRA LOS TIPOS DE CUENTA VALORES GENERICOS*@
             <label>${AccountName}</label>
             <span>${AccountUnit}</span>
             <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" />
@@ -163,10 +163,13 @@
     </ul>
     <ul id="divBalanceSheet_Template_AccountType_2">
         <li>
-            @*ESTE MUESTRA LOS TIPOS DE CUENTA 3*@
-            <label>${AccountName}</label>
+            @*ESTE MUESTRA LOS TIPOS DE CUENTA SUBTITULOS SUBGRUPO INDICADORES FINANCIEROS*@
+            <label class="POBOBalanceSheetCamposEstandarTwo">${AccountName}</label>
         </li>
     </ul>
+
+
+
 </div>
 
 @{
