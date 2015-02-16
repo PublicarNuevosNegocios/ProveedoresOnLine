@@ -32,15 +32,15 @@ namespace WebCrawler.Manager
                 }
                 else if (item.ToString() == enumMenu.Certifications.ToString())
                 {
-                    oProvider.RelatedCertification = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, PublicId);
+                    oProvider.RelatedCertification = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
                 else if (item.ToString() == enumMenu.LegalInfo.ToString())
                 {
-                    oProvider.RelatedLegal = CrawlerInfo.LegalInfo.GetLegalInfo(ParId, PublicId);
+                    oProvider.RelatedLegal = CrawlerInfo.LegalInfo.GetLegalInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
                 else if (item.ToString() == enumMenu.Experience.ToString())
                 {
-                    oProvider.RelatedCommercial = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, PublicId);
+                    oProvider.RelatedCommercial = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
             }
 
@@ -643,9 +643,12 @@ namespace WebCrawler.Manager
 
         public static HtmlDocument GetHtmlDocumnet(string ParId, string Setting)
         {
-            oWebClient.Headers.Add("Cookie", WebCrawler.Manager.General.InternalSettings.Instance
+            if(!oWebClient.Headers.AllKeys.Contains("Cookie"))
+            {
+                oWebClient.Headers.Add("Cookie", WebCrawler.Manager.General.InternalSettings.Instance
                                                 [Constants.C_Settings_SessionKey].
                                                 Value);
+            }
 
             string oParURL = WebCrawler.Manager.General.InternalSettings.Instance
                     ["CrawlerURL_" + Setting].

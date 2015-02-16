@@ -982,7 +982,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.C_Scope
                         },
-                        Value = oDataToUpsert.C_Scope,
+                        LargeValue = oDataToUpsert.C_Scope,
                         Enable = true,
                     });
                 }

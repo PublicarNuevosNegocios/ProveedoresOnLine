@@ -3,10 +3,13 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=eg4ab2clv5n0lmef38dtf02l72]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=qplfjga81scc5dg57q5dtg7vr3]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
+    
+    <!--Date format-->
+    <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
 
     <!--Publicar Id-->
     <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
@@ -22,7 +25,7 @@
 
     <!--All Menu Keys-->
     <!--GeneralInfo,Certifications,Experience,GeneralBalance,LegalInfo,HSE,Representation,OtherInfo,-->
-    <key name="CrawlerTags">GeneralInfo,</key>
+    <key name="CrawlerTags">GeneralInfo,Certifications,</key>
 
     <!--PAR Modules-->
     
