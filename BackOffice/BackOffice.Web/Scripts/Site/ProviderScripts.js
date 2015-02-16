@@ -1457,38 +1457,34 @@ var Provider_CompanyCommercialObject = {
                         .appendTo(container);
                 },
             }, {
-                field: 'EX_ContractValue',
-                title: 'Valor de contrato',
-                width: '380px',
+                field: 'EX_Currency',
+                title: 'Modeda',
+                width: '180px',
                 template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem != null && dataItem.EX_Currency != null && dataItem.EX_ContractValue != null) {
-
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
-
-                        oReturn = oReturn + dataItem.EX_ContractValue + ' ';
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.EX_Currency != null) {
                         $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
                             if (dataItem.EX_Currency == value.ItemId) {
-                                oReturn = oReturn + value.ItemName;
+                                oReturn = value.ItemName;
                             }
                         });
                     }
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input style="width:45%;" required data-bind="value:' + options.field + '"/><span>&nbsp;</span>')
-                        .appendTo(container);
-                    $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
+                    $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción',
+                            optionLabel: 'Seleccione una opción'
                         });
                 },
+            }, {
+                field: 'EX_ContractValue',
+                title: 'Valor de contrato',
+                width: '180px',
             }, {
                 field: 'EX_Phone',
                 title: 'Telefono',
@@ -1545,15 +1541,17 @@ var Provider_CompanyCommercialObject = {
 
                     //get current values
                     var oCurrentValue = new Array();
-                    $.each(options.model[options.field], function (item, value) {
-                        oCurrentValue.push({
-                            EconomicActivityId: value.EconomicActivityId,
-                            ActivityName: value.ActivityName,
-                            ActivityType: value.ActivityType,
-                            ActivityGroup: value.ActivityGroup,
-                            ActivityCategory: value.ActivityCategory
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                EconomicActivityId: value.EconomicActivityId,
+                                ActivityName: value.ActivityName,
+                                ActivityType: value.ActivityType,
+                                ActivityGroup: value.ActivityGroup,
+                                ActivityCategory: value.ActivityCategory
+                            });
                         });
-                    });
+                    }
 
                     //init multiselect
                     $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect" multiple="multiple" />')
@@ -1630,15 +1628,18 @@ var Provider_CompanyCommercialObject = {
 
                     //get current values
                     var oCurrentValue = new Array();
-                    $.each(options.model[options.field], function (item, value) {
-                        oCurrentValue.push({
-                            EconomicActivityId: value.EconomicActivityId,
-                            ActivityName: value.ActivityName,
-                            ActivityType: value.ActivityType,
-                            ActivityGroup: value.ActivityGroup,
-                            ActivityCategory: value.ActivityCategory
+
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                EconomicActivityId: value.EconomicActivityId,
+                                ActivityName: value.ActivityName,
+                                ActivityType: value.ActivityType,
+                                ActivityGroup: value.ActivityGroup,
+                                ActivityCategory: value.ActivityCategory
+                            });
                         });
-                    });
+                    }
 
                     //init multiselect
                     $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect" multiple="multiple" />')
