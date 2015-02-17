@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CrawlerInfo\BalancesInfo.cs" />
     <Compile Include="CrawlerInfo\CertificationInfo.cs" />
     <Compile Include="CrawlerInfo\ExperiencesInfo.cs" />
     <Compile Include="CrawlerInfo\HSEQInfo.cs" />

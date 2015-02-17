@@ -24,8 +24,8 @@
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
 
     <!--All Menu Keys-->
-    <!--GeneralInfo,Certifications,HSE,Experience,GeneralBalance,LegalInfo,Representation,OtherInfo,-->
-    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,</key>
+    <!--1GeneralInfo,2Certifications,3HSE,4Finantial,Experience,GeneralBalance,LegalInfo,Representation,OtherInfo,-->
+    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,Finantial,</key>
 
     <!--PAR Modules-->
     
@@ -41,12 +41,15 @@
     <!--General Balance-->
     <key name="CrawlerURL_GeneralBalance"><![CDATA[https://www.parservicios.com/parservi/procesos/admin/c_financiera.php?id_pv={{ParProviderId}}&actividad=0]]></key>
     
+    <!--Finantial Info-->
+    <key name="CrawlerURL_Finantial"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=1]]></key>
+    
     <!--Legal Info-->
     <key name="CrawlerURL_LegalInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=1]]></key>
     
     <!--HSE-->
     <key name="CrawlerURL_HSE"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=2]]></key>
-    
+        
     <!--Representation Info-->
     <key name="CrawlerURL_Representation"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=3]]></key>
     

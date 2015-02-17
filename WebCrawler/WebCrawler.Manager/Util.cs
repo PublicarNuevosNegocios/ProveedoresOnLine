@@ -60,6 +60,54 @@ namespace WebCrawler.Manager
 
         #endregion
 
+        #region Bank
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBankValues;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BankValues
+        {
+            get
+            {
+                if (oBankValues == null)
+                {
+                    int oTotalCount;
+                    oBankValues = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBankAdmin
+                        (null, 0, 1000000, out oTotalCount);
+                }
+                return oBankValues;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel Bank_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = null;
+
+            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oReturn == null)
+            {
+                //exact result
+                oReturn = BankValues.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //like search
+                oReturn = BankValues.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //get default bank info
+                oReturn = BankValues.Where(x => x.ItemId == 1).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
         #region Certification Company
 
         private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertificationCompany;
