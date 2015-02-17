@@ -3,7 +3,7 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=qplfjga81scc5dg57q5dtg7vr3]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=lm03g9l2nbahj579iqkp0pasb2]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
@@ -25,7 +25,7 @@
 
     <!--All Menu Keys-->
     <!--GeneralInfo,Certifications,HSE,Experience,GeneralBalance,LegalInfo,Representation,OtherInfo,-->
-    <key name="CrawlerTags">HSE,</key>
+    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,</key>
 
     <!--PAR Modules-->
     
@@ -55,8 +55,14 @@
     
     <key name="Crawler_CompanyList">
       <![CDATA[
-      1733,A12ECFA2;
+      1733,A30E9C1B;
       ]]></key>
-    
+
+    <!--<key name="Crawler_CompanyList">
+      <![CDATA[
+      1733,A12ECFA2;
+      ]]>
+    </key>-->
+
   </WebCrawler>
 </Settings>
