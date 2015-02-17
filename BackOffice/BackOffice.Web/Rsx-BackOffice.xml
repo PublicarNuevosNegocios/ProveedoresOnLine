@@ -11,7 +11,7 @@
 
     <key name="Path_Salesforce">https://na2.salesforce.com/</key>
 
-    <key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>
+    <!--<key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>-->
     <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
     <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
     
