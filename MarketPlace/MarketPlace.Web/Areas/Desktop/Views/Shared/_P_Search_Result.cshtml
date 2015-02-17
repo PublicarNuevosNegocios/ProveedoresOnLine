@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
 
-@if (Model.RenderScripts)
+@if (!Model.RenderScripts)
 {
     if (Model.ProviderSearchResult != null && Model.ProviderSearchResult.Count > 0)
     {
@@ -11,23 +11,24 @@
         <div class="POMPSearchResultsOrder">
             @*Orders*@
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Order, Model)
-        </div>    
-            @*SearchResult*@
-            <ul class="POMPSearchResultsList">
-                @foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oSearchItem in Model.ProviderSearchResult)
-                {
-                    <li>
-                        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, oSearchItem)
-                    </li>
-                }
-            </ul>
+        </div>
+        @*SearchResult*@
+        <ul class="POMPSearchResultsList">
+            @foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oSearchItem in Model.ProviderSearchResult)
+            {
+                <li>
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, oSearchItem)
+                </li>
+            }
+        </ul>
         <div class="POMPSearchResultsPager">
             @*Pager*@
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Pager, Model)
-        </div>        
+        </div>
     }
     else
     {
         <div>No se encontraron resultados</div>
     }
 }
+

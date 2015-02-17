@@ -1378,11 +1378,11 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
+                                Message('success', 'Se editó la fila con el id ' + options.data.CommercialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
+                                Message('error', 'Error en la fila con el id ' + options.data.CommercialId + '.');
                             }
                         });
                     },

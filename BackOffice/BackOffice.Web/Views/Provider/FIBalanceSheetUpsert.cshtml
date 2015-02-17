@@ -52,7 +52,7 @@
 
     <div id="divBalanceSheet_Template_Form">
 
-        <form class="POBOProviderUpsertForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
+        <form class="POBOProviderUpsertForm FinancialBalanceForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
 
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
             <ul class="POBOProviderActions BalanceSheetActions">

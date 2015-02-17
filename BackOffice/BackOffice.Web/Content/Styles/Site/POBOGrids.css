@@ -38,31 +38,30 @@
     padding: 6px 5px 0px 5px !important;
     margin: 0px !important;
 }
-
     .POBOProviderCompoundAutocomplete:hover {
         background-color: #e6e6e6;
     }
-
     .POBOProviderCompoundAutocomplete label {
         border: none;
-        font-size: 1em;
+        font-size: 0.9em;
         line-height: 1em;
         width: 100%;
-        padding: 0px !important;
+        padding:2px 0px 4px 0px !important;
         margin: 0px !important;
         color: #666;
         font-weight: normal;
+        display:block;
     }
-
         .POBOProviderCompoundAutocomplete label span {
             border: none;
             display: block;
-            font-size: 1.2em;
-            line-height: 1.2em;
-            letter-spacing: -1px;
+            font-size: 1em;
+            line-height: 1.1em;
+            letter-spacing: 0px;
             padding: 0px !important;
             margin: 0px !important;
         }
+/********** ESTO PINTA EL TOOL TIP **********/
 #divGridCompanyContact_kbtooltip,
 #divGridBranch_kbtooltip,
 #divGridExperience_kbtooltip,

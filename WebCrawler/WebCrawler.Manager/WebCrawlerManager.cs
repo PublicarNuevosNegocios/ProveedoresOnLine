@@ -50,6 +50,11 @@ namespace WebCrawler.Manager
 
             try
             {
+                if (oProvider.RelatedCompany == null)
+                {
+                    oProvider.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(PublicId);
+                }
+
                 //Provider upsert
                 oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
                 Console.WriteLine("Se agregó el proveedor " + oProvider.RelatedCompany.CompanyName + "\n");
@@ -67,6 +72,7 @@ namespace WebCrawler.Manager
             }
 
             Console.WriteLine("Finalizó el proceso. " + DateTime.Now.ToString() + "\n");
+            Console.WriteLine("\n-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n");
         }
 
         #region General Info
@@ -701,9 +707,9 @@ namespace WebCrawler.Manager
             fileName = fileName.Substring(fileName.IndexOf("=") + 1, fileName.Length - fileName.IndexOf("=") - 1).Replace(@"\", @"").Replace('"', ' ');
 
             //Download file
-            Console.WriteLine("Start download file" + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
+            Console.WriteLine("Start download file -> " + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
             oWebClient.DownloadFile(UrlFile, folderSave + "//" + fileName);
-            Console.WriteLine("End download file" + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
+            Console.WriteLine("End download file -> " + DateTime.Now.ToString("dd/MM/yy HH:mm:ss") + "\n");
 
             //Upload S3
             string strFile = folderSave.TrimEnd('\\') +

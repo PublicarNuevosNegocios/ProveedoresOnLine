@@ -8,7 +8,7 @@
     height:auto;
 }
 .POMPSearchResultsPager {
-    padding: 10px 25px 10px 0;
+    padding: 10px 9px 10px 0;
     text-align: right;
 }
     .POMPSearchResultsPager ul,
@@ -33,7 +33,7 @@
     margin: 0 auto 10px;
     padding: 0 0 6px 6px;
     text-align: left;
-    width: 93%;
+    width: 96%;
 }
         .POMPSearchResultsOrder ul li span{
             font-size:1.1em;
@@ -43,7 +43,7 @@
 
 /********** MUESTRA LA LISTA DE PROVEEDORES **********/
 .POMPSearchResultsList {
-    margin:0px; padding:0px 24px;
+    margin:0px; padding:0px 10px;
 }
     .POMPSearchResultsList li{
         list-style-type:none;
@@ -91,6 +91,7 @@
             height:auto;
             vertical-align:top;
             width:49%; min-width:202px;
+            margin:0px 0px 0px 4px;
         }
             .POMPSearchResultProvDataWrapper a{
                 /*border:1px solid purple;*/
@@ -138,7 +139,7 @@
         /*border:1px solid red;*/
         display:inline-block;
         width:96px; height:22px;
-        margin:0px 6%;
+        margin:0px 0px 0px 8%;
         text-align:center;
         background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/starsSmall.png');
         background-repeat:no-repeat;
@@ -154,7 +155,7 @@
             border-right:1px solid #666;
             margin:0px auto 0px -3px;
             padding:0px 4px;
-            font-size:10px;
+            font-size:10.5px;
         }
         div.POMPSearchResultProvActions a:nth-child(3){
             border-right:none;
