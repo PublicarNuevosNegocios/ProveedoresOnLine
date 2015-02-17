@@ -548,8 +548,6 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<string> lstUsedFiles = new List<string>();
 
-                List<Tuple<decimal, decimal>> lstCurrencyConversion = null;
-
                 BackOffice.Models.Provider.ProviderCommercialViewModel oDataToUpsert =
                     (BackOffice.Models.Provider.ProviderCommercialViewModel)
                     (new System.Web.Script.Serialization.JavaScriptSerializer()).
@@ -669,34 +667,20 @@ namespace BackOffice.Web.ControllersApi
 
 
                     //get experience value
-                    if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value == oDataToUpsert.EX_Currency)
-                    {
-                        //value in default rate
-                        lstCurrencyConversion = new List<Tuple<decimal, decimal>>() 
-                        { 
-                            new Tuple<decimal, decimal>(Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture), Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture))
-                        };
-                    }
-                    else
-                    {
-                        ////value in custom rate
-                        //lstCurrencyConversion =
-                        //string.IsNullOrEmpty(oDataToUpsert.EX_ContractValue) || string.IsNullOrEmpty(oDataToUpsert.EX_Currency) || string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
-                        //    new List<Tuple<decimal, decimal>>() { new Tuple<decimal, decimal>(0, 0) } :
-                        //    BackOffice.Web.Controllers.BaseController.Currency_ConvertToStandar
-                        //        (Convert.ToInt32(oDataToUpsert.EX_Currency),
-                        //        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
-                        //        (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-                        //            DateTime.ParseExact(
-                        //                oDataToUpsert.EX_DateIssue,
-                        //                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
-                        //                System.Globalization.CultureInfo.InvariantCulture) :
-                        //            DateTime.ParseExact(
-                        //                oDataToUpsert.EX_DateIssue,
-                        //                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-                        //                System.Globalization.CultureInfo.InvariantCulture)).Year,
-                        //        new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) });
-                    }
+                    decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                        (Convert.ToInt32(oDataToUpsert.EX_Currency),
+                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
+                        (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length ==
+                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            DateTime.ParseExact(
+                                oDataToUpsert.EX_DateIssue,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
+                                System.Globalization.CultureInfo.InvariantCulture) :
+                            DateTime.ParseExact(
+                                oDataToUpsert.EX_DateIssue,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture)).Year
+                        );
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
@@ -705,7 +689,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue
                         },
-                        Value = (lstCurrencyConversion != null && lstCurrencyConversion.Count > 0 ? lstCurrencyConversion.FirstOrDefault().Item2 : 0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
+                        Value = (Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) * CurrencyRate).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
                         Enable = true,
                     });
 
@@ -751,8 +735,10 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity
                         },
-                        LargeValue = oDataToUpsert.EX_EconomicActivity != null ? string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()) : string.Empty,
+                        LargeValue = oDataToUpsert.EX_EconomicActivity != null ? string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId.Trim()).Distinct().ToList()) : string.Empty,
                         Enable = true,
+
+                        ValueName = oDataToUpsert.EX_EconomicActivity != null ? string.Join(";", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId.Trim() + "," + x.ActivityName.Trim()).Distinct().ToList()) : string.Empty,
                     });
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -762,41 +748,31 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity
                         },
-                        LargeValue = oDataToUpsert.EX_CustomEconomicActivity != null ? string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()) : string.Empty,
+                        LargeValue = oDataToUpsert.EX_CustomEconomicActivity != null ? string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId.Trim()).Distinct().ToList()) : string.Empty,
                         Enable = true,
+
+                        ValueName = oDataToUpsert.EX_CustomEconomicActivity != null ? string.Join(";", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId.Trim() + "," + x.ActivityName.Trim()).Distinct().ToList()) : string.Empty,
                     });
                 }
 
-                //oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialUpsert(oProvider);
+                oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialUpsert(oProvider);
 
-                ////eval company partial index
-                //List<int> InfoTypeModified = new List<int>() { 3 };
+                //eval company partial index
+                List<int> InfoTypeModified = new List<int>() { 3 };
 
-                //oProvider.RelatedCommercial.All(x =>
-                //{
-                //    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
-                //    return true;
-                //});
+                oProvider.RelatedCommercial.All(x =>
+                {
+                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                    return true;
+                });
 
-                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
-                //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-                //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
+                oReturn = new Models.Provider.ProviderCommercialViewModel
+                    (oProvider.RelatedCommercial.FirstOrDefault());
 
-                //if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-                //{
-                //    oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                //    oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-                //}
-
-                ////oReturn = new Models.Provider.ProviderCommercialViewModel
-                ////    (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
-
-                //oReturn = new Models.Provider.ProviderCommercialViewModel
-                //    (oProvider.RelatedCommercial.FirstOrDefault());
-
-                ////register used files
-                //LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
+                //register used files
+                LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
             }
             return oReturn;
         }
