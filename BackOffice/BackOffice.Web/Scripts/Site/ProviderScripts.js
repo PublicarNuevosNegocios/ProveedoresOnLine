@@ -1245,6 +1245,7 @@ var Provider_CompanyCommercialObject = {
         $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
+
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
                 //alt+shift+g
 
@@ -1456,38 +1457,34 @@ var Provider_CompanyCommercialObject = {
                         .appendTo(container);
                 },
             }, {
-                field: 'EX_ContractValue',
-                title: 'Valor de contrato',
-                width: '380px',
+                field: 'EX_Currency',
+                title: 'Modeda',
+                width: '180px',
                 template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem != null && dataItem.EX_Currency != null && dataItem.EX_ContractValue != null) {
-
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
-
-                        oReturn = oReturn + dataItem.EX_ContractValue + ' ';
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.EX_Currency != null) {
                         $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
                             if (dataItem.EX_Currency == value.ItemId) {
-                                oReturn = oReturn + value.ItemName;
+                                oReturn = value.ItemName;
                             }
                         });
                     }
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input style="width:45%;" required data-bind="value:' + options.field + '"/><span>&nbsp;</span>')
-                        .appendTo(container);
-                    $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
+                    $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción',
+                            optionLabel: 'Seleccione una opción'
                         });
                 },
+            }, {
+                field: 'EX_ContractValue',
+                title: 'Valor de contrato',
+                width: '180px',
             }, {
                 field: 'EX_Phone',
                 title: 'Telefono',
@@ -1541,14 +1538,31 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+
+                    //get current values
+                    var oCurrentValue = new Array();
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                EconomicActivityId: value.EconomicActivityId,
+                                ActivityName: value.ActivityName,
+                                ActivityType: value.ActivityType,
+                                ActivityGroup: value.ActivityGroup,
+                                ActivityCategory: value.ActivityCategory
+                            });
+                        });
+                    }
+
+                    //init multiselect
+                    $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect" multiple="multiple" />')
                         .appendTo(container)
                         .kendoMultiSelect({
                             minLength: 2,
-                            autoBind: false,
+                            dataValueField: 'EconomicActivityId',
                             dataTextField: 'ActivityName',
-                            //value: options.model[options.field],
+                            autoBind: false,
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
@@ -1574,7 +1588,7 @@ var Provider_CompanyCommercialObject = {
                                                     options.success(result);
                                                 },
                                                 error: function (result) {
-                                                    options.error(result);
+                                                    options.success([]);
                                                 }
                                             });
                                         }
@@ -1585,6 +1599,14 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
+
+                    $(container).focusout(function () {
+                        //get selected values
+                        if ($('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').length > 0) {
+                            options.model[options.field] = $('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').data('kendoMultiSelect')._dataItems;
+                            options.model.dirty = true;
+                        }
+                    });
                 },
             }, {
                 field: 'EX_CustomEconomicActivity',
@@ -1603,14 +1625,32 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+
+                    //get current values
+                    var oCurrentValue = new Array();
+
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                EconomicActivityId: value.EconomicActivityId,
+                                ActivityName: value.ActivityName,
+                                ActivityType: value.ActivityType,
+                                ActivityGroup: value.ActivityGroup,
+                                ActivityCategory: value.ActivityCategory
+                            });
+                        });
+                    }
+
+                    //init multiselect
+                    $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect" multiple="multiple" />')
                         .appendTo(container)
                         .kendoMultiSelect({
                             minLength: 2,
-                            autoBind: false,
+                            dataValueField: 'EconomicActivityId',
                             dataTextField: 'ActivityName',
-                            //value: options.model[options.field],
+                            autoBind: false,
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
@@ -1636,7 +1676,7 @@ var Provider_CompanyCommercialObject = {
                                                     options.success(result);
                                                 },
                                                 error: function (result) {
-                                                    options.error(result);
+                                                    options.success([]);
                                                 }
                                             });
                                         }
@@ -1647,6 +1687,14 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
+
+                    $(container).focusout(function () {
+                        //get selected values
+                        if ($('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').length > 0) {
+                            options.model[options.field] = $('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').data('kendoMultiSelect')._dataItems;
+                            options.model.dirty = true;
+                        }
+                    });
                 },
             }, {
                 field: 'EX_ExperienceFile',
@@ -4583,7 +4631,6 @@ var Provider_LegalInfoObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -4601,7 +4648,6 @@ var Provider_LegalInfoObject = {
                                 DataToUpsert: kendo.stringify(options.data)
                             },
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
                             },

@@ -767,36 +767,36 @@ namespace BackOffice.Web.ControllersApi
                     });
                 }
 
-                oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialUpsert(oProvider);
+                //oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialUpsert(oProvider);
 
-                //eval company partial index
-                List<int> InfoTypeModified = new List<int>() { 3 };
+                ////eval company partial index
+                //List<int> InfoTypeModified = new List<int>() { 3 };
 
-                oProvider.RelatedCommercial.All(x =>
-                {
-                    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
-                    return true;
-                });
+                //oProvider.RelatedCommercial.All(x =>
+                //{
+                //    InfoTypeModified.AddRange(x.ItemInfo.Select(y => y.ItemInfoType.ItemId));
+                //    return true;
+                //});
 
-                ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
+                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
+                //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
+                //List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
 
-                if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-                {
-                    oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                    oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-                }
+                //if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
+                //{
+                //    oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
+                //    oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
+                //}
+
+                ////oReturn = new Models.Provider.ProviderCommercialViewModel
+                ////    (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
 
                 //oReturn = new Models.Provider.ProviderCommercialViewModel
-                //    (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
+                //    (oProvider.RelatedCommercial.FirstOrDefault());
 
-                oReturn = new Models.Provider.ProviderCommercialViewModel
-                    (oProvider.RelatedCommercial.FirstOrDefault());
-
-                //register used files
-                LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
+                ////register used files
+                //LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
             }
             return oReturn;
         }
