@@ -11,7 +11,7 @@
 
     <key name="Path_Salesforce">https://na2.salesforce.com/</key>
 
-    <key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>
+    <!--<key name="DateFormat_Kendo"><![CDATA[{0:yyyy-MM-dd}]]></key>-->
     <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
     <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
     
@@ -31,7 +31,7 @@
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\BackOffice\</key>
-    <key name="File_ExcelDirectory">\BackOffice\0XlsProvider\</key>
+    <key name="File_ExcelDirectory">\BackOffice\BlackListFiles\</key>
 
   </BackOffice>
 </Settings>

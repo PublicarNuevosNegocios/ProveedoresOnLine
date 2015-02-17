@@ -6,37 +6,40 @@
 
     Model.RenderScripts = false;
 }
-    @{Model.RenderScripts = true;}
-    <div class="POMPProviderSearchBox">
-        @*SearchBox*@
-        <input class="POMPTextField" id="Search_txtSearchBox" type="text" value="@Model.SearchParam" />
-        <a class="POMPButtons POMPSearchButtons" href="javascript:Provider_SearchObject.Search();">
-            Encontrar
-            <span class="POMPSearchButtonsLupita"></span>
-        </a>
-    </div>
-    <div class="POMProviderSearchGreatWrapper">
 
-        <div class="POMPProviderFilterMenuWrapper">
-            @*SearchFilter*@
-            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
-        </div>
-        <div class="POMPProviderListWrapper">
-            @*SearchResult*@
-            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
-        </div>
-        @*<div class="POMPComparisonListWrapper">*@
-            @*Comparison*@
-            @*@Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)*@
-        @*</div>*@
+<div class="POMPProviderSearchBox">
+    @*SearchBox*@
+    <input class="POMPTextField" id="Search_txtSearchBox" type="text" value="@Model.SearchParam" />
+    <a class="POMPButtons POMPSearchButtons" href="javascript:Provider_SearchObject.Search();">
+        Encontrar
+        <span class="POMPSearchButtonsLupita"></span>
+    </a>
+</div>
+<div class="POMProviderSearchGreatWrapper">
 
+    <div class="POMPProviderFilterMenuWrapper">
+        @*SearchFilter*@
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
     </div>
+    <div class="POMPProviderListWrapper">
+        @*SearchResult*@
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
+    </div>
+    <div class="POMPComparisonListWrapper">
+        @*Comparison*@
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+    </div>
+
+</div>
+@{
+    Model.RenderScripts = true;
+}
 
 @section inlinescripts
 {
-    @*@Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
-    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)*@
+    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
 
     <script type="text/javascript">
         $(document).ready(function () {

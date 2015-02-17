@@ -123,14 +123,14 @@
                     <li>
                         <label>Fecha de Constitución</label>
                         <br />
-                        <input type="text" id="ConstitutionDateId" name="ConstitutionDate" value="@ConsitutionDate" placeholder="yyyy-mm-dd" />
+                        <input type="date" id="ConstitutionDateId" name="ConstitutionDate" value="@ConsitutionDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ConstitutionDateId" value="@ConsitutionDateId" />
 
                     </li>
                     <li>
                         <label>Fecha de Vigencia</label>
                         <br />
-                        <input type="text" id="ValidityDateId" name="ValidityDate" value="@ConstitutionEndDate" placeholder="yyyy-mm-dd" />
+                        <input type="date" id="ValidityDateId" name="ValidityDate" value="@ConstitutionEndDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ValidityDateId" value="@ConstitutionEndDateId" />
                     </li>
                     <li>
@@ -176,7 +176,7 @@
                     <li>
                         <label>Fecha de Expedición del Certificado</label>
                         <br />
-                        <input type="text" id="ExpeditionCertificatedDateId" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" placeholder="yyyy-mm-dd" />
+                        <input type="date" id="ExpeditionCertificatedDateId" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ExpeditionCertificatedDateId" value="@CertificateExpeditionDateId" />
                     </li>
                     <li>
@@ -190,7 +190,7 @@
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
-            </form>
+            </form>                        
             <ul class="POBOCamaraComercioSociosWrapper">
                 <li class="POBOCamaraComercioSocios">
                     <label>Socios, Miembros junta directiva, entre otros</label>
@@ -265,19 +265,7 @@
             UploadFile({
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 ControlellerResponseId: "CertificateURL",
-            });
-            Provider_InitUpsertProvider({
-                CertificationDateId: 'ConstitutionDateId',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-            });
-            Provider_InitUpsertProvider({
-                CertificationDateId: 'ValidityDateId',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-            });
-            Provider_InitUpsertProvider({
-                CertificationDateId: 'ExpeditionCertificatedDateId',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-            });
+            });         
             Provider_LegalInfoObject.RenderAsync();
         });
     </script>

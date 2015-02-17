@@ -4,7 +4,7 @@
     List<Tuple<string, string>> lstSearchFilter = Model.GetlstSearchFilter();
 }
 
-@if (Model.RenderScripts)
+@if (!Model.RenderScripts)
 {
     if (Model.ProviderFilterResult != null)
     {

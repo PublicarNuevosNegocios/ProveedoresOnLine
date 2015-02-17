@@ -24,13 +24,6 @@ function Provider_Navigate(Url, GridName, ButtonClass) {
 
 }
 
-function Provider_InitUpsertProvider(vInitObject) {
-    //init certification date
-    $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
-        format: vInitObject.DateFormat
-    });
-}
-
 /*Provider search object*/
 var Provider_SearchObject = {
     ObjectId: '',
@@ -1138,61 +1131,65 @@ var Provider_CompanyContactObject = {
                 title: 'Fecha de expedición',
                 width: '160px',
                 format: Provider_CompanyContactObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
+                editor: 
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                }
             }, {
                 field: 'DT_DistributorFile',
                 title: 'Doc soporte.',
-                width: '292px',
-                template: function (dataItem) {
+                    width: '292px',
+                    template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_DistributorFile != null && dataItem.DT_DistributorFile.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
-                        }
+                }
                         oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
-                    }
-                    else {
-                        oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
-                    }
+            }
+            else {
+                oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
+            }
 
                     oReturn = oReturn.replace(/\${DT_DistributorFile}/gi, dataItem.DT_DistributorFile);
 
                     return oReturn;
-                },
-                editor: function (container, options) {
+                    },
+                        editor: function (container, options) {
                     var oFileExit = true;
                     $('<input type="file" id="files" name="files"/>')
                     .appendTo(container)
                     .kendoUpload({
-                        multiple: false,
+                            multiple: false,
                         async: {
                             saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyContactObject.ProviderPublicId,
-                            autoUpload: true
-                        },
-                        success: function (e) {
+                                    autoUpload: true
+                            },
+                                success: function (e) {
                             if (e.response != null && e.response.length > 0) {
                                 //set server fiel name
                                 options.model[options.field] = e.response[0].ServerName;
-                                //enable made changes
-                                options.model.dirty = true;
-                            }
+                        //enable made changes
+                        options.model.dirty = true;
+                        }
                         },
                         complete: function (e) {
-                            //enable lost focus
+                                //enable lost focus
                             oFileExit = true;
                         },
-                        select: function (e) {
-                            //disable lost focus while upload file
+                                    select: function (e) {
+                        //disable lost focus while upload file
                             oFileExit = false;
-                        },
-                    });
+                            },
+                            });
                     $(container).focusout(function () {
                         if (oFileExit == false) {
-                            //mantain file input focus
+                        //mantain file input focus
                             $('#files').focus();
                         }
                     });
@@ -1506,21 +1503,27 @@ var Provider_CompanyCommercialObject = {
                 title: 'Inicio',
                 width: '160px',
                 format: Provider_CompanyCommercialObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'EX_DueDate',
                 title: 'Fin',
                 width: '160px',
                 format: Provider_CompanyCommercialObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            +options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                    input.appendTo(container);
+                    },
             }, {
                 field: 'EX_EconomicActivity',
                 title: 'Maestra Estandar',
@@ -2080,21 +2083,27 @@ var Provider_CompanyHSEQObject = {
                 title: 'Fecha Certificación',
                 width: '160px',
                 format: Provider_CompanyHSEQObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'C_EndDateCertification',
                 title: 'Fecha Caducidad',
                 width: '160px',
                 format: Provider_CompanyHSEQObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            +options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                    input.appendTo(container);
+                    },
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
@@ -4728,10 +4737,13 @@ var Provider_LegalInfoObject = {
                 title: 'Gran Contribuyente Fecha',
                 width: '190px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input  data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'R_SelfRetainer',
@@ -4746,10 +4758,13 @@ var Provider_LegalInfoObject = {
                 title: 'Autorretenedor Fecha',
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input placeholder"yyyy-mm-dd" data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'R_EntityType',
@@ -5140,10 +5155,13 @@ var Provider_LegalInfoObject = {
                 title: 'Fecha de Consulta',
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'CF_ResultQuery',
@@ -5316,10 +5334,13 @@ var Provider_LegalInfoObject = {
                 title: 'Fecha de Diligenciamiento',
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'SF_PersonType',
@@ -5546,20 +5567,26 @@ var Provider_LegalInfoObject = {
                 title: 'Fecha Inicial',
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'RS_EndDate',
                 title: 'Fecha Final',
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'RS_Description',

@@ -231,7 +231,7 @@
                     }
                     <label>Fecha de certificación</label>
                     <br />
-                    <input type="text" id="iptCertificationDate" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
+                    <input type="date" id="iptCertificationDate" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
                 </li>
                 <li>
                     <label><span>*</span> Habilitado</label><br />
@@ -311,11 +311,7 @@
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            Provider_InitUpsertProvider({
-                CertificationDateId: 'iptCertificationDate',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
-            });
+        $(document).ready(function () {           
 
             if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
                 UploadFile({

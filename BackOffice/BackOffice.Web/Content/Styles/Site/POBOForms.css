@@ -36,7 +36,7 @@
 }
     .POBOProviderUpsertForm ul li {
         border: none;
-        display:block;
+        display:inline-block;
         height: auto;
         vertical-align: top;
         width:48.5%;
