@@ -113,6 +113,14 @@
         padding:0px !important;
         margin: 4px 0 12px 7px !important;
     }
+            .k-edit-cell > textarea{
+                background-color: #fff;
+                border: 1px solid #e3e3e3;
+                margin: 6px;
+                padding: 0 0 0 7px;
+                width: 95%;
+            }
+
     .k-file, .k-file-error{
         width:95% !important;
     }
