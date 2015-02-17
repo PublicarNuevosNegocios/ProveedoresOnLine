@@ -56,6 +56,7 @@
         ProviderPaymentInfo = 203003,
         CertificationDate = 203004,
         CompanyLogo = 203005,
+        AlertRisk = 203008,
     }
 
     /// <summary>
@@ -227,7 +228,7 @@
         CA_NumberAccident = 705004,
         CA_NumberAccidentDisabling = 705005,
         CA_DaysIncapacity = 705006,
-        CA_CertificateAccidentARL = 705007,        
+        CA_CertificateAccidentARL = 705007,
     }
 
     #endregion
@@ -350,5 +351,15 @@
         C_Celular = 209002,
         C_PaginaWeb = 209003
     }
+    #endregion
+
+    #region Alert Risk
+
+    public enum enumBlackListStatus 
+    {
+        ShowAlert = 1101001,
+        DontShowAlert = 1101002,
+    }
+
     #endregion
 }

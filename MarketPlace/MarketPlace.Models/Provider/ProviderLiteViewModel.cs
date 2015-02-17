@@ -82,6 +82,26 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        /// <summary>
+        /// Provider alert risk
+        /// </summary>
+        public MarketPlace.Models.General.enumBlackListStatus ProviderAlertRisk
+        {
+            get
+            {
+                return RelatedProvider != null &&
+                        RelatedProvider.RelatedCompany != null ?
+                            RelatedProvider.
+                            RelatedCompany.
+                            CompanyInfo.
+                            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.AlertRisk).
+                            Select(x => (MarketPlace.Models.General.enumBlackListStatus)Convert.ToInt32(x.Value.Trim())).
+                            DefaultIfEmpty(MarketPlace.Models.General.enumBlackListStatus.DontShowAlert).
+                            FirstOrDefault() :
+                            MarketPlace.Models.General.enumBlackListStatus.DontShowAlert;
+            }
+        }
+
         public ProviderLiteViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oRelatedProvider)
         {
             RelatedProvider = oRelatedProvider;

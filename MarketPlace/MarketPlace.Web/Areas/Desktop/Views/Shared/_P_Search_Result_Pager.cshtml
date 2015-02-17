@@ -4,7 +4,7 @@
     Tuple<int, int> oPageInfo = Model.GetStartEndPage();
 }
 
-@if (Model.RenderScripts)
+@if (!Model.RenderScripts)
 {
     if (oPageInfo.Item2 > oPageInfo.Item1)
     {

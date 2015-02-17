@@ -43,6 +43,9 @@
                 SiteUrl: '@(Url.Content("~/"))',
                 PreviewPdfUrl: '@(Server.UrlDecode(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name, new { FilePath = "${FilePath}" })))',
             });
+
+            //init generic tooltip
+            Tooltip_InitGeneric();
         });
     </script>
     @RenderSection("inlinescripts", required: false)

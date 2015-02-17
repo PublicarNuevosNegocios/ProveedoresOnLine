@@ -1,15 +1,16 @@
 ﻿@model MarketPlace.Models.Provider.ProviderLiteViewModel
 
-        @*ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES*@
+@*ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES*@
 
 <div class="POMPSearchResultLineOne">
 
     @*Check certificacion*@
-    @*@if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
-    { }*@
-
-    @*<img class="POMPSearchResultStatusCertified" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />*@
-    <div class="POMPSearchResultStatusCertified"></div>
+    <div class="POMPSearchResultStatusCertified">
+        @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+        {
+            <img class="SelGenericTooltip POMPSearchResultStatusCertified" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
+        }
+    </div>
     <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
 
     <div class="POMPSearchResultProvDataWrapper">
@@ -23,43 +24,48 @@
             @Model.RelatedProvider.RelatedCompany.CompanyName
         </a>
         <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
-        <label><span>Actividad Principal:</span> Fundición de partes en acero forjado y cobre mecanizado para la industria siderúrgica</label>
     </div>
-    <a class="POMPSearchResultProvAlert" href="" title="Este proveedor está en listas restrictivas"></a>
-    <a class="POMPSearchResultIncludeCoparisonIcon" href="" title="Agregar a la lista de comparación"></a>
+    <div>
+        @if (Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert && Model.IsProviderCustomer)
+        {
+            <img class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" />
+        }
 
+        <a class="POMPSearchResultIncludeCoparisonIcon" href="javascript:;">
+            <img class="SelGenericTooltip" title="Agregar a la lista de comparación" />
+        </a>
+    </div>
 </div>
 
 <div class="POMPSearchResultLineTwo">
 
-    <div class="POMPSearchResultProvRating">@*@Model.ProviderRate*@</div>
+    @*Provider rate*@
+    <div class="POMPSearchResultProvRating">
+        @if (Model.ProviderRate != null)
+        {
+            @*<div>@Model.ProviderRate</div>*@
+        }
+    </div>
+    @*Actions for related provider *@
+    <div class="POMPSearchResultProvActions">
 
-    @*@if (Model.ProviderRate != null)
-    {}*@
-    
-    @*@if (Model.IsProviderCustomer)
-    {}
-    else
-    {}*@
+        <a href="" title="">Agregar a comparación</a>
+        <a href="@(Url.RouteUrl
+            (MarketPlace.Models.General.Constants.C_Routes_Default,
+            new
+            {
+                controller = MVC.Provider.Name,
+                action = MVC.Provider.ActionNames.GIProviderInfo,
+                ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">Ver detalle</a>
 
-        @*Actions for related provider *@
-        <div class="POMPSearchResultProvActions">
-            <a href="" title="">Agregar a comparación</a>
-            <a href="@(Url.RouteUrl
-                        (MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Provider.Name,
-                            action = MVC.Provider.ActionNames.GIProviderInfo,
-                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">Ver detalle</a>
+        @if (!Model.IsProviderCustomer)
+        {
             @*Actions for not related provider *@
             <a href="" title="">Hacerlo mi proveedor</a>
-        </div>
+
+        }
     </div>
-
-
-
-
+</div>
 
 
 
