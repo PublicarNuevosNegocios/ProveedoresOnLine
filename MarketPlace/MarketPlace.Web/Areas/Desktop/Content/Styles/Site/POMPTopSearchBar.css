@@ -3,6 +3,7 @@
         border:none;
     display:block;
     width:62%;
+    min-width:571px;
     padding:6px 0px 6px 0px;
     margin:0px auto;
     text-align:center;

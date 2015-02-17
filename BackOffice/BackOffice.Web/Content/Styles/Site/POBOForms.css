@@ -24,10 +24,8 @@
 }
 
 .POBOProviderUpsertForm{
-    margin:12px 0px 10px 7px;
-    border:1px solid #c5c5c5;
+    margin:12px 0px 10px 0px;
 }
-
 .POBOProviderUpsertForm ul li,
 .POBOPCompulsoryFields {
     margin: 4px 0px 0px 8px;
@@ -38,9 +36,9 @@
 }
     .POBOProviderUpsertForm ul li {
         border: none;
-    display: inline-block;
-    height: auto;
-    vertical-align: top;
+        display:block;
+        height: auto;
+        vertical-align: top;
         width:48.5%;
 }
 
@@ -222,9 +220,14 @@ li#F3 {
 .POBOBalanceSheetScrollWrapper {
     height:auto;
     overflow:auto;
-    padding:12px 0px;
-    margin-bottom:4px;
+    padding:12px 0px 0px 0px;
+    margin:0px;
 }
+.FinancialBalanceForm {
+    border:1px solid #c5c5c5;
+    margin-left:8px;
+}
+
 /*DATOS GENERALES*/
 .POBOBalanceSheet_mainInfo {
     background-color: #f9f9f9;
@@ -232,7 +235,7 @@ li#F3 {
     padding-bottom: 12px;
 }
     .POBOBalanceSheet_mainInfo li:first-child {
-        display:block;
+        display:block !important;
     }
         .POBOBalanceSheet_mainInfo li:first-child > label{
             color: #4d4d4d;
@@ -243,6 +246,7 @@ li#F3 {
     height: auto !important;
     vertical-align: top !important;
     width:31.5% !important;
+    display:inline-block !important;
 }
 .POBOBalanceSheet_mainInfo li select,
 .POBOBalanceSheet_mainInfo li input,
@@ -250,6 +254,9 @@ li#F3 {
 .POBOBalanceSheet_mainInfo li input[type="text"]{
     height: 28px !important;
 }
+    .POBOBalanceSheet_mainInfo li input[type="checkbox"]{
+        display:block;
+    }
     .POBOProviderActions div#FileUploadForm {
         margin:3px 0 0;
     }
@@ -368,8 +375,8 @@ li.POBOBalanceSheetCamposCalculados > input{
 }
     .BalanceSheetActions li{
         padding:6px !important;
+        display:inline-block !important;
     }
-
     /*ESTE MUESTRA EL PREVIEW DEL PDF*/
 
         .POBOBalanceSheet_DocPreview {
