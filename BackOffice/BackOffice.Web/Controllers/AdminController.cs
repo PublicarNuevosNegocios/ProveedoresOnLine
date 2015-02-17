@@ -457,7 +457,7 @@ namespace BackOffice.Web.Controllers
                             ItemId = prv.BlackListStatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
                         },
                         User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
-                        FileUrl = StrRemoteFile,
+                        FileUrl = StrRemoteFile,                        
                         BlackListInfo = new List<GenericItemInfoModel>()
                     });
 
@@ -477,6 +477,7 @@ namespace BackOffice.Web.Controllers
                                 ItemName = item,
                             },
                             Value = Rows.First()[index].Value.ToString(),
+                            Enable = true,
                         });
                     }
 
@@ -493,6 +494,7 @@ namespace BackOffice.Web.Controllers
                                 ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
                             },
                             Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
+                            Enable = true,
                         });
                     }
                     else
@@ -508,10 +510,19 @@ namespace BackOffice.Web.Controllers
                                 ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
                             },
                             Value = ((int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert).ToString(),
+                            Enable = true,
                         });
                     }
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert);
                     ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
+
+
+                    oPrvToProcessResult.Add(new ProviderExcelResultModel()
+                    {
+                        PrvModel = prv,
+                        Success = true,
+                        Error = "Se ha validado el Proveedor '" + oProviderToInsert.RelatedCompany.CompanyPublicId + "'",
+                    });
                     #endregion
                 }
                 catch (Exception err)
@@ -544,7 +555,7 @@ namespace BackOffice.Web.Controllers
                             "\"BlackListStatus\"" + strSep +
                             
                             "\"Success\"" + strSep +
-                            "\"Error\"");
+                            "\"Message\"");
 
                     oPrvToProcessResult.All(lg =>
                     {
