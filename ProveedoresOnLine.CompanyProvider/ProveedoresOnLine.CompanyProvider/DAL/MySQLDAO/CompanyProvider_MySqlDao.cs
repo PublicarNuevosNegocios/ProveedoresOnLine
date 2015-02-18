@@ -1255,7 +1255,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "CP_Financial_GetBasicInfo",
+                CommandText = "MP_CP_Financial_GetBasicInfo",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
             });
@@ -1308,6 +1308,73 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                                   LastModify = fiinf.Field<DateTime>("FinancialInfoLastModify"),
                                   CreateDate = fiinf.Field<DateTime>("FinancialInfoCreateDate"),
                               }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vYear", Year));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_BalanceSheet_GetByYear",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<BalanceSheetModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from fi in response.DataTableResult.AsEnumerable()
+                     where !fi.IsNull("FinancialId")
+                     group fi by new
+                     {
+                         FinancialId = fi.Field<int>("FinancialId"),
+                     } into fig
+                     select new BalanceSheetModel()
+                     {
+                         ItemId = fig.Key.FinancialId,
+                         BalanceSheetInfo =
+                            (from bsd in response.DataTableResult.AsEnumerable()
+                             where !bsd.IsNull("BalanceSheetId")
+                             group bsd by new
+                             {
+                                 BalanceSheetId = bsd.Field<int>("BalanceSheetId"),
+                                 AccountId = bsd.Field<int>("AccountId"),
+                                 AccountName = bsd.Field<string>("AccountName"),
+                                 Value = bsd.Field<decimal>("Value"),
+                                 AccountUnit = bsd.Field<string>("AccountUnit"),
+                             } into bsdg
+                             select new BalanceSheetDetailModel()
+                             {
+                                 BalanceSheetId = bsdg.Key.BalanceSheetId,
+                                 RelatedAccount = new GenericItemModel()
+                                 {
+                                     ItemId = bsdg.Key.AccountId,
+                                     ItemName = bsdg.Key.AccountName,
+                                     ItemInfo = new List<GenericItemInfoModel>() 
+                                     { 
+                                        new GenericItemInfoModel()
+                                        {
+                                            ItemInfoType = new CatalogModel()
+                                            {
+                                                ItemId = 109007
+                                            },
+                                            Value = bsdg.Key.AccountUnit
+                                        }
+                                     },
+                                 },
+                                 Value = bsdg.Key.Value,
+                             }).ToList(),
                      }).ToList();
             }
             return oReturn;
@@ -1382,6 +1449,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
         #endregion
     }
 }

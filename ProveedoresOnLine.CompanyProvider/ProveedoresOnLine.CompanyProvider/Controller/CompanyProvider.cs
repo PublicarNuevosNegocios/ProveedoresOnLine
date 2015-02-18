@@ -573,23 +573,6 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             if (olstBalanceSheetAverange == null)
                 olstBalanceSheetAverange = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>();
 
-
-            //get Currency GetRate 
-            //decimal oCurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
-            //    (BalanceToEval.ItemInfo.Where(x => x.ItemInfoType.ItemId == 502003).Select(x => Convert.ToInt32(x.Value)).DefaultIfEmpty(0).FirstOrDefault(),
-            //    Convert.ToInt32(ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "")),
-            //    BalanceToEval.ItemInfo.Where(x => x.ItemInfoType.ItemId == 502003).Select(x => Convert.ToInt32(x.Value)).DefaultIfEmpty(0).FirstOrDefault());
-
-            //change currency to default
-            //oReturn.ItemInfo.
-            //    Where(x => x.ItemInfoType.ItemId == 502003).
-            //    All(x =>
-            //    {
-            //        x.Value = ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", "");
-            //        return true;
-            //    });
-
-
             //get account info
 
             //key: AccountId
@@ -1054,10 +1037,76 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
         }
 
+        public static List<Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year, int CurrencyType)
+        {
+            List<Models.Provider.BalanceSheetModel> oReturn = new List<BalanceSheetModel>();
+
+            //get all provider balance
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBalanceBasicInfo = MPFinancialGetBasicInfo(CompanyPublicId, 501001);
+            //get values by year
+            List<Models.Provider.BalanceSheetModel> oBalanceAccountInfo = DAL.Controller.CompanyProviderDataController.Instance.MPBalanceSheetGetByYear(CompanyPublicId, Year);
+
+            oBalanceBasicInfo.All(bbi =>
+            {
+                Models.Provider.BalanceSheetModel oBalanceToAdd = new BalanceSheetModel()
+                {
+                    ItemId = bbi.ItemId,
+                    ItemType = bbi.ItemType,
+                    ItemName = bbi.ItemName,
+                    Enable = bbi.Enable,
+                    LastModify = bbi.LastModify,
+                    CreateDate = bbi.CreateDate,
+                    ItemInfo = bbi.ItemInfo,
+                    BalanceSheetInfo = new List<BalanceSheetDetailModel>(),
+                };
+
+                //get currency rate
+                decimal oExchangeRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                    (oBalanceToAdd.ItemInfo.
+                        Where(x => x.ItemInfoType.ItemId == 502003).
+                        Select(x => Convert.ToInt32(x.Value)).
+                        DefaultIfEmpty(CurrencyType).
+                        FirstOrDefault(),
+                    CurrencyType,
+                    oBalanceToAdd.ItemInfo.
+                        Where(x => x.ItemInfoType.ItemId == 502001).
+                        Select(x => Convert.ToInt32(x.Value)).
+                        DefaultIfEmpty(Year).
+                        FirstOrDefault());
+
+                oBalanceAccountInfo.
+                    Where(bai => bai.ItemId == oBalanceToAdd.ItemId).
+                    All(bai => bai.BalanceSheetInfo.All(baid =>
+                    {
+                        string oAccountUnit = baid.RelatedAccount.ItemInfo.
+                            Where(x => x.ItemInfoType.ItemId == 109007).
+                            Select(x => x.Value).
+                            DefaultIfEmpty("$").
+                            FirstOrDefault();
+
+                        oBalanceToAdd.BalanceSheetInfo.Add(new BalanceSheetDetailModel()
+                        {
+                            BalanceSheetId = baid.BalanceSheetId,
+                            RelatedAccount = baid.RelatedAccount,
+                            Value = oAccountUnit.Replace(" ", "") == "$" ? (baid.Value * oExchangeRate) : baid.Value,
+                        });
+
+                        return true;
+                    }));
+
+                oReturn.Add(oBalanceToAdd);
+
+                return true;
+            });
+
+            return oReturn;
+        }
+
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPLegalGetBasicInfo(CompanyPublicId, LegalType);
         }
+
         #endregion
     }
 }

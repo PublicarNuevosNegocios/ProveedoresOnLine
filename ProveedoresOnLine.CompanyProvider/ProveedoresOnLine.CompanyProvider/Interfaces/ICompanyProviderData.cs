@@ -62,7 +62,10 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType);
 
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year);
+
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType);
+
         #endregion
 
     }
