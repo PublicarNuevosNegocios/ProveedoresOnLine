@@ -183,7 +183,6 @@ namespace WebCrawler.Manager.CrawlerInfo
                         //Get bank type
                         string BankName = cols[0].InnerText.ToString();
 
-
                         ProveedoresOnLine.Company.Models.Util.GenericItemModel oBankType = Util.Bank_GetByName(BankName);
 
                         oBankInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -198,6 +197,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         });
 
                         //Get account type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oAccountType = Util.ProviderOptions_GetByName(1001, cols[1].InnerText.ToString());
 
                         oBankInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -206,7 +206,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumFinancialInfoType.IB_AccountType,
                             },
-                            Value = "",
+                            Value = oAccountType == null ? string.Empty : oAccountType.ItemId.ToString(),
                             Enable = true,
                         });
 

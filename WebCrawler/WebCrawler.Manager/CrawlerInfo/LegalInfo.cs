@@ -253,7 +253,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_ICA,
                             },
-                            Value = oICA == null ? string.Empty : oICA.ItemId.ToString(),
+                            Value = oICA == null ? string.Empty : oICA.ItemName,
                             Enable = true,
                         });
 
