@@ -27,7 +27,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetFinantialInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantial = null;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.LegalInfo.ToString());
 
@@ -295,7 +295,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumFinancialInfoType.IB_AccountFile,
                                 },
-                                Value = "",
+                                Value = urlS3,
                                 Enable = true,
                             });
                         }
