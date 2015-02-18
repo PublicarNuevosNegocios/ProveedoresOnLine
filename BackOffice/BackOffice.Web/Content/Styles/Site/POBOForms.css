@@ -259,9 +259,6 @@ li#F3 {
     }
 
 /********* DATE PICKER STYLES *********/
-
-
-
 ::-webkit-datetime-edit { padding:0px; }
 ::-webkit-inner-spin-button { 
     display: block;

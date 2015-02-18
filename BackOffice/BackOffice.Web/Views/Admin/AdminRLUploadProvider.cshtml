@@ -13,40 +13,42 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <form action="@Url.Action(MVC.Admin.ActionNames.AdminRLUploadProvider, MVC.Admin.Name)" method="post" enctype="multipart/form-data">
-            <ul>
-                <li>
-                    <span>Archivo a cargar:</span>
-                    <input type="file" name="ExcelFile" id="ExcelFile" />
-                </li>
-                <li><input class="BOButtons" type="submit" value="Validar en World Check" /></li>
-                @if (!string.IsNullOrEmpty(Request["ErrorFile"]))
-                {
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Validación de listas restrictivas</label>
+            <form class="POBOProviderUpsertForm" action="@Url.Action(MVC.Admin.ActionNames.AdminRLUploadProvider, MVC.Admin.Name)" method="post" enctype="multipart/form-data">
+                <ul class="POBOAdminRestrictiveList">
                     <li>
-                        <a target="_blank" href="@Request["ErrorFile"]">Ver log de proceso.</a>
-                    </li>
-                }
-                
-                @{
-                    var stringList = ViewData["UrlReturn"] as List<string>;
-                    if (stringList != null && stringList.Count() != 0)
-                    {
-                        for (int i = 0; i < stringList.Count(); i++)
+                        <label>Seleccione un archivo de proveedores, cárguelo en el sistema y luego oprima validar en Listas Restrictivas</label>
+
+                        <label>Archivo a cargar:</label>
+                        <input type="file" name="ExcelFile" id="ExcelFile" />
+                        <input class="POBOButtons" type="submit" value="Validar en Listas Restrictivas" />
+
+                        @if (!string.IsNullOrEmpty(Request["ErrorFile"]))
                         {
-                            if (i == 0)
+                            <a target="_blank" href="@Request["ErrorFile"]">Ver log de proceso.</a>
+                        }
+                        @{
+                            var stringList = ViewData["UrlReturn"] as List<string>;
+                            if (stringList != null && stringList.Count() != 0)
                             {
-                                <li><a target="_blank" href="@stringList[i]">Descargar ProviderFile.xls</a></li>
-                            }
-                            else
-                            {
-                                <li><a target="_blank" href="@stringList[i]">Descargar LogProvider.xls</a></li>
+                                for (int i = 0; i < stringList.Count(); i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <a target="_blank" href="@stringList[i]">Descargar ProviderFile.xls</a>
+                                    }
+                                    else
+                                    {
+                                        <a target="_blank" href="@stringList[i]">Descargar LogProvider.xls</a>
+                                    }
+                                }
                             }
                         }
-                    }
-                }
-
-            </ul>
-        </form>
+                    </li>
+                </ul>
+            </form>
+        </div>
     </div>
 </div>
 
