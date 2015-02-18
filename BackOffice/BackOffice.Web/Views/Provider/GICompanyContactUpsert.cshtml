@@ -77,8 +77,7 @@
             Provider_CompanyContactObject.Init({
                 ObjectId: 'divGridCompanyContact',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ContactType: '@((int)BackOffice.Models.General.enumContactType.CompanyContact)',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.CompanyContact)',                
                 ProviderOptions: vProviderOptions,
             });
             Provider_CompanyContactObject.RenderAsync();

@@ -1507,7 +1507,7 @@ var Provider_CompanyCommercialObject = {
                         var input = $('<input type="date" name="'
                             + options.field
                             + '" value="'
-                            +options.model.get(options.field)
+                            + options.model.get(options.field)
                             + '" />');
                         input.appendTo(container);
                 },
