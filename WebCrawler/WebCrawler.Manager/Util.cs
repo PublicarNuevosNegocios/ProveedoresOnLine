@@ -31,11 +31,13 @@ namespace WebCrawler.Manager
         {
             ProveedoresOnLine.Company.Models.Util.GeographyModel oReturn = null;
 
-            string[] oSearchParam = SearchParam.Split(new char[] { '/' });
+            SearchParam = SearchParam.ToLower().Replace("d.c", "");
+
+            string[] oSearchParam = SearchParam.Split(new char[] { '/', ',' });
 
             SearchParam = oSearchParam[0].Normalize(NormalizationForm.FormD);
             Regex reg = new Regex("[^a-zA-Z0-9 ]");
-            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+            SearchParam = reg.Replace(SearchParam.Replace(" ", ""), "");
 
             if (oReturn == null)
             {
@@ -81,7 +83,9 @@ namespace WebCrawler.Manager
         {
             ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = null;
 
-            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            string[] oSearchParam = SearchParam.Split(new char[] { '_' });
+
+            SearchParam = oSearchParam[1].Normalize(NormalizationForm.FormD);
             Regex reg = new Regex("[^a-zA-Z0-9 ]");
             SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
 
@@ -101,6 +105,54 @@ namespace WebCrawler.Manager
             {
                 //get default bank info
                 oReturn = BankValues.Where(x => x.ItemId == 1).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
+        #region ICA
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICAValues;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ICAValues
+        {
+            get
+            {
+                if (oICAValues == null)
+                {
+                    int oTotalCount;
+                    oICAValues = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA
+                        (null, 0, 1000000, out oTotalCount);
+                }
+                return oICAValues;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel ICA_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = null;
+
+            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oReturn == null)
+            {
+                //Exact search
+                oReturn = ICAValues.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //Like search
+                oReturn = ICAValues.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //Get default value
+                oReturn = ICAValues.Where(x => x.ItemId == 1).FirstOrDefault();
             }
 
             return oReturn;
@@ -238,7 +290,8 @@ namespace WebCrawler.Manager
                     oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == "pasaporte").FirstOrDefault();
                 }
             }
-            else if (CatalogId == 210)
+            
+            if (CatalogId == 210)
             {
                 if (SearchParam == "comercialylegal")
                 {
@@ -249,7 +302,107 @@ namespace WebCrawler.Manager
                     SearchParam = "hseq";
                 }
 
-                oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                if (oReturn == null)
+                {
+                    //exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();   
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
+            }
+
+            if (CatalogId == 219)
+            {
+                if (oReturn == null)
+                {
+                    //Exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
+            }
+
+            if (CatalogId == 213)
+            {
+                if (oReturn == null)
+                {
+                    //Exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
+            }
+
+            if (CatalogId == 214)
+            {
+                if (oReturn == null)
+                {
+                    //Exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
+            }
+
+            if (CatalogId == 215)
+            {
+                if (oReturn == null)
+                {
+                    //Exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
             }
 
             return oReturn;
