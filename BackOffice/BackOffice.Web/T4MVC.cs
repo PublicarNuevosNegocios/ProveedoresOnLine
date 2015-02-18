@@ -25,7 +25,7 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
-    public static BackOffice.Web.Controllers.AdminController Admin = new BackOffice.Web.Controllers.T4MVC_AdminController();
+    public static BackOffice.Web.Controllers.AdministratorController Administrator = new BackOffice.Web.Controllers.T4MVC_AdministratorController();
     public static BackOffice.Web.Controllers.BaseController Base = new BackOffice.Web.Controllers.T4MVC_BaseController();
     public static BackOffice.Web.Controllers.CustomerController Customer = new BackOffice.Web.Controllers.T4MVC_CustomerController();
     public static BackOffice.Web.Controllers.HomeController Home = new BackOffice.Web.Controllers.T4MVC_HomeController();

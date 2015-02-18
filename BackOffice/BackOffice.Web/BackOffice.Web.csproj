@@ -207,7 +207,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminController.generated.cs">
+    <Compile Include="AdministratorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -223,7 +223,7 @@
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -447,7 +447,9 @@
     <Content Include="Content\Styles\Site\POBOLogInProviders.css" />
     <Content Include="Content\Styles\Site\POBOProvider.css" />
     <Content Include="Content\Styles\Site\POBOSideFilters.css" />
-    <Content Include="Content\Styles\Site\POBOSideMenu.css" />
+    <Content Include="Content\Styles\Site\POBOSideMenu.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
     <Content Include="Rsx-Company.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -957,7 +959,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1062,21 +1066,21 @@
     <Content Include="Views\Provider\LICIFINUpsert.cshtml" />
     <Content Include="Views\Provider\LISARLAFTUpsert.cshtml" />
     <Content Include="Views\Provider\LIResolutionUpsert.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\AdminUserUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminGeoUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminUserUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminGeoUpsert.cshtml" />
     <Content Include="Views\Shared\_P_ProviderFilter.cshtml" />
-    <Content Include="Views\Admin\AdminBankUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminCompanyRulesUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminRulesUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminResolutionUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminEcoActivityUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminEcoGroupUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminTreeUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminBankUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminCompanyRulesUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminRulesUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminResolutionUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminEcoActivityUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminEcoGroupUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminTreeUpsert.cshtml" />
     <Content Include="Views\Provider\CPCustomerProviderStatus.cshtml" />
-    <Content Include="Views\Admin\AdminTRMUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminTRMUpsert.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Admin\AdminRLUploadProvider.cshtml" />
+    <Content Include="Views\Administrator\AdminRLUploadProvider.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
