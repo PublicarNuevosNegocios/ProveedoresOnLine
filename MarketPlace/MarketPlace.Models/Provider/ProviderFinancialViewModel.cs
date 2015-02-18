@@ -12,13 +12,68 @@ namespace MarketPlace.Models.Provider
         public ProviderViewModel RelatedViewProvider { get; set; }
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancialInfo { get; set; }
-        
+
+        #region BalanceSheet
+
+        private string oSH_Year;
+        public string SH_Year
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oSH_Year))
+                {
+                    oSH_Year = RelatedFinancialInfo.ItemInfo.
+                               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
+                               Select(y => y.Value).
+                               DefaultIfEmpty(string.Empty).
+                               FirstOrDefault();
+                }
+                return oSH_Year;
+            }
+        }
+
+        private string oSH_BalanceSheetFile;
+        public string SH_BalanceSheetFile
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oSH_BalanceSheetFile))
+                {
+                    oSH_BalanceSheetFile = RelatedFinancialInfo.ItemInfo.
+                               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_BalanceSheetFile).
+                               Select(y => y.Value).
+                               DefaultIfEmpty(string.Empty).
+                               FirstOrDefault();
+                }
+                return oSH_BalanceSheetFile;
+            }
+        }
+
+        private string oSH_Currency;
+        public string SH_Currency
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oSH_Currency))
+                {
+                    oSH_Currency = RelatedFinancialInfo.ItemInfo.
+                               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Currency).
+                               Select(y => y.Value).
+                               DefaultIfEmpty(string.Empty).
+                               FirstOrDefault();
+                }
+                return oSH_Currency;
+            }
+        }
+
+        #endregion
+
         #region Taxes
 
-        public string TX_Year { get; set; }       
-        public string TX_TaxFile { get; set; }       
+        public string TX_Year { get; set; }
+        public string TX_TaxFile { get; set; }
 
-        #endregion     
+        #endregion
 
         #region IncomeStatement
 
@@ -33,22 +88,22 @@ namespace MarketPlace.Models.Provider
 
         #region Bank Info
 
-        public string IB_Bank { get; set; }        
+        public string IB_Bank { get; set; }
         public string IB_BankName { get; set; }
         public string IB_AccountType { get; set; }
-        public string IB_AccountNumber { get; set; }      
-        public string IB_AccountHolder { get; set; }        
-        public string IB_ABA { get; set; }        
-        public string IB_Swift { get; set; }        
-        public string IB_IBAN { get; set; }        
-        public string IB_Customer { get; set; }        
-        public string IB_AccountFile { get; set; }       
+        public string IB_AccountNumber { get; set; }
+        public string IB_AccountHolder { get; set; }
+        public string IB_ABA { get; set; }
+        public string IB_Swift { get; set; }
+        public string IB_IBAN { get; set; }
+        public string IB_Customer { get; set; }
+        public string IB_AccountFile { get; set; }
 
         #endregion
 
-        public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial, 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank
-                , List<CatalogModel> oOptions)
+        public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial,
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank,
+                List<CatalogModel> oOptions)
         {
             #region TAX
             TX_Year = RelatedFinancial.ItemInfo.
@@ -61,7 +116,7 @@ namespace MarketPlace.Models.Provider
                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.TX_TaxFile).
                Select(y => y.Value).
                DefaultIfEmpty(string.Empty).
-               FirstOrDefault(); 
+               FirstOrDefault();
             #endregion
 
             #region IncomeStatement
@@ -69,14 +124,14 @@ namespace MarketPlace.Models.Provider
                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_Year).
                    Select(y => y.Value).
                    DefaultIfEmpty(string.Empty).
-                   FirstOrDefault();      
+                   FirstOrDefault();
 
             IS_GrossIncome = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_GrossIncome).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-        
+
             IS_NetIncome = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_NetIncome).
                 Select(y => y.Value).
@@ -87,13 +142,13 @@ namespace MarketPlace.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_GrossEstate).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();        
+                FirstOrDefault();
 
             IS_LiquidHeritage = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_LiquidHeritage).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();          
+                FirstOrDefault();
 
             IS_FileIncomeStatement = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_FileIncomeStatement).
@@ -110,7 +165,7 @@ namespace MarketPlace.Models.Provider
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-       
+
             if (oBank != null && oBank.Count > 0)
             {
                 IB_BankName = oBank.
@@ -133,20 +188,20 @@ namespace MarketPlace.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountNumber).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();                       
+                FirstOrDefault();
 
             IB_AccountHolder = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountHolder).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault();                   
+                FirstOrDefault();
 
             IB_ABA = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_ABA).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            
+
             IB_Swift = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Swift).
                 Select(y => y.Value).
@@ -164,7 +219,7 @@ namespace MarketPlace.Models.Provider
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-       
+
             IB_AccountFile = RelatedFinancial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountFile).
                 Select(y => y.Value).

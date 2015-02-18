@@ -12,7 +12,7 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProviderOptions { get; set; }
 
-        public ProviderLiteViewModel RelatedLiteProvider { get; set; }        
+        public ProviderLiteViewModel RelatedLiteProvider { get; set; }
 
         public List<MarketPlace.Models.General.GenericMenu> ProviderMenu { get; set; }
 
@@ -45,7 +45,9 @@ namespace MarketPlace.Models.Provider
 
         public List<ProviderFinancialViewModel> RelatedFinancialInfo { get; set; }
 
-        public List<ProviderLegalViewModel> RelatedLegalInfo { get; set; }        
+        public List<ProviderBalanceSheetViewModel> RelatedBalanceSheetInfo { get; set; }
+
+        public List<ProviderLegalViewModel> RelatedLegalInfo { get; set; }
 
         public List<ProviderDesignationsViewModel> RelatedDesignationsInfo { get; set; }
     }

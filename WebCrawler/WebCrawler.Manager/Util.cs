@@ -405,6 +405,27 @@ namespace WebCrawler.Manager
                 }
             }
 
+            if (CatalogId == 1001)
+            {
+                if (oReturn == null)
+                {
+                    //Exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
+            }
+
             return oReturn;
         }
 

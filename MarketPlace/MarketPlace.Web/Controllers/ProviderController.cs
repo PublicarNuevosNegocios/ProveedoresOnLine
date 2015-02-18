@@ -579,9 +579,53 @@ namespace MarketPlace.Web.Controllers
             }
             else
             {
+                //get request info
+                int oYear = !string.IsNullOrEmpty(Request["Year"]) ?
+                    Convert.ToInt32(Request["Year"].Replace(" ", "")) :
+                    DateTime.Now.Year;
+
+                int oCurrancyType = !string.IsNullOrEmpty(Request["Currency"]) ?
+                    Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
+                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+
+                string oViewName = !string.IsNullOrEmpty(Request["ViewName"]) ?
+                    Request["ViewName"].Replace(" ", "") :
+                    MVC.Desktop.Shared.Views._P_FI_Indicators;
+
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
+
+                //get account info
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
+                    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+
+                //get balance info
+                List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oBalanceAux =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
+                    (ProviderPublicId,
+                    oYear,
+                    oCurrancyType);
+
+
+                //fill view models
+                if (oBalanceAux != null && oBalanceAux.Count > 0)
+                {
+                    oBalanceAux.All(bs =>
+                    {
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(
+                            (ProveedoresOnLine.Company.Models.Util.GenericItemModel)bs,
+                            null,
+                            oModel.ProviderOptions));
+                        return true;
+                    });
+
+                    oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
+                        (null,
+                        olstAccount,
+                        oBalanceAux,
+                        null);
+                }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -733,6 +777,166 @@ namespace MarketPlace.Web.Controllers
             }
             return View(oModel);
         }
+
+        #region Private Methods
+
+        private List<ProviderBalanceSheetViewModel> GetBalanceSheetViewModel
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> lstBalanceSheet,
+
+            int? VerticalAccountId)
+        {
+            List<ProviderBalanceSheetViewModel> oReturn = new List<ProviderBalanceSheetViewModel>();
+
+            lstAccount.
+                Where(ac => RelatedAccount != null ?
+                        (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
+                        (ac.ParentItem == null)).
+                OrderBy(ac => ac.ItemInfo.
+                    Where(aci => aci.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Order).
+                    Select(aci => Convert.ToInt32(aci.Value)).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                All(ac =>
+                {
+                    ProviderBalanceSheetViewModel oItemToAdd =
+                        new Models.Provider.ProviderBalanceSheetViewModel()
+                        {
+                            RelatedAccount = ac,
+                            RelatedBalanceSheetDetail = new List<ProviderBalanceSheetDetailViewModel>(),
+                        };
+
+                    int oOrder = 0;
+                    decimal oHorizontalValue = 0;
+                    string oAccountUnit = ac.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Unit).
+                        Select(y => y.Value.Replace(" ", "")).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    lstBalanceSheet.
+                        OrderByDescending(bs => bs.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
+                            Select(y => Convert.ToInt32(y.Value)).
+                            DefaultIfEmpty(DateTime.Now.Year).
+                            FirstOrDefault()).
+                        All(bs =>
+                        {
+                            //get item to add
+                            var oItemDetailToAdd = new ProviderBalanceSheetDetailViewModel()
+                            {
+                                Order = oOrder,
+                                RelatedBalanceSheetDetail = bs.BalanceSheetInfo.
+                                    Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).
+                                    FirstOrDefault(),
+                            };
+
+                            //add balance detail value
+                            oItemToAdd.RelatedBalanceSheetDetail.Add(oItemDetailToAdd);
+                            oOrder++;
+
+                            if (oAccountUnit == "$")
+                            {
+                                #region Horizontal value
+                                //calc horizontal value
+                                if (oOrder == 0 && oItemToAdd.RelatedBalanceSheetDetail != null)
+                                {
+                                    oHorizontalValue = oItemDetailToAdd.RelatedBalanceSheetDetail.Value;
+                                }
+                                else if (oOrder > 0 && oItemToAdd.RelatedBalanceSheetDetail != null)
+                                {
+                                    oHorizontalValue = oHorizontalValue - oItemDetailToAdd.RelatedBalanceSheetDetail.Value;
+                                }
+                                #endregion
+
+                                //add vertical analisis value
+                                decimal oVerticalValue = 0;
+
+                                #region Vertical Value
+
+                                if (VerticalAccountId != null)
+                                {
+                                    oVerticalValue = 100 * (
+                                        oItemDetailToAdd.RelatedBalanceSheetDetail.Value /
+                                        bs.BalanceSheetInfo.
+                                        Where(bsd => bsd.RelatedAccount.ItemId == VerticalAccountId).
+                                        Select(bsd => bsd.Value != 0 ? bsd.Value : 1).
+                                        DefaultIfEmpty(1).
+                                        FirstOrDefault());
+                                }
+
+
+                                #endregion
+
+                                oItemToAdd.RelatedBalanceSheetDetail.Add(
+                                    new ProviderBalanceSheetDetailViewModel()
+                                    {
+                                        Order = oOrder,
+                                        RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
+                                        {
+                                            RelatedAccount = ac,
+                                            Value = oVerticalValue,
+                                        }
+                                    });
+
+                                oOrder++;
+                            }
+                            return true;
+                        });
+
+                    if (oAccountUnit == "$")
+                    {
+                        //add horizontal analisis value
+                        oItemToAdd.RelatedBalanceSheetDetail.Add(
+                            new ProviderBalanceSheetDetailViewModel()
+                            {
+                                Order = oOrder,
+                                RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = ac,
+                                    Value = oHorizontalValue,
+                                }
+                            });
+                    }
+
+                    int? ovVerticalAccountId = null;
+
+                    if (oAccountUnit == "$")
+                    {
+                        #region Vertical AccountId
+
+                        if (ac.ParentItem != null)
+                        {
+                            if (ac.ItemId == 3115)
+                            {
+                                ovVerticalAccountId = 3115;
+                            }
+                            else if (ac.ItemId == 3116 || ac.ItemId == 3117)
+                            {
+                                ovVerticalAccountId = 4931;
+                            }
+                            else
+                            {
+                                ovVerticalAccountId = VerticalAccountId;
+                            }
+                        }
+
+                        #endregion
+                    }
+
+                    oItemToAdd.ChildBalanceSheet = GetBalanceSheetViewModel(ac, lstAccount, lstBalanceSheet, ovVerticalAccountId);
+                    oReturn.Add(oItemToAdd);
+
+                    return true;
+                });
+
+            return oReturn;
+        }
+
+
+
+        #endregion
 
         #endregion
 
