@@ -4,10 +4,51 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    //get render partial view name
+    string oViewName = MVC.Desktop.Shared.Views._P_FI_Indicators;
+    if (!string.IsNullOrEmpty(Request["ViewName"]))
+    {
+        oViewName = Request["ViewName"].Trim();
+    }
 }
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
 
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Estados financieros</label>
 
+        <div>
+            <ul>
+                <li>
+                    <span>Año</span>
+                </li>
+                <li>
+                    <span>Moneda</span>
+                </li>
+                <li>
+                    <a href="">Consultar</a>
+                </li>
+            </ul>
+            <ul>
+                <li class="@(oViewName == MVC.Desktop.Shared.Views._P_FI_Indicators ? "selected" : string.Empty)">
+                    <span>Indicadores financieros</span>
+                </li>
+                <li class="@(oViewName == MVC.Desktop.Shared.Views._P_FI_Balance ? "selected" : string.Empty)">
+                    <span>Balance general</span>
+                </li>
+            </ul>
+            <div>
+                @Html.Partial(oViewName, Model)
+            </div>
+        </div>
 
+    </div>
+</div>
 
 @{
     Model.RenderScripts = true;
@@ -15,4 +56,5 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(oViewName, Model)
 }
