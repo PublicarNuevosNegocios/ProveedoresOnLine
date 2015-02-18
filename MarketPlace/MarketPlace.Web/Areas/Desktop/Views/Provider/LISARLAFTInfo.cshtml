@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "SARLAFT";
+    ViewBag.Title = "Proveedores OnLine - SARLAFT";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -18,24 +18,24 @@
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
 
-                        foreach (var item in Model.RelatedLegalInfo)
-                        {
-                            <li>
-                                <label class="POMPProviderDataSubtitle">
-                                    <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
-                                </label>
-                                <label>
-                                    Tipo de Persona
-                                    <span>@item.SF_PersonType</span>
-                                </label>
-                                <label>
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
-                                </label>
-                            </li>
-                        }
+                    foreach (var item in Model.RelatedLegalInfo)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
+                                <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
+                            </label>
+                            <label>
+                                Tipo de Persona
+                                <span>@item.SF_PersonType</span>
+                            </label>
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
+                            </label>
+                        </li>
+                    }
 
                 }
-}
+            }
         </ul>
     </div>
 </div>

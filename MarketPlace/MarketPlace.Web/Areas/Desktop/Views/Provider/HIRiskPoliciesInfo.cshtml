@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Risk Policies";
+    ViewBag.Title = "Proveedores OnLine - Riesgos laborales";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -9,46 +9,45 @@
 <div class="POMPProviderGreatWrapper">
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
     <div class="POMPProviderSideMenuWrapper">
-    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-</div>
-
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Sistema de riesgos laborales</label>
         <ul class="POMPProviderInfoDisplayList">
-                        @{
-                            <li>
-                                <label>
-                                    Sistema de Riesgos
-                                    <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).FirstOrDefault()</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    Calificación de Riesgo ARL
-                                    <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_RateARL != null).Select(x => x.CR_RateARL).FirstOrDefault()</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label>                                    
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo Certificado de Accidentalidad</a>
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    Resultado LTIF:
-                                    <span title="@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult">@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult</span>
-                                </label>
-                            </li>
-                            <li>
-                                <label>
-                                    Años:
-                                    <span>@Model.RelatedLTIFInfo.FirstOrDefault().CA_YearsResult, </span>
-                                </label>
-                            </li>
+            @{
+                <li>
+                    <label>
+                        Sistema de Riesgos
+                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).FirstOrDefault()</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Calificación de Riesgo ARL
+                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_RateARL != null).Select(x => x.CR_RateARL).FirstOrDefault()</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo Certificado de Accidentalidad</a>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Resultado LTIF:
+                        <span title="@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult">@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Años:
+                        <span>@Model.RelatedLTIFInfo.FirstOrDefault().CA_YearsResult, </span>
+                    </label>
+                </li>
             }
         </ul>
-</div>
     </div>
+</div>
 @{
     Model.RenderScripts = true;
 }

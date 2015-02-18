@@ -310,6 +310,9 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionParamsClass_FIBalanceSheetInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string ViewName = "ViewName";
+            public readonly string Year = "Year";
+            public readonly string Currency = "Currency";
         }
         static readonly ActionParamsClass_FITaxInfo s_params_FITaxInfo = new ActionParamsClass_FITaxInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -556,14 +559,17 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void FIBalanceSheetInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void FIBalanceSheetInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ViewName, string Year, string Currency);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FIBalanceSheetInfo(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult FIBalanceSheetInfo(string ProviderPublicId, string ViewName, string Year, string Currency)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            FIBalanceSheetInfoOverride(callInfo, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ViewName", ViewName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
+            FIBalanceSheetInfoOverride(callInfo, ProviderPublicId, ViewName, Year, Currency);
             return callInfo;
         }
 

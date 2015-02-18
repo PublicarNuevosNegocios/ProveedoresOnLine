@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "CIFIN";
+    ViewBag.Title = "Proveedores OnLine - CIFIN";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -18,25 +18,25 @@
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
-                    
-                        foreach (var item in Model.RelatedLegalInfo)
-                        {
-                            <li>
-                                <label class="POMPProviderDataSubtitle">
-                                    <span>Fecha de Consulta: @item.CF_QueryDate</span>
-                                </label>
-                                <label>
-                                    Resultado de la Consulta
-                                    <span>@item.CF_ResultQuery</span>
-                                </label>
-                                <label>
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CF_AutorizationFile">Ver Archivo Archivo de Autorización</a>
-                                </label>
-                            </li>
-                        }
+
+                    foreach (var item in Model.RelatedLegalInfo)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
+                                <span>Fecha de Consulta: @item.CF_QueryDate</span>
+                            </label>
+                            <label>
+                                Resultado de la Consulta
+                                <span>@item.CF_ResultQuery</span>
+                            </label>
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CF_AutorizationFile">Ver Archivo Archivo de Autorización</a>
+                            </label>
+                        </li>
+                    }
 
                 }
-}
+            }
         </ul>
     </div>
 </div>

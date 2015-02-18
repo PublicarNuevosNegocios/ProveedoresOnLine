@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Income Statement";
+    ViewBag.Title = "Proveedores OnLine - Declaración de renta";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -44,16 +44,16 @@
                     </li>
                 }
             }
-            </ul>
-        </div>
-        </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 
 
 

@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Experience";
+    ViewBag.Title = "Proveedores OnLine - Experiencias comerciales";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -23,11 +23,11 @@
                             <span>@item.EX_ContractType para @item.EX_Client</span>
                         </label>
                         <label>
-                                Fecha Inicial
+                            Fecha Inicial
                             <span>@item.EX_DateIssue</span>
                         </label>
                         <label>
-                                Fecha Final
+                            Fecha Final
                             <span>@item.EX_DueDate</span>
                         </label>
                         <label>
@@ -35,11 +35,11 @@
                             <span>@item.EX_ContractNumber</span>
                         </label>
                         <label>
-                                Valor del Contrato
+                            Valor del Contrato
                             <span>@item.EX_ContractValue</span>
                         </label>
                         <label>
-                                Teléfono
+                            Teléfono
                             <span>@item.EX_Phone</span>
                         </label>
                         <label>
@@ -47,7 +47,7 @@
                             <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
                         </label>
                         <label>
-                            Maestra Estandar                    
+                            Maestra Estandar
                             @foreach (var ActivityItem in item.EX_EconomicActivity)
                             {
                                 <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
@@ -60,14 +60,14 @@
                                 <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
                             }
                         </label>
-                        <label>                            
+                        <label>
                             @{
                             var UlrContent = item.EX_ExperienceFile;
                             if (!string.IsNullOrEmpty(UlrContent))
                             {
-                            @*ESTE IFRAME SE CAMBIA POR UN ICONO PARA IR AL ARCHIVO*@
-                            @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Soporte</a>
+                                @*ESTE IFRAME SE CAMBIA POR UN ICONO PARA IR AL ARCHIVO*@
+                                @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Soporte</a>
                             }
                             }
                         </label>
@@ -77,13 +77,14 @@
             }
         </ul>
     </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 
 
 
