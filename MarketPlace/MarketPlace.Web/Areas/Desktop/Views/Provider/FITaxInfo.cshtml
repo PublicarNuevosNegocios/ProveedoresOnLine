@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Tax";
+    ViewBag.Title = "Proveedores OnLine - Impuestos";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -17,26 +17,26 @@
             @{
                 foreach (var item in Model.RelatedFinancialInfo)
                 {
-                        <li>
-                            <label class="POMPProviderDataSubtitle">
-                                <span>@item.TX_Year</span>
-                            </label>
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.TX_TaxFile">Ver Archivo del Impuesto</a>
-                            </label>
-                        </li>
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            <span>@item.TX_Year</span>
+                        </label>
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.TX_TaxFile">Ver Archivo del Impuesto</a>
+                        </label>
+                    </li>
                 }
             }
         </ul>
     </div>
 </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
-    {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 
 
 

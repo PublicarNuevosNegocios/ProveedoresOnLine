@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Distribuidores";
+    ViewBag.Title = "Proveedores OnLine - Distribuidores";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -40,29 +40,30 @@
                         <label>
                             Fecha de Expedición
                             <span>@item.DT_DateIssue</span>
-                        </label>                            
+                        </label>
                         <label>
                             @{
-                                var UlrContent = item.DT_DistributorFile;
-                                if (!string.IsNullOrEmpty(UlrContent))
-                                {
-                                    @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent" >Ver Documento Soporte</a>
-                                }
+                    var UlrContent = item.DT_DistributorFile;
+                    if (!string.IsNullOrEmpty(UlrContent))
+                    {
+                        @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
+                    }
                             }
                         </label>
-                   </li>
+                    </li>
                 }
             }
         </ul>
     </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 
 
 

@@ -511,13 +511,73 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        #region Privated Methods
+
+        public List<ProviderLTIFViewModel> GetLTIFResult(List<ProviderLTIFViewModel> oLTIFInfo)
+        {
+            List<ProviderLTIFViewModel> oResult = new List<ProviderLTIFViewModel>();
+            oResult = oLTIFInfo;
+
+            decimal ManWorkersHours = 0;
+            decimal Fatalities = 0;
+            decimal DaysIncapacity = 0;
+            string Years = "";
+
+            foreach (ProviderLTIFViewModel item in oLTIFInfo)
+            {
+                ManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_ManHoursWorked) ? item.CA_ManHoursWorked : "0");
+                Fatalities += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_Fatalities) ? item.CA_Fatalities : "0");
+                DaysIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_DaysIncapacity) ? item.CA_DaysIncapacity : "0");
+                Years += item.CA_Year + " ";
+            }
+
+            if (ManWorkersHours != 0)
+                oResult.FirstOrDefault().CA_LTIFResult = (((Fatalities + DaysIncapacity) / ManWorkersHours) * 1000000).ToString();
+
+            oResult.FirstOrDefault().CA_YearsResult = Years;
+            return oResult;
+        }
+
+        #endregion
+
         #endregion
 
         #region Financial Info
 
-        public virtual ActionResult FIBalanceSheetInfo(string ProviderPublicId)
+        public virtual ActionResult FIBalanceSheetInfo(string ProviderPublicId, string ViewName, string Year, string Currency)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+            };
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult FITaxInfo(string ProviderPublicId)
@@ -1297,34 +1357,6 @@ namespace MarketPlace.Web.Controllers
             return oReturn;
         }
 
-        #endregion
-
-        #region Privated Functions
-
-        public List<ProviderLTIFViewModel> GetLTIFResult(List<ProviderLTIFViewModel> oLTIFInfo)
-        {
-            List<ProviderLTIFViewModel> oResult = new List<ProviderLTIFViewModel>();
-            oResult = oLTIFInfo;
-
-            decimal ManWorkersHours = 0;
-            decimal Fatalities = 0;
-            decimal DaysIncapacity = 0;
-            string Years = "";
-
-            foreach (ProviderLTIFViewModel item in oLTIFInfo)
-            {
-                ManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_ManHoursWorked) ? item.CA_ManHoursWorked : "0");
-                Fatalities += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_Fatalities) ? item.CA_Fatalities : "0");
-                DaysIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_DaysIncapacity) ? item.CA_DaysIncapacity : "0");
-                Years += item.CA_Year + " ";
-            }
-
-            if (ManWorkersHours != 0)
-                oResult.FirstOrDefault().CA_LTIFResult = (((Fatalities + DaysIncapacity) / ManWorkersHours) * 1000000).ToString();
-
-            oResult.FirstOrDefault().CA_YearsResult = Years;
-            return oResult;
-        }
         #endregion
     }
 }

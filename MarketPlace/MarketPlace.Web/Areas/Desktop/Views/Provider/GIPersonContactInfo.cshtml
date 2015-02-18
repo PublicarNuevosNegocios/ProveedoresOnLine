@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Información de contacto de empresa";
+    ViewBag.Title = "Proveedores OnLine - Contacto de la empresa";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -50,27 +50,27 @@
                             Capacidad de Negociación
                             <span>@item.PC_Negotiation</span>
                         </label>
-                        <label>                            
-                        @{
-                            var UlrContent = item.PC_LegalFile;
-                            if (!string.IsNullOrEmpty(UlrContent))
-                            {
-                                @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                        <label>
+                            @{
+                    var UlrContent = item.PC_LegalFile;
+                    if (!string.IsNullOrEmpty(UlrContent))
+                    {
+                        @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
                                 <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
-                                }
+                    }
                             }
                         </label>
                     </li>
                 }
-           }                
+            }
         </ul>
     </div>
 </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 

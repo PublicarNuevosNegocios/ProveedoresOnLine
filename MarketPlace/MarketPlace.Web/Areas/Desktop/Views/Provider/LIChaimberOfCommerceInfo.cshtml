@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Chaimber Of Comerce";
+    ViewBag.Title = "Proveedores OnLine - Camara de comercio";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -58,15 +58,14 @@
                                 Nombre
                                 <span>@item.CD_PartnerName</span>
                             </label>
-    <label>
-        Número de Identificación
-        <span>@item.CD_PartnerIdentificationNumber</span>
-    </label>
-
-    <label>
-        Cargo
-        <span>@item.CD_PartnerRank</span>
-    </label>
+                            <label>
+                                Número de Identificación
+                                <span>@item.CD_PartnerIdentificationNumber</span>
+                            </label>
+                            <label>
+                                Cargo
+                                <span>@item.CD_PartnerRank</span>
+                            </label>
                         }
                     </li>
                 }

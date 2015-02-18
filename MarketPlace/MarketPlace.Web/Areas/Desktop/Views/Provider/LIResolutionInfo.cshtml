@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Resolutions";
+    ViewBag.Title = "Proveedores OnLine - Resoluciones";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -19,33 +19,33 @@
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
 
-                        foreach (var item in Model.RelatedLegalInfo)
-                        {
-                            <li>
-                                <label class="POMPProviderDataSubtitle">
+                    foreach (var item in Model.RelatedLegalInfo)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
                                 <span>@item.RS_EntityType, Alcance: @item.RS_Description</span>
-                                </label>
-                                <label>
-                                    Fecha Inicial
-                                    <span>@item.RS_StartDate</span>
-                                </label>
+                            </label>
+                            <label>
+                                Fecha Inicial
+                                <span>@item.RS_StartDate</span>
+                            </label>
 
-                                <label>
-                                    Fecha Final
-                                    <span>@item.RS_EndDate</span>
-                                </label>
-                                <label>
-                                    Alcance
-                                    <span>@item.RS_Description</span>
-                                </label>
-                                <label>
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
-                                </label>
-                            </li>
-                        }
+                            <label>
+                                Fecha Final
+                                <span>@item.RS_EndDate</span>
+                            </label>
+                            <label>
+                                Alcance
+                                <span>@item.RS_Description</span>
+                            </label>
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
+                            </label>
+                        </li>
+                    }
 
                 }
-}
+            }
         </ul>
     </div>
 </div>

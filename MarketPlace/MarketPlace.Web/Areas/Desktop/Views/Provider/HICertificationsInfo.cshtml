@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Certification";
+    ViewBag.Title = "Proveedores OnLine - Certificaciones";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -22,30 +22,29 @@
                         <label class="POMPProviderDataSubtitle">
                             <span>@item.C_RuleName, Alcance: @item.C_Scope</span>
                         </label>
-                            <label>
-                                Empresa Certificadora
-                                <span>@item.C_CertificationCompanyName</span>
-                            </label>
-                            <label>
-                                Fecha de Certificación
-                                <span>@item.C_StartDateCertification</span>
-                            </label>
-                            <label>                
-                                Fecha de Caducidad
-                                <span>@item.C_EndDateCertification</span>
-                            </label>
-                            <label>
-                                % CCS
-                                <span>@item.C_CCS</span>
-                            </label>
+                        <label>
+                            Empresa Certificadora
+                            <span>@item.C_CertificationCompanyName</span>
+                        </label>
+                        <label>
+                            Fecha de Certificación
+                            <span>@item.C_StartDateCertification</span>
+                        </label>
+                        <label>
+                            Fecha de Caducidad
+                            <span>@item.C_EndDateCertification</span>
+                        </label>
+                        <label>
+                            % CCS
+                            <span>@item.C_CCS</span>
+                        </label>
                         <label>
                             @{
-                                var UlrContent = item.C_CertificationFile;
-                                if (!string.IsNullOrEmpty(UlrContent))
-                                {
-                                    @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
-                                }
+                    var UlrContent = item.C_CertificationFile;
+                    if (!string.IsNullOrEmpty(UlrContent))
+                    {
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                    }
                             }
                         </label>
                     </li>
@@ -53,14 +52,14 @@
             }
         </ul>
     </div>
-    </div>
-    @{
-        Model.RenderScripts = true;
-    }
-    @section inlinescripts
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
 {
-        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    }
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
 
 
 
