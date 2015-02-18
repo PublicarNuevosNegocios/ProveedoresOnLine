@@ -20,36 +20,60 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
+                        @if (!string.IsNullOrEmpty(item.BR_City) && !string.IsNullOrEmpty(item.BR_Name))
+                        {
                             <span>@item.BR_City, @item.BR_Name</span>
+                        }                            
                         </label>
-                        <label>
-                            Representante
-                            <span>@item.BR_Representative</span>
-                        </label>
-                        <label>
-                            Dirección
-                            <span>@item.BR_Address</span>
-                        </label>
-                        <label>
-                            Teléfono
-                            <span> @item.BR_Phone</span>
-                        </label>
-                        <label>
-                            Fax
-                            <span> @item.BR_Fax</span>
-                        </label>
-                        <label>
-                            Correo Electrónico
-                            <span>  @item.BR_Email</span>
-                        </label>
-                        <label>
-                            Página Web
-                            <span><a href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
-                        </label>
-                        <label>
-                            Sucursal Principal
-                            <span>@item.BR_IsPrincipal</span>
-                        </label>
+                        @if (!string.IsNullOrEmpty(item.BR_Representative))
+                        {
+                            <label>
+                                Representante
+                                <span>@item.BR_Representative</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.BR_Address))
+                        {
+                            <label>
+                                Dirección
+                                <span>@item.BR_Address</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.BR_Phone))
+                        {
+                            <label>
+                                Teléfono
+                                <span> @item.BR_Phone</span>
+                            </label>
+                        }      
+                        @if (!string.IsNullOrEmpty(item.BR_Fax))
+                        {
+                            <label>
+                                Fax
+                                <span> @item.BR_Fax</span>
+                            </label>
+                        }                  
+                        @if (!string.IsNullOrEmpty(item.BR_Email))
+                        {
+                            <label>
+                                Correo Electrónico
+                                <span>  @item.BR_Email</span>
+                            </label>
+                        }           
+                        @if (!string.IsNullOrEmpty(item.BR_Website))
+                        {
+                            <label>
+                                Página Web
+                                <span><a href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
+                            </label>
+                        }                               
+                        @if (!string.IsNullOrEmpty(item.BR_IsPrincipal))
+                        {
+                            <label>
+                                Sucursal Principal
+                                <span>@item.BR_IsPrincipal</span>
+                            </label>
+                        }                              
                     </li>
                 }
             }

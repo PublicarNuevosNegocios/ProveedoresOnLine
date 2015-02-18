@@ -20,12 +20,18 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
-                            <span>@item.C_RuleName, Alcance: @item.C_Scope</span>
+                            @if (!string.IsNullOrEmpty(item.C_RuleName) && !string.IsNullOrEmpty(item.C_Scope))
+                            {
+                                <span>@item.C_RuleName, Alcance: @item.C_Scope</span>
+                            }                            
                         </label>
-                        <label>
-                            Empresa Certificadora
-                            <span>@item.C_CertificationCompanyName</span>
-                        </label>
+                        @if (!string.IsNullOrEmpty(item.C_CertificationCompanyName))
+                        { 
+                            <label>
+                                Empresa Certificadora
+                                <span>@item.C_CertificationCompanyName</span>
+                            </label>
+                        }
                         <label>
                             Fecha de Certificación
                             <span>@item.C_StartDateCertification</span>

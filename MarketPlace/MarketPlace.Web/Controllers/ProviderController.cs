@@ -156,12 +156,14 @@ namespace MarketPlace.Web.Controllers
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
 
-                oModel.ContactCompanyInfo.All(x =>
+                if (oModel.ContactCompanyInfo != null)
                 {
-                    oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oModel.ProviderOptions));
-                    return true;
-                });
-
+                    oModel.ContactCompanyInfo.All(x =>
+                    {
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oModel.ProviderOptions));
+                        return true;
+                    });
+                }
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
@@ -205,11 +207,15 @@ namespace MarketPlace.Web.Controllers
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
 
                 oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
-                oModel.ContactCompanyInfo.All(x =>
+
+                if (oModel.ContactCompanyInfo != null)
                 {
-                    oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
-                    return true;
-                });
+                    oModel.ContactCompanyInfo.All(x =>
+                    {
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
+                        return true;
+                    });
+                }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
                 oModel.RelatedGeneralInfo = oModel.RelatedGeneralInfo.OrderBy(x => x.BR_IsPrincipal != "Si").ToList();
@@ -256,12 +262,14 @@ namespace MarketPlace.Web.Controllers
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
 
                 oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
-                oModel.ContactCompanyInfo.All(x =>
+                if (oModel.ContactCompanyInfo != null)
                 {
-                    oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
-                    return true;
-                });
-
+                    oModel.ContactCompanyInfo.All(x =>
+                    {
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
+                        return true;
+                    });
+                }
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
