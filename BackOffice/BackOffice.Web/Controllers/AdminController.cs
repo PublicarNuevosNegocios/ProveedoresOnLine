@@ -523,6 +523,8 @@ namespace BackOffice.Web.Controllers
                         Success = true,
                         Error = "Se ha validado el Proveedor '" + oProviderToInsert.RelatedCompany.CompanyPublicId + "'",
                     });
+
+                    FileName = FileName + ".xls";
                     #endregion
                 }
                 catch (Exception err)

@@ -314,7 +314,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumHSEQInfoType.CA_CertificateAccidentARL,
                                 },
-                                Value = urlDownload,
+                                Value = urlS3,
                                 Enable = true,
                             });
                         }

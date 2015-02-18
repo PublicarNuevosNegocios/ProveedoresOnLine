@@ -13,7 +13,7 @@ namespace WebCrawler.Manager.CrawlerInfo
     {
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetLegalInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegal = null;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.LegalInfo.ToString());
 
@@ -54,7 +54,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CD_PartnerName,
                             },
-                            Value = "",
+                            Value = cols[0].InnerText.ToString() != "&nbsp;" ? cols[0].InnerText.ToString() : string.Empty,
                             Enable = true
                         });
 
@@ -65,9 +65,13 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CD_PartnerIdentificationNumber,
                             },
-                            Value = "",
+                            Value = cols[1].InnerText.ToString() != "&nbsp;" ? cols[1].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
+
+                        
+                        //Get partner rank info
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oPartnerRankInfo = Util.ProviderOptions_GetByName(219, cols[2].InnerText.ToString());
 
                         oDesignationsInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -76,7 +80,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CD_PartnerRank,
                             },
-                            Value = "",
+                            Value = oPartnerRankInfo == null ? string.Empty : oPartnerRankInfo.ItemId.ToString(),
                             Enable = true,
                         });
 
@@ -94,9 +98,9 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 #endregion
 
-                HtmlNodeCollection rowsTable2 = table[2].SelectNodes(".//tr"); //Información Tributaria - Resoluciones
+                HtmlNodeCollection rowsTable2 = table[2].SelectNodes(".//tr"); //RUT
 
-                #region Resolutions
+                #region RUT
 
                 if (rowsTable2 != null)
                 {
@@ -104,9 +108,9 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                     Console.WriteLine("\nRUT\n");
 
-                    for (int i = 1; i < rowsTable1.Count; i++)
+                    for (int i = 1; i < rowsTable2.Count; i++)
                     {
-                        HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
+                        HtmlNodeCollection cols = rowsTable2[i].SelectNodes(".//td");
 
                         oRUTInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
@@ -119,6 +123,9 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                             ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                         };
+                        
+                        //get RUT person type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oPersonType = Util.ProviderOptions_GetByName(213, cols[0].InnerText.ToString());
 
                         oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -127,7 +134,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_PersonType,
                             },
-                            Value = "",
+                            Value = oPersonType == null ? string.Empty : oPersonType.ItemId.ToString(),
                             Enable = true,
                         });
 
@@ -138,7 +145,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributor,
                             },
-                            Value = "",
+                            Value = cols[1].InnerText.ToString() == "SI" ? "1" : "0",
                             Enable = true,
                         });
 
@@ -149,7 +156,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributorReceipt,
                             },
-                            Value = "",
+                            Value = cols[2].InnerText.ToString(),
                             Enable = true,
                         });
 
@@ -160,7 +167,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributorDate,
                             },
-                            Value = "",
+                            Value = cols[3].InnerText != string.Empty && cols[3].InnerText.Length > 1 ? Convert.ToDateTime(cols[3].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -171,7 +178,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_SelfRetainer,
                             },
-                            Value = "",
+                            Value = cols[4].InnerText.ToString() == "SI" ? "1" : "0",
                             Enable = true,
                         });
 
@@ -182,7 +189,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_SelfRetainerReciept,
                             },
-                            Value = "",
+                            Value = cols[5].InnerText != "&nbsp;" ? cols[5].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -193,9 +200,12 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_SelfRetainerDate,
                             },
-                            Value = "",
+                            Value = cols[6].InnerText != string.Empty && cols[6].InnerText.Length > 1 ? Convert.ToDateTime(cols[6].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
+
+                        //get entity type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oEntityType = Util.ProviderOptions_GetByName(214, cols[7].InnerText.ToString());
 
                         oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -204,7 +214,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_EntityType,
                             },
-                            Value = "",
+                            Value = oEntityType == null ? string.Empty : oEntityType.ItemId.ToString(),
                             Enable = true,
                         });
 
@@ -215,9 +225,12 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_IVA,
                             },
-                            Value = "",
+                            Value = cols[8].InnerText == "SI" ? "1" : "0",
                             Enable = true,
                         });
+
+                        //get tax payer type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oTaxPayerType = Util.ProviderOptions_GetByName(215, cols[9].InnerText.ToString());
 
                         oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -226,9 +239,12 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_TaxPayerType,
                             },
-                            Value = "",
+                            Value = oTaxPayerType == null ? string.Empty : oTaxPayerType.ItemId.ToString(),
                             Enable = true,
                         });
+
+                        //get ICA
+                        ProveedoresOnLine.Company.Models.Util.GenericItemModel oICA = Util.ICA_GetByName(cols[10].InnerText.ToString());
 
                         oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -237,42 +253,81 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_ICA,
                             },
-                            Value = "",
+                            Value = oICA == null ? string.Empty : oICA.ItemName,
                             Enable = true,
                         });
 
-                        oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        if (cols[11].InnerHtml.Contains("href"))
                         {
-                            ItemInfoId = 0,
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumLegalInfoType.R_RUTFile,
-                            },
-                            Value = "",
-                            Enable = true,
-                        });
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
 
-                        oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                        {
-                            ItemInfoId = 0,
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                ItemId = (int)enumLegalInfoType.R_LargeContributorFile,
-                            },
-                            Value = "",
-                            Enable = true,
-                        });
+                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            }
 
-                        oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                        {
-                            ItemInfoId = 0,
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
+
+                            oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
-                                ItemId = (int)enumLegalInfoType.R_SelfRetainerFile,
-                            },
-                            Value = "",
-                            Enable = true,
-                        });
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.R_RUTFile,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
+                        }
+
+                        if (cols[12].InnerHtml.Contains("href"))
+                        {
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
+
+                            if (cols[12].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
+                            {
+                                urlDownload = cols[12].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
+
+                            oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.R_LargeContributorFile,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
+                        }
+
+                        if (cols[13].InnerHtml.Contains("href"))
+                        {
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
+
+                            if (cols[13].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
+                            {
+                                urlDownload = cols[13].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
+
+                            oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.R_SelfRetainerFile,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
+                        }
 
                         if (oRUTInfo != null)
                         {
@@ -297,9 +352,9 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                     Console.WriteLine("\nSARLAFT\n");
 
-                    for (int i = 1; i < rowsTable1.Count; i++)
+                    for (int i = 1; i < rowsTable3.Count; i++)
                     {
-                        HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
+                        HtmlNodeCollection cols = rowsTable3[i].SelectNodes(".//td");
 
                         oSARLAFTInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
@@ -320,9 +375,12 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.SF_ProcessDate,
                             },
-                            Value = "",
+                            Value = cols[0].InnerText != string.Empty ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
+
+                        //get person type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oPersonType = Util.ProviderOptions_GetByName(213, cols[1].InnerText.ToString());
 
                         oSARLAFTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -331,20 +389,33 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.SF_PersonType,
                             },
-                            Value = "",
+                            Value = oPersonType == null ? string.Empty : oPersonType.ItemId.ToString(),
                             Enable = true,
                         });
 
-                        oSARLAFTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        if (cols[2].InnerHtml.Contains("href"))
                         {
-                            ItemInfoId = 0,
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
+
+                            if (cols[2].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                ItemId = (int)enumLegalInfoType.SF_SARLAFTFile,
-                            },
-                            Value = "",
-                            Enable = true,
-                        });
+                                urlDownload = cols[2].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.SARLAFT.ToString(), PublicId);
+
+                            oSARLAFTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.SF_SARLAFTFile,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
+                        }
 
                         if (oSARLAFTInfo != null)
                         {
@@ -364,15 +435,15 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 #region CIFIN
 
-                if (rowsTable1 != null)
+                if (rowsTable4 != null)
                 {
                     ProveedoresOnLine.Company.Models.Util.GenericItemModel oCIFINInfo = null;
 
                     Console.WriteLine("\nCIFIN\n");
 
-                    for (int i = 1; i < rowsTable1.Count; i++)
+                    for (int i = 1; i < rowsTable4.Count; i++)
                     {
-                        HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
+                        HtmlNodeCollection cols = rowsTable4[i].SelectNodes(".//td");
 
                         oCIFINInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                         {
@@ -393,7 +464,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CF_QueryDate,
                             },
-                            Value = "",
+                            Value = cols[0].InnerText != string.Empty ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -404,7 +475,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CF_ResultQuery,
                             },
-                            Value = "",
+                            Value = cols[1].InnerText.ToString(),
                             Enable = true,
                         });
 
@@ -415,7 +486,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CF_AutorizationFile,
                             },
-                            Value = "",
+                            Value = string.Empty,
                             Enable = true,
                         });
 

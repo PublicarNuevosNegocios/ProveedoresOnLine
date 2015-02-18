@@ -27,7 +27,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetFinantialInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantial = null;
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.LegalInfo.ToString());
 
@@ -183,7 +183,6 @@ namespace WebCrawler.Manager.CrawlerInfo
                         //Get bank type
                         string BankName = cols[0].InnerText.ToString();
 
-
                         ProveedoresOnLine.Company.Models.Util.GenericItemModel oBankType = Util.Bank_GetByName(BankName);
 
                         oBankInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -198,6 +197,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         });
 
                         //Get account type
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oAccountType = Util.ProviderOptions_GetByName(1001, cols[1].InnerText.ToString());
 
                         oBankInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -206,7 +206,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumFinancialInfoType.IB_AccountType,
                             },
-                            Value = "",
+                            Value = oAccountType == null ? string.Empty : oAccountType.ItemId.ToString(),
                             Enable = true,
                         });
 
@@ -295,7 +295,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumFinancialInfoType.IB_AccountFile,
                                 },
-                                Value = "",
+                                Value = urlS3,
                                 Enable = true,
                             });
                         }

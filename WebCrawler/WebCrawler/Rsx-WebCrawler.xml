@@ -3,7 +3,7 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=lm03g9l2nbahj579iqkp0pasb2]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=ikh7ai92bg8q6auoirm33opjs0]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
@@ -24,8 +24,8 @@
     <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
 
     <!--All Menu Keys-->
-    <!--1GeneralInfo,2Certifications,3HSE,4Finantial,Experience,GeneralBalance,LegalInfo,Representation,OtherInfo,-->
-    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,Finantial,</key>
+    <!--GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,Representation,OtherInfo,-->
+    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,Finantial,LegalInfo,</key>
 
     <!--PAR Modules-->
     
