@@ -18,6 +18,8 @@
     <key name="DateFormat_KendoToServer"><![CDATA[yyyy-MM-ddTHH:mm:ss.fffZ]]></key>
     <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
 
+    <key name="CurrencyExchange_USD">108001</key>    
+    
     <key name="ProviderStatus_Certified">902005</key>
     <key name="ProviderStatus_Certified_Logo">https://www.google.com/a/publicar.com/images/logo.gif</key>
 

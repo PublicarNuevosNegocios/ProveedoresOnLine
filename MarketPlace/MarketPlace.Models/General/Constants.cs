@@ -32,6 +32,8 @@
 
         public const string C_Settings_DateFormat_Server = "DateFormat_Server";
 
+        public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
+
         public const string C_Settings_ProviderStatus_Certified = "ProviderStatus_Certified";
 
         public const string C_Settings_ProviderStatus_Certified_Logo = "ProviderStatus_Certified_Logo";
