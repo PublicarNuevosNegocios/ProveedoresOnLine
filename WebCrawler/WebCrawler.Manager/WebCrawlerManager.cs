@@ -32,11 +32,37 @@ namespace WebCrawler.Manager
                 }
                 else if (item.ToString() == enumMenu.Certifications.ToString())
                 {
-                    oProvider.RelatedCertification = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                    if (oProvider.RelatedCertification == null)
+                    {
+                        oProvider.RelatedCertification = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);                        
+                    }
+                    else
+                    {
+                        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertifications = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+
+                        oCertifications.All(x =>
+                        {
+                            oProvider.RelatedCertification.Add(x);
+                            return true;
+                        });
+                    }                    
                 }
                 else if (item.ToString() == enumMenu.HSE.ToString())
                 {
-                    oProvider.RelatedCertification = CrawlerInfo.HSEQInfo.GetHSEQInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                    if (oProvider.RelatedCertification == null)
+                    {
+                        oProvider.RelatedCertification = CrawlerInfo.HSEQInfo.GetHSEQInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                    }
+                    else
+                    {
+                        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertifications = CrawlerInfo.HSEQInfo.GetHSEQInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+
+                        oCertifications.All(x =>
+                            {
+                                oProvider.RelatedCertification.Add(x);
+                                return true;
+                            });
+                    }
                 }
                 else if (item.ToString() == enumMenu.Finantial.ToString())
                 {
@@ -497,7 +523,7 @@ namespace WebCrawler.Manager
                                     Value = cols[4].InnerText.ToString() != "&nbsp;" ? cols[4].InnerText.ToString() : string.Empty,
                                     Enable = true,
                                 });
-                            
+
                             oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
                                     ItemInfoId = 0,
@@ -657,7 +683,7 @@ namespace WebCrawler.Manager
 
         public static HtmlDocument GetHtmlDocumnet(string ParId, string Setting)
         {
-            if(!oWebClient.Headers.AllKeys.Contains("Cookie"))
+            if (!oWebClient.Headers.AllKeys.Contains("Cookie"))
             {
                 oWebClient.Headers.Add("Cookie", WebCrawler.Manager.General.InternalSettings.Instance
                                                 [Constants.C_Settings_SessionKey].
