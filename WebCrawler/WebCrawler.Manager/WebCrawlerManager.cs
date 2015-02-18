@@ -38,6 +38,10 @@ namespace WebCrawler.Manager
                 {
                     oProvider.RelatedCertification = CrawlerInfo.HSEQInfo.GetHSEQInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
+                else if (item.ToString() == enumMenu.Finantial.ToString())
+                {
+                    oProvider.RelatedFinantial = CrawlerInfo.BalancesInfo.GetFinantialInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                }
                 else if (item.ToString() == enumMenu.LegalInfo.ToString())
                 {
                     oProvider.RelatedLegal = CrawlerInfo.LegalInfo.GetLegalInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);

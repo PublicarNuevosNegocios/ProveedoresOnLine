@@ -13,6 +13,7 @@
         HSE = 6, 
         Representation = 7, 
         OtherInfo = 8,
+        Finantial = 9,
     }
 
     #region Util
