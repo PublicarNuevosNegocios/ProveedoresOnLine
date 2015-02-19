@@ -92,7 +92,8 @@ namespace MarketPlace.Models.Provider
         public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegal,
                                         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity,
                                         List<CatalogModel> oEntitieType,
-                                        List<CatalogModel> oOptions)
+                                        List<CatalogModel> oOptions,
+                                        List<CatalogModel> oCities)
         {
             #region ChaimberOfComerce
             CP_ConstitutionDate = RelatedLegal.ItemInfo.
