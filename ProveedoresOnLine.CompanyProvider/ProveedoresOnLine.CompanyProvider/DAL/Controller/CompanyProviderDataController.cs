@@ -191,7 +191,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
         }
 
-        public List<Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year)
+        public List<Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int? Year)
         {
             return DataFactory.MPBalanceSheetGetByYear(CompanyPublicId, Year);
         }

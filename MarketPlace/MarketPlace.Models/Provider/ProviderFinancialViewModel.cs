@@ -11,7 +11,9 @@ namespace MarketPlace.Models.Provider
     {
         public ProviderViewModel RelatedViewProvider { get; set; }
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancialInfo { get; set; }
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancialInfo { get; private set; }
+
+        public ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel RelatedBalanceSheetInfo { get; private set; }
 
         #region BalanceSheet
 
@@ -20,9 +22,9 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                if (string.IsNullOrEmpty(oSH_Year))
+                if (RelatedBalanceSheetInfo != null && string.IsNullOrEmpty(oSH_Year))
                 {
-                    oSH_Year = RelatedFinancialInfo.ItemInfo.
+                    oSH_Year = RelatedBalanceSheetInfo.ItemInfo.
                                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
                                Select(y => y.Value).
                                DefaultIfEmpty(string.Empty).
@@ -37,9 +39,9 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                if (string.IsNullOrEmpty(oSH_BalanceSheetFile))
+                if (RelatedBalanceSheetInfo != null && string.IsNullOrEmpty(oSH_BalanceSheetFile))
                 {
-                    oSH_BalanceSheetFile = RelatedFinancialInfo.ItemInfo.
+                    oSH_BalanceSheetFile = RelatedBalanceSheetInfo.ItemInfo.
                                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_BalanceSheetFile).
                                Select(y => y.Value).
                                DefaultIfEmpty(string.Empty).
@@ -54,15 +56,30 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                if (string.IsNullOrEmpty(oSH_Currency))
+                if (RelatedBalanceSheetInfo != null && string.IsNullOrEmpty(oSH_Currency))
                 {
-                    oSH_Currency = RelatedFinancialInfo.ItemInfo.
+                    oSH_Currency = RelatedBalanceSheetInfo.ItemInfo.
                                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Currency).
                                Select(y => y.Value).
                                DefaultIfEmpty(string.Empty).
                                FirstOrDefault();
                 }
                 return oSH_Currency;
+            }
+        }
+
+        private bool? oSH_HasValues;
+        public bool SH_HasValues
+        {
+            get
+            {
+                if (oSH_HasValues == null)
+                {
+                    oSH_HasValues = (RelatedBalanceSheetInfo != null &&
+                        RelatedBalanceSheetInfo.BalanceSheetInfo != null &&
+                        RelatedBalanceSheetInfo.BalanceSheetInfo.Count > 0);
+                }
+                return oSH_HasValues.Value;
             }
         }
 
@@ -227,6 +244,12 @@ namespace MarketPlace.Models.Provider
                 FirstOrDefault();
             #endregion
         }
+
+        public ProviderFinancialViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel oRelatedBalanceSheetInfo)
+        {
+            RelatedBalanceSheetInfo = oRelatedBalanceSheetInfo;
+        }
+
 
         public ProviderFinancialViewModel() { }
     }

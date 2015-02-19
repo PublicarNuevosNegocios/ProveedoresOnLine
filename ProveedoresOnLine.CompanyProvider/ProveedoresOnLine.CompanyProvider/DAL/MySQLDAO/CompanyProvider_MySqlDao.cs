@@ -1313,7 +1313,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year)
+        public List<BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int? Year)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 

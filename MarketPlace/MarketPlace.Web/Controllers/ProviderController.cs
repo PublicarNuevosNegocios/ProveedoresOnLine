@@ -581,9 +581,9 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 //get request info
-                int oYear = !string.IsNullOrEmpty(Request["Year"]) ?
-                    Convert.ToInt32(Request["Year"].Replace(" ", "")) :
-                    DateTime.Now.Year;
+                int? oYear = !string.IsNullOrEmpty(Request["Year"]) ?
+                    (int?)Convert.ToInt32(Request["Year"].Replace(" ", "")) :
+                    null;
 
                 int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) ?
                     Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
@@ -615,10 +615,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oBalanceAux.All(bs =>
                     {
-                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(
-                            (ProveedoresOnLine.Company.Models.Util.GenericItemModel)bs,
-                            null,
-                            oModel.ProviderOptions));
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
                         return true;
                     });
                 }
@@ -823,6 +820,7 @@ namespace MarketPlace.Web.Controllers
                         FirstOrDefault();
 
                     lstBalanceSheet.
+                        Where(bs => bs.BalanceSheetInfo != null && bs.BalanceSheetInfo.Count > 0).
                         OrderByDescending(bs => bs.ItemInfo.
                             Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
                             Select(y => Convert.ToInt32(y.Value)).
