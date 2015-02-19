@@ -438,10 +438,10 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
-                else
-                {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
-                }
+                //else
+                //{
+                //    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                //}
 
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -977,15 +977,19 @@ namespace MarketPlace.Web.Controllers
 
                 oDesignations = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Designations);
                 oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
+                int oTotalRows;
 
                 List<GenericItemModel> oEconomiActivity = null;
                 List<CatalogModel> oEntitieType = oModel.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
+                    List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
+                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
+
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions, oCities));
                         return true;
                     });
                 }

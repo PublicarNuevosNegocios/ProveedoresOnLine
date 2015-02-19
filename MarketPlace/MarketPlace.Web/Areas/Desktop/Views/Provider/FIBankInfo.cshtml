@@ -19,35 +19,59 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
-                            <span>@item.IB_BankName, @item.IB_AccountType</span>
+                            @if (!string.IsNullOrEmpty(item.IB_BankName) && !string.IsNullOrEmpty(item.IB_AccountType))
+                            {
+                                <span>@item.IB_BankName, @item.IB_AccountType</span>
+                            }
                         </label>
-                        <label>
-                            Número de Cuenta
-                            <span>@item.IB_AccountNumber</span>
-                        </label>
-                        <label>
-                            Titular de la Cuenta
-                            <span>@item.IB_AccountHolder</span>
-                        </label>
-                        <label>
-                            ABA
-                            <span>@item.IB_ABA</span>
-                        </label>
-                        <label>
-                            SWIFT
-                            <span>@item.IB_Swift</span>
-                        </label>
-                        <label>
-                            IBAN
-                            <span>@item.IB_IBAN</span>
-                        </label>
-                        <label>
-                            Comprador
-                            <span>@item.IB_Customer</span>
-                        </label>
-                        <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
-                        </label>
+                        @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
+                        {
+                            <label>
+                                Número de Cuenta
+                                <span>@item.IB_AccountNumber</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_AccountHolder))
+                        {
+                            <label>
+                                Titular de la Cuenta
+                                <span>@item.IB_AccountHolder</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_ABA))
+                        {
+                            <label>
+                                ABA
+                                <span>@item.IB_ABA</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_Swift))
+                        {
+                            <label>
+                                SWIFT
+                                <span>@item.IB_Swift</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_IBAN))
+                        {
+                            <label>
+                                IBAN
+                                <span>@item.IB_IBAN</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_Customer))
+                        {
+                            <label>
+                                Comprador
+                                <span>@item.IB_Customer</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_AccountFile))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
+                            </label>
+                        }
                     </li>
 
                 }
