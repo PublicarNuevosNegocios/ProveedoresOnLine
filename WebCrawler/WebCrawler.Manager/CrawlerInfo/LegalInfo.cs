@@ -68,8 +68,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Value = cols[1].InnerText.ToString() != "&nbsp;" ? cols[1].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
-
-                        
+                                                
                         //Get partner rank info
                         ProveedoresOnLine.Company.Models.Util.CatalogModel oPartnerRankInfo = Util.ProviderOptions_GetByName(219, cols[2].InnerText.ToString());
 
