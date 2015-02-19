@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace BackOffice.Web.Controllers
 {
-    public partial class AdminController : BaseController
+    public partial class AdministratorController : BaseController
     {
         public virtual ActionResult Index()
         {
@@ -158,15 +158,15 @@ namespace BackOffice.Web.Controllers
 
             if (ExcelFile != null)
             {
-                string strFolder = Server.MapPath(BackOffice.Models.General.Constants.C_Settings_File_TempDirectory);
+                string strFolder = System.Web.HttpContext.Current.Server.MapPath
+                    (BackOffice.Models.General.InternalSettings.Instance
+                    [BackOffice.Models.General.Constants.C_Settings_File_TempDirectory].Value);
 
                 if (!System.IO.Directory.Exists(strFolder))
                     System.IO.Directory.CreateDirectory(strFolder);
 
                 //get File
-                string strFile = strFolder.TrimEnd('\\') +
-                    "\\ProviderUploadFile_" +
-                    SessionModel.CurrentLoginUser + "_" +
+                string strFile = strFolder.TrimEnd('\\') +                  
                     DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
                 string ErrorFilePath = strFile.Replace(".xls", "_log.csv");
                 ExcelFile.SaveAs(strFile);
@@ -228,12 +228,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Usuarios",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminUserUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminUserUpsert,
+                    MVC.Administrator.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminUserUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminUserUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
 
@@ -242,12 +242,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Geolocalización",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminGeoUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminGeoUpsert,
+                    MVC.Administrator.Name),
                 Position = 2,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminGeoUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminGeoUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //Standart Economy Activity standar
@@ -255,12 +255,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Maestras Estandar",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminEcoActivityUpsert,
-                    MVC.Admin.Name, new { TreeId = 0, TreeName = "" }),
+                    (MVC.Administrator.ActionNames.AdminEcoActivityUpsert,
+                    MVC.Administrator.Name, new { TreeId = 0, TreeName = "" }),
                 Position = 3,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminEcoActivityUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminEcoActivityUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //Arboles
@@ -268,12 +268,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Maestras Personalizadas",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminTreeUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminTreeUpsert,
+                    MVC.Administrator.Name),
                 Position = 4,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminTreeUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminTreeUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //Stantart Group
@@ -281,12 +281,12 @@ namespace BackOffice.Web.Controllers
                 {
                     Name = "Grupos",
                     Url = Url.Action
-                            (MVC.Admin.ActionNames.AdminEcoGroupUpsert,
-                            MVC.Admin.Name),
+                            (MVC.Administrator.ActionNames.AdminEcoGroupUpsert,
+                            MVC.Administrator.Name),
                     Position = 5,
                     IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminEcoGroupUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminEcoGroupUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
                 });
 
             //Banks
@@ -294,12 +294,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Bancos",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminBankUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminBankUpsert,
+                    MVC.Administrator.Name),
                 Position = 6,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminBankUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminBankUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //Certificactions Companies
@@ -307,12 +307,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Empresas Certificadoras",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminCompanyRulesUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminCompanyRulesUpsert,
+                    MVC.Administrator.Name),
                 Position = 7,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminCompanyRulesUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminCompanyRulesUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //Certificados
@@ -320,12 +320,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Certificados",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminRulesUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminRulesUpsert,
+                    MVC.Administrator.Name),
                 Position = 8,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminRulesUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminRulesUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //Resoluciones
@@ -333,12 +333,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Resoluciones",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminResolutionUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminResolutionUpsert,
+                    MVC.Administrator.Name),
                 Position = 9,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminResolutionUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminResolutionUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //TRM
@@ -346,12 +346,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "TRM",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminTRMUpsert,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminTRMUpsert,
+                    MVC.Administrator.Name),
                 Position = 10,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminTRMUpsert &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminTRMUpsert &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //add menu
@@ -374,12 +374,12 @@ namespace BackOffice.Web.Controllers
             {
                 Name = "Carga de Provedores",
                 Url = Url.Action
-                    (MVC.Admin.ActionNames.AdminRLUploadProvider,
-                    MVC.Admin.Name),
+                    (MVC.Administrator.ActionNames.AdminRLUploadProvider,
+                    MVC.Administrator.Name),
                 Position = 1,
                 IsSelected =
-                    (oCurrentAction == MVC.Admin.ActionNames.AdminRLUploadProvider &&
-                    oCurrentController == MVC.Admin.Name),
+                    (oCurrentAction == MVC.Administrator.ActionNames.AdminRLUploadProvider &&
+                    oCurrentController == MVC.Administrator.Name),
             });
 
             //get is selected menu

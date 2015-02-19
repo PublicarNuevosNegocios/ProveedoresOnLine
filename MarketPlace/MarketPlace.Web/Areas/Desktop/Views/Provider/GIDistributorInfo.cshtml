@@ -19,38 +19,58 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
-                            <span>@item.DT_DistributorType, @item.DT_SocialReazon</span>
-                        </label>
-                        <label>
-                            Representante Comercial
-                            <span>@item.DT_Representative</span>
-                        </label>
-                        <label>
-                            Correo Electrónico
-                            <span>@item.DT_Email</span>
-                        </label>
-                        <label>
-                            Teléfono
-                            <span>@item.DT_Phone</span>
-                        </label>
-                        <label>
-                            Ciudad
-                            <span>@item.DT_City</span>
-                        </label>
-                        <label>
-                            Fecha de Expedición
-                            <span>@item.DT_DateIssue</span>
-                        </label>
-                        <label>
-                            @{
-                    var UlrContent = item.DT_DistributorFile;
-                    if (!string.IsNullOrEmpty(UlrContent))
-                    {
-                        @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
-                    }
+                            @if (!string.IsNullOrEmpty(item.DT_DistributorType) && !string.IsNullOrEmpty(item.DT_SocialReazon))
+                            {
+                                <span>@item.DT_DistributorType, @item.DT_SocialReazon</span>
                             }
                         </label>
+                        @if (!string.IsNullOrEmpty(item.DT_Representative))
+                        {
+                            <label>
+                                Representante Comercial
+                                <span>@item.DT_Representative</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_Email))
+                        {
+                            <label>
+                                Correo Electrónico
+                                <span>@item.DT_Email</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_Phone))
+                        {
+                            <label>
+                                Teléfono
+                                <span>@item.DT_Phone</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_City))
+                        {
+                            <label>
+                                Ciudad
+                                <span>@item.DT_City</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_DateIssue))
+                        {
+                            <label>
+                                Fecha de Expedición
+                                <span>@item.DT_DateIssue</span>
+                            </label>
+                        }
+
+                        @{
+                            <label>
+                                @{
+                                    var UlrContent = item.DT_DistributorFile;
+                                    if (!string.IsNullOrEmpty(UlrContent))
+                                    {
+                                        <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
+                                    }
+                                }
+                            </label>
+                        }
                     </li>
                 }
             }

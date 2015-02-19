@@ -23,13 +23,13 @@ using System.Web.Routing;
 using T4MVC;
 namespace BackOffice.Web.Controllers
 {
-    public partial class AdminController
+    public partial class AdministratorController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public AdminController() { }
+        public AdministratorController() { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected AdminController(Dummy d) { }
+        protected AdministratorController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RedirectToRouteResult RedirectToAction(ActionResult result)
@@ -71,13 +71,13 @@ namespace BackOffice.Web.Controllers
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public AdminController Actions { get { return MVC.Admin; } }
+        public AdministratorController Actions { get { return MVC.Administrator; } }
         [GeneratedCode("T4MVC", "2.0")]
         public readonly string Area = "";
         [GeneratedCode("T4MVC", "2.0")]
-        public readonly string Name = "Admin";
+        public readonly string Name = "Administrator";
         [GeneratedCode("T4MVC", "2.0")]
-        public const string NameConst = "Admin";
+        public const string NameConst = "Administrator";
 
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -157,25 +157,25 @@ namespace BackOffice.Web.Controllers
                 public readonly string AdminUserUpsert = "AdminUserUpsert";
                 public readonly string Index = "Index";
             }
-            public readonly string AdminBankUpsert = "~/Views/Admin/AdminBankUpsert.cshtml";
-            public readonly string AdminCompanyRulesUpsert = "~/Views/Admin/AdminCompanyRulesUpsert.cshtml";
-            public readonly string AdminEcoActivityUpsert = "~/Views/Admin/AdminEcoActivityUpsert.cshtml";
-            public readonly string AdminEcoGroupUpsert = "~/Views/Admin/AdminEcoGroupUpsert.cshtml";
-            public readonly string AdminGeoUpsert = "~/Views/Admin/AdminGeoUpsert.cshtml";
-            public readonly string AdminResolutionUpsert = "~/Views/Admin/AdminResolutionUpsert.cshtml";
-            public readonly string AdminRLUploadProvider = "~/Views/Admin/AdminRLUploadProvider.cshtml";
-            public readonly string AdminRulesUpsert = "~/Views/Admin/AdminRulesUpsert.cshtml";
-            public readonly string AdminTreeUpsert = "~/Views/Admin/AdminTreeUpsert.cshtml";
-            public readonly string AdminTRMUpsert = "~/Views/Admin/AdminTRMUpsert.cshtml";
-            public readonly string AdminUserUpsert = "~/Views/Admin/AdminUserUpsert.cshtml";
-            public readonly string Index = "~/Views/Admin/Index.cshtml";
+            public readonly string AdminBankUpsert = "~/Views/Administrator/AdminBankUpsert.cshtml";
+            public readonly string AdminCompanyRulesUpsert = "~/Views/Administrator/AdminCompanyRulesUpsert.cshtml";
+            public readonly string AdminEcoActivityUpsert = "~/Views/Administrator/AdminEcoActivityUpsert.cshtml";
+            public readonly string AdminEcoGroupUpsert = "~/Views/Administrator/AdminEcoGroupUpsert.cshtml";
+            public readonly string AdminGeoUpsert = "~/Views/Administrator/AdminGeoUpsert.cshtml";
+            public readonly string AdminResolutionUpsert = "~/Views/Administrator/AdminResolutionUpsert.cshtml";
+            public readonly string AdminRLUploadProvider = "~/Views/Administrator/AdminRLUploadProvider.cshtml";
+            public readonly string AdminRulesUpsert = "~/Views/Administrator/AdminRulesUpsert.cshtml";
+            public readonly string AdminTreeUpsert = "~/Views/Administrator/AdminTreeUpsert.cshtml";
+            public readonly string AdminTRMUpsert = "~/Views/Administrator/AdminTRMUpsert.cshtml";
+            public readonly string AdminUserUpsert = "~/Views/Administrator/AdminUserUpsert.cshtml";
+            public readonly string Index = "~/Views/Administrator/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_AdminController : BackOffice.Web.Controllers.AdminController
+    public partial class T4MVC_AdministratorController : BackOffice.Web.Controllers.AdministratorController
     {
-        public T4MVC_AdminController() : base(Dummy.Instance) { }
+        public T4MVC_AdministratorController() : base(Dummy.Instance) { }
 
         [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);

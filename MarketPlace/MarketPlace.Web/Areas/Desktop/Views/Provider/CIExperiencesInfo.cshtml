@@ -20,32 +20,53 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
-                            <span>@item.EX_ContractType para @item.EX_Client</span>
+                            @if (!string.IsNullOrEmpty(item.EX_ContractType) && !string.IsNullOrEmpty(item.EX_ContractType))
+                            {
+                                <span>@item.EX_ContractType para @item.EX_Client</span>
+                            }                            
                         </label>
-                        <label>
-                            Fecha Inicial
-                            <span>@item.EX_DateIssue</span>
-                        </label>
-                        <label>
-                            Fecha Final
-                            <span>@item.EX_DueDate</span>
-                        </label>
-                        <label>
-                            Número de Contacto
-                            <span>@item.EX_ContractNumber</span>
-                        </label>
-                        <label>
-                            Valor del Contrato
-                            <span>@item.EX_ContractValue</span>
-                        </label>
-                        <label>
-                            Teléfono
-                            <span>@item.EX_Phone</span>
-                        </label>
-                        <label>
-                            Objeto del Contrato
-                            <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
-                        </label>
+                        @if (!string.IsNullOrEmpty(item.EX_DateIssue))
+                        {
+                            <label>
+                                Fecha Inicial
+                                <span>@item.EX_DateIssue</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_DueDate))
+                        {
+                            <label>
+                                Fecha Final
+                                <span>@item.EX_DueDate</span>
+                            </label>
+                        }                        
+                        @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
+                        {
+                            <label>
+                                Número de Contacto
+                                <span>@item.EX_ContractNumber</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_ContractValue))
+                        {
+                             <label>
+                                Valor del Contrato
+                                <span>@item.EX_ContractValue</span>
+                            </label>
+                        }
+                       @if (!string.IsNullOrEmpty(item.EX_Phone))
+                        {
+                            <label>
+                                Teléfono
+                                <span>@item.EX_Phone</span>
+                            </label>
+                       }
+                       @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                       {
+                            <label>
+                                Objeto del Contrato
+                                <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
+                            </label>
+                       }
                         <label>
                             Maestra Estandar
                             @foreach (var ActivityItem in item.EX_EconomicActivity)

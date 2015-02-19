@@ -314,8 +314,8 @@ var Provider_CompanyContactObject = {
             },
             columns: [{
                 field: 'Enable',
-                title: 'Visible en Market Place',
-                width: '155px',
+                title: 'Habilitado',
+                width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -327,6 +327,10 @@ var Provider_CompanyContactObject = {
                     }
                     return oReturn;
                 },
+            }, {
+                field: 'ContactName',
+                title: 'Nombre',
+                width: '180px',
             }, {
                 field: 'CC_CompanyContactType',
                 title: 'Tipo de contacto',
@@ -354,7 +358,7 @@ var Provider_CompanyContactObject = {
                 },
             }, {
                 field: 'CC_Value',
-                title: 'Valor',
+                title: 'Información',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.CC_Value == '') {
@@ -384,11 +388,7 @@ var Provider_CompanyContactObject = {
                     return oReturn;
                 },
                 width: '190px',
-            }, {
-                field: 'ContactName',
-                title: 'Nombre',
-                width: '180px',
-            }, {
+            },  {
                 field: 'ContactId',
                 title: 'Id Interno',
                 width: '78px',
