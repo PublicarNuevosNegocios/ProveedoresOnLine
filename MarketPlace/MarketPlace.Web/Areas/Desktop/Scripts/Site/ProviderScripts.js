@@ -95,6 +95,6 @@ var Provider_SearchObject = {
 var Provider_GeneralInfoObject = {
 
     ObjectId: '',
-    UlrContent: '',
-   
+    UlrContent: '',  
 }
+
