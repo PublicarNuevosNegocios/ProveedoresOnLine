@@ -13,39 +13,43 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Sistema de riesgos laborales</label>
-        <ul class="POMPProviderInfoDisplayList">
-            @{
+        @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
+        {
+            <ul class="POMPProviderInfoDisplayList">
                 <li>
                     <label>
                         Sistema de Riesgos
-                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).FirstOrDefault()</span>
+                        <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
                 </li>
                 <li>
                     <label>
                         Calificación de Riesgo ARL
-                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_RateARL != null).Select(x => x.CR_RateARL).FirstOrDefault()</span>
+                        <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_RateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Where(x => x.CR_CertificateAffiliateARL != null).Select(x => x.CR_CertificateAffiliateARL).FirstOrDefault()">Ver Archivo Certificado de Accidentalidad</a>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()">Ver Archivo Certificado de Accidentalidad</a>
                     </label>
                 </li>
                 <li>
                     <label>
                         Resultado LTIF:
-                        <span title="@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult">@Model.RelatedLTIFInfo.FirstOrDefault().CA_LTIFResult</span>
+                        <span title="@Model.RelatedLTIFInfo.Select(x=>x.CA_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedLTIFInfo.Select(x => x.CA_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
                 </li>
                 <li>
-                    <label>
-                        Años:
-                        <span>@Model.RelatedLTIFInfo.FirstOrDefault().CA_YearsResult, </span>
-                    </label>
+                    @if (Model.RelatedLTIFInfo != null && Model.RelatedLTIFInfo.Count > 0)
+                    {
+                        <label>
+                            Años:
+                            <span>@Model.RelatedLTIFInfo.Select(x => x.CA_YearsResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        </label>
+                    }                    
                 </li>
-            }
-        </ul>
+            </ul>
+        }
     </div>
 </div>
 @{

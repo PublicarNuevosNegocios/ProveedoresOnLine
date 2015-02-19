@@ -929,7 +929,6 @@
     <Content Include="Areas\Desktop\Views\Provider\CIExperiencesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\HICertificationsInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\HIHealtyPoliticInfo.cshtml" />
-    <Content Include="Areas\Desktop\Views\Provider\HIRiskPoliciesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GIProviderInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\LIRutInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\FITaxInfo.cshtml" />
@@ -943,6 +942,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_ProviderMenu.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_Indicators.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_Balance.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\HIRiskPoliciesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_IndicatorsItem.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_BalanceItem.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />

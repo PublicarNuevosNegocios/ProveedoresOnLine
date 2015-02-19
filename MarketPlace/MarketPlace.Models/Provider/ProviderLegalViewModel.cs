@@ -26,6 +26,7 @@ namespace MarketPlace.Models.Provider
         public string CP_PartnerNameItem { get; set; }
         public string CP_PartnerIdentificationNumberItem { get; set; }
         public string CP_PartnerRankItem { get; set; }
+        public string CP_UndefinedDate { get; set; }
 
         #endregion
 
@@ -92,7 +93,8 @@ namespace MarketPlace.Models.Provider
         public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegal,
                                         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity,
                                         List<CatalogModel> oEntitieType,
-                                        List<CatalogModel> oOptions)
+                                        List<CatalogModel> oOptions,
+                                        List<GeographyModel> oCities)
         {
             #region ChaimberOfComerce
             CP_ConstitutionDate = RelatedLegal.ItemInfo.
@@ -119,6 +121,8 @@ namespace MarketPlace.Models.Provider
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
+            CP_InscriptionCity = !string.IsNullOrEmpty(CP_InscriptionCity) ? oCities.Where(x => x.City.ItemId == Convert.ToInt32(CP_InscriptionCity)).Select(x => x.City.ItemName + "/" + x.Country.ItemName).FirstOrDefault() : "N/A";
+
             CP_InscriptionNumber = RelatedLegal.ItemInfo.
                  Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CP_InscriptionNumber).
                  Select(y => y.Value).
@@ -141,6 +145,12 @@ namespace MarketPlace.Models.Provider
                  Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CP_SocialObject).
                  Select(y => y.Value).
                  DefaultIfEmpty(string.Empty).
+                 FirstOrDefault();
+
+            CP_UndefinedDate = RelatedLegal.ItemInfo.
+                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CP_UndefinedDate).
+                 Select(y => y.Value).
+                 DefaultIfEmpty("False").
                  FirstOrDefault();
 
             #endregion

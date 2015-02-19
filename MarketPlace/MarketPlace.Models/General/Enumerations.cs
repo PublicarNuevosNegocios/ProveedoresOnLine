@@ -178,6 +178,7 @@
         CP_ExistenceAndLegalPersonCertificate = 602006,
         CP_CertificateExpeditionDate = 602007,
         CP_SocialObject = 602008,
+        CP_UndefinedDate = 602012,
 
         //RUT
         R_PersonType = 603001,

@@ -22,18 +22,26 @@
                     {
                         <li>
                             <label class="POMPProviderDataSubtitle">
-                                <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
+                                @if (!string.IsNullOrEmpty(item.SF_ProcessDate))
+                                {
+                                    <span>Fecha de Diligenciamiento: @item.SF_ProcessDate</span>
+                                }
                             </label>
-                            <label>
-                                Tipo de Persona
-                                <span>@item.SF_PersonType</span>
-                            </label>
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
-                            </label>
+                            @if (!string.IsNullOrEmpty(item.SF_PersonType))
+                            {
+                                <label>
+                                    Tipo de Persona
+                                    <span>@item.SF_PersonType</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.SF_SARLAFTFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.SF_SARLAFTFile">Ver Archivo Archivo Anexo</a>
+                                </label>
+                            }
                         </li>
                     }
-
                 }
             }
         </ul>

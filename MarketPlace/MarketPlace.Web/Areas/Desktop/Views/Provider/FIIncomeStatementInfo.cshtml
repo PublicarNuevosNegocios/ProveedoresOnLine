@@ -20,27 +20,45 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
-                            <span>Año: @item.IS_Year</span>
+                            @if (!string.IsNullOrEmpty(item.IS_Year))
+                            {
+                                <span>Año: @item.IS_Year</span>
+                            }
                         </label>
-                        <label>
-                            Ingresos Brutos
-                            <span>@item.IS_GrossIncome</span>
-                        </label>
-                        <label>
-                            Ingresos Netos
-                            <span>@item.IS_NetIncome</span>
-                        </label>
-                        <label>
-                            Patrimonio Bruto
-                            <span>@item.IS_GrossEstate</span>
-                        </label>
-                        <label>
-                            Patrimonio Líquido
-                            <span>@item.IS_LiquidHeritage</span>
-                        </label>
-                        <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
-                        </label>
+                        @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
+                        {
+                            <label>
+                                Ingresos Brutos
+                                <span>@item.IS_GrossIncome</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_NetIncome))
+                        {
+                            <label>
+                                Ingresos Netos
+                                <span>@item.IS_NetIncome</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
+                        {
+                            <label>
+                                Patrimonio Bruto
+                                <span>@item.IS_GrossEstate</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
+                        {
+                            <label>
+                                Patrimonio Líquido
+                                <span>@item.IS_LiquidHeritage</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
+                            </label>
+                        }                       
                     </li>
                 }
             }

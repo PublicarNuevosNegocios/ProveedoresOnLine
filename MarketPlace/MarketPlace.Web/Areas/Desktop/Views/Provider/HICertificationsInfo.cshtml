@@ -32,25 +32,34 @@
                                 <span>@item.C_CertificationCompanyName</span>
                             </label>
                         }
-                        <label>
-                            Fecha de Certificación
-                            <span>@item.C_StartDateCertification</span>
-                        </label>
-                        <label>
-                            Fecha de Caducidad
-                            <span>@item.C_EndDateCertification</span>
-                        </label>
-                        <label>
-                            % CCS
-                            <span>@item.C_CCS</span>
-                        </label>
+                        @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
+                        {
+                            <label>
+                                Fecha de Certificación
+                                <span>@item.C_StartDateCertification</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_EndDateCertification))
+                        {
+                            <label>
+                                Fecha de Caducidad
+                                <span>@item.C_EndDateCertification</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_CCS))
+                        {
+                            <label>
+                                % CCS
+                                <span>@item.C_CCS</span>
+                            </label>
+                        }
                         <label>
                             @{
-                    var UlrContent = item.C_CertificationFile;
-                    if (!string.IsNullOrEmpty(UlrContent))
-                    {
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
-                    }
+                                var UlrContent = item.C_CertificationFile;
+                                if (!string.IsNullOrEmpty(UlrContent))
+                                {
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                                }
                             }
                         </label>
                     </li>
