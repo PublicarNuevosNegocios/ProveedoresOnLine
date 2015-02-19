@@ -423,7 +423,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
             List<Models.Provider.BalanceSheetModel> oResult =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
-                ("1D9B9580", 2013, 108001);
+                ("1D9B9580", 2014, 108001);
 
 
             Assert.AreEqual(true, oResult.Count > 0);

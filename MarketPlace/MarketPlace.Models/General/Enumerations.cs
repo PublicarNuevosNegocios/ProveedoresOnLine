@@ -73,6 +73,7 @@
         AI_Description = 109005,
         AI_FormulaText = 109006,
         AI_Unit = 109007,
+        AI_VerticalFormula = 109008,
 
         //ICA Info
         I_ICACode = 608001,

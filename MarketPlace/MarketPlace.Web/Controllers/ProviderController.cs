@@ -5,6 +5,7 @@ using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -584,13 +585,13 @@ namespace MarketPlace.Web.Controllers
                     Convert.ToInt32(Request["Year"].Replace(" ", "")) :
                     DateTime.Now.Year;
 
-                int oCurrancyType = !string.IsNullOrEmpty(Request["Currency"]) ?
+                int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) ?
                     Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
                     Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
 
                 string oViewName = !string.IsNullOrEmpty(Request["ViewName"]) ?
                     Request["ViewName"].Replace(" ", "") :
-                    MVC.Desktop.Shared.Views._P_FI_Indicators;
+                    MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators;
 
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
@@ -605,10 +606,11 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
                     (ProviderPublicId,
                     oYear,
-                    oCurrancyType);
+                    oCurrencyType);
 
 
                 //fill view models
+                oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
                 if (oBalanceAux != null && oBalanceAux.Count > 0)
                 {
                     oBalanceAux.All(bs =>
@@ -619,12 +621,16 @@ namespace MarketPlace.Web.Controllers
                             oModel.ProviderOptions));
                         return true;
                     });
+                }
 
+                oModel.RelatedBalanceSheetInfo = new List<ProviderBalanceSheetViewModel>();
+                if (oBalanceAux != null && oBalanceAux.Count > 0 && olstAccount != null && olstAccount.Count > 0)
+                {
                     oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
                         (null,
                         olstAccount,
                         oBalanceAux,
-                        null);
+                        oViewName);
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -784,15 +790,16 @@ namespace MarketPlace.Web.Controllers
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
             List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> lstBalanceSheet,
-
-            int? VerticalAccountId)
+            string oViewName)
         {
             List<ProviderBalanceSheetViewModel> oReturn = new List<ProviderBalanceSheetViewModel>();
 
             lstAccount.
-                Where(ac => RelatedAccount != null ?
+                Where(ac =>
+                    RelatedAccount != null ?
                         (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
-                        (ac.ParentItem == null)).
+                        (ac.ParentItem == null &&
+                            (oViewName == MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators ? ac.ItemId == 4915 : ac.ItemId != 4915))).
                 OrderBy(ac => ac.ItemInfo.
                     Where(aci => aci.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Order).
                     Select(aci => Convert.ToInt32(aci.Value)).
@@ -832,100 +839,70 @@ namespace MarketPlace.Web.Controllers
                                     FirstOrDefault(),
                             };
 
+                            #region Eval Vertical Formula
+
+                            string strVerticalFormula = ac.ItemInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)enumCategoryInfoType.AI_VerticalFormula).
+                                Select(x => x.LargeValue).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault().ToLower().Replace(" ", "");
+
+                            if (!string.IsNullOrEmpty(strVerticalFormula))
+                            {
+                                //loop for standar values
+                                foreach (var RegexResult in (new Regex("\\[+\\d*\\]+", RegexOptions.IgnoreCase)).Matches(strVerticalFormula))
+                                {
+                                    int oAccountId = Convert.ToInt32(RegexResult.ToString().Replace("[", "").Replace("]", ""));
+
+                                    decimal oAccountValue = bs.BalanceSheetInfo.
+                                        Where(bsd => bsd.RelatedAccount.ItemId == oAccountId).
+                                        Select(bsd => bsd.Value != 0 ? bsd.Value : 1).
+                                        DefaultIfEmpty(1).
+                                        FirstOrDefault();
+
+                                    strVerticalFormula = strVerticalFormula.Replace
+                                        (RegexResult.ToString(),
+                                        oAccountValue.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+                                }
+                                oItemDetailToAdd.VerticalValue = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MathEval(strVerticalFormula);
+                            }
+
+                            #endregion
+
                             //add balance detail value
                             oItemToAdd.RelatedBalanceSheetDetail.Add(oItemDetailToAdd);
                             oOrder++;
 
-                            if (oAccountUnit == "$")
+                            if (oAccountUnit == "$" && oItemDetailToAdd.RelatedBalanceSheetDetail != null)
                             {
                                 #region Horizontal value
                                 //calc horizontal value
-                                if (oOrder == 0 && oItemToAdd.RelatedBalanceSheetDetail != null)
+                                if (oOrder == 1)
                                 {
                                     oHorizontalValue = oItemDetailToAdd.RelatedBalanceSheetDetail.Value;
                                 }
-                                else if (oOrder > 0 && oItemToAdd.RelatedBalanceSheetDetail != null)
+                                else if (oOrder > 1)
                                 {
                                     oHorizontalValue = oHorizontalValue - oItemDetailToAdd.RelatedBalanceSheetDetail.Value;
                                 }
                                 #endregion
-
-                                //add vertical analisis value
-                                decimal oVerticalValue = 0;
-
-                                #region Vertical Value
-
-                                if (VerticalAccountId != null)
-                                {
-                                    oVerticalValue = 100 * (
-                                        oItemDetailToAdd.RelatedBalanceSheetDetail.Value /
-                                        bs.BalanceSheetInfo.
-                                        Where(bsd => bsd.RelatedAccount.ItemId == VerticalAccountId).
-                                        Select(bsd => bsd.Value != 0 ? bsd.Value : 1).
-                                        DefaultIfEmpty(1).
-                                        FirstOrDefault());
-                                }
-
-
-                                #endregion
-
-                                oItemToAdd.RelatedBalanceSheetDetail.Add(
-                                    new ProviderBalanceSheetDetailViewModel()
-                                    {
-                                        Order = oOrder,
-                                        RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
-                                        {
-                                            RelatedAccount = ac,
-                                            Value = oVerticalValue,
-                                        }
-                                    });
-
-                                oOrder++;
                             }
+
                             return true;
                         });
 
-                    if (oAccountUnit == "$")
-                    {
-                        //add horizontal analisis value
-                        oItemToAdd.RelatedBalanceSheetDetail.Add(
-                            new ProviderBalanceSheetDetailViewModel()
-                            {
-                                Order = oOrder,
-                                RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
-                                {
-                                    RelatedAccount = ac,
-                                    Value = oHorizontalValue,
-                                }
-                            });
-                    }
 
-                    int? ovVerticalAccountId = null;
+                    //add horizontal analisis value
+                    oItemToAdd.HorizontalValue = oHorizontalValue;
 
-                    if (oAccountUnit == "$")
-                    {
-                        #region Vertical AccountId
+                    //get child values
+                    oItemToAdd.ChildBalanceSheet = GetBalanceSheetViewModel
+                        (ac,
+                        lstAccount,
+                        lstBalanceSheet,
+                        oViewName);
 
-                        if (ac.ParentItem != null)
-                        {
-                            if (ac.ItemId == 3115)
-                            {
-                                ovVerticalAccountId = 3115;
-                            }
-                            else if (ac.ItemId == 3116 || ac.ItemId == 3117)
-                            {
-                                ovVerticalAccountId = 4931;
-                            }
-                            else
-                            {
-                                ovVerticalAccountId = VerticalAccountId;
-                            }
-                        }
-
-                        #endregion
-                    }
-
-                    oItemToAdd.ChildBalanceSheet = GetBalanceSheetViewModel(ac, lstAccount, lstBalanceSheet, ovVerticalAccountId);
+                    //add account item
                     oReturn.Add(oItemToAdd);
 
                     return true;
@@ -933,8 +910,6 @@ namespace MarketPlace.Web.Controllers
 
             return oReturn;
         }
-
-
 
         #endregion
 
@@ -1400,13 +1375,17 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Estados financieros",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
+                        (oCurrentAction == MVC.Provider.ActionNames.FIBalanceSheetInfo &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
