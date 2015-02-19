@@ -137,6 +137,9 @@ namespace WebCrawler.Manager
             Regex reg = new Regex("[^a-zA-Z0-9 ]");
             SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
 
+            //Remove ica code
+            SearchParam = Regex.Replace(SearchParam, @"[\d-]", string.Empty);
+
             if (oReturn == null)
             {
                 //Exact search
@@ -321,7 +324,7 @@ namespace WebCrawler.Manager
                 }
             }
 
-            if (CatalogId == 219)
+            if (CatalogId == 219 || CatalogId == 213 || CatalogId == 214 || CatalogId == 215 || CatalogId == 1001)
             {
                 if (oReturn == null)
                 {
@@ -333,90 +336,6 @@ namespace WebCrawler.Manager
                 {
                     //like search
                     oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //get default value
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
-                }
-            }
-
-            if (CatalogId == 213)
-            {
-                if (oReturn == null)
-                {
-                    //Exact search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //like search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //get default value
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
-                }
-            }
-
-            if (CatalogId == 214)
-            {
-                if (oReturn == null)
-                {
-                    //Exact search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //like search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //get default value
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
-                }
-            }
-
-            if (CatalogId == 215)
-            {
-                if (oReturn == null)
-                {
-                    //Exact search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //like search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //get default value
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
-                }
-            }
-
-            if (CatalogId == 1001)
-            {
-                if (oReturn == null)
-                {
-                    //Exact search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
-                }
-
-                if (oReturn == null)
-                {
-                    //like search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
                 }
 
                 if (oReturn == null)
