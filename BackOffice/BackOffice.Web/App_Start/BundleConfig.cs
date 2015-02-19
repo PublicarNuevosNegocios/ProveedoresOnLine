@@ -60,10 +60,7 @@ namespace BackOffice.Web
 
             #region jquery
 
-            bundles.Add(new StyleBundle("~/site/styles/jquery").Include(
-                "~/Content/themes/base/all.css",
-                "~/Content/themes/base/base.css",
-                "~/Content/themes/base/theme.css"));
+            bundles.Add(new StyleBundle("~/site/styles/jquery").Include("~/Content/themes/base/all.css"));
 
             #endregion
 
