@@ -10,6 +10,8 @@ namespace MarketPlace.Models.Provider
     {
         public ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel RelatedBalanceSheetDetail { get; set; }
 
+        public decimal? VerticalValue { get; set; }
+
         public int Order { get; set; }
     }
 }

@@ -1345,7 +1345,8 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          ItemId = fig.Key.FinancialId,
                          BalanceSheetInfo =
                             (from bsd in response.DataTableResult.AsEnumerable()
-                             where !bsd.IsNull("BalanceSheetId")
+                             where !bsd.IsNull("BalanceSheetId") &&
+                                    bsd.Field<int>("FinancialId") == fig.Key.FinancialId
                              group bsd by new
                              {
                                  BalanceSheetId = bsd.Field<int>("BalanceSheetId"),
