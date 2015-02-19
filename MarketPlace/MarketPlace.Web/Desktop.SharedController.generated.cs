@@ -40,7 +40,9 @@ namespace T4MVC.Desktop
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
                 public readonly string _P_FI_Balance = "_P_FI_Balance";
+                public readonly string _P_FI_BalanceItem = "_P_FI_BalanceItem";
                 public readonly string _P_FI_Indicators = "_P_FI_Indicators";
+                public readonly string _P_FI_IndicatorsItem = "_P_FI_IndicatorsItem";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
                 public readonly string _P_ProviderMenuHeader = "_P_ProviderMenuHeader";
                 public readonly string _P_Search_Comparison = "_P_Search_Comparison";
@@ -54,7 +56,9 @@ namespace T4MVC.Desktop
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Areas/Desktop/Views/Shared/_Layout.cshtml";
             public readonly string _P_FI_Balance = "~/Areas/Desktop/Views/Shared/_P_FI_Balance.cshtml";
+            public readonly string _P_FI_BalanceItem = "~/Areas/Desktop/Views/Shared/_P_FI_BalanceItem.cshtml";
             public readonly string _P_FI_Indicators = "~/Areas/Desktop/Views/Shared/_P_FI_Indicators.cshtml";
+            public readonly string _P_FI_IndicatorsItem = "~/Areas/Desktop/Views/Shared/_P_FI_IndicatorsItem.cshtml";
             public readonly string _P_ProviderMenu = "~/Areas/Desktop/Views/Shared/_P_ProviderMenu.cshtml";
             public readonly string _P_ProviderMenuHeader = "~/Areas/Desktop/Views/Shared/_P_ProviderMenuHeader.cshtml";
             public readonly string _P_Search_Comparison = "~/Areas/Desktop/Views/Shared/_P_Search_Comparison.cshtml";

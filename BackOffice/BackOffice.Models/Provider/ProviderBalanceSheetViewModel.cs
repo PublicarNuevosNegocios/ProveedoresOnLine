@@ -30,8 +30,6 @@ namespace BackOffice.Models.Provider
 
         public List<ProviderBalanceSheetViewModel> ChildBalanceSheet { get; set; }
 
-        //public decimal ChildSum { get; set; }
-
         public ProviderBalanceSheetViewModel() { }
 
         public ProviderBalanceSheetViewModel

@@ -1,2 +1,42 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 
+@{
+    var oBalanceToShow = Model.RelatedFinancialInfo.
+            Where(x => x.SH_HasValues).
+            OrderByDescending(x => x.SH_Year).
+            ToList();
+}
+
+@if (!Model.RenderScripts)
+{
+    if (oBalanceToShow != null &&
+        oBalanceToShow.Count > 0 &&
+        Model.RelatedFinancialInfo != null &&
+        Model.RelatedFinancialInfo.Count > 0 &&
+        Model.RelatedBalanceSheetInfo != null &&
+        Model.RelatedBalanceSheetInfo.Count > 0)
+    {
+        <ul>
+            <!--Render header-->
+            <li>
+                <span>Concepto</span>
+                @foreach (var oBalance in oBalanceToShow)
+                {
+                    <span>
+                        Año @oBalance.SH_Year
+                    </span>
+                }
+                <span>Unidad</span>
+                <span>Formula</span>
+                <span>Interpretación</span>
+            </li>
+            <!--Render content-->
+            @foreach (var oBalanceInfo in Model.RelatedBalanceSheetInfo)
+            {
+                <li>
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_FI_IndicatorsItem, oBalanceInfo)
+                </li>
+            }
+        </ul>
+    }
+}

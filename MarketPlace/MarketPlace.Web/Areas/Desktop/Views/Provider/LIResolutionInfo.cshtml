@@ -23,27 +23,40 @@
                     {
                         <li>
                             <label class="POMPProviderDataSubtitle">
-                                <span>@item.RS_EntityType, Alcance: @item.RS_Description</span>
+                                @if (!string.IsNullOrEmpty(item.RS_EntityType) && !string.IsNullOrEmpty(item.RS_Description))
+                                {
+                                    <span>@item.RS_EntityType, Alcance: @item.RS_Description</span>
+                                }
                             </label>
-                            <label>
-                                Fecha Inicial
-                                <span>@item.RS_StartDate</span>
-                            </label>
-
-                            <label>
-                                Fecha Final
-                                <span>@item.RS_EndDate</span>
-                            </label>
-                            <label>
-                                Alcance
-                                <span>@item.RS_Description</span>
-                            </label>
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
-                            </label>
+                            @if (!string.IsNullOrEmpty(item.RS_StartDate))
+                            {
+                                <label>
+                                    Fecha Inicial
+                                    <span>@item.RS_StartDate</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RS_EndDate))
+                            {
+                                <label>
+                                    Fecha Final
+                                    <span>@item.RS_EndDate</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RS_Description))
+                            {
+                                <label>
+                                    Alcance
+                                    <span>@item.RS_Description</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
+                                </label>
+                            }
                         </li>
                     }
-
                 }
             }
         </ul>

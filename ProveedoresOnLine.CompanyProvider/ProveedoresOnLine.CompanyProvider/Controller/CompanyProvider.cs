@@ -1037,14 +1037,17 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
         }
 
-        public static List<Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year, int CurrencyType)
+        public static List<Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int? Year, int CurrencyType)
         {
             List<Models.Provider.BalanceSheetModel> oReturn = new List<BalanceSheetModel>();
 
             //get all provider balance
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBalanceBasicInfo = MPFinancialGetBasicInfo(CompanyPublicId, 501001);
             //get values by year
-            List<Models.Provider.BalanceSheetModel> oBalanceAccountInfo = DAL.Controller.CompanyProviderDataController.Instance.MPBalanceSheetGetByYear(CompanyPublicId, Year);
+            List<Models.Provider.BalanceSheetModel> oBalanceAccountInfo =
+                DAL.Controller.CompanyProviderDataController.Instance.MPBalanceSheetGetByYear(CompanyPublicId, Year);
+            if (oBalanceAccountInfo == null)
+                oBalanceAccountInfo = new List<BalanceSheetModel>();
 
             oBalanceBasicInfo.All(bbi =>
             {
@@ -1071,7 +1074,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     oBalanceToAdd.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == 502001).
                         Select(x => Convert.ToInt32(x.Value)).
-                        DefaultIfEmpty(Year).
+                        DefaultIfEmpty(Year != null ? Year.Value : DateTime.Now.Year).
                         FirstOrDefault());
 
                 oBalanceAccountInfo.

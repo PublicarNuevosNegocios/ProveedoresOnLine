@@ -1,6 +1,5 @@
 ﻿/*init provider Menu*/
 function Provider_InitMenu(InitObject) {
-    debugger;
     $('#' + InitObject.ObjId).accordion({
         animate: 'swing',
         header: 'label',
@@ -92,9 +91,24 @@ var Provider_SearchObject = {
 
 };
 
-var Provider_GeneralInfoObject = {
+var Provider_FinancialObject = {
 
     ObjectId: '',
-    UlrContent: '',
+    QueryUrl: '',
+
+    Init: function (vInitObject) {
+
+        this.ObjectId = vInitObject.ObjectId;
+        this.QueryUrl = vInitObject.QueryUrl;
+    },
+
+    BalanceSheet_Search: function (vViewName) {
+
+        var oYear = $('#' + Provider_FinancialObject.ObjectId + '_Year').val();
+        var oCurrency = $('#' + Provider_FinancialObject.ObjectId + '_Currency').val();
+        var oUrl = Provider_FinancialObject.QueryUrl.replace(/V_ViewName/gi, vViewName).replace(/V_Year/gi, oYear).replace(/V_Currency/gi, oCurrency)
+
+        window.location = oUrl;
+    },
    
 }
