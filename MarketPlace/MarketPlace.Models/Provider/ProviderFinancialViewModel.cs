@@ -87,169 +87,332 @@ namespace MarketPlace.Models.Provider
 
         #region Taxes
 
-        public string TX_Year { get; set; }
-        public string TX_TaxFile { get; set; }
+        private string oTX_Year;
+        public string TX_Year
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oTX_Year))
+                {
+                    oTX_Year = RelatedFinancialInfo.ItemInfo.
+                       Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.TX_Year).
+                       Select(y => y.Value).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault();
+                }
+
+                return oTX_Year;
+            }
+        }
+
+        private string oTX_TaxFile;
+        public string TX_TaxFile
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oTX_TaxFile))
+                {
+                    oTX_TaxFile = RelatedFinancialInfo.ItemInfo.
+                       Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.TX_TaxFile).
+                       Select(y => y.Value).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault();
+                }
+
+                return oTX_TaxFile;
+            }
+        }
 
         #endregion
 
         #region IncomeStatement
 
-        public string IS_Year { get; set; }
-        public string IS_GrossIncome { get; set; }
-        public string IS_NetIncome { get; set; }
-        public string IS_GrossEstate { get; set; }
-        public string IS_LiquidHeritage { get; set; }
-        public string IS_FileIncomeStatement { get; set; }
+        private string oIS_Year;
+        public string IS_Year
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIS_Year))
+                {
+                    oIS_Year = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_Year).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIS_Year;
+            }
+        }
+
+        private string oIS_GrossIncome;
+        public string IS_GrossIncome
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIS_GrossIncome))
+                {
+                    oIS_GrossIncome = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_GrossIncome).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIS_GrossIncome;
+            }
+        }
+
+        private string oIS_NetIncome;
+        public string IS_NetIncome
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIS_NetIncome))
+                {
+                    oIS_NetIncome = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_NetIncome).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIS_NetIncome;
+            }
+        }
+
+        private string oIS_GrossEstate;
+        public string IS_GrossEstate
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIS_GrossEstate))
+                {
+                    oIS_GrossEstate = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_GrossEstate).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIS_GrossEstate;
+            }
+        }
+
+        private string oIS_LiquidHeritage;
+        public string IS_LiquidHeritage
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIS_LiquidHeritage))
+                {
+                    oIS_LiquidHeritage = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_LiquidHeritage).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIS_LiquidHeritage;
+            }
+        }
+
+        private string oIS_FileIncomeStatement;
+        public string IS_FileIncomeStatement
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIS_FileIncomeStatement))
+                {
+                    oIS_FileIncomeStatement = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_FileIncomeStatement).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIS_FileIncomeStatement;
+            }
+        }
 
         #endregion
 
         #region Bank Info
 
-        public string IB_Bank { get; set; }
-        public string IB_BankName { get; set; }
-        public string IB_AccountType { get; set; }
-        public string IB_AccountNumber { get; set; }
-        public string IB_AccountHolder { get; set; }
-        public string IB_ABA { get; set; }
-        public string IB_Swift { get; set; }
-        public string IB_IBAN { get; set; }
-        public string IB_Customer { get; set; }
-        public string IB_AccountFile { get; set; }
+        private ProveedoresOnLine.Company.Models.Util.GenericItemModel oIB_Bank;
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel IB_Bank
+        {
+            get
+            {
+                if (oIB_Bank == null)
+                {
+                    oIB_Bank = MarketPlace.Models.Company.CompanyUtil.Bank.
+                        Where(x => x.ItemId.ToString() == RelatedFinancialInfo.ItemInfo.
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Bank).
+                                        Select(y => y.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault()).
+                        FirstOrDefault();
+                }
+                return oIB_Bank;
+            }
+        }
+
+        private string oIB_AccountType;
+        public string IB_AccountType
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_AccountType))
+                {
+                    oIB_AccountType = RelatedFinancialInfo.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountType).
+                            Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault();
+                }
+
+                return oIB_AccountType;
+            }
+        }
+
+        private string oIB_AccountNumber;
+        public string IB_AccountNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_AccountNumber))
+                {
+                    oIB_AccountNumber = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountNumber).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_AccountNumber;
+            }
+        }
+
+        private string oIB_AccountHolder;
+        public string IB_AccountHolder
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_AccountHolder))
+                {
+                    oIB_AccountHolder = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountHolder).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_AccountHolder;
+            }
+        }
+
+        private string oIB_ABA;
+        public string IB_ABA
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_ABA))
+                {
+                    oIB_ABA = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_ABA).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_ABA;
+            }
+        }
+
+        private string oIB_Swift;
+        public string IB_Swift
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_Swift))
+                {
+                    oIB_Swift = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Swift).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_Swift;
+            }
+        }
+
+        private string oIB_IBAN;
+        public string IB_IBAN
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_IBAN))
+                {
+                    oIB_IBAN = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_IBAN).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_IBAN;
+            }
+        }
+
+        private string oIB_Customer;
+        public string IB_Customer
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_Customer))
+                {
+                    oIB_Customer = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Customer).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_Customer;
+            }
+        }
+
+        private string oIB_AccountFile;
+        public string IB_AccountFile
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oIB_AccountFile))
+                {
+                    oIB_AccountFile = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountFile).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oIB_AccountFile;
+            }
+        }
 
         #endregion
 
-        public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial,
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank,
-                List<CatalogModel> oOptions)
+        public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial)
         {
-            #region TAX
-            TX_Year = RelatedFinancial.ItemInfo.
-                   Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.TX_Year).
-                   Select(y => y.Value).
-                   DefaultIfEmpty(string.Empty).
-                   FirstOrDefault();
-
-            TX_TaxFile = RelatedFinancial.ItemInfo.
-               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.TX_TaxFile).
-               Select(y => y.Value).
-               DefaultIfEmpty(string.Empty).
-               FirstOrDefault();
-            #endregion
-
-            #region IncomeStatement
-            IS_Year = RelatedFinancial.ItemInfo.
-                   Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_Year).
-                   Select(y => y.Value).
-                   DefaultIfEmpty(string.Empty).
-                   FirstOrDefault();
-
-            IS_GrossIncome = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_GrossIncome).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IS_NetIncome = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_NetIncome).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IS_GrossEstate = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_GrossEstate).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IS_LiquidHeritage = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_LiquidHeritage).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IS_FileIncomeStatement = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IS_FileIncomeStatement).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            #endregion
-
-            #region Bank Info
-
-            IB_Bank = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Bank).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            if (oBank != null && oBank.Count > 0)
-            {
-                IB_BankName = oBank.
-                    Where(y => y.ItemId.ToString() == IB_Bank).
-                    Select(y => y.ItemName).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
-            }
-
-            IB_AccountType = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountType).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_AccountType = !string.IsNullOrEmpty(IB_AccountType) && oOptions != null && oOptions.Count > 0 ?
-              oOptions.Where(x => x.ItemId.ToString() == IB_AccountType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
-
-            IB_AccountNumber = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountNumber).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_AccountHolder = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountHolder).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_ABA = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_ABA).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_Swift = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Swift).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_IBAN = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_IBAN).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_Customer = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_Customer).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            IB_AccountFile = RelatedFinancial.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.IB_AccountFile).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-            #endregion
+            RelatedFinancialInfo = RelatedFinancial;
         }
 
         public ProviderFinancialViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel oRelatedBalanceSheetInfo)
         {
             RelatedBalanceSheetInfo = oRelatedBalanceSheetInfo;
         }
-
 
         public ProviderFinancialViewModel() { }
     }
