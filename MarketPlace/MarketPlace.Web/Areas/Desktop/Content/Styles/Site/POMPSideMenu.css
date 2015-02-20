@@ -1,7 +1,7 @@
 /******** ESTE ES EL MENU LATERAL ********/
 .POMPProviderSideMenu {
         border:none;
-    width:248px;
+    width:232px;
     letter-spacing: -1px;
 }
 /*********** ESTE ES EL TAG DEL PROVEEDOR ***********/
@@ -45,14 +45,6 @@
     line-height: 1em;
     margin: 2px 0 0;
 }
-
-
-
-
-
-
-
-
     .POMPProviderSideMenu > ul > li.principalmenuselected > label, .POMPProviderSideMenu > ul > li > label:hover{
         background-image: none !important;
         background-color:#ff8300;
@@ -62,7 +54,7 @@
         display: block;
         font-size: 1.1em;
         margin: 0;
-        padding: 4px 0 6px 32px;
+        padding: 4px 0 6px 20px;
     }
     .POMPProviderSideMenu > ul > li > label{
         background-color: #fff;
@@ -79,13 +71,13 @@
         text-decoration:underline;
     }
         .POMPProviderSideMenu > ul > li > label > span {
-            background-position: -104px -29px;
-            background-size: 400px auto;
+            background-position: -80px -20px;
+            background-size: 300px auto;
         }
 
 /********* AQUI INICIA EL SUBMENU ESTE ES EL SUBMENU *********/
     .POMPProviderSideSubMenu {
-        padding:4px 0px 6px 24px !important;
+        padding:4px 0px 6px 19px !important;
         margin:0;
         border:none;
         height:auto !important;
@@ -99,7 +91,7 @@
             cursor:pointer;
         }
         .POMPProviderSideSubMenu > li > a {
-            font-size:0.9em;
+            font-size:0.88em;
             display:block;
             width:auto; height:auto;
                 border:none;

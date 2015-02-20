@@ -21,17 +21,17 @@
             <li>
                 <ul>
                     <li>
-                        <span>Cuentas</span>
+                        <span class="POMPBalanceSheetColumnOne">Cuentas</span>
                         @foreach (var oBalance in oBalanceToShow)
                         {
-                            <span>
+                            <span class="POMPBalanceSheetColumnTwo">
                                 Año @oBalance.SH_Year
                             </span>
-                            <span>
+                            <span class="POMPBalanceSheetColumnThree">
                                 Analisi vertical % @oBalance.SH_Year
                             </span>
                         }
-                        <span>Analisis Horizontal</span>
+                        <span class="POMPBalanceSheetColumnFour">Analisis Horizontal</span>
                     </li>
                 </ul>
             </li>
