@@ -1,0 +1,35 @@
+﻿@model MarketPlace.Models.Provider.ProviderBalanceSheetViewModel
+
+@if (Model.AccountType == 2 && Model.RelatedAccount.ParentItem != null)
+{
+    <!--Render AccountType text content-->
+    <label>@Model.RelatedAccount.ItemName</label>
+}
+
+@if (Model.ChildBalanceSheet != null && Model.ChildBalanceSheet.Count > 0)
+{
+    <!--Render child items-->
+    <ul>
+        @foreach (var oBalanceInfo in Model.ChildBalanceSheet)
+        {
+            <li>
+                @Html.Partial(MVC.Desktop.Shared.Views._P_FI_IndicatorsItem, oBalanceInfo)
+            </li>
+        }
+    </ul>
+}
+
+@if (Model.AccountType != 2)
+{
+    <!--Render AccountType value content-->
+    <span>@Model.RelatedAccount.ItemName</span>
+    foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
+    {
+        <span>
+            @((oBalanceValues.RelatedBalanceSheetDetail != null ? oBalanceValues.RelatedBalanceSheetDetail.Value : 0).ToString("#,0.##"))
+        </span>
+    }
+    <span>@Model.AccountUnit</span>
+    <span>@Html.Raw(Model.AccountFormulaText)</span>
+    <span>@Html.Raw(Model.AccountFormulaDescription)</span>
+}

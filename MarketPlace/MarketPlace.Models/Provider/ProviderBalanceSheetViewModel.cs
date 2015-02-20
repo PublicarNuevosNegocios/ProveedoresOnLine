@@ -20,6 +20,10 @@ namespace MarketPlace.Models.Provider
 
         public string AccountFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Formula).Select(x => x.LargeValue).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
 
+        public string AccountFormulaText { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_FormulaText).Select(x => x.LargeValue).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
+
+        public string AccountFormulaDescription { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Description).Select(x => x.LargeValue).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
+
         public string AccountValidateFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_ValidationRule).Select(x => x.LargeValue).DefaultIfEmpty(null).FirstOrDefault(); } }
 
         public string AccountUnit { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCategoryInfoType.AI_Unit).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }

@@ -11,126 +11,234 @@ namespace MarketPlace.Models.Provider
     {
         public ProviderViewModel RelatedViewProvider { get; set; }
 
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedContactInfo { get; set; }
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedCommercialInfo { get; set; }
 
         #region Experience
 
-        public string EX_ContractType { get; set; }
-        public string EX_Currency { get; set; }
-        public string EX_DateIssue { get; set; }
-        public string EX_DueDate { get; set; }
-        public string EX_Client { get; set; }
-        public string EX_ContractNumber { get; set; }
-        public string EX_ContractValue { get; set; }
-        public string EX_Phone { get; set; }
-        public string EX_ExperienceFile { get; set; }
-        public string EX_ContractSubject { get; set; }
-        public List<MarketPlace.Models.General.EconomicActivityViewModel> EX_EconomicActivity { get; set; }
-        public List<MarketPlace.Models.General.EconomicActivityViewModel> EX_CustomEconomicActivity { get; set; }
+        private string oEX_ContractType;
+        public string EX_ContractType
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_ContractType))
+                {
+                    oEX_ContractType = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(
+                        RelatedCommercialInfo.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractType).
+                            Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                }
+                return oEX_ContractType;
+            }
+        }
+
+        private string oEX_Currency;
+        public string EX_Currency
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_Currency))
+                {
+                    oEX_Currency = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Currency).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_Currency;
+            }
+        }
+
+        private string oEX_DateIssue;
+        public string EX_DateIssue
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_DateIssue))
+                {
+                    oEX_DateIssue = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_DateIssue).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_DateIssue;
+            }
+        }
+
+        private string oEX_DueDate;
+        public string EX_DueDate
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_DueDate))
+                {
+                    oEX_DueDate = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_DueDate).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_DueDate;
+            }
+        }
+
+        private string oEX_Client;
+        public string EX_Client
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_Client))
+                {
+                    oEX_Client = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Client).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_Client;
+            }
+        }
+
+        private string oEX_ContractNumber;
+        public string EX_ContractNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_ContractNumber))
+                {
+                    oEX_ContractNumber = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractNumber).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_ContractNumber;
+            }
+        }
+
+        private string oEX_ContractValue;
+        public string EX_ContractValue
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_ContractValue))
+                {
+                    oEX_ContractValue = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractValue).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_ContractValue;
+            }
+        }
+
+        private string oEX_Phone;
+        public string EX_Phone
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_Phone))
+                {
+                    oEX_Phone = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Phone).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_Phone;
+            }
+        }
+
+        private string oEX_ExperienceFile;
+        public string EX_ExperienceFile
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_ExperienceFile))
+                {
+                    oEX_ExperienceFile = RelatedCommercialInfo.ItemInfo.
+                      Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ExperienceFile).
+                      Select(y => y.Value).
+                      DefaultIfEmpty(string.Empty).
+                      FirstOrDefault();
+                }
+                return oEX_ExperienceFile;
+            }
+        }
+
+        private string oEX_ContractSubject;
+        public string EX_ContractSubject
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oEX_ContractSubject))
+                {
+                    oEX_ContractSubject = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractSubject).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oEX_ContractSubject;
+            }
+        }
+
+        private List<MarketPlace.Models.General.EconomicActivityViewModel> oEX_EconomicActivity;
+        public List<MarketPlace.Models.General.EconomicActivityViewModel> EX_EconomicActivity
+        {
+            get
+            {
+                if (oEX_EconomicActivity == null)
+                {
+                    oEX_EconomicActivity = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_EconomicActivity).
+                        Select(y => y.ValueName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault().
+                        Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                        Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                        Select(y => new MarketPlace.Models.General.EconomicActivityViewModel()
+                        {
+                            EconomicActivityId = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                            ActivityName = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[1],
+                        }).ToList();
+                }
+                return oEX_EconomicActivity;
+            }
+        }
+
+        private List<MarketPlace.Models.General.EconomicActivityViewModel> oEX_CustomEconomicActivity;
+        public List<MarketPlace.Models.General.EconomicActivityViewModel> EX_CustomEconomicActivity
+        {
+            get
+            {
+                if (oEX_CustomEconomicActivity == null)
+                {
+                    oEX_CustomEconomicActivity = RelatedCommercialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity).
+                        Select(y => y.ValueName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault().
+                        Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                        Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                        Select(y => new MarketPlace.Models.General.EconomicActivityViewModel()
+                        {
+                            EconomicActivityId = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0],
+                            ActivityName = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[1],
+                        }).ToList();
+                }
+                return oEX_CustomEconomicActivity;
+            }
+        }
 
         #endregion
 
-        public ProviderComercialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo,
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity,
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity
-            , List<CatalogModel> oOptions)
+        public ProviderComercialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo)
         {
-            RelatedContactInfo = oRelatedInfo;
-
-            #region Experience
-            EX_ContractType = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractType).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-          
-            EX_ContractType = !string.IsNullOrEmpty(EX_ContractType) && oOptions != null && oOptions.Count > 0 ?
-              oOptions.Where(x => x.ItemId.ToString() == EX_ContractType).Select(x => x.ItemName).FirstOrDefault() : "N/A";
-
-            EX_Currency = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Currency).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_DateIssue = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_DateIssue).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_DueDate = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_DueDate).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_Client = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Client).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_ContractNumber = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractNumber).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_ContractValue = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractValue).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_Phone = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_Phone).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_ExperienceFile = oRelatedInfo.ItemInfo.
-              Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ExperienceFile).
-              Select(y => y.Value).
-              DefaultIfEmpty(string.Empty).
-              FirstOrDefault();
-
-            EX_ContractSubject = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractSubject).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            EX_EconomicActivity = oRelatedInfo.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_EconomicActivity).
-                Select(y => y.LargeValue).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault().
-                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                Select(y => new MarketPlace.Models.General.EconomicActivityViewModel()
-                {
-                    EconomicActivityId = y,
-                    ActivityName = oActivity.
-                        Where(z => z.ItemId.ToString() == y).
-                        Select(z => z.ItemName).
-                        DefaultIfEmpty(string.Empty).FirstOrDefault()
-                }).ToList();
-
-            EX_CustomEconomicActivity = oRelatedInfo.ItemInfo.
-               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity).
-               Select(y => y.LargeValue).
-               DefaultIfEmpty(string.Empty).
-               FirstOrDefault().
-               Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-               Select(y => new MarketPlace.Models.General.EconomicActivityViewModel()
-               {
-                   EconomicActivityId = y,
-                   ActivityName = oCustomActivity.
-                       Where(z => z.ItemId.ToString() == y).
-                       Select(z => z.ItemName).
-                       DefaultIfEmpty(string.Empty).FirstOrDefault()
-               }).ToList();
-            #endregion
+            RelatedCommercialInfo = oRelatedInfo;
         }
 
         public ProviderComercialViewModel() { }

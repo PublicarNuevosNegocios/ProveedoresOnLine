@@ -1155,19 +1155,36 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                              (from cminf in response.DataTableResult.AsEnumerable()
                               where !cminf.IsNull("CommercialInfoId") &&
                                       cminf.Field<int>("CommercialId") == cmg.Key.CommercialId
-                              select new GenericItemInfoModel()
+                              group cminf by new
                               {
-                                  ItemInfoId = cminf.Field<int>("CommercialInfoId"),
-                                  ItemInfoType = new CatalogModel()
-                                  {
-                                      ItemId = cminf.Field<int>("CommercialInfoTypeId"),
-                                      ItemName = cminf.Field<string>("CommercialInfoTypeName"),
-                                  },
+                                  CommercialInfoId = cminf.Field<int>("CommercialInfoId"),
+                                  CommercialInfoTypeId = cminf.Field<int>("CommercialInfoTypeId"),
+                                  CommercialInfoTypeName = cminf.Field<string>("CommercialInfoTypeName"),
                                   Value = cminf.Field<string>("Value"),
                                   LargeValue = cminf.Field<string>("LargeValue"),
-                                  Enable = cminf.Field<UInt64>("CommercialInfoEnable") == 1 ? true : false,
-                                  LastModify = cminf.Field<DateTime>("CommercialInfoLastModify"),
-                                  CreateDate = cminf.Field<DateTime>("CommercialInfoCreateDate"),
+                                  CommercialInfoEnable = cminf.Field<UInt64>("CommercialInfoEnable") == 1 ? true : false,
+                                  CommercialInfoLastModify = cminf.Field<DateTime>("CommercialInfoLastModify"),
+                                  CommercialInfoCreateDate = cminf.Field<DateTime>("CommercialInfoCreateDate"),
+                              } into cminfg
+                              select new GenericItemInfoModel()
+                              {
+                                  ItemInfoId = cminfg.Key.CommercialInfoId,
+                                  ItemInfoType = new CatalogModel()
+                                  {
+                                      ItemId = cminfg.Key.CommercialInfoTypeId,
+                                      ItemName = cminfg.Key.CommercialInfoTypeName,
+                                  },
+                                  Value = cminfg.Key.Value,
+                                  LargeValue = cminfg.Key.LargeValue,
+                                  ValueName = string.Join(";",
+                                    (from cminfvn in response.DataTableResult.AsEnumerable()
+                                     where !cminfvn.IsNull("CommercialInfoId") &&
+                                            cminfvn.Field<int>("CommercialInfoId") == cminfg.Key.CommercialInfoId &&
+                                            !cminfvn.IsNull("ValueName")
+                                     select cminfvn.Field<string>("ValueName")).ToList()),
+                                  Enable = cminfg.Key.CommercialInfoEnable,
+                                  LastModify = cminfg.Key.CommercialInfoLastModify,
+                                  CreateDate = cminfg.Key.CommercialInfoCreateDate,
                               }).ToList(),
 
                      }).ToList();
@@ -1313,7 +1330,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int Year)
+        public List<BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int? Year)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 

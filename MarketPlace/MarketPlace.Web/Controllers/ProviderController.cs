@@ -89,10 +89,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult GIProviderInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -158,10 +155,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult GIPersonContactInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -194,7 +188,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.ContactCompanyInfo.All(x =>
                     {
-                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oModel.ProviderOptions));
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
                         return true;
                     });
                 }
@@ -205,10 +199,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult GIBranchInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
             int oTotalRows;
 
             //get basic provider info
@@ -246,23 +237,20 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.ContactCompanyInfo.All(x =>
                     {
-                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
                         return true;
                     });
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
-                oModel.RelatedGeneralInfo = oModel.RelatedGeneralInfo.OrderBy(x => x.BR_IsPrincipal != "Si").ToList();
+                oModel.RelatedGeneralInfo = oModel.RelatedGeneralInfo.OrderBy(x => x.BR_IsPrincipal).ToList();
             }
             return View(oModel);
         }
 
         public virtual ActionResult GIDistributorInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             int oTotalRows;
 
@@ -300,7 +288,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.ContactCompanyInfo.All(x =>
                     {
-                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
                         return true;
                     });
                 }
@@ -315,10 +303,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult CIExperiencesInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -343,18 +328,14 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo(ProviderPublicId, (int)enumCommercialType.Experience);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo(ProviderPublicId, (int)enumCommercialType.Experience);
+
                 oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();
-
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
-
-                oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.All(x =>
                 {
-                    oModel.RelatedComercialInfo.Add(new ProviderComercialViewModel(x, oActivity, oCustomActivity, oModel.ProviderOptions));
+                    oModel.RelatedComercialInfo.Add(new ProviderComercialViewModel(x));
                     return true;
                 });
 
@@ -369,10 +350,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult HICertificationsInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -400,19 +378,11 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
-
-                oRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByRules(null, 0, 0);
-                oCompanyRule = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCompanyRules(null, 0, 0);
-                oARL = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
-
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
-                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
                 }
@@ -429,10 +399,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult HIHealtyPoliticInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -460,23 +427,14 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyHealtyPolitic);
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
-
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
-                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
                 }
-                //else
-                //{
-                //    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
-                //}
-
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -485,10 +443,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult HIRiskPoliciesInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -517,19 +472,17 @@ namespace MarketPlace.Web.Controllers
 
                 List<GenericItemModel> oLTIFResult = null;
 
-                oLTIFResult = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
-                oModel.RelatedLTIFInfo = new List<ProviderLTIFViewModel>();
+                oLTIFResult = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.
+                    MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL = null;
+                oModel.RelatedLTIFInfo = new List<ProviderLTIFViewModel>();
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
                     {
-                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x, oRule, oCompanyRule, oARL));
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
                 }
@@ -537,6 +490,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
+
                 oModel.RelatedLTIFInfo = new List<ProviderLTIFViewModel>();
                 if (oLTIFResult != null && oLTIFResult.Count > 0)
                 {
@@ -588,10 +542,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult FIBalanceSheetInfo(string ProviderPublicId, string ViewName, string Year, string Currency)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -614,9 +565,9 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 //get request info
-                int oYear = !string.IsNullOrEmpty(Request["Year"]) ?
-                    Convert.ToInt32(Request["Year"].Replace(" ", "")) :
-                    DateTime.Now.Year;
+                int? oYear = !string.IsNullOrEmpty(Request["Year"]) ?
+                    (int?)Convert.ToInt32(Request["Year"].Replace(" ", "")) :
+                    null;
 
                 int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) ?
                     Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
@@ -648,10 +599,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oBalanceAux.All(bs =>
                     {
-                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(
-                            (ProveedoresOnLine.Company.Models.Util.GenericItemModel)bs,
-                            null,
-                            oModel.ProviderOptions));
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(bs));
                         return true;
                     });
                 }
@@ -673,10 +621,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult FITaxInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -703,13 +648,12 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.TaxInfoType);
                 oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank = null;
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial.All(x =>
                     {
-                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x, oBank, oModel.ProviderOptions));
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x));
                         return true;
                     });
                 }
@@ -721,10 +665,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult FIIncomeStatementInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -751,13 +692,12 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.IncomeStatementInfoType);
                 oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank = null;
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial.All(x =>
                     {
-                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x, oBank, oModel.ProviderOptions));
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x));
                         return true;
                     });
                 }
@@ -769,10 +709,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult FIBankInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -796,18 +733,15 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank = null;
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.BankInfoType);
                 oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
-
-                oBank = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank(null, 0, 0);
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial.All(x =>
                     {
-                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x, oBank, oModel.ProviderOptions));
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x));
                         return true;
                     });
                 }
@@ -856,6 +790,7 @@ namespace MarketPlace.Web.Controllers
                         FirstOrDefault();
 
                     lstBalanceSheet.
+                        Where(bs => bs.BalanceSheetInfo != null && bs.BalanceSheetInfo.Count > 0).
                         OrderByDescending(bs => bs.ItemInfo.
                             Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
                             Select(y => Convert.ToInt32(y.Value)).
@@ -952,10 +887,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult LIChaimberOfCommerceInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -988,7 +920,7 @@ namespace MarketPlace.Web.Controllers
                 int oTotalRows;
 
                 List<GenericItemModel> oEconomiActivity = null;
-                List<CatalogModel> oEntitieType = oModel.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
+                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
@@ -997,7 +929,7 @@ namespace MarketPlace.Web.Controllers
 
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
                         return true;
                     });
                 }
@@ -1021,10 +953,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult LIRutInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1051,14 +980,14 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.RUT);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                List<CatalogModel> oEntitieType = oModel.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
+                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
                 List<GenericItemModel> oEconomiActivity = null;
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
                         return true;
                     });
                 }
@@ -1070,10 +999,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult LICIFINInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1100,14 +1026,14 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.CIFIN);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                List<CatalogModel> oEntitieType = oModel.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
+                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
                 List<GenericItemModel> oEconomiActivity = null;
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
                         return true;
                     });
                 }
@@ -1119,10 +1045,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult LISARLAFTInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1149,7 +1072,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                List<CatalogModel> oEntitieType = oModel.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
+                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
 
                 List<GenericItemModel> oEconomiActivity = null;
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
@@ -1157,7 +1080,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
                         return true;
                     });
                 }
@@ -1169,10 +1092,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult LIResolutionInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel()
-            {
-                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-            };
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1200,7 +1120,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Resoluciones);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
 
-                List<CatalogModel> oEntitieType = oModel.ProviderOptions.Where(x => x.CatalogId == 218).Select(x => x).ToList();
+                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 218).Select(x => x).ToList();
 
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
                 List<GenericItemModel> oEconomiActivity = null;
@@ -1208,7 +1128,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, oModel.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
                         return true;
                     });
                 }
@@ -1245,10 +1165,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información básica",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GIProviderInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIProviderInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIProviderInfo &&
@@ -1259,10 +1183,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información de personas de contacto",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GIPersonContactInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIPersonContactInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 1,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIPersonContactInfo &&
@@ -1273,10 +1201,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Sucursales",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GIBranchInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIBranchInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIBranchInfo &&
@@ -1288,10 +1220,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Distribuidores",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.GIDistributorInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIDistributorInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 3,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
@@ -1320,10 +1256,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Experiencias",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.CIExperiencesInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.CIExperiencesInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.CIExperiencesInfo &&
@@ -1352,10 +1292,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Certificaciones",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.HICertificationsInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.HICertificationsInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.HICertificationsInfo &&
@@ -1366,10 +1310,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Salud, medio ambiente y seguridad",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.HIHealtyPoliticInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.HIHealtyPoliticInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 1,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.HIHealtyPoliticInfo &&
@@ -1380,10 +1328,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Salud de riesgos laborales",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.HIRiskPoliciesInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.HIRiskPoliciesInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.HIRiskPoliciesInfo &&
@@ -1429,10 +1381,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Impuestos",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.FITaxInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.FITaxInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 1,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.FITaxInfo &&
@@ -1443,10 +1399,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Declaración de renta",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.FIIncomeStatementInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.FIIncomeStatementInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.FIIncomeStatementInfo &&
@@ -1457,10 +1417,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información bancaria",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.FIBankInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.FIBankInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 3,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.FIBankInfo &&
@@ -1488,10 +1452,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Cámara de comercio",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.LIChaimberOfCommerceInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.LIChaimberOfCommerceInfo &&
@@ -1502,10 +1470,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Registro único tributario",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.LIRutInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.LIRutInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 1,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.LIRutInfo &&
@@ -1516,10 +1488,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "CIFIN",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.LICIFINInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.LICIFINInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 2,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.LICIFINInfo &&
@@ -1530,10 +1506,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "SARLAFT",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.LISARLAFTInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.LISARLAFTInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 3,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.LISARLAFTInfo &&
@@ -1543,10 +1523,14 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Resoluciones",
-                    Url = Url.Action
-                        (MVC.Provider.ActionNames.LIResolutionInfo,
-                        MVC.Provider.Name,
-                        new { ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId }),
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.LIResolutionInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
                     Position = 4,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.LIResolutionInfo &&

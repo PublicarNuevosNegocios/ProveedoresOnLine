@@ -2,7 +2,7 @@
 .POMPSectionTitles {
     font-size: 1.5em; font-weight: normal; letter-spacing: -1px;
     display: block;
-    margin:0 12px 7px 8px; padding:21px 0 0px 14px;
+    margin:0 8px 7px 8px; padding:12px 0 0px 14px;
     color: #fff;
     box-shadow:1px 1px 3px #444;
     border-top-left-radius:3px;
@@ -12,7 +12,7 @@
     border: 1px solid #666; border-bottom:none;
     background-color:#f87b00;
     background-image:url(http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/BGScatterLogoSmall.png);
-    background-position:238px -165px; background-size:941px auto; background-repeat:no-repeat;
+    background-position:238px -162px; background-size:931px auto; background-repeat:no-repeat;
 }
 .POMPProviderInfoDisplayList,
 .POMPProviderInfoMultipleValues{
