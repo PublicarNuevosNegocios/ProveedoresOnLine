@@ -20,16 +20,16 @@
                 {
                     <li>
                         <label class="POMPProviderDataSubtitle">
-                            @if (!string.IsNullOrEmpty(item.C_RuleName) && !string.IsNullOrEmpty(item.C_Scope))
+                            @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
                             {
-                                <span>@item.C_RuleName, Alcance: @item.C_Scope</span>
-                            }                            
+                                <span>@item.C_Rule.ItemName, Alcance: @item.C_Scope</span>
+                            }
                         </label>
-                        @if (!string.IsNullOrEmpty(item.C_CertificationCompanyName))
-                        { 
+                        @if (item.C_CertificationCompany != null)
+                        {
                             <label>
                                 Empresa Certificadora
-                                <span>@item.C_CertificationCompanyName</span>
+                                <span>@item.C_CertificationCompany.ItemName</span>
                             </label>
                         }
                         @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
@@ -55,11 +55,11 @@
                         }
                         <label>
                             @{
-                                var UlrContent = item.C_CertificationFile;
-                                if (!string.IsNullOrEmpty(UlrContent))
-                                {
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
-                                }
+                        var UlrContent = item.C_CertificationFile;
+                        if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                        }
                             }
                         </label>
                     </li>

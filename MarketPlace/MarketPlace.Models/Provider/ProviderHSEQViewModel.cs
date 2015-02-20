@@ -8,217 +8,369 @@ namespace MarketPlace.Models.Provider
 {
     public class ProviderHSEQViewModel
     {
-        public ProviderViewModel RelatedViewProvider { get; set; }
-
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedHSEQInfo { get; set; }
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedHSEQInfo { get; private set; }
 
         #region Certifications
 
-        public string C_CertificationCompanyName { get; set; }
-        public string C_CertificationCompany { get; set; }
-        public string C_RuleName { get; set; }
-        public string C_Rule { get; set; }
+        private ProveedoresOnLine.Company.Models.Util.GenericItemModel oC_CertificationCompany;
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel C_CertificationCompany
+        {
+            get
+            {
+                if (oC_CertificationCompany == null)
+                {
+                    oC_CertificationCompany = MarketPlace.Models.Company.CompanyUtil.CompanyRule.
+                        Where(x => x.ItemId.ToString() == RelatedHSEQInfo.ItemInfo.
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CertificationCompany).
+                                        Select(y => y.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault()).
+                        FirstOrDefault();
+                }
+                return oC_CertificationCompany;
+            }
+        }
 
-        public string C_StartDateCertification { get; set; }
-        public string C_EndDateCertification { get; set; }
-        public string C_CCS { get; set; }
-        public string C_CertificationFile { get; set; }
-        public string C_Scope { get; set; }
+        private ProveedoresOnLine.Company.Models.Util.GenericItemModel oC_Rule;
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel C_Rule
+        {
+            get
+            {
+                if (oC_Rule == null)
+                {
+                    oC_Rule = MarketPlace.Models.Company.CompanyUtil.Rule.
+                        Where(x => x.ItemId.ToString() == RelatedHSEQInfo.ItemInfo.
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CertificationCompany).
+                                        Select(y => y.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault()).
+                        FirstOrDefault();
+                }
+                return oC_Rule;
+            }
+        }
+
+        private string oC_StartDateCertification;
+        public string C_StartDateCertification
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oC_StartDateCertification))
+                {
+                    oC_StartDateCertification = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_StartDateCertification).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oC_StartDateCertification;
+            }
+        }
+
+        private string oC_EndDateCertification;
+        public string C_EndDateCertification
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oC_EndDateCertification))
+                {
+                    oC_EndDateCertification = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_EndDateCertification).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oC_EndDateCertification;
+            }
+        }
+
+        private string oC_CCS;
+        public string C_CCS
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oC_CCS))
+                {
+                    oC_CCS = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CCS).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oC_CCS;
+            }
+        }
+
+        private string oC_CertificationFile;
+        public string C_CertificationFile
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oC_CertificationFile))
+                {
+                    oC_CertificationFile = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CertificationFile).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oC_CertificationFile;
+            }
+        }
+
+        private string oC_Scope;
+        public string C_Scope
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oC_Scope))
+                {
+                    oC_Scope = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_Scope).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oC_Scope;
+            }
+        }
 
         #endregion
 
         #region HealtyPolitics
 
-        public string CH_Year { get; set; }
-        public string CH_PoliticsSecurity { get; set; }
-        public string CH_PoliticsNoAlcohol { get; set; }
-        public string CH_ProgramOccupationalHealth { get; set; }
-        public string CH_RuleIndustrialSecurity { get; set; }
-        public string CH_MatrixRiskControl { get; set; }
-        public string CH_CorporateSocialResponsability { get; set; }
-        public string CH_ProgramEnterpriseSecurity { get; set; }
-        public string CH_PoliticsRecruiment { get; set; }
-        public string CH_CertificationsForm { get; set; }
+        private string oCH_Year;
+        public string CH_Year
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_Year))
+                {
+                    oCH_Year = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_Year).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_Year;
+            }
+        }
+
+        private string oCH_PoliticsSecurity;
+        public string CH_PoliticsSecurity
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_PoliticsSecurity))
+                {
+                    oCH_PoliticsSecurity = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticsSecurity).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_PoliticsSecurity;
+            }
+        }
+
+        private string oCH_PoliticsNoAlcohol;
+        public string CH_PoliticsNoAlcohol
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_PoliticsNoAlcohol))
+                {
+                    oCH_PoliticsNoAlcohol = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticsNoAlcohol).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_PoliticsNoAlcohol;
+            }
+        }
+
+        private string oCH_ProgramOccupationalHealth;
+        public string CH_ProgramOccupationalHealth
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_ProgramOccupationalHealth))
+                {
+                    oCH_ProgramOccupationalHealth = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_ProgramOccupationalHealth).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_ProgramOccupationalHealth;
+            }
+        }
+
+        private string oCH_RuleIndustrialSecurity;
+        public string CH_RuleIndustrialSecurity
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_RuleIndustrialSecurity))
+                {
+                    oCH_RuleIndustrialSecurity = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_RuleIndustrialSecurity).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_RuleIndustrialSecurity;
+            }
+        }
+
+        private string oCH_MatrixRiskControl;
+        public string CH_MatrixRiskControl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_MatrixRiskControl))
+                {
+                    oCH_MatrixRiskControl = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_MatrixRiskControl).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_MatrixRiskControl;
+            }
+        }
+
+        private string oCH_CorporateSocialResponsability;
+        public string CH_CorporateSocialResponsability
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_CorporateSocialResponsability))
+                {
+                    oCH_CorporateSocialResponsability = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_CorporateSocialResponsability).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_CorporateSocialResponsability;
+            }
+        }
+
+        private string oCH_ProgramEnterpriseSecurity;
+        public string CH_ProgramEnterpriseSecurity
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_ProgramEnterpriseSecurity))
+                {
+                    oCH_ProgramEnterpriseSecurity = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_ProgramEnterpriseSecurity).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_ProgramEnterpriseSecurity;
+            }
+        }
+
+        private string oCH_PoliticsRecruiment;
+        public string CH_PoliticsRecruiment
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_PoliticsRecruiment))
+                {
+                    oCH_PoliticsRecruiment = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticsRecruiment).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_PoliticsRecruiment;
+            }
+        }
+
+        private string oCH_CertificationsForm;
+        public string CH_CertificationsForm
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_CertificationsForm))
+                {
+                    oCH_CertificationsForm = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_CertificationsForm).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_CertificationsForm;
+            }
+        }
 
         #endregion
 
         #region RiskPolicies
 
-        public string CR_SystemOccupationalHazards { get; set; }
-        public string CR_SystemOccupationalHazardsName { get; set; }
-        public string CR_RateARL { get; set; }
-        public string CR_CertificateAffiliateARL { get; set; }
-
-        #endregion        
-
-        public ProviderHSEQViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedCertification,
-                                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule,
-                                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule,
-                                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARL)
+        private ProveedoresOnLine.Company.Models.Util.GenericItemModel oCR_SystemOccupationalHazards;
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel CR_SystemOccupationalHazards
         {
-            #region Certifications
-
-
-            C_CertificationCompany = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CertificationCompany).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            if (oCompanyRule != null && oCompanyRule.Count > 0)
+            get
             {
-                C_CertificationCompanyName = oCompanyRule.
-                    Where(x => x.ItemId.ToString() == C_CertificationCompany).
-                    Select(x => x.ItemName).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
+                if (oCR_SystemOccupationalHazards == null)
+                {
+                    oCR_SystemOccupationalHazards = MarketPlace.Models.Company.CompanyUtil.ARL.
+                        Where(x => x.ItemId.ToString() == RelatedHSEQInfo.ItemInfo.
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                                        Select(y => y.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault()).
+                        FirstOrDefault();
+                }
+                return oCR_SystemOccupationalHazards;
             }
+        }
 
-            C_Rule = RelatedCertification.ItemInfo.
-               Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_Rule).
-               Select(y => y.Value).
-               DefaultIfEmpty(string.Empty).
-               FirstOrDefault();
-
-            if (oRule != null && oRule.Count > 0)
+        private string oCR_RateARL;
+        public string CR_RateARL
+        {
+            get
             {
-                C_RuleName = oRule.
-                    Where(x => x.ItemId.ToString() == C_Rule).
-                    Select(x => x.ItemName).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
+                if (string.IsNullOrEmpty(oCR_RateARL))
+                {
+                    oCR_RateARL = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_RateARL).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCR_RateARL;
             }
+        }
 
-            C_StartDateCertification = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_StartDateCertification).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-
-            C_EndDateCertification = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_EndDateCertification).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            C_CCS = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CCS).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-
-            C_CertificationFile = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CertificationFile).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            C_Scope = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_Scope).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            #endregion
-
-            #region HealtyPolitics
-
-            CH_Year = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_Year).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_PoliticsSecurity = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticsSecurity).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_PoliticsNoAlcohol = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticsNoAlcohol).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_ProgramOccupationalHealth = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_ProgramOccupationalHealth).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_RuleIndustrialSecurity = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_RuleIndustrialSecurity).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_MatrixRiskControl = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_MatrixRiskControl).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_CorporateSocialResponsability = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_CorporateSocialResponsability).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_ProgramEnterpriseSecurity = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_ProgramEnterpriseSecurity).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_PoliticsRecruiment = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticsRecruiment).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-            CH_CertificationsForm = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_CertificationsForm).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-
-
-            #endregion
-
-            #region RiskPolicies
-
-            CR_SystemOccupationalHazards = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-          
-            if (oARL != null && oARL.Count > 0)
+        private string oCR_CertificateAffiliateARL;
+        public string CR_CertificateAffiliateARL
+        {
+            get
             {
-                CR_SystemOccupationalHazardsName = oARL.
-                    Where(x => x.ItemId.ToString() == CR_SystemOccupationalHazards).
-                    Select(x => x.ItemName).
-                    DefaultIfEmpty(string.Empty).
-                    FirstOrDefault();
+                if (string.IsNullOrEmpty(oCR_CertificateAffiliateARL))
+                {
+                    oCR_CertificateAffiliateARL = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCR_CertificateAffiliateARL;
             }
+        }
 
-            CR_RateARL = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_RateARL).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-        
+        #endregion
 
-            CR_CertificateAffiliateARL = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
-                Select(y => y.Value).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
-         
-            #endregion        
+        public ProviderHSEQViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedCertification)
+        {
+            RelatedHSEQInfo = RelatedCertification;
         }
 
         public ProviderHSEQViewModel() { }

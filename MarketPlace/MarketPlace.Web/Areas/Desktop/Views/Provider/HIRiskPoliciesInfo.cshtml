@@ -19,7 +19,7 @@
                 <li>
                     <label>
                         Sistema de Riesgos
-                        <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards.ItemName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
                 </li>
                 <li>

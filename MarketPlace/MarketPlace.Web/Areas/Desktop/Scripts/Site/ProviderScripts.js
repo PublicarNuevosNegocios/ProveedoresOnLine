@@ -30,6 +30,15 @@ var Provider_SearchObject = {
 
     RenderAsync: function () {
 
+        //init Search input
+        $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
+            if (e.keyCode == 13) {
+                //enter action search
+                Provider_SearchObject.Search();
+            }
+        });
+
+
         //init search orient controls
         $('input[name="Search_rbOrder"]').change(function () {
             if ($(this) != null && $(this).attr('searchordertype') != null && $(this).attr('orderorientation') != null) {
@@ -110,5 +119,5 @@ var Provider_FinancialObject = {
 
         window.location = oUrl;
     },
-   
+
 }
