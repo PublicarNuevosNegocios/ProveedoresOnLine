@@ -34,7 +34,7 @@ div#POMPRenderFooter {
     display: inline-block;
     height: 100%;
     min-height: 490px;
-    padding: 0 21px 0 11px;
+    padding: 0 9px 0 11px;
     vertical-align: top;
     width: auto;
 }
@@ -43,8 +43,8 @@ div#POMPRenderFooter {
     border: medium none;
     display: inline-block;
     height: auto;
-    margin: 0 0 0 6px;
+    margin: 0 0 0 2px;
     min-height: 400px;
-    width: calc(100% - 292px);
+    width: calc(100% - 261px);
 }
 
