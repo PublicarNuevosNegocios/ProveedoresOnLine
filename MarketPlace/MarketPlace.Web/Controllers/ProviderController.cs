@@ -114,9 +114,42 @@ namespace MarketPlace.Web.Controllers
             }
             else
             {
-                //get provider view model
+                int oTotalRows;
+                //Get provider view model
+                #region Basic Info
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
+                
+                #endregion
+
+                //Get Branch Info
+                #region Branch Info
+                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
+                oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
+
+                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
+                oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
+
+                if (oModel.ContactCompanyInfo != null)
+                {
+                    oModel.ContactCompanyInfo.All(x =>
+                    {
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
+                        return true;
+                    });
+                } 
+                #endregion
+
+                //Get the Restrictive list info
+
+
+                //Get Follow info
+
+                //Get Finantial Basic info
+
+                //Get Engagement info
+
+                //Get HSEQ Info
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
@@ -255,14 +288,14 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
-
                 oModel.ContactCompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
-
+                
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
-
                 oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
+
                 if (oModel.ContactCompanyInfo != null)
                 {
                     oModel.ContactCompanyInfo.All(x =>

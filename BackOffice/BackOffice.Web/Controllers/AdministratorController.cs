@@ -480,10 +480,20 @@ namespace BackOffice.Web.Controllers
                             Enable = true,
                         });
                     }
+                    List<ProviderModel> oProviderResultList = new List<ProviderModel>();
+                    oProviderResultList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert));
 
+                    string blIds;
+                    oProviderResultList.All(x =>
+                    {
+                        blIds = string.Join(",",x.RelatedBlackList.Select(y => y.BlackListId.ToString()).FirstOrDefault());
+                        return true;
+                    });
+
+                    #region Set Provider Info
                     if (prv.BlackListStatus == "si")
                     {
-                        
+
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                         {
                             ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
@@ -499,7 +509,7 @@ namespace BackOffice.Web.Controllers
                     }
                     else
                     {
-                        
+
                         oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                         {
                             ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
@@ -513,9 +523,22 @@ namespace BackOffice.Web.Controllers
                             Enable = true,
                         });
                     }
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert);
+                    //Set large value With the items found
+                    oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                    .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.ListId)
+                                    .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ListId,
+                        },
+                        //LargeValue =
+                        Enable = true,
+                    });
+                    #endregion
+                    
                     ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
-
 
                     oPrvToProcessResult.Add(new ProviderExcelResultModel()
                     {

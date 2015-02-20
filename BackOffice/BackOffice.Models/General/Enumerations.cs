@@ -112,6 +112,7 @@
         CompanyLogo = 203005,
         ComercialName = 203007,
         Alert = 203008,
+        ListId = 203009,
     }
 
     /// <summary>
