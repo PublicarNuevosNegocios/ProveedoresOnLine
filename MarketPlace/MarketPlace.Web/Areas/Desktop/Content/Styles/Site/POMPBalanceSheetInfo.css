@@ -1,0 +1,70 @@
+
+.POMPFinancialBalanceGreatWrapper {
+    border: 1px solid #c5c5c5;
+    margin: 10px 0 0 8px;
+    width: calc(100% - 16px);
+}
+.POMPBalanceSheet_mainFilter {
+    border-bottom: 1px solid #c5c5c5;
+    background-color: #f9f9f9;
+    margin: 0px !important;
+    padding: 24px 0 0 15px;  
+    height:67px;
+}
+    .POMPBalanceSheet_mainFilter li{
+        display: inline-block;
+        height: auto;
+        vertical-align: top;
+        width: 37.5%;
+    }
+    .POMPBalanceSheet_mainFilter li:nth-child(3){
+        display: inline-block;
+        height: auto;
+        vertical-align: top;
+        width:auto;
+    }
+        .POMPBalanceSheet_mainFilter li label {
+            display: inline;
+            font-size: 0.9em;
+            font-weight: normal;
+            margin: -21px 0 0;
+            position: absolute;
+        }
+        .POMPBalanceSheet_mainFilter li span {
+            color: #4d4d4d;
+            font-size: 1.2em;
+        }
+        .POMPBalanceSheet_mainFilter li select {
+            display:inline-block;
+            color: #666;
+            font-size: 1.05em;
+            border:1px solid #727276;
+            width:66%;
+            background-color:#f9f9f9;
+        }
+        .POMPBalanceSheet_mainFilter li a {
+            border-radius:2px;
+        }
+/************** AQUI VAN LOS TABS DE INDICADORES Y BALANCEE **************/
+.POMPBalanceSheet_tabs {
+    margin:12px 0 0 9px;
+    padding:0px;
+    width:100%;
+}
+    .POMPBalanceSheet_tabs li{
+        background-color: #eeeeee;
+        border: 1px solid #727276;
+        border-top-right-radius: 7px;
+        display: inline-block;
+        padding: 5px 9px 1px 4px;
+    }
+        .POMPBalanceSheet_tabs li a{
+            display:inline-block;
+            border:1px solid green;
+            color:#333;
+        }
+.POMPBalanceSheet_tabs li.selected{
+    border-top-right-radius: 7px;
+    padding: 7px 6px 1px;
+    background-color:#b3b3b3;
+}

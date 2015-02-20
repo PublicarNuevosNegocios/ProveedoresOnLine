@@ -39,13 +39,15 @@
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Estados financieros</label>
 
-        <div>
-            <ul>
+        <div class="POMPFinancialBalanceGreatWrapper">
+            <ul class="POMPBalanceSheet_mainFilter">
                 <li>
+                    <label>Seleccionar el año y el tipo de moneda</label>
                     <span>Año</span>
                     <select id="BalanceSheet_Year">
                         @foreach (var bi in Model.RelatedFinancialInfo.Where(x => !string.IsNullOrEmpty(x.SH_Year)).OrderByDescending(x => x.SH_Year))
                         {
+                            <link href="~/Areas/Desktop/Content/Styles/Site/POMPProviderSearchLayout.css" rel="stylesheet" />
                             if (bi.SH_Year == oCurrentYear.ToString())
                             {
                                 <option selected="selected" value="@bi.SH_Year">@bi.SH_Year</option>
@@ -74,10 +76,10 @@
                     </select>
                 </li>
                 <li>
-                    <a href="javascript:Provider_FinancialObject.BalanceSheet_Search('@oViewName');">Consultar</a>
+                    <a class="POMPButtons" href="javascript:Provider_FinancialObject.BalanceSheet_Search('@oViewName');">Consultar</a>
                 </li>
             </ul>
-            <ul>
+            <ul class="POMPBalanceSheet_tabs">
                 <li class="@(oViewName == MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators ? "selected" : string.Empty)">
                     <a href="javascript:Provider_FinancialObject.BalanceSheet_Search('@MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators');">Indicadores financieros</a>
                 </li>

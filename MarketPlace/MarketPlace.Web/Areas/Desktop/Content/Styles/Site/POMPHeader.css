@@ -2,7 +2,7 @@
 .POMPHeaderWrapper {
     display:block;
     width: 100%;
-    min-width:1024px;
+    min-width:960px;
     height: auto;
     margin: 0px;
     text-align: left;
