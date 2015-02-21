@@ -131,7 +131,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.ContactCompanyInfo.All(x =>
                     {
-                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x, oCities, oModel.ProviderOptions));
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
                         return true;
                     });
                 } 

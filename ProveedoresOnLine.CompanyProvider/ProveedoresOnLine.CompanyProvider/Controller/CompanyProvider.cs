@@ -1043,6 +1043,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
             //get all provider balance
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBalanceBasicInfo = MPFinancialGetBasicInfo(CompanyPublicId, 501001);
+            if (oBalanceBasicInfo == null)
+                oBalanceBasicInfo = new List<GenericItemModel>();
+
             //get values by year
             List<Models.Provider.BalanceSheetModel> oBalanceAccountInfo =
                 DAL.Controller.CompanyProviderDataController.Instance.MPBalanceSheetGetByYear(CompanyPublicId, Year);
