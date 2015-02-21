@@ -18,22 +18,22 @@
     {
         <ul>
             <!--Render header-->
-            <li>
-                <span>Concepto</span>
+            <li class="POMPBalanceSheetFinanceIndex">
+                <span class="POMPBalanceSheetFinanceCellOne">Concepto</span>
                 @foreach (var oBalance in oBalanceToShow)
                 {
-                    <span>
+                    <span class="POMPBalanceSheetFinanceCellTwo">
                         Año @oBalance.SH_Year
                     </span>
                 }
-                <span>Unidad</span>
-                <span>Formula</span>
-                <span>Interpretación</span>
+                <span class="POMPBalanceSheetFinanceCellThree">Unidad</span>
+                <span class="POMPBalanceSheetFinanceCellFour">Formula</span>
+                <span class="POMPBalanceSheetFinanceCellFive">Interpretación</span>
             </li>
             <!--Render content-->
             @foreach (var oBalanceInfo in Model.RelatedBalanceSheetInfo)
             {
-                <li>
+                <li class="POMPBalanceSheetFinanceIndex">
                     @Html.Partial(MVC.Desktop.Shared.Views._P_FI_IndicatorsItem, oBalanceInfo)
                 </li>
             }
