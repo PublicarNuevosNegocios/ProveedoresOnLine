@@ -960,21 +960,22 @@ namespace BackOffice.Web.Controllers
                     },
                 };
 
-                //if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
-                //{
-                //    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
-                //    {
-                //        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
-                //        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //        {
-                //            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
-                //        },
-                //        Value = Request["CertificateAffiliateARL"],
-                //        Enable = true,
-                //    };
+                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
+                {
+                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
+                    {
+                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                        },
+                        Value = Request["CertificateAffiliateARL"],
+                        Enable = true,
+                    };
 
-                //    RelatedARL.ItemInfo.Add(oGenericItem);
-                //}
+                    RelatedARL.ItemInfo.Add(oGenericItem);
+                }
+
                 //Validación del archivo cuando viene desocupado en el formulario
                 if (RelatedARL.ItemInfo != null && RelatedARL.ItemInfo.Count() > 0)
                 {

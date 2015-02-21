@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebCrawler.Manager.General;
 
@@ -19,8 +20,77 @@ namespace WebCrawler.Manager.CrawlerInfo
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
             {
                 HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
-                HtmlNodeCollection rowsTable1 = table[0].SelectNodes(".//tr");
+                HtmlNodeCollection rowsTable1 = table[0].SelectNodes(".//tr");//CompanyRiskPolicies Form
 
+                ProveedoresOnLine.Company.Models.Util.GenericItemModel oCompanyCompanyRiskPoliciesInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                {
+                    ItemId = 0,
+                    ItemName = string.Empty,
+                    ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = (int)enumHSEQType.CompanyRiskPolicies,
+                    },
+                    Enable = true,
+                    ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                };
+
+                if (rowsTable1 != null)
+                {
+                    foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='en_arp']"))
+                    {
+                        string[] optionList = node.InnerHtml.Split(new char[] { '<' });
+                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+                        option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
+
+                        option = option.Normalize(NormalizationForm.FormD);
+                        Regex reg = new Regex("[^a-zA-Z0-9 ]");
+                        option = reg.Replace(option.Replace(" ", ""), "");
+
+                        //Remove id
+                        option = Regex.Replace(option, @"[\d-]", string.Empty);
+
+                        //Get ARL company
+                        ProveedoresOnLine.Company.Models.Util.GenericItemModel oCompanyCertification = Util.CompanyARL_GetByName(option);
+
+                        oCompanyCompanyRiskPoliciesInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards,
+                            },
+                            Value = oCompanyCertification.ItemName,
+                            Enable = true,
+                        });
+                    }
+
+                    foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='valor_arp']"))
+                    {
+                        string[] optionList = node.InnerHtml.Split(new char[] { '<' });
+                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+                        option = option.Replace("option", "").Replace("value", "").Replace("selected", ",");
+
+                        string[] opt = option.Split(new char[] { ',' });
+
+                        option = opt[1].Normalize(NormalizationForm.FormD);
+                        Regex reg = new Regex("[^a-zA-Z0-9 ]");
+                        option = reg.Replace(option.Replace(" ", ""), "");
+
+                        //Get Rate arl
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oRateARL = Util.ProviderOptions_GetByName(212, option);
+
+                        oCompanyCompanyRiskPoliciesInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_RateARL,
+                            },
+                            Value = oRateARL.ItemId.ToString(),
+                            Enable = true,
+                        });
+                    }
+                }
 
                 HtmlNodeCollection rowsTable2 = table[1].SelectNodes(".//tr"); //CompanyHealtyPolitic - CertificatesAccident
 
@@ -68,7 +138,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
-                        if (cols[6].InnerHtml.Contains("href"))
+                        if (cols[6].InnerHtml.Contains("href") && cols[6].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -92,7 +162,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[7].InnerHtml.Contains("href"))
+                        if (cols[7].InnerHtml.Contains("href") && cols[7].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -116,7 +186,31 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[9].InnerHtml.Contains("href"))
+                        if (cols[8].InnerHtml.Contains("href") && cols[8].InnerHtml.Contains(".pdf"))
+                        {
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
+
+                            if (cols[8].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
+                            {
+                                urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
+
+                            oCompanyCompanyRiskPoliciesInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
+                        }
+
+                        if (cols[9].InnerHtml.Contains("href") && cols[9].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -140,7 +234,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[10].InnerHtml.Contains("href"))
+                        if (cols[10].InnerHtml.Contains("href") && cols[10].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -164,7 +258,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[11].InnerHtml.Contains("href"))
+                        if (cols[11].InnerHtml.Contains("href") && cols[11].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -188,7 +282,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[12].InnerHtml.Contains("href"))
+                        if (cols[12].InnerHtml.Contains("href") && cols[12].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -212,7 +306,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[12].InnerHtml.Contains("href"))
+                        if (cols[12].InnerHtml.Contains("href") && cols[12].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -236,7 +330,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[14].InnerHtml.Contains("href"))
+                        if (cols[14].InnerHtml.Contains("href") && cols[14].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -260,7 +354,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (cols[16].InnerHtml.Contains("href"))
+                        if (cols[16].InnerHtml.Contains("href") && cols[16].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -295,7 +389,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
-                        if (cols[15].InnerHtml.Contains("href"))
+                        if (cols[15].InnerHtml.Contains("href") && cols[15].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -380,14 +474,19 @@ namespace WebCrawler.Manager.CrawlerInfo
                             oHSEQInfo.Add(oCertificationInfo);
                         }
 
+                        //Add Certification Accident Info
                         if (oCertificationAccidentInfo.ItemInfo.Count > 0)
                         {
                             oHSEQInfo.Add(oCertificationAccidentInfo);
                         }
                     }
                 }
+                //Add Company Company Risk Policies Info
+                if (oCompanyCompanyRiskPoliciesInfo.ItemInfo.Count > 0)
+                {
+                    oHSEQInfo.Add(oCompanyCompanyRiskPoliciesInfo);
+                }
             }
-
             return oHSEQInfo;
         }
     }

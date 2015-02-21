@@ -74,7 +74,7 @@ namespace WebCrawler.Manager
                 }
                 else if (item.ToString() == enumMenu.Experience.ToString())
                 {
-                    oProvider.RelatedCommercial = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                    oProvider.RelatedCommercial = WebCrawler.Manager.CrawlerInfo.ExperiencesInfo.GetExperiencesInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
             }
 

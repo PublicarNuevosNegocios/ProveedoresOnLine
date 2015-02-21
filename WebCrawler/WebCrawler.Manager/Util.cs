@@ -85,7 +85,7 @@ namespace WebCrawler.Manager
 
             string[] oSearchParam = SearchParam.Split(new char[] { '_' });
 
-            SearchParam = oSearchParam[1].Normalize(NormalizationForm.FormD);
+            SearchParam = oSearchParam[1].ToString();
             Regex reg = new Regex("[^a-zA-Z0-9 ]");
             SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
 
@@ -104,7 +104,7 @@ namespace WebCrawler.Manager
             if (oReturn == null)
             {
                 //get default bank info
-                oReturn = BankValues.Where(x => x.ItemId == 1).FirstOrDefault();
+                oReturn = BankValues.FirstOrDefault();
             }
 
             return oReturn;
@@ -156,6 +156,53 @@ namespace WebCrawler.Manager
             {
                 //Get default value
                 oReturn = ICAValues.Where(x => x.ItemId == 1).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
+        #region ARL Company
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oARLCompany;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ARLCompany
+        {
+            get
+            {
+                if (oARLCompany == null)
+                {
+                    oARLCompany = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany
+                        (null, 0, 1000000);
+                }
+                return oARLCompany;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel CompanyARL_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = null;
+
+            SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
+            Regex reg = new Regex("[^a-zA-Z0-9]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oReturn == null)
+            {
+                //exact search
+                oReturn = ARLCompany.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //Like search
+                oReturn = ARLCompany.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //Get default value
+                oReturn = ARLCompany.FirstOrDefault();
             }
 
             return oReturn;
@@ -278,6 +325,27 @@ namespace WebCrawler.Manager
         {
             ProveedoresOnLine.Company.Models.Util.CatalogModel oReturn = null;
 
+            if (CatalogId == 212)
+            {
+                if (oReturn == null)
+                {
+                    //Exact search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && x.ItemName == SearchParam).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //like search
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && x.ItemName.Contains(SearchParam)).FirstOrDefault();
+                }
+
+                if (oReturn == null)
+                {
+                    //get default value
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId).FirstOrDefault();
+                }
+            }
+
             SearchParam = SearchParam.Normalize(NormalizationForm.FormD);
             Regex reg = new Regex("[^a-zA-Z0-9 ]");
             SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
@@ -293,7 +361,7 @@ namespace WebCrawler.Manager
                     oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == "pasaporte").FirstOrDefault();
                 }
             }
-            
+
             if (CatalogId == 210)
             {
                 if (SearchParam == "comercialylegal")
@@ -308,7 +376,7 @@ namespace WebCrawler.Manager
                 if (oReturn == null)
                 {
                     //exact search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();   
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
                 }
 
                 if (oReturn == null)
@@ -335,7 +403,7 @@ namespace WebCrawler.Manager
                 if (oReturn == null)
                 {
                     //like search
-                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+                    oReturn = ProviderOptions.Where(x => x.CatalogId == CatalogId && reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
                 }
 
                 if (oReturn == null)
