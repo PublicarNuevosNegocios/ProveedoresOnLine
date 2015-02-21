@@ -39,6 +39,9 @@
     <Reference Include="ProveedoresOnLine.CompanyProvider">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CompareModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompareModule\developer\ProveedoresOnLine.CompareModule.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -57,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Company\CompanyUtil.cs" />
+    <Compile Include="Compare\CompareViewModel.cs" />
     <Compile Include="General\AreaModel.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\Enumerations.cs" />

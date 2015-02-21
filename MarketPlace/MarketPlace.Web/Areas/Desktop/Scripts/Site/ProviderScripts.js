@@ -11,6 +11,7 @@ var Provider_SearchObject = {
 
     ObjectId: '',
     SearchUrl: '',
+    CompareId: '',
     SearchParam: '',
     SearchFilter: '',
     SearchOrderType: '',
@@ -21,6 +22,7 @@ var Provider_SearchObject = {
 
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
+        this.CompareId = vInitObject.CompareId;
         this.SearchParam = vInitObject.SearchParam;
         this.SearchFilter = vInitObject.SearchFilter;
         this.SearchOrderType = vInitObject.SearchOrderType;
@@ -89,7 +91,8 @@ var Provider_SearchObject = {
 
         var oUrl = this.SearchUrl;
 
-        oUrl += '?SearchParam=' + this.SearchParam;
+        oUrl += '?CompareId=' + this.CompareId;
+        oUrl += '&SearchParam=' + this.SearchParam;
         oUrl += '&SearchFilter=' + this.SearchFilter;
         oUrl += '&SearchOrderType=' + this.SearchOrderType;
         oUrl += '&OrderOrientation=' + this.OrderOrientation;
@@ -98,6 +101,35 @@ var Provider_SearchObject = {
         return oUrl;
     },
 
+    ShowCompareCreate: function (vProviderPublicId) {
+
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog({
+            buttons: {
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                },
+                "Guardar": function () {
+
+                    var oCompareName = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip_Name').val();
+
+                    if (oCompareName != null && oCompareName != null && oCompareName != '') {
+                        //create new compare
+
+
+                        //Provider_SearchObject.OpenCompare();
+
+                        //alert($('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip_Name').val());
+
+                        $(this).dialog("close");
+                    }
+                }
+            }
+        });
+    },
+
+    OpenCompare: function(vCompareId){
+
+    }
 };
 
 var Provider_FinancialObject = {

@@ -99,11 +99,12 @@ namespace ProveedoresOnLine.CompareModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public CompareModel CompareGetCompanyBasicInfo(int CompareId)
+        public CompareModel CompareGetCompanyBasicInfo(int CompareId, string User)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompareId", CompareId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

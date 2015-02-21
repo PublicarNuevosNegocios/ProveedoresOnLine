@@ -11,9 +11,8 @@
             <img class="SelGenericTooltip POMPSearchResultStatusCertified" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
         }
     </div>
-    <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
-
-    <div class="POMPSearchResultProvDataWrapper">
+    @if (Model.IsProviderCustomer)
+    {
         <a href="@(Url.RouteUrl
                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                     new
@@ -21,8 +20,30 @@
                         controller = MVC.Provider.Name,
                         action = MVC.Provider.ActionNames.GIProviderInfo,
                         ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-            @Model.RelatedProvider.RelatedCompany.CompanyName
+            <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
         </a>
+    }
+    else
+    {
+        <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
+    }
+    <div class="POMPSearchResultProvDataWrapper">
+        @if (Model.IsProviderCustomer)
+        {
+            <a href="@(Url.RouteUrl
+                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Provider.Name,
+                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
+                @Model.RelatedProvider.RelatedCompany.CompanyName
+            </a>
+        }
+        else
+        {
+            <label><span>@Model.RelatedProvider.RelatedCompany.CompanyName</span></label>
+        }
         <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
     </div>
     <div>
@@ -46,21 +67,26 @@
     <div class="POMPSearchResultProvRating">
         @if (Model.ProviderRate != null)
         {
-            <!--<div>@Model.ProviderRate</div>-->
-        }
-    </div>
-    <!--Actions for related provider -->
-    <div class="POMPSearchResultProvActions">
+            !--<div>@Model.Pro
+            viderRate</div>-->
+                }
+            </div>
+    <!--Act
+        </div>
+    <
+        !--Actions for related provider -->
+        <
+        <div class="POMPSearchResultProvActions">
 
-        @if (!Model.IsProviderCustomer)
-        {
+            @if (!Model.IsProviderCustomer)
+            {
             <!--Actions for not related provider -->
-            <a href="" title="">Hacerlo mi proveedor</a>
-        }
-        else
-        {
-            <a href="" title="">Agregar a comparación</a>
-            <a href="@(Url.RouteUrl
+                <a href="" title="">Hacerlo mi proveedor</a>
+            }
+            else
+            {
+                <a href="" title="">Agregar a comparación</a>
+                <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
                         {
@@ -68,19 +94,9 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">Ver detalle</a>
-        }
+            }
+        </div>
     </div>
-</div>
-
-
-
-
-
-
-
-
-
-
 
 
 

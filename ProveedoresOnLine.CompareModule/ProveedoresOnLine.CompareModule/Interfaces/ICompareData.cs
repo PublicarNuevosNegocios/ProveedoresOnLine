@@ -14,6 +14,6 @@ namespace ProveedoresOnLine.CompareModule.Interfaces
 
         List<ProveedoresOnLine.CompareModule.Models.CompareModel> CompareSearch(string SearchParam, string User, int PageNumber, int RowCount, out int TotalRows);
 
-        ProveedoresOnLine.CompareModule.Models.CompareModel CompareGetCompanyBasicInfo(int CompareId);
+        ProveedoresOnLine.CompareModule.Models.CompareModel CompareGetCompanyBasicInfo(int CompareId, string User);
     }
 }

@@ -16,6 +16,8 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> ProviderFilterResult { get; set; }
 
+        public int? CompareId { get; set; }
+
         public string SearchParam { get; set; }
 
         public string SearchFilter { get; set; }
