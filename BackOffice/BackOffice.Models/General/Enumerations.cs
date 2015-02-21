@@ -322,14 +322,7 @@
         CA_NumberAccidentDisabling = 705005,
         CA_DaysIncapacity = 705006,
         CA_CertificateAccidentARL = 705007,
-
-        //CR_Year = 704005,
-        //CR_ManHoursWorked = 704006,
-        //CR_Fatalities = 704007,
-        //CR_NumberAccident = 704008,
-        //CR_NumberAccidentDisabling = 704009,
-        //CR_DaysIncapacity = 704010,
-        //CR_CertificateAccidentARL = 704004,
+        CA_LTIFResult = 705008,
     }
 
     #endregion

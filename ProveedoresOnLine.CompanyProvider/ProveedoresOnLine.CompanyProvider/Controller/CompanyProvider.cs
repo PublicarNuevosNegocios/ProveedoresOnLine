@@ -181,6 +181,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                         CertificationInfoUpsert(pcert);
 
+                        GenericItemModel oLTIFResult = new GenericItemModel();
+                        oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
+
+                        CertificationInfoUpsert(oLTIFResult);
+
                         oLog.IsSuccess = true;
                     }
                     catch (Exception err)
@@ -216,7 +221,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             if (CertificationToUpsert.ItemId > 0 &&
                 CertificationToUpsert.ItemInfo != null &&
                 CertificationToUpsert.ItemInfo.Count > 0)
-            {
+            {                              
                 CertificationToUpsert.ItemInfo.All(certinf =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
@@ -254,6 +259,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                     return true;
                 });
+
             }
 
             return CertificationToUpsert;
@@ -263,6 +269,64 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.CertificationGetBasicInfo(CompanyPublicId, CertificationType, Enable);
         }
+
+        #region Private HSEQ Functions
+
+        private static ProveedoresOnLine.Company.Models.Util.GenericItemModel GetLTIFValue(string ProviderPublicId, ProveedoresOnLine.Company.Models.Util.GenericItemModel oHSEQModel)
+        {
+            //Get the CertificationsInfo
+            List<GenericItemModel> oCertificatesResult = new List<GenericItemModel>();
+            oCertificatesResult = CertficationGetBasicInfo(ProviderPublicId, 701004, true);
+
+            if (oCertificatesResult != null)
+            {
+                decimal actualManWorkersHours = 0;
+                List<int> actualManWorkersHoursId = new List<int>();
+                decimal actualFatalities = 0;
+                List<int> actualFatalitiesId = new List<int>();
+                decimal actualDaysIncapacity = 0;
+                List<int> actualDaysIncapacityId = new List<int>();
+                int LTIFResultId = 0;
+                string LTIFResult = "0";
+
+                string Years = "";
+
+                oCertificatesResult.All(x =>
+                {
+                    actualManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ? 
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
+                    actualFatalities += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
+                    actualDaysIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705006).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705006).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
+
+                    LTIFResultId = x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705008).Select(y => y.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() != 0 ? 
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705008).Select(y => y.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault(): 0;                    
+                    return true;
+                });
+
+                if (actualManWorkersHours != 0)
+                    LTIFResult = (((actualFatalities + actualDaysIncapacity) / actualManWorkersHours) * 1000000).ToString();
+
+                GenericItemModel oltifModel = new GenericItemModel();
+                oltifModel.ItemInfo = new List<GenericItemInfoModel>();
+
+                oltifModel.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                {
+                    ItemInfoId = LTIFResultId,
+                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = 705008
+                    },
+                    Value = LTIFResult,
+                    Enable = true,
+                });
+            }
+
+            return null;
+        }
+
+        #endregion
 
         #endregion
 

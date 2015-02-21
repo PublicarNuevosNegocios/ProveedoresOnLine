@@ -924,7 +924,7 @@ namespace BackOffice.Web.Controllers
                         ItemId = Convert.ToInt32(enumHSEQType.CompanyRiskPolicies),
                     },
                     ItemName = Request["RiskPoliciesName"],
-                    Enable = Request["Enable"] == "true" ? true : false,
+                    Enable = true,
                     ItemInfo = new List<GenericItemInfoModel>
                     {
                         new GenericItemInfoModel()
