@@ -219,3 +219,29 @@
                     background-color:#eeeeee;
                     vertical-align:top;
                 }
+/********** EN ESTE LADITO SE PINTA INDICADORES FINANCIEROS ***********/
+.POMPBalanceSheetFinanceIndex {
+    margin:12px 0px 0px 0px;
+    text-align:center;
+}
+    .POMPBalanceSheetFinanceIndex span{
+        border:1px solid pink;
+        font-size:0.9em;
+        padding:0px 5px;
+        display:inline-block;
+    }
+        .POMPBalanceSheetFinanceCellOne{
+            width:21%;
+        }
+        .POMPBalanceSheetFinanceCellTwo{
+            width:11%;
+        }
+        .POMPBalanceSheetFinanceCellThree{
+            width:8%;
+        }
+        .POMPBalanceSheetFinanceCellFour{
+            width:23%;
+        }
+        .POMPBalanceSheetFinanceCellFive{
+            width:23%;
+        }

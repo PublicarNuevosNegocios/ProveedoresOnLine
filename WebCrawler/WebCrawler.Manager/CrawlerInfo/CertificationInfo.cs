@@ -99,12 +99,12 @@ namespace WebCrawler.Manager.CrawlerInfo
                         {
                             ItemId = (int)enumHSEQInfoType.C_CCS,
                         },
-                        Value = cols[4].InnerText.ToString(),
+                        Value = cols[4].InnerText.ToString() != "&nbsp;" ? cols[4].InnerText.ToString() : string.Empty,
                         Enable = true,
                     });
 
                     string urlS3 = string.Empty;
-                    if (cols[8].InnerHtml.Contains("href"))
+                    if (cols[8].InnerHtml.Contains("href") && cols[8].InnerHtml.Contains(".pdf"))
                     {
                         string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
 
@@ -134,11 +134,11 @@ namespace WebCrawler.Manager.CrawlerInfo
                         {
                             ItemId = (int)enumHSEQInfoType.C_Scope,
                         },
-                        LargeValue = cols[7].InnerText.ToString(),
+                        LargeValue = cols[7].InnerText.ToString() != "&nbsp;" ? cols[7].InnerText.ToString() : string.Empty,
                         Enable = true,
                     });
 
-                    if (oCertificationsInfo != null)
+                    if (oCertificationsInfo.ItemInfo != null && oCertificationsInfo.ItemInfo.Count > 0)
                     {
                         oCertifications.Add(oCertificationsInfo);
                     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebCrawler.Manager.General;
+using System.Text.RegularExpressions;
 
 namespace WebCrawler.Manager.CrawlerInfo
 {
@@ -20,6 +21,183 @@ namespace WebCrawler.Manager.CrawlerInfo
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
             {
                 HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
+
+                HtmlNodeCollection rowsTable0 = table[0].SelectNodes(".//tr");//Cámara de Comercio
+
+                #region ChaimberOfCommerce
+
+                if (table[0].SelectNodes(".//input") != null)
+                {
+                    ProveedoresOnLine.Company.Models.Util.GenericItemModel oChaimberOfCommerce = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                    {
+                        ItemId = 0,
+                        ItemName = string.Empty,
+                        ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumLegalType.ChaimberOfCommerce,
+                        },
+                        Enable = true,
+                        ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                    };
+
+                    Console.WriteLine("\nChaimber of Commerce\n");
+
+                    foreach (HtmlNode node in table[0].SelectNodes(".//input"))
+                    {
+                        HtmlAttribute AttId = node.Attributes["name"];
+                        HtmlAttribute AttValue = node.Attributes["value"];
+
+                        if (AttId.Value == "fe_constitu")
+                        {
+                            oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionDate,
+                                },
+                                Value = AttValue.Value != string.Empty ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Enable = true,
+                            });
+                        }
+                        else if (AttId.Value == "fe_vigencia")
+                        {
+                            oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate,
+                                },
+                                Value = AttValue.Value != string.Empty ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Enable = true,
+                            });
+                        }
+                        else if (AttId.Value == "Indefinido")
+                        {
+                            oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_UndefinedDate,
+                                },
+                                Value = "1",
+                                Enable = true,
+                            });
+                        }
+                        else if (AttId.Value == "numero_matricula")
+                        {
+                            oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_InscriptionNumber,
+                                },
+                                Value = AttValue.Value.ToString(),
+                                Enable = true,
+                            });
+                        }
+                        else if (AttId.Value == "fecha_expedicion_c")
+                        {
+                            oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate,
+                                },
+                                Value = AttValue.Value != string.Empty ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Enable = true,
+                            });
+                        }
+                    }
+
+                    foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='ciuadad_certificado']"))
+                    {
+
+                        string[] optionList = node.InnerHtml.Split(new char[] { '<' });
+                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+                        option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
+
+                        option = option.Replace("D.C", "");
+
+                        option = option.Normalize(NormalizationForm.FormD);
+                        Regex reg = new Regex("[^a-zA-Z0-9 ]");
+                        option = reg.Replace(option.Replace(" ", ""), "");
+
+                        //Remove ica code
+                        option = Regex.Replace(option, @"[\d-]", string.Empty);
+
+                        //Get city
+                        ProveedoresOnLine.Company.Models.Util.GeographyModel oGetCity = Util.Geography_GetByName(option);
+
+                        oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumLegalInfoType.CP_InscriptionCity,
+                            },
+                            Value = oGetCity.City.ItemId.ToString(),
+                            Enable = true,
+                        });
+                    }
+
+                    foreach (HtmlNode node in table[0].SelectNodes(".//a"))
+                    {
+                        if (node.Attributes["href"].Value.Contains(".pdf"))
+                        {
+                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                            string urlS3 = string.Empty;
+
+                            if (node.Attributes["href"].Value.Contains("../"))
+                            {
+                                urlDownload = node.Attributes["href"].Value.Replace("..", urlDownload);
+                            }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.ChaimberOfCommerce.ToString(), PublicId);
+
+                            oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumLegalInfoType.CP_ExistenceAndLegalPersonCertificate,
+                                },
+                                Value = urlS3,
+                                Enable = true,
+                            });
+                        }
+                    }
+
+                    foreach (HtmlNode node in table[0].SelectNodes(".//textarea"))
+                    {                        
+                        oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumLegalInfoType.CP_SocialObject,
+                            },
+                            Value = node.InnerText != "&nbsp" ? node.InnerText.ToString() : string.Empty,
+                            Enable = true,
+                        });
+                    }
+
+                    if (oChaimberOfCommerce.ItemInfo != null && oChaimberOfCommerce.ItemInfo.Count > 0)
+                    {
+                        oLegal.Add(oChaimberOfCommerce);
+                    }
+
+                    if (oChaimberOfCommerce.ItemInfo.Count == 0)
+                    {
+                        Console.WriteLine("\nChaimber of Commerce no tiene datos disponibles.\n");
+                    }
+                }
+
+                #endregion
 
                 HtmlNodeCollection rowsTable1 = table[1].SelectNodes(".//tr"); //Socios
 
@@ -68,7 +246,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Value = cols[1].InnerText.ToString() != "&nbsp;" ? cols[1].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
-                                                
+
                         //Get partner rank info
                         ProveedoresOnLine.Company.Models.Util.CatalogModel oPartnerRankInfo = Util.ProviderOptions_GetByName(219, cols[2].InnerText.ToString());
 
@@ -122,7 +300,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                             ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                         };
-                        
+
                         //get RUT person type
                         ProveedoresOnLine.Company.Models.Util.CatalogModel oPersonType = Util.ProviderOptions_GetByName(213, cols[0].InnerText.ToString());
 
@@ -155,7 +333,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributorReceipt,
                             },
-                            Value = cols[2].InnerText.ToString(),
+                            Value = cols[2].InnerText.ToString() != "&nbsp;" ? cols[2].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -474,7 +652,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CF_ResultQuery,
                             },
-                            Value = cols[1].InnerText.ToString(),
+                            Value = cols[1].InnerText.ToString() != "&nbsp;" ? cols[1].InnerText.ToString() : string.Empty,
                             Enable = true,
                         });
 
