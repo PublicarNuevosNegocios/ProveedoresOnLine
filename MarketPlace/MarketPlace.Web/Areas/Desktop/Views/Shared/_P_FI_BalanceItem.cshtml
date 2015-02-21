@@ -26,34 +26,34 @@
     {
         <!--formula field-->
         <div>
-            <span>@Model.RelatedAccount.ItemName</span>
+            <span class="POMPBalanceSheetColumnDataFour">@Model.RelatedAccount.ItemName</span>
             @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
             {
-                <span>
+                <span class="">
                     @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##")
                 </span>
-                <span>
+                <span class="">
                     @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
                 </span>
             }
-            <span>
+            <span class="">
                 @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##"))
             </span>
         </div>
     }
     else
     {
-        <span>@Model.RelatedAccount.ItemName</span>
+        <span class="POMPBalanceSheetColumnDataOne">@Model.RelatedAccount.ItemName</span>
         foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
         {
-            <span>
+            <span class="POMPBalanceSheetColumnDataTwo">
                 @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##")
             </span>
-            <span>
-                @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
-            </span>
+    <span class="POMPBalanceSheetColumnDataThree">
+        @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
+    </span>
         }
-        <span>
+        <span class="POMPBalanceSheetColumnDataFour">
             @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##"))
         </span>
     }

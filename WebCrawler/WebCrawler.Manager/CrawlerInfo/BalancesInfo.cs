@@ -116,7 +116,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
-                        if (cols[5].InnerHtml.Contains("href"))
+                        if (cols[5].InnerHtml.Contains("href") && cols[5].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
@@ -276,7 +276,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
-                        if (cols[8].InnerHtml.Contains("href"))
+                        if (cols[8].InnerHtml.Contains("href") && cols[8].InnerHtml.Contains(".pdf"))
                         {
                             string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
                             string urlS3 = string.Empty;
