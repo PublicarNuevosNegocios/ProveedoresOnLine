@@ -33,7 +33,7 @@
             <!--Render content-->
             @foreach (var oBalanceInfo in Model.RelatedBalanceSheetInfo)
             {
-                <li class="POMPBalanceSheetFinanceIndex">
+                <li class="POMPBalanceSheetFinanceIndexData">
                     @Html.Partial(MVC.Desktop.Shared.Views._P_FI_IndicatorsItem, oBalanceInfo)
                 </li>
             }
