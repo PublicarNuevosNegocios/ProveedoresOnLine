@@ -68,20 +68,20 @@
         @if (Model.ProviderRate != null)
         {
             @*<div>@Model.ProviderRate</div>*@
-        }
-    </div>
+                }
+            </div>
     <!--Actions for related provider -->
-    <div class="POMPSearchResultProvActions">
+        <div class="POMPSearchResultProvActions">
 
-        @if (!Model.IsProviderCustomer)
-        {
+            @if (!Model.IsProviderCustomer)
+            {
             <!--Actions for not related provider -->
-            <a href="" title="">Hacerlo mi proveedor</a>
-        }
-        else
-        {
+                <a href="" title="">Hacerlo mi proveedor</a>
+            }
+            else
+            {
             <a href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
-            <a href="@(Url.RouteUrl
+                <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
                         {
@@ -89,9 +89,9 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">Ver detalle</a>
-        }
+            }
+        </div>
     </div>
-</div>
 
 
 
