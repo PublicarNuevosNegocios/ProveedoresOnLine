@@ -183,7 +183,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                         GenericItemModel oLTIFResult = new GenericItemModel();
                         oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
-
+                        oLTIFResult.ItemId = pcert.ItemId;
                         CertificationInfoUpsert(oLTIFResult);
 
                         oLog.IsSuccess = true;
@@ -284,10 +284,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 List<int> actualManWorkersHoursId = new List<int>();
                 decimal actualFatalities = 0;
                 List<int> actualFatalitiesId = new List<int>();
-                decimal actualDaysIncapacity = 0;
+                decimal actualIncapacity = 0;
                 List<int> actualDaysIncapacityId = new List<int>();
                 int LTIFResultId = 0;
-                string LTIFResult = "0";
+                decimal LTIFResult = 0;
 
                 string Years = "";
 
@@ -297,8 +297,8 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                                     x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
                     actualFatalities += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
                                     x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
-                    actualDaysIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705006).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705006).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
+                    actualIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
 
                     LTIFResultId = x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705008).Select(y => y.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() != 0 ? 
                                     x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705008).Select(y => y.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault(): 0;                    
@@ -306,7 +306,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 });
 
                 if (actualManWorkersHours != 0)
-                    LTIFResult = (((actualFatalities + actualDaysIncapacity) / actualManWorkersHours) * 1000000).ToString();
+                    LTIFResult = (((actualFatalities + actualIncapacity) / actualManWorkersHours) * 1000000);
 
                 GenericItemModel oltifModel = new GenericItemModel();
                 oltifModel.ItemInfo = new List<GenericItemInfoModel>();
@@ -318,9 +318,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                     {
                         ItemId = 705008
                     },
-                    Value = LTIFResult,
+                    Value = LTIFResult.ToString(),
                     Enable = true,
                 });
+
+                return oltifModel;
             }
 
             return null;
