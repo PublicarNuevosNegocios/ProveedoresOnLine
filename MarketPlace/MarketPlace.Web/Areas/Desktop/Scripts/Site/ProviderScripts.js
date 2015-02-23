@@ -101,35 +101,69 @@ var Provider_SearchObject = {
         return oUrl;
     },
 
+    /*****************************Compare methods************************************************/
+
+    OpenCompare: function (vCompareId) {
+
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/CompareApi?CMCompareGet=true&CompareId=' + vCompareId,
+            dataType: 'json',
+            success: function (result) {
+                if (result != null) {
+                    
+                }
+            },
+            error: function (result) {
+            }
+        });
+    },
+
     ShowCompareCreate: function (vProviderPublicId) {
 
         $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog({
             buttons: {
-                "Cancelar": function () {
-                    $(this).dialog("close");
+                'Cancelar': function () {
+                    $(this).dialog('close');
                 },
-                "Guardar": function () {
+                'Guardar': function () {
 
                     var oCompareName = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip_Name').val();
 
-                    if (oCompareName != null && oCompareName != null && oCompareName != '') {
+                    if (oCompareName != null && oCompareName.replace(/ /gi, '') != '') {
+
                         //create new compare
-
-
-                        //Provider_SearchObject.OpenCompare();
-
-                        //alert($('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip_Name').val());
-
-                        $(this).dialog("close");
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CompareApi?CMCompareUpsert=true&CompareId=&CompareName=' + oCompareName + '&ProviderPublicId=' + vProviderPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result != null) {
+                                    Provider_SearchObject.OpenCompare(result);
+                                }
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog('close');
+                            },
+                            error: function (result) {
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog('close');
+                            }
+                        });
                     }
                 }
             }
         });
     },
 
-    OpenCompare: function(vCompareId){
+    ShowSearchCompare: function () {
 
-    }
+    },
+
+    UpdateCompare: function (vCompareId, vCompareName) {
+
+    },
+
+    AddCompareProvider: function (vCompareId, vProviderPublicId) {
+
+    },
+
+    /*****************************Compare methods end************************************************/
 };
 
 var Provider_FinancialObject = {
