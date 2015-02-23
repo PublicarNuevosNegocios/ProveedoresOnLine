@@ -93,9 +93,9 @@ namespace ProveedoresOnLine.CompareModule.Controller
             return CompareToUpsert;
         }
 
-        public static CompareModel CompareGetCompanyBasicInfo(int CompareId, string User)
+        public static CompareModel CompareGetCompanyBasicInfo(int CompareId, string User, string CustomerPublicId)
         {
-            return DAL.Controller.CompareDataController.Instance.CompareGetCompanyBasicInfo(CompareId, User);
+            return DAL.Controller.CompareDataController.Instance.CompareGetCompanyBasicInfo(CompareId, User, CustomerPublicId);
         }
 
         public static List<CompareModel> CompareSearch(string SearchParam, string User, int PageNumber, int RowCount, out int TotalRows)

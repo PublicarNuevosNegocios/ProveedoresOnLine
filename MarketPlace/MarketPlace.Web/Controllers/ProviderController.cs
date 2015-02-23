@@ -39,7 +39,6 @@ namespace MarketPlace.Web.Controllers
                 oModel = new Models.Provider.ProviderSearchViewModel()
                 {
                     ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
-                    CompareId = string.IsNullOrEmpty(CompareId) ? null : (int?)Convert.ToInt32(CompareId.Trim()),
                     SearchParam = SearchParam,
                     SearchFilter = SearchFilter == null ? null : (SearchFilter.Trim(new char[] { ',' }).Length > 0 ? SearchFilter.Trim(new char[] { ',' }) : null),
                     SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSearchOrderType.Relevance : (MarketPlace.Models.General.enumSearchOrderType)Convert.ToInt32(SearchOrderType),
@@ -79,6 +78,18 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
 
+                }
+
+                if (!string.IsNullOrEmpty(CompareId))
+                {
+                    //get current compare 
+                    ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
+                        CompareGetCompanyBasicInfo
+                        (Convert.ToInt32(CompareId.Replace(" ", "")),
+                        MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+                    oModel.RelatedCompare = new Models.Compare.CompareViewModel(oCompareResult);
                 }
             }
 

@@ -18,6 +18,8 @@ namespace MarketPlace.Models.Compare
 
         public string CompareName { get { return RelatedCompare.CompareName; } }
 
+        public string LastModify { get { return RelatedCompare.LastModify.ToString("yyyy-MM-dd"); } }
+
         public CompareViewModel(ProveedoresOnLine.CompareModule.Models.CompareModel oRelatedCompare)
         {
             RelatedCompare = oRelatedCompare;

@@ -2,14 +2,66 @@
 
 @if (!Model.RenderScripts)
 {
+    <div>
+        <!--Comparison actions-->
+        <span class="POMPComparisonTitle">Análisis de Competencias</span>
+        <div class="POMPComparisonActionWrapper">
+            <a href="javascript:Provider_SearchObject.ShowCompareCreate('');" title="Crear selección">
+                <div class="POMPComparisonActionOpen"></div>
+                <span>Nuevo</span>
+            </a>
+            <a href="javascript:Provider_SearchObject.ShowSearchCompare();" title="Abrir selección">
+                <div class="POMPComparisonActionOpen"></div>
+                <span>Abrir</span>
+            </a>
+            <a href="" title="Comparar" id="Search_Compare_ActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+                <div class="POMPComparisonActionCompare"></div>
+                <span>Comparar</span>
+            </a>
+        </div>
+        <!--Compare title-->
+        <input type="text" id="Search_Compare_CompareName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedCompare == null ? string.Empty: Model.RelatedCompare.CompareName)" style="display: @(Model.RelatedCompare == null ? "none" : "");" />
+        <!--Compare Providers-->
+        <ul id="Search_Compare_ItemContainer" class="POMPComparisonProvListWrapper">
+            @if (Model.RelatedCompare != null && Model.RelatedCompare.RelatedProvider != null && Model.RelatedCompare.RelatedProvider.Count > 0)
+            {
+                foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oCompareItem in Model.RelatedCompare.RelatedProvider)
+                {
+                    <li>
+                        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, oCompareItem)
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+
     <!--templates-->
     <div style="display:none;">
-        <div id="Search_Compare_CreateToolTip" title="Nueva comparación">
+        <div id="Search_Compare_Create_ToolTip" title="Nueva comparación">
             <span>Nombre: </span>
-            <input type="text" id="Search_Compare_CreateToolTip_Name" />
+            <input type="text" id="Search_Compare_Create_ToolTip_Name" />
         </div>
 
+        <div id="Search_Compare_Search_ToolTip" title="Abrir comparación">
+            <div id="Search_Compare_Search_ToolTip_Grid"></div>
+        </div>
 
+        <div id="Search_Compare_Search_ToolTip_Grid_Header_Template">
+            <ul>
+                <li>
+                    <input type="text" />
+                </li>
+                <li>
+                    <a href="">Encontrar</a>
+                </li>
+            </ul>
+        </div>
+
+        <ul id="Search_Compare_Item_Template">
+            <li>
+                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+            </li>
+        </ul>
 
     </div>
 }
