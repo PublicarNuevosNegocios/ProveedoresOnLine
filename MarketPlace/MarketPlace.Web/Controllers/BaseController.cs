@@ -56,8 +56,7 @@ namespace MarketPlace.Web.Controllers
                             controller = MVC.Customer.Name,
                             action = MVC.Customer.ActionNames.Index
                         }),
-                    IsSelected = (CurrentControllerName == MVC.Customer.Name &&
-                                CurrentActionName == MVC.Customer.ActionNames.Index),
+                    IsSelected = (CurrentControllerName == MVC.Customer.Name),
                 });
                 oPosition++;
 
@@ -75,8 +74,7 @@ namespace MarketPlace.Web.Controllers
                                 controller = MVC.Customer.Name,
                                 action = MVC.Customer.ActionNames.Index
                             }),
-                        IsSelected = (CurrentControllerName == MVC.Customer.Name &&
-                                    CurrentActionName == MVC.Customer.ActionNames.Index),
+                        IsSelected = (CurrentControllerName == MVC.Provider.Name),
                     });
                     oPosition++;
                 }
@@ -92,37 +90,36 @@ namespace MarketPlace.Web.Controllers
                             MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
-                                controller = MVC.Customer.Name,
-                                action = MVC.Customer.ActionNames.Index
+                                controller = MVC.Compare.Name,
+                                action = MVC.Compare.ActionNames.Index
                             }),
-                        IsSelected = (CurrentControllerName == MVC.Customer.Name &&
-                                    CurrentActionName == MVC.Customer.ActionNames.Index),
+                        IsSelected = (CurrentControllerName == MVC.Compare.Name),
                     });
                     oPosition++;
                 }
 
-                if (oCurrentUserModules.Any(x =>
-                        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionCreate) ||
-                        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAward) ||
-                        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAudit)))
-                {
-                    //provider selection
-                    oReturn.Add(new GenericMenu()
-                    {
-                        Name = "Proceso de selección",
-                        Position = oPosition,
-                        Url = Url.RouteUrl(
-                            MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Customer.Name,
-                                action = MVC.Customer.ActionNames.Index
-                            }),
-                        IsSelected = (CurrentControllerName == MVC.Customer.Name &&
-                                    CurrentActionName == MVC.Customer.ActionNames.Index),
-                    });
-                    oPosition++;
-                }
+                //if (oCurrentUserModules.Any(x =>
+                //        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionCreate) ||
+                //        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAward) ||
+                //        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAudit)))
+                //{
+                //    //provider selection
+                //    oReturn.Add(new GenericMenu()
+                //    {
+                //        Name = "Proceso de selección",
+                //        Position = oPosition,
+                //        Url = Url.RouteUrl(
+                //            MarketPlace.Models.General.Constants.C_Routes_Default,
+                //            new
+                //            {
+                //                controller = MVC.Customer.Name,
+                //                action = MVC.Customer.ActionNames.Index
+                //            }),
+                //        IsSelected = (CurrentControllerName == MVC.Customer.Name &&
+                //                    CurrentActionName == MVC.Customer.ActionNames.Index),
+                //    });
+                //    oPosition++;
+                //}
 
             }
 
@@ -151,45 +148,45 @@ namespace MarketPlace.Web.Controllers
                 });
                 oPosition++;
 
-                if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceProviderModules.MarketComparison))
-                {
-                    //Market Comparison 
-                    oReturn.Add(new GenericMenu()
-                    {
-                        Name = "Comparación de mercado",
-                        Position = oPosition,
-                        Url = Url.RouteUrl(
-                            MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Index
-                            }),
-                        IsSelected = (CurrentControllerName == MVC.Provider.Name &&
-                                    CurrentActionName == MVC.Provider.ActionNames.Index),
-                    });
-                    oPosition++;
-                }
+                //if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceProviderModules.MarketComparison))
+                //{
+                //    //Market Comparison 
+                //    oReturn.Add(new GenericMenu()
+                //    {
+                //        Name = "Comparación de mercado",
+                //        Position = oPosition,
+                //        Url = Url.RouteUrl(
+                //            MarketPlace.Models.General.Constants.C_Routes_Default,
+                //            new
+                //            {
+                //                controller = MVC.Provider.Name,
+                //                action = MVC.Provider.ActionNames.Index
+                //            }),
+                //        IsSelected = (CurrentControllerName == MVC.Provider.Name &&
+                //                    CurrentActionName == MVC.Provider.ActionNames.Index),
+                //    });
+                //    oPosition++;
+                //}
 
-                if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceProviderModules.ProviderStatistics))
-                {
-                    //Provider Statistics
-                    oReturn.Add(new GenericMenu()
-                    {
-                        Name = "Estadisticas de consulta",
-                        Position = oPosition,
-                        Url = Url.RouteUrl(
-                            MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Index
-                            }),
-                        IsSelected = (CurrentControllerName == MVC.Provider.Name &&
-                                    CurrentActionName == MVC.Provider.ActionNames.Index),
-                    });
-                    oPosition++;
-                }
+                //if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceProviderModules.ProviderStatistics))
+                //{
+                //    //Provider Statistics
+                //    oReturn.Add(new GenericMenu()
+                //    {
+                //        Name = "Estadisticas de consulta",
+                //        Position = oPosition,
+                //        Url = Url.RouteUrl(
+                //            MarketPlace.Models.General.Constants.C_Routes_Default,
+                //            new
+                //            {
+                //                controller = MVC.Provider.Name,
+                //                action = MVC.Provider.ActionNames.Index
+                //            }),
+                //        IsSelected = (CurrentControllerName == MVC.Provider.Name &&
+                //                    CurrentActionName == MVC.Provider.ActionNames.Index),
+                //    });
+                //    oPosition++;
+                //}
             }
 
 

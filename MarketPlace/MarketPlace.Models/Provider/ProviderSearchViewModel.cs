@@ -32,7 +32,7 @@ namespace MarketPlace.Models.Provider
 
         public int TotalPages { get { return (int)Math.Ceiling((decimal)((decimal)TotalRows / (decimal)RowCount)); } }
 
-        #region Comparison
+        #region Comparison 
 
         public MarketPlace.Models.Compare.CompareViewModel RelatedCompare { get; set; }
 

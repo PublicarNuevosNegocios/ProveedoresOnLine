@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -44,7 +45,7 @@ namespace MarketPlace.Web.Controllers
 
         #region Menu
 
-        //private List<GenericMenu> GetProviderMenu(ProviderViewModel vProviderInfo)
+        //private List<GenericMenu> GetCompareMenu(ProviderViewModel vProviderInfo)
         //{
         //    List<GenericMenu> oReturn = new List<GenericMenu>();
 
