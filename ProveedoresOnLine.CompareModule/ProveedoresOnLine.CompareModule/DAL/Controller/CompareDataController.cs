@@ -52,9 +52,9 @@ namespace ProveedoresOnLine.CompareModule.DAL.Controller
             return DataFactory.CompareSearch(SearchParam, User, PageNumber, RowCount, out TotalRows);
         }
 
-        public ProveedoresOnLine.CompareModule.Models.CompareModel CompareGetCompanyBasicInfo(int CompareId, string User)
+        public ProveedoresOnLine.CompareModule.Models.CompareModel CompareGetCompanyBasicInfo(int CompareId, string User, string CustomerPublicId)
         {
-            return DataFactory.CompareGetCompanyBasicInfo(CompareId, User);
+            return DataFactory.CompareGetCompanyBasicInfo(CompareId, User, CustomerPublicId);
         }
 
         #endregion

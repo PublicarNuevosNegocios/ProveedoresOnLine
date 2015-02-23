@@ -19,8 +19,9 @@ namespace MarketPlace.Web.ControllersApi
             {
                 ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
                     CompareGetCompanyBasicInfo
-                    (Convert.ToInt32(CompareId),
-                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+                    (Convert.ToInt32(CompareId.Replace(" ", "")),
+                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
                 MarketPlace.Models.Compare.CompareViewModel oReturn = new Models.Compare.CompareViewModel(oCompareResult);
 
@@ -100,7 +101,8 @@ namespace MarketPlace.Web.ControllersApi
                 oCompareToUpsert = ProveedoresOnLine.CompareModule.Controller.CompareModule.
                                     CompareGetCompanyBasicInfo
                                     (Convert.ToInt32(CompareId),
-                                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+                                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
                 MarketPlace.Models.Compare.CompareViewModel oReturn = new Models.Compare.CompareViewModel(oCompareToUpsert);
 
@@ -130,12 +132,16 @@ namespace MarketPlace.Web.ControllersApi
                     out oTotalRows);
 
                 List<MarketPlace.Models.Compare.CompareViewModel> oReturn = new List<Models.Compare.CompareViewModel>();
-                lstCompare.All(x =>
-                {
-                    oReturn.Add(new Models.Compare.CompareViewModel(x) { TotalRows = oTotalRows });
 
-                    return true;
-                });
+                if (lstCompare != null && lstCompare.Count > 0)
+                {
+                    lstCompare.All(x =>
+                    {
+                        oReturn.Add(new Models.Compare.CompareViewModel(x) { TotalRows = oTotalRows });
+
+                        return true;
+                    });
+                }
 
                 return oReturn;
             }

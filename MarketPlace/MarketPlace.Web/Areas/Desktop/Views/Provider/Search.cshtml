@@ -51,12 +51,15 @@
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search
                             }))',
-                CompareId: '@Model.CompareId',
+                CompareId: '@(Model.RelatedCompare != null ? Model.RelatedCompare.CompareId.ToString() : string.Empty)',
                 SearchParam: '@Model.SearchParam',
                 SearchFilter: '@Model.SearchFilter',
                 SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
                 OrderOrientation: @Model.OrderOrientation.ToString().ToLower(),
                 PageNumber: @Model.PageNumber,
+                RowCount: @Model.RowCount,
+
+                BlackListStatusShowAlert: @((int)MarketPlace.Models.General.enumBlackListStatus.ShowAlert),
             });
 
             Provider_SearchObject.RenderAsync();

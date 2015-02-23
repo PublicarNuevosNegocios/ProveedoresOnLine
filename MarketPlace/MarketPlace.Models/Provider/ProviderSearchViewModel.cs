@@ -16,8 +16,6 @@ namespace MarketPlace.Models.Provider
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> ProviderFilterResult { get; set; }
 
-        public int? CompareId { get; set; }
-
         public string SearchParam { get; set; }
 
         public string SearchFilter { get; set; }
@@ -34,7 +32,13 @@ namespace MarketPlace.Models.Provider
 
         public int TotalPages { get { return (int)Math.Ceiling((decimal)((decimal)TotalRows / (decimal)RowCount)); } }
 
-        #region methods
+        #region Comparison
+
+        public MarketPlace.Models.Compare.CompareViewModel RelatedCompare { get; set; }
+
+        #endregion
+
+        #region Methods
 
         public List<Tuple<string, string>> GetlstSearchFilter()
         {

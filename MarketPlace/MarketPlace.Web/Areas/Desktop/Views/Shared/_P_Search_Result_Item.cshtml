@@ -54,7 +54,7 @@
 
         @if (Model.IsProviderCustomer)
         {
-            <a class="POMPSearchResultIncludeCoparisonIcon" href="javascript:;">
+            <a class="POMPSearchResultIncludeCoparisonIcon" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');">
                 <img class="SelGenericTooltip" title="Agregar a la lista de comparación" />
             </a>
         }
@@ -67,26 +67,21 @@
     <div class="POMPSearchResultProvRating">
         @if (Model.ProviderRate != null)
         {
-            !--<div>@Model.Pro
-            viderRate</div>-->
-                }
-            </div>
-    <!--Act
-        </div>
-    <
-        !--Actions for related provider -->
-        <
-        <div class="POMPSearchResultProvActions">
+            @*<div>@Model.ProviderRate</div>*@
+        }
+    </div>
+    <!--Actions for related provider -->
+    <div class="POMPSearchResultProvActions">
 
-            @if (!Model.IsProviderCustomer)
-            {
+        @if (!Model.IsProviderCustomer)
+        {
             <!--Actions for not related provider -->
-                <a href="" title="">Hacerlo mi proveedor</a>
-            }
-            else
-            {
-                <a href="" title="">Agregar a comparación</a>
-                <a href="@(Url.RouteUrl
+            <a href="" title="">Hacerlo mi proveedor</a>
+        }
+        else
+        {
+            <a href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
+            <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
                         {
@@ -94,9 +89,9 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">Ver detalle</a>
-            }
-        </div>
+        }
     </div>
+</div>
 
 
 

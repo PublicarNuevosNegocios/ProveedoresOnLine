@@ -951,6 +951,7 @@
     <Content Include="Areas\Desktop\Views\Provider\HIRiskPoliciesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_IndicatorsItem.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_BalanceItem.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison_Item.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />

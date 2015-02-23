@@ -17,6 +17,9 @@ var Provider_SearchObject = {
     SearchOrderType: '',
     OrderOrientation: false,
     PageNumber: 0,
+    RowCount: 0,
+
+    BlackListStatusShowAlert: '',
 
     Init: function (vInitObject) {
 
@@ -28,6 +31,9 @@ var Provider_SearchObject = {
         this.SearchOrderType = vInitObject.SearchOrderType;
         this.OrderOrientation = vInitObject.OrderOrientation;
         this.PageNumber = vInitObject.PageNumber;
+        this.RowCount = vInitObject.RowCount;
+
+        this.BlackListStatusShowAlert = vInitObject.BlackListStatusShowAlert;
     },
 
     RenderAsync: function () {
@@ -104,13 +110,46 @@ var Provider_SearchObject = {
     /*****************************Compare methods************************************************/
 
     OpenCompare: function (vCompareId) {
-
         $.ajax({
             url: BaseUrl.ApiUrl + '/CompareApi?CMCompareGet=true&CompareId=' + vCompareId,
             dataType: 'json',
             success: function (result) {
                 if (result != null) {
-                    
+                    //set compare id
+                    Provider_SearchObject.CompareId = result.CompareId;
+
+                    //show compare action
+                    $('#' + Provider_SearchObject.ObjectId + '_Compare_ActionCompare').show();
+
+                    //set compare name and show
+                    $('#' + Provider_SearchObject.ObjectId + '_Compare_CompareName').val(result.CompareName);
+                    $('#' + Provider_SearchObject.ObjectId + '_Compare_CompareName').show();
+
+                    //clean compare items
+                    $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').html('');
+
+                    //render compare items
+                    $.each(result.RelatedProvider, function (item, value) {
+                        //get item html
+                        var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_Template').html();
+
+                        //replace provider info
+                        oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);
+                        oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.ProviderLogoUrl);
+                        oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedCompany.CompanyName);
+                        oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
+                        oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, value.RelatedProvider.RelatedCompany.IdentificationNumber);
+
+                        $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').append(oItemHtml);
+
+                        //validate black list
+                        if (value.ProviderAlertRisk != Provider_SearchObject.BlackListStatusShowAlert) {
+                            $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_BlackList_' + value.RelatedProvider.RelatedCompany.CompanyPublicId).html('');
+                        }
+                    });
+
+                    //init generic tooltip
+                    Tooltip_InitGeneric();
                 }
             },
             error: function (result) {
@@ -119,15 +158,17 @@ var Provider_SearchObject = {
     },
 
     ShowCompareCreate: function (vProviderPublicId) {
+        //clean compare name
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip_Name').val('');
 
-        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog({
+        //open new compare dialog
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip').dialog({
             buttons: {
                 'Cancelar': function () {
                     $(this).dialog('close');
                 },
                 'Guardar': function () {
-
-                    var oCompareName = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip_Name').val();
+                    var oCompareName = $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip_Name').val();
 
                     if (oCompareName != null && oCompareName.replace(/ /gi, '') != '') {
 
@@ -139,10 +180,10 @@ var Provider_SearchObject = {
                                 if (result != null) {
                                     Provider_SearchObject.OpenCompare(result);
                                 }
-                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog('close');
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip').dialog('close');
                             },
                             error: function (result) {
-                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog('close');
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip').dialog('close');
                             }
                         });
                     }
@@ -153,14 +194,120 @@ var Provider_SearchObject = {
 
     ShowSearchCompare: function () {
 
+        //load grid comparison
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: true,
+            scrollable: true,
+            selectable: true,
+            toolbar: [
+                { name: 'Search', template: $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid_Header_Template').html() },
+            ],
+            dataSource: {
+                pageSize: Provider_SearchObject.RowCount,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'CompareId',
+                        fields: {
+                            CompareId: { editable: false, nullable: true },
+                            CompareName: { editable: false, nullable: true },
+                            LastModify: { editable: false, nullable: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        var oSearchParam = $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').find('input[type=text]').val();
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CompareApi?CMCompareSearch=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            change: function (arg) {
+                var odataItem = this.dataItem(this.select());
+                if (odataItem != null && odataItem.CompareId != null && odataItem.CompareId > 0) {
+                    //open selected compare
+                    Provider_SearchObject.OpenCompare(odataItem.CompareId);
+                    //close dialog
+                    $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip').dialog('close');
+                    //destroy kendo grid
+                    $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').data('kendoGrid').destroy();
+                }
+            },
+            columns: [{
+                field: 'CompareName',
+                title: 'Nombre',
+                width: '50px',
+            }, {
+                field: 'LastModify',
+                title: 'Última modificación',
+                width: '50px',
+            }],
+        });
+
+        //add search methods
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').find('input[type=text]').keydown(function (e) {
+            if (e.keyCode == 13) {
+                //enter action search
+                $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').data('kendoGrid').dataSource.read();
+            }
+        });
+
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').find('a').click(function (e) {
+            //action search
+            $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip_Grid').data('kendoGrid').dataSource.read();
+        });
+
+        //show open compare dialog
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip').dialog({
+            buttons: {
+                'Cancelar': function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
     },
 
-    UpdateCompare: function (vCompareId, vCompareName) {
+    UpdateCompare: function (vCompareName) {
 
     },
 
-    AddCompareProvider: function (vCompareId, vProviderPublicId) {
-
+    AddCompareProvider: function (vProviderPublicId) {
+        if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
+            //add company to existing compare process
+            $.ajax({
+                url: BaseUrl.ApiUrl + '/CompareApi?CMCompareAddCompany=true&CompareId=' + Provider_SearchObject.CompareId + '&ProviderPublicId=' + vProviderPublicId,
+                dataType: 'json',
+                success: function (result) {
+                    if (result != null) {
+                        Provider_SearchObject.OpenCompare(Provider_SearchObject.CompareId);
+                    }
+                },
+                error: function (result) {
+                }
+            });
+        }
+        else {
+            //new compare process
+            Provider_SearchObject.ShowCompareCreate(vProviderPublicId);
+        }
     },
 
     /*****************************Compare methods end************************************************/
