@@ -183,9 +183,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                         GenericItemModel oLTIFResult = new GenericItemModel();
                         oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
-                        oLTIFResult.ItemId = pcert.ItemId;
-                        CertificationInfoUpsert(oLTIFResult);
-
+                        if (oLTIFResult != null)
+                        {
+                            oLTIFResult.ItemId = pcert.ItemId;
+                            CertificationInfoUpsert(oLTIFResult);
+                        }
                         oLog.IsSuccess = true;
                     }
                     catch (Exception err)
