@@ -12,6 +12,7 @@ var Provider_SearchObject = {
     ObjectId: '',
     SearchUrl: '',
     CompareId: '',
+    CompareUrl: '',
     SearchParam: '',
     SearchFilter: '',
     SearchOrderType: '',
@@ -26,6 +27,7 @@ var Provider_SearchObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
         this.CompareId = vInitObject.CompareId;
+        this.CompareUrl = vInitObject.CompareUrl;
         this.SearchParam = vInitObject.SearchParam;
         this.SearchFilter = vInitObject.SearchFilter;
         this.SearchOrderType = vInitObject.SearchOrderType;
@@ -330,6 +332,18 @@ var Provider_SearchObject = {
                 error: function (result) {
                 }
             });
+        }
+    },
+
+    GoToCompare: function () {
+
+        if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
+
+            var oUrl = this.CompareUrl;
+
+            oUrl += '?CompareId=' + this.CompareId;
+
+            window.location = oUrl;
         }
     },
 

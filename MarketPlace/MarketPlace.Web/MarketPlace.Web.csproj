@@ -184,19 +184,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
     <Compile Include="Areas\Desktop\DesktopAreaRegistration.cs" />
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="CompareController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="ControllersApi\CompareApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.CompareController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Desktop.CustomerController.generated.cs">
@@ -952,6 +960,10 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_IndicatorsItem.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_BalanceItem.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Compare\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Compare\FIBalanceSheetInfoCompare.cshtml" />
+    <Content Include="Areas\Desktop\Views\Compare\CIExperiencesCompare.cshtml" />
+    <Content Include="Areas\Desktop\Views\Compare\HIHSECompare.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />

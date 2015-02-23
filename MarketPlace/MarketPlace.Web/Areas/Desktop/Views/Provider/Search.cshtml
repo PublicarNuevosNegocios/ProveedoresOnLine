@@ -52,6 +52,12 @@
                                 action = MVC.Provider.ActionNames.Search
                             }))',
                 CompareId: '@(Model.RelatedCompare != null ? Model.RelatedCompare.CompareId.ToString() : string.Empty)',
+                CompareUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Compare.Name,
+                                action = MVC.Compare.ActionNames.Index
+                            }))',
                 SearchParam: '@Model.SearchParam',
                 SearchFilter: '@Model.SearchFilter',
                 SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
