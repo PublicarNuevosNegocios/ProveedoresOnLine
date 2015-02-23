@@ -10,6 +10,8 @@ namespace MarketPlace.Models.Compare
     {
         public ProveedoresOnLine.CompareModule.Models.CompareModel RelatedCompare { get; private set; }
 
+        public int TotalRows { get; set; }
+
         public List<MarketPlace.Models.Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
 
         public string CompareId { get { return RelatedCompare.CompareId.ToString(); } }

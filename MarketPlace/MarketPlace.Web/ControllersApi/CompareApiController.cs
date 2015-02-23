@@ -11,6 +11,26 @@ namespace MarketPlace.Web.ControllersApi
     {
         [HttpPost]
         [HttpGet]
+        public MarketPlace.Models.Compare.CompareViewModel CMCompareGet
+            (string CMCompareGet,
+            string CompareId)
+        {
+            if (CMCompareGet == "true")
+            {
+                ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
+                    CompareGetCompanyBasicInfo
+                    (Convert.ToInt32(CompareId),
+                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+
+                MarketPlace.Models.Compare.CompareViewModel oReturn = new Models.Compare.CompareViewModel(oCompareResult);
+
+                return oReturn;
+            }
+            return null;
+        }
+
+        [HttpPost]
+        [HttpGet]
         public int CMCompareUpsert
             (string CMCompareUpsert,
             string CompareId,
@@ -90,27 +110,6 @@ namespace MarketPlace.Web.ControllersApi
             return null;
         }
 
-
-        [HttpPost]
-        [HttpGet]
-        public MarketPlace.Models.Compare.CompareViewModel CMCompareGet
-            (string CMCompareGet,
-            string CompareId)
-        {
-            if (CMCompareGet == "true")
-            {
-                ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                    CompareGetCompanyBasicInfo
-                    (Convert.ToInt32(CompareId),
-                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
-
-                MarketPlace.Models.Compare.CompareViewModel oReturn = new Models.Compare.CompareViewModel(oCompareResult);
-
-                return oReturn;
-            }
-            return null;
-        }
-
         [HttpPost]
         [HttpGet]
         public List<MarketPlace.Models.Compare.CompareViewModel> CMCompareSearch
@@ -121,14 +120,24 @@ namespace MarketPlace.Web.ControllersApi
         {
             if (CMCompareSearch == "true")
             {
-                //ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                //    CompareGetCompanyBasicInfo
-                //    (Convert.ToInt32(CompareId),
-                //    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
+                int oTotalRows;
 
-                //MarketPlace.Models.Compare.CompareViewModel oReturn = new Models.Compare.CompareViewModel(oCompareResult);
+                List<ProveedoresOnLine.CompareModule.Models.CompareModel> lstCompare = ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareSearch
+                    (SearchParam,
+                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                    string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber.Replace(" ", "")),
+                    string.IsNullOrEmpty(RowCount) ? 0 : Convert.ToInt32(RowCount.Replace(" ", "")),
+                    out oTotalRows);
 
-                //return oReturn;
+                List<MarketPlace.Models.Compare.CompareViewModel> oReturn = new List<Models.Compare.CompareViewModel>();
+                lstCompare.All(x =>
+                {
+                    oReturn.Add(new Models.Compare.CompareViewModel(x) { TotalRows = oTotalRows });
+
+                    return true;
+                });
+
+                return oReturn;
             }
             return null;
         }
