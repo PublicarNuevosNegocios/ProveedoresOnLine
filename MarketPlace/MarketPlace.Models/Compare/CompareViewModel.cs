@@ -20,6 +20,12 @@ namespace MarketPlace.Models.Compare
 
         public string LastModify { get { return RelatedCompare.LastModify.ToString("yyyy-MM-dd"); } }
 
+        #region Compare Controller attributes
+
+        public List<MarketPlace.Models.General.GenericMenu> ProviderMenu { get; set; }
+
+        #endregion
+
         public CompareViewModel(ProveedoresOnLine.CompareModule.Models.CompareModel oRelatedCompare)
         {
             RelatedCompare = oRelatedCompare;

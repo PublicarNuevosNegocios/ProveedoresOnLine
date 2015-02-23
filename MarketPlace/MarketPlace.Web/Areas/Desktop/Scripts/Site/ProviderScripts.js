@@ -12,6 +12,7 @@ var Provider_SearchObject = {
     ObjectId: '',
     SearchUrl: '',
     CompareId: '',
+    CompareUrl: '',
     SearchParam: '',
     SearchFilter: '',
     SearchOrderType: '',
@@ -26,6 +27,7 @@ var Provider_SearchObject = {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
         this.CompareId = vInitObject.CompareId;
+        this.CompareUrl = vInitObject.CompareUrl;
         this.SearchParam = vInitObject.SearchParam;
         this.SearchFilter = vInitObject.SearchFilter;
         this.SearchOrderType = vInitObject.SearchOrderType;
@@ -128,6 +130,9 @@ var Provider_SearchObject = {
                     //clean compare items
                     $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').html('');
 
+                    //show all compare search button
+                    $("a[href*='Provider_SearchObject.AddCompareProvider']").show();
+
                     //render compare items
                     $.each(result.RelatedProvider, function (item, value) {
                         //get item html
@@ -146,6 +151,9 @@ var Provider_SearchObject = {
                         if (value.ProviderAlertRisk != Provider_SearchObject.BlackListStatusShowAlert) {
                             $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_BlackList_' + value.RelatedProvider.RelatedCompany.CompanyPublicId).html('');
                         }
+
+                        //remove search result add comparison button
+                        $("a[href*='Provider_SearchObject.AddCompareProvider(\\\'" + value.RelatedProvider.RelatedCompany.CompanyPublicId + "\\\')']").hide();
                     });
 
                     //init generic tooltip
@@ -310,7 +318,131 @@ var Provider_SearchObject = {
         }
     },
 
+    RemoveCompareProvider: function (vProviderPublicId) {
+        if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
+            //remove company from existing compare process
+            $.ajax({
+                url: BaseUrl.ApiUrl + '/CompareApi?CMCompareRemoveCompany=true&CompareId=' + Provider_SearchObject.CompareId + '&ProviderPublicId=' + vProviderPublicId,
+                dataType: 'json',
+                success: function (result) {
+                    if (result != null) {
+                        Provider_SearchObject.OpenCompare(Provider_SearchObject.CompareId);
+                    }
+                },
+                error: function (result) {
+                }
+            });
+        }
+    },
+
+    GoToCompare: function () {
+
+        if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
+
+            var oUrl = this.CompareUrl;
+
+            oUrl += '?CompareId=' + this.CompareId;
+
+            window.location = oUrl;
+        }
+    },
+
     /*****************************Compare methods end************************************************/
+};
+
+var Compare_SearchObject = {
+
+    ObjectId: '',
+    RowCount: 0,
+    CompareUrl: '',
+
+    Init: function (vInitObject) {
+
+        this.ObjectId = vInitObject.ObjectId;
+        this.RowCount = vInitObject.RowCount;
+        this.CompareUrl = vInitObject.CompareUrl;
+    },
+
+    RenderAsync: function () {
+
+        //load grid comparison
+        $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: true,
+            scrollable: true,
+            selectable: true,
+            toolbar: [
+                { name: 'Search', template: $('#' + Compare_SearchObject.ObjectId + '_SearchGrid_Header_Template').html() },
+            ],
+            dataSource: {
+                pageSize: Compare_SearchObject.RowCount,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'CompareId',
+                        fields: {
+                            CompareId: { editable: false, nullable: true },
+                            CompareName: { editable: false, nullable: true },
+                            LastModify: { editable: false, nullable: true },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        var oSearchParam = $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').find('input[type=text]').val();
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CompareApi?CMCompareSearch=true&SearchParam=' + oSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            change: function (arg) {
+                var odataItem = this.dataItem(this.select());
+                if (odataItem != null && odataItem.CompareId != null && odataItem.CompareId > 0) {
+                    var oUrl = Compare_SearchObject.CompareUrl;
+                    oUrl += '?CompareId=' + odataItem.CompareId;
+                    window.location = oUrl;
+                }
+            },
+            columns: [{
+                field: 'CompareName',
+                title: 'Nombre',
+                width: '50px',
+            }, {
+                field: 'LastModify',
+                title: 'Última modificación',
+                width: '50px',
+            }],
+        });
+
+        //add search methods
+        $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').find('input[type=text]').keydown(function (e) {
+            if (e.keyCode == 13) {
+                //enter action search
+                $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').data('kendoGrid').dataSource.read();
+            }
+        });
+
+        $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').find('a').click(function (e) {
+            //action search
+            $('#' + Compare_SearchObject.ObjectId + '_SearchGrid').data('kendoGrid').dataSource.read();
+        });
+    },
 };
 
 var Provider_FinancialObject = {
@@ -332,5 +464,4 @@ var Provider_FinancialObject = {
 
         window.location = oUrl;
     },
-
-}
+};

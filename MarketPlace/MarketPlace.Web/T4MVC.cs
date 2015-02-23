@@ -28,6 +28,7 @@ public static partial class MVC
     static readonly DesktopClass s_Desktop = new DesktopClass();
     public static DesktopClass Desktop { get { return s_Desktop; } }
     public static MarketPlace.Web.Controllers.BaseController Base = new MarketPlace.Web.Controllers.T4MVC_BaseController();
+    public static MarketPlace.Web.Controllers.CompareController Compare = new MarketPlace.Web.Controllers.T4MVC_CompareController();
     public static MarketPlace.Web.Controllers.CustomerController Customer = new MarketPlace.Web.Controllers.T4MVC_CustomerController();
     public static MarketPlace.Web.Controllers.HomeController Home = new MarketPlace.Web.Controllers.T4MVC_HomeController();
     public static MarketPlace.Web.Controllers.ProviderController Provider = new MarketPlace.Web.Controllers.T4MVC_ProviderController();
@@ -39,6 +40,7 @@ namespace T4MVC
     public class DesktopClass
     {
         public readonly string Name = "Desktop";
+        public MarketPlace.Web.Areas.Desktop.Controllers.CompareController Compare = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_CompareController();
         public MarketPlace.Web.Areas.Desktop.Controllers.CustomerController Customer = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_CustomerController();
         public MarketPlace.Web.Areas.Desktop.Controllers.HomeController Home = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_HomeController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ProviderController Provider = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProviderController();

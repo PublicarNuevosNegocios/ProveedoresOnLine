@@ -73,7 +73,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public MarketPlace.Models.Compare.CompareViewModel CMCompareAddCompany
+        public bool CMCompareAddCompany
             (string CMCompareAddCompany,
             string CompareId,
             string ProviderPublicId)
@@ -98,19 +98,45 @@ namespace MarketPlace.Web.ControllersApi
 
                 ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareCompanyUpsert(oCompareToUpsert);
 
-                oCompareToUpsert = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                                    CompareGetCompanyBasicInfo
-                                    (Convert.ToInt32(CompareId),
-                                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
-
-                MarketPlace.Models.Compare.CompareViewModel oReturn = new Models.Compare.CompareViewModel(oCompareToUpsert);
-
-                return oReturn;
+                return true;
             }
 
-            return null;
+            return false;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public bool CMCompareRemoveCompany
+            (string CMCompareRemoveCompany,
+            string CompareId,
+            string ProviderPublicId)
+        {
+            if (CMCompareRemoveCompany == "true")
+            {
+                ProveedoresOnLine.CompareModule.Models.CompareModel oCompareToUpsert = new ProveedoresOnLine.CompareModule.Models.CompareModel()
+                {
+                    CompareId = Convert.ToInt32(CompareId),
+                    RelatedProvider = new List<ProveedoresOnLine.CompareModule.Models.CompareCompanyModel>() 
+                    { 
+                        new ProveedoresOnLine.CompareModule.Models.CompareCompanyModel()
+                        {
+                            Enable = false,
+                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = ProviderPublicId,
+                            },
+                        }, 
+                    }
+                };
+
+                ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareCompanyUpsert(oCompareToUpsert);
+
+                return true;
+            }
+
+            return false;
+        }
+
 
         [HttpPost]
         [HttpGet]

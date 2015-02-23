@@ -4,67 +4,40 @@
 {
     <div>
         <!--Comparison item-->
-        <div>
+        <div class="POMPSearchResultStatusCertified">
             <!--Check certificacion-->
-            <div>
-                @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
-                {
-                    <img class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
-                }
-            </div>
-            @if (Model.IsProviderCustomer)
+            @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
             {
-                <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-                    <img src="@Model.ProviderLogoUrl" />
-                </a>
+                <img class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
             }
-            else
-            {
+        </div>
+        <div>
+            <div>
                 <img src="@Model.ProviderLogoUrl" />
-            }
+            </div>
             <div>
-                @if (Model.IsProviderCustomer)
-                {
-                    <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-                        @Model.RelatedProvider.RelatedCompany.CompanyName
-                    </a>
-                }
-                else
-                {
-                    <label><span>@Model.RelatedProvider.RelatedCompany.CompanyName</span></label>
-                }
+                <label><span>@Model.RelatedProvider.RelatedCompany.CompanyName</span></label>
                 <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
             </div>
             <div>
                 <div>
-                    @if (Model.IsProviderCustomer && Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert && Model.IsProviderCustomer)
+                    @if (Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                     {
-                        <img class="SelGenericTooltip" title="Este proveedor está en listas restrictivas" />
+                        <img class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" />
                     }
                 </div>
-                <a href="javascript:;">
+                <a href="javascript:Provider_SearchObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');">
                     <img class="SelGenericTooltip" title="Quitar de la comparación" />
                 </a>
             </div>
         </div>
         <div>
             <!--Actions for related provider -->
-            <div>
-                @if (Model.IsProviderCustomer)
-                {
-                    <a href="" title="">Quitar de la comparación</a>
+            <ul>
+                <li>
+                    <a href="javascript:Provider_SearchObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Quitar de la comparación</a>
+                </li>
+                <li>
                     <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
@@ -73,64 +46,52 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">Ver detalle</a>
-                }
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
 }
 else
 {
-    <!--Compare template-->
     <div>
-        <div>
+        <!--Comparison item template-->
+        <div id="Search_Compare_Item_Certified_{ProviderPublicId}" class="POMPSearchResultStatusCertified">
             <!--Check certificacion-->
-            <div id="Search_Compare_Item_Certified_{ProviderPublicId}">
-                <img class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
-            </div>
-
-            <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                    }) + "?ProviderPublicId={ProviderPublicId}")">
-                <img src="{ProviderLogoUrl}" />
-            </a>
+            <img class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
+        </div>
+        <div>
             <div>
-                <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                    }) + "?ProviderPublicId={ProviderPublicId}")">
-                    {CompanyName}
-                </a>
+                <img src="{ProviderLogoUrl}" />
+            </div>
+            <div>
+                <label><span>{CompanyName}</span></label>
                 <label><span>{IdentificationType} :</span> {IdentificationNumber}</label>
             </div>
             <div>
                 <div id="Search_Compare_Item_BlackList_{ProviderPublicId}">
-                    <img class="SelGenericTooltip" title="Este proveedor está en listas restrictivas" />
+                    <img class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" />
                 </div>
-                <a href="javascript:;">
+                <a href="javascript:Provider_SearchObject.RemoveCompareProvider('{ProviderPublicId}');">
                     <img class="SelGenericTooltip" title="Quitar de la comparación" />
                 </a>
             </div>
         </div>
         <div>
             <!--Actions for related provider -->
-            <div>
-                <a href="" title="">Quitar de la comparación</a>
-                <a href="@(Url.RouteUrl
+            <ul>
+                <li>
+                    <a href="javascript:Provider_SearchObject.RemoveCompareProvider('{ProviderPublicId}');" title="">Quitar de la comparación</a>
+                </li>
+                <li>
+                    <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
                         {
                             controller = MVC.Provider.Name,
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                         }) + "?ProviderPublicId={ProviderPublicId}")">Ver detalle</a>
-
-            </div>
+                </li>
+            </ul>
         </div>
     </div>
 }

@@ -1,104 +1,111 @@
-﻿@model MarketPlace.Models.Provider.ProviderLiteViewModel
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderLiteViewModel, MarketPlace.Models.Compare.CompareViewModel>
+
+@{
+    bool oIsInComparison =
+        Model.Item2 != null &&
+        Model.Item2.RelatedProvider != null &&
+        Model.Item2.RelatedProvider.
+            Any(x => x.RelatedProvider.RelatedCompany != null &&
+                x.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId) ? true : false;
+}
 
 <!--ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES-->
+<div>
+    <!--Search Item-->
 
-<div class="POMPSearchResultLineOne">
-
-    <!--Check certificacion-->
     <div class="POMPSearchResultStatusCertified">
-        @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
+        <!--Check certificacion-->
+        @if (Model.Item1.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
         {
             <img class="SelGenericTooltip POMPSearchResultStatusCertified" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
         }
     </div>
-    @if (Model.IsProviderCustomer)
-    {
-        <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-            <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
-        </a>
-    }
-    else
-    {
-        <img class="POMPSearchResultProvLogo" src="@Model.ProviderLogoUrl" />
-    }
-    <div class="POMPSearchResultProvDataWrapper">
-        @if (Model.IsProviderCustomer)
-        {
-            <a href="@(Url.RouteUrl
-                    (MarketPlace.Models.General.Constants.C_Routes_Default,
-                    new
-                    {
-                        controller = MVC.Provider.Name,
-                        action = MVC.Provider.ActionNames.GIProviderInfo,
-                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}))">
-                @Model.RelatedProvider.RelatedCompany.CompanyName
-            </a>
-        }
-        else
-        {
-            <label><span>@Model.RelatedProvider.RelatedCompany.CompanyName</span></label>
-        }
-        <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
-    </div>
+
     <div>
-        @if (Model.IsProviderCustomer && Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert && Model.IsProviderCustomer)
-        {
-            <img class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" />
-        }
-
-        @if (Model.IsProviderCustomer)
-        {
-            <a class="POMPSearchResultIncludeCoparisonIcon" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');">
-                <img class="SelGenericTooltip" title="Agregar a la lista de comparación" />
-            </a>
-        }
-    </div>
-</div>
-
-<div class="POMPSearchResultLineTwo">
-
-    <!--Provider rate-->
-    <div class="POMPSearchResultProvRating">
-        @if (Model.ProviderRate != null)
-        {
-            @*<div>@Model.ProviderRate</div>*@
+        <div>
+            <div>
+                <!--Provider Logo-->
+                @if (Model.Item1.IsProviderCustomer)
+                {
+                    <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.GIProviderInfo,
+                                    ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
+                                }))">
+                        <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+                    </a>
+                }
+                else
+                {
+                    <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
                 }
             </div>
-    <!--Actions for related provider -->
-        <div class="POMPSearchResultProvActions">
-
-            @if (!Model.IsProviderCustomer)
-            {
-            <!--Actions for not related provider -->
-                <a href="" title="">Hacerlo mi proveedor</a>
-            }
-            else
-            {
-            <a href="javascript:Provider_SearchObject.AddCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
-                <a href="@(Url.RouteUrl
-                        (MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Provider.Name,
-                            action = MVC.Provider.ActionNames.GIProviderInfo,
-                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
-                        ))">Ver detalle</a>
-            }
+            <div>
+                @if (Model.Item1.IsProviderCustomer)
+                {
+                    <a href="@(Url.RouteUrl
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                                        ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }))">
+                        @Model.Item1.RelatedProvider.RelatedCompany.CompanyName
+                    </a>
+                }
+                else
+                {
+                    <label>@Model.Item1.RelatedProvider.RelatedCompany.CompanyName</label>
+                }
+                <label><span>@Model.Item1.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.Item1.RelatedProvider.RelatedCompany.IdentificationNumber</label>
+            </div>
+            <div>
+                <div>
+                    @if (Model.Item1.IsProviderCustomer && Model.Item1.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
+                    {
+                        <img class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" />
+                    }
+                </div>
+                @if (Model.Item1.IsProviderCustomer)
+                {
+                    <a class="POMPSearchResultIncludeCoparisonIcon" style="display:@(oIsInComparison ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                        <img class="SelGenericTooltip" title="Agregar a la lista de comparación" />
+                    </a>
+                }
+            </div>
+        </div>
+        <div>
+            <!--Actions for related provider -->
+            <ul>
+                @if (!Model.Item1.IsProviderCustomer)
+                {
+                    <li>
+                        <!--Actions for not related provider -->
+                        <a href="" title="">Hacerlo mi proveedor</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a style="display:@(oIsInComparison ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
+                    </li>
+                    <li>
+                        <a href="@(Url.RouteUrl
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                                        ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }))">Ver detalle</a>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
+</div>
