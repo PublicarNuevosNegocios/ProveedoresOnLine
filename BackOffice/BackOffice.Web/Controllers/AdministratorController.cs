@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -166,7 +167,7 @@ namespace BackOffice.Web.Controllers
                     System.IO.Directory.CreateDirectory(strFolder);
 
                 //get File
-                string strFile = strFolder.TrimEnd('\\') +                  
+                string strFile = strFolder.TrimEnd('\\') +
                     DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
                 string ErrorFilePath = strFile.Replace(".xls", "_log.csv");
                 ExcelFile.SaveAs(strFile);
@@ -422,7 +423,7 @@ namespace BackOffice.Web.Controllers
 
         private string ProcessProviderFile(string FilePath, string ErrorFilePath, string StrRemoteFile, string FileName)
         {
-            var excel = new ExcelQueryFactory(FilePath);          
+            var excel = new ExcelQueryFactory(FilePath);
 
             //get excel rows
             LinqToExcel.ExcelQueryFactory XlsInfo = new LinqToExcel.ExcelQueryFactory(FilePath);
@@ -432,15 +433,17 @@ namespace BackOffice.Web.Controllers
                  select x).ToList();
 
             List<ProviderExcelResultModel> oPrvToProcessResult = new List<ProviderExcelResultModel>();
-
+            string ActualProvider = "";
+            List<string> ProvidersId = new List<string>();
             oPrvToProcess.Where(prv => !string.IsNullOrEmpty(prv.ProviderPublicId)).All(prv =>
-            {
+            {                
                 try
                 {
                     FileName = FileName.Replace(Path.GetExtension(FileName), "");
-                    List<string> Columns = excel.GetColumnNames(FileName).ToList();
+                    var page = excel.GetWorksheetNames();
+                    List<string> Columns = excel.GetColumnNames(page.FirstOrDefault()).ToList();
 
-                    #region Operation                           
+                    #region Operation
 
                     ProviderModel oProviderToInsert = new ProviderModel();
                     oProviderToInsert.RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel();
@@ -457,11 +460,11 @@ namespace BackOffice.Web.Controllers
                             ItemId = prv.BlackListStatus == "si" ? (int)BackOffice.Models.General.enumBlackList.BL_ShowAlert : (int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert,
                         },
                         User = SessionModel.CurrentLoginUser.Name + "_" + SessionModel.CurrentLoginUser.LastName,
-                        FileUrl = StrRemoteFile,                        
+                        FileUrl = StrRemoteFile,
                         BlackListInfo = new List<GenericItemInfoModel>()
                     });
 
-                    var Rows = from c in excel.Worksheet(FileName)
+                    var Rows = from c in excel.Worksheet(page.FirstOrDefault())
                                where c["ProviderPublicId"] == prv.ProviderPublicId
                                select c;
 
@@ -482,14 +485,9 @@ namespace BackOffice.Web.Controllers
                     }
                     List<ProviderModel> oProviderResultList = new List<ProviderModel>();
                     oProviderResultList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BlackListInsert(oProviderToInsert));
-
-                    string blIds;
-                    oProviderResultList.All(x =>
-                    {
-                        blIds = string.Join(",",x.RelatedBlackList.Select(y => y.BlackListId.ToString()).FirstOrDefault());
-                        return true;
-                    });
-
+                    
+                    var idResult = oProviderResultList.FirstOrDefault().RelatedBlackList.Where(x => x.BlackListInfo != null).Select(x => x.BlackListInfo.Select(y => y.ItemInfoId)).FirstOrDefault();
+                    
                     #region Set Provider Info
                     if (prv.BlackListStatus == "si")
                     {
@@ -523,6 +521,7 @@ namespace BackOffice.Web.Controllers
                             Enable = true,
                         });
                     }
+
                     //Set large value With the items found
                     oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
                     {
@@ -533,11 +532,12 @@ namespace BackOffice.Web.Controllers
                         {
                             ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.ListId,
                         },
-                        //LargeValue =
+                        LargeValue = string.Join(",", idResult),
                         Enable = true,
-                    });
+                    });                    
+                  
                     #endregion
-                    
+
                     ProveedoresOnLine.Company.Controller.Company.CompanyInfoUpsert(oProviderToInsert.RelatedCompany);
 
                     oPrvToProcessResult.Add(new ProviderExcelResultModel()
@@ -547,6 +547,7 @@ namespace BackOffice.Web.Controllers
                         Error = "Se ha validado el Proveedor '" + oProviderToInsert.RelatedCompany.CompanyPublicId + "'",
                     });
 
+                    ActualProvider = prv.ProviderPublicId;
                     FileName = FileName + ".xls";
                     #endregion
                 }
@@ -578,7 +579,7 @@ namespace BackOffice.Web.Controllers
                             (
                             "\"ProviderPublicId\"" + strSep +
                             "\"BlackListStatus\"" + strSep +
-                            
+
                             "\"Success\"" + strSep +
                             "\"Message\"");
 
@@ -612,7 +613,7 @@ namespace BackOffice.Web.Controllers
             catch { }
 
             return null;
-            #endregion            
+            #endregion
         }
         #endregion
     }
