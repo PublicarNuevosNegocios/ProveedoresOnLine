@@ -3099,7 +3099,7 @@ var Provider_CompanyHSEQObject = {
                 oHours = oHours + parseInt(result[i].CA_ManHoursWorked);
             }
 
-            LTIF = ((oFatalities + oAccidents) / oHours) * 100000;
+            LTIF = ((oFatalities + oAccidents) / oHours) * 1000000;
 
             $('#F3').html('');
             $('#F3').append('<label>Resultado LTIF: ' + LTIF.toFixed(3) + '</label>');
