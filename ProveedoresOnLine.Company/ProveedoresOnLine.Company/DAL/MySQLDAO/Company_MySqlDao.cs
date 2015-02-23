@@ -1807,5 +1807,52 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region Restrictive List
+
+        public List<GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_BlackListInfo_GetInfoByCompanyPublicId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bl in response.DataTableResult.AsEnumerable()
+                     where !bl.IsNull("BlackListId")
+                     group bl by new
+                     {
+                         BlackListId = bl.Field<int>("BlackListId"),
+                         BlackListInfoId = bl.Field<int>("BlackListInfoId"),
+                         BlackListInfoType = bl.Field<string>("BlackListInfoType"),
+                         Value = bl.Field<string>("Value")
+                     } into blg
+                     select new GenericItemModel()
+                     {
+                         ItemId = blg.Key.BlackListId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemName = blg.Key.BlackListInfoType,
+                         },
+                         ItemName = blg.Key.Value,
+                     }).ToList();
+            }
+            return oReturn;            
+        }
+
+        #endregion
     }
 }
+
