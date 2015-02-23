@@ -959,6 +959,8 @@ namespace Links
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                         public static readonly string POMPAdmin_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPAdmin.min.css") ? Url("POMPAdmin.min.css") : Url("POMPAdmin.css");
                              
+                        public static readonly string POMPBalanceSheetInfo_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPBalanceSheetInfo.min.css") ? Url("POMPBalanceSheetInfo.min.css") : Url("POMPBalanceSheetInfo.css");
+                             
                         public static readonly string POMPButtons_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPButtons.min.css") ? Url("POMPButtons.min.css") : Url("POMPButtons.css");
                              
                         public static readonly string POMPCustomer_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPCustomer.min.css") ? Url("POMPCustomer.min.css") : Url("POMPCustomer.css");

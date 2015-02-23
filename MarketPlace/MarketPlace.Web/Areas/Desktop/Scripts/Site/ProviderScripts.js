@@ -11,6 +11,7 @@ var Provider_SearchObject = {
 
     ObjectId: '',
     SearchUrl: '',
+    CompareId: '',
     SearchParam: '',
     SearchFilter: '',
     SearchOrderType: '',
@@ -21,6 +22,7 @@ var Provider_SearchObject = {
 
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
+        this.CompareId = vInitObject.CompareId;
         this.SearchParam = vInitObject.SearchParam;
         this.SearchFilter = vInitObject.SearchFilter;
         this.SearchOrderType = vInitObject.SearchOrderType;
@@ -89,7 +91,8 @@ var Provider_SearchObject = {
 
         var oUrl = this.SearchUrl;
 
-        oUrl += '?SearchParam=' + this.SearchParam;
+        oUrl += '?CompareId=' + this.CompareId;
+        oUrl += '&SearchParam=' + this.SearchParam;
         oUrl += '&SearchFilter=' + this.SearchFilter;
         oUrl += '&SearchOrderType=' + this.SearchOrderType;
         oUrl += '&OrderOrientation=' + this.OrderOrientation;
@@ -98,6 +101,69 @@ var Provider_SearchObject = {
         return oUrl;
     },
 
+    /*****************************Compare methods************************************************/
+
+    OpenCompare: function (vCompareId) {
+
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/CompareApi?CMCompareGet=true&CompareId=' + vCompareId,
+            dataType: 'json',
+            success: function (result) {
+                if (result != null) {
+                    
+                }
+            },
+            error: function (result) {
+            }
+        });
+    },
+
+    ShowCompareCreate: function (vProviderPublicId) {
+
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog({
+            buttons: {
+                'Cancelar': function () {
+                    $(this).dialog('close');
+                },
+                'Guardar': function () {
+
+                    var oCompareName = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip_Name').val();
+
+                    if (oCompareName != null && oCompareName.replace(/ /gi, '') != '') {
+
+                        //create new compare
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CompareApi?CMCompareUpsert=true&CompareId=&CompareName=' + oCompareName + '&ProviderPublicId=' + vProviderPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result != null) {
+                                    Provider_SearchObject.OpenCompare(result);
+                                }
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog('close');
+                            },
+                            error: function (result) {
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateToolTip').dialog('close');
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    },
+
+    ShowSearchCompare: function () {
+
+    },
+
+    UpdateCompare: function (vCompareId, vCompareName) {
+
+    },
+
+    AddCompareProvider: function (vCompareId, vProviderPublicId) {
+
+    },
+
+    /*****************************Compare methods end************************************************/
 };
 
 var Provider_FinancialObject = {
