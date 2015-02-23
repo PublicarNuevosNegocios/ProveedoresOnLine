@@ -3068,15 +3068,18 @@ var Provider_CompanyHSEQObject = {
     },
 
     ObtainData: function () {
+
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + "&ViewEnable=true",
             dataType: 'json',
             success: function (result) {
                 Provider_CompanyHSEQObject.CalculateLTIF(result);
             },
             error: function (result) {
+                Message('error', result);
             },
         });
+
     },
 
     CalculateLTIF: function (result) {
@@ -3090,7 +3093,6 @@ var Provider_CompanyHSEQObject = {
         if (result.length > 0) {
 
             for (var i = 0; i < result.length; i++) {
-
                 oYear += result[i].CA_Year + '   ';
                 oFatalities = oFatalities + parseInt(result[i].CA_Fatalities);
                 oAccidents = oAccidents + parseInt(result[i].CA_NumberAccidentDisabling);
