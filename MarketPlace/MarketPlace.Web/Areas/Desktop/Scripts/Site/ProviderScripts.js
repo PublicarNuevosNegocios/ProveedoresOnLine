@@ -128,6 +128,9 @@ var Provider_SearchObject = {
                     //clean compare items
                     $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').html('');
 
+                    //show all compare search button
+                    $("a[href*='Provider_SearchObject.AddCompareProvider']").show();
+
                     //render compare items
                     $.each(result.RelatedProvider, function (item, value) {
                         //get item html
@@ -146,6 +149,9 @@ var Provider_SearchObject = {
                         if (value.ProviderAlertRisk != Provider_SearchObject.BlackListStatusShowAlert) {
                             $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_BlackList_' + value.RelatedProvider.RelatedCompany.CompanyPublicId).html('');
                         }
+
+                        //remove search result add comparison button
+                        $("a[href*='Provider_SearchObject.AddCompareProvider(\\\'" + value.RelatedProvider.RelatedCompany.CompanyPublicId + "\\\')']").hide();
                     });
 
                     //init generic tooltip
@@ -307,6 +313,23 @@ var Provider_SearchObject = {
         else {
             //new compare process
             Provider_SearchObject.ShowCompareCreate(vProviderPublicId);
+        }
+    },
+    
+    RemoveCompareProvider: function (vProviderPublicId) {
+        if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
+            //remove company from existing compare process
+            $.ajax({
+                url: BaseUrl.ApiUrl + '/CompareApi?CMCompareRemoveCompany=true&CompareId=' + Provider_SearchObject.CompareId + '&ProviderPublicId=' + vProviderPublicId,
+                dataType: 'json',
+                success: function (result) {
+                    if (result != null) {
+                        Provider_SearchObject.OpenCompare(Provider_SearchObject.CompareId);
+                    }
+                },
+                error: function (result) {
+                }
+            });
         }
     },
 

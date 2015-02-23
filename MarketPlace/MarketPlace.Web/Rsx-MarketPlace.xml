@@ -28,7 +28,7 @@
     <key name="File_RemoteDirectory">\MarketPlace\</key>
 
     <!--Company params-->
-    <key name="Company_DefaultLogoUrl">https://www.google.com/a/publicar.com/images/logo.gif</key>
+    <key name="Company_DefaultLogoUrl">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/dafaultProvider.png</key>
 
   </MarketPlace>
 </Settings>
