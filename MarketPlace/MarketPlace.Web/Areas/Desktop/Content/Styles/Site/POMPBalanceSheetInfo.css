@@ -142,7 +142,6 @@
                     }
                         .POMPBalanceSheetColumnDataOne {
                             width:22%;
-                            font-weight:bold;
                             text-align:left !important;
                             height:28px !important;
                             padding:0px 2px 0px 4px !important;
@@ -174,7 +173,7 @@
                             background-color:#fff;
                         }
 
-/********** DATOS DE LAS CELDAS QUE SON RESULTADO DE FORMULAS**********/
+/********** DATOS DE LAS CELDAS QUE SON RESULTADO DE FORMULAS *********/
 
     .POMPBalanceSheetContentFormulaFields {
         background-color:#c5c5c5 !important;
@@ -192,12 +191,12 @@
                 line-height:1.06em;
                 display:inline-block;
                 margin:3px 0px 3px 0px !important;
+                font-weight:bold;
             }
                 .FormulaFieldsColumnOne{
                     width: 22%;
                     height: 28px !important;
                     padding: 0 2px 0 4px !important;
-                    font-weight:bold;
                 }
                 .FormulaFieldsColumnTwo,
                 .FormulaFieldsColumnThree,
