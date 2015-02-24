@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.CompanyProvider.Test
 {
@@ -420,16 +421,22 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         [TestMethod]
         public void MPBalanceSheetGetByYear()
         {
-
             List<Models.Provider.BalanceSheetModel> oResult =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
                 ("1D9B9580", 2014, 108001);
 
-
             Assert.AreEqual(true, oResult.Count > 0);
         }
 
+        [TestMethod]
+        public void MPBalanceSheetGetByYear()
+        {
+            List<GenericItemModel> oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking
+                ("1D9B9580", "");
 
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
         
         #endregion
     }

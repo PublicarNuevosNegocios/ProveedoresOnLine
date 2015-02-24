@@ -1181,6 +1181,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPLegalGetBasicInfo(CompanyPublicId, LegalType);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCustomerProviderGetTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPCustomerProviderGetTracking(CustomerPublicId, ProviderPublicId);
+        }
         #endregion
     }
 }
