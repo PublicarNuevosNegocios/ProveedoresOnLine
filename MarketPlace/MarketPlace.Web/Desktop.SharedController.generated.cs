@@ -36,6 +36,7 @@ namespace T4MVC.Desktop
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _CM_CompareMenu = "_CM_CompareMenu";
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
@@ -53,6 +54,7 @@ namespace T4MVC.Desktop
                 public readonly string _P_Search_Result_Item = "_P_Search_Result_Item";
                 public readonly string _P_Search_Result_Pager = "_P_Search_Result_Pager";
             }
+            public readonly string _CM_CompareMenu = "~/Areas/Desktop/Views/Shared/_CM_CompareMenu.cshtml";
             public readonly string _L_Footer = "~/Areas/Desktop/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Areas/Desktop/Views/Shared/_Layout.cshtml";

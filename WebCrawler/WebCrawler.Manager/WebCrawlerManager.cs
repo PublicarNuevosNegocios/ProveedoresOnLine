@@ -87,7 +87,7 @@ namespace WebCrawler.Manager
 
                 //Provider upsert
                 oProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.ProviderUpsert(oProvider);
-                Console.WriteLine("Se agregó el proveedor " + oProvider.RelatedCompany.CompanyName + "\n");
+                Console.WriteLine("\nSe agregó el proveedor " + oProvider.RelatedCompany.CompanyName + "\n");
 
                 //Relation Provider with Publicar
                 SetCompanyProvider(oProvider.RelatedCompany.CompanyPublicId);
@@ -98,10 +98,10 @@ namespace WebCrawler.Manager
             }
             catch (System.Exception e)
             {
-                Console.WriteLine("Error, " + e.Message + "\n");
+                Console.WriteLine("\nError, " + e.Message + "\n");
             }
 
-            Console.WriteLine("Finalizó el proceso. " + DateTime.Now.ToString() + "\n");
+            Console.WriteLine("\nFinalizó el proceso. " + DateTime.Now.ToString() + "\n");
             Console.WriteLine("\n-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n");
         }
 
@@ -426,7 +426,7 @@ namespace WebCrawler.Manager
                                     Enable = true,
                                 });
 
-                            if (oGeneralInfo.ItemInfo != null)
+                            if (oGeneralInfo.ItemInfo != null && oGeneralInfo.ItemInfo.Count > 0)
                             {
                                 oCompany.RelatedContact.Add(oGeneralInfo);
                             }
@@ -550,7 +550,7 @@ namespace WebCrawler.Manager
                         }
 
                         //Add Conctact Person Info
-                        if (oContactInfo.ItemInfo.Count > 0)
+                        if (oContactInfo.ItemInfo != null && oContactInfo.ItemInfo.Count > 0)
                         {
                             oCompany.RelatedContact.Add(oContactInfo);
                         }
@@ -663,7 +663,10 @@ namespace WebCrawler.Manager
                         });
 
                         //Add Location Info
-                        oCompany.RelatedContact.Add(oLocationsInfo);
+                        if (oLocationsInfo.ItemInfo != null && oLocationsInfo.ItemInfo.Count > 0)
+                        {
+                            oCompany.RelatedContact.Add(oLocationsInfo);
+                        }                        
                     }
                 }
             }
