@@ -101,10 +101,18 @@ namespace MarketPlace.Web.Controllers
                 string oCurrentController = MarketPlace.Web.Controllers.BaseController.CurrentControllerName;
                 string oCurrentAction = MarketPlace.Web.Controllers.BaseController.CurrentActionName;
 
+                //header
+                MarketPlace.Models.General.GenericMenu oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Comparar por:",
+                    Position = 0,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
                 #region Commercial Info
 
                 //header experience
-                MarketPlace.Models.General.GenericMenu oMenuAux = new Models.General.GenericMenu()
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información comercial",
                     Url = Url.RouteUrl
@@ -120,17 +128,14 @@ namespace MarketPlace.Web.Controllers
                     IsSelected =
                         (oCurrentAction == MVC.Compare.ActionNames.CIExperiencesCompare &&
                         oCurrentController == MVC.Compare.Name),
-                };
-
-                //add menu
-                oReturn.Add(oMenuAux);
+                });
 
                 #endregion
 
                 #region HSEQ Info
 
                 //header HSEQ
-                oMenuAux = new Models.General.GenericMenu()
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "HSEQ",
                     Url = Url.RouteUrl
@@ -146,17 +151,14 @@ namespace MarketPlace.Web.Controllers
                     IsSelected =
                         (oCurrentAction == MVC.Compare.ActionNames.HIHSECompare &&
                         oCurrentController == MVC.Compare.Name),
-                };
-
-                //add menu
-                oReturn.Add(oMenuAux);
+                });
 
                 #endregion
 
                 #region Financial Info
 
                 //header Balancesheet
-                oMenuAux = new Models.General.GenericMenu()
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Información Financiera",
                     Url = Url.RouteUrl
@@ -172,13 +174,12 @@ namespace MarketPlace.Web.Controllers
                     IsSelected =
                         (oCurrentAction == MVC.Compare.ActionNames.FIBalanceSheetInfoCompare &&
                         oCurrentController == MVC.Compare.Name),
-                };
-
-                //add menu
-                oReturn.Add(oMenuAux);
+                });
 
                 #endregion
 
+                //add menu
+                oReturn.Add(oMenuAux);
             }
             return oReturn;
         }
