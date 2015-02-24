@@ -45,17 +45,24 @@
                     <label>Seleccionar el año y el tipo de moneda</label>
                     <span>Año</span>
                     <select id="BalanceSheet_Year">
-                        @foreach (var bi in Model.RelatedFinancialInfo.Where(x => !string.IsNullOrEmpty(x.SH_Year)).OrderByDescending(x => x.SH_Year))
+                        @if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
                         {
-                            <link href="~/Areas/Desktop/Content/Styles/Site/POMPProviderSearchLayout.css" rel="stylesheet" />
-                            if (bi.SH_Year == oCurrentYear.ToString())
+                            foreach (var bi in Model.RelatedFinancialInfo.Where(x => !string.IsNullOrEmpty(x.SH_Year)).OrderByDescending(x => x.SH_Year))
                             {
-                                <option selected="selected" value="@bi.SH_Year">@bi.SH_Year</option>
+                                <link href="~/Areas/Desktop/Content/Styles/Site/POMPProviderSearchLayout.css" rel="stylesheet" />
+                                if (bi.SH_Year == oCurrentYear.ToString())
+                                {
+                                    <option selected="selected" value="@bi.SH_Year">@bi.SH_Year</option>
+                                }
+                                else
+                                {
+                                    <option value="@bi.SH_Year">@bi.SH_Year</option>
+                                }
                             }
-                            else
-                            {
-                                <option value="@bi.SH_Year">@bi.SH_Year</option>
-                            }
+                        }
+                        else
+                        {
+                            <option selected="selected" value="@DateTime.Now.Year">@DateTime.Now.Year</option>
                         }
                     </select>
                 </li>
