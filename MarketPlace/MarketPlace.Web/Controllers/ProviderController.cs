@@ -803,7 +803,7 @@ namespace MarketPlace.Web.Controllers
                         FirstOrDefault();
 
                     lstBalanceSheet.
-                        Where(bs => bs.BalanceSheetInfo != null && bs.BalanceSheetInfo.Count > 0).
+                        //Where(bs => bs.BalanceSheetInfo != null && bs.BalanceSheetInfo.Count > 0).
                         OrderByDescending(bs => bs.ItemInfo.
                             Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
                             Select(y => Convert.ToInt32(y.Value)).
@@ -811,14 +811,32 @@ namespace MarketPlace.Web.Controllers
                             FirstOrDefault()).
                         All(bs =>
                         {
-                            //get item to add
                             var oItemDetailToAdd = new ProviderBalanceSheetDetailViewModel()
                             {
                                 Order = oOrder,
-                                RelatedBalanceSheetDetail = bs.BalanceSheetInfo.
-                                    Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).
-                                    FirstOrDefault(),
                             };
+
+                            //get balance to add
+                            if (bs.BalanceSheetInfo != null && 
+                                bs.BalanceSheetInfo.Count > 0 && 
+                                bs.BalanceSheetInfo.Any(bsd => bsd.RelatedAccount.ItemId == ac.ItemId))
+                            {
+                                //get item to add
+                                oItemDetailToAdd = new ProviderBalanceSheetDetailViewModel()
+                                {
+                                    RelatedBalanceSheetDetail = bs.BalanceSheetInfo.
+                                        Where(bsd => bsd.RelatedAccount.ItemId == ac.ItemId).
+                                        FirstOrDefault(),
+                                };
+                            }
+                            else
+                            {
+                                oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = ac,
+                                    Value = 0,
+                                };
+                            }
 
                             #region Eval Vertical Formula
 
@@ -1557,30 +1575,6 @@ namespace MarketPlace.Web.Controllers
                 oReturn.Add(oMenuAux);
 
                 #endregion
-
-                #region last next menu
-
-                MarketPlace.Models.General.GenericMenu MenuAux = null;
-
-                oReturn.OrderBy(x => x.Position).All(pm =>
-                {
-                    pm.ChildMenu.OrderBy(x => x.Position).All(sm =>
-                    {
-                        if (MenuAux != null)
-                        {
-                            MenuAux.NextMenu = sm;
-                        }
-                        sm.LastMenu = MenuAux;
-                        MenuAux = sm;
-
-                        return true;
-                    });
-
-                    return true;
-                });
-
-                #endregion
-
             }
             return oReturn;
         }

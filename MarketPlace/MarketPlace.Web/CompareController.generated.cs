@@ -131,10 +131,10 @@ namespace MarketPlace.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_FIBalanceSheetInfoCompare
         {
-            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string CompareId = "CompareId";
+            public readonly string Currency = "Currency";
             public readonly string ViewName = "ViewName";
             public readonly string Year = "Year";
-            public readonly string Currency = "Currency";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -193,17 +193,17 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void FIBalanceSheetInfoCompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ViewName, string Year, string Currency);
+        partial void FIBalanceSheetInfoCompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string Currency, string ViewName, string Year);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FIBalanceSheetInfoCompare(string ProviderPublicId, string ViewName, string Year, string Currency)
+        public override System.Web.Mvc.ActionResult FIBalanceSheetInfoCompare(string CompareId, string Currency, string ViewName, string Year)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfoCompare);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareId", CompareId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ViewName", ViewName);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
-            FIBalanceSheetInfoCompareOverride(callInfo, ProviderPublicId, ViewName, Year, Currency);
+            FIBalanceSheetInfoCompareOverride(callInfo, CompareId, Currency, ViewName, Year);
             return callInfo;
         }
 

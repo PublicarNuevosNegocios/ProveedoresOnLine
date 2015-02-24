@@ -1,13 +1,24 @@
-﻿@{
-    ViewBag.Title = "Proveedores OnLine - Comparación de proveedores";
+﻿@model MarketPlace.Models.Compare.CompareViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Comparación de proveedores - Balances";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
 }
 
 <div>
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
+    </div>
 
 </div>
 
+@{
+    Model.RenderScripts = true;
+}
 @section inlinescripts
 {
+    @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
 }
+
 

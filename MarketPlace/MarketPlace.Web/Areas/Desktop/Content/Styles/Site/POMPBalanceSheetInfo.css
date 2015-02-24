@@ -53,7 +53,7 @@
     width:100%;
 }
     .POMPBalanceSheet_tabs li{
-        background-color: #b3b3b3;
+        background-color: #ddd;
         border: 1px solid #727276;
         border-top-right-radius: 7px;
         display: inline-block;
@@ -70,8 +70,9 @@
     border-bottom:none;
     padding:6px 10px 1px 10px;
     margin:0px; height: 29px;
-    background-color:#ddd;
+    background-color:#fff;
 }
+
 /************** AQUI VA EL CONTENIDO DE CADA TAB OSEA LAS TABLAS DE CUENTAS *************/
 
 .POMPBalanceSheetContent {
@@ -87,11 +88,11 @@
     }
         .POMPBalanceSheetContent ul li{
             /*border:1px solid green;*/
-            background-color:#ddd;
+            background-color:#fff;
         }
             .POMPBalanceSheetContent ul li ul{
                 /*border:1px solid blue;*/
-                background-color:#ddd;             
+                background-color:#ddd;         
             }
             .POMPBalanceSheetContent ul li label {
                 font-size:1.08em;
@@ -213,11 +214,11 @@
 .POMPBalanceSheetFinanceIndex {
     margin:0px;
     text-align:left;
-    padding: 12px 0px 0px 0px;
+    padding:8px 0px 0px 0px;
 }
     .POMPBalanceSheetFinanceIndex span{
         background-color:#fff;
-        border:1px solid grey;
+        /*border:1px solid grey;*/
         font-size:0.9em;
         padding:3px 5px;
         display:inline-block;
@@ -242,13 +243,18 @@
 .POMPBalanceSheetFinanceIndexData {
     margin:0px; padding:0px; width:auto; height:auto;
 }
-.POMPBalanceSheetFinanceIndexData ul > li{
-    /*border:1px solid red;*/
-}
+        .POMPBalanceSheetFinanceIndexData ul > li:nth-child(odd){
+            /*border:1px solid red;*/
+            background-color:#ddd;
+        }
+        .POMPBalanceSheetFinanceIndexData ul > li:nth-child(even) {
+            background-color:#fff;
+        }
 .POMPBalanceSheetFinanceIndexData ul > li > label{
     /*border:1px solid green;*/
     width:100%;
     margin:0px; padding:4px 0px;
+    background-color:#fff;
 }
 .POMPBalanceSheetFinanceIndexData ul > li > ul > li {
     /*border:1px solid blue;*/
@@ -279,5 +285,6 @@
     width:23.1%;
 }
 .IndexDataAccountTypeColumnFive {
+
     width:22.9%;
 }

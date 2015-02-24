@@ -1,0 +1,46 @@
+﻿@model MarketPlace.Models.Compare.CompareViewModel
+
+@if (Model.CompareMenu != null &&
+    Model.CompareMenu.Count > 0)
+{
+    if (!Model.RenderScripts)
+    {
+        <div class="POMPProviderSideMenu">
+            <div class="POMPProviderTagWrapper">
+                <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.Search,
+                                    CompareId = Model.CompareId,
+                                }))">Regresar a la busqueda</a>
+                <label>Comparar por:</label>
+            </div>
+            <ul id="ulCompareMenu">
+                @foreach (MarketPlace.Models.General.GenericMenu cmm in Model.CompareMenu.OrderBy(x => x.Position))
+                {
+                    string strSeleClass = string.Empty;
+                    if (cmm.IsSelected)
+                    {
+                        strSeleClass = "principalmenuselected";
+                    }
+
+                    <li class="@strSeleClass">
+                        <a href="@cmm.Url">@cmm.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Compare_InitMenu({
+                    ObjId: 'ulCompareMenu',
+                    active: @(Model.CompareMenu.Where(x => x.IsSelected).Select(x => x.Position).DefaultIfEmpty(0).FirstOrDefault()),
+                });
+            });
+        </script>
+    }
+}
