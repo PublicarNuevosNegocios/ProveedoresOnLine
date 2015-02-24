@@ -417,5 +417,85 @@ namespace WebCrawler.Manager
         }
 
         #endregion
+
+        #region Economic Activity
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivities;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> Activities
+        {
+            get
+            {
+                if (oActivities == null)
+                {
+                    oActivities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity
+                        (null, 0, 1000000);
+                }
+                return oActivities;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel Activities_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oActivity = null;
+
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oActivity == null)
+            {
+                //Get exact Search
+                oActivity = Activities.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oActivity == null)
+            {
+                //Get like Search
+                oActivity = Activities.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            return oActivity;
+        }
+
+        #endregion
+
+        #region Custom Economic Activity
+
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivities;
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CustomActivities
+        {
+            get
+            {
+                if (oCustomActivities == null)
+                {
+                    oCustomActivities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity
+                        (null, 0, 1000000);
+                }
+                return oCustomActivities;
+            }
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel CustomActivities_GetByName(string SearchParam)
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oCustomActivity = null;
+
+            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+            SearchParam = reg.Replace(SearchParam.ToLower().Replace(" ", ""), "");
+
+            if (oCustomActivity == null)
+            {
+                //Get exact search
+                oCustomActivity = CustomActivities.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oCustomActivity == null)
+            {
+                //Get like search
+                oCustomActivity = CustomActivities.Where(x => reg.Replace(x.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
+            }
+
+            return oCustomActivity;
+        }
+
+        #endregion
     }
 }
