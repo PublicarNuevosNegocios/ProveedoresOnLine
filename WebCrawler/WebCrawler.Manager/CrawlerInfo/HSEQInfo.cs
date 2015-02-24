@@ -13,12 +13,14 @@ namespace WebCrawler.Manager.CrawlerInfo
     {
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetHSEQInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oHSEQInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oHSEQInfo = null;
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.HSE.ToString());
 
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
             {
+                oHSEQInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
                 HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
                 HtmlNodeCollection rowsTable1 = table[0].SelectNodes(".//tr");//CompanyRiskPolicies Form
 
@@ -469,20 +471,20 @@ namespace WebCrawler.Manager.CrawlerInfo
                         });
 
                         //Add Certification Info
-                        if (oCertificationInfo.ItemInfo.Count > 0)
+                        if (oCertificationInfo.ItemInfo != null && oCertificationInfo.ItemInfo.Count > 0)
                         {
                             oHSEQInfo.Add(oCertificationInfo);
                         }
 
                         //Add Certification Accident Info
-                        if (oCertificationAccidentInfo.ItemInfo.Count > 0)
+                        if (oCertificationAccidentInfo.ItemInfo != null && oCertificationAccidentInfo.ItemInfo.Count > 0)
                         {
                             oHSEQInfo.Add(oCertificationAccidentInfo);
                         }
                     }
                 }
                 //Add Company Company Risk Policies Info
-                if (oCompanyCompanyRiskPoliciesInfo.ItemInfo.Count > 0)
+                if (oCompanyCompanyRiskPoliciesInfo.ItemInfo != null && oCompanyCompanyRiskPoliciesInfo.ItemInfo.Count > 0)
                 {
                     oHSEQInfo.Add(oCompanyCompanyRiskPoliciesInfo);
                 }

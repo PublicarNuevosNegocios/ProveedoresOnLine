@@ -13,12 +13,14 @@ namespace WebCrawler.Manager.CrawlerInfo
     {
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetCertificationInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertifications = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertifications = null;
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.Certifications.ToString());
 
             if (HtmlDoc.DocumentNode.SelectNodes("//table/tr") != null)
             {
+                oCertifications = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
                 HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table");
                 HtmlNodeCollection rows = table[1].SelectNodes(".//tr");
 
@@ -146,6 +148,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                 if (oCertificationsInfo == null)
                 {
                     Console.WriteLine("\nCertifications no tiene datos disponibles.\n");
+                    return null;
                 }
             }
 
