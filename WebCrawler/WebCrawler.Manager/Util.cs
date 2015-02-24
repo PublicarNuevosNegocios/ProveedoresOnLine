@@ -392,7 +392,7 @@ namespace WebCrawler.Manager
                 }
             }
 
-            if (CatalogId == 219 || CatalogId == 213 || CatalogId == 214 || CatalogId == 215 || CatalogId == 1001)
+            if (CatalogId == 219 || CatalogId == 213 || CatalogId == 214 || CatalogId == 215 || CatalogId == 1001 || CatalogId == 303 || CatalogId == 108)
             {
                 if (oReturn == null)
                 {
