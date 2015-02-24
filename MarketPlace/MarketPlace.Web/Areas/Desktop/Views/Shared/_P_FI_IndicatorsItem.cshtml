@@ -22,14 +22,14 @@
 @if (Model.AccountType != 2)
 {
     <!--Render AccountType value content-->
-    <span>@Model.RelatedAccount.ItemName</span>
+    <span class="IndexDataAccountTypeColumnOne">@Model.RelatedAccount.ItemName</span>
     foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
     {
-        <span>
+        <span class="IndexDataAccountTypeColumnTwo">
             @((oBalanceValues.RelatedBalanceSheetDetail != null ? oBalanceValues.RelatedBalanceSheetDetail.Value : 0).ToString("#,0.##"))
         </span>
     }
-    <span>@Model.AccountUnit</span>
-    <span>@Html.Raw(Model.AccountFormulaText)</span>
-    <span>@Html.Raw(Model.AccountFormulaDescription)</span>
+    <span class="IndexDataAccountTypeColumnThree">@Model.AccountUnit</span>
+    <span class="IndexDataAccountTypeColumnFour">@Html.Raw(Model.AccountFormulaText)</span>
+    <span class="IndexDataAccountTypeColumnFive">@Html.Raw(Model.AccountFormulaDescription)</span>
 }

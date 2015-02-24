@@ -253,5 +253,13 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         }
 
         #endregion
+
+        #region Restrictive List 
+
+        List<Models.Util.GenericItemModel> Interfaces.ICompanyData.BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+        #endregion        
     }
 }

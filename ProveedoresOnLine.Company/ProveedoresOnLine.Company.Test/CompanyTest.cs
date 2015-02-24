@@ -234,5 +234,15 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
+
+        [TestMethod]
+        public void BlackListGetByCompanyPublicId()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId
+                ("cu");
+
+            Assert.AreEqual(true, oReturn.Count >= 10);
+        }
     }
 }

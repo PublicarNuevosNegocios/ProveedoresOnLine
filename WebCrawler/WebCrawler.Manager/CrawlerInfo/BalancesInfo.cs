@@ -27,12 +27,14 @@ namespace WebCrawler.Manager.CrawlerInfo
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetFinantialInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantial = null;
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.LegalInfo.ToString());
 
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
             {
+                oFinantial = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
                 HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
 
                 HtmlNodeCollection rowsTable1 = table[3].SelectNodes(".//tr"); // Información Tributaria
@@ -300,7 +302,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (oBankInfo != null)
+                        if (oBankInfo.ItemInfo != null && oBankInfo.ItemInfo.Count > 0)
                         {
                             oFinantial.Add(oBankInfo);
                         }

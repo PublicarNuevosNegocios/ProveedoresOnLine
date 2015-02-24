@@ -850,5 +850,13 @@ namespace ProveedoresOnLine.Company.Controller
         }
 
         #endregion
+
+        #region Restrictive List
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        { 
+            return DAL.Controller.CompanyDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+        #endregion
     }
 }

@@ -14,12 +14,14 @@ namespace WebCrawler.Manager.CrawlerInfo
     {
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetLegalInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegal = null;
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.LegalInfo.ToString());
 
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
             {
+                oLegal = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
                 HtmlNodeCollection table = HtmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
 
                 HtmlNodeCollection rowsTable0 = table[0].SelectNodes(".//tr");//Cámara de Comercio
@@ -191,7 +193,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         oLegal.Add(oChaimberOfCommerce);
                     }
 
-                    if (oChaimberOfCommerce.ItemInfo.Count == 0)
+                    if (oChaimberOfCommerce == null)
                     {
                         Console.WriteLine("\nChaimber of Commerce no tiene datos disponibles.\n");
                     }
@@ -261,7 +263,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
-                        if (oDesignationsInfo != null)
+                        if (oDesignationsInfo != null && oDesignationsInfo.ItemInfo.Count > 0)
                         {
                             oLegal.Add(oDesignationsInfo);
                         }
@@ -506,7 +508,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (oRUTInfo != null)
+                        if (oRUTInfo != null && oRUTInfo.ItemInfo.Count > 0)
                         {
                             oLegal.Add(oRUTInfo);
                         }
@@ -594,7 +596,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             });
                         }
 
-                        if (oSARLAFTInfo != null)
+                        if (oSARLAFTInfo != null && oSARLAFTInfo.ItemInfo.Count > 0)
                         {
                             oLegal.Add(oSARLAFTInfo);
                         }

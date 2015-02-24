@@ -96,7 +96,7 @@
             .POMPBalanceSheetContent ul li label {
                 font-size:1.08em;
                 font-weight:bold;
-                color:#666;
+                color:#333;
                 display:block;
                 width:158px;
                 margin:0px auto;
@@ -104,7 +104,6 @@
             }
                 .POMPBalanceSheetContent ul li ul li{
                     /*border:1px solid darkred;*/
-                    text-align:center;
                 }
                 .POMPBalanceSheetContent > ul > li > ul > li > span{
                     border:1px solid grey;
@@ -138,6 +137,7 @@
                     .POMPBalanceSheetColumnOne,
                     .POMPBalanceSheetColumnDataOne {
                         width:22%;
+                        text-align:left;
                     }
                         .POMPBalanceSheetColumnDataOne {
                             height:28px !important;
@@ -159,50 +159,45 @@
                     .POMPBalanceSheetContent ul li ul li > ul > li > ul > li > span{
                         border:1px solid grey;
                         font-size:0.8em;
-                        margin: 2px 0;
+                        margin:3px 0px;
                         vertical-align:top;
                     }
     .POMPBalanceSheetContentFormulaFields {
         /*border:1px solid aquamarine;*/
-        text-align:center;
         background-color:#c5c5c5 !important;
     }
         .POMPBalanceSheetContentFormulaFields li{
-            display:inline-block;
-            background-color: #c5c5c5 !important;
-            width:auto; height:auto;
+            display:block;
+            background-color:#ffb362 !important;
+            width:100%; height:auto; 
         }
-                    .POMPBalanceSheetContentFormulaFields > li > span{
-                        font-size:;
-                        letter-spacing:-0.5px;
-                        background-color:#fff !important;
-                        padding:5px 2px 5px 4px;
-                        line-height:1.06em;
-                        display:inline-block;
-                        vertical-align:top;
-                    }
-                        .FormulaFieldsColumnTwo,
-                        .FormulaFieldsColumnThree,
-                        .FormulaFieldsColumnFour{
-                            text-align:right;
-                        }
+            .POMPBalanceSheetContentFormulaFields > li > span{
+                letter-spacing:-0.5px;
+                background-color:#fff !important;
+                padding:5px 2px 5px 4px;
+                line-height:1.06em;
+                display:inline-block;
+                margin:3px 0px 3px 0px !important;
+            }
+                .FormulaFieldsColumnOne{
+                    width: 22%;
+                    height: 28px !important;
+                    padding: 0 2px 0 4px !important;
+                }
+                .FormulaFieldsColumnTwo,
+                .FormulaFieldsColumnThree,
+                .FormulaFieldsColumnFour{
+                    text-align:right;
+                    height: 28px !important;
+                }
                     .FormulaFieldsColumnTwo{
                         width:16%;
                     }
                     .FormulaFieldsColumnThree{
-                        width:16%;
-                    }
-                    .FormulaFieldsColumnFour{
-                        width:14%; 
-                    }
-                    .FormulaFieldsColumnTwo{
-                        width:16%;
-                    }
-                    .POMPBalanceSheetContentFormulaFields > li > span:nth-child(5){
                         width:14%;
                     }
-                    .POMPBalanceSheetContentFormulaFields > li > span:nth-child(6){
-                        width:15%;
+                    .FormulaFieldsColumnFour{
+                        width:15.1%; 
                     }
         /********** ESTE PINTA EL ULTIMO GRUPO DE VALORES ***********/
 
@@ -216,14 +211,17 @@
                 }
 /********** EN ESTE LADITO SE PINTA INDICADORES FINANCIEROS ***********/
 .POMPBalanceSheetFinanceIndex {
-    margin:12px 0px 0px 0px;
-    text-align:center;
+    margin:0px;
+    text-align:left;
+    padding: 12px 0px 0px 0px;
 }
     .POMPBalanceSheetFinanceIndex span{
-        border:1px solid pink;
+        background-color:#fff;
+        border:1px solid grey;
         font-size:0.9em;
-        padding:0px 5px;
+        padding:3px 5px;
         display:inline-block;
+        text-align:left;
     }
         .POMPBalanceSheetFinanceCellOne{
             width:21%;
@@ -240,3 +238,47 @@
         .POMPBalanceSheetFinanceCellFive{
             width:23%;
         }
+
+.POMPBalanceSheetFinanceIndexData {
+    margin:0px; padding:0px; width:auto; height:auto;
+}
+.POMPBalanceSheetFinanceIndexData ul > li{
+    /*border:1px solid red;*/
+}
+.POMPBalanceSheetFinanceIndexData ul > li > label{
+    /*border:1px solid green;*/
+    width:100%;
+    margin:0px; padding:4px 0px;
+}
+.POMPBalanceSheetFinanceIndexData ul > li > ul > li {
+    /*border:1px solid blue;*/
+    display:block;
+}
+.POMPBalanceSheetFinanceIndexData ul > li > ul > li > span{
+       padding:2px;
+       height:auto !important;
+       display:inline-block;
+       background-color:#fff !important;
+       min-height:35px;
+       line-height: 1.21em;
+}
+.IndexDataAccountTypeColumnOne {
+    width:20.9%;
+}
+.IndexDataAccountTypeColumnTwo {
+    width:11.1%;
+}
+                .IndexDataAccountTypeColumnTwo,
+                .IndexDataAccountTypeColumnThree {
+                    text-align:right;
+                }
+.IndexDataAccountTypeColumnThree {
+    width:8%;
+}
+.IndexDataAccountTypeColumnFour {
+    width:23.1%;
+}
+.IndexDataAccountTypeColumnFive {
+
+    width:22.9%;
+}
