@@ -22,7 +22,11 @@ namespace MarketPlace.Models.Compare
 
         #region Compare Controller attributes
 
-        public List<MarketPlace.Models.General.GenericMenu> ProviderMenu { get; set; }
+        public bool RenderScripts { get; set; }
+
+        public List<MarketPlace.Models.General.GenericMenu> CompareMenu { get; set; }
+
+        public string CompareCurrency { get; set; }
 
         #endregion
 

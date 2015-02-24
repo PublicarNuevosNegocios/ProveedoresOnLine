@@ -1557,30 +1557,6 @@ namespace MarketPlace.Web.Controllers
                 oReturn.Add(oMenuAux);
 
                 #endregion
-
-                #region last next menu
-
-                MarketPlace.Models.General.GenericMenu MenuAux = null;
-
-                oReturn.OrderBy(x => x.Position).All(pm =>
-                {
-                    pm.ChildMenu.OrderBy(x => x.Position).All(sm =>
-                    {
-                        if (MenuAux != null)
-                        {
-                            MenuAux.NextMenu = sm;
-                        }
-                        sm.LastMenu = MenuAux;
-                        MenuAux = sm;
-
-                        return true;
-                    });
-
-                    return true;
-                });
-
-                #endregion
-
             }
             return oReturn;
         }
