@@ -8,25 +8,37 @@
         <div class="POMPProviderSideMenu">
             <div class="POMPProviderTagWrapper">
                 <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.Search,
-                                    CompareId = Model.CompareId,
-                                }))">Regresar a la busqueda</a>
-                <label>Comparar por:</label>
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search,
+                                CompareId = Model.CompareId,
+                            }))">Regresar a la busqueda</a>
             </div>
             <ul id="ulCompareMenu">
-                @foreach (MarketPlace.Models.General.GenericMenu cmm in Model.CompareMenu.OrderBy(x => x.Position))
+                @foreach (MarketPlace.Models.General.GenericMenu pm in Model.CompareMenu.OrderBy(x => x.Position))
                 {
                     string strSeleClass = string.Empty;
-                    if (cmm.IsSelected)
+                    if (pm.IsSelected)
                     {
                         strSeleClass = "principalmenuselected";
                     }
 
                     <li class="@strSeleClass">
-                        <a href="@cmm.Url">@cmm.Name</a>
+                        <label>@pm.Name</label>
+                        <ul class="POMPProviderSideSubMenu">
+                            @foreach (MarketPlace.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
+                            {
+                                strSeleClass = string.Empty;
+                                if (sm.IsSelected)
+                                {
+                                    strSeleClass = "secundarymenuselected";
+                                }
+                                <li class="@strSeleClass">
+                                    <a href="@sm.Url">@sm.Name</a>
+                                </li>
+                            }
+                        </ul>
                     </li>
                 }
             </ul>
@@ -44,3 +56,4 @@
         </script>
     }
 }
+
