@@ -44,17 +44,17 @@ namespace WebCrawler.Manager.CrawlerInfo
                                     {
                                         string urlS3 = string.Empty;
 
-                                        if (cols[11].InnerHtml.Contains(".pdf"))
-                                        {
-                                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                                        //if (cols[11].InnerHtml.Contains(".pdf"))
+                                        //{
+                                        //    string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
 
-                                            if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
-                                            {
-                                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
-                                            }
+                                        //    if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
+                                        //    {
+                                        //        urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                        //    }
 
-                                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
-                                        }
+                                        //    urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
+                                        //}
 
                                         oUrl.Add(cols[2].InnerText, new Tuple<string, string>(oExperience[1].ToString().Replace("..", WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value.ToString()), urlS3));
                                     }
@@ -70,10 +70,10 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                         Console.WriteLine("\nExperiences Info\n");
 
-                        foreach (string url in oUrl.Values.Select(x => x.Item1))
+                        foreach (string key in oUrl.Keys)
                         {
-                            string key = oUrl.Where(x => x.Value.Item1 == url).Select(x => x.Key).FirstOrDefault();
-                            string urlS3 = oUrl.Where(x => x.Value.Item1 == url).Select(x => x.Value.Item2).FirstOrDefault();
+                            string url = oUrl.Where(x => x.Key == key).Select(x => x.Value.Item1).FirstOrDefault();
+                            string urlS3 = oUrl.Where(x => x.Key == key).Select(x => x.Value.Item2).FirstOrDefault();
 
                             //Create Model
                             ProveedoresOnLine.Company.Models.Util.GenericItemModel oExperiences = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
@@ -97,10 +97,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (htmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
                             {
                                 HtmlNodeCollection t = htmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']");
-
-                                HtmlNodeCollection rowsTbl1 = t[0].SelectNodes(".//tr");
-
-
+                                
                                 foreach (HtmlNode nodeSelectTipo in t[0].SelectNodes(".//select[@id='tipo']"))
                                 {
                                     string[] optionList = nodeSelectTipo.InnerHtml.Split(new char[] { '<' });
@@ -162,7 +159,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (AttId.Value == "c")
                                     {
-                                        Console.WriteLine("Fecha inicio -> " + AttValue.Value.ToString());
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -177,7 +173,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (AttId.Value == "fffin")
                                     {
-                                        Console.WriteLine("Fecha fin -> " + AttValue.Value.ToString());
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -192,7 +187,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (AttId.Value == "entidad")
                                     {
-                                        Console.WriteLine("Entidad -> " + AttValue.Value.ToString());
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -207,8 +201,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (AttId.Value == "valor")
                                     {
-                                        Console.WriteLine("Valor -> " + AttValue.Value.ToString());
-
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -223,7 +215,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (key != string.Empty)
                                     {
-                                        Console.WriteLine("Contrato -> " + key);
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -238,8 +229,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (AttId.Value == "telefono")
                                     {
-                                        Console.WriteLine("Teléfono -> " + AttValue.Value.ToString());
-
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -254,8 +243,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                     if (urlS3 != string.Empty)
                                     {
-                                        Console.WriteLine("Archivo - > " + urlS3);
-
                                         oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                         {
                                             ItemInfoId = 0,
@@ -272,8 +259,6 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                 foreach (HtmlNode nodeArea in t[0].SelectNodes(".//textarea"))
                                 {
-                                    Console.WriteLine("Objeto -> " + nodeArea.InnerText);
-
                                     oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                     {
                                         ItemInfoId = 0,
@@ -285,6 +270,40 @@ namespace WebCrawler.Manager.CrawlerInfo
                                         Enable = true,
                                     });
                                 }
+
+                                foreach (HtmlNode node in t[1].SelectNodes(".//tr"))
+                                {
+                                    if (node.InnerHtml.Contains("checked"))
+                                    {
+                                        string ourl = node.InnerHtml;
+
+                                        foreach (HtmlNode n in node.SelectNodes(".//td/a"))
+                                        {
+                                            string values = n.InnerHtml;
+                                            Console.WriteLine("\nActividad -> " + n.InnerText);
+                                            Console.WriteLine("\nContrato -> " + key);
+
+                                            //Get custom or default activity
+                                            ProveedoresOnLine.Company.Models.Util.GenericItemModel oActivity = Util.Activities_GetByName(n.InnerText);
+                                            ProveedoresOnLine.Company.Models.Util.GenericItemModel oCustomActivity = Util.CustomActivities_GetByName(n.InnerText);
+
+                                            if (oActivity != null)
+                                            {
+                                                Console.WriteLine("\nActividad Económica por defecto -> " + oActivity.ItemName);
+                                            }
+                                            if (oCustomActivity != null)
+                                            {
+                                                Console.WriteLine("\nActividad Económica personalizada -> " + oCustomActivity.ItemName);
+                                            }
+
+                                            if (oActivity == null && oCustomActivity == null)
+                                            {
+                                                Console.WriteLine("\nLa actividad Económica no está en el sistema");
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
 
                             if (oExperiences != null && oExperiences.ItemInfo.Count > 0)
