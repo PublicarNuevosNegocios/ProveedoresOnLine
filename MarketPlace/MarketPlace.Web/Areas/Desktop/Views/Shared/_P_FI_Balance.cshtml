@@ -18,22 +18,18 @@
     {
         <ul>
             <!--Render header-->
-            <li>
-                <ul>
-                    <li>
-                        <span class="POMPBalanceSheetColumnOne">Cuentas</span>
-                        @foreach (var oBalance in oBalanceToShow)
-                        {
-                            <span class="POMPBalanceSheetColumnTwo">
-                                Año @oBalance.SH_Year
-                            </span>
-                            <span class="POMPBalanceSheetColumnThree">
-                                Analisi vertical % @oBalance.SH_Year
-                            </span>
-                        }
-                        <span class="POMPBalanceSheetColumnFour">Analisis Horizontal</span>
-                    </li>
-                </ul>
+            <li class="POMPBalanceSheetColumnHeaderColumn">
+                <span class="POMPBalanceSheetColumnOne">Cuentas</span>
+                @foreach (var oBalance in oBalanceToShow)
+                {
+                    <span class="POMPBalanceSheetColumnTwo">
+                        Año @oBalance.SH_Year
+                    </span>
+                    <span class="POMPBalanceSheetColumnThree">
+                        Analisi vertical % @oBalance.SH_Year
+                    </span>
+                }
+                <span class="POMPBalanceSheetColumnFour">Analisis Horizontal</span>
             </li>
             <!--Render content-->
             @foreach (var oBalanceInfo in Model.RelatedBalanceSheetInfo)

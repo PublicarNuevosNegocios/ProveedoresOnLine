@@ -57,7 +57,7 @@
         border: 1px solid #727276;
         border-top-right-radius: 7px;
         display: inline-block;
-        padding: 4px 10px 1px 10px;
+        padding: 3px 10px 1px 10px;
         height: 27px;
     }
         .POMPBalanceSheet_tabs li a{
@@ -67,8 +67,8 @@
         }
 .POMPBalanceSheet_tabs li.selected{
     border-top-right-radius: 7px;
-    border-bottom:none;
-    padding:6px 10px 1px 10px;
+    border-bottom:1px solid #fff;
+    padding:5px 10px 1px 10px;
     margin:0px; height: 29px;
     background-color:#fff;
 }
@@ -92,28 +92,30 @@
         }
             .POMPBalanceSheetContent ul li ul{
                 /*border:1px solid blue;*/
-                background-color:#ddd;         
+                background-color:#ddd;
             }
             .POMPBalanceSheetContent ul li label {
                 font-size:1.08em;
                 font-weight:bold;
-                color:#333;
+                color:#333; background-color:#fff;
                 display:block;
-                width:158px;
-                margin:0px auto;
-                text-align:center;
+                width:100%;
+                margin:0px auto; padding:4px 0px;
+                text-align:center; border-top:1px solid grey;
             }
-                .POMPBalanceSheetContent ul li ul li{
-                    /*border:1px solid darkred;*/
+/********************** HEADER COLUMNAS *********************/
+                .POMPBalanceSheetColumnHeaderColumn {
+                    margin:0px; padding:0px; background-color:#fff !important;
                 }
-                .POMPBalanceSheetContent > ul > li > ul > li > span{
-                    border:1px solid grey;
-                    font-size:0.8em;
-                    margin:10px 0px 0px 0px;
-                    background-color:#eeeeee;
-                    text-align:left;
+                .POMPBalanceSheetColumnHeaderColumn span{
+                    font-size:0.86em;
+                    margin:3px 0px;
+                    text-align:right;
                 }
-                /******** HEADER COLUMNAS ********/
+            .POMPBalanceSheetContent ul > li > ul > li > span{
+                font-size:0.86em;
+            }
+/********************** HEADER COLUMNAS spans y spans de los datos *********************/
                 .POMPBalanceSheetColumnOne,
                 .POMPBalanceSheetColumnTwo,
                 .POMPBalanceSheetColumnThree,
@@ -124,8 +126,7 @@
                 .POMPBalanceSheetColumnDataFour{
                     display:inline-block;
                     letter-spacing:-0.5px;
-                    background-color:#fff !important;
-                    padding:5px 2px 5px 4px;
+                    padding:3px 2px 3px 2px;
                     line-height:1.06em;                    
                 }
                     .POMPBalanceSheetColumnDataTwo,
@@ -134,13 +135,14 @@
                         text-align:right;
                         height:28px !important;
                     }
-
-                    .POMPBalanceSheetColumnOne,
-                    .POMPBalanceSheetColumnDataOne {
+                    .POMPBalanceSheetColumnOne {
                         width:22%;
-                        text-align:left;
+                        font-weight:normal;
+                        text-align:center !important;
                     }
                         .POMPBalanceSheetColumnDataOne {
+                            width:22%;
+                            text-align:left !important;
                             height:28px !important;
                             padding:0px 2px 0px 4px !important;
                         }
@@ -157,20 +159,30 @@
                         width:15.1%;
                     }
 /********** DATOS DE LAS CELDAS **********/
-                    .POMPBalanceSheetContent ul li ul li > ul > li > ul > li > span{
-                        border:1px solid grey;
-                        font-size:0.8em;
+                    .POMPBalanceSheetContent > ul > li > ul > li > ul > li > ul > li > span{
+                        border:none;
+                        background-color:none !important;
+                        font-size:0.85em;
                         margin:3px 0px;
                         vertical-align:top;
                     }
+                        .POMPBalanceSheetContent ul li:nth-child(odd){
+                            background-color:#eee;
+                        }
+                        .POMPBalanceSheetContent ul li:nth-child(even) {
+                            background-color:#fff;
+                        }
+
+/********** DATOS DE LAS CELDAS QUE SON RESULTADO DE FORMULAS *********/
+
     .POMPBalanceSheetContentFormulaFields {
-        /*border:1px solid aquamarine;*/
         background-color:#c5c5c5 !important;
     }
         .POMPBalanceSheetContentFormulaFields li{
             display:block;
-            background-color:#ffb362 !important;
+            background-color:#FFF !important;
             width:100%; height:auto; 
+            border-top: 1px solid grey;
         }
             .POMPBalanceSheetContentFormulaFields > li > span{
                 letter-spacing:-0.5px;
@@ -179,6 +191,7 @@
                 line-height:1.06em;
                 display:inline-block;
                 margin:3px 0px 3px 0px !important;
+                font-weight:bold;
             }
                 .FormulaFieldsColumnOne{
                     width: 22%;
@@ -203,10 +216,10 @@
         /********** ESTE PINTA EL ULTIMO GRUPO DE VALORES ***********/
 
                 .POMPBalanceSheetContent > ul > li > ul > li > ul > li > span{
-                    border:1px solid grey;
-                    font-size:0.8em;
+                    border:none;
+                    font-size:0.85em;
                     margin:2px 0px;
-                    background-color:#eeeeee;
+                    background-color:none;
                     vertical-align:top;
                     height: 24px;
                 }
@@ -215,61 +228,65 @@
     margin:0px;
     text-align:left;
     padding:8px 0px 0px 0px;
+    background-color: #fff !important;
 }
     .POMPBalanceSheetFinanceIndex span{
         background-color:#fff;
         /*border:1px solid grey;*/
         font-size:0.9em;
-        padding:3px 5px;
+        padding:3px 2px;
         display:inline-block;
-        text-align:left;
     }
         .POMPBalanceSheetFinanceCellOne{
             width:21%;
+            text-align:center !important;
         }
         .POMPBalanceSheetFinanceCellTwo{
             width:11%;
+            text-align:right !important;
         }
         .POMPBalanceSheetFinanceCellThree{
             width:8%;
+            text-align:right !important;
         }
         .POMPBalanceSheetFinanceCellFour{
             width:23%;
+            text-align:center !important;
         }
         .POMPBalanceSheetFinanceCellFive{
             width:23%;
+            text-align:center !important;
         }
-
 .POMPBalanceSheetFinanceIndexData {
     margin:0px; padding:0px; width:auto; height:auto;
 }
         .POMPBalanceSheetFinanceIndexData ul > li:nth-child(odd){
-            /*border:1px solid red;*/
-            background-color:#ddd;
+            background-color:#eee;
         }
         .POMPBalanceSheetFinanceIndexData ul > li:nth-child(even) {
             background-color:#fff;
         }
 .POMPBalanceSheetFinanceIndexData ul > li > label{
-    /*border:1px solid green;*/
+    border-top:1px solid grey;
     width:100%;
     margin:0px; padding:4px 0px;
     background-color:#fff;
 }
 .POMPBalanceSheetFinanceIndexData ul > li > ul > li {
-    /*border:1px solid blue;*/
+    border-top:1px solid grey;
     display:block;
 }
 .POMPBalanceSheetFinanceIndexData ul > li > ul > li > span{
        padding:2px;
        height:auto !important;
        display:inline-block;
-       background-color:#fff !important;
+       border:none !important;
        min-height:35px;
        line-height: 1.21em;
 }
 .IndexDataAccountTypeColumnOne {
     width:20.9%;
+    font-weight: bold;
 }
 .IndexDataAccountTypeColumnTwo {
     width:11.1%;
