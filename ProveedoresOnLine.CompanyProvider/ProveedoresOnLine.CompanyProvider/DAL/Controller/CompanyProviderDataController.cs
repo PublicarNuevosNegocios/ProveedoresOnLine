@@ -205,6 +205,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.MPCustomerProviderGetTracking(CustomerPublicId, ProviderPublicId);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>  MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
+        {
+            return DataFactory.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+        }
         #endregion
 
     }

@@ -154,7 +154,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId);
                 
                 //Get Follow info
-
+                //oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.mp(ProviderPublicId);
                 //Get Finantial Basic info
 
                 //Get Engagement info

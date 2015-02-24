@@ -429,7 +429,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         }
 
         [TestMethod]
-        public void MPBalanceSheetGetByYear()
+        public void MPCustomerProviderGetTracking()
         {
             List<GenericItemModel> oResult =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking
@@ -437,7 +437,16 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
             Assert.AreEqual(true, oResult.Count > 0);
         }
-        
+
+        [TestMethod]
+        public void MPFinancialGetLastyearInfoDeta()
+        {
+            List<GenericItemModel> oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta
+                ("1D9B9580");
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
         #endregion
     }
 }
