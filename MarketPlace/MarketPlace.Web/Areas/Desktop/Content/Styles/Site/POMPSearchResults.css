@@ -50,7 +50,7 @@
 .POMPSearchResultsList {
     margin:0px; padding:0px 10px;
 }
-    .POMPSearchResultsList li{
+    .POMPSearchResultsList > li{
         list-style-type:none;
         margin:0px;
         padding:8px 0px;

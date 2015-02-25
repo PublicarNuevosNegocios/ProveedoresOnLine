@@ -81,47 +81,49 @@
         width:auto; height:auto;
         margin:0px; padding:0px;
 }
-        .POMPComparisonProvListWrapper li{
+        .POMPComparisonProvListWrapper > li{
             list-style-type:none;
             margin:0px 0px 8px 0px;
             padding:3px 0px;
             border-bottom:1px solid #ff8300;
         }
-            .POMPComparisonProvListWrapper li:first-child {
+            .POMPComparisonProvListWrapper > li:first-child {
                 border-top:1px solid #ff8300;
             }
+
+/*************** SELLO DE VERIFICACION PUBLICAR ***************/
+
     .POMPComparisonResultStatusCertified{
         border: 1px solid purple;
         display: inline-block;
         height: auto;
-        max-width: 50px;
+        max-width: 35px;
         vertical-align: top;
-        width: 9%;
+        width:10%;
     }
             .POMPComparisonResultStatusCertified img {
                 height: auto;
                 width: 100%;
             }
-
     .POMPComparisonResultProvDataWrapper {
             border: 1px solid purple;
             display: inline-block;
             height: auto;
             margin: 0;
-            min-width: 275px;
+            min-width:217px;
             vertical-align: top;
             width: calc(100% - 55px);
     }
         .POMPComparisonResultProvDataWrapper > a {
             border: 1px solid #999;
-            min-height: 72px;
+            min-height:54px;
         }
         .POMPComparisonResultProvDataWrapper > a,
         .POMPComparisonResultProvDataWrapper span {
                 display: inline-block;
                 height: auto;
-                min-width: 72px;
-                width: 16%;
+                min-width:49px;
+                width:23%;
             }
         .POMPComparisonResultProvLogo {
             display: inline-block;
@@ -131,25 +133,18 @@
         }
             .POMPComparisonResultNameIDWrapper {
                 display: inline-block;
-                min-width: 202px;
+                min-width:102px;
                 vertical-align: top;
-                width: 54%;
+                width: 48%;
             }
-
-
-/****************************************************************************************************************
-    /********************************************/
-
-
-
             .POMPComparisonResultNameIDWrapper > label,
             .POMPComparisonResultNameIDWrapper > a,
             .POMPComparisonResultNameIDWrapper > label > span {
                 display: block;
-                font-size: 1.1em;
+                font-size: 0.92em;
                 font-weight: normal;
-                letter-spacing: -0.8px;
-                line-height: 1.06em;
+                letter-spacing: -0.4px;
+                line-height: 1.1em;
                 margin: 0;
                 width: auto;
             }
@@ -158,11 +153,11 @@
                 min-width: 0 !important;
                 width: auto !important;
             }
-
+/*********** AQUI VAN LAS ALERTAS ***********/
             .POMPComparisonResultAlertComparWrapper {
                     border: 1px solid red;
                     display: inline-block;
-                    height: 26px;
+                    height: 22px;
                     vertical-align: top;
                     width: 25%;
                 }
@@ -185,132 +180,38 @@
                 vertical-align: top;
                 width: 27px;
             }
+/************ AQUI VAN LAS ACCIONES ENLACES ABAJO *************/
             .POMPComparisonResultLineTwo {
                 border: 1px solid #ff8300;
                 float: right;
-                height: auto;
-                margin: -22px 0 0;
-                padding: 0;
+                height:auto;
+                margin:0;padding: 0;
                 text-align: right;
-                width: 80%;
+                width:100%;
             }
-            .POMPComparisonResultLineTwo li:first-child,
-            .POMPComparisonResultLineTwo li:nth-child(2) {
-                border-right: 1px solid #666;
-            }
-
-            .POMPComparisonResultLineTwo li {
-                display: inline-block;
-                height: auto;
-                margin: 0 0 0 -4px;
-                padding: 0;
-                text-align: center;
-                width: auto;
-            }
-            .POMPComparisonResultsList li {
-                border-bottom: 1px solid #ff8300;
-                list-style-type: none;
-                margin: 0;
-                padding: 8px 0;
-            }
-            .POMPComparisonResultLineTwo li a {
-                display: inline-block;
-                font-size: 0.77em;
-                line-height: 0.8em;
-                margin: 0;
-                padding: 0 6px;
-                width: auto;
-            }
+                .POMPComparisonResultLineTwo > li:first-child,
+                .POMPComparisonResultLineTwo > li:nth-child(2) {
+                    border-right: 1px solid #666;
+                }
+                .POMPComparisonResultLineTwo > li:last-child{
+                    border-right: none;
+                }
+                .POMPComparisonResultLineTwo > li {
+                    display: inline-block;
+                    height:14px;
+                    margin: 0 0 0 -4px;
+                    padding: 0;
+                    text-align: center;
+                    width: auto;
+                }
+                    .POMPComparisonResultLineTwo > li > a {
+                        display:block;
+                        font-size: 0.7em;
+                        height:auto;
+                        margin: 0;
+                        padding: 0 3px;
+                        width: auto;
+                    }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            .POMPComparisonResultProvDataWrapper a{
-                /*border:1px solid purple;*/
-                display:block;
-                font-size:1em; line-height:1.1em; font-weight:normal;
-                letter-spacing:-0.8px;
-            }
-            .POMPComparisonResultProvDataWrapper label, .POMPComparisonResultProvDataWrapper span{
-                /*border:1px solid green;*/                
-                font-size:0.9em; line-height:1.3em; font-weight:normal;
-                letter-spacing:-0.1px;
-                color:#4d4d4d;
-            }
-            .POMPComparisonResultProvDataWrapper label span {
-                font-weight:bold;
-            }
-        .POMPComparisonResultProvAlert{
-               border:none !important;
-            display:inline-block;
-            width:21px; height:20px;
-            margin:0px 0px 0px 2px; padding:0px;
-            vertical-align:top;
-            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
-            background-repeat:no-repeat;
-            background-position:-20px 1px;
-            background-size:80px auto;
-        }
-        .POMPComparisonResultIncludeCoparisonIcon {
-                border:none !important;
-            float:right;
-            width:21px; height:20px;
-            margin:0px; padding:0px;
-            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
-            background-repeat:no-repeat;
-            background-position:-62px -19px;
-            background-size:80px auto;
-        }
-.POMPComparisonResultLineTwo {
-        border-bottom:1px solid #ff8300;
-    display:block;
-    margin:0px; padding:0px;
-    width:100%; height:61px;
-    max-width:327px;
-}
-    .POMPComparisonResultProvRating{
-        /*border:1px solid red;*/
-        display:inline-block;
-        width:74px; height:16px;
-        margin:4px 0px 0px 28px;
-        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/starsSmall.png');
-        background-repeat:no-repeat;
-        background-position:0px 0px;
-        background-size:72px auto;
-    }
-        .POMPComparisonResultProvActions{
-            /*border:1px solid orange;*/
-            display:block;
-            margin:4px 0px 0px 0px;
-            font-size:0.8em;
-            text-align:center;
-        }
-        div.POMPComparisonResultProvActions a{
-            border-right:1px solid #666;
-            margin:0px; padding:0px 4px;
-            letter-spacing:-0.4px;
-        }
-        div.POMPComparisonResultProvActions a:nth-child(3){
-            border-right:none;
-        }
