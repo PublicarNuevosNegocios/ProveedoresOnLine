@@ -2,12 +2,12 @@
 
 @if (!Model.RenderScripts)
 {
-    <div>
+
         <!--Comparison actions-->
         <span class="POMPComparisonTitle">Análisis de Competencias</span>
         <div class="POMPComparisonActionWrapper">
             <a href="javascript:Provider_SearchObject.ShowCompareCreate('');" title="Crear selección">
-                <div class="POMPComparisonActionOpen"></div>
+                <div class="POMPComparisonActionNew"></div>
                 <span>Nuevo</span>
             </a>
             <a href="javascript:Provider_SearchObject.ShowSearchCompare();" title="Abrir selección">
@@ -33,7 +33,6 @@
                 }
             }
         </ul>
-    </div>
 
     <!--templates-->
     <div style="display:none;">
