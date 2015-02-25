@@ -2,6 +2,7 @@
 .POMProviderSearchGreatWrapper {
     display:block;
     width:100%;
+    min-width:960px;
     border:none;
 }
 /*********** MUESTRA LOS FILTROS LATERALES EN RESULTADOS ***********/
@@ -20,7 +21,7 @@
     display: inline-block;
     height:auto;
     min-height:400px;
-    margin: 0 0 0 6px;
+    margin: 0 0 0 2px;
     width:48%;
     min-width:462px;
 }
@@ -35,7 +36,7 @@
         border-left: 2px solid #ff8300;
     display: inline-block;
     height:auto; min-height:400px;
-    margin: 0px 8px 0px 6px; padding: 0px 0px 0px 10px;
+    margin: 0px 3px; padding: 0px 0px 0px 10px;
     width:auto; min-width:340px;
     vertical-align:top;
 }
