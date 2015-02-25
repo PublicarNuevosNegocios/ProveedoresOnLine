@@ -312,7 +312,8 @@
         //CompanyRiskPolicies
         CR_SystemOccupationalHazards = 704001,
         CR_RateARL = 704002,
-        CR_CertificateAffiliateARL = 704003,        
+        CR_CertificateAffiliateARL = 704003,
+        CR_LTIFResult = 704004,
 
         //CertficatesAccident
         CA_Year = 705001,
@@ -322,7 +323,6 @@
         CA_NumberAccidentDisabling = 705005,
         CA_DaysIncapacity = 705006,
         CA_CertificateAccidentARL = 705007,
-        CA_LTIFResult = 705008,
     }
 
     #endregion

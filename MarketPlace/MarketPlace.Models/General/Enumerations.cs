@@ -266,6 +266,7 @@
         CR_SystemOccupationalHazards = 704001,
         CR_RateARL = 704002,
         CR_CertificateAffiliateARL = 704003,
+        CR_LTIFResult = 704004,
 
         //CertficatesAccident
         CA_Year = 705001,

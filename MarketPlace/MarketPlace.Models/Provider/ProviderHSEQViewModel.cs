@@ -313,20 +313,18 @@ namespace MarketPlace.Models.Provider
 
         #region RiskPolicies
 
-        private ProveedoresOnLine.Company.Models.Util.GenericItemModel oCR_SystemOccupationalHazards;
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel CR_SystemOccupationalHazards
+        private string oCR_SystemOccupationalHazards;
+        public string CR_SystemOccupationalHazards
         {
             get
             {
                 if (oCR_SystemOccupationalHazards == null)
                 {
-                    oCR_SystemOccupationalHazards = MarketPlace.Models.Company.CompanyUtil.ARL.
-                        Where(x => x.ItemId.ToString() == RelatedHSEQInfo.ItemInfo.
+                    oCR_SystemOccupationalHazards = RelatedHSEQInfo.ItemInfo.
                                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
-                                        Select(y => y.Value).
+                                        Select(y => y.ValueName).
                                         DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault()).
-                        FirstOrDefault();
+                                        FirstOrDefault();
                 }
                 return oCR_SystemOccupationalHazards;
             }
@@ -341,7 +339,7 @@ namespace MarketPlace.Models.Provider
                 {
                     oCR_RateARL = RelatedHSEQInfo.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_RateARL).
-                        Select(y => y.Value).
+                        Select(y => y.ValueName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
                 }
@@ -363,6 +361,23 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                 }
                 return oCR_CertificateAffiliateARL;
+            }
+        }
+
+        private string oCR_LTIFResult;
+        public string CR_LTIFResult
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCR_LTIFResult))
+                {
+                    oCR_LTIFResult = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CR_LTIFResult).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCR_LTIFResult;
             }
         }
 

@@ -19,7 +19,7 @@
                 <li>
                     <label>
                         Sistema de Riesgos
-                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards.ItemName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
                 </li>
                 <li>
@@ -36,17 +36,8 @@
                 <li>
                     <label>
                         Resultado LTIF:
-                        <span title="@Model.RelatedLTIFInfo.Select(x=>x.CA_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedLTIFInfo.Select(x => x.CA_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
-                </li>
-                <li>
-                    @if (Model.RelatedLTIFInfo != null && Model.RelatedLTIFInfo.Count > 0)
-                    {
-                        <label>
-                            Años:
-                            <span>@Model.RelatedLTIFInfo.Select(x => x.CA_YearsResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
-                        </label>
-                    }                    
                 </li>
             </ul>
         }

@@ -1772,6 +1772,7 @@ var Provider_CompanyHSEQObject = {
     AutoCompleteId: '',
     ControlToReturnACId: '',
     HSEQType: '',
+    CompanyRiskType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
     YearOptionList: new Array(),
@@ -1782,6 +1783,7 @@ var Provider_CompanyHSEQObject = {
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToReturnACId = vInitiObject.ControlToRetornACId;
         this.HSEQType = vInitiObject.HSEQType;
+        this.CompanyRiskType = vInitiObject.CompanyRiskType;
         this.DateFormat = vInitiObject.DateFormat;
         Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
@@ -2866,7 +2868,6 @@ var Provider_CompanyHSEQObject = {
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
-                                Provider_CompanyHSEQObject.CalculateLTIF(result);
                             },
                             error: function (result) {
                                 options.error(result);
@@ -3068,48 +3069,20 @@ var Provider_CompanyHSEQObject = {
     },
 
     ObtainData: function () {
-
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + "&ViewEnable=true",
+            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.CompanyRiskType + "&ViewEnable=true",
             dataType: 'json',
             success: function (result) {
-                Provider_CompanyHSEQObject.CalculateLTIF(result);
+                if (result != null && result.length > 0)
+                {
+                    $('#lblLTIFResult').html(result[0].CR_LTIFResult);
+                }
             },
             error: function (result) {
                 Message('error', result);
             },
         });
 
-    },
-
-    CalculateLTIF: function (result) {
-
-        var oYear = '';
-        var oFatalities = 0.0;
-        var oAccidents = 0.0;
-        var oHours = 0.0;
-        var LTIF = 0.0;
-
-        if (result.length > 0) {
-
-            for (var i = 0; i < result.length; i++) {
-                oYear += result[i].CA_Year + '   ';
-                oFatalities = oFatalities + parseInt(result[i].CA_Fatalities);
-                oAccidents = oAccidents + parseInt(result[i].CA_NumberAccidentDisabling);
-                oHours = oHours + parseInt(result[i].CA_ManHoursWorked);
-            }
-
-            LTIF = ((oFatalities + oAccidents) / oHours) * 1000000;
-
-            $('#F3').html('');
-            $('#F3').append('<label>Resultado LTIF: ' + LTIF.toFixed(3) + '</label>');
-            $('#F3').append('<label>AÑOS: ' + oYear + '</label>')
-        }
-        else {
-            $('#F3').html('');
-            $('#F3').append('<label>Resultado LTIF: ' + LTIF + '</label>');
-            $('#F3').append('<label>AÑOS: ' + oYear + '</label>')
-        }
     },
 };
 

@@ -394,6 +394,70 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
+        #region Private methods
+
+        private GenericItemModel GetHIRiskPoliciesInfoRequest()
+        {
+            if (!string.IsNullOrEmpty(Request["UpsertAction"])
+               && bool.Parse(Request["UpsertAction"]))
+            {
+                //get ARL info
+                GenericItemModel RelatedARL = new GenericItemModel
+                {
+                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
+                    ItemType = new CatalogModel()
+                    {
+                        ItemId = Convert.ToInt32(enumHSEQType.CompanyRiskPolicies),
+                    },
+                    ItemName = Request["RiskPoliciesName"],
+                    Enable = true,
+                    ItemInfo = new List<GenericItemInfoModel>
+                    {
+                        new GenericItemInfoModel()
+                        {                                
+                            ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards
+                            },
+                            Value = Request["SelectedOccupationalHazards"],
+                            Enable = true,
+                        },
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = int.Parse(Request["RateARLId"]),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumHSEQInfoType.CR_RateARL
+                            },
+                            Value = Request["RateARL"],
+                            Enable = true,
+                        },
+                    },
+                };
+
+                //validate empty file
+                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]))
+                {
+                    RelatedARL.ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
+                        },
+                        Value = Request["CertificateAffiliateARL"],
+                        Enable = true,
+                    });
+                }
+
+                return RelatedARL;
+            }
+            return null;
+        }
+
+        #endregion
+
         #endregion
 
         #region Financial Info
@@ -910,86 +974,6 @@ namespace BackOffice.Web.Controllers
             return null;
         }
 
-        private GenericItemModel GetHIRiskPoliciesInfoRequest()
-        {
-            if (!string.IsNullOrEmpty(Request["UpsertAction"])
-               && bool.Parse(Request["UpsertAction"]))
-            {
-                //get ARL info
-                GenericItemModel RelatedARL = new GenericItemModel
-                {
-                    ItemId = Convert.ToInt32(Request["NameInfoId"]),
-                    ItemType = new CatalogModel()
-                    {
-                        ItemId = Convert.ToInt32(enumHSEQType.CompanyRiskPolicies),
-                    },
-                    ItemName = Request["RiskPoliciesName"],
-                    Enable = true,
-                    ItemInfo = new List<GenericItemInfoModel>
-                    {
-                        new GenericItemInfoModel()
-                        {                                
-                            ItemInfoId = int.Parse(Request["SelectedOccupationalHazardsId"]),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards
-                            },
-                            Value = Request["OccupationalHazardsId"],
-                            Enable = true,
-                        },
-                        new GenericItemInfoModel()
-                        {
-                            ItemInfoId = int.Parse(Request["RateARLId"]),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumHSEQInfoType.CR_RateARL
-                            },
-                            Value = Request["RateARL"],
-                            Enable = true,
-                        },
-                        new GenericItemInfoModel()
-                        {
-                            ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
-                            },
-                            Value = Request["CertificateAffiliateARL"],
-                            Enable = true,
-                        },
-                    },
-                };
-
-                if (!string.IsNullOrEmpty(Request["CertificateAffiliateARL"]) && Request["CertificateAffiliateARL"].Length > 0)
-                {
-                    GenericItemInfoModel oGenericItem = new GenericItemInfoModel()
-                    {
-                        ItemInfoId = int.Parse(Request["CertificateAffiliateARLId"]),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)enumHSEQInfoType.CR_CertificateAffiliateARL
-                        },
-                        Value = Request["CertificateAffiliateARL"],
-                        Enable = true,
-                    };
-
-                    RelatedARL.ItemInfo.Add(oGenericItem);
-                }
-
-                //Validación del archivo cuando viene desocupado en el formulario
-                if (RelatedARL.ItemInfo != null && RelatedARL.ItemInfo.Count() > 0)
-                {
-                    if (string.IsNullOrEmpty(RelatedARL.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumHSEQInfoType.CR_CertificateAffiliateARL).Select(x => x.Value).FirstOrDefault()))
-                    {
-                        RelatedARL.ItemInfo.Remove(RelatedARL.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)enumHSEQInfoType.CR_CertificateAffiliateARL).Select(x => x).FirstOrDefault());
-                    }
-                }
-
-                return RelatedARL;
-            }
-            return null;
-        }
-
         #endregion
 
         #endregion
@@ -1019,7 +1003,7 @@ namespace BackOffice.Web.Controllers
         }
 
         #endregion
-        
+
         #region BlackList
 
         public virtual ActionResult DownloadFile(string SearchParam, string SearchFilter)
@@ -1133,7 +1117,7 @@ namespace BackOffice.Web.Controllers
             byte[] buffer = Encoding.ASCII.GetBytes(data.ToString().ToCharArray());
 
             return File(buffer, "application/csv", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv");
-        } 
+        }
         #endregion
 
         #region Menu

@@ -181,12 +181,14 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                         CertificationInfoUpsert(pcert);
 
-                        GenericItemModel oLTIFResult = new GenericItemModel();
-                        oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
+                        GenericItemInfoModel oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
                         if (oLTIFResult != null)
                         {
-                            oLTIFResult.ItemId = pcert.ItemId;
-                            CertificationInfoUpsert(oLTIFResult);
+                            CertificationInfoUpsert(new GenericItemModel()
+                            {
+                                ItemId = pcert.ItemId,
+                                ItemInfo = new List<GenericItemInfoModel>() { oLTIFResult }
+                            });
                         }
                         oLog.IsSuccess = true;
                     }
@@ -223,7 +225,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             if (CertificationToUpsert.ItemId > 0 &&
                 CertificationToUpsert.ItemInfo != null &&
                 CertificationToUpsert.ItemInfo.Count > 0)
-            {                              
+            {
                 CertificationToUpsert.ItemInfo.All(certinf =>
                 {
                     LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
@@ -274,11 +276,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
         #region Private HSEQ Functions
 
-        private static ProveedoresOnLine.Company.Models.Util.GenericItemModel GetLTIFValue(string ProviderPublicId, ProveedoresOnLine.Company.Models.Util.GenericItemModel oHSEQModel)
+        private static ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel GetLTIFValue(string ProviderPublicId, ProveedoresOnLine.Company.Models.Util.GenericItemModel oHSEQModel)
         {
             //Get the CertificationsInfo
-            List<GenericItemModel> oCertificatesResult = new List<GenericItemModel>();
-            oCertificatesResult = CertficationGetBasicInfo(ProviderPublicId, 701004, true);
+            List<GenericItemModel> oCertificatesResult = CertficationGetBasicInfo(ProviderPublicId, 701004, true);
 
             if (oCertificatesResult != null)
             {
@@ -288,45 +289,47 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                 List<int> actualFatalitiesId = new List<int>();
                 decimal actualIncapacity = 0;
                 List<int> actualDaysIncapacityId = new List<int>();
-                int LTIFResultId = 0;
                 decimal LTIFResult = 0;
-
-                string Years = "";
 
                 oCertificatesResult.All(x =>
                 {
-                    actualManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ? 
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
+                    actualManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
                     actualFatalities += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
                     actualIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");                    
-
-                    LTIFResultId = x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705008).Select(y => y.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() != 0 ? 
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705008).Select(y => y.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault(): 0;                    
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
                     return true;
                 });
 
                 if (actualManWorkersHours != 0)
                     LTIFResult = (((actualFatalities + actualIncapacity) / actualManWorkersHours) * 1000000);
 
-                GenericItemModel oltifModel = new GenericItemModel();
-                oltifModel.ItemInfo = new List<GenericItemInfoModel>();
-
-                oltifModel.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                List<GenericItemModel> oRiskCertificate = CertficationGetBasicInfo(ProviderPublicId, 701003, true);
+                int oItemInfoId = 0;
+                oRiskCertificate.Where(x => x.ItemInfo != null).All(x =>
                 {
-                    ItemInfoId = LTIFResultId,
-                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                    {
-                        ItemId = 705008
-                    },
-                    Value = LTIFResult.ToString(),
-                    Enable = true,
+                    oItemInfoId = x.ItemInfo.
+                        Where(y => y.ItemInfoType != null && y.ItemInfoType.ItemId == 704004).
+                        Select(y => y.ItemInfoId).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
+                    return true;
                 });
 
+
+                GenericItemInfoModel oltifModel = new GenericItemInfoModel()
+                {
+                    ItemInfoId = oItemInfoId,
+                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = 704004
+                    },
+                    Value = LTIFResult.ToString("#,0.##"),
+                    Enable = true,
+                };
                 return oltifModel;
             }
-
             return null;
         }
 
