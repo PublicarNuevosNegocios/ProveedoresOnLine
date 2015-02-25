@@ -72,6 +72,7 @@
     <Compile Include="Provider\ProviderBalanceSheetDetailViewModel.cs" />
     <Compile Include="Provider\ProviderBalanceSheetViewModel.cs" />
     <Compile Include="Provider\ProviderComercialViewModel.cs" />
+    <Compile Include="Provider\ProviderFinancialBasicInfoViewModel.cs" />
     <Compile Include="Provider\ProviderFinancialViewModel.cs" />
     <Compile Include="Provider\ProviderDesignationsViewModel.cs" />
     <Compile Include="Provider\ProviderLegalViewModel.cs" />

@@ -125,14 +125,13 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 int oTotalRows;
-                //Get provider view model
+                
                 #region Basic Info
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
 
                 #endregion
-
-                //Get Branch Info
+                                
                 #region Branch Info
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
@@ -149,17 +148,52 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
                 #endregion
-
-                //Get the Restrictive list info
-                oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId);
+                                
+                #region Black List Info
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId); 
+                #endregion
+                                
+                #region Tracking Info
+                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId); 
+                #endregion
+                                
+                #region Basic Financial Info
                 
-                //Get Follow info
-                //oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.mp(ProviderPublicId);
-                //Get Finantial Basic info
+                List<GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+                oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
+
+                if (oFinancial != null)
+                {
+                    oFinancial.All(x =>
+                    {
+                        oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x));
+                        return true;
+                    });
+                }               
+
+                #endregion
 
                 //Get Engagement info
+                                
+                #region HSEQ
 
-                //Get HSEQ Info
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+                oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
+
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
+                    {
+                        oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
+                        return true;
+                    });
+                }
+                else
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                }
+ 
+                #endregion
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }

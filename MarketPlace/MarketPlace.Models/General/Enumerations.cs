@@ -324,6 +324,16 @@
         IB_IBAN = 505008,
         IB_Customer = 505009,
         IB_AccountFile = 505010,
+
+        //Basic Info
+        BI_TotalActive = 3115,
+        BI_TotalPassive = 3116,
+        BI_TotalPatrimony = 3117,
+        BI_OperationIncome = 3821,
+        BI_IncomeBeforeTaxes = 3818,
+        BI_CurrentActive = 3118,
+        BI_CurrentPassive = 3120,
+        BI_Altman = 4930,
     }
 
     #endregion

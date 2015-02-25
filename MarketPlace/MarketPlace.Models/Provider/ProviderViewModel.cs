@@ -52,5 +52,7 @@ namespace MarketPlace.Models.Provider
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedBlackListInfo { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedTrackingInfo { get; set; }
+
+        public List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo { get; set; }
     }
 }
