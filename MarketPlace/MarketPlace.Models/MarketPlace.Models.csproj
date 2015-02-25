@@ -76,7 +76,6 @@
     <Compile Include="Provider\ProviderFinancialViewModel.cs" />
     <Compile Include="Provider\ProviderDesignationsViewModel.cs" />
     <Compile Include="Provider\ProviderLegalViewModel.cs" />
-    <Compile Include="Provider\ProviderLTIFViewModel.cs" />
     <Compile Include="Provider\ProviderHSEQViewModel.cs" />
     <Compile Include="Provider\ProviderLiteViewModel.cs" />
     <Compile Include="Provider\ProviderContactViewModel.cs" />

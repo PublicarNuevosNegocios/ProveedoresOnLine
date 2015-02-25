@@ -89,6 +89,8 @@ namespace BackOffice.Models.Provider
         public string CR_CertificateAffiliateARL { get; set; }
         public string CR_CertificateAffiliateARLId { get; set; }
 
+        public string CR_LTIFResult { get; set; }
+
         #endregion
 
         #region CertificatesAccident
@@ -379,6 +381,12 @@ namespace BackOffice.Models.Provider
             CR_CertificateAffiliateARLId = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
                 Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CR_LTIFResult = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_LTIFResult).
+                Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
