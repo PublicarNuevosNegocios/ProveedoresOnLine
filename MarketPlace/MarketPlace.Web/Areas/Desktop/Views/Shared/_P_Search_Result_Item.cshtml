@@ -71,7 +71,7 @@
             @if (Model.Item1.IsProviderCustomer)
             {
                 <a style="display:@(oIsInComparison ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId');">
-                    <img class="SelGenericTooltip" title="Agregar a la lista de comparación" />
+                    <img class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación" />
                 </a>
             }
         </div>

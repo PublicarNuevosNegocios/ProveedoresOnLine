@@ -62,13 +62,13 @@
 }
 /************** MUESTRA CADA RESULTADO ***************/
 .POMPSearchResultLineOne {
-        border:1px solid red;
+        /*border:1px solid red;*/
     display:block;
     margin:0px; padding:0px;
     width:100%; height:auto;
 }
     .POMPSearchResultStatusCertified{
-        border:1px solid purple;
+        /*border:1px solid purple;*/
         display:inline-block;   
         width:9%; height:auto;
         max-width:50px;
@@ -80,7 +80,7 @@
 
 /************ SEGUNDO BLOQUE DE DATOS LOGO Y DEMAS ************/
         .POMPSearchResultProvDataWrapper {
-            border:1px solid purple;
+            /*border:1px solid purple;*/
             display:inline-block;
             height:auto;
             vertical-align:top;
@@ -89,12 +89,10 @@
             margin:0px;
         }
             .POMPSearchResultProvDataWrapper > a,
-            .POMPSearchResultProvDataWrapper span{
+            .POMPSearchResultProvDataWrapper > span{
                 display:inline-block; width:16%; height:auto;
                 min-width:72px;
-            }
-            .POMPSearchResultProvDataWrapper > a {
-                min-height:72px;
+                min-height:91px;
                 border:1px solid #999;
             }
                 .POMPSearchResultProvLogo {                    
@@ -121,14 +119,18 @@
                 display:inline-block !important;
             }
             .POMPSearchResultAlertComparWrapper{
-                display:inline-block;
-                width:25%; height:26px; border:1px solid red;
+                float:right;
+                width:10%; height:26px;
                 vertical-align:top;
             }
                 .POMPSearchResultAlertComparWrapper div,
                 .POMPSearchResultAlertComparWrapper a {
                     width:auto; height:auto;
                     display: inline-block;
+                    cursor:pointer;
+                }
+               .POMPSearchResultAlertComparWrapper a {
+                    float:right;
                 }
 /************ ALERTA Y COMPARACION ************/
         .POMPSearchResultProvAlert{
@@ -154,10 +156,10 @@
         }
 /************ ACCIONES DEL RESULTADO ************/
 .POMPSearchResultLineTwo {
-    border: 1px solid #ff8300;
+    /*border: 1px solid #ff8300;*/
     float: right;
     height: auto;
-    margin:-22px 0px 0px 0px;
+    margin:-7px 0px 0px 0px;
     padding: 0;
     width: 80%;
     text-align:right;

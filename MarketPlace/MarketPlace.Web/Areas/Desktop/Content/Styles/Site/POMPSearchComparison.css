@@ -94,7 +94,7 @@
 /*************** SELLO DE VERIFICACION PUBLICAR ***************/
 
     .POMPComparisonResultStatusCertified{
-        border: 1px solid purple;
+        /*border: 1px solid purple;*/
         display: inline-block;
         height: auto;
         max-width: 35px;
@@ -106,7 +106,7 @@
                 width: 100%;
             }
     .POMPComparisonResultProvDataWrapper {
-            border: 1px solid purple;
+            /*border: 1px solid purple;*/
             display: inline-block;
             height: auto;
             margin: 0;
@@ -116,7 +116,7 @@
     }
         .POMPComparisonResultProvDataWrapper > a {
             border: 1px solid #999;
-            min-height:54px;
+            min-height:69px;
         }
         .POMPComparisonResultProvDataWrapper > a,
         .POMPComparisonResultProvDataWrapper span {
@@ -155,37 +155,52 @@
             }
 /*********** AQUI VAN LAS ALERTAS ***********/
             .POMPComparisonResultAlertComparWrapper {
-                    border: 1px solid red;
-                    display: inline-block;
-                    height: 22px;
+                    /*border: 1px solid red;*/
+                    float: right;
+                    width: 16%; height: 22px;
                     vertical-align: top;
-                    width: 25%;
+                    margin:3px 0px 0px 0px;
                 }
             .POMPComparisonResultAlertComparWrapper div,
             .POMPComparisonResultAlertComparWrapper a {
                 display: inline-block;
-                height: auto;
-                width: auto;
+                height:auto;
+                width:auto;
+                cursor:pointer;
             }
-            .POMPComparisonResultProvAlert {
-                background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png");
-                background-position: -24px 0;
-                background-repeat: no-repeat;
-                background-size: 101px auto;
-                border: medium none !important;
-                display: inline-block;
-                height: 24px;
-                margin: 0;
-                padding: 0;
-                vertical-align: top;
-                width: 27px;
-            }
+                .POMPComparisonResultAlertComparWrapper a {
+                    float:right;
+                }
+/************** ESTOS SON LOS ICONITOS *************/
+        .POMPComparisonResultProvAlert{
+            border:none !important;
+            display:inline-block;
+            width:16px; height:16px;
+            margin:0px; padding:0px;
+            vertical-align:top;
+            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+            background-repeat:no-repeat;
+            background-position:-15px 0px;
+            background-size:62px auto;
+            vertical-align: top;
+        }
+        .POMPComparisonResultIncludeCoparisonIcon {
+              border:none !important;
+            display:inline-block;
+            width:16px; height:16px;
+            margin:0px; padding:0px;
+            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+            background-repeat:no-repeat;
+            background-position:-49px -15px;
+            background-size:62px auto;
+            vertical-align: top;
+        }
 /************ AQUI VAN LAS ACCIONES ENLACES ABAJO *************/
             .POMPComparisonResultLineTwo {
-                border: 1px solid #ff8300;
+                /*border: 1px solid #ff8300;*/
                 float: right;
                 height:auto;
-                margin:0;padding: 0;
+                margin:0; padding: 0;
                 text-align: right;
                 width:100%;
             }
