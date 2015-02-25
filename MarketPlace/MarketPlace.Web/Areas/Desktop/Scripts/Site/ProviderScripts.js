@@ -121,7 +121,7 @@ var Provider_SearchObject = {
                     Provider_SearchObject.CompareId = result.CompareId;
 
                     //show compare action
-                    $('#' + Provider_SearchObject.ObjectId + '_Compare_ActionCompare').show();
+                    $('.' + Provider_SearchObject.ObjectId + '_Compare_SelActionCompare').show();
 
                     //set compare name and show
                     $('#' + Provider_SearchObject.ObjectId + '_Compare_CompareName').val(result.CompareName);
