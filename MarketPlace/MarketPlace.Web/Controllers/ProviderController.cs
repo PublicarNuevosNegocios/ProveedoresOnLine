@@ -125,13 +125,13 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 int oTotalRows;
-                
+
                 #region Basic Info
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
 
                 #endregion
-                                
+
                 #region Branch Info
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
@@ -148,17 +148,17 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
                 #endregion
-                                
+
                 #region Black List Info
-                oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId); 
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId);
                 #endregion
-                                
+
                 #region Tracking Info
-                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId); 
+                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
                 #endregion
-                                
+
                 #region Basic Financial Info
-                
+
                 List<GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
                 oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
 
@@ -169,12 +169,12 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x));
                         return true;
                     });
-                }               
+                }
 
                 #endregion
 
                 //Get Engagement info
-                                
+
                 #region HSEQ
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
@@ -192,7 +192,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
- 
+
                 #endregion
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -515,14 +515,10 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification =
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
+                    (ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
 
-                List<GenericItemModel> oLTIFResult = null;
-
-                oLTIFResult = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.
-                    MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
-
-                oModel.RelatedLTIFInfo = new List<ProviderLTIFViewModel>();
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
@@ -538,50 +534,10 @@ namespace MarketPlace.Web.Controllers
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
 
-                oModel.RelatedLTIFInfo = new List<ProviderLTIFViewModel>();
-                if (oLTIFResult != null && oLTIFResult.Count > 0)
-                {
-                    oLTIFResult.All(x =>
-                    {
-                        oModel.RelatedLTIFInfo.Add(new ProviderLTIFViewModel(x));
-                        return true;
-                    });
-
-                    oModel.RelatedLTIFInfo = this.GetLTIFResult(oModel.RelatedLTIFInfo);
-                }
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
         }
-
-        #region Privated Methods
-
-        public List<ProviderLTIFViewModel> GetLTIFResult(List<ProviderLTIFViewModel> oLTIFInfo)
-        {
-            List<ProviderLTIFViewModel> oResult = new List<ProviderLTIFViewModel>();
-            oResult = oLTIFInfo;
-
-            decimal ManWorkersHours = 0;
-            decimal Fatalities = 0;
-            decimal DaysIncapacity = 0;
-            string Years = "";
-
-            foreach (ProviderLTIFViewModel item in oLTIFInfo)
-            {
-                ManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_ManHoursWorked) ? item.CA_ManHoursWorked : "0");
-                Fatalities += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_Fatalities) ? item.CA_Fatalities : "0");
-                DaysIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(item.CA_DaysIncapacity) ? item.CA_DaysIncapacity : "0");
-                Years += item.CA_Year + " ";
-            }
-
-            if (ManWorkersHours != 0)
-                oResult.FirstOrDefault().CA_LTIFResult = (((Fatalities + DaysIncapacity) / ManWorkersHours) * 1000000).ToString();
-
-            oResult.FirstOrDefault().CA_YearsResult = Years;
-            return oResult;
-        }
-
-        #endregion
 
         #endregion
 
@@ -851,8 +807,8 @@ namespace MarketPlace.Web.Controllers
                             };
 
                             //get balance to add
-                            if (bs.BalanceSheetInfo != null && 
-                                bs.BalanceSheetInfo.Count > 0 && 
+                            if (bs.BalanceSheetInfo != null &&
+                                bs.BalanceSheetInfo.Count > 0 &&
                                 bs.BalanceSheetInfo.Any(bsd => bsd.RelatedAccount.ItemId == ac.ItemId))
                             {
                                 //get item to add
