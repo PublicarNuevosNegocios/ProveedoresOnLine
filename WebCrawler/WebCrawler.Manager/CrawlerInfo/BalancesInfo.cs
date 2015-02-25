@@ -44,7 +44,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 if (rowsTable1 != null)
                 {
-                    Console.WriteLine("\nActivo info\n");
+                    Console.WriteLine("\nAssets info\n");
 
                     #region Get Years - Currency
 
@@ -53,99 +53,79 @@ namespace WebCrawler.Manager.CrawlerInfo
                     string[] dato1 = col[1].InnerText.Split(new char[] { ';' });
                     string[] dato2 = col[3].InnerText.Split(new char[] { ';' });
 
-                    int año1 = Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", ""));
-                    string formato1 = dato1[2].Replace("\n", "");
+                    Dictionary<int, string> oList = new Dictionary<int, string>();
 
-                    int año2 = Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", ""));
-                    string formato2 = dato2[2].Replace("\n", "");
-
-                    //get currency
-                    //ProveedoresOnLine.Company.Models.Util.CatalogModel oCurrencyYear1 = Util.ProviderOptions_GetByName(108, formato1);-
-
-                    //get currency
-                    //ProveedoresOnLine.Company.Models.Util.CatalogModel oCurrencyYear2 = Util.ProviderOptions_GetByName(108, formato2);
+                    if (Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")) > Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")))
+                    {
+                        oList.Add(Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato2[2].Replace("\n", "") + ",3");
+                        oList.Add(Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato1[2].Replace("\n", "") + ",1");
+                    }
+                    else
+                    {
+                        oList.Add(Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato1[2].Replace("\n", "") + ",1");
+                        oList.Add(Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato2[2].Replace("\n", "") + ",3");
+                    }
 
                     //get accounts
                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantialAccounts = ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
-                    oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    foreach (int year in oList.Keys)
                     {
-                        ItemInfoId = 0,
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        string values = oList.Where(x => x.Key == year).Select(x => x.Value).FirstOrDefault();
+
+                        string[] oValues = values.Split(new char[] { ',' });
+
+                        string currency = oValues[0].Replace(" ", "").Replace("Pesos", "");
+                        int i = Convert.ToInt32(oValues[1]);
+
+                        //Get currency info
+                        ProveedoresOnLine.Company.Models.Util.CatalogModel oCurrency = Util.ProviderOptions_GetByName(108, currency);
+
+                        oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemId = (int)enumFinancialInfoType.SH_Year,
-                        },
-                        Value = string.Empty,
-                        Enable = true,
-                    });
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumFinancialInfoType.SH_Year,
+                            },
+                            Value = year.ToString(),
+                            Enable = true,
+                        });
 
-                    oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = 0,
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemId = (int)enumFinancialInfoType.SH_Currency,
-                        },
-                        Value = "",
-                        Enable = true,
-                    });
-                    
-                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
-                    {
-                        BalanceSheetId = 0,
-                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumFinancialInfoType.SH_Currency,
+                            },
+                            Value = oCurrency != null ? oCurrency.ItemId.ToString() : string.Empty,
+                            Enable = true,
+                        });
+
+                        //insert balance info
+                        //oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                        //{
+                        //    BalanceSheetId = 0,
+                        //    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        //    {
+                        //        ItemId = 0,
+                        //    },
+                        //    Value = 0,
+                        //    Enable = true,
+                        //});
+
+                        if (oBalance.ItemInfo != null && oBalance.ItemInfo.Count > 0)
                         {
-                            ItemId = 0,
-                        },
-                        Value = 0,
-                        Enable = true,
-                    });
-
-
-                    for (int i = 2; i < rowsTable1.Count; i++)
-                    {
-                        string acc = oFinantialAccounts.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == 109002).Select(x => x.Value).FirstOrDefault();
-
-                        Console.WriteLine(acc);
-
-                        HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
-
-                        Console.WriteLine("cuentas --> " );
+                            oBalancesInfo.Add(oBalance);
+                        }
                     }
-
+                    
                     #endregion
-
-                    //for (int i = 0; i < rowsTable1.Count; i++)
-                    //{
-                    //    HtmlNodeCollection cols = rowsTable1[i].SelectNodes(".//td");
-
-                    //    if (i == 0)
-                    //    {
-                    //        string[] dato1 = cols[1].InnerText.Split(new char[] { ';' });
-                    //        string[] dato2 = cols[3].InnerText.Split(new char[] { ';' });
-
-                    //        int año1 = Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", ""));
-                    //        string formato1 = dato1[2].Replace("\n", "");
-                            
-                    //        int año2 = Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", ""));
-                    //        string formato2 = dato2[2].Replace("\n", "");
-
-                    //        //get currency
-                    //        ProveedoresOnLine.Company.Models.Util.CatalogModel oCurrency = Util.ProviderOptions_GetByName(108, formato1);
-
-                    //        if (año1 < año2)
-                    //        {
-                                
-                    //        }
-
-                    //        Console.WriteLine("Año --> " + cols[1].InnerText);
-                    //        Console.WriteLine("Año --> " + cols[3].InnerText);
-                    //    }
-                    //}
                 }
                 else
                 {
-                    Console.WriteLine("\nActivo no tiene datos disponibles.\n");
+                    Console.WriteLine("\nAssets no tiene datos disponibles.\n");
                 }
 
                 #endregion
@@ -156,11 +136,11 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 if (rowsTable2 != null)
                 {
-                    Console.WriteLine("\nPasivo info\n");
+                    Console.WriteLine("\nLiabilities info\n");
                 }
                 else
                 {
-                    Console.WriteLine("\nPasivo no tiene datos disponibles.\n");
+                    Console.WriteLine("\nLiabilities no tiene datos disponibles.\n");
                 }
 
                 #endregion
@@ -171,11 +151,11 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 if (rowsTable3 != null)
                 {
-                    Console.WriteLine("\nPatrimonio info.\n");
+                    Console.WriteLine("\nPatrimony info.\n");
                 }
                 else
                 {
-                    Console.WriteLine("\nPatrimonio no tiene datos disponibles.\n");
+                    Console.WriteLine("\nPatrimony no tiene datos disponibles.\n");
                 }
 
                 #endregion
@@ -186,11 +166,11 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 if (rowsTable4 != null)
                 {
-                    Console.WriteLine("\nEstado de resultados info.\n");
+                    Console.WriteLine("\nIncome Statement de resultados info.\n");
                 }
                 else
                 {
-                    Console.WriteLine("\nEstado de resultados no tiene datos disponibles.\n");
+                    Console.WriteLine("\nIncome Statement no tiene datos disponibles.\n");
                 }
 
                 #endregion
