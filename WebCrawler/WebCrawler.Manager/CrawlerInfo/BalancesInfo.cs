@@ -12,9 +12,9 @@ namespace WebCrawler.Manager.CrawlerInfo
     {
         #region Balances Info
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetBalancesInfo(string ParId, string PublicId)
+        public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> GetBalancesInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBalancesInfo = null;
+            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oBalancesInfo = null;
 
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.GeneralBalance.ToString());
 

@@ -25,7 +25,7 @@
 
     <!--All Menu Keys-->
     <!--GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,Representation,OtherInfo,-->
-    <key name="CrawlerTags">Experience,</key>
+    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,</key>
 
     <!--PAR Modules-->
     
@@ -58,7 +58,7 @@
     
     <key name="Crawler_CompanyList">
       <![CDATA[
-      1733,21D6CB01;
+      1733,CE111765;
       ]]></key>
 
     <!--<key name="Crawler_CompanyList">

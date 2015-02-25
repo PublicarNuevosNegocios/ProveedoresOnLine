@@ -240,7 +240,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId
-                ("cu");
+                ("1D9B9580");
 
             Assert.AreEqual(true, oReturn.Count >= 10);
         }

@@ -76,6 +76,10 @@ namespace WebCrawler.Manager
                 {
                     oProvider.RelatedCommercial = WebCrawler.Manager.CrawlerInfo.ExperiencesInfo.GetExperiencesInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
+                else if (item.ToString() == enumMenu.GeneralBalance.ToString())
+                {
+                    oProvider.RelatedBalanceSheet = WebCrawler.Manager.CrawlerInfo.BalancesInfo.GetBalancesInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                }
             }
 
             try

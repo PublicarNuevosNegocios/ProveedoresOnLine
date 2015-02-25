@@ -1468,6 +1468,90 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> MPCustomerProviderGetTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_CustomerProvider_GetTracking",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bl in response.DataTableResult.AsEnumerable()
+                     where !bl.IsNull("CustomerProviderInfoId")
+                     group bl by new
+                     {
+                         CustomerProviderInfoId = bl.Field<int>("CustomerProviderInfoId"),
+                         Seguimiento = bl.Field<string>("Seguimiento"),
+                         CreateDate = bl.Field<DateTime>("CreateDate"),
+                         Status = bl.Field<UInt64>("Status") == 1 ? true : false,
+                     } into blg
+                     select new GenericItemModel()
+                     {
+                         ItemId = blg.Key.CustomerProviderInfoId,
+                         Enable = blg.Key.Status,
+                         CreateDate = blg.Key.CreateDate,
+                         ItemName = blg.Key.Seguimiento,                         
+                     }).ToList();
+            }
+            return oReturn;          
+        }
+
+        public List<GenericItemModel> MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Financial_GetLastyearInfoDeta",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bl in response.DataTableResult.AsEnumerable()
+                     where !bl.IsNull("CompanyId")
+                     group bl by new
+                     {
+                         CompanyId = bl.Field<int>("CompanyId"),
+                         Account = bl.Field<int>("Account"),
+                         Year = bl.Field<string>("Year"),                         
+                         Value = bl.Field<decimal>("Value"),                         
+                     } into blg
+                     select new GenericItemModel()
+                     {
+                         ItemId = blg.Key.CompanyId,                         
+                         ItemName = blg.Key.Year,
+                         ItemType = new CatalogModel()
+                         {                             
+                             ItemId = blg.Key.Account,
+                             ItemName = blg.Key.Value.ToString(),                             
+                         },                         
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
     }
 }

@@ -48,5 +48,9 @@ namespace MarketPlace.Models.Provider
         public List<ProviderLegalViewModel> RelatedLegalInfo { get; set; }
 
         public List<ProviderDesignationsViewModel> RelatedDesignationsInfo { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedBlackListInfo { get; set; }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedTrackingInfo { get; set; }
     }
 }

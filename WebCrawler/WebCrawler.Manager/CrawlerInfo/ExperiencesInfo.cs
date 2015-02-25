@@ -44,17 +44,17 @@ namespace WebCrawler.Manager.CrawlerInfo
                                     {
                                         string urlS3 = string.Empty;
 
-                                        //if (cols[11].InnerHtml.Contains(".pdf"))
-                                        //{
-                                        //    string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+                                        if (cols[11].InnerHtml.Contains(".pdf"))
+                                        {
+                                            string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
 
-                                        //    if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
-                                        //    {
-                                        //        urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
-                                        //    }
+                                            if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
+                                            {
+                                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                            }
 
-                                        //    urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
-                                        //}
+                                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
+                                        }
 
                                         oUrl.Add(cols[2].InnerText, new Tuple<string, string>(oExperience[1].ToString().Replace("..", WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value.ToString()), urlS3));
                                     }
@@ -75,6 +75,10 @@ namespace WebCrawler.Manager.CrawlerInfo
                             string url = oUrl.Where(x => x.Key == key).Select(x => x.Value.Item1).FirstOrDefault();
                             string urlS3 = oUrl.Where(x => x.Key == key).Select(x => x.Value.Item2).FirstOrDefault();
 
+                            string strHtml = WebCrawler.Manager.WebCrawlerManager.oWebClient.DownloadString(url);
+                            HtmlDocument htmlDoc = new HtmlDocument();
+                            htmlDoc.LoadHtml(strHtml);
+
                             //Create Model
                             ProveedoresOnLine.Company.Models.Util.GenericItemModel oExperiences = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                             {
@@ -86,13 +90,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 },
                                 Enable = true,
                                 ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
-                            };
-
-                            string strHtml = WebCrawler.Manager.WebCrawlerManager.oWebClient.DownloadString(url);
-
-                            HtmlDocument htmlDoc = new HtmlDocument();
-
-                            htmlDoc.LoadHtml(strHtml); 
+                            };                             
 
                             if (htmlDoc.DocumentNode.SelectNodes("//table[@class='administrador_tabla_generales']") != null)
                             {
@@ -271,6 +269,9 @@ namespace WebCrawler.Manager.CrawlerInfo
                                     });
                                 }
 
+                                string defaultActivity = string.Empty;
+                                string customActivity = string.Empty;
+
                                 foreach (HtmlNode node in t[1].SelectNodes(".//tr"))
                                 {
                                     if (node.InnerHtml.Contains("checked"))
@@ -280,8 +281,6 @@ namespace WebCrawler.Manager.CrawlerInfo
                                         foreach (HtmlNode n in node.SelectNodes(".//td/a"))
                                         {
                                             string values = n.InnerHtml;
-                                            Console.WriteLine("\nActividad -> " + n.InnerText);
-                                            Console.WriteLine("\nContrato -> " + key);
 
                                             //Get custom or default activity
                                             ProveedoresOnLine.Company.Models.Util.GenericItemModel oActivity = Util.Activities_GetByName(n.InnerText);
@@ -289,19 +288,42 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                             if (oActivity != null)
                                             {
-                                                Console.WriteLine("\nActividad Económica por defecto -> " + oActivity.ItemName);
+                                                defaultActivity += defaultActivity != string.Empty ? oActivity != null ? "," + oActivity.ItemId.ToString() : string.Empty : oActivity.ItemId.ToString();
                                             }
                                             if (oCustomActivity != null)
                                             {
-                                                Console.WriteLine("\nActividad Económica personalizada -> " + oCustomActivity.ItemName);
-                                            }
-
-                                            if (oActivity == null && oCustomActivity == null)
-                                            {
-                                                Console.WriteLine("\nLa actividad Económica no está en el sistema");
+                                                customActivity += customActivity != string.Empty ? oCustomActivity != null ? "," + oCustomActivity.ItemId.ToString() : string.Empty : oCustomActivity.ItemId.ToString();
                                             }
                                         }
                                     }
+                                }
+
+                                if (defaultActivity != string.Empty)
+                                {
+                                    oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                    {
+                                        ItemInfoId = 0,
+                                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = (int)enumCommercialInfoType.EX_EconomicActivity,
+                                        },
+                                        LargeValue = defaultActivity,
+                                        Enable = true,
+                                    });
+                                }
+
+                                if (customActivity != string.Empty)
+                                {
+                                    oExperiences.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                    {
+                                        ItemInfoId = 0,
+                                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = (int)enumCommercialInfoType.EX_CustomEconomicActivity,
+                                        },
+                                        LargeValue = customActivity,
+                                        Enable = true,
+                                    });
                                 }
 
                             }
