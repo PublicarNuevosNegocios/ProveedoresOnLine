@@ -123,22 +123,43 @@ namespace MarketPlace.Web.Controllers
                 //return url provider not allowed
             }
             else
-            {
-                int oTotalRows;
-                
+            {   
                 #region Basic Info
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
 
+                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.PersonContact);
+                oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
+
+                if (oModel.ContactCompanyInfo != null)
+                {
+                    oModel.ContactCompanyInfo.All(x =>
+                    {
+                        oModel.RelatedGeneralInfo.Add(new ProviderContactViewModel(x));
+                        return true;
+                    });
+                }
+
+                #endregion
+
+                #region Legal Info
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce);
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
+                {                   
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
+                    {
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
+                        return true;
+                    });
+                }
+
                 #endregion
                                 
                 #region Branch Info
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
-                oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
-
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
-                oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
-
+                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);                
+                
                 if (oModel.ContactCompanyInfo != null)
                 {
                     oModel.ContactCompanyInfo.All(x =>
@@ -983,18 +1004,13 @@ namespace MarketPlace.Web.Controllers
                 oDesignations = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Designations);
                 oModel.RelatedDesignationsInfo = new List<ProviderDesignationsViewModel>();
                 int oTotalRows;
-
-                List<GenericItemModel> oEconomiActivity = null;
-                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
+                                
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
-                {
-                    List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
-                    oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
-
+                {                    
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
                         return true;
                     });
                 }
@@ -1044,15 +1060,13 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.RUT);
-                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
-                List<GenericItemModel> oEconomiActivity = null;
+                oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();                
+                
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
                         return true;
                     });
                 }
@@ -1091,14 +1105,12 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.CIFIN);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
-                List<GenericItemModel> oEconomiActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
+                
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
                         return true;
                     });
                 }
@@ -1138,14 +1150,12 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.SARLAFT);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 212).Select(x => x).ToList();
-
-                List<GenericItemModel> oEconomiActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
+                                
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
                         return true;
                     });
                 }
@@ -1184,25 +1194,19 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.Resoluciones);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-
-                List<CatalogModel> oEntitieType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 218).Select(x => x).ToList();
-
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
-                List<GenericItemModel> oEconomiActivity = null;
+                               
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
-                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x, oEconomiActivity, oEntitieType, MarketPlace.Models.Company.CompanyUtil.ProviderOptions, oCities));
+                        oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
                         return true;
                     });
                 }
-
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
         }
-
         #endregion
 
         #region Menu

@@ -17,36 +17,104 @@
         <ul class="POMPProviderInfoDisplayList">
             <li>
                 <label>
-                    Tipo de Identificación
-                    @if (Model.RelatedLiteProvider != null)
+                    Representante Legal
+                    @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
                     {
-                        <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName</span>
-                    }                    
-                </label>
-            </li>
-            <li>
-                <label>
-                    Número de Identificación
-                    @if (Model.RelatedLiteProvider != null)
-                    {
-                        <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</span>
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     }
                 </label>
             </li>
             <li>
                 <label>
-                    Razón Social
-                    @if (Model.RelatedLiteProvider != null)
+                    Registro Mercantil
+                    @if (Model.RelatedLegalInfo != null)
                     {
-                        <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</span>
+                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
                     }
                 </label>
             </li>
             <li>
                 <label>
-                    Fecha de Certificación
+                    Dirección
+                    @if (Model.RelatedGeneralInfo != null)
+                    {
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
+                    }
+                </label>
+            </li>
+            <li>
+                <label>
+                    Ciudad
+                    @if (Model.RelatedGeneralInfo != null)
+                    {
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City)</span>
+                    }
+                </label>
+            </li>
+            <li>
+                <label>
+                    Teléfono
+                    @if (Model.RelatedGeneralInfo != null)
+                    {
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone)</span>
+                    }
+                </label>
+            </li>
+            <li>
+                <label>
+                    Fáx
                     @if (Model.RelatedLiteProvider != null)
                     {
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax)</span>
+                    }
+                </label>
+            </li>
+            <li>
+                <label>
+                    Página Web
+                    @if (Model.RelatedLiteProvider != null)
+                    {
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website)</span>
+                    }
+                </label>
+            </li>
+
+            <li>
+                <label>
+                    Email
+                    @if (Model.RelatedLiteProvider != null)
+                    {
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email)</span>
+                    }
+                </label>
+            </li>
+            <li>
+                <label>
+                    Objeto Social
+                    @if (Model.RelatedLegalInfo != null)
+                    {
+                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
+                    }
+                </label>
+            </li>
+            <li>
+                <label>
+                    Objeto Social
+                    @if (Model.RelatedLegalInfo != null)
+                    {
+                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
+                    }
+                </label>
+            </li>
+        </ul>
+
+        <label class="POMPSectionTitles">Información básica</label>
+        <ul class="POMPProviderInfoDisplayList">
+            <li>
+                <label>                    
+                    @if (Model.RelatedBlackListInfo != null)
+                    {
+                        //Model.RelatedBlackListInfo.Where(x => x.)
                         <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyInfo.Where(x => x.ItemInfoType.ItemId == 203004).Select(x => x.Value).FirstOrDefault()</span>
                     }
                 </label>

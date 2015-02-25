@@ -116,6 +116,39 @@ namespace MarketPlace.Models.Company
 
         #endregion
 
+        #region Generic ICA
+                
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ICA
+        {                    
+            get
+            {
+                if (oICA == null)
+                {
+                    int oTotalRows;
+                    oDefaultActivity =
+                        ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out oTotalRows);
+                }
+                return oDefaultActivity;
+            }
+        }
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA;
+
+        /// <summary>
+        /// get Ica by id
+        /// </summary>
+        /// <param name="vICAId">ICA id</param>
+        /// <returns>Name</returns>
+        public static string GetICAName(string vICAId)
+        {
+            return ICA.
+                        Where(ci => ci.ItemId.ToString() == vICAId).
+                        Select(ci => ci.ItemName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+        }
+
+        #endregion
+
         #region HSEQ Category
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> Rule
