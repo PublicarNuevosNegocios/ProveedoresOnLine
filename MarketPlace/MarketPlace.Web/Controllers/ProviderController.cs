@@ -200,8 +200,8 @@ namespace MarketPlace.Web.Controllers
                     if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
                     {                        
                         oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
-                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentActive).FirstOrDefault())
-                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).FirstOrDefault()));                                               
+                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));                                               
                     }
                 }                               
                 #endregion
@@ -210,9 +210,13 @@ namespace MarketPlace.Web.Controllers
                 #region HSEQ
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications));
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null 
+                && oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Count > 0)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications));
+                }
+                
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
-
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.All(x =>
@@ -225,7 +229,9 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
- 
+                
+                oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetSpecificCert(ProviderPublicId);
+                               
                 #endregion
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
