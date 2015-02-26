@@ -87,6 +87,17 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
+                        oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = 0,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumFinancialInfoType.SH_Currency,
+                            },
+                            Value = oCurrency != null ? oCurrency.ItemId.ToString() : string.Empty,
+                            Enable = true,
+                        });
+
                         #region Activo
 
                         for (int j = 2; j < rowsTable1.Count; j++)
