@@ -17,6 +17,7 @@
 .ui-widget {
 	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
 	font-size: 1.1em/*{fsDefault}*/;
+    box-shadow: 3px 3px 5px 0 #333;
 }
 .ui-widget .ui-widget {
 	font-size: 1em;
@@ -38,9 +39,10 @@
 }
 .ui-widget-header {
 	border: 1px solid #aaaaaa/*{borderColorHeader}*/;
-	background: #cccccc/*{bgColorHeader}*/ url("images/ui-bg_highlight-soft_75_cccccc_1x100.png")/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
-	color: #222222/*{fcHeader}*/;
-	font-weight: bold;
+    background-color:#ff8300;
+	color: #fff/*{fcHeader}*/;
+	font-weight: normal;
+    letter-spacing: -0.5px;
 }
 .ui-widget-header a {
 	color: #222222/*{fcHeader}*/;
