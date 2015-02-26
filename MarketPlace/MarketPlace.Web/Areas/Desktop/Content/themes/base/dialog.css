@@ -61,6 +61,22 @@
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: right;
 }
+.ui-dialog-buttonset > button:last-child {
+    border-radius: 2px;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 18px;
+    background-color: #ff8300;
+    color: #fff;
+    font-size: 1.1em;
+    letter-spacing: -0.5px;
+    border: 1px solid #666;
+}
+.ui-dialog-buttonset > button:last-child:hover {
+        background-color:#ffb362;
+        text-decoration:underline;
+        color:#fff;
+}
 .ui-dialog .ui-dialog-buttonpane button {
 	margin: .5em .4em .5em 0;
 	cursor: pointer;

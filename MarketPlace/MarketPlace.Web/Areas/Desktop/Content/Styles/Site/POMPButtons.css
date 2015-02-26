@@ -32,3 +32,45 @@
     vertical-align: text-bottom;
     width: 24px;
 }
+
+#Search_Compare_Search_ToolTip_Grid ul {
+    display: block;
+    margin: 0 auto !important;
+    padding:6px 0px 4px 0px;
+    width: 345px;
+}
+#Search_Compare_Search_ToolTip_Grid ul li{
+    list-style-type:none;
+    display:inline-block;
+    width:auto; height:auto;
+}
+    #Search_Compare_Search_ToolTip_Grid  ul > li > input{
+        border-top-left-radius: 2px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 0px;
+        display: inline-block;
+        margin: 0;
+        padding: 0px 18px;
+        background-color: #f9f9f9;
+        color: #666;
+        font-size: 1.1em;
+        letter-spacing: -0.5px;
+        border: 1px solid #666;
+        border-right:none;
+        vertical-align:top;
+        height:24px;
+    }
+    #Search_Compare_Search_ToolTip_Grid  ul > li > a {
+        display: inline-block;
+        margin: 0 0 0 -5px;
+        padding:0px 7px;
+        text-transform: uppercase;
+        vertical-align: top;
+        background-color: #ff8300;
+        color: #fff;
+        font-size: 1em;
+        letter-spacing: -0.5px;
+        height:26px;
+        line-height: 1.6em;
+    }
