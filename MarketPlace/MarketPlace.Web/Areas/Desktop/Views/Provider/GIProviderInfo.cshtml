@@ -13,7 +13,8 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Información básica</label>
+        <label class="POMPSectionTitles">Resumen del Proveedor</label>
+        <label class="POMPProviderDataSubtitle">Información básica</label>
         <ul class="POMPProviderInfoDisplayList">
             <li>
                 <label>
@@ -97,32 +98,49 @@
                     }
                 </label>
             </li>
+            <li>
+                <span>
+                    <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.GIBranchInfo,
+                                    ProviderPublicId = Request["ProviderPublicId"]
+                                }))">Ver Detalle</a>
+                </span>
+            </li>
         </ul>
         @if (Model.RelatedBlackListInfo != null)
         {
-            <label class="POMPSectionTitles">Consulta Listas Restrictivas</label>
-            <ul class="POMPProviderInfoDisplayList">
-                <li>
-                    <label>
-                        @foreach (var itemBL in Model.RelatedBlackListInfo)
-                        {
+            <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
+                <ul class="POMPProviderInfoDisplayList">
+
+                    @foreach (var itemBL in Model.RelatedBlackListInfo)
+                    {
+                    <li>
+                        <label>
                             @itemBL.ItemType.ItemName
                             <span>@itemBL.ItemName</span>
-                        }
+                        </label>
+                    </li>
+                    }
 
-                    </label>
-                </li>
-            </ul>
+                </ul>
         }
-        <label class="POMPSectionTitles">Seguimientos</label>
+        <label class="POMPProviderDataSubtitle">Seguimientos</label>
         <ul class="POMPProviderInfoDisplayList">
             <li>
                 <label>
                     Seguimiento
                     @if (Model.RelatedTrackingInfo != null)
                     {
-                        <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>                        
+                        <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
                     }
+                </label>
+            </li>
+            <li>
+                <label>
                     Fecha
                     @if (Model.RelatedTrackingInfo != null)
                     {
@@ -132,44 +150,119 @@
             </li>
         </ul>
 
-        <label class="POMPSectionTitles">Información Financiera</label>
+        <label class="POMPProviderDataSubtitle">Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
         <ul class="POMPProviderInfoDisplayList">
             <li>
                 <label>
                     Total Activo
                     @if (Model.RelatedFinancialBasicInfo != null)
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>                        
+                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
+                </label>
+            </li>
+            <li>
+                <label>
                     Total Pasivo
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>                        
+                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
+                </label>
+            </li>
+            <li>
+                <label>
                     Total Patrimonio
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
                     {
                         <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
+                </label>
+            </li>
+            <li>
+                <label>
                     Ingresos Operacionales
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
                     {
                         <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
+                </label>
+            </li>
+            <li>
+                <label>
                     Utilidad Antes de Impuestos
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
                     {
                         <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
-                                        
-                    Capital de Trabajo                
-                    @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("").FirstOrDefault()))
-                    {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("").FirstOrDefault()</span>
-                    }                   
-                  
                 </label>
             </li>
+            <li>
+                <label>
+                    Capital de Trabajo
+                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty(0).FirstOrDefault()</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    Indice Altman
+                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span>
+                        * 1.80 Muy alta
+                    </span>
+                    <span>
+                        * 1.81 a 2.7 Alta
+                    </span>
+                    <span>
+                        * 2.8 a 2.9 Posible
+                    </span>
+                    <span>
+                        * 3 o más No es probable la falta de liquidez
+                    </span>
+                </label>
+            </li>
+            <li>
+                <span>
+                    <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
+                                    ProviderPublicId = Request["ProviderPublicId"]
+                                }))">Ver Detalle</a>
+                </span>
+            </li>
+        </ul>
+
+        <label class="POMPProviderDataSubtitle">Información HSEQ</label>
+        <ul class="POMPProviderInfoDisplayList">
+
+            @if (Model.RelatedHSEQlInfo != null)
+            {
+                <li>
+                    <label>
+                        LTIF
+                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Nivel de Riesgo ARL
+                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Nivel de Riesgo ARL
+                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                    </label>
+                </li>
+            }
         </ul>
     </div>
 </div>

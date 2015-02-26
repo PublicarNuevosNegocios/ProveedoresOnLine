@@ -389,12 +389,6 @@ span.Message {
                 vertical-align: top;
             }
 
-.ui-dialog .ui-dialog-titlebar-close {
-    background-image: url('../../Images/cerrar.png');
-    background-repeat: no-repeat;
-    background-size: 15px;
-}
-
 /******LegalTerms********/
 
 .LegalTermsForm label {

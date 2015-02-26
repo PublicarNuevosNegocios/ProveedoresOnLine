@@ -182,29 +182,35 @@ namespace MarketPlace.Web.Controllers
                 
                 List<GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
                 oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
-
+                
                 if (oFinancial != null)
                 {
+                    decimal oExchange;
+                    oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
+                                Convert.ToInt32(oFinancial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
+                                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
+                                Convert.ToInt32(oFinancial.FirstOrDefault().ItemName));
+
                     oFinancial.All(x =>
                     {
-                        oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x));
+                        oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x, oExchange));
                         return true;
                     });
 
                     if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
-                    {
+                    {                        
                         oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
                             (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentActive).FirstOrDefault())
-                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).FirstOrDefault())).ToString("#,0,##");
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).FirstOrDefault()));                                               
                     }
                 }                               
                 #endregion
 
-                //Get Engagement info
-                                
+                //Get Engagement info                                
                 #region HSEQ
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications));
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
@@ -1187,7 +1193,7 @@ namespace MarketPlace.Web.Controllers
                 //Basic info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información básica",
+                    Name = "Resumen del Proveedor",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
