@@ -287,7 +287,7 @@ namespace ProveedoresOnLine.CompareModule.DAL.MySQLDAO
                                         !cd.IsNull("EvaluationAreaId")
                                  group cd by new
                                  {
-                                     EvaluationAreaId = cd.Field<string>("EvaluationAreaId"),
+                                     EvaluationAreaId = (int)cd.Field<UInt64>("EvaluationAreaId"),
                                      EvaluationAreaName = cd.Field<string>("EvaluationAreaName"),
                                      Currency = cd.Field<string>("Currency"),
                                      Value1 = cd.Field<string>("Value1"),

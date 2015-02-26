@@ -611,10 +611,6 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCompanyGetBasicInfo(ProviderPublicId);
 
-                //get account info
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> olstAccount =
-                    ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
-
                 //get balance info
                 List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oBalanceAux =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPBalanceSheetGetByYear
@@ -635,11 +631,10 @@ namespace MarketPlace.Web.Controllers
                 }
 
                 oModel.RelatedBalanceSheetInfo = new List<ProviderBalanceSheetViewModel>();
-                if (oBalanceAux != null && oBalanceAux.Count > 0 && olstAccount != null && olstAccount.Count > 0)
+                if (oBalanceAux != null && oBalanceAux.Count > 0)
                 {
                     oModel.RelatedBalanceSheetInfo = GetBalanceSheetViewModel
                         (null,
-                        olstAccount,
                         oBalanceAux,
                         oViewName);
                 }
@@ -785,13 +780,12 @@ namespace MarketPlace.Web.Controllers
 
         private List<ProviderBalanceSheetViewModel> GetBalanceSheetViewModel
             (ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount,
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> lstAccount,
             List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> lstBalanceSheet,
             string oViewName)
         {
             List<ProviderBalanceSheetViewModel> oReturn = new List<ProviderBalanceSheetViewModel>();
 
-            lstAccount.
+            MarketPlace.Models.Company.CompanyUtil.FinancialAccount.
                 Where(ac =>
                     RelatedAccount != null ?
                         (ac.ParentItem != null && ac.ParentItem.ItemId == RelatedAccount.ItemId) :
@@ -820,7 +814,6 @@ namespace MarketPlace.Web.Controllers
                         FirstOrDefault();
 
                     lstBalanceSheet.
-                        //Where(bs => bs.BalanceSheetInfo != null && bs.BalanceSheetInfo.Count > 0).
                         OrderByDescending(bs => bs.ItemInfo.
                             Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.SH_Year).
                             Select(y => Convert.ToInt32(y.Value)).
@@ -914,7 +907,6 @@ namespace MarketPlace.Web.Controllers
                     //get child values
                     oItemToAdd.ChildBalanceSheet = GetBalanceSheetViewModel
                         (ac,
-                        lstAccount,
                         lstBalanceSheet,
                         oViewName);
 

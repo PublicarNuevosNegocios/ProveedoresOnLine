@@ -419,4 +419,15 @@
     }
 
     #endregion
+
+    #region Compare
+
+    public enum enumCompareType
+    {
+        Commercial = 3,
+        Certifications = 7,
+        Financial = 5,
+    }
+
+    #endregion
 }

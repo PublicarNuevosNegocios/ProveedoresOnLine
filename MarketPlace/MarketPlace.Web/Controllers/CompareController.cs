@@ -19,21 +19,25 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult CIExperiencesCompare(string CompareId, string Currency)
         {
-            //get compare basic info
+            //get compare info
             ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                                CompareGetCompanyBasicInfo
-                                (Convert.ToInt32(CompareId.Replace(" ", "")),
-                                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                CompareGetDetailByType
+                ((int)enumCompareType.Commercial,
+                Convert.ToInt32(CompareId.Replace(" ", "")),
+                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                null,
+                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
             MarketPlace.Models.Compare.CompareViewModel oModel = new Models.Compare.CompareViewModel(oCompareResult);
-            oModel.CompareCurrency = Currency;
+            oModel.CompareCurrency = !string.IsNullOrEmpty(Currency) ?
+                Convert.ToInt32(Currency.Replace(" ", "")) :
+                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+            oModel.Year = null;
+            oModel.CompareType = enumCompareType.Commercial;
+
+            oModel.GetCompareDetail();
 
             oModel.CompareMenu = GetCompareMenu(oModel);
-
-
-
-
 
             return View(oModel);
         }
@@ -44,21 +48,26 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult HIHSECompare(string CompareId, string Currency)
         {
-            //get compare basic info
+            //get compare info
             ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                                CompareGetCompanyBasicInfo
-                                (Convert.ToInt32(CompareId.Replace(" ", "")),
-                                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                CompareGetDetailByType
+                ((int)enumCompareType.Certifications,
+                Convert.ToInt32(CompareId.Replace(" ", "")),
+                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                null,
+                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
             MarketPlace.Models.Compare.CompareViewModel oModel = new Models.Compare.CompareViewModel(oCompareResult);
-            oModel.CompareCurrency = Currency;
+            oModel.CompareCurrency = !string.IsNullOrEmpty(Currency) ?
+                Convert.ToInt32(Currency.Replace(" ", "")) :
+                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+
+            oModel.Year = null;
+            oModel.CompareType = enumCompareType.Certifications;
+
+            oModel.GetCompareDetail();
 
             oModel.CompareMenu = GetCompareMenu(oModel);
-
-
-
-
 
             return View(oModel);
         }
@@ -67,23 +76,28 @@ namespace MarketPlace.Web.Controllers
 
         #region Financial Info
 
-        public virtual ActionResult FIBalanceSheetInfoCompare(string CompareId, string Currency, string ViewName, string Year)
+        public virtual ActionResult FIBalanceSheetInfoCompare(string CompareId, string Currency, string Year)
         {
-            //get compare basic info
+            //get compare info
             ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                                CompareGetCompanyBasicInfo
-                                (Convert.ToInt32(CompareId.Replace(" ", "")),
-                                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                CompareGetDetailByType
+                ((int)enumCompareType.Financial,
+                Convert.ToInt32(CompareId.Replace(" ", "")),
+                MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                string.IsNullOrEmpty(Year) ? null : (int?)Convert.ToInt32(Year.Replace(" ", "")),
+                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
             MarketPlace.Models.Compare.CompareViewModel oModel = new Models.Compare.CompareViewModel(oCompareResult);
-            oModel.CompareCurrency = Currency;
+            oModel.CompareCurrency = !string.IsNullOrEmpty(Currency) ?
+                Convert.ToInt32(Currency.Replace(" ", "")) :
+                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+
+            oModel.Year = string.IsNullOrEmpty(Year) ? null : (int?)Convert.ToInt32(Year.Replace(" ", ""));
+            oModel.CompareType = enumCompareType.Financial;
+
+            oModel.GetCompareDetail();
 
             oModel.CompareMenu = GetCompareMenu(oModel);
-
-
-
-
 
             return View(oModel);
         }

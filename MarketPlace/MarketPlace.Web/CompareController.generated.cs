@@ -133,7 +133,6 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string CompareId = "CompareId";
             public readonly string Currency = "Currency";
-            public readonly string ViewName = "ViewName";
             public readonly string Year = "Year";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -193,17 +192,16 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void FIBalanceSheetInfoCompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string Currency, string ViewName, string Year);
+        partial void FIBalanceSheetInfoCompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string Currency, string Year);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FIBalanceSheetInfoCompare(string CompareId, string Currency, string ViewName, string Year)
+        public override System.Web.Mvc.ActionResult FIBalanceSheetInfoCompare(string CompareId, string Currency, string Year)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfoCompare);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareId", CompareId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ViewName", ViewName);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
-            FIBalanceSheetInfoCompareOverride(callInfo, CompareId, Currency, ViewName, Year);
+            FIBalanceSheetInfoCompareOverride(callInfo, CompareId, Currency, Year);
             return callInfo;
         }
 

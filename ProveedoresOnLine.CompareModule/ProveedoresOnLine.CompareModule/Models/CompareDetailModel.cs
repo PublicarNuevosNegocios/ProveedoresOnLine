@@ -8,7 +8,7 @@ namespace ProveedoresOnLine.CompareModule.Models
 {
     public class CompareDetailModel
     {
-        public string EvaluationAreaId { get; set; }
+        public int EvaluationAreaId { get; set; }
 
         public string EvaluationAreaName { get; set; }
 

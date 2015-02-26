@@ -117,9 +117,9 @@ namespace MarketPlace.Models.Company
         #endregion
 
         #region Generic ICA
-                
+
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> ICA
-        {                    
+        {
             get
             {
                 if (oICA == null)
@@ -208,6 +208,18 @@ namespace MarketPlace.Models.Company
         }
         private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oBank;
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> FinancialAccount
+        {
+            get
+            {
+                if (oFinancialAccount == null)
+                {
+                    oFinancialAccount = ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
+                }
+                return oFinancialAccount;
+            }
+        }
+        private static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancialAccount;
 
         #endregion
     }
