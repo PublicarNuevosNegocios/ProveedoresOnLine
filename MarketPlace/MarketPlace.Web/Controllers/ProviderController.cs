@@ -200,8 +200,8 @@ namespace MarketPlace.Web.Controllers
                     if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
                     {                        
                         oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
-                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
-                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));                                               
+                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentActive)).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));                                               
                     }
                 }                               
                 #endregion
