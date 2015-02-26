@@ -33,6 +33,7 @@
 	text-decoration: none;
 	font-size: 100%;
 	list-style: none;
+    box-shadow:none !important;
 }
 .ui-helper-clearfix:before,
 .ui-helper-clearfix:after {
