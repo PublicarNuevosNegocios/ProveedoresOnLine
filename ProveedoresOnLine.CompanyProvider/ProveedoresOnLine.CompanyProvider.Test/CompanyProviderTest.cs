@@ -433,7 +433,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         {
             List<GenericItemModel> oResult =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking
-                ("1D9B9580", "");
+                ("1A9863BD", "1D9B9580");
 
             Assert.AreEqual(true, oResult.Count > 0);
         }

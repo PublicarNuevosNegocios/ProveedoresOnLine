@@ -1498,12 +1498,15 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          CustomerProviderInfoId = bl.Field<int>("CustomerProviderInfoId"),
                          Seguimiento = bl.Field<string>("Seguimiento"),
                          CreateDate = bl.Field<DateTime>("CreateDate"),
-                         Status = bl.Field<UInt64>("Status") == 1 ? true : false,
+                         Status = bl.Field<string>("Status"),
                      } into blg
                      select new GenericItemModel()
                      {
                          ItemId = blg.Key.CustomerProviderInfoId,
-                         Enable = blg.Key.Status,
+                         ItemType = new CatalogModel()
+                         {                             
+                             ItemName = blg.Key.Status
+                         },                         
                          CreateDate = blg.Key.CreateDate,
                          ItemName = blg.Key.Seguimiento,                         
                      }).ToList();
@@ -1535,20 +1538,27 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      where !bl.IsNull("CompanyId")
                      group bl by new
                      {
-                         CompanyId = bl.Field<int>("CompanyId"),
-                         Account = bl.Field<int>("Account"),
-                         Year = bl.Field<string>("Year"),                         
-                         Value = bl.Field<decimal>("Value"),                         
+                         CompanyId = bl.Field<int>("CompanyId"),                         
+                         Year = bl.Field<string>("Year"),                                                                           
                      } into blg
                      select new GenericItemModel()
                      {
                          ItemId = blg.Key.CompanyId,                         
-                         ItemName = blg.Key.Year,
-                         ItemType = new CatalogModel()
-                         {                             
-                             ItemId = blg.Key.Account,
-                             ItemName = blg.Key.Value.ToString(),                             
-                         },                         
+                         ItemName = blg.Key.Year,                         
+                         ItemInfo =
+                              (from blinf in response.DataTableResult.AsEnumerable()
+                               where !blinf.IsNull("FinancialInfoId") &&
+                                       blinf.Field<int>("CompanyId") == blg.Key.CompanyId
+                               select new GenericItemInfoModel()
+                               {
+                                   ItemInfoId = blinf.Field<int>("FinancialInfoId"),
+                                   ItemInfoType = new CatalogModel()
+                                   {
+                                       ItemId = blinf.Field<int>("Account"),                                       
+                                   },
+                                   Value = blinf.Field<decimal>("Value").ToString(),
+                                   ValueName = blinf.Field<string>("Currency"),
+                               }).ToList(),
                      }).ToList();
             }
             return oReturn;
