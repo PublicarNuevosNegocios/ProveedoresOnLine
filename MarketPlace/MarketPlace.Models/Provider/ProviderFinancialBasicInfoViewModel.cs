@@ -11,32 +11,46 @@ namespace MarketPlace.Models.Provider
         public ProviderViewModel RelatedViewProvider { get; set; }
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancialBasicInfo { get; private set; }
-        
+
         #region Financial BasicInfo
 
+        public decimal Exchange { get; set; }
+
         public string oBI_TotalActive { get; set; }
-        public string BI_TotalActive 
-        {
+        public string BI_TotalActive
+        {            
             get
             {
                 if (string.IsNullOrEmpty(oBI_TotalActive))
                 {
-                    oBI_TotalActive = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalActive
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;                         
+                    oBI_TotalActive = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalActive).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    oBI_TotalActive = (Convert.ToDecimal(oBI_TotalActive) * Exchange).ToString();
                 }
+
                 return oBI_TotalActive;
-            }        
+            }
         }
+
         public string oBI_TotalPassive { get; set; }
-        public string BI_TotalPassive        
+        public string BI_TotalPassive
         {
             get
             {
                 if (string.IsNullOrEmpty(oBI_TotalPassive))
                 {
-                    oBI_TotalPassive = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalPassive
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;         
+                    oBI_TotalPassive = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalPassive).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                    oBI_TotalPassive = (Convert.ToDecimal(oBI_TotalPassive) * Exchange).ToString();
                 }
+
                 return oBI_TotalPassive;
             }
         }
@@ -48,13 +62,18 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oBI_TotalPatrimony))
                 {
-                    oBI_TotalPatrimony = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalPatrimony
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;      
+                    oBI_TotalPatrimony = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_TotalPatrimony).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                    oBI_TotalPatrimony = (Convert.ToDecimal(oBI_TotalPatrimony) * Exchange).ToString();
                 }
+
                 return oBI_TotalPatrimony;
             }
-        }        
-        
+        }
+
         public string oBI_OperationIncome { get; set; }
         public string BI_OperationIncome
         {
@@ -62,13 +81,19 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oBI_OperationIncome))
                 {
-                    oBI_OperationIncome = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_OperationIncome
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;      
+                    oBI_OperationIncome = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_OperationIncome).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    oBI_OperationIncome = (Convert.ToDecimal(oBI_OperationIncome) * Exchange).ToString();
                 }
+
                 return oBI_OperationIncome;
             }
-        }    
-        
+        }
+
         public string oBI_IncomeBeforeTaxes { get; set; }
         public string BI_IncomeBeforeTaxes
         {
@@ -76,13 +101,19 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oBI_IncomeBeforeTaxes))
                 {
-                    oBI_IncomeBeforeTaxes = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_IncomeBeforeTaxes
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;    
+                    oBI_IncomeBeforeTaxes = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_IncomeBeforeTaxes).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    oBI_IncomeBeforeTaxes = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString();
                 }
+
                 return oBI_IncomeBeforeTaxes;
             }
-        }    
-        
+        }
+
         public string oBI_CurrentActive { get; set; }
         public string BI_CurrentActive
         {
@@ -90,13 +121,19 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oBI_CurrentActive))
                 {
-                    oBI_CurrentActive = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_CurrentActive
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;    
+                    oBI_CurrentActive = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_CurrentActive).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    oBI_CurrentActive = (Convert.ToDecimal(oBI_CurrentActive) * Exchange).ToString();
                 }
+
                 return oBI_CurrentActive;
             }
-        }   
-        
+        }
+
         public string oBI_CurrentPassive { get; set; }
         public string BI_CurrentPassive
         {
@@ -104,13 +141,18 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oBI_CurrentPassive))
                 {
-                    oBI_CurrentPassive = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_CurrentPassive
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;    
+                    oBI_CurrentPassive = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_CurrentPassive).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                    oBI_CurrentPassive = (Convert.ToDecimal(oBI_CurrentPassive) * Exchange).ToString();
                 }
+
                 return oBI_CurrentPassive;
             }
-        } 
-        
+        }
+
         public string oBI_Altman { get; set; }
         public string BI_Altman
         {
@@ -118,20 +160,27 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oBI_Altman))
                 {
-                    oBI_Altman = RelatedFinancialBasicInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_Altman
-                        ? RelatedFinancialBasicInfo.ItemType.ItemName : null;    
+                    oBI_Altman = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_Altman).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
                 }
+
                 return oBI_Altman;
             }
         }
-                
-        public string BI_JobCapital { get; set; }      
-        
+
+        public decimal BI_JobCapital { get; set; }
+        public string BI_Year { get; set; }
+
         #endregion
 
-        public ProviderFinancialBasicInfoViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo)
+        public ProviderFinancialBasicInfoViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo, decimal oExchange)
         {
             RelatedFinancialBasicInfo = oRelatedInfo;
+            Exchange = oExchange;
+            BI_Year = oRelatedInfo.ItemName;
         }
 
         public ProviderFinancialBasicInfoViewModel() { }
