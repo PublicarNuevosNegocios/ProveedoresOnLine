@@ -12,9 +12,9 @@
 .POMPLogo{
     display: inline-block;
     width:auto;
-    height:85px;
+    height:78px;
     vertical-align: top;
-    margin:9px 0px 4px 14px;
+    margin:9px 0px 6px 14px;
         border:none;
 }
 /*************** USER MENU ***************/
@@ -103,7 +103,7 @@
         padding:0px;
         text-align:center;            
             border:none;
-        height:38px;
+        height:35px;
         vertical-align:top;
     }
     .POMPMainMenuWrapper li a{
@@ -117,9 +117,10 @@
         vertical-align: bottom;
         letter-spacing:-0.4px;
     }
-        .POMPMainMenuWrapper li a:hover, .POMPMainMenuWrapper li a.selected{
+        .POMPMainMenuWrapper li a:hover, .POMPMainMenuWrapper > li.selected{
             text-decoration:none;
-            border-bottom:8px solid #ff8300;
+            border-bottom:5px solid #ff8300;
+            font-weight:normal !important;
         }
     li.spacers {
         border-left: 1px solid #727276;

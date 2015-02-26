@@ -66,6 +66,7 @@
     <Compile Include="DAL\MySQLDAO\Compare_MySqlDao.cs" />
     <Compile Include="Interfaces\ICompareData.cs" />
     <Compile Include="Models\CompareCompanyModel.cs" />
+    <Compile Include="Models\CompareDetailModel.cs" />
     <Compile Include="Models\CompareModel.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

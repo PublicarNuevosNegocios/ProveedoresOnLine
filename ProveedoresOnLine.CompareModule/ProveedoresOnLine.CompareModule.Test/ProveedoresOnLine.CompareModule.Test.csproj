@@ -71,7 +71,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="CompareModuleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +80,12 @@
   <ItemGroup>
     <Content Include="Rsx-Company.xml" />
     <Content Include="Rsx-SettingsConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.CompareModule\ProveedoresOnLine.CompareModule.csproj">
+      <Project>{e8600324-36e7-4364-bbf0-08a3d0765c32}</Project>
+      <Name>ProveedoresOnLine.CompareModule</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

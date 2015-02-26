@@ -235,6 +235,115 @@ namespace ProveedoresOnLine.CompareModule.DAL.MySQLDAO
             return oReturn;
         }
 
+        public CompareModel CompareGetDetailByType(int CompareTypeId, int CompareId, string User, int? Year)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompareTypeId", CompareTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompareId", CompareId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
+            lstParams.Add(DataInstance.CreateTypedParameter("vYear", Year));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataSet,
+                CommandText = "MP_CM_Compare_GetDetailByType",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            CompareModel oReturn = null;
+
+            if (response.DataSetResult != null &&
+                response.DataSetResult.Tables.Count > 0)
+            {
+                oReturn = new CompareModel();
+
+                if (response.DataSetResult.Tables[0] != null &&
+                    response.DataSetResult.Tables[0].Rows.Count > 0)
+                {
+                    //get compare company values
+
+                    oReturn.CompareId = response.DataSetResult.Tables[0].Rows[0].Field<int>("CompareId");
+
+                    oReturn.RelatedProvider =
+                        (from p in response.DataSetResult.Tables[0].AsEnumerable()
+                         where !p.IsNull("CompanyPublicId")
+                         group p by new
+                         {
+                             CompanyPublicId = p.Field<string>("CompanyPublicId"),
+                         } into pg
+                         select new CompareCompanyModel()
+                         {
+                             RelatedCompany = new Company.Models.Company.CompanyModel()
+                             {
+                                 CompanyPublicId = pg.Key.CompanyPublicId,
+                             },
+
+                             CompareDetail =
+                                (from cd in response.DataSetResult.Tables[0].AsEnumerable()
+                                 where !cd.IsNull("CompanyPublicId") &&
+                                        cd.Field<string>("CompanyPublicId") == pg.Key.CompanyPublicId &&
+                                        !cd.IsNull("EvaluationAreaId")
+                                 group cd by new
+                                 {
+                                     EvaluationAreaId = cd.Field<string>("EvaluationAreaId"),
+                                     EvaluationAreaName = cd.Field<string>("EvaluationAreaName"),
+                                     Currency = cd.Field<string>("Currency"),
+                                     Value1 = cd.Field<string>("Value1"),
+                                     Unit1 = cd.Field<string>("Unit1"),
+                                     Value2 = cd.Field<string>("Value2"),
+                                     Unit2 = cd.Field<string>("Unit2"),
+                                 } into cdg
+                                 select new CompareDetailModel()
+                                 {
+                                     EvaluationAreaId = cdg.Key.EvaluationAreaId,
+                                     EvaluationAreaName = cdg.Key.EvaluationAreaName,
+                                     Currency = cdg.Key.Currency,
+                                     Value = new List<Tuple<int, string, string>>() 
+                                         {
+                                             new Tuple<int, string, string>(1,cdg.Key.Value1,cdg.Key.Unit1),
+                                             new Tuple<int, string, string>(2,cdg.Key.Value2,cdg.Key.Unit2),
+                                         }
+                                 }).ToList(),
+                         }).ToList();
+                }
+
+                if (response.DataSetResult.Tables.Count > 1 &&
+                    response.DataSetResult.Tables[1] != null &&
+                    response.DataSetResult.Tables[1].Rows.Count > 0)
+                {
+                    oReturn.CompareOptions =
+                        (from op in response.DataSetResult.Tables[1].AsEnumerable()
+                         where !op.IsNull("OptionType")
+                         group op by new
+                         {
+                             OptionType = op.Field<string>("OptionType"),
+                         } into opg
+                         select new
+                         {
+                             oKey = opg.Key.OptionType,
+                             oValue =
+                                (from opv in response.DataSetResult.Tables[1].AsEnumerable()
+                                 where !opv.IsNull("OptionType") &&
+                                        opv.Field<string>("OptionType") == opg.Key.OptionType &&
+                                        !opv.IsNull("OptionId")
+                                 group opv by new
+                                 {
+                                     OptionId = opv.Field<string>("OptionId"),
+                                     OptionValue = opv.Field<string>("OptionValue"),
+                                 } into opvg
+                                 select new
+                                 {
+                                     ovKey = opvg.Key.OptionId,
+                                     ovValue = opvg.Key.OptionValue,
+                                 }).ToDictionary(ok => ok.ovKey, ov => ov.ovValue),
+                         }).ToDictionary(k => k.oKey, v => v.oValue);
+                }
+            }
+            return oReturn;
+        }
+
         #endregion
     }
 }

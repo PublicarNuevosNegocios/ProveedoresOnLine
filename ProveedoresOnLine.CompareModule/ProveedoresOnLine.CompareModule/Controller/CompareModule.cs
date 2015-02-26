@@ -102,5 +102,34 @@ namespace ProveedoresOnLine.CompareModule.Controller
         {
             return DAL.Controller.CompareDataController.Instance.CompareSearch(SearchParam, User, PageNumber, RowCount, out  TotalRows);
         }
+
+        public static ProveedoresOnLine.CompareModule.Models.CompareModel CompareGetDetailByType(int CompareTypeId, int CompareId, string User, int? Year, string CustomerPublicId)
+        {
+            //get basic info
+            ProveedoresOnLine.CompareModule.Models.CompareModel oReturn =
+                CompareGetCompanyBasicInfo(CompareId, User, CustomerPublicId);
+
+            //get detail info
+            var oCompareDetail = DAL.Controller.CompareDataController.Instance.CompareGetDetailByType(CompareTypeId, CompareId, User, Year);
+
+            if (oReturn != null &&
+                oReturn.RelatedProvider != null &&
+                oReturn.RelatedProvider.Count > 0 &&
+                oCompareDetail != null &&
+                oCompareDetail.RelatedProvider != null &&
+                oCompareDetail.RelatedProvider.Count > 0)
+            {
+                oReturn.RelatedProvider.Where(pr => pr.RelatedCompany != null).All(pr =>
+                {
+                    pr.CompareDetail = oCompareDetail.RelatedProvider.
+                        Where(rp => rp.RelatedCompany != null && rp.RelatedCompany.CompanyPublicId == pr.RelatedCompany.CompanyPublicId).
+                        Select(rp => rp.CompareDetail).
+                        FirstOrDefault();
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
     }
 }
