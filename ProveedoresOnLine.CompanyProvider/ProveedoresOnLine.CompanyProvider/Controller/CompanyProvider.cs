@@ -1193,6 +1193,11 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> MPCertificationGetSpecificCert(string ProviderPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPCertificationGetSpecificCert(ProviderPublicId);
+        }
         #endregion
     }
 }
