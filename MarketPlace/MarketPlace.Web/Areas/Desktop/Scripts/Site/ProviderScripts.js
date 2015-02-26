@@ -289,7 +289,9 @@ var Provider_SearchObject = {
                 'Cancelar': function () {
                     $(this).dialog('close');
                 }
-            }
+            },
+            width: 550, 
+            minWidth: 500,
         });
     },
 
