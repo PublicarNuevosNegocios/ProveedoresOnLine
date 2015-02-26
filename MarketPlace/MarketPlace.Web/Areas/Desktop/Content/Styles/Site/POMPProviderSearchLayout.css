@@ -13,7 +13,7 @@
         min-height:490px;
         padding:0 13px 0 11px;
         vertical-align:top;
-        width:23%;
+        width:24.4%;
         min-width:219px;
     }
  /************ MUESTRA LA LISTA DE PROVEEDORES DE RESULTADOS ************/
@@ -21,9 +21,11 @@
     display: inline-block;
     height:auto;
     min-height:400px;
-    margin: 0 0 0 2px;
+    margin: 0px 0px 0px -6px;
     width:48%;
     min-width:462px;
+    border-right:2px solid #ff8300;
+    border-left: 2px solid #ff8300;
 }
             .POMPProviderListWrapper tr{
                 cursor:pointer;
@@ -36,8 +38,8 @@
     border-left: 2px solid #ff8300;
     display: inline-block;
     height:auto; min-height:400px;
-    margin: 0px 3px; padding: 0px 0px 0px 8px;
-    width:27.2%; min-width:262Spx;
+    margin: 0px 0px 0px -6px; padding: 0px 0px 0px 8px;
+    width:27.2%; min-width:262px;
     vertical-align:top;
 }
 /************ CALCULA EL ANCHO DE CONTENIDO HASTA 1024PX ************/

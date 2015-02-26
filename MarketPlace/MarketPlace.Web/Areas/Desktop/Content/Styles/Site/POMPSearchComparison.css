@@ -41,6 +41,7 @@
         background-repeat:no-repeat;
         background-position:-67px -2px;
         background-size:132px auto;
+        margin-left:3px;
     }
     .POMPComparisonActionCompare{        
         background-repeat:no-repeat;
@@ -89,6 +90,7 @@
         }
             .POMPComparisonProvListWrapper > li:first-child {
                 border-top:1px solid #ff8300;
+                padding-top:12px;
             }
 
 /*************** SELLO DE VERIFICACION PUBLICAR ***************/
@@ -114,22 +116,21 @@
             vertical-align: top;
             width: calc(100% - 55px);
     }
-        .POMPComparisonResultProvDataWrapper > a {
-            border: 1px solid #999;
-            min-height:69px;
-        }
         .POMPComparisonResultProvDataWrapper > a,
-        .POMPComparisonResultProvDataWrapper span {
-                display: inline-block;
-                height: auto;
-                min-width:49px;
-                width:23%;
+        .POMPComparisonResultProvDataWrapper > span {
+                display:inline-block; 
+                height: 38px;
+                width: 72px;
+                border:1px solid #999;
             }
         .POMPComparisonResultProvLogo {
-            display: inline-block;
-            height: auto;
-            padding: 2px;
-            width: 100%;
+                    display: block;
+                    height:100%;
+                    margin: 0 auto;
+                    max-height:36px;
+                    max-width:70px;
+                    padding:0px;
+                    width: auto;
         }
             .POMPComparisonResultNameIDWrapper {
                 display: inline-block;
@@ -189,10 +190,10 @@
             display:inline-block;
             width:16px; height:16px;
             margin:0px; padding:0px;
-            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/cross.png');
             background-repeat:no-repeat;
-            background-position:-49px -15px;
-            background-size:62px auto;
+            background-position:2px 2px;
+            background-size:27px auto;
             vertical-align: top;
         }
 /************ AQUI VAN LAS ACCIONES ENLACES ABAJO *************/

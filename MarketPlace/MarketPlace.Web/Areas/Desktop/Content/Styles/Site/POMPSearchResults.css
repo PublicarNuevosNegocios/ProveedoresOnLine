@@ -8,8 +8,8 @@
     height:auto;
 }
 .POMPSearchResultsPager {
-    padding: 2px 0px;
-    text-align: center;
+    padding: 6px 12px;
+    text-align: right;
 }
     .POMPSearchResultsPager ul,
     .POMPSearchResultsOrder ul{
@@ -21,12 +21,6 @@
         .POMPSearchResultsOrder ul li{
             display:inline-block;
             /*border:1px solid purple;*/
-        }
-        .POMPSearchResultsPager ul li:first-child {
-            margin:0px 12px 0px 0px;
-        }
-        .POMPSearchResultsPager ul li:last-child {
-            margin:0px 0px 0px 12px;
         }
         .POMPSearchResultsPager ul li a{
             font-size:1em;
@@ -70,7 +64,7 @@
     .POMPSearchResultStatusCertified{
         /*border:1px solid purple;*/
         display:inline-block;   
-        width:9%; height:auto;
+        width:8%; height:auto;
         max-width:50px;
         vertical-align:top;
     }
@@ -90,16 +84,19 @@
         }
             .POMPSearchResultProvDataWrapper > a,
             .POMPSearchResultProvDataWrapper > span{
-                display:inline-block; width:16%; height:auto;
-                min-width:72px;
-                min-height:91px;
+                display:inline-block; 
+                height: 62px;
+                width: 116px;
                 border:1px solid #999;
             }
                 .POMPSearchResultProvLogo {                    
-                    display:inline-block;
-                    width:100%;
-                    height:auto;
-                    padding:2px;
+                    display: block;
+                    height:100%;
+                    margin: 0 auto;
+                    max-height: 60px;
+                    max-width: 114px;
+                    padding: 2px;
+                    width: auto;
                 }
 /************ NOMBRE Y ID ************/
     .POMPSearchResultNameIDWrapper {
@@ -114,13 +111,16 @@
             font-size:1.1em; line-height:1.06em; font-weight:normal;
             letter-spacing:-0.8px; margin:0px;
         }
+            .POMPSearchResultNameIDWrapper > a {
+
+            }
             .POMPSearchResultNameIDWrapper > label > span {
                 width:auto !important; min-width:0 !important;
                 display:inline-block !important;
             }
             .POMPSearchResultAlertComparWrapper{
                 float:right;
-                width:10%; height:26px;
+                width:13%; height:26px;
                 vertical-align:top;
             }
                 .POMPSearchResultAlertComparWrapper div,

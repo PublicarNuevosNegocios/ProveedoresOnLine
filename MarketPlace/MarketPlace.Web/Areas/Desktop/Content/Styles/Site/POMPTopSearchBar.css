@@ -9,15 +9,12 @@
     text-align:center;
 }
     .POMPTextField{
+        display: inline-block;
         border:1px solid #727276;
         background-color:#f9f9f9;
-        padding:7px 4px 4px 10px;
+        padding:0px 10px;
         letter-spacing:-0.5px;
-        width:440px;
+        width:440px; height:33px;
         margin: 0px;
+        vertical-align:top;
     }
-    .POMPTextField [placeholder=""] {
-        padding:7px 10px 7px 10px;
-    }
-
-    \n
