@@ -164,7 +164,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                             {
                                                 ItemId = (int)enumCommercialInfoType.EX_DateIssue,
                                             },
-                                            Value = AttValue.Value != string.Empty && AttValue.Value.Length > 1 ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                            Value = AttValue.Value != string.Empty && AttValue.Value.Length > 1 && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
                                             Enable = true,
                                         });
                                     }
@@ -178,7 +178,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                             {
                                                 ItemId = (int)enumCommercialInfoType.EX_DueDate,
                                             },
-                                            Value = AttValue.Value != string.Empty && AttValue.Value.Length > 1 ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                            Value = AttValue.Value != string.Empty && AttValue.Value.Length > 1 && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
                                             Enable = true,
                                         });
                                     }

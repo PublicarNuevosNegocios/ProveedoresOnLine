@@ -3,7 +3,7 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=2apc7cka6gi7b2l23ll9l2pg86]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=9ir52ng7llid9s063a75sovm51]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
@@ -25,7 +25,7 @@
 
     <!--All Menu Keys-->
     <!--GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,Representation,OtherInfo,-->
-    <key name="CrawlerTags">GeneralBalance,</key>
+    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,</key>
 
     <!--PAR Modules-->
     
@@ -58,7 +58,9 @@
     
     <key name="Crawler_CompanyList">
       <![CDATA[
-      1733,7E0DDA5D;
+      3536,7E0DDA5D;
+      1733,A12ECFA2;
+      18844,A12ECFA2;
       ]]></key>
 
     <!--<key name="Crawler_CompanyList">

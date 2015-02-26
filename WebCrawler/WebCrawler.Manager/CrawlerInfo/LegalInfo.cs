@@ -58,7 +58,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionDate,
                                 },
-                                Value = AttValue.Value != string.Empty ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Value = AttValue.Value != string.Empty && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -71,7 +71,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate,
                                 },
-                                Value = AttValue.Value != string.Empty ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Value = AttValue.Value != string.Empty && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -97,7 +97,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_InscriptionNumber,
                                 },
-                                Value = AttValue.Value.ToString(),
+                                Value = AttValue.Value.ToString() != string.Empty && AttValue.Value != "&nbsp;" ? AttValue.Value : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -110,7 +110,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate,
                                 },
-                                Value = AttValue.Value != string.Empty ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Value = AttValue.Value != string.Empty && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -142,7 +142,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CP_InscriptionCity,
                             },
-                            Value = oGetCity.City.ItemId.ToString(),
+                            Value = oGetCity != null ? oGetCity.City.ItemId.ToString() : string.Empty,
                             Enable = true,
                         });
                     }
@@ -259,7 +259,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CD_PartnerRank,
                             },
-                            Value = oPartnerRankInfo == null ? string.Empty : oPartnerRankInfo.ItemId.ToString(),
+                            Value = oPartnerRankInfo != null ? oPartnerRankInfo.ItemId.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -313,7 +313,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_PersonType,
                             },
-                            Value = oPersonType == null ? string.Empty : oPersonType.ItemId.ToString(),
+                            Value = oPersonType != null ? oPersonType.ItemId.ToString() : string.Empty,
                             Enable = true,
                         });
 
@@ -324,7 +324,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributor,
                             },
-                            Value = cols[1].InnerText.ToString() == "SI" ? "1" : "0",
+                            Value = cols[1].InnerText.ToString() == "SI" && cols[1].InnerText != "&nbsp;" ? "1" : "0",
                             Enable = true,
                         });
 
@@ -346,7 +346,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributorDate,
                             },
-                            Value = cols[3].InnerText != string.Empty && cols[3].InnerText.Length > 1 ? Convert.ToDateTime(cols[3].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value = cols[3].InnerText != string.Empty && cols[3].InnerText.Length > 1 && cols[3].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[3].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -357,7 +357,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_SelfRetainer,
                             },
-                            Value = cols[4].InnerText.ToString() == "SI" ? "1" : "0",
+                            Value = cols[4].InnerText.ToString() == "SI" && cols[4].InnerText != "&nbsp;" ? "1" : "0",
                             Enable = true,
                         });
 
@@ -379,7 +379,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_SelfRetainerDate,
                             },
-                            Value = cols[6].InnerText != string.Empty && cols[6].InnerText.Length > 1 ? Convert.ToDateTime(cols[6].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value = cols[6].InnerText != string.Empty && cols[6].InnerText.Length > 1 && cols[6].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[6].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -404,7 +404,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_IVA,
                             },
-                            Value = cols[8].InnerText == "SI" ? "1" : "0",
+                            Value = cols[8].InnerText == "SI" && cols[3].InnerText != "&nbsp;" ? "1" : "0",
                             Enable = true,
                         });
 
@@ -554,7 +554,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.SF_ProcessDate,
                             },
-                            Value = cols[0].InnerText != string.Empty ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value = cols[0].InnerText != string.Empty && cols[0].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -643,7 +643,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CF_QueryDate,
                             },
-                            Value = cols[0].InnerText != string.Empty ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value = cols[0].InnerText != string.Empty && cols[0].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 

@@ -13,47 +13,32 @@ namespace WebCrawler.Manager.CrawlerInfo
     {
         #region Balance Info
 
-        public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> GetBalancesInfo(string ParId, string PublicId)
+        public static void GetBalancesInfo(string ParId, string PublicId)
         {
-            List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel> oBalancesInfo = null;
-
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.GeneralBalance.ToString());
 
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='tablaborde_01']") != null)
             {
-                oBalancesInfo = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel>();
 
-                ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel oBalance = new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel()
-                {
-                    ItemId = 0,
-                    ItemName = string.Empty,
-                    ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                    {
-                        ItemId = (int)enumFinancialType.BalanceSheetInfoType,
-                    },
-                    Enable = true,
-                    ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
-                    BalanceSheetInfo = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>(),
-                };
+                ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel oBalance = null;
 
                 HtmlNodeCollection tables = HtmlDoc.DocumentNode.SelectNodes("//table[@class='tablaborde_01']");
 
                 HtmlNodeCollection rowsTable1 = tables[0].SelectNodes(".//tr");//Activo
+                HtmlNodeCollection rowsTable2 = tables[1].SelectNodes(".//tr");//Pasivo
+                HtmlNodeCollection rowsTable3 = tables[2].SelectNodes(".//tr");//Patrimonio
+                HtmlNodeCollection rowsTable4 = tables[3].SelectNodes(".//tr");//Estado de Resultados
 
-                #region Activo
+                Dictionary<int, string> oList = new Dictionary<int, string>();
 
                 if (rowsTable1 != null)
                 {
                     Console.WriteLine("\nAssets info\n");
 
-                    #region Get Years - Currency
-
                     HtmlNodeCollection col = rowsTable1[0].SelectNodes(".//td");
 
                     string[] dato1 = col[1].InnerText.Split(new char[] { ';' });
                     string[] dato2 = col[3].InnerText.Split(new char[] { ';' });
-
-                    Dictionary<int, string> oList = new Dictionary<int, string>();
 
                     if (Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")) > Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")))
                     {
@@ -65,9 +50,6 @@ namespace WebCrawler.Manager.CrawlerInfo
                         oList.Add(Convert.ToInt32(dato1[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato1[2].Replace("\n", "") + ",1");
                         oList.Add(Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato2[2].Replace("\n", "") + ",3");
                     }
-
-                    //get accounts
-                    List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinantialAccounts = ProveedoresOnLine.Company.Controller.Company.CategoryGetFinantialAccounts();
 
                     foreach (int year in oList.Keys)
                     {
@@ -81,6 +63,19 @@ namespace WebCrawler.Manager.CrawlerInfo
                         //Get currency info
                         ProveedoresOnLine.Company.Models.Util.CatalogModel oCurrency = Util.ProviderOptions_GetByName(108, currency);
 
+                        oBalance = new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel()
+                        {
+                            ItemId = 0,
+                            ItemName = "Balance del año " + year.ToString(),
+                            ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)enumFinancialType.BalanceSheetInfoType,
+                            },
+                            Enable = true,
+                            ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+                            BalanceSheetInfo = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel>(),
+                        };
+
                         oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = 0,
@@ -92,91 +87,532 @@ namespace WebCrawler.Manager.CrawlerInfo
                             Enable = true,
                         });
 
-                        oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        #region Activo
+
+                        for (int j = 2; j < rowsTable1.Count; j++)
                         {
-                            ItemInfoId = 0,
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            HtmlNodeCollection cols = rowsTable1[j].SelectNodes(".//td");
+
+                            string value = string.Empty;
+                            value = cols[i].InnerText;
+
+                            string text = string.Empty;
+                            text = cols[0].InnerText;
+
+                            Regex reg = new Regex("[^a-zA-Z0-9 ]");
+
+                            value = value.Normalize(NormalizationForm.FormD);
+                            value = reg.Replace(value.ToLower().Replace(" ", "").Replace("\n", ""), "");
+
+                            text = text.Normalize(NormalizationForm.FormD);
+                            text = reg.Replace(text.Replace(" ", "").Replace("\n", ""), "");
+
+                            if (text == "DisponibleenCajayBancos")
                             {
-                                ItemId = (int)enumFinancialInfoType.SH_Currency,
-                            },
-                            Value = oCurrency != null ? oCurrency.ItemId.ToString() : string.Empty,
-                            Enable = true,
-                        });
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3122, //Disponible en Caja y Bancos
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
 
-                        //insert balance info
-                        //oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
-                        //{
-                        //    BalanceSheetId = 0,
-                        //    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                        //    {
-                        //        ItemId = 0,
-                        //    },
-                        //    Value = 0,
-                        //    Enable = true,
-                        //});
+                            if (text == "Inversiones")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3123, //Inversiones
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
 
-                        if (oBalance.ItemInfo != null && oBalance.ItemInfo.Count > 0)
+                            if (text == "CuentasporCobraryOtrosNetoaCortoPlazo")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3124, //Cuentas por Cobrar y Otros - Neto a Corto Plazo
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+
+                            if (text == "Inventarios")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3125, //Inventarios
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+
+                            if (text == "InversionesaLargoplazo")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3126, //Inversiones a Largo plazo
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+
+                            if (text == "DeudoresaLargoplazo")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3127, //Deudores a Largo plazo
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+
+                            if (text == "PROPIEDADPLANTAYEQUIPO")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3128, //Propiedad planta y equipo
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+
+                            if (text == "MenosDepreciacioacutenAcumulada")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                   {
+                                       ItemId = 3129, //Depreciación acumulada
+                                   },
+                                    Value = Convert.ToDecimal("139176647"),
+                                });
+                            }
+
+                            if (text == "Intangibles")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3130, //Intangibles
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+
+                            if (text == "OtrosActivos")
+                            {
+                                oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                {
+                                    RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = 3131, //Otros Activos
+                                    },
+                                    Value = Convert.ToDecimal(value),
+                                });
+                            }
+                        }
+
+                        #endregion
+
+                        #region Pasivo
+
+                        if (rowsTable2 != null)
                         {
-                            oBalancesInfo.Add(oBalance);
+                            for (int j = 2; j < rowsTable2.Count; j++)
+                            {
+                                HtmlNodeCollection cols = rowsTable2[j].SelectNodes(".//td");
+
+                                string value = string.Empty;
+                                value = cols[i].InnerText;
+
+                                string text = string.Empty;
+                                text = cols[0].InnerText;
+
+                                Regex reg = new Regex("[^a-zA-Z0-9 ]");
+
+                                value = value.Normalize(NormalizationForm.FormD);
+                                value = reg.Replace(value.ToLower().Replace(" ", "").Replace("\n", ""), "");
+
+                                text = text.Normalize(NormalizationForm.FormD);
+                                text = reg.Replace(text.Replace(" ", "").Replace("\n", ""), "");
+
+                                if (text == "ObligacionesFinancierasCortoplazo")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3132, //Obligaciones financieras - corto plazo
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "Impuestos")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3133, //Impuestos
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "Proveedores")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3134, //Proveedores
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "CuentasporPagaryOtrosCortoPlazo")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3135, //Cuentas por pagar y otros - corto plazo
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "ObligacionesLaboralesCortoplazo")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3136, //Obligaciones laborales - corto plazo
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "ObligacionesFinancierasLargoplazo")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3137, //Obligaciones financieras - largo plazo
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "CuentasporPagarLargoplazo")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3138, //Cuentas por pagar - largo plazo
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "ObligacionesLaboralesLargoplazo")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3139, //Obligaciones laborales - largo plazo
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "PasivosEstimadosyProvisiones")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3140, //Pasivos estimados y provisiones
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nPasivo no tiene datos disponibles\n");
+                        }
+
+                        #endregion
+
+                        #region Patrimonio
+
+                        if (rowsTable3 != null)
+                        {
+                            for (int j = 2; j < rowsTable3.Count; j++)
+                            {
+                                HtmlNodeCollection cols = rowsTable3[j].SelectNodes(".//td");
+
+                                string value = string.Empty;
+                                value = cols[i].InnerText;
+
+                                string text = string.Empty;
+                                text = cols[0].InnerText;
+
+                                Regex reg = new Regex("[^a-zA-Z0-9 ]");
+
+                                value = value.Normalize(NormalizationForm.FormD);
+                                value = reg.Replace(value.ToLower().Replace(" ", "").Replace("\n", ""), "");
+
+                                text = text.Normalize(NormalizationForm.FormD);
+                                text = reg.Replace(text.Replace(" ", "").Replace("\n", ""), "");
+
+                                if (text == "CapitalSocial")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3141, //Capital social
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "ReservasValorizaciones")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3142, //Reservas, valorizaciones
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "UtilidadesRetenidas")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3143, //Utilidades retenidas
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nPatrimonio no tiene datos disponibles\n");
+                        }
+
+                        #endregion
+
+                        #region Estado de Resultados
+
+                        if (rowsTable4 != null)
+                        {
+                            for (int j = 1; j < rowsTable4.Count; j++)
+                            {
+                                HtmlNodeCollection cols = rowsTable4[j].SelectNodes(".//td");
+
+                                string value = string.Empty;
+                                value = cols[i].InnerText;
+
+                                string text = string.Empty;
+                                text = cols[0].InnerText;
+
+                                Regex reg = new Regex("[^a-zA-Z0-9 ]");
+
+                                value = value.Normalize(NormalizationForm.FormD);
+                                value = reg.Replace(value.ToLower().Replace(" ", "").Replace("\n", ""), "");
+
+                                text = text.Normalize(NormalizationForm.FormD);
+                                text = reg.Replace(text.Replace(" ", "").Replace("\n", ""), "");
+
+                                if (text == "INGRESOSOPERACIONALES")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3821, //Ingresos Operacionales
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "COSTODEVENTAS")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3822, //Costos de Ventas
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "GASTOSDEADMINISTRACIoacuteN")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3825, //Gastos de Administración
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "GASTOSDEVENTAS")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3826, //Gastos de Ventas
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "DEPRECIACIOacuteNYAMORTIZACIOacuteN")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3827, //Depreciación y Amortización
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "INGRESOSNOOPERACIONALES")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3833, //Ingresos no Operacionales
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "INTERESES")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3834, //Intereses
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "OTROSGASTOSNOOPERACIONALES")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3835, //Otros Gastos no Operacionales
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "IMPUESTOS")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3844, //Impuestos
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+
+                                if (text == "RESERVALEGAL")
+                                {
+                                    oBalance.BalanceSheetInfo.Add(new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
+                                    {
+                                        RelatedAccount = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                        {
+                                            ItemId = 3854, //Reserva Legal
+                                        },
+                                        Value = Convert.ToDecimal(value),
+                                    });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nEstado de Resultados no tiene datos disponibles\n");
+                        }
+
+                        #endregion
+
+                        if (oBalance.ItemInfo != null && oBalance.BalanceSheetInfo.Count > 0 && oBalance.ItemInfo.Count > 0)
+                        {
+                            ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel ProviderBalanceToUpsert = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                            {
+                                RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                {
+                                    CompanyPublicId = PublicId,
+                                },
+                                RelatedBalanceSheet = new List<ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel>(),
+                            };
+
+                            ProviderBalanceToUpsert.RelatedBalanceSheet.Add(oBalance);
+
+                            try
+                            {
+                                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderBalanceToUpsert);
+                            }
+                            catch (System.Exception e)
+                            {
+                                Console.WriteLine("\nNo se pudo cargar el balance del año " + year +". Error , " + e.Message + "\n");
+                            }
                         }
                     }
-                    
-                    #endregion
                 }
-                else
-                {
-                    Console.WriteLine("\nAssets no tiene datos disponibles.\n");
-                }
-
-                #endregion
-
-                HtmlNodeCollection rowsTable2 = tables[1].SelectNodes(".//tr");//Pasivo
-
-                #region Pasivo
-
-                if (rowsTable2 != null)
-                {
-                    Console.WriteLine("\nLiabilities info\n");
-                }
-                else
-                {
-                    Console.WriteLine("\nLiabilities no tiene datos disponibles.\n");
-                }
-
-                #endregion
-
-                HtmlNodeCollection rowsTable3 = tables[2].SelectNodes(".//tr");//Patrimonio
-
-                #region Patrimonio
-
-                if (rowsTable3 != null)
-                {
-                    Console.WriteLine("\nPatrimony info.\n");
-                }
-                else
-                {
-                    Console.WriteLine("\nPatrimony no tiene datos disponibles.\n");
-                }
-
-                #endregion
-
-                HtmlNodeCollection rowsTable4 = tables[3].SelectNodes(".//tr");//Estado de resultados
-
-                #region Estado de resultados
-
-                if (rowsTable4 != null)
-                {
-                    Console.WriteLine("\nIncome Statement de resultados info.\n");
-                }
-                else
-                {
-                    Console.WriteLine("\nIncome Statement no tiene datos disponibles.\n");
-                }
-
-                #endregion
             }
-
-            return oBalancesInfo;
+            else
+            {
+                Console.WriteLine("\nBalances no tiene datos disponibles.\n");
+            }
         }
 
         #endregion

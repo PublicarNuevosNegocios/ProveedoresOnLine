@@ -61,7 +61,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumHSEQInfoType.CR_SystemOccupationalHazards,
                             },
-                            Value = oCompanyCertification.ItemName,
+                            Value = oCompanyCertification.ItemId.ToString(),
                             Enable = true,
                         });
                     }
