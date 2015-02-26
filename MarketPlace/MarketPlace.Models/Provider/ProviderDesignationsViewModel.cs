@@ -11,38 +11,65 @@ namespace MarketPlace.Models.Provider
         public ProviderViewModel RelatedViewProvider { get; set; }
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegalInfo { get; set; }
-        
+
         #region Designations
 
-        public string CD_PartnerName { get; set; }
-        public string CD_PartnerIdentificationNumber { get; set; }
-        public string CD_PartnerRank { get; set; }
-        
+        public string oCD_PartnerName { get; set; }
+        public string CD_PartnerName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCD_PartnerName))
+                {
+                    oCD_PartnerName = RelatedLegalInfo.ItemInfo.
+                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CD_PartnerName).
+                         Select(y => y.Value).
+                         DefaultIfEmpty(string.Empty).
+                         FirstOrDefault();
+                }
+                return oCD_PartnerName;
+            }
+        }
+
+        public string oCD_PartnerIdentificationNumber { get; set; }
+        public string CD_PartnerIdentificationNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCD_PartnerIdentificationNumber))
+                {
+                    oCD_PartnerIdentificationNumber = RelatedLegalInfo.ItemInfo.
+                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CD_PartnerIdentificationNumber).
+                         Select(y => y.Value).
+                         DefaultIfEmpty(string.Empty).
+                         FirstOrDefault();
+                }
+                return oCD_PartnerIdentificationNumber;
+            }
+        }
+
+        public string oCD_PartnerRank { get; set; }
+        public string CD_PartnerRank
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCD_PartnerRank))
+                {
+                    oCD_PartnerRank = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(RelatedLegalInfo.ItemInfo.
+                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CD_PartnerRank).
+                         Select(y => y.Value).
+                         DefaultIfEmpty(string.Empty).
+                         FirstOrDefault());
+                }
+                return oCD_PartnerRank;
+            }
+        }
+
         #endregion
 
         public ProviderDesignationsViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegal)
         {
-            #region Designations
-
-            CD_PartnerName = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CD_PartnerName).
-                 Select(y => y.Value).
-                 DefaultIfEmpty(string.Empty).
-                 FirstOrDefault();
-   
-            CD_PartnerIdentificationNumber = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CD_PartnerIdentificationNumber).
-                 Select(y => y.Value).
-                 DefaultIfEmpty(string.Empty).
-               FirstOrDefault();
-        
-            CD_PartnerRank = RelatedLegal.ItemInfo.
-                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CD_PartnerRank).
-                 Select(y => y.Value).
-                 DefaultIfEmpty(string.Empty).
-                 FirstOrDefault();
-
-            #endregion
+            RelatedLegalInfo = RelatedLegal;         
         }
 
         public ProviderDesignationsViewModel() { }

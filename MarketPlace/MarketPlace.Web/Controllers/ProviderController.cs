@@ -200,8 +200,8 @@ namespace MarketPlace.Web.Controllers
                     if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
                     {                        
                         oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
-                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
-                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));                                               
+                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentActive)).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));                                               
                     }
                 }                               
                 #endregion
@@ -520,6 +520,7 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
+                    oModel.RelatedHSEQlInfo = oModel.RelatedHSEQlInfo.OrderByDescending(x => Convert.ToInt32(x.CH_Year)).ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -566,7 +567,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
-                    });
+                    });                  
                 }
                 else
                 {
@@ -693,6 +694,8 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x));
                         return true;
                     });
+
+                    oModel.RelatedFinancialInfo = oModel.RelatedFinancialInfo.OrderByDescending(x => Convert.ToInt32(x.TX_Year)).ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
