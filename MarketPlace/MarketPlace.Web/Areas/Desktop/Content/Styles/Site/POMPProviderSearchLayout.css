@@ -35,10 +35,9 @@
                 }
 /************ MUESTRA LA LISTA DE PROVEEDORES LESECCIONADOS PARA COMPARAR *************/
 .POMPComparisonListWrapper {
-    border-left: 2px solid #ff8300;
     display: inline-block;
     height:auto; min-height:400px;
-    margin: 0px 0px 0px -6px; padding: 0px 0px 0px 8px;
+    margin: 0px 0px 0px -3px; padding: 0px 0px 0px 8px;
     width:27.2%; min-width:262px;
     vertical-align:top;
 }

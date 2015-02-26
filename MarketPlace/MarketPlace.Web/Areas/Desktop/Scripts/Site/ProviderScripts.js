@@ -171,6 +171,7 @@ var Provider_SearchObject = {
 
         //open new compare dialog
         $('#' + Provider_SearchObject.ObjectId + '_Compare_Create_ToolTip').dialog({
+            modal: true,
             buttons: {
                 'Cancelar': function () {
                     $(this).dialog('close');
@@ -215,6 +216,7 @@ var Provider_SearchObject = {
             dataSource: {
                 pageSize: Provider_SearchObject.RowCount,
                 serverPaging: true,
+                height: '400px',
                 schema: {
                     total: function (data) {
                         if (data != null && data.length > 0) {
@@ -262,11 +264,10 @@ var Provider_SearchObject = {
             columns: [{
                 field: 'CompareName',
                 title: 'Nombre',
-                width: '50px',
             }, {
                 field: 'LastModify',
-                title: 'Última modificación',
-                width: '50px',
+                title: 'Modificado',
+                width: '110px',
             }],
         });
 
@@ -285,13 +286,9 @@ var Provider_SearchObject = {
 
         //show open compare dialog
         $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip').dialog({
-            buttons: {
-                'Cancelar': function () {
-                    $(this).dialog('close');
-                }
-            },
-            width: 550, 
+            width: 650, 
             minWidth: 500,
+            modal: true,
         });
     },
 
