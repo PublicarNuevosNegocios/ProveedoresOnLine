@@ -158,7 +158,7 @@ namespace MarketPlace.Web.Controllers
                 #endregion
                                 
                 #region Branch Info
-                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
+                oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
 
                 if (oModel.ContactCompanyInfo != null)
                 {
@@ -190,8 +190,14 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedFinancialBasicInfo.Add(new ProviderFinancialBasicInfoViewModel(x));
                         return true;
                     });
-                }               
 
+                    if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
+                    {
+                        oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
+                            (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentActive).FirstOrDefault())
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => x.BI_CurrentActive != null).Select(x => x.BI_CurrentPassive).FirstOrDefault())).ToString("#,0,##");
+                    }
+                }                               
                 #endregion
 
                 //Get Engagement info
