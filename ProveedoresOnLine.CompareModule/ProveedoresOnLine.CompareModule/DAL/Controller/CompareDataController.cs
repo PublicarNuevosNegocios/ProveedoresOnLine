@@ -57,6 +57,12 @@ namespace ProveedoresOnLine.CompareModule.DAL.Controller
             return DataFactory.CompareGetCompanyBasicInfo(CompareId, User, CustomerPublicId);
         }
 
+        public ProveedoresOnLine.CompareModule.Models.CompareModel CompareGetDetailByType(int CompareTypeId, int CompareId, string User, int? Year)
+        {
+            return DataFactory.CompareGetDetailByType(CompareTypeId, CompareId, User, Year);
+        }
+
         #endregion
+
     }
 }

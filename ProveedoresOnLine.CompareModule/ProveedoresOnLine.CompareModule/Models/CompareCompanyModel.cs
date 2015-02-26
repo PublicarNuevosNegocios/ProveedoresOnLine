@@ -12,6 +12,8 @@ namespace ProveedoresOnLine.CompareModule.Models
 
         public bool Enable { get; set; }
 
+        public List<CompareDetailModel> CompareDetail { get; set; }
+
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }

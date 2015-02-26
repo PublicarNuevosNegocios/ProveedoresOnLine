@@ -21,5 +21,7 @@ namespace ProveedoresOnLine.CompareModule.Models
         public DateTime CreateDate { get; set; }
 
         public List<CompareCompanyModel> RelatedProvider { get; set; }
+
+        public Dictionary<string, Dictionary<string, string>> CompareOptions { get; set; }
     }
 }
