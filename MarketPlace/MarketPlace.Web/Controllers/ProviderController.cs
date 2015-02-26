@@ -520,6 +520,7 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
+                    oModel.RelatedHSEQlInfo = oModel.RelatedHSEQlInfo.OrderByDescending(x => Convert.ToInt32(x.CH_Year)).ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -566,7 +567,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
-                    });
+                    });                  
                 }
                 else
                 {
@@ -693,6 +694,8 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x));
                         return true;
                     });
+
+                    oModel.RelatedFinancialInfo = oModel.RelatedFinancialInfo.OrderByDescending(x => Convert.ToInt32(x.TX_Year)).ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);

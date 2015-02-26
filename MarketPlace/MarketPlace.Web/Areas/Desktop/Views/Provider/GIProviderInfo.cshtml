@@ -18,77 +18,93 @@
         <ul class="POMPProviderInfoDisplayList">
             @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
             {
-                <li>
-                    <label>
-                        Representante Legal
+                if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Representante Legal
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                {
+                    <li>
+                        <label>
+                            Registro Mercantil
+                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Dirección
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
 
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Ciudad
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Teléfono
 
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Registro Mercantil
-                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Dirección
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()</span>
 
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Fáx
 
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Ciudad
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
 
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Página Web
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()</span>
 
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Teléfono
-
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()</span>
-
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Fáx
-
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
-
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Página Web
-
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()</span>
-
-                    </label>
-                </li>
-
-                <li>
-                    <label>
-                        Email
-
-                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
-
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Objeto Social
-
-                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
-
-                    </label>
-                </li>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
+                {
+                    <li>
+                        <label>
+                            Email
+                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
+                        </label>
+                    </li>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                {
+                    <li>
+                        <label>
+                            Objeto Social
+                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
+                        </label>
+                    </li>
+                }
                 <li>
                     <span>
                         <a href="@(Url.RouteUrl
@@ -122,25 +138,30 @@
         }
         <label class="POMPProviderDataSubtitle">Seguimientos</label>
         <ul class="POMPProviderInfoDisplayList">
-            <li>
-                <label>
-                    Seguimiento
-                    @if (Model.RelatedTrackingInfo != null)
-                    {
+
+            @if (Model.RelatedTrackingInfo != null)
+            {
+                <li>
+                    <label>
+                        Seguimiento
                         <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
-                    }
-                </label>
-            </li>
-            <li>
-                <label>
-                    Fecha
-                    @if (Model.RelatedTrackingInfo != null)
-                    {
+                    </label>
+                </li>
+            }
+            @if (Model.RelatedTrackingInfo != null)
+            {
+                <li>
+                    <label>
+                        Fecha
+
                         <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
-                    }
-                </label>
-            </li>
+
+                    </label>
+                </li>
+            }
         </ul>
+
+
 
         <label class="POMPProviderDataSubtitle">Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
         <ul class="POMPProviderInfoDisplayList">
@@ -295,8 +316,8 @@
                         </label>
                     </li>
                 }
-                
-                 <li>
+
+                <li>
                     <span>
                         <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
