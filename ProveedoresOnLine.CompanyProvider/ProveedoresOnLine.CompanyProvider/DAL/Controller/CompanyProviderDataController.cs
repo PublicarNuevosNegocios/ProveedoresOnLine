@@ -210,6 +210,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> MPCertificationGetSpecificCert(string ProviderPublicId)
+        {
+            return DataFactory.MPCertificationGetSpecificCert(ProviderPublicId);
+        }
         #endregion
 
     }

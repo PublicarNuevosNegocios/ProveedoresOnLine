@@ -1504,14 +1504,14 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      {
                          ItemId = blg.Key.CustomerProviderInfoId,
                          ItemType = new CatalogModel()
-                         {                             
+                         {
                              ItemName = blg.Key.Status
-                         },                         
+                         },
                          CreateDate = blg.Key.CreateDate,
-                         ItemName = blg.Key.Seguimiento,                         
+                         ItemName = blg.Key.Seguimiento,
                      }).ToList();
             }
-            return oReturn;          
+            return oReturn;
         }
 
         public List<GenericItemModel> MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
@@ -1538,13 +1538,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      where !bl.IsNull("CompanyId")
                      group bl by new
                      {
-                         CompanyId = bl.Field<int>("CompanyId"),                         
-                         Year = bl.Field<string>("Year"),                                                                           
+                         CompanyId = bl.Field<int>("CompanyId"),
+                         Year = bl.Field<string>("Year"),
                      } into blg
                      select new GenericItemModel()
                      {
-                         ItemId = blg.Key.CompanyId,                         
-                         ItemName = blg.Key.Year,                         
+                         ItemId = blg.Key.CompanyId,
+                         ItemName = blg.Key.Year,
                          ItemInfo =
                               (from blinf in response.DataTableResult.AsEnumerable()
                                where !blinf.IsNull("FinancialInfoId") &&
@@ -1554,12 +1554,49 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                                    ItemInfoId = blinf.Field<int>("FinancialInfoId"),
                                    ItemInfoType = new CatalogModel()
                                    {
-                                       ItemId = blinf.Field<int>("Account"),                                       
+                                       ItemId = blinf.Field<int>("Account"),
                                    },
                                    Value = blinf.Field<decimal>("Value").ToString(),
                                    ValueName = blinf.Field<string>("Currency"),
                                }).ToList(),
                      }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<GenericItemInfoModel> MPCertificationGetSpecificCert(string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", ProviderPublicId));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_CertificationGetSpecificCert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemInfoModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cerinf in response.DataTableResult.AsEnumerable()
+                     where !cerinf.IsNull("CompanyId")                            
+                     select new GenericItemInfoModel()
+                     {
+                         ItemInfoId = cerinf.Field<int>("CompanyId"),
+                         ItemInfoType = new CatalogModel()
+                         {
+                             ItemId = cerinf.Field<int>("CategoryId"),
+                             ItemName = cerinf.Field<string>("CategoryName"),
+                         },
+                         Value = cerinf.Field<string>("CCS"), 
+                         LargeValue = cerinf.Field<string>("IsCertified"),                        
+                     }).ToList();                     
             }
             return oReturn;
         }

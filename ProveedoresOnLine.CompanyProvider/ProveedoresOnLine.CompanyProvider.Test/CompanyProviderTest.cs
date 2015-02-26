@@ -447,6 +447,16 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
             Assert.AreEqual(true, oResult.Count > 0);
         }
+
+        [TestMethod]
+        public void MPCertificationGetSpecificCert()
+        {
+            List<GenericItemInfoModel> oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetSpecificCert
+                ("1D9B9580");
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
         #endregion
     }
 }
