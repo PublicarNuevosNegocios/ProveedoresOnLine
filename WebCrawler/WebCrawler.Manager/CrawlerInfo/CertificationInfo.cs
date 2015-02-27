@@ -32,6 +32,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                 {
                     HtmlNodeCollection cols = rows[i].SelectNodes(".//td");
 
+                    DateTime date = new DateTime();
+
                     oCertificationsInfo = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                     {
                         ItemId = 0,
@@ -79,7 +81,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         {
                             ItemId = (int)enumHSEQInfoType.C_StartDateCertification,
                         },
-                        Value = cols[5].InnerText != string.Empty && cols[4].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[5].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                        Value =  DateTime.TryParse(cols[5].InnerText, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                         Enable = true,
                     });
 
@@ -90,7 +92,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         {
                             ItemId = (int)enumHSEQInfoType.C_EndDateCertification,
                         },
-                        Value = cols[6].InnerText != string.Empty && cols[6].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[6].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                        Value =  DateTime.TryParse(cols[6].InnerText, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                         Enable = true,
                     });
 
@@ -113,9 +115,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                         if (cols[8].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                         {
                             urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.Certifications.ToString(), PublicId);
                         }
-
-                        urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.Certifications.ToString(), PublicId);
 
                         oCertificationsInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {

@@ -51,9 +51,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                                             if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                                             {
                                                 urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
-                                            }
-
-                                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
+                                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
+                                            }                                                
                                         }
 
                                         oUrl.Add(cols[2].InnerText, new Tuple<string, string>(oExperience[1].ToString().Replace("..", WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value.ToString()), urlS3));
@@ -99,7 +98,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 foreach (HtmlNode nodeSelectTipo in t[0].SelectNodes(".//select[@id='tipo']"))
                                 {
                                     string[] optionList = nodeSelectTipo.InnerHtml.Split(new char[] { '<' });
-                                    string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+                                    string option = string.Empty;
+                                    option = optionList.Where(x => x.Contains("selected") != null).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected") != null).FirstOrDefault() : string.Empty;
                                     option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
 
                                     option = option.Normalize(NormalizationForm.FormD);
@@ -126,7 +126,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 foreach (HtmlNode nodeSelectMoneda in t[0].SelectNodes(".//select[@id='moneda']"))
                                 {
                                     string[] optionList = nodeSelectMoneda.InnerHtml.Split(new char[] { '<' });
-                                    string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+                                    string option = string.Empty;
+                                    option = optionList.Where(x => x.Contains("selected") != null).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected") != null).FirstOrDefault() : string.Empty;
                                     option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
 
                                     option = option.Normalize(NormalizationForm.FormD);
@@ -150,6 +151,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                                     });
                                 }
 
+                                DateTime date = new DateTime();
+
                                 foreach (HtmlNode nodeInput in t[0].SelectNodes(".//input"))
                                 {
                                     HtmlAttribute AttId = nodeInput.Attributes["id"];
@@ -164,7 +167,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                             {
                                                 ItemId = (int)enumCommercialInfoType.EX_DateIssue,
                                             },
-                                            Value = AttValue.Value != string.Empty && AttValue.Value.Length > 1 && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                            Value =  DateTime.TryParse(AttValue.Value, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                                             Enable = true,
                                         });
                                     }
@@ -178,7 +181,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                             {
                                                 ItemId = (int)enumCommercialInfoType.EX_DueDate,
                                             },
-                                            Value = AttValue.Value != string.Empty && AttValue.Value.Length > 1 && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                            Value =  DateTime.TryParse(AttValue.Value, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                                             Enable = true,
                                         });
                                     }

@@ -41,7 +41,9 @@ namespace WebCrawler.Manager.CrawlerInfo
                     foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='en_arp']"))
                     {
                         string[] optionList = node.InnerHtml.Split(new char[] { '<' });
-                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+
+                        string option = string.Empty;
+                        option = optionList.Where(x => x.Contains("selected")).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected")).FirstOrDefault() : string.Empty;
                         option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
 
                         option = option.Normalize(NormalizationForm.FormD);
@@ -69,9 +71,10 @@ namespace WebCrawler.Manager.CrawlerInfo
                     foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='valor_arp']"))
                     {
                         string[] optionList = node.InnerHtml.Split(new char[] { '<' });
-                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
-                        option = option.Replace("option", "").Replace("value", "").Replace("selected", ",");
 
+                        string option = string.Empty;
+                        option = optionList.Where(x => x.Contains("selected")).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected")).FirstOrDefault() : string.Empty;
+                        option = option.Replace("option", "").Replace("value", "").Replace("selected", ",");
                         string[] opt = option.Split(new char[] { ',' });
 
                         option = opt[1].Normalize(NormalizationForm.FormD);
@@ -148,9 +151,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[6].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[6].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -172,9 +174,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[7].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[7].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -196,9 +197,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[8].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCompanyCompanyRiskPoliciesInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -220,9 +220,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[9].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -244,9 +243,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[10].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[10].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -268,9 +266,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -292,9 +289,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[12].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[12].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -316,9 +312,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[12].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[12].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -340,9 +335,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[14].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[14].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -364,9 +358,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[16].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[16].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -399,9 +392,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[15].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[15].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.CompanyHealtyPolitic.ToString(), PublicId);
 
                             oCertificationAccidentInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
