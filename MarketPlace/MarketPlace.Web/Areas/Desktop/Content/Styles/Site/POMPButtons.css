@@ -33,18 +33,25 @@
     width: 24px;
 }
 
-#Search_Compare_Search_ToolTip_Grid ul {
+#Compare_SearchGrid{
+    min-height:445px;
+}
+
+#Search_Compare_Search_ToolTip_Grid ul,
+#Compare_SearchGrid ul{
     display: block;
     margin: 0 auto !important;
     padding:6px 0px 4px 0px;
     width: 345px;
 }
-#Search_Compare_Search_ToolTip_Grid ul li{
+#Search_Compare_Search_ToolTip_Grid ul li,
+#Compare_SearchGrid ul li{
     list-style-type:none;
     display:inline-block;
     width:auto; height:auto;
 }
-    #Search_Compare_Search_ToolTip_Grid  ul > li > input{
+    #Search_Compare_Search_ToolTip_Grid  ul > li > input,
+    #Compare_SearchGrid ul > li > input{
         border-top-left-radius: 2px;
         border-top-right-radius: 0px;
         border-bottom-left-radius: 2px;
@@ -61,7 +68,8 @@
         vertical-align:top;
         height:24px;
     }
-    #Search_Compare_Search_ToolTip_Grid  ul > li > a {
+    #Search_Compare_Search_ToolTip_Grid  ul > li > a,
+    #Compare_SearchGrid ul > li > a{
         display: inline-block;
         margin: 0 0 0 -5px;
         padding:0px 7px;
