@@ -24,15 +24,14 @@ namespace WebCrawler
 
             lstCompany.All(x =>
                 {
-                    //try
-                    //{
-
+                    try
+                    {
                         WebCrawler.Manager.WebCrawlerManager.WebCrawlerInfo(x.key, x.val);
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    Console.WriteLine("\nError, ::" + x.key.ToString() + "::" + e.Message + "\n");
-                    //}
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("\nError, ::" + x.key.ToString() + "::" + e.Message + "\n");
+                    }
                     return true;
                 });
 

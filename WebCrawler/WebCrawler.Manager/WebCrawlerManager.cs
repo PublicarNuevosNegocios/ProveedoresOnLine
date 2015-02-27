@@ -99,8 +99,7 @@ namespace WebCrawler.Manager
             }
             catch (System.Exception e)
             {
-                Console.WriteLine("\nError, ::" + ParId.ToString() + "::" + e.Message + "\n");
-                throw e;
+                Console.WriteLine("\nError, " + e.Message + "\n");
             }
 
 
@@ -504,9 +503,10 @@ namespace WebCrawler.Manager
 
                                 if (cols[9].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                                 {
-                                    urlDownload = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
-                                    urlS3 = UploadFile(urlDownload, enumContactType.PersonContact.ToString(), oCompany.CompanyPublicId);
+                                    urlDownload = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                                 }
+
+                                urlS3 = UploadFile(urlDownload, enumContactType.PersonContact.ToString(), oCompany.CompanyPublicId);
 
                                 oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {

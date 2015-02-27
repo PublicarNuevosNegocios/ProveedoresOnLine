@@ -3,7 +3,7 @@
   <WebCrawler>
     
     <!--Session-->
-    <key name="SessionKey"><![CDATA[PHPSESSID=i96l8l6rje0e3hg6ui71djur73]]></key>
+    <key name="SessionKey"><![CDATA[PHPSESSID=9ir52ng7llid9s063a75sovm51]]></key>
 
     <!--Timer sleep-->
     <key name="TimerSleep">3000</key>
@@ -21,7 +21,7 @@
     <key name="File_RemoteDirectory">\BackOffice\</key>
 
     <!--Url download-->
-    <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos/]]></key>
+    <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos]]></key>
 
     <!--All Menu Keys-->
     <!--GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,Representation,OtherInfo,-->

@@ -159,7 +159,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (node.Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = node.Attributes["href"].Value.Replace("../", urlDownload);
+                                urlDownload = node.Attributes["href"].Value.Replace("..", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.ChaimberOfCommerce.ToString(), PublicId);
                             }
 
@@ -447,7 +447,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
+                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
                             }
 
@@ -470,7 +470,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (cols[12].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = cols[12].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
+                                urlDownload = cols[12].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
                             }
 
@@ -493,7 +493,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (cols[13].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = cols[13].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
+                                urlDownload = cols[13].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
                             }
 
@@ -582,7 +582,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (cols[2].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = cols[2].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
+                                urlDownload = cols[2].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.SARLAFT.ToString(), PublicId);
                             }
 
