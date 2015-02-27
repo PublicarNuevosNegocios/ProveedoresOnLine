@@ -102,3 +102,45 @@ var Compare_SearchObject = {
     },
 };
 
+
+var Compare_DetailObject = {
+    ObjectId: '',
+    GridColumns: [],
+    GridData: [],
+
+    Init: function (vInitObject) {
+
+        this.ObjectId = vInitObject.ObjectId;
+        this.GridColumns = vInitObject.GridColumns;
+        this.GridData = vInitObject.GridData;
+    },
+
+    RenderAsync: function () {
+        $('#' + Compare_DetailObject.ObjectId).kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            selectable: true,
+            dataSource: {
+                data: Compare_DetailObject.GridData,
+            },
+            columns: Compare_DetailObject.GridColumns,
+        });
+    },
+
+    GetHeaderTemplate: function(vProviderPublicId)
+    {
+        return vProviderPublicId;
+    },
+
+    GetItemTemplate: function (vProviderPublicId)
+    {
+        debugger;
+        var oReturn = $('#CMPBalance_Company_Item_Template').html();
+
+        oReturn = oReturn.replace(/{ProviderPublicId}/gi, vProviderPublicId);
+
+        return oReturn;
+    },
+};
