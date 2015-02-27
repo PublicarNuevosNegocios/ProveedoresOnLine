@@ -18,16 +18,14 @@
 <div style="display:none;">
 
     <div id="CMPBalance_Company_Header_Template">
+        <div>
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+        </div>
         <ul>
-            <li>
-                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
-            </li>
-            <li>
-                @for (int i = 1; i <= Model.MaxValueCount; i++)
-                {
-                    <span></span>
-                }
-            </li>
+            @foreach (string un in Model.UnitNames)
+            {
+                <li>@un</li>
+            }
         </ul>
     </div>
     <div id="CMPBalance_EvaluationArea_Item_Template">

@@ -85,7 +85,7 @@ namespace MarketPlace.Web.Controllers
                 //header HSEQ
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información comercial",
+                    Name = "Certificaciones",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -107,7 +107,7 @@ namespace MarketPlace.Web.Controllers
                 //header Balancesheet
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información comercial",
+                    Name = "Información financiera",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new

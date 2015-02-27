@@ -62,13 +62,63 @@ namespace MarketPlace.Models.Compare
                                     Where(cd =>
                                         cd.Value != null &&
                                         cd.Value.Count > 0).
-                                    Max(cd => cd.Value.Count)
+                                    Max(cd => cd.Value.Where(val => val != null && !string.IsNullOrEmpty(val.Item2)).ToList().Count)
                             );
                 }
                 return oMaxValueCount == null ? 0 : oMaxValueCount.Value;
             }
         }
         private int? oMaxValueCount;
+
+        public List<string> UnitNames
+        {
+            get
+            {
+                if (oUnitNames == null &&
+                    RelatedCompare.RelatedProvider != null &&
+                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null))
+                {
+                    oUnitNames = new List<string>();
+
+                    if (CompareType == General.enumCompareType.Commercial)
+                    {
+                        RelatedCompare.RelatedProvider.
+                            Where(rp => rp.RelatedCompany != null &&
+                                !string.IsNullOrEmpty(rp.RelatedCompany.CompanyPublicId) &&
+                                rp.CompareDetail != null &&
+                                rp.CompareDetail.Count > 0).
+                            Select(rp =>
+                                rp.CompareDetail.
+                                    Where(cd =>
+                                        cd.Value != null &&
+                                        cd.Value.Count > 0).
+                                    OrderByDescending(cd => cd.Value.Count).
+                                    Select(cd => cd.Value.
+                                        All(val =>
+                                        {
+                                            if (val.Item3 == "$")
+                                            {
+                                                oUnitNames.Add(MarketPlace.Models.Company.CompanyUtil.ProviderOptions.
+                                                    Where(x => x.CatalogId == 108 && x.ItemId == CompareCurrency).
+                                                    Select(x => x.ItemName).
+                                                    DefaultIfEmpty(string.Empty).
+                                                    FirstOrDefault());
+                                            }
+                                            else
+                                            {
+                                                oUnitNames.Add(val.Item3);
+                                            }
+
+                                            return true;
+                                        })).
+                                    FirstOrDefault()).
+                            FirstOrDefault();
+                    }
+                }
+                return oUnitNames;
+            }
+        }
+        private List<string> oUnitNames;
 
         #endregion
 
@@ -113,7 +163,7 @@ namespace MarketPlace.Models.Compare
             {
                 oReturn.Append("{" +
                     MarketPlace.Models.General.Constants.C_Program_Compare_ColumnItem.
-                        Replace("{Width}", "'230px'").
+                        Replace("{Width}", "'260px'").
                         Replace("{Field}", "'_" + col + "'").
                         Replace("{HeaderTemplate}", "Compare_DetailObject.GetHeaderTemplate('" + col + "')").
                         Replace("{Template}", "Compare_DetailObject.GetItemTemplate('" + col + "')").
@@ -204,6 +254,22 @@ namespace MarketPlace.Models.Compare
                         }
                         else if (col != "EvaluationArea" && RelatedCompare.RelatedProvider != null)
                         {
+                            //get currency rate
+                            int oCurrencyFrom = RelatedCompare.RelatedProvider.
+                                Where(rp => rp.RelatedCompany != null &&
+                                    rp.RelatedCompany.CompanyPublicId == col &&
+                                    rp.CompareDetail != null &&
+                                    rp.CompareDetail.Count > 0).
+                                Select(rp => rp.CompareDetail.
+                                        Where(cd => cd.EvaluationAreaId == ea.ItemId &&
+                                                    !string.IsNullOrEmpty(cd.Currency)).
+                                        Select(cd => Convert.ToInt32(cd.Currency)).
+                                        FirstOrDefault()).
+                                FirstOrDefault();
+
+                            decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                                (oCurrencyFrom, CompareCurrency, Year == null ? DateTime.Now.Year : Year.Value);
+
                             //get company values
                             List<Tuple<int, string, string>> lstValItem = RelatedCompare.RelatedProvider.
                                 Where(rp => rp.RelatedCompany != null &&
@@ -230,9 +296,9 @@ namespace MarketPlace.Models.Compare
                                 }
                                 oReturn.Append(MarketPlace.Models.General.Constants.C_Program_Compare_Value_Item.
                                     Replace("{i}", i.ToString()).
-                                    Replace("{Value}", "'" + (ValItem != null ? ValItem.Item2 : "0") + "'").
+                                    Replace("{Value}", "'" + (ValItem != null ? (ValItem.Item3 != "$" ? ValItem.Item2 : GetDecimalCurrency(ValItem.Item2, CurrencyRate)) : "0") + "'").
                                     Replace("{After}", "'" + string.Empty + "'").
-                                    Replace("{Before}", "'" + (ValItem != null ? ValItem.Item3 : string.Empty) + "'"));
+                                    Replace("{Before}", "'" + (ValItem != null && ValItem.Item3 == "$" ? ValItem.Item3 : string.Empty) + "'"));
                             }
 
                             oReturn.Append("},");
@@ -397,6 +463,22 @@ namespace MarketPlace.Models.Compare
                         }
                         else if (col != "EvaluationArea" && RelatedCompare.RelatedProvider != null)
                         {
+                            //get currency rate
+                            int oCurrencyFrom = RelatedCompare.RelatedProvider.
+                                Where(rp => rp.RelatedCompany != null &&
+                                    rp.RelatedCompany.CompanyPublicId == col &&
+                                    rp.CompareDetail != null &&
+                                    rp.CompareDetail.Count > 0).
+                                Select(rp => rp.CompareDetail.
+                                        Where(cd => cd.EvaluationAreaId == ac.ItemId &&
+                                                    !string.IsNullOrEmpty(cd.Currency)).
+                                        Select(cd => Convert.ToInt32(cd.Currency)).
+                                        FirstOrDefault()).
+                                FirstOrDefault();
+
+                            decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                                (oCurrencyFrom, CompareCurrency, Year == null ? DateTime.Now.Year : Year.Value);
+
                             //get company values
                             List<Tuple<int, string, string>> lstValItem = RelatedCompare.RelatedProvider.
                                 Where(rp => rp.RelatedCompany != null &&
@@ -423,10 +505,11 @@ namespace MarketPlace.Models.Compare
                                 }
                                 oReturn.Append(MarketPlace.Models.General.Constants.C_Program_Compare_Value_Item.
                                     Replace("{i}", i.ToString()).
-                                    Replace("{Value}", "'" + (ValItem != null ? ValItem.Item2 : (strAccountType == "2" ? " - " : "0")) + "'").
+                                    Replace("{Value}", "'" + (ValItem != null ? (oAccountUnit != "$" ? ValItem.Item2 : GetDecimalCurrency(ValItem.Item2, CurrencyRate)) : (strAccountType == "2" ? " - " : "0")) + "'").
                                     Replace("{After}", "'" + (oAccountUnit == "$" ? string.Empty : (ValItem != null ? ValItem.Item3 : string.Empty)) + "'").
                                     Replace("{Before}", "'" + (oAccountUnit != "$" ? string.Empty : (ValItem != null ? ValItem.Item3 : string.Empty)) + "'"));
                             }
+
                             oReturn.Append("},");
                         }
                         return true;
@@ -446,6 +529,18 @@ namespace MarketPlace.Models.Compare
                 });
 
             return oReturn.ToString();
+        }
+
+        private string GetDecimalCurrency(string OriginalNumber, decimal CurrencyRate)
+        {
+            string oReturn = "0";
+
+            if (!string.IsNullOrEmpty(OriginalNumber))
+            {
+                oReturn = ((decimal)(CurrencyRate * Convert.ToDecimal(OriginalNumber))).ToString("#,0.##");
+            }
+
+            return oReturn;
         }
 
         #endregion
