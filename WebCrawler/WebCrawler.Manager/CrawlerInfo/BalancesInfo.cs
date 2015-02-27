@@ -620,7 +620,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 }
                                 catch (System.Exception e)
                                 {
-                                    Console.WriteLine("\nNo se pudo cargar el balance del año " + year + ". Error , " + e.Message + "\n");
+                                    Console.WriteLine("\nError, ::" + ParId.ToString() + "::" + 
+                                        "\nNo se pudo cargar el balance del año " + year + ". " + e.Message + "\n");
                                 }
                             }
                         }
@@ -742,9 +743,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[5].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[5].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
 
                             oIncomeStatementInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -902,9 +902,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[8].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
 
                             oBankInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
