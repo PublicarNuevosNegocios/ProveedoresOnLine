@@ -42,6 +42,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                         ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
                     };
 
+                    DateTime date = new DateTime();
+
                     Console.WriteLine("\nChaimber of Commerce\n");
 
                     foreach (HtmlNode node in table[0].SelectNodes(".//input"))
@@ -58,7 +60,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionDate,
                                 },
-                                Value = AttValue.Value != string.Empty && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Value = DateTime.TryParse(AttValue.Value, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -71,7 +73,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_ConstitutionEndDate,
                                 },
-                                Value = AttValue.Value != string.Empty && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Value = DateTime.TryParse(AttValue.Value, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -110,7 +112,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_CertificateExpeditionDate,
                                 },
-                                Value = AttValue.Value != string.Empty && AttValue.Value != "&nbsp;" ? Convert.ToDateTime(AttValue.Value).ToString("yyyy-MM-dd") : string.Empty,
+                                Value =  DateTime.TryParse(AttValue.Value, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                                 Enable = true,
                             });
                         }
@@ -120,7 +122,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                     {
 
                         string[] optionList = node.InnerHtml.Split(new char[] { '<' });
-                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+                        string option = string.Empty;
+                        option = optionList.Where(x => x.Contains("selected") != null).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected") != null).FirstOrDefault() : string.Empty;
                         option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
 
                         option = option.Replace("D.C", "");
@@ -287,6 +290,8 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                     Console.WriteLine("\nRUT\n");
 
+                    DateTime date = new DateTime();
+
                     for (int i = 1; i < rowsTable2.Count; i++)
                     {
                         HtmlNodeCollection cols = rowsTable2[i].SelectNodes(".//td");
@@ -346,7 +351,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_LargeContributorDate,
                             },
-                            Value = cols[3].InnerText != string.Empty && cols[3].InnerText.Length > 1 && cols[3].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[3].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value = DateTime.TryParse(cols[3].InnerText, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -379,7 +384,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.R_SelfRetainerDate,
                             },
-                            Value = cols[6].InnerText != string.Empty && cols[6].InnerText.Length > 1 && cols[6].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[6].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value =  DateTime.TryParse(cols[6].InnerText, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -531,6 +536,8 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                     Console.WriteLine("\nSARLAFT\n");
 
+                    DateTime date = new DateTime();
+
                     for (int i = 1; i < rowsTable3.Count; i++)
                     {
                         HtmlNodeCollection cols = rowsTable3[i].SelectNodes(".//td");
@@ -554,7 +561,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.SF_ProcessDate,
                             },
-                            Value = cols[0].InnerText != string.Empty && cols[0].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value =  DateTime.TryParse(cols[0].InnerText, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 
@@ -620,6 +627,8 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                     Console.WriteLine("\nCIFIN\n");
 
+                    DateTime date = new DateTime();
+
                     for (int i = 1; i < rowsTable4.Count; i++)
                     {
                         HtmlNodeCollection cols = rowsTable4[i].SelectNodes(".//td");
@@ -643,7 +652,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CF_QueryDate,
                             },
-                            Value = cols[0].InnerText != string.Empty && cols[0].InnerText != "&nbsp;" ? Convert.ToDateTime(cols[0].InnerText).ToString("yyyy-MM-dd") : string.Empty,
+                            Value =  DateTime.TryParse(cols[0].InnerText, out date) == true ? date.ToString("yyyy-MM-dd") : string.Empty,
                             Enable = true,
                         });
 

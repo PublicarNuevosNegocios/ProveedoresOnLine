@@ -41,7 +41,9 @@ namespace WebCrawler.Manager.CrawlerInfo
                     foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='en_arp']"))
                     {
                         string[] optionList = node.InnerHtml.Split(new char[] { '<' });
-                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
+
+                        string option = string.Empty;
+                        option = optionList.Where(x => x.Contains("selected")).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected")).FirstOrDefault() : string.Empty;
                         option = option.Replace("option", "").Replace("value", "").Replace("selected", "");
 
                         option = option.Normalize(NormalizationForm.FormD);
@@ -69,9 +71,10 @@ namespace WebCrawler.Manager.CrawlerInfo
                     foreach (HtmlNode node in table[0].SelectNodes(".//select[@name='valor_arp']"))
                     {
                         string[] optionList = node.InnerHtml.Split(new char[] { '<' });
-                        string option = optionList.Where(x => x.Contains("selected")).FirstOrDefault();
-                        option = option.Replace("option", "").Replace("value", "").Replace("selected", ",");
 
+                        string option = string.Empty;
+                        option = optionList.Where(x => x.Contains("selected")).FirstOrDefault() != null ? optionList.Where(x => x.Contains("selected")).FirstOrDefault() : string.Empty;
+                        option = option.Replace("option", "").Replace("value", "").Replace("selected", ",");
                         string[] opt = option.Split(new char[] { ',' });
 
                         option = opt[1].Normalize(NormalizationForm.FormD);
