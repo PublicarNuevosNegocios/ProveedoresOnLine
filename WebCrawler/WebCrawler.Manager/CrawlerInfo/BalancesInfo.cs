@@ -742,7 +742,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (cols[5].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = cols[5].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlDownload = cols[5].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
                             }
 
@@ -901,7 +901,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                             if (cols[8].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
-                                urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
                             }
 
