@@ -136,7 +136,36 @@ a.POMPSmallCaption {
 /********* INDICE DE ALTMAN **********/
 
 label.POMPProviderDataIndiceAltman{
-
-
+    padding:0px 0px 5px 0px !important;
+    border-bottom:1px solid #d4d4d4;
 }
-    
+    label.POMPProviderDataIndiceAltman > label {
+        min-height: 50px;
+        border-bottom:none !important;
+    }
+    label.POMPProviderDataIndiceAltman > span {
+        font-size: 0.8em !important;
+        line-height: 1.1em !important;
+        margin:0px 0px 0px 12px;
+    }
+    label.POMPProviderVerDetalle {
+        border: medium none !important;
+        display: block;
+        min-height: 38px !important;
+        width: 100% !important;
+        text-align:right;
+    }
+        label.POMPProviderVerDetalle > a {
+            border: 1px solid #337ab7;
+            border-radius: 2px;
+            float: right;
+            margin: 9px 8px 0 0;
+            padding: 3px 10px;
+            text-align: center;
+            width: 100px;
+        }
+/*************** EXPERIENCIAS ***************/
+
+.POMPProviderDataMaestraEstandar {
+    width:48.9% !important;
+}

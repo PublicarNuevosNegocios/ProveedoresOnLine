@@ -23,7 +23,7 @@
                             @if (!string.IsNullOrEmpty(item.EX_ContractType) && !string.IsNullOrEmpty(item.EX_ContractType))
                             {
                                 <span>@item.EX_ContractType para @item.EX_Client</span>
-                            }                            
+                            }
                         </label>
                         @if (!string.IsNullOrEmpty(item.EX_DateIssue))
                         {
@@ -38,7 +38,7 @@
                                 Fecha Final
                                 <span>@item.EX_DueDate</span>
                             </label>
-                        }                        
+                        }
                         @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
                         {
                             <label>
@@ -48,50 +48,52 @@
                         }
                         @if (!string.IsNullOrEmpty(item.EX_ContractValue))
                         {
-                             <label>
+                            <label>
                                 Valor del Contrato
                                 <span>@item.EX_ContractValue</span>
                             </label>
                         }
-                       @if (!string.IsNullOrEmpty(item.EX_Phone))
+                        @if (!string.IsNullOrEmpty(item.EX_Phone))
                         {
                             <label>
                                 Teléfono
                                 <span>@item.EX_Phone</span>
                             </label>
-                       }
-                       @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
-                       {
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                        {
                             <label>
                                 Objeto del Contrato
                                 <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
                             </label>
-                       }
-                        <label>
+                        }
+                        <label class="POMPProviderDataMaestraEstandar">
                             Maestra Estandar
                             @foreach (var ActivityItem in item.EX_EconomicActivity)
                             {
                                 <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
                             }
                         </label>
-                        <label>
+                        <label class="POMPProviderDataMaestraEstandar">
                             Maestra Personalizada
                             @foreach (var ActivityItem in item.EX_CustomEconomicActivity)
                             {
                                 <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
                             }
                         </label>
-                        <label>
-                            @{
+
+                        @{
                             var UlrContent = item.EX_ExperienceFile;
-                            if (!string.IsNullOrEmpty(UlrContent))
+                            if (!string.IsNullOrWhiteSpace(UlrContent))
                             {
+                            <label>
                                 @*ESTE IFRAME SE CAMBIA POR UN ICONO PARA IR AL ARCHIVO*@
                                 @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
                                 <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Soporte</a>
+                            </label>
                             }
-                            }
-                        </label>
+                        }
+
                     </li>
 
                 }

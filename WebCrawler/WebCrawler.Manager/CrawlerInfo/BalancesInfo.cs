@@ -743,8 +743,10 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[5].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[5].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
-                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
                             }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
+
                             oIncomeStatementInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 0,
@@ -903,6 +905,9 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
                             }
+
+                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.IncomeStatementInfoType.ToString(), PublicId);
+
                             oBankInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
                                 ItemInfoId = 0,

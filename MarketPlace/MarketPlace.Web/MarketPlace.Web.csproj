@@ -965,6 +965,7 @@
     <Content Include="Areas\Desktop\Views\Compare\CompareDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CM_CompareMenu.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
+    <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
