@@ -26,7 +26,6 @@ namespace WebCrawler
                 {
                     try
                     {
-
                         WebCrawler.Manager.WebCrawlerManager.WebCrawlerInfo(x.key, x.val);
                     }
                     catch (Exception e)
