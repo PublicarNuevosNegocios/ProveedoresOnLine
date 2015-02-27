@@ -30,7 +30,6 @@ div#POMPRenderFooter {
 }
 /*********** CONTENEDOR DEL MENU LATERAL ***********/
 .POMPProviderSideMenuWrapper {
-    border-right: 2px solid #ff8300;
     display: inline-block;
     height: 100%;
     min-height: 490px;
@@ -40,10 +39,11 @@ div#POMPRenderFooter {
 }
 /*********** CONTENEDOR DE INFORMACION PROVEDOR ***********/
 .POMPProviderDataWrapper {
-    border: medium none;
+    border-left: 2px solid #ff8300;
     display: inline-block;
     height: auto;
-    margin: 0 0 0 2px;
+    margin: 0px;
+    padding: 0 0 0 2px;
     min-height: 400px;
     width: calc(100% - 261px);
 }
