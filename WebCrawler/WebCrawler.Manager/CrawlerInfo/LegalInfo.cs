@@ -160,9 +160,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (node.Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = node.Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.ChaimberOfCommerce.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.ChaimberOfCommerce.ToString(), PublicId);
 
                             oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -449,9 +448,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
 
                             oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -473,9 +471,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[12].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[12].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
 
                             oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -497,9 +494,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[13].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[13].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.RUT.ToString(), PublicId);
 
                             oRUTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
@@ -587,9 +583,8 @@ namespace WebCrawler.Manager.CrawlerInfo
                             if (cols[2].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                             {
                                 urlDownload = cols[2].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.SARLAFT.ToString(), PublicId);
                             }
-
-                            urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumLegalType.SARLAFT.ToString(), PublicId);
 
                             oSARLAFTInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                             {
