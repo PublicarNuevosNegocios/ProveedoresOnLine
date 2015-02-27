@@ -59,21 +59,9 @@ namespace MarketPlace.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CIExperiencesCompare()
+        public virtual System.Web.Mvc.ActionResult CompareDetail()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesCompare);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HIHSECompare()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHSECompare);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult FIBalanceSheetInfoCompare()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfoCompare);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompareDetail);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -92,46 +80,25 @@ namespace MarketPlace.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string CIExperiencesCompare = "CIExperiencesCompare";
-            public readonly string HIHSECompare = "HIHSECompare";
-            public readonly string FIBalanceSheetInfoCompare = "FIBalanceSheetInfoCompare";
+            public readonly string CompareDetail = "CompareDetail";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string CIExperiencesCompare = "CIExperiencesCompare";
-            public const string HIHSECompare = "HIHSECompare";
-            public const string FIBalanceSheetInfoCompare = "FIBalanceSheetInfoCompare";
+            public const string CompareDetail = "CompareDetail";
         }
 
 
-        static readonly ActionParamsClass_CIExperiencesCompare s_params_CIExperiencesCompare = new ActionParamsClass_CIExperiencesCompare();
+        static readonly ActionParamsClass_CompareDetail s_params_CompareDetail = new ActionParamsClass_CompareDetail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CIExperiencesCompare CIExperiencesCompareParams { get { return s_params_CIExperiencesCompare; } }
+        public ActionParamsClass_CompareDetail CompareDetailParams { get { return s_params_CompareDetail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CIExperiencesCompare
+        public class ActionParamsClass_CompareDetail
         {
             public readonly string CompareId = "CompareId";
-            public readonly string Currency = "Currency";
-        }
-        static readonly ActionParamsClass_HIHSECompare s_params_HIHSECompare = new ActionParamsClass_HIHSECompare();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HIHSECompare HIHSECompareParams { get { return s_params_HIHSECompare; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HIHSECompare
-        {
-            public readonly string CompareId = "CompareId";
-            public readonly string Currency = "Currency";
-        }
-        static readonly ActionParamsClass_FIBalanceSheetInfoCompare s_params_FIBalanceSheetInfoCompare = new ActionParamsClass_FIBalanceSheetInfoCompare();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_FIBalanceSheetInfoCompare FIBalanceSheetInfoCompareParams { get { return s_params_FIBalanceSheetInfoCompare; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_FIBalanceSheetInfoCompare
-        {
-            public readonly string CompareId = "CompareId";
+            public readonly string CompareType = "CompareType";
             public readonly string Currency = "Currency";
             public readonly string Year = "Year";
         }
@@ -166,42 +133,17 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void CIExperiencesCompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string Currency);
+        partial void CompareDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string CompareType, string Currency, string Year);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CIExperiencesCompare(string CompareId, string Currency)
+        public override System.Web.Mvc.ActionResult CompareDetail(string CompareId, string CompareType, string Currency, string Year)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesCompare);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CompareDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareId", CompareId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
-            CIExperiencesCompareOverride(callInfo, CompareId, Currency);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void HIHSECompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string Currency);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult HIHSECompare(string CompareId, string Currency)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHSECompare);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareId", CompareId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
-            HIHSECompareOverride(callInfo, CompareId, Currency);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void FIBalanceSheetInfoCompareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CompareId, string Currency, string Year);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult FIBalanceSheetInfoCompare(string CompareId, string Currency, string Year)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfoCompare);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareId", CompareId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CompareType", CompareType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
-            FIBalanceSheetInfoCompareOverride(callInfo, CompareId, Currency, Year);
+            CompareDetailOverride(callInfo, CompareId, CompareType, Currency, Year);
             return callInfo;
         }
 
