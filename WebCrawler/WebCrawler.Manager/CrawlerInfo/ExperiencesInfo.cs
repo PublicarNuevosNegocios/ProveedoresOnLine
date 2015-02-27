@@ -50,12 +50,12 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                                             if (cols[11].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                                             {
-                                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                                urlDownload = cols[11].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
                                                 urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumCommercialType.Experience.ToString(), PublicId);
                                             }                                                
                                         }
 
-                                        oUrl.Add(cols[2].InnerText, new Tuple<string, string>(oExperience[1].ToString().Replace("..", WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value.ToString()), urlS3));
+                                        oUrl.Add(cols[2].InnerText, new Tuple<string, string>(oExperience[1].ToString().Replace("../", WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value.ToString()), urlS3));
                                     }
                                 }
                             }
