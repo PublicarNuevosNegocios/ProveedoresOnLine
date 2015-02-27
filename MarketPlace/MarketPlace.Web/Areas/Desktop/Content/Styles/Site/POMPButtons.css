@@ -35,6 +35,9 @@
 
 #Compare_SearchGrid{
     min-height:445px;
+    width:90%;
+    display:block;
+    margin:8px auto;
 }
 
 #Search_Compare_Search_ToolTip_Grid ul,
