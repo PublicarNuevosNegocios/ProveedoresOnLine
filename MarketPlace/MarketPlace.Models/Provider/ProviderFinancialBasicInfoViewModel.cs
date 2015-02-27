@@ -28,8 +28,10 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-
-                    oBI_TotalActive = (Convert.ToDecimal(oBI_TotalActive) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_TotalActive))
+                    {
+                        oBI_TotalActive = (Convert.ToDecimal(oBI_TotalActive) * Exchange).ToString();
+                    }
                 }
 
                 return oBI_TotalActive;
@@ -48,7 +50,10 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-                    oBI_TotalPassive = (Convert.ToDecimal(oBI_TotalPassive) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_TotalPassive))
+                    {
+                        oBI_TotalPassive = (Convert.ToDecimal(oBI_TotalPassive) * Exchange).ToString();
+                    }
                 }
 
                 return oBI_TotalPassive;
@@ -67,7 +72,10 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-                    oBI_TotalPatrimony = (Convert.ToDecimal(oBI_TotalPatrimony) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_TotalPatrimony))
+                    {
+                        oBI_TotalPatrimony = (Convert.ToDecimal(oBI_TotalPatrimony) * Exchange).ToString();
+                    }
                 }
 
                 return oBI_TotalPatrimony;
@@ -86,8 +94,10 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-
-                    oBI_OperationIncome = (Convert.ToDecimal(oBI_OperationIncome) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_OperationIncome))
+                    {
+                        oBI_OperationIncome = (Convert.ToDecimal(oBI_OperationIncome) * Exchange).ToString();
+                    }
                 }
 
                 return oBI_OperationIncome;
@@ -107,7 +117,10 @@ namespace MarketPlace.Models.Provider
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
 
-                    oBI_IncomeBeforeTaxes = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_IncomeBeforeTaxes))
+                    {
+                        oBI_IncomeBeforeTaxes = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString();
+                    }
                 }
 
                 return oBI_IncomeBeforeTaxes;
@@ -126,8 +139,10 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-
-                    oBI_CurrentActive = (Convert.ToDecimal(oBI_CurrentActive) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_CurrentActive))
+                    {
+                        oBI_CurrentActive = (Convert.ToDecimal(oBI_CurrentActive) * Exchange).ToString();
+                    }                    
                 }
 
                 return oBI_CurrentActive;
@@ -146,7 +161,10 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-                    oBI_CurrentPassive = (Convert.ToDecimal(oBI_CurrentPassive) * Exchange).ToString();
+                    if (!string.IsNullOrWhiteSpace(oBI_CurrentPassive))
+                    {
+                        oBI_CurrentPassive = (Convert.ToDecimal(oBI_CurrentPassive) * Exchange).ToString();
+                    }
                 }
 
                 return oBI_CurrentPassive;

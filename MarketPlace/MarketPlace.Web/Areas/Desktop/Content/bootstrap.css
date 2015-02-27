@@ -913,6 +913,9 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  border:1px solid #666;
+  border-radius:2px;
+  background-color: #f9f9f9;
 }
 a {
   color: #337ab7;

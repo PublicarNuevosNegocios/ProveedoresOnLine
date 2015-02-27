@@ -34,7 +34,7 @@ namespace WebCrawler.Manager
                 {
                     if (oProvider.RelatedCertification == null)
                     {
-                        oProvider.RelatedCertification = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);                        
+                        oProvider.RelatedCertification = CrawlerInfo.CertificationInfo.GetCertificationInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                     }
                     else
                     {
@@ -45,7 +45,7 @@ namespace WebCrawler.Manager
                             oProvider.RelatedCertification.Add(x);
                             return true;
                         });
-                    }                    
+                    }
                 }
                 else if (item.ToString() == enumMenu.HSE.ToString())
                 {
@@ -78,7 +78,7 @@ namespace WebCrawler.Manager
                 }
                 else if (item.ToString() == enumMenu.GeneralBalance.ToString())
                 {
-                    oProvider.RelatedBalanceSheet = WebCrawler.Manager.CrawlerInfo.BalancesInfo.GetBalancesInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
+                    WebCrawler.Manager.CrawlerInfo.BalancesInfo.GetBalancesInfo(ParId, oProvider.RelatedCompany == null ? PublicId : oProvider.RelatedCompany.CompanyPublicId);
                 }
             }
 
@@ -96,14 +96,17 @@ namespace WebCrawler.Manager
                 //Relation Provider with Publicar
                 SetCompanyProvider(oProvider.RelatedCompany.CompanyPublicId);
 
-                //Update search filters
-                ProveedoresOnLine.Company.Controller.Company.CompanySearchFill(oProvider.RelatedCompany.CompanyPublicId);
-                ProveedoresOnLine.Company.Controller.Company.CompanyFilterFill(oProvider.RelatedCompany.CompanyPublicId);
             }
             catch (System.Exception e)
             {
                 Console.WriteLine("\nError, " + e.Message + "\n");
             }
+
+
+            //Update search filters
+            ProveedoresOnLine.Company.Controller.Company.CompanySearchFill(oProvider.RelatedCompany.CompanyPublicId);
+            ProveedoresOnLine.Company.Controller.Company.CompanyFilterFill(oProvider.RelatedCompany.CompanyPublicId);
+
 
             Console.WriteLine("\nFinalizó el proceso. " + DateTime.Now.ToString() + "\n");
             Console.WriteLine("\n-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-\n");
@@ -670,7 +673,7 @@ namespace WebCrawler.Manager
                         if (oLocationsInfo.ItemInfo != null && oLocationsInfo.ItemInfo.Count > 0)
                         {
                             oCompany.RelatedContact.Add(oLocationsInfo);
-                        }                        
+                        }
                     }
                 }
             }

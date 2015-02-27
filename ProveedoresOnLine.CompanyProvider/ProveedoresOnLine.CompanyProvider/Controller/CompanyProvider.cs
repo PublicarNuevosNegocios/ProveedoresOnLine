@@ -307,16 +307,18 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                 List<GenericItemModel> oRiskCertificate = CertficationGetBasicInfo(ProviderPublicId, 701003, true);
                 int oItemInfoId = 0;
-                oRiskCertificate.Where(x => x.ItemInfo != null).All(x =>
+                if (oRiskCertificate != null && oRiskCertificate.Count > 0)
                 {
-                    oItemInfoId = x.ItemInfo.
-                        Where(y => y.ItemInfoType != null && y.ItemInfoType.ItemId == 704004).
-                        Select(y => y.ItemInfoId).
-                        DefaultIfEmpty(0).
-                        FirstOrDefault();
-                    return true;
-                });
-
+                    oRiskCertificate.Where(x => x.ItemInfo != null).All(x =>
+                    {
+                        oItemInfoId = x.ItemInfo.
+                            Where(y => y.ItemInfoType != null && y.ItemInfoType.ItemId == 704004).
+                            Select(y => y.ItemInfoId).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault();
+                        return true;
+                    });
+                }
 
                 GenericItemInfoModel oltifModel = new GenericItemInfoModel()
                 {
