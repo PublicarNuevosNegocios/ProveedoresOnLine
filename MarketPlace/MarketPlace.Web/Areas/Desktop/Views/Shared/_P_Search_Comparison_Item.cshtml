@@ -22,11 +22,11 @@
             <div>
                 @if (Model.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                 {
-                    <img class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas" />
+                    <div class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
                 }
             </div>
             <a href="javascript:Provider_SearchObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');">
-                <img class="SelGenericTooltip POMPComparisonResultIncludeCoparisonIcon" title="Quitar de la comparación" />
+                <div class="SelGenericTooltip POMPComparisonResultIncludeCoparisonIcon" title="Quitar de la comparación"></div>
             </a>
         </div>
             <!--Actions for related provider -->
@@ -65,10 +65,10 @@ else
         </div>
         <div class="POMPComparisonResultAlertComparWrapper">
             <div id="Search_Compare_Item_BlackList_{ProviderPublicId}">
-                <img class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas" />
+                <div class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
             </div>
             <a href="javascript:Provider_SearchObject.RemoveCompareProvider('{ProviderPublicId}');">
-                <img class="SelGenericTooltip POMPComparisonResultIncludeCoparisonIcon" title="Quitar de la comparación" />
+                <div class="SelGenericTooltip POMPComparisonResultIncludeCoparisonIcon" title="Quitar de la comparación"></div>
             </a>
         </div>
         <!--Actions for related provider -->

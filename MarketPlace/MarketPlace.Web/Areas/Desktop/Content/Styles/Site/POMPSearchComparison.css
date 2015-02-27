@@ -176,7 +176,8 @@
         .POMPComparisonResultProvAlert{
             border:none !important;
             display:inline-block;
-            width:16px; height:16px;
+            width:16px !important;
+            height:16px !important;
             margin:0px; padding:0px;
             vertical-align:top;
             background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
@@ -188,7 +189,8 @@
         .POMPComparisonResultIncludeCoparisonIcon {
               border:none !important;
             display:inline-block;
-            width:16px; height:16px;
+            width:16px !important;
+            height:16px !important;
             margin:0px; padding:0px;
             background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/cross.png');
             background-repeat:no-repeat;

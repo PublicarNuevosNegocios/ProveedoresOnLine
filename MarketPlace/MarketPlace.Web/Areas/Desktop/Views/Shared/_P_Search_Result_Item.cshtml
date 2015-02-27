@@ -65,13 +65,13 @@
             <div>
                 @if (Model.Item1.IsProviderCustomer && Model.Item1.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                 {
-                    <img class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas" />
+                    <div class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
                 }
             </div>
             @if (Model.Item1.IsProviderCustomer)
             {
                 <a style="display:@(oIsInComparison ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId');">
-                    <img class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación" />
+                    <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación"></div>
                 </a>
             }
         </div>
