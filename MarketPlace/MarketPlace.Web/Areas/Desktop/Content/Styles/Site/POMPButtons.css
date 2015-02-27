@@ -45,7 +45,8 @@
     display: block;
     margin: 0 auto !important;
     padding:6px 0px 4px 0px;
-    width: 345px;
+    width: 62%;
+    text-align: center;
 }
 #Search_Compare_Search_ToolTip_Grid ul li,
 #Compare_SearchGrid ul li{
