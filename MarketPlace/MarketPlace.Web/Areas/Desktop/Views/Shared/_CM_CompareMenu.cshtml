@@ -1,4 +1,4 @@
-﻿@model MarketPlace.Models.Compare.CompareViewModel
+﻿@model MarketPlace.Models.Compare.CompareDetailViewModel
 
 @if (Model.CompareMenu != null &&
     Model.CompareMenu.Count > 0)
@@ -12,7 +12,7 @@
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search,
-                                CompareId = Model.CompareId,
+                                CompareId = Model.RelatedCompare.CompareId,
                             }))">Regresar a la busqueda</a>
             </div>
             <ul id="ulCompareMenu">

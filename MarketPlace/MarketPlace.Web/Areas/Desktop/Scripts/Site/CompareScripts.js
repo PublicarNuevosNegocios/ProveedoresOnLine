@@ -105,41 +105,45 @@ var Compare_SearchObject = {
 
 var Compare_DetailObject = {
     ObjectId: '',
-    GridColumns: [],
-    GridData: [],
+    RelatedCompany: new Array(),
 
     Init: function (vInitObject) {
 
         this.ObjectId = vInitObject.ObjectId;
-        this.GridColumns = vInitObject.GridColumns;
-        this.GridData = vInitObject.GridData;
+        if (vInitObject.RelatedProvider != null) {
+            $.each(vInitObject.RelatedProvider, function (item, value) {
+                Compare_DetailObject.RelatedCompany[value.RelatedProvider.RelatedCompany.CompanyPublicId] = value;
+            });
+        }
     },
 
-    RenderAsync: function () {
-        $('#' + Compare_DetailObject.ObjectId).kendoGrid({
-            editable: false,
-            navigatable: false,
-            pageable: false,
-            scrollable: true,
-            selectable: true,
-            dataSource: {
-                data: Compare_DetailObject.GridData,
-            },
-            columns: Compare_DetailObject.GridColumns,
-        });
+    GetHeaderTemplate: function (vColumName) {
+        var oItemHtml = '';
+        if (vColumName == 'EvaluationArea') {
+            oItemHtml = 'Area de evaluación';
+        }
+        else {
+            oItemHtml = $('#CMPBalance_Company_Header_Template').html();
+
+            oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.CompanyPublicId);
+            oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, Compare_DetailObject.RelatedCompany[vColumName].ProviderLogoUrl);
+            oItemHtml = oItemHtml.replace(/{CompanyName}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.CompanyName);
+            oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.IdentificationType.ItemName);
+            oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.IdentificationNumber);
+        }
+        return oItemHtml;
     },
 
-    GetHeaderTemplate: function(vProviderPublicId)
-    {
-        return vProviderPublicId;
-    },
+    GetItemTemplate: function (vColumName) {
+        var oReturn = '';
 
-    GetItemTemplate: function (vProviderPublicId)
-    {
-        debugger;
-        var oReturn = $('#CMPBalance_Company_Item_Template').html();
-
-        oReturn = oReturn.replace(/{ProviderPublicId}/gi, vProviderPublicId);
+        if (vColumName == 'EvaluationArea') {
+            oReturn = $('#CMPBalance_EvaluationArea_Item_Template').html();
+        }
+        else {
+            var oReturn = $('#CMPBalance_Company_Item_Template').html();
+            oReturn = oReturn.replace(/{ProviderPublicId}/gi, vColumName);
+        }
 
         return oReturn;
     },
