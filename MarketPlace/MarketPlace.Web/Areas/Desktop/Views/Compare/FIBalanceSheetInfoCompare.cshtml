@@ -10,6 +10,22 @@
     <div class="POMPProviderSideMenuWrapper">
         @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
     </div>
+    <div class="POMPProviderDataWrapper">
+        <div id="CMPBalance" style="width:400px;"></div>
+    </div>
+</div>
+
+<div style="display:none;">
+
+    <div id="CMPBalance_Company_Header_Template">
+        <div>
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+        </div>
+    </div>
+    <div id="CMPBalance_Company_Item_Template">
+        <span>#:_{ProviderPublicId}.Unit1# #:_{ProviderPublicId}.Value1#</span>
+        <span>#:_{ProviderPublicId}.Unit2# #:_{ProviderPublicId}.Value2#</span>
+    </div>
 
 </div>
 
@@ -19,6 +35,17 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Compare_DetailObject.Init({
+                ObjectId: 'CMPBalance',
+                GridColumns: @Html.Raw(Model.GetJsonColumns()),
+                GridData: @Html.Raw(Model.GetJsonData()),
+            });
+            Compare_DetailObject.RenderAsync();
+        });
+    </script>
 }
 
 
