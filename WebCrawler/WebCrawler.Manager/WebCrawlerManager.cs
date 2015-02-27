@@ -99,7 +99,8 @@ namespace WebCrawler.Manager
             }
             catch (System.Exception e)
             {
-                Console.WriteLine("\nError, " + e.Message + "\n");
+                Console.WriteLine("\nError, ::" + ParId.ToString() + "::" + e.Message + "\n");
+                throw e;
             }
 
 
@@ -503,10 +504,9 @@ namespace WebCrawler.Manager
 
                                 if (cols[9].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                                 {
-                                    urlDownload = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                                    urlDownload = cols[9].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
+                                    urlS3 = UploadFile(urlDownload, enumContactType.PersonContact.ToString(), oCompany.CompanyPublicId);
                                 }
-
-                                urlS3 = UploadFile(urlDownload, enumContactType.PersonContact.ToString(), oCompany.CompanyPublicId);
 
                                 oContactInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                 {
@@ -745,37 +745,45 @@ namespace WebCrawler.Manager
             string fileName = files[1].ToString();
 
             fileName = fileName.Substring(fileName.IndexOf("=") + 1, fileName.Length - fileName.IndexOf("=") - 1).Replace(@"\", @"").Replace('"', ' ');
+            try
+            {
+                //Download file
+                Console.WriteLine("Start download file -> " + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
+                oWebClient.DownloadFile(UrlFile, folderSave + "//" + fileName);
+                Console.WriteLine("End download file -> " + DateTime.Now.ToString("dd/MM/yy HH:mm:ss") + "\n");
 
-            //Download file
-            Console.WriteLine("Start download file -> " + DateTime.Now.ToString("dd/MM/yy HH:mm:ss"));
-            oWebClient.DownloadFile(UrlFile, folderSave + "//" + fileName);
-            Console.WriteLine("End download file -> " + DateTime.Now.ToString("dd/MM/yy HH:mm:ss") + "\n");
+                //Upload S3
+                string strFile = folderSave.TrimEnd('\\') +
+                               "\\CompanyFile_" +
+                               ProviderPublicId + "_" +
+                               DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                               fileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
 
-            //Upload S3
-            string strFile = folderSave.TrimEnd('\\') +
-                           "\\CompanyFile_" +
-                           ProviderPublicId + "_" +
-                           DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
-                           fileName.Split('.').DefaultIfEmpty("pdf").LastOrDefault();
+                File.Copy(folderSave + "//" + fileName, strFile);
 
-            File.Copy(folderSave + "//" + fileName, strFile);
+                //load file to s3
+                strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
+                    (strFile,
+                    WebCrawler.Manager.General.InternalSettings.Instance
+                    [Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                        "\\CompanyFile\\" + ProviderPublicId + "\\");
 
-            //load file to s3
-            strRemoteFile = ProveedoresOnLine.FileManager.FileController.LoadFile
-                (strFile,
-                WebCrawler.Manager.General.InternalSettings.Instance
-                [Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                    "\\CompanyFile\\" + ProviderPublicId + "\\");
-
-            //remove temporal file
-            if (System.IO.File.Exists(strFile))
-                System.IO.File.Delete(strFile);
+                //remove temporal file
+                if (System.IO.File.Exists(strFile))
+                    System.IO.File.Delete(strFile);
 
 
-            //Timer Sleep
-            System.Threading.Thread.Sleep(
-                                    Convert.ToInt32(WebCrawler.Manager.General.InternalSettings.Instance
-                                    [WebCrawler.Manager.General.Constants.C_Settings_TimerSleep].Value));
+                //Timer Sleep
+                System.Threading.Thread.Sleep(
+                                        Convert.ToInt32(WebCrawler.Manager.General.InternalSettings.Instance
+                                        [WebCrawler.Manager.General.Constants.C_Settings_TimerSleep].Value));
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine("\nError al descargar el archivo ::" + UrlFile + "::" + e.Message + "\n");
+                strRemoteFile = string.Empty;
+            }
+
             return strRemoteFile;
         }
 

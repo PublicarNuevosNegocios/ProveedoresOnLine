@@ -13,76 +13,76 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Resumen del Proveedor</label>
+        <label class="POMPSectionTitles">Resumen del Proveedor</label>            
         <ul class="POMPProviderInfoMultipleValues">
             <li>
                 <label class="POMPProviderDataSubtitle">Información básica</label>
-                @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
+            @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
+            {
+                if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
                 {
-                    if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
-                    {
-                        <label>
-                            Representante Legal
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
-                    {
-                        <label>
-                            Registro Mercantil
-                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
-                    {
-                        <label>
-                            Dirección
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
-                    {
-                        <label>
-                            Ciudad
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
-                    {
-                        <label>
-                            Teléfono
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
-                    {
-                        <label>
-                            Fáx
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
-                    {
-                        <label>
-                            Página Web
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
-                    {
-                        <label>
-                            Email
-                            <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
-                        </label>
-                    }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
-                    {
-                        <label>
-                            Objeto Social
-                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
-                        </label>
-                    }
-                    <span>
+                    <label>
+                        Representante Legal
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                {
+                    <label>
+                        Registro Mercantil
+                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()))
+                {
+                    <label>
+                        Dirección
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Address).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()))
+                {
+                    <label>
+                        Ciudad
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_City).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()))
+                {
+                    <label>
+                        Teléfono
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Phone).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
+                {
+                    <label>
+                        Fáx
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()))
+                {
+                    <label>
+                        Página Web
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Website).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()))
+                {
+                    <label>
+                        Email
+                        <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
+                    </label>
+                }
+                if (!string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                {
+                    <label>
+                        Objeto Social
+                        <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
+                    </label>
+                }
+                <label class="POMPProviderVerDetalle">
                         <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
@@ -91,31 +91,31 @@
                                     action = MVC.Provider.ActionNames.GIBranchInfo,
                                     ProviderPublicId = Request["ProviderPublicId"]
                                 }))">Ver Detalle</a>
-                    </span>
-                }
+                </label>
+            }
             </li>
         </ul>
         @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
-        @if (Model.RelatedBlackListInfo != null)
-        {
-            <ul class="POMPProviderInfoMultipleValues">
-                <li>
-                    <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
+            @if (Model.RelatedBlackListInfo != null)
+            {
+                <ul class="POMPProviderInfoMultipleValues">
+                    <li>
+                        <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
 
-                    @foreach (var itemBL in Model.RelatedBlackListInfo)
-                    {
+                        @foreach (var itemBL in Model.RelatedBlackListInfo)
+                        {
                         if (itemBL.ItemType.ItemName != "ProviderPublicId" && itemBL.ItemType.ItemName != "SearchType")
                         {
-                            <label>
-                                @itemBL.ItemType.ItemName
-                                <span>@itemBL.ItemName</span>
-                            </label>
+                        <label>
+                            @itemBL.ItemType.ItemName
+                            <span>@itemBL.ItemName</span>
+                        </label>
                         }
                     }
-                </li>
-            </ul>
-        }
-        @*AQUI ESTA EL AREA SEGUIMIENTOS*@
+                    </li>
+                </ul>
+            }
+            @*AQUI ESTA EL AREA SEGUIMIENTOS*@
         <ul class="POMPProviderInfoMultipleValues">
             <li>
                 <label class="POMPProviderDataSubtitle">Seguimientos</label>
@@ -143,60 +143,62 @@
                     Total Activo
                     @if (Model.RelatedFinancialBasicInfo != null)
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
+                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
                 </label>
                 <label>
                     Total Pasivo
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
+                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
                 </label>
                 <label>
                     Total Patrimonio
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
+                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
                 </label>
                 <label>
                     Ingresos Operacionales
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
+                        
+                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
                 </label>
                 <label>
                     Utilidad Antes de Impuestos
                     @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
                     {
-                        <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
+                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
                     }
                 </label>
                 <label>
                     Capital de Trabajo
-                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty(0).FirstOrDefault()</span>
+                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty(0).FirstOrDefault()</span>
                 </label>
                 <label class="POMPProviderDataIndiceAltman">
-                    Indice Altman
-                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
                     <label>
+                    Indice Altman
+                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>                
+                    </label>
                         <span>
-                            * 1.80 Muy alta
+                        - 1.80 Muy alta
                         </span>
                         <span>
-                            * 1.81 a 2.7 Alta
+                        - 1.81 a 2.7 Alta
                         </span>
                         <span>
-                            * 2.8 a 2.9 Posible
+                        - 2.8 a 2.9 Posible
                         </span>
                         <span>
-                            * 3 o más No es probable la falta de liquidez
+                        - 3 o más No es probable la falta de liquidez
                         </span>
                     </label>
-                </label>
-                <span>
+
+                <label class="POMPProviderVerDetalle">
                     <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
@@ -205,7 +207,7 @@
                                     action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
                                     ProviderPublicId = Request["ProviderPublicId"]
                                 }))">Ver Detalle</a>
-                </span>
+                </label>
             </li>
         </ul>
         @*AQUI ESTA EL AREA info HSE*@
@@ -258,7 +260,7 @@
                             <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
                         </label>
                     }
-                    <span>
+                <label class="POMPProviderVerDetalle">
                         <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -267,11 +269,11 @@
                                 action = MVC.Provider.ActionNames.HIRiskPoliciesInfo,
                                 ProviderPublicId = Request["ProviderPublicId"]
                             }))">Ver Detalle</a>
-                    </span>
+                </label>
                 }
             </li>
         </ul>
-    </div>
+</div>
 </div>
 @{
     Model.RenderScripts = true;

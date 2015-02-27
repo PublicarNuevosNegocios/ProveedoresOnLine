@@ -53,15 +53,16 @@
                                 <span>@item.C_CCS</span>
                             </label>
                         }
-                        <label>
                             @{
                         var UlrContent = item.C_CertificationFile;
                         if (!string.IsNullOrEmpty(UlrContent))
                         {
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                            </label>
                         }
                             }
-                        </label>
+
                     </li>
                 }
             }

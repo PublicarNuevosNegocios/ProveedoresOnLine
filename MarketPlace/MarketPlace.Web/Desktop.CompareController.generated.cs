@@ -91,14 +91,10 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string CIExperiencesCompare = "CIExperiencesCompare";
-                public readonly string FIBalanceSheetInfoCompare = "FIBalanceSheetInfoCompare";
-                public readonly string HIHSECompare = "HIHSECompare";
+                public readonly string CompareDetail = "CompareDetail";
                 public readonly string Index = "Index";
             }
-            public readonly string CIExperiencesCompare = "~/Areas/Desktop/Views/Compare/CIExperiencesCompare.cshtml";
-            public readonly string FIBalanceSheetInfoCompare = "~/Areas/Desktop/Views/Compare/FIBalanceSheetInfoCompare.cshtml";
-            public readonly string HIHSECompare = "~/Areas/Desktop/Views/Compare/HIHSECompare.cshtml";
+            public readonly string CompareDetail = "~/Areas/Desktop/Views/Compare/CompareDetail.cshtml";
             public readonly string Index = "~/Areas/Desktop/Views/Compare/Index.cshtml";
         }
     }

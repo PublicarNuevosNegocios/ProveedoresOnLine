@@ -30,7 +30,7 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oBI_TotalActive))
                     {
-                        oBI_TotalActive = (Convert.ToDecimal(oBI_TotalActive) * Exchange).ToString();
+                        oBI_TotalActive = (Convert.ToDecimal(oBI_TotalActive) * Exchange).ToString("#,0.##");
                     }
                 }
 
@@ -52,7 +52,7 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oBI_TotalPassive))
                     {
-                        oBI_TotalPassive = (Convert.ToDecimal(oBI_TotalPassive) * Exchange).ToString();
+                        oBI_TotalPassive = (Convert.ToDecimal(oBI_TotalPassive) * Exchange).ToString("#,0.##");
                     }
                 }
 
@@ -74,7 +74,7 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oBI_TotalPatrimony))
                     {
-                        oBI_TotalPatrimony = (Convert.ToDecimal(oBI_TotalPatrimony) * Exchange).ToString();
+                        oBI_TotalPatrimony = (Convert.ToDecimal(oBI_TotalPatrimony) * Exchange).ToString("#,0.##");
                     }
                 }
 
@@ -96,7 +96,7 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oBI_OperationIncome))
                     {
-                        oBI_OperationIncome = (Convert.ToDecimal(oBI_OperationIncome) * Exchange).ToString();
+                        oBI_OperationIncome = (Convert.ToDecimal(oBI_OperationIncome) * Exchange).ToString("#,0.##");
                     }
                 }
 
@@ -119,7 +119,7 @@ namespace MarketPlace.Models.Provider
 
                     if (!string.IsNullOrWhiteSpace(oBI_IncomeBeforeTaxes))
                     {
-                        oBI_IncomeBeforeTaxes = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString();
+                        oBI_IncomeBeforeTaxes = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString("#,0.##");
                     }
                 }
 
@@ -141,7 +141,7 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oBI_CurrentActive))
                     {
-                        oBI_CurrentActive = (Convert.ToDecimal(oBI_CurrentActive) * Exchange).ToString();
+                        oBI_CurrentActive = (Convert.ToDecimal(oBI_CurrentActive) * Exchange).ToString("#,0.##");
                     }                    
                 }
 
@@ -163,7 +163,7 @@ namespace MarketPlace.Models.Provider
                         FirstOrDefault();
                     if (!string.IsNullOrWhiteSpace(oBI_CurrentPassive))
                     {
-                        oBI_CurrentPassive = (Convert.ToDecimal(oBI_CurrentPassive) * Exchange).ToString();
+                        oBI_CurrentPassive = (Convert.ToDecimal(oBI_CurrentPassive) * Exchange).ToString("#,0.##");
                     }
                 }
 
@@ -192,13 +192,27 @@ namespace MarketPlace.Models.Provider
         public decimal BI_JobCapital { get; set; }
         public string BI_Year { get; set; }
 
+        public string oCurrency { get; set; }
+        public string Currency
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCurrency))
+                {
+                    oCurrency = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+                }
+
+                return oCurrency;
+            }
+        }
+
         #endregion
 
         public ProviderFinancialBasicInfoViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedInfo, decimal oExchange)
         {
             RelatedFinancialBasicInfo = oRelatedInfo;
             Exchange = oExchange;
-            BI_Year = oRelatedInfo.ItemName;
+            BI_Year = oRelatedInfo.ItemName;            
         }
 
         public ProviderFinancialBasicInfoViewModel() { }

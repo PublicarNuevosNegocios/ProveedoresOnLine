@@ -1,0 +1,80 @@
+﻿@model MarketPlace.Models.Compare.CompareDetailViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Comparación de proveedores - Balances";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+<div>
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <div id="CompareDetail"></div>
+    </div>
+</div>
+
+<div style="display:none;">
+
+    <div id="CMPBalance_Company_Header_Template">
+        <ul>
+            <li>
+                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+            </li>
+            <li>
+                @for (int i = 1; i <= Model.MaxValueCount; i++)
+                {
+                    <span></span>
+                }
+            </li>
+        </ul>
+    </div>
+    <div id="CMPBalance_EvaluationArea_Item_Template">
+        <div>
+            <span>${EvaluationArea.Name}</span>
+        </div>
+    </div>
+    <div id="CMPBalance_Company_Item_Template">
+        <ul>
+            @for (int i = 1; i <= Model.MaxValueCount; i++)
+            {
+                <li>${_{ProviderPublicId}.Unit_@(i.ToString()).Before} ${_{ProviderPublicId}.Value_@(i.ToString())} ${_{ProviderPublicId}.Unit_@(i.ToString()).After}</li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Compare_DetailObject.Init({
+                ObjectId: 'CompareDetail',
+                RelatedProvider: @Html.Raw(Model.GetJsonCompany()),
+            });
+
+            $('#' + Compare_DetailObject.ObjectId).kendoGrid({
+                editable: false,
+                navigatable: false,
+                pageable: false,
+                scrollable: true,
+                selectable: true,
+                dataSource: {
+                    data: @Html.Raw(Model.GetJsonData()),
+                },
+                columns: @Html.Raw(Model.GetJsonColumns()),
+            });
+
+
+        });
+    </script>
+}
+
+
