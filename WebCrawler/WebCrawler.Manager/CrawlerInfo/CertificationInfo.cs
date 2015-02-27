@@ -114,7 +114,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                         if (cols[8].ChildNodes["a"].Attributes["href"].Value.Contains("../"))
                         {
-                            urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("..", urlDownload);
+                            urlDownload = cols[8].ChildNodes["a"].Attributes["href"].Value.Replace("../", urlDownload);
                             urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumHSEQType.Certifications.ToString(), PublicId);
                         }
                         oCertificationsInfo.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
