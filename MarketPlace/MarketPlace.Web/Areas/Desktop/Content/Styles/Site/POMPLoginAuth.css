@@ -1,0 +1,137 @@
+/**************** PANTALLA DE AUTENTICACION ****************/
+.POMPInternalLoginGreatWrapper {
+        border:none;
+    background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/panthermedia_A21277028_1748x1130.jpg");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    height: auto;
+    margin: 0; padding: 0px 0px 60px 0px;
+    min-width:960px;
+    width: 100%;
+}
+    .POMPPOMPInternalLoginHeader{
+            border:none;
+        background-color: rgba(225, 225, 225, 0.8);
+        height: 88px;
+        min-width:960px;
+        text-align: left;
+        width: 100%;
+    }
+        .POMPPOMPInternalLoginHeader img{
+            height: auto;
+            left: 14px;
+            position: relative;
+            top: 4px;
+            width: 235px;
+        }
+    .POMPPOMPInternalLoginBody{
+            border:none;
+        background-color: rgba(255, 255, 255, 0.7);
+        height: auto;
+        margin: 8% 0 6% 62%;
+        padding: 28px 12px;
+        width: 346px;
+    }
+        .POMPPOMPInternalLoginBody label{
+            color: #0066ae; 
+            font-size: 2.2em;
+            font-weight: normal;
+            letter-spacing: -1.6px;
+            line-height: 30px;
+        }
+        hr {
+            border-color: #ff8300;
+            color: #ff8300;
+            margin: 6px auto;
+            width: 90%;
+        }
+/**************** DIALOGO DE LOGIN, AVISO Y CREACION DE USUARIO POR HERENCIA *****************/
+        .gitkit-container {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+            .gitkit-title, .recaptcha_only_if_image, 
+            .gitkit-recaptcha-label {
+                color: #555 !important;
+                display: block;
+                font-size: 1.3em !important;
+                font-weight: normal !important;
+                letter-spacing: -0.6px !important;
+                line-height: 1.3em !important;
+                margin: 12px auto 20px auto;
+                padding-bottom: 0 !important;
+                width: 308px;
+            }
+            .gitkit-label {
+                color: #666 !important;
+                font-size: 1.2em !important;
+                font-weight: normal !important;
+                letter-spacing: -1px !important;
+                line-height:1em !important;
+                margin:0px 0px 3px 0px !important;
+            }
+                .gitkit-sign-in-options {
+                    margin:0px 0 24px !important;
+                }
+            .gitkit-input, .gitkit-recaptcha-input,
+            .gitkit-id-recaptcha-input, .gitkit-recaptcha-image{
+                border:1px solid #727276 !important;
+                background-color:#f9f9f9 !important;
+                margin:0px 0px 10px 0px !important;
+            }
+            .gitkit-arrow-indicator, .gitkit-id-arrow-indicator {
+                bottom:0px !important;
+                margin:0px 0px 10px 0px !important;
+            }
+            .gitkit-checkbox-label, .gitkit-text, .gitkit-link {
+                font-size:14px !important;
+                color:#0066ae !important;
+                letter-spacing:-0.5px!important;
+                line-height: 1.5em !important;
+            }
+                .gitkit-id-remember-account {
+                    margin:0px 10px 0px 0px !important;
+                }
+                .gitkit-recommend-option {
+                    margin-bottom: 8px !important;
+                    margin-top: 0px !important;
+                }
+                    .gitkit-idp-button:focus, .gitkit-idp-button:hover,
+                    .gitkit-idp-password:focus, .gitkit-idp-password:hover,
+                    .gitkit-id-idp-button:focus, .gitkit-id-idp-button:hover{
+                        background-color:#b3b3b3;
+                    }
+                        .gitkit-idp-text {
+                            font-weight:normal !important;
+                        }
+                            .gitkit-idp-text:hover {
+                                text-decoration:underline;
+                            }
+                .gitkit-text{
+                    margin:0px !important;
+                }
+/*********** BOTONES DE REGISTRO ***********/
+
+.gitkit-button {
+    background-color: #ff8300 !important;
+    background-image: none !important;
+    border: 1px solid #666;
+    border-radius: 2px;
+    color: #fff !important;
+    cursor: pointer !important;
+    display: block;
+    font-size: 1.5em;
+    margin: 0 auto;
+    padding: 2px 0 !important;
+    text-align: center;
+    width: 200px;
+}
+.gitkit-button:hover {
+    background-color: #FFB266 !important;
+}
+    .gitkit-recaptcha {
+        margin:12px 0px 0px 0px !important;
+    }
+        .gitkit-form-actions {
+            margin:12px 0px 0px 0px !important;
+        }

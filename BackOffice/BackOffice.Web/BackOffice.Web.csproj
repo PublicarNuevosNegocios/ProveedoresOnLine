@@ -55,6 +55,13 @@
     <Reference Include="FileRepository.S3">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\FileRepository.S3\developer\FileRepository.S3.dll</HintPath>
     </Reference>
+    <Reference Include="LinqToExcel, Version=1.10.1.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="LogManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
     </Reference>
@@ -109,6 +116,18 @@
     </Reference>
     <Reference Include="ProveedoresOnLine.FileManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Data.Linq, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Data.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="Remotion.Interfaces, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
@@ -191,7 +210,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminController.generated.cs">
+    <Compile Include="AdministratorController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -201,14 +220,19 @@
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\CustomerApiController.cs" />
     <Compile Include="ControllersApi\UtilApiController.cs" />
     <Compile Include="ControllersApi\FileApiController.cs" />
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdministratorController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="CustomerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -426,9 +450,15 @@
     <Content Include="Content\Styles\Site\POBOLogInProviders.css" />
     <Content Include="Content\Styles\Site\POBOProvider.css" />
     <Content Include="Content\Styles\Site\POBOSideFilters.css" />
-    <Content Include="Content\Styles\Site\POBOSideMenu.css" />
+    <Content Include="Content\Styles\Site\POBOSideMenu.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
+    <Content Include="Rsx-Company.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Site\AdminScripts.js" />
+    <Content Include="Scripts\Site\CustomerScripts.js" />
     <Content Include="Scripts\Site\ProviderScripts.js" />
     <Content Include="Scripts\Site\GeneralScripts.js" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -932,7 +962,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1037,17 +1069,21 @@
     <Content Include="Views\Provider\LICIFINUpsert.cshtml" />
     <Content Include="Views\Provider\LISARLAFTUpsert.cshtml" />
     <Content Include="Views\Provider\LIResolutionUpsert.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\AdminUserUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminGeoUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminUserUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminGeoUpsert.cshtml" />
     <Content Include="Views\Shared\_P_ProviderFilter.cshtml" />
-    <Content Include="Views\Admin\AdminBankUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminCompanyRulesUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminRulesUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminResolutionUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminEcoActivityUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminEcoGroupUpsert.cshtml" />
-    <Content Include="Views\Admin\AdminTreeUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminBankUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminCompanyRulesUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminRulesUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminResolutionUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminEcoActivityUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminEcoGroupUpsert.cshtml" />
+    <Content Include="Views\Administrator\AdminTreeUpsert.cshtml" />
+    <Content Include="Views\Provider\CPCustomerProviderStatus.cshtml" />
+    <Content Include="Views\Administrator\AdminTRMUpsert.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Administrator\AdminRLUploadProvider.cshtml" />
+    <Content Include="Views\Administrator\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1094,7 +1130,8 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y
-XCOPY "$(ProjectDir)$(OutDir)Rsx-BackOffice.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y</PostBuildEvent>
+XCOPY "$(ProjectDir)$(OutDir)Rsx-BackOffice.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y
+XCOPY "$(ProjectDir)$(OutDir)Rsx-Company.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,0 +1,56 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Riesgos laborales";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Sistema de riesgos laborales</label>
+        @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
+        {
+            <ul class="POMPProviderInfoDisplayList">
+                <li>
+                    <label>
+                        Sistema de Riesgos
+                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Calificación de Riesgo ARL
+                        <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_RateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()">Ver Archivo Certificado de Accidentalidad</a>
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        Resultado LTIF:
+                        <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                    </label>
+                </li>
+            </ul>
+        }
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

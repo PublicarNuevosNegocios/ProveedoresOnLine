@@ -1,0 +1,25 @@
+﻿@model DocumentManagement.Models.Provider.ProviderFormModel
+
+@{
+    ViewBag.Title = "AdminLogProvider";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <label>Historial de Edición de Campos</label>
+    <div id="AdminLogGrid"></div>
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            L_AdminLogProvider.Init({
+                DivId: 'AdminLogGrid',
+                ProviderPublicId: '@(Model.RealtedProvider.ProviderPublicId)',
+                DateFormat: '{0:yyyy-MM-dd:0:hh:MM:ss}',
+            });
+            L_AdminLogProvider.RenderAsync();
+        });
+    </script>
+}

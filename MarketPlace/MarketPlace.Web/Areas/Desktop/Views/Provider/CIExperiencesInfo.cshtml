@@ -1,0 +1,114 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Experiencias comerciales";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Experiencias</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedComercialInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (!string.IsNullOrEmpty(item.EX_ContractType) && !string.IsNullOrEmpty(item.EX_ContractType))
+                            {
+                                <span>@item.EX_ContractType para @item.EX_Client</span>
+                            }
+                        </label>
+                        @if (!string.IsNullOrEmpty(item.EX_DateIssue))
+                        {
+                            <label>
+                                Fecha Inicial
+                                <span>@item.EX_DateIssue</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_DueDate))
+                        {
+                            <label>
+                                Fecha Final
+                                <span>@item.EX_DueDate</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
+                        {
+                            <label>
+                                Número de Contacto
+                                <span>@item.EX_ContractNumber</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_ContractValue))
+                        {
+                            <label>
+                                Valor del Contrato
+                                <span>@item.EX_ContractValue</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_Phone))
+                        {
+                            <label>
+                                Teléfono
+                                <span>@item.EX_Phone</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                        {
+                            <label>
+                                Objeto del Contrato
+                                <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
+                            </label>
+                        }
+                        <label class="POMPProviderDataMaestraEstandar">
+                            Maestra Estandar
+                            @foreach (var ActivityItem in item.EX_EconomicActivity)
+                            {
+                                <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
+                            }
+                        </label>
+                        <label class="POMPProviderDataMaestraEstandar">
+                            Maestra Personalizada
+                            @foreach (var ActivityItem in item.EX_CustomEconomicActivity)
+                            {
+                                <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
+                            }
+                        </label>
+
+                        @{
+                            var UlrContent = item.EX_ExperienceFile;
+                            if (!string.IsNullOrWhiteSpace(UlrContent))
+                            {
+                            <label>
+                                @*ESTE IFRAME SE CAMBIA POR UN ICONO PARA IR AL ARCHIVO*@
+                                @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Soporte</a>
+                            </label>
+                            }
+                        }
+
+                    </li>
+
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

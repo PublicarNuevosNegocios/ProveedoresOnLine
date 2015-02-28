@@ -302,6 +302,70 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "U_Category_SearchByICA",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<GenericItemModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null && 
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn = 
+                    (from b in response.DataTableResult.AsEnumerable()
+                         where !b.IsNull("ICAId")
+                         group b by new
+                         {
+                            ICAId = b.Field<int>("ICAId"),
+                            ICAName = b.Field<string>("ICAName"),
+                            ICAEnable = b.Field<UInt64>("ICAEnable") == 1 ? true : false,
+                         }into bg
+                         select new GenericItemModel()
+                         {
+                             ItemId = bg.Key.ICAId,
+                             ItemName = bg.Key.ICAName,
+                             Enable = bg.Key.ICAEnable,
+
+                             ItemInfo = 
+                             (from binf in response.DataTableResult.AsEnumerable()
+                                  where !binf.IsNull("ICAInfoId")
+                                        && binf.Field<int>("ICAId") == bg.Key.ICAId
+                                  group binf by new
+                                  {
+                                      ICAInfoId = binf.Field<int>("ICAInfoId"),
+                                      ICAValue = binf.Field<string>("ICAValue"),
+                                      ICAInfoType = binf.Field<int>("ICAInfoType"),
+                                  } into inf
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = inf.Key.ICAInfoId,
+                                      Value = inf.Key.ICAValue,
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = inf.Key.ICAInfoType,
+                                      }
+                                  }).ToList(),
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public List<GenericItemModel> CategorySearchByBankAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstparams = new List<IDbDataParameter>();
@@ -342,22 +406,22 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
                        ItemInfo =
                        (from binf in response.DataTableResult.AsEnumerable()
-                        where !binf.IsNull("BankId")
+                        where !binf.IsNull("BankInfoId")
                             && binf.Field<int>("BankId") == bg.Key.BankId
                         group binf by new
                         {
-                            CityId = binf.Field<int>("CityId"),
-                            CityName = binf.Field<string>("CityName"),
-                            CityType = binf.Field<int>("CityType"),
+                            BankInfoId = binf.Field<Int64>("BankInfoId"),
+                            BankInfoValue = binf.Field<string>("BankInfoValue"),
+                            BankInfoType = binf.Field<int>("BankInfoType"),
                         } into bginfg
                         select new GenericItemInfoModel()
                         {
-                            ItemInfoId = bginfg.Key.CityId,
+                            ItemInfoId = Convert.ToInt32(bginfg.Key.BankInfoId),
                             ItemInfoType = new CatalogModel()
                             {
-                                ItemId = bginfg.Key.CityType,
+                                ItemId = bginfg.Key.BankInfoType,
                             },
-                            Value = bginfg.Key.CityName,
+                            Value = bginfg.Key.BankInfoValue,
                         }).ToList(),
                    }).ToList();
             }
@@ -1090,6 +1154,68 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             return oReturn;
         }
+
+        public List<CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_CurrentExchange_GetAllAdmin",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<CurrencyExchangeModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ce in response.DataTableResult.AsEnumerable()
+                     where !ce.IsNull("CurrencyExchangeId")
+                     select new CurrencyExchangeModel()
+                     {
+                         CurrencyExchangeId = ce.Field<int>("CurrencyExchangeId"),
+                         IssueDate = ce.Field<DateTime>("IssueDate"),
+                         MoneyTypeFrom = new CatalogModel()
+                         {
+                             ItemId = ce.Field<int>("MoneyTypeFromId"),
+                             ItemName = ce.Field<string>("MoneyTypeFromName"),
+                         },
+                         MoneyTypeTo = new CatalogModel()
+                         {
+                             ItemId = ce.Field<int>("MoneyTypeToId"),
+                             ItemName = ce.Field<string>("MoneyTypeToName"),
+                         },
+                         Rate = ce.Field<decimal>("Rate"),
+                         LastModify = ce.Field<DateTime>("LastModify"),
+                         CreateDate = ce.Field<DateTime>("CreateDate"),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vIssueDate", IssueDate));
+            lstParams.Add(DataInstance.CreateTypedParameter("vMoneyTypeFrom", MoneyTypeFrom));
+            lstParams.Add(DataInstance.CreateTypedParameter("vMoneyTypeTo", MoneyTypeTo));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRate", Rate));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "U_CurrencyExchange_Insert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
         #endregion
 
         #region Company CRUD
@@ -1326,7 +1452,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                      {
                          FilterType = new GenericItemModel()
                          {
-                             ItemId = sf.Field<int>("FilterTypeId"),
+                             ItemId = (int)sf.Field<Int64>("FilterTypeId"),
                              ItemName = sf.Field<string>("FilterTypeName"),
                          },
                          FilterValue = new GenericItemModel()
@@ -1472,12 +1598,13 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public List<GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vContactType", ContactType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 :0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -1680,5 +1807,52 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region Restrictive List
+
+        public List<GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_BlackListInfo_GetInfoByCompanyPublicId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bl in response.DataTableResult.AsEnumerable()
+                     where !bl.IsNull("BlackListId")
+                     group bl by new
+                     {
+                         BlackListId = bl.Field<int>("BlackListId"),
+                         BlackListInfoId = bl.Field<int>("BlackListInfoId"),
+                         BlackListInfoType = bl.Field<string>("BlackListInfoType"),
+                         Value = bl.Field<string>("Value")
+                     } into blg
+                     select new GenericItemModel()
+                     {
+                         ItemId = blg.Key.BlackListId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemName = blg.Key.BlackListInfoType,
+                         },
+                         ItemName = blg.Key.Value,
+                     }).ToList();
+            }
+            return oReturn;            
+        }
+
+        #endregion
     }
 }
+

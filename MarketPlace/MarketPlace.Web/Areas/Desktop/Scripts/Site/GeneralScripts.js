@@ -15,3 +15,9 @@ function Header_ShowHideUserMenu(divId) {
     $('#' + divId).toggle('slow');
 }
 
+/*init generic tooltip*/
+function Tooltip_InitGeneric()
+{
+    $('.SelGenericTooltip').tooltip();
+}
+

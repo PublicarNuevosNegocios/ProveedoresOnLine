@@ -32,6 +32,12 @@
 
         public const string C_Settings_DateFormat_Server = "DateFormat_Server";
 
+        public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
+
+        public const string C_Settings_ProviderStatus_Certified = "ProviderStatus_Certified";
+
+        public const string C_Settings_ProviderStatus_Certified_Logo = "ProviderStatus_Certified_Logo";
+
         #endregion
 
         #region File
@@ -59,6 +65,16 @@
         #region ViewData
 
         public const string C_ViewData_UserNotAutorizedText = "UserNotAutorizedText";
+
+        #endregion
+
+        #region Program
+
+        public const string C_Program_Compare_ColumnItem = "width:{Width},field:{Field},headerTemplate:{HeaderTemplate},template:{Template},locked:{Locked},";
+
+        public const string C_Program_Compare_Value_EvaluationArea = "Name:{Name},Type:{Type},";
+
+        public const string C_Program_Compare_Value_Item = "Value_{i}:{Value},Unit_{i}:{After:{After},Before:{Before}},";
 
         #endregion
     }

@@ -54,6 +54,9 @@ namespace BackOffice.Models.Admin
         public string B_BankId { get; set; }
         public bool B_BankEnable { get; set; }
 
+        public string B_BankCodeId { get; set; }
+        public string B_BankCode { get; set; }
+
         public string B_CityId { get; set; }
         public string B_City { get; set; }
 
@@ -110,12 +113,35 @@ namespace BackOffice.Models.Admin
 
         #endregion
 
+        #region Current Exchange
+
+        public string C_CurrentExchangeId { get; set; }
+        public string C_IssueDate { get; set; }
+        public string C_MoneyTypeFromId { get; set; }
+        public string C_MoneyTypeFromName { get; set; }
+        public string C_MoneyTypeToId { get; set; }
+        public string C_MoneyTypeToName { get; set; }
+        public string C_Rate { get; set; }
+        public string C_CreateDate { get; set; }
+        public string C_LastModify { get; set; }
+        
+        #endregion
+
+        #region ICA
+
+        public string I_ICA { get; set; }
+        public string I_ICAId { get; set; }
+        public bool I_ICAEnable { get; set; }
+        public string I_ICACode { get; set; }
+
+        #endregion
+
+        #region Tree
+
         public string T_TreeId { get; set; }
         public string T_TreeName { get; set; }
         public bool T_TreeEnable { get; set; }
         
-        #region Tree
-		
 	    #endregion
 
         public AdminCategoryViewModel() { }
@@ -218,14 +244,26 @@ namespace BackOffice.Models.Admin
             B_BankId = oCategory.ItemId.ToString();
             B_BankEnable = oCategory.Enable;
 
+            B_BankCodeId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Code).
+                            Select(y => y.ItemInfoId.ToString()).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
+            B_BankCode = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Code).
+                            Select(y => !string.IsNullOrEmpty(y.Value) ? y.Value.ToString() : string.Empty).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault() : string.Empty;
+
             B_City = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Location).
                             Select(y => !string.IsNullOrEmpty(y.Value) ? y.Value.ToString() : string.Empty).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault() : string.Empty;
 
             B_CityId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                            Where(y => y.ItemInfoType.ItemId != null).
+                            Where(y => y.ItemInfoType.ItemId != null && y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.B_Location).
                             Select(y => y.ItemInfoId.ToString()).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault() : string.Empty;
@@ -316,6 +354,20 @@ namespace BackOffice.Models.Admin
 
             #endregion
 
+            #region ICA
+
+            I_ICA = oCategory.ItemName;
+            I_ICAId = oCategory.ItemId.ToString();
+            I_ICAEnable = oCategory.Enable;
+            string codeICA = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                                                            Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.I_ICACode).
+                                                            Select(y => y.Value).
+                                                            DefaultIfEmpty(string.Empty).
+                                                            FirstOrDefault().Trim() : string.Empty.Trim();
+            I_ICACode = oCategory.ItemName.Trim() + " - " + codeICA;
+
+            #endregion
+
             #region Tree
 
             T_TreeId = oCategory.ItemId.ToString();
@@ -323,6 +375,19 @@ namespace BackOffice.Models.Admin
             T_TreeEnable = oCategory.Enable;
 
             #endregion
+        }
+
+        public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel oCurrency)
+        {
+            C_CurrentExchangeId = oCurrency.CurrencyExchangeId.ToString();
+            C_IssueDate = oCurrency.IssueDate.ToString();
+            C_MoneyTypeFromId = oCurrency.MoneyTypeFrom.ItemId.ToString();
+            C_MoneyTypeFromName = oCurrency.MoneyTypeFrom.ItemName.ToString();
+            C_MoneyTypeToId = oCurrency.MoneyTypeTo.ItemId.ToString();
+            C_MoneyTypeToName = oCurrency.MoneyTypeTo.ItemName.ToString();
+            C_Rate = oCurrency.Rate.ToString();
+            C_CreateDate = oCurrency.CreateDate.ToString();
+            C_LastModify = oCurrency.LastModify.ToString();
         }
     }
 }

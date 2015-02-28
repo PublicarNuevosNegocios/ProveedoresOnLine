@@ -5,6 +5,7 @@
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+    Model.GridToSave = "divGridCompanyContact";
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
@@ -14,11 +15,12 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div class="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Información de contacto de empresa</label>
+            <label class="POBOSectionTitles">Contacto principal de la empresa</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
+            <label class="POBOProviderClarifyNotice">* Esta información de contacto de la empresa no es visible en Market Place, ya que solo será utilizada por el área de operaciones.</label>
             <div id="divGridCompanyContact"></div>
             <br />
             @{
@@ -28,6 +30,16 @@
         </div>
     </div>
 
+</div>
+<div style="display:none;">
+    <div id="divGridCompanyContact_ShortcutToolTipTemplate">
+        <img id="divGridCompanyContact_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridCompanyContact_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridCompanyContact_ViewEnable" type="checkbox" checked="checked" />
+    </div>    
 </div>
 
 @{
@@ -65,8 +77,7 @@
             Provider_CompanyContactObject.Init({
                 ObjectId: 'divGridCompanyContact',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                ContactType: '@((int)BackOffice.Models.General.enumContactType.CompanyContact)',
-                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+                ContactType: '@((int)BackOffice.Models.General.enumContactType.CompanyContact)',                
                 ProviderOptions: vProviderOptions,
             });
             Provider_CompanyContactObject.RenderAsync();

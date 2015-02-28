@@ -17,7 +17,11 @@
     
     <key name="CurrencyExchange_USD">108001</key>
 
-    <key name="DefaultImage"><![CDATA[~/Content/Images/dafaultProvider.png]]></key>
+    <key name="DefaultImage"><![CDATA[http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/dafaultProvider.png]]></key>
+    <key name="InfoTooltip"><![CDATA[http://devproveedoresonline.s3.amazonaws.com/BackOffice/Images/information-icon.png]]></key>
+
+    <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
+    
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
@@ -27,6 +31,7 @@
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
     <key name="File_RemoteDirectory">\BackOffice\</key>
+    <key name="File_ExcelDirectory">\BackOffice\BlackListFiles\</key>
 
   </BackOffice>
 </Settings>

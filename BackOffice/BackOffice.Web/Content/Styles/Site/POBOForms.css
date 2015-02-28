@@ -13,30 +13,40 @@
     letter-spacing: -1px;
     color: #4d4d4d;
 }
+.POBOProviderClarifyNotice {
+    color: darkred;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: normal;
+    letter-spacing: -0.6px;
+    margin: 0 0 0 10px;
+    /*border:1px solid darkred;*/
+}
 
+.POBOProviderUpsertForm{
+    margin:12px 0px 10px 0px;
+}
 .POBOProviderUpsertForm ul li,
 .POBOPCompulsoryFields {
     margin: 4px 0px 0px 8px;
     padding: 0;
 }
-
 .POBOProviderUpsertForm ul {
     margin: 0px;
 }
-
     .POBOProviderUpsertForm ul li {
         border: none;
-    display: inline-block;
-    height: auto;
-    vertical-align: top;
-        width: 48.5%;
+        display:inline-block;
+        height: auto;
+        vertical-align: top;
+        width:48.5%;
 }
 
         .POBOProviderUpsertForm ul li label {
-        color: #4d4d4d;
-    font-size: 1em;
+            color: #4d4d4d;
+            font-size: 1em;
             font-weight: normal;
-    letter-spacing: -0.7px;
+            letter-spacing: -0.7px;
             margin: 0px;
     }
 
@@ -207,24 +217,36 @@ li#F3 {
     background-color:#ececec;
 }
 /******** FORMULARIO DE CARGA DE BALANCES FINANCIEROS ********/
-#divBalanceSheet_Detail {
-    margin:12px 0px 10px 7px;
-    border:1px solid #c5c5c5;
-}
 .POBOBalanceSheetScrollWrapper {
-    height:350px;
-    overflow-y:scroll;
-    overflow-x:hidden;
-    padding:12px 0px;
-    border-bottom: 1px solid #c5c5c5;
-    margin-bottom:4px;
+    height:auto;
+    overflow:auto;
+    padding:12px 0px 0px 0px;
+    margin:0px;
 }
+.FinancialBalanceForm {
+    border:1px solid #c5c5c5;
+    margin-left:8px;
+}
+
 /*DATOS GENERALES*/
 .POBOBalanceSheet_mainInfo {
-    margin:-10px 0px 0px 0px !important;
+    background-color: #f9f9f9;
+    margin: -16px 0px 0px 0px !important;
+    padding-bottom: 12px;
 }
-.POBOBalanceSheet_mainInfo label{
-    font-size:0.9em !important;    
+    .POBOBalanceSheet_mainInfo li:first-child {
+        display:block !important;
+    }
+        .POBOBalanceSheet_mainInfo li:first-child > label{
+            color: #4d4d4d;
+            font-size: 1.2em;
+        }
+.POBOBalanceSheet_mainInfo li{
+    border: none !important;
+    height: auto !important;
+    vertical-align: top !important;
+    width:31.5% !important;
+    display:inline-block !important;
 }
 .POBOBalanceSheet_mainInfo li select,
 .POBOBalanceSheet_mainInfo li input,
@@ -232,6 +254,31 @@ li#F3 {
 .POBOBalanceSheet_mainInfo li input[type="text"]{
     height: 28px !important;
 }
+    .POBOBalanceSheet_mainInfo li input[type="checkbox"]{
+        display:block;
+    }
+
+/********* DATE PICKER STYLES *********/
+::-webkit-datetime-edit { padding:0px; }
+::-webkit-inner-spin-button { 
+    display: block;
+    margin:0px 0px 0px 4px;
+    padding:0px;
+    width:15px;
+    height:auto;
+    color:#333;
+}
+::-webkit-calendar-picker-indicator { 
+    display: block; 
+    margin:0px 350px 0px 4px;
+    padding:0px;
+    width:14px;
+    height:10px;
+    color:#333;
+}
+
+
+
     .POBOProviderActions div#FileUploadForm {
         margin:3px 0 0;
     }
@@ -242,78 +289,139 @@ li#F3 {
             right:16px;
             z-index: 10;
         }
-
             #divBalanceSheet tr{
                 cursor:pointer;
             }
                 #divBalanceSheet tr:hover {
                     background-color:#e4e4e4;
                 }
+/********* DATOS FINANCIEROS CONTENEDOR DE LOS TEMPLATES*********/
 
-/*DATOS FINANCIEROS*/
 .POBOBalanceSheet_DetailWrapper{
-    width:49.4%;
+    width:100%;
     display: inline-block;
 }
-.POBOBalanceSheet_Detail  {
-        border:none;
+
+.POBOBalanceSheet_Detail, .POBOBalanceSheet_Detail li{
     width: 100% !important;    
+    margin:0px !important;
 }
-    .POBOBalanceSheet_Detail > ul{
-            border:none;
-        width:100%;
+    .POBOBalanceSheet_Detail div{
+      border-top: 1px solid #c5c5c5;
+      padding:8px;
     }
-            .POBOBalanceSheet_Detail > ul > li > ul{
-                    border-top:1px solid #999;
-                    margin:5px 0 0 0;
-                    padding:5px 0px;
-                    width:100%
-                }
-            .POBOBalanceSheet_Detail > ul > li > ul > li > ul{
-                    border-top:none;
-                    border-bottom:none;
-                    margin:0;
-                }
-        .POBOBalanceSheet_Detail li{
-                border: none;
-            margin: 0 !important;
-            width: 98% !important;
+        .POBOBalanceSheet_Detail > div > label{
+            font-size:1.28em !important;
+            padding:0px 0px 1px 15px;
+            text-transform:uppercase;
+            width:100%;
+            border-bottom:1px solid #c5c5c5;
         }
-.POBOBalanceSheet_Detail label{
-        border:none;
-    font-size:0.9em !important;
+/********* TEMPLATES DE GRUPOS Y TIPOS DE CUENTAS DE BALANCES *********/
+
+/******** ESTOS SON LOS TEXTOS Y CAMPOS PARA TODOS LOS CASOS
+    DE CAMPOS CALCULADOS ********/
+li.POBOBalanceSheetCamposCalculados {
+    border-top:2px solid #ff8300 !important;
+    width:510px !important;
+    background-color:#fff !important;
+    padding:5px 0px 0px 26px !important;
+    margin: 5px 0 5px 0px !important;
 }
-.POBOBalanceSheet_Detail input{
-    height:28px !important;
+li.POBOBalanceSheetCamposCalculados > label {
+    width:232px;
 }
-.POBOBalanceSheet_Detail span,
-.POBOBalanceSheet_Detail label.ParentAccount{
-    font-weight:bold !important;
-    font-style:italic;    
-    letter-spacing:0.3px;
+li.POBOBalanceSheetCamposCalculados > label,
+li.POBOBalanceSheetCamposCalculados > span,
+li.POBOBalanceSheetCamposCalculados > input{
+    color: #444 !important;
+    font-size: 1em !important;
+    font-weight: bold !important;
+    height: 26px !important;    
+    vertical-align: top;
+    line-height: 16px;
 }
-    .POBOBalanceSheet_Detail span {
-        font-size:1.3em;
-        color:#727276;
+    li.POBOBalanceSheetCamposCalculados > input {
+        border:none !important;
+        background-color:#fff !important;
+        width: auto !important;
+        height:auto !important;
+        margin: 0px !important;
     }
-    .POBOBalanceSheet_Detail label.ParentAccount {
-        color:inherit;
-    }
-.BalanceSheetActions li{
-    padding:6px !important;
+/******** ESTOS SON LOS LIST ITEMS DE LOS CAMPOS DE VALORES GENERICOS 
+               Y LOS SUBTITULOS DE SUB-GRUPO Indicadores Financieros*******/
+.POBOBalanceSheetCamposEstandarOne{
+    font-size: 0.9em !important;
+    letter-spacing: -0.4px !important;
+    min-height: 27px;
+    padding:1px 0px 1px 16px !important;
 }
-                                .POBOBalanceSheet_DocPreview {
-                                    border:1px solid #ececec;
-                                    float: right;
-                                    margin: 8px 11px 0 0;
-                                    width: 48.4%;
-                                    height: 600px;
-                                }
-                                    .POBOBalanceSheet_DocPreview iframe {
-                                        width:100%;
-                                        height:100%;
-                                        border:none;
-                                    }
+    .POBOBalanceSheetCamposEstandarOne label {
+        max-width: 244px !important;
+        min-width: 244px !important;
+    }
+    .POBOBalanceSheetCamposEstandarOne label,
+    .POBOBalanceSheetCamposEstandarOne span{
+        display:inline-block;
+        line-height:15px;
+        padding:4px 0px 0px 0px;
+    }
+    .POBOBalanceSheetCamposEstandarOne span{
+        vertical-align:top;
+    }
+    .POBOBalanceSheetCamposEstandarOne input{
+        display:inline-block !important;
+        border:1px solid #666 !important;
+        height:27px!important; width:244px!important;
+        vertical-align:top !important;
+        margin:0px !important;
+    }
+.POBOBalanceSheetCamposEstandarOne:nth-child(odd) {background-color:#f5f5f5;}
+.POBOBalanceSheetCamposEstandarOne:nth-child(even) {background-color:#fff;}
+
+.POBOBalanceSheetCamposEstandarTwo{
+    color:#4d4d4d !important;
+    font-size:1.2em !important;
+    margin:0px !important;
+    padding:4px 0px 0px 188px;
+    display:block;
+    width: 100%;
+    background-color:#f5f5f5;
+}
+
+/***** ACCIONES DE GUARDAR Y CANCELAR DENTRO DE BALANCES ******/
+
+.BalanceSheetActions{
+    border-bottom: 1px solid #c5c5c5;
+    display: block;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto;
+}
+.BalanceSheetActionsBottom {
+    border-top: 1px solid #c5c5c5;
+    border-bottom: none !important;
+}
+    .BalanceSheetActions li{
+        padding:6px !important;
+        display:inline-block !important;
+    }
+    /*ESTE MUESTRA EL PREVIEW DEL PDF*/
+
+        .POBOBalanceSheet_DocPreview {
+            border:1px solid #ececec;
+            float: right;
+            margin: 8px 11px 0 0;
+            width: 65%;
+            height: 600px;
+        }
+            .POBOBalanceSheet_DocPreview iframe {
+                width:100%;
+                height:100%;
+                border:none;
+            }
+
 .BalanceSheetActions a.POBOButtons,
 .BalanceSheetActions a.POBOProgressButtons{
     font-size: 0.9em;

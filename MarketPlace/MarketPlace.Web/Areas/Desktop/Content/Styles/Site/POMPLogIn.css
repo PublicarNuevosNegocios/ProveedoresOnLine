@@ -1,0 +1,53 @@
+/* RENDER BODY LOGIN */
+.POMPPageBody{
+    width:100%;
+    margin:0px;
+    height:610px;
+    min-width:1024px;
+        border:none;
+    background-image:url('../../Images/POMPBackground3Small.jpg');
+    background-size:100% auto;
+    background-repeat:no-repeat;
+    background-position:0px 0px;
+}
+.POMPLogInHeader {
+    text-align:left;
+    height:88px;
+    width:100%; min-width:1024px;
+    background-color:rgba(225, 225, 225, 0.8);
+}
+    .POMPLogInHeader img {
+        height: auto;
+        left: 14px;
+        position: relative;
+        top: 4px;
+        width:235px;
+    }
+    .POMPLogInFormWrapper {
+        height:auto;
+        background-color:rgba(255, 255, 255, 0.7);
+        padding:56px 18px;
+        width: 346px;
+        margin:8% 0 8% 62%;
+    }
+        .POMPLogInFormWrapper label{
+            font-size: 2.2em;
+            font-weight: normal;
+            letter-spacing: -1.6px;
+            line-height: 30px;
+            color:#0066ae;
+        }
+        .POMPLogInFormWrapper hr{}
+        .POMPLogInFormWrapper label:nth-child(3){
+            color: #666;
+            font-size: 1.5em;
+            letter-spacing: -1.4px;
+
+        }
+        .POMPLogInFormWrapper a, .POMPLogInFormWrapper img{
+            height:auto;
+            display:block;
+            margin: 5px auto 0;
+            width:58px;
+
+        }

@@ -12,13 +12,16 @@
         <ul>
             <li>
                 <input id="divProviderSearch_txtSearch" class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" value="@Request["SearchParam"]" />
-                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null,null);">Encontrar</a>
+                <a class="POBOSearchButtons" href="javascript:Provider_SearchObject.SearchEvent(null,null);">
+                    Encontrar
+                    <span class="POBOSearchButtonsLupita"></span>
+                </a>
             </li>
             <li>
                 <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>
             </li>
             <li>
-                <a class="POBOButtons" href="">Dercargar excel</a>
+                <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.DownloadFile, MVC.Provider.Name, new { SearchParam = Request["SearchParam"], SearchFilter = Request["SearchFilter"] })">Dercargar excel</a>                
             </li>
         </ul>
     </div>
@@ -36,12 +39,10 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            var oDefaultImage = '@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DefaultImage].Value)'; 
             Provider_SearchObject.Init({
                 ObjectId: 'divProviderSearch',
                 SearchFilter: '@Request["SearchFilter"]',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
-                DefaultImage: oDefaultImage,
             });
             Provider_SearchObject.RenderAsync();
         });

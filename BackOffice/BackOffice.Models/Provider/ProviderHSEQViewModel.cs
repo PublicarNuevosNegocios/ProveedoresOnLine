@@ -89,26 +89,32 @@ namespace BackOffice.Models.Provider
         public string CR_CertificateAffiliateARL { get; set; }
         public string CR_CertificateAffiliateARLId { get; set; }
 
-        public string CR_CertificateAccidentARL { get; set; }
-        public string CR_CertificateAccidentARLId { get; set; }
+        public string CR_LTIFResult { get; set; }
 
-        public string CR_Year { get; set; }
-        public string CR_YearId { get; set; }
+        #endregion
 
-        public string CR_ManHoursWorked { get; set; }
-        public string CR_ManHoursWorkedId { get; set; }
+        #region CertificatesAccident
 
-        public string CR_Fatalities { get; set; }
-        public string CR_FatalitiesId { get; set; }
+        public string CA_Year { get; set; }
+        public string CA_YearId { get; set; }
 
-        public string CR_NumberAccident { get; set; }
-        public string CR_NumberAccidentId { get; set; }
+        public string CA_ManHoursWorked { get; set; }
+        public string CA_ManHoursWorkedId { get; set; }
 
-        public string CR_NumberAccidentDisabling { get; set; }
-        public string CR_NumberAccidentDisablingId { get; set; }
+        public string CA_Fatalities { get; set; }
+        public string CA_FatalitiesId { get; set; }
 
-        public string CR_DaysIncapacity { get; set; }
-        public string CR_DaysIncapacityId { get; set; }
+        public string CA_NumberAccident { get; set; }
+        public string CA_NumberAccidentId { get; set; }
+
+        public string CA_NumberAccidentDisabling { get; set; }
+        public string CA_NumberAccidentDisablingId { get; set; }
+
+        public string CA_DaysIncapacity { get; set; }
+        public string CA_DaysIncapacityId { get; set; }
+
+        public string CA_CertificateAccidentARL { get; set; }
+        public string CA_CertificateAccidentARLId { get; set; }
 
         #endregion
 
@@ -210,7 +216,7 @@ namespace BackOffice.Models.Provider
 
             C_Scope = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.C_Scope).
-                Select(y => y.Value).
+                Select(y => y.LargeValue).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
             C_ScopeId = RelatedCertification.ItemInfo.
@@ -378,83 +384,92 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_CertificateAccidentARL = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
+            CR_LTIFResult = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_LTIFResult).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_CertificateAccidentARLId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL).
+
+            #endregion
+
+            #region CertificatesAcccident
+
+            CA_Year = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+            CA_YearId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_Year = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
+            CA_ManHoursWorked = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_YearId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
+            CA_ManHoursWorkedId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_ManHoursWorked = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
+            CA_Fatalities = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_ManHoursWorkedId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
+            CA_FatalitiesId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_Fatalities = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+            CA_NumberAccident = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccident).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_FatalitiesId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
+            CA_NumberAccidentId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccident).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_NumberAccident = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccident).
+            CA_NumberAccidentDisabling = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_NumberAccidentId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccident).
+            CA_NumberAccidentDisablingId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_NumberAccidentDisabling = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
+            CA_DaysIncapacity = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_DaysIncapacity).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_NumberAccidentDisablingId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
+            CA_DaysIncapacityId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_DaysIncapacity).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            CR_DaysIncapacity = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_DaysIncapacity).
+            CA_CertificateAccidentARL = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-            CR_DaysIncapacityId = RelatedCertification.ItemInfo.
-                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_DaysIncapacity).
+            CA_CertificateAccidentARLId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
-
             #endregion
         }
     }

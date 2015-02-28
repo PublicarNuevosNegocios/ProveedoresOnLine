@@ -8,7 +8,8 @@
         PersonIdentificationType = 101,
         ActivityInfoType = 102,
         ProductType = 103,
-        FilterTypeBackOffice = 111,
+        FilterType = 111,
+        FilterTypeCustomerProvider = 112,
 
         CompanyIdentificationType = 201,
         CompanyType = 202,
@@ -31,7 +32,6 @@
         EntityType = 214,
         TaxPayerType = 215,
 
-        ProviderStatus = 216,
         ProviderPaymentInfo = 217,
 
         CommercialType = 301,
@@ -44,6 +44,8 @@
         CIFINInfoType = 604,
         SARLAFTInfoType = 605,
         ResolucionesInfoType = 606,
+
+        ProviderStatus = 902,
     }
 
     #region Util
@@ -73,6 +75,19 @@
 
         //Account info
         AI_Order = 109001,
+        AI_IsValue = 109002,
+        AI_Formula = 109003,
+        AI_ValidationRule = 109004,
+        AI_Description = 109005,
+        AI_FormulaText = 109006,
+        AI_Unit = 109007,
+
+        //ICA Info
+        I_ICACode = 608001,
+
+        //Bank Info
+        B_Location = 505001,
+        B_Code = 505011,
     }
 
     #endregion
@@ -84,7 +99,6 @@
         Buyer = 202001,
         Provider = 202002,
         BuyerProvider = 202003,
-
     }
 
     /// <summary>
@@ -93,10 +107,12 @@
     public enum enumCompanyInfoType
     {
         SalesforceId = 203001,
-        ProviderStatus = 203002,
         ProviderPaymentInfo = 203003,
         CertificationDate = 203004,
         CompanyLogo = 203005,
+        ComercialName = 203007,
+        Alert = 203008,
+        ListId = 203009,
     }
 
     /// <summary>
@@ -139,6 +155,7 @@
         BR_Website = 207007,
         BR_Latitude = 207008,
         BR_Longitude = 207009,
+        BR_IsPrincipal = 207010,
 
         //Distributor
         DT_DistributorType = 208001,
@@ -147,7 +164,6 @@
         DT_Phone = 208004,
         DT_City = 208005,
         DT_DateIssue = 208006,
-        DT_DueDate = 208007,
         DT_DistributorFile = 208008,
     }
 
@@ -176,9 +192,7 @@
         EX_Client = 302005,
         EX_ContractNumber = 302006,
         EX_ContractValue = 302007,
-        EX_Phone = 302008,
-        EX_BuiltArea = 302009,
-        EX_BuiltUnit = 302010,
+        EX_Phone = 302008,        
         EX_ExperienceFile = 302011,
         EX_ContractSubject = 302012,
         EX_EconomicActivity = 302013,
@@ -211,6 +225,7 @@
         CP_ExistenceAndLegalPersonCertificate = 602006,
         CP_CertificateExpeditionDate = 602007,
         CP_SocialObject = 602008,
+        CP_UndefinedDate = 602012,
 
         //RUT
         R_PersonType = 603001,
@@ -263,7 +278,9 @@
     {
         Certifications = 701001,
         CompanyHealtyPolitic = 701002,
-        CompanyRiskPolicies = 701003
+        CompanyRiskPolicies = 701003,
+
+        CertificatesAccident = 701004
     }
 
     /// <summary>
@@ -296,13 +313,16 @@
         CR_SystemOccupationalHazards = 704001,
         CR_RateARL = 704002,
         CR_CertificateAffiliateARL = 704003,
-        CR_CertificateAccidentARL = 704004,
-        CR_Year = 704005,
-        CR_ManHoursWorked = 704006,
-        CR_Fatalities = 704007,
-        CR_NumberAccident = 704008,
-        CR_NumberAccidentDisabling = 704009,
-        CR_DaysIncapacity = 704010,
+        CR_LTIFResult = 704004,
+
+        //CertficatesAccident
+        CA_Year = 705001,
+        CA_ManHoursWorked = 705002,
+        CA_Fatalities = 705003,
+        CA_NumberAccident = 705004,
+        CA_NumberAccidentDisabling = 705005,
+        CA_DaysIncapacity = 705006,
+        CA_CertificateAccidentARL = 705007,
     }
 
     #endregion
@@ -352,6 +372,34 @@
         IB_IBAN = 505008,
         IB_Customer = 505009,
         IB_AccountFile = 505010,
+    }
+
+    #endregion
+
+    #region BlackList
+    public enum enumBlackList
+    {
+        BL_ShowAlert = 1101001,
+        BL_DontShowAlert = 1101002,
+    }
+    #endregion
+
+    #region ProviderCustomer
+
+    public enum enumProviderCustomerType
+    {
+        InternalMonitoring = 901001,
+        CustomerMonitoring = 901002,
+        RateCustomer = 901003,
+    }
+
+    public enum enumProviderCustomerStatus
+    {
+        Creation = 902001,
+        Process = 902002,
+        Upgrade = 902003,
+        Basic_Validate = 902004,
+        Full_Validate = 902005,
     }
 
     #endregion

@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             List<Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
-                ("1D9B9580", null);
+                ("186C3052", null, true);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
@@ -131,7 +131,7 @@ namespace ProveedoresOnLine.Company.Test
             int oTotalRows;
 
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
-                ProveedoresOnLine.Company.Controller.Company.CategorySearchByBankAdmin("Colo", 0, 5, out oTotalRows);
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByBankAdmin(null, 0, 0, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 
@@ -221,6 +221,28 @@ namespace ProveedoresOnLine.Company.Test
                     ("", 0, 20);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void CategorySearchByICA()
+        {
+            int oTotalRows = 0;
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA
+                    ("", 0, 20, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void BlackListGetByCompanyPublicId()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId
+                ("1D9B9580");
+
+            Assert.AreEqual(true, oReturn.Count >= 10);
         }
     }
 }

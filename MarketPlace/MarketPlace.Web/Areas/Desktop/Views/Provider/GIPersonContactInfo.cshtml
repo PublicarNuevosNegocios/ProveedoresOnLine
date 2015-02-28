@@ -1,0 +1,100 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Contacto de la empresa";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Información de personas de contacto</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedGeneralInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                        @if (!string.IsNullOrEmpty(item.PC_ContactName))
+                        {
+                            <span>@item.PC_ContactName</span>
+                        }
+                        </label>
+
+                        @if (!string.IsNullOrEmpty(item.PC_RepresentantType))
+                        {   <label>
+                                Tipo de Contacto
+                                <span>@item.PC_RepresentantType</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.PC_IdentificationType))
+                        {
+                            <label>
+                                Tipo de Identificación
+                                <span>@item.PC_IdentificationType</span>
+                            </label>
+                        }                        
+                        @if (!string.IsNullOrEmpty(item.PC_IdentificationNumber))
+                        {
+                            <label>
+                                Número de Identificación
+                                <span>@item.PC_IdentificationNumber</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.PC_ExpeditionDocumentCity))
+                        {
+                            <label>
+                                Ciudad de Expedición del Documento
+                                <span>@item.PC_ExpeditionDocumentCity</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.PC_TelephoneNumber))
+                        {
+                            <label>
+                                Teléfono
+                                <span>@item.PC_TelephoneNumber</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.PC_Email))
+                        {
+                            <label>
+                                Email
+                                <span title="@item.PC_Email">@item.PC_Email</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.PC_Negotiation))
+                        {
+                            <label>
+                                Capacidad de Negociación
+                                <span>@item.PC_Negotiation</span>
+                            </label>
+                        }                        
+                            @{
+                            var UlrContent = item.PC_LegalFile;
+                            if (!string.IsNullOrEmpty(UlrContent))
+                            {
+                                <label>
+                                    @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
+                                    <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
+                                </label>
+                            }
+                        }                        
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+

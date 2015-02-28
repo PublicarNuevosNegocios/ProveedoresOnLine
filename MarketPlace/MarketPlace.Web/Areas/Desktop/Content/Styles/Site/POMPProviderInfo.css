@@ -1,0 +1,171 @@
+/************ AQUI VA LA TODA LA INFORMACION DEL DATA WRAPPER ***********/
+.POMPSectionTitles {
+    font-size: 1.5em; font-weight: normal; letter-spacing: -1px;
+    display: block;
+    margin:0 8px 7px 8px; padding:12px 0 0px 14px;
+    color: #fff;
+    box-shadow:1px 1px 3px #444;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+    border-bottom-left-radius:0px;
+    border-bottom-left-radius:0px;
+    border: 1px solid #666; border-bottom:none;
+    background-color:#f87b00;
+    background-image:url(http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/BGScatterLogoSmall.png);
+    background-position:238px -162px; background-size:931px auto; background-repeat:no-repeat;
+}
+.POMPProviderInfoDisplayList,
+.POMPProviderInfoMultipleValues{
+    padding:0px;
+}
+/*********** ESTOS ESTILOS MUESTRAN LA INFORMACION DE PROVEEDOR
+           CUANDO LA LISTA SOLO TIENE UN TIPO Y UN VALOR POR ITEM ************/
+    .POMPProviderInfoDisplayList li {
+        display:inline-block;
+        min-height:61px;
+        vertical-align: top;
+        width: 45%;
+        margin: 0px 0px 0px 24px;
+        padding:6px 0 2px 12px;
+        list-style-type:none;
+        border-bottom: 2px dotted #ddd;
+    }
+        .POMPProviderInfoDisplayList li label {
+            color: #0066ae;
+            font-size: 1.35em; font-weight:normal;
+            letter-spacing:0.8px; line-height:1.3em;
+            margin: 0px; width:89%;
+    }
+        .POMPProviderInfoDisplayList li label > span {
+            display: block; font-size: 0.8em;
+            font-weight: normal; letter-spacing: -0.5px;
+            line-height: 1.7em; color:#666;
+        }
+            .POMPProviderInfoDisplayList li label > a {
+                font-size:0.92em;
+                line-height:0.99em;
+            }
+        /********** MUESTRA EL CASO DE TIPO Y VALOR ***********/
+        .POMPProviderTypeOption, .POMPProviderTypeOption span{
+            color: #666 !important;
+            font-size:17px !important;
+            letter-spacing: -0.7px !important;
+            line-height: 1em !important;
+            margin:6px 0px 0px 0px;
+        }
+            .POMPProviderTypeOption span{
+                display:inline-block !important;
+            }
+/*********** ESTOS ESTILOS MUESTRAN LA INFORMACION DE PROVEEDOR
+        CUANDO LA LISTA TIENE MULTIPLES TIPOS Y UN VALORES POR ITEM ************/
+    .POMPProviderInfoMultipleValues li {
+        display:block;
+        height: auto;
+        vertical-align: top;
+        width: 94.5%;
+        margin: 0px auto;
+        padding:0px;
+        list-style-type:none;
+    }
+    /*********** MUESTRA LOS SUBTITULOS DE CADA REGISTRO ************/
+label.POMPProviderDataSubtitle {
+    display:block; 
+    width:100% !important; 
+    max-width:100% !important; 
+    min-height:33px !important;
+    margin:8px 0 6px 0px !important;
+    padding:8px 0px 0px 0px !important;
+    border-bottom:1px dotted #5d5d5d !important;
+    border-top:none !important;
+    font-size:1.36em !important;
+    line-height:1em !important;
+    color:#5d5d5d !important;
+    background-color:#EEEEEE;
+}
+    /***********************************/
+    .POMPProviderInfoMultipleValues li:first-child {
+        border-top:none;
+        margin:0px auto !important;
+    }
+        .POMPProviderInfoMultipleValues li label {
+            color: #0066ae;
+            font-size: 1.14em; font-weight:normal;
+            letter-spacing:-0.2px; line-height:1em;
+            margin:0px 5px 0px 0px; width:32.1%; min-width:213px;
+            padding:4px 0px 0px 0px; border-bottom:1px solid #d4d4d4;
+            vertical-align:top; min-height:62px;
+        }
+        .POMPProviderInfoMultipleValues li label > span {
+            display: block; font-size: 0.93em;
+            font-weight: normal; letter-spacing: -0.5px;
+            line-height: 1.5em; color:#666;
+            white-space: nowrap;
+            overflow:hidden !important;
+            text-overflow: ellipsis;
+        }
+        .POMPProviderInfoMultipleValues li label > iframe{
+            border: 1px solid #d4d4d4;
+            margin: 5px 0 0; padding: 2px;          
+        }
+            .POMPProviderInfoMultipleValues li label > iframe{
+                width:230px; height:100px;
+            }
+            /********** MUESTRA EL ICONO DE VER DOCUMENTO PDF *********/
+            a.POMPProviderDocumetIcon {
+                display:block;
+                background-size:20px auto;
+                background-position:4px 4px;
+                background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/documentIconSmall.png');
+                background-repeat:no-repeat;
+                width:100%; height:35px;
+                margin:0px;
+                padding:2px 0px 0px 32px;
+            }
+        .POMPProviderInfoMultipleValues li label > a{
+            display: block;
+            font-size:0.97em;
+        }
+a.POMPSmallCaption {
+        color: #ff8400;
+        font-size: 0.9em;
+        font-weight: normal;
+        letter-spacing: -0.7px;
+        margin: 0px;
+        display: block;
+    }
+/********* INDICE DE ALTMAN **********/
+
+label.POMPProviderDataIndiceAltman{
+    padding:0px 0px 5px 0px !important;
+    border-bottom:1px solid #d4d4d4;
+}
+    label.POMPProviderDataIndiceAltman > label {
+        min-height: 50px;
+        border-bottom:none !important;
+    }
+    label.POMPProviderDataIndiceAltman > span {
+        font-size: 0.8em !important;
+        line-height: 1.1em !important;
+        margin:0px 0px 0px 12px;
+    }
+    label.POMPProviderVerDetalle {
+        border: medium none !important;
+        display: block;
+        min-height: 38px !important;
+        width: 100% !important;
+        text-align:right;
+    }
+        label.POMPProviderVerDetalle > a {
+            border: 1px solid #337ab7;
+            border-radius: 2px;
+            float: right;
+            margin: 9px 8px 0 0;
+            padding: 3px 10px;
+            text-align: center;
+            width: 100px;
+        }
+/*************** EXPERIENCIAS ***************/
+
+.POMPProviderDataMaestraEstandar {
+    width:48.9% !important;
+}

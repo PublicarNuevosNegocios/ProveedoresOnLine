@@ -83,6 +83,12 @@ namespace DocumentManagement.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AdminLogProvider()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminLogProvider);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult UpsertAdminProvider()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpsertAdminProvider);
@@ -119,6 +125,7 @@ namespace DocumentManagement.Web.Controllers
             public readonly string LoginProvider = "LoginProvider";
             public readonly string UpsertGenericStep = "UpsertGenericStep";
             public readonly string AdminProvider = "AdminProvider";
+            public readonly string AdminLogProvider = "AdminLogProvider";
             public readonly string UpsertAdminProvider = "UpsertAdminProvider";
             public readonly string DuplicateForm = "DuplicateForm";
             public readonly string GetPdfFileBytes = "GetPdfFileBytes";
@@ -131,6 +138,7 @@ namespace DocumentManagement.Web.Controllers
             public const string LoginProvider = "LoginProvider";
             public const string UpsertGenericStep = "UpsertGenericStep";
             public const string AdminProvider = "AdminProvider";
+            public const string AdminLogProvider = "AdminLogProvider";
             public const string UpsertAdminProvider = "UpsertAdminProvider";
             public const string DuplicateForm = "DuplicateForm";
             public const string GetPdfFileBytes = "GetPdfFileBytes";
@@ -178,6 +186,15 @@ namespace DocumentManagement.Web.Controllers
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string FormPublicId = "FormPublicId";
         }
+        static readonly ActionParamsClass_AdminLogProvider s_params_AdminLogProvider = new ActionParamsClass_AdminLogProvider();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AdminLogProvider AdminLogProviderParams { get { return s_params_AdminLogProvider; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AdminLogProvider
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string FormPublicId = "FormPublicId";
+        }
         static readonly ActionParamsClass_UpsertAdminProvider s_params_UpsertAdminProvider = new ActionParamsClass_UpsertAdminProvider();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpsertAdminProvider UpsertAdminProviderParams { get { return s_params_UpsertAdminProvider; } }
@@ -213,9 +230,11 @@ namespace DocumentManagement.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string AdminLogProvider = "AdminLogProvider";
                 public readonly string AdminProvider = "AdminProvider";
                 public readonly string Index = "Index";
             }
+            public readonly string AdminLogProvider = "~/Views/ProviderForm/AdminLogProvider.cshtml";
             public readonly string AdminProvider = "~/Views/ProviderForm/AdminProvider.cshtml";
             public readonly string Index = "~/Views/ProviderForm/Index.cshtml";
         }
@@ -280,6 +299,19 @@ namespace DocumentManagement.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
             AdminProviderOverride(callInfo, ProviderPublicId, FormPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminLogProviderOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string FormPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AdminLogProvider(string ProviderPublicId, string FormPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AdminLogProvider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "FormPublicId", FormPublicId);
+            AdminLogProviderOverride(callInfo, ProviderPublicId, FormPublicId);
             return callInfo;
         }
 

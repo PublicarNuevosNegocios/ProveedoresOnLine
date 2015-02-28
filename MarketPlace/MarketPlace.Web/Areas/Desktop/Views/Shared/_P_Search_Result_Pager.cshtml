@@ -1,0 +1,40 @@
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+
+@{
+    Tuple<int, int> oPageInfo = Model.GetStartEndPage();
+}
+
+@if (!Model.RenderScripts)
+{
+    if (oPageInfo.Item2 > oPageInfo.Item1)
+    {
+        <ul>
+            @if (Model.PageNumber > 0)
+            {
+                <li>
+                    <a href="javascript:Provider_SearchObject.Search({PageNumber:@(Model.PageNumber - 1)});">< Anterior</a>
+                </li>
+            }
+            @for (int i = oPageInfo.Item1; i <= oPageInfo.Item2; i++)
+            {
+                <li>
+                    @if ((Model.PageNumber + 1) == i)
+                    {
+                        <a class="selected" href="javascript:Provider_SearchObject.Search({PageNumber:@(i - 1)});">@i</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:Provider_SearchObject.Search({PageNumber:@(i - 1)});">@i</a>
+                    }
+
+                </li>
+            }
+            @if ((Model.PageNumber + 1) < Model.TotalPages)
+            {
+                <li>
+                    <a href="javascript:Provider_SearchObject.Search({PageNumber:@(Model.PageNumber + 1)});">Siguiente ></a>
+                </li>
+            }
+        </ul>
+    }
+}

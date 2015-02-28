@@ -254,6 +254,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByARLCompany(SearchParam, PageNumber, RowCount);
         }
 
+        public static List<GenericItemModel> CategorySearchByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByICA(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public static List<Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByBank(SearchParam, PageNumber, RowCount);
@@ -288,6 +293,53 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByTreeAdmin(SearchParam, PageNumber, RowCount);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
+        {
+            return DAL.Controller.CompanyDataController.Instance.CurrentExchangeGetAllAdmin();
+        }
+
+        public static int CurrencyExchangeInsert(ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel CurrencyExchange)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CurrencyExchangeInsert(CurrencyExchange.IssueDate, CurrencyExchange.MoneyTypeFrom.ItemId, CurrencyExchange.MoneyTypeTo.ItemId, CurrencyExchange.Rate);
+        }
+
+        public static decimal CurrencyExchangeGetRate
+                    (int MoneyFrom,
+                    int MoneyTo,
+                    int Year)
+        {
+            ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel oCurrency = null;
+
+            if (MoneyFrom != MoneyTo)
+            {
+                //get rate
+                List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> olstCurrency =
+                    ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetByMoneyType
+                        (MoneyFrom, MoneyTo, null);
+
+                if (olstCurrency != null && olstCurrency.Count > 0)
+                {
+                    //get rate for year or current year
+                    oCurrency = olstCurrency.Any(x => x.IssueDate.Year == Year) ?
+                        olstCurrency.Where(x => x.IssueDate.Year == Year).FirstOrDefault() :
+                        olstCurrency.OrderByDescending(x => x.IssueDate.Year).FirstOrDefault();
+                }
+            }
+
+            if (oCurrency == null)
+            {
+                //rate not found
+                oCurrency = new ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel()
+                {
+                    Rate = 1,
+                };
+            }
+
+            return oCurrency.Rate;
+        }
+
+
         #endregion
 
         #region Company CRUD
@@ -733,9 +785,9 @@ namespace ProveedoresOnLine.Company.Controller
             return ContactToUpsert;
         }
 
-        public static List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public static List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool GetAll)
         {
-            return DAL.Controller.CompanyDataController.Instance.ContactGetBasicInfo(CompanyPublicId, ContactType);
+            return DAL.Controller.CompanyDataController.Instance.ContactGetBasicInfo(CompanyPublicId, ContactType, GetAll);
         }
 
         #endregion
@@ -797,6 +849,14 @@ namespace ProveedoresOnLine.Company.Controller
             return oReturn;
         }
 
+        #endregion
+
+        #region Restrictive List
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
+        { 
+            return DAL.Controller.CompanyDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
         #endregion
     }
 }

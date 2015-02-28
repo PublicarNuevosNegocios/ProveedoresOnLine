@@ -1,0 +1,60 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - CIFIN";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">CIFIN</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+                    foreach (var item in Model.RelatedLegalInfo)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
+                                @if (!string.IsNullOrEmpty(item.CF_QueryDate))
+                                {
+                                    <span>Fecha de Consulta: @item.CF_QueryDate</span>
+                                }                                
+                            </label>
+                            @if (!string.IsNullOrEmpty(item.CF_ResultQuery))
+                            {
+                                <label>
+                                Resultado de la Consulta
+                                <span>@item.CF_ResultQuery</span>
+                            </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.CF_AutorizationFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CF_AutorizationFile">Ver Archivo Archivo de Autorización</a>
+                                </label>
+                            }           
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

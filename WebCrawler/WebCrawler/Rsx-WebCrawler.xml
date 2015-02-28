@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <WebCrawler>
+    
+    <!--Session-->
+    <key name="SessionKey"><![CDATA[PHPSESSID=i96l8l6rje0e3hg6ui71djur73]]></key>
+
+    <!--Timer sleep-->
+    <key name="TimerSleep">3000</key>
+    
+    <!--Date format-->
+    <key name="DateFormat_Server"><![CDATA[yyyy-MM-dd]]></key>
+
+    <!--Publicar Id-->
+    <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
+
+    <!--Folder-->
+    <key name="FolderSave">D:\WebCrawler</key>
+
+    <!--File Params-->
+    <key name="File_RemoteDirectory">\BackOffice\</key>
+
+    <!--Url download-->
+    <key name="UrlDownload"><![CDATA[https://www.parservicios.com/parservi/procesos/]]></key>
+
+    <!--All Menu Keys-->
+    <!--GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,Representation,OtherInfo,-->
+    <key name="CrawlerTags">GeneralInfo,Certifications,HSE,Finantial,LegalInfo,Experience,GeneralBalance,</key>
+
+    <!--PAR Modules-->
+    
+    <!--General Info-->
+    <key name="CrawlerURL_GeneralInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/a_basicos.php?id_pv={{ParProviderId}}&actividad=0]]></key>
+    
+    <!--Certifications-->
+    <key name="CrawlerURL_Certifications"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/c_actividades_calidad.php?id_pv={{ParProviderId}}]]></key>
+    
+    <!--Experience-->
+    <key name="CrawlerURL_Experience"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/c_actividades_experiencia.php?id_pv_arreglo={{ParProviderId}}_0&experiencia_pasa=]]></key>
+    
+    <!--General Balance-->
+    <key name="CrawlerURL_GeneralBalance"><![CDATA[https://www.parservicios.com/parservi/procesos/admin/c_financiera.php?id_pv={{ParProviderId}}&actividad=0]]></key>
+    
+    <!--Finantial Info-->
+    <key name="CrawlerURL_Finantial"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=1]]></key>
+    
+    <!--Legal Info-->
+    <key name="CrawlerURL_LegalInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=1]]></key>
+    
+    <!--HSE-->
+    <key name="CrawlerURL_HSE"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=2]]></key>
+        
+    <!--Representation Info-->
+    <key name="CrawlerURL_Representation"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/fiscal_legal.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=3]]></key>
+    
+    <!--Other Info-->
+    <key name="CrawlerURL_OtherInfo"><![CDATA[https://www.parservicios.com/parservi/procesos/generales/formularios_clientes.php?id_pv={{ParProviderId}}&actividad=0&ruta_cri=3&salud=]]></key>
+    
+    <key name="Crawler_CompanyList">
+      <![CDATA[
+      3536,7E0DDA5D;
+      ]]></key>
+
+    <!--<key name="Crawler_CompanyList">
+      <![CDATA[
+      3536,7E0DDA5D;
+      1733,A12ECFA2;
+      18844,A12ECFA2;
+      ]]>
+    </key>-->
+    
+  </WebCrawler>
+</Settings>

@@ -1,0 +1,82 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Certificaciones";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Certificacione</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedHSEQlInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
+                            {
+                                <span>@item.C_Rule.ItemName, Alcance: @item.C_Scope</span>
+                            }
+                        </label>
+                        @if (item.C_CertificationCompany != null)
+                        {
+                            <label>
+                                Empresa Certificadora
+                                <span>@item.C_CertificationCompany.ItemName</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
+                        {
+                            <label>
+                                Fecha de Certificación
+                                <span>@item.C_StartDateCertification</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_EndDateCertification))
+                        {
+                            <label>
+                                Fecha de Caducidad
+                                <span>@item.C_EndDateCertification</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_CCS))
+                        {
+                            <label>
+                                % CCS
+                                <span>@item.C_CCS</span>
+                            </label>
+                        }
+                            @{
+                        var UlrContent = item.C_CertificationFile;
+                        if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                            </label>
+                        }
+                            }
+
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

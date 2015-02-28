@@ -47,9 +47,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CommercialInfoUpsert(CommercialId, CommercialInfoId, CommercialInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public List<Company.Models.Util.GenericItemModel> CommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, bool Enable)
         {
-            return DataFactory.CommercialGetBasicInfo(CompanyPublicId, CommercialType);
+            return DataFactory.CommercialGetBasicInfo(CompanyPublicId, CommercialType, Enable);
         }
 
         #endregion
@@ -66,9 +66,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.CertificationInfoUpsert(CertificationId, CertificationInfoId, CertificationInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        public List<Company.Models.Util.GenericItemModel> CertificationGetBasicInfo(string CompanyPublicId, int? CertificationType, bool Enable)
         {
-            return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType);
+            return DataFactory.CertificationGetBasicInfo(CompanyPublicId, CertificationType, Enable);
         }
 
         #endregion
@@ -90,14 +90,19 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BalanceSheetUpsert(FinancialId, BalanceSheetId, AccountId, Value, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        public List<Company.Models.Util.GenericItemModel> FinancialGetBasicInfo(string CompanyPublicId, int? FinancialType, bool Enable)
         {
-            return DataFactory.FinancialGetBasicInfo(CompanyPublicId, FinancialType);
+            return DataFactory.FinancialGetBasicInfo(CompanyPublicId, FinancialType, Enable);
         }
 
         public List<Models.Provider.BalanceSheetDetailModel> BalanceSheetGetByFinancial(int FinancialId)
         {
             return DataFactory.BalanceSheetGetByFinancial(FinancialId);
+        }
+
+        public List<Models.Provider.BalanceSheetDetailModel> BalanceSheetGetCompanyAverage(string CompanyPublicId, int Year)
+        {
+            return DataFactory.BalanceSheetGetCompanyAverage(CompanyPublicId, Year);
         }
 
         #endregion
@@ -114,9 +119,23 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.LegalInfoUpsert(LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        public List<Company.Models.Util.GenericItemModel> LegalGetBasicInfo(string CompanyPublicId, int? LegalType, bool Enable)
         {
-            return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType);
+            return DataFactory.LegalGetBasicInfo(CompanyPublicId, LegalType, Enable);
+        }
+
+        #endregion
+
+        #region Provider BlackList
+
+        public int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl)
+        {
+            return DataFactory.BlackListInsert(CompanyPublicId, BlackListStatus, User, FileUrl);
+        }
+
+        public int BlackListInfoInsert(int BlackListId, string BlackListInfoType, string Value)
+        {
+            return DataFactory.BlackListInfoInsert(BlackListId, BlackListInfoType, Value);
         }
 
         #endregion
@@ -129,5 +148,74 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         }
 
         #endregion
+
+        #region MarketPlace
+
+        public List<Models.Provider.ProviderModel> MPProviderSearch(string CustomerPublicId, string SearchParam, string SearchFilter, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.MPProviderSearch(CustomerPublicId, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber, RowCount, out TotalRows);
+        }
+
+        public List<Company.Models.Util.GenericFilterModel> MPProviderSearchFilter(string CustomerPublicId, string SearchParam, string SearchFilter)
+        {
+            return DataFactory.MPProviderSearchFilter(CustomerPublicId, SearchParam, SearchFilter);
+        }
+
+        public List<Models.Provider.ProviderModel> MPProviderSearchById(string CustomerPublicId, string lstProviderPublicId)
+        {
+            return DataFactory.MPProviderSearchById(CustomerPublicId, lstProviderPublicId);
+        }
+
+        public Company.Models.Company.CompanyModel MPCompanyGetBasicInfo(string CompanyPublicId)
+        {
+            return DataFactory.MPCompanyGetBasicInfo(CompanyPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        {
+            return DataFactory.MPContactGetBasicInfo(CompanyPublicId, ContactType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        {
+            return DataFactory.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
+        {
+            return DataFactory.MPCertificationGetBasicInfo(CompanyPublicId, CertificationType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPFinancialGetBasicInfo(string CompanyPublicId, int? FinancialType)
+        {
+            return DataFactory.MPFinancialGetBasicInfo(CompanyPublicId, FinancialType);
+        }
+
+        public List<Models.Provider.BalanceSheetModel> MPBalanceSheetGetByYear(string CompanyPublicId, int? Year)
+        {
+            return DataFactory.MPBalanceSheetGetByYear(CompanyPublicId, Year);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPLegalGetBasicInfo(string CompanyPublicId, int? LegalType)
+        {
+            return DataFactory.MPLegalGetBasicInfo(CompanyPublicId, LegalType);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCustomerProviderGetTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.MPCustomerProviderGetTracking(CustomerPublicId, ProviderPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>  MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
+        {
+            return DataFactory.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> MPCertificationGetSpecificCert(string ProviderPublicId)
+        {
+            return DataFactory.MPCertificationGetSpecificCert(ProviderPublicId);
+        }
+        #endregion
+
     }
 }

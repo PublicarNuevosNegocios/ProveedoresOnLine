@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="WebCrawler">
+    <key name="location">D:\Publicar Software\ProveedoresOnline\ProveedoresOnlineV1.0\WebCrawler\WebCrawler\Rsx-WebCrawler.xml</key>
+  </Module>
+  <Module name="FileRepository">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\DocumentManagement\Rsx-FileRepository.xml</key>
+  </Module>
+</SettingsConfig>

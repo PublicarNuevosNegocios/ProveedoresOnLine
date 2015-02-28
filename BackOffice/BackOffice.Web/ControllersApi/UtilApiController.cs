@@ -243,9 +243,19 @@ namespace BackOffice.Web.ControllersApi
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.B_CityId) ? 0 : Convert.ToInt32(oDataToUpsert.B_CityId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.GI_GeographyType
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.B_Location,
                         },
                         Value = oDataToUpsert.B_CityId,
+                        Enable = oDataToUpsert.B_BankEnable,
+                    });
+                    oBankInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.B_BankCodeId) ? 0 : Convert.ToInt32(oDataToUpsert.B_BankCodeId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.B_Code,
+                        },
+                        Value = oDataToUpsert.B_BankCode,
                         Enable = oDataToUpsert.B_BankEnable,
                     });
 
@@ -466,6 +476,30 @@ namespace BackOffice.Web.ControllersApi
                     oReturn.T_TreeName = oTreeResult.TreeName;
                 }
                 #endregion
+
+                #region TRM
+                if (CategoryType == "AdminTRM")
+                {
+                    CurrencyExchangeModel oExchangeToUpsert = new CurrencyExchangeModel();
+
+                    oExchangeToUpsert = new CurrencyExchangeModel()
+                    {
+                        IssueDate = DateTime.Parse(oDataToUpsert.C_IssueDate),
+                        MoneyTypeFrom = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeFromId), ItemName = oDataToUpsert.C_MoneyTypeFromName},
+                        MoneyTypeTo = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeToId), ItemName = oDataToUpsert.C_MoneyTypeToName},
+                        Rate = Convert.ToDecimal(oDataToUpsert.C_Rate),                        
+                    };
+
+                    oExchangeToUpsert.CurrencyExchangeId = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeInsert(oExchangeToUpsert);
+                    oReturn = new AdminCategoryViewModel();
+                    
+                    oReturn.C_CurrentExchangeId = oExchangeToUpsert.CurrencyExchangeId.ToString();                    
+                    oReturn.C_IssueDate = oDataToUpsert.C_IssueDate;
+                    oReturn.C_MoneyTypeFromId = oDataToUpsert.C_MoneyTypeFromId;
+                    oReturn.C_MoneyTypeToId = oDataToUpsert.C_MoneyTypeToId;
+                    oReturn.C_Rate = oDataToUpsert.C_Rate;
+                }
+                #endregion
             }
             return oReturn;
         }
@@ -615,9 +649,7 @@ namespace BackOffice.Web.ControllersApi
             if (CategorySearchByBank == "true")
             {
                 oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank
-                    (SearchParam,
-                    0,
-                    0);
+                    (SearchParam,0,0);
             }
             return oReturn;
         }
@@ -716,6 +748,42 @@ namespace BackOffice.Web.ControllersApi
             if (oRules != null)
             {
                 oRules.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }
+            else
+            {
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByICA
+        (string CategorySearchByICA, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA =
+                new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            int oTotalCount = 0;
+            if (CategorySearchByICA == "true")
+            {
+                oICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA
+                            (SearchParam, PageNumber, RowCount, out oTotalCount);
+            }
+
+            if (oICA != null)
+            {
+                oICA.All(x =>
                 {
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
@@ -869,5 +937,32 @@ namespace BackOffice.Web.ControllersApi
 
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> CategorySearchByTRAdmin
+            (string CategorySearchByTreeAdmin)
+        {
+            List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
+            List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oExchange =
+                new List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel>();
+
+            if (CategorySearchByTreeAdmin == "true")
+            {
+                oExchange = ProveedoresOnLine.Company.Controller.Company.CurrentExchangeGetAllAdmin();
+            }
+
+            if (oExchange != null)
+            {
+                oExchange.All(x =>
+                {
+                    oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                    return true;
+                });
+            }         
+
+            return oReturn;
+        }
+
     }
 }

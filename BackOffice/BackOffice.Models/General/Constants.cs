@@ -30,6 +30,10 @@
 
         public const string C_Settings_DefaultImage = "DefaultImage";
 
+        public const string C_Settings_InfoTooltip = "InfoTooltip";
+
+        public const string C_Settings_PublicarPublicId = "PublicarPublicId";
+
         #endregion
 
         #region Administrator User Roles
@@ -49,6 +53,8 @@
         public const string C_Settings_File_TempDirectory = "File_TempDirectory";
 
         public const string C_Settings_File_RemoteDirectory = "File_RemoteDirectory";
+
+        public const string C_Settings_File_ExcelDirectory = "File_ExcelDirectory";
 
         #endregion
 

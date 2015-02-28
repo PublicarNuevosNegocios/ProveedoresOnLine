@@ -1,0 +1,116 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Camara de comercio";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Cámara de Comercio</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (!string.IsNullOrEmpty(@Model.RelatedLegalInfo.Where(x => x.CP_CertificateExpeditionDate != null).Select(x => x.CP_CertificateExpeditionDate).FirstOrDefault()))
+                            {
+                                <span>Fecha de Expedición del Certificado: @Model.RelatedLegalInfo.Where(x => x.CP_CertificateExpeditionDate != null).Select(x => x.CP_CertificateExpeditionDate).FirstOrDefault()</span>
+                            }
+                        </label>
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault())
+                            || Model.RelatedLegalInfo.Where(x => x.CP_UndefinedDate != null).Select(x => x.CP_UndefinedDate).FirstOrDefault() != "False")
+                        {
+                            <label>
+                                Fecha de Vigencia
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()</span>
+                            </label>
+                        }                        
+                        else
+                        {
+                            <label>
+                                Indefinido
+                                <span>Si</span>
+                            </label>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()))
+                        {
+                            <label>
+                                Fecha de Constitución
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_InscriptionCity != null).Select(x => x.CP_InscriptionCity).FirstOrDefault()))
+                        {
+                            <label>
+                                Ciudad
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_InscriptionCity != null).Select(x => x.CP_InscriptionCity).FirstOrDefault()</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_InscriptionNumber != null).Select(x => x.CP_InscriptionNumber).FirstOrDefault()))
+                        {
+                            <label>
+                                Número de Matricula
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_InscriptionNumber != null).Select(x => x.CP_InscriptionNumber).FirstOrDefault()</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ExistenceAndLegalPersonCertificate != null).Select(x => x.CP_ExistenceAndLegalPersonCertificate).FirstOrDefault()))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedLegalInfo.Where(x => x.CP_ExistenceAndLegalPersonCertificate != null).Select(x => x.CP_ExistenceAndLegalPersonCertificate).FirstOrDefault()">Ver Archivo Certificado de Existencia y Representación Legal</a>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_SocialObject != null).Select(x => x.CP_SocialObject).FirstOrDefault()))
+                        {
+                            <label>
+                                Objeto Social
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_SocialObject != null).Select(x => x.CP_SocialObject).FirstOrDefault()</span>
+                            </label>
+                        }
+                        @if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
+                        {
+                            <label class="POMPProviderDataSubtitle">
+                                Socios, Miembros junta directiva, entre otros
+                            </label>
+                            foreach (var item in Model.RelatedDesignationsInfo)
+                            {
+                                <label>
+                                    Nombre
+                                    <span>@item.CD_PartnerName</span>
+                                </label>
+                                <label>
+                                    Número de Identificación
+                                    <span>@item.CD_PartnerIdentificationNumber</span>
+                                </label>
+                                <label>
+                                    Cargo
+                                    <span>@item.CD_PartnerRank</span>
+                                </label>
+                            }
+                        }
+
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

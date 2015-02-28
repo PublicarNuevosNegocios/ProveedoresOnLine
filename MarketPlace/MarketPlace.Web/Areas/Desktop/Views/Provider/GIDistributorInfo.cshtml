@@ -1,0 +1,92 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Distribuidores";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Distribuidores</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedGeneralInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (!string.IsNullOrEmpty(item.DT_DistributorType) && !string.IsNullOrEmpty(item.DT_SocialReazon))
+                            {
+                                <span>@item.DT_DistributorType, @item.DT_SocialReazon</span>
+                            }
+                        </label>
+                        @if (!string.IsNullOrEmpty(item.DT_Representative))
+                        {
+                            <label>
+                                Representante Comercial
+                                <span>@item.DT_Representative</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_Email))
+                        {
+                            <label>
+                                Correo Electrónico
+                                <span>@item.DT_Email</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_Phone))
+                        {
+                            <label>
+                                Teléfono
+                                <span>@item.DT_Phone</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_City))
+                        {
+                            <label>
+                                Ciudad
+                                <span>@item.DT_City</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.DT_DateIssue))
+                        {
+                            <label>
+                                Fecha de Expedición
+                                <span>@item.DT_DateIssue</span>
+                            </label>
+                        }
+
+                        @{
+                            
+                                @{
+                        var UlrContent = item.DT_DistributorFile;
+                        if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
+                            </label>
+                        }
+                                }
+
+}
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

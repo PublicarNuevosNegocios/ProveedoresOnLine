@@ -34,12 +34,12 @@
 
         }
 
-        @*@if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
+        @if (DocumentManagement.Models.General.SessionModel.UserIsLoggedIn &&
             DocumentManagement.Models.General.SessionModel.UserIsAutorized &&
             DocumentManagement.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.
                 Any(x => x.Application == SessionManager.Models.Auth.enumApplication.DocumentManagement))
         {
-            <li>
+            @*<li>
                 <a target="_blank" href="@(Url.Action(MVC.ProviderForm.ActionNames.AdminProvider,
                         MVC.ProviderForm.Name,
                         new
@@ -47,7 +47,16 @@
                             ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
                             FormPublicId = Model.RealtedForm.FormPublicId,
                         }))">Administrar proveedor</a>
+            </li>*@
+            <li>
+                <a target="_blank" href="@(Url.Action(MVC.ProviderForm.ActionNames.AdminLogProvider,
+                        MVC.ProviderForm.Name,
+                        new
+                        {
+                            ProviderPublicId = Model.RealtedProvider.ProviderPublicId,
+                            FormPublicId = Model.RealtedForm.FormPublicId,
+                        }))">HISTORIAL DEL PROVEEDOR</a>
             </li>
-        }*@
+        }
     </ul>
 }

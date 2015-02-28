@@ -1,0 +1,35 @@
+.POMPFooterWrapper {
+    border:none;
+}
+    .POMPFooterLegal, .POMPFooterLogos{
+        display:block;
+            border:none;
+        width:100%;
+        min-width:960px;
+    }        
+        .POMPFooterLogos {
+            height:76px;
+            text-align:right;
+            background-color:#b3b3b3;
+        }
+            .POMPFooterLogos img:first-child {
+                width:auto; height:57px;
+                float:left; left:12px; top:8px;
+            }
+            .POMPFooterLogos img{
+                position:relative;
+                width:auto;
+                height:auto;
+                    border:none;
+                right:12px;
+                top:13px;
+            }
+        .POMPFooterLegal {
+            height:22px;
+            background-color:#727276;
+            text-align: center;
+        }
+            .POMPFooterLegal span, .POMPFooterLegal a{
+                color: #fff;
+                font-size: 0.9em;
+            }

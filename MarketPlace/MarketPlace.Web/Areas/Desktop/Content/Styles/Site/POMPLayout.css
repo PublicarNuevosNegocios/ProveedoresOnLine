@@ -1,0 +1,50 @@
+/*********fonts************/
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('../../../fonts/OpenSans-Regular.eot');
+    src: url('../../../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('../../../fonts/OpenSans-Regular.woff') format('woff'), url('../../../fonts/OpenSans-Regular.ttf') format('truetype');
+
+}
+p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
+    font-family: 'OpenSans-Regular', Fallback, sans-serif;
+}
+/*********Body Content************/
+.POMPRenderHeader, .POMPRenderBody, .POMPRenderFooter{
+     text-align:left;
+     display:block;
+     /*border:none;*/
+}
+div#POMPRenderFooter {
+    width:100%;
+    height:auto;
+}
+/*************** AQUI VA TODA LA INFORMACION 
+    DETALLADA DEL PROVEEDOR  *************/
+.POMPProviderGreatWrapper {
+    border: medium none;
+    height: auto;
+    margin: 2px 0 0 2px;
+    padding: 6px 0;
+    position: relative;
+    width: 99.8%;
+}
+/*********** CONTENEDOR DEL MENU LATERAL ***********/
+.POMPProviderSideMenuWrapper {
+    display: inline-block;
+    height: 100%;
+    min-height: 490px;
+    padding: 0 9px 0 11px;
+    vertical-align: top;
+    width: auto;
+}
+/*********** CONTENEDOR DE INFORMACION PROVEDOR ***********/
+.POMPProviderDataWrapper {
+    border-left: 2px solid #ff8300;
+    display: inline-block;
+    height: auto;
+    margin: 0px;
+    padding: 0 0 0 2px;
+    min-height: 400px;
+    width: calc(100% - 261px);
+}
+

@@ -1,0 +1,50 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Busqueda de Compradores";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+<div class="POBOProviderWrapper">
+    <div class="POBOPTopSearchBar">
+        <ul>
+            <li>
+                <input id="divCustomerSearch_txtSearch" class="POBOTextField" type="text" placeholder="Buscar por razón social o ID" value="@Request["SearchParam"]" />
+                <a class="POBOSearchButtons" href="javascript:Customer_SearchObject.SearchEvent(null,null);">
+                    Encontrar
+                    <span class="POBOSearchButtonsLupita"></span>
+                </a>
+            </li>
+            @*<li>
+                <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>
+            </li>
+            <li>
+                <a class="POBOButtons" href="">Dercargar excel</a>
+            </li>*@
+        </ul>
+    </div>
+   @* @Html.Partial(MVC.Shared.Views._P_ProviderFilter, Model)*@
+    <div class="POBOPBuyersListWrapper">
+        <div id="divCustomerSearch"></div>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Customer_SearchObject.Init({
+                ObjectId: 'divCustomerSearch',
+                SearchFilter: '@Request["SearchFilter"]',
+                PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
+            });
+            Customer_SearchObject.RenderAsync();
+        });
+    </script>
+}

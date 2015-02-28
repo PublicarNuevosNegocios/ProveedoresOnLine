@@ -19,7 +19,7 @@ namespace BackOffice.Models.Provider
                 return RelatedCompany.CompanyInfo.
                     Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
                     Select(x => x.Value).
-                    DefaultIfEmpty(string.Empty).
+                    DefaultIfEmpty(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DefaultImage].Value).
                     FirstOrDefault();
             }
         }

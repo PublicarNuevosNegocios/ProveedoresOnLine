@@ -16,6 +16,7 @@
         padding: 4px 0 6px 32px;
     }
     .POBOProviderSideMenu > ul > li > label{
+
         background-color: #fff;
         background-image: none !important;
         border: medium none;
@@ -33,7 +34,45 @@
             background-position: -104px -29px;
             background-size: 400px auto;
         }
-
+/********* AQUI SE MUESTRA EL TAG DE ID DEL PROVEEDOR O COMPRADOR **********/
+.POBOProviderTagWrapper{
+    border-bottom: 1px solid #999;
+    display: inline-block;
+    height: auto;
+    margin: 0px 0px 7px 0px;
+    padding: 0 0 8px 5px;
+    width:100%;
+}
+    .POBOProviderTagWrapper img {
+            border:none;
+        display: inline-block;
+        height:auto;
+        width:62px;
+        margin:0px; padding:0px;
+        vertical-align:top;
+    }
+    .POBOProviderTagWrapper div {
+            border:none;
+        display: inline-block;
+        margin: 0px 0px 0px 4px;
+        padding: 0;
+        max-width: 173px;
+        vertical-align:bottom;
+    }
+    .POBOProviderTagWrapper span {
+        display:block;
+        color:#666;
+        margin: 0;
+        padding: 0;
+        font-size: 1.3em;
+        line-height: 0.9em;
+        max-width:174px;
+    }
+        .POBOProviderTagWrapper div span:nth-child(2) {
+            font-size:1em;
+            line-height: 1em;
+            margin:6px 0px 0px 0px;
+        }
 /********* AQUI INICIA EL SUBMENU ESTE ES EL SUBMENU *********/
     .POBOProviderSideSubMenu {
         padding:4px 0px 6px 24px !important;

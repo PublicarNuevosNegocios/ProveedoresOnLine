@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
@@ -60,6 +61,165 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId, string CustomerSearch)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerSearch", CustomerSearch));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "CC_GetCustomerByProvider",
+                    CommandType = System.Data.CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                if (CustomerSearch != null)
+                {
+
+                    oReturn =
+                        (from cp in response.DataTableResult.AsEnumerable()
+                         where !cp.IsNull("CustomerProviderId")
+                         group cp by new
+                         {
+                             CustomerProviderId = cp.Field<int>("CustomerProviderId"),
+                             CompanyPublicId = cp.Field<string>("CompanyPublicId"),
+                             CompanyName = cp.Field<string>("CompanyName"),
+                             Status = cp.Field<int>("Status"),
+                             StatusName = cp.Field<string>("StatusName"),
+                             Enable = cp.Field<UInt64>("Enable") == 1 ? true : false,
+                         }
+                             into cpi
+                             select new CompanyCustomer.Models.Customer.CustomerModel()
+                             {                                 
+                                 RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
+                                 {
+                                     new Models.Customer.CustomerProviderModel()
+                                     {
+                                         CustomerProviderId = cpi.Key.CustomerProviderId,
+                                         RelatedProvider = new Company.Models.Company.CompanyModel()
+                                         {
+                                             CompanyPublicId = cpi.Key.CompanyPublicId,
+                                             CompanyName = cpi.Key.CompanyName,
+                                         },
+                                         Status = new Company.Models.Util.CatalogModel()
+                                         {
+                                             ItemId = cpi.Key.Status,
+                                             ItemName = cpi.Key.StatusName,
+                                         },
+                                         Enable = cpi.Key.Enable,
+                                     }
+                                 }
+                             }).ToList();
+                }
+                else
+                {
+                    oReturn =
+                        (from p in response.DataTableResult.AsEnumerable()
+                         where !p.IsNull("CompanyId")
+                         group p by new
+                         {
+                             CustomerProviderId = p.Field<int>("CompanyId"),
+                         }
+                             into pp
+                             select new CompanyCustomer.Models.Customer.CustomerModel()
+                             {
+                                 RelatedProvider =
+                                 (from c in response.DataTableResult.AsEnumerable()
+                                  where !c.IsNull("CompanyId")
+                                  group c by new
+                                  {
+                                      CompanyId = c.Field<int>("CompanyId"),
+                                      Customer = c.Field<string>("CompanyName"),
+                                      CustomerPublicId = c.Field<string>("CompanyPublicId"),
+                                      Enable = c.Field<int>("IsRelatedCustomer") == 1 ? true : false,
+                                  }
+                                      into cc
+                                      select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
+                                      {
+                                          
+                                          RelatedProvider = new Company.Models.Company.CompanyModel()
+                                          {
+                                              CompanyName = cc.Key.Customer,
+                                              Enable = cc.Key.Enable,
+                                              CompanyPublicId = cc.Key.CustomerPublicId,
+                                          },
+                                      }).ToList(),
+                             }).ToList();
+                }       
+            }
+
+            return oReturn;
+        }
+
+        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerProviderId", CustomerProviderId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+                {
+                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                    CommandText = "CC_GetCustomerInfoByProvider",
+                    CommandType = CommandType.StoredProcedure,
+                    Parameters = lstParams,
+                });
+
+            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+
+            if (response.DataTableResult != null && 
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cpi in response.DataTableResult.AsEnumerable()
+                     where !cpi.IsNull("CustomerProviderInfoId")
+                     group cpi by new
+                     {
+                         CustomerProviderInfoId = cpi.Field<int>("CustomerProviderInfoId"),
+                         CustomerProviderId = cpi.Field<int>("CustomerProviderId"),
+                         TrackingId = cpi.Field<int>("TrackingId"),
+                         TrackingName = cpi.Field<string>("TrackingName"),
+                         TrackingValue = cpi.Field<string>("TrackingValue"),
+                         Enable = cpi.Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = cpi.Field<DateTime>("LastModify"),
+                     }
+                         into cpinf
+                         select new CompanyCustomer.Models.Customer.CustomerModel() 
+                         {
+                             RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
+                             {
+                                 new Models.Customer.CustomerProviderModel()
+                                 {
+                                     CustomerProviderId = cpinf.Key.CustomerProviderId,
+                                     CustomerProviderInfo = new List<Company.Models.Util.GenericItemInfoModel>()
+                                     {
+                                         new Company.Models.Util.GenericItemInfoModel()
+                                         {
+                                             ItemInfoId = cpinf.Key.CustomerProviderInfoId,
+                                             ItemInfoType = new Company.Models.Util.CatalogModel()
+                                             {
+                                                 ItemId = cpinf.Key.TrackingId,
+                                                 ItemName = cpinf.Key.TrackingName,
+                                             },
+                                             Value = cpinf.Key.TrackingValue,
+                                             Enable = cpinf.Key.Enable,
+                                             LastModify = cpinf.Key.LastModify,
+                                         },
+                                     },
+                                 },
+                             },
+                         }).ToList();
+            }
+            return oReturn;
+        }
         #endregion
 
         #region Survey

@@ -1,0 +1,49 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Impuestos";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Impuestos</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedFinancialInfo)
+                {
+                    <li>
+                        @if (!string.IsNullOrEmpty(item.TX_Year))
+                        {
+                            <label class="POMPProviderDataSubtitle">
+                                <span>@item.TX_Year</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.TX_TaxFile))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.TX_TaxFile">Ver Archivo del Impuesto</a>
+                            </label>
+                        }
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

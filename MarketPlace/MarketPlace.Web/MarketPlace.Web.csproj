@@ -89,6 +89,15 @@
     <Reference Include="ProveedoresOnLine.Company">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyCustomer">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyCustomer\developer\ProveedoresOnLine.CompanyCustomer.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyProvider">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.CompareModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompareModule\developer\ProveedoresOnLine.CompareModule.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -175,17 +184,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
     <Compile Include="Areas\Desktop\DesktopAreaRegistration.cs" />
     <Compile Include="BaseController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="CompareController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControllersApi\CompareApiController.cs" />
+    <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomerController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Desktop.CompareController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Desktop.CustomerController.generated.cs">
@@ -388,6 +407,25 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPBalanceSheetInfo.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPLoginAuth.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProviderInfo.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSearchComparison.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSearchResults.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPLogIn.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPLayout.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPAdmin.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPButtons.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPCustomer.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPDialogs.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPFooter.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPForms.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPGrids.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPHeader.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProviderSearchLayout.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideFilters.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideMenu.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPTopSearchBar.css" />
     <Content Include="Areas\Desktop\Content\themes\base\accordion.css" />
     <Content Include="Areas\Desktop\Content\themes\base\all.css" />
     <Content Include="Areas\Desktop\Content\themes\base\autocomplete.css" />
@@ -422,6 +460,18 @@
     <Content Include="Areas\Desktop\Content\themes\base\theme.css" />
     <Content Include="Areas\Desktop\Content\themes\base\tooltip.css" />
     <Content Include="Areas\Desktop\Scripts\Site\GeneralScripts.js" />
+    <Content Include="Areas\Desktop\Scripts\Site\CompareScripts.js" />
+    <Content Include="Areas\Desktop\Scripts\Site\ProviderScripts.js" />
+    <Content Include="Areas\Desktop\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_L_Footer.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_L_Header.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderMenuHeader.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Filter.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Order.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result_Pager.cshtml" />
     <Content Include="favicon.ico" />
     <Content Include="Areas\Desktop\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -433,8 +483,11 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\images\kendoui.woff" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\images\kendoui.ttf" />
     <Content Include="Areas\Desktop\Views\web.config" />
-    <Content Include="Areas\Desktop\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Desktop\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.eot" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.otf" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.ttf" />
+    <Content Include="Areas\Desktop\fonts\OpenSans-Regular.woff" />
     <None Include="Areas\Desktop\Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Rsx-MarketPlace.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -882,11 +935,37 @@
     <Content Include="Areas\Desktop\Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Areas\Desktop\Scripts\respond.min.js" />
     <Content Include="Areas\Desktop\Scripts\_references.js" />
-    <Content Include="Areas\Desktop\Views\Shared\_L_Footer.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_L_Header.cshtml" />
     <Content Include="Areas\Desktop\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\Search.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\FIBalanceSheetInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GIPersonContactInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GIBranchInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GIDistributorInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\CIExperiencesInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\HICertificationsInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\HIHealtyPoliticInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GIProviderInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\LIRutInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\FITaxInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\FIIncomeStatementInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\FIBankInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\LIChaimberOfCommerceInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\LICIFINInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\LISARLAFTInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\LIResolutionInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderMenu.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_FI_Indicators.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_FI_Balance.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\HIRiskPoliciesInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_FI_IndicatorsItem.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_FI_BalanceItem.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Compare\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Compare\CompareDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CM_CompareMenu.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
+    <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -969,7 +1048,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />
-    <Folder Include="Areas\Desktop\Content\Styles\Site\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,0 +1,88 @@
+.POMPButtons, .POMPSearchButtons{
+    background-color:#ff8300;    
+    font-size:1.1em;
+    letter-spacing:-0.5px;
+    color:#fff;
+}
+.POMPButtons {
+    display: inline-block;
+    margin: 0;
+    padding:5px 30px;
+}
+.POMPSearchButtons {
+    text-transform:uppercase;
+    padding:5px 7px 5px 10px;
+    margin:0px 0px 0px -5px;
+    vertical-align:top;
+    display:inline-block;
+}
+    .POMPButtons:hover, .POMPSearchButtons:hover{
+        background-color:#ffb362;
+        text-decoration:underline;
+        color:#fff;
+    }
+.POMPSearchButtonsLupita {
+    background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POBOsprite.png");
+    background-position: -347px -5px;
+    background-repeat: no-repeat;
+    background-size: 522px auto;
+    border: medium none;
+    display: inline-block;
+    height: 23px;
+    vertical-align: text-bottom;
+    width: 24px;
+}
+
+#Compare_SearchGrid{
+    min-height:445px;
+    width:90%;
+    display:block;
+    margin:8px auto;
+}
+
+#Search_Compare_Search_ToolTip_Grid ul,
+#Compare_SearchGrid ul{
+    display: block;
+    margin: 0 auto !important;
+    padding:6px 0px 4px 0px;
+    width: 62%;
+    text-align: center;
+}
+#Search_Compare_Search_ToolTip_Grid ul li,
+#Compare_SearchGrid ul li{
+    list-style-type:none;
+    display:inline-block;
+    width:auto; height:auto;
+}
+    #Search_Compare_Search_ToolTip_Grid  ul > li > input,
+    #Compare_SearchGrid ul > li > input{
+        border-top-left-radius: 2px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 0px;
+        display: inline-block;
+        margin: 0;
+        padding: 0px 18px;
+        background-color: #f9f9f9;
+        color: #666;
+        font-size: 1.1em;
+        letter-spacing: -0.5px;
+        border: 1px solid #666;
+        border-right:none;
+        vertical-align:top;
+        height:24px;
+    }
+    #Search_Compare_Search_ToolTip_Grid  ul > li > a,
+    #Compare_SearchGrid ul > li > a{
+        display: inline-block;
+        margin: 0 0 0 -5px;
+        padding:0px 7px;
+        text-transform: uppercase;
+        vertical-align: top;
+        background-color: #ff8300;
+        color: #fff;
+        font-size: 1em;
+        letter-spacing: -0.5px;
+        height:26px;
+        line-height: 1.6em;
+    }

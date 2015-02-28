@@ -80,9 +80,9 @@ namespace Auth.Web.Controllers
                             new SessionManager.Models.Auth.UserProvider() 
                             { 
                                 ProviderId = (oResponse.Users[0].ProviderUserInfo != null && 
-                                                oResponse.Users[0].ProviderUserInfo.Any(x=>!string.IsNullOrEmpty(x.ProviderId))) ?   
-                                                    oResponse.Users[0].ProviderUserInfo.Where(x=>!string.IsNullOrEmpty(x.ProviderId)).
-                                                    Select(x=>x.ProviderId).DefaultIfEmpty(oResponse.Users[0].LocalId).FirstOrDefault() :  
+                                                oResponse.Users[0].ProviderUserInfo.Any(x=>!string.IsNullOrEmpty(x.FederatedId))) ?   
+                                                    oResponse.Users[0].ProviderUserInfo.Where(x=>!string.IsNullOrEmpty(x.FederatedId)).
+                                                    Select(x=>x.FederatedId).DefaultIfEmpty(oResponse.Users[0].LocalId).FirstOrDefault() :  
                                                 oResponse.Users[0].LocalId, 
                                 Provider = SessionManager.Models.Auth.enumProvider.InternalLogin,
                                 ProviderUrl = null,

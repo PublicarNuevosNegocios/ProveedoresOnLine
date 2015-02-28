@@ -1,0 +1,59 @@
+    .POMPSideBlockTitle{
+        color: #4d4d4d;
+        display: block;
+        font-size: 1.5em;
+        font-weight: normal;
+        letter-spacing: -1px;
+        margin: 0 0 7px 8px;
+        max-width:;
+    }
+        .POMPFilterCategoryList{
+                border:none;
+            margin:0px 0px 0px 10px;
+            padding:0px;
+        }
+            .POMPFilterCategoryList > li,
+            .POMPFilterCategoryList > li > ul > li {
+                list-style-type:none;
+            }
+            .POMPFilterCategoryList > li > span{
+                background-color: #ececec;
+                    border: none;
+                display: inline-block;
+                font-size: 1em;
+                letter-spacing: -0.6px;
+                line-height: 0.9em;
+                margin: 0 0 5px;
+                padding: 7px 5px;
+                width: 100%;
+            }
+            .POMPFilterCategoryList > li > ul{
+                    border:none;
+                margin: 0 0 8px;
+                padding:0px 0px 0px 12px;
+            }
+                .POMPFilterCategoryList > li > ul > li{
+                        border:none;
+                    margin:0px;
+                }
+                .POMPFilterCategoryList > li > ul > li > span{
+                        border:none;
+                    font-size:0.9em;
+                }
+            .POMPFilterCategoryList > li > input {
+                display:inline-block;
+            }
+                input.POMPFilterCheckBox,
+                span.POMPFilterText{
+                    display:inline-block !important;
+                }
+                input.POMPFilterCheckBox {
+                    line-height:1px;
+                }
+                span.POMPFilterText {
+                    width:240px !important;
+                    margin: 0 0 0 -4px !important;
+                }
+                    .AdminRolesHeader {
+                        display:none;
+                    }

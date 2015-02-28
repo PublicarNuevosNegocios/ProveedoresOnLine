@@ -1,0 +1,37 @@
+﻿body {
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*********fonts************/
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('../../../fonts/OpenSans-Regular.eot');
+    src: url('../../../fonts/OpenSans-Regular.eot?#iefix') format('embedded-opentype'), url('../../../fonts/OpenSans-Regular.woff') format('woff'), url('../../../fonts/OpenSans-Regular.ttf') format('truetype');
+
+}
+p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
+    font-family: 'OpenSans-Regular', Fallback, sans-serif;
+}
+/*********Body Content************/
+.POMPRenderHeader, .POBORenderBody, .POBORenderFooter{
+ text-align:left;
+ min-width:1024px;
+}
+div#POMPRenderFooter {
+    width:100%;
+    height:auto;
+}

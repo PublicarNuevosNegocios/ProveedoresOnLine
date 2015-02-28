@@ -1,0 +1,111 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Salud, medio ambiente y seguridad";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Salud, medio ambiente y seguridad</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            <li>
+                @foreach (var item in Model.RelatedHSEQlInfo)
+                {
+                    if (!string.IsNullOrEmpty(item.CH_Year))
+                    {
+                        <label class="POMPProviderDataSubtitle">
+                            <span>Año @item.CH_Year</span>
+                        </label>
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_PoliticsSecurity))
+                    {
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo de Política de Seguridad, Salud y Ambiente</a>
+                        </label>
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo Política de no Alcohol, Drogas y Fumadores</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_ProgramOccupationalHealth))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo Programa de Salud Ocupacional</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_RuleIndustrialSecurity))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo Reglamento de Higiene y Seguridad</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_MatrixRiskControl))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_CorporateSocialResponsability))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo Responsabilidad Social Empresarial</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_ProgramEnterpriseSecurity))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo Programa de Seguridad Empresarial y Logística</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_PoliticsRecruiment))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo Política de Contratación de Personal</a>
+                        </label>
+
+                    }
+                    if (!string.IsNullOrEmpty(item.CH_CertificationsForm))
+                    {
+
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CertificationsForm">Ver Archivo Formulario de Certificaciones</a>
+                        </label>
+                    }
+
+                }
+            </li>
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

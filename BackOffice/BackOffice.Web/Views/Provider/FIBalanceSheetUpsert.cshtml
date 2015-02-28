@@ -5,6 +5,7 @@
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+    Model.GridToSave = "divBalanceSheet";
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
@@ -20,7 +21,7 @@
         }
         <div id="divBalanceSheet"></div>
         <div id="divBalanceSheet_Detail"></div>
-        @{  
+        @{
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
@@ -28,6 +29,16 @@
 </div>
 
 <div style="display:none;">
+
+    <div id="divBalanceSheet_ShortcutToolTipTemplate">
+        <img id="divBalanceSheet_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divBalanceSheet_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divBalanceSheet_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
     <div id="divBalanceSheet_NoFile">
         <div>
             <span>Seleccione un archivo</span>
@@ -39,12 +50,24 @@
         </div>
     </div>
 
-    <div id="divBalanceSheet_Detail_Form">
+    <div id="divBalanceSheet_Template_Form">
 
-        <form class="POBOProviderUpsertForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
+        <form class="POBOProviderUpsertForm FinancialBalanceForm" id="divBalanceSheet_Detail_Form_${FinancialId}" action="@(Url.Action(MVC.Provider.ActionNames.FIBalanceSheetUpsert, MVC.Provider.Name, new { ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId }))" method="post">
+
+            @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
+            <ul class="POBOProviderActions BalanceSheetActions">
+                <li>
+                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
+                </li>
+                <li>
+                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
+                </li>
+            </ul>
+
             <div class="POBOBalanceSheetScrollWrapper">
-                @*AQUI ESTAN LOS DATOS BASICOS DEL FORM*@
+                @*AQUI ESTAN LOS DATOS BASICOS DEL FORM*@                
                 <ul class="POBOBalanceSheet_mainInfo">
+                    <li><label>Datos Básicos del balance</label></li>
                     <li>
                         <label>Nombre:</label>
                         <input id="divBalanceSheet_Detail_Form_FinancialName_${FinancialId}" name="FinancialName" type="text" />
@@ -89,50 +112,64 @@
                     <li class="POBOBalanceSheet_Detail" id="divBalanceSheet_Detail_Form_Accounts_${FinancialId}">
                     </li>
                 </ul>
-                <div class="POBOBalanceSheet_DocPreview">
-                    <iframe></iframe>
-                </div>
             </div>
             @*AQUI ESTAN LAS ACCIONES DE GUARDAR Y CANCELAR*@
-            <ul class="POBOProviderActions BalanceSheetActions">
-                <li class="POBOButtonsSaveProvider">
-                    <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
-                </li>
-                <li class="POBOButtonsSaveProvider">
-                    <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
-                </li>
-            </ul>
-            @*MAS ACCIONES*@
-            @*<ul class="POBOProviderActions ProviderActions">
+            <ul class="POBOProviderActions BalanceSheetActions BalanceSheetActionsBottom">
                 <li>
                     <a class="POBOProgressButtons" href="javascript:Provider_CompanyFinancialObject.CancelBalanceSheetDetail();">Cancelar</a>
                 </li>
-                <li class="POBOButtonsSaveProvider">
+                <li>
                     <a class="POBOButtons" href="javascript:Provider_CompanyFinancialObject.SaveBalanceSheetDetail('${FinancialId}');">Guardar</a>
                 </li>
-            </ul>*@
+            </ul>
 
             <div style="display:none;">
                 <input name="FinancialId" type="hidden" value="${FinancialId}" />
                 <input name="UpsertAction" type="hidden" value="true" />
             </div>
-        </form>        
+        </form>
     </div>
-    <div id="divBalanceSheet_Detail_ParentAccount">
-        <ul>
-            <li id="divBalanceSheet_Detail_ParentAccount_${AccountId}"></li>
-            <li>
-                <label class="ParentAccount">${AccountName}</label>
-                <span id="divBalanceSheet_Detail_ParentAccount_${AccountId}_Total"></span>
-            </li>
-        </ul>
+
+    @*ESTE TEMPLATE PINTA EL CONTENEDOR GENERAL DE LAS TRES CUENTAS PRINCIPALES*@
+    <div id="divBalanceSheet_Template_AccountParent">
+        <div>
+            <label>${AccountName}</label>
+            <ul id="divBalanceSheet_AccountContent_${AccountId}"></ul>
+        </div>
     </div>
-    <div id="divBalanceSheet_Detail_ChildAccount">
-            <li>
-                <label>${AccountName}</label>
-                <input id="divBalanceSheet_Detail_ChildAccount_${AccountId}" name="ChildAccount_${AccountId}" type="text" value="${Value}" class="divBalanceSheet_Detail_ChildAccount_selector" />
-            </li>
-    </div>
+
+    <ul id="divBalanceSheet_Template_AccountChild">
+        <li>
+            @*ESTE MUESTRA EL SUBGRUPO DE CUENTAS*@
+            <ul id="divBalanceSheet_AccountContent_${AccountId}"></ul>
+        </li>
+    </ul>
+
+    <ul id="divBalanceSheet_Template_AccountType_0" >
+        <li class="POBOBalanceSheetCamposCalculados">
+            @*ESTE MUESTRA LOS TIPS DE CUENTA CAMPOS CALCULADOS QUE NO SON EDITABLES*@
+            <label>${AccountName}</label>
+            <span>${AccountUnit}</span>
+            <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" disabled="disabled" />
+        </li>
+    </ul>
+    <ul id="divBalanceSheet_Template_AccountType_1">
+        <li class="POBOBalanceSheetCamposEstandarOne">
+            @*ESTE MUESTRA LOS TIPOS DE CUENTA VALORES GENERICOS*@
+            <label>${AccountName}</label>
+            <span>${AccountUnit}</span>
+            <input type="text" id="divBalanceSheet_AccountContent_Value_${AccountId}" name="AccountPostName_${AccountId}" class="divBalanceSheet_AccountContent_Value_Selector" />
+        </li>
+    </ul>
+    <ul id="divBalanceSheet_Template_AccountType_2">
+        <li>
+            @*ESTE MUESTRA LOS TIPOS DE CUENTA SUBTITULOS SUBGRUPO INDICADORES FINANCIEROS*@
+            <label class="POBOBalanceSheetCamposEstandarTwo">${AccountName}</label>
+        </li>
+    </ul>
+
+
+
 </div>
 
 @{
@@ -175,6 +212,11 @@
                 ProviderOptions: vProviderOptions,
             });
             Provider_CompanyFinancialObject.RenderAsync();
+
+            @if (!string.IsNullOrEmpty(Request["Msj"])) 
+            {
+                Html.Raw("Message('error', Request[\"Msj\"]);");
+            }
         });
     </script>
 }

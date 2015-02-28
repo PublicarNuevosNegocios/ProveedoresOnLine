@@ -5,6 +5,7 @@
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+    Model.GridToSave = "divGridBankInfo";
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
@@ -31,6 +32,15 @@
 
 <!--templates-->
 <div style="display:none;">
+    <div id="divGridBankInfo_ShortcutToolTipTemplate">
+        <img id="divGridBankInfo_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridBankInfo_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridBankInfo_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+    
     <div id="divGridBankInfo_NoFile">
         <div>
             <span>Seleccione un archivo</span>

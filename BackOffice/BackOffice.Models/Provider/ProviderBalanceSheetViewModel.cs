@@ -10,11 +10,25 @@ namespace BackOffice.Models.Provider
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedAccount { get; private set; }
 
+        #region AccountGetValues
+
+        public int AccountId { get { return RelatedAccount.ItemId; } }
+
+        public bool AccountIsParetn { get { return !(RelatedAccount.ParentItem != null && RelatedAccount.ParentItem.ItemId > 0); } }
+
+        public int AccountType { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_IsValue).Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).DefaultIfEmpty(1).FirstOrDefault(); } }
+
+        public string AccountFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Formula).Select(x => x.LargeValue).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
+
+        public string AccountValidateFormula { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_ValidationRule).Select(x => x.LargeValue).DefaultIfEmpty(null).FirstOrDefault(); } }
+
+        public string AccountUnit { get { return RelatedAccount.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.AI_Unit).Select(x => x.Value).DefaultIfEmpty(string.Empty).FirstOrDefault(); } }
+
+        #endregion
+
         public ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel RelatedBalanceSheetDetail { get; private set; }
 
         public List<ProviderBalanceSheetViewModel> ChildBalanceSheet { get; set; }
-
-        public decimal ChildSum { get; set; }
 
         public ProviderBalanceSheetViewModel() { }
 

@@ -1,0 +1,235 @@
+.POMPComparisonTitle, .POMPComparisonSelectionTitle{
+        color: #4d4d4d;
+    display: block;
+    font-size: 1.4em;
+    font-weight: normal;
+    letter-spacing: -1px;
+    line-height:0.9em;
+    margin: 6px auto;
+    width:100%;
+}
+.POMPComparisonActionWrapper {
+    display:block;
+        border:none;
+    width:auto; height:auto;
+    margin:0px; padding:0px;
+}
+    .POMPComparisonActionWrapper a{
+        display:inline-block;
+        /*border:1px solid green;*/
+        width:auto; height:auto;
+        margin:0px; padding:0px;
+        text-align:center;
+        vertical-align:top;
+    }
+    /********* ESTAS SON LAS DIFERENTES ACCIONES DE LA LISTA DE COMPARACION ********/
+    .POMPComparisonActionNew,
+    .POMPComparisonActionOpen,
+    .POMPComparisonActionCompare,
+    .POMPComparisonActionNewComparison{
+        display:block;
+        width:30px; height:31px;
+        margin:0px auto; padding:0px;
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+    }
+    .POMPComparisonActionNew{        
+        background-repeat:no-repeat;
+        background-position:-67px -35px;
+        background-size:132px auto;
+    }
+    .POMPComparisonActionOpen{        
+        background-repeat:no-repeat;
+        background-position:-67px -2px;
+        background-size:132px auto;
+        margin-left:3px;
+    }
+    .POMPComparisonActionCompare{        
+        background-repeat:no-repeat;
+        background-position:-115px -3px;
+        background-size:148px auto;
+    }
+    .POMPComparisonActionNewBid{        
+        background-repeat:no-repeat;
+        background-position:-2px -33px;
+        background-size:128px auto;
+    }
+        .POMPComparisonActionWrapper a span{
+            display:block;
+            width:auto; height:auto;
+            margin:0px; padding:0px;
+            color:#337ab7;
+            font-size:0.8em; line-height:1em; letter-spacing:-0.6px;
+        }
+/********** ESTE ES EL DE ABRIR UNA NUEVA LICITACION **********/
+        .POMPComparisonActionNewBid{
+            margin: 0 0 0 24px !important;
+            width: 102px !important;
+        }
+/********** TITULO DE LA COMPARACION/LICITACION *********/
+        .POMPComparisonSelectionTitle {
+            background-color: #eee;
+            border: 1px solid grey;
+            font-size: 0.9em !important;
+            height: 24px;
+            letter-spacing: -0.5px !important;
+            line-height: 1em !important;
+            margin: 10px auto !important;
+            max-width: none;
+        }
+/********** MUESTRA LA LISTA DE PROVEEDORES SELECCIONADOS PARA COMPARACION **********/
+.POMPComparisonProvListWrapper {
+        display:block;
+        width:auto; height:auto;
+        margin:0px; padding:0px;
+}
+        .POMPComparisonProvListWrapper > li{
+            list-style-type:none;
+            margin:0px 0px 8px 0px;
+            padding:3px 0px;
+            border-bottom:1px solid #ff8300;
+        }
+            .POMPComparisonProvListWrapper > li:first-child {
+                border-top:1px solid #ff8300;
+                padding-top:12px;
+            }
+
+/*************** SELLO DE VERIFICACION PUBLICAR ***************/
+
+    .POMPComparisonResultStatusCertified{
+        /*border: 1px solid purple;*/
+        display: inline-block;
+        height: auto;
+        max-width:24px;
+        vertical-align: top;
+        width:10%;
+    }
+            .POMPComparisonResultStatusCertified img {
+                height: auto;
+                width: 100%;
+            }
+    .POMPComparisonResultProvDataWrapper {
+            /*border: 1px solid purple;*/
+            display: inline-block;
+            height: auto;
+            margin: 0;
+            min-width:217px;
+            vertical-align: top;
+            width: calc(100% - 55px);
+    }
+        .POMPComparisonResultProvDataWrapper > a,
+        .POMPComparisonResultProvDataWrapper > span {
+                display:inline-block; 
+                height: 38px;
+                width: 72px;
+                border:1px solid #e2e2e2;
+            }
+        .POMPComparisonResultProvLogo {
+                    display: block;
+                    height:100%;
+                    margin: 0 auto;
+                    max-height:36px;
+                    max-width:70px;
+                    padding:0px;
+                    width: auto;
+        }
+            .POMPComparisonResultNameIDWrapper {
+                display: inline-block;
+                min-width:102px;
+                vertical-align: top;
+                width: 48%;
+            }
+            .POMPComparisonResultNameIDWrapper > label,
+            .POMPComparisonResultNameIDWrapper > a,
+            .POMPComparisonResultNameIDWrapper > label > span {
+                display: block;
+                font-size: 0.92em;
+                font-weight: normal;
+                letter-spacing: -0.4px;
+                line-height: 1.1em;
+                margin: 0;
+                width: auto;
+            }
+            .POMPComparisonResultNameIDWrapper > label > span {
+                display: inline-block !important;
+                min-width: 0 !important;
+                width: auto !important;
+            }
+/*********** AQUI VAN LAS ALERTAS ***********/
+            .POMPComparisonResultAlertComparWrapper {
+                    /*border: 1px solid red;*/
+                    float: right;
+                    width: 16%; height: 22px;
+                    vertical-align: top;
+                    margin:3px 0px 0px 0px;
+                }
+            .POMPComparisonResultAlertComparWrapper div,
+            .POMPComparisonResultAlertComparWrapper a {
+                display: inline-block;
+                height:auto;
+                width:auto;
+                cursor:pointer;
+            }
+                .POMPComparisonResultAlertComparWrapper a {
+                    float:right;
+                }
+/************** ESTOS SON LOS ICONITOS *************/
+        .POMPComparisonResultProvAlert{
+            border:none !important;
+            display:inline-block;
+            width:16px !important;
+            height:16px !important;
+            margin:0px; padding:0px;
+            vertical-align:top;
+            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+            background-repeat:no-repeat;
+            background-position:-15px 0px;
+            background-size:62px auto;
+            vertical-align: top;
+        }
+        .POMPComparisonResultIncludeCoparisonIcon {
+              border:none !important;
+            display:inline-block;
+            width:16px !important;
+            height:16px !important;
+            margin:0px; padding:0px;
+            background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/cross.png');
+            background-repeat:no-repeat;
+            background-position:2px 2px;
+            background-size:27px auto;
+            vertical-align: top;
+        }
+/************ AQUI VAN LAS ACCIONES ENLACES ABAJO *************/
+            .POMPComparisonResultLineTwo {
+                /*border: 1px solid #ff8300;*/
+                float: right;
+                height:auto;
+                margin:0; padding: 0;
+                text-align: right;
+                width:100%;
+            }
+                .POMPComparisonResultLineTwo > li:first-child,
+                .POMPComparisonResultLineTwo > li:nth-child(2) {
+                    border-right: 1px solid #666;
+                }
+                .POMPComparisonResultLineTwo > li:last-child{
+                    border-right: none;
+                }
+                .POMPComparisonResultLineTwo > li {
+                    display: inline-block;
+                    height:14px;
+                    margin: 0 0 0 -4px;
+                    padding: 0;
+                    text-align: center;
+                    width: auto;
+                }
+                    .POMPComparisonResultLineTwo > li > a {
+                        display:block;
+                        font-size: 0.7em;
+                        height:auto;
+                        margin: 0;
+                        padding: 0 3px;
+                        width: auto;
+                    }
+
+
+

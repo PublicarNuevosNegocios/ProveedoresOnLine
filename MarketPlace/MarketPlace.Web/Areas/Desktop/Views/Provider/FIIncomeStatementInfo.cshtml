@@ -1,0 +1,78 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Declaración de renta";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Declaración de renta</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedFinancialInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (!string.IsNullOrEmpty(item.IS_Year))
+                            {
+                                <span>Año: @item.IS_Year</span>
+                            }
+                        </label>
+                        @if (!string.IsNullOrEmpty(item.IS_GrossIncome))
+                        {
+                            <label>
+                                Ingresos Brutos
+                                <span>@item.IS_GrossIncome</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_NetIncome))
+                        {
+                            <label>
+                                Ingresos Netos
+                                <span>@item.IS_NetIncome</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_GrossEstate))
+                        {
+                            <label>
+                                Patrimonio Bruto
+                                <span>@item.IS_GrossEstate</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_LiquidHeritage))
+                        {
+                            <label>
+                                Patrimonio Líquido
+                                <span>@item.IS_LiquidHeritage</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IS_FileIncomeStatement))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IS_FileIncomeStatement">Ver Archivo de Declaración de Renta</a>
+                            </label>
+                        }                       
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

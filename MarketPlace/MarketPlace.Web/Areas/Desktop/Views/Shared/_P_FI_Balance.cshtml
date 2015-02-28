@@ -1,0 +1,43 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@{
+    var oBalanceToShow = Model.RelatedFinancialInfo.
+            Where(x => x.SH_HasValues).
+            OrderByDescending(x => x.SH_Year).
+            ToList();
+}
+
+@if (!Model.RenderScripts)
+{
+    if (oBalanceToShow != null &&
+        oBalanceToShow.Count > 0 &&
+        Model.RelatedFinancialInfo != null &&
+        Model.RelatedFinancialInfo.Count > 0 &&
+        Model.RelatedBalanceSheetInfo != null &&
+        Model.RelatedBalanceSheetInfo.Count > 0)
+    {
+        <ul>
+            <!--Render header-->
+            <li class="POMPBalanceSheetColumnHeaderColumn">
+                <span class="POMPBalanceSheetColumnOne">Cuentas</span>
+                @foreach (var oBalance in oBalanceToShow)
+                {
+                    <span class="POMPBalanceSheetColumnTwo">
+                        Año @oBalance.SH_Year
+                    </span>
+                    <span class="POMPBalanceSheetColumnThree">
+                        Analisi vertical % @oBalance.SH_Year
+                    </span>
+                }
+                <span class="POMPBalanceSheetColumnFour">Analisis Horizontal</span>
+            </li>
+            <!--Render content-->
+            @foreach (var oBalanceInfo in Model.RelatedBalanceSheetInfo)
+            {
+                <li>
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_FI_BalanceItem, oBalanceInfo)
+                </li>
+            }
+        </ul>
+    }
+}

@@ -1,9 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Inicio";
+    ViewBag.Title = "Proveedores OnLine - Inicio";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
 
-<div>
+<div class="POMPInternalLoginGreatWrapper">
     @{
         //get login urls
         string RetUrl = Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -18,21 +18,21 @@
             [MarketPlace.Models.General.Constants.C_Settings_Login_InternalLogin]
             .Value.Replace("{{UrlRetorno}}", RetUrl);
     }
-    <div>
-        <img src="" />
+    <div class="POMPPOMPInternalLoginHeader">
+        <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" />
     </div>
-    <div>
-        <label>Bienvenido a Proveedores Online</label>
-        <a href="@InternalLoginUrl">
-            Ingresar
-        </a>
+    <div class="POMPPOMPInternalLoginBody">
+        <label>Bienvenido a <br />Proveedores Online</label>
+        <hr>
         @if (ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
                 !string.IsNullOrEmpty(ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
         {
-            <label>@ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</label>
+            <label class="gitkit-title">@ViewData[MarketPlace.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</label>
         }
+        <a class="gitkit-button" href="@InternalLoginUrl">
+            Ingresar
+        </a>
     </div>
-
 </div>
 
 

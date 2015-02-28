@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Proveedores OnLine - Comparación de proveedores";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+}
+
+<div>
+    <div id="Compare_SearchGrid"></div>
+</div>
+
+<div style="display:none;">
+    <div id="Compare_SearchGrid_Header_Template">
+        <!--template header compare search-->
+        <ul>
+            <li>
+                <input type="text" />
+            </li>
+            <li>
+                <a href="javascript:;">Encontrar</a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Compare_SearchObject.Init({
+                ObjectId: 'Compare',
+                RowCount: @Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()),
+                CompareUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Compare.Name,
+                                            action = MVC.Compare.ActionNames.CompareDetail
+                                        }))',
+            });
+
+            Compare_SearchObject.RenderAsync();
+        });
+    </script>
+}
+

@@ -17,7 +17,7 @@
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
-	padding: .4em 1em;
+	padding:1px 0 2px 5px;
 	position: relative;
 }
 .ui-dialog .ui-dialog-title {
@@ -36,6 +36,13 @@
 	margin: -10px 0 0 0;
 	padding: 1px;
 	height: 20px;
+    border:none;
+    background-color: #fff;
+    background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/cross.png');
+    background-position:2.8px 3.3px;
+    background-size:32px auto;
+    background-repeat:no-repeat;
+    border-radius:4px;
 }
 .ui-dialog .ui-dialog-content {
 	position: relative;
@@ -53,6 +60,22 @@
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: right;
+}
+.ui-dialog-buttonset > button:last-child {
+    border-radius: 2px;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 18px;
+    background-color: #ff8300;
+    color: #fff;
+    font-size: 1.1em;
+    letter-spacing: -0.5px;
+    border: 1px solid #666;
+}
+.ui-dialog-buttonset > button:last-child:hover {
+        background-color:#ffb362;
+        text-decoration:underline;
+        color:#fff;
 }
 .ui-dialog .ui-dialog-buttonpane button {
 	margin: .5em .4em .5em 0;

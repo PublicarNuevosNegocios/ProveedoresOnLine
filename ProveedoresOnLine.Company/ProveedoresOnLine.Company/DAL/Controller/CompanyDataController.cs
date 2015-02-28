@@ -117,6 +117,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByARLCompany(SearchParam, PageNumber, RowCount);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchByICA(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByICA(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
+
         public List<Models.Util.GenericItemModel> CategorySearchByBank(string SearchParam, int PageNumber, int RowCount)
         {
             return DataFactory.CategorySearchByBank(SearchParam, PageNumber, RowCount);
@@ -150,6 +155,16 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByTreeAdmin(string SearchParam, int PageNumber, int RowCount)
         {
             return DataFactory.CategorySearchByTreeAdmin(SearchParam, PageNumber, RowCount);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> CurrentExchangeGetAllAdmin()
+        {
+            return DataFactory.CurrentExchangeGetAllAdmin();
+        }
+
+        public int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate)
+        {
+            return DataFactory.CurrencyExchangeInsert(IssueDate, MoneyTypeFrom, MoneyTypeTo, Rate);
         }
         #endregion
 
@@ -223,9 +238,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.ContactInfoUpsert(ContactId, ContactInfoId, ContactInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType)
+        public List<Models.Util.GenericItemModel> ContactGetBasicInfo(string CompanyPublicId, int? ContactType, bool GetAll)
         {
-            return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType);
+            return DataFactory.ContactGetBasicInfo(CompanyPublicId, ContactType, GetAll);
         }
 
         #endregion
@@ -239,5 +254,12 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #endregion
 
+        #region Restrictive List 
+
+        List<Models.Util.GenericItemModel> Interfaces.ICompanyData.BlackListGetByCompanyPublicId(string CompanyPublicId)
+        {
+            return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
+        }
+        #endregion        
     }
 }

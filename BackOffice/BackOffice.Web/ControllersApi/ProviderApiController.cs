@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BackOffice.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyCustomer.Models.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -67,7 +70,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderContactViewModel> GIContactGetByType
             (string GIContactGetByType,
             string ProviderPublicId,
-            string ContactType)
+            string ContactType,
+            string ViewEnable)
         {
             int oTotalRows;
             List<BackOffice.Models.Provider.ProviderContactViewModel> oReturn = new List<Models.Provider.ProviderContactViewModel>();
@@ -76,7 +80,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oContact = ProveedoresOnLine.Company.Controller.Company.ContactGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(ContactType) ? null : (int?)Convert.ToInt32(ContactType.Trim()));
+                    string.IsNullOrEmpty(ContactType) ? null : (int?)Convert.ToInt32(ContactType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
 
@@ -355,6 +359,16 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.BR_Longitude,
                         Enable = true,
                     });
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.BR_IsPrincipalId) ? 0 : Convert.ToInt32(oDataToUpsert.BR_IsPrincipalId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.BR_IsPrincipal
+                        },
+                        Value = Convert.ToBoolean(oDataToUpsert.BR_IsPrincipal) == true ? "1" : "0",
+                        Enable = true,
+                    });
                 }
                 else if (oCompany.RelatedContact.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumContactType.Distributor)
                 {
@@ -445,22 +459,6 @@ namespace BackOffice.Web.ControllersApi
 
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.DT_DueDateId) ? 0 : Convert.ToInt32(oDataToUpsert.DT_DueDateId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.DT_DueDate
-                        },
-                        Value = string.IsNullOrEmpty(oDataToUpsert.DT_DueDate) ?
-                            string.Empty :
-                            oDataToUpsert.DT_DueDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-                            oDataToUpsert.DT_DueDate :
-                            DateTime.ParseExact(oDataToUpsert.DT_DueDate, BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value, System.Globalization.CultureInfo.InvariantCulture).
-                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
-                        Enable = true,
-                    });
-
-                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.DT_DistributorFileId) ? 0 : Convert.ToInt32(oDataToUpsert.DT_DistributorFileId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {
@@ -511,7 +509,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderCommercialViewModel> CICommercialGetByType
             (string CICommercialGetByType,
             string ProviderPublicId,
-            string CommercialType)
+            string CommercialType,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderCommercialViewModel> oReturn = new List<Models.Provider.ProviderCommercialViewModel>();
 
@@ -519,22 +518,13 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCommercial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CommercialGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()));
-
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
+                    string.IsNullOrEmpty(CommercialType) ? null : (int?)Convert.ToInt32(CommercialType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 if (oCommercial != null)
                 {
-                    if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-                    {
-                        oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                        oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-                    }
-
                     oCommercial.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderCommercialViewModel(x, oActivity, oCustomActivity));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderCommercialViewModel(x));
                         return true;
                     });
                 }
@@ -557,8 +547,6 @@ namespace BackOffice.Web.ControllersApi
                 !string.IsNullOrEmpty(CommercialType))
             {
                 List<string> lstUsedFiles = new List<string>();
-
-                List<Tuple<decimal, decimal>> lstCurrencyConversion = null;
 
                 BackOffice.Models.Provider.ProviderCommercialViewModel oDataToUpsert =
                     (BackOffice.Models.Provider.ProviderCommercialViewModel)
@@ -679,34 +667,20 @@ namespace BackOffice.Web.ControllersApi
 
 
                     //get experience value
-                    if (BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value == oDataToUpsert.EX_Currency)
-                    {
-                        //value in default rate
-                        lstCurrencyConversion = new List<Tuple<decimal, decimal>>() 
-                        { 
-                            new Tuple<decimal, decimal>(Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture), Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture))
-                        };
-                    }
-                    else
-                    {
-                        //value in custom rate
-                        lstCurrencyConversion =
-                        string.IsNullOrEmpty(oDataToUpsert.EX_ContractValue) || string.IsNullOrEmpty(oDataToUpsert.EX_Currency) || string.IsNullOrEmpty(oDataToUpsert.EX_DateIssue) ?
-                            new List<Tuple<decimal, decimal>>() { new Tuple<decimal, decimal>(0, 0) } :
-                            BackOffice.Web.Controllers.BaseController.Currency_ConvertToStandar
-                                (Convert.ToInt32(oDataToUpsert.EX_Currency),
-                                Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
-                                (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-                                    DateTime.ParseExact(
-                                        oDataToUpsert.EX_DateIssue,
-                                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
-                                        System.Globalization.CultureInfo.InvariantCulture) :
-                                    DateTime.ParseExact(
-                                        oDataToUpsert.EX_DateIssue,
-                                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-                                        System.Globalization.CultureInfo.InvariantCulture)).Year,
-                                new List<decimal>() { Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) });
-                    }
+                    decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                        (Convert.ToInt32(oDataToUpsert.EX_Currency),
+                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
+                        (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length ==
+                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            DateTime.ParseExact(
+                                oDataToUpsert.EX_DateIssue,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
+                                System.Globalization.CultureInfo.InvariantCulture) :
+                            DateTime.ParseExact(
+                                oDataToUpsert.EX_DateIssue,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture)).Year
+                        );
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
@@ -715,7 +689,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue
                         },
-                        Value = (lstCurrencyConversion != null && lstCurrencyConversion.Count > 0 ? lstCurrencyConversion.FirstOrDefault().Item2 : 0).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
+                        Value = (Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) * CurrencyRate).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
                         Enable = true,
                     });
 
@@ -727,28 +701,6 @@ namespace BackOffice.Web.ControllersApi
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Phone
                         },
                         Value = oDataToUpsert.EX_Phone,
-                        Enable = true,
-                    });
-
-                    oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_BuiltAreaId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_BuiltAreaId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltArea
-                        },
-                        Value = oDataToUpsert.EX_BuiltArea,
-                        Enable = true,
-                    });
-
-                    oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_BuiltUnitId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_BuiltUnitId.Trim()),
-                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_BuiltUnit
-                        },
-                        Value = oDataToUpsert.EX_BuiltUnit,
                         Enable = true,
                     });
 
@@ -783,8 +735,10 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_EconomicActivity
                         },
-                        LargeValue = string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        LargeValue = oDataToUpsert.EX_EconomicActivity != null ? string.Join(",", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId.Trim()).Distinct().ToList()) : string.Empty,
                         Enable = true,
+
+                        ValueName = oDataToUpsert.EX_EconomicActivity != null ? string.Join(";", oDataToUpsert.EX_EconomicActivity.Select(x => x.EconomicActivityId.Trim() + "," + x.ActivityName.Trim()).Distinct().ToList()) : string.Empty,
                     });
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -794,8 +748,10 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_CustomEconomicActivity
                         },
-                        LargeValue = string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId).Distinct().ToList()),
+                        LargeValue = oDataToUpsert.EX_CustomEconomicActivity != null ? string.Join(",", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId.Trim()).Distinct().ToList()) : string.Empty,
                         Enable = true,
+
+                        ValueName = oDataToUpsert.EX_CustomEconomicActivity != null ? string.Join(";", oDataToUpsert.EX_CustomEconomicActivity.Select(x => x.EconomicActivityId.Trim() + "," + x.ActivityName.Trim()).Distinct().ToList()) : string.Empty,
                     });
                 }
 
@@ -812,17 +768,8 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oActivity = null;
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCustomActivity = null;
-
-                if (CommercialType == ((int)BackOffice.Models.General.enumCommercialType.Experience).ToString())
-                {
-                    oActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                    oCustomActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByCustomActivity(null, 0, 0);
-                }
-
                 oReturn = new Models.Provider.ProviderCommercialViewModel
-                    (oProvider.RelatedCommercial.FirstOrDefault(), oActivity, oCustomActivity);
+                    (oProvider.RelatedCommercial.FirstOrDefault());
 
                 //register used files
                 LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
@@ -838,7 +785,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderHSEQViewModel> HIHSEQGetByType
             (string HIHSEQGetByType,
             string ProviderPublicId,
-            string HSEQType)
+            string HSEQType,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderHSEQViewModel> oReturn = new List<Models.Provider.ProviderHSEQViewModel>();
 
@@ -846,7 +794,7 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CertficationGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(HSEQType) ? null : (int?)Convert.ToInt32(HSEQType.Trim()));
+                    string.IsNullOrEmpty(HSEQType) ? null : (int?)Convert.ToInt32(HSEQType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oRule = null;
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCompanyRule = null;
@@ -1004,7 +952,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.C_Scope
                         },
-                        Value = oDataToUpsert.C_Scope,
+                        LargeValue = oDataToUpsert.C_Scope,
                         Enable = true,
                     });
                 }
@@ -1162,82 +1110,86 @@ namespace BackOffice.Web.ControllersApi
                             Enable = true,
                         });
 
+                }
+                else if (oProvider.RelatedCertification.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumHSEQType.CertificatesAccident)
+                {
+
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_CertificateAccidentARLId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_CertificateAccidentARLId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_CertificateAccidentARLId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAccidentARL
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL
                             },
-                            Value = oDataToUpsert.CR_CertificateAccidentARL,
+                            Value = oDataToUpsert.CA_CertificateAccidentARL,
                             Enable = true,
                         });
 
-                    lstUsedFiles.Add(oDataToUpsert.CR_CertificateAccidentARL);
+                    lstUsedFiles.Add(oDataToUpsert.CA_CertificateAccidentARL);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_YearId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_YearId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_YearId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Year
                             },
-                            Value = oDataToUpsert.CR_Year,
-                            Enable = true,
-                        });
-
-                    oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                        {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_ManHoursWorkedId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_ManHoursWorkedId.Trim()),
-                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked
-                            },
-                            Value = oDataToUpsert.CR_ManHoursWorked,
+                            Value = oDataToUpsert.CA_Year,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_FatalitiesId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_FatalitiesId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_ManHoursWorkedId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_ManHoursWorkedId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_ManHoursWorked
                             },
-                            Value = oDataToUpsert.CR_Fatalities,
+                            Value = oDataToUpsert.CA_ManHoursWorked,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_NumberAccidentId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_NumberAccidentId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_FatalitiesId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_FatalitiesId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccident
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_Fatalities
                             },
-                            Value = oDataToUpsert.CR_NumberAccident,
+                            Value = oDataToUpsert.CA_Fatalities,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_NumberAccidentDisablingId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_NumberAccidentDisablingId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccident
                             },
-                            Value = oDataToUpsert.CR_NumberAccidentDisabling,
+                            Value = oDataToUpsert.CA_NumberAccident,
                             Enable = true,
                         });
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
-                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CR_DaysIncapacityId) ? 0 : Convert.ToInt32(oDataToUpsert.CR_DaysIncapacityId.Trim()),
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_NumberAccidentDisablingId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_NumberAccidentDisablingId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                             {
-                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CR_DaysIncapacity
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_NumberAccidentDisabling
                             },
-                            Value = oDataToUpsert.CR_DaysIncapacity,
+                            Value = oDataToUpsert.CA_NumberAccidentDisabling,
+                            Enable = true,
+                        });
+
+                    oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CA_DaysIncapacityId) ? 0 : Convert.ToInt32(oDataToUpsert.CA_DaysIncapacityId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CA_DaysIncapacity
+                            },
+                            Value = oDataToUpsert.CA_DaysIncapacity,
                             Enable = true,
                         });
                 }
@@ -1271,7 +1223,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderFinancialViewModel> FIFinancialGetByType
             (string FIFinancialGetByType,
             string ProviderPublicId,
-            string FinancialType)
+            string FinancialType,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderFinancialViewModel> oReturn = new List<Models.Provider.ProviderFinancialViewModel>();
 
@@ -1279,9 +1232,9 @@ namespace BackOffice.Web.ControllersApi
 
             if (FIFinancialGetByType == "true")
             {
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial = 
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oFinancial =
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo
-                    (ProviderPublicId, string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()));
+                    (ProviderPublicId, string.IsNullOrEmpty(FinancialType) ? null : (int?)Convert.ToInt32(FinancialType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 if (FinancialType == ((int)BackOffice.Models.General.enumFinancialType.BankInfoType).ToString())
                 {
@@ -1641,7 +1594,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderLegalViewModel> LILegalInfoGetByType
             (string LILegalInfoGetByType,
             string ProviderPublicId,
-            string LegalInfoType)
+            string LegalInfoType
+            , string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderLegalViewModel> oReturn = new List<Models.Provider.ProviderLegalViewModel>();
 
@@ -1649,18 +1603,19 @@ namespace BackOffice.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegalInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
                     (ProviderPublicId,
-                    string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()));
+                    string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA = null;
+                int TotalRows = 0;
                 if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
                 {
-                    oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
+                    oICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out TotalRows);
                 }
                 if (oLegalInfo != null)
                 {
                     oLegalInfo.All(x =>
                     {
-                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oEconomiActivity));
+                        oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oICA));
                         return true;
                     });
                 }
@@ -1789,7 +1744,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributorDate
                         },
-                        Value = oDataToUpsert.R_LargeContributorDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.R_LargeContributorDate) ?
+                            string.Empty :
+                            oDataToUpsert.R_LargeContributorDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.R_LargeContributorDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.R_LargeContributorDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1819,7 +1782,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainerDate
                         },
-                        Value = oDataToUpsert.R_SelfRetainerDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.R_SelfRetainerDate) ?
+                            string.Empty :
+                            oDataToUpsert.R_SelfRetainerDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.R_SelfRetainerDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.R_SelfRetainerDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -1907,7 +1878,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.CF_QueryDate
                         },
-                        Value = oDataToUpsert.CF_QueryDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.CF_QueryDate) ?
+                            string.Empty :
+                            oDataToUpsert.CF_QueryDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.CF_QueryDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.CF_QueryDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
 
@@ -1946,7 +1925,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.SF_ProcessDate
                         },
-                        Value = oDataToUpsert.SF_ProcessDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.SF_ProcessDate) ?
+                            string.Empty :
+                            oDataToUpsert.SF_ProcessDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.SF_ProcessDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.SF_ProcessDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
 
@@ -2006,7 +1993,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_StartDate
                         },
-                        Value = oDataToUpsert.RS_StartDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.RS_StartDate) ?
+                            string.Empty :
+                            oDataToUpsert.RS_StartDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.RS_StartDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.RS_StartDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -2016,7 +2011,15 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumLegalInfoType.RS_EndDate
                         },
-                        Value = oDataToUpsert.RS_EndDate,
+                        Value = string.IsNullOrEmpty(oDataToUpsert.RS_EndDate) ?
+                            string.Empty :
+                            oDataToUpsert.RS_EndDate.Replace(" ", "").Length == BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
+                            oDataToUpsert.RS_EndDate :
+                            DateTime.ParseExact(
+                                oDataToUpsert.RS_EndDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
+                                System.Globalization.CultureInfo.InvariantCulture).
+                            ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value),
                         Enable = oDataToUpsert.Enable,
                     });
                     oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -2047,13 +2050,263 @@ namespace BackOffice.Web.ControllersApi
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
-                
+
                 oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-                
+
                 oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), oEconomiActivity);
-            }            
+            }
 
             return oReturn;
+        }
+
+        #endregion
+
+        #region Customer Provider
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderStatus
+        (string CPCustomerProviderStatus,
+            string ProviderPublicId,
+            string CustomerSearch)
+        {
+            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+
+            if (CPCustomerProviderStatus == "true")
+            {
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
+
+                List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
+
+                if (oCustomerByProvider != null)
+                {
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
+
+                    if (CustomerSearch != null && oCustomerProvider != null)
+                    {
+                        foreach (var item in oCustomerProvider)
+                        {
+                            oReturn.Add(new ProviderCustomerViewModel(
+                                    item.CustomerProviderId.ToString(),
+                                    item.RelatedProvider,
+                                    item.Status,
+                                    item.Enable
+                                ));
+                        }
+                    }
+                    else
+                    {
+                        List<CustomerProviderModel> oCustomer = new List<CustomerProviderModel>();
+
+                        oCustomer = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
+                        if (oCustomer != null && oCustomer.Count > 0)
+                        {
+                            foreach (var it in oCustomer)
+                            {
+                                oReturn.Add(new ProviderCustomerViewModel(it.RelatedProvider));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderInfo
+        (string CPCustomerProviderInfo,
+            int CustomerProviderId)
+        {
+            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+
+            if (CPCustomerProviderInfo == "true")
+            {
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerProviderInfo =
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerInfoByProvider(CustomerProviderId);
+
+                if (oCustomerProviderInfo != null && oCustomerProviderInfo.Count > 0)
+                {
+                    List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
+
+                    oCustomerProvider = oCustomerProviderInfo.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
+
+                    foreach (var item in oCustomerProvider)
+                    {
+                        item.CustomerProviderInfo.All(x =>
+                        {
+                            oReturn.Add(new ProviderCustomerViewModel(x));
+                            return true;
+                        });
+                    }
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public void CPCustomerProviderUpsert
+            (string UpsertCustomerByProvider,
+            string oProviderPublicId,
+            string oCompanyPublicList)
+        {
+
+            if (UpsertCustomerByProvider == "true")
+            {
+                string[] oCustomerPublicId = oCompanyPublicList.Split(new char[] { ',' });
+
+                foreach (var item in oCustomerPublicId)
+                {
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(item);
+
+                    CustomerModel oCustomerModel = new CustomerModel();
+                    oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
+
+                    oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                        {
+                            RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = oProviderPublicId,
+                            },
+                            Status = new CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
+                            },
+                            Enable = true,
+                        });
+
+                    oCustomerModel.RelatedCompany = oCompanyModel;
+
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+                }
+            }
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public void CPCustomerProvierInfoUpsert
+        (string UpsertCustomerInfoByProvider,
+            string oProviderPublicId,
+            string oCompanyPublicList,
+            string oStatusId,
+            string oInternalTracking,
+            string oExternalTracking)
+        {
+            if (UpsertCustomerInfoByProvider == "true")
+            {
+                List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
+
+                if (oInternalTracking != null && oInternalTracking.Length > 0)
+                {
+                    oInfoModel.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
+                        },
+                        Value = oInternalTracking,
+                        Enable = true,
+                    });
+                }
+                if (oExternalTracking != null && oExternalTracking.Length > 0)
+                {
+                    oInfoModel.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
+                        },
+                        Value = oExternalTracking,
+                        Enable = true,
+                    });
+                }
+
+                string[] oCustomerPublicId = oCompanyPublicList.Split(new char[] { ',' });
+
+                foreach (var item in oCustomerPublicId)
+                {
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(item);
+
+                    CustomerModel oCustomerModel = new CustomerModel();
+                    oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
+
+                    oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                    {
+                        RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = oProviderPublicId,
+                        },
+                        Status = new CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(oStatusId),
+                        },
+                        CustomerProviderInfo = oInfoModel,
+                        Enable = true,
+                    });
+
+                    oCustomerModel.RelatedCompany = oCompanyModel;
+
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+                }
+            }
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> GetAllCustomers
+        (string GetAllCustomers,
+            string ProviderPublicId)
+        {
+            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+
+            if (GetAllCustomers == "true")
+            {
+                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, null);
+
+                List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
+
+                if (oCustomerByProvider != null)
+                {
+                    oCustomerProvider = oCustomerByProvider.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.ToList()).FirstOrDefault();
+                    foreach (var item in oCustomerProvider)
+                    {
+                        oReturn.Add(new ProviderCustomerViewModel(
+                                item.CustomerProviderId.ToString(),
+                                item.RelatedProvider,
+                                item.Enable
+                            ));
+                    }
+                    oReturn.Add(new ProviderCustomerViewModel
+                    {
+                        CP_Customer = "A Quien Interese",
+                        CP_CustomerPublicId = "00000000",
+                    });
+                }
+            }
+            return oReturn.OrderBy(x => x.CP_CustomerPublicId).Select(x => x).ToList();
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public void CPUpsertCustomerByProviderStatus
+        (string UpsertCustomerByProviderStatus,
+         bool oIsCreate)
+        {
+            if (UpsertCustomerByProviderStatus == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]) &&
+                oIsCreate != null)
+            {
+                ProviderCustomerViewModel oDataToUpsert =
+                    (ProviderCustomerViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(ProviderCustomerViewModel));
+            }
         }
 
         #endregion

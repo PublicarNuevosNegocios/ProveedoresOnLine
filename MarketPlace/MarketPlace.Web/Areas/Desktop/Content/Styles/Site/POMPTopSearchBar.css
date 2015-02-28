@@ -1,0 +1,20 @@
+/********** SEARCH PROVIDER BOX **********/
+.POMPProviderSearchBox{
+        border:none;
+    display:block;
+    width:62%;
+    min-width:571px;
+    padding:6px 0px 6px 0px;
+    margin:0px auto;
+    text-align:center;
+}
+    .POMPTextField{
+        display: inline-block;
+        border:1px solid #727276;
+        background-color:#f9f9f9;
+        padding:0px 10px;
+        letter-spacing:-0.5px;
+        width:440px; height:33px;
+        margin: 0px;
+        vertical-align:top;
+    }

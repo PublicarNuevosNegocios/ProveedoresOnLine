@@ -13,15 +13,15 @@ function Provider_SubmitForm(SubmitObject) {
         $('#StepAction').val(SubmitObject.StepValue);
     }
     $('#' + SubmitObject.FormId).submit();
-    Message('success', '');
+    Message('success', null);
 }
 
-function Provider_InitUpsertProvider(vInitObject) {
+function Provider_Navigate(Url, GridName, ButtonClass) {
+    $('#' + GridName.GridName).data("kendoGrid").saveChanges();
+    $('.' + ButtonClass.ButtonClass).attr('href', Url.Url);
 
-    //init certification date
-    $('#' + vInitObject.CertificationDateId).kendoDateTimePicker({
-        format: vInitObject.DateFormat
-    });
+    window.location = $('.' + ButtonClass.ButtonClass).attr("href");
+
 }
 
 /*Provider search object*/
@@ -29,13 +29,11 @@ var Provider_SearchObject = {
     ObjectId: '',
     SearchFilter: '',
     PageSize: '',
-    DefaultImage: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchFilter = vInitObject.SearchFilter;
         this.PageSize = vInitObject.PageSize;
-        this.DefaultImage = vInitObject.DefaultImage;
     },
 
     RenderAsync: function () {
@@ -94,18 +92,7 @@ var Provider_SearchObject = {
             columns: [{
                 field: 'ImageUrl',
                 title: 'Logo',
-                template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem.ImageUrl != null && dataItem.ImageUrl.length > 0) {
-                        oReturn = '<img style="width:50px;height:50px;" src="' + dataItem.ImageUrl + '" />';
-                    }
-                    else {
-                        oReturn = '<img style="width:50px;height:50px;" src="' + Provider_SearchObject.DefaultImage + '" />';
-                    }
-
-                    return oReturn;
-                },
-
+                template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
             }, {
                 field: 'ProviderPublicId',
@@ -126,8 +113,19 @@ var Provider_SearchObject = {
                 width: '50px',
             }, {
                 field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -180,6 +178,55 @@ var Provider_CompanyContactObject = {
         else if (Provider_CompanyContactObject.ContactType == 204004) {
             Provider_CompanyContactObject.RenderDistributor();
         }
+
+        //focus on the grid
+        $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Provider_CompanyContactObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyContactObject.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyContactObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+
+        //config grid visible enables event
+        $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyContactObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+
+        return $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     RenderCompanyContact: function () {
@@ -191,7 +238,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -199,7 +248,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             CC_CompanyContactType: { editable: true },
@@ -212,15 +261,16 @@ var Provider_CompanyContactObject = {
                 },
                 transport: {
                     read: function (options) {
+
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -234,11 +284,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -252,24 +302,35 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Habilitado',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
-                width: '400px',
+                width: '180px',
             }, {
                 field: 'CC_CompanyContactType',
                 title: 'Tipo de contacto',
@@ -297,11 +358,40 @@ var Provider_CompanyContactObject = {
                 },
             }, {
                 field: 'CC_Value',
-                title: 'Valor',
-            }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
+                title: 'Información',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.CC_Value == '') {
+                        if (dataItem.CC_CompanyContactType == "209001") {
+                            oReturn = '<label class="PlaceHolder">Ej: 7560000</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209002") {
+                            oReturn = '<label class="PlaceHolder">Ej: 3161234567</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209003") {
+                            oReturn = '<label class="PlaceHolder">Ej: www.prueba.com</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209004") {
+                            oReturn = '<label class="PlaceHolder">Ej: 110221</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209005") {
+                            oReturn = '<label class="PlaceHolder">Ej: 7560000</label>'
+                        }
+                        else if (dataItem.CC_CompanyContactType == "209006") {
+                            oReturn = '<label class="PlaceHolder">Ej: prueba@prueba.com</label>'
+                        }
+                    }
+                    else {
+                        oReturn = dataItem.CC_Value;
+                    }
+
+                    return oReturn;
+                },
+                width: '190px',
+            },  {
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -315,7 +405,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -323,7 +415,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             CP_PersonContactType: { editable: true },
@@ -332,7 +424,7 @@ var Provider_CompanyContactObject = {
                             CP_IdentificationType: { editable: true },
                             CP_IdentificationTypeId: { editable: false },
 
-                            CP_IdentificationNumber: { editable: true, validation: { required: true } },
+                            CP_IdentificationNumber: { editable: true, validation: { required: false } },
                             CP_IdentificationNumberId: { editable: false },
 
                             CP_IdentificationCity: { editable: true, validation: { required: false } },
@@ -358,14 +450,14 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -379,11 +471,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -397,20 +489,31 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
@@ -472,11 +575,23 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'CP_IdentificationCity',
                 title: 'Ciudad de expedicion del documento',
-                width: '200px',
+                width: '180px',
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
-                width: '120px',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_Phone;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'CP_Email',
                 title: 'Correo electronico',
@@ -540,9 +655,9 @@ var Provider_CompanyContactObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -556,7 +671,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -564,7 +681,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             BR_Representative: { editable: true },
@@ -594,20 +711,23 @@ var Provider_CompanyContactObject = {
 
                             BR_Longitude: { editable: true, validation: { required: false } },
                             BR_LongitudeId: { editable: false },
+
+                            BR_IsPrincipal: { editable: true, type: 'boolean', defaultValue: true },
+                            BR_IsPrincipalId: { editable: false },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -621,11 +741,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -639,28 +759,51 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                alt: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
-                field: 'ContactName',
-                title: 'Nombre',
-                width: '200px',
+                field: 'BR_IsPrincipal',
+                title: 'Sucursal Principal',
+                width: '136px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.BR_IsPrincipal == true) {
+                        oReturn = '<div class="POBOMainBranch">Si</div>';
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Representative',
                 title: 'Representante',
-                width: '200px',
+                width: '110px',
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
@@ -668,7 +811,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
-                width: '350px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -724,11 +867,11 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Phone',
                 title: 'Teléfono',
-                width: '200px',
+                width: '120px',
             }, {
                 field: 'BR_Fax',
                 title: 'Fax',
-                width: '200px',
+                width: '120px',
             }, {
                 field: 'BR_Email',
                 title: 'Correo electrónico',
@@ -740,15 +883,19 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Latitude',
                 title: 'Latitud',
-                width: '200px',
+                width: '70px',
             }, {
                 field: 'BR_Longitude',
                 title: 'Longitud',
-                width: '200px',
+                width: '80px',
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
+                field: 'ContactName',
+                title: 'Nombre',
+                width: '160px',
+            }, {
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -762,7 +909,9 @@ var Provider_CompanyContactObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyContactObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -770,7 +919,7 @@ var Provider_CompanyContactObject = {
                         id: 'ContactId',
                         fields: {
                             ContactId: { editable: false, nullable: true },
-                            ContactName: { editable: true, validation: { required: true } },
+                            ContactName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             DT_DistributorType: { editable: true },
@@ -803,14 +952,14 @@ var Provider_CompanyContactObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GIContactGetByType=true&ProviderPublicId=' + Provider_CompanyContactObject.ProviderPublicId + '&ContactType=' + Provider_CompanyContactObject.ContactType + '&ViewEnable=' + Provider_CompanyContactObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -824,11 +973,11 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -842,21 +991,32 @@ var Provider_CompanyContactObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.ContactId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ContactId + '.');
 
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.ContactId);
+                                Message('error', 'Error en la fila con el id ' + options.data.ContactId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
-                field: 'ContactId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'ContactName',
                 title: 'Razón social',
@@ -898,6 +1058,18 @@ var Provider_CompanyContactObject = {
                 field: 'DT_Phone',
                 title: 'Telefono',
                 width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.DT_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
+                    }
+                    else {
+                        oReturn = dataItem.DT_Phone;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'DT_CityName',
                 title: 'Ciudad',
@@ -959,79 +1131,73 @@ var Provider_CompanyContactObject = {
                 title: 'Fecha de expedición',
                 width: '160px',
                 format: Provider_CompanyContactObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            }, {
-                field: 'DT_DueDate',
-                title: 'Fecha de vencimiento',
-                width: '160px',
-                format: Provider_CompanyContactObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
+                editor: 
+                    function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                }
             }, {
                 field: 'DT_DistributorFile',
                 title: 'Doc soporte.',
-                width: '292px',
-                template: function (dataItem) {
+                    width: '292px',
+                    template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_DistributorFile != null && dataItem.DT_DistributorFile.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
-                        }
+                }
                         oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
-                    }
-                    else {
-                        oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
-                    }
+            }
+            else {
+                oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
+            }
 
                     oReturn = oReturn.replace(/\${DT_DistributorFile}/gi, dataItem.DT_DistributorFile);
 
                     return oReturn;
-                },
-                editor: function (container, options) {
+                    },
+                        editor: function (container, options) {
                     var oFileExit = true;
                     $('<input type="file" id="files" name="files"/>')
                     .appendTo(container)
                     .kendoUpload({
-                        multiple: false,
+                            multiple: false,
                         async: {
                             saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyContactObject.ProviderPublicId,
-                            autoUpload: true
-                        },
-                        success: function (e) {
+                                    autoUpload: true
+                            },
+                                success: function (e) {
                             if (e.response != null && e.response.length > 0) {
                                 //set server fiel name
                                 options.model[options.field] = e.response[0].ServerName;
-                                //enable made changes
-                                options.model.dirty = true;
-                            }
+                        //enable made changes
+                        options.model.dirty = true;
+                        }
                         },
                         complete: function (e) {
-                            //enable lost focus
+                                //enable lost focus
                             oFileExit = true;
                         },
-                        select: function (e) {
-                            //disable lost focus while upload file
+                                    select: function (e) {
+                        //disable lost focus while upload file
                             oFileExit = false;
-                        },
-                    });
+                            },
+                            });
                     $(container).focusout(function () {
                         if (oFileExit == false) {
-                            //mantain file input focus
+                        //mantain file input focus
                             $('#files').focus();
                         }
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
+                field: 'ContactId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -1062,6 +1228,51 @@ var Provider_CompanyCommercialObject = {
         if (Provider_CompanyCommercialObject.CommercialType == 301001) {
             Provider_CompanyCommercialObject.RenderExperience();
         }
+
+        //config keyboard
+        Provider_CompanyCommercialObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyCommercialObject.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyCommercialObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyCommercialObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyCommercialObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyCommercialObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     RenderExperience: function () {
@@ -1073,7 +1284,9 @@ var Provider_CompanyCommercialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyCommercialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1081,7 +1294,7 @@ var Provider_CompanyCommercialObject = {
                         id: 'CommercialId',
                         fields: {
                             CommercialId: { editable: false, nullable: true },
-                            CommercialName: { editable: true, validation: { required: true } },
+                            CommercialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             EX_ContractType: { editable: true },
@@ -1108,35 +1321,29 @@ var Provider_CompanyCommercialObject = {
                             EX_Phone: { editable: true },
                             EX_PhoneId: { editable: false },
 
-                            EX_BuiltArea: { editable: true },
-                            EX_BuiltAreaId: { editable: false },
-
-                            EX_BuiltUnit: { editable: true },
-                            EX_BuiltUnitId: { editable: false },
-
                             EX_ExperienceFile: { editable: true },
                             EX_ExperienceFileId: { editable: false },
 
                             EX_ContractSubject: { editable: true },
                             EX_ContractSubjectId: { editable: false },
 
-                            EX_EconomicActivity: { editable: true },
+                            EX_EconomicActivity: { editable: true, defaultValue: null },
 
-                            EX_CustomEconomicActivity: { editable: true },
+                            EX_CustomEconomicActivity: { editable: true, defaultValue: null },
                         }
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CICommercialGetByType=true&ProviderPublicId=' + Provider_CompanyCommercialObject.ProviderPublicId + '&CommercialType=' + Provider_CompanyCommercialObject.CommercialType + '&ViewEnable=' + Provider_CompanyCommercialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -1150,11 +1357,11 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -1168,24 +1375,47 @@ var Provider_CompanyCommercialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CommercialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CommercialId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
-                field: 'CommercialId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
-                field: 'CommercialName',
-                title: 'Nombre',
+                field: 'EX_Client',
+                title: 'Cliente',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.EX_Client == '') {
+                        oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>'
+                    }
+                    else {
+                        oReturn = dataItem.EX_Client;
+                    }
+
+                    return oReturn;
+                },
             }, {
                 field: 'EX_ContractType',
                 title: 'Tipo de contrato',
@@ -1212,78 +1442,9 @@ var Provider_CompanyCommercialObject = {
                         });
                 },
             }, {
-                field: 'EX_DateIssue',
-                title: 'Inicio',
-                width: '160px',
-                format: Provider_CompanyCommercialObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            }, {
-                field: 'EX_DueDate',
-                title: 'Fin',
-                width: '160px',
-                format: Provider_CompanyCommercialObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            }, {
-                field: 'EX_Client',
-                title: 'Cliente',
-                width: '200px',
-            }, {
                 field: 'EX_ContractNumber',
                 title: 'Número de contrato',
                 width: '160px',
-            }, {
-                field: 'EX_ContractValue',
-                title: 'Valor de contrato',
-                width: '380px',
-                template: function (dataItem) {
-                    var oReturn = '';
-                    if (dataItem != null && dataItem.EX_Currency != null && dataItem.EX_ContractValue != null) {
-
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
-
-                        oReturn = oReturn + dataItem.EX_ContractValue + ' ';
-                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
-                            if (dataItem.EX_Currency == value.ItemId) {
-                                oReturn = oReturn + value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input style="width:45%;" required data-bind="value:' + options.field + '"/><span>&nbsp;</span>')
-                        .appendTo(container);
-                    $('<input style="width:45%;" required data-bind="value:EX_Currency"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción',
-                        });
-                },
-            }, {
-                field: 'EX_Phone',
-                title: 'Telefono',
-                width: '170px',
-            }, {
-                field: 'EX_BuiltArea',
-                title: 'Area contruida (m2)',
-                width: '170px',
-            }, {
-                field: 'EX_BuiltUnit',
-                title: 'Unidades construidas',
-                width: '170px',
             }, {
                 field: 'EX_ContractSubject',
                 title: 'Objeto del contrato',
@@ -1293,8 +1454,79 @@ var Provider_CompanyCommercialObject = {
                         .appendTo(container);
                 },
             }, {
+                field: 'EX_Currency',
+                title: 'Modeda',
+                width: '180px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.EX_Currency != null) {
+                        $.each(Provider_CompanyCommercialObject.ProviderOptions[108], function (item, value) {
+                            if (dataItem.EX_Currency == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyCommercialObject.ProviderOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'EX_ContractValue',
+                title: 'Valor de contrato',
+                width: '180px',
+            }, {
+                field: 'EX_Phone',
+                title: 'Telefono',
+                width: '170px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.EX_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">(57)7655454</label>'
+                    }
+                    else {
+                        oReturn = dataItem.EX_Phone;
+                    }
+
+                    return oReturn;
+                },
+            }, {
+                field: 'EX_DateIssue',
+                title: 'Inicio',
+                width: '160px',
+                format: Provider_CompanyCommercialObject.DateFormat,
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
+                },
+            }, {
+                field: 'EX_DueDate',
+                title: 'Fin',
+                width: '160px',
+                format: Provider_CompanyCommercialObject.DateFormat,
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            +options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                    input.appendTo(container);
+                    },
+            }, {
                 field: 'EX_EconomicActivity',
-                title: 'Actividad economica',
+                title: 'Maestra Estandar',
                 width: '380px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -1309,14 +1541,38 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+
+                    //get current values
+                    var oCurrentValue = new Array();
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                EconomicActivityId: value.EconomicActivityId,
+                                ActivityName: value.ActivityName,
+                                ActivityType: value.ActivityType,
+                                ActivityGroup: value.ActivityGroup,
+                                ActivityCategory: value.ActivityCategory
+                            });
+                        });
+                    }
+
+                    //init multiselect
+                    $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect" multiple="multiple" />')
                         .appendTo(container)
                         .kendoMultiSelect({
                             minLength: 2,
-                            autoBind: false,
+                            dataValueField: 'EconomicActivityId',
                             dataTextField: 'ActivityName',
-                            //value: options.model[options.field],
+                            autoBind: false,
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
+                            change: function () {
+                                //get selected values
+                                if ($('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').length > 0) {
+                                    options.model[options.field] = $('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').data('kendoMultiSelect')._dataItems;
+                                    options.model.dirty = true;
+                                }
+                            },
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
@@ -1342,7 +1598,7 @@ var Provider_CompanyCommercialObject = {
                                                     options.success(result);
                                                 },
                                                 error: function (result) {
-                                                    options.error(result);
+                                                    options.success([]);
                                                 }
                                             });
                                         }
@@ -1356,7 +1612,7 @@ var Provider_CompanyCommercialObject = {
                 },
             }, {
                 field: 'EX_CustomEconomicActivity',
-                title: 'Actividad economica personalizada',
+                title: 'Maestra personalizada',
                 width: '380px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -1371,14 +1627,39 @@ var Provider_CompanyCommercialObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<select multiple="multiple" data-bind="value:' + options.field + '" />')
+
+                    //get current values
+                    var oCurrentValue = new Array();
+
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                EconomicActivityId: value.EconomicActivityId,
+                                ActivityName: value.ActivityName,
+                                ActivityType: value.ActivityType,
+                                ActivityGroup: value.ActivityGroup,
+                                ActivityCategory: value.ActivityCategory
+                            });
+                        });
+                    }
+
+                    //init multiselect
+                    $('<select id="' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect" multiple="multiple" />')
                         .appendTo(container)
                         .kendoMultiSelect({
                             minLength: 2,
-                            autoBind: false,
+                            dataValueField: 'EconomicActivityId',
                             dataTextField: 'ActivityName',
-                            //value: options.model[options.field],
+                            autoBind: false,
                             itemTemplate: $('#' + Provider_CompanyCommercialObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
+                            change: function () {
+                                //get selected values
+                                if ($('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').length > 0) {
+                                    options.model[options.field] = $('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').data('kendoMultiSelect')._dataItems;
+                                    options.model.dirty = true;
+                                }
+                            },
                             dataSource: {
                                 type: "json",
                                 serverFiltering: true,
@@ -1404,7 +1685,7 @@ var Provider_CompanyCommercialObject = {
                                                     options.success(result);
                                                 },
                                                 error: function (result) {
-                                                    options.error(result);
+                                                    options.success([]);
                                                 }
                                             });
                                         }
@@ -1471,10 +1752,14 @@ var Provider_CompanyCommercialObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
-            }],
+                field: 'CommercialName',
+                title: 'Nombre',
+                width: '160px',
+            }, {
+                field: 'CommercialId',
+                title: 'Id Interno',
+                width: '78px',
+            }, ],
         });
     },
 };
@@ -1487,6 +1772,7 @@ var Provider_CompanyHSEQObject = {
     AutoCompleteId: '',
     ControlToReturnACId: '',
     HSEQType: '',
+    CompanyRiskType: '',
     DateFormat: '',
     HSEQOptionList: new Array(),
     YearOptionList: new Array(),
@@ -1497,6 +1783,7 @@ var Provider_CompanyHSEQObject = {
         this.AutoCompleteId = vInitiObject.AutoCompleteId;
         this.ControlToReturnACId = vInitiObject.ControlToRetornACId;
         this.HSEQType = vInitiObject.HSEQType;
+        this.CompanyRiskType = vInitiObject.CompanyRiskType;
         this.DateFormat = vInitiObject.DateFormat;
         Provider_CompanyHSEQObject.AutoComplete(vInitiObject.AutoCompleteId, vInitiObject.ControlToRetornACId);
         $.each(vInitiObject.HSEQOptionList, function (item, value) {
@@ -1516,9 +1803,53 @@ var Provider_CompanyHSEQObject = {
         else if (Provider_CompanyHSEQObject.HSEQType == 701002) {
             Provider_CompanyHSEQObject.RenderCompanyHealthyPolitics();
         }
-        else if (Provider_CompanyHSEQObject.HSEQType == 701003) {
+        else if (Provider_CompanyHSEQObject.HSEQType == 701004) {
             Provider_CompanyHSEQObject.RenderCompanyRiskPolicies();
         }
+
+        //config keyboard
+        Provider_CompanyHSEQObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyHSEQObject.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyHSEQObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyHSEQObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyHSEQObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyHSEQObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyHSEQObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     RenderCompanyCertification: function () {
@@ -1530,7 +1861,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1538,7 +1871,7 @@ var Provider_CompanyHSEQObject = {
                         id: "CertificationId",
                         fields: {
                             CertificationId: { editable: false, nullable: true },
-                            CertificationName: { editable: true, validation: { required: true } },
+                            CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             C_CertificationCompany: { editable: true },
@@ -1569,14 +1902,14 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -1590,11 +1923,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -1608,24 +1941,31 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
-            }, {
-                field: 'CertificationName',
-                title: 'Nombre',
-                width: '190px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'C_CertificationCompanyName',
                 title: 'Empresa Certificadora',
@@ -1737,25 +2077,35 @@ var Provider_CompanyHSEQObject = {
                     });
                 },
             }, {
+                field: 'C_Scope',
+                title: 'Alcance',
+                width: '550px',
+            }, {
                 field: 'C_StartDateCertification',
                 title: 'Fecha Certificación',
                 width: '160px',
                 format: Provider_CompanyHSEQObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'C_EndDateCertification',
                 title: 'Fecha Caducidad',
                 width: '160px',
                 format: Provider_CompanyHSEQObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            +options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                    input.appendTo(container);
+                    },
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
@@ -1815,13 +2165,13 @@ var Provider_CompanyHSEQObject = {
                     });
                 },
             }, {
-                field: 'C_Scope',
-                title: 'Alcance',
-                width: '100px',
+                field: 'CertificationName',
+                title: 'Nombre',
+                width: '190px',
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '80px',
+                field: 'CertificationId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -1835,7 +2185,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -1881,14 +2233,14 @@ var Provider_CompanyHSEQObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -1902,11 +2254,11 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -1920,20 +2272,31 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CH_Year',
                 title: 'Año',
@@ -2069,7 +2432,7 @@ var Provider_CompanyHSEQObject = {
                 },
             }, {
                 field: 'CH_ProgramOccupationalHealth',
-                title: 'Programa de Salud Ocupacional',
+                title: 'Sistema de Gestión de Seguridad y Salud en el Trabajo',
                 width: '292px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -2445,7 +2808,11 @@ var Provider_CompanyHSEQObject = {
                         }
                     });
                 },
-            }],
+            }, {
+                field: 'CertificationId',
+                title: 'Id Interno',
+                width: '78px',
+            }, ],
         });
     },
 
@@ -2458,7 +2825,9 @@ var Provider_CompanyHSEQObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyHSEQObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -2469,40 +2838,40 @@ var Provider_CompanyHSEQObject = {
                             CertificationName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CR_Year: { editable: true, validation: { required: true }, type: "number" },
-                            CR_YearId: { editable: false },
+                            CA_Year: { editable: true, validation: { required: true }, type: "number" },
+                            CA_YearId: { editable: false },
 
-                            CR_ManHoursWorked: { editable: true, type: "number" },
-                            CR_ManHoursWorkedId: { editable: false },
+                            CA_ManHoursWorked: { editable: true, type: "number" },
+                            CA_ManHoursWorkedId: { editable: false },
 
-                            CR_Fatalities: { editable: true, type: "number" },
-                            CR_FatalitiesId: { editable: false },
+                            CA_Fatalities: { editable: true, type: "number" },
+                            CA_FatalitiesId: { editable: false },
 
-                            CR_NumberAccident: { editable: true, type: "number" },
-                            CR_NumberAccidentId: { editable: false },
+                            CA_NumberAccident: { editable: true, type: "number" },
+                            CA_NumberAccidentId: { editable: false },
 
-                            CR_NumberAccidentDisabling: { editable: true, type: "number" },
-                            CR_NumberAccidentDisablingId: { editable: false },
+                            CA_NumberAccidentDisabling: { editable: true, type: "number" },
+                            CA_NumberAccidentDisablingId: { editable: false },
 
-                            CR_DaysIncapacity: { editable: true, type: "number" },
-                            CR_DaysIncapacityId: { editable: false },
+                            CA_DaysIncapacity: { editable: true, type: "number" },
+                            CA_DaysIncapacityId: { editable: false },
 
-                            CR_CertificateAccidentARL: { editable: true },
-                            CR_CertificateAccidentARLId: { editable: false },
+                            CA_CertificateAccidentARL: { editable: true },
+                            CA_CertificateAccidentARLId: { editable: false },
                         },
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType + '&ViewEnable=' + Provider_CompanyHSEQObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -2516,11 +2885,12 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
+                                Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -2534,29 +2904,41 @@ var Provider_CompanyHSEQObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.CertificationId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
+                                Provider_CompanyHSEQObject.ObtainData();
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.CertificationId);
+                                Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'CertificationId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
-                field: 'CR_Year',
+                field: 'CA_Year',
                 title: 'Año',
                 width: '100px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.CR_Year != null) {
+                    if (dataItem != null && dataItem.CA_Year != null) {
                         $.each(Provider_CompanyHSEQObject.YearOptionList, function (item, value) {
-                            if (dataItem.CR_Year == value) {
+                            if (dataItem.CA_Year == value) {
                                 oReturn = value;
                             }
                         });
@@ -2574,32 +2956,32 @@ var Provider_CompanyHSEQObject = {
                         });
                 },
             }, {
-                field: 'CR_ManHoursWorked',
+                field: 'CA_ManHoursWorked',
                 title: 'Horas Hombre Trabajadas',
-                width: '160px',
+                width: '200px',
             }, {
-                field: 'CR_Fatalities ',
+                field: 'CA_Fatalities ',
                 title: 'Fatalidades',
                 width: '160px',
             }, {
-                field: 'CR_NumberAccident',
-                title: 'Número Total de Incidentes (excluye Accidentes Incapacitantes)',
-                width: '160px',
+                field: 'CA_NumberAccident',
+                title: 'Total de Incidentes (excluye Accidentes Incapacitantes)',
+                width: '292px',
             }, {
-                field: 'CR_NumberAccidentDisabling ',
+                field: 'CA_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
-                width: '160px',
+                width: '260px',
             }, {
-                field: 'CR_DaysIncapacity',
+                field: 'CA_DaysIncapacity',
                 title: 'Días de Incapacidad',
                 width: '160px',
             }, {
-                field: 'CR_CertificateAccidentARL',
+                field: 'CA_CertificateAccidentARL',
                 title: 'Certificado de accidentalidad',
-                width: '292px',
+                width: '250px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.CR_CertificateAccidentARL != null && dataItem.CR_CertificateAccidentARL.length > 0) {
+                    if (dataItem != null && dataItem.CA_CertificateAccidentARL != null && dataItem.CA_CertificateAccidentARL.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -2609,7 +2991,7 @@ var Provider_CompanyHSEQObject = {
                         oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
                     }
 
-                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CR_CertificateAccidentARL);
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CA_CertificateAccidentARL);
 
                     return oReturn;
                 },
@@ -2647,7 +3029,11 @@ var Provider_CompanyHSEQObject = {
                         }
                     });
                 },
-            }],
+            }, {
+                field: 'CertificationId',
+                title: 'Id Interno',
+                width: '78px',
+            }, ],
         });
     },
 
@@ -2681,11 +3067,29 @@ var Provider_CompanyHSEQObject = {
             }
         });
     },
+
+    ObtainData: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.CompanyRiskType + "&ViewEnable=true",
+            dataType: 'json',
+            success: function (result) {
+                if (result != null && result.length > 0)
+                {
+                    $('#lblLTIFResult').html(result[0].CR_LTIFResult);
+                }
+            },
+            error: function (result) {
+                Message('error', result);
+            },
+        });
+
+    },
 };
 
 /*CompanyFinancialObject*/
 var Provider_CompanyFinancialObject = {
 
+    //init properties
     ObjectId: '',
     ProviderPublicId: '',
     FinancialType: '',
@@ -2693,6 +3097,11 @@ var Provider_CompanyFinancialObject = {
     ProviderOptions: new Array(),
     YearOptionList: new Array(),
     CurrentAccounts: new Array(),
+
+    //internal process properties
+    ValueAccounts: new Array(),
+    FormulaAccounts: new Array(),
+    ValidateFormulaAccounts: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -2713,18 +3122,70 @@ var Provider_CompanyFinancialObject = {
 
     RenderAsync: function () {
         if (Provider_CompanyFinancialObject.FinancialType == 501001) {
+            //balance sheet
             Provider_CompanyFinancialObject.RenderBalanceSheet();
         }
         else if (Provider_CompanyFinancialObject.FinancialType == 501002) {
+            //tax
             Provider_CompanyFinancialObject.RenderTaxesInfo();
         }
         else if (Provider_CompanyFinancialObject.FinancialType == 501003) {
+            //income statemente
             Provider_CompanyFinancialObject.RenderIncomeStatementInfo();
         }
         else if (Provider_CompanyFinancialObject.FinancialType == 501004) {
+            //bank
             Provider_CompanyFinancialObject.RenderBankInfo();
         }
+
+        //config keyboard
+        Provider_CompanyFinancialObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CompanyFinancialObject.ConfigEvents();
     },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CompanyFinancialObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CompanyFinancialObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CompanyFinancialObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CompanyFinancialObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+
+        //config grid visible enables event
+        $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CompanyFinancialObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+
+        return $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+    /***************************Start balance sheet functions***********************************************/
 
     RenderBalanceSheet: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
@@ -2733,19 +3194,23 @@ var Provider_CompanyFinancialObject = {
             pageable: false,
             scrollable: true,
             selectable: true,
-            toolbar: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail(null);">Nuevo</a>',
+            toolbar: [
+                { name: 'create', template: '<a class="k-button" href="javascript:Provider_CompanyFinancialObject.RenderBalanceSheetDetail(null);">Nuevo</a>' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
             dataSource: {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -2758,13 +3223,20 @@ var Provider_CompanyFinancialObject = {
                 }
             },
             columns: [{
-                field: 'FinancialId',
-                title: 'Id',
-                width: '50px',
-            }, {
-                field: 'FinancialName',
-                title: 'Nombre',
-                width: '180px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SH_Year',
                 title: 'Año',
@@ -2786,10 +3258,14 @@ var Provider_CompanyFinancialObject = {
                     return oReturn;
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
-            }],
+                field: 'FinancialName',
+                title: 'Nombre',
+                width: '180px',
+            }, {
+                field: 'FinancialName',
+                title: 'Nombre',
+                width: '180px',
+            }, ],
         });
     },
 
@@ -2805,7 +3281,7 @@ var Provider_CompanyFinancialObject = {
                     Provider_CompanyFinancialObject.CurrentAccounts = result;
 
                     //insert form
-                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form').html();
+                    var oFormHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_Form').html();
                     oFormHtml = oFormHtml.replace(/\${FinancialId}/gi, oFiancialId);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').html(oFormHtml);
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').hide();
@@ -2824,9 +3300,7 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(dataItem.SH_BalanceSheetFile);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val(dataItem.SH_BalanceSheetFileId);
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', dataItem.SH_BalanceSheetFile);
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, dataItem.SH_BalanceSheetFile));
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                     }
                     else {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_FinancialName_' + oFiancialId).val('');
@@ -2841,9 +3315,7 @@ var Provider_CompanyFinancialObject = {
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileId_' + oFiancialId).val('');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', '');
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', '');
                         $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).hide();
-                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').hide();
                     }
                     $('<input type="file" id="files" name="files"/>')
                         .appendTo($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileUpload_' + oFiancialId))
@@ -2858,210 +3330,212 @@ var Provider_CompanyFinancialObject = {
                                     //set server fiel name
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFile_' + oFiancialId).val(e.response[0].ServerName);
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).attr('href', e.response[0].ServerName);
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').attr('src', BaseUrl.PreviewPdfUrl.replace(/\${FilePath}/gi, e.response[0].ServerName));
                                     $('#' + Provider_CompanyFinancialObject.ObjectId + ' _Detail_Form_SH_BalanceSheetFileLink_' + oFiancialId).show();
-                                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').find('iframe').show();
                                 }
                             },
                         });
 
+                    //init formula variables
+                    Provider_CompanyFinancialObject.ValueAccounts = new Array();
+                    Provider_CompanyFinancialObject.FormulaAccounts = new Array();
+                    Provider_CompanyFinancialObject.ValidateFormulaAccounts = new Array();
+
                     //init accounts object
                     Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_Accounts_' + oFiancialId), Provider_CompanyFinancialObject.CurrentAccounts);
-                    //calc total values
-                    Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                    //calc formula fields
+                    //Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
 
                     $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail').fadeIn('slow');
                 }
             },
             error: function (result) {
-                alert(result);
-                Message('error', '');
+                Message('error', result);
             }
         });
     },
 
     RenderBalanceSheetDetailAccounts: function (container, lstAccounts) {
+
         if (container != null && $(container).length > 0 && lstAccounts != null && lstAccounts.length > 0) {
+
             $.each(lstAccounts, function (item, value) {
-                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-                    //parent node
-                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount').html();
+                if (value.AccountIsParetn) {
+                    //master account
+
+                    //get master template
+                    var ParentHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountParent').html();
                     ParentHtml = ParentHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
                     ParentHtml = ParentHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    //add parent account html
                     $(container).append(ParentHtml);
-                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
+                    //render child accounts
+                    Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts($('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId), value.ChildBalanceSheet);
                 }
                 else {
-                    //last node
-                    var ChildHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount').html();
-                    ChildHtml = ChildHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
-                    ChildHtml = ChildHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
-                    ChildHtml = ChildHtml.replace(/\${Value}/gi, Number(value.RelatedBalanceSheetDetail != null ? value.RelatedBalanceSheetDetail.Value : '0'));
+                    //child account
 
-                    if ($(container).find('ul').length == 0) {
-                        $(container).append('<ul></ul>');
+                    //get child container
+                    var ChildContainer = container;
+
+                    //get child content
+                    var ChildValueHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountType_' + value.AccountType).html();
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                    ChildValueHtml = ChildValueHtml.replace(/\${AccountUnit}/gi, value.AccountUnit);
+
+                    if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
+
+                        //render subitems
+
+                        //get subitem template
+                        var SubItemHtml = $('#' + Provider_CompanyFinancialObject.ObjectId + '_Template_AccountChild').html();
+                        SubItemHtml = SubItemHtml.replace(/\${AccountName}/gi, value.RelatedAccount.ItemName);
+                        SubItemHtml = SubItemHtml.replace(/\${AccountId}/gi, value.RelatedAccount.ItemId);
+                        //add child account html
+                        $(container).append(SubItemHtml);
+
+                        //get subitems container
+                        ChildContainer = $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_' + value.RelatedAccount.ItemId);
+
+                        //add account html content for title account types
+                        if (value.AccountType == 2) {
+                            //add account html content
+                            $(ChildContainer).append(ChildValueHtml);
+                        }
+
+                        //render subitems accounts
+                        Provider_CompanyFinancialObject.RenderBalanceSheetDetailAccounts(ChildContainer, value.ChildBalanceSheet);
+
+                        //add account html content for value account types
+                        if (value.AccountType == 0 || value.AccountType == 1) {
+                            //add account html content
+                            $(ChildContainer).append(ChildValueHtml);
+                        }
                     }
+                    else {
+                        //no subitems
 
-                    $(container).find('ul').append(ChildHtml);
+                        //add account html content
+                        $(ChildContainer).append(ChildValueHtml);
+                    }
                 }
+
+                //set account value
+                if (value.AccountType == 0 || value.AccountType == 1) {
+                    if (value.RelatedBalanceSheetDetail != null && value.RelatedBalanceSheetDetail.Value != null) {
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(value.RelatedBalanceSheetDetail.Value);
+                    }
+                    else {
+                        $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId).val(0);
+                    }
+                }
+
+                //add item to formula variables
+                if (value.AccountType == 0) {
+                    //formula field list
+                    Provider_CompanyFinancialObject.FormulaAccounts.push(new Object({
+                        AccountId: value.RelatedAccount.ItemId,
+                        Control: $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId),
+                        Formula: value.AccountFormula,
+                    }));
+                }
+
+                if (value.AccountValidateFormula != null) {
+
+                    Provider_CompanyFinancialObject.ValidateFormulaAccounts.push(new Object({
+                        AccountId: value.RelatedAccount.ItemId,
+                        Control: $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId),
+                        Formula: value.AccountValidateFormula,
+                    }));
+                }
+
+                //value field list
+                Provider_CompanyFinancialObject.ValueAccounts[value.RelatedAccount.ItemId] = $('#' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_' + value.RelatedAccount.ItemId);
             });
 
             //append on focus out event
-            $('.' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_selector').focusout(function () {
+            $('.' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_Selector').focusout(function () {
                 if ($.isNumeric($(this).val()) == false) {
                     $(this).val(0);
                 }
-                Provider_CompanyFinancialObject.CalculateBalanceSheet();
+                Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
             });
         }
     },
 
-    CalculateBalanceSheet: function () {
-        Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(Provider_CompanyFinancialObject.CurrentAccounts);
-        Provider_CompanyFinancialObject.CalculateBalanceSheetUtility(Provider_CompanyFinancialObject.CurrentAccounts);
-    },
+    EvalBalanceSheetFormula: function () {
 
-    CalculateBalanceSheetDetail: function (lstAccounts) {
+        if (Provider_CompanyFinancialObject.FormulaAccounts != null && Provider_CompanyFinancialObject.FormulaAccounts.length > 0) {
 
-        var SumResult = new Number();
-        if (lstAccounts != null && lstAccounts.length > 0) {
-            $.each(lstAccounts, function (item, value) {
-                if (value.ChildBalanceSheet != null && value.ChildBalanceSheet.length > 0) {
-                    value.ChildSum = Provider_CompanyFinancialObject.CalculateBalanceSheetDetail(value.ChildBalanceSheet);
-                    SumResult = SumResult + Number(value.ChildSum);
-                    $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ParentAccount_' + value.RelatedAccount.ItemId + '_Total').html(value.ChildSum);
-                }
-                else {
-                    SumResult = SumResult + Number($('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_ChildAccount_' + value.RelatedAccount.ItemId).val());
-                }
-            });
-        }
-        return SumResult;
-    },
+            $.each(Provider_CompanyFinancialObject.FormulaAccounts, function (item, value) {
 
-    CalculateBalanceSheetUtility: function (lstAccounts) {
-        var oUtilidadBruta = new Number();
-        var oUtilidadOperacional = new Number();
-        var oUtilidadAntesImpuestos = new Number();
-        var oUtilidadDespuesImpuestos = new Number();
-        var oUtilidadEjercicio = new Number();
+                if (value.Formula != null && value.Formula.length > 0) {
+                    //get formula exclude averange calc and spaces
+                    var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
 
-        if (lstAccounts != null && lstAccounts.length > 0) {
-            if (fieldsLoad = true) {
-                $.each(lstAccounts, function (item, value) {
-                    if (value.RelatedAccount.ItemName == "Estado de Resultados") {
-                        $.each(value.ChildBalanceSheet, function (item, value) {
-                            if (value.RelatedAccount.ItemName == "Utilidad Bruta") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        oUtilidadBruta += value.RelatedBalanceSheetDetail.Value;
+                    //get variables in formula [AccountId]
+                    var olstFormulaVariables = oFormulaToEval.match(new RegExp('[\\[\\d\\]]+', 'gi'));
 
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3823').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3828').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3836').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3845').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Costos de Ventas") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3824').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3829').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3837').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3846').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Operacional") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas") {
-                                            oUtilidadOperacional += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadOperacional -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+                    //replace all variable for values
+                    $.each(olstFormulaVariables, function (item, value) {
+                        //get current account id
+                        var oAccountId = value.replace(/\[/gi, '').replace(/\]/gi, '');
 
-                                        if (value.RelatedAccount.ItemName == "Gastos de Administración") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3830').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3838').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3847').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Gastos de Ventas") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3831').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3839').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3848').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Depreciación y Amortización") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3832').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3840').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3849').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3817_Total').html(oUtilidadOperacional);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Antes de Impuestos") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadAntesImpuestos += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadAntesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+                        if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
+                            //replace input value into formula expression
+                            oFormulaToEval = oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
+                        }
+                    });
+                    //eval formula and show in input value
 
-                                        if (value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3841').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3850').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Intereses") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3842').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3851').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                        else if (value.RelatedAccount.ItemName == "Otros Gastos no Operacionales") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3843').val(value.RelatedBalanceSheetDetail.Value);
-                                            $('#divBalanceSheet_Detail_ChildAccount_3852').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3818_Total').html(oUtilidadAntesImpuestos);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad Despues de Impuestos") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadDespuesImpuestos += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadDespuesImpuestos -= value.RelatedBalanceSheetDetail.Value;
-                                        }
+                    var oResult = eval(oFormulaToEval);
 
-                                        if (value.RelatedAccount.ItemName == "Impuestos") {
-                                            $('#divBalanceSheet_Detail_ChildAccount_3853').val(value.RelatedBalanceSheetDetail.Value);
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3819_Total').html(oUtilidadDespuesImpuestos);
-                            }
-                            else if (value.RelatedAccount.ItemName == "Utilidad (-Perdida) del Ejercicio") {
-                                $.each(value.ChildBalanceSheet, function (item, value) {
-                                    if (value.RelatedBalanceSheetDetail != null) {
-                                        if (value.RelatedAccount.ItemName == "Ingresos Operacionales" || value.RelatedAccount.ItemName == "Costos de Ventas" || value.RelatedAccount.ItemName == "Ingresos no Operacionales") {
-                                            oUtilidadEjercicio += value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                        else {
-                                            oUtilidadEjercicio -= value.RelatedBalanceSheetDetail.Value;
-                                        }
-                                    }
-                                });
-                                $('#divBalanceSheet_Detail_ParentAccount_3820_Total').val(oUtilidadEjercicio);
-                            }
-                        });
+                    if ($.isNumeric(oResult)) {
+                        value.Control.val(oResult);
                     }
-                    $('#divBalanceSheet_Detail_ParentAccount_3813_Total').val(oUtilidadEjercicio);
-                });
-            }
+                    else {
+                        value.Control.val('0');
+                    }
+                }
+            });
         }
+    },
+
+    ValidateBalanceSheetDetail: function () {
+        var oReturn = true;
+
+        if (Provider_CompanyFinancialObject.ValidateFormulaAccounts != null && Provider_CompanyFinancialObject.ValidateFormulaAccounts.length > 0) {
+
+            $.each(Provider_CompanyFinancialObject.ValidateFormulaAccounts, function (item, value) {
+
+                if (value.Formula != null && value.Formula.length > 0) {
+                    //get formula exclude averange calc and spaces
+                    var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
+
+                    //get variables in formula [AccountId]
+                    var olstFormulaVariables = oFormulaToEval.match(new RegExp('[\\[\\d\\]]+', 'gi'));
+
+                    //replace all variable for values
+                    $.each(olstFormulaVariables, function (item, value) {
+                        //get current account id
+                        var oAccountId = value.replace(/\[/gi, '').replace(/\]/gi, '');
+
+                        if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
+                            //replace input value into formula expression
+                            oFormulaToEval = oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
+                        }
+                    });
+                    //eval formula and show in input value
+                    var oResult = eval(oFormulaToEval);
+
+                    if (oResult == false) {
+                        oReturn = false;
+                    }
+                }
+            });
+        }
+
+        return oReturn;
     },
 
     CancelBalanceSheetDetail: function () {
@@ -3071,19 +3545,16 @@ var Provider_CompanyFinancialObject = {
     },
 
     SaveBalanceSheetDetail: function (vFinancialId) {
+
         if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
             $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
         }
+        else {
+            Message('error', 'El balance no cumple con las validaciones, por favor revise los datos.');
+        }
     },
 
-    ValidateBalanceSheetDetail: function () {
-        var oReturn = true;
-
-        //validate balance values
-        //Provider_CompanyFinancialObject.CalculateBalanceSheet();
-
-        return oReturn;
-    },
+    /***************************End balance sheet functions***********************************************/
 
     RenderTaxesInfo: function () {
         $('#' + Provider_CompanyFinancialObject.ObjectId).kendoGrid({
@@ -3094,7 +3565,9 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3102,7 +3575,7 @@ var Provider_CompanyFinancialObject = {
                         id: 'FinancialId',
                         fields: {
                             FinancialId: { editable: false, nullable: true },
-                            FinancialName: { editable: true, validation: { required: true } },
+                            FinancialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             TX_Year: { editable: true, validation: { required: true }, type: "number" },
@@ -3116,14 +3589,14 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3137,11 +3610,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3155,17 +3628,32 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.FinancialId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.FinancialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.FinancialId);
+                                Message('error', 'Error en la fila con el id ' + options.data.FinancialId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'TX_Year',
                 title: 'Año',
                 template: function (dataItem) {
@@ -3242,6 +3730,10 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
+            }, {
+                field: 'FinancialId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -3255,7 +3747,9 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3263,7 +3757,7 @@ var Provider_CompanyFinancialObject = {
                         id: 'FinancialId',
                         fields: {
                             FinancialId: { editable: false, nullable: true },
-                            FinancialName: { editable: true, validation: { required: true } },
+                            FinancialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             IS_Year: { editable: true },
@@ -3289,14 +3783,14 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3310,11 +3804,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3328,17 +3822,32 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.FinancialId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.FinancialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.FinancialId);
+                                Message('error', 'Error en la fila con el id ' + options.data.FinancialId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'IS_Year',
                 title: 'Año',
                 width: '80px',
@@ -3433,6 +3942,10 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
+            }, {
+                field: 'FinancialId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -3446,7 +3959,9 @@ var Provider_CompanyFinancialObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CompanyFinancialObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3454,7 +3969,7 @@ var Provider_CompanyFinancialObject = {
                         id: 'FinancialId',
                         fields: {
                             FinancialId: { editable: false, nullable: true },
-                            FinancialName: { editable: true, validation: { required: true } },
+                            FinancialName: { editable: true },
                             Enable: { editable: true, type: 'boolean', defaultValue: true },
 
                             IB_Bank: { editable: true },
@@ -3490,14 +4005,14 @@ var Provider_CompanyFinancialObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?FIFinancialGetByType=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId + '&FinancialType=' + Provider_CompanyFinancialObject.FinancialType + '&ViewEnable=' + Provider_CompanyFinancialObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3511,11 +4026,11 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             }
                         });
                     },
@@ -3529,17 +4044,32 @@ var Provider_CompanyFinancialObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.FinancialId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.FinancialId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.FinancialId);
+                                Message('error', 'Error en la fila con el id ' + options.data.FinancialId + '.');
                             }
                         });
                     },
                 },
             },
             columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'IB_BankName',
                 title: 'Banco',
                 width: '190px',
@@ -3583,7 +4113,11 @@ var Provider_CompanyFinancialObject = {
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
                                         dataType: 'json',
                                         success: function (result) {
-                                            options.success(result);
+                                            if (result != null) {
+                                                if (result.length > 0) {
+                                                    options.success(result);
+                                                }
+                                            }
                                         },
                                         error: function (result) {
                                             options.error(result);
@@ -3597,7 +4131,28 @@ var Provider_CompanyFinancialObject = {
             }, {
                 field: 'IB_AccountType',
                 title: 'Tipo de Cuenta',
-                width: '160px',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IB_AccountTypeId != null) {
+                        $.each(Provider_CompanyFinancialObject.ProviderOptions[1001], function (item, value) {
+                            if (dataItem.IB_AccountType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_CompanyFinancialObject.ProviderOptions[1001],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'IB_AccountNumber',
                 title: 'Número de Cuenta',
@@ -3622,6 +4177,60 @@ var Provider_CompanyFinancialObject = {
                 field: 'IB_Customer',
                 title: 'Comprador',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.IB_Customer != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.IB_Customer;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var isSelected = false;
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'CP_Customer',
+                        select: function (e) {
+                            isSelected = true;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.CP_CustomerPublicId;
+                            options.model['IB_Customer'] = selectedItem.CP_Customer;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/ProviderApi?GetAllCustomers=true&ProviderPublicId=' + Provider_CompanyFinancialObject.ProviderPublicId,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                            Message('error', result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'IB_AccountFile',
                 title: 'Certificado',
@@ -3676,11 +4285,14 @@ var Provider_CompanyFinancialObject = {
                         }
                     });
                 },
+            }, {
+                field: 'FinancialId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
 };
-
 
 var Provider_LegalInfoObject = {
 
@@ -3727,6 +4339,51 @@ var Provider_LegalInfoObject = {
         else if (Provider_LegalInfoObject.LegalInfoType == 601005) {
             Provider_LegalInfoObject.RenderResolutions();
         }
+
+        //config keyboard
+        Provider_LegalInfoObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_LegalInfoObject.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_LegalInfoObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_LegalInfoObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+
+        //config grid visible enables event
+        $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_LegalInfoObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     RenderChaimberOfComerce: function () {
@@ -3738,7 +4395,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'cancel', text: 'Descartar cambios' }
+                { name: 'cancel', text: 'Descartar cambios' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3749,28 +4408,28 @@ var Provider_LegalInfoObject = {
                             LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
-                            CP_PartnerName: { editable: true, validation: { required: true } },
-                            CP_PartnerNameId: { editable: false },
+                            CD_PartnerName: { editable: true, validation: { required: true } },
+                            CD_PartnerNameId: { editable: false },
 
-                            CP_PartnerIdentificationNumber: { editable: true, validation: { required: true } },
-                            CP_PartnerIdentificationNumberId: { editable: false },
+                            CD_PartnerIdentificationNumber: { editable: true, validation: { required: true } },
+                            CD_PartnerIdentificationNumberId: { editable: false },
 
-                            CP_PartnerRank: { editable: true, validation: { required: true } },
-                            CP_PartnerRankId: { editable: false },
+                            CD_PartnerRank: { editable: true, validation: { required: true } },
+                            CD_PartnerRankId: { editable: false },
                         },
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -3784,11 +4443,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -3802,34 +4461,83 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
                 },
             },
-            columns: [
-                {
-                    field: 'CD_PartnerName',
-                    title: 'Nombre',
-                    width: '200px',
-                }, {
-                    field: 'CD_PartnerIdentificationNumber',
-                    title: 'Número de Identificación',
-                    width: '180px',
-                }, {
-                    field: 'CD_PartnerRank',
-                    title: 'Cargo',
-                    width: '200px',
-                }, {
-                    field: 'Enable',
-                    title: 'Habilitado',
-                    width: '100px',
-                }],
+            columns: [{
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'CD_PartnerName',
+                title: 'Nombre',
+                width: '180px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.CD_PartnerName == undefined || dataItem.CD_PartnerName == '') {
+                        if (dataItem.CP_PartnerName == '') {
+                            oReturn = '<label class="PlaceHolder">NOMBRES Y APELLIDOS</label>';
+                        }
+                    }
+                    else {
+                        oReturn = dataItem.CD_PartnerName;
+                    }
+
+                    return oReturn;
+                },
+            }, {
+                field: 'CD_PartnerIdentificationNumber',
+                title: 'Número de Identificación',
+                width: '180px',
+            }, {
+                field: 'CD_PartnerRank',
+                title: 'Cargo',
+                width: '200px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.CD_PartnerRank != null) {
+                        $.each(Provider_LegalInfoObject.ChaimberOfComerceOptionList[219], function (item, value) {
+                            if (dataItem.CD_PartnerRank == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Provider_LegalInfoObject.ChaimberOfComerceOptionList[219],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '78px',
+            }],
         });
     },
 
@@ -3842,7 +4550,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -3850,25 +4560,25 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             R_PersonType: { editable: true, validation: { required: true } },
                             R_PersonTypeId: { editable: false },
 
-                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true, validation: { required: true } },
+                            R_LargeContributor: { editable: true, type: "boolean", defaultValue: true },
                             R_LargeContributorId: { editable: false },
 
-                            R_LargeContributorReceipt: { editable: true, validation: { required: true } },
+                            R_LargeContributorReceipt: { editable: true },
                             R_LargeContributorReceiptId: { editable: false },
 
                             R_LargeContributorDate: { editable: true },
                             R_LargeContributorDateId: { editable: false },
 
-                            R_SelfRetainer: { editable: true, validation: { required: true }, type: "boolean", defaultValue: true },
+                            R_SelfRetainer: { editable: true, type: "boolean", defaultValue: true },
                             R_SelfRetainerId: { editable: false },
 
-                            R_SelfRetainerReciept: { editable: true, validation: { required: true } },
+                            R_SelfRetainerReciept: { editable: true },
                             R_SelfRetainerRecieptId: { editable: false },
 
                             R_SelfRetainerDate: { editable: true },
@@ -3877,7 +4587,7 @@ var Provider_LegalInfoObject = {
                             R_EntityType: { editable: true, validation: { required: true } },
                             R_EntityTypeId: { editable: false },
 
-                            R_IVA: { editable: true, type: "boolean", defaultValue: true, validation: { required: true } },
+                            R_IVA: { editable: true, type: "boolean", defaultValue: true },
                             R_IVAId: { editable: false },
 
                             R_TaxPayerType: { editable: true, validation: { required: true } },
@@ -3900,14 +4610,14 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -3921,11 +4631,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -3939,24 +4649,31 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
-            }, {
-                field: 'LegalName',
-                title: 'Nombre',
-                width: '200px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'R_PersonType',
                 title: 'Tipo de Persona',
@@ -3988,17 +4705,20 @@ var Provider_LegalInfoObject = {
                 width: '190px',
             }, {
                 field: 'R_LargeContributorReceipt',
-                title: 'Gran Contribuyente Recibo',
+                title: 'Gran contribuyente resolución',
                 width: '190px',
             }, {
                 field: 'R_LargeContributorDate',
                 title: 'Gran Contribuyente Fecha',
                 width: '190px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            + options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'R_SelfRetainer',
@@ -4013,10 +4733,13 @@ var Provider_LegalInfoObject = {
                 title: 'Autorretenedor Fecha',
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'R_EntityType',
@@ -4100,12 +4823,12 @@ var Provider_LegalInfoObject = {
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'ActivityName',
+                        dataTextField: 'I_ICACode',
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model[options.field] = selectedItem.ActivityName;
-                            options.model['R_ICAName'] = selectedItem.EconomicActivityId;
+                            options.model[options.field] = selectedItem.I_ICA;
+                            options.model['R_ICAName'] = selectedItem.I_ICAId;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -4115,10 +4838,12 @@ var Provider_LegalInfoObject = {
                             transport: {
                                 read: function (options) {
                                     $.ajax({
-                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByActivity=true&IsDefault=false&SearchParam=' + options.data.filter.filters[0].value,
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByICA=true&SearchParam=' + options.data.filter.filters[0].value + '&PageNumber=0&RowCount=0',
                                         dataType: 'json',
                                         success: function (result) {
-                                            options.success(result);
+                                            if (result.length > 0) {
+                                                options.success(result);
+                                            }
                                         },
                                         error: function (result) {
                                             options.error(result);
@@ -4293,10 +5018,10 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '100px',
-            }],
+                field: 'LegalName',
+                title: 'Nombre',
+                width: '200px',
+            }, ],
         });
     },
 
@@ -4309,7 +5034,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4317,7 +5044,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             CF_QueryDate: { editable: true },
@@ -4334,14 +5061,14 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4355,11 +5082,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4373,29 +5100,43 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CF_QueryDate',
                 title: 'Fecha de Consulta',
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'CF_ResultQuery',
@@ -4456,9 +5197,9 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '200px',
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -4472,7 +5213,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4480,7 +5223,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             SF_ProcessDate: { editable: true },
@@ -4497,14 +5240,14 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4518,11 +5261,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4536,29 +5279,43 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SF_ProcessDate',
                 title: 'Fecha de Diligenciamiento',
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'SF_PersonType',
@@ -4641,9 +5398,9 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '200px',
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '78px',
             }],
         });
     },
@@ -4657,7 +5414,9 @@ var Provider_LegalInfoObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
-                { name: 'cancel', text: 'Descartar' }
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_LegalInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -4665,7 +5424,7 @@ var Provider_LegalInfoObject = {
                         id: "LegalId",
                         fields: {
                             LegalId: { editable: false, nullable: true },
-                            LegalName: { editable: true, validation: { required: true } },
+                            LegalName: { editable: true },
                             Enable: { editable: true, type: "boolean", defaultValue: true },
 
                             RS_EntityType: { editable: true, validation: { required: true } },
@@ -4688,14 +5447,14 @@ var Provider_LegalInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?LILegalInfoGetByType=true&ProviderPublicId=' + Provider_LegalInfoObject.ProviderPublicId + '&LegalInfoType=' + Provider_LegalInfoObject.LegalInfoType + '&ViewEnable=' + Provider_LegalInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4709,11 +5468,11 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
+                                Message('error', result);
                             },
                         });
                     },
@@ -4727,20 +5486,31 @@ var Provider_LegalInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', options.data.LegalId);
+                                Message('success', 'Se editó la fila con el id ' + options.data.LegalId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', options.data.LegalId);
+                                Message('error', 'Error en la fila con el id ' + options.data.LegalId + '.');
                             },
                         });
                     },
                 },
             },
             columns: [{
-                field: 'LegalId',
-                title: 'Id',
-                width: '50px',
+                field: 'Enable',
+                title: 'Visible en Market Place',
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'RS_EntityType',
                 title: 'Tipo de Entidad',
@@ -4772,24 +5542,30 @@ var Provider_LegalInfoObject = {
                 title: 'Fecha Inicial',
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'RS_EndDate',
                 title: 'Fecha Final',
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
+                editor: function timeEditor(container, options) {
+                        var input = $('<input type="date" name="'
+                            + options.field
+                            + '" value="'
+                            +options.model.get(options.field)
+                            + '" />');
+                        input.appendTo(container);
                 },
             }, {
                 field: 'RS_Description',
-                title: 'Descripción',
+                title: 'Alcance',
                 width: '300px',
             }, {
                 field: 'RS_ResolutionFile',
@@ -4846,10 +5622,10 @@ var Provider_LegalInfoObject = {
                     });
                 },
             }, {
-                field: 'Enable',
-                title: 'Habilitado',
-                width: '200px',
-            }, ],
+                field: 'LegalId',
+                title: 'Id Interno',
+                width: '78px',
+            }],
         });
     },
 
@@ -4883,37 +5659,300 @@ var Provider_LegalInfoObject = {
             }
         });
     },
-
 }
 
-/*Message*/
-function Message(style, idfield) {
-    if ($('div.message').length) {
-        $('div.message').remove();
-    }
+var Provider_CustomerInfoObject = {
 
-    var mess = '';
-    if (style == 'error') {
-        if (idfield.length > 0) {
-            mess = 'Error en la fila con el id ' + idfield + '.';
-        }
-        else {
-            mess = 'Hay un error!';
-        }
-    } else {
-        if (idfield == '0') {
-            mess = 'Se creó el registro.';
-        }
-        else if (idfield == '') {
-            mess = 'Operación exitosa.';
-        } else {
-            mess = 'Se editó la fila con el id ' + idfield + '.';
-        }
-    }
+    ObjectId: '',
+    ProviderPublicId: '',
+    ProviderCustomerInfoType: '',
+    ProviderOptions: new Array(),
 
-    $('<div class="message m_' + style + '">' + mess + '</div>').css({
-        top: $(window).scrollTop() + 'px'
-    }).appendTo('body').slideDown(200).delay(3000).fadeOut(300, function () {
-        $(this).remove();
-    });
+    Init: function (vInitiObject) {
+        this.ObjectId = vInitiObject.ObjectId;
+        this.ProviderPublicId = vInitiObject.ProviderPublicId;
+        this.ProviderCustomerInfoType = vInitiObject.ProviderCustomerInfoType;
+        $.each(vInitiObject.ProviderOptions, function (item, value) {
+            Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
+        });
+    },
+
+    RenderAsync: function () {
+        if (Provider_CustomerInfoObject.ProviderCustomerInfoType == 901001) {
+            Provider_CustomerInfoObject.RenderCustomerByProvider();
+        }
+    },
+
+    RenderCustomerByProvider: function () {
+        $('#' + Provider_CustomerInfoObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            selectable: true,
+            toolbar: [
+                { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
+                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking(null);">Agregar Seguimiento</a>' },
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        fields: {
+                            CP_CustomerProviderId: { editable: false },
+                            CP_CustomerPublicId: { editable: false },
+                            CP_Customer: { editable: false },
+                            CP_Status: { editable: false },
+                            CP_Enable: { editable: true, type: "boolean" },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=true',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=true',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            }
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=false',
+                            dataType: "json",
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            }
+                        });
+                    },
+                },
+            },
+            change: function (e) {
+                var selectedRows = this.select();
+                for (var i = 0; i < selectedRows.length; i++) {
+                    Provider_CustomerInfoObject.RenderCustomerByProviderDetail(this.dataItem(selectedRows[i]).CP_CustomerProviderId);
+                }
+            },
+            columns: [{
+                field: 'CP_Customer',
+                title: 'Comprador',
+                width: '100px',
+            }, {
+                field: 'CP_Status',
+                title: 'Estado',
+                width: '100px',
+            }, {
+                field: 'CP_CustomerPublicId',
+                title: 'Id Comprador',
+                width: '100px',
+            }],
+        });
+    },
+
+    RenderCustomerByProviderDetail: function (oData) {
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            selectable: true,
+            dataSource: {
+                schema: {
+                    model: {
+                        fields: {
+                            CPI_CustomerProviderInfoId: { editable: false },
+                            CPI_TrackingType: { editable: false },
+                            CPI_Tracking: { editable: false },
+                            CPI_LastModify: { editable: false },
+                            CPI_Enable: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                },
+            },
+            change: function (e) {
+                var selectedRows = this.select();
+                for (var i = 0; i < selectedRows.length; i++) {
+                    Provider_CustomerInfoObject.CreateCustomerByProviderTracking(this.dataItem(selectedRows[i]));
+                }
+            },
+            columns: [{
+                field: 'CPI_TrackingType',
+                title: 'Tipo de Seguimiento',
+                width: '100px',
+            }, {
+                field: 'CPI_Tracking',
+                title: 'Seguimiento',
+                width: '100px',
+            }, {
+                field: 'CPI_LastModify',
+                title: 'Fecha de Edición',
+                width: '100px',
+            }, {
+                field: 'CPI_CustomerProviderInfoId',
+                title: 'Id',
+                width: '50px',
+            }],
+        });
+    },
+
+    CreateCustomerByProviderStatus: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').html('');
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].RelatedCompany.Enable == true) {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
+                    }
+                    else {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
+                    }
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
+                }
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog();
+    },
+
+    UpsertCustomerByProvider: function () {
+
+        var oCompanyPublicList = new Array();
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog input:checked').each(function () {
+            oCompanyPublicList.push($(this).attr('id'));
+        });
+
+        //update
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList,
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                Message('success', 'Se creó el registro.');
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog("close");
+
+                Provider_CustomerInfoObject.RenderCustomerByProvider();
+            },
+            error: function (result) {
+                Message('error', result);
+            }
+        });
+    },
+
+    CreateCustomerByProviderTracking: function (TrackingInfo) {
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].RelatedCompany.Enable == true) {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
+                    }
+                }
+                if (TrackingInfo.CPI_TrackingType == "Seguimientos internos") {
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').append(TrackingInfo.CPI_Tracking)
+                }
+                else if (TrackingInfo.CPI_TrackingType == "Seguimientos del comprador") {
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').append(TrackingInfo.CPI_Tracking)
+                }
+            },
+            error: function (result) {
+                options.error(result);
+            }
+        });
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog();
+    },
+
+    UpsertCustomerByProviderTraking: function () {
+
+        var oCompanyPublicList = new Array();
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking input:checked').each(function () {
+            oCompanyPublicList.push($(this).attr('id'));
+        });
+        var oCustomers = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').val();
+        var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
+        var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val();
+        var oStatusId = $('#' + Provider_CustomerInfoObject.ObjectId + '_Status').val();
+
+        //update
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
+            dataType: "json",
+            type: "POST",
+            success: function (result) {
+                Message('success', 'Se creó el registro.');
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog("close");
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val('');
+
+                Provider_CustomerInfoObject.RenderCustomerByProvider();
+            },
+            error: function (result) {
+                Message('error', result);
+            }
+        });
+    },
 }
+
+

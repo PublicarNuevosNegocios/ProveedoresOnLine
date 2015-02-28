@@ -138,7 +138,7 @@ namespace BackOffice.Models.Provider
         public ProviderLegalViewModel() { }
 
         public ProviderLegalViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedLegal,
-                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity)
+                                     List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA)
         {
             RelatedLegal = oRelatedLegal;
 
@@ -303,7 +303,7 @@ namespace BackOffice.Models.Provider
             R_LargeContributor = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributor).
                 Select(y => (y.Value)).
-                FirstOrDefault() == "true" ? true : false;
+                FirstOrDefault() == "True" ? true : false;
 
             R_LargeContributorId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_LargeContributor).
@@ -339,7 +339,7 @@ namespace BackOffice.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainer).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault() == "true" ? true : false;
+                FirstOrDefault() == "True" ? true : false;
 
             R_SelfRetainerId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_SelfRetainer).
@@ -387,7 +387,7 @@ namespace BackOffice.Models.Provider
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_IVA).
                 Select(y => y.Value).
                 DefaultIfEmpty(string.Empty).
-                FirstOrDefault() == "true" ? true : false;
+                FirstOrDefault() == "True" ? true : false;
 
             R_IVAId = RelatedLegal.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.R_IVA).
@@ -419,9 +419,9 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            if (oEconomiActivity != null && oEconomiActivity.Count > 0)
+            if (oICA != null && oICA.Count > 0)
             {
-                R_ICAName = oEconomiActivity.
+                R_ICAName = oICA.
                     Where(x => x.ItemId.ToString() == R_ICA).
                     Select(x => x.ItemName).
                     DefaultIfEmpty(string.Empty).
@@ -611,11 +611,6 @@ namespace BackOffice.Models.Provider
 
 
             #endregion
-
-            #region Resolutions
-
-            #endregion
-
         }
     }
 }

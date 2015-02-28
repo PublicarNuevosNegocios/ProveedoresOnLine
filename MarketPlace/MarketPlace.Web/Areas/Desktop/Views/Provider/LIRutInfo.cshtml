@@ -1,0 +1,124 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - RUT";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Registro único tributario</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+
+                    foreach (var item in Model.RelatedLegalInfo)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
+                                @if (!string.IsNullOrEmpty(item.R_PersonType) && !string.IsNullOrEmpty(item.R_LargeContributorReceipt))
+                                {
+                                    <span>@item.R_PersonType, Gran Contribuyente Resolución: @item.R_LargeContributorReceipt</span>
+                                }
+                            </label>
+                            @if (!string.IsNullOrEmpty(item.R_LargeContributorDate))
+                            {
+                                <label>
+                                    Fecha Resolución Gran Contribuyente
+                                    <span>@item.R_LargeContributorDate</span>
+                                </label>
+                            }
+                            <label>
+                                Autorretenedor
+                                @if (item.R_SelfRetainer == true)
+                                {
+                                    <span>Si</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </label>
+                            @if (!string.IsNullOrEmpty(item.R_SelfRetainerReciept))
+                            {
+                                <label>
+                                    Autorretendor Recibo
+                                    <span>@item.R_SelfRetainerReciept</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.R_SelfRetainerDate))
+                            {
+                                <label>
+                                    Autorretendor Fecha
+                                    <span>@item.R_SelfRetainerDate</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.R_EntityType))
+                            {
+                                <label>
+                                    Tipo de Entidad
+                                    <span>@item.R_EntityType</span>
+                                </label>
+                            }
+
+                            <label>
+                                Iva
+                                @if (item.R_IVA == true)
+                                {
+                                    <span>Si</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </label>
+                            @if (!string.IsNullOrEmpty(item.R_TaxPayerType))
+                            {
+                                <label>
+                                    Tipo de Régimen
+                                    <span>@item.R_TaxPayerType</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.R_RUTFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_RUTFile">Ver Archivo RUT Anexo</a>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.R_LargeContributorFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_LargeContributorFile">Ver Archivo Gran Contribuyente Anexo</a>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.R_SelfRetainerFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.R_SelfRetainerFile">Ver Archivo Autorretendor Anexo</a>
+                                </label>
+                            }
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

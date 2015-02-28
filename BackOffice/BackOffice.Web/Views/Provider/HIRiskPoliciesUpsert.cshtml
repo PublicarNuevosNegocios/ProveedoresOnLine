@@ -5,6 +5,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Model.RenderScripts = false;
+    Model.GridToSave = "divGridRiskPolicies";
+
+    var OccupationalHazardsId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+            Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+                Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                    Select(y => y.ValueName).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+    var SystemOccupationalHazards = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+            Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+                Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                    Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+    var SystemOccupationalHazardsId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
+                Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
+    var RateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).
+                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+    var RateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).
+                Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
+    var CertificateAffiliateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
+                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+    var CertificateAffiliateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
+                Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
+    var LTIFResult = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
+        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
+            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_LTIFResult).
+                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -19,36 +60,6 @@
             @{
                 Model.IsForm = true;
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
-
-                var SystemOccupationalHazards = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                        Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                            Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
-                                Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
-
-                var SystemOccupationalHazardsId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_SystemOccupationalHazards).
-                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
-
-                var RateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).
-                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
-
-                var RateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_RateARL).
-                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
-
-                var CertificateAffiliateARL = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
-                            Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
-
-                var CertificateAffiliateARLId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ?
-                    Model.RelatedProvider.RelatedCertification.Where(x => x.ItemInfo != null).
-                        Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_CertificateAffiliateARL).
-                            Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
             }
             <form id="frmProviderUpsert" method="post" action="@(Url.Action
                 (MVC.Provider.ActionNames.HIRiskPoliciesUpsert,
@@ -63,8 +74,8 @@
                         <input type="hidden" name="RiskPoliciesName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemName != null).Select(x => x.ItemName).FirstOrDefault() : string.Empty) " />
                         <input type="hidden" name="NameInfoId" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null ? Model.RelatedProvider.RelatedCertification.Where(x => x.ItemId != null).Select(x => x.ItemId).FirstOrDefault() : 0) " />
 
-                        <input type="text" id="OccupationalHazardsId" name="OccupationalHazardsId" value="@SystemOccupationalHazards" />
-                        <input type="hidden" id="SelectedOccupationalHazards" name="SelectedOccupationalHazards" value="" />
+                        <input type="text" id="OccupationalHazardsId" name="OccupationalHazardsId" value="@OccupationalHazardsId" />
+                        <input type="hidden" id="SelectedOccupationalHazards" name="SelectedOccupationalHazards" value="@SystemOccupationalHazards" />
                         <input type="hidden" id="SelectedOccupationalHazardsId" name="SelectedOccupationalHazardsId" value="@SystemOccupationalHazardsId" />
                     </li>
                     <li>
@@ -115,52 +126,6 @@
                     <div id="divGridRiskPolicies"></div>
                 </li>
                 <li class="POBOHSEQ">
-                    @{
-                        string oYear = string.Empty;
-                        double oFatalities = 0;
-                        double oAccidents = 0;
-                        double oHours = 0;
-                        double oLTIF = 0;
-
-                        if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCertification != null)
-                        {
-                            foreach (var Item in Model.RelatedProvider.RelatedCertification)
-                            {
-                                oYear += Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Year).
-                                    Select(x => x.Value).
-                                    DefaultIfEmpty(string.Empty).
-                                    FirstOrDefault() + " ";
-
-                                if (oYear.Length > 0 && oYear != null)
-                                {
-                                    string oReturn = string.Empty;
-
-                                    oReturn = Item.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_Fatalities).
-                                        Select(x => x.Value).
-                                        DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault();
-                                    
-                                    oFatalities += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
-
-                                    oReturn = Item.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_NumberAccidentDisabling).
-                                        Select(y => y.Value).
-                                        DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault();
-
-                                    oAccidents += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
-
-                                    oReturn = Item.ItemInfo.Where(z => z.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CR_ManHoursWorked).
-                                        Select(z => z.Value).
-                                        DefaultIfEmpty(string.Empty).
-                                        FirstOrDefault();
-
-                                    oHours += Convert.ToDouble(oReturn == string.Empty ? "0.0" : oReturn);
-                                }
-                            }
-
-                            oLTIF = ((oFatalities + oAccidents) / oHours) * 1000000;
-                        }
-                    }
                     <label>Reporte LTIF</label>
                     <ul id="ReportLITF">
                         <li id="F1">
@@ -172,8 +137,7 @@
                             <label>* 1'000.000</label>
                         </li>
                         <li id="F3">
-                            <label>Resultado LTIF: @(oLTIF)</label>
-                            <label>AÑOS: @(oYear)</label>
+                            <label id="lblLTIFResult">Resultado LTIF: @LTIFResult</label> 
                         </li>
                     </ul>
                 </li>
@@ -188,6 +152,15 @@
 
 <!--templates by files-->
 <div style="display:none;">
+
+    <div id="divGridRiskPolicies_ShortcutToolTipTemplate">
+        <img id="divGridRiskPolicies_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridRiskPolicies_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridRiskPolicies_ViewEnable" type="checkbox" checked="checked" />
+    </div>
     <div id="divGridRiskPolicies_NoFile">
         <div>
             <span>Seleccione un archivo</span>
@@ -232,7 +205,8 @@
                 ControlToRetornACId: 'SelectedOccupationalHazards',
                 ObjectId: 'divGridRiskPolicies',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
-                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
+                HSEQType: '@((int)BackOffice.Models.General.enumHSEQType.CertificatesAccident)',
+                CompanyRiskType: '@((int)BackOffice.Models.General.enumHSEQType.CompanyRiskPolicies)',
                 YearOptionList: vYearOptionList,
                 DateFormat: '',
                 HSEQOptionList: '',

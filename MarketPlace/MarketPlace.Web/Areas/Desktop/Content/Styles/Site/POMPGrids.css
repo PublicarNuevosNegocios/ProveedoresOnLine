@@ -1,0 +1,15 @@
+/*********** ENCABEZADO DE GRILLAS ***********/
+.k-grid-content {
+    overflow-y:scroll;
+    max-height:308px;
+    height:auto !important;
+}
+#divGridBranch, #divGridDistributor{
+     height: auto !important;
+}
+.k-pager-numbers {
+        cursor: default;
+    float: left;
+    padding: 0 !important;
+    width: auto !important;
+}

@@ -37,6 +37,16 @@
                                     Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_ConstitutionEndDate).
                                         Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
 
+                var UndefinedDate = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                                Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                                    Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_UndefinedDate).
+                                        Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+
+                var UndefinedDateId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
+                                Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
+                                    Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_UndefinedDate).
+                                        Select(y => y.ItemInfoId).FirstOrDefault()).FirstOrDefault() : 0;
+
                 var InscriptionNumber = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                                 Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                                     Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionNumber).
@@ -70,12 +80,12 @@
                 var oCity = Model.RelatedProvider.RelatedLegal != null ? Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
 
                 int oTotalRows;
-            
+
                 var oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, Convert.ToInt32(!string.IsNullOrEmpty(oCity) ? oCity : "0"), 0, 0, out oTotalRows);
-                
+
 
                 var City = oCities != null ? oCities.FirstOrDefault().Country.ItemName + "," + oCities.FirstOrDefault().State.ItemName + "," + oCities.FirstOrDefault().City.ItemName : string.Empty;
-                    
+
                 var CityId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                             Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                                 Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_InscriptionCity).
@@ -113,15 +123,29 @@
                     <li>
                         <label>Fecha de Constitución</label>
                         <br />
-                        <input type="date" name="ConstitutionDate" value="@ConsitutionDate" />
+                        <input type="date" id="ConstitutionDateId" name="ConstitutionDate" value="@ConsitutionDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ConstitutionDateId" value="@ConsitutionDateId" />
 
                     </li>
                     <li>
                         <label>Fecha de Vigencia</label>
                         <br />
-                        <input type="date" name="ValidityDate" value="@ConstitutionEndDate" />
+                        <input type="date" id="ValidityDateId" name="ValidityDate" value="@ConstitutionEndDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ValidityDateId" value="@ConstitutionEndDateId" />
+                    </li>
+                    <li>
+                        <label>Fecha Indefinida</label>
+                        <br />
+                        @if (UndefinedDate == "on")
+                        {
+                            <input type="checkbox" id="UndefinedDate" name="UndefinedDate" checked />
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="UndefinedDate" name="UndefinedDate" />
+                        }
+
+                        <input type="hidden" name="UndefinedDateId" id="UndefinedDateId" value="@UndefinedDateId" />
                     </li>
                     <li class="POBOCamposProblematicos">
                         <label>Ciudad</label>
@@ -152,7 +176,7 @@
                     <li>
                         <label>Fecha de Expedición del Certificado</label>
                         <br />
-                        <input type="Date" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" />
+                        <input type="date" id="ExpeditionCertificatedDateId" name="ExpeditionCertificatedDate" value="@CertificateExpeditionDate" placeholder="yyyy-mm-dd" />
                         <input type="hidden" name="ExpeditionCertificatedDateId" value="@CertificateExpeditionDateId" />
                     </li>
                     <li>
@@ -166,7 +190,7 @@
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
-            </form>
+            </form>                        
             <ul class="POBOCamaraComercioSociosWrapper">
                 <li class="POBOCamaraComercioSocios">
                     <label>Socios, Miembros junta directiva, entre otros</label>
@@ -179,6 +203,16 @@
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
         </div>
+    </div>
+</div>
+<div style="display:none;">
+    <div id="divGridChaimberOfComerce_ShortcutToolTipTemplate">
+        <img id="divGridChaimberOfComerce_kbtooltip"  src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridChaimberOfComerce_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridChaimberOfComerce_ViewEnable" type="checkbox" checked="checked" />
     </div>
 </div>
 @{
@@ -218,7 +252,6 @@
         var vLegalId = @oLegalId;
 
         $(document).ready(function () {
-            debugger;
             Provider_LegalInfoObject.Init({
                 AutoCompleteId: 'CityId',
                 ControlToRetornACId: 'SelectedCity',
@@ -226,12 +259,13 @@
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 LegalInfoType: '@((int)BackOffice.Models.General.enumLegalType.Designations)',
                 ChaimberOfComerceOptionList : vChaimberOfComerceOptionList,
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
                 LegalId: vLegalId,
             })
             UploadFile({
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 ControlellerResponseId: "CertificateURL",
-            });
+            });         
             Provider_LegalInfoObject.RenderAsync();
         });
     </script>

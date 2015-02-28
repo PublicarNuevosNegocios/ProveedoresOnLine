@@ -1,0 +1,75 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Resoluciones";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Resoluciones</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+                {
+
+                    foreach (var item in Model.RelatedLegalInfo)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">
+                                @if (!string.IsNullOrEmpty(item.RS_EntityType) && !string.IsNullOrEmpty(item.RS_Description))
+                                {
+                                    <span>@item.RS_EntityType, Alcance: @item.RS_Description</span>
+                                }
+                            </label>
+                            @if (!string.IsNullOrEmpty(item.RS_StartDate))
+                            {
+                                <label>
+                                    Fecha Inicial
+                                    <span>@item.RS_StartDate</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RS_EndDate))
+                            {
+                                <label>
+                                    Fecha Final
+                                    <span>@item.RS_EndDate</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RS_Description))
+                            {
+                                <label>
+                                    Alcance
+                                    <span>@item.RS_Description</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.RS_ResolutionFile))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RS_ResolutionFile">Ver Archivo Anexo</a>
+                                </label>
+                            }
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

@@ -40,7 +40,35 @@
         else if (Admin_CategoryObject.CategoryType == "AdminTree") {
             Admin_CategoryObject.RenderTreeAsync();
         }
+        else if (Admin_CategoryObject.CategoryType == "AdminTRM") {
+            Admin_CategoryObject.RenderTRMAsync();
+        }
 
+        //config keyboard
+        Admin_CategoryObject.ConfigKeyBoard();
+    },
+
+    ConfigKeyBoard: function () {
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Admin_CategoryObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Admin_CategoryObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Admin_CategoryObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
     },
 
     RenderGeoAsync: function (param) {
@@ -125,7 +153,7 @@
                         });
                     },
                     create: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -214,7 +242,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
+                                    
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
@@ -328,6 +356,9 @@
 
                             B_Bank: { editable: true, nullable: false, validation: { required: true } },
 
+                            B_BankCode: { editable: true, nullable: false },
+                            B_BankCodeId: { editable: false },
+
                             B_City: { editable: true, nullable: false },
                             B_CityId: { editable: false },
 
@@ -417,14 +448,14 @@
                         dataTextField: 'ItemName',
 
                         change: function (e) {
-                            debugger;
+                            
                             if (isSelected == false) {                                
                                 options.model['B_Bank'] = e.sender._old;
                                 options.model.dirty = true;
                             }
                         },
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
 
                             isSelected = true;
@@ -440,7 +471,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
+                                    
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
@@ -457,6 +488,10 @@
                         }
                     });
                 },
+            }, {
+                field: 'B_BankCode',
+                title: 'Código',
+                width: '50px',
             }, {
                 field: 'B_City',
                 title: 'País',
@@ -487,7 +522,7 @@
                         dataTextField: 'GIT_Country',
 
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['B_CityId'] = selectedItem.GIT_CountryId;
@@ -522,7 +557,18 @@
                 field: 'B_BankEnable',
                 title: 'Enable',
                 width: '50px',
-            }, ],
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }],
         });
     },
 
@@ -619,7 +665,7 @@
                 width: '150px',
             }, {
                 field: 'CR_CompanyRuleEnable',
-                title: 'Habilitado',
+                title: 'Enable',
                 width: '50px',
             }, ],
         });
@@ -885,7 +931,7 @@
                         });
                     },
                     create: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -904,7 +950,7 @@
                         });
                     },
                     update: function (options) {
-                        debugger;
+                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -1066,7 +1112,7 @@
                     input.kendoAutoComplete({
                         dataTextField: 'G_Group',
                         select: function (e) {
-                            debugger;
+                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name                            
                             options.model['ECS_Group'] = selectedItem.G_GroupId;
@@ -1099,6 +1145,17 @@
                 field: 'ECS_Enable',
                 title: 'Enable',
                 width: '110px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, ],
         });
     },
@@ -1303,6 +1360,149 @@
                 field: 'T_TreeEnable',
                 title: 'Habilitado',
             }, ],
+        });
+    },
+
+    RenderTRMAsync: function (param) {
+        if (param != true) {
+            var vSearchParam = '';
+        }
+        else {
+            var vSearchParam = $('#SearchBoxId').val();
+        }
+        $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            //pageable: true,
+            scrollable: true,
+            toolbar:
+                [{ name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' }],
+                //{ name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" }],
+                //{ name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderTreeAsync(" + "true" + ");'>Buscar</a" }],
+            dataSource: {
+                pageSize: 20,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].AllTotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'C_CurrentExchangeId',
+                        fields: {
+                            C_CurrentExchangeId: { editable: false, nullable: false },
+                            C_IssueDate: { editable: true, nullable: false },
+                            C_MoneyTypeFromId: { editable: true, nullable: false},
+                            C_MoneyTypeToId: { editable: true, nullable: false },
+                            C_MoneyTypeToName: { editable: true, nullable: false },
+                            C_Rate: { editable: true, nullable: false },
+                            C_CreateDate: { editable: false, nullable: false },
+                            C_LastModify: { editable: false, nullable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByTreeAdmin=true',
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', '0');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', '');
+                            }
+                        });
+                    },                    
+                },
+            },
+            columns: [{
+                field: 'C_IssueDate',
+                title: 'TRM Fecha',
+                width: '160px',
+                format: Provider_CompanyContactObject.DateFormat,
+                editor: function (container, options) {
+                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
+                        .appendTo(container)
+                        .kendoDateTimePicker({});
+                },
+            },{
+                field: 'C_MoneyTypeFromId',
+                title: 'Conversión desde',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.C_MoneyTypeFromId != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[108], function (item, value) {
+                            if (dataItem.C_MoneyTypeFromId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            },{
+                field: 'C_MoneyTypeToId',
+                title: 'Moneda Destino',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.C_MoneyTypeToId != null) {
+                        $.each(Admin_CategoryObject.AdminOptions[108], function (item, value) {
+                            if (dataItem.C_MoneyTypeToId == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Admin_CategoryObject.AdminOptions[108],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            },{
+                field: "C_Rate",
+                title: "Tarifa",                
+            },],
         });
     },
 }

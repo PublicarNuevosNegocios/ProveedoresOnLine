@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     Model.RenderScripts = false;
+    Model.GridToSave = "divGridCertification";
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
@@ -31,6 +32,16 @@
 
 <!--templates-->
 <div style="display:none;">
+
+    <div id="divGridCertification_ShortcutToolTipTemplate">
+        <img id="divGridCertification_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridCertification_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridCertification_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
     <div id="divGridCertification_NoFile">
         <div>
             <span>Seleccione un archivo</span>

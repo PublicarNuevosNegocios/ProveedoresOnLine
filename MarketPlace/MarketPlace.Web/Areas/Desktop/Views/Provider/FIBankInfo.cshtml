@@ -1,0 +1,92 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Información bancaria";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Información Bancaria</label>
+        <ul class="POMPProviderInfoMultipleValues">
+            @{
+                foreach (var item in Model.RelatedFinancialInfo)
+                {
+                    <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (item.IB_Bank != null && !string.IsNullOrEmpty(item.IB_AccountType))
+                            {
+                                <span>@item.IB_Bank.ItemName, @item.IB_AccountType</span>
+                            }
+                        </label>
+                        @if (!string.IsNullOrEmpty(item.IB_AccountNumber))
+                        {
+                            <label>
+                                Número de Cuenta
+                                <span>@item.IB_AccountNumber</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_AccountHolder))
+                        {
+                            <label>
+                                Titular de la Cuenta
+                                <span>@item.IB_AccountHolder</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_ABA))
+                        {
+                            <label>
+                                ABA
+                                <span>@item.IB_ABA</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_Swift))
+                        {
+                            <label>
+                                SWIFT
+                                <span>@item.IB_Swift</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_IBAN))
+                        {
+                            <label>
+                                IBAN
+                                <span>@item.IB_IBAN</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_Customer))
+                        {
+                            <label>
+                                Comprador
+                                <span>@item.IB_Customer</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(item.IB_AccountFile))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@item.IB_AccountFile">Ver Archivo Certificado</a>
+                            </label>
+                        }
+                    </li>
+
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+
