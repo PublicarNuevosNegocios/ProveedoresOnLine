@@ -31,7 +31,7 @@ namespace WebCrawler.Manager
         {
             ProveedoresOnLine.Company.Models.Util.GeographyModel oReturn = null;
 
-            SearchParam = SearchParam.ToLower().Replace("d.c", "");
+            SearchParam = SearchParam.ToLower().Replace("d.c", "").Replace("d c ", "");
 
             string[] oSearchParam = SearchParam.Split(new char[] { '/', ',' });
 
@@ -55,6 +55,18 @@ namespace WebCrawler.Manager
             {
                 //get default city
                 oReturn = GeographyValues.Where(x => x.City.ItemId == 1).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //get Country exact search
+                oReturn = GeographyValues.Where(x => reg.Replace(x.Country.ItemName.ToLower().Replace(" ", ""), "") == SearchParam).FirstOrDefault();
+            }
+
+            if (oReturn == null)
+            {
+                //get Country like search
+                oReturn = GeographyValues.Where(x => reg.Replace(x.Country.ItemName.ToLower().Replace(" ", ""), "").Contains(SearchParam)).FirstOrDefault();
             }
 
             return oReturn;

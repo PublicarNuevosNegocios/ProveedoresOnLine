@@ -136,7 +136,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         option = Regex.Replace(option, @"[\d-]", string.Empty);
 
                         //Get city
-                        ProveedoresOnLine.Company.Models.Util.GeographyModel oGetCity = Util.Geography_GetByName(option);
+                        ProveedoresOnLine.Company.Models.Util.GeographyModel oGeograghy = Util.Geography_GetByName(option);
 
                         oChaimberOfCommerce.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
@@ -145,7 +145,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                             {
                                 ItemId = (int)enumLegalInfoType.CP_InscriptionCity,
                             },
-                            Value = oGetCity != null ? oGetCity.City.ItemId.ToString() : string.Empty,
+                            Value = oGeograghy != null ? oGeograghy.City != null ? oGeograghy.City.ItemId.ToString() : oGeograghy.Country != null ? oGeograghy.Country.ItemId.ToString() : string.Empty : string.Empty,
                             Enable = true,
                         });
                     }

@@ -620,7 +620,7 @@ namespace WebCrawler.Manager
                             {
                                 ItemId = (int)enumContactInfoType.BR_City,
                             },
-                            Value = oGeograghy.City.ItemId.ToString(),
+                            Value = oGeograghy != null ? oGeograghy.City.ItemName != string.Empty ? oGeograghy.City.ItemId.ToString() : oGeograghy.Country.ItemName != string.Empty ? oGeograghy.Country.ItemId.ToString() : string.Empty : string.Empty,
                             Enable = true,
                         });
 
