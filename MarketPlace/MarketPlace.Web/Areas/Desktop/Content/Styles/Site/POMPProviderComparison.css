@@ -39,8 +39,8 @@
             list-style-type:none;
         }
             #CompareDetail > div > div > table > thead > tr > th > ul > li {
-                display:inline-block; width:48%; height:18px;
-                text-align:left; margin: 0 0 0 2px; padding:0px 0px 0px 6px;
+                display:inline-block; width:45%; height:18px;
+                text-align:right; margin: 0px; padding:0px 10px 0px 0px;
                 font-size:1em; line-height:0.9em; color:#666;
             }
             #CompareDetail > div > div > table > thead > tr > th > ul > li:last-child {
@@ -66,10 +66,21 @@
                 list-style-type:none;
             }
                 #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li{
-                    display:inline-block; width:48%; height:48px;
-                    text-align:left; margin: 0 0 0 2px; padding:0px 0px 0px 6px;
+                    display:inline-block; width:45%; height:48px;
+                    text-align:right; margin: 0px; padding:0px 10px 0px 0px;
                     font-size:1em; line-height:0.9em; color:#666;
                 }
                 #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:last-child {
                     border-left:1px solid grey;
                 }
+
+    #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper{
+        min-width: 146px;
+        width: 52%;
+    }
+    #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper label {
+            max-height: 28px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+    }
