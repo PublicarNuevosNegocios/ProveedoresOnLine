@@ -17,7 +17,49 @@
         background-size:36px auto;
         background-repeat:no-repeat;
     }
-
+/********* FILTROS ENCABEZADO MONEDA ETC ***********/
+.POMPProviderComparison_mainFilter {
+    background-color: #f9f9f9;
+    height: 50px;
+    margin: 0;
+    min-width: 682px;
+    padding: 10px 0 0 15px;
+    width: 100%;
+}
+    .POMPProviderComparison_mainFilter li{
+        display: inline-block;
+        height: auto;
+        vertical-align: top;
+        width: 37.5%;
+    }
+    .POMPProviderComparison_mainFilter li:nth-child(3){
+        display: inline-block;
+        height: auto;
+        vertical-align: top;
+        width:auto;
+    }
+        .POMPProviderComparison_mainFilter li label {
+            display: inline;
+            font-size: 0.9em;
+            font-weight: normal;
+            margin: -21px 0 0;
+            position: absolute;
+        }
+        .POMPProviderComparison_mainFilter li span {
+            color: #4d4d4d;
+            font-size: 1.2em;
+        }
+        .POMPProviderComparison_mainFilter li select {
+            display:inline-block;
+            color: #666;
+            font-size: 1.05em;
+            border:1px solid #727276;
+            width:66%;
+            background-color:#ddd;
+        }
+        .POMPProviderComparison_mainFilter li a {
+            border-radius:2px;
+        }
 /********* CONTENEDOR PRINCIPAL DE GRILLA COMPARACION **********/
 #CompareDetail {
     display:block;
@@ -62,7 +104,7 @@
                 }
 /*********** COLUMNAs CON ProVEEDORES ************/
             #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul {
-                display:block; width:auto; height:48px; margin:0px; padding:1px;
+                display:block; width:auto; height:48px; margin:0px; padding:0px;
                 list-style-type:none;
             }
                 #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li{
@@ -84,3 +126,7 @@
             text-overflow: ellipsis;
             white-space: normal;
     }
+    #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultAlertComparWrapper {
+        display:inline-flex; float:none;
+    }
+    
