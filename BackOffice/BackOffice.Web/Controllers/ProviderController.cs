@@ -1023,7 +1023,7 @@ namespace BackOffice.Web.Controllers
             List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oCompanyList =
                 ProveedoresOnLine.Company.Controller.Company.CompanySearch
                     (oCompanyType,
-                    null,
+                    oSearchParam,
                     oSearchFilter,
                     oPageNumber,
                     oRowCount,
