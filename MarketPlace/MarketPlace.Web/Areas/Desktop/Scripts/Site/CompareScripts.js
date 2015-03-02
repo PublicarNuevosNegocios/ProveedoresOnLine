@@ -105,12 +105,14 @@ var Compare_SearchObject = {
 
 var Compare_DetailObject = {
     ObjectId: '',
+    CompareId: '',
     CompareDetailUrl: '',
     RelatedCompany: new Array(),
 
     Init: function (vInitObject) {
 
         this.ObjectId = vInitObject.ObjectId;
+        this.CompareId = vInitObject.CompareId;
         this.CompareDetailUrl = vInitObject.CompareDetailUrl;
 
         if (vInitObject.RelatedProvider != null) {
@@ -152,12 +154,28 @@ var Compare_DetailObject = {
     },
 
     CompareDetailSearch: function () {
-        debugger;
         var oUrl = Compare_DetailObject.CompareDetailUrl;
 
         oUrl += '&Currency=' + $('#' + Compare_DetailObject.ObjectId + '_Currency').val();
         oUrl += '&Year=' + $('#' + Compare_DetailObject.ObjectId + '_Year').val();
 
         window.location = oUrl;
-    }
+    },
+
+    RemoveCompareProvider: function (vProviderPublicId) {
+        if (Compare_DetailObject.CompareId != null && Compare_DetailObject.CompareId.length > 0) {
+            //remove company from existing compare process
+            $.ajax({
+                url: BaseUrl.ApiUrl + '/CompareApi?CMCompareRemoveCompany=true&CompareId=' + Compare_DetailObject.CompareId + '&ProviderPublicId=' + vProviderPublicId,
+                dataType: 'json',
+                success: function (result) {
+                    if (result != null) {
+                        Compare_DetailObject.CompareDetailSearch();
+                    }
+                },
+                error: function (result) {
+                }
+            });
+        }
+    },
 };
