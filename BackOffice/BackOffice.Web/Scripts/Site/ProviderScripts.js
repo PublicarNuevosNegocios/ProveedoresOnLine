@@ -1609,6 +1609,10 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
+                    
+                    //remove attribute role from input for space search
+                    var inputAux = $('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').data("kendoMultiSelect").input;
+                    $(inputAux).attr('role', '');
                 },
             }, {
                 field: 'EX_CustomEconomicActivity',
@@ -1696,6 +1700,10 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
+
+                    //remove attribute role from input for space search
+                    var inputAux = $('#' + Provider_CompanyCommercialObject.ObjectId + '_CustomEconomicActivityMultiselect').data("kendoMultiSelect").input;
+                    $(inputAux).attr('role', '');
                 },
             }, {
                 field: 'EX_ExperienceFile',
