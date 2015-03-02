@@ -24,15 +24,14 @@ div#POMPRenderFooter {
     border: medium none;
     height: auto;
     margin: 2px 0 0 2px;
-    padding: 6px 0;
+    padding: 0px 0;
     position: relative;
     width: 99.8%;
 }
 /*********** CONTENEDOR DEL MENU LATERAL ***********/
 .POMPProviderSideMenuWrapper {
     display: inline-block;
-    height: 100%;
-    min-height: 490px;
+    height: auto;
     padding: 0 9px 0 11px;
     vertical-align: top;
     width: auto;
@@ -42,9 +41,9 @@ div#POMPRenderFooter {
     border-left: 2px solid #ff8300;
     display: inline-block;
     height: auto;
-    margin: 8px 0px 0px 0px;
+    margin: 8px 0px 10px 0px;
     padding: 0 0 0 2px;
-    min-height: 400px;
-    width: calc(100% - 261px);
+    min-height: 381px;
+    width: calc(100% - 262px);
 }
 

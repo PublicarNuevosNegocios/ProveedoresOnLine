@@ -97,18 +97,18 @@
         }
             #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div {
                 display:block; margin:0px; padding:0px;
-                height:48px;
+                height:38px;
             }
                 #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div > span{
-                    height:48px; text-overflow:ellipsis; overflow:hidden;
+                    height:38px; text-overflow:ellipsis; overflow:hidden;
                 }
 /*********** COLUMNAs CON ProVEEDORES ************/
             #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul {
-                display:block; width:auto; height:48px; margin:0px; padding:0px;
+                display:block; width:auto; height:38px; margin:0px; padding:0px;
                 list-style-type:none;
             }
                 #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li{
-                    display:inline-block; width:45%; height:48px;
+                    display:inline-block; width:45%; height:38px;
                     text-align:right; margin: 0px; padding:0px 10px 0px 0px;
                     font-size:1em; line-height:0.9em; color:#666;
                 }
