@@ -63,13 +63,18 @@ var Provider_SearchObject = {
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
         /*get serach param*/
+        if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val())
+        {
+            /*Init pager*/
+            this.PageNumber = 0;
+        }
         this.SearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val();
 
         if (vSearchObject != null) {
             /*get filter values*/
             if (vSearchObject.SearchFilter != null) {
                 if (vSearchObject.SearchFilter.Enable == true) {
-                    this.SearchFilter += vSearchObject.SearchFilter.Value + ',';
+                    this.SearchFilter += ',' + vSearchObject.SearchFilter.Value;
                 }
                 else {
                     this.SearchFilter = this.SearchFilter.replace(new RegExp(vSearchObject.SearchFilter.Value, 'gi'), '').replace(/,,/gi, '');
