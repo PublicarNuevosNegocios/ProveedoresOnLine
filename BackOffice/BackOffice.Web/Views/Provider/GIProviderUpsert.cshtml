@@ -277,7 +277,7 @@
                     }
                         }
                         @Html.Partial(MVC.Shared.Views._F_FileUpload)
-                        <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoIdAux" />
+                        <input type="hidden" id="iptLogo" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
                         @if (CompanyInfoValueAux != null && CompanyInfoValueAux.Length > 0)
                         {
                             <div>
