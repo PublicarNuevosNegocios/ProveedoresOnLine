@@ -53,10 +53,23 @@
         #CompareDetail > div > div > table > tbody > tr > td[role="gridcell"] {
             margin:0px; padding:0px; height:auto !important;
         }
-            #CompareDetail > div > div > table > tbody > tr > td[role="gridcell"] > div {
+            #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div {
                 display:block; margin:0px; padding:0px;
                 height:48px;
             }
-                #CompareDetail > div > div > table > tbody > tr > td[role="gridcell"] > div > span{
+                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div > span{
                     height:48px; text-overflow:ellipsis; overflow:hidden;
+                }
+/*********** COLUMNAs CON ProVEEDORES ************/
+            #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul {
+                display:block; width:auto; height:48px; margin:0px; padding:1px;
+                list-style-type:none;
+            }
+                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li{
+                    display:inline-block; width:48%; height:48px;
+                    text-align:left; margin: 0 0 0 2px; padding:0px 0px 0px 6px;
+                    font-size:1em; line-height:0.9em; color:#666;
+                }
+                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:last-child {
+                    border-left:1px solid grey;
                 }
