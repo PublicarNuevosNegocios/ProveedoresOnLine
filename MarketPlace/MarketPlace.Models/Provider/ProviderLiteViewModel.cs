@@ -42,6 +42,18 @@ namespace MarketPlace.Models.Provider
         }
 
         /// <summary>
+        /// Is certified
+        /// </summary>
+        public bool ProviderIsCertified
+        {
+            get
+            {
+                return ProviderStatusId.ToString() == 
+                    MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value;
+            }
+        }
+
+        /// <summary>
         /// Provider logo url
         /// </summary>
         public string ProviderLogoUrl

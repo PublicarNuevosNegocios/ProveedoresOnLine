@@ -3,15 +3,19 @@
 @if (Model != null && Model.RelatedProvider != null)
 {
         <!--Comparison item-->
-    <div class="POMPComparisonResultStatusCertified">
+    <div class="POMPComparisonResultStatusCertified" >
         <!--Check certificacion-->
-        @if (Model.ProviderStatusId.ToString() == MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value)
-        {
-            <img class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
-        }
+        <img style="@(Model.ProviderIsCertified ? string.Empty : "display:none");" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        <a href="">
+        <a href="@(Url.RouteUrl
+                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Provider.Name,
+                            action = MVC.Provider.ActionNames.GIProviderInfo,
+                            ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
+                        ))">
             <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
         </a>
         <div class="POMPComparisonResultNameIDWrapper">
@@ -69,12 +73,18 @@
 else
 {
         <!--Comparison item template-->
-    <div class="POMPComparisonResultStatusCertified" id="Search_Compare_Item_Certified_{ProviderPublicId}">
+    <div class="POMPComparisonResultStatusCertified" >
         <!--Check certificacion-->
-        <img class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
+        <img style="display:{ProviderIsCertified};" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        <a href="">
+        <a href="@(Url.RouteUrl
+                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Provider.Name,
+                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                    }) + "?ProviderPublicId={ProviderPublicId}")">
             <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
         </a>
         <div class="POMPComparisonResultNameIDWrapper">
@@ -82,8 +92,8 @@ else
             <label><span>{IdentificationType} :</span> {IdentificationNumber}</label>
         </div>
         <div class="POMPComparisonResultAlertComparWrapper">
-            <div id="Search_Compare_Item_BlackList_{ProviderPublicId}">
-                <div class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
+            <div>
+                <div style="display:{ProviderAlertRisk};" class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
             </div>
             @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName == MVC.Compare.Name &&
                     MarketPlace.Web.Controllers.BaseController.CurrentActionName == MVC.Compare.ActionNames.CompareDetail)

@@ -185,7 +185,7 @@ namespace MarketPlace.Models.Compare
             {
                 oReturn.Append("{" +
                     MarketPlace.Models.General.Constants.C_Program_Compare_ColumnItem.
-                        Replace("{Width}", "'260px'").
+                        Replace("{Width}", "'330px'").
                         Replace("{Field}", "'_" + col + "'").
                         Replace("{HeaderTemplate}", "Compare_DetailObject.GetHeaderTemplate('" + col + "')").
                         Replace("{Template}", "Compare_DetailObject.GetItemTemplate('" + col + "')").
