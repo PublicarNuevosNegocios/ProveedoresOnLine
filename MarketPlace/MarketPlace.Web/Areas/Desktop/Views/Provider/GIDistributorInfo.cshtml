@@ -59,20 +59,15 @@
                                 <span>@item.DT_DateIssue</span>
                             </label>
                         }
-
                         @{
-                            
-                                @{
-                        var UlrContent = item.DT_DistributorFile;
-                        if (!string.IsNullOrEmpty(UlrContent))
-                        {
-                            <label>
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
-                            </label>
+                            var UlrContent = item.DT_DistributorFile;
+                            if (!string.IsNullOrEmpty(UlrContent))
+                            {
+                                <label>
+                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Documento Soporte</a>
+                                </label>
+                            }
                         }
-                                }
-
-}
                     </li>
                 }
             }
