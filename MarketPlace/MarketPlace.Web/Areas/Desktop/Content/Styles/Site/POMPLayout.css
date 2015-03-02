@@ -42,7 +42,7 @@ div#POMPRenderFooter {
     border-left: 2px solid #ff8300;
     display: inline-block;
     height: auto;
-    margin: 0px;
+    margin: 8px 0px 0px 0px;
     padding: 0 0 0 2px;
     min-height: 400px;
     width: calc(100% - 261px);

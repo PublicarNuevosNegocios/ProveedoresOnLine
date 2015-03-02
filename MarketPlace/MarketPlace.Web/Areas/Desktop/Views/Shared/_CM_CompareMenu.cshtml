@@ -6,14 +6,16 @@
     if (!Model.RenderScripts)
     {
         <div class="POMPProviderSideMenu">
-            <div class="POMPProviderTagWrapper">
+            <div class="POMPComparisonGoBackWrapper">                
                 <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search,
                                 CompareId = Model.RelatedCompare.CompareId,
-                            }))">Regresar a la busqueda</a>
+                            }))">
+                 <div></div>Regresar a la busqueda
+                </a>
             </div>
             <ul id="ulCompareMenu">
                 @foreach (MarketPlace.Models.General.GenericMenu pm in Model.CompareMenu.OrderBy(x => x.Position))
