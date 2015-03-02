@@ -50,7 +50,8 @@ namespace MarketPlace.Models.Compare
             {
                 if (oMaxValueCount == null &&
                     RelatedCompare.RelatedProvider != null &&
-                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null))
+                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null) &&
+                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null && rp.CompareDetail.Any(cd => cd.Value != null && cd.Value.Count > 0)))
                 {
                     oMaxValueCount = RelatedCompare.RelatedProvider.
                             Where(rp => rp.RelatedCompany != null &&
@@ -115,10 +116,31 @@ namespace MarketPlace.Models.Compare
                             FirstOrDefault();
                     }
                 }
-                return oUnitNames;
+                return oUnitNames != null ? oUnitNames : new List<string>();
             }
         }
         private List<string> oUnitNames;
+
+        public List<int> YearsToSelect
+        {
+            get
+            {
+                if (RelatedCompare.CompareOptions != null &&
+                    RelatedCompare.CompareOptions.ContainsKey("Year") &&
+                    RelatedCompare.CompareOptions["Year"] != null &&
+                    RelatedCompare.CompareOptions["Year"].Count() > 0)
+                {
+                    return RelatedCompare.CompareOptions["Year"].
+                        Select(x => Convert.ToInt32(x.Key.Replace(" ", ""))).
+                        OrderByDescending(x => x).
+                        ToList();
+                }
+                else
+                {
+                    return new List<int>() { DateTime.Now.Year };
+                }
+            }
+        }
 
         #endregion
 

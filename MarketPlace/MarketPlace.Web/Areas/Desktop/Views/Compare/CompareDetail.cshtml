@@ -4,6 +4,16 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    //get year info
+    List<int> oYearsToSelect = Model.YearsToSelect;
+    int oCurrentYear = Model.Year != null ? Model.Year.Value : oYearsToSelect.FirstOrDefault();
+
+    bool oDisplayYear =
+        Model.CompareType == MarketPlace.Models.General.enumCompareType.Financial;
+    bool oDisplayCurrency =
+        Model.CompareType == MarketPlace.Models.General.enumCompareType.Financial ||
+        Model.CompareType == MarketPlace.Models.General.enumCompareType.Commercial;
 }
 
 <div>
@@ -14,13 +24,54 @@
 
     @*CONTENEDOR DE LA GRILLA DE COMPARACION*@
     <div class="POMPProviderDataWrapper">
+        <ul class="POMPBalanceSheet_mainFilter" style="@(!oDisplayYear && !oDisplayCurrency ? "display:none;" : "")">
+            <li style="@(!oDisplayYear ? "display:none;" : "")">
+                <span>Año</span>
+                <select id="CompareDetail_Year">
+                    @foreach (var yts in oYearsToSelect)
+                    {
+                        if (yts == oCurrentYear)
+                        {
+                            <option selected="selected" value="@yts">@yts</option>
+                        }
+                        else
+                        {
+                            <option value="@yts">@yts</option>
+                        }
+                    }
+                </select>
+            </li>
+            <li style="@(!oDisplayCurrency ? "display:none;" : "")">
+                <span>Moneda</span>
+                <select id="CompareDetail_Currency">
+                    @foreach (var ci in MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
+                    {
+                        if (ci.ItemId == Model.CompareCurrency)
+                        {
+                            <option selected="selected" value="@ci.ItemId">@ci.ItemName</option>
+                        }
+                        else
+                        {
+                            <option value="@ci.ItemId">@ci.ItemName</option>
+                        }
+                    }
+                </select>
+            </li>
+            <li>
+                <a class="POMPButtons" href="javascript:Compare_DetailObject.CompareDetailSearch();">Consultar</a>
+            </li>
+        </ul>
+
         <div id="CompareDetail"></div>
+        <div id="CompareDetail_NoResult" style="display:none;">
+            Esta comparación no arrojo resultados
+        </div>
     </div>
 </div>
 
 <div style="display:none;">
 
-    <div id="CMPBalance_Company_Header_Template">
+    <div id="CompareDetail_Company_Header_Template">
         <div>
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
         </div>
@@ -31,12 +82,12 @@
             }
         </ul>
     </div>
-    <div id="CMPBalance_EvaluationArea_Item_Template">
+    <div id="CompareDetail_EvaluationArea_Item_Template">
         <div>
             <span>${EvaluationArea.Name}</span>
         </div>
     </div>
-    <div id="CMPBalance_Company_Item_Template">
+    <div id="CompareDetail_Company_Item_Template">
         <ul>
             @for (int i = 1; i <= Model.MaxValueCount; i++)
             {
@@ -49,33 +100,69 @@
 
 @{
     Model.RenderScripts = true;
+
+    string oJsonColumns = Model.GetJsonColumns();
+    string oJsonData = Model.GetJsonData();
+    string oJsonCompany = Model.GetJsonCompany();
+
+    string oCompareDetailUrl = Url.RouteUrl
+        (MarketPlace.Models.General.Constants.C_Routes_Default,
+        new
+        {
+            controller = MVC.Compare.Name,
+            action = MVC.Compare.ActionNames.CompareDetail,
+            CompareId = Model.RelatedCompare.CompareId,
+            CompareType = ((int)Model.CompareType).ToString(),
+        });
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            Compare_DetailObject.Init({
-                ObjectId: 'CompareDetail',
-                RelatedProvider: @Html.Raw(Model.GetJsonCompany()),
+    @if (!string.IsNullOrEmpty(oJsonData) &&
+        oJsonData.Replace(" ", "") != "[]" &&
+        !string.IsNullOrEmpty(oJsonColumns) &&
+        !string.IsNullOrEmpty(oJsonCompany))
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Compare_DetailObject.Init({
+                    ObjectId: 'CompareDetail',
+                    CompareDetailUrl:'@Html.Raw(oCompareDetailUrl)',
+                    RelatedProvider: @Html.Raw(oJsonCompany),
+                });
+
+                $('#' + Compare_DetailObject.ObjectId).kendoGrid({
+                    editable: false,
+                    navigatable: false,
+                    pageable: false,
+                    scrollable: true,
+                    selectable: true,
+                    dataSource: {
+                        data: @Html.Raw(oJsonData),
+                    },
+                    columns: @Html.Raw(oJsonColumns),
+                });
             });
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-            $('#' + Compare_DetailObject.ObjectId).kendoGrid({
-                editable: false,
-                navigatable: false,
-                pageable: false,
-                scrollable: true,
-                selectable: true,
-                dataSource: {
-                    data: @Html.Raw(Model.GetJsonData()),
-                },
-                columns: @Html.Raw(Model.GetJsonColumns()),
+                Compare_DetailObject.Init({
+                    ObjectId: 'CompareDetail',
+                    CompareDetailUrl:'@Html.Raw(oCompareDetailUrl)',
+                    RelatedProvider: @Html.Raw(oJsonCompany),
+                });
+
+                $('#' + Compare_DetailObject.ObjectId).hide();
+                $('#' + Compare_DetailObject.ObjectId + '_NoResult').show();
             });
-
-
-        });
-    </script>
+        </script>
+    }
 }
+
 
 

@@ -49,7 +49,6 @@
                         {
                             foreach (var bi in Model.RelatedFinancialInfo.Where(x => !string.IsNullOrEmpty(x.SH_Year)).OrderByDescending(x => x.SH_Year))
                             {
-                                <link href="~/Areas/Desktop/Content/Styles/Site/POMPProviderSearchLayout.css" rel="stylesheet" />
                                 if (bi.SH_Year == oCurrentYear.ToString())
                                 {
                                     <option selected="selected" value="@bi.SH_Year">@bi.SH_Year</option>
