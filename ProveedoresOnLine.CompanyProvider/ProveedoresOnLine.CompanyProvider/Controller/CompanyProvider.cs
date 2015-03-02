@@ -293,12 +293,12 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                 oCertificatesResult.All(x =>
                 {
-                    actualManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
-                    actualFatalities += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
-                    actualIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
-                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
+                    actualManWorkersHours += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002 && !string.IsNullOrWhiteSpace(y.Value)).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705002 && !string.IsNullOrWhiteSpace(y.Value)).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
+                    actualFatalities += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003 && !string.IsNullOrWhiteSpace(y.Value)).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705003 && !string.IsNullOrWhiteSpace(y.Value)).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
+                    actualIncapacity += Convert.ToDecimal(!string.IsNullOrEmpty(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004 && !string.IsNullOrWhiteSpace(y.Value)).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault()) ?
+                                    x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 705004 && !string.IsNullOrWhiteSpace(y.Value)).Select(y => y.Value).DefaultIfEmpty("0").FirstOrDefault() : "0");
                     return true;
                 });
 
