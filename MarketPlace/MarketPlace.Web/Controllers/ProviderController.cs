@@ -213,7 +213,11 @@ namespace MarketPlace.Web.Controllers
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null 
                 && oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Count > 0)
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications));
+                    List<GenericItemModel> basicCert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
+                    if (basicCert != null && basicCert.Count> 0)
+                    {
+                        oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(basicCert);
+                    }                    
                 }
                 
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
