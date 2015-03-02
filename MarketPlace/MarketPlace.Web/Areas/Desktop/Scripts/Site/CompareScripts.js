@@ -135,6 +135,22 @@ var Compare_DetailObject = {
             oItemHtml = oItemHtml.replace(/{CompanyName}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.CompanyName);
             oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.IdentificationType.ItemName);
             oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.IdentificationNumber);
+
+            //validate item certified
+            if (Compare_DetailObject.RelatedCompany[vColumName].ProviderIsCertified != null && Compare_DetailObject.RelatedCompany[vColumName].ProviderIsCertified == true) {
+                oItemHtml = oItemHtml.replace(/{ProviderIsCertified}/gi, '');
+            }
+            else {
+                oItemHtml = oItemHtml.replace(/{ProviderIsCertified}/gi, 'none');
+            }
+
+            //validate black list
+            if (Compare_DetailObject.RelatedCompany[vColumName].ProviderAlertRisk != Provider_SearchObject.BlackListStatusShowAlert) {
+                oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, 'none');
+            }
+            else {
+                oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, '');
+            }
         }
         return oItemHtml;
     },

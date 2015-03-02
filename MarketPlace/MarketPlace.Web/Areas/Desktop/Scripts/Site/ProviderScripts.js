@@ -145,12 +145,24 @@ var Provider_SearchObject = {
                         oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
                         oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, value.RelatedProvider.RelatedCompany.IdentificationNumber);
 
-                        $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').append(oItemHtml);
+                        //validate item certified
+                        if (value.ProviderIsCertified != null && value.ProviderIsCertified == true) {
+                            oItemHtml = oItemHtml.replace(/{ProviderIsCertified}/gi, '');
+                        }
+                        else {
+                            oItemHtml = oItemHtml.replace(/{ProviderIsCertified}/gi, 'none');
+                        }
 
                         //validate black list
                         if (value.ProviderAlertRisk != Provider_SearchObject.BlackListStatusShowAlert) {
-                            $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_BlackList_' + value.RelatedProvider.RelatedCompany.CompanyPublicId).html('');
+                            oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, 'none');
                         }
+                        else {
+                            oItemHtml = oItemHtml.replace(/{ProviderAlertRisk}/gi, '');
+                        }
+
+
+                        $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').append(oItemHtml);
 
                         //remove search result add comparison button
                         $("a[href*='Provider_SearchObject.AddCompareProvider(\\\'" + value.RelatedProvider.RelatedCompany.CompanyPublicId + "\\\')']").hide();
