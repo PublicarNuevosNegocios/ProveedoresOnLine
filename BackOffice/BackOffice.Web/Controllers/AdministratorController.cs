@@ -504,23 +504,7 @@ namespace BackOffice.Web.Controllers
                             Value = ((int)BackOffice.Models.General.enumBlackList.BL_ShowAlert).ToString(),
                             Enable = true,
                         });
-                    }
-                    else
-                    {
-
-                        oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()
-                        {
-                            ItemInfoId = BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                        .Select(x => x.ItemInfoId).FirstOrDefault() != 0 ? BasicInfo.CompanyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert)
-                                        .Select(x => x.ItemInfoId).FirstOrDefault() : 0,
-                            ItemInfoType = new CatalogModel()
-                            {
-                                ItemId = (int)BackOffice.Models.General.enumCompanyInfoType.Alert,
-                            },
-                            Value = ((int)BackOffice.Models.General.enumBlackList.BL_DontShowAlert).ToString(),
-                            Enable = true,
-                        });
-                    }
+                    }                  
 
                     //Set large value With the items found
                     oProviderToInsert.RelatedCompany.CompanyInfo.Add(new GenericItemInfoModel()

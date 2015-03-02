@@ -387,6 +387,37 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult GITrackingInfo(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            int oTotalRows;
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model              
+            }
+            return View(oModel);
+        }
+
         #endregion
 
         #region Commercial Info
@@ -1262,6 +1293,24 @@ namespace MarketPlace.Web.Controllers
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
                     Name = "Distribuidores",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GIDistributorInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
+                    Position = 3,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //Seguimientos
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Seguimientos",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
