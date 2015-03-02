@@ -50,7 +50,8 @@ namespace MarketPlace.Models.Compare
             {
                 if (oMaxValueCount == null &&
                     RelatedCompare.RelatedProvider != null &&
-                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null))
+                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null) &&
+                    RelatedCompare.RelatedProvider.Any(rp => rp.CompareDetail != null && rp.CompareDetail.Any(cd => cd.Value != null && cd.Value.Count > 0)))
                 {
                     oMaxValueCount = RelatedCompare.RelatedProvider.
                             Where(rp => rp.RelatedCompany != null &&
@@ -115,7 +116,7 @@ namespace MarketPlace.Models.Compare
                             FirstOrDefault();
                     }
                 }
-                return oUnitNames;
+                return oUnitNames != null ? oUnitNames : new List<string>();
             }
         }
         private List<string> oUnitNames;

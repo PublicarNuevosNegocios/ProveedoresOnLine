@@ -12,6 +12,9 @@
     </div>
     <div class="POMPProviderDataWrapper">
         <div id="CompareDetail"></div>
+        <div id="CompareDetail_NoResult" style="display:none;">
+            Esta comparación no arrojo resultados
+        </div>
     </div>
 </div>
 
@@ -46,33 +49,57 @@
 
 @{
     Model.RenderScripts = true;
+
+    string oJsonColumns = Model.GetJsonColumns();
+    string oJsonData = Model.GetJsonData();
+    string oJsonCompany = Model.GetJsonCompany();
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            Compare_DetailObject.Init({
-                ObjectId: 'CompareDetail',
-                RelatedProvider: @Html.Raw(Model.GetJsonCompany()),
+    @if (!string.IsNullOrEmpty(oJsonData) && 
+        oJsonData.Replace(" ","") != "[]" && 
+        !string.IsNullOrEmpty(oJsonColumns) && 
+        !string.IsNullOrEmpty(oJsonCompany))
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Compare_DetailObject.Init({
+                    ObjectId: 'CompareDetail',
+                    RelatedProvider: @Html.Raw(oJsonCompany),
+                });
+
+                $('#' + Compare_DetailObject.ObjectId).kendoGrid({
+                    editable: false,
+                    navigatable: false,
+                    pageable: false,
+                    scrollable: true,
+                    selectable: true,
+                    dataSource: {
+                        data: @Html.Raw(oJsonData),
+                    },
+                    columns: @Html.Raw(oJsonColumns),
+                });
             });
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-            $('#' + Compare_DetailObject.ObjectId).kendoGrid({
-                editable: false,
-                navigatable: false,
-                pageable: false,
-                scrollable: true,
-                selectable: true,
-                dataSource: {
-                    data: @Html.Raw(Model.GetJsonData()),
-                },
-                columns: @Html.Raw(Model.GetJsonColumns()),
+                Compare_DetailObject.Init({
+                    ObjectId: 'CompareDetail',
+                    RelatedProvider: @Html.Raw(oJsonCompany),
+                });
+
+                $('#' + Compare_DetailObject.ObjectId).hide();
+                $('#' + Compare_DetailObject.ObjectId + '_NoResult').show();
             });
-
-
-        });
-    </script>
+        </script>
+    }
 }
+
 
 
