@@ -121,6 +121,27 @@ namespace MarketPlace.Models.Compare
         }
         private List<string> oUnitNames;
 
+        public List<int> YearsToSelect
+        {
+            get
+            {
+                if (RelatedCompare.CompareOptions != null &&
+                    RelatedCompare.CompareOptions.ContainsKey("Year") &&
+                    RelatedCompare.CompareOptions["Year"] != null &&
+                    RelatedCompare.CompareOptions["Year"].Count() > 0)
+                {
+                    return RelatedCompare.CompareOptions["Year"].
+                        Select(x => Convert.ToInt32(x.Key.Replace(" ", ""))).
+                        OrderByDescending(x => x).
+                        ToList();
+                }
+                else
+                {
+                    return new List<int>() { DateTime.Now.Year };
+                }
+            }
+        }
+
         #endregion
 
         public CompareDetailViewModel(ProveedoresOnLine.CompareModule.Models.CompareModel oRelatedCompare)

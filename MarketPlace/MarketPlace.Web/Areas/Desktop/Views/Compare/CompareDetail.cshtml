@@ -4,6 +4,10 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    //get year info
+    List<int> oYearsToSelect = Model.YearsToSelect;
+    int oCurrentYear = Model.Year != null ? Model.Year.Value : oYearsToSelect.FirstOrDefault();
 }
 
 <div>
@@ -11,6 +15,45 @@
         @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
+        <ul class="POMPBalanceSheet_mainFilter">
+            <li>
+                <label>Seleccionar el año y el tipo de moneda</label>
+                <span>Año</span>
+                <select id="CompareDetail_Year">
+                    @foreach (var yts in oYearsToSelect)
+                    {
+                        if (yts == oCurrentYear)
+                        {
+                            <option selected="selected" value="@yts">@yts</option>
+                        }
+                        else
+                        {
+                            <option value="@yts">@yts</option>
+                        }
+                    }
+                </select>
+            </li>
+            <li>
+                <span>Moneda</span>
+                <select id="CompareDetail_Currency">
+                    @foreach (var ci in MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
+                    {
+                        if (ci.ItemId == Model.CompareCurrency)
+                        {
+                            <option selected="selected" value="@ci.ItemId">@ci.ItemName</option>
+                        }
+                        else
+                        {
+                            <option value="@ci.ItemId">@ci.ItemName</option>
+                        }
+                    }
+                </select>
+            </li>
+            <li>
+                <a class="POMPButtons" href="javascript:Compare_DetailObject.CompareDetailSearch();">Consultar</a>
+            </li>
+        </ul>
+
         <div id="CompareDetail"></div>
         <div id="CompareDetail_NoResult" style="display:none;">
             Esta comparación no arrojo resultados
@@ -20,7 +63,7 @@
 
 <div style="display:none;">
 
-    <div id="CMPBalance_Company_Header_Template">
+    <div id="CompareDetail_Company_Header_Template">
         <div>
             @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
         </div>
@@ -31,12 +74,12 @@
             }
         </ul>
     </div>
-    <div id="CMPBalance_EvaluationArea_Item_Template">
+    <div id="CompareDetail_EvaluationArea_Item_Template">
         <div>
             <span>${EvaluationArea.Name}</span>
         </div>
     </div>
-    <div id="CMPBalance_Company_Item_Template">
+    <div id="CompareDetail_Company_Item_Template">
         <ul>
             @for (int i = 1; i <= Model.MaxValueCount; i++)
             {
@@ -53,20 +96,31 @@
     string oJsonColumns = Model.GetJsonColumns();
     string oJsonData = Model.GetJsonData();
     string oJsonCompany = Model.GetJsonCompany();
+
+    string oCompareDetailUrl = Url.RouteUrl
+        (MarketPlace.Models.General.Constants.C_Routes_Default,
+        new
+        {
+            controller = MVC.Compare.Name,
+            action = MVC.Compare.ActionNames.CompareDetail,
+            CompareId = Model.RelatedCompare.CompareId,
+            CompareType = ((int)Model.CompareType).ToString(),
+        });
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._CM_CompareMenu, Model)
 
-    @if (!string.IsNullOrEmpty(oJsonData) && 
-        oJsonData.Replace(" ","") != "[]" && 
-        !string.IsNullOrEmpty(oJsonColumns) && 
+    @if (!string.IsNullOrEmpty(oJsonData) &&
+        oJsonData.Replace(" ", "") != "[]" &&
+        !string.IsNullOrEmpty(oJsonColumns) &&
         !string.IsNullOrEmpty(oJsonCompany))
     {
         <script type="text/javascript">
             $(document).ready(function () {
                 Compare_DetailObject.Init({
                     ObjectId: 'CompareDetail',
+                    CompareDetailUrl:'@Html.Raw(oCompareDetailUrl)',
                     RelatedProvider: @Html.Raw(oJsonCompany),
                 });
 
@@ -91,6 +145,7 @@
 
                 Compare_DetailObject.Init({
                     ObjectId: 'CompareDetail',
+                    CompareDetailUrl:'@Html.Raw(oCompareDetailUrl)',
                     RelatedProvider: @Html.Raw(oJsonCompany),
                 });
 

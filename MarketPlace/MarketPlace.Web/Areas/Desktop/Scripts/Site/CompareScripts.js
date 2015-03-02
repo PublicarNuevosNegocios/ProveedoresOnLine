@@ -105,11 +105,14 @@ var Compare_SearchObject = {
 
 var Compare_DetailObject = {
     ObjectId: '',
+    CompareDetailUrl: '',
     RelatedCompany: new Array(),
 
     Init: function (vInitObject) {
 
         this.ObjectId = vInitObject.ObjectId;
+        this.CompareDetailUrl = vInitObject.CompareDetailUrl;
+
         if (vInitObject.RelatedProvider != null) {
             $.each(vInitObject.RelatedProvider, function (item, value) {
                 Compare_DetailObject.RelatedCompany[value.RelatedProvider.RelatedCompany.CompanyPublicId] = value;
@@ -123,7 +126,7 @@ var Compare_DetailObject = {
             oItemHtml = 'Area de evaluación';
         }
         else {
-            oItemHtml = $('#CMPBalance_Company_Header_Template').html();
+            oItemHtml = $('#' + Compare_DetailObject.ObjectId + '_Company_Header_Template').html();
 
             oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.CompanyPublicId);
             oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, Compare_DetailObject.RelatedCompany[vColumName].ProviderLogoUrl);
@@ -138,13 +141,23 @@ var Compare_DetailObject = {
         var oReturn = '';
 
         if (vColumName == 'EvaluationArea') {
-            oReturn = $('#CMPBalance_EvaluationArea_Item_Template').html();
+            oReturn = $('#' + Compare_DetailObject .ObjectId+ '_EvaluationArea_Item_Template').html();
         }
         else {
-            var oReturn = $('#CMPBalance_Company_Item_Template').html();
+            var oReturn = $('#' + Compare_DetailObject.ObjectId + '_Company_Item_Template').html();
             oReturn = oReturn.replace(/{ProviderPublicId}/gi, vColumName);
         }
 
         return oReturn;
     },
+
+    CompareDetailSearch: function () {
+        debugger;
+        var oUrl = Compare_DetailObject.CompareDetailUrl;
+
+        oUrl += '&Currency=' + $('#' + Compare_DetailObject.ObjectId + '_Currency').val();
+        oUrl += '&Year=' + $('#' + Compare_DetailObject.ObjectId + '_Year').val();
+
+        window.location = oUrl;
+    }
 };
