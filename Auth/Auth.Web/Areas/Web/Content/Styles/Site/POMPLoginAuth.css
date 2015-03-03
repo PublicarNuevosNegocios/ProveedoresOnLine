@@ -5,10 +5,9 @@
     background-position: 0 0;
     background-repeat: no-repeat;
     background-size: 100% auto;
-    height: auto;
-    margin: 0;
-    min-width:960px;
-    min-height:600px;
+    height:100%;
+    margin: 0; padding: 0px;
+    min-width:960px; min-height:579px;
     width: 100%;
 }
     .POMPPOMPInternalLoginHeader{
