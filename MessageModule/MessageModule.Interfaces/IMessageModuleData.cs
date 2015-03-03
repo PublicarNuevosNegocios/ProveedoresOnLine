@@ -8,10 +8,8 @@ namespace MessageModule.Interfaces
 {
     public interface IMessageModuleData
     {
-        int QueueProcessCreate();
+        List<MessageModule.Interfaces.Models.MessageModel> MessageQueueGetMessageToProcess();
 
-        void QueueProcessInfoCreate();
-
-        void MessageQueueDelete(int MessageQueueId);
+        int QueueProcessProcessMessage(int MessageQueueId, bool IsSuccess, string ProcessResult);
     }
 }

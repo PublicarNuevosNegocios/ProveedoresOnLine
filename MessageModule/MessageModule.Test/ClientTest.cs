@@ -9,26 +9,20 @@ namespace MessageModule.Test
         [TestMethod]
         public void CreateMessage()
         {
-            int oMessageId = MessageModule.Client.ClientController.CreateMessage
-                (new Client.Models.MessageQueueModel()
+            int oMessageId = MessageModule.Client.Controller.ClientController.CreateMessage
+                (new Client.Models.ClientMessageModel()
                 {
                     Agent = "agentecorreo",
                     User = "usario@sistema.com",
                     ProgramTime = DateTime.Now,
 
-                    MessageQueueInfo = new System.Collections.Generic.List<Client.Models.MessageQueueInfoModel>() 
-                    { 
-                        new Client.Models.MessageQueueInfoModel()
-                        {
-                            Parameter = "param 1",
-                            Value = "valor 1",
-                        },
-                        new Client.Models.MessageQueueInfoModel()
-                        {
-                            Parameter = "param 2",
-                            Value = "valor 2",
-                        },
-                    }
+                    MessageQueueInfo = new System.Collections.Generic.List<Tuple<string,string>>()
+                    {
+                        new Tuple<string,string>("param1","value 1"),
+                        new Tuple<string,string>("param2","value 2"),
+                        new Tuple<string,string>("param3","value 3"),
+                        new Tuple<string,string>("param4","value 4"),
+                    },
                 });
 
             Assert.AreEqual(true, oMessageId > 0);

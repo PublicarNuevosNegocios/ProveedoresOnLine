@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MessageModule.Client.Models
 {
-    public class MessageQueueModel
+    public class ClientMessageModel
     {
         public int MessageQueueId { get; set; }
 
@@ -16,6 +16,9 @@ namespace MessageModule.Client.Models
 
         public string User { get; set; }
 
-        public List<MessageQueueInfoModel> MessageQueueInfo { get; set; }
+        /// <summary>
+        /// <param,value>
+        /// </summary>
+        public List<Tuple<string, string>> MessageQueueInfo { get; set; }
     }
 }
