@@ -1601,6 +1601,50 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_CustomerProvider_GetAllTracking",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from bl in response.DataTableResult.AsEnumerable()
+                     where !bl.IsNull("CustomerProviderInfoId")
+                     group bl by new
+                     {
+                         CustomerProviderInfoId = bl.Field<int>("CustomerProviderInfoId"),
+                         Seguimiento = bl.Field<string>("Seguimiento"),
+                         CreateDate = bl.Field<DateTime>("CreateDate"),
+                         Status = bl.Field<string>("Status"),
+                     } into blg
+                     select new GenericItemModel()
+                     {
+                         ItemId = blg.Key.CustomerProviderInfoId,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemName = blg.Key.Status
+                         },
+                         CreateDate = blg.Key.CreateDate,
+                         ItemName = blg.Key.Seguimiento,
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
     }
 }
