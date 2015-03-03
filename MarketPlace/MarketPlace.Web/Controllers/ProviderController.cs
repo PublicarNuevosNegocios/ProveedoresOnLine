@@ -1307,23 +1307,23 @@ namespace MarketPlace.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
-                //Seguimientos
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Seguimientos",
-                    Url = Url.RouteUrl
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.GIDistributorInfo,
-                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                            }),
-                    Position = 3,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
-                        oCurrentController == MVC.Provider.Name),
-                });
+                ////Seguimientos
+                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                //{
+                //    Name = "Seguimientos",
+                //    Url = Url.RouteUrl
+                //            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                //            new
+                //            {
+                //                controller = MVC.Provider.Name,
+                //                action = MVC.Provider.ActionNames.GIDistributorInfo,
+                //                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                //            }),
+                //    Position = 3,
+                //    IsSelected =
+                //        (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
+                //        oCurrentController == MVC.Provider.Name),
+                //});
 
                 //get is selected menu
                 oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
