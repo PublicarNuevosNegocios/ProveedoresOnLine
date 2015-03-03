@@ -13,3 +13,9 @@
     padding: 0 !important;
     width: auto !important;
 }
+/************** ESTE PINTA LA GRILLA DE *************/
+.POMPTrakingInfoGridWrapper {
+    margin: 10px 0 0 8px;
+    min-width: 682px;
+    width: calc(100% - 16px);
+}
