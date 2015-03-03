@@ -183,7 +183,7 @@
                 </label>
                 <label>
                     Capital de Trabajo
-                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty(0).FirstOrDefault()</span>
+                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
                 </label>
                 <label class="POMPProviderDataIndiceAltman">
                     <label>
