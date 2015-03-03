@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <MessageModule>
+    <!--Generic agents-->
+    <key name="Agent">
+      <![CDATA[POL_RememberPassword_Mail]]>
+    </key>
+
+    <!--Proveedores on line agent-->
+    <key name="AgentConfig_POL_RememberPassword_Mail"></key>
+
+
+
+  </MessageModule>
+</Settings>
+
