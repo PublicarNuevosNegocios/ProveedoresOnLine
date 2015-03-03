@@ -35,8 +35,6 @@ namespace SettingsManager
         {
             Dictionary<string, ModuleModel> oRetorno = new Dictionary<string, ModuleModel>();
 
-            var xxxxx = xDoc.Descendants("SettingsConfig").Descendants("Module");
-
             xDoc.Descendants("SettingsConfig").Descendants("Module").All(m =>
                 {
                     string ModuleName = m.Attribute("name").Value;
