@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="MessageModule">
+    <key name="location">D:\Proyectos\GitHub\ProveedoresOnLine\MessageModule\MessageModule.Test\Rsx-MessageModule.xml</key>
+  </Module>
+</SettingsConfig>

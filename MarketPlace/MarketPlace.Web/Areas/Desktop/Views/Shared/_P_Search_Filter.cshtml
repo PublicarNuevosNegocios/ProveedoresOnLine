@@ -14,7 +14,7 @@
         @if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity))
         {
             <li>
-                <span>Actividad economica</span>
+                <span>Maestra de actividades económicas</span>
                 <ul>
                     @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                     {
@@ -36,7 +36,7 @@
         @if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity))
         {
             <li>
-                <span>Actividad economica personalizada</span>
+                <span>Aqui toca destripar la DB y sacar el nombre</span>
                 <ul>
                     @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                     {
@@ -116,7 +116,7 @@
                         {
                             <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(((int)MarketPlace.Models.General.enumFilterType.ProviderStatus).ToString() + ";" + oFilterItem.ItemId.ToString())'}});" />
                         }
-                        <span>@oFilterItem.ItemName (@(Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.ProviderStatus && x.FilterValue.ItemId == oFilterItem.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault())))</span>
+                        <span>@oFilterItem.ItemName (@(Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.ProviderStatus && x.FilterValue.ItemId == oFilterItem.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
                     </li>
                 }
             </ul>

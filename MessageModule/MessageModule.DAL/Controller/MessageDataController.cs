@@ -11,7 +11,7 @@ namespace MessageModule.DAL.Controller
         #region singleton instance
 
         private static MessageModule.Interfaces.IMessageModuleData oInstance;
-        internal static MessageModule.Interfaces.IMessageModuleData Instance
+        public static MessageModule.Interfaces.IMessageModuleData Instance
         {
             get
             {

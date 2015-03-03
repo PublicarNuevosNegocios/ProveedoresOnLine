@@ -85,8 +85,8 @@
                 text-align:right; margin: 0px; padding:0px 10px 0px 0px;
                 font-size:1em; line-height:0.9em; color:#666;
             }
-            #CompareDetail > div > div > table > thead > tr > th > ul > li:last-child {
-                border-left:1px solid grey;
+            #CompareDetail > div > div > table > thead > tr > th > ul > li:first-child {
+                border-right:1px solid grey;
             }
 /*********** PRIMERA COLUMNA CON AREA DE EVUALUACION ************/
     #CompareDetail > div > div > table > tbody > tr{
@@ -109,11 +109,11 @@
             }
                 #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li{
                     display:inline-block; width:45%; height:38px;
-                    text-align:right; margin: 0px; padding:0px 10px 0px 0px;
+                    text-align:right; margin: 0px; padding:0px 10px 0px 0px; vertical-align:top;
                     font-size:1em; line-height:0.9em; color:#666;
                 }
-                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:last-child {
-                    border-left:1px solid grey;
+                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:first-child {
+                    border-right:1px solid grey;
                 }
 
     #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper{

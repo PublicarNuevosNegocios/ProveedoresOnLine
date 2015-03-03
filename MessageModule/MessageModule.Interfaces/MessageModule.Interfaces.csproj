@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SettingsManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="General\Constants.cs" />
+    <Compile Include="General\InternalSettings.cs" />
+    <Compile Include="IMessageAgent.cs" />
     <Compile Include="IMessageModuleData.cs" />
+    <Compile Include="Models\MessageConfig.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
