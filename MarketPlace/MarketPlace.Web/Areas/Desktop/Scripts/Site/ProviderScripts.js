@@ -391,8 +391,7 @@ var Provider_TrackingObject = {
     ProviderPublicId: '',
 
     Init: function (vTrackingObject)
-    {
-        debugger;
+    {        
         this.ObjectId = vTrackingObject.ObjectId;
         this.ProviderPublicId = vTrackingObject.ProviderPublicId
     },
@@ -425,8 +424,7 @@ var Provider_TrackingObject = {
                     }
                 },
                 transport: {
-                    read: function (options) {
-                        debugger;
+                    read: function (options) {                        
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GITrackingInfo=true&ProviderPublicId=' + Provider_TrackingObject.ProviderPublicId,
                             dataType: 'json',
@@ -452,6 +450,7 @@ var Provider_TrackingObject = {
                 field: 'CreateDate',
                 title: 'Fecha',
                 width: '200px',
+                template: "#= kendo.toString(kendo.parseDate(CreateDate, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             }],
         });       
     },

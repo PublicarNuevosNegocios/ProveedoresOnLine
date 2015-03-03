@@ -189,7 +189,7 @@ namespace MarketPlace.Models.Provider
             }
         }
 
-        public decimal BI_JobCapital { get; set; }
+        public string BI_JobCapital { get; set; }
         public string BI_Year { get; set; }
 
         public string oCurrency { get; set; }
