@@ -41,6 +41,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MessageModule.DAL\MessageModule.DAL.csproj">
+      <Project>{8089a99b-5136-48a3-998e-7c6749e4c061}</Project>
+      <Name>MessageModule.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageModule.Interfaces\MessageModule.Interfaces.csproj">
+      <Project>{08e465b2-42a3-4e87-8466-d171f8529e32}</Project>
+      <Name>MessageModule.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

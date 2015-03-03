@@ -72,6 +72,18 @@
       <Project>{3505b98c-34c0-481f-ab1c-64e297996c63}</Project>
       <Name>MessageModule.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MessageModule.Controller\MessageModule.Controller.csproj">
+      <Project>{646043c5-070b-4d3d-9998-99a13af240ec}</Project>
+      <Name>MessageModule.Controller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageModule.DAL\MessageModule.DAL.csproj">
+      <Project>{8089a99b-5136-48a3-998e-7c6749e4c061}</Project>
+      <Name>MessageModule.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MessageModule.Interfaces\MessageModule.Interfaces.csproj">
+      <Project>{08e465b2-42a3-4e87-8466-d171f8529e32}</Project>
+      <Name>MessageModule.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

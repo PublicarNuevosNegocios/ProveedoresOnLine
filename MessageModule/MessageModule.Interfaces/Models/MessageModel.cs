@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MessageModule.Client.Models
+namespace MessageModule.Interfaces.Models
 {
-    public class ClientMessageModel
+    public class MessageModel
     {
+        public int QueueProcessId { get; set; }
+
         public int MessageQueueId { get; set; }
 
         public string Agent { get; set; }
@@ -16,9 +18,13 @@ namespace MessageModule.Client.Models
 
         public string User { get; set; }
 
+        public bool IsSuccess { get; set; }
+
+        public string ProcessResult { get; set; }
+
         /// <summary>
-        /// <param,value>
+        /// <MessageQueueInfoId,param,value>
         /// </summary>
-        public List<Tuple<string, string>> MessageQueueInfo { get; set; }
+        public List<Tuple<int, string, string>> QueueProcessInfo { get; set; }
     }
 }
