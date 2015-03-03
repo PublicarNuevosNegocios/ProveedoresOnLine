@@ -33,6 +33,9 @@
     <Reference Include="ADO">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\ADO.dll</HintPath>
     </Reference>
+    <Reference Include="LogManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Data.dll</HintPath>
@@ -50,13 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientController.cs" />
+    <Compile Include="Controller\ClientController.cs" />
     <Compile Include="DAL\Controller\ClientDataController.cs" />
     <Compile Include="DAL\Controller\ClientDataFactory.cs" />
     <Compile Include="DAL\MySQLDAO\Client_MySqlDao.cs" />
     <Compile Include="Interfaces\IClientData.cs" />
-    <Compile Include="Models\MessageQueueInfoModel.cs" />
-    <Compile Include="Models\MessageQueueModel.cs" />
+    <Compile Include="Models\ClientMessageModel.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
