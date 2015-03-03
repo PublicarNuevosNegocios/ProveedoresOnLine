@@ -147,7 +147,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.ChaimberOfCommerce);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
-                {                   
+                {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
                     {
                         oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
@@ -156,7 +156,7 @@ namespace MarketPlace.Web.Controllers
                 }
 
                 #endregion
-                                
+
                 #region Branch Info
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Brach);
 
@@ -169,20 +169,20 @@ namespace MarketPlace.Web.Controllers
                     });
                 }
                 #endregion
-                                
+
                 #region Black List Info
-                oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId); 
+                oModel.RelatedBlackListInfo = ProveedoresOnLine.Company.Controller.Company.BlackListGetByCompanyPublicId(ProviderPublicId);
                 #endregion
-                                
+
                 #region Tracking Info
-                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId); 
+                oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
                 #endregion
-                                
+
                 #region Basic Financial Info
-                
+
                 List<GenericItemModel> oFinancial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
                 oModel.RelatedFinancialBasicInfo = new List<ProviderFinancialBasicInfoViewModel>();
-                
+
                 if (oFinancial != null)
                 {
                     decimal oExchange;
@@ -198,28 +198,28 @@ namespace MarketPlace.Web.Controllers
                     });
 
                     if (oModel.RelatedFinancialBasicInfo != null && oModel.RelatedFinancialBasicInfo.Count > 0)
-                    {                        
+                    {
                         oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
                             (Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentActive)).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
-                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));                                               
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()));
                     }
-                }                               
+                }
                 #endregion
 
                 //Get Engagement info                                
                 #region HSEQ
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
-                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null 
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null
                 && oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Count > 0)
                 {
                     List<GenericItemModel> basicCert = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo(ProviderPublicId, (int)enumHSEQType.Certifications);
-                    if (basicCert != null && basicCert.Count> 0)
+                    if (basicCert != null && basicCert.Count > 0)
                     {
                         oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.AddRange(basicCert);
-                    }                    
+                    }
                 }
-                
+
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification != null)
                 {
@@ -233,9 +233,9 @@ namespace MarketPlace.Web.Controllers
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
                 }
-                
+
                 oModel.RelatedCertificationBasicInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetSpecificCert(ProviderPublicId);
-                               
+
                 #endregion
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -606,7 +606,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
-                    });                  
+                    });
                 }
                 else
                 {
@@ -881,8 +881,8 @@ namespace MarketPlace.Web.Controllers
                             };
 
                             //get balance to add
-                            if (bs.BalanceSheetInfo != null && 
-                                bs.BalanceSheetInfo.Count > 0 && 
+                            if (bs.BalanceSheetInfo != null &&
+                                bs.BalanceSheetInfo.Count > 0 &&
                                 bs.BalanceSheetInfo.Any(bsd => bsd.RelatedAccount.ItemId == ac.ItemId))
                             {
                                 //get item to add
@@ -925,7 +925,7 @@ namespace MarketPlace.Web.Controllers
 
                                     strVerticalFormula = strVerticalFormula.Replace
                                         (RegexResult.ToString(),
-                                        oAccountValue.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+                                        oAccountValue.ToString("0.0").Replace(",", "."));
                                 }
                                 oItemDetailToAdd.VerticalValue = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MathEval(strVerticalFormula);
                             }
@@ -1069,7 +1069,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.RUT);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                
+
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
@@ -1113,7 +1113,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPLegalGetBasicInfo(ProviderPublicId, (int)enumLegalType.CIFIN);
                 oModel.RelatedLegalInfo = new List<ProviderLegalViewModel>();
-                
+
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal != null)
                 {
                     oModel.RelatedLiteProvider.RelatedProvider.RelatedLegal.All(x =>
