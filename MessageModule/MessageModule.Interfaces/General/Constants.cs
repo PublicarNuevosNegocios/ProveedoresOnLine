@@ -13,6 +13,12 @@
         public const string C_Settings_AgentConfig = "AgentConfig_{AgentName}";
 
         #endregion
+
+        #region Agent Constants
+
+        public const string C_Agent_Assemblie = "Assemblie";
+
+        #endregion
     }
 }
 

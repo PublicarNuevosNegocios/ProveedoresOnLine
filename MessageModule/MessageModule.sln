@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageModule.Interfaces", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageModule.Controller", "MessageModule.Controller\MessageModule.Controller.csproj", "{646043C5-070B-4D3D-9998-99A13AF240EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageModule.Agent.AWSMail", "MessageModule.Agent.AWSMail\MessageModule.Agent.AWSMail.csproj", "{A04BF3B6-08FE-4B0B-A78E-A08977A6DF83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{646043C5-070B-4D3D-9998-99A13AF240EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{646043C5-070B-4D3D-9998-99A13AF240EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{646043C5-070B-4D3D-9998-99A13AF240EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04BF3B6-08FE-4B0B-A78E-A08977A6DF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04BF3B6-08FE-4B0B-A78E-A08977A6DF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04BF3B6-08FE-4B0B-A78E-A08977A6DF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04BF3B6-08FE-4B0B-A78E-A08977A6DF83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
