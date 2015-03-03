@@ -457,6 +457,16 @@ namespace ProveedoresOnLine.CompanyProvider.Test
 
             Assert.AreEqual(true, oResult.Count > 0);
         }
+
+        [TestMethod]
+        public void MPCustomerProviderGetAllTracking()
+        {
+            List<GenericItemModel> oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking
+                ("1A9863BD", "1D9B9580");
+
+            Assert.AreEqual(true, oResult.Count > 0);
+        }
         #endregion
     }
 }

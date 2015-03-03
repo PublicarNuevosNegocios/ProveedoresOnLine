@@ -215,7 +215,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         {
             return DataFactory.MPCertificationGetSpecificCert(ProviderPublicId);
         }
-        #endregion
 
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.MPCustomerProviderGetAllTracking(CustomerPublicId,ProviderPublicId);
+        }
+        #endregion
     }
 }
