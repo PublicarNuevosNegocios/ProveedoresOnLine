@@ -389,9 +389,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult GITrackingInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel();
-
-            int oTotalRows;
+            ProviderViewModel oModel = new ProviderViewModel();            
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -413,7 +411,13 @@ namespace MarketPlace.Web.Controllers
             }
             else
             {
-                //get provider view model              
+                ////get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.RelatedTrackingInfo = new List<GenericItemModel>();
+
+                //oModel.RelatedTrackingInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetAllTracking(SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
         }
@@ -1307,23 +1311,23 @@ namespace MarketPlace.Web.Controllers
                         oCurrentController == MVC.Provider.Name),
                 });
 
-                ////Seguimientos
-                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                //{
-                //    Name = "Seguimientos",
-                //    Url = Url.RouteUrl
-                //            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                //            new
-                //            {
-                //                controller = MVC.Provider.Name,
-                //                action = MVC.Provider.ActionNames.GIDistributorInfo,
-                //                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                //            }),
-                //    Position = 3,
-                //    IsSelected =
-                //        (oCurrentAction == MVC.Provider.ActionNames.GIDistributorInfo &&
-                //        oCurrentController == MVC.Provider.Name),
-                //});
+                //Seguimientos
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Seguimientos",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.GITrackingInfo,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
+                    Position = 3,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.GITrackingInfo &&
+                        oCurrentController == MVC.Provider.Name),
+                });
 
                 //get is selected menu
                 oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);

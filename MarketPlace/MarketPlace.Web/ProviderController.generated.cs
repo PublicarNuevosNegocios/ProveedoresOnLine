@@ -89,6 +89,12 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult GITrackingInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GITrackingInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult CIExperiencesInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesInfo);
@@ -187,6 +193,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string GIPersonContactInfo = "GIPersonContactInfo";
             public readonly string GIBranchInfo = "GIBranchInfo";
             public readonly string GIDistributorInfo = "GIDistributorInfo";
+            public readonly string GITrackingInfo = "GITrackingInfo";
             public readonly string CIExperiencesInfo = "CIExperiencesInfo";
             public readonly string HICertificationsInfo = "HICertificationsInfo";
             public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
@@ -211,6 +218,7 @@ namespace MarketPlace.Web.Controllers
             public const string GIPersonContactInfo = "GIPersonContactInfo";
             public const string GIBranchInfo = "GIBranchInfo";
             public const string GIDistributorInfo = "GIDistributorInfo";
+            public const string GITrackingInfo = "GITrackingInfo";
             public const string CIExperiencesInfo = "CIExperiencesInfo";
             public const string HICertificationsInfo = "HICertificationsInfo";
             public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
@@ -269,6 +277,14 @@ namespace MarketPlace.Web.Controllers
         public ActionParamsClass_GIDistributorInfo GIDistributorInfoParams { get { return s_params_GIDistributorInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_GIDistributorInfo
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_GITrackingInfo s_params_GITrackingInfo = new ActionParamsClass_GITrackingInfo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GITrackingInfo GITrackingInfoParams { get { return s_params_GITrackingInfo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GITrackingInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -471,6 +487,18 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GIDistributorInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             GIDistributorInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GITrackingInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GITrackingInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GITrackingInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            GITrackingInfoOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

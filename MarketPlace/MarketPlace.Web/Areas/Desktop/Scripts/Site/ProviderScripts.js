@@ -63,8 +63,7 @@ var Provider_SearchObject = {
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
         /*get serach param*/
-        if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val())
-        {
+        if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
             this.PageNumber = 0;
         }
@@ -303,7 +302,7 @@ var Provider_SearchObject = {
 
         //show open compare dialog
         $('#' + Provider_SearchObject.ObjectId + '_Compare_Search_ToolTip').dialog({
-            width: 650, 
+            width: 650,
             minWidth: 500,
             modal: true,
         });
@@ -386,3 +385,74 @@ var Provider_FinancialObject = {
         window.location = oUrl;
     },
 };
+
+var Provider_TrackingObject = {
+    ObjectId: '',
+    ProviderPublicId: '',
+
+    Init: function (vTrackingObject)
+    {
+        debugger;
+        this.ObjectId = vTrackingObject.ObjectId;
+        this.ProviderPublicId = vTrackingObject.ProviderPublicId
+    },
+
+    RenderAsync: function () {
+        //load grid comparison
+        $('#' + Provider_TrackingObject.ObjectId + '_SearchGrid').kendoGrid({
+            editable: false,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            selectable: true,
+            dataSource: {
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: 'ItemId',
+                        fields: {
+                            ItemId: { editable: false, nullable: false },
+                            ItemName: { editable: false, nullable: false },
+                            CreateDate: { editable: false, nullable: false },
+                            ItemName: { editable: false, nullable: false },
+                        }
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        debugger;
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?GITrackingInfo=true&ProviderPublicId=' + Provider_TrackingObject.ProviderPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                },
+            },
+            columns: [{
+                field: 'ItemName',
+                title: 'Seguimiento',
+                width: '600px',
+            }, {
+                field: 'ItemType.ItemName',
+                title: 'Estado',
+                width: '200px',
+            },{
+                field: 'CreateDate',
+                title: 'Fecha',
+                width: '200px',
+            }],
+        });       
+    },
+}

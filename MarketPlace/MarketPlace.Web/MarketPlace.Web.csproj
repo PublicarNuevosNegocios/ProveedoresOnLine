@@ -194,6 +194,7 @@
     <Compile Include="CompareController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\CompareApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -965,6 +966,7 @@
     <Content Include="Areas\Desktop\Views\Compare\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Compare\CompareDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CM_CompareMenu.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\GITrackingInfo.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
