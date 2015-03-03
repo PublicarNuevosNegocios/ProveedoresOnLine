@@ -12,12 +12,15 @@ namespace MessageModule.Test
             int oMessageId = MessageModule.Client.Controller.ClientController.CreateMessage
                 (new Client.Models.ClientMessageModel()
                 {
-                    Agent = "agentecorreo",
+                    Agent = "POL_RememberPassword_Mail",
                     User = "usario@sistema.com",
                     ProgramTime = DateTime.Now,
 
                     MessageQueueInfo = new System.Collections.Generic.List<Tuple<string,string>>()
                     {
+                        new Tuple<string,string>("To","Jairo Andres Guzman Duran<jairo.guzman@publicar.com>"),
+                        new Tuple<string,string>("To","Jairo Andres Guzman Duran<jairo.guzman@publicar.com>"),
+                        new Tuple<string,string>("To","Jairo Andres Guzman Duran<jairo.guzman@publicar.com>"),
                         new Tuple<string,string>("param1","value 1"),
                         new Tuple<string,string>("param2","value 2"),
                         new Tuple<string,string>("param3","value 3"),

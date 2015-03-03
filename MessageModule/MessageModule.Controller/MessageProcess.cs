@@ -16,15 +16,16 @@ namespace MessageModule.Controller
 
             if (lstMessageToSend != null && lstMessageToSend.Count > 0)
             {
-                lstMessageToSend.All(mts => {
+                lstMessageToSend.All(mts =>
+                {
 
                     //get agent configuration
-
+                    var config = MessageModule.Interfaces.Models.MessageConfig.AgentConfig[mts.Agent];
 
 
                     return true;
                 });
-                
+
             }
         }
     }

@@ -7,10 +7,42 @@
     </key>
 
     <!--Proveedores on line agent-->
-    <key name="AgentConfig_POL_RememberPassword_Mail"></key>
-
-
-
+    <key name="AgentConfig_POL_RememberPassword_Mail">
+      <![CDATA[
+        <POL_RememberPassword_Mail>
+          <key name="Assemblie">
+            &lt;![CDATA[Message.Inalambria.AgentInalambriaImplement, Message.Inalambria]]&gt;
+          </key>
+          <key name="Subject">
+            &lt;![CDATA[Proveedores OnLine - Recordar clave]]&gt;
+          </key>
+          <key name="From">
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>,Jairo Andres Guzman Duran<jairo.guzman@publicar.com>]]&gt;
+          </key>
+          <key name="MessageBody">
+            &lt;![CDATA[
+                <html>
+	              <head>
+		              <title>
+			              Proveedores OnLine.
+		              </title>
+	              </head>
+                <body>
+                  <div>
+                    {param4}
+                    este es el body
+                    {param1}
+                    {param2}
+                    {param2}
+                    {param3}
+                  </div>
+                </body>	
+	              </html>
+            ]]&gt;
+          </key>
+        </POL_RememberPassword_Mail>
+      ]]>
+    </key>
   </MessageModule>
 </Settings>
 
