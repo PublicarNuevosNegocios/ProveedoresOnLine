@@ -715,7 +715,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                                 strFormula = strFormula.Replace
                                     (RegexResult.ToString(),
-                                    AccountValues[oAccountId].Item3.Value.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+                                    AccountValues[oAccountId].Item3.Value.ToString("0.0").Replace(",", "."));
                             }
                             oAccountDecimalValue = MathEval(strFormula);
                         }
