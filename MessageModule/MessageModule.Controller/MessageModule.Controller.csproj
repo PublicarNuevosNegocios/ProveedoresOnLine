@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MessageModule.Agent.AWSMail\MessageModule.Agent.AWSMail.csproj">
+      <Project>{a04bf3b6-08fe-4b0b-a78e-a08977a6df83}</Project>
+      <Name>MessageModule.Agent.AWSMail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MessageModule.DAL\MessageModule.DAL.csproj">
       <Project>{8089a99b-5136-48a3-998e-7c6749e4c061}</Project>
       <Name>MessageModule.DAL</Name>
@@ -53,6 +58,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\MessageModule.Controller\developer\" /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
