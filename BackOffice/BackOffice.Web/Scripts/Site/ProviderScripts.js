@@ -111,6 +111,21 @@ var Provider_SearchObject = {
                 title: 'Identification',
                 template: '${IdentificationType} ${IdentificationNumber}',
                 width: '50px',
+            },{
+                field: 'IsOnRestrictiveList',
+                title: 'Estado Listas Restrictivas',                
+                width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.IsOnRestrictiveList == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'Enable',
                 title: 'Visible en Market Place',
