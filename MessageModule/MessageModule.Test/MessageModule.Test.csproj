@@ -69,6 +69,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MessageModule.Agent.AWSMail\MessageModule.Agent.AWSMail.csproj">
+      <Project>{a04bf3b6-08fe-4b0b-a78e-a08977a6df83}</Project>
+      <Name>MessageModule.Agent.AWSMail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MessageModule.Client\MessageModule.Client.csproj">
       <Project>{3505b98c-34c0-481f-ab1c-64e297996c63}</Project>
       <Name>MessageModule.Client</Name>

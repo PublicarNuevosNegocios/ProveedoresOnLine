@@ -22,7 +22,7 @@ namespace MessageModule.Interfaces.Models
                     oAgent = MessageModule.Interfaces.General.InternalSettings.Instance
                         [MessageModule.Interfaces.General.Constants.C_Settings_Agent].Value.
                         Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                        Select(x => x.Replace(" ", "").ToLower()).
+                        Select(x => x.Replace(" ", "")).
                         ToList();
                 }
                 return oAgent;
@@ -50,7 +50,7 @@ namespace MessageModule.Interfaces.Models
                                 [MessageModule.Interfaces.General.Constants.C_Settings_AgentConfig.
                                 Replace("{AgentName}", ag)].
                                 Value;
-
+                            strConfig = System.Web.HttpUtility.HtmlDecode(strConfig);
                             //load config agent xml
                             XDocument xDoc = XDocument.Parse(strConfig);
 

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{08E465B2-42A3-4E87-8466-D171F8529E32}</ProjectGuid>
+    <ProjectGuid>{A04BF3B6-08FE-4B0B-A78E-A08977A6DF83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MessageModule.Interfaces</RootNamespace>
-    <AssemblyName>MessageModule.Interfaces</AssemblyName>
+    <RootNamespace>MessageModule.Agent.AWSMail</RootNamespace>
+    <AssemblyName>MessageModule.Agent.AWSMail</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,12 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SettingsManager">
-      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,15 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="General\Constants.cs" />
-    <Compile Include="General\InternalSettings.cs" />
-    <Compile Include="IMessageAgent.cs" />
-    <Compile Include="IMessageModuleData.cs" />
-    <Compile Include="Models\MessageConfig.cs" />
-    <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="AWSMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MessageModule.Interfaces\MessageModule.Interfaces.csproj">
+      <Project>{08e465b2-42a3-4e87-8466-d171f8529e32}</Project>
+      <Name>MessageModule.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

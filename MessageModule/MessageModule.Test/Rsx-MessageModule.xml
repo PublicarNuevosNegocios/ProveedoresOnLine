@@ -11,7 +11,7 @@
       <![CDATA[
         <POL_RememberPassword_Mail>
           <key name="Assemblie">
-            &lt;![CDATA[Message.Inalambria.AgentInalambriaImplement, Message.Inalambria]]&gt;
+            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="Subject">
             &lt;![CDATA[Proveedores OnLine - Recordar clave]]&gt;
