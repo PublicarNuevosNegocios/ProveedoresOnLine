@@ -408,6 +408,7 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPTermsConditions.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPProviderComparison.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPBalanceSheetInfo.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPLoginAuth.css" />
@@ -967,7 +968,7 @@
     <Content Include="Areas\Desktop\Views\Compare\CompareDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CM_CompareMenu.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GITrackingInfo.cshtml" />
-    <Content Include="Areas\Desktop\Views\Home\TermsAndConditios.cshtml" />
+    <Content Include="Areas\Desktop\Views\Home\TermsAndConditions.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
