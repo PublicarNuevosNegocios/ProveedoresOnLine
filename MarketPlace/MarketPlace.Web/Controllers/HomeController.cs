@@ -86,7 +86,7 @@ namespace MarketPlace.Web.Controllers
                     });
         }
 
-        public virtual ActionResult TermsAndConditios()
+        public virtual ActionResult TermsAndConditions()
         {
             return View();
         }

@@ -75,7 +75,7 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string LogOutUser = "LogOutUser";
-            public readonly string TermsAndConditios = "TermsAndConditios";
+            public readonly string TermsAndConditions = "TermsAndConditions";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -83,7 +83,7 @@ namespace MarketPlace.Web.Controllers
         {
             public const string Index = "Index";
             public const string LogOutUser = "LogOutUser";
-            public const string TermsAndConditios = "TermsAndConditios";
+            public const string TermsAndConditions = "TermsAndConditions";
         }
 
 
@@ -129,13 +129,13 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void TermsAndConditiosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void TermsAndConditionsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult TermsAndConditios()
+        public override System.Web.Mvc.ActionResult TermsAndConditions()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TermsAndConditios);
-            TermsAndConditiosOverride(callInfo);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TermsAndConditions);
+            TermsAndConditionsOverride(callInfo);
             return callInfo;
         }
 
