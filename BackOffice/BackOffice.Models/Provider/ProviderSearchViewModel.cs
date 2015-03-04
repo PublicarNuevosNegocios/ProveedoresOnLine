@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackOffice.Models.General;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,14 @@ namespace BackOffice.Models.Provider
         public string IdentificationType { get { return RelatedCompany.IdentificationType.ItemName; } }
 
         public string IdentificationNumber { get { return RelatedCompany.IdentificationNumber; } }
+
+        public bool IsOnRestrictiveList 
+        { get 
+            { return RelatedCompany.CompanyInfo.
+                Where(x => x.ItemInfoType.ItemId == (int)enumCompanyInfoType.Alert).Select(x => Convert.ToInt32(x.Value) == (int)enumBlackList.BL_ShowAlert ? true:false).FirstOrDefault()
+                ; 
+            }
+        }
 
         public bool Enable { get { return RelatedCompany.Enable; } }
 

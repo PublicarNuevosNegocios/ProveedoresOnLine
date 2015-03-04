@@ -85,5 +85,10 @@ namespace MarketPlace.Web.Controllers
                         action = MVC.Home.ActionNames.Index
                     });
         }
+
+        public virtual ActionResult TermsAndConditios()
+        {
+            return View();
+        }
     }
 }
