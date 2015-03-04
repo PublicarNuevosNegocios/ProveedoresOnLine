@@ -441,15 +441,15 @@ var Provider_TrackingObject = {
             columns: [{
                 field: 'ItemName',
                 title: 'Seguimiento',
-                width: '32%',
+                width: '50%',
             }, {
                 field: 'ItemType.ItemName',
                 title: 'Estado',
-                width: '200px',
+                width: '25%',
             },{
                 field: 'CreateDate',
                 title: 'Fecha',
-                width: '200px',
+                width: '25%',
                 template: "#= kendo.toString(kendo.parseDate(CreateDate, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             }],
         });       
