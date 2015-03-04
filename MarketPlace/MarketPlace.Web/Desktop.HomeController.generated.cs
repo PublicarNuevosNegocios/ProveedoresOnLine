@@ -75,6 +75,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string Index = "Index";
             public readonly string LogOutUser = "LogOutUser";
+            public readonly string TermsAndConditios = "TermsAndConditios";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -82,6 +83,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public const string Index = "Index";
             public const string LogOutUser = "LogOutUser";
+            public const string TermsAndConditios = "TermsAndConditios";
         }
 
 
@@ -96,8 +98,10 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string TermsAndConditios = "TermsAndConditios";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Home/Index.cshtml";
+            public readonly string TermsAndConditios = "~/Areas/Desktop/Views/Home/TermsAndConditios.cshtml";
         }
     }
 
@@ -125,6 +129,17 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LogOutUser);
             LogOutUserOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void TermsAndConditiosOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult TermsAndConditios()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.TermsAndConditios);
+            TermsAndConditiosOverride(callInfo);
             return callInfo;
         }
 
