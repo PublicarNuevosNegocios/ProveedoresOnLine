@@ -13,31 +13,62 @@
           <key name="Assemblie">
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
+          <key name="AccessKeyId">
+            &lt;![CDATA[your_AccessKeyId]]&gt;
+          </key>
+          <key name="SecretAccessKey">
+            &lt;![CDATA[your_SecretAccessKey]]&gt;
+          </key>
+          <key name="RegionEndpoint">
+            &lt;![CDATA[us-east-1]]&gt;
+          </key>
           <key name="Subject">
             &lt;![CDATA[Proveedores OnLine - Recordar clave]]&gt;
           </key>
           <key name="From">
-            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>,Jairo Andres Guzman Duran<jairo.guzman@publicar.com>]]&gt;
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
           </key>
           <key name="MessageBody">
             &lt;![CDATA[
-                <html>
-	              <head>
-		              <title>
-			              Proveedores OnLine.
-		              </title>
-	              </head>
-                <body>
-                  <div>
-                    {param4}
-                    este es el body
-                    {param1}
-                    {param2}
-                    {param2}
-                    {param3}
-                  </div>
-                </body>	
-	              </html>
+              <table>
+                      <tr>
+			                 <td style="width:628px;">
+					              <div style=" height: 66px; text-align: left; width: 100%; border-bottom: 1px solid #ff8300;">
+						              <img  style="height: auto; left: 14px; position: relative; top: 4px; width: 162px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" alt="Provedores Online" title="Provedores Online"/>
+					              </div>
+			                 </td>
+                      </tr>
+                      <tr>
+			                 <td style="width:628px; padding:12px 20px;">
+			                 <label style="color: #666; font-size: 1.14em; letter-spacing: -0.2px; line-height: 1em; font-weight:bold;">Reiniciar su contrase&ntilde;a de Proveedores Online</label>
+			                 <br /><br />
+			                 <label style="border-bottom: 1px solid #d4d4d4; color: #0066ae; font-size: 1.14em; letter-spacing: -0.2px; line-height: 1em; margin: 0 5px 0 0; min-height: 62px; min-width: 213px; padding: 4px 0 0; vertical-align: top; width: 32.1%;">Para reiniciar su contrase&ntilde;a siga estos simples pasos</label>
+				              <ul style="list-style-type:none; color: #666; display: block; font-size: 0.93em; letter-spacing: -0.5px; line-height: 1.5em; overflow: hidden !important; text-overflow: ellipsis;">
+					              <li>1. Haga clic en el enlace al final del mensaje &oacute; copielo y peguelo en la barra de navegaci&oacute;n de su explorador.</li>
+					              <li>2. Escriba una nueva contrase&ntilde;a</li>
+					              <li>3. Escriba nuevamente su contrase&ntilde;a</li>
+					              <li>4. Oprima aceptar</li>
+				              </ul>
+				              <a style="color: #0066ae; font-size: 0.9em; display:block;" target="_blank" href="{RememberUrl}">{RememberUrl}</a>
+			                 </td>
+                      </tr>
+                      <tr>
+                             <td style="width:628px;">
+					              <div style=" background-color: #b3b3b3; height:60px; text-align: right;">
+						              <div style="float:left;width:48%; height:60px; text-align: left; padding:10px 0px 0px 10px;">
+							              <img style="position: relative; height: 50px; width: 151px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" alt="Provedores Online" title="Provedores Online"/>
+						              </div>
+						              <div style="float:left;width:48%; height:60px; text-align: right; padding:10px 10px 0px 0px;">
+							              <img style="height: 40px; position: relative; width: 151px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" alt="Provedores Online" title="Provedores Online"/>
+						              </div>
+					              </div>
+					              <div style="background-color: #727276; height: 22px; text-align: center;">
+						              <span style="color: #fff; font-size: 0.9em;">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+						              <a style="color: #fff; font-size: 0.9em;" target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditios">Terminos y condiciones de uso</a>
+					              </div>
+			                 </td>
+                      </tr>
+              </table>
             ]]&gt;
           </key>
         </POL_RememberPassword_Mail>

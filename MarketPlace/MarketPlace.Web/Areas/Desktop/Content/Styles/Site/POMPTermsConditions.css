@@ -1,0 +1,54 @@
+/********* TERMINOS CONDICIONES *********/
+.POMPTermsConditionsGreatWrapper {
+    /*border:1px solid red;*/
+	margin:0px; padding:0px;
+	width:auto; height:auto;
+	min-width:960px;
+}
+    .POMPTermsConditionsGreatWrapper div {
+        /*border:1px solid orange;*/
+        height:67px;
+        display:inline-block;
+        width: 186px;
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png');
+        background-size:180px auto;
+        background-position:1px 1px;
+        background-repeat:no-repeat;
+        margin: 12px 0 0 12px;
+    }
+    .POMPTermsConditionsGreatWrapper label,
+     label.POMPTermsConditionSubtitle{
+        /*border:1px solid green;*/
+        border-bottom: 1px solid #d4d4d4;
+        color: #0066ae;
+        font-size: 1.14em;
+        font-weight: normal;
+        letter-spacing: -0.2px;
+        line-height: 1em;
+        margin: 12px 5px 0 12px;
+        padding: 4px 0 0;
+        vertical-align: top;
+        width: 80%;
+		display:block;
+    }
+        label.POMPTermsConditionSubtitle {
+            color:#666 !important;			   
+            display: block;
+            margin: 12px auto;
+            text-align: center;
+            width: 50%;
+        }
+    .POMPTermsConditionsGreatWrapper span {
+        /*border:1px solid blue;*/
+        color: #666;
+        display: block;
+        font-size: 0.93em;
+        font-weight: normal;
+        letter-spacing: -0.5px;
+        line-height: 1.5em;
+		margin: 12px 5px 0 12px;
+    }
+	.POMPTermsConditionsGreatWrapper > span > span{
+		color: #0066ae;
+		display:inline; margin: 0px 4px;
+	}
