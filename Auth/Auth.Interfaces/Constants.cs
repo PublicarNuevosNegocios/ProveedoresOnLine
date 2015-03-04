@@ -17,6 +17,7 @@
         public const string C_IL_Service_Email = "IL_{AppName}_Service_Email";
         public const string C_IL_ApiName = "IL_{AppName}_ApiName";
         public const string C_IL_Cookie = "IL_{AppName}_Cookie";
+        public const string C_IL_RememberEmailAgent = "IL_{AppName}_RememberEmailAgent";
 
         public const string C_FB_Enabled = "FB_{AppName}_Enabled";
         public const string C_FB_AppId = "FB_{AppName}_AppId";

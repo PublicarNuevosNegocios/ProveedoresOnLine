@@ -20,6 +20,7 @@
     <key name="IL_local_Service_Email">529355985464-req3prfqvcmdpmjlo2gqbhv9fvnu11b0@developer.gserviceaccount.com</key>
     <key name="IL_local_ApiName">App local</key>
     <key name="IL_local_Cookie">TestCookie</key>
+    <key name="IL_local_RememberEmailAgent">POL_RememberPassword_Mail</key>
 
     <key name="IL_documentmanagement_Enabled">false</key>
     <key name="IL_documentmanagement_ApiKey"></key>
@@ -27,6 +28,7 @@
     <key name="IL_documentmanagement_Service_Email"></key>
     <key name="IL_documentmanagement_ApiName"></key>
     <key name="IL_documentmanagement_Cookie"></key>
+    <key name="IL_documentmanagement_RememberEmailAgent"></key>
 
     <key name="IL_marketplace_Enabled">true</key>
     <key name="IL_marketplace_ApiKey">AIzaSyDAX1BrSL8YIN16DsMEiGINLlvv2xuirV4</key>
@@ -34,6 +36,7 @@
     <key name="IL_marketplace_Service_Email">529355985464-req3prfqvcmdpmjlo2gqbhv9fvnu11b0@developer.gserviceaccount.com</key>
     <key name="IL_marketplace_ApiName">STG Proveedores OnLine</key>
     <key name="IL_marketplace_Cookie">GitKitCookie</key>
+    <key name="IL_marketplace_RememberEmailAgent">POL_RememberPassword_Mail</key>
 
     <key name="IL_backoffice_Enabled">false</key>
     <key name="IL_backoffice_ApiKey"></key>
@@ -41,6 +44,7 @@
     <key name="IL_backoffice_Service_Email"></key>
     <key name="IL_backoffice_ApiName"></key>
     <key name="IL_backoffice_Cookie"></key>
+    <key name="IL_backoffice_RememberEmailAgent"></key>
 
     <!--Facebook-->
     <key name="FB_local_Enabled">true</key>
