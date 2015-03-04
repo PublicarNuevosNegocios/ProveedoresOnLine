@@ -8,13 +8,8 @@
         <div class="POMPProviderSideMenu">
             @if (Model.RelatedLiteProvider != null && Model.RelatedLiteProvider.RelatedProvider != null && Model.RelatedLiteProvider.RelatedProvider.RelatedCompany != null)
             {
-                <div class="POMPProviderTagWrapper">
-                    <img src="@(Model.RelatedLiteProvider.ProviderLogoUrl)" />
-                    <div>
-                        <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName</span>
-                        <span>@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName @Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber</span>
-                        <span>@Model.RelatedLiteProvider.ProviderRate</span>
-                    </div>
+                <div>
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, Model.RelatedLiteProvider)
                 </div>
             }
             <ul id="ulProviderMenu">

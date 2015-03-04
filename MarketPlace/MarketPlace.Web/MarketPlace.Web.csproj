@@ -967,7 +967,7 @@
     <Content Include="Areas\Desktop\Views\Compare\CompareDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CM_CompareMenu.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\GITrackingInfo.cshtml" />
-    <Content Include="Areas\Desktop\Views\Home\TermsAndConditios.cshtml" />
+    <Content Include="Areas\Desktop\Views\Home\TermsAndConditions.cshtml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
     <None Include="T4MVC.tt.settings.xml" />
