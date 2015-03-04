@@ -42,6 +42,8 @@ namespace WebCrawler.Manager.General
 
         public const string C_Settings_CrawlerURL_GeneralBalance = "CrawlerURL_GeneralBalance";
 
+        public const string C_Settings_CrawlerURL_BalanceInfo = "CrawlerURL_BalanceInfo";
+
         public const string C_Settings_CrawlerURL_Finantial = "CrawlerURL_Finantial";
 
         public const string C_Settings_CrawlerURL_LegalInfo = "CrawlerURL_LegalInfo";
