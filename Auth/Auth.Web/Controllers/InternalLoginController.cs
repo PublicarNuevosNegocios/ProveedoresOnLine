@@ -161,7 +161,22 @@ namespace Auth.Web.Controllers
                         oobCode = oResponse.OobCode,
                     });
 
-                //TODO:Send regenerate psw email
+                //Send regenerate psw email
+                MessageModule.Client.Controller.ClientController.CreateMessage
+                    (new MessageModule.Client.Models.ClientMessageModel()
+                    {
+                        Agent = SettingsManager.SettingsController.SettingsInstance.ModulesParams
+                                    [Auth.Interfaces.Constants.C_SettingsModuleName]
+                                    [Auth.Interfaces.Constants.C_IL_RememberEmailAgent.Replace("{AppName}", oAppName)].Value,
+                        User = "SystemUser",
+                        ProgramTime = DateTime.Now,
+                        MessageQueueInfo = new System.Collections.Generic.List<Tuple<string, string>>()
+                        {
+                            new Tuple<string,string>("To",Request["email"]),
+                            new Tuple<string,string>("RememberUrl",oUrlRegeneratePsw),
+                        },
+                    });
+
 
                 //return success service
                 return Json(new { success = true, kind = "identitytoolkit#GetOobConfirmationCodeResponse", oobCode = oResponse.OobCode, email = Request["email"] });
