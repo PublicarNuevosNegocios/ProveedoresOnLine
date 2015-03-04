@@ -441,7 +441,7 @@ var Provider_TrackingObject = {
             columns: [{
                 field: 'ItemName',
                 title: 'Seguimiento',
-                width: '600px',
+                width: '32%',
             }, {
                 field: 'ItemType.ItemName',
                 title: 'Estado',
