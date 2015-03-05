@@ -457,12 +457,17 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo(ProviderPublicId, (int)enumCommercialType.Experience);
 
                 oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();
-
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.All(x =>
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial != null
+                    && oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.Count > 0)
                 {
-                    oModel.RelatedComercialInfo.Add(new ProviderComercialViewModel(x));
-                    return true;
-                });
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial.All(x =>
+                    {
+                        oModel.RelatedComercialInfo.Add(new ProviderComercialViewModel(x));
+                        return true;
+                    });
+                }
+                else                
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial = new List<GenericItemModel>();               
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
