@@ -3284,11 +3284,7 @@ var Provider_CompanyFinancialObject = {
                 field: 'FinancialName',
                 title: 'Nombre',
                 width: '180px',
-            }, {
-                field: 'FinancialName',
-                title: 'Nombre',
-                width: '180px',
-            }, ],
+            }],
         });
     },
 
