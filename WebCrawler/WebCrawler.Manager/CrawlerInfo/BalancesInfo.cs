@@ -16,6 +16,42 @@ namespace WebCrawler.Manager.CrawlerInfo
         public static void GetBalancesInfo(string ParId, string PublicId)
         {
             HtmlDocument HtmlDoc = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.GeneralBalance.ToString());
+            HtmlDocument HtmlDocBalancesInfo = WebCrawler.Manager.WebCrawlerManager.GetHtmlDocumnet(ParId, enumMenu.BalanceInfo.ToString());
+
+            #region Download File Balances
+
+            Dictionary<int, string> BalancesFile = new Dictionary<int, string>();
+
+            if (HtmlDocBalancesInfo.DocumentNode.SelectNodes("//a[@href]") != null)
+            {
+                HtmlNodeCollection table = HtmlDocBalancesInfo.DocumentNode.SelectNodes("//table[@class='tablaborde_01']");
+                HtmlNodeCollection row = table[0].SelectNodes(".//tr");
+
+                foreach (HtmlNode node in row)
+                {
+                    if (node.InnerHtml.Contains(".pdf"))
+                    {
+                        string urlDownload = WebCrawler.Manager.General.InternalSettings.Instance[Constants.C_Settings_UrlDownload].Value;
+
+                        urlDownload += "generales/" + node.ChildNodes[3].ChildNodes["a"].Attributes["href"].Value;
+
+                        string urlS3 = WebCrawler.Manager.WebCrawlerManager.UploadFile(urlDownload, enumFinancialType.BalanceSheetInfoType.ToString(), PublicId);
+
+                        int year = Convert.ToInt32(node.ChildNodes[1].ChildNodes["div"].ChildNodes["strong"].InnerText.Replace("Balance General", "").Replace("Sin confirmar", "").Replace(" ", "").Replace("\n", ""));
+
+                        if (!BalancesFile.ContainsKey(year))
+                        {
+                            BalancesFile.Add(year, urlS3);
+                        }                        
+                    }
+                }                
+            }
+            else
+            {
+                Console.WriteLine("\nNo hay archivos de balances disponibles.\n");
+            }
+
+            #endregion
 
             if (HtmlDoc.DocumentNode.SelectNodes("//table[@class='tablaborde_01']") != null)
             {
@@ -33,7 +69,7 @@ namespace WebCrawler.Manager.CrawlerInfo
 
                 if (rowsTable1 != null)
                 {
-                    Console.WriteLine("\nAssets info\n");
+                    Console.WriteLine("\nBalances info\n");
 
                     HtmlNodeCollection col = rowsTable1[0].SelectNodes(".//td");
 
@@ -55,7 +91,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                         oList.Add(Convert.ToInt32(dato2[1].Replace("&nbsp", "").Replace("\n", "").Replace("O", "")), dato2[2].Replace("\n", "") + ",3");
                     }
 
-                    if (año1 != 0 && año2 != 0)
+                    if (año1 != 0 || año2 != 0)
                     {
                         foreach (int year in oList.Keys)
                         {
@@ -103,6 +139,22 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 Value = oCurrency != null ? oCurrency.ItemId.ToString() : string.Empty,
                                 Enable = true,
                             });
+
+                            if (BalancesFile != null && BalancesFile.Count > 0)
+                            {
+                                string urlBalances = BalancesFile.Where(x => x.Key == year).Select(x => x.Value).FirstOrDefault();
+
+                                oBalance.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoId = 0,
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)enumFinancialInfoType.SH_BalanceSheetFile,
+                                    },
+                                    Value = urlBalances,
+                                    Enable = true,
+                                });
+                            }
 
                             #region Activo
 
@@ -216,7 +268,7 @@ namespace WebCrawler.Manager.CrawlerInfo
                                        {
                                            ItemId = 3129, //Depreciación acumulada
                                        },
-                                        Value = Convert.ToDecimal("139176647"),
+                                        Value = Convert.ToDecimal(value),
                                     });
                                 }
 
@@ -617,10 +669,11 @@ namespace WebCrawler.Manager.CrawlerInfo
                                 try
                                 {
                                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetUpsert(ProviderBalanceToUpsert);
+                                    Console.WriteLine("\nSe agregó el Balance del año " + year + ".\n");
                                 }
                                 catch (System.Exception e)
                                 {
-                                    Console.WriteLine("\nError, ::" + ParId.ToString() + "::" + 
+                                    Console.WriteLine("\nError, ::" + ParId.ToString() + "::" +
                                         "\nNo se pudo cargar el balance del año " + year + ". " + e.Message + "\n");
                                 }
                             }

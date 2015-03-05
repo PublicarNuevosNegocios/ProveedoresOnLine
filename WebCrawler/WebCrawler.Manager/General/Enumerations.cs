@@ -14,6 +14,7 @@
         Representation = 7, 
         OtherInfo = 8,
         Finantial = 9,
+        BalanceInfo = 10,
     }
 
     #region Util

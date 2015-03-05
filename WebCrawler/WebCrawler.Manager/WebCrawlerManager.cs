@@ -742,7 +742,15 @@ namespace WebCrawler.Manager
 
             //Get file name
             string[] files = UrlFile.Split(new char[] { '&' });
-            string fileName = files[1].ToString();
+            string fileName = string.Empty;
+            if (Setting == enumFinancialType.BalanceSheetInfoType.ToString())
+            {
+                fileName = files.Where(x => x.Contains(".pdf")).FirstOrDefault();
+            }
+            else
+            {
+                fileName = files[1].ToString();
+            }
 
             fileName = fileName.Substring(fileName.IndexOf("=") + 1, fileName.Length - fileName.IndexOf("=") - 1).Replace(@"\", @"").Replace('"', ' ');
             try
