@@ -1,20 +1,9 @@
 ﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
 
-@if (Model.RenderScripts)
+@if (!Model.RenderScripts)
 {
     <ul>
         <li><span>Orden por:</span></li>
-        <li>
-            @if (Model.SearchOrderType == MarketPlace.Models.General.enumSearchOrderType.CustomerRate)
-            {
-                <input type="radio" name="Search_rbOrder" searchordertype="@(((int)MarketPlace.Models.General.enumSearchOrderType.CustomerRate).ToString())" orderorientation="0" checked="checked" />
-            }
-            else
-            {
-                <input type="radio" name="Search_rbOrder" searchordertype="@(((int)MarketPlace.Models.General.enumSearchOrderType.CustomerRate).ToString())" orderorientation="0" />
-            }
-            <span>Calificación</span>
-        </li>
         <li>
             @if (Model.SearchOrderType == MarketPlace.Models.General.enumSearchOrderType.Alphabetic)
             {
