@@ -129,4 +129,27 @@
     #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultAlertComparWrapper {
         display:inline-flex; float:none;
     }
-    
+    /************* ESTE ES EL MAS ANGOSTO EL ENCABEZADO DE 
+                MENU DE DETALLE DE PROVEEDOR ***************/
+
+.POMPProviderMenuDitail {
+    /*border:1px solid red;*/ width:auto; height:auto; padding:7px 0px;
+}
+    .POMPProviderMenuDitail > div.POMPComparisonResultProvDataWrapper {
+        min-width: 202px !important;
+    }
+        .POMPProviderMenuDitail > div.POMPComparisonResultProvDataWrapper > a{
+            width:57px; height:30px;
+        }
+        .POMPProviderMenuDitail > div > div.POMPComparisonResultNameIDWrapper {
+            width: 46%; min-width:93px;
+        }
+            .POMPProviderMenuDitail > div > div.POMPComparisonResultNameIDWrapper > label,
+            .POMPProviderMenuDitail > div > div.POMPComparisonResultNameIDWrapper > label > span{
+                font-size: 0.82em;
+            }
+    .POMPProviderMenuDitail ul {
+        display:none;
+    }
+
+

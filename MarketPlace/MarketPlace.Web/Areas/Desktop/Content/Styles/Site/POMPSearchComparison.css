@@ -137,6 +137,7 @@
                 min-width:102px;
                 vertical-align: top;
                 width: 48%;
+                overflow: hidden;
             }
             .POMPComparisonResultNameIDWrapper > label,
             .POMPComparisonResultNameIDWrapper > a,
