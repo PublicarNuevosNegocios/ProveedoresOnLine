@@ -67,6 +67,27 @@
 
             <div id="CompareDetail"></div>
             <div id="CompareDetail_NoResult" style="display:none;">
+                <label>Esta comparación no arrojo resultados.</label>
+                <span>
+                    Si desea agregar mas proveedores a la comparación por favor retorne a la pantalla de busqueda haciendo
+                    <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search,
+                                CompareId = Model.RelatedCompare != null ? Model.RelatedCompare.CompareId.ToString() : "",
+                            }))">
+                        click aquí.
+                    </a>
+                </span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div id="CompareDetail_NoResult">
+            <label>Esta comparación no arrojo resultados.</label>
+            <span>Si desea agregar mas proveedores a la comparación por favor retorne a la pantalla de busqueda haciendo
                 <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -74,23 +95,9 @@
                                 action = MVC.Provider.ActionNames.Search,
                                 CompareId = Model.RelatedCompare != null ? Model.RelatedCompare.CompareId.ToString() : "",
                             }))">
-                    Esta comparación no arrojo resultados. Si desea agregar mas proveedores a la comparación por favor retorne a la pantalla de busqueda haciendo click aquí.
+                    click aquí.
                 </a>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div id="CompareDetail_NoResult">
-            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Search,
-                                CompareId = Model.RelatedCompare != null ? Model.RelatedCompare.CompareId.ToString() : "",
-                            }))">
-                Esta comparación no arrojo resultados. Si desea agregar mas proveedores a la comparación por favor retorne a la pantalla de busqueda haciendo click aquí.
-            </a>
+            </span>
         </div>
     }
 </div>

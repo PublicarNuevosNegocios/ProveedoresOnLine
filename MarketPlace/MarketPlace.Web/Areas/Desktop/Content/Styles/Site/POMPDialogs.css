@@ -1,0 +1,34 @@
+#CompareDetail_NoResult{
+    display:block;
+    height: auto;
+    margin: 32px auto 0px auto;
+    min-height: 464px;
+    padding: 0px;
+    width:56%;
+}
+        #CompareDetail_NoResult label{
+            border-bottom: 1px solid #d4d4d4;
+            color: #0066ae;
+            display: block;
+            font-size: 1.4em;
+            font-weight: normal;
+            letter-spacing: -0.7px;
+            line-height: 1em;
+            margin: 12px 5px 0 12px;
+            padding: 4px 0 0;
+            vertical-align: top;
+            width:100%;
+        }
+        #CompareDetail_NoResult span{
+            color: #666;
+            display: block;
+            font-size: 1.1em;
+            font-weight: normal;
+            letter-spacing: -0.5px;
+            line-height: 1.3em;
+            margin: 12px 5px 0 12px;
+            text-align: justify;
+        }
+            #CompareDetail_NoResult span a{
+                font-weight:bold;
+            }

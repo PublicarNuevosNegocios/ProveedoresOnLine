@@ -35,11 +35,11 @@
     text-align: left;
     width: 96%;
 }
-        /*.POMPSearchResultsOrder ul li span{
-            font-size:1.1em;
-            letter-spacing:-1px;
+        .POMPSearchResultsOrder ul li span{
+            font-size:0.98em;
+            letter-spacing:-0.5px;
             line-height:1em;
-        }*/
+        }
 /********** MUESTRA LA LISTA DE PROVEEDORES **********/
 .POMPSearchResultsList {
     margin:0px; padding:0px 10px;

@@ -1,7 +1,7 @@
 /********* TERMINOS CONDICIONES *********/
 .POMPTermsConditionsGreatWrapper {
     /*border:1px solid red;*/
-	margin:0px; padding:0px;
+	margin:0px; padding:0px 12px;
 	width:auto; height:auto;
 	min-width:960px;
 }
@@ -36,7 +36,7 @@
             display: block;
             margin: 12px auto;
             text-align: center;
-            width: 50%;
+            width:41%;
         }
     .POMPTermsConditionsGreatWrapper span {
         /*border:1px solid blue;*/
@@ -47,8 +47,12 @@
         letter-spacing: -0.5px;
         line-height: 1.5em;
 		margin: 12px 5px 0 12px;
+        text-align:justify;
     }
 	.POMPTermsConditionsGreatWrapper > span > span{
 		color: #0066ae;
 		display:inline; margin: 0px 4px;
 	}
+.POMPTermsConditionsGreatWrapper img{
+    display:block; margin:0px auto;
+}
