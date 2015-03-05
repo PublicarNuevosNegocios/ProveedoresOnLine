@@ -127,6 +127,8 @@ namespace ProveedoresOnLine.CompareModule.Controller
                         FirstOrDefault();
                     return true;
                 });
+
+                oReturn.CompareOptions = oCompareDetail.CompareOptions;
             }
 
             return oReturn;

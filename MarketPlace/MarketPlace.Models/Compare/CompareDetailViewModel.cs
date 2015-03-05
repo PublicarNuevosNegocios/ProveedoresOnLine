@@ -289,7 +289,7 @@ namespace MarketPlace.Models.Compare
                                         FirstOrDefault()).
                                 FirstOrDefault();
 
-                            decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                            decimal CurrencyRate = GetCurrencyRateCaching
                                 (oCurrencyFrom, CompareCurrency, Year == null ? DateTime.Now.Year : Year.Value);
 
                             //get company values
@@ -498,7 +498,7 @@ namespace MarketPlace.Models.Compare
                                         FirstOrDefault()).
                                 FirstOrDefault();
 
-                            decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                            decimal CurrencyRate = GetCurrencyRateCaching
                                 (oCurrencyFrom, CompareCurrency, Year == null ? DateTime.Now.Year : Year.Value);
 
                             //get company values
@@ -564,6 +564,29 @@ namespace MarketPlace.Models.Compare
 
             return oReturn;
         }
+
+        private decimal GetCurrencyRateCaching
+            (int MoneyFrom,
+            int MoneyTo,
+            int Year)
+        {
+            if (CurrencyRateCaching == null)
+                CurrencyRateCaching = new Dictionary<string, decimal>();
+
+            string oKey = MoneyFrom.ToString() + "_" +
+                        MoneyTo.ToString() + "_" +
+                        Year.ToString();
+
+            if (!CurrencyRateCaching.ContainsKey(oKey))
+            {
+                CurrencyRateCaching[oKey] = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
+                    (MoneyFrom, MoneyTo, Year);
+            }
+
+            return CurrencyRateCaching[oKey];
+        }
+        private Dictionary<string, decimal> CurrencyRateCaching;
+
 
         #endregion
     }
