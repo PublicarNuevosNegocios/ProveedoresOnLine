@@ -91,7 +91,7 @@ namespace MessageModule.Controller
                 if (!System.IO.Directory.Exists(LogFile))
                     System.IO.Directory.CreateDirectory(LogFile);
 
-                LogFile += "\\" + "Log_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
+                LogFile += "\\" + "Log_MessageModule_" + DateTime.Now.ToString("yyyyMMdd") + ".log";
 
                 using (System.IO.StreamWriter sw = System.IO.File.AppendText(LogFile))
                 {
