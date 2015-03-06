@@ -5,7 +5,7 @@
     string strCompanyLogo = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.
         Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CompanyLogo && !string.IsNullOrEmpty(x.Value)).
         Select(x => x.Value).
-        DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value).
+        DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_Customer_DefaultLogoUrl].Value).
         FirstOrDefault();
 
     //get user logo

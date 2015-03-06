@@ -51,7 +51,8 @@
         #region Company
 
         public const string C_Settings_Company_DefaultLogoUrl = "Company_DefaultLogoUrl";
-
+        public const string C_Settings_Company_Customer_DefaultLogoUrl = "Company_Customer_DefaultLogoUrl";
+        
         #endregion
 
         #endregion
