@@ -28,7 +28,8 @@
     <key name="File_RemoteDirectory">\MarketPlace\</key>
 
     <!--Company params-->
-    <key name="Company_DefaultLogoUrl">https://s3.amazonaws.com/devproveedoresonline/MarketPlace/SiteImages/dafaultProvider.png</key>
+    <key name="Company_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/dafaultProvider.png</key>
+    <key name="Company_Customer_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoSmall.png</key>
 
   </MarketPlace>
 </Settings>
