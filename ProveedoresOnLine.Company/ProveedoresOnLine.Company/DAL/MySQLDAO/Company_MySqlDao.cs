@@ -1885,6 +1885,9 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          UserCompanyId = u.Field<int>("UserCompanyId"),
                          User = u.Field<string>("User"),
                          UserCompanyEnable = u.Field<UInt64>("UserCompanyEnable") == 1 ? true : false,
+                         RoleCompanyId = u.Field<int>("RoleCompanyId"),
+                         RoleCompanyName = u.Field<string>("RoleCompanyName"),
+                         RoleCompanyEnable = u.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
                      }
                          into ui
                          select new ProveedoresOnLine.Company.Models.Company.UserCompany()
@@ -1892,22 +1895,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                              UserCompanyId = ui.Key.UserCompanyId,
                              User = ui.Key.User,
                              Enable = ui.Key.UserCompanyEnable,
-                             RelatedRole =
-                                (from r in response.DataTableResult.AsEnumerable()
-                                 where !r.IsNull("RoleCompanyId")
-                                 group r by new
-                                 {
-                                     RoleCompanyId = r.Field<int>("RoleCompanyId"),
-                                     RoleCompanyName = r.Field<string>("RoleCompanyName"),
-                                     RoleCompanyEnable = r.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
-                                 }
-                                     into ri
-                                     select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                                     {
-                                         ItemId = ri.Key.RoleCompanyId,
-                                         ItemName = ri.Key.RoleCompanyName,
-                                         Enable = ri.Key.RoleCompanyEnable,
-                                     }).FirstOrDefault()
+                             RelatedRole = new GenericItemModel()
+                             {
+                                 ItemId = ui.Key.RoleCompanyId,
+                                 ItemName = ui.Key.RoleCompanyName,
+                                 Enable = ui.Key.RoleCompanyEnable,
+                             }
                          }).ToList();
             }
 

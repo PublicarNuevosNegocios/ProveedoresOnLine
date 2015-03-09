@@ -116,3 +116,142 @@ var Customer_SearchObject = {
         window.location = BaseUrl.SiteUrl + 'Customer/Index?SearchParam=' + oSearchParam + '&SearchFilter=' + Customer_SearchObject.SearchFilter;
     },
 };
+
+/*Company Rules object*/
+var Customer_RulesObject = {
+    ObjectId: '',
+    CustomerPublicId: '',
+
+    Init: function (vInitObject) {
+        debugger;
+        this.ObjectId = vInitObject.ObjectId;
+        this.CustomerPublicId = vInitObject.CustomerPublicId;
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Customer_RulesObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Customer_RulesObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Customer_RulesObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Customer_RulesObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    Render_CustomerUserRules: function () {
+        $('#' + Customer_RulesObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'cancel', text: 'Descartar' },
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "RoleCompanyId",
+                        fields: {
+                            RoleCompanyId: { editable: false, nullable: true },
+
+                            RoleCompanyName: { editable: true, validation: { required: true } },
+                            User: { editable: true, validation: { required: true } },
+                            UserCompanyEnable: { editable: true, type: 'boolean', defaultValue: true },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                debugger;
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    //create: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //            Message('success', 'Se creó el registro.');
+                    //            Provider_CompanyHSEQObject.ObtainData();
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //            Message('error', result);
+                    //        },
+                    //    });
+                    //},
+                    //update: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //            Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
+                    //            Provider_CompanyHSEQObject.ObtainData();
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //            Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
+                    //        },
+                    //    });
+                    //},
+                }
+            },
+            columns: [{
+                field: 'UserCompanyEnable',
+                title: 'Habilitado',
+                width: '155px',
+            }, {
+                field: 'RoleCompanyName',
+                title: 'Cargo',
+                width: '100px',
+            }, {
+                field: 'User',
+                title: 'Usuario',
+                width: '200px',
+            }, {
+                field: 'RoleCompanyId',
+                title: 'Id',
+                width: '160px',
+            }, ],
+        });
+    },
+};

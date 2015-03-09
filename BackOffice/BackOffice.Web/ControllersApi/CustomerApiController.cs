@@ -58,5 +58,35 @@ namespace BackOffice.Web.ControllersApi
         }
 
         #endregion
+
+        #region Customer Rules
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.CustomerRoleViewModel> UserRolesByCustomer
+        (string UserRolesByCustomer,
+            string CustomerPublicId)
+        {
+            List<BackOffice.Models.Customer.CustomerRoleViewModel> oReturn = new List<Models.Customer.CustomerRoleViewModel>();
+
+            if (UserRolesByCustomer == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Company.UserCompany> oUsersRole = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetUsersByPublicId
+                    (CustomerPublicId);
+
+                if (oUsersRole != null)
+                {
+                    oUsersRole.All(x =>
+                        {
+                            oReturn.Add(new BackOffice.Models.Customer.CustomerRoleViewModel(x));
+                            return true;
+                        });
+                }
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }
