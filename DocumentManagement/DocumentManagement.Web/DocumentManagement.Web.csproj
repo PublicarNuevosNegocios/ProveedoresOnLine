@@ -505,6 +505,7 @@
     <Content Include="fonts\OpenSans-Regular.woff" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
+    <None Include="Properties\PublishProfiles\Sebastian MGD.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
