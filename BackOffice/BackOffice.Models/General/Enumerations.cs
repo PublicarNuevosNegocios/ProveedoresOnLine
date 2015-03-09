@@ -113,6 +113,8 @@
         ComercialName = 203007,
         Alert = 203008,
         ListId = 203009,
+
+        CustomEconomicActivity = 220001,
     }
 
     /// <summary>
