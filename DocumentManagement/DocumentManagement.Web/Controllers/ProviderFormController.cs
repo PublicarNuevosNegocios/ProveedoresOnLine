@@ -48,7 +48,7 @@ namespace DocumentManagement.Web.Controllers
             DocumentManagement.Provider.Models.Provider.ProviderModel RealtedProvider = DocumentManagement.Provider.Controller.Provider.ProviderGetByIdentification
                 (RequestResult.IdentificationNumber, RequestResult.IdentificationType.ItemId, CustomerPublicId);
 
-            if (RealtedProvider != null && !string.IsNullOrEmpty(RealtedProvider.ProviderPublicId))
+            if (RealtedProvider != null && !string.IsNullOrEmpty(RealtedProvider.ProviderPublicId) && ProviderPublicId == RealtedProvider.ProviderPublicId)
             {
                 //get first step
                 DocumentManagement.Customer.Models.Customer.CustomerModel RealtedCustomer =
