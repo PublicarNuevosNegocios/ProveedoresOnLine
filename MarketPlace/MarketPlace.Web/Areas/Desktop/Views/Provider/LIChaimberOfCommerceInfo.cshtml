@@ -29,7 +29,7 @@
                             || Model.RelatedLegalInfo.Where(x => x.CP_UndefinedDate != null).Select(x => x.CP_UndefinedDate).FirstOrDefault() != "False")
                         {
                             <label>
-                                Fecha de Vigencia
+                                Vigente Hasta
                                 <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()</span>
                             </label>
                         }                        

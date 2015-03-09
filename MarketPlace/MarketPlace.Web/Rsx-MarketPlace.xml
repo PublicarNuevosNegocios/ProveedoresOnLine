@@ -21,7 +21,7 @@
     <key name="CurrencyExchange_USD">108001</key>    
     
     <key name="ProviderStatus_Certified">902005</key>
-    <key name="ProviderStatus_Certified_Logo">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/verified_P_Smaller.png</key>
+    <key name="ProviderStatus_Certified_Logo">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/selloVerifSmaller.png</key>
 
     <!--File Params-->
     <key name="File_TempDirectory">/TempDirectory/</key>
