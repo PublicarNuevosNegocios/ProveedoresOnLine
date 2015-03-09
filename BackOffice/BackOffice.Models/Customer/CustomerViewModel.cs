@@ -35,6 +35,8 @@ namespace BackOffice.Models.Customer
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CustomerOptions { get; set; }
 
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CustomActivityTree { get; set; }
+
         public string GridToSave { get; set; }
     }
 }

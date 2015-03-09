@@ -202,6 +202,54 @@
                     </select>
                 </li>
                 <li>
+                    @{
+                        //aconomic activity info
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CustomEconomicActivity).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CustomEconomicActivity).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    <label>Actividad economica personalizada</label>
+                    <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CustomEconomicActivity).ToString())_@CompanyInfoIdAux.ToString()">
+                        <option value="">Seleccione una opción</option>
+                        @foreach (var Item in Model.CustomActivityTree.OrderBy(x=>x.ItemName))
+                        {
+                            if (Model.RelatedCustomer != null &&
+                                Model.RelatedCustomer.RelatedCompany != null &&
+                                Model.RelatedCustomer.RelatedCompany.CompanyType != null &&
+                                !string.IsNullOrEmpty(CompanyInfoValueAux) &&
+                                Item.ItemId.ToString() == CompanyInfoValueAux)
+                            {
+                                <option value="@Item.ItemId" selected>@Item.ItemId - @Item.ItemName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.ItemId">@Item.ItemId - @Item.ItemName</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
                     <label><span>*</span> Habilitado</label><br />
                     @if (Model.RelatedCustomer != null &&
                         Model.RelatedCustomer.RelatedCompany != null &&

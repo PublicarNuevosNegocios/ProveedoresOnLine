@@ -35,6 +35,7 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
             {
                 CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                CustomActivityTree = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin(null, 0, 1000),
             };
 
             if (!string.IsNullOrEmpty(CustomerPublicId))
@@ -48,67 +49,88 @@ namespace BackOffice.Web.Controllers
                 //get provider menu
                 oModel.CustomerMenu = GetCustomerMenu(oModel);
             }
-
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
-                ////get provider request info
-                //ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetProviderRequest();
+                //get provider request info
+                ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyToUpsert = GetCustomerRequest();
 
-                ////upsert provider
-                //CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
+                //upsert provider
+                CompanyToUpsert = ProveedoresOnLine.Company.Controller.Company.CompanyUpsert(CompanyToUpsert);
 
-                ////Create Provider By Customer Publicar
-                //CustomerModel oCustomerModel = new CustomerModel();
-                //oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
-
-                //oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
-                //{
-                //    RelatedProvider = new CompanyModel()
-                //    {
-                //        CompanyPublicId = CompanyToUpsert.CompanyPublicId,
-                //    },
-                //    Status = new CatalogModel()
-                //    {
-                //        ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
-                //    },
-                //    Enable = true,
-                //});
-
-                //oCustomerModel.RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value);
-
-                //ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
-
-                ////eval company partial index
-                //List<int> InfoTypeModified = new List<int>() { 2 };
-                //InfoTypeModified.AddRange(CompanyToUpsert.CompanyInfo.Select(x => x.ItemInfoType.ItemId));
-                //ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(CompanyToUpsert.CompanyPublicId, InfoTypeModified);
-
-                ////eval redirect url
-                //if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                //    Request["StepAction"].ToLower().Trim() == "next" &&
-                //    oModel.CurrentSubMenu != null &&
-                //    oModel.CurrentSubMenu.NextMenu != null &&
-                //    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
-                //{
-                //    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
-                //}
-                //else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
-                //    Request["StepAction"].ToLower().Trim() == "last" &&
-                //    oModel.CurrentSubMenu != null &&
-                //    oModel.CurrentSubMenu.LastMenu != null &&
-                //    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
-                //{
-                //    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
-                //}
-                //else
-                //{
-                //    return RedirectToAction(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name, new { ProviderPublicId = CompanyToUpsert.CompanyPublicId });
-                //}
+                //eval redirect url
+                if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "next" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.NextMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.NextMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.NextMenu.Url);
+                }
+                else if (!string.IsNullOrEmpty(Request["StepAction"]) &&
+                    Request["StepAction"].ToLower().Trim() == "last" &&
+                    oModel.CurrentSubMenu != null &&
+                    oModel.CurrentSubMenu.LastMenu != null &&
+                    !string.IsNullOrEmpty(oModel.CurrentSubMenu.LastMenu.Url))
+                {
+                    return Redirect(oModel.CurrentSubMenu.LastMenu.Url);
+                }
+                else
+                {
+                    return RedirectToAction(MVC.Customer.ActionNames.GICustomerUpsert, MVC.Customer.Name,
+                        new { CustomerPublicId = CompanyToUpsert.CompanyPublicId });
+                }
             }
 
             return View(oModel);
         }
+
+        #region Private methods
+
+        private ProveedoresOnLine.Company.Models.Company.CompanyModel GetCustomerRequest()
+        {
+            //get company
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oReturn = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+            {
+                CompanyPublicId = Request["CustomerPublicId"],
+                IdentificationType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = Convert.ToInt32(Request["IdentificationType"]),
+                },
+                IdentificationNumber = Request["IdentificationNumber"],
+                CompanyName = Request["CompanyName"],
+                CompanyType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = Convert.ToInt32(Request["CompanyType"]),
+                },
+                Enable = !string.IsNullOrEmpty(Request["Enable"]),
+                CompanyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            };
+
+            //get company info
+            Request.Form.AllKeys.Where(x => x.Contains("CompanyInfoType_")).All(req =>
+            {
+                string[] strSplit = req.Split('_');
+
+                if (strSplit.Length >= 3)
+                {
+                    oReturn.CompanyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = !string.IsNullOrEmpty(strSplit[2]) ? Convert.ToInt32(strSplit[2].Trim()) : 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(strSplit[1].Trim())
+                        },
+                        Value = Request[req],
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+            return oReturn;
+        }
+
+        #endregion
 
         #endregion
 
