@@ -14,7 +14,7 @@
         @if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity))
         {
             <li>
-                <span>Maestra de actividades económicas</span>
+                <span>Maestra de actividades</span>
                 <ul>
                     @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.EconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                     {
@@ -36,7 +36,7 @@
         @if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity))
         {
             <li>
-                <span>Aqui toca destripar la DB y sacar el nombre</span>
+                <span>Nombre de la actividad de la maestra personalizada</span>
                 <ul>
                     @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                     {

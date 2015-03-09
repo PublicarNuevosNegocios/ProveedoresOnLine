@@ -1806,6 +1806,114 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompany_GetByPublicId(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_RoleCompany_GetRoleByPublicId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn = null;
+
+            if (response.DataTableResult != null && 
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("CompanyPublicId")
+                     group c by new
+                     {
+                         CompanyPublicId = c.Field<string>("CompanyPublicId"),
+                     }
+                         into ci
+                         select new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = ci.Key.CompanyPublicId,
+                             RelatedRole =
+                                    (from cr in response.DataTableResult.AsEnumerable()
+                                     where !cr.IsNull("RoleCompanyId")
+                                     group cr by new
+                                     {
+                                         RoleCompanyId = cr.Field<int>("RoleCompanyId"),
+                                         RoleCompanyName = cr.Field<string>("RoleCompanyName"),
+                                         RoleCompanyEnable = cr.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
+                                     }
+                                         into cri
+                                         select new GenericItemModel()
+                                         {
+                                             ItemId = cri.Key.RoleCompanyId,
+                                             ItemName = cri.Key.RoleCompanyName,
+                                             Enable = cri.Key.RoleCompanyEnable,
+                                         }).ToList()
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+       
+        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vPublicId", CompanyPublicId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_RoleCompany_GetUsersByPublicId",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from u in response.DataTableResult.AsEnumerable()
+                     where !u.IsNull("UserCompanyId")
+                     group u by new
+                     {
+                         UserCompanyId = u.Field<int>("UserCompanyId"),
+                         User = u.Field<string>("User"),
+                         UserCompanyEnable = u.Field<UInt64>("UserCompanyEnable") == 1 ? true : false,
+                     }
+                         into ui
+                         select new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                         {
+                             UserCompanyId = ui.Key.UserCompanyId,
+                             User = ui.Key.User,
+                             Enable = ui.Key.UserCompanyEnable,
+                             RelatedRole =
+                                (from r in response.DataTableResult.AsEnumerable()
+                                 where !r.IsNull("RoleCompanyId")
+                                 group r by new
+                                 {
+                                     RoleCompanyId = r.Field<int>("RoleCompanyId"),
+                                     RoleCompanyName = r.Field<string>("RoleCompanyName"),
+                                     RoleCompanyEnable = r.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
+                                 }
+                                     into ri
+                                     select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                     {
+                                         ItemId = ri.Key.RoleCompanyId,
+                                         ItemName = ri.Key.RoleCompanyName,
+                                         Enable = ri.Key.RoleCompanyEnable,
+                                     }).FirstOrDefault()
+                         }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Restrictive List
