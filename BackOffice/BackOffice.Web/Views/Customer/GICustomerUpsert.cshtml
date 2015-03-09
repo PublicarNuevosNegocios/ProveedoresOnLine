@@ -1,21 +1,21 @@
-﻿@model BackOffice.Models.Provider.ProviderViewModel
+﻿@model BackOffice.Models.Customer.CustomerViewModel
 
 @{
-    ViewBag.Title = "Proeedor - Información General";
+    ViewBag.Title = "Comprador - Información General";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
 
     int CompanyInfoIdAux = 0;
     string CompanyInfoValueAux = string.Empty;
-    
+
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POBOProviderWrapper">
     @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
     <div class="POBOProviderSideMenuWrapper">
-        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
     </div>
 
     <div class="POBOProviderContentWrapper">
@@ -23,16 +23,16 @@
         <form class="POBOProviderUpsertForm" id="frmProviderUpsert"
               method="post"
               action="@(Url.Action
-                (MVC.Provider.ActionNames.GIProviderUpsert,
-                MVC.Provider.Name,
+                (MVC.Customer.ActionNames.GICustomerUpsert,
+                MVC.Customer.Name,
                 new
                 {
-                    ProviderPublicId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty,
+                    CustomerPublicId = Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null ? Model.RelatedCustomer.RelatedCompany.CompanyPublicId : string.Empty,
                 }))">
             <label class="POBOSectionTitles">Información básica</label>
             @{
                 Model.IsForm = true;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
             <span class="POBOPCompulsoryFields">Campos obligatorios *</span>
             <ul>
@@ -40,12 +40,12 @@
                     <label><span class="POBOPCompulsoryFields">*</span> Tipo de identificación</label>
                     <br />
                     <select name="IdentificationType">
-                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyIdentificationType))
+                        @foreach (var Item in Model.CustomerOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyIdentificationType))
                         {
-                            if (Model.RelatedProvider != null &&
-                                Model.RelatedProvider.RelatedCompany != null &&
-                                Model.RelatedProvider.RelatedCompany.IdentificationType != null &&
-                                Model.RelatedProvider.RelatedCompany.IdentificationType.ItemId == Item.ItemId)
+                            if (Model.RelatedCustomer != null &&
+                                Model.RelatedCustomer.RelatedCompany != null &&
+                                Model.RelatedCustomer.RelatedCompany.IdentificationType != null &&
+                                Model.RelatedCustomer.RelatedCompany.IdentificationType.ItemId == Item.ItemId)
                             {
                                 <option value="@Item.ItemId" selected="selected">@Item.ItemName</option>
                             }
@@ -59,12 +59,12 @@
                 <li>
                     <label><span>*</span> Número de identificación</label>
                     <br />
-                    <input type="text" name="IdentificationNumber" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.IdentificationNumber : string.Empty)" />
+                    <input type="text" name="IdentificationNumber" value="@(Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null ? Model.RelatedCustomer.RelatedCompany.IdentificationNumber : string.Empty)" />
                 </li>
                 <li>
                     <label><span>*</span> Razón social</label>
                     <br />
-                    <input type="text" name="CompanyName" value="@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyName : string.Empty)" />
+                    <input type="text" name="CompanyName" value="@(Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null ? Model.RelatedCustomer.RelatedCompany.CompanyName : string.Empty)" />
                 </li>
                 <li>
                     @{
@@ -73,11 +73,11 @@
                         CompanyInfoIdAux = 0;
                         CompanyInfoValueAux = string.Empty;
 
-                        if (Model.RelatedProvider != null &&
-                            Model.RelatedProvider.RelatedCompany != null &&
-                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
                         {
-                            CompanyInfoIdAux = Model.RelatedProvider.
+                            CompanyInfoIdAux = Model.RelatedCustomer.
                                 RelatedCompany.
                                 CompanyInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ComercialName).
@@ -85,7 +85,7 @@
                                 DefaultIfEmpty(0).
                                 FirstOrDefault();
 
-                            CompanyInfoValueAux = Model.RelatedProvider.
+                            CompanyInfoValueAux = Model.RelatedCustomer.
                                 RelatedCompany.
                                 CompanyInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ComercialName).
@@ -102,12 +102,12 @@
                     <label><span>*</span> Tipo de empresa</label>
                     <br />
                     <select name="CompanyType">
-                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyType))
+                        @foreach (var Item in Model.CustomerOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.CompanyType))
                         {
-                            if (Model.RelatedProvider != null &&
-                                Model.RelatedProvider.RelatedCompany != null &&
-                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
-                                Model.RelatedProvider.RelatedCompany.CompanyType.ItemId == Item.ItemId)
+                            if (Model.RelatedCustomer != null &&
+                                Model.RelatedCustomer.RelatedCompany != null &&
+                                Model.RelatedCustomer.RelatedCompany.CompanyType != null &&
+                                Model.RelatedCustomer.RelatedCompany.CompanyType.ItemId == Item.ItemId)
                             {
                                 <option value="@Item.ItemId" selected="selected">@Item.ItemName</option>
                             }
@@ -125,11 +125,11 @@
                         CompanyInfoIdAux = 0;
                         CompanyInfoValueAux = string.Empty;
 
-                        if (Model.RelatedProvider != null &&
-                            Model.RelatedProvider.RelatedCompany != null &&
-                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
                         {
-                            CompanyInfoIdAux = Model.RelatedProvider.
+                            CompanyInfoIdAux = Model.RelatedCustomer.
                                 RelatedCompany.
                                 CompanyInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SalesforceId).
@@ -137,7 +137,7 @@
                                 DefaultIfEmpty(0).
                                 FirstOrDefault();
 
-                            CompanyInfoValueAux = Model.RelatedProvider.
+                            CompanyInfoValueAux = Model.RelatedCustomer.
                                 RelatedCompany.
                                 CompanyInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SalesforceId).
@@ -161,11 +161,11 @@
                         CompanyInfoIdAux = 0;
                         CompanyInfoValueAux = string.Empty;
 
-                        if (Model.RelatedProvider != null &&
-                            Model.RelatedProvider.RelatedCompany != null &&
-                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
                         {
-                            CompanyInfoIdAux = Model.RelatedProvider.
+                            CompanyInfoIdAux = Model.RelatedCustomer.
                                 RelatedCompany.
                                 CompanyInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
@@ -173,7 +173,7 @@
                                 DefaultIfEmpty(0).
                                 FirstOrDefault();
 
-                            CompanyInfoValueAux = Model.RelatedProvider.
+                            CompanyInfoValueAux = Model.RelatedCustomer.
                                 RelatedCompany.
                                 CompanyInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).
@@ -184,11 +184,11 @@
                     }
                     <label><span>*</span> Información de Pago</label>
                     <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.ProviderPaymentInfo).ToString())_@CompanyInfoIdAux.ToString()">
-                        @foreach (var Item in Model.ProviderOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo))
+                        @foreach (var Item in Model.CustomerOptions.Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.ProviderPaymentInfo))
                         {
-                            if (Model.RelatedProvider != null &&
-                                Model.RelatedProvider.RelatedCompany != null &&
-                                Model.RelatedProvider.RelatedCompany.CompanyType != null &&
+                            if (Model.RelatedCustomer != null &&
+                                Model.RelatedCustomer.RelatedCompany != null &&
+                                Model.RelatedCustomer.RelatedCompany.CompanyType != null &&
                                 !string.IsNullOrEmpty(CompanyInfoValueAux) &&
                                 Item.ItemId.ToString() == CompanyInfoValueAux)
                             {
@@ -202,42 +202,10 @@
                     </select>
                 </li>
                 <li>
-                    @{
-                        //certification date info
-
-                        CompanyInfoIdAux = 0;
-                        CompanyInfoValueAux = string.Empty;
-
-                        if (Model.RelatedProvider != null &&
-                            Model.RelatedProvider.RelatedCompany != null &&
-                            Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
-                        {
-                            CompanyInfoIdAux = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).
-                                Select(x => x.ItemInfoId).
-                                DefaultIfEmpty(0).
-                                FirstOrDefault();
-
-                            CompanyInfoValueAux = Model.RelatedProvider.
-                                RelatedCompany.
-                                CompanyInfo.
-                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
-                                FirstOrDefault();
-                        }
-                    }
-                    <label>Fecha de certificación</label>
-                    <br />
-                    <input type="date" id="iptCertificationDate" name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CertificationDate).ToString())_@CompanyInfoIdAux.ToString()" value="@CompanyInfoValueAux" />
-                </li>
-                <li>
                     <label><span>*</span> Habilitado</label><br />
-                    @if (Model.RelatedProvider != null &&
-                        Model.RelatedProvider.RelatedCompany != null &&
-                        !Model.RelatedProvider.RelatedCompany.Enable)
+                    @if (Model.RelatedCustomer != null &&
+                        Model.RelatedCustomer.RelatedCompany != null &&
+                        !Model.RelatedCustomer.RelatedCompany.Enable)
                     {
                         <input type="checkbox" name="Enable" />
                     }
@@ -246,7 +214,7 @@
                         <input type="checkbox" name="Enable" checked="checked" />
                     }
                 </li>
-                @if (Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null)
+                @if (Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null)
                 {
                     <li>
                         <label>Logo</label><br />
@@ -255,11 +223,11 @@
                     CompanyInfoIdAux = 0;
                     CompanyInfoValueAux = string.Empty;
 
-                    if (Model.RelatedProvider != null &&
-                        Model.RelatedProvider.RelatedCompany != null &&
-                        Model.RelatedProvider.RelatedCompany.CompanyInfo != null)
+                    if (Model.RelatedCustomer != null &&
+                        Model.RelatedCustomer.RelatedCompany != null &&
+                        Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
                     {
-                        CompanyInfoIdAux = Model.RelatedProvider.
+                        CompanyInfoIdAux = Model.RelatedCustomer.
                             RelatedCompany.
                             CompanyInfo.
                             Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
@@ -267,7 +235,7 @@
                             DefaultIfEmpty(0).
                             FirstOrDefault();
 
-                        CompanyInfoValueAux = Model.RelatedProvider.
+                        CompanyInfoValueAux = Model.RelatedCustomer.
                             RelatedCompany.
                             CompanyInfo.
                             Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
@@ -297,7 +265,7 @@
             <br />
             @{
                 Model.IsForm = true;
-                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
         </form>
     </div>
@@ -308,14 +276,14 @@
 
 @section inlinescripts
 {
-    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
-        $(document).ready(function () {           
+        $(document).ready(function () {
 
-            if ('true' == '@((Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null).ToString().ToLower())') {
+            if ('true' == '@((Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null).ToString().ToLower())') {
                 UploadFile({
-                    ProviderPublicId: '@(Model.RelatedProvider != null && Model.RelatedProvider.RelatedCompany != null ? Model.RelatedProvider.RelatedCompany.CompanyPublicId : string.Empty)',
+                    ProviderPublicId: '@(Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null ? Model.RelatedCustomer.RelatedCompany.CompanyPublicId : string.Empty)',
                     ControlellerResponseId: 'iptLogo'
                 });
             }

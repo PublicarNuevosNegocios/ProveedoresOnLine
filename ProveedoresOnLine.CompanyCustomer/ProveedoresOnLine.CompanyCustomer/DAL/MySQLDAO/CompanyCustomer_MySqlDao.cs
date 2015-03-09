@@ -98,7 +98,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                          }
                              into cpi
                              select new CompanyCustomer.Models.Customer.CustomerModel()
-                             {                                 
+                             {
                                  RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
                                  {
                                      new Models.Customer.CustomerProviderModel()
@@ -144,7 +144,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                       into cc
                                       select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
                                       {
-                                          
+
                                           RelatedProvider = new Company.Models.Company.CompanyModel()
                                           {
                                               CompanyName = cc.Key.Customer,
@@ -153,7 +153,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                           },
                                       }).ToList(),
                              }).ToList();
-                }       
+                }
             }
 
             return oReturn;
@@ -175,7 +175,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
 
             List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
 
-            if (response.DataTableResult != null && 
+            if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
@@ -192,7 +192,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                          LastModify = cpi.Field<DateTime>("LastModify"),
                      }
                          into cpinf
-                         select new CompanyCustomer.Models.Customer.CustomerModel() 
+                         select new CompanyCustomer.Models.Customer.CustomerModel()
                          {
                              RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
                              {
@@ -354,6 +354,39 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 });
 
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+        #endregion
+
+        #region Util
+
+        public List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetCustomerOptions",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.CatalogModel> oReturn = new List<ProveedoresOnLine.Company.Models.Util.CatalogModel>();
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from c in response.DataTableResult.AsEnumerable()
+                     where !c.IsNull("ItemId")
+                     select new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                     {
+                         CatalogId = c.Field<int>("CatalogId"),
+                         CatalogName = c.Field<string>("CatalogName"),
+                         ItemId = c.Field<int>("ItemId"),
+                         ItemName = c.Field<string>("ItemName"),
+                     }).ToList();
+            }
+            return oReturn;
         }
 
         #endregion

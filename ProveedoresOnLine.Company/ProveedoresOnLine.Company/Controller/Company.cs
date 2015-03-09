@@ -525,6 +525,8 @@ namespace ProveedoresOnLine.Company.Controller
             return RoleCompanyToUpsert;
         }
 
+        
+
         public static UserCompany UserCompanyUpsert(UserCompany UserCompanyToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
@@ -797,6 +799,16 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
         {
             return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompany_GetByPublicId(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetByPublicId(CompanyPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetUsersByPublicId(CompanyPublicId);
         }
 
         #endregion

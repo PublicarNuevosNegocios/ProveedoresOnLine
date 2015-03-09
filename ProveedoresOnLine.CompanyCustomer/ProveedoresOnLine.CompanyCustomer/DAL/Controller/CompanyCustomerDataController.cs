@@ -96,5 +96,14 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
         }
 
         #endregion
+
+        #region Util
+
+        public List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()
+        {
+            return DataFactory.CatalogGetCustomerOptions();
+        }
+
+        #endregion
     }
 }

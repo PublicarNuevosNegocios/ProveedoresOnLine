@@ -2075,7 +2075,7 @@ namespace BackOffice.Web.ControllersApi
             if (CPCustomerProviderStatus == "true")
             {
                 List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
@@ -2125,7 +2125,7 @@ namespace BackOffice.Web.ControllersApi
             if (CPCustomerProviderInfo == "true")
             {
                 List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerProviderInfo =
-                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerInfoByProvider(CustomerProviderId);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(CustomerProviderId);
 
                 if (oCustomerProviderInfo != null && oCustomerProviderInfo.Count > 0)
                 {
@@ -2181,7 +2181,7 @@ namespace BackOffice.Web.ControllersApi
 
                     oCustomerModel.RelatedCompany = oCompanyModel;
 
-                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
                 }
             }
         }
@@ -2250,7 +2250,7 @@ namespace BackOffice.Web.ControllersApi
 
                     oCustomerModel.RelatedCompany = oCompanyModel;
 
-                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.CustomerProviderUpsert(oCustomerModel);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
                 }
             }
         }
@@ -2266,7 +2266,7 @@ namespace BackOffice.Web.ControllersApi
             if (GetAllCustomers == "true")
             {
                 List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.Customer.GetCustomerByProvider(ProviderPublicId, null);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 

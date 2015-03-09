@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.CompanyCustomer.Controller
 {
-    public class Customer
+    public class CompanyCustomer
     {
         #region Customer Info
 
@@ -150,12 +150,12 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerProviderToUpsert;
         }
 
-        public static List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId, string CustomerSearch)
+        public static List<CustomerModel> GetCustomerByProvider(string ProviderPublicId, string CustomerSearch)
         {
             return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId, CustomerSearch);
         }
 
-        public static List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
+        public static List<CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
         {
             return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerInfoByProvider(CustomerProviderId);
         }
@@ -468,6 +468,15 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             }
 
             return EvaluationItemToUpsert;
+        }
+
+        #endregion
+
+        #region Util
+
+        public static List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()
+        {
+            return DAL.Controller.CompanyCustomerDataController.Instance.CatalogGetCustomerOptions();
         }
 
         #endregion

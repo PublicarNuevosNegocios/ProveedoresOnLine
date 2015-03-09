@@ -1,0 +1,28 @@
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Comprador - usuarios del comprador";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <script type="text/javascript">
+
+    </script>
+}

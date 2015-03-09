@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\Customer.cs" />
+    <Compile Include="Controller\CompanyCustomer.cs" />
     <Compile Include="DAL\Controller\CompanyCustomerDataController.cs" />
     <Compile Include="DAL\Controller\CompanyCustomerDataFactory.cs" />
     <Compile Include="DAL\MySQLDAO\CompanyCustomer_MySqlDao.cs" />

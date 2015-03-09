@@ -1,4 +1,4 @@
-.POMPComparisonTitle, .POMPComparisonSelectionTitle{
+.POMPComparisonTitle{
         color: #4d4d4d;
     display: block;
     font-size: 1.4em;
@@ -67,14 +67,16 @@
         }
 /********** TITULO DE LA COMPARACION/LICITACION *********/
         .POMPComparisonSelectionTitle {
-            background-color: #eee;
-            border: 1px solid grey;
-            font-size: 0.9em !important;
-            height: 24px;
-            letter-spacing: -0.5px !important;
+            background-color: #f4f4f4;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1px solid grey;
+            border-left: none;
+            font-size: 1.17em !important;
+            height: 24px; width:98%;
+            letter-spacing: -0.8px !important;
             line-height: 1em !important;
             margin: 10px auto !important;
-            max-width: none;
         }
 /********** MUESTRA LA LISTA DE PROVEEDORES SELECCIONADOS PARA COMPARACION **********/
 .POMPComparisonProvListWrapper {

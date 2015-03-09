@@ -57,6 +57,18 @@ namespace BackOffice.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult GICustomerUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GICustomerUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ROCustomerUserUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ROCustomerUserUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CustomerController Actions { get { return MVC.Customer; } }
@@ -74,15 +86,35 @@ namespace BackOffice.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string GICustomerUpsert = "GICustomerUpsert";
+            public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string GICustomerUpsert = "GICustomerUpsert";
+            public const string ROCustomerUserUpsert = "ROCustomerUserUpsert";
         }
 
 
+        static readonly ActionParamsClass_GICustomerUpsert s_params_GICustomerUpsert = new ActionParamsClass_GICustomerUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GICustomerUpsert GICustomerUpsertParams { get { return s_params_GICustomerUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GICustomerUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_ROCustomerUserUpsert s_params_ROCustomerUserUpsert = new ActionParamsClass_ROCustomerUserUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ROCustomerUserUpsert ROCustomerUserUpsertParams { get { return s_params_ROCustomerUserUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ROCustomerUserUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -93,9 +125,13 @@ namespace BackOffice.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
+                public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
             }
+            public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
+            public readonly string ROCustomerUserUpsert = "~/Views/Customer/ROCustomerUserUpsert.cshtml";
         }
     }
 
@@ -112,6 +148,30 @@ namespace BackOffice.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GICustomerUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GICustomerUpsert(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GICustomerUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            GICustomerUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ROCustomerUserUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ROCustomerUserUpsert(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ROCustomerUserUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ROCustomerUserUpsertOverride(callInfo, CustomerPublicId);
             return callInfo;
         }
 
