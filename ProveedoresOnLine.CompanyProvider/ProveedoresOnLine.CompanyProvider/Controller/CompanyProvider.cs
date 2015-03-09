@@ -181,14 +181,17 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
 
                         CertificationInfoUpsert(pcert);
 
-                        GenericItemInfoModel oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
-                        if (oLTIFResult != null)
+                        if (pcert.ItemType.ItemId == 701004)
                         {
-                            CertificationInfoUpsert(new GenericItemModel()
+                            GenericItemInfoModel oLTIFResult = GetLTIFValue(ProviderToUpsert.RelatedCompany.CompanyPublicId, pcert);
+                            if (oLTIFResult != null)
                             {
-                                ItemId = pcert.ItemId,
-                                ItemInfo = new List<GenericItemInfoModel>() { oLTIFResult }
-                            });
+                                CertificationInfoUpsert(new GenericItemModel()
+                                {
+                                    ItemId = pcert.ItemId,
+                                    ItemInfo = new List<GenericItemInfoModel>() { oLTIFResult }
+                                });
+                            }
                         }
                         oLog.IsSuccess = true;
                     }
