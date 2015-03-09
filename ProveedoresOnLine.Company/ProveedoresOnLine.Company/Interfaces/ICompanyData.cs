@@ -107,6 +107,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<CompanyModel> MP_RoleCompanyGetByUser(string User);
 
+        List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompanyGetByPublicId(string CompanyPublicId);
+
         #endregion
 
         #region Restrictive List

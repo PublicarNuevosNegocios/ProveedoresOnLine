@@ -165,6 +165,16 @@ namespace ProveedoresOnLine.Company.Test
         }
 
         [TestMethod]
+        public void RoleCompanyGetByPublicId()
+        {
+            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.RoleCompanyGetByPublicId
+                ("DA5C572E");
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
         public void CategorySearcgByResolutionAdmin()
         {
             int oTotalRows;

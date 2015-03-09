@@ -252,6 +252,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.MP_RoleCompanyGetByUser(User);
         }
 
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompanyGetByPublicId(string CompanyPublicId)
+        {
+            return DataFactory.RoleCompanyGetByPublicId(CompanyPublicId);
+        }
+
         #endregion
 
         #region Restrictive List 
