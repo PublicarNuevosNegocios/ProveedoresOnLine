@@ -8,6 +8,15 @@ namespace BackOffice.Models.Customer
 {
     public class CustomerRoleViewModel
     {
+        #region Role Company
+
+        public string RoleId { get; set; }
+        public string RoleName { get; set; }
+
+        #endregion
+
+        #region User Role Company
+
         public string RoleCompanyId { get; set; }
 
         public string RoleCompanyName { get; set; }
@@ -19,6 +28,8 @@ namespace BackOffice.Models.Customer
         public string User { get; set; }
 
         public string UserCompanyEnable { get; set; }
+
+        #endregion
 
         public CustomerRoleViewModel() { }
 
@@ -35,6 +46,13 @@ namespace BackOffice.Models.Customer
             User = oUserRole.User;
 
             UserCompanyEnable = oUserRole.Enable.ToString();
+        }
+
+        public CustomerRoleViewModel(ProveedoresOnLine.Company.Models.Company.CompanyModel oRole)
+        {
+            RoleId = oRole.RelatedRole.Select(x => x.ItemId).FirstOrDefault().ToString();
+
+            RoleName = oRole.RelatedRole.Select(x => x.ItemName).FirstOrDefault();
         }
     }
 }
