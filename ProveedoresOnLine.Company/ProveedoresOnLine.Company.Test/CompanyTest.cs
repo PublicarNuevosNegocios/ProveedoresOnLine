@@ -168,7 +168,17 @@ namespace ProveedoresOnLine.Company.Test
         public void RoleCompanyGetByPublicId()
         {
             List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn =
-                ProveedoresOnLine.Company.Controller.Company.RoleCompanyGetByPublicId
+                ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId
+                ("DA5C572E");
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void RoleCompanyGetUsersByPublicId()
+        {
+            List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetUsersByPublicId
                 ("DA5C572E");
 
             Assert.AreEqual(true, oReturn.Count >= 1);

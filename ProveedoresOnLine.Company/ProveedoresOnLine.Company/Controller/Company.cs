@@ -801,9 +801,14 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompanyGetByPublicId(string CompanyPublicId)
+        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompany_GetByPublicId(string CompanyPublicId)
         {
-            return DAL.Controller.CompanyDataController.Instance.RoleCompanyGetByPublicId(CompanyPublicId);
+            return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetByPublicId(CompanyPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetUsersByPublicId(CompanyPublicId);
         }
 
         #endregion
