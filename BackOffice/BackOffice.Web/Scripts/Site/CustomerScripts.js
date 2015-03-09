@@ -58,7 +58,7 @@ var Customer_SearchObject = {
             change: function (arg) {
                 $.map(this.select(), function (item) {
                     if ($(item).find('td').length >= 2 && $($(item).find('td')[1]).text().length > 0) {
-                        window.location = BaseUrl.SiteUrl + 'Provider/GIProviderUpsert?ProviderPublicId=' + $($(item).find('td')[1]).text().replace(/ /gi, '');
+                        window.location = BaseUrl.SiteUrl + 'Customer/GICustomerUpsert?CustomerPublicId=' + $($(item).find('td')[1]).text().replace(/ /gi, '');
                     }
                 });
             },
@@ -68,15 +68,15 @@ var Customer_SearchObject = {
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
             }, {
-                field: 'ProviderPublicId',
+                field: 'CustomerPublicId',
                 title: 'Id',
                 width: '50px',
             }, {
-                field: 'ProviderName',
+                field: 'CustomerName',
                 title: 'Nombre',
                 width: '50px',
             }, {
-                field: 'ProviderType',
+                field: 'CustomerType',
                 title: 'Tipo',
                 width: '50px',
             }, {

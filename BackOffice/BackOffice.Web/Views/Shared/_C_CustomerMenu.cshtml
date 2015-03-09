@@ -1,0 +1,65 @@
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
+@if (Model.CustomerMenu != null &&
+    Model.CustomerMenu.Count > 0)
+{
+    if (!Model.RenderScripts)
+    {
+        <div class="POBOProviderSideMenu">
+            @if (Model.RelatedCustomer != null && Model.RelatedCustomer.RelatedCompany != null)
+            {
+                <div class="POBOProviderTagWrapper">
+                    <img src="@(Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.CompanyLogo).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DefaultImage].Value)).
+                                FirstOrDefault())" />
+                    <div>
+                        <span>@Model.RelatedCustomer.RelatedCompany.CompanyName</span>
+                        <span>@Model.RelatedCustomer.RelatedCompany.IdentificationType.ItemName @Model.RelatedCustomer.RelatedCompany.IdentificationNumber</span>
+                    </div>
+                </div>
+            }
+            <ul id="ulProviderMenu">
+                @foreach (BackOffice.Models.General.GenericMenu pm in Model.CustomerMenu.OrderBy(x => x.Position))
+                {
+                    string strSeleClass = string.Empty;
+                    if (pm.IsSelected)
+                    {
+                        strSeleClass = "principalmenuselected";
+                    }
+
+                    <li class="@strSeleClass">
+                        <label>@pm.Name</label>
+                        <ul class="POBOProviderSideSubMenu">
+                            @foreach (BackOffice.Models.General.GenericMenu sm in pm.ChildMenu.OrderBy(x => x.Position))
+                            {
+                                strSeleClass = string.Empty;
+                                if (sm.IsSelected)
+                                {
+                                    strSeleClass = "secundarymenuselected";
+                                }
+                                <li class="@strSeleClass">
+                                    <a href="@sm.Url">@sm.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    else
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                Provider_InitMenu({
+                    ObjId: 'ulProviderMenu',
+                    active: @(Model.CustomerMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),
+                });
+            });
+        </script>
+    }
+}

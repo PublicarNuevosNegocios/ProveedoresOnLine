@@ -1,4 +1,4 @@
-﻿@model BackOffice.Models.Provider.ProviderViewModel
+﻿@model BackOffice.Models.Customer.CustomerViewModel
 
 @{
     ViewBag.Title = "Busqueda de Compradores";
@@ -17,12 +17,9 @@
                     <span class="POBOSearchButtonsLupita"></span>
                 </a>
             </li>
-            @*<li>
-                <a class="POBOButtons" href="@Url.Action(MVC.Provider.ActionNames.GIProviderUpsert, MVC.Provider.Name)">Nuevo</a>
-            </li>
             <li>
-                <a class="POBOButtons" href="">Dercargar excel</a>
-            </li>*@
+                <a class="POBOButtons" href="@Url.Action(MVC.Customer.ActionNames.GICustomerUpsert, MVC.Customer.Name)">Nuevo</a>
+            </li>
         </ul>
     </div>
    @* @Html.Partial(MVC.Shared.Views._P_ProviderFilter, Model)*@

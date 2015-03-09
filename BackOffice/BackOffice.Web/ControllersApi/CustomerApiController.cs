@@ -16,12 +16,12 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Provider.ProviderSearchViewModel> SMCustomerSearch
+        public List<BackOffice.Models.Customer.CustomerSearchViewModel> SMCustomerSearch
             (string SMCustomerSearch,
-            string SearchParam,            
+            string SearchParam,
             string PageNumber,
             string RowCount)
-        {            
+        {
             string oCompanyType =
                     ((int)(BackOffice.Models.General.enumCompanyType.Buyer)).ToString() + "," +
                     ((int)(BackOffice.Models.General.enumCompanyType.BuyerProvider)).ToString();
@@ -43,13 +43,13 @@ namespace BackOffice.Web.ControllersApi
                     oRowCount,
                     out oTotalRows);
 
-            List<BackOffice.Models.Provider.ProviderSearchViewModel> oReturn = new List<Models.Provider.ProviderSearchViewModel>();
+            List<BackOffice.Models.Customer.CustomerSearchViewModel> oReturn = new List<Models.Customer.CustomerSearchViewModel>();
 
             if (oSearchResult != null && oSearchResult.Count > 0)
             {
                 oSearchResult.All(sr =>
                 {
-                    oReturn.Add(new Models.Provider.ProviderSearchViewModel(sr, oTotalRows));
+                    oReturn.Add(new Models.Customer.CustomerSearchViewModel(sr, oTotalRows));
                     return true;
                 });
             }

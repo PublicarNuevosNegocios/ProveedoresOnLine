@@ -1084,6 +1084,10 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Administrator\AdminRLUploadProvider.cshtml" />
     <Content Include="Views\Administrator\Index.cshtml" />
+    <Content Include="Views\Customer\GICustomerUpsert.cshtml" />
+    <Content Include="Views\Customer\ROCustomerUserUpsert.cshtml" />
+    <Content Include="Views\Shared\_C_CustomerMenu.cshtml" />
+    <Content Include="Views\Shared\_C_CustomerActions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
