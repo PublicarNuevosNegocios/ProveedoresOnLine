@@ -13,7 +13,23 @@
     <div class="POBOProviderSideMenuWrapper">
         @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
     </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Usuarios Registrados</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div id="divGridCustomerUserRoles"></div>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+        </div>
+    </div>
 </div>
+
 @{
     Model.RenderScripts = true;
 }
@@ -23,6 +39,12 @@
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
-
+        $(document).ready(function () {
+            Customer_RulesObject.Init({
+                ObjectId: 'divGridCustomerUserRoles',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+            });
+            Customer_RulesObject.Render_CustomerUserRules();
+        });
     </script>
 }

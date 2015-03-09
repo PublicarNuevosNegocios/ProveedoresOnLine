@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Admin\AdminViewModel.cs" />
     <Compile Include="Admin\AdminCategoryViewModel.cs" />
+    <Compile Include="Customer\CustomerRoleViewModel.cs" />
     <Compile Include="Customer\CustomerViewModel.cs" />
     <Compile Include="Customer\CustomerSearchViewModel.cs" />
     <Compile Include="General\Constants.cs" />
