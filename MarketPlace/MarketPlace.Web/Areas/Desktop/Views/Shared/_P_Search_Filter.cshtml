@@ -2,6 +2,18 @@
 
 @{
     List<Tuple<string, string>> lstSearchFilter = Model.GetlstSearchFilter();
+
+    string strCustomEconomicActivity = string.Empty;
+
+    if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo != null)
+    {
+        strCustomEconomicActivity = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.
+            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CustomEconomicActivity).
+            Select(x => x.ValueName).
+            DefaultIfEmpty(string.Empty).
+            FirstOrDefault();
+    }
 }
 
 @if (!Model.RenderScripts)
@@ -33,10 +45,11 @@
                 </ul>
             </li>
         }
-        @if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity))
+        @if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity) &&
+            !string.IsNullOrEmpty(strCustomEconomicActivity))
         {
             <li>
-                <span>Nombre de la actividad de la maestra personalizada</span>
+                <span>@strCustomEconomicActivity</span>
                 <ul>
                     @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.CustomEconomicActivity).OrderByDescending(x => x.Quantity).ToList())
                     {

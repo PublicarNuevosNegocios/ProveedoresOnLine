@@ -1731,6 +1731,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                   CompanyInfoTypeName = ci.Field<string>("CompanyInfoTypeName"),
                                   CompanyInfoValue = ci.Field<string>("CompanyInfoValue"),
                                   CompanyInfoLargeValue = ci.Field<string>("CompanyInfoLargeValue"),
+                                  CompanyInfoValueName = ci.Field<string>("CompanyInfoValueName"),
                               } into cig
                               select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                               {
@@ -1742,6 +1743,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                   },
                                   Value = cig.Key.CompanyInfoValue,
                                   LargeValue = cig.Key.CompanyInfoLargeValue,
+                                  ValueName = cig.Key.CompanyInfoValueName,
                               }).ToList(),
 
                          RelatedUser =

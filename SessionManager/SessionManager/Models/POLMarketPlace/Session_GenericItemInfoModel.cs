@@ -15,5 +15,7 @@ namespace SessionManager.Models.POLMarketPlace
         public string Value { get; set; }
 
         public string LargeValue { get; set; }
+
+        public string ValueName { get; set; }
     }
 }

@@ -77,6 +77,7 @@ namespace MarketPlace.Models.General
                                  },
                                  Value = cinf.Value,
                                  LargeValue = cinf.LargeValue,
+                                 ValueName = cinf.ValueName,
                              }).
                              ToList(),
 
