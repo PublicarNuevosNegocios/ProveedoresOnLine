@@ -17,11 +17,11 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         {
             //Get related customers list
             //List<CompanyCustomer.Models.Customer.CustomerModel> oReturn =
-            //    CompanyCustomer.Controller.Customer.GetCustomerByProvider("1A9863BD", null);
+            //    CompanyCustomer.Controller.Customer.GetCustomerByProvider("1F2BF1AD", 1);
 
             //Get related customers by Provider
             List<CompanyCustomer.Models.Customer.CustomerModel> oReturn =
-                CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider("6EB9CAFE", "true");
+                CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider("1F2BF1AD", 0);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
