@@ -186,7 +186,6 @@ var Customer_RulesObject = {
                             url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
                             dataType: 'json',
                             success: function (result) {
-                                debugger;
                                 options.success(result);
                             },
                             error: function (result) {
@@ -195,44 +194,6 @@ var Customer_RulesObject = {
                             },
                         });
                     },
-                    //create: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se creó el registro.');
-                    //            Provider_CompanyHSEQObject.ObtainData();
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', result);
-                    //        },
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQUpsert=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.HSEQType,
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se editó la fila con el id ' + options.data.CertificationId + '.');
-                    //            Provider_CompanyHSEQObject.ObtainData();
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', 'Error en la fila con el id ' + options.data.CertificationId + '.');
-                    //        },
-                    //    });
-                    //},
                 }
             },
             columns: [{
@@ -243,12 +204,41 @@ var Customer_RulesObject = {
                 field: 'RoleCompanyName',
                 title: 'Cargo',
                 width: '100px',
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = 'Seleccione una opción';
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: {
+                                transport: {
+                                    read: function () {
+                                        $.ajax({
+                                            url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                                            dataType: 'json',
+                                            success: function (result) {
+                                            },
+                                            error: function (result) {
+                                                Message('error', result);
+                                            },
+                                        });
+                                    },
+                                },
+                            },
+                            dataTextField: '',
+                            dataValueField: '',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
             }, {
                 field: 'User',
                 title: 'Usuario',
                 width: '200px',
             }, {
-                field: 'RoleCompanyId',
+                field: 'UserCompanyId',
                 title: 'Id',
                 width: '160px',
             }, ],
