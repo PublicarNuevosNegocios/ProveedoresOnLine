@@ -121,11 +121,12 @@ var Customer_SearchObject = {
 var Customer_RulesObject = {
     ObjectId: '',
     CustomerPublicId: '',
+    RoleCompanyList: new Array(),
 
     Init: function (vInitObject) {
-        debugger;
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
+        this.RoleCompanyList = vInitObject.RoleCompanyList;
     },
 
     ConfigKeyBoard: function () {
@@ -172,7 +173,7 @@ var Customer_RulesObject = {
                     model: {
                         id: "RoleCompanyId",
                         fields: {
-                            RoleCompanyId: { editable: false, nullable: true },
+                            UserCompanyId: { editable: false, nullable: true },
 
                             RoleCompanyName: { editable: true, validation: { required: true } },
                             User: { editable: true, validation: { required: true } },
@@ -194,42 +195,80 @@ var Customer_RulesObject = {
                             },
                         });
                     },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?UserCompanyUpsert=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?UserCompanyUpsert=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.UserCompanyId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.UserCompanyId + '.');
+                            },
+                        });
+                    },
                 }
             },
             columns: [{
                 field: 'UserCompanyEnable',
                 title: 'Habilitado',
                 width: '155px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.UserCompanyEnable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
-                field: 'RoleCompanyName',
+                field: 'RoleCompanyId',
                 title: 'Cargo',
                 width: '100px',
                 template: function (dataItem) {
-                    debugger;
                     var oReturn = 'Seleccione una opción';
+                    $.each(Customer_RulesObject.RoleCompanyList, function (item, value) {
+                        if (value.RoleId == dataItem.RoleCompanyId) {
+                            oReturn = value.RoleName;
+                        }
+                    });
+
                     return oReturn;
                 },
                 editor: function (container, options) {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
-                            dataSource: {
-                                transport: {
-                                    read: function () {
-                                        $.ajax({
-                                            url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
-                                            dataType: 'json',
-                                            success: function (result) {
-                                            },
-                                            error: function (result) {
-                                                Message('error', result);
-                                            },
-                                        });
-                                    },
-                                },
-                            },
-                            dataTextField: '',
-                            dataValueField: '',
+                            dataSource: Customer_RulesObject.RoleCompanyList,
+                            dataTextField: 'RoleName',
+                            dataValueField: 'RoleId',
                             optionLabel: 'Seleccione una opción'
                         });
                 },

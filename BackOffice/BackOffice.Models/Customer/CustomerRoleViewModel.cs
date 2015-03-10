@@ -48,11 +48,11 @@ namespace BackOffice.Models.Customer
             UserCompanyEnable = oUserRole.Enable.ToString();
         }
 
-        public CustomerRoleViewModel(ProveedoresOnLine.Company.Models.Company.CompanyModel oRole)
+        public CustomerRoleViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRole)
         {
-            RoleId = oRole.RelatedRole.Select(x => x.ItemId).FirstOrDefault().ToString();
+            RoleId = oRole.ItemId.ToString();
 
-            RoleName = oRole.RelatedRole.Select(x => x.ItemName).FirstOrDefault();
+            RoleName = oRole.ItemName;
         }
     }
 }

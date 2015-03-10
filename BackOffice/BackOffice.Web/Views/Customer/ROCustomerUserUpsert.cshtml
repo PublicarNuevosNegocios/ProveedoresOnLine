@@ -32,6 +32,9 @@
 
 @{
     Model.RenderScripts = true;
+
+    string vstrRoleCompanyList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+        Serialize(Model.RelatedRoleCompanyList);
 }
 
 @section inlinescripts
@@ -43,6 +46,7 @@
             Customer_RulesObject.Init({
                 ObjectId: 'divGridCustomerUserRoles',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                RoleCompanyList: @Html.Raw(vstrRoleCompanyList),
             });
             Customer_RulesObject.Render_CustomerUserRules();
         });

@@ -76,9 +76,6 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oUsersRole != null)
                 {
-                    List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRole = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId
-                        (CustomerPublicId);
-
                     oUsersRole.All(x =>
                         {
                             oReturn.Add(new BackOffice.Models.Customer.CustomerRoleViewModel(x));
@@ -92,21 +89,33 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Customer.CustomerRoleViewModel> RolesByCustomer
-            (string RolesByCustomer,
-             string CustomerPublicId)
+        public List<BackOffice.Models.Customer.CustomerRoleViewModel> UserCompanyUpsert
+            (string UserCompanyUpsert,
+            string CustomerPublicId)
         {
-            List<BackOffice.Models.Customer.CustomerRoleViewModel> oReturn = new List<BackOffice.Models.Customer.CustomerRoleViewModel>();
+            List<BackOffice.Models.Customer.CustomerRoleViewModel> oReturn = new List<Models.Customer.CustomerRoleViewModel>();
 
-            if (RolesByCustomer == "true")
+            if (UserCompanyUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
             {
-                List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oRules = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId(CustomerPublicId);
+                BackOffice.Models.Customer.CustomerRoleViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.CustomerRoleViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.CustomerRoleViewModel));
 
-                oRules.All(x =>
+                ProveedoresOnLine.Company.Models.Company.UserCompany oUserCompany = new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                {
+                    UserCompanyId = string.IsNullOrEmpty(oDataToUpsert.UserCompanyId) ? 0 : Convert.ToInt32(oDataToUpsert.UserCompanyId),
+                    User = oDataToUpsert.User,
+                    RelatedRole = new GenericItemModel()
                     {
-                        oReturn.Add(new Models.Customer.CustomerRoleViewModel(x));
-                        return true;
-                    });
+                        ItemId = Convert.ToInt32(oDataToUpsert.RoleCompanyId),
+                    },
+                    Enable = true,
+                };
+
+                ProveedoresOnLine.Company.Controller.Company.UserCompanyUpsert(oUserCompany);
             }
 
             return oReturn;

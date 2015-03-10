@@ -146,7 +146,20 @@ namespace BackOffice.Web.Controllers
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
+                RelatedRoleCompanyList = new List<Models.Customer.CustomerRoleViewModel>(),
             };
+
+            //get role company list
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oRules = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId(CustomerPublicId);
+
+            if (oRules != null && oRules.RelatedRole != null && oRules.RelatedRole.Count > 0)
+            {
+                oRules.RelatedRole.All(y =>
+                {
+                    oModel.RelatedRoleCompanyList.Add(new Models.Customer.CustomerRoleViewModel(y));
+                    return true;
+                });
+            }
 
             //get provider menu
             oModel.CustomerMenu = GetCustomerMenu(oModel);

@@ -321,46 +321,46 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<GenericItemModel> oReturn = null;
             TotalRows = 0;
 
-            if (response.DataTableResult != null && 
+            if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
                 TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
 
-                oReturn = 
+                oReturn =
                     (from b in response.DataTableResult.AsEnumerable()
-                         where !b.IsNull("ICAId")
-                         group b by new
-                         {
-                            ICAId = b.Field<int>("ICAId"),
-                            ICAName = b.Field<string>("ICAName"),
-                            ICAEnable = b.Field<UInt64>("ICAEnable") == 1 ? true : false,
-                         }into bg
-                         select new GenericItemModel()
-                         {
-                             ItemId = bg.Key.ICAId,
-                             ItemName = bg.Key.ICAName,
-                             Enable = bg.Key.ICAEnable,
+                     where !b.IsNull("ICAId")
+                     group b by new
+                     {
+                         ICAId = b.Field<int>("ICAId"),
+                         ICAName = b.Field<string>("ICAName"),
+                         ICAEnable = b.Field<UInt64>("ICAEnable") == 1 ? true : false,
+                     } into bg
+                     select new GenericItemModel()
+                     {
+                         ItemId = bg.Key.ICAId,
+                         ItemName = bg.Key.ICAName,
+                         Enable = bg.Key.ICAEnable,
 
-                             ItemInfo = 
-                             (from binf in response.DataTableResult.AsEnumerable()
-                                  where !binf.IsNull("ICAInfoId")
-                                        && binf.Field<int>("ICAId") == bg.Key.ICAId
-                                  group binf by new
-                                  {
-                                      ICAInfoId = binf.Field<int>("ICAInfoId"),
-                                      ICAValue = binf.Field<string>("ICAValue"),
-                                      ICAInfoType = binf.Field<int>("ICAInfoType"),
-                                  } into inf
-                                  select new GenericItemInfoModel()
-                                  {
-                                      ItemInfoId = inf.Key.ICAInfoId,
-                                      Value = inf.Key.ICAValue,
-                                      ItemInfoType = new CatalogModel()
-                                      {
-                                          ItemId = inf.Key.ICAInfoType,
-                                      }
-                                  }).ToList(),
-                         }).ToList();
+                         ItemInfo =
+                         (from binf in response.DataTableResult.AsEnumerable()
+                          where !binf.IsNull("ICAInfoId")
+                                && binf.Field<int>("ICAId") == bg.Key.ICAId
+                          group binf by new
+                          {
+                              ICAInfoId = binf.Field<int>("ICAInfoId"),
+                              ICAValue = binf.Field<string>("ICAValue"),
+                              ICAInfoType = binf.Field<int>("ICAInfoType"),
+                          } into inf
+                          select new GenericItemInfoModel()
+                          {
+                              ItemInfoId = inf.Key.ICAInfoId,
+                              Value = inf.Key.ICAValue,
+                              ItemInfoType = new CatalogModel()
+                              {
+                                  ItemId = inf.Key.ICAInfoType,
+                              }
+                          }).ToList(),
+                     }).ToList();
             }
 
             return oReturn;
@@ -1604,7 +1604,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vContactType", ContactType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 :0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -1806,7 +1806,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompany_GetByPublicId(string CompanyPublicId)
+        public ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
@@ -1820,44 +1820,35 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                 Parameters = lstParams,
             });
 
-            List<ProveedoresOnLine.Company.Models.Company.CompanyModel> oReturn = null;
+            ProveedoresOnLine.Company.Models.Company.CompanyModel oReturn = null;
 
-            if (response.DataTableResult != null && 
+            if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
-                oReturn =
-                    (from c in response.DataTableResult.AsEnumerable()
-                     where !c.IsNull("CompanyPublicId")
-                     group c by new
-                     {
-                         CompanyPublicId = c.Field<string>("CompanyPublicId"),
-                     }
-                         into ci
-                         select new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                oReturn = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                {
+                    CompanyPublicId = response.DataTableResult.Rows[0].Field<string>("CompanyPublicId"),
+                    RelatedRole =
+                        (from cr in response.DataTableResult.AsEnumerable()
+                         where !cr.IsNull("RoleCompanyId")
+                         group cr by new
                          {
-                             CompanyPublicId = ci.Key.CompanyPublicId,
-                             RelatedRole =
-                                    (from cr in response.DataTableResult.AsEnumerable()
-                                     where !cr.IsNull("RoleCompanyId")
-                                     group cr by new
-                                     {
-                                         RoleCompanyId = cr.Field<int>("RoleCompanyId"),
-                                         RoleCompanyName = cr.Field<string>("RoleCompanyName"),
-                                         RoleCompanyEnable = cr.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
-                                     }
-                                         into cri
-                                         select new GenericItemModel()
-                                         {
-                                             ItemId = cri.Key.RoleCompanyId,
-                                             ItemName = cri.Key.RoleCompanyName,
-                                             Enable = cri.Key.RoleCompanyEnable,
-                                         }).ToList()
-                         }).ToList();
+                             RoleCompanyId = cr.Field<int>("RoleCompanyId"),
+                             RoleCompanyName = cr.Field<string>("RoleCompanyName"),
+                             RoleCompanyEnable = cr.Field<UInt64>("RoleCompanyEnable") == 1 ? true : false,
+                         } into cri
+                         select new GenericItemModel()
+                         {
+                             ItemId = cri.Key.RoleCompanyId,
+                             ItemName = cri.Key.RoleCompanyName,
+                             Enable = cri.Key.RoleCompanyEnable,
+                         }).ToList()
+                };
             }
 
             return oReturn;
         }
-       
+
         public List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
@@ -1950,7 +1941,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          ItemName = blg.Key.Value,
                      }).ToList();
             }
-            return oReturn;            
+            return oReturn;
         }
 
         #endregion

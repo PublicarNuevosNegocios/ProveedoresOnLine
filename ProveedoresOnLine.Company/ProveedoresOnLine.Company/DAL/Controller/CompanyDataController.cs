@@ -146,7 +146,7 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CategorySearchByEcoActivityAdmin(SearchParam, PageNumber, RowCount, TreeId, out TotalRows);
         }
-        
+
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchByEcoGroupAdmin(string SearchParam, int PageNumber, int RowCount, int TreeId, out int TotalRows)
         {
             return DataFactory.CategorySearchByEcoGroupAdmin(SearchParam, PageNumber, RowCount, TreeId, out TotalRows);
@@ -252,7 +252,7 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.MP_RoleCompanyGetByUser(User);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompany_GetByPublicId(string CompanyPublicId)
+        public ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             return DataFactory.RoleCompany_GetByPublicId(CompanyPublicId);
         }
@@ -264,12 +264,12 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #endregion
 
-        #region Restrictive List 
+        #region Restrictive List
 
         List<Models.Util.GenericItemModel> Interfaces.ICompanyData.BlackListGetByCompanyPublicId(string CompanyPublicId)
         {
             return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
-        #endregion        
+        #endregion
     }
 }

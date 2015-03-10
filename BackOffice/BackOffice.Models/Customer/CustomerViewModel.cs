@@ -38,5 +38,7 @@ namespace BackOffice.Models.Customer
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CustomActivityTree { get; set; }
 
         public string GridToSave { get; set; }
+
+        public List<BackOffice.Models.Customer.CustomerRoleViewModel> RelatedRoleCompanyList { get; set; }
     }
 }

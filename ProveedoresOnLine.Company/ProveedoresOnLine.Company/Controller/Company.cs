@@ -801,7 +801,7 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> RoleCompany_GetByPublicId(string CompanyPublicId)
+        public static ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetByPublicId(CompanyPublicId);
         }
