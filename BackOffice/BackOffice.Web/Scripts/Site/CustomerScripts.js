@@ -167,6 +167,8 @@ var Customer_RulesObject = {
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Customer_RulesObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_RulesObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -236,7 +238,7 @@ var Customer_RulesObject = {
             columns: [{
                 field: 'UserCompanyEnable',
                 title: 'Habilitado',
-                width: '155px',
+                width: '100px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -251,7 +253,7 @@ var Customer_RulesObject = {
             }, {
                 field: 'RoleCompanyId',
                 title: 'Cargo',
-                width: '100px',
+                width: '150px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción';
                     $.each(Customer_RulesObject.RoleCompanyList, function (item, value) {
@@ -279,7 +281,7 @@ var Customer_RulesObject = {
             }, {
                 field: 'UserCompanyId',
                 title: 'Id',
-                width: '160px',
+                width: '100px',
             }, ],
         });
     },
