@@ -167,6 +167,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LIOrganizationStructureUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIOrganizationStructureUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult CPCustomerProviderStatus()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CPCustomerProviderStatus);
@@ -212,6 +218,7 @@ namespace BackOffice.Web.Controllers
             public readonly string LICIFINUpsert = "LICIFINUpsert";
             public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
             public readonly string LIResolutionUpsert = "LIResolutionUpsert";
+            public readonly string LIOrganizationStructureUpsert = "LIOrganizationStructureUpsert";
             public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public readonly string DownloadFile = "DownloadFile";
         }
@@ -238,6 +245,7 @@ namespace BackOffice.Web.Controllers
             public const string LICIFINUpsert = "LICIFINUpsert";
             public const string LISARLAFTUpsert = "LISARLAFTUpsert";
             public const string LIResolutionUpsert = "LIResolutionUpsert";
+            public const string LIOrganizationStructureUpsert = "LIOrganizationStructureUpsert";
             public const string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public const string DownloadFile = "DownloadFile";
         }
@@ -387,6 +395,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_LIOrganizationStructureUpsert s_params_LIOrganizationStructureUpsert = new ActionParamsClass_LIOrganizationStructureUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LIOrganizationStructureUpsert LIOrganizationStructureUpsertParams { get { return s_params_LIOrganizationStructureUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LIOrganizationStructureUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_CPCustomerProviderStatus s_params_CPCustomerProviderStatus = new ActionParamsClass_CPCustomerProviderStatus();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CPCustomerProviderStatus CPCustomerProviderStatusParams { get { return s_params_CPCustomerProviderStatus; } }
@@ -431,6 +447,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string Index = "Index";
                 public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
                 public readonly string LICIFINUpsert = "LICIFINUpsert";
+                public readonly string LIOrganizationStructureUpsert = "LIOrganizationStructureUpsert";
                 public readonly string LIResolutionUpsert = "LIResolutionUpsert";
                 public readonly string LIRutUpsert = "LIRutUpsert";
                 public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
@@ -452,6 +469,7 @@ namespace BackOffice.Web.Controllers
             public readonly string Index = "~/Views/Provider/Index.cshtml";
             public readonly string LIChaimberOfCommerceUpsert = "~/Views/Provider/LIChaimberOfCommerceUpsert.cshtml";
             public readonly string LICIFINUpsert = "~/Views/Provider/LICIFINUpsert.cshtml";
+            public readonly string LIOrganizationStructureUpsert = "~/Views/Provider/LIOrganizationStructureUpsert.cshtml";
             public readonly string LIResolutionUpsert = "~/Views/Provider/LIResolutionUpsert.cshtml";
             public readonly string LIRutUpsert = "~/Views/Provider/LIRutUpsert.cshtml";
             public readonly string LISARLAFTUpsert = "~/Views/Provider/LISARLAFTUpsert.cshtml";
@@ -687,6 +705,18 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIResolutionUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LIOrganizationStructureUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LIOrganizationStructureUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIOrganizationStructureUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            LIOrganizationStructureUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
