@@ -1,0 +1,118 @@
+﻿@model BackOffice.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Proeedor - K de contratacion - Estructura organizacional";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+
+    int InfoIdAux = 0;
+    string InfoValueAux = string.Empty;
+
+    ProveedoresOnLine.Company.Models.Util.GenericItemModel CurrentLegal = null;
+
+    if (Model.RelatedProvider != null &&
+        Model.RelatedProvider.RelatedLegal != null &&
+        Model.RelatedProvider.RelatedLegal.Count > 0)
+    {
+        CurrentLegal = Model.RelatedProvider.
+                           RelatedLegal.
+                           FirstOrDefault();
+    }
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POBOProviderContentWrapper">
+
+        <form class="POBOProviderUpsertForm" id="frmProviderUpsert"
+              method="post"
+              action="@(Url.Action
+                (MVC.Provider.ActionNames.LIOrganizationStructureUpsert,
+                MVC.Provider.Name,
+                new
+                {
+                    ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId,
+                }))">
+            <label class="POBOSectionTitles">K Contratación - Estructura organizacional</label>
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+            <span class="POBOPCompulsoryFields">Campos obligatorios *</span>
+            <ul>
+                @foreach (var Item in
+                    Model.ProviderOptions.
+                    Where(x => x.CatalogId == (int)BackOffice.Models.General.enumCatalog.OrganizationStructure).
+                    OrderBy(x => x.ItemId))
+                {
+                    //get items infos
+
+                    InfoIdAux = 0;
+                    InfoValueAux = string.Empty;
+
+                    if (CurrentLegal != null &&
+                        CurrentLegal.ItemInfo != null &&
+                        CurrentLegal.ItemInfo.Count > 0)
+                    {
+                        InfoIdAux = CurrentLegal.
+                            ItemInfo.
+                            Where(x => x.ItemInfoType.ItemId == Item.ItemId).
+                            Select(x => x.ItemInfoId).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault();
+
+                        InfoValueAux = CurrentLegal.
+                            ItemInfo.
+                            Where(x => x.ItemInfoType.ItemId == Item.ItemId).
+                            Select(x => x.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault();
+                    }
+
+                    <li>
+                        <label><span class="POBOPCompulsoryFields"></span> @Item.ItemName</label>
+                        <br />
+                        <input type="text" name="InfoType_@(Item.ItemId.ToString())_@InfoIdAux.ToString()" value="@InfoValueAux" />
+                    </li>
+                }
+                <li>
+                    <label><span>*</span> Habilitado</label><br />
+                    @if (CurrentLegal != null &&
+                        !CurrentLegal.Enable)
+                    {
+                        <input type="checkbox" name="Enable" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" name="Enable" checked="checked" />
+                    }
+                </li>
+            </ul>
+            <div style="display:none">
+                <input type="hidden" name="ItemId" id="ItemId" value="@(CurrentLegal != null ? CurrentLegal.ItemId.ToString() : "0")" />
+
+                <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
+                <input type="hidden" name="StepAction" id="StepAction" value="" />
+            </div>
+            <br />
+            @{
+                Model.IsForm = true;
+                Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
+            }
+        </form>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+}
