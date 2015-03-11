@@ -78,7 +78,7 @@
                     <li>
                         <label><span class="POBOPCompulsoryFields"></span> @Item.ItemName</label>
                         <br />
-                        <input type="text" name="InfoType_@(Item.ItemId.ToString())_@InfoIdAux.ToString()" value="@InfoValueAux" />
+                        <input type="text" class="selOrganizationStructure" name="InfoType_@(Item.ItemId.ToString())_@InfoIdAux.ToString()" value="@InfoValueAux" />
                     </li>
                 }
                 <li>
@@ -115,4 +115,17 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.selOrganizationStructure').focusout(function () {
+                if ($.isNumeric($(this).val()) == false) {
+                    $(this).val(0);
+                }
+                else {
+                    $(this).val($(this).val().trim());
+                }
+            });
+        });
+    </script>
 }
