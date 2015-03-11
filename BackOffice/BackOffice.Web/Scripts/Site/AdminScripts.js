@@ -1147,8 +1147,8 @@
                 width: '110px',
                 template: function (dataItem) {
                     var oReturn = '';
-
-                    if (dataItem.Enable == true) {
+                    debugger;
+                    if (dataItem.ECS_Enable == true) {
                         oReturn = 'Si'
                     }
                     else {
