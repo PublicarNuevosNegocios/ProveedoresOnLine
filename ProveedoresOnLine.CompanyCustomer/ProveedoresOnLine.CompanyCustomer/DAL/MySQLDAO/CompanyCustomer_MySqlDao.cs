@@ -61,7 +61,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -76,43 +76,41 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                     Parameters = lstParams,
                 });
 
-            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+            CompanyCustomer.Models.Customer.CustomerModel oReturn = new Models.Customer.CustomerModel();
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
-                oReturn =
-                (from cp in response.DataTableResult.AsEnumerable()
-                 where !cp.IsNull("CustomerPublicId")
-                 group cp by new
-                 {
-                     CustomerPublicId = cp.Field<string>("CustomerPublicId"),
-                     CustomerName = cp.Field<string>("CustomerName"),
-                     StatusId = cp.Field<UInt64>("StatusId"),
-                     StatusName = cp.Field<string>("StatusName"),
-                     IsRelatedCustomer = cp.Field<UInt64>("IsRelatedCustomer") == 1 ? true : false,
-                 }
-                     into cpi
-                     select new CompanyCustomer.Models.Customer.CustomerModel()
-                     {
-                         RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
-                                 {
-                                     new Models.Customer.CustomerProviderModel()
-                                     {
-                                         RelatedProvider = new Company.Models.Company.CompanyModel()
-                                         {
-                                             CompanyPublicId = cpi.Key.CustomerPublicId,
-                                             CompanyName = cpi.Key.CustomerName,
-                                         },
-                                         Status = new Company.Models.Util.CatalogModel()
-                                         {
-                                             ItemId = Convert.ToInt32(cpi.Key.StatusId),
-                                             ItemName = cpi.Key.StatusName,
-                                         },
-                                         Enable = cpi.Key.IsRelatedCustomer,
-                                     }
-                                 }
-                     }).ToList();
+                oReturn = new Models.Customer.CustomerModel()
+                {
+                    RelatedProvider =
+                     (from cpri in response.DataTableResult.AsEnumerable()
+                      where !cpri.IsNull("CustomerProviderId")
+                      group cpri by new
+                      {
+                          CustomerProviderId = cpri.Field<int>("CustomerProviderId"),
+                          CustomerPublicId = cpri.Field<string>("CustomerPublicId"),
+                          CustomerName = cpri.Field<string>("CustomerName"),
+                          StatusId = cpri.Field<UInt64>("StatusId"),
+                          StatusName = cpri.Field<string>("StatusName"),
+                          IsRelatedCustomer = cpri.Field<UInt64>("IsRelatedCustomer") == 1 ? true : false,
+                      } into cprinf
+                      select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
+                      {
+                          CustomerProviderId = cprinf.Key.CustomerProviderId,
+                          RelatedProvider = new Company.Models.Company.CompanyModel()
+                          {
+                              CompanyPublicId = cprinf.Key.CustomerPublicId,
+                              CompanyName = cprinf.Key.CustomerName,
+                          },
+                          Status = new Company.Models.Util.CatalogModel()
+                          {
+                              ItemId = Convert.ToInt32(cprinf.Key.StatusId),
+                              ItemName = cprinf.Key.StatusName,
+                          },
+                          Enable = cprinf.Key.IsRelatedCustomer,
+                      }).ToList(),
+                };                     
             }
 
             return oReturn;

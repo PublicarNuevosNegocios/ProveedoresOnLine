@@ -47,7 +47,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
             return DataFactory.CustomerProviderInfoUpsert(CustomerProviderId, CustomerProviderInfoId, CustomerProviderInfoTypeId, Value, LargeValue, Enable);
         }
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated)
         {
             return DataFactory.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
         }
