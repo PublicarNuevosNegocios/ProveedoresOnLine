@@ -85,10 +85,10 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                 {
                     RelatedProvider =
                      (from cpri in response.DataTableResult.AsEnumerable()
-                      where !cpri.IsNull("CustomerProviderId")
+                      where !cpri.IsNull("CustomerPublicId")
                       group cpri by new
                       {
-                          CustomerProviderId = cpri.Field<int>("CustomerProviderId"),
+                          CustomerProviderId = cpri.Field<UInt64>("CustomerProviderId"),
                           CustomerPublicId = cpri.Field<string>("CustomerPublicId"),
                           CustomerName = cpri.Field<string>("CustomerName"),
                           StatusId = cpri.Field<UInt64>("StatusId"),
@@ -97,7 +97,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                       } into cprinf
                       select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel()
                       {
-                          CustomerProviderId = cprinf.Key.CustomerProviderId,
+                          CustomerProviderId = Convert.ToInt32(cprinf.Key.CustomerProviderId),
                           RelatedProvider = new Company.Models.Company.CompanyModel()
                           {
                               CompanyPublicId = cprinf.Key.CustomerPublicId,

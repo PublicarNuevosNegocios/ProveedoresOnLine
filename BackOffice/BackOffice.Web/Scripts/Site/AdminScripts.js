@@ -561,8 +561,7 @@
                 width: '50px',
                 template: function (dataItem) {
                     var oReturn = '';
-
-                    if (dataItem.Enable == true) {
+                    if (dataItem.B_BankEnable == true) {
                         oReturn = 'Si'
                     }
                     else {

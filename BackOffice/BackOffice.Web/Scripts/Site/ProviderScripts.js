@@ -94,6 +94,7 @@ var Provider_SearchObject = {
                 title: 'Logo',
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
+                attributes: { style: "text-align:center;" },
             }, {
                 field: 'ProviderPublicId',
                 title: 'Id',
@@ -5868,35 +5869,39 @@ var Provider_CustomerInfoObject = {
                 Provider_CustomerInfoObject.RenderCustomerByProvider();
             },
             error: function (result) {
-                Message('error', result);
             }
         });
     },
 
     CreateCustomerByProviderTracking: function (TrackingInfo) {
+
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1',
             dataType: "json",
             type: "POST",
             success: function (result) {
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
+                
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').text('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').text('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').text('');
+
                 for (var i = 0; i < result.length; i++) {
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].CP_CustomerPublicId + '" type="checkbox" /></li>')
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].CP_Customer + '</li>')
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].CP_CustomerPublicId + '" /></li>')
                 }
-                if (TrackingInfo.CPI_TrackingType == "Seguimientos internos") {
+                if (TrackingInfo.CPI_TrackingType != null && TrackingInfo.CPI_TrackingType == "Seguimientos internos") {
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').append(TrackingInfo.CPI_Tracking)
                 }
-                else if (TrackingInfo.CPI_TrackingType == "Seguimientos del comprador") {
+                else if (TrackingInfo.CPI_TrackingType != null && TrackingInfo.CPI_TrackingType == "Seguimientos del comprador") {
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').append(TrackingInfo.CPI_Tracking)
                 }
             },
             error: function (result) {
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
+
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').text('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').text('');
+
                 options.error(result);
             }
         });
