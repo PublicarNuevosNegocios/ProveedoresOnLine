@@ -67,6 +67,7 @@
                 ObjectId: 'divGridResolutionInfo',
                 UtilOptions: vAdminResolutionInfoOptionList,
                 CategoryType: 'AdminResolution',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
             });
             Admin_CategoryObject.RenderAsync();
         });

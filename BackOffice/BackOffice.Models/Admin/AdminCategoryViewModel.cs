@@ -380,12 +380,13 @@ namespace BackOffice.Models.Admin
         public AdminCategoryViewModel(ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel oCurrency)
         {
             C_CurrentExchangeId = oCurrency.CurrencyExchangeId.ToString();
-            C_IssueDate = oCurrency.IssueDate.ToString();
+            C_IssueDate = oCurrency.IssueDate.
+                ToString(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value);
             C_MoneyTypeFromId = oCurrency.MoneyTypeFrom.ItemId.ToString();
             C_MoneyTypeFromName = oCurrency.MoneyTypeFrom.ItemName.ToString();
             C_MoneyTypeToId = oCurrency.MoneyTypeTo.ItemId.ToString();
             C_MoneyTypeToName = oCurrency.MoneyTypeTo.ItemName.ToString();
-            C_Rate = oCurrency.Rate.ToString();
+            C_Rate = oCurrency.Rate.ToString(System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
             C_CreateDate = oCurrency.CreateDate.ToString();
             C_LastModify = oCurrency.LastModify.ToString();
         }

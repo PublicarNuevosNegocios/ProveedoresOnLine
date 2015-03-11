@@ -2,12 +2,14 @@
     ObjectId: '',
     AdminOptions: new Array(),
     CategoryType: '',
-    TreeId:'',
+    TreeId: '',
+    DateFormat: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
-        this.CategoryType = vInitObject.CategoryType
-        this.TreeId = vInitObject.TreeId != "0" ? vInitObject.TreeId : "4"
+        this.CategoryType = vInitObject.CategoryType;
+        this.TreeId = vInitObject.TreeId != "0" ? vInitObject.TreeId : "4";
+        this.DateFormat = vInitObject.DateFormat;
         if (vInitObject.UtilOptions != null) {
             $.each(vInitObject.UtilOptions, function (item, value) {
                 Admin_CategoryObject.AdminOptions[value.Key] = value.Value;
@@ -153,7 +155,7 @@
                         });
                     },
                     create: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -221,9 +223,9 @@
                         dataTextField: 'GIT_Country',
 
                         change: function (e) {
-                            if (isSelected == false) {                                
-                                options.model['GIT_Country'] = e.sender._old;                                
-                                options.model.dirty = true;              
+                            if (isSelected == false) {
+                                options.model['GIT_Country'] = e.sender._old;
+                                options.model.dirty = true;
                             }
                         },
 
@@ -242,7 +244,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    
+
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
@@ -448,14 +450,14 @@
                         dataTextField: 'ItemName',
 
                         change: function (e) {
-                            
-                            if (isSelected == false) {                                
+
+                            if (isSelected == false) {
                                 options.model['B_Bank'] = e.sender._old;
                                 options.model.dirty = true;
                             }
                         },
                         select: function (e) {
-                            
+
                             var selectedItem = this.dataItem(e.item.index());
 
                             isSelected = true;
@@ -471,7 +473,7 @@
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    
+
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                                         url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByBank=true&SearchParam=' + options.data.filter.filters[0].value,
@@ -522,7 +524,7 @@
                         dataTextField: 'GIT_Country',
 
                         select: function (e) {
-                            
+
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['B_CityId'] = selectedItem.GIT_CountryId;
@@ -930,7 +932,7 @@
                         });
                     },
                     create: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -949,7 +951,7 @@
                         });
                     },
                     update: function (options) {
-                        
+
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -996,10 +998,10 @@
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'ActivityName',
-                        change: function (e) {                            
-                            if (isSelected == false) {                                
+                        change: function (e) {
+                            if (isSelected == false) {
                                 options.model['ECS_EconomyActivity'] = e.sender._old;
-                                options.model.dirty = true;                                
+                                options.model.dirty = true;
                             }
                         },
                         select: function (e) {
@@ -1032,7 +1034,7 @@
                         }
                     });
                 },
-            },{
+            }, {
                 field: 'ECS_Type',
                 title: 'Tipo',
                 width: '150px',
@@ -1111,7 +1113,7 @@
                     input.kendoAutoComplete({
                         dataTextField: 'G_Group',
                         select: function (e) {
-                            
+
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name                            
                             options.model['ECS_Group'] = selectedItem.G_GroupId;
@@ -1158,8 +1160,7 @@
         });
     },
 
-    RenderGroupStandarAsync: function (param)
-    {
+    RenderGroupStandarAsync: function (param) {
         if (param != true) {
             var vSearchParam = '';
         }
@@ -1347,7 +1348,7 @@
             columns: [{
                 field: 'T_TreeId',
                 title: 'Id',
-            },{
+            }, {
                 field: 'T_TreeName',
                 title: 'Nombre del Árbol',
             }, {
@@ -1371,16 +1372,13 @@
         $('#' + Admin_CategoryObject.ObjectId).kendoGrid({
             editable: true,
             navigatable: true,
-            //pageable: true,
             scrollable: true,
             toolbar:
                 [{ name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' }],
-                //{ name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" }],
-                //{ name: "SearchButton", template: "<a id='Buscar' href='javascript: Admin_CategoryObject.RenderTreeAsync(" + "true" + ");'>Buscar</a" }],
             dataSource: {
-                pageSize: 20,
+                pageSize: 20000,
                 serverPaging: true,
                 schema: {
                     total: function (data) {
@@ -1394,7 +1392,7 @@
                         fields: {
                             C_CurrentExchangeId: { editable: false, nullable: false },
                             C_IssueDate: { editable: true, nullable: false },
-                            C_MoneyTypeFromId: { editable: true, nullable: false},
+                            C_MoneyTypeFromId: { editable: true, nullable: false },
                             C_MoneyTypeToId: { editable: true, nullable: false },
                             C_MoneyTypeToName: { editable: true, nullable: false },
                             C_Rate: { editable: true, nullable: false },
@@ -1406,7 +1404,7 @@
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByTreeAdmin=true',
+                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByTRMAdmin=true',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1427,27 +1425,33 @@
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', '0');
+                                Message('success', 'El registro se ha guardado correctamente con el id ' + result.C_CurrentExchangeId);
                             },
                             error: function (result) {
                                 options.error(result);
                                 Message('error', '');
                             }
                         });
-                    },                    
+                    },
+                    update: function (options) {
+                        Message('error', 'La TRM no puede ser editada.');
+                    }
                 },
             },
             columns: [{
                 field: 'C_IssueDate',
                 title: 'TRM Fecha',
                 width: '160px',
-                format: Provider_CompanyContactObject.DateFormat,
-                editor: function (container, options) {
-                    $('<input data-text-field="' + options.field + '" data-value-field="' + options.field + '" data-bind="value:' + options.field + '" data-format="' + options.format + '"/>')
-                        .appendTo(container)
-                        .kendoDateTimePicker({});
-                },
-            },{
+                format: Admin_CategoryObject.DateFormat,
+                editor: function timeEditor(container, options) {
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
+                }
+            }, {
                 field: 'C_MoneyTypeFromId',
                 title: 'Conversión desde',
                 width: '150px',
@@ -1472,7 +1476,7 @@
                             optionLabel: 'Seleccione una opción'
                         });
                 },
-            },{
+            }, {
                 field: 'C_MoneyTypeToId',
                 title: 'Moneda Destino',
                 width: '150px',
@@ -1497,10 +1501,10 @@
                             optionLabel: 'Seleccione una opción'
                         });
                 },
-            },{
+            }, {
                 field: "C_Rate",
-                title: "Tarifa",                
-            },],
+                title: "Tarifa",
+            }, ],
         });
     },
 }
