@@ -559,7 +559,7 @@
                 width: '50px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem.Enable == true) {
+                    if (dataItem.B_BankEnable == true) {
                         oReturn = 'Si'
                     }
                     else {
@@ -1146,7 +1146,6 @@
                 width: '110px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    debugger;
                     if (dataItem.ECS_Enable == true) {
                         oReturn = 'Si'
                     }

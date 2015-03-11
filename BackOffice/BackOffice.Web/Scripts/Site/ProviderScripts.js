@@ -94,6 +94,7 @@ var Provider_SearchObject = {
                 title: 'Logo',
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
                 width: '50px',
+                attributes: { style: "text-align:center;" },
             }, {
                 field: 'ProviderPublicId',
                 title: 'Id',
