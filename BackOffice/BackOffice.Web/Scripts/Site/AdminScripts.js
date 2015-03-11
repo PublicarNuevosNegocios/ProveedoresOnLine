@@ -1426,6 +1426,7 @@
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'El registro se ha guardado correctamente con el id ' + result.C_CurrentExchangeId);
+                                $('#' + Admin_CategoryObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
