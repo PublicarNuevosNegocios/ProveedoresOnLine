@@ -2068,7 +2068,8 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderStatus
         (string CPCustomerProviderStatus,
             string ProviderPublicId,
-            int vCustomerRelated)
+            int vCustomerRelated,
+            int vAddCustomer)
         {
             List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
 
@@ -2079,13 +2080,24 @@ namespace BackOffice.Web.ControllersApi
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
-                if (oCustomerByProvider != null && oCustomerByProvider.RelatedProvider.Count >= 1)
+                if (oCustomerByProvider != null && oCustomerByProvider.RelatedProvider != null && oCustomerByProvider.RelatedProvider.Count >= 1)
                 {
-                    oCustomerByProvider.RelatedProvider.All(x =>
+                    if (vAddCustomer == 1)
+                    {
+                        oCustomerByProvider.RelatedProvider.Where(x => x.RelatedProvider.CompanyPublicId != BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value.ToString()).All(x =>
                         {
                             oReturn.Add(new ProviderCustomerViewModel(x));
                             return true;
                         });
+                    }
+                    else
+                    {
+                        oCustomerByProvider.RelatedProvider.All(x =>
+                        {
+                            oReturn.Add(new ProviderCustomerViewModel(x));
+                            return true;
+                        });
+                    }                   
                 }
             }
 
@@ -2102,23 +2114,16 @@ namespace BackOffice.Web.ControllersApi
 
             if (CPCustomerProviderInfo == "true")
             {
-                List<ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel> oCustomerProviderInfo =
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerProviderInfo =
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(CustomerProviderId);
 
-                if (oCustomerProviderInfo != null && oCustomerProviderInfo.Count > 0)
+                if (oCustomerProviderInfo != null && oCustomerProviderInfo.RelatedProvider.Count > 0)
                 {
-                    List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
-
-                    oCustomerProvider = oCustomerProviderInfo.Where(x => x.RelatedProvider != null).Select(x => x.RelatedProvider.FirstOrDefault()).ToList();
-
-                    foreach (var item in oCustomerProvider)
+                    oCustomerProviderInfo.RelatedProvider.First().CustomerProviderInfo.All(x =>
                     {
-                        item.CustomerProviderInfo.All(x =>
-                        {
-                            oReturn.Add(new ProviderCustomerViewModel(x));
-                            return true;
-                        });
-                    }
+                        oReturn.Add(new ProviderCustomerViewModel(x));
+                        return true;
+                    });
                 }
             }
 
@@ -2130,7 +2135,8 @@ namespace BackOffice.Web.ControllersApi
         public void CPCustomerProviderUpsert
             (string UpsertCustomerByProvider,
             string oProviderPublicId,
-            string oCompanyPublicList)
+            string oCompanyPublicList,
+            int oEnable)
         {
 
             if (UpsertCustomerByProvider == "true")
@@ -2154,7 +2160,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerStatus.Creation),
                             },
-                            Enable = true,
+                            Enable = oEnable == 1 ? true : false,
                         });
 
                     oCustomerModel.RelatedCompany = oCompanyModel;
@@ -2176,57 +2182,57 @@ namespace BackOffice.Web.ControllersApi
         {
             if (UpsertCustomerInfoByProvider == "true")
             {
-                List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
-
-                if (oInternalTracking != null && oInternalTracking.Length > 0)
-                {
-                    oInfoModel.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoType = new CatalogModel()
-                        {
-                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
-                        },
-                        Value = oInternalTracking,
-                        Enable = true,
-                    });
-                }
-                if (oExternalTracking != null && oExternalTracking.Length > 0)
-                {
-                    oInfoModel.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoType = new CatalogModel()
-                        {
-                            ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
-                        },
-                        Value = oExternalTracking,
-                        Enable = true,
-                    });
-                }
-
                 string[] oCustomerPublicId = oCompanyPublicList.Split(new char[] { ',' });
 
                 foreach (var item in oCustomerPublicId)
                 {
                     ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(item);
 
-                    CustomerModel oCustomerModel = new CustomerModel();
-                    oCustomerModel.RelatedProvider = new List<CustomerProviderModel>();
+                    List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
 
-                    oCustomerModel.RelatedProvider.Add(new CustomerProviderModel()
+                    if (oInternalTracking != null && oInternalTracking.Length > 0)
                     {
-                        RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        oInfoModel.Add(new GenericItemInfoModel()
                         {
-                            CompanyPublicId = oProviderPublicId,
-                        },
-                        Status = new CatalogModel()
+                            ItemInfoId = 0,
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
+                            },
+                            Value = oInternalTracking,
+                            Enable = true,
+                        });
+                    }
+                    if (oExternalTracking != null && oExternalTracking.Length > 0)
+                    {
+                        oInfoModel.Add(new GenericItemInfoModel()
                         {
-                            ItemId = Convert.ToInt32(oStatusId),
-                        },
-                        CustomerProviderInfo = oInfoModel,
-                        Enable = true,
-                    });
+                            ItemInfoId = 0,
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
+                            },
+                            Value = oExternalTracking,
+                            Enable = true,
+                        });
+                    }
 
-                    oCustomerModel.RelatedCompany = oCompanyModel;
+                    CustomerModel oCustomerModel = new CustomerModel()
+                    {
+                        RelatedCompany = oCompanyModel,
+                        RelatedProvider = new List<CustomerProviderModel>(){
+                            new CustomerProviderModel(){
+                                RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel(){
+                                    CompanyPublicId = oProviderPublicId,
+                                },
+                                Status = new CatalogModel(){
+                                    ItemId = Convert.ToInt32(oStatusId),
+                                },
+                                CustomerProviderInfo = oInfoModel,
+                                Enable = true,
+                            },
+                        },
+                    };
 
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
                 }

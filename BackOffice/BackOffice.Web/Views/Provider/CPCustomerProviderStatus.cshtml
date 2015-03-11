@@ -43,7 +43,16 @@
 </div>
 
 <div id="dialog" style="display:none;">
-    
+
+    <div id="divCustomerProvider_ShortcutToolTipTemplate">
+        <img id="divCustomerProvider_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divCustomerProvider_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divCustomerProvider_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
     <div id="divCustomerProviderStatus_Dialog" class="StatusDialog">
         <label class="POBOSectionTitles">Compradores:</label>
         <div class="ListContent">

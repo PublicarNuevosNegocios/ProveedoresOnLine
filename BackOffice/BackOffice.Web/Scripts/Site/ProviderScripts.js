@@ -5728,7 +5728,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5759,6 +5759,21 @@ var Provider_CustomerInfoObject = {
                 field: 'CP_CustomerPublicId',
                 title: 'Id Comprador',
                 width: '100px',
+            }, {
+                field: 'CP_Enable',
+                title: 'Asociado',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }],
         });
     },
@@ -5826,7 +5841,7 @@ var Provider_CustomerInfoObject = {
 
     CreateCustomerByProviderStatus: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=0',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=0&vAddCustomer=1',
             dataType: "json",
             type: "POST",
             success: function (result) {
@@ -5852,13 +5867,14 @@ var Provider_CustomerInfoObject = {
     UpsertCustomerByProvider: function () {
 
         var oCompanyPublicList = new Array();
+        var oEnable = 0;
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog input:checked').each(function () {
             oCompanyPublicList.push($(this).attr('id'));
         });
 
         //update
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList,
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oEnable=1',
             dataType: "json",
             type: "POST",
             success: function (result) {
@@ -5880,7 +5896,7 @@ var Provider_CustomerInfoObject = {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').text('');
 
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
             dataType: "json",
             type: "POST",
             success: function (result) {
