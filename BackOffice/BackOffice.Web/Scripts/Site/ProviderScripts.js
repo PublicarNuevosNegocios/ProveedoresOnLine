@@ -111,9 +111,9 @@ var Provider_SearchObject = {
                 title: 'Identification',
                 template: '${IdentificationType} ${IdentificationNumber}',
                 width: '50px',
-            },{
+            }, {
                 field: 'IsOnRestrictiveList',
-                title: 'Estado Listas Restrictivas',                
+                title: 'Estado Listas Restrictivas',
                 width: '155px',
                 template: function (dataItem) {
                     var oReturn = '';
@@ -403,7 +403,7 @@ var Provider_CompanyContactObject = {
                     return oReturn;
                 },
                 width: '190px',
-            },  {
+            }, {
                 field: 'ContactId',
                 title: 'Id Interno',
                 width: '78px',
@@ -1146,7 +1146,7 @@ var Provider_CompanyContactObject = {
                 title: 'Fecha de expedición',
                 width: '160px',
                 format: Provider_CompanyContactObject.DateFormat,
-                editor: 
+                editor:
                     function timeEditor(container, options) {
                         var input = $('<input type="date" name="'
                             + options.field
@@ -1154,57 +1154,57 @@ var Provider_CompanyContactObject = {
                             + options.model.get(options.field)
                             + '" />');
                         input.appendTo(container);
-                }
+                    }
             }, {
                 field: 'DT_DistributorFile',
                 title: 'Doc soporte.',
-                    width: '292px',
-                    template: function (dataItem) {
+                width: '292px',
+                template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_DistributorFile != null && dataItem.DT_DistributorFile.length > 0) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
-                }
+                        }
                         oReturn = oReturn + $('#' + Provider_CompanyContactObject.ObjectId + '_File').html();
-            }
-            else {
-                oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
-            }
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyContactObject.ObjectId + '_NoFile').html();
+                    }
 
                     oReturn = oReturn.replace(/\${DT_DistributorFile}/gi, dataItem.DT_DistributorFile);
 
                     return oReturn;
-                    },
-                        editor: function (container, options) {
+                },
+                editor: function (container, options) {
                     var oFileExit = true;
                     $('<input type="file" id="files" name="files"/>')
                     .appendTo(container)
                     .kendoUpload({
-                            multiple: false,
+                        multiple: false,
                         async: {
                             saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyContactObject.ProviderPublicId,
-                                    autoUpload: true
-                            },
-                                success: function (e) {
+                            autoUpload: true
+                        },
+                        success: function (e) {
                             if (e.response != null && e.response.length > 0) {
                                 //set server fiel name
                                 options.model[options.field] = e.response[0].ServerName;
-                        //enable made changes
-                        options.model.dirty = true;
-                        }
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
                         },
                         complete: function (e) {
-                                //enable lost focus
+                            //enable lost focus
                             oFileExit = true;
                         },
-                                    select: function (e) {
-                        //disable lost focus while upload file
+                        select: function (e) {
+                            //disable lost focus while upload file
                             oFileExit = false;
-                            },
-                            });
+                        },
+                    });
                     $(container).focusout(function () {
                         if (oFileExit == false) {
-                        //mantain file input focus
+                            //mantain file input focus
                             $('#files').focus();
                         }
                     });
@@ -1519,12 +1519,12 @@ var Provider_CompanyCommercialObject = {
                 width: '160px',
                 format: Provider_CompanyCommercialObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            + options.field
-                            + '" value="'
-                            + options.model.get(options.field)
-                            + '" />');
-                        input.appendTo(container);
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'EX_DueDate',
@@ -1532,13 +1532,13 @@ var Provider_CompanyCommercialObject = {
                 width: '160px',
                 format: Provider_CompanyCommercialObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            +options.field
-                            + '" value="'
-                            +options.model.get(options.field)
-                            + '" />');
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
                     input.appendTo(container);
-                    },
+                },
             }, {
                 field: 'EX_EconomicActivity',
                 title: 'Maestra Estandar',
@@ -1624,7 +1624,7 @@ var Provider_CompanyCommercialObject = {
                                 },
                             },
                         });
-                    
+
                     //remove attribute role from input for space search
                     var inputAux = $('#' + Provider_CompanyCommercialObject.ObjectId + '_EconomicActivityMultiselect').data("kendoMultiSelect").input;
                     $(inputAux).attr('role', '');
@@ -2109,12 +2109,12 @@ var Provider_CompanyHSEQObject = {
                 width: '160px',
                 format: Provider_CompanyHSEQObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            + options.field
-                            + '" value="'
-                            +options.model.get(options.field)
-                            + '" />');
-                        input.appendTo(container);
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'C_EndDateCertification',
@@ -2122,13 +2122,13 @@ var Provider_CompanyHSEQObject = {
                 width: '160px',
                 format: Provider_CompanyHSEQObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            +options.field
-                            + '" value="'
-                            +options.model.get(options.field)
-                            + '" />');
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
                     input.appendTo(container);
-                    },
+                },
             }, {
                 field: 'C_CCS',
                 title: '% CCS',
@@ -3096,8 +3096,7 @@ var Provider_CompanyHSEQObject = {
             url: BaseUrl.ApiUrl + '/ProviderApi?HIHSEQGetByType=true&ProviderPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId + '&HSEQType=' + Provider_CompanyHSEQObject.CompanyRiskType + "&ViewEnable=true",
             dataType: 'json',
             success: function (result) {
-                if (result != null && result.length > 0)
-                {
+                if (result != null && result.length > 0) {
                     $('#lblLTIFResult').html(result[0].CR_LTIFResult);
                 }
             },
@@ -4732,12 +4731,12 @@ var Provider_LegalInfoObject = {
                 width: '190px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            + options.field
-                            + '" value="'
-                            + options.model.get(options.field)
-                            + '" />');
-                        input.appendTo(container);
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'R_SelfRetainer',
@@ -4753,12 +4752,12 @@ var Provider_LegalInfoObject = {
                 width: '160px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            + options.field
-                            + '" value="'
-                            +options.model.get(options.field)
-                            + '" />');
-                        input.appendTo(container);
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'R_EntityType',
@@ -5575,12 +5574,12 @@ var Provider_LegalInfoObject = {
                 width: '200px',
                 format: Provider_LegalInfoObject.DateFormat,
                 editor: function timeEditor(container, options) {
-                        var input = $('<input type="date" name="'
-                            + options.field
-                            + '" value="'
-                            +options.model.get(options.field)
-                            + '" />');
-                        input.appendTo(container);
+                    var input = $('<input type="date" name="'
+                        + options.field
+                        + '" value="'
+                        + options.model.get(options.field)
+                        + '" />');
+                    input.appendTo(container);
                 },
             }, {
                 field: 'RS_Description',
@@ -5728,7 +5727,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=1',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5739,43 +5738,6 @@ var Provider_CustomerInfoObject = {
                             },
                         });
                     },
-                    //create: function (options) {
-
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=true',
-                    //        dataType: 'json',
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', result);
-                    //        }
-                    //    });
-                    //},
-                    //update: function (options) {
-                    //    $.ajax({
-                    //        url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=false',
-                    //        dataType: "json",
-                    //        type: 'post',
-                    //        data: {
-                    //            DataToUpsert: kendo.stringify(options.data)
-                    //        },
-                    //        success: function (result) {
-                    //            options.success(result);
-                    //            Message('success', 'Se creó el registro.');
-                    //        },
-                    //        error: function (result) {
-                    //            options.error(result);
-                    //            Message('error', result);
-                    //        }
-                    //    });
-                    //},
                 },
             },
             change: function (e) {
@@ -5863,20 +5825,20 @@ var Provider_CustomerInfoObject = {
 
     CreateCustomerByProviderStatus: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=0',
             dataType: "json",
             type: "POST",
             success: function (result) {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').html('');
                 for (var i = 0; i < result.length; i++) {
-                    if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" checked /></li>')
+                    if (result[i].CP_Enable == 'True') {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].CP_CustomerPublicId + '" type="checkbox" checked /></li>')
                     }
                     else {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="CompanyCheck"><input id="' + result[i].CP_CustomerPublicId + '" type="checkbox" /></li>')
                     }
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li class="Company">' + result[i].CP_Customer + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Dialog').append('<li><input id="PublicId" type="hidden" value="' + result[i].CP_CustomerPublicId + '" /></li>')
                 }
             },
             error: function (result) {
@@ -5912,20 +5874,18 @@ var Provider_CustomerInfoObject = {
     },
 
     CreateCustomerByProviderTracking: function (TrackingInfo) {
-        $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
-        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1',
             dataType: "json",
             type: "POST",
             success: function (result) {
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
                 for (var i = 0; i < result.length; i++) {
-                    if (result[i].RelatedCompany.Enable == true) {
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].RelatedCompany.CompanyPublicId + '" type="checkbox" /></li>')
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].RelatedCompany.CompanyName + '</li>')
-                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].RelatedCompany.CompanyPublicId + '" /></li>')
-                    }
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].CP_CustomerPublicId + '" type="checkbox" /></li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].CP_Customer + '</li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].CP_CustomerPublicId + '" /></li>')
                 }
                 if (TrackingInfo.CPI_TrackingType == "Seguimientos internos") {
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').append(TrackingInfo.CPI_Tracking)
@@ -5935,6 +5895,8 @@ var Provider_CustomerInfoObject = {
                 }
             },
             error: function (result) {
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').html('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').html('');
                 options.error(result);
             }
         });

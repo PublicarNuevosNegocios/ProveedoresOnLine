@@ -41,6 +41,15 @@ namespace BackOffice.Models.Provider
 
         public ProviderCustomerViewModel() { }
 
+        public ProviderCustomerViewModel(ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerProviderModel oRelatedCustomer)
+        {
+            CP_CustomerProviderId = oRelatedCustomer.CustomerProviderId.ToString();
+            CP_CustomerPublicId = oRelatedCustomer.RelatedProvider.CompanyPublicId;
+            CP_Customer = oRelatedCustomer.RelatedProvider.CompanyName;
+            CP_Status = oRelatedCustomer.Status.ItemName;
+            CP_Enable = oRelatedCustomer.Enable.ToString();
+        }
+
         public ProviderCustomerViewModel(string oProviderCustomerId
                                         , ProveedoresOnLine.Company.Models.Company.CompanyModel oRelatedCompany
                                         , ProveedoresOnLine.Company.Models.Util.CatalogModel oRelatedStatus
