@@ -110,73 +110,69 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                           },
                           Enable = cprinf.Key.IsRelatedCustomer,
                       }).ToList(),
-                };                     
+                };
             }
 
             return oReturn;
         }
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerProviderId", CustomerProviderId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-                {
-                    CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                    CommandText = "CC_GetCustomerInfoByProvider",
-                    CommandType = CommandType.StoredProcedure,
-                    Parameters = lstParams,
-                });
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_GetCustomerInfoByProvider",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
-            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn = new List<Models.Customer.CustomerModel>();
+            CompanyCustomer.Models.Customer.CustomerModel oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
-                oReturn =
-                    (from cpi in response.DataTableResult.AsEnumerable()
-                     where !cpi.IsNull("CustomerProviderInfoId")
-                     group cpi by new
-                     {
-                         CustomerProviderInfoId = cpi.Field<int>("CustomerProviderInfoId"),
-                         CustomerProviderId = cpi.Field<int>("CustomerProviderId"),
-                         TrackingId = cpi.Field<int>("TrackingId"),
-                         TrackingName = cpi.Field<string>("TrackingName"),
-                         TrackingValue = cpi.Field<string>("TrackingValue"),
-                         Enable = cpi.Field<UInt64>("Enable") == 1 ? true : false,
-                         LastModify = cpi.Field<DateTime>("LastModify"),
-                     }
-                         into cpinf
-                         select new CompanyCustomer.Models.Customer.CustomerModel()
-                         {
-                             RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
-                             {
-                                 new Models.Customer.CustomerProviderModel()
+                oReturn = new Models.Customer.CustomerModel()
+                {
+                    RelatedProvider = new List<Models.Customer.CustomerProviderModel>()
+                    {
+                        new Models.Customer.CustomerProviderModel(){
+                            CustomerProviderId = response.DataTableResult.Rows[0].Field<int>("CustomerProviderId"),
+                            CustomerProviderInfo = 
+                            (from cpi in response.DataTableResult.AsEnumerable()
+                                 where !cpi.IsNull("CustomerProviderInfoId")
+                                 group cpi by new
                                  {
-                                     CustomerProviderId = cpinf.Key.CustomerProviderId,
-                                     CustomerProviderInfo = new List<Company.Models.Util.GenericItemInfoModel>()
+                                     CustomerProviderInfoId = cpi.Field<int>("CustomerProviderInfoId"),
+                                     TrackingId = cpi.Field<int>("TrackingId"),
+                                     TrackingName = cpi.Field<string>("TrackingName"),
+                                     TrackingValue = cpi.Field<string>("TrackingValue"),
+                                     Enable = cpi.Field<UInt64>("Enable") == 1 ? true : false,
+                                     LastModify = cpi.Field<DateTime>("LastModify"),
+                                 } into cpinf
+                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                 {
+
+                                     ItemInfoId = cpinf.Key.CustomerProviderInfoId,
+                                     ItemInfoType = new Company.Models.Util.CatalogModel()
                                      {
-                                         new Company.Models.Util.GenericItemInfoModel()
-                                         {
-                                             ItemInfoId = cpinf.Key.CustomerProviderInfoId,
-                                             ItemInfoType = new Company.Models.Util.CatalogModel()
-                                             {
-                                                 ItemId = cpinf.Key.TrackingId,
-                                                 ItemName = cpinf.Key.TrackingName,
-                                             },
-                                             Value = cpinf.Key.TrackingValue,
-                                             Enable = cpinf.Key.Enable,
-                                             LastModify = cpinf.Key.LastModify,
-                                         },
+                                         ItemId = cpinf.Key.TrackingId,
+                                         ItemName = cpinf.Key.TrackingName,
                                      },
-                                 },
-                             },
-                         }).ToList();
+                                     Value = cpinf.Key.TrackingValue,
+                                     Enable = cpinf.Key.Enable,
+                                     LastModify = cpinf.Key.LastModify,
+                                 }).ToList()
+                        }
+                    }
+                };
             }
             return oReturn;
         }
+
         #endregion
 
         #region Survey

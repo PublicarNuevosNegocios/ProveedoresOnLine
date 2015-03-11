@@ -52,7 +52,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
             return DataFactory.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
         }
 
-        public List<CompanyCustomer.Models.Customer.CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId)
         {
             return DataFactory.GetCustomerInfoByProvider(CustomerProviderId);
         }

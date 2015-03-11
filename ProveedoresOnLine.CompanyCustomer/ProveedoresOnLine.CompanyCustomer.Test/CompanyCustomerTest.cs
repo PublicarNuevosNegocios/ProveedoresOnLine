@@ -29,10 +29,10 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         [TestMethod]
         public void GetCustomerInfoByProvider()
         {
-            List<CompanyCustomer.Models.Customer.CustomerModel> oReturn =
-                CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(2);
+            CompanyCustomer.Models.Customer.CustomerModel oReturn =
+                CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(387);
 
-            Assert.AreEqual(true, oReturn.Count >= 1);
+            Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1);
         }
     }
 }

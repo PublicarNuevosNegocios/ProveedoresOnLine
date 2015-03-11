@@ -155,7 +155,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
         }
 
-        public static List<CustomerModel> GetCustomerInfoByProvider(int CustomerProviderId)
+        public static CustomerModel GetCustomerInfoByProvider(int CustomerProviderId)
         {
             return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerInfoByProvider(CustomerProviderId);
         }
