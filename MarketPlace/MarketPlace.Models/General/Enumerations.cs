@@ -102,6 +102,8 @@
         CertificationDate = 203004,
         CompanyLogo = 203005,
         AlertRisk = 203008,
+
+        CustomEconomicActivity = 220001,
     }
 
     /// <summary>
