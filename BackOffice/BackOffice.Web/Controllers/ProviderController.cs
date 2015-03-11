@@ -668,7 +668,7 @@ namespace BackOffice.Web.Controllers
                             {
                                 ItemId = Convert.ToInt32(rq.Split('_')[1].Trim())
                             },
-                            Value = Convert.ToDecimal(Request[rq]),
+                            Value = Convert.ToDecimal(Request[rq], System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                         });
                 }
                 return true;

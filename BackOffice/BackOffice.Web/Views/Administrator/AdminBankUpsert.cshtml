@@ -60,13 +60,14 @@
     }
 
     <script type="text/javascript">
-        var vAdminBanklInfoOptionList = @(Html.Raw(oAdminBankInfoOptionList));
+    var vAdminBanklInfoOptionList = @(Html.Raw(oAdminBankInfoOptionList));
 
         $(document).ready(function () {
             Admin_CategoryObject.Init({
                 ObjectId: 'divGridBankInfo',
                 UtilOptions: vAdminBanklInfoOptionList ,
                 CategoryType: 'AdminBank',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
             });
             Admin_CategoryObject.RenderAsync();
         });

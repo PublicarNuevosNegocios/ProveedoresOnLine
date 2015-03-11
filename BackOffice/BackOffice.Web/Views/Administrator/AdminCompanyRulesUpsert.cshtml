@@ -65,6 +65,7 @@
                 ObjectId: 'divGridCompanyRulesInfo',
                 UtilOptions: vAdminCompanyRulesInfoOptionList ,
                 CategoryType: 'AdminCompanyRules',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
             });
             Admin_CategoryObject.RenderAsync();
         });

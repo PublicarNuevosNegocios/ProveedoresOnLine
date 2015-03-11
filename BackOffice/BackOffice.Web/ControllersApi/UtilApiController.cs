@@ -485,15 +485,15 @@ namespace BackOffice.Web.ControllersApi
                     oExchangeToUpsert = new CurrencyExchangeModel()
                     {
                         IssueDate = DateTime.Parse(oDataToUpsert.C_IssueDate),
-                        MoneyTypeFrom = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeFromId), ItemName = oDataToUpsert.C_MoneyTypeFromName},
-                        MoneyTypeTo = new CatalogModel(){ ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeToId), ItemName = oDataToUpsert.C_MoneyTypeToName},
-                        Rate = Convert.ToDecimal(oDataToUpsert.C_Rate),                        
+                        MoneyTypeFrom = new CatalogModel() { ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeFromId), ItemName = oDataToUpsert.C_MoneyTypeFromName },
+                        MoneyTypeTo = new CatalogModel() { ItemId = Convert.ToInt32(oDataToUpsert.C_MoneyTypeToId), ItemName = oDataToUpsert.C_MoneyTypeToName },
+                        Rate = Convert.ToDecimal(Convert.ToDecimal(oDataToUpsert.C_Rate, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))),
                     };
 
                     oExchangeToUpsert.CurrencyExchangeId = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeInsert(oExchangeToUpsert);
                     oReturn = new AdminCategoryViewModel();
-                    
-                    oReturn.C_CurrentExchangeId = oExchangeToUpsert.CurrencyExchangeId.ToString();                    
+
+                    oReturn.C_CurrentExchangeId = oExchangeToUpsert.CurrencyExchangeId.ToString();
                     oReturn.C_IssueDate = oDataToUpsert.C_IssueDate;
                     oReturn.C_MoneyTypeFromId = oDataToUpsert.C_MoneyTypeFromId;
                     oReturn.C_MoneyTypeToId = oDataToUpsert.C_MoneyTypeToId;
@@ -649,7 +649,7 @@ namespace BackOffice.Web.ControllersApi
             if (CategorySearchByBank == "true")
             {
                 oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByBank
-                    (SearchParam,0,0);
+                    (SearchParam, 0, 0);
             }
             return oReturn;
         }
@@ -940,14 +940,14 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<AdminCategoryViewModel> CategorySearchByTRAdmin
-            (string CategorySearchByTreeAdmin)
+        public List<AdminCategoryViewModel> CategorySearchByTRMAdmin
+            (string CategorySearchByTRMAdmin)
         {
             List<AdminCategoryViewModel> oReturn = new List<AdminCategoryViewModel>();
             List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel> oExchange =
                 new List<ProveedoresOnLine.Company.Models.Util.CurrencyExchangeModel>();
 
-            if (CategorySearchByTreeAdmin == "true")
+            if (CategorySearchByTRMAdmin == "true")
             {
                 oExchange = ProveedoresOnLine.Company.Controller.Company.CurrentExchangeGetAllAdmin();
             }
@@ -959,7 +959,7 @@ namespace BackOffice.Web.ControllersApi
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
                 });
-            }         
+            }
 
             return oReturn;
         }

@@ -61,13 +61,14 @@
     }
 
     <script type="text/javascript">
-        var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList))        
+    var vAdminGeolInfoOptionList = @(Html.Raw(oAdminGeoInfoOptionList))
 
         $(document).ready(function () {
             Admin_CategoryObject.Init({
-                ObjectId: 'divGridGeoInfo',                                                
-                UtilOptions: vAdminGeolInfoOptionList ,   
+                ObjectId: 'divGridGeoInfo',
+                UtilOptions: vAdminGeolInfoOptionList ,
                 CategoryType: 'AdminGeo',
+                DateFormat: '@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
             });
             Admin_CategoryObject.RenderAsync();
         });
