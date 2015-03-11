@@ -1196,6 +1196,7 @@
     <Content Include="Areas\Web\Views\AdminRoles\Index.cshtml" />
     <Content Include="Areas\Web\Views\InternalLogin\ResetPassword.cshtml" />
     <Content Include="Areas\Web\Views\InternalLogin\oauth2callback.cshtml" />
+    <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <Content Include="stgproveedoresonline-efd5ad398b1d.p12">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
