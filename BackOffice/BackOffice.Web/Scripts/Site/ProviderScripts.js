@@ -5728,7 +5728,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=true',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerSearch=1',
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5739,43 +5739,43 @@ var Provider_CustomerInfoObject = {
                             },
                         });
                     },
-                    create: function (options) {
+                    //create: function (options) {
 
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=true',
-                            dataType: 'json',
-                            type: 'post',
-                            data: {
-                                DataToUpsert: kendo.stringify(options.data)
-                            },
-                            success: function (result) {
-                                options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
-                            },
-                            error: function (result) {
-                                options.error(result);
-                                Message('error', result);
-                            }
-                        });
-                    },
-                    update: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=false',
-                            dataType: "json",
-                            type: 'post',
-                            data: {
-                                DataToUpsert: kendo.stringify(options.data)
-                            },
-                            success: function (result) {
-                                options.success(result);
-                                Message('success', 'Se creó el registro.');
-                            },
-                            error: function (result) {
-                                options.error(result);
-                                Message('error', result);
-                            }
-                        });
-                    },
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=true',
+                    //        dataType: 'json',
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //            Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //            Message('error', result);
+                    //        }
+                    //    });
+                    //},
+                    //update: function (options) {
+                    //    $.ajax({
+                    //        url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerByProviderStatus=true&oIsCreate=false',
+                    //        dataType: "json",
+                    //        type: 'post',
+                    //        data: {
+                    //            DataToUpsert: kendo.stringify(options.data)
+                    //        },
+                    //        success: function (result) {
+                    //            options.success(result);
+                    //            Message('success', 'Se creó el registro.');
+                    //        },
+                    //        error: function (result) {
+                    //            options.error(result);
+                    //            Message('error', result);
+                    //        }
+                    //    });
+                    //},
                 },
             },
             change: function (e) {

@@ -88,8 +88,8 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                  {
                      CustomerPublicId = cp.Field<string>("CustomerPublicId"),
                      CustomerName = cp.Field<string>("CustomerName"),
-                     StatusId = cp.Field<int>("StatusId") != null ? cp.Field<int>("StatusId") : 0,
-                     StatusName = cp.Field<string>("StatusName") != null ? cp.Field<string>("StatusName") : string.Empty,
+                     StatusId = cp.Field<UInt64>("StatusId"),
+                     StatusName = cp.Field<string>("StatusName"),
                      IsRelatedCustomer = cp.Field<UInt64>("IsRelatedCustomer") == 1 ? true : false,
                  }
                      into cpi
