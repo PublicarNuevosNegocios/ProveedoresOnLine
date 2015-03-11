@@ -559,7 +559,6 @@
                 width: '50px',
                 template: function (dataItem) {
                     var oReturn = '';
-
                     if (dataItem.Enable == true) {
                         oReturn = 'Si'
                     }
