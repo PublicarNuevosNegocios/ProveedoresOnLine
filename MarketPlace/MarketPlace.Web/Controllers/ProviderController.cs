@@ -1171,6 +1171,7 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedLegalInfo.Add(new ProviderLegalViewModel(x));
                         return true;
                     });
+                    oModel.RelatedLegalInfo = oModel.RelatedLegalInfo.OrderByDescending(x => Convert.ToDateTime(x.SF_ProcessDate)).ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
