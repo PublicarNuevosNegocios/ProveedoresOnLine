@@ -66,7 +66,7 @@ namespace BackOffice.Models.Provider
         {
             CPI_CustomerProviderInfoId = oRelatedCustomerProviderInfo.ItemInfoId.ToString();
             CPI_TrackingType = oRelatedCustomerProviderInfo.ItemInfoType.ItemName;
-            CPI_Tracking = oRelatedCustomerProviderInfo.Value;
+            CPI_Tracking = oRelatedCustomerProviderInfo.LargeValue;
             CPI_LastModify = oRelatedCustomerProviderInfo.LastModify.ToString();
             CPI_Enable = oRelatedCustomerProviderInfo.Enable.ToString();
         }

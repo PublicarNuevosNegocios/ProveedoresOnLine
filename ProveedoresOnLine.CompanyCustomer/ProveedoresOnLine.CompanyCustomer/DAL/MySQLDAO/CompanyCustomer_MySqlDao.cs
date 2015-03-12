@@ -162,7 +162,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                          ItemId = cpinf.Key.TrackingId,
                                          ItemName = cpinf.Key.TrackingName,
                                      },
-                                     Value = cpinf.Key.TrackingValue,
+                                     LargeValue = cpinf.Key.TrackingValue,
                                      Enable = cpinf.Key.Enable,
                                      LastModify = cpinf.Key.LastModify,
                                  }).ToList()

@@ -2199,7 +2199,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
                             },
-                            Value = oInternalTracking,
+                            LargeValue = oInternalTracking,
                             Enable = true,
                         });
                     }
@@ -2212,7 +2212,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
                             },
-                            Value = oExternalTracking,
+                            LargeValue = oExternalTracking,
                             Enable = true,
                         });
                     }
