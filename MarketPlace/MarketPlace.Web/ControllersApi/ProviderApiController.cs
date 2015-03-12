@@ -1,4 +1,5 @@
 ﻿using MarketPlace.Models.General;
+using MarketPlace.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,18 @@ namespace MarketPlace.Web.ControllersApi
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oTrakingInf =
                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetAllTracking(
                    SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+                if (oTrakingInf != null && oTrakingInf.Count > 0)
+                {
+                    oTrakingInf.All(x =>
+                    {
+                        TrackingDetailViewModel oTracking = new TrackingDetailViewModel();
+                        oTracking = (TrackingDetailViewModel)(new System.Web.Script.Serialization.JavaScriptSerializer()).
+                            Deserialize(x.ItemName, typeof(TrackingDetailViewModel));
+                        x.ItemName = oTracking.Description;
+                        return true;
+                    });
+                }                
 
                 return oTrakingInf;
             }

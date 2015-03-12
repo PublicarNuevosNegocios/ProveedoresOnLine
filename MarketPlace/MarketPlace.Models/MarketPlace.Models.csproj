@@ -82,6 +82,7 @@
     <Compile Include="Provider\ProviderContactViewModel.cs" />
     <Compile Include="Provider\ProviderViewModel.cs" />
     <Compile Include="Provider\ProviderSearchViewModel.cs" />
+    <Compile Include="Provider\TrackingDetailViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

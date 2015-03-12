@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,6 +80,8 @@
     <Compile Include="Provider\ProviderHSEQViewModel.cs" />
     <Compile Include="Provider\ProviderSearchViewModel.cs" />
     <Compile Include="Provider\ProviderViewModel.cs" />
+    <Compile Include="Provider\TrackingDetailViewModel.cs" />
+    <Compile Include="Provider\TrackingViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

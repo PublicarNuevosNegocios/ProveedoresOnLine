@@ -5824,8 +5824,12 @@ var Provider_CustomerInfoObject = {
                 title: 'Tipo de Seguimiento',
                 width: '100px',
             }, {
-                field: 'CPI_Tracking',
+                field: 'CPI_Tracking.Description',
                 title: 'Seguimiento',
+                width: '100px',
+            }, {
+                field: 'CPI_Tracking.User',
+                title: 'Usuario',
                 width: '100px',
             }, {
                 field: 'CPI_LastModify',
@@ -5904,7 +5908,7 @@ var Provider_CustomerInfoObject = {
                 for (var i = 0; i < result.length; i++) {
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="CompanyCheck"><input id="' + result[i].CP_CustomerPublicId + '" type="checkbox" /></li>')
                     $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li class="Company">' + result[i].CP_Customer + '</li>')
-                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" type="hidden" value="' + result[i].CP_CustomerPublicId + '" /></li>')
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').append('<li><input id="PublicId" name="SH_CustomerPublicId" type="hidden" value="' + result[i].CP_CustomerPublicId + '" /></li>')
                 }
                 return result;
             },
@@ -5932,28 +5936,32 @@ var Provider_CustomerInfoObject = {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking input:checked').each(function () {
             oCompanyPublicList.push($(this).attr('id'));
         });
-        var oCustomers = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').val();
-        var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
-        var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val();
-        var oStatusId = $('#' + Provider_CustomerInfoObject.ObjectId + '_Status').val();
+        //var oCustomers = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').val();
+        //var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
+        //var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val();
+        //var oStatusId = $('#' + Provider_CustomerInfoObject.ObjectId + '_Status').val();
+
+        //url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
 
         //update
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
-            dataType: "json",
+            url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CompanyList=' + oCompanyPublicList,
             type: "POST",
+            data: $('#' + Provider_CustomerInfoObject.ObjectId + '_Upsert_Form').serialize(),
             success: function (result) {
                 Message('success', 'Se creó el registro.');
 
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog("close");
-
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val('');
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val('');
+
 
                 Provider_CustomerInfoObject.RenderCustomerByProvider();
             },
             error: function (result) {
                 Message('error', result);
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val('');
+                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val('');
             }
         });
     },

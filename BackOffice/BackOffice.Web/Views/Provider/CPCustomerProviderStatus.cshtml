@@ -61,27 +61,31 @@
         <a class="POBOProgressButtons" href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProvider();">Guardar</a>
     </div>
 
-    <div id="divCustomerProviderStatus_Tracking_Dialog" class="StatusDialog">
-        <label class="POBOSectionTitles">Compradores Relacionados:</label>
-        <div class="ListContent">
-            <ul id="divCustomerProviderStatus_Customer_List_Tracking" class="CompanyList" style="list-style:none;"></ul>
-        </div>
-        <div class="ContentTracking">
-            <label class="POBOSectionTitles">Estado del Proveedor:</label>
-            <select id="divCustomerProviderStatus_Status" name="SH_Currency">
-                @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 902).OrderBy(x => x.ItemName))
-                {
-                    <option value="@oItem.ItemId">@oItem.ItemName</option>
-                }
-            </select>
-            <label class="POBOSectionTitles">Seguimiento Interno</label>
-            <textarea id="divCustomerProviderStatus_Internal_Tracking"></textarea>
-            <label class="POBOSectionTitles">Seguimiento para el Comprador</label>
-            <textarea id="divCustomerProviderStatus_Customer_Tracking"></textarea>
-        </div>
-        <a class="POBOProgressButtons" href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProviderTraking();">Guardar</a>
-    </div>
 
+    <div id="divCustomerProviderStatus_Tracking_Dialog" class="StatusDialog">
+        <form id="divCustomerProviderStatus_Upsert_Form" name="divCustomerProviderStatus_Upsert_Form" method="post">
+            <div>
+                <label class="POBOSectionTitles">Compradores Relacionados:</label>
+                <div class="ListContent">
+                    <ul id="divCustomerProviderStatus_Customer_List_Tracking" class="CompanyList" style="list-style:none;"></ul>
+                </div>
+                <div class="ContentTracking">
+                    <label class="POBOSectionTitles">Estado del Proveedor:</label>
+                    <select id="divCustomerProviderStatus_Status" name="SH_Currency">
+                        @foreach (var oItem in Model.ProviderOptions.Where(x => x.CatalogId == 902).OrderBy(x => x.ItemName))
+                        {
+                            <option value="@oItem.ItemId">@oItem.ItemName</option>
+                        }
+                    </select>
+                    <label class="POBOSectionTitles">Seguimiento Interno</label>
+                    <textarea id="divCustomerProviderStatus_Internal_Tracking" name="SH_InternalTracking"></textarea>
+                    <label class="POBOSectionTitles">Seguimiento para el Comprador</label>
+                    <textarea id="divCustomerProviderStatus_Customer_Tracking" name="SH_CustomerTracking"></textarea>
+                </div>
+                <a class="POBOProgressButtons" href="javascript:Provider_CustomerInfoObject.UpsertCustomerByProviderTraking();">Guardar</a>
+            </div>
+        </form>
+    </div>
 </div>
 
 @{

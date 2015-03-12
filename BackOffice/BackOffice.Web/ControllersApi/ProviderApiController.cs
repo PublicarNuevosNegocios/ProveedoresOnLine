@@ -2097,7 +2097,7 @@ namespace BackOffice.Web.ControllersApi
                             oReturn.Add(new ProviderCustomerViewModel(x));
                             return true;
                         });
-                    }                   
+                    }
                 }
             }
 
@@ -2106,11 +2106,11 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderInfo
+        public List<BackOffice.Models.Provider.TrackingViewModel> CPCustomerProviderInfo
         (string CPCustomerProviderInfo,
             int CustomerProviderId)
         {
-            List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
+            List<BackOffice.Models.Provider.TrackingViewModel> oReturn = new List<Models.Provider.TrackingViewModel>();
 
             if (CPCustomerProviderInfo == "true")
             {
@@ -2119,9 +2119,12 @@ namespace BackOffice.Web.ControllersApi
 
                 if (oCustomerProviderInfo != null && oCustomerProviderInfo.RelatedProvider.Count > 0)
                 {
-                    oCustomerProviderInfo.RelatedProvider.First().CustomerProviderInfo.All(x =>
+                    oCustomerProviderInfo.RelatedProvider.First().CustomerProviderInfo
+                        .Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring ||
+                                    x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring)
+                        .All(x =>
                     {
-                        oReturn.Add(new ProviderCustomerViewModel(x));
+                        oReturn.Add(new TrackingViewModel(x));
                         return true;
                     });
                 }
@@ -2173,25 +2176,28 @@ namespace BackOffice.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public void CPCustomerProvierInfoUpsert
-        (string UpsertCustomerInfoByProvider,
-            string oProviderPublicId,
-            string oCompanyPublicList,
-            string oStatusId,
-            string oInternalTracking,
-            string oExternalTracking)
+            (string UpsertCustomerInfoByProvider,
+            string ProviderPublicId,
+            string CompanyList)
         {
             if (UpsertCustomerInfoByProvider == "true")
             {
-                string[] oCustomerPublicId = oCompanyPublicList.Split(new char[] { ',' });
+                string[] CustomerPublicId = CompanyList.Split(new char[] { ',' });
 
-                foreach (var item in oCustomerPublicId)
+                foreach (var customer in CustomerPublicId)
                 {
-                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(item);
+                    ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(customer);
 
                     List<GenericItemInfoModel> oInfoModel = new List<GenericItemInfoModel>();
 
-                    if (oInternalTracking != null && oInternalTracking.Length > 0)
+                    if (System.Web.HttpContext.Current.Request.Form["SH_InternalTracking"] != null && System.Web.HttpContext.Current.Request.Form["SH_InternalTracking"].Length > 0)
                     {
+                        TrackingDetailViewModel oDetail = new TrackingDetailViewModel()
+                        {
+                            User = BackOffice.Models.General.SessionModel.CurrentLoginUser.Email,
+                            Description = System.Web.HttpContext.Current.Request.Form["SH_InternalTracking"],                            
+                        };
+
                         oInfoModel.Add(new GenericItemInfoModel()
                         {
                             ItemInfoId = 0,
@@ -2199,12 +2205,18 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring),
                             },
-                            LargeValue = oInternalTracking,
+                            LargeValue = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(oDetail),
                             Enable = true,
                         });
                     }
-                    if (oExternalTracking != null && oExternalTracking.Length > 0)
+                    if (System.Web.HttpContext.Current.Request.Form["SH_CustomerTracking"] != null && System.Web.HttpContext.Current.Request.Form["SH_CustomerTracking"].Length > 0)
                     {
+                        TrackingDetailViewModel oDetail = new TrackingDetailViewModel()
+                        {
+                            User = BackOffice.Models.General.SessionModel.CurrentLoginUser.Email,
+                            Description = System.Web.HttpContext.Current.Request.Form["SH_CustomerTracking"],
+                        };
+
                         oInfoModel.Add(new GenericItemInfoModel()
                         {
                             ItemInfoId = 0,
@@ -2212,7 +2224,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 ItemId = Convert.ToInt32(BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring),
                             },
-                            LargeValue = oExternalTracking,
+                            LargeValue = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(oDetail),
                             Enable = true,
                         });
                     }
@@ -2223,10 +2235,10 @@ namespace BackOffice.Web.ControllersApi
                         RelatedProvider = new List<CustomerProviderModel>(){
                             new CustomerProviderModel(){
                                 RelatedProvider = new ProveedoresOnLine.Company.Models.Company.CompanyModel(){
-                                    CompanyPublicId = oProviderPublicId,
+                                    CompanyPublicId = ProviderPublicId,
                                 },
                                 Status = new CatalogModel(){
-                                    ItemId = Convert.ToInt32(oStatusId),
+                                    ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request.Form["SH_Currency"]),
                                 },
                                 CustomerProviderInfo = oInfoModel,
                                 Enable = true,
