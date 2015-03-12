@@ -819,7 +819,7 @@ var Provider_CompanyContactObject = {
             }, {
                 field: 'BR_Representative',
                 title: 'Representante',
-                width: '110px',
+                width: '229px',
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
@@ -4745,7 +4745,7 @@ var Provider_LegalInfoObject = {
                 width: '120px',
             }, {
                 field: 'R_SelfRetainerReciept',
-                title: 'Autorretenedor Recibo',
+                title: 'Autorretenedor Resolucion',
                 width: '160px',
             }, {
                 field: 'R_SelfRetainerDate',

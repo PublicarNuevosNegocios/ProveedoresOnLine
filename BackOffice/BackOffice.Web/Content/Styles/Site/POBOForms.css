@@ -257,9 +257,12 @@ li#F3 {
     .POBOBalanceSheet_mainInfo li input[type="checkbox"]{
         display:block;
     }
-
 /********* DATE PICKER STYLES *********/
-::-webkit-datetime-edit { padding:0px; }
+::-webkit-datetime-edit { 
+    padding:0px;
+    min-width:92px;
+    width:100px;
+}
 ::-webkit-inner-spin-button { 
     display: block;
     margin:0px 0px 0px 4px;
@@ -270,15 +273,13 @@ li#F3 {
 }
 ::-webkit-calendar-picker-indicator { 
     display: block; 
-    margin:0px 350px 0px 4px;
+    margin:0px 12px 0px 4px;
     padding:0px;
     width:14px;
     height:10px;
     color:#333;
 }
-
-
-
+/*====================================*/
     .POBOProviderActions div#FileUploadForm {
         margin:3px 0 0;
     }
