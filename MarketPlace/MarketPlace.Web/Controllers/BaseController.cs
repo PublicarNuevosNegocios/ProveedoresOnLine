@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MarketPlace.Web.Controllers
 {
+    [MarketPlace.Web.Controllers.Filters.LogginActionFilter]
     public partial class BaseController : Controller
     {
         #region public static properties

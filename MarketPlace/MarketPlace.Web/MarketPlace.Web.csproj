@@ -199,6 +199,7 @@
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
+    <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
