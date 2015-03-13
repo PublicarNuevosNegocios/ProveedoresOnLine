@@ -4,6 +4,57 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    //get custom economic activity tree name
+    string strCustomEconomicActivity = string.Empty;
+
+    if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo != null)
+    {
+        strCustomEconomicActivity = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.
+            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CustomEconomicActivity).
+            Select(x => x.ValueName).
+            DefaultIfEmpty(string.Empty).
+            FirstOrDefault();
+    }    
+    
+    //group economic acitiviy
+    List<MarketPlace.Models.General.EconomicActivityViewModel> oDefaultActivityGorup =
+        new List<MarketPlace.Models.General.EconomicActivityViewModel>();
+
+    List<MarketPlace.Models.General.EconomicActivityViewModel> oCustomActivityGorup =
+        new List<MarketPlace.Models.General.EconomicActivityViewModel>();
+
+    if (Model.RelatedComercialInfo != null)
+    {
+        Model.RelatedComercialInfo.All(rci =>
+        {
+            if (rci.EX_EconomicActivity != null && rci.EX_EconomicActivity.Count > 0)
+            {
+                rci.EX_EconomicActivity.All(ea =>
+                {
+                    if (!oDefaultActivityGorup.Any(x => x.EconomicActivityId == ea.EconomicActivityId))
+                    {
+                        oDefaultActivityGorup.Add(ea);
+                    }
+                    return true;
+                });
+            }
+
+            if (rci.EX_CustomEconomicActivity != null && rci.EX_CustomEconomicActivity.Count > 0)
+            {
+                rci.EX_CustomEconomicActivity.All(ea =>
+                {
+                    if (!oCustomActivityGorup.Any(x => x.EconomicActivityId == ea.EconomicActivityId))
+                    {
+                        oCustomActivityGorup.Add(ea);
+                    }
+                    return true;
+                });
+            }
+            return true;
+        });
+    }
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -15,88 +66,137 @@
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Experiencias</label>
         <ul class="POMPProviderInfoMultipleValues">
-            @{
-                foreach (var item in Model.RelatedComercialInfo)
-                {
-                    <li>
-                        <label class="POMPProviderDataSubtitle">
-                            @if (!string.IsNullOrEmpty(item.EX_ContractType) && !string.IsNullOrEmpty(item.EX_ContractType))
-                            {
-                                <span>@item.EX_ContractType para @item.EX_Client</span>
-                            }
-                        </label>
-                        @if (!string.IsNullOrEmpty(item.EX_DateIssue))
+            @foreach (MarketPlace.Models.General.EconomicActivityViewModel dea in oDefaultActivityGorup.OrderBy(x=>x.ActivityName))
+            {
+                <li>
+                    <label class="POMPProviderDataSubtitle">
+                        <span>@dea.ActivityName</span>
+                    </label>
+                    <ul class="POMPProviderExperienceList">
+                        @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_EconomicActivity.Any(ea => ea.EconomicActivityId == dea.EconomicActivityId)))
                         {
-                            <label>
-                                Fecha Inicial
-                                <span>@item.EX_DateIssue</span>
-                            </label>
+                            <li>
+                                <label class="POMPProviderInfoContractName">
+                                    <span>@item.EX_ContractType para @item.EX_Client</span>
+                                </label>
+                                @if (!string.IsNullOrEmpty(item.EX_DateIssue))
+                                {
+                                    <label>
+                                        Fecha Inicial
+                                        <span>@item.EX_DateIssue</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_DueDate))
+                                {
+                                    <label>
+                                        Fecha Final
+                                        <span>@item.EX_DueDate</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
+                                {
+                                    <label>
+                                        Número de Contacto
+                                        <span>@item.EX_ContractNumber</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ContractValue))
+                                {
+                                    <label>
+                                        Valor del Contrato
+                                        <span>$ @item.EX_ContractValue @item.EX_Currency</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_Phone))
+                                {
+                                    <label>
+                                        Teléfono
+                                        <span>@item.EX_Phone</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
+                                {
+                                    <label>
+                                        <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                                {
+                                    <label>
+                                        Objeto del Contrato
+                                        <span>@item.EX_ContractSubject</span>
+                                    </label>
+                                }
+                            </li>
                         }
-                        @if (!string.IsNullOrEmpty(item.EX_DueDate))
+                    </ul>
+                </li>
+            }
+            @foreach (MarketPlace.Models.General.EconomicActivityViewModel cea in oCustomActivityGorup.OrderBy(x => x.ActivityName))
+            {
+                <li>
+                    <label class="POMPProviderDataSubtitle">
+                        <span>@strCustomEconomicActivity - @cea.ActivityName</span>
+                    </label>
+                    <ul class="POMPProviderExperienceList">
+                        @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_CustomEconomicActivity.Any(ea => ea.EconomicActivityId == cea.EconomicActivityId)))
                         {
-                            <label>
-                                Fecha Final
-                                <span>@item.EX_DueDate</span>
-                            </label>
+                            <li>
+                                <label class="POMPProviderInfoContractName">
+                                    <span>@item.EX_ContractType para @item.EX_Client</span>
+                                </label>
+                                @if (!string.IsNullOrEmpty(item.EX_DateIssue))
+                                {
+                                    <label>
+                                        Fecha Inicial
+                                        <span>@item.EX_DateIssue</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_DueDate))
+                                {
+                                    <label>
+                                        Fecha Final
+                                        <span>@item.EX_DueDate</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
+                                {
+                                    <label>
+                                        Número de Contacto
+                                        <span>@item.EX_ContractNumber</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ContractValue))
+                                {
+                                    <label>
+                                        Valor del Contrato
+                                        <span>$ @item.EX_ContractValue @item.EX_Currency</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_Phone))
+                                {
+                                    <label>
+                                        Teléfono
+                                        <span>@item.EX_Phone</span>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
+                                {
+                                    <label>
+                                        <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
+                                    </label>
+                                }
+                                @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
+                                {
+                                    <label>
+                                        Objeto del Contrato
+                                        <span>@item.EX_ContractSubject</span>
+                                    </label>
+                                }
+                            </li>
                         }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
-                        {
-                            <label>
-                                Número de Contacto
-                                <span>@item.EX_ContractNumber</span>
-                            </label>
-                        }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractValue))
-                        {
-                            <label>
-                                Valor del Contrato
-                                <span>@item.EX_ContractValue</span>
-                            </label>
-                        }
-                        @if (!string.IsNullOrEmpty(item.EX_Phone))
-                        {
-                            <label>
-                                Teléfono
-                                <span>@item.EX_Phone</span>
-                            </label>
-                        }
-                        @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
-                        {
-                            <label>
-                                Objeto del Contrato
-                                <span title="@item.EX_ContractSubject">@item.EX_ContractSubject</span>
-                            </label>
-                        }
-                        <label class="POMPProviderDataMaestraEstandar">
-                            Maestra Estandar
-                            @foreach (var ActivityItem in item.EX_EconomicActivity)
-                            {
-                                <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
-                            }
-                        </label>
-                        <label class="POMPProviderDataMaestraEstandar">
-                            Maestra Personalizada
-                            @foreach (var ActivityItem in item.EX_CustomEconomicActivity)
-                            {
-                                <span title="@ActivityItem.ActivityName">@ActivityItem.ActivityName</span>
-                            }
-                        </label>
-
-                        @{
-                            var UlrContent = item.EX_ExperienceFile;
-                            if (!string.IsNullOrWhiteSpace(UlrContent))
-                            {
-                            <label>
-                                @*ESTE IFRAME SE CAMBIA POR UN ICONO PARA IR AL ARCHIVO*@
-                                @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
-                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Soporte</a>
-                            </label>
-                            }
-                        }
-
-                    </li>
-
-                }
+                    </ul>
+                </li>
             }
         </ul>
     </div>

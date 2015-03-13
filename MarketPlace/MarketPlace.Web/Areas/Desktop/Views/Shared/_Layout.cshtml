@@ -49,5 +49,17 @@
         });
     </script>
     @RenderSection("inlinescripts", required: false)
+
+    <!--Google Analitycs-->
+    @{
+        string AnalitycsScript = string.Empty;
+        if (!string.IsNullOrEmpty(MarketPlace.Models.General.AreaModel.CurrentAreaName))
+        {
+            AnalitycsScript = MarketPlace.Models.General.InternalSettings.Instance
+                [MarketPlace.Models.General.Constants.C_Settings_Analytics.
+                Replace("{AreaName}",MarketPlace.Models.General.AreaModel.CurrentAreaName)].Value;
+        }
+    }
+    @Html.Raw(AnalitycsScript)
 </body>
 </html>

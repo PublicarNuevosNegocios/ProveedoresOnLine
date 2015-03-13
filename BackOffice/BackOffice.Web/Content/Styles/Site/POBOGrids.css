@@ -110,30 +110,30 @@ label.PlaceHolder {
 
 .ListContent {
     position: relative;
-    height: 170px !important;
+    height: 110px !important;
     overflow: scroll;
     overflow-x: hidden;
     margin: 5px 0px 10px 0px;
     border: 1px solid rgb(199, 199, 199);
 }
-
 .ContentTracking {
     position: relative;
 }
-
-.CompanyList {
-    width: 100%;
-    margin-left: 15px;
+.CompanyList{
+    width:100%;
 }
-
+.CompanyList, .Company {
+    display: inline-block;
+    margin:0px;
+    padding:0px;
+}
 .Company {
-    width: 100%;
-    display: inline-block;
+    font-size: 0.88em;
+    color:#666;
 }
-
 .CompanyCheck {
-    width: 10%;
     display: inline-block;
+    margin: 0px 5px;
     text-align: center;
-    margin-left: -21px;
+    width: auto;
 }

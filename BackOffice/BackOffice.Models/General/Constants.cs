@@ -34,6 +34,8 @@
 
         public const string C_Settings_PublicarPublicId = "PublicarPublicId";
 
+        public const string C_Settings_Analytics = "Analytics";
+
         #endregion
 
         #region Administrator User Roles

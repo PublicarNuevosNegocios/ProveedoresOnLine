@@ -13,6 +13,12 @@
 
     <key name="Path_Salesforce">https://na2.salesforce.com/</key>
 
+    <key name="Analytics">
+      <![CDATA[
+      YourAnalyticsKey
+      ]]>
+    </key>
+
     <!--Id Publicar-->
     <key name="CustomerPublicId_Publicar">9966716D</key>
     

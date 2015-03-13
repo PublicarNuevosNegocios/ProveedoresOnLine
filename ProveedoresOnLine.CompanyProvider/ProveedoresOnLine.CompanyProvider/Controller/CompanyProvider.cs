@@ -1098,9 +1098,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, string CustomerPublicId)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType);
+            return DAL.Controller.CompanyProviderDataController.Instance.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType, CustomerPublicId);
         }
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
@@ -1203,10 +1203,12 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPCertificationGetSpecificCert(ProviderPublicId);
         }
+
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
         {
-            return DAL.Controller.CompanyProviderDataController.Instance.MPCustomerProviderGetAllTracking(CustomerPublicId,ProviderPublicId);
+            return DAL.Controller.CompanyProviderDataController.Instance.MPCustomerProviderGetAllTracking(CustomerPublicId, ProviderPublicId);
         }
+
         #endregion
     }
 }

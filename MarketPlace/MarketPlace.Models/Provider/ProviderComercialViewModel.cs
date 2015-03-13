@@ -45,6 +45,15 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(oEX_Currency))
+                    {
+                        oEX_Currency = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where
+                            (x => x.CatalogId == 108 && x.ItemId.ToString() == oEX_Currency).
+                            Select(x => x.ItemName).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault();
+                    }
                 }
                 return oEX_Currency;
             }
@@ -130,6 +139,11 @@ namespace MarketPlace.Models.Provider
                         Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(oEX_ContractValue))
+                    {
+                        oEX_ContractValue = Convert.ToDecimal(oEX_ContractValue).ToString("#,0.##");
+                    }
                 }
                 return oEX_ContractValue;
             }

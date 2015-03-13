@@ -82,6 +82,10 @@ label.POMPProviderDataSubtitle {
     color:#5d5d5d !important;
     background-color:#EEEEEE;
 }
+ul.POMPProviderExperienceList{
+    padding:0px !important;
+}
+
     /***********************************/
     .POMPProviderInfoMultipleValues li:first-child {
         border-top:none;
@@ -98,10 +102,7 @@ label.POMPProviderDataSubtitle {
         .POMPProviderInfoMultipleValues li label > span {
             display: block; font-size: 0.93em;
             font-weight: normal; letter-spacing: -0.5px;
-            line-height: 1.5em; color:#666;
-            white-space: nowrap;
-            overflow:hidden !important;
-            text-overflow: ellipsis;
+            line-height: 1.19em; color:#666;
         }
         .POMPProviderInfoMultipleValues li label > iframe{
             border: 1px solid #d4d4d4;
@@ -169,3 +170,19 @@ label.POMPProviderDataIndiceAltman{
 .POMPProviderDataMaestraEstandar {
     width:48.9% !important;
 }
+
+/************** SUBTITULO MAESTRA DE ACTIVIDADES > CONTRATO ***************/
+
+label.POMPProviderInfoContractName {    
+    display: block !important;
+    margin:0px !important; padding:0px !important;
+    height:0px !important; width:100% !important;
+    min-height:32px !important;
+}
+    label.POMPProviderInfoContractName > span{
+        margin: 0;
+        min-height: 0;
+        min-width: 0;
+        padding: 4px 0;
+        font-size: 1.15em !important;
+    }

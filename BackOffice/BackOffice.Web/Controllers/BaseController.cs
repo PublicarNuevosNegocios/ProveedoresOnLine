@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace BackOffice.Web.Controllers
 {
+    [BackOffice.Web.Controllers.Filters.LogginActionFilter]
     public partial class BaseController : Controller
     {
         #region public static properties
