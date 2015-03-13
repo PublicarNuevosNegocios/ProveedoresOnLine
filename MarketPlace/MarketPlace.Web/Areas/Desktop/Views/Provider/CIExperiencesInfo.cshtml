@@ -72,60 +72,60 @@
                     <label class="POMPProviderDataSubtitle">
                         <span>@dea.ActivityName</span>
                     </label>
-                    <ul>
+                    <ul class="POMPProviderExperienceList">
                         @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_EconomicActivity.Any(ea => ea.EconomicActivityId == dea.EconomicActivityId)))
                         {
                             <li>
-                                <label class="POMPProviderDataSubtitle">
+                                <label class="POMPProviderInfoContractName">
                                     <span>@item.EX_ContractType para @item.EX_Client</span>
                                 </label>
                                 @if (!string.IsNullOrEmpty(item.EX_DateIssue))
                                 {
-                                <label>
-                                    Fecha Inicial
-                                    <span>@item.EX_DateIssue</span>
-                                </label>
+                                    <label>
+                                        Fecha Inicial
+                                        <span>@item.EX_DateIssue</span>
+                                    </label>
                                 }
                                 @if (!string.IsNullOrEmpty(item.EX_DueDate))
                                 {
-                                <label>
-                                    Fecha Final
-                                    <span>@item.EX_DueDate</span>
-                                </label>
+                                    <label>
+                                        Fecha Final
+                                        <span>@item.EX_DueDate</span>
+                                    </label>
                                 }
                                 @if (!string.IsNullOrEmpty(item.EX_ContractNumber))
                                 {
-                                <label>
-                                    Número de Contacto
-                                    <span>@item.EX_ContractNumber</span>
-                                </label>
+                                    <label>
+                                        Número de Contacto
+                                        <span>@item.EX_ContractNumber</span>
+                                    </label>
                                 }
                                 @if (!string.IsNullOrEmpty(item.EX_ContractValue))
                                 {
-                                <label>
-                                    Valor del Contrato
-                                    <span>$ @item.EX_ContractValue @item.EX_Currency</span>
-                                </label>
+                                    <label>
+                                        Valor del Contrato
+                                        <span>$ @item.EX_ContractValue @item.EX_Currency</span>
+                                    </label>
                                 }
                                 @if (!string.IsNullOrEmpty(item.EX_Phone))
                                 {
-                                <label>
-                                    Teléfono
-                                    <span>@item.EX_Phone</span>
-                                </label>
+                                    <label>
+                                        Teléfono
+                                        <span>@item.EX_Phone</span>
+                                    </label>
                                 }
                                 @if (!string.IsNullOrEmpty(item.EX_ExperienceFile))
                                 {
-                                <label>
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
-                                </label>
+                                    <label>
+                                        <a class="POMPProviderDocumetIcon" target="_blank" href="@item.EX_ExperienceFile">Ver Archivo de Soporte</a>
+                                    </label>
                                 }
                                 @if (!string.IsNullOrEmpty(item.EX_ContractSubject))
                                 {
-                                <label>
-                                    Objeto del Contrato
-                                    <span>@item.EX_ContractSubject</span>
-                                </label>
+                                    <label>
+                                        Objeto del Contrato
+                                        <span>@item.EX_ContractSubject</span>
+                                    </label>
                                 }
                             </li>
                         }
@@ -138,11 +138,11 @@
                     <label class="POMPProviderDataSubtitle">
                         <span>@strCustomEconomicActivity - @cea.ActivityName</span>
                     </label>
-                    <ul>
+                    <ul class="POMPProviderExperienceList">
                         @foreach (var item in Model.RelatedComercialInfo.Where(x => x.EX_CustomEconomicActivity.Any(ea => ea.EconomicActivityId == cea.EconomicActivityId)))
                         {
                             <li>
-                                <label class="POMPProviderDataSubtitle">
+                                <label class="POMPProviderInfoContractName">
                                     <span>@item.EX_ContractType para @item.EX_Client</span>
                                 </label>
                                 @if (!string.IsNullOrEmpty(item.EX_DateIssue))
