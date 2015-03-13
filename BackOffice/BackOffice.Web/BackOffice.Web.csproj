@@ -228,6 +228,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdministratorController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="CustomerController.generated.cs">

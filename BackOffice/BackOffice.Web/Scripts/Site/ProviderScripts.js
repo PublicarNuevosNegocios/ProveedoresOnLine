@@ -5865,7 +5865,9 @@ var Provider_CustomerInfoObject = {
                 options.error(result);
             }
         });
-        $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog();
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog({
+            width: 500,
+        });
     },
 
     UpsertCustomerByProvider: function () {
@@ -5927,7 +5929,9 @@ var Provider_CustomerInfoObject = {
             }
         }
 
-        $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog();
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog({
+            width: 500,
+        });
     },
 
     UpsertCustomerByProviderTraking: function () {
