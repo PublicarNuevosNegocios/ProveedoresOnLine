@@ -30,6 +30,8 @@
 
         public const string C_Settings_Path_SalesForce = "Path_Salesforce";
 
+        public const string C_Settings_Analytics = "Analytics";
+
         #endregion
 
         #region Provider General

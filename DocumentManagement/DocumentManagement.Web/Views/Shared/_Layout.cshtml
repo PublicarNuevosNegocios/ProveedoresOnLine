@@ -53,5 +53,12 @@
 
     @RenderSection("inlinescripts", required: false)
 
+    <!--Google Analitycs-->
+    @{
+        string AnalitycsScript = DocumentManagement.Models.General.InternalSettings.Instance
+                [DocumentManagement.Models.General.Constants.C_Settings_Analytics].Value;
+    }
+    @Html.Raw(AnalitycsScript)
+
 </body>
 </html>
