@@ -44,5 +44,12 @@
         });
     </script>
     @RenderSection("inlinescripts", required: false)
+
+    <!--Google Analitycs-->
+    @{
+        string AnalitycsScript = BackOffice.Models.General.InternalSettings.Instance
+                [BackOffice.Models.General.Constants.C_Settings_Analytics].Value;
+    }
+    @Html.Raw(AnalitycsScript)
 </body>
 </html>

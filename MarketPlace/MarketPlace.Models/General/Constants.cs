@@ -38,6 +38,8 @@
 
         public const string C_Settings_ProviderStatus_Certified_Logo = "ProviderStatus_Certified_Logo";
 
+        public const string C_Settings_Analytics = "{AreaName}_Analytics";
+
         #endregion
 
         #region File

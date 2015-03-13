@@ -22,6 +22,12 @@
 
     <key name="PublicarPublicId"><![CDATA[DA5C572E]]></key>
     
+    <key name="Analytics">
+      <![CDATA[
+      YourAnalyticsKey
+      ]]>      
+    </key>    
+    
     <!--Administrator User Roles-->
     <key name="URL_AdminRoles">https://localhost:44305/AdminRoles/Index</key>
 
