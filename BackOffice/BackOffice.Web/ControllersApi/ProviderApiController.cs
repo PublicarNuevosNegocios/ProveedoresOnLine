@@ -1618,6 +1618,15 @@ namespace BackOffice.Web.ControllersApi
                         oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oICA));
                         return true;
                     });
+
+                    if (oReturn.Any(x => x.RelatedLegal.ItemType.ItemId == (int)BackOffice.Models.General.enumLegalType.SARLAFT))
+                    {
+                        oReturn = oReturn.OrderByDescending(x => string.IsNullOrEmpty(x.SF_ProcessDate) ? DateTime.Now :
+                            DateTime.ParseExact(
+                                x.SF_ProcessDate,
+                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
+                                System.Globalization.CultureInfo.InvariantCulture)).ToList();
+                    }
                 }
             }
             return oReturn;
@@ -2195,7 +2204,7 @@ namespace BackOffice.Web.ControllersApi
                         TrackingDetailViewModel oDetail = new TrackingDetailViewModel()
                         {
                             User = BackOffice.Models.General.SessionModel.CurrentLoginUser.Email,
-                            Description = System.Web.HttpContext.Current.Request.Form["SH_InternalTracking"],                            
+                            Description = System.Web.HttpContext.Current.Request.Form["SH_InternalTracking"],
                         };
 
                         oInfoModel.Add(new GenericItemInfoModel()
