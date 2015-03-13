@@ -201,7 +201,7 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedFinancialBasicInfo.FirstOrDefault().BI_JobCapital =
                             ((Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentActive)).Select(x => x.BI_CurrentActive).DefaultIfEmpty("0").FirstOrDefault())
-                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()))).ToString("#,0.##");                        
+                            - Convert.ToDecimal(oModel.RelatedFinancialBasicInfo.Where(x => !string.IsNullOrWhiteSpace(x.BI_CurrentPassive)).Select(x => x.BI_CurrentPassive).DefaultIfEmpty("0").FirstOrDefault()))).ToString("#,0.##");
                     }
                 }
                 #endregion
@@ -389,7 +389,7 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult GITrackingInfo(string ProviderPublicId)
         {
-            ProviderViewModel oModel = new ProviderViewModel();            
+            ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -454,7 +454,10 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial =
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo(ProviderPublicId, (int)enumCommercialType.Experience);
+                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo
+                    (ProviderPublicId, 
+                    (int)enumCommercialType.Experience, 
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
                 oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();
                 if (oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial != null
@@ -466,8 +469,8 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
                 }
-                else                
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial = new List<GenericItemModel>();               
+                else
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial = new List<GenericItemModel>();
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }

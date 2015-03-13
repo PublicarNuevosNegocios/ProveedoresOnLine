@@ -176,9 +176,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPContactGetBasicInfo(CompanyPublicId, ContactType);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, string CustomerPublicId)
         {
-            return DataFactory.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType);
+            return DataFactory.MPCommercialGetBasicInfo(CompanyPublicId, CommercialType, CustomerPublicId);
         }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCertificationGetBasicInfo(string CompanyPublicId, int? CertificationType)
@@ -206,7 +206,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPCustomerProviderGetTracking(CustomerPublicId, ProviderPublicId);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>  MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPFinancialGetLastyearInfoDeta(string ProviderPublicId)
         {
             return DataFactory.MPFinancialGetLastyearInfoDeta(ProviderPublicId);
         }
@@ -218,8 +218,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
         {
-            return DataFactory.MPCustomerProviderGetAllTracking(CustomerPublicId,ProviderPublicId);
+            return DataFactory.MPCustomerProviderGetAllTracking(CustomerPublicId, ProviderPublicId);
         }
+
         #endregion
     }
 }

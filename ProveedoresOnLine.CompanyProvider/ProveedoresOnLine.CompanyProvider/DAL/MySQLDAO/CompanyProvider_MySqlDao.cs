@@ -1107,12 +1107,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType)
+        public List<GenericItemModel> MPCommercialGetBasicInfo(string CompanyPublicId, int? CommercialType, string CustomerPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCommercialType", CommercialType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -1568,7 +1569,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", ProviderPublicId));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", ProviderPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -1585,7 +1586,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             {
                 oReturn =
                     (from cerinf in response.DataTableResult.AsEnumerable()
-                     where !cerinf.IsNull("CompanyId")                            
+                     where !cerinf.IsNull("CompanyId")
                      select new GenericItemInfoModel()
                      {
                          ItemInfoId = cerinf.Field<int>("CompanyId"),
@@ -1594,9 +1595,9 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                              ItemId = cerinf.Field<int>("CategoryId"),
                              ItemName = cerinf.Field<string>("CategoryName"),
                          },
-                         Value = cerinf.Field<string>("CCS"), 
-                         LargeValue = cerinf.Field<string>("IsCertified"),                        
-                     }).ToList();                     
+                         Value = cerinf.Field<string>("CCS"),
+                         LargeValue = cerinf.Field<string>("IsCertified"),
+                     }).ToList();
             }
             return oReturn;
         }
