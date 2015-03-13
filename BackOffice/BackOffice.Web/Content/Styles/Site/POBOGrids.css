@@ -120,17 +120,16 @@ label.PlaceHolder {
 .ContentTracking {
     position: relative;
 }
-
-.CompanyList {
-    width: 100%;
-    margin-left: 15px;
+.CompanyList{
+    width:100%;
 }
-
-.Company {
-    width: 100%;
+.CompanyList, .Company {
     display: inline-block;
+    margin:0px;
+    padding:0px;
 }
-
+.Company {
+}
 .CompanyCheck {
     width: 10%;
     display: inline-block;
