@@ -216,7 +216,7 @@ namespace ProveedoresOnLine.Company.Test
             int oTotalRows;
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByEcoGroupAdmin
-                ("sumi", 0, 20, 7, out oTotalRows);
+                ("", 0, 20, 4, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 

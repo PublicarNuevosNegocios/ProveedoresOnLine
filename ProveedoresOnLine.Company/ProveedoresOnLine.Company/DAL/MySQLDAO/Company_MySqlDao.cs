@@ -1035,6 +1035,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                       where !g.IsNull("TreeCategoryId")
                       group g by new
                       {
+                          InfoType = g.Field<int>("InfoType"),
                           TreeCategoryId = g.Field<int>("TreeCategoryId"),
                           ActivityName = g.Field<string>("ActivityName"),
                           Enable = g.Field<UInt64>("Enable") == 1 ? true : false,
@@ -1051,6 +1052,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                group ginf by new
                                {
                                    ItemInfoId = ginf.Field<int>("InfoId"),
+                                   ItemName = ginf.Field<string>("ItemName"),
                                    TypeId = ginf.Field<string>("TypeId"),
                                    ItemInfoType = ginf.Field<int>("InfoType"),
                                    GroupName = ginf.Field<string>("GroupName"),
@@ -1062,6 +1064,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                    {
                                        ItemId = Convert.ToInt32(gginfg.Key.ItemInfoType),
                                        ItemName = gginfg.Key.TypeId,
+                                       CatalogName = gginfg.Key.ItemName,
                                    },
                                    Value = gginfg.Key.GroupName,
                                }).ToList(),

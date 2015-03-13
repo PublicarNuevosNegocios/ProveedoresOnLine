@@ -59,6 +59,7 @@
         EA_Category = 102002,
         EA_Group = 102003,
         EA_IsCustom = 102004,
+        EA_ProviderType = 102005,
 
         //geography type
         GI_GeographyType = 106001,

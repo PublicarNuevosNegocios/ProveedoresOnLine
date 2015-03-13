@@ -381,6 +381,16 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.ECS_Category,
                         Enable = oDataToUpsert.ECS_Enable,
                     });
+                    oActivityInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ECS_ProviderTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.ECS_ProviderTypeId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType
+                        },
+                        Value = oDataToUpsert.ECS_ProviderType,
+                        Enable = oDataToUpsert.ECS_Enable,
+                    });
                     if (TreeId != "4")
                     {
                         oActivityInfo.Add(new GenericItemInfoModel()

@@ -867,7 +867,7 @@
     },
 
     RenderActivityStandarAsync: function (param) {
-
+        debugger;
         if (param != true) {
             var vSearchParam = '';
         }
@@ -913,6 +913,9 @@
                             ECS_GroupId: { editable: false, nullable: false },
                             ECS_Group: { editable: true, nullable: false },
 
+                            ECS_ProviderTypeId: { editable: false, nullable: false },
+                            ECS_ProviderType: { editable: true, nullable: false },                            
+
                             ECS_GroupName: { editable: true, nullable: false },
                             ECS_Enable: { editable: true, type: 'boolean', defaultValue: true },
                         }
@@ -927,12 +930,12 @@
                                 options.success(result);
                             },
                             error: function (result) {
+                                debugger;
                                 options.error(result);
                             }
                         });
                     },
                     create: function (options) {
-
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/UtilApi?CategoryUpsert=true&CategoryType=' + Admin_CategoryObject.CategoryType + '&TreeId=' + Admin_CategoryObject.TreeId,
                             dataType: 'json',
@@ -1060,6 +1063,71 @@
                         });
                 },
             }, {
+                field: 'ECS_ProviderType',
+                title: 'Tipo de Proveedor',
+                width: '380px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.ECS_ProviderType != null && dataItem.ECS_ProviderType.length > 0) {
+                        //debugger;
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        $.each(dataItem.ECS_ProviderType, function (item, value) {                            
+                            oReturn = oReturn + value.ItemName + ',';
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+
+                    //get current values
+                    var oCurrentValue = new Array();
+                    if (options.model[options.field] != null) {
+                        $.each(options.model[options.field], function (item, value) {
+                            oCurrentValue.push({
+                                ProviderTypeId: value.ItemId,
+                                ProviderType: value.ItemName,
+                            });
+                        });
+                    }
+                    //init multiselect
+                    $('<select id="' + Admin_CategoryObject.ObjectId + '_ProviderTypeMultiselect" multiple="multiple" />')
+                        .appendTo(container)
+                        .kendoMultiSelect({
+                            minLength: 2,
+                            dataValueField: 'ItemId',
+                            dataTextField: 'ItemName',
+                            autoBind: false,
+                            itemTemplate: $('#' + Admin_CategoryObject.ObjectId + '_MultiAC_ItemTemplate').html(),
+                            value: oCurrentValue,
+                            change: function () {
+                                if (options.model[options.field] == null) {
+                                    options.model[options.field] = "";
+                                }
+                                //get selected values
+                                if ($('#' + Admin_CategoryObject.ObjectId + '_ProviderTypeMultiselect').length > 0) {
+                                    $.each($('#' + Admin_CategoryObject.ObjectId + '_ProviderTypeMultiselect').data('kendoMultiSelect')._dataItems, function (item, value) {
+                                        if (value.ItemId != null) {
+                                            debugger;
+                                            options.model[options.field] += value.ItemId + ',';
+                                            options.model[options.field] += value.ItemId + ',';
+                                        }
+                                    });                                    
+                                }
+                                //options.model[options.field] = $('#' + Admin_CategoryObject.ObjectId + '_ProviderTypeMultiselect').data('kendoMultiSelect')._dataItems;
+                                //debugger;
+                                options.model.dirty = true;
+                            },
+                            dataSource: Admin_CategoryObject.AdminOptions[610]
+                        });
+
+                    //remove attribute role from input for space search
+                    var inputAux = $('#' + Admin_CategoryObject.ObjectId + '_ProviderTypeMultiselect').data("kendoMultiSelect").input;
+                    $(inputAux).attr('role', '');
+                },
+            },
+            {
                 field: 'ECS_Category',
                 title: 'Categoría',
                 width: '150px',

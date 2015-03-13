@@ -1,4 +1,5 @@
 ﻿
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -100,6 +101,11 @@ namespace BackOffice.Models.Admin
         public string ECS_GroupId { get; set; }
         public string ECS_Group { get; set; }
         public string ECS_GroupName { get; set; }
+
+        public string ECS_ProviderTypeId { get; set; }
+        public string ECS_ProviderType { get; set; }
+
+        public List<CatalogModel>ECS_ProviderTypeJoin { get; set; }
 
         public bool ECS_Enable { get; set; }
 
@@ -339,6 +345,18 @@ namespace BackOffice.Models.Admin
             ECS_GroupName = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
                         Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
+
+            ECS_ProviderTypeId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType).
+                        Select(y => y.ItemInfoId.ToString()).
+                         DefaultIfEmpty(string.Empty).
+                        FirstOrDefault() : string.Empty;
+
+            ECS_ProviderType = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType).
+                        Select(y => y.ItemInfoType.ItemName).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault() : string.Empty;
 
