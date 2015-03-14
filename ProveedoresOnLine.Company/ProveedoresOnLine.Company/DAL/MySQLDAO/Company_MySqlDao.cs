@@ -1031,47 +1031,51 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             {
                 TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
                 oReturn =
-                     (from g in response.DataTableResult.AsEnumerable()
-                      where !g.IsNull("TreeCategoryId")
-                      group g by new
+                     (from cat in response.DataTableResult.AsEnumerable()
+                      where !cat.IsNull("CategoryId")
+                      group cat by new
                       {
-                          InfoType = g.Field<int>("InfoType"),
-                          TreeCategoryId = g.Field<int>("TreeCategoryId"),
-                          ActivityName = g.Field<string>("ActivityName"),
-                          Enable = g.Field<UInt64>("Enable") == 1 ? true : false,
-                      } into gg
+                          CategoryId = cat.Field<int>("CategoryId"),
+                          CategoryName = cat.Field<string>("CategoryName"),
+                          CategoryEnable = cat.Field<UInt64>("CategoryEnable") == 1 ? true : false,
+                      } into catg
                       select new GenericItemModel()
                       {
-                          ItemId = gg.Key.TreeCategoryId,
-                          ItemName = gg.Key.ActivityName,
-                          Enable = gg.Key.Enable,
+                          ItemId = catg.Key.CategoryId,
+                          ItemName = catg.Key.CategoryName,
+                          Enable = catg.Key.CategoryEnable,
 
                           ItemInfo =
-                              (from ginf in response.DataTableResult.AsEnumerable()
-                               where ginf.Field<int>("TreeCategoryId") == gg.Key.TreeCategoryId
-                               group ginf by new
+                              (from catinf in response.DataTableResult.AsEnumerable()
+                               where !catinf.IsNull("CategoryInfoId") &&
+                                    catinf.Field<int>("CategoryId") == catg.Key.CategoryId
+                               group catinf by new
                                {
-                                   ItemInfoId = ginf.Field<int>("InfoId"),
-                                   ItemName = ginf.Field<string>("ItemName"),
-                                   TypeId = ginf.Field<string>("TypeId"),
-                                   ItemInfoType = ginf.Field<int>("InfoType"),
-                                   GroupName = ginf.Field<string>("GroupName"),
-                               } into gginfg
+                                   CategoryInfoId = catinf.Field<int>("CategoryInfoId"),
+                                   CategoryInfoTypeId = catinf.Field<int>("CategoryInfoTypeId"),
+                                   CategoryInfoTypeName = catinf.Field<string>("CategoryInfoTypeName"),
+                                   CategoryInfoValue = catinf.Field<string>("CategoryInfoValue"),
+                                   CategoryInfoLargeValue = catinf.Field<string>("CategoryInfoLargeValue"),
+                               } into catinfg
                                select new GenericItemInfoModel()
                                {
-                                   ItemInfoId = Convert.ToInt32(gginfg.Key.ItemInfoId),
+                                   ItemInfoId = catinfg.Key.CategoryInfoId,
                                    ItemInfoType = new CatalogModel()
                                    {
-                                       ItemId = Convert.ToInt32(gginfg.Key.ItemInfoType),
-                                       ItemName = gginfg.Key.TypeId,
-                                       CatalogName = gginfg.Key.ItemName,
+                                       ItemId = catinfg.Key.CategoryInfoTypeId,
+                                       ItemName = catinfg.Key.CategoryInfoTypeName,
                                    },
-                                   Value = gginfg.Key.GroupName,
+                                   Value = catinfg.Key.CategoryInfoValue,
+                                   LargeValue = catinfg.Key.CategoryInfoLargeValue,
+                                   ValueName = string.Join(";",
+                                    (from cminfvn in response.DataTableResult.AsEnumerable()
+                                     where !cminfvn.IsNull("CategoryInfoId") &&
+                                            cminfvn.Field<int>("CategoryInfoId") == catinfg.Key.CategoryInfoId &&
+                                            !cminfvn.IsNull("CategoryInfoValueName")
+                                     select cminfvn.Field<string>("CategoryInfoValueName")).Distinct().ToList()),
                                }).ToList(),
                       }).ToList();
             }
-
-
             return oReturn;
         }
 
@@ -1219,6 +1223,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
             return Convert.ToInt32(response.ScalarResult);
         }
+
         #endregion
 
         #region Company CRUD
