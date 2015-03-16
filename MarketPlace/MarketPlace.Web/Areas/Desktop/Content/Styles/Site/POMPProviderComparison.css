@@ -132,24 +132,34 @@
     /************* ESTE ES EL MAS ANGOSTO EL ENCABEZADO DE 
                 MENU DE DETALLE DE PROVEEDOR ***************/
 
-.POMPProviderMenuDitail {
+.POMPProviderMenuDetail {
     /*border:1px solid red;*/ width:auto; height:auto; padding:7px 0px;
 }
-    .POMPProviderMenuDitail > div.POMPComparisonResultProvDataWrapper {
+    .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper {
         min-width: 202px !important;
     }
-        .POMPProviderMenuDitail > div.POMPComparisonResultProvDataWrapper > a{ 
+        .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a{ 
             width:57px; height:30px;
         }
-        .POMPProviderMenuDitail > div > div.POMPComparisonResultNameIDWrapper {
+        .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper {
             width: 46%; min-width:93px;
         }
-            .POMPProviderMenuDitail > div > div.POMPComparisonResultNameIDWrapper > label,
-            .POMPProviderMenuDitail > div > div.POMPComparisonResultNameIDWrapper > label > span{
+            .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label,
+            .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label > span{
                 font-size: 0.82em;
             }
-    .POMPProviderMenuDitail ul {
+    .POMPProviderMenuDetail ul {
         display:none;
     }
+         .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a > img.POMPComparisonResultProvLogo {
+            display: block;
+            height:100%;
+            margin: 0 auto;
+            max-height:23px;
+            max-width:53px;
+            padding:0px;
+            width: auto;
+        }
+
 
 
