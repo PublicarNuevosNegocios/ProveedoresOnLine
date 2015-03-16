@@ -2074,24 +2074,25 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProviderStatus
-        (string CPCustomerProviderStatus,
+        public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProvider
+        (string CPCustomerProvider,
             string ProviderPublicId,
-            int vCustomerRelated,
-            int vAddCustomer)
+            int CustomerRelated,
+            int AddCustomer,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderCustomerViewModel> oReturn = new List<Models.Provider.ProviderCustomerViewModel>();
 
-            if (CPCustomerProviderStatus == "true")
+            if (CPCustomerProvider == "true")
             {
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, CustomerRelated, Convert.ToBoolean(ViewEnable));
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
                 if (oCustomerByProvider != null && oCustomerByProvider.RelatedProvider != null && oCustomerByProvider.RelatedProvider.Count >= 1)
                 {
-                    if (vAddCustomer == 1)
+                    if (AddCustomer == 1)
                     {
                         oCustomerByProvider.RelatedProvider.Where(x => x.RelatedProvider.CompanyPublicId != BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_PublicarPublicId].Value.ToString()).All(x =>
                         {
@@ -2271,7 +2272,7 @@ namespace BackOffice.Web.ControllersApi
             if (GetAllCustomers == "true")
             {
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, 0);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, 0, true);
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 

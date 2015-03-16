@@ -5700,18 +5700,66 @@ var Provider_CustomerInfoObject = {
         if (Provider_CustomerInfoObject.ProviderCustomerInfoType == 901001) {
             Provider_CustomerInfoObject.RenderCustomerByProvider();
         }
+
+        //config keyboard
+        Provider_CustomerInfoObject.ConfigKeyBoard();
+
+        //Config Events
+        Provider_CustomerInfoObject.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Provider_CustomerInfoObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Provider_CustomerInfoObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Provider_CustomerInfoObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Provider_CustomerInfoObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     RenderCustomerByProvider: function () {
         $('#' + Provider_CustomerInfoObject.ObjectId).kendoGrid({
             editable: true,
-            navigatable: false,
+            navigatable: true,
             pageable: false,
             scrollable: true,
             selectable: true,
             toolbar: [
                 { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
                 { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking(null);">Agregar Seguimiento</a>' },
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 schema: {
@@ -5728,7 +5776,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProvider=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerRelated=1&AddCustomer=0&ViewEnable=' + Provider_CustomerInfoObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5736,6 +5784,24 @@ var Provider_CustomerInfoObject = {
                             error: function (result) {
                                 options.error(result);
                                 Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.CP_CustomerProviderId + '.');
                             },
                         });
                     },

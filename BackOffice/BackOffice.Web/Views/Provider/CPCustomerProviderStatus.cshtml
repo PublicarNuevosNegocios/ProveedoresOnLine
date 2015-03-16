@@ -31,9 +31,14 @@
 </div>
 
 <div id="templates" style="display:none;">
+    
+    <div id="divCustomerProviderStatus_ShortcutToolTipTemplate">
+        <img id="divCustomerProviderStatus_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
     <div id="divCustomerProviderStatus_ViewEnablesTemplate">
-        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridCompanyContact_ViewEnable" type="checkbox" checked="checked" />
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los asociados</label>
+        <input class="POBOProviderGridEnableContact" id="divCustomerProviderStatus_ViewEnable" type="checkbox" checked="checked" />
     </div>
 
     <div id="divCustomerProvider_Header">
@@ -43,15 +48,6 @@
 </div>
 
 <div id="dialog" style="display:none;">
-
-    <div id="divCustomerProvider_ShortcutToolTipTemplate">
-        <img id="divCustomerProvider_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
-    </div>
-
-    <div id="divCustomerProvider_ViewEnablesTemplate">
-        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divCustomerProvider_ViewEnable" type="checkbox" checked="checked" />
-    </div>
 
     <div id="divCustomerProviderStatus_Dialog" class="StatusDialog" title="Asociar a comprador">
         <label class="POBOSectionTitles">Compradores:</label>
