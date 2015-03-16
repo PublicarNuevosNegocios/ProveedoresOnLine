@@ -15,13 +15,9 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         [TestMethod]
         public void GetCustomerByProvider()
         {
-            //Get related customers list
-            //List<CompanyCustomer.Models.Customer.CustomerModel> oReturn =
-            //    CompanyCustomer.Controller.Customer.GetCustomerByProvider("1F2BF1AD", 1);
-
             //Get related customers by Provider
             CompanyCustomer.Models.Customer.CustomerModel oReturn =
-                CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider("1F2BF1AD", 0);
+                CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider("1F2BF1AD", 0, true);
 
             Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1 && oReturn.RelatedProvider != null);
         }
