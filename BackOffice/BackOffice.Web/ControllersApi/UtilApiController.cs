@@ -388,8 +388,9 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType
                         },
-                        Value = oDataToUpsert.ECS_ProviderType,
-                        Enable = oDataToUpsert.ECS_Enable,
+                        LargeValue = oDataToUpsert.ECS_ProviderTypeJoin != null ? string.Join(",", oDataToUpsert.ECS_ProviderTypeJoin.Select(x => x.ItemId).Distinct().ToList()) : string.Empty,
+                        Enable = true,
+                        
                     });
                     if (TreeId != "4")
                     {

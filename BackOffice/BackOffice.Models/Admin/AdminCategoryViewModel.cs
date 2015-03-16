@@ -314,9 +314,12 @@ namespace BackOffice.Models.Admin
 
             ECS_Type = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Type).
-                       Select(y => y.ItemInfoType.ItemName).
+                       Select(y => y.ValueName).
                        DefaultIfEmpty(string.Empty).
-                       FirstOrDefault() : string.Empty;
+                       FirstOrDefault().
+                    Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                    Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                    Select(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0]).FirstOrDefault() : "";
 
             ECS_CategoryId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category).
@@ -325,10 +328,13 @@ namespace BackOffice.Models.Admin
                         FirstOrDefault() : string.Empty;
 
             ECS_Category = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category).
-                        Select(y => y.ItemInfoType.ItemName).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault() : string.Empty;
+                       Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Category).
+                       Select(y => y.ValueName).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault().
+                    Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                    Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                    Select(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0]).FirstOrDefault() : "";
 
             ECS_GroupId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
@@ -337,16 +343,22 @@ namespace BackOffice.Models.Admin
                         FirstOrDefault() : string.Empty;
 
             ECS_Group = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
-                        Select(y => y.ItemInfoType.ItemName).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault() : string.Empty;
+                       Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
+                       Select(y => y.ValueName).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault().
+                    Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                    Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                    Select(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0]).FirstOrDefault() : "";
 
             ECS_GroupName = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
-                        Select(y => y.Value).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault() : string.Empty;
+                       Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_Group).
+                       Select(y => y.ValueName).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault().
+                    Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                    Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                    Select(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[1]).FirstOrDefault() : "";
 
             ECS_ProviderTypeId = oCategory.ItemInfo != null ? oCategory.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType).
@@ -354,11 +366,18 @@ namespace BackOffice.Models.Admin
                          DefaultIfEmpty(string.Empty).
                         FirstOrDefault() : string.Empty;
 
-            ECS_ProviderType = oCategory.ItemInfo != null ? oCategory.ItemInfo.
-                        Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType).
-                        Select(y => y.ItemInfoType.ItemName).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault() : string.Empty;
+            ECS_ProviderTypeJoin = oCategory.ItemInfo != null ? oCategory.ItemInfo.
+                       Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCategoryInfoType.EA_ProviderType).
+                       Select(y => y.ValueName).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault().
+                    Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
+                    Where(y => y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length >= 2).
+                    Select(y => new CatalogModel()
+                {
+                   ItemId =  Convert.ToInt32(y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[0]),
+                   ItemName = y.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)[1],
+                }).ToList() : null;
 
             ECS_Enable = oCategory.Enable;
 
