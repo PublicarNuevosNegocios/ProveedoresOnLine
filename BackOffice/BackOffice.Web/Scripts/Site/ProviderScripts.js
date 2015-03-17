@@ -598,14 +598,12 @@ var Provider_CompanyContactObject = {
                 width: '150px',
                 template: function (dataItem) {
                     var oReturn = '';
-
                     if (dataItem.CP_Phone == '') {
                         oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
                     }
                     else {
                         oReturn = dataItem.CP_Phone;
                     }
-
                     return oReturn;
                 },
             }, {
@@ -820,14 +818,46 @@ var Provider_CompanyContactObject = {
                 field: 'BR_Representative',
                 title: 'Representante',
                 width: '229px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Representative == '') {
+                        oReturn = '<label class="PlaceHolder">Nombre Apellidos</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Representative;
+                    }
+                    return oReturn;
+                },
+
             }, {
                 field: 'BR_Address',
                 title: 'Dirección',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Address == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: Kr 66 # 66 - 66 Of.206</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Address;
+                    }
+                    return oReturn;
+                },
+
             }, {
                 field: 'BR_CityName',
                 title: 'Ciudad',
                 width: '180px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_CityName == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: Bogota D.C.</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_CityName;
+                    }
+                    return oReturn;
+                },
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.BR_CityName != null) {
@@ -884,26 +914,86 @@ var Provider_CompanyContactObject = {
                 field: 'BR_Phone',
                 title: 'Teléfono',
                 width: '120px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Phone == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: 7666777</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Phone;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Fax',
                 title: 'Fax',
                 width: '120px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Fax == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: 7666777</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Fax;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Email',
                 title: 'Correo electrónico',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Email == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: info.comercial@publicar.com</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Email;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Website',
                 title: 'Página web',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Website == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: www.publicarpublicidadm.com.co</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Website;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Latitude',
                 title: 'Latitud',
                 width: '70px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Latitude == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: 67.8557995</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Latitude;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'BR_Longitude',
                 title: 'Longitud',
                 width: '80px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Longitude == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: 20.2252820</label>';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Longitude;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'ContactName',
                 title: 'Nombre',
