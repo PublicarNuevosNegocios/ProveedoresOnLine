@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         {
             //Get related customers by Provider
             CompanyCustomer.Models.Customer.CustomerModel oReturn =
-                CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider("1F2BF1AD", 0, false);
+                CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider("1CA3A147", null);
 
             Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1 && oReturn.RelatedProvider != null);
         }
@@ -20,10 +20,12 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         [TestMethod]
         public void GetCustomerInfoByProvider()
         {
-            CompanyCustomer.Models.Customer.CustomerModel oReturn =
-                CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(118, false);
+            int TotalRows = 0;
 
-            Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1);
+            CompanyCustomer.Models.Customer.CustomerModel oReturn =
+                CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(118, true, 0, 1000000, out TotalRows);
+
+            Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1 && TotalRows > 0);
         }
     }
 }

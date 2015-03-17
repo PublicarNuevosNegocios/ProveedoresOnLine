@@ -58,5 +58,29 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         }
 
         #endregion
+
+        #region Survey
+
+        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, bool Enable)
+        {
+            return DataFactory.SurveyUpsert(SurveyPublicId, ProviderPublicId, SurveyConfigId, Enable);
+        }
+
+        public int SurveyInfoUpsert(int? SurveyInfoId, string SurveyPublicId, int SurveyInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.SurveyInfoUpsert(SurveyInfoId, SurveyPublicId, SurveyInfoType, Value, LargeValue, Enable);
+        }
+
+        public int SurveyItemUpsert(int? SurveyItemId, string SurveyPublicId, int SurveyConfigItemId, bool Enable)
+        {
+            return DataFactory.SurveyItemUpsert(SurveyItemId, SurveyPublicId, SurveyConfigItemId, Enable);
+        }
+
+        public int SurveyItemInfoUpsert(int? SurveyItemInfoId, int SurveyItemId, int SurveyItemInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.SurveyItemInfoUpsert(SurveyItemInfoId, SurveyItemId, SurveyItemInfoType, Value, LargeValue, Enable);
+        }
+
+        #endregion
     }
 }

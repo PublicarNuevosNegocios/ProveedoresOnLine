@@ -14,13 +14,15 @@
         @Html.Partial(MVC.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POBOProviderContentWrapper">
-        <label class="POBOSectionTitles">Seguimiento</label>
+        <label class="POBOSectionTitles">Compradores Relacionados</label>
         @{
             Model.IsForm = false;
             Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
         }
         <div id="divCustomerProviderStatus"></div>
         <br />
+        <br />
+        <label class="POBOSectionTitles">Seguimientos por Comprador</label>
         <div id="divCustomerProviderStatus_Detail"></div>
         <br />
         @{

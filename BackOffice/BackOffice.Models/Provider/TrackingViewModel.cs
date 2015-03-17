@@ -11,6 +11,8 @@ namespace BackOffice.Models.Provider
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel RelatedCustomerProviderInfo { get; set; }
 
+        public int TotalRows { get; set; }
+
         public string CPI_CustomerProviderInfoId { get { return RelatedCustomerProviderInfo.ItemInfoId.ToString(); } }
 
         public string CPI_TrackingType { get { return RelatedCustomerProviderInfo.ItemInfoType.ItemName.ToString(); } }
@@ -34,11 +36,17 @@ namespace BackOffice.Models.Provider
 
         public string CPI_LastModify { get { return RelatedCustomerProviderInfo.LastModify.ToString(); } }
 
-        public bool CPI_Enable { get { return RelatedCustomerProviderInfo.Enable; } }
+        public bool CPI_Enable { get; set; }
 
-        public TrackingViewModel(GenericItemInfoModel oRelatedCustomerProviderInfo)
+        public TrackingViewModel() { }
+
+        public TrackingViewModel(GenericItemInfoModel oRelatedCustomerProviderInfo, int oTotalRows)
         {
             RelatedCustomerProviderInfo = oRelatedCustomerProviderInfo;
+
+            CPI_Enable = RelatedCustomerProviderInfo.Enable;
+
+            TotalRows = oTotalRows;
         }
     }
 }

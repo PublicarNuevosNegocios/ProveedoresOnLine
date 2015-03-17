@@ -150,14 +150,14 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerProviderToUpsert;
         }
 
-        public static CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated, bool Enable)
+        public static CustomerModel GetCustomerByProvider(string ProviderPublicId, string vCustomerRelated)
         {
-            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId, vCustomerRelated, Enable);
+            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
         }
 
-        public static CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable)
+        public static CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerInfoByProvider(CustomerProviderId, Enable);
+            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerInfoByProvider(CustomerProviderId, Enable, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion
