@@ -339,7 +339,10 @@ namespace ProveedoresOnLine.Company.Controller
             return oCurrency.Rate;
         }
 
-
+        public static List<GeographyModel> CategorySearchByCountryAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByCountryAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
         #endregion
 
         #region Company CRUD
