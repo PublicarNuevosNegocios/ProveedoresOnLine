@@ -25,10 +25,15 @@
 	margin:0;
 	white-space: nowrap;
 	width: 90%;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    height:19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #666;
-    font-size:0.08em;
+    font-size:1.04em;
+    font-weight: normal;
+    letter-spacing: -0.78px;
+    color:#333;
+    line-height: 1em;
 }
 .ui-dialog .ui-dialog-titlebar-close {
 	position: absolute;

@@ -4612,6 +4612,7 @@ var Provider_LegalInfoObject = {
                             R_TaxPayerType: { editable: true, validation: { required: true } },
                             R_TaxPayerTypeId: { editable: false },
 
+                            R_ICAName: { editable: true, validation: { required: true } },
                             R_ICA: { editable: true, validation: { required: true } },
                             R_ICAId: { editable: false },
 
@@ -4816,19 +4817,20 @@ var Provider_LegalInfoObject = {
                         });
                 },
             }, {
-                field: 'R_ICA',
+                field: 'R_ICAName',
                 title: 'ICA',
                 width: '350px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.R_ICA != null) {
+                    if (dataItem != null && dataItem.R_ICAName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.R_ICA;
+                        debugger;
+                        oReturn = oReturn + dataItem.R_ICAName;
                     }
                     return oReturn;
                 },
@@ -4844,10 +4846,11 @@ var Provider_LegalInfoObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'I_ICACode',
                         select: function (e) {
+                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model[options.field] = selectedItem.I_ICA;
-                            options.model['R_ICAName'] = selectedItem.I_ICAId;
+                            options.model['R_ICA'] = selectedItem.I_ICAId;
+                            options.model['R_ICAName'] = selectedItem.I_ICA;
                             //enable made changes
                             options.model.dirty = true;
                         },

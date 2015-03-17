@@ -13,7 +13,7 @@ namespace BackOffice.Web.Controllers.Filters
                 (!BackOffice.Models.General.SessionModel.UserIsLoggedIn ||
                 !BackOffice.Models.General.SessionModel.UserIsAutorized))
             {
-                filterContext.HttpContext.Response.Redirect("/", true);
+                filterContext.HttpContext.Response.Redirect("~/", true);
                 filterContext.HttpContext.Response.End();
             }
         }
