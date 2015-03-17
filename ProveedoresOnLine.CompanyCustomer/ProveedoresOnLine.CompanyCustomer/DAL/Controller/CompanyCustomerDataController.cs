@@ -59,44 +59,6 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
 
         #endregion
 
-        #region Survey
-
-        public int SurveyConfigUpsert(string CompanyPublicId, int? SurveyConfigId, string SurveyName, bool Enable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int SurveyItemUpsert(int SurveyConfigId, int? SurveyItemId, string SurveyItemName, int SurveyItemTypeId, int? ParentSurveyItemId, bool Enable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int SurveyItemInfoUpsert(int SurveyItemId, int? SurveyItemInfoId, int SurveyItemInfoTypeId, string Value, string LargeValue, bool Enable)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Project
-
-        public int ProjectConfigUpsert(string CompanyPublicId, int? ProjectConfigId, string ProjectConfigName, int StatusId, bool Enable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int EvaluationItemUpsert(int ProjectConfigId, int? EvaluationItemId, string EvaluationItemName, int EvaluationItemTypeId, int? ParentEvaluationItemId, bool Enable)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int EvaluationItemInfoUpsert(int EvaluationItemId, int? EvaluationItemInfoId, int EvaluationItemInfoTypeId, string Value, string LargeValue, bool Enable)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
         #region Util
 
         public List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions()

@@ -8,11 +8,6 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
     public class CompanyCustomerTest
     {
         [TestMethod]
-        public void TestMethod1()
-        {
-        }
-
-        [TestMethod]
         public void GetCustomerByProvider()
         {
             //Get related customers by Provider

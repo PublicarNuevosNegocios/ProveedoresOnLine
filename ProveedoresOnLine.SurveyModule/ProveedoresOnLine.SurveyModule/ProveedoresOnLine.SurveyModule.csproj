@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F78837DA-64A1-4C72-A75D-F6ECCE92F83A}</ProjectGuid>
+    <ProjectGuid>{38BAB21D-4156-41CC-9BD7-45541DCBB93F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProveedoresOnLine.CompanyCustomer</RootNamespace>
-    <AssemblyName>ProveedoresOnLine.CompanyCustomer</AssemblyName>
+    <RootNamespace>ProveedoresOnLine.SurveyModule</RootNamespace>
+    <AssemblyName>ProveedoresOnLine.SurveyModule</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -47,8 +47,17 @@
     <Reference Include="ProveedoresOnLine.Company">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyCustomer">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyCustomer\developer\ProveedoresOnLine.CompanyCustomer.dll</HintPath>
+    </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyProvider">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
+    </Reference>
+    <Reference Include="SettingsManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SettingsManager\developer\SettingsManager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,22 +68,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\CompanyCustomer.cs" />
-    <Compile Include="DAL\Controller\CompanyCustomerDataController.cs" />
-    <Compile Include="DAL\Controller\CompanyCustomerDataFactory.cs" />
-    <Compile Include="DAL\MySQLDAO\CompanyCustomer_MySqlDao.cs" />
-    <Compile Include="Interfaces\ICompanyCustomerData.cs" />
+    <Compile Include="Controller\SurveyModule.cs" />
+    <Compile Include="DAL\Controller\SurveyDataController.cs" />
+    <Compile Include="DAL\Controller\SurveyDataFactory.cs" />
+    <Compile Include="DAL\MySQLDAO\Survey_MySqlDao.cs" />
+    <Compile Include="Interfaces\ISurveyData.cs" />
     <Compile Include="Models\Constants.cs" />
-    <Compile Include="Models\Customer\CustomerModel.cs" />
-    <Compile Include="Models\Customer\CustomerProviderModel.cs" />
-    <Compile Include="Models\Customer\ProjectConfigModel.cs" />
-    <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\SurveyConfigModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyCustomer\developer\" /y</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

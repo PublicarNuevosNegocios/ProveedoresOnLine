@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.SurveyModule", "ProveedoresOnLine.SurveyModule\ProveedoresOnLine.SurveyModule.csproj", "{38BAB21D-4156-41CC-9BD7-45541DCBB93F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.SurveyModule.Test", "ProveedoresOnLine.SurveyModule.Test\ProveedoresOnLine.SurveyModule.Test.csproj", "{517508AF-45A1-4F83-87B4-17501AEDA068}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38BAB21D-4156-41CC-9BD7-45541DCBB93F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38BAB21D-4156-41CC-9BD7-45541DCBB93F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38BAB21D-4156-41CC-9BD7-45541DCBB93F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38BAB21D-4156-41CC-9BD7-45541DCBB93F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{517508AF-45A1-4F83-87B4-17501AEDA068}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{517508AF-45A1-4F83-87B4-17501AEDA068}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{517508AF-45A1-4F83-87B4-17501AEDA068}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{517508AF-45A1-4F83-87B4-17501AEDA068}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

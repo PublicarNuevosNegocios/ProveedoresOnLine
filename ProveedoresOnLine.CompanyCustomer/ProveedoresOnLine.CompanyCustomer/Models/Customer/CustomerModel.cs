@@ -16,16 +16,9 @@ namespace ProveedoresOnLine.CompanyCustomer.Models.Customer
 
         #endregion
 
-
         #region Customer Project Config
 
         public List<ProjectConfigModel> RelatedProjectConfig { get; set; }
-
-        #endregion
-
-        #region Customer Survey Config
-
-        public List<SurveyConfigModel> RelatedSurveyConfig { get; set; }
 
         #endregion
     }
