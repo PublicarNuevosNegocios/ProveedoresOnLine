@@ -352,6 +352,23 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        public string oR_ICAId { get; set; }
+        public string R_ICAId 
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oR_ICAId))
+                {
+                    oR_ICAId = RelatedLegalInfo.ItemInfo.
+                           Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_ICA).
+                           Select(y => y.Value).
+                           DefaultIfEmpty(string.Empty).
+                           FirstOrDefault();
+                }
+                return oR_ICAId;
+            }
+        }
+
         public string oR_ICAName { get; set; }
         public string R_ICAName
         {
@@ -363,7 +380,7 @@ namespace MarketPlace.Models.Provider
                          Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.R_ICA).
                          Select(y => y.Value).
                          DefaultIfEmpty(string.Empty).
-                         FirstOrDefault());
+                         FirstOrDefault());                   
                 }
                 return oR_ICAName;
             }
