@@ -34,11 +34,15 @@ namespace BackOffice.Models.Provider
 
         public string CPI_LastModify { get { return RelatedCustomerProviderInfo.LastModify.ToString(); } }
 
-        public bool CPI_Enable { get { return RelatedCustomerProviderInfo.Enable; } }
+        public bool CPI_Enable { get; set; }
+
+        public TrackingViewModel() { }
 
         public TrackingViewModel(GenericItemInfoModel oRelatedCustomerProviderInfo)
         {
             RelatedCustomerProviderInfo = oRelatedCustomerProviderInfo;
+
+            CPI_Enable = RelatedCustomerProviderInfo.Enable;
         }
     }
 }

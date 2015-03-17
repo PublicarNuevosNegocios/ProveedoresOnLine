@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Interfaces
 
         int CustomerProviderInfoUpsert(int CustomerProviderId, int? CustomerProviderInfoId, int CustomerProviderInfoTypeId, string Value, string LargeValue, bool Enable);
 
-        CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated, bool Enable);
+        CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, string vCustomerRelated);
 
         CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable);
 

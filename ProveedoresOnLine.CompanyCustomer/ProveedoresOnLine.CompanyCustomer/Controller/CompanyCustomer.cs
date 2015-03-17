@@ -150,9 +150,9 @@ namespace ProveedoresOnLine.CompanyCustomer.Controller
             return CustomerProviderToUpsert;
         }
 
-        public static CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated, bool Enable)
+        public static CustomerModel GetCustomerByProvider(string ProviderPublicId, string vCustomerRelated)
         {
-            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId, vCustomerRelated, Enable);
+            return DAL.Controller.CompanyCustomerDataController.Instance.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
         }
 
         public static CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable)

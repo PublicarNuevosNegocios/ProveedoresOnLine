@@ -61,13 +61,12 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated, bool Enable)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, string vCustomerRelated)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerRelated", vCustomerRelated));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
                 {

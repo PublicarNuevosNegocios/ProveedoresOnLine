@@ -18,16 +18,29 @@
             @{
                 if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
                 {
-
                     foreach (var item in Model.RelatedLegalInfo)
                     {
                         <li>
                             <label class="POMPProviderDataSubtitle">
-                                @if (!string.IsNullOrEmpty(item.R_PersonType) && !string.IsNullOrEmpty(item.R_LargeContributorReceipt))
+                                @if (!string.IsNullOrEmpty(item.R_ICAName))
                                 {
-                                    <span>@item.R_PersonType, Gran Contribuyente Resolución: @item.R_LargeContributorReceipt</span>
+                                    <span>@item.R_ICAId - @item.R_ICAName</span>
                                 }
                             </label>
+                            @if (!string.IsNullOrEmpty(item.R_PersonType))
+                            {
+                                <label>
+                                    Tipo de Persona
+                                    <span>@item.R_PersonType</span>
+                                </label>
+                            }
+                            @if (!string.IsNullOrEmpty(item.R_LargeContributorReceipt))
+                            {
+                                <label>
+                                    Resolución Gran Contribuyente 
+                                    <span>@item.R_LargeContributorReceipt</span>
+                                </label>
+                            }
                             @if (!string.IsNullOrEmpty(item.R_LargeContributorDate))
                             {
                                 <label>
@@ -49,7 +62,7 @@
                             @if (!string.IsNullOrEmpty(item.R_SelfRetainerReciept))
                             {
                                 <label>
-                                    Autorretendor Recibo
+                                    Autorretendor Resolución
                                     <span>@item.R_SelfRetainerReciept</span>
                                 </label>
                             }

@@ -1598,7 +1598,7 @@ namespace BackOffice.Web.ControllersApi
             , string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderLegalViewModel> oReturn = new List<Models.Provider.ProviderLegalViewModel>();
-
+            int TotalRows = 0;
             if (LILegalInfoGetByType == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegalInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
@@ -1606,13 +1606,13 @@ namespace BackOffice.Web.ControllersApi
                     string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA = null;
-                int TotalRows = 0;
+               
                 if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
                 {
                     oICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out TotalRows);
                 }
                 if (oLegalInfo != null)
-                {
+                {                   
                     oLegalInfo.All(x =>
                     {
                         oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oICA));
@@ -2058,11 +2058,11 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> osICA = null;
+                int ototal;
+                osICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out ototal);
 
-                oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-
-                oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), oEconomiActivity);
+                oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), osICA);
             }
 
             return oReturn;
@@ -2077,7 +2077,7 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProvider
         (string CPCustomerProvider,
             string ProviderPublicId,
-            int CustomerRelated,
+            string CustomerRelated,
             int AddCustomer,
             string ViewEnable)
         {
@@ -2085,8 +2085,18 @@ namespace BackOffice.Web.ControllersApi
 
             if (CPCustomerProvider == "true")
             {
-                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, CustomerRelated, Convert.ToBoolean(ViewEnable));
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider = new CustomerModel();
+
+                if (Convert.ToBoolean(ViewEnable) == true)
+                {
+                    oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, CustomerRelated == "2" ? null : CustomerRelated);
+                }
+                else
+                {
+                    oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, "0");
+                }               
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
@@ -2264,6 +2274,48 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public BackOffice.Models.Provider.TrackingViewModel CPTrackingUpsert
+            (string CPTrackingUpsert,
+            string CustomerProviderId,
+            string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.TrackingViewModel oReturn = null;
+
+            if (CustomerProviderId != string.Empty && CustomerProviderId != null && 
+                CPTrackingUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Provider.TrackingViewModel oDataToUpsert =
+                    (BackOffice.Models.Provider.TrackingViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Provider.TrackingViewModel));
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
+
+                CustomerProviderModel oCustomerProvider = new CustomerProviderModel()
+                {
+                    CustomerProviderId = Convert.ToInt32(CustomerProviderId),
+                    CustomerProviderInfo = new List<GenericItemInfoModel>(){
+                        new GenericItemInfoModel(){
+                            ItemInfoId = Convert.ToInt32(oDataToUpsert.CPI_CustomerProviderInfoId),
+                            ItemInfoType = new CatalogModel(){
+                                ItemId = Convert.ToInt32(oDataToUpsert.RelatedCustomerProviderInfo.ItemInfoType.ItemId),
+                            },
+                            LargeValue = oDataToUpsert.RelatedCustomerProviderInfo.LargeValue,
+                            Enable = oDataToUpsert.CPI_Enable,
+                        },
+                    }
+                };
+
+                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderInfoUpsert(oCustomerProvider);
+            }
+            return oReturn;
+        }
+
+
+        [HttpPost]
+        [HttpGet]
         public List<BackOffice.Models.Provider.ProviderCustomerViewModel> GetAllCustomers
         (string GetAllCustomers,
             string ProviderPublicId)
@@ -2273,7 +2325,7 @@ namespace BackOffice.Web.ControllersApi
             if (GetAllCustomers == "true")
             {
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, 0, true);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
