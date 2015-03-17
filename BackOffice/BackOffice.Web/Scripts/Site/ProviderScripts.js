@@ -4726,7 +4726,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_LargeContributorReceipt',
                 title: 'Gran contribuyente resolución',
-                width: '190px',
+                width: '250px',
             }, {
                 field: 'R_LargeContributorDate',
                 title: 'Gran Contribuyente Fecha',
@@ -4747,7 +4747,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_SelfRetainerReciept',
                 title: 'Autorretenedor Resolucion',
-                width: '160px',
+                width: '250px',
             }, {
                 field: 'R_SelfRetainerDate',
                 title: 'Autorretenedor Fecha',
