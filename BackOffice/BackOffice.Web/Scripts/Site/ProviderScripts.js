@@ -4829,7 +4829,6 @@ var Provider_LegalInfoObject = {
                         else {
                             oReturn = '';
                         }
-                        debugger;
                         oReturn = oReturn + dataItem.R_ICAName;
                     }
                     return oReturn;
@@ -4846,7 +4845,6 @@ var Provider_LegalInfoObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'I_ICACode',
                         select: function (e) {
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['R_ICA'] = selectedItem.I_ICAId;
@@ -5693,12 +5691,12 @@ var Provider_CustomerInfoObject = {
 
     ProviderOptions: new Array(),
 
-    Init: function (vInitiObject) {
-        this.ObjectId = vInitiObject.ObjectId;
-        this.ProviderPublicId = vInitiObject.ProviderPublicId;
-        this.ProviderCustomerInfoType = vInitiObject.ProviderCustomerInfoType;
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.ProviderPublicId = vInitObject.ProviderPublicId;
+        this.ProviderCustomerInfoType = vInitObject.ProviderCustomerInfoType;
         this.PageSize = vInitObject.PageSize;
-        $.each(vInitiObject.ProviderOptions, function (item, value) {
+        $.each(vInitObject.ProviderOptions, function (item, value) {
             Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
         });
     },
@@ -5876,7 +5874,7 @@ var Provider_CustomerInfoObject = {
                 { name: 'ViewEnable', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnablesTemplate').html() },
             ],
             dataSource: {
-                pageSize: Provider_SearchObject.PageSize,
+                pageSize: Provider_CustomerInfoObject.PageSize,
                 serverPaging: true,
                 schema: {
                     total: function (data) {
