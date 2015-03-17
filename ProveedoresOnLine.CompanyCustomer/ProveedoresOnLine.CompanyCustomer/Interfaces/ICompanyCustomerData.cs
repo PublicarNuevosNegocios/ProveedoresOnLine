@@ -14,7 +14,7 @@ namespace ProveedoresOnLine.CompanyCustomer.Interfaces
 
         CompanyCustomer.Models.Customer.CustomerModel GetCustomerByProvider(string ProviderPublicId, int vCustomerRelated, bool Enable);
 
-        CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId);
+        CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable);
 
         List<Company.Models.Util.CatalogModel> CatalogGetCustomerOptions();
     }
