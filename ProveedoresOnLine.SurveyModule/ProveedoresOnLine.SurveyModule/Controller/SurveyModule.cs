@@ -196,5 +196,183 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         }
 
         #endregion
+
+        #region Survey
+
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyUpsert(ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert)
+        {
+            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+
+            try
+            {
+                //upsert survey
+                SurveyToUpsert.SurveyPublicId =
+                    DAL.Controller.SurveyDataController.Instance.SurveyUpsert
+                    (SurveyToUpsert.SurveyPublicId,
+                    SurveyToUpsert.RelatedProvider.RelatedCompany.CompanyPublicId,
+                    SurveyToUpsert.RelatedSurveyConfig.ItemId,
+                    SurveyToUpsert.Enable);
+
+                //upsert survey info
+                SurveyToUpsert = SurveyInfoUpsert(SurveyToUpsert);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = SurveyToUpsert;
+                LogManager.ClientLog.AddLog(oLog);
+            }
+
+            return SurveyToUpsert;
+        }
+
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyInfoUpsert(ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert)
+        {
+            if (!string.IsNullOrEmpty(SurveyToUpsert.SurveyPublicId) &&
+                SurveyToUpsert.SurveyInfo != null &&
+                SurveyToUpsert.SurveyInfo.Count > 0)
+            {
+                SurveyToUpsert.SurveyInfo.All(sinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        sinf.ItemInfoId = DAL.Controller.SurveyDataController.Instance.SurveyInfoUpsert
+                            (sinf.ItemInfoId > 0 ? (int?)sinf.ItemInfoId : null,
+                            SurveyToUpsert.SurveyPublicId,
+                            sinf.ItemInfoType.ItemId,
+                            sinf.Value,
+                            sinf.LargeValue,
+                            sinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = sinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "SurveyPublicId",
+                            Value = SurveyToUpsert.SurveyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return SurveyToUpsert;
+        }
+
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyItemUpsert(ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert)
+        {
+            if (!string.IsNullOrEmpty(SurveyToUpsert.SurveyPublicId) &&
+                SurveyToUpsert.RelatedSurveyItem != null &&
+                SurveyToUpsert.RelatedSurveyItem.Count > 0)
+            {
+                SurveyToUpsert.RelatedSurveyItem.All(rsi =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        rsi.ItemId = DAL.Controller.SurveyDataController.Instance.SurveyItemUpsert
+                            (rsi.ItemId > 0 ? (int?)rsi.ItemId : null,
+                            SurveyToUpsert.SurveyPublicId,
+                            rsi.RelatedSurveyConfigItem.ItemId,
+                            rsi.Enable);
+
+                        //update survey item info
+                        rsi = SurveyItemInfoUpsert(rsi);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = rsi;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "SurveyPublicId",
+                            Value = SurveyToUpsert.SurveyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return SurveyToUpsert;
+        }
+
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyItemModel SurveyItemInfoUpsert(ProveedoresOnLine.SurveyModule.Models.SurveyItemModel SurveyItemToUpsert)
+        {
+            if (SurveyItemToUpsert.ItemId > 0 &&
+                SurveyItemToUpsert.ItemInfo != null &&
+                SurveyItemToUpsert.ItemInfo.Count > 0)
+            {
+                SurveyItemToUpsert.ItemInfo.All(siinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        siinf.ItemInfoId = DAL.Controller.SurveyDataController.Instance.SurveyItemInfoUpsert
+                            (siinf.ItemInfoId > 0 ? (int?)siinf.ItemInfoId : null,
+                            SurveyItemToUpsert.ItemId,
+                            siinf.ItemInfoType.ItemId,
+                            siinf.Value,
+                            siinf.LargeValue,
+                            siinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = siinf;
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return SurveyItemToUpsert;
+        }
+
+
+        #endregion
     }
 }

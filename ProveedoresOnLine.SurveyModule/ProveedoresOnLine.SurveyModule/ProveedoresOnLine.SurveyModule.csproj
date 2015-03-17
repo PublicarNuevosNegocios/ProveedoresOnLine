@@ -75,6 +75,8 @@
     <Compile Include="Interfaces\ISurveyData.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\SurveyConfigModel.cs" />
+    <Compile Include="Models\SurveyItemModel.cs" />
+    <Compile Include="Models\SurveyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
