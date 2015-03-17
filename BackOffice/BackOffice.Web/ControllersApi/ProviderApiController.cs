@@ -2264,6 +2264,48 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public BackOffice.Models.Provider.TrackingViewModel CPTrackingUpsert
+            (string CPTrackingUpsert,
+            string CustomerProviderId,
+            string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.TrackingViewModel oReturn = null;
+
+            if (CustomerProviderId != string.Empty && CustomerProviderId != null && 
+                CPTrackingUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Provider.TrackingViewModel oDataToUpsert =
+                    (BackOffice.Models.Provider.TrackingViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Provider.TrackingViewModel));
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
+
+                CustomerProviderModel oCustomerProvider = new CustomerProviderModel()
+                {
+                    CustomerProviderId = Convert.ToInt32(CustomerProviderId),
+                    CustomerProviderInfo = new List<GenericItemInfoModel>(){
+                        new GenericItemInfoModel(){
+                            ItemInfoId = Convert.ToInt32(oDataToUpsert.CPI_CustomerProviderInfoId),
+                            ItemInfoType = new CatalogModel(){
+                                ItemId = Convert.ToInt32(oDataToUpsert.RelatedCustomerProviderInfo.ItemInfoType.ItemId),
+                            },
+                            LargeValue = oDataToUpsert.RelatedCustomerProviderInfo.LargeValue,
+                            Enable = oDataToUpsert.CPI_Enable,
+                        },
+                    }
+                };
+
+                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderInfoUpsert(oCustomerProvider);
+            }
+            return oReturn;
+        }
+
+
+        [HttpPost]
+        [HttpGet]
         public List<BackOffice.Models.Provider.ProviderCustomerViewModel> GetAllCustomers
         (string GetAllCustomers,
             string ProviderPublicId)
