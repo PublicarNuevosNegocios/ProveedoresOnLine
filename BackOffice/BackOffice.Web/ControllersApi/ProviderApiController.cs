@@ -2077,7 +2077,7 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.ProviderCustomerViewModel> CPCustomerProvider
         (string CPCustomerProvider,
             string ProviderPublicId,
-            int CustomerRelated,
+            string CustomerRelated,
             int AddCustomer,
             string ViewEnable)
         {
@@ -2085,8 +2085,18 @@ namespace BackOffice.Web.ControllersApi
 
             if (CPCustomerProvider == "true")
             {
-                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, CustomerRelated, Convert.ToBoolean(ViewEnable));
+                ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider = new CustomerModel();
+
+                if (Convert.ToBoolean(ViewEnable) == true)
+                {
+                    oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, CustomerRelated == "2" ? null : CustomerRelated);
+                }
+                else
+                {
+                    oCustomerByProvider =
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, "0");
+                }               
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
@@ -2315,7 +2325,7 @@ namespace BackOffice.Web.ControllersApi
             if (GetAllCustomers == "true")
             {
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerByProvider =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, 0, true);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerByProvider(ProviderPublicId, null);
 
                 List<CustomerProviderModel> oCustomerProvider = new List<CustomerProviderModel>();
 
