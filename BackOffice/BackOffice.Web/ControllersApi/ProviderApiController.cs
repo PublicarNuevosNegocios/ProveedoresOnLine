@@ -2129,14 +2129,29 @@ namespace BackOffice.Web.ControllersApi
         public List<BackOffice.Models.Provider.TrackingViewModel> CPCustomerProviderInfo
         (string CPCustomerProviderInfo,
             int CustomerProviderId,
-            string ViewEnable)
+            string ViewEnable,
+            string PageNumber,
+            string RowCount)
         {
             List<BackOffice.Models.Provider.TrackingViewModel> oReturn = new List<Models.Provider.TrackingViewModel>();
 
             if (CPCustomerProviderInfo == "true")
             {
+                int oPageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber.Trim());
+
+                int oRowCount = Convert.ToInt32(string.IsNullOrEmpty(RowCount) ?
+                    BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value :
+                    RowCount.Trim());
+
+                int oTotalRows;
+
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerProviderInfo =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(CustomerProviderId, Convert.ToBoolean(ViewEnable));
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider
+                        (CustomerProviderId, 
+                        Convert.ToBoolean(ViewEnable),
+                        oPageNumber,
+                        oRowCount,
+                        out oTotalRows);
 
                 if (oCustomerProviderInfo != null && oCustomerProviderInfo.RelatedProvider.Count > 0)
                 {
@@ -2145,7 +2160,7 @@ namespace BackOffice.Web.ControllersApi
                                     x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring)
                         .All(x =>
                     {
-                        oReturn.Add(new TrackingViewModel(x));
+                        oReturn.Add(new TrackingViewModel(x, oTotalRows));
                         return true;
                     });
                 }
@@ -2270,6 +2285,48 @@ namespace BackOffice.Web.ControllersApi
                     ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerModel);
                 }
             }
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Provider.ProviderCustomerViewModel CPCustomerProviderUpdate
+            (string CPCustomerProviderUpdate,
+            string ProviderPublicId)
+        {
+            BackOffice.Models.Provider.ProviderCustomerViewModel oReturn = new ProviderCustomerViewModel();
+
+            if (CPCustomerProviderUpdate == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Provider.ProviderCustomerViewModel oDataToUpsert =
+                    (BackOffice.Models.Provider.ProviderCustomerViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Provider.ProviderCustomerViewModel));
+
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oProvider = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(ProviderPublicId);
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oCustomer = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(oDataToUpsert.CP_CustomerPublicId);
+
+                CustomerModel oCustomerProvider = new CustomerModel()
+                {
+                    RelatedCompany = oCustomer,
+                    RelatedProvider = new List<CustomerProviderModel>(){
+                        new CustomerProviderModel ()
+                        {
+                            CustomerProviderId = Convert.ToInt32(oDataToUpsert.CP_CustomerProviderId),
+                            RelatedProvider = oProvider,
+                            Status = new CatalogModel(){
+                                ItemId = Convert.ToInt32(oDataToUpsert.CP_StatusId),
+                            },
+                            Enable = Convert.ToBoolean(oDataToUpsert.CP_Enable),
+                        },
+                    },
+                };
+
+                ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CustomerProviderUpsert(oCustomerProvider);
+            }
+
+            return oReturn;
         }
 
         [HttpPost]

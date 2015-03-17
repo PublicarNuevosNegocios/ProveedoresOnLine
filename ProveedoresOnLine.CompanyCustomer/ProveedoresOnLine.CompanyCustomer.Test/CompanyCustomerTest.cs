@@ -20,10 +20,12 @@ namespace ProveedoresOnLine.CompanyCustomer.Test
         [TestMethod]
         public void GetCustomerInfoByProvider()
         {
-            CompanyCustomer.Models.Customer.CustomerModel oReturn =
-                CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(118, false);
+            int TotalRows = 0;
 
-            Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1);
+            CompanyCustomer.Models.Customer.CustomerModel oReturn =
+                CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(118, true, 0, 1000000, out TotalRows);
+
+            Assert.AreEqual(true, oReturn.RelatedProvider.Count >= 1 && TotalRows > 0);
         }
     }
 }

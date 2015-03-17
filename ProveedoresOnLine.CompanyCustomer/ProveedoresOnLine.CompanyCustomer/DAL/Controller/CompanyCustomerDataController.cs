@@ -52,9 +52,9 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.Controller
             return DataFactory.GetCustomerByProvider(ProviderPublicId, vCustomerRelated);
         }
 
-        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.GetCustomerInfoByProvider(CustomerProviderId, Enable);
+            return DataFactory.GetCustomerInfoByProvider(CustomerProviderId, Enable, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion

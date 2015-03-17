@@ -116,12 +116,16 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             return oReturn;
         }
 
-        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable)
+        public CompanyCustomer.Models.Customer.CustomerModel GetCustomerInfoByProvider(int CustomerProviderId, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
+            TotalRows = 0;
+
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerProviderId", CustomerProviderId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -136,6 +140,8 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
                 oReturn = new Models.Customer.CustomerModel()
                 {
                     RelatedProvider = new List<Models.Customer.CustomerProviderModel>()

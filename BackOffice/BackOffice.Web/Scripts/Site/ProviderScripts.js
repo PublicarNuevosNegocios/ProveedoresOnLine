@@ -5689,6 +5689,7 @@ var Provider_CustomerInfoObject = {
     ProviderPublicId: '',
     ProviderCustomerInfoType: '',
     CustomerProviderId: '',
+    PageSize: '',
 
     ProviderOptions: new Array(),
 
@@ -5696,6 +5697,7 @@ var Provider_CustomerInfoObject = {
         this.ObjectId = vInitiObject.ObjectId;
         this.ProviderPublicId = vInitiObject.ProviderPublicId;
         this.ProviderCustomerInfoType = vInitiObject.ProviderCustomerInfoType;
+        this.PageSize = vInitObject.PageSize;
         $.each(vInitiObject.ProviderOptions, function (item, value) {
             Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
         });
@@ -5799,7 +5801,7 @@ var Provider_CustomerInfoObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderUpdate=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -5807,7 +5809,8 @@ var Provider_CustomerInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
+                                $('#' + Provider_CustomerInfoObject.ObjectId).data('kendoGrid').dataSource.read();
+                                Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');                                
                             },
                             error: function (result) {
                                 options.error(result);
@@ -5864,7 +5867,7 @@ var Provider_CustomerInfoObject = {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').kendoGrid({
             editable: true,
             navigatable: false,
-            pageable: false,
+            pageable: true,
             scrollable: true,
             selectable: true,
             toolbar: [
@@ -5873,7 +5876,15 @@ var Provider_CustomerInfoObject = {
                 { name: 'ViewEnable', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnablesTemplate').html() },
             ],
             dataSource: {
+                pageSize: Provider_SearchObject.PageSize,
+                serverPaging: true,
                 schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
                     model: {
                         id: "CPI_CustomerProviderInfoId",
                         fields: {
@@ -5888,7 +5899,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ViewEnable=' + Provider_CustomerInfoObject.GetViewEnableInfo(),
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ViewEnable=' + Provider_CustomerInfoObject.GetViewEnableInfo() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5901,7 +5912,7 @@ var Provider_CustomerInfoObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPTrackingUpsert=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ProviderPublicId=' + Provider_CustomerInfoObject.CustomerProviderId,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPTrackingUpsert=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
