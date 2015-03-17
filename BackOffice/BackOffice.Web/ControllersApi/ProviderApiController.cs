@@ -2118,14 +2118,15 @@ namespace BackOffice.Web.ControllersApi
         [HttpGet]
         public List<BackOffice.Models.Provider.TrackingViewModel> CPCustomerProviderInfo
         (string CPCustomerProviderInfo,
-            int CustomerProviderId)
+            int CustomerProviderId,
+            string ViewEnable)
         {
             List<BackOffice.Models.Provider.TrackingViewModel> oReturn = new List<Models.Provider.TrackingViewModel>();
 
             if (CPCustomerProviderInfo == "true")
             {
                 ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel oCustomerProviderInfo =
-                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(CustomerProviderId);
+                    ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.GetCustomerInfoByProvider(CustomerProviderId, Convert.ToBoolean(ViewEnable));
 
                 if (oCustomerProviderInfo != null && oCustomerProviderInfo.RelatedProvider.Count > 0)
                 {

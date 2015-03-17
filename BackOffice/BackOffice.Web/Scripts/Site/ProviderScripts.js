@@ -5685,6 +5685,8 @@ var Provider_CustomerInfoObject = {
     ObjectId: '',
     ProviderPublicId: '',
     ProviderCustomerInfoType: '',
+    CustomerProviderId: '',
+
     ProviderOptions: new Array(),
 
     Init: function (vInitiObject) {
@@ -5744,6 +5746,10 @@ var Provider_CustomerInfoObject = {
 
     GetViewEnable: function () {
         return $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+    GetViewEnableInfo: function () {
+        return $('#' + Provider_CustomerInfoObject.ObjectId + 'Detail_ViewEnable').length > 0 ? $('#' + Provider_CustomerInfoObject.ObjectId + 'Detail_ViewEnable').is(':checked') : true;
     },
 
     RenderCustomerByProvider: function () {
@@ -5810,22 +5816,16 @@ var Provider_CustomerInfoObject = {
             change: function (e) {
                 var selectedRows = this.select();
                 for (var i = 0; i < selectedRows.length; i++) {
-                    Provider_CustomerInfoObject.RenderCustomerByProviderDetail(this.dataItem(selectedRows[i]).CP_CustomerProviderId);
+                    Provider_CustomerInfoObject.CustomerProviderId = this.dataItem(selectedRows[i]).CP_CustomerProviderId;
+                    Provider_CustomerInfoObject.RenderCustomerByProviderDetail();
+
+                    //config grid infro visible enable event
+                    $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnable').change(function () {
+                        $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').data('kendoGrid').dataSource.read();
+                    });
                 }
             },
             columns: [{
-                field: 'CP_Customer',
-                title: 'Comprador',
-                width: '100px',
-            }, {
-                field: 'CP_Status',
-                title: 'Estado',
-                width: '100px',
-            }, {
-                field: 'CP_CustomerPublicId',
-                title: 'Id Comprador',
-                width: '100px',
-            }, {
                 field: 'CP_Enable',
                 title: 'Asociado',
                 width: '100px',
@@ -5840,17 +5840,35 @@ var Provider_CustomerInfoObject = {
                     }
                     return oReturn;
                 },
+            }, {
+                field: 'CP_Customer',
+                title: 'Comprador',
+                width: '100px',
+            }, {
+                field: 'CP_Status',
+                title: 'Estado',
+                width: '100px',
+            }, {
+                field: 'CP_CustomerPublicId',
+                title: 'Id Comprador',
+                width: '100px',
             }],
         });
     },
 
-    RenderCustomerByProviderDetail: function (oData) {
+    RenderCustomerByProviderDetail: function () {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').kendoGrid({
             editable: false,
             navigatable: false,
             pageable: false,
             scrollable: true,
             selectable: true,
+            toolbar: [
+                { name: 'save', text: 'Guardar' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'ViewEnable', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
             dataSource: {
                 schema: {
                     model: {
@@ -5866,7 +5884,7 @@ var Provider_CustomerInfoObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + oData,
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ViewEnable=' + Provider_CustomerInfoObject.GetViewEnableInfo(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5886,6 +5904,21 @@ var Provider_CustomerInfoObject = {
                 }
             },
             columns: [{
+                field: 'CPI_Enable',
+                title: 'Habilitado',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    debugger;
+                    if (dataItem.CPI_Enable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
                 field: 'CPI_TrackingType',
                 title: 'Tipo de Seguimiento',
                 width: '100px',
@@ -5911,7 +5944,7 @@ var Provider_CustomerInfoObject = {
 
     CreateCustomerByProviderStatus: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=0&vAddCustomer=1',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProvider=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerRelated=0&AddCustomer=1&ViewEnable=true',
             dataType: "json",
             type: "POST",
             success: function (result) {
