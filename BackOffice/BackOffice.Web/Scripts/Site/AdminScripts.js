@@ -199,6 +199,7 @@
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.GIT_Country != null) {
+                        debugger;
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
@@ -210,7 +211,6 @@
                     return oReturn;
                 },
                 editor: function (container, options) {
-
                     // create an input element
                     var input = $('<input/>');
                     var isSelected = false;
@@ -221,14 +221,12 @@
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'GIT_Country',
-
                         change: function (e) {
                             if (isSelected == false) {
                                 options.model['GIT_Country'] = e.sender._old;
                                 options.model.dirty = true;
                             }
                         },
-
                         select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             isSelected = true;
@@ -247,7 +245,7 @@
 
                                     $.ajax({
                                         //url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=&CityId=' + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
-                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=65000&IsAutoComplete=true',
+                                        url: BaseUrl.ApiUrl + '/UtilApi?GetAllGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=' + '&PageNumber=0' + '&RowCount=20&IsAutoComplete=true',
                                         dataType: 'json',
                                         success: function (result) {
                                             options.success(result);
