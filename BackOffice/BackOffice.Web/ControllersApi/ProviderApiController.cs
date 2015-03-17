@@ -1598,7 +1598,7 @@ namespace BackOffice.Web.ControllersApi
             , string ViewEnable)
         {
             List<BackOffice.Models.Provider.ProviderLegalViewModel> oReturn = new List<Models.Provider.ProviderLegalViewModel>();
-
+            int TotalRows = 0;
             if (LILegalInfoGetByType == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oLegalInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.LegalGetBasicInfo
@@ -1606,13 +1606,13 @@ namespace BackOffice.Web.ControllersApi
                     string.IsNullOrEmpty(LegalInfoType) ? null : (int?)Convert.ToInt32(LegalInfoType.Trim()), Convert.ToBoolean(ViewEnable));
 
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oICA = null;
-                int TotalRows = 0;
+               
                 if (LegalInfoType == ((int)BackOffice.Models.General.enumLegalType.RUT).ToString())
                 {
                     oICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out TotalRows);
                 }
                 if (oLegalInfo != null)
-                {
+                {                   
                     oLegalInfo.All(x =>
                     {
                         oReturn.Add(new BackOffice.Models.Provider.ProviderLegalViewModel(x, oICA));
@@ -2058,11 +2058,11 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.Company.Controller.Company.CompanyPartialIndex(oProvider.RelatedCompany.CompanyPublicId, InfoTypeModified);
 
-                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oEconomiActivity = null;
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> osICA = null;
+                int ototal;
+                osICA = ProveedoresOnLine.Company.Controller.Company.CategorySearchByICA(null, 0, 0, out ototal);
 
-                oEconomiActivity = ProveedoresOnLine.Company.Controller.Company.CategorySearchByActivity(null, 0, 0);
-
-                oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), oEconomiActivity);
+                oReturn = new Models.Provider.ProviderLegalViewModel(oProvider.RelatedLegal.FirstOrDefault(), osICA);
             }
 
             return oReturn;
