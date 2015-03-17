@@ -5749,7 +5749,7 @@ var Provider_CustomerInfoObject = {
     },
 
     GetViewEnableInfo: function () {
-        return $('#' + Provider_CustomerInfoObject.ObjectId + 'Detail_ViewEnable').length > 0 ? $('#' + Provider_CustomerInfoObject.ObjectId + 'Detail_ViewEnable').is(':checked') : true;
+        return $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnable').length > 0 ? $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnable').is(':checked') : true;
     },
 
     RenderCustomerByProvider: function () {
