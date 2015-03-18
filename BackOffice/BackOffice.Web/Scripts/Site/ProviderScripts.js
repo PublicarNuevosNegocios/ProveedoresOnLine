@@ -6058,7 +6058,6 @@ var Provider_CustomerInfoObject = {
             navigatable: false,
             pageable: true,
             scrollable: true,
-            selectable: true,
             toolbar: [
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
@@ -6078,9 +6077,9 @@ var Provider_CustomerInfoObject = {
                         id: "CPI_CustomerProviderInfoId",
                         fields: {
                             CPI_CustomerProviderInfoId: { editable: false, nullable: true },
-                            CPI_TrackingType: { editable: false },
+                            CPI_TrackingType: { editable: false, nullable: true },
                             CPI_Tracking: { editable: false },
-                            CPI_LastModify: { editable: false },
+                            CPI_CreateDate: { editable: false, nullable: true },
                             CPI_Enable: { editable: true, type: "boolean" },
                         },
                     }
@@ -6129,7 +6128,7 @@ var Provider_CustomerInfoObject = {
             columns: [{
                 field: 'CPI_Enable',
                 title: 'Habilitado',
-                width: '100px',
+                width: '60px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.CPI_Enable == true) {
@@ -6143,23 +6142,27 @@ var Provider_CustomerInfoObject = {
             }, {
                 field: 'CPI_TrackingType',
                 title: 'Tipo de Seguimiento',
-                width: '100px',
+                width: '110px',
             }, {
                 field: 'CPI_Tracking.Description',
                 title: 'Seguimiento',
-                width: '100px',
+                width: '300px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '"></textarea>')
+                        .appendTo(container);
+                },
             }, {
                 field: 'CPI_Tracking.User',
                 title: 'Usuario',
                 width: '100px',
             }, {
-                field: 'CPI_LastModify',
-                title: 'Fecha de Edición',
+                field: 'CPI_CreateDate',
+                title: 'Fecha de Creación',
                 width: '100px',
             }, {
                 field: 'CPI_CustomerProviderInfoId',
                 title: 'Id',
-                width: '50px',
+                width: '30px',
             }],
         });
     },
