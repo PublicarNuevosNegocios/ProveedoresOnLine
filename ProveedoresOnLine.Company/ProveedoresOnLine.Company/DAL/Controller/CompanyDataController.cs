@@ -166,6 +166,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.CurrencyExchangeInsert(IssueDate, MoneyTypeFrom, MoneyTypeTo, Rate);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByCountryAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchByCountryAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
+        }
         #endregion
 
         #region Company CRUD

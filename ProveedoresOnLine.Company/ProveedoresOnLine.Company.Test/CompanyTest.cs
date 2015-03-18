@@ -264,5 +264,19 @@ namespace ProveedoresOnLine.Company.Test
 
             Assert.AreEqual(true, oReturn.Count >= 10);
         }
+
+        [TestMethod]
+        public void CategorySearchByConutryAdmin()
+        {
+            int oTotalRows;
+
+            List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchByCountryAdmin
+                ("Colo", 0, 20, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
+
+            Assert.AreEqual(true, oTotalRows > 0);
+        }
     }
 }

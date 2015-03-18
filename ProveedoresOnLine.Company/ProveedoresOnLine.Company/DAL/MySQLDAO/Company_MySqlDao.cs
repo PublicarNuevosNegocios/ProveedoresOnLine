@@ -1224,6 +1224,52 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<GeographyModel> CategorySearchByCountryAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchCountryAdmin",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<GeographyModel> oReturn = null;
+            TotalRows = 0;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn =
+                     (from g in response.DataTableResult.AsEnumerable()
+                      where !g.IsNull("CountryId")
+                      group g by new
+                      {
+                          CountryId = g.Field<int>("CountryId"),
+                          CountryName = g.Field<string>("CountryName"),
+                          CountryEnable = g.Field<UInt64>("CountryEnable") == 1 ? true : false,
+                      } into gg
+                      select new GeographyModel()
+                      {
+                          Country = new GenericItemModel()
+                          {
+                              ItemId = gg.Key.CountryId,
+                              ItemName = gg.Key.CountryName,
+                              Enable = gg.Key.CountryEnable,                             
+                          }                         
+                      }).ToList();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Company CRUD
