@@ -2025,7 +2025,7 @@ var Provider_CompanyHSEQObject = {
                             C_EndDateCertification: { editable: true },
                             C_EndDateCertificationId: { editable: false },
 
-                            C_CCS: { editable: true, validation: { required: true }, type: "number" },
+                            C_CCS: { editable: true, type: "number" },
                             C_CCSId: { editable: false },
 
                             C_CertificationFile: { editable: true },
