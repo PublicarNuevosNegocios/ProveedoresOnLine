@@ -651,12 +651,15 @@ namespace BackOffice.Web.ControllersApi
                 new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
             if (CategorySearchByARL == "true")
             {
-                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany
-                    (SearchParam,
-                    0,
-                    Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
-                                    BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
-                                    ].Value));
+                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+
+                oReturn.Add(new GenericItemModel()
+                {
+                    ItemId = 0,
+                    ItemName = "Sin Documento",
+                });
+
+                oReturn = oReturn.Where(x => x.ItemName.ToLower().Contains(SearchParam)).Select(x => x).ToList();
             }
             return oReturn;
         }
