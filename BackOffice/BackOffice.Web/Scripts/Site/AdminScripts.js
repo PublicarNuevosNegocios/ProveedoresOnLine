@@ -109,7 +109,7 @@
                     model: {
                         id: 'GIT_CountryId',
                         fields: {
-                            GIT_Country: { editable: true, nullable: false },
+                            GIT_Country: { editable: true, nullable: false, validation: { required: true } },
 
                             GIT_CountryDirespCode: { editable: true, nullable: true },
                             GIT_CountryDirespCodeId: { editable: false },
@@ -119,7 +119,7 @@
 
                             GIT_CountryEnable: { editable: true, type: 'boolean', defaultValue: true },
 
-                            AG_City: { editable: true, nullable: false },
+                            AG_City: { editable: true, nullable: false, validation: { required: true } },
                             AG_CityId: { editable: false },
 
                             GI_CapitalType: { editable: true, nullable: false },
@@ -130,7 +130,7 @@
 
                             GI_CityEnable: { editable: true, type: 'boolean', defaultValue: true },
 
-                            GIT_State: { editable: true, nullable: false },
+                            GIT_State: { editable: true, nullable: false, validation: { required: true } },
                             GIT_StateId: { editable: false },
 
                             GIT_StateDirespCode: { editable: true, nullable: false },
@@ -261,7 +261,7 @@
             }, {
                 field: 'GIT_CountryDirespCode',
                 title: 'País DirespCode',
-                width: '130px',
+                width: '250px',
             }, {
                 field: 'GIT_CountryEnable',
                 title: 'Enable Pais',
