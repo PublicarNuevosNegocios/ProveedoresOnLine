@@ -234,6 +234,12 @@ var Customer_RulesObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 }
             },
             columns: [{

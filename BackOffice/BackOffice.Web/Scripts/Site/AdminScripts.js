@@ -191,6 +191,12 @@
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'GIT_Country',
@@ -414,6 +420,12 @@
                             }
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -656,6 +668,12 @@
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'CR_CompanyRule',
@@ -755,6 +773,12 @@
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'R_Rule',
@@ -851,6 +875,12 @@
                             }
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -968,6 +998,12 @@
                             }
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -1306,6 +1342,12 @@
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'G_Group',
@@ -1404,6 +1446,12 @@
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'T_TreeId',
@@ -1497,6 +1545,12 @@
                     update: function (options) {
                         Message('error', 'La TRM no puede ser editada.');
                     }
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{

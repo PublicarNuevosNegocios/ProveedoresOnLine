@@ -327,6 +327,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -514,6 +520,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -782,6 +794,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -1100,6 +1118,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -1483,6 +1507,12 @@ var Provider_CompanyCommercialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -2057,6 +2087,12 @@ var Provider_CompanyHSEQObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -2388,6 +2424,12 @@ var Provider_CompanyHSEQObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -3021,6 +3063,12 @@ var Provider_CompanyHSEQObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -3321,6 +3369,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             change: function (e) {
                 var selectedRows = this.select();
@@ -3739,6 +3793,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -3933,6 +3993,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -4154,6 +4220,12 @@ var Provider_CompanyFinancialObject = {
                             }
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -4572,6 +4644,12 @@ var Provider_LegalInfoObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'Enable',
@@ -4760,6 +4838,12 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -5212,6 +5296,12 @@ var Provider_LegalInfoObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'Enable',
@@ -5390,6 +5480,12 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -5597,6 +5693,12 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -5900,6 +6002,12 @@ var Provider_CustomerInfoObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             change: function (e) {
                 var selectedRows = this.select();
@@ -6010,6 +6118,12 @@ var Provider_CustomerInfoObject = {
                             },
                         })
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
