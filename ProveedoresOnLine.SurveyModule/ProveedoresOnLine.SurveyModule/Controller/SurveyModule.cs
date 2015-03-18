@@ -195,6 +195,17 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return SurveyConfigItemToUpsert;
         }
 
+
+        public static List<ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel> SurveyConfigSearch(string CustomerPublicId, string SearchParam, bool Enable, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.SurveyDataController.Instance.SurveyConfigSearch(CustomerPublicId, SearchParam, Enable, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public static List<Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem)
+        {
+            return DAL.Controller.SurveyDataController.Instance.SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, ParentSurveyConfigItem);
+        }
+
         #endregion
 
         #region Survey
