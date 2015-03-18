@@ -25,19 +25,18 @@
                                 <span>Fecha de Expedición del Certificado: @Model.RelatedLegalInfo.Where(x => x.CP_CertificateExpeditionDate != null).Select(x => x.CP_CertificateExpeditionDate).FirstOrDefault()</span>
                             }
                         </label>
-                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault())
-                            || Model.RelatedLegalInfo.Where(x => x.CP_UndefinedDate != null).Select(x => x.CP_UndefinedDate).FirstOrDefault() != "False")
-                        {
-                            <label>
-                                Vigente Hasta
-                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()</span>
-                            </label>
-                        }                        
-                        else
+                        @if (Model.RelatedLegalInfo.Where(x => x.CP_UndefinedDate != null).Select(x => x.CP_UndefinedDate).FirstOrDefault() == "1")
                         {
                             <label>
                                 Indefinido
                                 <span>Si</span>
+                            </label>
+                        }
+                        else if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()))
+                        {
+                            <label>
+                                Vigente Hasta
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()</span>
                             </label>
                         }
 
