@@ -127,6 +127,7 @@
                 ObjectId: 'divCustomerProviderStatus',
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 ProviderCustomerInfoType: '@((int)BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring)',
+                PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProviderOptions: vProviderOptions,
             });
             Provider_CustomerInfoObject.RenderAsync();
