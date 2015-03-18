@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using ProveedoresOnLine.SurveyModule.Models;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 {
@@ -102,6 +104,151 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             });
 
             return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public List<SurveyConfigModel> SurveyConfigSearch
+            (string CustomerPublicId, string SearchParam, bool Enable, int PageNumber, int RowCount, out int TotalRows)
+        {
+            TotalRows = 0;
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_SurveyConfig_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<SurveyConfigModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from sc in response.DataTableResult.AsEnumerable()
+                     where !sc.IsNull("SurveyConfigId")
+                     group sc by new
+                     {
+                         SurveyConfigId = sc.Field<int>("SurveyConfigId"),
+                         SurveyName = sc.Field<string>("SurveyName"),
+                         SurveyConfigEnable = sc.Field<UInt64>("SurveyConfigEnable") == 1 ? true : false,
+                         SurveyConfigLastModify = sc.Field<DateTime>("SurveyConfigLastModify"),
+                         SurveyConfigCreateDate = sc.Field<DateTime>("SurveyConfigCreateDate"),
+                     } into scg
+                     select new SurveyConfigModel()
+                     {
+                         ItemId = scg.Key.SurveyConfigId,
+                         ItemName = scg.Key.SurveyName,
+                         Enable = scg.Key.SurveyConfigEnable,
+                         LastModify = scg.Key.SurveyConfigLastModify,
+                         CreateDate = scg.Key.SurveyConfigCreateDate,
+
+                         ItemInfo =
+                            (from scinf in response.DataTableResult.AsEnumerable()
+                             where !scinf.IsNull("SurveyConfigInfoId") &&
+                                    scinf.Field<int>("SurveyConfigId") == scg.Key.SurveyConfigId
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = scinf.Field<int>("SurveyConfigInfoId"),
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = scinf.Field<int>("SurveyConfigInfoTypeId"),
+                                     ItemName = scinf.Field<string>("SurveyConfigInfoTypeName"),
+                                 },
+                                 Value = scinf.Field<string>("SurveyConfigInfoValue"),
+                                 LargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
+                                 ValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
+                                 LastModify = scinf.Field<DateTime>("SurveyConfigInfoLastModify"),
+                                 CreateDate = scinf.Field<DateTime>("SurveyConfigInfoCreateDate"),
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        public List<GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSurveyConfigId", SurveyConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyConfigItem", ParentSurveyConfigItem));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_SurveyConfigItem_GetBySurveyConfigId",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from scit in response.DataTableResult.AsEnumerable()
+                     where !scit.IsNull("SurveyConfigId")
+                     group scit by new
+                     {
+                         SurveyConfigItemId = scit.Field<int>("SurveyConfigItemId"),
+                         SurveyConfigItemName = scit.Field<string>("SurveyConfigItemName"),
+                         SurveyConfigItemTypeId = scit.Field<int>("SurveyConfigItemTypeId"),
+                         SurveyConfigItemTypeName = scit.Field<string>("SurveyConfigItemTypeName"),
+                         ParentSurveyConfigItem = scit.Field<int?>("ParentSurveyConfigItem"),
+                         SurveyConfigItemEnable = scit.Field<UInt64>("SurveyConfigItemEnable") == 1 ? true : false,
+                         SurveyConfigItemLastModify = scit.Field<DateTime>("SurveyConfigItemLastModify"),
+                         SurveyConfigItemCreateDate = scit.Field<DateTime>("SurveyConfigItemCreateDate"),
+
+                     } into scitg
+                     select new GenericItemModel()
+                     {
+                         ItemId = scitg.Key.SurveyConfigItemId,
+                         ItemName = scitg.Key.SurveyConfigItemName,
+                         ItemType = new CatalogModel()
+                         {
+                             ItemId = scitg.Key.SurveyConfigItemTypeId,
+                             ItemName = scitg.Key.SurveyConfigItemTypeName,
+                         },
+                         ParentItem = ParentSurveyConfigItem == null ? null :
+                            new GenericItemModel()
+                            {
+                                ItemId = (int)scitg.Key.ParentSurveyConfigItem,
+                            },
+                         Enable = scitg.Key.SurveyConfigItemEnable,
+                         LastModify = scitg.Key.SurveyConfigItemLastModify,
+                         CreateDate = scitg.Key.SurveyConfigItemCreateDate,
+
+                         ItemInfo =
+                            (from scitinf in response.DataTableResult.AsEnumerable()
+                             where !scitinf.IsNull("SurveyConfigItemInfoId") &&
+                                    scitinf.Field<int>("SurveyConfigItemId") == scitg.Key.SurveyConfigItemId
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = scitinf.Field<int>("SurveyConfigItemInfoId"),
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = scitinf.Field<int>("SurveyConfigItemInfoTypeId"),
+                                     ItemName = scitinf.Field<string>("SurveyConfigItemInfoName"),
+                                 },
+                                 Value = scitinf.Field<string>("SurveyConfigItemInfoValue"),
+                                 LargeValue = scitinf.Field<string>("SurveyConfigItemInfoLargeValue"),
+                                 LastModify = scitinf.Field<DateTime>("SurveyConfigItemInfoLastModify"),
+                                 CreateDate = scitinf.Field<DateTime>("SurveyConfigItemInfoCreateDate"),
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
         }
 
         #endregion
