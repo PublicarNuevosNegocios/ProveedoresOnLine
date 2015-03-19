@@ -4849,7 +4849,7 @@ var Provider_LegalInfoObject = {
             columns: [{
                 field: 'Enable',
                 title: 'Visible en Market Place',
-                width: '155px',
+                width: '180px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -4893,7 +4893,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_LargeContributorReceipt',
                 title: 'Gran contribuyente resolución',
-                width: '190px',
+                width: '210px',
             }, {
                 field: 'R_LargeContributorDate',
                 title: 'Gran Contribuyente Fecha',
@@ -4914,7 +4914,7 @@ var Provider_LegalInfoObject = {
             }, {
                 field: 'R_SelfRetainerReciept',
                 title: 'Autorretenedor Resolucion',
-                width: '160px',
+                width: '188px',
             }, {
                 field: 'R_SelfRetainerDate',
                 title: 'Autorretenedor Fecha',
