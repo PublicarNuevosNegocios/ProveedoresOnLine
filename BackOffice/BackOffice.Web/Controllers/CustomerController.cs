@@ -169,6 +169,46 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #region SurveyConfig
+
+        public virtual ActionResult SCSurveyConfigUpsert(string CustomerPublicId)
+        {
+            //generic model info
+            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            {
+                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.CustomerMenu = GetCustomerMenu(oModel);
+
+            return View(oModel);
+        }
+
+        public virtual ActionResult SCSurveyConfigItemUpsert(string CustomerPublicId, string SurveyConfigId)
+        {
+            //generic model info
+            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            {
+                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                },
+            };
+
+            //get provider menu
+            oModel.CustomerMenu = GetCustomerMenu(oModel);
+
+            return View(oModel);
+        }
+
+        #endregion
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetCustomerMenu
@@ -237,6 +277,39 @@ namespace BackOffice.Web.Controllers
                     Position = 0,
                     IsSelected =
                         (oCurrentAction == MVC.Customer.ActionNames.ROCustomerUserUpsert &&
+                        oCurrentController == MVC.Customer.Name),
+                });
+
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                //add menu
+                oReturn.Add(oMenuAux);
+
+                #endregion
+
+                #region survey config
+
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Evaluación de desempeño",
+                    Position = 2,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //Company User
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Evaluaciones",
+                    Url = Url.Action
+                        (MVC.Customer.ActionNames.SCSurveyConfigUpsert,
+                        MVC.Customer.Name,
+                        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        ((oCurrentAction == MVC.Customer.ActionNames.SCSurveyConfigUpsert ||
+                        oCurrentAction == MVC.Customer.ActionNames.SCSurveyConfigItemUpsert) &&
                         oCurrentController == MVC.Customer.Name),
                 });
 

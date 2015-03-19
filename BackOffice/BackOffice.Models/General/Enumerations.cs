@@ -197,7 +197,7 @@
         EX_Client = 302005,
         EX_ContractNumber = 302006,
         EX_ContractValue = 302007,
-        EX_Phone = 302008,        
+        EX_Phone = 302008,
         EX_ExperienceFile = 302011,
         EX_ContractSubject = 302012,
         EX_EconomicActivity = 302013,
@@ -405,6 +405,15 @@
         Upgrade = 902003,
         Basic_Validate = 902004,
         Full_Validate = 902005,
+    }
+
+    #endregion
+
+    #region Survey
+
+    public enum enumSurveyConfigInfoType
+    {
+        Group = 1201001
     }
 
     #endregion

@@ -208,7 +208,7 @@ var Provider_CompanyContactObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -546,6 +546,17 @@ var Provider_CompanyContactObject = {
                 field: 'ContactName',
                 title: 'Nombre',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.ContactName == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: Pedro Parker</label>';
+                    }
+                    else {
+                        oReturn = dataItem.ContactName;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CP_PersonContactType',
                 title: 'Tipo de representante',
@@ -600,10 +611,32 @@ var Provider_CompanyContactObject = {
                 field: 'CP_IdentificationNumber',
                 title: 'Número de identificación',
                 width: '180px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_IdentificationNumber == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: 79982877</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_IdentificationNumber;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CP_IdentificationCity',
                 title: 'Ciudad de expedicion del documento',
                 width: '180px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_IdentificationCity == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: Bogotá Distrito Capital</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_IdentificationCity;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CP_Phone',
                 title: 'Telefono',
@@ -622,10 +655,32 @@ var Provider_CompanyContactObject = {
                 field: 'CP_Email',
                 title: 'Correo electronico',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_IdentificationCity == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: contacto@publicar.com</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_IdentificationCity;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CP_Negotiation',
                 title: 'Capacidad de negociación',
                 width: '190px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.CP_Negotiation == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: COP 589500000</label>';
+                    }
+                    else {
+                        oReturn = dataItem.CP_Negotiation;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'CP_IdentificationFile',
                 title: 'Doc representante legal.',
@@ -1144,6 +1199,23 @@ var Provider_CompanyContactObject = {
                 field: 'ContactName',
                 title: 'Razón social',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.ContactName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else if (dataItem.ContactName == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: Publicar Multimedia S.A.S.</label>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.ContactName;
+                    }
+                    return oReturn;
+                },
+
             }, {
                 field: 'DT_DistributorType',
                 title: 'Tipo de distribuidor',
@@ -1173,10 +1245,32 @@ var Provider_CompanyContactObject = {
                 field: 'DT_Representative',
                 title: 'Representante comercial',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.DT_Representative == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: Pedro Parker</label>';
+                    }
+                    else {
+                        oReturn = dataItem.DT_Representative;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'DT_Email',
                 title: 'Correo electronico',
                 width: '200px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.DT_Email == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: contacto@publicar.com</label>';
+                    }
+                    else {
+                        oReturn = dataItem.DT_Email;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'DT_Phone',
                 title: 'Telefono',
@@ -1190,7 +1284,6 @@ var Provider_CompanyContactObject = {
                     else {
                         oReturn = dataItem.DT_Phone;
                     }
-
                     return oReturn;
                 },
             }, {
@@ -1198,15 +1291,18 @@ var Provider_CompanyContactObject = {
                 title: 'Ciudad',
                 width: '180px',
                 template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.DT_CityName != null) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.ContactName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else if (dataItem.ContactName == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: Bogotá Distrito Capital</label>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.DT_CityName;
+                        oReturn = oReturn + dataItem.ContactName;
                     }
                     return oReturn;
                 },
@@ -1362,7 +1458,7 @@ var Provider_CompanyCommercialObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
 
@@ -1954,7 +2050,7 @@ var Provider_CompanyHSEQObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyHSEQObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -2114,10 +2210,13 @@ var Provider_CompanyHSEQObject = {
                 title: 'Empresa Certificadora',
                 width: '190px',
                 template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
+                    var oReturn = '';
                     if (dataItem != null && dataItem.C_CertificationCompanyName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else if (dataItem.C_CertificationCompanyName == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: ABC QUALITY</label>';
                         }
                         else {
                             oReturn = '';
@@ -2169,10 +2268,13 @@ var Provider_CompanyHSEQObject = {
                 title: 'Norma',
                 width: '190px',
                 template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
+                    var oReturn = '';
                     if (dataItem != null && dataItem.C_RuleName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else if (dataItem.C_RuleName == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: ISO 9001</label>';
                         }
                         else {
                             oReturn = '';
@@ -3121,7 +3223,7 @@ var Provider_CompanyHSEQObject = {
             }, {
                 field: 'CA_NumberAccident',
                 title: 'Total de Incidentes (excluye Accidentes Incapacitantes)',
-                width: '292px',
+                width: '368px',
             }, {
                 field: 'CA_NumberAccidentDisabling ',
                 title: 'Número de Accidentes Incapacitantes',
@@ -3302,7 +3404,7 @@ var Provider_CompanyFinancialObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyFinancialObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -4524,7 +4626,7 @@ var Provider_LegalInfoObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_LegalInfoObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -5901,7 +6003,7 @@ var Provider_CustomerInfoObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CustomerInfoObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -6058,7 +6160,6 @@ var Provider_CustomerInfoObject = {
             navigatable: false,
             pageable: true,
             scrollable: true,
-            selectable: true,
             toolbar: [
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
@@ -6078,9 +6179,9 @@ var Provider_CustomerInfoObject = {
                         id: "CPI_CustomerProviderInfoId",
                         fields: {
                             CPI_CustomerProviderInfoId: { editable: false, nullable: true },
-                            CPI_TrackingType: { editable: false },
+                            CPI_TrackingType: { editable: false, nullable: true },
                             CPI_Tracking: { editable: false },
-                            CPI_LastModify: { editable: false },
+                            CPI_CreateDate: { editable: false, nullable: true },
                             CPI_Enable: { editable: true, type: "boolean" },
                         },
                     }
@@ -6129,7 +6230,7 @@ var Provider_CustomerInfoObject = {
             columns: [{
                 field: 'CPI_Enable',
                 title: 'Habilitado',
-                width: '100px',
+                width: '60px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.CPI_Enable == true) {
@@ -6143,23 +6244,27 @@ var Provider_CustomerInfoObject = {
             }, {
                 field: 'CPI_TrackingType',
                 title: 'Tipo de Seguimiento',
-                width: '100px',
+                width: '110px',
             }, {
                 field: 'CPI_Tracking.Description',
                 title: 'Seguimiento',
-                width: '100px',
+                width: '300px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '"></textarea>')
+                        .appendTo(container);
+                },
             }, {
                 field: 'CPI_Tracking.User',
                 title: 'Usuario',
                 width: '100px',
             }, {
-                field: 'CPI_LastModify',
-                title: 'Fecha de Edición',
+                field: 'CPI_CreateDate',
+                title: 'Fecha de Creación',
                 width: '100px',
             }, {
                 field: 'CPI_CustomerProviderInfoId',
                 title: 'Id',
-                width: '50px',
+                width: '30px',
             }],
         });
     },

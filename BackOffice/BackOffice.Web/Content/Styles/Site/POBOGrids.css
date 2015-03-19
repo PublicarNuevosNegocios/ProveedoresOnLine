@@ -62,22 +62,7 @@
             margin: 0px !important;
         }
 /********** ESTO PINTA EL TOOL TIP **********/
-#divGridCompanyContact_kbtooltip,
-#divGridBranch_kbtooltip,
-#divGridExperience_kbtooltip,
-#divBalanceSheet_kbtooltip,
-#divGridBankInfo_kbtooltip,
-#divGridIncomeStatement_kbtooltip,
-#divGridTaxes_kbtooltip,
-#divGridDistributor_kbtooltip,
-#divGridPersonContact_kbtooltip,
-#divGridCertification_kbtooltip,
-#divGridHealtyPolitics_kbtooltip,
-#divGridRiskPolicies_kbtooltip,
-#divGridChaimberOfComerce_kbtooltip,
-#divGridLegalInfo_kbtooltip,
-#divGridLegalInfo_kbtooltip,
-#divGridLegalInfo_kbtooltip
+.divGrid_kbtooltip
 {
     margin: 0px 0px 1px 10px;
     width: 22px;
