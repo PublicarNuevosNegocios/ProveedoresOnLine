@@ -122,5 +122,101 @@ namespace BackOffice.Web.ControllersApi
         }
 
         #endregion
+
+        #region Survey Config
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.SurveyConfigViewModel> SCSurveyConfigSearch
+            (string SurveyConfigSearch,
+            string CustomerPublicId,
+            string SearchParam,
+            string Enable,
+            string PageNumber,
+            string RowCount)
+        {
+            List<BackOffice.Models.Customer.SurveyConfigViewModel> oReturn = new List<Models.Customer.SurveyConfigViewModel>();
+
+            if (SurveyConfigSearch == "true")
+            {
+                int oPageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber.Trim());
+
+                int oRowCount = Convert.ToInt32(string.IsNullOrEmpty(RowCount) ?
+                    BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value :
+                    RowCount.Trim());
+
+                bool oEnable = (!string.IsNullOrEmpty(Enable) && Enable == "true");
+
+                int oTotalRows;
+                List<ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel> oSearchResult = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyConfigSearch
+                    (CustomerPublicId, SearchParam, oEnable, oPageNumber, oRowCount, out oTotalRows);
+
+                if (oSearchResult != null && oSearchResult.Count > 0)
+                {
+                    oSearchResult.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Customer.SurveyConfigViewModel(x));
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.SurveyConfigViewModel SCSurveyConfigUpsert
+            (string SCSurveyConfigUpsert,
+            string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.SurveyConfigViewModel oReturn = null;
+
+            if (SCSurveyConfigUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Customer.SurveyConfigViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.SurveyConfigViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.SurveyConfigViewModel));
+
+                ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel oSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
+                {
+                    RelatedCustomer = new CustomerModel()
+                    {
+                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = CustomerPublicId,
+                        },
+                    },
+                    ItemId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigId.Trim()),
+                    ItemName = oDataToUpsert.SurveyName,
+                    Enable = oDataToUpsert.SurveyEnable,
+                    ItemInfo = new List<GenericItemInfoModel>() 
+                    { 
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.GroupId) ? 0 : Convert.ToInt32(oDataToUpsert.GroupId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumSurveyConfigInfoType.Group
+                            },
+                            Value = oDataToUpsert.Group,
+                            Enable = true,                            
+                        }
+                    },
+                };
+
+                oSurveyConfig = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyConfigUpsert(oSurveyConfig);
+
+                //create return object
+                oReturn = new BackOffice.Models.Customer.SurveyConfigViewModel
+                    (oSurveyConfig);
+            }
+            return oReturn;
+        }
+
+        #endregion
     }
 }
