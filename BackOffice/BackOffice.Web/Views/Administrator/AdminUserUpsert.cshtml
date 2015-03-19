@@ -20,6 +20,7 @@
                 Html.RenderPartial(MVC.Shared.Views._P_ProviderActions, Model);
             }
             <iframe class="POBOAdminIframe" src="@(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_URL_AdminRoles].Value)"></iframe>
+            <div id="loading"></div>
             <div id="divGridLegalInfo"></div>
             @{
                 Model.IsForm = false;

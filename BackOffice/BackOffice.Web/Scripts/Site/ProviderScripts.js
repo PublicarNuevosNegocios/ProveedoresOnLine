@@ -327,6 +327,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -514,6 +520,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -782,6 +794,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -1100,6 +1118,12 @@ var Provider_CompanyContactObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -1483,6 +1507,12 @@ var Provider_CompanyCommercialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -1995,7 +2025,7 @@ var Provider_CompanyHSEQObject = {
                             C_EndDateCertification: { editable: true },
                             C_EndDateCertificationId: { editable: false },
 
-                            C_CCS: { editable: true, validation: { required: true }, type: "number" },
+                            C_CCS: { editable: true, type: "number" },
                             C_CCSId: { editable: false },
 
                             C_CertificationFile: { editable: true },
@@ -2057,6 +2087,12 @@ var Provider_CompanyHSEQObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -2388,6 +2424,12 @@ var Provider_CompanyHSEQObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -3021,6 +3063,12 @@ var Provider_CompanyHSEQObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -3321,6 +3369,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             change: function (e) {
                 var selectedRows = this.select();
@@ -3739,6 +3793,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -3933,6 +3993,12 @@ var Provider_CompanyFinancialObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
             },
             columns: [{
                 field: 'Enable',
@@ -4154,6 +4220,12 @@ var Provider_CompanyFinancialObject = {
                             }
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -4572,6 +4644,12 @@ var Provider_LegalInfoObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'Enable',
@@ -4760,6 +4838,12 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -5212,6 +5296,12 @@ var Provider_LegalInfoObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'Enable',
@@ -5390,6 +5480,12 @@ var Provider_LegalInfoObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             columns: [{
@@ -5598,6 +5694,12 @@ var Provider_LegalInfoObject = {
                         });
                     },
                 },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'Enable',
@@ -5770,14 +5872,16 @@ var Provider_CustomerInfoObject = {
     ProviderPublicId: '',
     ProviderCustomerInfoType: '',
     CustomerProviderId: '',
+    PageSize: '',
 
     ProviderOptions: new Array(),
 
-    Init: function (vInitiObject) {
-        this.ObjectId = vInitiObject.ObjectId;
-        this.ProviderPublicId = vInitiObject.ProviderPublicId;
-        this.ProviderCustomerInfoType = vInitiObject.ProviderCustomerInfoType;
-        $.each(vInitiObject.ProviderOptions, function (item, value) {
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.ProviderPublicId = vInitObject.ProviderPublicId;
+        this.ProviderCustomerInfoType = vInitObject.ProviderCustomerInfoType;
+        this.PageSize = vInitObject.PageSize;
+        $.each(vInitObject.ProviderOptions, function (item, value) {
             Provider_CustomerInfoObject.ProviderOptions[value.Key] = value.Value;
         });
     },
@@ -5844,8 +5948,8 @@ var Provider_CustomerInfoObject = {
             scrollable: true,
             selectable: true,
             toolbar: [
-                { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderStatus();">Agregar Comprador</a>' },
-                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking(null);">Agregar Seguimiento</a>' },
+                { name: 'create_customer', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProvider();">Agregar Comprador</a>' },
+                { name: 'create_tracking', template: '<a class="k-button" href="javascript:Provider_CustomerInfoObject.CreateCustomerByProviderTracking();">Agregar Seguimiento</a>' },
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_ViewEnablesTemplate').html() },
@@ -5854,8 +5958,9 @@ var Provider_CustomerInfoObject = {
             dataSource: {
                 schema: {
                     model: {
+                        id: "CP_CustomerProviderId",
                         fields: {
-                            CP_CustomerProviderId: { editable: false },
+                            CP_CustomerProviderId: { editable: false, nullable: true },
                             CP_CustomerPublicId: { editable: false },
                             CP_Customer: { editable: false },
                             CP_Status: { editable: false },
@@ -5879,7 +5984,7 @@ var Provider_CustomerInfoObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderUpdate=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -5887,6 +5992,7 @@ var Provider_CustomerInfoObject = {
                             },
                             success: function (result) {
                                 options.success(result);
+                                $('#' + Provider_CustomerInfoObject.ObjectId).data('kendoGrid').dataSource.read();
                                 Message('success', 'Se editó la fila con el id ' + options.data.CP_CustomerProviderId + '.');
                             },
                             error: function (result) {
@@ -5895,6 +6001,12 @@ var Provider_CustomerInfoObject = {
                             },
                         });
                     },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
                 },
             },
             change: function (e) {
@@ -5942,33 +6054,40 @@ var Provider_CustomerInfoObject = {
 
     RenderCustomerByProviderDetail: function () {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').kendoGrid({
-            editable: false,
+            editable: true,
             navigatable: false,
-            pageable: false,
+            pageable: true,
             scrollable: true,
-            selectable: true,
             toolbar: [
                 { name: 'save', text: 'Guardar' },
                 { name: 'cancel', text: 'Descartar' },
                 { name: 'ViewEnable', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail_ViewEnablesTemplate').html() },
-                { name: 'ShortcutToolTip', template: $('#' + Provider_CustomerInfoObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
+                pageSize: Provider_CustomerInfoObject.PageSize,
+                serverPaging: true,
                 schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
                     model: {
+                        id: "CPI_CustomerProviderInfoId",
                         fields: {
-                            CPI_CustomerProviderInfoId: { editable: false },
-                            CPI_TrackingType: { editable: false },
+                            CPI_CustomerProviderInfoId: { editable: false, nullable: true },
+                            CPI_TrackingType: { editable: false, nullable: true },
                             CPI_Tracking: { editable: false },
-                            CPI_LastModify: { editable: false },
-                            CPI_Enable: { editable: false },
+                            CPI_CreateDate: { editable: false, nullable: true },
+                            CPI_Enable: { editable: true, type: "boolean" },
                         },
                     }
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ViewEnable=' + Provider_CustomerInfoObject.GetViewEnableInfo(),
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderInfo=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ViewEnable=' + Provider_CustomerInfoObject.GetViewEnableInfo() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -5979,18 +6098,37 @@ var Provider_CustomerInfoObject = {
                             },
                         });
                     },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProviderApi?CPTrackingUpsert=true&CustomerProviderId=' + Provider_CustomerInfoObject.CustomerProviderId + '&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.CPI_CustomerProviderInfoId + '.');
+                                $('#' + Provider_CustomerInfoObject.ObjectId + '_Detail').data('kendoGrid').dataSource.read();
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.CPI_CustomerProviderInfoId + '.');
+                            },
+                        })
+                    },
                 },
-            },
-            change: function (e) {
-                var selectedRows = this.select();
-                for (var i = 0; i < selectedRows.length; i++) {
-                    Provider_CustomerInfoObject.CreateCustomerByProviderTracking(this.dataItem(selectedRows[i]));
-                }
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
             },
             columns: [{
                 field: 'CPI_Enable',
                 title: 'Habilitado',
-                width: '100px',
+                width: '60px',
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.CPI_Enable == true) {
@@ -6004,30 +6142,34 @@ var Provider_CustomerInfoObject = {
             }, {
                 field: 'CPI_TrackingType',
                 title: 'Tipo de Seguimiento',
-                width: '100px',
+                width: '110px',
             }, {
                 field: 'CPI_Tracking.Description',
                 title: 'Seguimiento',
-                width: '100px',
+                width: '300px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '"></textarea>')
+                        .appendTo(container);
+                },
             }, {
                 field: 'CPI_Tracking.User',
                 title: 'Usuario',
                 width: '100px',
             }, {
-                field: 'CPI_LastModify',
-                title: 'Fecha de Edición',
+                field: 'CPI_CreateDate',
+                title: 'Fecha de Creación',
                 width: '100px',
             }, {
                 field: 'CPI_CustomerProviderInfoId',
                 title: 'Id',
-                width: '50px',
+                width: '30px',
             }],
         });
     },
 
-    CreateCustomerByProviderStatus: function () {
+    CreateCustomerByProvider: function () {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProvider=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerRelated=0&AddCustomer=1&ViewEnable=true',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProvider=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerRelated=2&AddCustomer=1&ViewEnable=true',
             dataType: "json",
             type: "POST",
             success: function (result) {
@@ -6044,7 +6186,7 @@ var Provider_CustomerInfoObject = {
                 }
             },
             error: function (result) {
-                options.error(result);
+                Message('error', result);
             }
         });
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Dialog').dialog({
@@ -6077,14 +6219,14 @@ var Provider_CustomerInfoObject = {
         });
     },
 
-    CreateCustomerByProviderTracking: function (TrackingInfo) {
+    CreateCustomerByProviderTracking: function () {
 
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').text('');
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').text('');
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').text('');
 
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProviderStatus=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&vCustomerRelated=1&vAddCustomer=0',
+            url: BaseUrl.ApiUrl + '/ProviderApi?CPCustomerProvider=true&ProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&CustomerRelated=1&AddCustomer=0&ViewEnable=true',
             dataType: "json",
             type: "POST",
             success: function (result) {
@@ -6102,15 +6244,6 @@ var Provider_CustomerInfoObject = {
             }
         });
 
-        if (TrackingInfo != null) {
-            if (TrackingInfo.CPI_TrackingType != null && TrackingInfo.CPI_TrackingType == "Seguimientos internos") {
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').append(TrackingInfo.CPI_Tracking)
-            }
-            else if (TrackingInfo.CPI_TrackingType != null && TrackingInfo.CPI_TrackingType == "Seguimientos del comprador") {
-                $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').append(TrackingInfo.CPI_Tracking)
-            }
-        }
-
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Tracking_Dialog').dialog({
             width: 500,
         });
@@ -6122,12 +6255,6 @@ var Provider_CustomerInfoObject = {
         $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking input:checked').each(function () {
             oCompanyPublicList.push($(this).attr('id'));
         });
-        //var oCustomers = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_List_Tracking').val();
-        //var oInternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val();
-        //var oExternalTracking = $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val();
-        //var oStatusId = $('#' + Provider_CustomerInfoObject.ObjectId + '_Status').val();
-
-        //url: BaseUrl.ApiUrl + '/ProviderApi?UpsertCustomerInfoByProvider=true&oProviderPublicId=' + Provider_CustomerInfoObject.ProviderPublicId + '&oCompanyPublicList=' + oCompanyPublicList + '&oStatusId=' + oStatusId + '&oInternalTracking=' + oInternalTracking + '&oExternalTracking=' + oExternalTracking,
 
         //update
         $.ajax({
@@ -6145,7 +6272,7 @@ var Provider_CustomerInfoObject = {
                 Provider_CustomerInfoObject.RenderCustomerByProvider();
             },
             error: function (result) {
-                Message('error', result);
+                Message('error', 'Error. Para continuar debe seleccionar una empresa.');
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Internal_Tracking').val('');
                 $('#' + Provider_CustomerInfoObject.ObjectId + '_Customer_Tracking').val('');
             }

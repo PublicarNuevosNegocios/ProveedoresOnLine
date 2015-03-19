@@ -66,7 +66,19 @@ namespace BackOffice.Web.ControllersApi
 
                 if (IsAutoComplete == "true")
                 {
-                    oReturn = oReturn.Where(x => x.GIT_Country.ToLower().Contains(SearchParam.ToLower())).Select(x => x).ToList();
+                    oReturn = new List<AdminCategoryViewModel>();
+
+                    List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CountryAdmin =
+                    ProveedoresOnLine.Company.Controller.Company.CategorySearchByCountryAdmin
+                    (SearchParam, PageNumber, Convert.ToInt32(RowCount), out oTotalCount);
+
+                    CountryAdmin.All(x =>
+                    {
+                        x.City = new GenericItemModel();
+                        x.State = new GenericItemModel();
+                        oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                        return true;
+                    });                                  
                 }
                 else
                 {
@@ -639,12 +651,15 @@ namespace BackOffice.Web.ControllersApi
                 new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
             if (CategorySearchByARL == "true")
             {
-                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany
-                    (SearchParam,
-                    0,
-                    Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[
-                                    BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault
-                                    ].Value));
+                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchByARLCompany(null, 0, 0);
+
+                oReturn.Add(new GenericItemModel()
+                {
+                    ItemId = 0,
+                    ItemName = "Sin Documento",
+                });
+
+                oReturn = oReturn.Where(x => x.ItemName.ToLower().Contains(SearchParam)).Select(x => x).ToList();
             }
             return oReturn;
         }

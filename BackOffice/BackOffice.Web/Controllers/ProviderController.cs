@@ -965,7 +965,8 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_UndefinedDate,
                                 },
-                                Value = Request["UndefinedDate"] == null ? "off" : Request["UndefinedDate"],
+                                Value = Request["UndefinedDate"] != null && Request["UndefinedDate"] == "on" ? "1" : "0",
+                                Enable = true,
                             },
                             new GenericItemInfoModel()
                             {
