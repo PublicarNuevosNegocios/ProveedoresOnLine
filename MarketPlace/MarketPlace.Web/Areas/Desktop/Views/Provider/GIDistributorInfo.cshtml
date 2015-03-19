@@ -45,13 +45,20 @@
                                 <span>@item.DT_Phone</span>
                             </label>
                         }
+                        @if (!string.IsNullOrEmpty(item.DT_Country))
+                        {
+                            <label>
+                                País
+                                <span>@item.DT_Country</span>
+                            </label>
+                        }
                         @if (!string.IsNullOrEmpty(item.DT_City))
                         {
                             <label>
                                 Ciudad
                                 <span>@item.DT_City</span>
                             </label>
-                        }
+                        }                        
                         @if (!string.IsNullOrEmpty(item.DT_DateIssue))
                         {
                             <label>

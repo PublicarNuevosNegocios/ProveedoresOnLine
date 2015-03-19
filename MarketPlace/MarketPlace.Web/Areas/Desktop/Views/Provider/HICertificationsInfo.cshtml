@@ -21,8 +21,8 @@
                     <li>
                         <label class="POMPProviderDataSubtitle">
                             @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
-                            {
-                                <span>@item.C_Rule.ItemName, Alcance: @item.C_Scope</span>
+                            {                                   
+                                <span>Norma:   @item.C_Rule.ItemName </span>
                             }
                         </label>
                         @if (item.C_CertificationCompany != null)
@@ -31,7 +31,14 @@
                                 Empresa Certificadora
                                 <span>@item.C_CertificationCompany.ItemName</span>
                             </label>
-                        }
+                        }                       
+                        @if (item.C_Scope != null)
+                        {
+                            <label>
+                                Alcance
+                                <span>@item.C_Scope</span>
+                            </label>
+                        }    
                         @if (!string.IsNullOrEmpty(item.C_StartDateCertification))
                         {
                             <label>

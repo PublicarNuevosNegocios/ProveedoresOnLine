@@ -4987,7 +4987,7 @@ var Provider_LegalInfoObject = {
                 field: 'R_ICAName',
                 title: 'ICA',
                 width: '350px',
-                template: function (dataItem) {
+                template: function (dataItem) {                    
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_ICAName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
@@ -5011,11 +5011,11 @@ var Provider_LegalInfoObject = {
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'I_ICACode',
-                        select: function (e) {
+                        select: function (e) {                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['R_ICA'] = selectedItem.I_ICAId;
-                            options.model['R_ICAName'] = selectedItem.I_ICA;
+                            options.model['R_ICAName'] = selectedItem.I_ICACode;
                             //enable made changes
                             options.model.dirty = true;
                         },

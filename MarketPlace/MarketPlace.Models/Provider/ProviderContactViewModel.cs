@@ -418,7 +418,7 @@ namespace MarketPlace.Models.Provider
             }
         }
 
-        private string oDT_City;
+        private string oDT_City;        
         public string DT_City
         {
             get
@@ -430,9 +430,26 @@ namespace MarketPlace.Models.Provider
                                  Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_City).
                                  Select(y => y.Value).
                                  DefaultIfEmpty(string.Empty).
-                                 FirstOrDefault());
+                                 FirstOrDefault());                   
                 }
                 return oDT_City;
+            }
+        }
+        private string oDT_Country;
+        public string DT_Country
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oDT_City))
+                {
+                    oDT_Country = MarketPlace.Models.Company.CompanyUtil.GetCountryName(
+                        RelatedContactInfo.ItemInfo.
+                                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.D_City).
+                                 Select(y => y.Value).
+                                 DefaultIfEmpty(string.Empty).
+                                 FirstOrDefault());
+                }
+                return oDT_Country;
             }
         }
 
