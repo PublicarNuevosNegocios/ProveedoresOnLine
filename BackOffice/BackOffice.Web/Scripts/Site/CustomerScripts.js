@@ -133,7 +133,7 @@ var Customer_RulesObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Customer_RulesObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
 
@@ -284,6 +284,246 @@ var Customer_RulesObject = {
                 title: 'Id',
                 width: '100px',
             }, ],
+        });
+    },
+};
+
+/*Customer survey config object*/
+var Customer_SurveyObject = {
+    ObjectId: '',
+    CustomerPublicId: '',
+    PageSize: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.CustomerPublicId = vInitObject.CustomerPublicId;
+        this.PageSize = vInitObject.PageSize;
+    },
+
+    RenderAsync: function (vRenderFunction) {
+
+        //exec render function
+        eval('Customer_SurveyObject.' + vRenderFunction.Function + ';');
+
+        //focus on the grid
+        $('#' + Customer_SurveyObject.ObjectId).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Customer_SurveyObject.ConfigKeyBoard();
+
+        //Config Events
+        Customer_SurveyObject.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('.divGrid_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Customer_SurveyObject.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Customer_SurveyObject.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Customer_SurveyObject.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Customer_SurveyObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+
+    RenderSurveyConfig: function () {
+        $('#' + Customer_SurveyObject.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: true,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'cancel', text: 'Descartar' },
+                { name: 'Search', template: $('#' + Customer_SurveyObject.ObjectId + '_SearchTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Customer_SurveyObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_SurveyObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: Customer_SurveyObject.PageSize,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data != null && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: "SurveyConfigId",
+                        fields: {
+                            SurveyConfigId: { editable: false, nullable: true },
+                            SurveyName: { editable: true, validation: { required: true } },
+                            SurveyEnable: { editable: true },
+
+                            Group: { editable: true },
+                            GroupName: { editable: true },
+                            GroupId: { editable: true },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        var oSearchParam = $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
+
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + oSearchParam + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigUpsert=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigUpsert=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigId + '.');
+                            },
+                        });
+                    },
+                }
+            },
+            editable: "popup",
+            columns: [{
+                field: 'SurveyEnable',
+                title: 'Visible marketplace',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.SurveyEnable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'GroupName',
+                title: 'Grupo',
+                width: '150px',
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'ItemName',
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.ItemName;
+                            options.model['BR_City'] = selectedItem.ItemId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
+            }, {
+                field: 'SurveyName',
+                title: 'Nombre',
+                width: '200px',
+            }, {
+                field: 'SurveyConfigId',
+                title: 'Id',
+                width: '100px',
+            }, {
+                title: "&nbsp;",
+                width: "250px",
+                command: [{
+                    name: 'edit',
+                    text: 'Editar'
+                }, {
+                    name: 'Detail',
+                    template: $('#' + Customer_SurveyObject.ObjectId + '_ShortcutToolTipTemplate').html(),
+                }],
+            }],
         });
     },
 };

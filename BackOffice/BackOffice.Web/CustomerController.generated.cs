@@ -69,6 +69,18 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ROCustomerUserUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SCSurveyConfigUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SCSurveyConfigUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SCSurveyConfigItemUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SCSurveyConfigItemUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CustomerController Actions { get { return MVC.Customer; } }
@@ -88,6 +100,8 @@ namespace BackOffice.Web.Controllers
             public readonly string Index = "Index";
             public readonly string GICustomerUpsert = "GICustomerUpsert";
             public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
+            public readonly string SCSurveyConfigUpsert = "SCSurveyConfigUpsert";
+            public readonly string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -96,6 +110,8 @@ namespace BackOffice.Web.Controllers
             public const string Index = "Index";
             public const string GICustomerUpsert = "GICustomerUpsert";
             public const string ROCustomerUserUpsert = "ROCustomerUserUpsert";
+            public const string SCSurveyConfigUpsert = "SCSurveyConfigUpsert";
+            public const string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
         }
 
 
@@ -115,6 +131,23 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
         }
+        static readonly ActionParamsClass_SCSurveyConfigUpsert s_params_SCSurveyConfigUpsert = new ActionParamsClass_SCSurveyConfigUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SCSurveyConfigUpsert SCSurveyConfigUpsertParams { get { return s_params_SCSurveyConfigUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SCSurveyConfigUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+        }
+        static readonly ActionParamsClass_SCSurveyConfigItemUpsert s_params_SCSurveyConfigItemUpsert = new ActionParamsClass_SCSurveyConfigItemUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SCSurveyConfigItemUpsert SCSurveyConfigItemUpsertParams { get { return s_params_SCSurveyConfigItemUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SCSurveyConfigItemUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string SurveyConfigId = "SurveyConfigId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -128,10 +161,14 @@ namespace BackOffice.Web.Controllers
                 public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
                 public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
+                public readonly string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
+                public readonly string SCSurveyConfigUpsert = "SCSurveyConfigUpsert";
             }
             public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
             public readonly string ROCustomerUserUpsert = "~/Views/Customer/ROCustomerUserUpsert.cshtml";
+            public readonly string SCSurveyConfigItemUpsert = "~/Views/Customer/SCSurveyConfigItemUpsert.cshtml";
+            public readonly string SCSurveyConfigUpsert = "~/Views/Customer/SCSurveyConfigUpsert.cshtml";
         }
     }
 
@@ -172,6 +209,31 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ROCustomerUserUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             ROCustomerUserUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SCSurveyConfigUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SCSurveyConfigUpsert(string CustomerPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SCSurveyConfigUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            SCSurveyConfigUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SCSurveyConfigItemUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string SurveyConfigId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SCSurveyConfigItemUpsert(string CustomerPublicId, string SurveyConfigId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SCSurveyConfigItemUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyConfigId", SurveyConfigId);
+            SCSurveyConfigItemUpsertOverride(callInfo, CustomerPublicId, SurveyConfigId);
             return callInfo;
         }
 

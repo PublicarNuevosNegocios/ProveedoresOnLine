@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Customer.CustomerViewModel
 
 @{
-    ViewBag.Title = "Comprador - usuarios del comprador";
+    ViewBag.Title = "Comprador - encuestas de satisfacción";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -15,12 +15,12 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Usuarios Registrados</label>
+            <label class="POBOSectionTitles">Encuestas de satisfacción</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
-            <div id="divGridCustomerUserRoles"></div>
+            <div id="divGridSurveyConfig"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -33,21 +33,32 @@
 <!--templates by files-->
 <div style="display:none;">
 
-    <div id="divGridCustomerUserRoles_ShortcutToolTipTemplate">
+    <div id="divGridSurveyConfig_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
     </div>
 
-    <div id="divGridCustomerUserRoles_ViewEnablesTemplate">
+    <div id="divGridSurveyConfig_ViewEnablesTemplate">
         <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridRiskPolicies_ViewEnable" type="checkbox" checked="checked" />
+        <input class="POBOProviderGridEnableContact" id="divGridSurveyConfig_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
+    <div id="divGridSurveyConfig_SearchTemplate">
+        <label>Buscar</label>
+        <input id="divGridSurveyConfig_txtSearch" type="text" value="@Request["SearchParam"]" />
+    </div>
+
+    <div id="divGridSurveyConfig_DetailTemplate">
+        <a href="@(Url.Action(
+                MVC.Customer.ActionNames.SCSurveyConfigItemUpsert, 
+                MVC.Customer.Name, 
+                new {
+                    CustomerPublicId= Model.RelatedCustomer.RelatedCompany.CompanyPublicId
+                }) + "&SurveyConfigId=${SurveyConfigId}")">Ver detalle</a>
     </div>
 </div>
 
 @{
     Model.RenderScripts = true;
-
-    string vstrRoleCompanyList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
-        Serialize(Model.RelatedRoleCompanyList);
 }
 
 @section inlinescripts
@@ -56,12 +67,15 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Customer_RulesObject.Init({
-                ObjectId: 'divGridCustomerUserRoles',
+            Customer_SurveyObject.Init({
+                ObjectId: 'divGridSurveyConfig',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
-                RoleCompanyList: @Html.Raw(vstrRoleCompanyList),
+                PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
             });
-            Customer_RulesObject.Render_CustomerUserRules();
+
+            Customer_SurveyObject.RenderAsync({
+                Function: 'RenderSurveyConfig()',
+            });
         });
     </script>
 }

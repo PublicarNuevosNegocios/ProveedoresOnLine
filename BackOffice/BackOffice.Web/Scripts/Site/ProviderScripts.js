@@ -208,7 +208,7 @@ var Provider_CompanyContactObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyContactObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -1338,7 +1338,7 @@ var Provider_CompanyCommercialObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyCommercialObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
 
@@ -1924,7 +1924,7 @@ var Provider_CompanyHSEQObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyHSEQObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -3254,7 +3254,7 @@ var Provider_CompanyFinancialObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CompanyFinancialObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -4452,7 +4452,7 @@ var Provider_LegalInfoObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_LegalInfoObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
@@ -5797,7 +5797,7 @@ var Provider_CustomerInfoObject = {
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
-        $('#' + Provider_CustomerInfoObject.ObjectId + '_kbtooltip').tooltip();
+        $('.divGrid_kbtooltip').tooltip();
 
         $(document.body).keydown(function (e) {
             if (e.altKey && e.shiftKey && e.keyCode == 71) {
