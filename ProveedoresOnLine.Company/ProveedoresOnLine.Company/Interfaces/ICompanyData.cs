@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.Company.Interfaces
     {
         #region Util
 
-        int TreeUpsert(int? TreeId, string TreeName, bool Enable);
+        int TreeUpsert(int? TreeId, string TreeName, int TreeType, bool Enable);
 
         int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable);
 

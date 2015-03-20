@@ -12,13 +12,12 @@ namespace ProveedoresOnLine.Company.Models.Util
 
         public string TreeName { get; set; }
 
+        public CatalogModel TreeType { get; set; }
+
         public bool Enable { get; set; }
 
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }
-
-        //public List<GenericItemModel> RelatedCategory { get; set; }
-
     }
 }

@@ -37,9 +37,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #region Util
 
-        public int TreeUpsert(int? TreeId, string TreeName, bool Enable)
+        public int TreeUpsert(int? TreeId, string TreeName, int TreeType, bool Enable)
         {
-            return DataFactory.TreeUpsert(TreeId, TreeName, Enable);
+            return DataFactory.TreeUpsert(TreeId, TreeName, TreeType, Enable);
         }
 
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)

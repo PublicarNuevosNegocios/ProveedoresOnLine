@@ -52,6 +52,23 @@
 
     #region Util
 
+    public enum enumTreeType
+    {
+        Geography = 114001,
+        CertificationCompany = 114002,
+        Rule = 114003,
+        EconomicActivityDefault = 114004,
+        EconomicActivityCustom = 114005,
+        EconomicActivityGroupDefault = 114006,
+        EconomicActivityGroupCustom = 114007,
+        Resolution = 114008,
+        ARL = 114009,
+        BalanceSheet = 114010,
+        Bank = 114011,
+        ICA = 114012,
+        SurveyGroupCustom = 114013,
+    }
+
     public enum enumCategoryInfoType
     {
         //economic activity info

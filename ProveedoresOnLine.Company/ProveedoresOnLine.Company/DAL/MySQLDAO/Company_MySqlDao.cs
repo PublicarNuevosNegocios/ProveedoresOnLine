@@ -21,12 +21,13 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         #region Util
 
-        public int TreeUpsert(int? TreeId, string TreeName, bool Enable)
+        public int TreeUpsert(int? TreeId, string TreeName, int TreeType, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
             lstParams.Add(DataInstance.CreateTypedParameter("vTreeName", TreeName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeType", TreeType));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -1262,8 +1263,8 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                           {
                               ItemId = gg.Key.CountryId,
                               ItemName = gg.Key.CountryName,
-                              Enable = gg.Key.CountryEnable,                             
-                          }                         
+                              Enable = gg.Key.CountryEnable,
+                          }
                       }).ToList();
             }
 

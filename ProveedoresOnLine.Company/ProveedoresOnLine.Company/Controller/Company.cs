@@ -20,6 +20,7 @@ namespace ProveedoresOnLine.Company.Controller
                 TreeToUpsert.TreeId = DAL.Controller.CompanyDataController.Instance.TreeUpsert
                     (TreeToUpsert.TreeId > 0 ? (int?)TreeToUpsert.TreeId : null,
                     TreeToUpsert.TreeName,
+                    TreeToUpsert.TreeType.ItemId,
                     TreeToUpsert.Enable);
 
                 oLog.IsSuccess = true;
@@ -533,7 +534,7 @@ namespace ProveedoresOnLine.Company.Controller
             return RoleCompanyToUpsert;
         }
 
-        
+
 
         public static UserCompany UserCompanyUpsert(UserCompany UserCompanyToUpsert)
         {
@@ -874,7 +875,7 @@ namespace ProveedoresOnLine.Company.Controller
         #region Restrictive List
 
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> BlackListGetByCompanyPublicId(string CompanyPublicId)
-        { 
+        {
             return DAL.Controller.CompanyDataController.Instance.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
         #endregion
