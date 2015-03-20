@@ -75,6 +75,8 @@
 
     RenderGeoAsync: function (param) {
 
+        var CountrySearched = '';
+
         if (param != true) {
             var vSearchParam = '';
         }
@@ -109,7 +111,7 @@
                     model: {
                         id: 'GIT_CountryId',
                         fields: {
-                            GIT_Country: { editable: true, nullable: false, validation: { required: true } },
+                            GIT_Country: { editable: true, nullable: false, validation: { required: true } },                            
 
                             GIT_CountryDirespCode: { editable: true, nullable: true },
                             GIT_CountryDirespCodeId: { editable: false },
@@ -238,7 +240,7 @@
                             //set server fiel name
                             options.model['GIT_CountryId'] = selectedItem.GIT_CountryId;
                             options.model['GIT_Country'] = selectedItem.GIT_Country;
-
+                            CountrySearched = selectedItem.GIT_Country;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -276,6 +278,67 @@
                 field: 'GIT_State',
                 title: 'Estado (Dpto.)',
                 width: '120px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.GIT_State != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.GIT_State;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    // create an input element
+                    var input = $('<input/>');
+                    var isSelected = false;
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'GIT_State',
+                        change: function (e) {
+                            if (isSelected == false) {
+                                options.model['GIT_State'] = e.sender._old;
+                                options.model.dirty = true;
+                            }
+                        },
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            isSelected = true;
+                            //set server fiel name
+                            options.model['GIT_StateId'] = selectedItem.GIT_StateId;
+                            options.model['GIT_State'] = selectedItem.GIT_State;
+
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {                            
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {                                
+                                read: function (options) {
+                                    debugger;
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?GetState=true&SearchParamCountry=' + CountrySearched + '&SearchParamState=' + options.data.filter.filters[0].value + '&PageNumber=0' + '&RowCount=20',
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'GIT_StateDirespCode',
                 title: 'Estado DirespCode',

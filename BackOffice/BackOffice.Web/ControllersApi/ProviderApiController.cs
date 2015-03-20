@@ -487,7 +487,8 @@ namespace BackOffice.Web.ControllersApi
 
                 List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
 
-                if (ContactType == ((int)BackOffice.Models.General.enumContactType.Brach).ToString())
+                if (ContactType == ((int)BackOffice.Models.General.enumContactType.Brach).ToString() ||
+                    ContactType == ((int)BackOffice.Models.General.enumContactType.Distributor ).ToString())
                 {
                     oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalCount);
                 }

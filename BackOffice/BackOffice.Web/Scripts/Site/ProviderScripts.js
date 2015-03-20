@@ -1222,6 +1222,7 @@ var Provider_CompanyContactObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'ItemName',
                         select: function (e) {
+                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.ItemName;

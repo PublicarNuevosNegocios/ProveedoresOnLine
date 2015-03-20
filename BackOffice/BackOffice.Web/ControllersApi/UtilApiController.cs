@@ -72,13 +72,16 @@ namespace BackOffice.Web.ControllersApi
                     ProveedoresOnLine.Company.Controller.Company.CategorySearchByCountryAdmin
                     (SearchParam, PageNumber, Convert.ToInt32(RowCount), out oTotalCount);
 
-                    CountryAdmin.All(x =>
+                    if (CountryAdmin != null )
                     {
-                        x.City = new GenericItemModel();
-                        x.State = new GenericItemModel();
-                        oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
-                        return true;
-                    });                                  
+                        CountryAdmin.All(x =>
+                        {
+                            x.City = new GenericItemModel();
+                            x.State = new GenericItemModel();
+                            oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                            return true;
+                        });
+                    }                    
                 }
                 else
                 {
@@ -88,6 +91,37 @@ namespace BackOffice.Web.ControllersApi
                         return true;
                     });
                 }
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<AdminCategoryViewModel> GetState
+            (string GetState, string SearchParamCountry, string SearchParamState, int PageNumber, int RowCount)
+        {
+            List<BackOffice.Models.Admin.AdminCategoryViewModel> oReturn = new List<Models.Admin.AdminCategoryViewModel>();
+            if (GetState == "true")
+            {
+                int oTotalCount;
+                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> GeographyAdmin =
+                    ProveedoresOnLine.Company.Controller.Company.CategorySearchByStateAdmin
+                    (SearchParamCountry, SearchParamState, PageNumber, Convert.ToInt32(RowCount), out oTotalCount);
+
+                if (GeographyAdmin != null)
+                {
+                    GeographyAdmin.All(x =>
+                    {
+                        x.City = new GenericItemModel();
+                        oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
+                        return true;
+                    });
+                }
+                oReturn.All(x =>
+                {
+                    x.AllTotalRows = oTotalCount;
+                    return true;
+                });
             }
             return oReturn;
         }
@@ -110,6 +144,8 @@ namespace BackOffice.Web.ControllersApi
                 #region Geolocalization
                 if (CategoryType == "AdminGeo")
                 {
+                    if (string.IsNullOrEmpty(oDataToUpsert.GIT_Country))                    
+                        return oReturn;                    
 
                     GenericItemModel oCountryToUpsert = new GenericItemModel();
                     List<GenericItemInfoModel> oCountryInfo = new List<GenericItemInfoModel>();
@@ -402,7 +438,7 @@ namespace BackOffice.Web.ControllersApi
                         },
                         LargeValue = oDataToUpsert.ECS_ProviderTypeJoin != null ? string.Join(",", oDataToUpsert.ECS_ProviderTypeJoin.Select(x => x.ItemId).Distinct().ToList()) : string.Empty,
                         Enable = true,
-                        
+
                     });
                     if (TreeId != "4")
                     {

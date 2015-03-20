@@ -343,6 +343,11 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByCountryAdmin(SearchParam, PageNumber, RowCount, out TotalRows);
         }
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByStateAdmin(string CountrySearchParam, string StateSearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchByStateAdmin(CountrySearchParam, StateSearchParam, PageNumber, RowCount, out TotalRows);
+        }
         #endregion
 
         #region Company CRUD

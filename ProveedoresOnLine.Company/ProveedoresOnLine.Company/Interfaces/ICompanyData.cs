@@ -65,6 +65,8 @@ namespace ProveedoresOnLine.Company.Interfaces
         int CurrencyExchangeInsert(DateTime IssueDate, int MoneyTypeFrom, int MoneyTypeTo, decimal Rate);
 
         List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByCountryAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
+        List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByStateAdmin(string CountrySearchParam, string StateSearchParam, int PageNumber, int RowCount, out int TotalRows);
         #endregion
 
         #region Company CRUD
