@@ -1292,17 +1292,17 @@ var Provider_CompanyContactObject = {
                 width: '180px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.ContactName != null) {
+                    if (dataItem != null && dataItem.DT_CityName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
                             oReturn = '<span class="k-dirty"></span>';
                         }
-                        else if (dataItem.ContactName == '') {
+                        else if (dataItem.DT_CityName == '') {
                             oReturn = '<label class="PlaceHolder">Ej: Bogotá Distrito Capital</label>';
                         }
                         else {
                             oReturn = '';
                         }
-                        oReturn = oReturn + dataItem.ContactName;
+                        oReturn = oReturn + dataItem.DT_CityName;
                     }
                     return oReturn;
                 },
