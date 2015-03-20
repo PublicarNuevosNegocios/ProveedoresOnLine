@@ -24,7 +24,7 @@
                             <label class="POMPProviderDataSubtitle">
                                 @if (!string.IsNullOrEmpty(item.R_ICAName))
                                 {
-                                    <span>@item.R_ICAId - @item.R_ICAName</span>
+                                    <span>@item.R_ICAName</span>
                                 }
                             </label>
                             @if (!string.IsNullOrEmpty(item.R_PersonType))
@@ -34,10 +34,21 @@
                                     <span>@item.R_PersonType</span>
                                 </label>
                             }
+                            <label>
+                                Gran Contribuyente
+                                @if (item.R_LargeContributor == true)
+                                {
+                                    <span>Si</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </label>
                             @if (!string.IsNullOrEmpty(item.R_LargeContributorReceipt))
                             {
                                 <label>
-                                    Resolución Gran Contribuyente 
+                                    Resolución Gran Contribuyente
                                     <span>@item.R_LargeContributorReceipt</span>
                                 </label>
                             }

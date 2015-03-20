@@ -158,7 +158,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                      TrackingName = cpi.Field<string>("TrackingName"),
                                      TrackingValue = cpi.Field<string>("TrackingValue"),
                                      Enable = cpi.Field<UInt64>("Enable") == 1 ? true : false,
-                                     LastModify = cpi.Field<DateTime>("LastModify"),
+                                     CreateDate = cpi.Field<DateTime>("CreateDate"),
                                  } into cpinf
                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                  {
@@ -171,7 +171,7 @@ namespace ProveedoresOnLine.CompanyCustomer.DAL.MySQLDAO
                                      },
                                      LargeValue = cpinf.Key.TrackingValue,
                                      Enable = cpinf.Key.Enable,
-                                     LastModify = cpinf.Key.LastModify,
+                                     CreateDate = cpinf.Key.CreateDate,
                                  }).ToList()
                         }
                     }

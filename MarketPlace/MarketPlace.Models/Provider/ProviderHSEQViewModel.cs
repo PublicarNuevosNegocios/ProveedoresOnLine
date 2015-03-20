@@ -40,7 +40,7 @@ namespace MarketPlace.Models.Provider
                 {
                     oC_Rule = MarketPlace.Models.Company.CompanyUtil.Rule.
                         Where(x => x.ItemId.ToString() == RelatedHSEQInfo.ItemInfo.
-                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_CertificationCompany).
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_Rule).
                                         Select(y => y.Value).
                                         DefaultIfEmpty(string.Empty).
                                         FirstOrDefault()).
@@ -127,7 +127,7 @@ namespace MarketPlace.Models.Provider
                 {
                     oC_Scope = RelatedHSEQInfo.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.C_Scope).
-                        Select(y => y.Value).
+                        Select(y => y.LargeValue).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
                 }

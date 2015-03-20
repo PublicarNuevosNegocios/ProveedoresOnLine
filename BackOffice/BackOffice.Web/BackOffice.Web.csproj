@@ -117,6 +117,9 @@
     <Reference Include="ProveedoresOnLine.FileManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.FileManager\developer\ProveedoresOnLine.FileManager.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.SurveyModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
+    </Reference>
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\LinqToExcel_x64.1.10.1\lib\Remotion.dll</HintPath>
@@ -1090,6 +1093,8 @@
     <Content Include="Views\Shared\_C_CustomerMenu.cshtml" />
     <Content Include="Views\Shared\_C_CustomerActions.cshtml" />
     <Content Include="Views\Provider\LIOrganizationStructureUpsert.cshtml" />
+    <Content Include="Views\Customer\SCSurveyConfigUpsert.cshtml" />
+    <Content Include="Views\Customer\SCSurveyConfigItemUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

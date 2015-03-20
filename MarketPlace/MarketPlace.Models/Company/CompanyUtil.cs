@@ -62,6 +62,21 @@ namespace MarketPlace.Models.Company
         }
         private static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oAllCities;
 
+        private static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oAllCountries;
+        private static List<ProveedoresOnLine.Company.Models.Util.GeographyModel> AllCountries
+        {
+            get
+            {
+                if (oAllCountries == null)
+                {
+                    int oTotalRows;
+                    oAllCountries = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography
+                        (null, null, 0, 0, out oTotalRows);
+                }
+                return oAllCountries;
+            }
+        }
+
         /// <summary>
         /// get city name by city id
         /// </summary>
@@ -75,6 +90,20 @@ namespace MarketPlace.Models.Company
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
         }
+
+        /// <summary>
+        /// get Contry name by city id
+        /// </summary>
+        /// <param name="vCityId">city id</param>
+        /// <returns></returns>
+        public static string GetCountryName(string vCityId)
+        {
+            return AllCountries.
+                        Where(ci => ci.City != null && ci.City.ItemId.ToString() == vCityId).
+                        Select(ci => ci.Country.ItemName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+        }       
 
         #endregion
 
@@ -142,7 +171,7 @@ namespace MarketPlace.Models.Company
         {
             return ICA.
                         Where(ci => ci.ItemId.ToString() == vICAId).
-                        Select(ci => ci.ItemName).
+                        Select(ci => ci.ItemName +"-"+ (ci.ItemInfo != null ? ci.ItemInfo.FirstOrDefault().Value : "")).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
         }

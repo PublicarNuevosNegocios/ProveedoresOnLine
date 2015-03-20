@@ -342,8 +342,6 @@ namespace MarketPlace.Web.Controllers
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
-            int oTotalRows;
-
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
@@ -370,9 +368,6 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.ContactCompanyInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPContactGetBasicInfo(ProviderPublicId, (int)enumContactType.Distributor);
                 oModel.RelatedGeneralInfo = new List<ProviderContactViewModel>();
-
-                List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oCities = null;
-                oCities = ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeography(null, null, 0, 0, out oTotalRows);
 
                 if (oModel.ContactCompanyInfo != null)
                 {
@@ -455,8 +450,8 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedLiteProvider.RelatedProvider.RelatedCommercial =
                     ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCommercialGetBasicInfo
-                    (ProviderPublicId, 
-                    (int)enumCommercialType.Experience, 
+                    (ProviderPublicId,
+                    (int)enumCommercialType.Experience,
                     MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
                 oModel.RelatedComercialInfo = new List<ProviderComercialViewModel>();

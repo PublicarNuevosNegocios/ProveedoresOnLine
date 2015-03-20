@@ -17,24 +17,9 @@ namespace BackOffice.Models.Provider
 
         public string CPI_TrackingType { get { return RelatedCustomerProviderInfo.ItemInfoType.ItemName.ToString(); } }
 
-        public TrackingDetailViewModel CPI_Tracking
-        {
-            get
-            {
-                if (oCPI_Tracking == null &&
-                    !string.IsNullOrEmpty(RelatedCustomerProviderInfo.LargeValue) &&
-                    (RelatedCustomerProviderInfo.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring ||
-                    RelatedCustomerProviderInfo.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring))
-                {
-                    oCPI_Tracking = (TrackingDetailViewModel)(new System.Web.Script.Serialization.JavaScriptSerializer()).
-                        Deserialize(RelatedCustomerProviderInfo.LargeValue, typeof(TrackingDetailViewModel));
-                }
-                return oCPI_Tracking;
-            }
-        }
-        private TrackingDetailViewModel oCPI_Tracking;
+        public TrackingDetailViewModel CPI_Tracking { get; set; }
 
-        public string CPI_LastModify { get { return RelatedCustomerProviderInfo.LastModify.ToString(); } }
+        public string CPI_CreateDate { get { return RelatedCustomerProviderInfo.CreateDate.ToString(); } }
 
         public bool CPI_Enable { get; set; }
 
@@ -45,6 +30,14 @@ namespace BackOffice.Models.Provider
             RelatedCustomerProviderInfo = oRelatedCustomerProviderInfo;
 
             CPI_Enable = RelatedCustomerProviderInfo.Enable;
+
+            if (!string.IsNullOrEmpty(RelatedCustomerProviderInfo.LargeValue) &&
+                    (RelatedCustomerProviderInfo.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.CustomerMonitoring ||
+                    RelatedCustomerProviderInfo.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumProviderCustomerType.InternalMonitoring))
+            {
+                CPI_Tracking = (TrackingDetailViewModel)(new System.Web.Script.Serialization.JavaScriptSerializer()).
+                        Deserialize(RelatedCustomerProviderInfo.LargeValue, typeof(TrackingDetailViewModel));
+            }            
 
             TotalRows = oTotalRows;
         }

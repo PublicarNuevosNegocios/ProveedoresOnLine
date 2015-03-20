@@ -2360,7 +2360,7 @@ namespace BackOffice.Web.ControllersApi
                             ItemInfoType = new CatalogModel(){
                                 ItemId = Convert.ToInt32(oDataToUpsert.RelatedCustomerProviderInfo.ItemInfoType.ItemId),
                             },
-                            LargeValue = oDataToUpsert.RelatedCustomerProviderInfo.LargeValue,
+                            LargeValue = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(oDataToUpsert.CPI_Tracking),
                             Enable = oDataToUpsert.CPI_Enable,
                         },
                     }
