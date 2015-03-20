@@ -983,7 +983,7 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem.BR_Phone == '') {
-                        oReturn = '<label class="PlaceHolder">Ej: 7666777</label>';
+                        oReturn = '<label class="PlaceHolder">Ej: (57) 3213232 ext 22</label>';
                     }
                     else {
                         oReturn = dataItem.BR_Phone;
