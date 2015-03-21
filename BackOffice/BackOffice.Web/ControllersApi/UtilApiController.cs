@@ -1,4 +1,5 @@
 ﻿using BackOffice.Models.Admin;
+using BackOffice.Models.General;
 using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
@@ -491,6 +492,11 @@ namespace BackOffice.Web.ControllersApi
                     oTreeModel = new TreeModel()
                     {
                         TreeId = string.IsNullOrEmpty(oDataToUpsert.T_TreeId) ? 0 : Convert.ToInt32(oDataToUpsert.T_TreeId),
+                        TreeType = new CatalogModel 
+                        {
+                            ItemId = (int)enumTreeType.EconomicActivityCustom,
+                            ItemEnable = oDataToUpsert.T_TreeEnable, 
+                        },
                         TreeName = oDataToUpsert.T_TreeName,
                         Enable = oDataToUpsert.T_TreeEnable,
                     };
@@ -506,7 +512,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         ItemId = 0,
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
-
+                        
                         ItemName = oDataToUpsert.T_TreeName + "_" + "Activity Default",
                         Enable = true,
                         ItemInfo = new List<GenericItemInfoModel>(),
