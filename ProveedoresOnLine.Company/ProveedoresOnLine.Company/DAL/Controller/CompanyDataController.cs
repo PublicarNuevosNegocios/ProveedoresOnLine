@@ -42,6 +42,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.TreeUpsert(TreeId, TreeName, TreeType, Enable);
         }
 
+        public List<Models.Util.TreeModel> TreeGetByType(int TreeType)
+        {
+            return DataFactory.TreeGetByType(TreeType);
+        }
+
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             return DataFactory.CategoryUpsert(CategoryId, CategoryName, Enable);
@@ -282,5 +287,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
         #endregion
+
     }
 }

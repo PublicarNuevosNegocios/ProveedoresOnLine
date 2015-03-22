@@ -41,6 +41,47 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
+        public List<TreeModel> TreeGetByType(int TreeType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeType", TreeType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Tree_GetByType",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<TreeModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from t in response.DataTableResult.AsEnumerable()
+                     where !t.IsNull("TreeId")
+                     select new TreeModel()
+                     {
+                         TreeId = t.Field<int>("TreeId"),
+                         TreeName = t.Field<string>("TreeName"),
+                         TreeType = new CatalogModel()
+                         {
+                             ItemId = t.Field<int>("TreeTypeId"),
+                             ItemName = t.Field<string>("TreeTypeName"),
+                         },
+                         Enable = t.Field<UInt64>("TreeEnable") == 1 ? true : false,
+                         LastModify = t.Field<DateTime>("TreeLastModify"),
+                         CreateDate = t.Field<DateTime>("TreeCreateDate"),
+                     }).ToList();
+            }
+
+            return oReturn;
+
+        }
+
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();

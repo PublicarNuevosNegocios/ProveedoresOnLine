@@ -14,6 +14,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         int TreeUpsert(int? TreeId, string TreeName, int TreeType, bool Enable);
 
+        List<ProveedoresOnLine.Company.Models.Util.TreeModel> TreeGetByType(int TreeType);
+
         int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable);
 
         int CategoryInfoUpsert(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable);
@@ -114,7 +116,7 @@ namespace ProveedoresOnLine.Company.Interfaces
         ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId);
 
         List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId);
-        
+
         #endregion
 
         #region Restrictive List
