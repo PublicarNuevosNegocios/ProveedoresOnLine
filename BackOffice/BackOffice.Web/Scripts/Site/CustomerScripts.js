@@ -360,6 +360,9 @@ var Customer_SurveyObject = {
         return $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
+    GetSearchParam: function () {
+        return $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
+    },
 
     RenderSurveyConfig: function () {
         $('#' + Customer_SurveyObject.ObjectId).kendoGrid({
@@ -400,10 +403,8 @@ var Customer_SurveyObject = {
                 },
                 transport: {
                     read: function (options) {
-                        var oSearchParam = $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
-
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + oSearchParam + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + Customer_SurveyObject.GetSearchParam() + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);

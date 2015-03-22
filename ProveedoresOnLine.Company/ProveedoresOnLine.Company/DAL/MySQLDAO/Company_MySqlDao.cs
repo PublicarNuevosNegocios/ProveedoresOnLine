@@ -1369,6 +1369,82 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            TotalRows = 0;
+
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Category_SearchBySurveyGroup",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from cat in response.DataTableResult.AsEnumerable()
+                     where !cat.IsNull("CategoryId")
+                     group cat by new
+                     {
+                         CategoryId = cat.Field<int>("CategoryId"),
+                         CategoryName = cat.Field<string>("CategoryName"),
+                         CategoryEnable = cat.Field<UInt64>("CategoryEnable") == 1 ? true : false,
+                         CategoryLastModify = cat.Field<DateTime>("CategoryLastModify"),
+                         CategoryCreateDate = cat.Field<DateTime>("CategoryCreateDate"),
+
+                         ParentCategory = cat.Field<int?>("ParentCategory"),
+                     } into catg
+                     select new GenericItemModel()
+                     {
+                         ItemId = catg.Key.CategoryId,
+                         ItemName = catg.Key.CategoryName,
+                         Enable = catg.Key.CategoryEnable,
+                         LastModify = catg.Key.CategoryLastModify,
+                         CreateDate = catg.Key.CategoryCreateDate,
+
+                         ParentItem = catg.Key.ParentCategory == null ? null :
+                            new GenericItemModel()
+                            {
+                                ItemId = catg.Key.ParentCategory.Value,
+                            },
+
+                         ItemInfo =
+                            (from catinfo in response.DataTableResult.AsEnumerable()
+                             where !catinfo.IsNull("CategoryInfoId") &&
+                                    catinfo.Field<int>("CategoryId") == catg.Key.CategoryId
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = catinfo.Field<int>("CategoryInfoId"),
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = catinfo.Field<int>("CategoryInfoTypeId"),
+                                     ItemName = catinfo.Field<string>("CategoryInfoTypeName"),
+                                 },
+                                 Value = catinfo.Field<string>("CategoryInfoValue"),
+                                 LargeValue = catinfo.Field<string>("CategoryInfoLargeValue"),
+                                 Enable = catinfo.Field<UInt64>("CategoryInfoEnable") == 1 ? true : false,
+                                 LastModify = catinfo.Field<DateTime>("CategoryInfoLastModify"),
+                                 CreateDate = catinfo.Field<DateTime>("CategoryInfoCreateDate"),
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region Company CRUD
@@ -2100,6 +2176,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
         }
 
         #endregion
+
     }
 }
 

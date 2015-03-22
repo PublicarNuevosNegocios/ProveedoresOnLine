@@ -182,6 +182,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByStateAdmin(CountrySearchParam, StateSearchParam, PageNumber, RowCount, out TotalRows);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchBySurveyGroup(TreeId, SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
         #endregion
 
         #region Company CRUD

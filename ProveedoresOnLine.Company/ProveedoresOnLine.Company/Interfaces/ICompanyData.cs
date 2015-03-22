@@ -69,6 +69,9 @@ namespace ProveedoresOnLine.Company.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByCountryAdmin(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByStateAdmin(string CountrySearchParam, string StateSearchParam, int PageNumber, int RowCount, out int TotalRows);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId,string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
         #endregion
 
         #region Company CRUD
