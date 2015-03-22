@@ -73,7 +73,7 @@ namespace BackOffice.Web.ControllersApi
                     ProveedoresOnLine.Company.Controller.Company.CategorySearchByCountryAdmin
                     (SearchParam, PageNumber, Convert.ToInt32(RowCount), out oTotalCount);
 
-                    if (CountryAdmin != null )
+                    if (CountryAdmin != null)
                     {
                         CountryAdmin.All(x =>
                         {
@@ -82,7 +82,7 @@ namespace BackOffice.Web.ControllersApi
                             oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                             return true;
                         });
-                    }                    
+                    }
                 }
                 else
                 {
@@ -145,8 +145,8 @@ namespace BackOffice.Web.ControllersApi
                 #region Geolocalization
                 if (CategoryType == "AdminGeo")
                 {
-                    if (string.IsNullOrEmpty(oDataToUpsert.GIT_Country))                    
-                        return oReturn;                    
+                    if (string.IsNullOrEmpty(oDataToUpsert.GIT_Country))
+                        return oReturn;
 
                     GenericItemModel oCountryToUpsert = new GenericItemModel();
                     List<GenericItemInfoModel> oCountryInfo = new List<GenericItemInfoModel>();
@@ -492,10 +492,10 @@ namespace BackOffice.Web.ControllersApi
                     oTreeModel = new TreeModel()
                     {
                         TreeId = string.IsNullOrEmpty(oDataToUpsert.T_TreeId) ? 0 : Convert.ToInt32(oDataToUpsert.T_TreeId),
-                        TreeType = new CatalogModel 
+                        TreeType = new CatalogModel
                         {
                             ItemId = (int)enumTreeType.EconomicActivityCustom,
-                            ItemEnable = oDataToUpsert.T_TreeEnable, 
+                            ItemEnable = oDataToUpsert.T_TreeEnable,
                         },
                         TreeName = oDataToUpsert.T_TreeName,
                         Enable = oDataToUpsert.T_TreeEnable,
@@ -512,7 +512,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         ItemId = 0,
                         ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel(),
-                        
+
                         ItemName = oDataToUpsert.T_TreeName + "_" + "Activity Default",
                         Enable = true,
                         ItemInfo = new List<GenericItemInfoModel>(),
@@ -1027,6 +1027,30 @@ namespace BackOffice.Web.ControllersApi
                     oReturn.Add(new BackOffice.Models.Admin.AdminCategoryViewModel(x));
                     return true;
                 });
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public static List<GenericItemModel> CategorySearchBySurveyGroupAC
+            (string CategorySearchBySurveyGroupAC,
+            string TreeId,
+            string SearchParam,
+            string RowCount)
+        {
+            List<GenericItemModel> oReturn = new List<GenericItemModel>();
+
+            if (CategorySearchBySurveyGroupAC == "true")
+            {
+                int oTotalRows;
+                oReturn = ProveedoresOnLine.Company.Controller.Company.CategorySearchBySurveyGroup
+                    (Convert.ToInt32(TreeId.Trim()),
+                    SearchParam,
+                    0,
+                    Convert.ToInt32(RowCount),
+                    out oTotalRows);
             }
 
             return oReturn;
