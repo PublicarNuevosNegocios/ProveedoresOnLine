@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ProveedoresOnLine.AsociateProvider.Client">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.AsociateProvider.Client\developer\ProveedoresOnLine.AsociateProvider.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -50,8 +53,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="AsociateProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rsx-AsociateProviderClient.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Rsx-SettingsConfig.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

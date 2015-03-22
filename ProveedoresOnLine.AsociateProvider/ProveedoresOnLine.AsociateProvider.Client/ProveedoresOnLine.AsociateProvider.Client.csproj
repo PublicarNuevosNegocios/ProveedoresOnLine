@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ADO">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\ADO.dll</HintPath>
+    </Reference>
+    <Reference Include="LogManager">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\LogManager\developer\LogManager.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,15 +51,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\AsociateProviderClientController.cs" />
+    <Compile Include="Controller\AsociateProviderClient.cs" />
+    <Compile Include="DAL\Controller\AsociateProviderClientController.cs" />
+    <Compile Include="DAL\Controller\AsociateProviderClientDataFactory.cs" />
+    <Compile Include="DAL\MySQLDAO\AsociateProviderClient_MySqlDao.cs" />
     <Compile Include="Interfaces\IAsociateProviderClientData.cs" />
     <Compile Include="Models\AsociateProviderModel.cs" />
+    <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\ProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)*.dll" "\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.AsociateProvider.Client\developer\" /y
+
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -8,10 +8,10 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Interfaces
 {
     internal interface IAsociateProviderClientData
     {
-        int BOProviderUpsert();
+        int DMProviderUpsert(int ProviderId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumer);
 
-        int DMProviderUpsert();
-
-        void AP_AsociateProvider();
+        int BOProviderUpsert(int ProviderId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber);
+        
+        void AP_AsociateProviderUpsert(string BOProviderPublicId, string DMProviderPublicId, string Email);
     }
 }

@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.AsociateProvider.Client.Models
 {
-    public class AsociateProviderModel
+    public class ProviderModel
     {
-        public int AsociateProviderId { get; set; }
+        public int ProviderId { get; set; }
 
-        public ProviderModel RelatedProviderBO { get; set; }
+        public string ProviderPublicId { get; set; }
 
-        public ProviderModel RelatedProviderDM { get; set; }
-        
-        public string Email { get; set; }
+        public string ProviderName { get; set; }
+
+        public string IdentificationType { get; set; }
+
+        public string IdentificationNumber { get; set; }
 
         public DateTime LastModify { get; set; }
 
         public DateTime CreateDate { get; set; }
-
     }
 }
