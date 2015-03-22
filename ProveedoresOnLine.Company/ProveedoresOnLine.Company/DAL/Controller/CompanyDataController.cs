@@ -42,6 +42,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.TreeUpsert(TreeId, TreeName, TreeType, Enable);
         }
 
+        public List<Models.Util.TreeModel> TreeGetByType(int TreeType)
+        {
+            return DataFactory.TreeGetByType(TreeType);
+        }
+
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             return DataFactory.CategoryUpsert(CategoryId, CategoryName, Enable);
@@ -177,6 +182,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchByStateAdmin(CountrySearchParam, StateSearchParam, PageNumber, RowCount, out TotalRows);
         }
 
+        public List<Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.CategorySearchBySurveyGroup(TreeId, SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
         #endregion
 
         #region Company CRUD
@@ -282,5 +292,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
         #endregion
+
     }
 }

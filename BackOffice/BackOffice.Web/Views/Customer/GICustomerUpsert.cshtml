@@ -203,7 +203,7 @@
                 </li>
                 <li>
                     @{
-                        //aconomic activity info
+                        //economic activity info
 
                         CompanyInfoIdAux = 0;
                         CompanyInfoValueAux = string.Empty;
@@ -232,19 +232,67 @@
                     <label>Actividad economica personalizada</label>
                     <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.CustomEconomicActivity).ToString())_@CompanyInfoIdAux.ToString()">
                         <option value="">Seleccione una opción</option>
-                        @foreach (var Item in Model.CustomActivityTree.OrderBy(x=>x.ItemName))
+                        @foreach (var Item in Model.CustomActivityTree.OrderBy(x=>x.TreeName))
                         {
                             if (Model.RelatedCustomer != null &&
                                 Model.RelatedCustomer.RelatedCompany != null &&
                                 Model.RelatedCustomer.RelatedCompany.CompanyType != null &&
                                 !string.IsNullOrEmpty(CompanyInfoValueAux) &&
-                                Item.ItemId.ToString() == CompanyInfoValueAux)
+                                Item.TreeId.ToString() == CompanyInfoValueAux)
                             {
-                                <option value="@Item.ItemId" selected>@Item.ItemId - @Item.ItemName</option>
+                                <option value="@Item.TreeId" selected>@Item.TreeId - @Item.TreeName</option>
                             }
                             else
                             {
-                                <option value="@Item.ItemId">@Item.ItemId - @Item.ItemName</option>
+                                <option value="@Item.TreeId">@Item.TreeId - @Item.TreeName</option>
+                            }
+                        }
+                    </select>
+                </li>
+                <li>
+                    @{
+                        //survey group info
+
+                        CompanyInfoIdAux = 0;
+                        CompanyInfoValueAux = string.Empty;
+
+                        if (Model.RelatedCustomer != null &&
+                            Model.RelatedCustomer.RelatedCompany != null &&
+                            Model.RelatedCustomer.RelatedCompany.CompanyInfo != null)
+                        {
+                            CompanyInfoIdAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SurveyGroup).
+                                Select(x => x.ItemInfoId).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault();
+
+                            CompanyInfoValueAux = Model.RelatedCustomer.
+                                RelatedCompany.
+                                CompanyInfo.
+                                Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SurveyGroup).
+                                Select(x => x.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault();
+                        }
+                    }
+                    <label>Grupo de encuesta</label>
+                    <select name="CompanyInfoType_@(((int)BackOffice.Models.General.enumCompanyInfoType.SurveyGroup).ToString())_@CompanyInfoIdAux.ToString()">
+                        <option value="">Seleccione una opción</option>
+                        @foreach (var Item in Model.SurveyGroup.OrderBy(x => x.TreeName))
+                        {
+                            if (Model.RelatedCustomer != null &&
+                                Model.RelatedCustomer.RelatedCompany != null &&
+                                Model.RelatedCustomer.RelatedCompany.CompanyType != null &&
+                                !string.IsNullOrEmpty(CompanyInfoValueAux) &&
+                                Item.TreeId.ToString() == CompanyInfoValueAux)
+                            {
+                                <option value="@Item.TreeId" selected>@Item.TreeId - @Item.TreeName</option>
+                            }
+                            else
+                            {
+                                <option value="@Item.TreeId">@Item.TreeId - @Item.TreeName</option>
                             }
                         }
                     </select>

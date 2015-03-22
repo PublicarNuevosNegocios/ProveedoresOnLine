@@ -299,11 +299,13 @@ var Customer_SurveyObject = {
     ObjectId: '',
     CustomerPublicId: '',
     PageSize: '',
+    SurveyGroup: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.PageSize = vInitObject.PageSize;
+        this.SurveyGroup = vInitObject.SurveyGroup;
     },
 
     RenderAsync: function (vRenderFunction) {
@@ -360,6 +362,9 @@ var Customer_SurveyObject = {
         return $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_SurveyObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
+    GetSearchParam: function () {
+        return $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
+    },
 
     RenderSurveyConfig: function () {
         $('#' + Customer_SurveyObject.ObjectId).kendoGrid({
@@ -390,7 +395,7 @@ var Customer_SurveyObject = {
                         fields: {
                             SurveyConfigId: { editable: false, nullable: true },
                             SurveyName: { editable: true, validation: { required: true } },
-                            SurveyEnable: { editable: true },
+                            SurveyEnable: { editable: true, type: 'boolean', defaultValue: true },
 
                             Group: { editable: true },
                             GroupName: { editable: true },
@@ -400,10 +405,8 @@ var Customer_SurveyObject = {
                 },
                 transport: {
                     read: function (options) {
-                        var oSearchParam = $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
-
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + oSearchParam + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigSearch=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId + '&SearchParam=' + Customer_SurveyObject.GetSearchParam() + '&Enable=' + Customer_SurveyObject.GetViewEnable() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -416,7 +419,7 @@ var Customer_SurveyObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigUpsert=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigUpsert=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -434,7 +437,7 @@ var Customer_SurveyObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigUpsert=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigUpsert=true&CustomerPublicId=' + Customer_SurveyObject.CustomerPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -473,43 +476,51 @@ var Customer_SurveyObject = {
                 title: 'Grupo',
                 width: '150px',
                 editor: function (container, options) {
+                    
+                    if (Customer_SurveyObject.SurveyGroup != null && Customer_SurveyObject.SurveyGroup.length > 0) {
 
-                    // create an input element
-                    var input = $('<input/>');
-                    // set its name to the field to which the column is bound ('name' in this case)
-                    input.attr('value', options.model[options.field]);
-                    // append it to the container
-                    input.appendTo(container);
-                    // initialize a Kendo UI AutoComplete
-                    input.kendoAutoComplete({
-                        dataTextField: 'ItemName',
-                        select: function (e) {
-                            var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name
-                            options.model[options.field] = selectedItem.ItemName;
-                            options.model['BR_City'] = selectedItem.ItemId;
-                            //enable made changes
-                            options.model.dirty = true;
-                        },
-                        dataSource: {
-                            type: 'json',
-                            serverFiltering: true,
-                            transport: {
-                                read: function (options) {
-                                    $.ajax({
-                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByGeography=true&SearchParam=' + options.data.filter.filters[0].value + '&CityId=',
-                                        dataType: 'json',
-                                        success: function (result) {
-                                            options.success(result);
-                                        },
-                                        error: function (result) {
-                                            options.error(result);
-                                        }
-                                    });
-                                },
+                        // create an input element
+                        var input = $('<input/>');
+                        // set its name to the field to which the column is bound ('name' in this case)
+                        input.attr('value', options.model[options.field]);
+                        // append it to the container
+                        input.appendTo(container);
+                        // initialize a Kendo UI AutoComplete
+                        input.kendoAutoComplete({
+                            minLength: 0,
+                            dataTextField: 'ItemName',
+                            select: function (e) {
+                                var selectedItem = this.dataItem(e.item.index());
+                                //set server fiel name
+                                options.model[options.field] = selectedItem.ItemName;
+                                options.model['Group'] = selectedItem.ItemId;
+                                //enable made changes
+                                options.model.dirty = true;
+                            },
+                            dataSource: {
+                                type: 'json',
+                                serverFiltering: true,
+                                transport: {
+                                    read: function (options) {
+                                        debugger;
+                                        $.ajax({
+                                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchBySurveyGroupAC=true&TreeId=' + Customer_SurveyObject.SurveyGroup + '&SearchParam=' + options.data.filter.filters[0].value + '&RowCount=' + Customer_SurveyObject.PageSize,
+                                            dataType: 'json',
+                                            success: function (result) {
+                                                options.success(result);
+                                            },
+                                            error: function (result) {
+                                                options.error(result);
+                                            }
+                                        });
+                                    },
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
+                    else {
+                        $('<label>Este comprador no tiene grupo de encuesta relacionado</label>').appendTo(container);
+                    }
                 },
             }, {
                 field: 'SurveyName',

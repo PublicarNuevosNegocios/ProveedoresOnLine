@@ -128,7 +128,7 @@ namespace BackOffice.Web.ControllersApi
         [HttpPost]
         [HttpGet]
         public List<BackOffice.Models.Customer.SurveyConfigViewModel> SCSurveyConfigSearch
-            (string SurveyConfigSearch,
+            (string SCSurveyConfigSearch,
             string CustomerPublicId,
             string SearchParam,
             string Enable,
@@ -137,7 +137,7 @@ namespace BackOffice.Web.ControllersApi
         {
             List<BackOffice.Models.Customer.SurveyConfigViewModel> oReturn = new List<Models.Customer.SurveyConfigViewModel>();
 
-            if (SurveyConfigSearch == "true")
+            if (SCSurveyConfigSearch == "true")
             {
                 int oPageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber.Trim());
 

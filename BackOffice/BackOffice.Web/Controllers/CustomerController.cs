@@ -35,8 +35,19 @@ namespace BackOffice.Web.Controllers
             BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
             {
                 CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
-                CustomActivityTree = ProveedoresOnLine.Company.Controller.Company.CategorySearchByTreeAdmin(null, 0, 1000),
+                CustomActivityTree = ProveedoresOnLine.Company.Controller.Company.TreeGetByType((int)enumTreeType.EconomicActivityCustom),
+                SurveyGroup = ProveedoresOnLine.Company.Controller.Company.TreeGetByType((int)enumTreeType.SurveyGroupCustom),
             };
+
+            if (oModel.CustomActivityTree == null)
+            {
+                oModel.CustomActivityTree = new List<TreeModel>();
+            }
+
+            if (oModel.SurveyGroup == null)
+            {
+                oModel.SurveyGroup = new List<TreeModel>();
+            }
 
             if (!string.IsNullOrEmpty(CustomerPublicId))
             {

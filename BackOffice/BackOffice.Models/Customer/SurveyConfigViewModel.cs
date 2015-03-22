@@ -20,10 +20,15 @@ namespace BackOffice.Models.Customer
         public string GroupName { get; set; }
         public string GroupId { get; set; }
 
+        public SurveyConfigViewModel() { }
 
         public SurveyConfigViewModel(ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel oRelatedSurveyConfig)
         {
             RelatedSurveyConfig = oRelatedSurveyConfig;
+
+            SurveyConfigId = RelatedSurveyConfig.ItemId.ToString();
+            SurveyName = RelatedSurveyConfig.ItemName;
+            SurveyEnable = RelatedSurveyConfig.Enable;
 
             Group = RelatedSurveyConfig.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigInfoType.Group).

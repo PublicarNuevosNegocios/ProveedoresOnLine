@@ -8,6 +8,16 @@ namespace ProveedoresOnLine.Company.Test
     public class CompanyTest
     {
         [TestMethod]
+        public void TreeGetByType()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.TreeModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.TreeGetByType(114005);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
+
+
+        [TestMethod]
         public void CategorySearchByGeography()
         {
             int oTotalCount;
@@ -115,7 +125,7 @@ namespace ProveedoresOnLine.Company.Test
         public void CategorySearchByGeographyAdmin()
         {
             int oTotalRows;
-             
+
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByGeographyAdmin
                 ("Colo", 0, 5, out oTotalRows);
@@ -136,7 +146,7 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn.Count >= 1);
 
             Assert.AreEqual(true, oTotalRows > 0);
-        }        
+        }
 
         [TestMethod]
         public void CategorySearchByCompanyRuleAdmin()
@@ -286,11 +296,23 @@ namespace ProveedoresOnLine.Company.Test
 
             List<ProveedoresOnLine.Company.Models.Util.GeographyModel> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.CategorySearchByStateAdmin
-                ("Colo", "",0, 20, out oTotalRows);
+                ("Colo", "", 0, 20, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
 
             Assert.AreEqual(true, oTotalRows > 0);
+        }
+
+        [TestMethod]
+        public void CategorySearchBySurveyGroup()
+        {
+            int oTotalRows;
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.CategorySearchBySurveyGroup
+                    (20, "", 0, 20, out oTotalRows);
+
+            Assert.AreEqual(true, oReturn.Count >= 1);
         }
     }
 }

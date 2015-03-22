@@ -41,6 +41,11 @@ namespace ProveedoresOnLine.Company.Controller
             }
         }
 
+        public static List<Models.Util.TreeModel> TreeGetByType(int TreeType)
+        {
+            return DAL.Controller.CompanyDataController.Instance.TreeGetByType(TreeType);
+        }
+
         public static GenericItemModel CategoryUpsert(int? TreeId, GenericItemModel CategoryToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
@@ -349,6 +354,12 @@ namespace ProveedoresOnLine.Company.Controller
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchByStateAdmin(CountrySearchParam, StateSearchParam, PageNumber, RowCount, out TotalRows);
         }
+
+        public static List<Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.CompanyDataController.Instance.CategorySearchBySurveyGroup(TreeId, SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
         #endregion
 
         #region Company CRUD
