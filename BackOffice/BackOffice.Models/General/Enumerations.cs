@@ -135,6 +135,7 @@
         ListId = 203009,
 
         CustomEconomicActivity = 220001,
+        SurveyGroup = 220002,
     }
 
     /// <summary>
