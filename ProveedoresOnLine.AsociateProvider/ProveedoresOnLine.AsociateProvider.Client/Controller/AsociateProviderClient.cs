@@ -50,7 +50,6 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
                 try
                 {
                     oReturn = DAL.Controller.AsociateProviderClientController.Instance.BOProviderUpsert(
-                    AsociateProviderToUpsert.RelatedProviderBO.ProviderId,
                     AsociateProviderToUpsert.RelatedProviderBO.ProviderPublicId,
                     AsociateProviderToUpsert.RelatedProviderBO.ProviderName,
                     AsociateProviderToUpsert.RelatedProviderBO.IdentificationType,
@@ -86,7 +85,6 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
                 try
                 {
                     oReturn = DAL.Controller.AsociateProviderClientController.Instance.DMProviderUpsert(
-                    AsociateProviderToUpsert.RelatedProviderDM.ProviderId,
                     AsociateProviderToUpsert.RelatedProviderDM.ProviderPublicId,
                     AsociateProviderToUpsert.RelatedProviderDM.ProviderName,
                     AsociateProviderToUpsert.RelatedProviderDM.IdentificationType,

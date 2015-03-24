@@ -18,11 +18,10 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
 
         #region AsociateProvider
 
-        public int DMProviderUpsert(int ProviderId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumer)
+        public int DMProviderUpsert(string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumer)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vProviderId", ProviderId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderName", ProviderName));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", IdentificationType));
@@ -46,11 +45,10 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
             return oReturn;
         }
 
-        public int BOProviderUpsert(int ProviderId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber)
+        public int BOProviderUpsert(string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vProviderId", ProviderId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProviderName", ProviderName));
             lstParams.Add(DataInstance.CreateTypedParameter("vIdentificationType", IdentificationType));

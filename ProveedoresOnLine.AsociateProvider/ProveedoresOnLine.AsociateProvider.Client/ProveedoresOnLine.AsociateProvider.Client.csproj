@@ -62,7 +62,7 @@
     <Compile Include="Interfaces\IAsociateProviderClientData.cs" />
     <Compile Include="Models\AsociateProviderModel.cs" />
     <Compile Include="Models\Constants.cs" />
-    <Compile Include="Models\ProviderModel.cs" />
+    <Compile Include="Models\RelatedProviderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
