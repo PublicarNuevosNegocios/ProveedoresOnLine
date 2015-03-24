@@ -88,9 +88,7 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.MySQLDAO
                 CommandText = "AP_AsociateProviderUpsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
-            });
-
-            
+            });            
         }
 
         #endregion        
