@@ -472,51 +472,84 @@ var Customer_SurveyObject = {
                     return oReturn;
                 },
             }, {
-                field: 'GroupName',
+                field: 'Group',
                 title: 'Grupo',
                 width: '150px',
+                template: '${GroupName}',
                 editor: function (container, options) {
-                    
                     if (Customer_SurveyObject.SurveyGroup != null && Customer_SurveyObject.SurveyGroup.length > 0) {
 
-                        // create an input element
-                        var input = $('<input/>');
-                        // set its name to the field to which the column is bound ('name' in this case)
-                        input.attr('value', options.model[options.field]);
-                        // append it to the container
-                        input.appendTo(container);
-                        // initialize a Kendo UI AutoComplete
-                        input.kendoAutoComplete({
-                            minLength: 0,
-                            dataTextField: 'ItemName',
-                            select: function (e) {
-                                var selectedItem = this.dataItem(e.item.index());
-                                //set server fiel name
-                                options.model[options.field] = selectedItem.ItemName;
-                                options.model['Group'] = selectedItem.ItemId;
-                                //enable made changes
-                                options.model.dirty = true;
-                            },
-                            dataSource: {
-                                type: 'json',
-                                serverFiltering: true,
-                                transport: {
-                                    read: function (options) {
-                                        debugger;
-                                        $.ajax({
-                                            url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchBySurveyGroupAC=true&TreeId=' + Customer_SurveyObject.SurveyGroup + '&SearchParam=' + options.data.filter.filters[0].value + '&RowCount=' + Customer_SurveyObject.PageSize,
-                                            dataType: 'json',
-                                            success: function (result) {
-                                                options.success(result);
-                                            },
-                                            error: function (result) {
-                                                options.error(result);
-                                            }
-                                        });
-                                    },
-                                }
-                            }
-                        });
+                        $('<input data-bind="value:' + options.field + '"/>')
+                            .appendTo(container)
+                            .kendoDropDownList({
+                                dataSource: {
+                                    type: 'json',
+                                    serverFiltering: true,
+                                    transport: {
+                                        read: function (options) {
+                                            $.ajax({
+                                                url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchBySurveyGroupAC=true&TreeId=' + Customer_SurveyObject.SurveyGroup + '&SearchParam=&RowCount=100',
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    options.success(result);
+                                                },
+                                                error: function (result) {
+                                                    options.error(result);
+                                                }
+                                            });
+                                        },
+                                    }
+                                },
+                                dataTextField: 'ItemName',
+                                dataValueField: 'ItemId',
+                                optionLabel: 'Seleccione una opción',
+                                select: function (e) {
+                                    var selectedItem = this.dataItem(e.item.index());
+                                    //set server fiel name
+                                    options.model['GroupName'] = selectedItem.ItemName;
+                                    //enable made changes
+                                    options.model.dirty = true;
+                                },
+                            });
+
+
+                        //// create an input element
+                        //var input = $('<input/>');
+                        //// set its name to the field to which the column is bound ('name' in this case)
+                        //input.attr('value', options.model[options.field]);
+                        //// append it to the container
+                        //input.appendTo(container);
+                        //// initialize a Kendo UI AutoComplete
+                        //input.kendoAutoComplete({
+                        //    minLength: 0,
+                        //    dataTextField: 'ItemName',
+                        //    select: function (e) {
+                        //        var selectedItem = this.dataItem(e.item.index());
+                        //        //set server fiel name
+                        //        options.model[options.field] = selectedItem.ItemName;
+                        //        options.model['Group'] = selectedItem.ItemId;
+                        //        //enable made changes
+                        //        options.model.dirty = true;
+                        //    },
+                        //    dataSource: {
+                        //        type: 'json',
+                        //        serverFiltering: true,
+                        //        transport: {
+                        //            read: function (options) {
+                        //                $.ajax({
+                        //                    url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchBySurveyGroupAC=true&TreeId=' + Customer_SurveyObject.SurveyGroup + '&SearchParam=' + options.data.filter.filters[0].value + '&RowCount=' + Customer_SurveyObject.PageSize,
+                        //                    dataType: 'json',
+                        //                    success: function (result) {
+                        //                        options.success(result);
+                        //                    },
+                        //                    error: function (result) {
+                        //                        options.error(result);
+                        //                    }
+                        //                });
+                        //            },
+                        //        }
+                        //    }
+                        //});
                     }
                     else {
                         $('<label>Este comprador no tiene grupo de encuesta relacionado</label>').appendTo(container);

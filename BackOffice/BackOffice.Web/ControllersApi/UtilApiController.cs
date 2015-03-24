@@ -1032,9 +1032,11 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        #region Survey
+
         [HttpPost]
         [HttpGet]
-        public static List<GenericItemModel> CategorySearchBySurveyGroupAC
+        public List<GenericItemModel> CategorySearchBySurveyGroupAC
             (string CategorySearchBySurveyGroupAC,
             string TreeId,
             string SearchParam,
@@ -1056,5 +1058,6 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        #endregion
     }
 }

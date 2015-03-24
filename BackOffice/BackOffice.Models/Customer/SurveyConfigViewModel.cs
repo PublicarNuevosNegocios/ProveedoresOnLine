@@ -36,7 +36,7 @@ namespace BackOffice.Models.Customer
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            Group = RelatedSurveyConfig.ItemInfo.
+            GroupName = RelatedSurveyConfig.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigInfoType.Group).
                 Select(y => y.ValueName).
                 DefaultIfEmpty(string.Empty).
