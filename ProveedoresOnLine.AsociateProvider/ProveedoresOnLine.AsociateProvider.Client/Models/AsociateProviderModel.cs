@@ -10,9 +10,9 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Models
     {
         public int AsociateProviderId { get; set; }
 
-        public ProviderModel RelatedProviderBO { get; set; }
+        public RelatedProviderModel RelatedProviderBO { get; set; }
 
-        public ProviderModel RelatedProviderDM { get; set; }
+        public RelatedProviderModel RelatedProviderDM { get; set; }
         
         public string Email { get; set; }
 
