@@ -1426,7 +1426,7 @@ namespace MarketPlace.Web.Controllers
                 //Company healty politic
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Salud de riesgos laborales",
+                    Name = "Seguridad de riesgos laborales",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
