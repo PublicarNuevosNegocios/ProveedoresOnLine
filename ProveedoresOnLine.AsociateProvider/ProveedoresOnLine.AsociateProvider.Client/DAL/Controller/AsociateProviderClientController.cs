@@ -37,14 +37,14 @@ namespace ProveedoresOnLine.AsociateProvider.Client.DAL.Controller
 
         #region Asociate Provider
 
-        public int DMProviderUpsert(int ProviderId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumer)
+        public int DMProviderUpsert(string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumer)
         {
-            return DataFactory.DMProviderUpsert(ProviderId, ProviderPublicId, ProviderName, IdentificationType, IdentificationNumer);
+            return DataFactory.DMProviderUpsert(ProviderPublicId, ProviderName, IdentificationType, IdentificationNumer);
         }
 
-        public int BOProviderUpsert(int ProviderId, string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber)
+        public int BOProviderUpsert(string ProviderPublicId, string ProviderName, string IdentificationType, string IdentificationNumber)
         {
-            return DataFactory.BOProviderUpsert(ProviderId, ProviderPublicId, ProviderName, IdentificationType, IdentificationNumber);
+            return DataFactory.BOProviderUpsert(ProviderPublicId, ProviderName, IdentificationType, IdentificationNumber);
         }
 
         public void AP_AsociateProviderUpsert(string BOProviderPublicId, string DMProviderPublicId, string Email)

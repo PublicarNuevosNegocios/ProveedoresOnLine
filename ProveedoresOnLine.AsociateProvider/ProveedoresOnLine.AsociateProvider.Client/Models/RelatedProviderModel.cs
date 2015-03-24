@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.AsociateProvider.Client.Models
 {
-    public class ProviderModel
+    public class RelatedProviderModel
     {
         public int ProviderId { get; set; }
 
