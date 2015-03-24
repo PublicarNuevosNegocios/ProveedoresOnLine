@@ -658,11 +658,11 @@ var Provider_CompanyContactObject = {
                 template: function (dataItem) {
                     var oReturn = '';
 
-                    if (dataItem.CP_IdentificationCity == '') {
+                    if (dataItem.CP_Email == '') {
                         oReturn = '<label class="PlaceHolder">Ej: contacto@publicar.com</label>';
                     }
                     else {
-                        oReturn = dataItem.CP_IdentificationCity;
+                        oReturn = dataItem.CP_Email;
                     }
                     return oReturn;
                 },
@@ -1290,7 +1290,7 @@ var Provider_CompanyContactObject = {
                 field: 'DT_CityName',
                 title: 'Ciudad',
                 width: '180px',
-                template: function (dataItem) {
+                template: function (dataItem) {                    
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_CityName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
@@ -1317,8 +1317,7 @@ var Provider_CompanyContactObject = {
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'ItemName',
-                        select: function (e) {
-                            debugger;
+                        select: function (e) {                            
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.ItemName;
