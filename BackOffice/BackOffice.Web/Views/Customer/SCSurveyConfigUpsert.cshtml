@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Customer.CustomerViewModel
 
 @{
-    ViewBag.Title = "Comprador - encuestas de satisfacción";
+    ViewBag.Title = "Comprador - evaluación de desempeño";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -15,11 +15,12 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Encuestas de satisfacción</label>
+            <label class="POBOSectionTitles">Evaluación de desempeño</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
+            <div id="loading"></div>
             <div id="divGridSurveyConfig"></div>
             <br />
             @{
@@ -30,7 +31,7 @@
     </div>
 </div>
 
-<!--templates by files-->
+<!--templates-->
 <div style="display:none;">
 
     <div id="divGridSurveyConfig_ShortcutToolTipTemplate">
@@ -46,15 +47,6 @@
         <label>Buscar</label>
         <input id="divGridSurveyConfig_txtSearch" type="text" value="@Request["SearchParam"]" />
     </div>
-
-    <div id="divGridSurveyConfig_DetailTemplate">
-        <a href="@(Url.Action(
-                MVC.Customer.ActionNames.SCSurveyConfigItemUpsert, 
-                MVC.Customer.Name, 
-                new {
-                    CustomerPublicId= Model.RelatedCustomer.RelatedCompany.CompanyPublicId
-                }) + "&SurveyConfigId=${SurveyConfigId}")">Ver detalle</a>
-    </div>
 </div>
 
 @{
@@ -67,6 +59,14 @@
         Select(x => x.Value).
         DefaultIfEmpty(string.Empty).
         FirstOrDefault();
+
+    string oSCSurveyConfigItemUpsertUrl = Url.Action
+        (MVC.Customer.ActionNames.SCSurveyConfigItemUpsert,
+        MVC.Customer.Name,
+        new
+        {
+            CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
+        }) + "&SurveyConfigId=${SurveyConfigId}";
 }
 
 @section inlinescripts
@@ -80,11 +80,10 @@
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 SurveyGroup: '@oSurveyGroup',
+                SurveyConfigItemUpsertUrl: '@Html.Raw(oSCSurveyConfigItemUpsertUrl)',
             });
 
-            Customer_SurveyObject.RenderAsync({
-                Function: 'RenderSurveyConfig()',
-            });
+            Customer_SurveyObject.RenderAsync();
         });
     </script>
 }

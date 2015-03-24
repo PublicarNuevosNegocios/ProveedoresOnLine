@@ -64,6 +64,7 @@
     <Compile Include="Customer\CustomerRoleViewModel.cs" />
     <Compile Include="Customer\CustomerViewModel.cs" />
     <Compile Include="Customer\CustomerSearchViewModel.cs" />
+    <Compile Include="Customer\SurveyConfigItemViewModel.cs" />
     <Compile Include="Customer\SurveyConfigViewModel.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\EconomicActivityViewModel.cs" />

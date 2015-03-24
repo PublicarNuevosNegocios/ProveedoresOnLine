@@ -8,6 +8,8 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 {
     internal interface ISurveyData
     {
+        #region Survey Config
+
         int SurveyConfigUpsert(string CustomerPublicId, int? SurveyConfigId, string SurveyName, bool Enable);
 
         int SurveyConfigInfoUpsert(int? SurveyConfigInfoId, int SurveyConfigId, int SurveyConfigInfoType, string Value, string LargeValue, bool Enable);
@@ -18,8 +20,13 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         List<ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel> SurveyConfigSearch(string CustomerPublicId, string SearchParam, bool Enable, int PageNumber, int RowCount, out int TotalRows);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable);
 
+        ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel SurveyConfigGetById(int SurveyConfigId);
+
+        #endregion
+
+        #region Survey
 
         string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, bool Enable);
 
@@ -28,5 +35,7 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
         int SurveyItemUpsert(int? SurveyItemId, string SurveyPublicId, int SurveyConfigItemId, bool Enable);
 
         int SurveyItemInfoUpsert(int? SurveyItemInfoId, int SurveyItemId, int SurveyItemInfoType, string Value, string LargeValue, bool Enable);
+
+        #endregion
     }
 }

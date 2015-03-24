@@ -39,8 +39,12 @@ namespace BackOffice.Models.Customer
 
         public List<ProveedoresOnLine.Company.Models.Util.TreeModel> SurveyGroup { get; set; }
 
+        public List<BackOffice.Models.Customer.CustomerRoleViewModel> RelatedRoleCompanyList { get; set; }
+
+        public SurveyConfigViewModel RelatedSurveyConfig { get; set; }
+
         public string GridToSave { get; set; }
 
-        public List<BackOffice.Models.Customer.CustomerRoleViewModel> RelatedRoleCompanyList { get; set; }
+        
     }
 }

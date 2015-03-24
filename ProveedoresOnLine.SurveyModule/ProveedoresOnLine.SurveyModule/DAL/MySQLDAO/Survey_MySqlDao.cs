@@ -176,12 +176,13 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem)
+        public List<GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSurveyConfigId", SurveyConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyConfigItem", ParentSurveyConfigItem));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -247,6 +248,55 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                  CreateDate = scitinf.Field<DateTime>("SurveyConfigItemInfoCreateDate"),
                              }).ToList(),
                      }).ToList();
+            }
+            return oReturn;
+        }
+
+        public SurveyConfigModel SurveyConfigGetById(int SurveyConfigId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSurveyConfigId", SurveyConfigId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_SurveyConfig_GetById",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            SurveyConfigModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new SurveyConfigModel()
+                {
+                    ItemId = response.DataTableResult.Rows[0].Field<int>("SurveyConfigId"),
+                    ItemName = response.DataTableResult.Rows[0].Field<string>("SurveyName"),
+                    Enable = response.DataTableResult.Rows[0].Field<UInt64>("SurveyConfigEnable") == 1 ? true : false,
+                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("SurveyConfigLastModify"),
+                    CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("SurveyConfigCreateDate"),
+
+                    ItemInfo =
+                       (from scinf in response.DataTableResult.AsEnumerable()
+                        where !scinf.IsNull("SurveyConfigInfoId")
+                        select new GenericItemInfoModel()
+                        {
+                            ItemInfoId = scinf.Field<int>("SurveyConfigInfoId"),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = scinf.Field<int>("SurveyConfigInfoTypeId"),
+                                ItemName = scinf.Field<string>("SurveyConfigInfoTypeName"),
+                            },
+                            Value = scinf.Field<string>("SurveyConfigInfoValue"),
+                            LargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
+                            ValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
+                            LastModify = scinf.Field<DateTime>("SurveyConfigInfoLastModify"),
+                            CreateDate = scinf.Field<DateTime>("SurveyConfigInfoCreateDate"),
+                        }).ToList(),
+                };
             }
             return oReturn;
         }

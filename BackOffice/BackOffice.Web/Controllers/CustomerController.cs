@@ -210,6 +210,7 @@ namespace BackOffice.Web.Controllers
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
+                RelatedSurveyConfig = new Models.Customer.SurveyConfigViewModel(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyConfigGetById(Convert.ToInt32(SurveyConfigId.Trim()))),
             };
 
             //get provider menu

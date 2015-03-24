@@ -8,7 +8,7 @@ namespace BackOffice.Models.Customer
 {
     public class SurveyConfigViewModel
     {
-        public ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel RelatedSurveyConfig { get; set; }
+        public ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel RelatedSurveyConfig { get; private set; }
 
         public int TotalRows { get; set; }
 

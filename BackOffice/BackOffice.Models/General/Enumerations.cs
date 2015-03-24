@@ -434,5 +434,18 @@
         Group = 1201001
     }
 
+    public enum enumSurveyConfigItemType
+    {
+        EvaluationArea = 1202001,
+        Question = 1202002,
+        Answer = 1202003,
+    }
+
+    public enum enumSurveyConfigItemInfoType
+    {
+        Order = 1203001,
+        Weight = 1203002,
+    }
+
     #endregion
 }
