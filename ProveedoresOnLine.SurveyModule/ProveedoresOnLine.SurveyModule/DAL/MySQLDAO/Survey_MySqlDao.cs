@@ -199,7 +199,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             {
                 oReturn =
                     (from scit in response.DataTableResult.AsEnumerable()
-                     where !scit.IsNull("SurveyConfigId")
+                     where !scit.IsNull("SurveyConfigItemId")
                      group scit by new
                      {
                          SurveyConfigItemId = scit.Field<int>("SurveyConfigItemId"),

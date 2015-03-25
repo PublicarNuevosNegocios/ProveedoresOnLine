@@ -39,8 +39,8 @@
 
 <!--templates-->
 <div style="display:none;">
-    <div id="divGridItem_ShortcutToolTipTemplate">
-        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    <div id="divGridItem_TitleTemplate">
+        <label>${Title}</label>
     </div>
 
     <div id="divGridItem_ViewEnablesTemplate">
@@ -69,6 +69,7 @@
             Customer_SurveyItemObject.RenderAsync({
                 SurveyItemType: '@(((int)BackOffice.Models.General.enumSurveyConfigItemType.EvaluationArea).ToString())',
                 ParentSurveyConfigItem: '',
+                Title: '@Model.RelatedSurveyConfig.SurveyName',
             })
         });
     </script>
