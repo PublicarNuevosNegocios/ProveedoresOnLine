@@ -998,6 +998,8 @@ namespace Links
                              
                         public static readonly string POMPSideMenu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSideMenu.min.css") ? Url("POMPSideMenu.min.css") : Url("POMPSideMenu.css");
                              
+                        public static readonly string POMPTermsConditions_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPTermsConditions.min.css") ? Url("POMPTermsConditions.min.css") : Url("POMPTermsConditions.css");
+                             
                         public static readonly string POMPTopSearchBar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPTopSearchBar.min.css") ? Url("POMPTopSearchBar.min.css") : Url("POMPTopSearchBar.css");
                              
                     }
