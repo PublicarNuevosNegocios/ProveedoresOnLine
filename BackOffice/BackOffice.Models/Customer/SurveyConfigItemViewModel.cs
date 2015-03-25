@@ -26,6 +26,9 @@ namespace BackOffice.Models.Customer
         public string SurveyConfigItemInfoWeight { get; set; }
         public string SurveyConfigItemInfoWeightId { get; set; }
 
+        public bool SurveyConfigItemInfoHasDescription { get; set; }
+        public string SurveyConfigItemInfoHasDescriptionId { get; set; }
+
         public SurveyConfigItemViewModel() { }
 
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedConfigItem)
@@ -65,7 +68,24 @@ namespace BackOffice.Models.Customer
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            if (RelatedConfigItem.ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
+            {
+                #region Question
 
+                SurveyConfigItemInfoHasDescription = RelatedConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription).
+                    Select(y => y.Value.ToLower() == "true").
+                    DefaultIfEmpty(false).
+                    FirstOrDefault();
+
+                SurveyConfigItemInfoHasDescriptionId = RelatedConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+                #endregion
+            }
         }
     }
 }

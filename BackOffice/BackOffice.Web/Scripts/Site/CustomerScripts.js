@@ -367,6 +367,10 @@ var Customer_SurveyObject = {
         return $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
     },
 
+    Search:function(){
+        $('#' + Customer_SurveyObject.ObjectId).data('kendoGrid').dataSource.read();
+    },
+
     RenderSurveyConfig: function () {
         $('#' + Customer_SurveyObject.ObjectId).kendoGrid({
             editable: true,
@@ -400,7 +404,10 @@ var Customer_SurveyObject = {
 
                             Group: { editable: true },
                             GroupName: { editable: true },
-                            GroupId: { editable: true },
+                            GroupId: { editable: false },
+
+                            StepEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            StepEnableId: { editable: false },
                         },
                     }
                 },
@@ -527,13 +534,28 @@ var Customer_SurveyObject = {
                 field: 'SurveyName',
                 title: 'Nombre',
                 width: '200px',
+            },{
+                field: 'StepEnable',
+                title: 'Paso a paso',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.StepEnable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SurveyConfigId',
                 title: 'Id',
                 width: '100px',
             }, {
                 title: "&nbsp;",
-                width: "250px",
+                width: "200px",
                 command: [{
                     name: 'edit',
                     text: 'Editar'
@@ -561,12 +583,14 @@ var Customer_SurveyItemObject = {
     ObjectId: '',
     CustomerPublicId: '',
     SurveyConfigId: '',
+    HasEvaluations: false,
     PageSize: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.SurveyConfigId = vInitObject.SurveyConfigId;
+        this.HasEvaluations = vInitObject.HasEvaluations;
         this.PageSize = vInitObject.PageSize;
     },
 
@@ -636,10 +660,10 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemEnable: { editable: true, type: 'boolean', defaultValue: true },
 
                             SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
-                            SurveyConfigItemInfoOrderId: { editable: true },
+                            SurveyConfigItemInfoOrderId: { editable: false },
 
-                            SurveyConfigItemInfoWeight: { editable: true, type: 'number', validation: { required: true, min: 0, max: 100 } },
-                            SurveyConfigItemInfoWeightId: { editable: true },
+                            SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
+                            SurveyConfigItemInfoWeightId: { editable: false },
                         },
                     }
                 },
@@ -736,12 +760,12 @@ var Customer_SurveyItemObject = {
             }, {
                 field: 'SurveyConfigItemInfoOrder',
                 title: 'Orden',
-                width: '200px',
+                width: '50px',
                 format: '{0:n0}'
             }, {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
-                width: '100px',
+                width: '50px',
                 format: '{0:n0}'
             }, {
                 field: 'SurveyConfigItemId',
@@ -749,7 +773,7 @@ var Customer_SurveyItemObject = {
                 width: '100px',
             }, {
                 title: "&nbsp;",
-                width: "250px",
+                width: "200px",
                 command: [{
                     name: 'edit',
                     text: 'Editar'
@@ -781,6 +805,15 @@ var Customer_SurveyItemObject = {
     //vRenderObject.Title parent name
     RenderSurveyItemQuestion: function (vRenderObject) {
 
+        if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
+            //destroy kendo grid if exist
+
+            // destroy the Grid
+            $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid").destroy();
+            // empty the Grid content (inner HTML)
+            $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).empty();
+        }
+
         $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({
             editable: true,
             navigatable: true,
@@ -793,6 +826,7 @@ var Customer_SurveyItemObject = {
                 {
                     name: 'title',
                     template: function () {
+                        debugger;
                         return $('#' + Customer_SurveyItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
                     }
                 },
@@ -811,10 +845,14 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemEnable: { editable: true, type: 'boolean', defaultValue: true },
 
                             SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
-                            SurveyConfigItemInfoOrderId: { editable: true },
+                            SurveyConfigItemInfoOrderId: { editable: false },
 
-                            SurveyConfigItemInfoWeight: { editable: true, type: 'number', validation: { required: true, min: 0, max: 100 } },
-                            SurveyConfigItemInfoWeightId: { editable: true },
+                            SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
+                            SurveyConfigItemInfoWeightId: { editable: false },
+
+                            SurveyConfigItemInfoHasDescription: { editable: true, type: 'boolean', defaultValue: true },
+                            SurveyConfigItemInfoHasDescriptionId: { editable: false },
+
                         },
                     }
                 },
@@ -908,23 +946,41 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemName',
                 title: 'Nombre',
                 width: '200px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
+                },
             }, {
                 field: 'SurveyConfigItemInfoOrder',
                 title: 'Orden',
-                width: '200px',
+                width: '50px',
                 format: '{0:n0}'
             }, {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
-                width: '100px',
+                width: '50px',
                 format: '{0:n0}'
+            }, {
+                field: 'SurveyConfigItemInfoHasDescription',
+                title: 'Mostrar descripción',
+                width: '150px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.SurveyConfigItemInfoHasDescription == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
                 width: '100px',
             }, {
                 title: "&nbsp;",
-                width: "250px",
+                width: "200px",
                 command: [{
                     name: 'edit',
                     text: 'Editar'
@@ -956,6 +1012,15 @@ var Customer_SurveyItemObject = {
     //vRenderObject.Title parent name
     RenderSurveyItemAnswer: function (vRenderObject) {
 
+        if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
+            //destroy kendo grid if exist
+
+            // destroy the Grid
+            $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid").destroy();
+            // empty the Grid content (inner HTML)
+            $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).empty();
+        }
+
         $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({
             editable: true,
             navigatable: true,
@@ -968,8 +1033,7 @@ var Customer_SurveyItemObject = {
                 {
                     name: 'title',
                     template: function () {
-                        var oReturn = $('#' + Customer_SurveyItemObject.ObjectId + '_TitleTemplate').html();
-                        return oReturn.replace(/\${Title}/gi, vRenderObject.Title);
+                        return $('#' + Customer_SurveyItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
                     }
                 },
                 { name: 'ViewEnable', template: $('#' + Customer_SurveyItemObject.ObjectId + '_ViewEnablesTemplate').html() },
@@ -987,10 +1051,10 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemEnable: { editable: true, type: 'boolean', defaultValue: true },
 
                             SurveyConfigItemInfoOrder: { editable: true, validation: { required: true } },
-                            SurveyConfigItemInfoOrderId: { editable: true },
+                            SurveyConfigItemInfoOrderId: { editable: false },
 
-                            SurveyConfigItemInfoWeight: { editable: true, type: 'number', validation: { required: true, min: 0, max: 100 } },
-                            SurveyConfigItemInfoWeightId: { editable: true },
+                            SurveyConfigItemInfoWeight: { editable: !Customer_SurveyItemObject.HasEvaluations, type: 'number', validation: { required: true, min: 0, max: 100 } },
+                            SurveyConfigItemInfoWeightId: { editable: false },
                         },
                     }
                 },
@@ -1087,12 +1151,12 @@ var Customer_SurveyItemObject = {
             }, {
                 field: 'SurveyConfigItemInfoOrder',
                 title: 'Orden',
-                width: '200px',
+                width: '50px',
                 format: '{0:n0}'
             }, {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
-                width: '100px',
+                width: '50px',
                 format: '{0:n0}'
             }, {
                 field: 'SurveyConfigItemId',
@@ -1100,7 +1164,7 @@ var Customer_SurveyItemObject = {
                 width: '100px',
             }, {
                 title: "&nbsp;",
-                width: "250px",
+                width: "200px",
                 command: [{
                     name: 'edit',
                     text: 'Editar'

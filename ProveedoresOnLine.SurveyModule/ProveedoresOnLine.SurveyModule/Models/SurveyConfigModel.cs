@@ -11,5 +11,7 @@ namespace ProveedoresOnLine.SurveyModule.Models
         public ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel RelatedCustomer { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedSurveyConfigItem { get; set; }
+
+        public bool HasEvaluations { get; set; }
     }
 }

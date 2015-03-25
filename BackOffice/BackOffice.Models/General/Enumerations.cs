@@ -431,7 +431,8 @@
 
     public enum enumSurveyConfigInfoType
     {
-        Group = 1201001
+        Group = 1201001,
+        StepEnable = 1201002,
     }
 
     public enum enumSurveyConfigItemType
@@ -445,6 +446,7 @@
     {
         Order = 1203001,
         Weight = 1203002,
+        HasDescription = 1203003,
     }
 
     #endregion

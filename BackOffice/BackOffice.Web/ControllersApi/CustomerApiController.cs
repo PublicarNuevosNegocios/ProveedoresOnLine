@@ -203,6 +203,17 @@ namespace BackOffice.Web.ControllersApi
                                 ItemId = (int)BackOffice.Models.General.enumSurveyConfigInfoType.Group
                             },
                             Value = oDataToUpsert.Group,
+                            ValueName = oDataToUpsert.GroupName,
+                            Enable = true,                            
+                        },
+                        new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.StepEnableId) ? 0 : Convert.ToInt32(oDataToUpsert.StepEnableId.Trim()),
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumSurveyConfigInfoType.StepEnable
+                            },
+                            Value = oDataToUpsert.StepEnable.ToString().ToLower().Trim(),
                             Enable = true,                            
                         }
                     },
@@ -320,6 +331,24 @@ namespace BackOffice.Web.ControllersApi
                         },
                     }
                 };
+
+                if (oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
+                {
+                    #region get question
+
+                    oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoHasDescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoHasDescriptionId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription
+                        },
+                        Value = oDataToUpsert.SurveyConfigItemInfoHasDescription.ToString().ToLower(),
+                        Enable = true,
+                    });
+
+                    #endregion
+                }
 
                 oSurveyConfig = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyConfigItemUpsert(oSurveyConfig);
 

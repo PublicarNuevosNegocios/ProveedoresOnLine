@@ -25,8 +25,11 @@
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
             <div id="loading"></div>
+            <label>Areas de evaluación</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.EvaluationArea).ToString())"></div>
+            <label>Preguntas</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Question).ToString())"></div>
+            <label>Respuestas</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Answer).ToString())"></div>
             <br />
             @{
@@ -63,6 +66,7 @@
                 ObjectId: 'divGridItem',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 SurveyConfigId: '@Model.RelatedSurveyConfig.SurveyConfigId',
+                HasEvaluations: @Model.RelatedSurveyConfig.RelatedSurveyConfig.HasEvaluations.ToString().ToLower(),
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
             });
 

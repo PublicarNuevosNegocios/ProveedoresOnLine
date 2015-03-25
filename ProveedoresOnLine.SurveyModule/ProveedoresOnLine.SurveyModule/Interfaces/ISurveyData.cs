@@ -20,9 +20,9 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         List<ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel> SurveyConfigSearch(string CustomerPublicId, string SearchParam, bool Enable, int PageNumber, int RowCount, out int TotalRows);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable);
-
         ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel SurveyConfigGetById(int SurveyConfigId);
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable);
 
         #endregion
 
