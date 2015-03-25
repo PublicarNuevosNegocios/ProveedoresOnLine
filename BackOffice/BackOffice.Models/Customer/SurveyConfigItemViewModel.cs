@@ -29,6 +29,10 @@ namespace BackOffice.Models.Customer
         public bool SurveyConfigItemInfoHasDescription { get; set; }
         public string SurveyConfigItemInfoHasDescriptionId { get; set; }
 
+        public bool SurveyConfigItemInfoIsMandatory { get; set; }
+        public string SurveyConfigItemInfoIsMandatoryId { get; set; }
+        
+
         public SurveyConfigItemViewModel() { }
 
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedConfigItem)
@@ -80,6 +84,18 @@ namespace BackOffice.Models.Customer
 
                 SurveyConfigItemInfoHasDescriptionId = RelatedConfigItem.ItemInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription).
+                    Select(y => y.ItemInfoId.ToString()).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+
+                SurveyConfigItemInfoIsMandatory = RelatedConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.IsMandatory).
+                    Select(y => y.Value.ToLower() == "true").
+                    DefaultIfEmpty(false).
+                    FirstOrDefault();
+
+                SurveyConfigItemInfoIsMandatoryId = RelatedConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.IsMandatory).
                     Select(y => y.ItemInfoId.ToString()).
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();

@@ -347,6 +347,17 @@ namespace BackOffice.Web.ControllersApi
                         Enable = true,
                     });
 
+                    oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoIsMandatoryId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoIsMandatoryId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.IsMandatory
+                        },
+                        Value = oDataToUpsert.SurveyConfigItemInfoIsMandatory.ToString().ToLower(),
+                        Enable = true,
+                    });
+
                     #endregion
                 }
 
