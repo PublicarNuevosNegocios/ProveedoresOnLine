@@ -1720,41 +1720,41 @@ namespace MarketPlace.Web.Controllers
 
                 #endregion
 
-                #region Survey Info
+                //#region Survey Info
 
-                //header
-                oMenuAux = new Models.General.GenericMenu()
-                {
-                    Name = "Evaluación de desempeño",
-                    Position = 5,
-                    ChildMenu = new List<Models.General.GenericMenu>(),
-                };
+                ////header
+                //oMenuAux = new Models.General.GenericMenu()
+                //{
+                //    Name = "Evaluación de desempeño",
+                //    Position = 5,
+                //    ChildMenu = new List<Models.General.GenericMenu>(),
+                //};
 
-                //survey list
-                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                {
-                    Name = "Lista de evaluaciónes",
-                    Url = Url.RouteUrl
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.SVSurveySearch,
-                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
-                            }),
-                    Position = 0,
-                    IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.SVSurveySearch &&
-                        oCurrentController == MVC.Provider.Name),
-                });
+                ////survey list
+                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                //{
+                //    Name = "Lista de evaluaciónes",
+                //    Url = Url.RouteUrl
+                //            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                //            new
+                //            {
+                //                controller = MVC.Provider.Name,
+                //                action = MVC.Provider.ActionNames.SVSurveySearch,
+                //                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                //            }),
+                //    Position = 0,
+                //    IsSelected =
+                //        (oCurrentAction == MVC.Provider.ActionNames.SVSurveySearch &&
+                //        oCurrentController == MVC.Provider.Name),
+                //});
 
-                //get is selected menu
-                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                ////get is selected menu
+                //oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                //add menu
-                oReturn.Add(oMenuAux);
+                ////add menu
+                //oReturn.Add(oMenuAux);
 
-                #endregion
+                //#endregion
             }
             return oReturn;
         }
