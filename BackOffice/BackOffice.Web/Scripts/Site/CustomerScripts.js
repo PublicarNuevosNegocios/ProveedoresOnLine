@@ -853,6 +853,8 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemInfoHasDescription: { editable: true, type: 'boolean', defaultValue: true },
                             SurveyConfigItemInfoHasDescriptionId: { editable: false },
 
+                            SurveyConfigItemInfoIsMandatory: { editable: true, type: 'boolean', defaultValue: true },
+                            SurveyConfigItemInfoIsMandatoryId: { editable: false },
                         },
                     }
                 },
@@ -952,7 +954,7 @@ var Customer_SurveyItemObject = {
             }, {
                 field: 'SurveyConfigItemInfoOrder',
                 title: 'Orden',
-                width: '50px',
+                width: '80px',
                 format: '{0:n0}'
             }, {
                 field: 'SurveyConfigItemInfoWeight',
@@ -974,13 +976,28 @@ var Customer_SurveyItemObject = {
                     }
                     return oReturn;
                 },
+            },{
+                field: 'SurveyConfigItemInfoIsMandatory',
+                title: 'Obligatorio',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+
+                    if (dataItem.SurveyConfigItemInfoIsMandatory == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
-                width: '100px',
+                width: '50px',
             }, {
                 title: "&nbsp;",
-                width: "200px",
+                width: "150px",
                 command: [{
                     name: 'edit',
                     text: 'Editar'

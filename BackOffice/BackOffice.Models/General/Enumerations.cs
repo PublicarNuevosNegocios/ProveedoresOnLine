@@ -447,6 +447,7 @@
         Order = 1203001,
         Weight = 1203002,
         HasDescription = 1203003,
+        IsMandatory = 1203004,
     }
 
     #endregion

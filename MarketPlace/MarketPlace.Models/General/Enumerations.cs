@@ -432,4 +432,48 @@
     }
 
     #endregion
+
+    #region Survey
+
+    public enum enumSurveyInfoType
+    {
+        IssueDate = 1204001,
+        Responsable = 1204002,
+        Evaluator = 1204003,
+        Status = 1204004,
+        Progress = 1204005,
+        Rating = 1204006
+    }
+
+
+    public enum enumSurveySearchOrderType
+    {
+        LastModify = 1,
+        SurveyName = 2,
+        SurveyGroup = 3,
+        SurveyStatus = 4,
+    }
+
+    public enum enumSurveyConfigInfoType
+    {
+        Group = 1201001,
+        StepEnable = 1201002,
+    }
+
+    public enum enumSurveyConfigItemType
+    {
+        EvaluationArea = 1202001,
+        Question = 1202002,
+        Answer = 1202003,
+    }
+
+    public enum enumSurveyConfigItemInfoType
+    {
+        Order = 1203001,
+        Weight = 1203002,
+        HasDescription = 1203003,
+        IsMandatory = 1203004,
+    }
+
+    #endregion
 }

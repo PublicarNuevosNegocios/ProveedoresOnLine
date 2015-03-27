@@ -1219,6 +1219,82 @@ namespace MarketPlace.Web.Controllers
             }
             return View(oModel);
         }
+
+        #endregion
+
+        #region Survey
+
+        public virtual ActionResult SVSurveySearch
+            (string ProviderPublicId,
+            string SearchOrderType,
+            string OrderOrientation,
+            string PageNumber)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+
+                oModel.RelatedSurveySearch = new Models.Survey.SurveySearchViewModel()
+                {
+                    SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSurveySearchOrderType.LastModify : (MarketPlace.Models.General.enumSurveySearchOrderType)Convert.ToInt32(SearchOrderType),
+                    OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
+                    PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
+                    SurveySearchResult = new List<Models.Survey.SurveyViewModel>(),
+                };
+
+                if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+                {
+                    //search survey
+                    int oTotalRowsAux;
+                    List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oSurveyResults = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveySearch
+                            (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                            oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                            (int)oModel.RelatedSurveySearch.SearchOrderType,
+                            oModel.RelatedSurveySearch.OrderOrientation,
+                            oModel.RelatedSurveySearch.PageNumber,
+                            oModel.RelatedSurveySearch.RowCount,
+                            out oTotalRowsAux);
+
+                    oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
+
+                    //parse view model
+                    if (oSurveyResults != null && oSurveyResults.Count > 0)
+                    {
+                        oSurveyResults.All(srv =>
+                        {
+                            oModel.RelatedSurveySearch.SurveySearchResult.Add
+                                (new MarketPlace.Models.Survey.SurveyViewModel(srv));
+                            return true;
+                        });
+                    }
+                }
+            }
+            return View(oModel);
+        }
+
         #endregion
 
         #region Menu
@@ -1633,6 +1709,42 @@ namespace MarketPlace.Web.Controllers
                     Position = 4,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.LIResolutionInfo &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                //add menu
+                oReturn.Add(oMenuAux);
+
+                #endregion
+
+                #region Survey Info
+
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Evaluación de desempeño",
+                    Position = 5,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
+
+                //survey list
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Lista de evaluaciónes",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.SVSurveySearch,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
+                    Position = 0,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.SVSurveySearch &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

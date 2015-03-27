@@ -171,6 +171,12 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveySearch()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -207,6 +213,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string LICIFINInfo = "LICIFINInfo";
             public readonly string LISARLAFTInfo = "LISARLAFTInfo";
             public readonly string LIResolutionInfo = "LIResolutionInfo";
+            public readonly string SVSurveySearch = "SVSurveySearch";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -232,6 +239,7 @@ namespace MarketPlace.Web.Controllers
             public const string LICIFINInfo = "LICIFINInfo";
             public const string LISARLAFTInfo = "LISARLAFTInfo";
             public const string LIResolutionInfo = "LIResolutionInfo";
+            public const string SVSurveySearch = "SVSurveySearch";
         }
 
 
@@ -394,6 +402,17 @@ namespace MarketPlace.Web.Controllers
         public class ActionParamsClass_LIResolutionInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_SVSurveySearch s_params_SVSurveySearch = new ActionParamsClass_SVSurveySearch();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveySearch SVSurveySearchParams { get { return s_params_SVSurveySearch; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveySearch
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SearchOrderType = "SearchOrderType";
+            public readonly string OrderOrientation = "OrderOrientation";
+            public readonly string PageNumber = "PageNumber";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -658,6 +677,21 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIResolutionInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveySearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveySearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
+            SVSurveySearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber);
             return callInfo;
         }
 

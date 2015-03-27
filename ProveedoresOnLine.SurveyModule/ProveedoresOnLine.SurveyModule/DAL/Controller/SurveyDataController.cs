@@ -97,6 +97,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveyItemInfoUpsert(SurveyItemInfoId, SurveyItemId, SurveyItemInfoType, Value, LargeValue, Enable);
         }
 
+        public List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
+        }
+
         #endregion
     }
 }
