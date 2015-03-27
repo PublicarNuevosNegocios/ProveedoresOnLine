@@ -71,7 +71,7 @@ namespace MarketPlace.Models.Survey
             get
             {
                 return RelatedSurvey.SurveyInfo.
-                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Responsable).
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).
                     Select(y => y.Value).
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();

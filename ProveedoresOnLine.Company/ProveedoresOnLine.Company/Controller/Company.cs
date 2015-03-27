@@ -816,11 +816,6 @@ namespace ProveedoresOnLine.Company.Controller
 
         #region User Roles
 
-        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
-        {
-            return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
-        }
-
         public static ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetByPublicId(CompanyPublicId);
@@ -829,6 +824,16 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
         {
             return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetUsersByPublicId(CompanyPublicId);
+        }
+
+        public static List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
+        {
+            return DAL.Controller.CompanyDataController.Instance.MP_RoleCompanyGetByUser(User);
+        }
+
+        public static List<Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.MP_UserCompanySearch(CompanyPublicId, SearchParam, PageNumber, RowCount);
         }
 
         #endregion

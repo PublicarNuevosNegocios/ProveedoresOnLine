@@ -268,11 +268,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #region User Roles
 
-        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
-        {
-            return DataFactory.MP_RoleCompanyGetByUser(User);
-        }
-
         public ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             return DataFactory.RoleCompany_GetByPublicId(CompanyPublicId);
@@ -281,6 +276,16 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         public List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
         {
             return DataFactory.RoleCompany_GetUsersByPublicId(CompanyPublicId);
+        }
+
+        public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
+        {
+            return DataFactory.MP_RoleCompanyGetByUser(User);
+        }
+
+        public List<Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.MP_UserCompanySearch(CompanyPublicId, SearchParam, PageNumber, RowCount);
         }
 
         #endregion
@@ -292,6 +297,5 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
         #endregion
-
     }
 }

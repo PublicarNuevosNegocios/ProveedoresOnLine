@@ -70,7 +70,7 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByStateAdmin(string CountrySearchParam, string StateSearchParam, int PageNumber, int RowCount, out int TotalRows);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId,string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         #endregion
 
@@ -114,11 +114,13 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         #region User Roles
 
-        List<CompanyModel> MP_RoleCompanyGetByUser(string User);
-
         ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId);
 
         List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId);
+
+        List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User);
+
+        List<ProveedoresOnLine.Company.Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount);
 
         #endregion
 

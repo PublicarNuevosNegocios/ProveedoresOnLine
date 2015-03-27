@@ -1,0 +1,41 @@
+﻿@model bool
+
+@if (!Model)
+{
+    <div id="Survey_ProgramSurvey">
+        <div id="Survey_ProgramSurvey_Dialog">
+            <form action="" method="post">
+                <ul>
+                    <li>
+                        <label>Evaluación</label>
+                        <input id="Survey_ProgramSurvey_SurveyConfigName" />
+                    </li>
+                    <li>
+                        <label>Evaluador</label>
+                        <input id="Survey_ProgramSurvey_Evaluator" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).ToString())_" />
+                    </li>
+                    <li>
+                        <label>Fecha</label>
+                        <input id="Survey_ProgramSurvey_IssueDate" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
+                    </li>
+                </ul>
+                <div style="display:none">
+                    <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
+                    <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
+                    <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Survey_ProgramObject.Init({
+                ObjectId: 'Survey_ProgramSurvey',
+                DateFormat: '@(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_DateFormat_Kendo].Value)',
+            });
+        });
+    </script>
+}

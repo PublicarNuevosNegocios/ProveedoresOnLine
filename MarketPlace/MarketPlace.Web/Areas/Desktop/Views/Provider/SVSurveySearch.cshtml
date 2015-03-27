@@ -14,14 +14,65 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Evaluación de desempeño</label>
+        <div>
+            <div>
+                <!--header-->
+                <ul>
+                    <li>
+                        <label>Ordenar por:</label>
+                    </li>
+                    <li>
+                        <!--order-->
+                        <select id="optOrder">
+                            @{string strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_0";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha - reciente antiguo</option>
+
+                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_1";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha - antiguo reciente</option>
+
+                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_1";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - AZ</option>
+
+                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_0";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - ZA</option>
+
+                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyName).ToString() + "_1";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Nombre de evaluación - AZ</option>
+
+                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyName).ToString() + "_0";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Nombre de evaluación - ZA</option>
+
+                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyStatus).ToString() + "_0";}
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Estado</option>
+                        </select>
+                    </li>
+                    <li>
+                        <!--actions-->
+                        <a href="javascript:Survey_ProgramObject.ShowProgram(null);">Programar nueva evaluación</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <!--search results-->
+            </div>
+        </div>
     </div>
 </div>
+
+<!--templates-->
+<div style="display:none;">
+
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, Model.RenderScripts)
+
+</div>
+
 @{
     Model.RenderScripts = true;
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, Model.RenderScripts)
 
     <script type="text/javascript">
         $(document).ready(function () {

@@ -10,10 +10,11 @@ namespace MarketPlace.Models.Survey
     {
         public List<SurveyViewModel> SurveySearchResult { get; set; }
 
-
         public MarketPlace.Models.General.enumSurveySearchOrderType SearchOrderType { get; set; }
 
         public bool OrderOrientation { get; set; }
+
+        public string OrderTypeOrientation { get { return ((int)SearchOrderType).ToString() + "_" + OrderOrientation.ToString(); } }
 
         public int PageNumber { get; set; }
 

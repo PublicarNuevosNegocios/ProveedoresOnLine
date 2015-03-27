@@ -438,7 +438,7 @@
     public enum enumSurveyInfoType
     {
         IssueDate = 1204001,
-        Responsable = 1204002,
+        Responsible = 1204002,
         Evaluator = 1204003,
         Status = 1204004,
         Progress = 1204005,
