@@ -24,8 +24,8 @@ namespace DocumentManagement.Provider_Test
                 CustomerPublicId = "1C17DDCD",
                 Name = "ProveedorTest",
                 IdentificationType = new Provider.Models.Util.CatalogModel() { ItemId = 101 },
-                IdentificationNumber = "1030544789",
-                Email = "pruebaemail.email.com",
+                IdentificationNumber = "00002",
+                Email = "pruebaemail@email.com",
                 RelatedProviderCustomerInfo = ListCustomerProviderInfo
 
             };

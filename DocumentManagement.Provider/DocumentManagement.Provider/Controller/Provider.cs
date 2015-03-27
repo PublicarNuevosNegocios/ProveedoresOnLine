@@ -1,5 +1,6 @@
 ﻿using DocumentManagement.Provider.Models;
 using DocumentManagement.Provider.Models.Provider;
+using ProveedoresOnLine.AsociateProvider.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,19 @@ namespace DocumentManagement.Provider.Controller
                 ProviderToUpsert.ProviderPublicId = oResult;
                 ProviderInfoUpsert(ProviderToUpsert);
                 ProviderCustomerInfoUpsert(ProviderToUpsert);
+
+                AsociateProviderModel AsociateProviderToUpsert = new AsociateProviderModel()
+                {
+                    RelatedProviderDM = new RelatedProviderModel()
+                    {
+                        ProviderPublicId = oResult,
+                        ProviderName = ProviderToUpsert.Name,
+                        IdentificationType = ProviderToUpsert.IdentificationType.ItemId.ToString(),
+                        IdentificationNumber = ProviderToUpsert.IdentificationNumber,
+                    },
+                };
+
+                ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.ProviderUpsertDM(AsociateProviderToUpsert);
 
                 oLog.IsSuccess = true;
             }
@@ -148,7 +162,6 @@ namespace DocumentManagement.Provider.Controller
 
             try
             {
-
                 if (System.Web.HttpContext.Current != null)
                 {
                     //get user info

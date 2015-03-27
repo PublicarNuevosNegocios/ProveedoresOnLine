@@ -36,10 +36,10 @@ namespace ProveedoresOnLine.AsociateProvider.Test
             {
                 RelatedProviderDM = new Client.Models.RelatedProviderModel()
                 {
-                    ProviderPublicId = "A1F3B1B6",
-                    ProviderName = "FISHER CONTROLS INTERNATIONAL LLC",
+                    ProviderPublicId = "abc12021",
+                    ProviderName = "Prueba Log",
                     IdentificationType = "103",
-                    IdentificationNumber = "431156463",
+                    IdentificationNumber = "0001",
                 },
             };
 

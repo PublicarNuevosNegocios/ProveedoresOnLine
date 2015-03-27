@@ -9,14 +9,14 @@
     int InfoIdAux = 0;
     string InfoValueAux = string.Empty;
 
-    ProveedoresOnLine.Company.Models.Util.GenericItemModel CurrentLegal = null;
+    ProveedoresOnLine.Company.Models.Util.GenericItemModel CurrentFinancial = null;
 
     if (Model.RelatedProvider != null &&
-        Model.RelatedProvider.RelatedLegal != null &&
-        Model.RelatedProvider.RelatedLegal.Count > 0)
+        Model.RelatedProvider.RelatedFinantial != null &&
+        Model.RelatedProvider.RelatedFinantial.Count > 0)
     {
-        CurrentLegal = Model.RelatedProvider.
-                           RelatedLegal.
+        CurrentFinancial = Model.RelatedProvider.
+                           RelatedFinantial.
                            FirstOrDefault();
     }
 }
@@ -33,7 +33,7 @@
         <form class="POBOProviderUpsertForm" id="frmProviderUpsert"
               method="post"
               action="@(Url.Action
-                (MVC.Provider.ActionNames.LIOrganizationStructureUpsert,
+                (MVC.Provider.ActionNames.FIOrganizationStructureUpsert,
                 MVC.Provider.Name,
                 new
                 {
@@ -56,18 +56,18 @@
                     InfoIdAux = 0;
                     InfoValueAux = string.Empty;
 
-                    if (CurrentLegal != null &&
-                        CurrentLegal.ItemInfo != null &&
-                        CurrentLegal.ItemInfo.Count > 0)
+                    if (CurrentFinancial != null &&
+                        CurrentFinancial.ItemInfo != null &&
+                        CurrentFinancial.ItemInfo.Count > 0)
                     {
-                        InfoIdAux = CurrentLegal.
+                        InfoIdAux = CurrentFinancial.
                             ItemInfo.
                             Where(x => x.ItemInfoType.ItemId == Item.ItemId).
                             Select(x => x.ItemInfoId).
                             DefaultIfEmpty(0).
                             FirstOrDefault();
 
-                        InfoValueAux = CurrentLegal.
+                        InfoValueAux = CurrentFinancial.
                             ItemInfo.
                             Where(x => x.ItemInfoType.ItemId == Item.ItemId).
                             Select(x => x.Value).
@@ -83,8 +83,8 @@
                 }
                 <li>
                     <label><span>*</span> Habilitado</label><br />
-                    @if (CurrentLegal != null &&
-                        !CurrentLegal.Enable)
+                    @if (CurrentFinancial != null &&
+                        !CurrentFinancial.Enable)
                     {
                         <input type="checkbox" name="Enable" />
                     }
@@ -95,7 +95,7 @@
                 </li>
             </ul>
             <div style="display:none">
-                <input type="hidden" name="ItemId" id="ItemId" value="@(CurrentLegal != null ? CurrentLegal.ItemId.ToString() : "0")" />
+                <input type="hidden" name="ItemId" id="ItemId" value="@(CurrentFinancial != null ? CurrentFinancial.ItemId.ToString() : "0")" />
 
                 <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                 <input type="hidden" name="StepAction" id="StepAction" value="" />

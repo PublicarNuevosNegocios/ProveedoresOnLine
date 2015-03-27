@@ -45,7 +45,7 @@
         SARLAFTInfoType = 605,
         ResolucionesInfoType = 606,
 
-        OrganizationStructure = 609,
+        OrganizationStructure = 506,
 
         ProviderStatus = 902,
     }
@@ -233,8 +233,7 @@
         CIFIN = 601003,
         SARLAFT = 601004,
         Resoluciones = 601005,
-        Designations = 601007,
-        OrganizationStructure = 601008,
+        Designations = 601007,        
     }
 
     public enum enumLegalInfoType
@@ -361,6 +360,7 @@
         TaxInfoType = 501002,
         IncomeStatementInfoType = 501003,
         BankInfoType = 501004,
+        OrganizationStructure = 501005,
     }
 
     /// <summary>

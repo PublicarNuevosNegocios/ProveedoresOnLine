@@ -1,4 +1,5 @@
-﻿using ProveedoresOnLine.Company.Models.Company;
+﻿using ProveedoresOnLine.AsociateProvider.Client.Models;
+using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
@@ -381,6 +382,23 @@ namespace ProveedoresOnLine.Company.Controller
                 CompanyInfoUpsert(CompanyToUpsert);
                 ContactUpsert(CompanyToUpsert);
                 RoleCompanyUpsert(CompanyToUpsert);
+
+                if (CompanyToUpsert.CompanyType.ItemId == 202002 ||
+                    CompanyToUpsert.CompanyType.ItemId == 202003)
+                {
+                    AsociateProviderModel AsociateProviderToUpsert = new AsociateProviderModel()
+                    {
+                        RelatedProviderBO = new RelatedProviderModel()
+                        {
+                            ProviderPublicId = CompanyToUpsert.CompanyPublicId,
+                            ProviderName = CompanyToUpsert.CompanyName,
+                            IdentificationType = CompanyToUpsert.IdentificationType.ItemId.ToString(),
+                            IdentificationNumber = CompanyToUpsert.IdentificationNumber,
+                        },
+                    };
+
+                    ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.ProviderUpsertBO(AsociateProviderToUpsert);
+                }               
 
                 oLog.IsSuccess = true;
 
