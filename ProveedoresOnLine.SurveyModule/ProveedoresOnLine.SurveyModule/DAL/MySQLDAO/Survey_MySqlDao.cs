@@ -306,6 +306,63 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<SurveyConfigModel> MP_SurveyConfigSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CC_SurveyConfig_Search",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<SurveyConfigModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sc in response.DataTableResult.AsEnumerable()
+                     where !sc.IsNull("SurveyConfigId")
+                     group sc by new
+                     {
+                         SurveyConfigId = sc.Field<int>("SurveyConfigId"),
+                         SurveyName = sc.Field<string>("SurveyName"),
+                     } into scg
+                     select new SurveyConfigModel()
+                     {
+                         ItemId = scg.Key.SurveyConfigId,
+                         ItemName = scg.Key.SurveyName,
+
+                         ItemInfo =
+                            (from scinf in response.DataTableResult.AsEnumerable()
+                             where !scinf.IsNull("SurveyConfigInfoId") &&
+                                    scinf.Field<int>("SurveyConfigId") == scg.Key.SurveyConfigId
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = scinf.Field<int>("SurveyConfigInfoId"),
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = scinf.Field<int>("SurveyConfigInfoTypeId"),
+                                     ItemName = scinf.Field<string>("SurveyConfigInfoTypeName"),
+                                 },
+                                 Value = scinf.Field<string>("SurveyConfigInfoValue"),
+                                 LargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
+                                 ValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
+                             }).ToList(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+
         #endregion
 
         #region Survey
@@ -501,6 +558,5 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
         }
 
         #endregion
-
     }
 }

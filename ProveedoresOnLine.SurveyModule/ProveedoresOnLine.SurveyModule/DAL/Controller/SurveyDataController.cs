@@ -73,6 +73,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, ParentSurveyConfigItem, Enable);
         }
 
+        public List<Models.SurveyConfigModel> MP_SurveyConfigSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            return DataFactory.MP_SurveyConfigSearch(CustomerPublicId, SearchParam, PageNumber, RowCount);
+        }
+
         #endregion
 
         #region Survey
