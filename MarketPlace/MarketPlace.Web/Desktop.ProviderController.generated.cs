@@ -410,6 +410,9 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionParamsClass_SVSurveySearch
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string SearchOrderType = "SearchOrderType";
+            public readonly string OrderOrientation = "OrderOrientation";
+            public readonly string PageNumber = "PageNumber";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -720,14 +723,17 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void SVSurveySearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+        partial void SVSurveySearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SVSurveySearch(string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult SVSurveySearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            SVSurveySearchOverride(callInfo, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
+            SVSurveySearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber);
             return callInfo;
         }
 

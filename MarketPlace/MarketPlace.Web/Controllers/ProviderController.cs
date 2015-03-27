@@ -1224,7 +1224,11 @@ namespace MarketPlace.Web.Controllers
 
         #region Survey
 
-        public virtual ActionResult SVSurveySearch(string ProviderPublicId)
+        public virtual ActionResult SVSurveySearch
+            (string ProviderPublicId,
+            string SearchOrderType,
+            string OrderOrientation,
+            string PageNumber)
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
@@ -1251,6 +1255,42 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.ProviderMenu = GetProviderMenu(oModel);
+
+                oModel.RelatedSurveySearch = new Models.Survey.SurveySearchViewModel()
+                {
+                    SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSurveySearchOrderType.LastModify : (MarketPlace.Models.General.enumSurveySearchOrderType)Convert.ToInt32(SearchOrderType),
+                    OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
+                    PageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber),
+                    SurveySearchResult = new List<Models.Survey.SurveyViewModel>(),
+                };
+
+                if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+                {
+                    //search survey
+                    int oTotalRowsAux;
+                    List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oSurveyResults = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveySearch
+                            (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                            oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                            (int)oModel.RelatedSurveySearch.SearchOrderType,
+                            oModel.RelatedSurveySearch.OrderOrientation,
+                            oModel.RelatedSurveySearch.PageNumber,
+                            oModel.RelatedSurveySearch.RowCount,
+                            out oTotalRowsAux);
+
+                    oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
+
+                    //parse view model
+                    if (oSurveyResults != null && oSurveyResults.Count > 0)
+                    {
+                        oSurveyResults.All(srv =>
+                        {
+                            oModel.RelatedSurveySearch.SurveySearchResult.Add
+                                (new MarketPlace.Models.Survey.SurveyViewModel(srv));
+                            return true;
+                        });
+                    }
+                }
             }
             return View(oModel);
         }

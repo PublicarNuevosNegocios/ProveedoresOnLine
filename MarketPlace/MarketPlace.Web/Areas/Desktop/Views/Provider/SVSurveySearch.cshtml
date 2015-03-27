@@ -14,7 +14,6 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Evaluación de desempeño</label>
-        <div id="divGridSurvey"></div>
     </div>
 </div>
 @{
@@ -23,5 +22,11 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
 }
 

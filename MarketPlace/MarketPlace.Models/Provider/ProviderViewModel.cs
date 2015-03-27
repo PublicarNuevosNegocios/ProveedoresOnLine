@@ -54,5 +54,7 @@ namespace MarketPlace.Models.Provider
         public List<ProviderFinancialBasicInfoViewModel> RelatedFinancialBasicInfo { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> RelatedCertificationBasicInfo { get; set; }
+
+        public MarketPlace.Models.Survey.SurveySearchViewModel RelatedSurveySearch { get; set; }
     }
 }

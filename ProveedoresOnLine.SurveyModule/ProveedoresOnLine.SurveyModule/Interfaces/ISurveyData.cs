@@ -36,6 +36,8 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         int SurveyItemInfoUpsert(int? SurveyItemInfoId, int SurveyItemId, int SurveyItemInfoType, string Value, string LargeValue, bool Enable);
 
+        List<SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
+
         #endregion
     }
 }

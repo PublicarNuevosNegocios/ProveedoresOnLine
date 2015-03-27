@@ -98,6 +98,9 @@
     <Reference Include="ProveedoresOnLine.CompareModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompareModule\developer\ProveedoresOnLine.CompareModule.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.SurveyModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
+    </Reference>
     <Reference Include="SessionManager">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
@@ -194,6 +197,7 @@
     <Compile Include="CompareController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="ControllersApi\SurveyApiController.cs" />
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\CompareApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />

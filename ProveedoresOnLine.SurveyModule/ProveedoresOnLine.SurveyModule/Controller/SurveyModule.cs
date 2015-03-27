@@ -388,6 +388,10 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return SurveyItemToUpsert;
         }
 
+        public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.SurveyDataController.Instance.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
+        }
 
         #endregion
     }
