@@ -1092,7 +1092,7 @@
     <Content Include="Views\Customer\ROCustomerUserUpsert.cshtml" />
     <Content Include="Views\Shared\_C_CustomerMenu.cshtml" />
     <Content Include="Views\Shared\_C_CustomerActions.cshtml" />
-    <Content Include="Views\Provider\LIOrganizationStructureUpsert.cshtml" />
+    <Content Include="Views\Provider\FIOrganizationStructureUpsert.cshtml" />
     <Content Include="Views\Customer\SCSurveyConfigUpsert.cshtml" />
     <Content Include="Views\Customer\SCSurveyConfigItemUpsert.cshtml" />
   </ItemGroup>
@@ -1125,7 +1125,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55537</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

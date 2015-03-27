@@ -137,6 +137,12 @@ namespace BackOffice.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FIOrganizationStructureUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIOrganizationStructureUpsert);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceUpsert()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceUpsert);
@@ -164,12 +170,6 @@ namespace BackOffice.Web.Controllers
         public virtual System.Web.Mvc.ActionResult LIResolutionUpsert()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult LIOrganizationStructureUpsert()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIOrganizationStructureUpsert);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -213,12 +213,12 @@ namespace BackOffice.Web.Controllers
             public readonly string FITaxUpsert = "FITaxUpsert";
             public readonly string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
             public readonly string FIBankUpsert = "FIBankUpsert";
+            public readonly string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
             public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             public readonly string LIRutUpsert = "LIRutUpsert";
             public readonly string LICIFINUpsert = "LICIFINUpsert";
             public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
             public readonly string LIResolutionUpsert = "LIResolutionUpsert";
-            public readonly string LIOrganizationStructureUpsert = "LIOrganizationStructureUpsert";
             public readonly string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public readonly string DownloadFile = "DownloadFile";
         }
@@ -240,12 +240,12 @@ namespace BackOffice.Web.Controllers
             public const string FITaxUpsert = "FITaxUpsert";
             public const string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
             public const string FIBankUpsert = "FIBankUpsert";
+            public const string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
             public const string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
             public const string LIRutUpsert = "LIRutUpsert";
             public const string LICIFINUpsert = "LICIFINUpsert";
             public const string LISARLAFTUpsert = "LISARLAFTUpsert";
             public const string LIResolutionUpsert = "LIResolutionUpsert";
-            public const string LIOrganizationStructureUpsert = "LIOrganizationStructureUpsert";
             public const string CPCustomerProviderStatus = "CPCustomerProviderStatus";
             public const string DownloadFile = "DownloadFile";
         }
@@ -355,6 +355,14 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_FIOrganizationStructureUpsert s_params_FIOrganizationStructureUpsert = new ActionParamsClass_FIOrganizationStructureUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_FIOrganizationStructureUpsert FIOrganizationStructureUpsertParams { get { return s_params_FIOrganizationStructureUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_FIOrganizationStructureUpsert
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ActionParamsClass_LIChaimberOfCommerceUpsert s_params_LIChaimberOfCommerceUpsert = new ActionParamsClass_LIChaimberOfCommerceUpsert();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_LIChaimberOfCommerceUpsert LIChaimberOfCommerceUpsertParams { get { return s_params_LIChaimberOfCommerceUpsert; } }
@@ -395,14 +403,6 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LIOrganizationStructureUpsert s_params_LIOrganizationStructureUpsert = new ActionParamsClass_LIOrganizationStructureUpsert();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIOrganizationStructureUpsert LIOrganizationStructureUpsertParams { get { return s_params_LIOrganizationStructureUpsert; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIOrganizationStructureUpsert
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
-        }
         static readonly ActionParamsClass_CPCustomerProviderStatus s_params_CPCustomerProviderStatus = new ActionParamsClass_CPCustomerProviderStatus();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CPCustomerProviderStatus CPCustomerProviderStatusParams { get { return s_params_CPCustomerProviderStatus; } }
@@ -435,6 +435,7 @@ namespace BackOffice.Web.Controllers
                 public readonly string FIBalanceSheetUpsert = "FIBalanceSheetUpsert";
                 public readonly string FIBankUpsert = "FIBankUpsert";
                 public readonly string FIIncomeStatementUpsert = "FIIncomeStatementUpsert";
+                public readonly string FIOrganizationStructureUpsert = "FIOrganizationStructureUpsert";
                 public readonly string FITaxUpsert = "FITaxUpsert";
                 public readonly string GIBranchUpsert = "GIBranchUpsert";
                 public readonly string GICompanyContactUpsert = "GICompanyContactUpsert";
@@ -447,7 +448,6 @@ namespace BackOffice.Web.Controllers
                 public readonly string Index = "Index";
                 public readonly string LIChaimberOfCommerceUpsert = "LIChaimberOfCommerceUpsert";
                 public readonly string LICIFINUpsert = "LICIFINUpsert";
-                public readonly string LIOrganizationStructureUpsert = "LIOrganizationStructureUpsert";
                 public readonly string LIResolutionUpsert = "LIResolutionUpsert";
                 public readonly string LIRutUpsert = "LIRutUpsert";
                 public readonly string LISARLAFTUpsert = "LISARLAFTUpsert";
@@ -457,6 +457,7 @@ namespace BackOffice.Web.Controllers
             public readonly string FIBalanceSheetUpsert = "~/Views/Provider/FIBalanceSheetUpsert.cshtml";
             public readonly string FIBankUpsert = "~/Views/Provider/FIBankUpsert.cshtml";
             public readonly string FIIncomeStatementUpsert = "~/Views/Provider/FIIncomeStatementUpsert.cshtml";
+            public readonly string FIOrganizationStructureUpsert = "~/Views/Provider/FIOrganizationStructureUpsert.cshtml";
             public readonly string FITaxUpsert = "~/Views/Provider/FITaxUpsert.cshtml";
             public readonly string GIBranchUpsert = "~/Views/Provider/GIBranchUpsert.cshtml";
             public readonly string GICompanyContactUpsert = "~/Views/Provider/GICompanyContactUpsert.cshtml";
@@ -469,7 +470,6 @@ namespace BackOffice.Web.Controllers
             public readonly string Index = "~/Views/Provider/Index.cshtml";
             public readonly string LIChaimberOfCommerceUpsert = "~/Views/Provider/LIChaimberOfCommerceUpsert.cshtml";
             public readonly string LICIFINUpsert = "~/Views/Provider/LICIFINUpsert.cshtml";
-            public readonly string LIOrganizationStructureUpsert = "~/Views/Provider/LIOrganizationStructureUpsert.cshtml";
             public readonly string LIResolutionUpsert = "~/Views/Provider/LIResolutionUpsert.cshtml";
             public readonly string LIRutUpsert = "~/Views/Provider/LIRutUpsert.cshtml";
             public readonly string LISARLAFTUpsert = "~/Views/Provider/LISARLAFTUpsert.cshtml";
@@ -649,6 +649,18 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
+        partial void FIOrganizationStructureUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FIOrganizationStructureUpsert(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIOrganizationStructureUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            FIOrganizationStructureUpsertOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void LIChaimberOfCommerceUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
@@ -705,18 +717,6 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIResolutionUpsertOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void LIOrganizationStructureUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult LIOrganizationStructureUpsert(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIOrganizationStructureUpsert);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            LIOrganizationStructureUpsertOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
