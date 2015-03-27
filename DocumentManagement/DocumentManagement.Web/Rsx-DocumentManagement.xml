@@ -39,13 +39,13 @@
     <key name="_P_FieldAutocomplete">307,</key>
     <key name="_P_FieldEmail">303,306,310,313,326,328,330,332,372,</key>
     <key name="_P_FieldFile">343,344,345,346,347,348,353,354,355,356,357,358,359,360,361,368,371,373,</key>
-    <key name="_P_FieldFormPdf">365,369,370</key>
+    <key name="_P_FieldFormPdf">365,369,370,374,375,376,</key>
     <key name="_P_FieldLegalTerms">363,364,</key>
     <key name="_P_FieldNumber">314,367,</key>
     <key name="_P_FieldPartners">342,</key>
     <key name="_P_FieldQuantity">334,335,336,337,338,339,340,</key>
     <key name="_P_FieldText">301,302,304,305,308,309,311,312,315,316,317,318,319,320,321,322,323,324,325,327,329,331,333,341,350,366,</key>
-    <key name="_P_FieldMultipleFile">349,362,351,352,</key>
+    <key name="_P_FieldMultipleFile">349,362,351,352,377,</key>
 
     <key name="_P_FieldFormPdf_365_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_365_FormText">Descargar formulario pdf.</key>
@@ -55,6 +55,15 @@
     
     <key name="_P_FieldFormPdf_370_FormUrl">http://fieldform.pdf</key>
     <key name="_P_FieldFormPdf_370_FormText">Download form pdf.</key>
+    
+    <key name="_P_FieldFormPdf_374_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Formato_registro_de_proveedores_esenttia_nacional.xlsx</key>
+    <key name="_P_FieldFormPdf_374_FormText">Descargar formulario nacional .xls</key>
+    
+    <key name="_P_FieldFormPdf_375_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Suplier_registration_form_esenttia_extranjero.xlsx</key>
+    <key name="_P_FieldFormPdf_375_FormText">Descargar formulario extranjero .xls</key>
+    
+    <key name="_P_FieldFormPdf_376_FormUrl">https://s3.amazonaws.com/stgproveedoresonline/DocumentManagment/0General/Carta_autorizacion_transferencia_bancaria.docx</key>
+    <key name="_P_FieldFormPdf_376_FormText">Descargar carta de autorización .doc</key>
       
     <key name="_P_FieldLegalTerms_363_LegalText">
       <![CDATA[

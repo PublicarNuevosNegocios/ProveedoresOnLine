@@ -12,30 +12,35 @@ namespace ProveedoresOnLine.AsociateProvider.Client.Controller
         public static void AsociateProvider(AsociateProviderModel AsociateProviderToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
-            try
+
+            if (AsociateProviderToUpsert.RelatedProviderBO != null &&
+                AsociateProviderToUpsert.RelatedProviderDM != null)
             {
-                int BOProviderUpsert = ProviderUpsertBO(AsociateProviderToUpsert);
+                try
+                {
+                    int BOProviderUpsert = ProviderUpsertBO(AsociateProviderToUpsert);
 
-                int DMProviderUpsert = ProviderUpsertDM(AsociateProviderToUpsert);
+                    int DMProviderUpsert = ProviderUpsertDM(AsociateProviderToUpsert);
 
-                DAL.Controller.AsociateProviderClientController.Instance.AP_AsociateProviderUpsert(
-                    AsociateProviderToUpsert.RelatedProviderBO.ProviderPublicId,
-                    AsociateProviderToUpsert.RelatedProviderDM.ProviderPublicId,
-                    AsociateProviderToUpsert.Email);
+                    DAL.Controller.AsociateProviderClientController.Instance.AP_AsociateProviderUpsert(
+                        AsociateProviderToUpsert.RelatedProviderBO.ProviderPublicId,
+                        AsociateProviderToUpsert.RelatedProviderDM.ProviderPublicId,
+                        AsociateProviderToUpsert.Email);
 
-                oLog.IsSuccess = true;
-            }
-            catch (Exception err)
-            {
-                oLog.IsSuccess = false;
-                oLog.Message = err.Message + " - " + err.StackTrace;
+                    oLog.IsSuccess = true;
+                }
+                catch (Exception err)
+                {
+                    oLog.IsSuccess = false;
+                    oLog.Message = err.Message + " - " + err.StackTrace;
 
-                throw err;
-            }
-            finally
-            {
-                oLog.LogObject = AsociateProviderToUpsert;
-                LogManager.ClientLog.AddLog(oLog);
+                    throw err;
+                }
+                finally
+                {
+                    oLog.LogObject = AsociateProviderToUpsert;
+                    LogManager.ClientLog.AddLog(oLog);
+                }
             }
         }
         
