@@ -966,8 +966,7 @@ namespace BackOffice.Web.Controllers
 
             return View(oModel);
         }
-
-
+        
         #region Private methods
 
         private GenericItemModel GetChaimberOfCommerceInfoRequest()
