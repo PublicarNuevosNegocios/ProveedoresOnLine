@@ -475,5 +475,12 @@
         IsMandatory = 1203004,
     }
 
+    public enum enumSurveyStatus
+    {
+        Program = 1206001,
+        Send = 1206002,
+        InProgress = 1206003,
+        Close = 1206004,
+    }
     #endregion
 }

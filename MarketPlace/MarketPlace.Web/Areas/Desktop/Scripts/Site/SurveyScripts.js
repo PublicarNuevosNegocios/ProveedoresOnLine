@@ -3,7 +3,7 @@ var Survey_ProgramObject = {
 
     ObjectId: '',
     DateFormat: '',
-    
+
     Init: function (vInitObject) {
 
         this.ObjectId = vInitObject.ObjectId;
@@ -24,7 +24,38 @@ var Survey_ProgramObject = {
                     $(this).dialog("close");
                 },
                 'Guardar': function () {
-                    $(this).dialog("close");
+                    var validator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Form').data("kendoValidator");
+                    if (validator.validate()) {
+
+
+
+                        //$.ajax({
+                        //    url: BaseUrl.ApiUrl + '/SurveyApi?SurveyConfigSearchAC=true&SearchParam=' + options.data.filter.filters[0].value,
+                        //    dataType: 'json',
+                        //    success: function (result) {
+                        //        options.success(result);
+                        //    },
+                        //    error: function (result) {
+                        //        options.error(result);
+                        //    }
+                        //});
+
+                        //    var url = "path/to/your/script.php"; // the script where you handle the form input.
+
+                        //    $.ajax({
+                        //        type: "POST",
+                        //        url: url,
+                        //        data: $("#idForm").serialize(), // serializes the form's elements.
+                        //        success: function(data)
+                        //        {
+                        //            alert(data); // show response from the php script.
+                        //        }
+                        //    });
+
+                        //    return false; // avoid to execute the actual submit of the form.
+                        //});
+                        //$(this).dialog("close");
+                    }
                 }
             }
         });
@@ -33,6 +64,10 @@ var Survey_ProgramObject = {
         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val('');
         if (vShowObject != null && vShowObject.SurveyPublicId != null) {
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val(vShowObject.SurveyPublicId);
+        }
+        else {
+            DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Responsible').remove();
+            DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Status').remove();
         }
 
         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ProviderPublicId').val('');
@@ -126,6 +161,8 @@ var Survey_ProgramObject = {
             min: new Date(),
         });
 
+        //init form validator
+        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Form').kendoValidator();
     },
 };
 

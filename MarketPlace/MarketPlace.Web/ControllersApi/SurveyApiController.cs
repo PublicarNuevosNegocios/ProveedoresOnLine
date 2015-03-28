@@ -44,5 +44,71 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public MarketPlace.Models.Survey.SurveyViewModel SurveyUpsert
+            (string SurveyUpsert)
+        {
+            MarketPlace.Models.Survey.SurveyViewModel oReturn = null;
+
+            if (SurveyUpsert == "true")
+            {
+                ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
+
+                SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
+            }
+
+            return oReturn;
+        }
+
+        #region PrivateMethods
+
+        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
+        {
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oReturn = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+            {
+                SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
+                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                {
+                    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = System.Web.HttpContext.Current.Request["ProviderPublicId"],
+                    }
+                },
+                RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
+                {
+                    ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
+                },
+                Enable = true,
+
+                SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
+            };
+
+            //get company info
+            System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
+            {
+                string[] strSplit = req.Split('_');
+
+                if (strSplit.Length >= 3)
+                {
+                    oReturn.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = !string.IsNullOrEmpty(strSplit[2]) ? Convert.ToInt32(strSplit[2].Trim()) : 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(strSplit[1].Trim())
+                        },
+                        Value = System.Web.HttpContext.Current.Request[req],
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

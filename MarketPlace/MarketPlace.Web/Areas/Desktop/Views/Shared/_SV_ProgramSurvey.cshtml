@@ -4,25 +4,27 @@
 {
     <div id="Survey_ProgramSurvey">
         <div id="Survey_ProgramSurvey_Dialog">
-            <form action="" method="post">
+            <form id="Survey_ProgramSurvey_Form" action="@Url.Content("~/api/SurveyApi?SurveyUpsert=true")" method="post">
                 <ul>
                     <li>
                         <label>Evaluación</label>
-                        <input id="Survey_ProgramSurvey_SurveyConfigName" />
+                        <input id="Survey_ProgramSurvey_SurveyConfigName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" />
                     </li>
                     <li>
                         <label>Evaluador</label>
-                        <input id="Survey_ProgramSurvey_Evaluator" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).ToString())_" />
+                        <input id="Survey_ProgramSurvey_Evaluator" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).ToString())_" />
                     </li>
                     <li>
                         <label>Fecha</label>
-                        <input id="Survey_ProgramSurvey_IssueDate" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
+                        <input id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
                     </li>
                 </ul>
                 <div style="display:none">
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
+                    <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
+                    <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
                 </div>
             </form>
         </div>
