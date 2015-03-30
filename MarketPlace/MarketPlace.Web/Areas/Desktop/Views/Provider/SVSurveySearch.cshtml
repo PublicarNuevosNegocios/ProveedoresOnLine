@@ -54,6 +54,24 @@
             </div>
             <div>
                 <!--search results-->
+                @if (Model.RelatedSurveySearch.SurveySearchResult != null && Model.RelatedSurveySearch.SurveySearchResult.Count > 0)
+                {
+                    <ul>
+                        @foreach (MarketPlace.Models.Survey.SurveyViewModel srv in Model.RelatedSurveySearch.SurveySearchResult)
+                        {
+                            <li>
+                                <!--Survey Item-->
+
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">
+                        Este proveedor no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.
+                    </a>
+                }
             </div>
         </div>
     </div>

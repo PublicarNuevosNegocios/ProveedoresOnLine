@@ -21,7 +21,7 @@ function Tooltip_InitGeneric() {
 }
 
 /*show process message*/
-function Dialog_ShowMessage(vTitle, vMessage, vReload) {
+function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
     var DialogDiv = $('#Generic_MessageDialog').html();
     DialogDiv = DialogDiv.replace(/\${Title}/gi, vTitle);
     DialogDiv = DialogDiv.replace(/\${Message}/gi, vMessage);
@@ -32,8 +32,8 @@ function Dialog_ShowMessage(vTitle, vMessage, vReload) {
         buttons: {
             'Cerrar': function () {
                 $(this).dialog("close");
-                if (vReload == true) {
-                    window.location.reload();
+                if (vRedirectUrl != null && vRedirectUrl.length > 0) {
+                    window.location = vRedirectUrl;
                 }
             },
         },

@@ -51,11 +51,11 @@ var Survey_ProgramObject = {
                                 data: DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Form').serialize(),
                                 success: function (result) {
                                     DialogDiv.dialog("close");
-                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Se ha programado la evaluación de desempeño.', true);
+                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Se ha programado la evaluación de desempeño.', window.location.toString());
                                 },
                                 error: function (result) {
                                     DialogDiv.dialog("close");
-                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Ha ocurrido un errro programando la evaluación de desempeño.', false);
+                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Ha ocurrido un errro programando la evaluación de desempeño.', null);
                                 }
                             });
                         }
