@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+    Layout = MVC.Shared.Views._Layout;
+}
+<div class="POBOPageBody">
+    @{
+        //get login urls
+        string RetUrl = Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name, null, Request.Url.Scheme);
+
+        string GoogleUrl = ProveedoresOnLine.AsociateProvider.Web.Models.General.InternalSettings.Instance
+            [ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_Settings_Login_GoogleUrl]
+            .Value.Replace("{{UrlRetorno}}", RetUrl);
+    }
+    <div class="POBOLogInHeader">
+        <img src="@Url.Content("~/Content/Images/logo.png")" alt="Proveedores Online" title="Proveedores Online" />
+    </div>
+    <div class="POBOLogInFormWrapper">
+        <label>Bienvenido al módulo administrativo de <br />Proveedores Online</label>
+        <hr>
+        <label>Ingrese usando su cuenta de Google</label>
+        <a href="@GoogleUrl">
+            <img src="@Url.Content("~/Content/Images/Google-plus-icon.png")" alt="Login Google" title="Login Google" />
+        </a>
+        @if (ViewData[ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
+                !string.IsNullOrEmpty(ViewData[ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
+        {
+            <label>@ViewData[ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</label>
+        }
+    </div>
+
+</div>

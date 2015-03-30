@@ -1,0 +1,34 @@
+﻿@if (ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsLoggedIn &&
+    ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsAutorized)
+{
+    <div class="POBOHeaderWrapper">
+        <!--logo-->
+        <a class="POBOLogo" href=""></a>
+
+        <!--user info-->
+        <div class="POBOMenusGrandWrapper">
+            <div class="POBOUserMenu" onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');">
+                <img src="@(ProveedoresOnLine.
+                                AsociateProvider.
+                                Web.
+                                Models.
+                                General.
+                                SessionModel.
+                                CurrentLoginUser.
+                                RelatedUserInfo.
+                                Where(x=>x.UserInfoType == SessionManager.Models.Auth.enumUserInfoType.ProfileImage).
+                                Select(x=>x.Value).
+                                DefaultIfEmpty(Url.Content("~/imagennologin.jpg")).
+                                FirstOrDefault())" />
+                <label><span>Bienvenido: </span>@(ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.CurrentLoginUser.Name + " " + ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.CurrentLoginUser.LastName)</label>
+            </div>
+            <div class="POBOUserMenuOptions" id="divHeader_UserMenu" style="display:none;">
+                <ul>
+                    <li>
+                        <a href="@Url.Action(MVC.Home.ActionNames.LogOutUser, MVC.Home.Name)">Salir</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
