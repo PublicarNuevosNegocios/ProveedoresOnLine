@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProveedoresOnLine</title>
+    @*bundle render styles*@
+    @System.Web.Optimization.Styles.Render("~/site/styles/jquery")
+    @System.Web.Optimization.Styles.Render("~/site/styles/bootstrap")
+    @System.Web.Optimization.Styles.Render("~/site/styles/kendo")
+    @System.Web.Optimization.Styles.Render("~/site/styles")
+</head>
+<body>
+    <div class="POBORenderHeader">
+        <!--Render header-->
+        @Html.Partial(MVC.Shared.Views.ViewNames._L_Header)
+    </div>
+
+    <div class="POBORenderBody">
+        <!--Render body-->
+        @RenderBody()
+    </div>
+    <div id="POBORenderFooter">
+        <!--Render footer-->
+        @Html.Partial(MVC.Shared.Views.ViewNames._L_Footer)
+    </div>
+
+    @*bundle render scripts*@
+    @System.Web.Optimization.Scripts.Render("~/site/scripts/jquery")
+    @System.Web.Optimization.Scripts.Render("~/site/scripts/jqueryval")
+    @System.Web.Optimization.Scripts.Render("~/site/scripts/modernizr")
+    @System.Web.Optimization.Scripts.Render("~/site/scripts/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/site/scripts/kendo")
+    @System.Web.Optimization.Scripts.Render("~/site/scripts")
+
+    @RenderSection("inlinescripts", required: false)
+</body>
+</html>
