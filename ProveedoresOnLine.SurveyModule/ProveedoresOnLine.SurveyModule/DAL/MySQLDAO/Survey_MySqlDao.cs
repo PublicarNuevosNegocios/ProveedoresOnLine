@@ -481,7 +481,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
                 oReturn =
                     (from sv in response.DataTableResult.AsEnumerable()
-                     where !sv.IsNull("SurveyId")
+                     where !sv.IsNull("SurveyPublicId")
                      group sv by new
                      {
                          SurveyPublicId = sv.Field<string>("SurveyPublicId"),

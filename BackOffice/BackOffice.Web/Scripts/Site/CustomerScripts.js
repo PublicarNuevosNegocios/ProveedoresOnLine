@@ -757,6 +757,9 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemName',
                 title: 'Nombre',
                 width: '200px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
+                },
             }, {
                 field: 'SurveyConfigItemInfoOrder',
                 title: 'Orden',
@@ -812,6 +815,12 @@ var Customer_SurveyItemObject = {
             $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid").destroy();
             // empty the Grid content (inner HTML)
             $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).empty();
+
+            //empty answer grid
+            // destroy the Grid
+            $('#' + Customer_SurveyItemObject.ObjectId + '_1202003').data("kendoGrid").destroy();
+            // empty the Grid content (inner HTML)
+            $('#' + Customer_SurveyItemObject.ObjectId + '_1202003').empty();
         }
 
         $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({
@@ -1165,6 +1174,9 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemName',
                 title: 'Nombre',
                 width: '200px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
+                },
             }, {
                 field: 'SurveyConfigItemInfoOrder',
                 title: 'Orden',

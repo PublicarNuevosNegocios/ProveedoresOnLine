@@ -35,7 +35,7 @@ namespace MarketPlace.Web.ControllersApi
                             (x.ItemId,
                             x.ItemInfo.
                                 Where(y => y.ItemInfoType.ItemId == (int)enumSurveyConfigInfoType.Group).
-                                Select(y => y.ValueName + " - ").
+                                Select(y => string.IsNullOrEmpty(y.ValueName) ? string.Empty : y.ValueName + " - ").
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault() + x.ItemName)).
                         ToList();
@@ -57,6 +57,8 @@ namespace MarketPlace.Web.ControllersApi
                 ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyToUpsert = GetSurveyUpsertRequest();
 
                 SurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(SurveyToUpsert);
+
+                oReturn = new Models.Survey.SurveyViewModel(SurveyToUpsert);
             }
 
             return oReturn;
@@ -86,6 +88,8 @@ namespace MarketPlace.Web.ControllersApi
             };
 
             //get company info
+
+
             System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
             {
                 string[] strSplit = req.Split('_');

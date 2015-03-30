@@ -27,6 +27,17 @@
         @Html.Partial(MVC.Desktop.Shared.Views.ViewNames._L_Footer)
     </div>
 
+    <!--Global templates-->
+    <div style="display:none;">
+        <!--Generic message dialog-->
+        <div id="Generic_MessageDialog">
+            <div title="${Title}">
+                ${Message}
+            </div>
+        </div>
+
+    </div>
+
     @*bundle render scripts*@
     @Scripts.Render("~/site/scripts/jquery")
     @Scripts.Render("~/site/scripts/jqueryval")

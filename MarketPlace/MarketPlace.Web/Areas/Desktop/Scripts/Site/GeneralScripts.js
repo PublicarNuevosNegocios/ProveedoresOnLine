@@ -16,8 +16,27 @@ function Header_ShowHideUserMenu(divId) {
 }
 
 /*init generic tooltip*/
-function Tooltip_InitGeneric()
-{
+function Tooltip_InitGeneric() {
     $('.SelGenericTooltip').tooltip();
+}
+
+/*show process message*/
+function Dialog_ShowMessage(vTitle, vMessage, vReload) {
+    var DialogDiv = $('#Generic_MessageDialog').html();
+    DialogDiv = DialogDiv.replace(/\${Title}/gi, vTitle);
+    DialogDiv = DialogDiv.replace(/\${Message}/gi, vMessage);
+
+    $(DialogDiv).dialog({
+        width: 300,
+        modal: true,
+        buttons: {
+            'Cerrar': function () {
+                $(this).dialog("close");
+                if (vReload == true) {
+                    window.location.reload();
+                }
+            },
+        },
+    });
 }
 
