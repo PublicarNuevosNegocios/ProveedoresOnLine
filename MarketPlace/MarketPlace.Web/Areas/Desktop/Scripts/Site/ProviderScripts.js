@@ -390,8 +390,7 @@ var Provider_TrackingObject = {
     ObjectId: '',
     ProviderPublicId: '',
 
-    Init: function (vTrackingObject)
-    {        
+    Init: function (vTrackingObject) {
         this.ObjectId = vTrackingObject.ObjectId;
         this.ProviderPublicId = vTrackingObject.ProviderPublicId
     },
@@ -424,7 +423,7 @@ var Provider_TrackingObject = {
                     }
                 },
                 transport: {
-                    read: function (options) {                        
+                    read: function (options) {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/ProviderApi?GITrackingInfo=true&ProviderPublicId=' + Provider_TrackingObject.ProviderPublicId,
                             dataType: 'json',
@@ -446,12 +445,44 @@ var Provider_TrackingObject = {
                 field: 'ItemType.ItemName',
                 title: 'Estado',
                 width: '25%',
-            },{
+            }, {
                 field: 'CreateDate',
                 title: 'Fecha',
                 width: '25%',
                 template: "#= kendo.toString(kendo.parseDate(CreateDate, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
             }],
-        });       
+        });
     },
-}
+};
+
+var Provider_SurveySearchObject = {
+
+    ObjectId: '',
+    SearchUrl: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+    },
+
+    RenderAsync: function () {
+        //show generic progress bar
+        ProgressBar_Generic_Show();
+        //change event over order
+        $('#' + Provider_SurveySearchObject.ObjectId + '_Order').change(function () {
+            Provider_SurveySearchObject.Search(null);
+        });
+    },
+
+    Search: function (vSearchObject) {
+        var oUrl = this.SearchUrl;
+
+        oUrl += '&SearchOrderType=' + $('#' + Provider_SurveySearchObject.ObjectId + '_Order').val().split('_')[0];
+        oUrl += '&OrderOrientation=' + $('#' + Provider_SurveySearchObject.ObjectId + '_Order').val().split('_')[1];
+
+        if (vSearchObject != null && vSearchObject.PageNumber != null) {
+            oUrl += '&PageNumber=' + vSearchObject.PageNumber;
+        }
+        window.location = oUrl;
+    },
+};

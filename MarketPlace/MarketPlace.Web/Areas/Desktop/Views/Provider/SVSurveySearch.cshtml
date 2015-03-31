@@ -15,20 +15,24 @@
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Evaluación de desempeño</label>
         <div>
-            <div>
-                <!--header-->
+            <div class="POMPSearchResultsPager">
+                <!--Pager-->
+                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearch_Result_Pager, Model.RelatedSurveySearch)
+            </div>
+            <div class="POMPSearchResultsOrder">
+                <!--Orders-->
                 <ul>
                     <li>
                         <label>Ordenar por:</label>
                     </li>
                     <li>
                         <!--order-->
-                        <select id="optOrder">
+                        <select id="SurveySearch_Order">
                             @{string strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_0";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha - reciente antiguo</option>
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación - reciente antiguo</option>
 
                             @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_1";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha - antiguo reciente</option>
+                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación- antiguo reciente</option>
 
                             @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_1";}
                             <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - AZ</option>
@@ -61,7 +65,7 @@
                         {
                             <li>
                                 <!--Survey Item-->
-                                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearchItem, new Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>(Model, ssit))
+                                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearch_Result_Item, new Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>(Model, ssit))
                             </li>
                         }
                     </ul>
@@ -72,6 +76,10 @@
                         Este proveedor no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.
                     </a>
                 }
+            </div>
+            <div class="POMPSearchResultsPager">
+                <!--Pager-->
+                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearch_Result_Pager, Model.RelatedSurveySearch)
             </div>
         </div>
     </div>
@@ -95,6 +103,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            Provider_SurveySearchObject.Init({
+                ObjectId: 'SurveySearch',
+                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.SVSurveySearch,
+                                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }))',
+            });
+            Provider_SurveySearchObject.RenderAsync();
         });
     </script>
 }

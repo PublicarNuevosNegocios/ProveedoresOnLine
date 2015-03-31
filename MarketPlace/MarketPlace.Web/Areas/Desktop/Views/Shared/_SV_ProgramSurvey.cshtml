@@ -7,15 +7,15 @@
             <form id="Survey_ProgramSurvey_Form" action="@Url.Content("~/api/SurveyApi?SurveyUpsert=true")" method="post">
                 <ul>
                     <li>
-                        <label>Evaluación</label>
+                        <label>Evaluación:</label>
                         <input id="Survey_ProgramSurvey_SurveyConfigName" placeholder="Evaluación" required validationmessage="Seleccione una evaluación" />
                     </li>
                     <li>
-                        <label>Evaluador</label>
+                        <label>Evaluador:</label>
                         <input id="Survey_ProgramSurvey_Evaluator" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).ToString())_" />
                     </li>
                     <li>
-                        <label>Fecha</label>
+                        <label>Fecha de programación:</label>
                         <input id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
                     </li>
                 </ul>
