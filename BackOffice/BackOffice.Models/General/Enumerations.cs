@@ -109,7 +109,7 @@
         B_Location = 116001,
         B_Code = 116002,
 
-        K_ContractInfoType = 117001,
+        K_RecruitmentInfoType = 117001,
     }
 
     #endregion
