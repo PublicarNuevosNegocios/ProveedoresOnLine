@@ -103,11 +103,13 @@
         AI_Unit = 109007,
 
         //ICA Info
-        I_ICACode = 608001,
+        I_ICACode = 115001,
 
         //Bank Info
-        B_Location = 505001,
-        B_Code = 505011,
+        B_Location = 116001,
+        B_Code = 116002,
+
+        K_ContractInfoType = 117001,
     }
 
     #endregion
@@ -386,6 +388,7 @@
         IS_FileIncomeStatement = 504006,
 
         //Bank Info
+        IB_Location = 505001,
         IB_Bank = 505002,
         IB_AccountType = 505003,
         IB_AccountNumber = 505004,
@@ -395,6 +398,7 @@
         IB_IBAN = 505008,
         IB_Customer = 505009,
         IB_AccountFile = 505010,
+        IB_Code = 505011,        
     }
 
     #endregion
