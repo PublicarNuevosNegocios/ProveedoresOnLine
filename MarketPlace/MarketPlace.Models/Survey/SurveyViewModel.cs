@@ -25,6 +25,13 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public int SurveyConfigId
+        {
+            get
+            {
+                return RelatedSurvey.RelatedSurveyConfig.ItemId;
+            }
+        }
 
         public string SurveyConfigName
         {
@@ -53,6 +60,17 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public int SurveyIssueDateId
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).
+                    Select(y => y.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
 
         public string SurveyIssueDate
         {
@@ -66,7 +84,7 @@ namespace MarketPlace.Models.Survey
             }
         }
 
-        public string SurveyResponsable
+        public string SurveyResponsible
         {
             get
             {
@@ -74,6 +92,18 @@ namespace MarketPlace.Models.Survey
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).
                     Select(y => y.Value).
                     DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
+        public int SurveyEvaluatorId
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).
+                    Select(y => y.ItemInfoId).
+                    DefaultIfEmpty(0).
                     FirstOrDefault();
             }
         }
@@ -90,7 +120,7 @@ namespace MarketPlace.Models.Survey
             }
         }
 
-        public string SurveyStatus
+        public string SurveyStatusName
         {
             get
             {
@@ -102,26 +132,38 @@ namespace MarketPlace.Models.Survey
             }
         }
 
-        public string SurveyProgress
+        public MarketPlace.Models.General.enumSurveyStatus SurveyStatus
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Status).
+                    Select(y => (MarketPlace.Models.General.enumSurveyStatus)Convert.ToInt32(y.Value)).
+                    DefaultIfEmpty(MarketPlace.Models.General.enumSurveyStatus.Program).
+                    FirstOrDefault();
+            }
+        }
+
+        public int SurveyProgress
         {
             get
             {
                 return RelatedSurvey.SurveyInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Progress).
-                    Select(y => y.Value).
-                    DefaultIfEmpty(string.Empty).
+                    Select(y => Convert.ToInt32(y.Value)).
+                    DefaultIfEmpty(0).
                     FirstOrDefault();
             }
         }
 
-        public string SurveyRating
+        public int SurveyRating
         {
             get
             {
                 return RelatedSurvey.SurveyInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Rating).
-                    Select(y => y.Value).
-                    DefaultIfEmpty(string.Empty).
+                    Select(y => Convert.ToInt32(y.Value)).
+                    DefaultIfEmpty(0).
                     FirstOrDefault();
             }
         }

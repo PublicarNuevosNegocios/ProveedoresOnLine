@@ -57,11 +57,11 @@
                 @if (Model.RelatedSurveySearch.SurveySearchResult != null && Model.RelatedSurveySearch.SurveySearchResult.Count > 0)
                 {
                     <ul>
-                        @foreach (MarketPlace.Models.Survey.SurveyViewModel srv in Model.RelatedSurveySearch.SurveySearchResult)
+                        @foreach (MarketPlace.Models.Survey.SurveyViewModel ssit in Model.RelatedSurveySearch.SurveySearchResult)
                         {
                             <li>
                                 <!--Survey Item-->
-
+                                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearchItem, new Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>(Model, ssit))
                             </li>
                         }
                     </ul>

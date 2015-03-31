@@ -1,0 +1,43 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Evaluación de desempeño";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">Detalle de evaluación de desempeño</label>
+        <div>
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, Model.RenderScripts)
+
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, Model.RenderScripts)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}
+

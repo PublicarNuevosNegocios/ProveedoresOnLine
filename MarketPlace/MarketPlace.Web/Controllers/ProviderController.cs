@@ -737,7 +737,7 @@ namespace MarketPlace.Web.Controllers
                         return true;
                     });
 
-                    oModel.RelatedFinancialInfo = oModel.RelatedFinancialInfo.OrderByDescending(x => Convert.ToInt32(!string.IsNullOrEmpty(x.TX_Year)?x.TX_Year : string.Empty)).ToList();
+                    oModel.RelatedFinancialInfo = oModel.RelatedFinancialInfo.OrderByDescending(x => Convert.ToInt32(!string.IsNullOrEmpty(x.TX_Year) ? x.TX_Year : string.Empty)).ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
@@ -1295,6 +1295,38 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult SVSurveyDetail(string ProviderPublicId, string SurveyPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
+
+        }
+
         #endregion
 
         #region Menu
@@ -1744,7 +1776,8 @@ namespace MarketPlace.Web.Controllers
                             }),
                     Position = 0,
                     IsSelected =
-                        (oCurrentAction == MVC.Provider.ActionNames.SVSurveySearch &&
+                        ((oCurrentAction == MVC.Provider.ActionNames.SVSurveySearch ||
+                        oCurrentAction == MVC.Provider.ActionNames.SVSurveyDetail) &&
                         oCurrentController == MVC.Provider.Name),
                 });
 

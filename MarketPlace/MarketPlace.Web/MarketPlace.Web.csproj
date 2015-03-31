@@ -978,6 +978,8 @@
     <Content Include="Areas\Desktop\Views\Home\TermsAndConditions.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveySearch.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_SV_ProgramSurvey.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearchItem.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\SVSurveyDetail.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

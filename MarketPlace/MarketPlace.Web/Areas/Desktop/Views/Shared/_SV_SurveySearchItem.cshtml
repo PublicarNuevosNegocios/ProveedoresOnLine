@@ -1,0 +1,61 @@
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>
+
+@if (!Model.Item1.RenderScripts)
+{
+    string strjsUpdateObject = string.Empty;
+    if (Model.Item2.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
+    {
+        strjsUpdateObject = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(new
+            {
+                SurveyStatus = (int)Model.Item2.SurveyStatus,
+
+                SurveyPublicId = Model.Item2.SurveyPublicId,
+                ProviderPublicId = Model.Item1.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+
+                SurveyConfigId = Model.Item2.SurveyConfigId,
+                SurveyConfigName = Model.Item2.SurveyConfigName,
+
+                SurveyEvaluator = Model.Item2.SurveyEvaluator,
+                SurveyEvaluatorId = Model.Item2.SurveyEvaluatorId,
+
+                SurveyIssueDate = Model.Item2.SurveyIssueDate,
+                SurveyIssueDateId = Model.Item2.SurveyIssueDateId,
+            });
+
+    }
+
+    <div>
+        <div>
+            <a href="@(Url.Action(MVC.Provider.ActionNames.SVSurveyDetail,MVC.Provider.Name,
+                    new {
+                        ProviderPublicId = Model.Item1.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        SurveyPublicId = Model.Item2.SurveyPublicId
+                    }))">
+                Nombre: @Model.Item2.SurveyConfigGroup @Model.Item2.SurveyConfigName
+            </a>
+            <span>Fecha: @Model.Item2.SurveyIssueDate</span>
+            <span>Responsable: @Model.Item2.SurveyResponsible</span>
+            <span>Evaluador: @Model.Item2.SurveyEvaluator</span>
+            <span>Estado: @Model.Item2.SurveyStatusName</span>
+            <span>Progreso: @Model.Item2.SurveyProgress</span>
+            <span>Calificación: @Model.Item2.SurveyRating</span>
+        </div>
+        <div>
+            @if (Model.Item2.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+            Model.Item2.SurveyEvaluator.Replace(" ", "").ToLower() ==
+            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+            {
+                <a href="" target="_blank">Responder evaluación</a>
+            }
+
+            @if (Model.Item2.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
+            {
+                <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                    Editar evaluación
+                </a>
+            }
+        </div>
+    </div>
+}
+
