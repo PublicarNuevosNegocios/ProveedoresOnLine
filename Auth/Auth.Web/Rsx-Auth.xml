@@ -9,6 +9,7 @@
             <key name="documentmanagement">https://localhost:44306/,http://localhost:16135/</key>
             <key name="marketplace">https://localhost:44309/,http://localhost:40464/</key>
             <key name="backoffice">https://localhost:44307/,http://localhost:55537/</key>
+            <key name="asociateprovider">https://localhost:44308/,http://localhost:17281/</key>
           </applications>
       ]]>
     </key>
@@ -46,6 +47,14 @@
     <key name="IL_backoffice_Cookie"></key>
     <key name="IL_backoffice_RememberEmailAgent"></key>
 
+    <key name="IL_asociateprovider_Enabled">false</key>
+    <key name="IL_asociateprovider_ApiKey"></key>
+    <key name="IL_asociateprovider_Service_p12File"></key>
+    <key name="IL_asociateprovider_Service_Email"></key>
+    <key name="IL_asociateprovider_ApiName"></key>
+    <key name="IL_asociateprovider_Cookie"></key>
+    <key name="IL_asociateprovider_RememberEmailAgent"></key>
+
     <!--Facebook-->
     <key name="FB_local_Enabled">true</key>
     <key name="FB_local_AppId">639144966168984</key>
@@ -62,6 +71,10 @@
     <key name="FB_backoffice_Enabled">false</key>
     <key name="FB_backoffice_AppId"></key>
     <key name="FB_backoffice_AppSecret"></key>
+
+    <key name="FB_asociateprovider_Enabled">false</key>
+    <key name="FB_asociateprovider_AppId"></key>
+    <key name="FB_asociateprovider_AppSecret"></key>
 
     <!--Gmail-->
     <key name="GM_local_Enabled">true</key>
@@ -80,6 +93,10 @@
     <key name="GM_backoffice_AppId">529355985464-00ahlip6ur7sd8a6ba1674s8pt1cm3od.apps.googleusercontent.com</key>
     <key name="GM_backoffice_AppSecret">yjpiO9FqVbxol_pFR8xaXNWW</key>
 
+    <key name="GM_asociateprovider_Enabled">true</key>
+    <key name="GM_asociateprovider_AppId">529355985464-00ahlip6ur7sd8a6ba1674s8pt1cm3od.apps.googleusercontent.com</key>
+    <key name="GM_asociateprovider_AppSecret">yjpiO9FqVbxol_pFR8xaXNWW</key>
+
     <!--Windows live-->
     <key name="WL_local_Enabled">true</key>
     <key name="WL_local_AppId">0000000040128E5E</key>
@@ -96,6 +113,10 @@
     <key name="WL_backoffice_Enabled">false</key>
     <key name="WL_backoffice_AppId"></key>
     <key name="WL_backoffice_AppSecret"></key>
+
+    <key name="WL_asociateprovider_Enabled">false</key>
+    <key name="WL_asociateprovider_AppId"></key>
+    <key name="WL_asociateprovider_AppSecret"></key>
 
     <!--Analitycs-->
     <key name="local_Analytics">
@@ -114,6 +135,11 @@
     </key>
 
     <key name="backoffice_Analytics">
+      <![CDATA[
+      ]]>
+    </key>
+
+    <key name="asociateprovider_Analytics">
       <![CDATA[
       ]]>
     </key>

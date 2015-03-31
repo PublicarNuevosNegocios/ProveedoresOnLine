@@ -1,5 +1,4 @@
-﻿using ProveedoresOnLine.AsociateProvider.Web.Models.General;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +10,8 @@ namespace ProveedoresOnLine.AsociateProvider.Web.Controllers.Filters
         public void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
         {
             if ((filterContext.RouteData.Values["controller"] + "_" + filterContext.RouteData.Values["action"]).ToLower() != "home_index" &&
-                (!SessionModel.UserIsLoggedIn ||
-                !SessionModel.UserIsAutorized))
+                (!ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsLoggedIn ||
+                !ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsAutorized))
             {
                 filterContext.HttpContext.Response.Redirect("~/", true);
                 filterContext.HttpContext.Response.End();

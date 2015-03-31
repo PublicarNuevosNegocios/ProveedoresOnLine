@@ -44,11 +44,27 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Client">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\Microsoft.ApplicationServer.Caching.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationServer.Caching.Core">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\Microsoft.ApplicationServer.Caching.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.DistributedCache">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\Microsoft.Web.DistributedCache.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Common">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\Microsoft.WindowsFabric.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsFabric.Data.Common">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\Microsoft.WindowsFabric.Data.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SessionManager">
+    <Reference Include="SessionManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\SessionManager\developer\SessionManager.dll</HintPath>
     </Reference>
     <Reference Include="SettingsManager">
@@ -167,7 +183,24 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\arrowSelectedMenuSmall.png" />
+    <Content Include="Content\Images\cerrar.png" />
+    <Content Include="Content\Images\dafaultProvider.png" />
+    <Content Include="Content\Images\Error.png" />
+    <Content Include="Content\Images\Google-plus-icon.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\LogoPOHeader.png" />
+    <Content Include="Content\Images\LogoPOLogInAlpha.png" />
+    <Content Include="Content\Images\logoPublicarBN.png" />
+    <Content Include="Content\Images\LogoPublicarFooter.png" />
+    <Content Include="Content\Images\LogoPublicarFooterBlack.png" />
+    <Content Include="Content\Images\POBOBackground3Small.jpg" />
+    <Content Include="Content\Images\POBOsprite.png" />
+    <Content Include="Content\Styles\Site\POBOFooter.css" />
+    <Content Include="Content\Styles\Site\POBOHeader.css" />
+    <Content Include="Content\Styles\Site\POBOLayout.css" />
     <Content Include="Content\Styles\Site\POBOLogIn.css" />
+    <Content Include="Content\Styles\Site\POBOLogInProviders.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -239,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Models\AsociateProvider\" />
   </ItemGroup>
   <ItemGroup>

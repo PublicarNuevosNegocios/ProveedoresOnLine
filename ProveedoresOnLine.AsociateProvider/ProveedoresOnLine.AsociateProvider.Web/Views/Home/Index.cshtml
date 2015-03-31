@@ -5,7 +5,7 @@
 <div class="POBOPageBody">
     @{
         //get login urls
-        string RetUrl = Url.Action(MVC.Home.ActionNames.Index, MVC.Home.Name, null, Request.Url.Scheme);
+        string RetUrl = Url.Action(MVC.AsociateProvider.ActionNames.Index, MVC.AsociateProvider.Name, null, Request.Url.Scheme);
 
         string GoogleUrl = ProveedoresOnLine.AsociateProvider.Web.Models.General.InternalSettings.Instance
             [ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_Settings_Login_GoogleUrl]
