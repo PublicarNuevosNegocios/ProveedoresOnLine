@@ -634,6 +634,16 @@ namespace Links
             
                 public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
                 public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class rateit {
+                    private const string URLPATH = "~/Areas/Desktop/Scripts/rateit";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string jquery_rateit_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.rateit.min.js") ? Url("jquery.rateit.min.js") : Url("jquery.rateit.js");
+                    public static readonly string jquery_rateit_min_js = Url("jquery.rateit.min.js");
+                    public static readonly string jquery_rateit_min_js_map = Url("jquery.rateit.min.js.map");
+                }
+            
                 public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
                 public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
                 public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
@@ -949,6 +959,17 @@ namespace Links
                     
                     }
                 
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class rateit {
+                    private const string URLPATH = "~/Areas/Desktop/Content/rateit";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string delete_gif = Url("delete.gif");
+                    public static readonly string rateit_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/rateit.min.css") ? Url("rateit.min.css") : Url("rateit.css");
+                         
+                    public static readonly string star_gif = Url("star.gif");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

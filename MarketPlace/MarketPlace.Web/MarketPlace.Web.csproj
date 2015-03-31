@@ -482,6 +482,9 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Result_Pager.cshtml" />
+    <Content Include="Areas\Desktop\Content\rateit\delete.gif" />
+    <Content Include="Areas\Desktop\Content\rateit\rateit.css" />
+    <Content Include="Areas\Desktop\Content\rateit\star.gif" />
     <Content Include="favicon.ico" />
     <Content Include="Areas\Desktop\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -978,11 +981,15 @@
     <Content Include="Areas\Desktop\Views\Home\TermsAndConditions.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveySearch.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_SV_ProgramSurvey.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearchItem.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearch_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearch_Result_Pager.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
+    <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.js" />
+    <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js" />
+    <Content Include="Areas\Desktop\Scripts\rateit\jquery.rateit.min.js.map" />
     <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

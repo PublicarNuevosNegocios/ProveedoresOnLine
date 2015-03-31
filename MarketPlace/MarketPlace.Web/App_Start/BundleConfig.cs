@@ -48,6 +48,13 @@ namespace MarketPlace.Web
 
                     #endregion
 
+                    #region Rateit
+
+                    bundles.Add(new ScriptBundle("~/site/scripts/rateit").Include(
+                                 "~/Areas/" + MarketPlace.Models.General.AreaModel.CurrentAreaName + "/Scripts/rateit/jquery.rateit.js"));
+
+                    #endregion
+
                     #region site scripts
 
                     bundles.Add(new ScriptBundle("~/site/scripts").IncludeDirectory(
@@ -80,6 +87,13 @@ namespace MarketPlace.Web
                     bundles.Add(new StyleBundle("~/site/styles/kendo").Include(
                               "~/Areas/" + MarketPlace.Models.General.AreaModel.CurrentAreaName + "/Content/kendo/2014.1.318/kendo.common.min.css",
                               "~/Areas/" + MarketPlace.Models.General.AreaModel.CurrentAreaName + "/Content/kendo/2014.1.318/kendo.default.min.css"));
+
+                    #endregion
+
+                    #region rateit
+
+                    bundles.Add(new StyleBundle("~/site/styles/rateit").Include(
+                              "~/Areas/" + MarketPlace.Models.General.AreaModel.CurrentAreaName + "/Content/rateit/rateit.css"));
 
                     #endregion
 

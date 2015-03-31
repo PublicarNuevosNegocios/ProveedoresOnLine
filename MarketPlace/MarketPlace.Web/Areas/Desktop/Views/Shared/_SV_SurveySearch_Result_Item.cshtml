@@ -1,0 +1,98 @@
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>
+
+@if (!Model.Item1.RenderScripts)
+{
+    string strUrlDetail = Url.Action
+        (MVC.Provider.ActionNames.SVSurveyDetail,
+        MVC.Provider.Name,
+        new
+        {
+            ProviderPublicId = Model.Item1.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+            SurveyPublicId = Model.Item2.SurveyPublicId
+        });
+
+
+    string strjsUpdateObject = string.Empty;
+    if (Model.Item2.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
+    {
+        strjsUpdateObject = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(new
+            {
+                SurveyStatus = (int)Model.Item2.SurveyStatus,
+
+                SurveyPublicId = Model.Item2.SurveyPublicId,
+                ProviderPublicId = Model.Item1.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+
+                SurveyConfigId = Model.Item2.SurveyConfigId,
+                SurveyConfigName = Model.Item2.SurveyConfigName,
+
+                SurveyEvaluator = Model.Item2.SurveyEvaluator,
+                SurveyEvaluatorId = Model.Item2.SurveyEvaluatorId,
+
+                SurveyIssueDate = Model.Item2.SurveyIssueDate,
+                SurveyIssueDateId = Model.Item2.SurveyIssueDateId,
+            });
+
+    }
+
+    <div>
+        <div>
+            <ul>
+                <li>
+                    <a href="@strUrlDetail">
+                        @((string.IsNullOrEmpty(Model.Item2.SurveyConfigGroup) ? string.Empty : (Model.Item2.SurveyConfigGroup + " - ")) + Model.Item2.SurveyConfigName)
+                    </a>
+                </li>
+                <li>
+                    <div class="rateit" data-rateit-value="@Model.Item2.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    <span>(@Model.Item2.SurveyRating)</span>
+                </li>
+                <li>
+                    <div class="selProgressBar" data-value="@Model.Item2.SurveyProgress"></div>
+                    <span>Fecha de programación: @Model.Item2.SurveyIssueDate</span>
+                    <span>Ultima actualización: @Model.Item2.SurveyLastModify</span>
+                </li>
+                <li>
+                    <span>Estado: @Model.Item2.SurveyStatusName</span>
+                </li>
+                <li>
+                    <span>Evaluador: @Model.Item2.SurveyEvaluator</span>
+                </li>
+                <li>
+                    <span>Responsable: @Model.Item2.SurveyResponsible</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                @if (Model.Item2.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
+                    Model.Item2.SurveyResponsible.Replace(" ", "").ToLower() ==
+                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                {
+                    <li>
+                        <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                            Editar
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            Borrar
+                        </a>
+                    </li>
+                }
+                @if (Model.Item2.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+                    Model.Item2.SurveyEvaluator.Replace(" ", "").ToLower() ==
+                    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                {
+                    <li>
+                        <a href="" target="_blank">Responder evaluación</a>
+                    </li>
+                }
+                <li>
+                    <a href="@strUrlDetail">Ver detalle</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+}
+
