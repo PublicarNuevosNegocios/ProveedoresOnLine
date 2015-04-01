@@ -148,6 +148,8 @@ var Provider_SearchObject = {
                         oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedCompany.CompanyName);
                         oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
                         oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, value.RelatedProvider.RelatedCompany.IdentificationNumber);
+                        oItemHtml = oItemHtml.replace(/{ProviderRateClass}/gi, 'rateit');
+                        oItemHtml = oItemHtml.replace(/{ProviderRate}/gi, value.ProviderRate);
 
                         //validate item certified
                         if (value.ProviderIsCertified != null && value.ProviderIsCertified == true) {
@@ -172,6 +174,9 @@ var Provider_SearchObject = {
                         $("a[href*='Provider_SearchObject.AddCompareProvider(\\\'" + value.RelatedProvider.RelatedCompany.CompanyPublicId + "\\\')']").hide();
                     });
 
+                    //re-init all rates
+                    $('.rateit').rateit();
+                    
                     //init generic tooltip
                     Tooltip_InitGeneric();
                 }

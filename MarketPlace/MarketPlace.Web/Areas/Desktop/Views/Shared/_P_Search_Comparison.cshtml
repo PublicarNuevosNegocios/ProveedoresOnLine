@@ -28,7 +28,7 @@
                 foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oCompareItem in Model.RelatedCompare.RelatedProvider)
                 {
                     <li>
-                        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, oCompareItem)
+                        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oCompareItem)
                     </li>
                 }
             }
@@ -76,7 +76,7 @@
 
         <ul id="Search_Compare_Item_Template">
             <li>
-                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+                @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
             </li>
         </ul>
 

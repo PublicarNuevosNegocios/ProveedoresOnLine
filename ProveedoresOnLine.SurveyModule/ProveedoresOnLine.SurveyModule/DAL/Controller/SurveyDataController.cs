@@ -107,6 +107,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
         }
 
+        public ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId)
+        {
+            return DataFactory.SurveyGetById(SurveyPublicId);
+        }
+
         #endregion
     }
 }

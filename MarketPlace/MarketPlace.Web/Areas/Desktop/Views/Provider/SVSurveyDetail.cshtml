@@ -4,6 +4,31 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    string strjsUpdateObject = string.Empty;
+    if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
+    {
+        strjsUpdateObject = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+            Serialize(new
+            {
+                SurveyStatus = (int)Model.RelatedSurvey.SurveyStatus,
+
+                SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
+                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+
+                SurveyConfigId = Model.RelatedSurvey.SurveyConfigId,
+                SurveyConfigName = Model.RelatedSurvey.SurveyConfigName,
+
+                SurveyEvaluator = Model.RelatedSurvey.SurveyEvaluator,
+                SurveyEvaluatorId = Model.RelatedSurvey.SurveyEvaluatorId,
+
+                SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
+                SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
+            });
+
+    }
+
+    var lstEvaluationArea = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -15,6 +40,118 @@
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Detalle de evaluación de desempeño</label>
         <div>
+            <div>
+                <!--evaluation basic info-->
+                <div>
+                    <ul>
+                        <li>
+                            <span>
+                                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+                            </span>
+                        </li>
+                        <li>
+                            <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <span>(@Model.RelatedSurvey.SurveyRating)</span>
+                        </li>
+                        <li>
+                            <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                            <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
+                            <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
+                        </li>
+                        <li>
+                            <span>Estado: @Model.RelatedSurvey.SurveyStatusName</span>
+                        </li>
+                        <li>
+                            <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
+                        </li>
+                        <li>
+                            <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
+                        </li>
+                    </ul>
+                </div>
+                <!--evaluation actions-->
+                <div>
+                    <ul>
+                        @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
+                            Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                        {
+                        <li>
+                            <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                                Editar
+                            </a>
+                        </li>
+                        }
+                        @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+                            Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
+                        {
+                        <li>
+                            <a href="" target="_blank">Responder evaluación</a>
+                        </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <!--evaluation items-->
+                <ul>
+                    @foreach (var EvaluationArea in lstEvaluationArea)
+                    {
+                        var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+
+                        var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
+                            (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+
+                        <li>
+                            <span>@EvaluationArea.Order. @EvaluationArea.Name</span>
+                            <div class="rateit" data-rateit-value="@(EvaluationAreaInfo == null ? 0 : EvaluationAreaInfo.Ratting)" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <span>(@(EvaluationAreaInfo == null ? 0 : EvaluationAreaInfo.Ratting))</span>
+                            <ul>
+                                @foreach (var Question in lstQuestion)
+                                {
+                                    var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                                    var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                        (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                                    <li>
+                                        <span>@Question.Order. @Question.Name</span>
+                                        <div class="rateit" data-rateit-value="@(QuestionInfo == null ? 0 : QuestionInfo.Ratting)" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                        <span>(@(QuestionInfo == null ? 0 : QuestionInfo.Ratting))</span>
+                                        <ul>
+                                            @foreach (var Answer in lstAnswer)
+                                            {
+                                                <li>
+                                                    @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                                    {
+                                                        <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
+                                                    }
+                                                    <span>@Answer.Name</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                        @if (Question.HasDescription)
+                                        {
+                                            <span>
+                                                Observaciones:
+                                            </span>
+                                            <span>
+                                                @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
+                                            </span>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
@@ -36,7 +173,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
+            //show generic progress bar
+            ProgressBar_Generic_Show();
         });
     </script>
 }

@@ -106,7 +106,7 @@
 
     <div id="CompareDetail_Company_Header_Template">
         <div>
-            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
         </div>
         <ul>
             @foreach (string un in Model.UnitNames)
@@ -177,6 +177,9 @@
                     },
                     columns: @Html.Raw(oJsonColumns),
                 });
+
+                //re-init all rates
+                $('.rateit').rateit();
             });
         </script>
     }
@@ -194,6 +197,10 @@
 
                 $('#' + Compare_DetailObject.ObjectId).hide();
                 $('#' + Compare_DetailObject.ObjectId + '_NoResult').show();
+
+                //re-init all rates
+                $('.rateit').rateit();
+
             });
         </script>
     }

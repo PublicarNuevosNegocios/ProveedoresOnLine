@@ -86,6 +86,8 @@
     <Compile Include="Provider\ProviderViewModel.cs" />
     <Compile Include="Provider\ProviderSearchViewModel.cs" />
     <Compile Include="Provider\TrackingDetailViewModel.cs" />
+    <Compile Include="Survey\SurveyConfigItemViewModel.cs" />
+    <Compile Include="Survey\SurveyItemViewModel.cs" />
     <Compile Include="Survey\SurveySearchViewModel.cs" />
     <Compile Include="Survey\SurveyViewModel.cs" />
   </ItemGroup>

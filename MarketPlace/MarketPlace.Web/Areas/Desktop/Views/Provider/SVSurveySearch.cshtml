@@ -63,9 +63,11 @@
                     <ul>
                         @foreach (MarketPlace.Models.Survey.SurveyViewModel ssit in Model.RelatedSurveySearch.SurveySearchResult)
                         {
+                            Model.RelatedSurvey = ssit;
+                            
                             <li>
                                 <!--Survey Item-->
-                                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearch_Result_Item, new Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>(Model, ssit))
+                                @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearch_Result_Item, Model)
                             </li>
                         }
                     </ul>

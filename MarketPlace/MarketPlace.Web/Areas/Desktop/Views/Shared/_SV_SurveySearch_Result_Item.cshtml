@@ -1,87 +1,89 @@
-﻿@model Tuple<MarketPlace.Models.Provider.ProviderViewModel, MarketPlace.Models.Survey.SurveyViewModel>
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
 
-@if (!Model.Item1.RenderScripts)
+@if (!Model.RenderScripts && Model.RelatedSurvey != null)
 {
     string strUrlDetail = Url.Action
         (MVC.Provider.ActionNames.SVSurveyDetail,
         MVC.Provider.Name,
         new
         {
-            ProviderPublicId = Model.Item1.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-            SurveyPublicId = Model.Item2.SurveyPublicId
+            ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+            SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
         });
 
 
     string strjsUpdateObject = string.Empty;
-    if (Model.Item2.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
+    if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program)
     {
         strjsUpdateObject = (new System.Web.Script.Serialization.JavaScriptSerializer()).
             Serialize(new
             {
-                SurveyStatus = (int)Model.Item2.SurveyStatus,
+                SurveyStatus = (int)Model.RelatedSurvey.SurveyStatus,
 
-                SurveyPublicId = Model.Item2.SurveyPublicId,
-                ProviderPublicId = Model.Item1.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                SurveyPublicId = Model.RelatedSurvey.SurveyPublicId,
+                ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
 
-                SurveyConfigId = Model.Item2.SurveyConfigId,
-                SurveyConfigName = Model.Item2.SurveyConfigName,
+                SurveyConfigId = Model.RelatedSurvey.SurveyConfigId,
+                SurveyConfigName = Model.RelatedSurvey.SurveyConfigName,
 
-                SurveyEvaluator = Model.Item2.SurveyEvaluator,
-                SurveyEvaluatorId = Model.Item2.SurveyEvaluatorId,
+                SurveyEvaluator = Model.RelatedSurvey.SurveyEvaluator,
+                SurveyEvaluatorId = Model.RelatedSurvey.SurveyEvaluatorId,
 
-                SurveyIssueDate = Model.Item2.SurveyIssueDate,
-                SurveyIssueDateId = Model.Item2.SurveyIssueDateId,
+                SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
+                SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
             });
 
     }
 
     <div>
+        <!--evaluation basic info-->
         <div>
             <ul>
                 <li>
                     <a href="@strUrlDetail">
-                        @((string.IsNullOrEmpty(Model.Item2.SurveyConfigGroup) ? string.Empty : (Model.Item2.SurveyConfigGroup + " - ")) + Model.Item2.SurveyConfigName)
+                        @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
                     </a>
                 </li>
                 <li>
-                    <div class="rateit" data-rateit-value="@Model.Item2.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                    <span>(@Model.Item2.SurveyRating)</span>
+                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    <span>(@Model.RelatedSurvey.SurveyRating)</span>
                 </li>
                 <li>
-                    <div class="selProgressBar" data-value="@Model.Item2.SurveyProgress"></div>
-                    <span>Fecha de programación: @Model.Item2.SurveyIssueDate</span>
-                    <span>Ultima actualización: @Model.Item2.SurveyLastModify</span>
+                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                    <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
+                    <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
                 </li>
                 <li>
-                    <span>Estado: @Model.Item2.SurveyStatusName</span>
+                    <span>Estado: @Model.RelatedSurvey.SurveyStatusName</span>
                 </li>
                 <li>
-                    <span>Evaluador: @Model.Item2.SurveyEvaluator</span>
+                    <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
                 </li>
                 <li>
-                    <span>Responsable: @Model.Item2.SurveyResponsible</span>
+                    <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
                 </li>
             </ul>
         </div>
+        <!--evaluation actions-->
         <div>
             <ul>
-                @if (Model.Item2.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
-                    Model.Item2.SurveyResponsible.Replace(" ", "").ToLower() ==
+                @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
+                    Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
-                    <li>
-                        <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
-                            Editar
-                        </a>
-                    </li>
+                <li>
+                    <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                        Editar
+                    </a>
+                </li>
                 }
-                @if (Model.Item2.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
-                    Model.Item2.SurveyEvaluator.Replace(" ", "").ToLower() ==
+                @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+                    Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
-                    <li>
-                        <a href="" target="_blank">Responder evaluación</a>
-                    </li>
+                <li>
+                    <a href="" target="_blank">Responder evaluación</a>
+                </li>
                 }
                 <li>
                     <a href="@strUrlDetail">Ver detalle</a>

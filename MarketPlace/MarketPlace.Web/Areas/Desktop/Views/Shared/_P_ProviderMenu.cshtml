@@ -9,7 +9,7 @@
             @if (Model.RelatedLiteProvider != null && Model.RelatedLiteProvider.RelatedProvider != null && Model.RelatedLiteProvider.RelatedProvider.RelatedCompany != null)
             {
                 <div class="POMPProviderMenuDetail">
-                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison_Item, Model.RelatedLiteProvider)
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.RelatedLiteProvider)
                 </div>
             }
             <ul id="ulProviderMenu">

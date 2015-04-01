@@ -103,6 +103,8 @@
         CompanyLogo = 203005,
         AlertRisk = 203008,
 
+        Ratting = 203010,
+
         CustomEconomicActivity = 220001,
     }
 
@@ -435,6 +437,22 @@
 
     #region Survey
 
+    public enum enumSurveySearchOrderType
+    {
+        LastModify = 1,
+        SurveyName = 2,
+        SurveyGroup = 3,
+        SurveyStatus = 4,
+    }
+
+    public enum enumSurveyStatus
+    {
+        Program = 1206001,
+        Send = 1206002,
+        InProgress = 1206003,
+        Close = 1206004,
+    }
+
     public enum enumSurveyInfoType
     {
         IssueDate = 1204001,
@@ -445,14 +463,12 @@
         Rating = 1204006
     }
 
-
-    public enum enumSurveySearchOrderType
+    public enum enumSurveyItemInfoType
     {
-        LastModify = 1,
-        SurveyName = 2,
-        SurveyGroup = 3,
-        SurveyStatus = 4,
-    }
+        Ratting = 1205001,
+        DescriptionText = 1205002,
+        Answer = 1205003,
+    }    
 
     public enum enumSurveyConfigInfoType
     {
@@ -475,12 +491,6 @@
         IsMandatory = 1203004,
     }
 
-    public enum enumSurveyStatus
-    {
-        Program = 1206001,
-        Send = 1206002,
-        InProgress = 1206003,
-        Close = 1206004,
-    }
+
     #endregion
 }
