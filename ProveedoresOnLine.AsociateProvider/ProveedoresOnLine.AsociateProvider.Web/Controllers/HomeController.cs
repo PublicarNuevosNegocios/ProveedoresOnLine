@@ -11,9 +11,9 @@ namespace ProveedoresOnLine.AsociateProvider.Web.Controllers
         public virtual ActionResult Index()
         {
             //validate user loggin
-            if (Models.General.SessionModel.UserIsLoggedIn)
+            if (ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.UserIsLoggedIn)
             {
-                if (Models.General.SessionModel.UserIsAutorized)
+                if (ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.UserIsAutorized)
                 {
                     //redirect
                     return RedirectToAction(MVC.AsociateProvider.ActionNames.Index, MVC.AsociateProvider.Name);
@@ -21,10 +21,10 @@ namespace ProveedoresOnLine.AsociateProvider.Web.Controllers
                 else
                 {
                     //user is not authorized
-                    ViewData[Models.General.Constants.C_ViewData_UserNotAutorizedText] =
-                        Models.General.InternalSettings.Instance
-                        [Models.General.Constants.C_Settings_Login_UserNotAutorized].Value.
-                        Replace("{UserName}", Models.General.SessionModel.CurrentLoginUser.Email);
+                    ViewData[ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_ViewData_UserNotAutorizedText] =
+                        ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.InternalSettings.Instance
+                        [ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_Settings_Login_UserNotAutorized].Value.
+                        Replace("{UserName}", ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.CurrentLoginUser.Email);
                 }
             }
 

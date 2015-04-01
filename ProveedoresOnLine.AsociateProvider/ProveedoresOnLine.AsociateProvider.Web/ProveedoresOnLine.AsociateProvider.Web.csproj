@@ -161,10 +161,6 @@
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\General\Constants.cs" />
-    <Compile Include="Models\General\Enumerations.cs" />
-    <Compile Include="Models\General\InternalSettings.cs" />
-    <Compile Include="Models\General\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -272,7 +268,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\AsociateProvider\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -288,6 +284,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.AsociateProvider.DAL\ProveedoresOnLine.AsociateProvider.DAL.csproj">
+      <Project>{70321a63-13de-4e52-aa8a-3ac2c1f9be42}</Project>
+      <Name>ProveedoresOnLine.AsociateProvider.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProveedoresOnLine.AsociateProvider.Interfaces\ProveedoresOnLine.AsociateProvider.Interfaces.csproj">
+      <Project>{71b41233-8fea-46a7-8709-49c795f5b5c0}</Project>
+      <Name>ProveedoresOnLine.AsociateProvider.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -65,6 +65,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.AsociateProvider.DAL\ProveedoresOnLine.AsociateProvider.DAL.csproj">
+      <Project>{70321a63-13de-4e52-aa8a-3ac2c1f9be42}</Project>
+      <Name>ProveedoresOnLine.AsociateProvider.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProveedoresOnLine.AsociateProvider.Interfaces\ProveedoresOnLine.AsociateProvider.Interfaces.csproj">
+      <Project>{71b41233-8fea-46a7-8709-49c795f5b5c0}</Project>
+      <Name>ProveedoresOnLine.AsociateProvider.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

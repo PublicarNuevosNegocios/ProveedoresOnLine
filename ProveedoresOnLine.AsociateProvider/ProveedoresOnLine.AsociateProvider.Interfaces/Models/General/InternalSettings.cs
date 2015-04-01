@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProveedoresOnLine.AsociateProvider.Web.Models.General
+namespace ProveedoresOnLine.AsociateProvider.Interfaces.Models.General
 {
     public class InternalSettings : System.Collections.DictionaryBase
     {
@@ -21,13 +21,13 @@ namespace ProveedoresOnLine.AsociateProvider.Web.Models.General
 
         public SettingsManager.Models.SettingModel this[string SettingName]
         {
-            get { return SettingsManager.SettingsController.SettingsInstance.ModulesParams[Models.General.Constants.C_SettingsModuleName][SettingName]; }
+            get { return SettingsManager.SettingsController.SettingsInstance.ModulesParams[Interfaces.Constants.C_SettingsModuleName][SettingName]; }
         }
         public int Count
         {
             get
             {
-                return SettingsManager.SettingsController.SettingsInstance.ModulesParams[Models.General.Constants.C_SettingsModuleName].Count;
+                return SettingsManager.SettingsController.SettingsInstance.ModulesParams[Interfaces.Constants.C_SettingsModuleName].Count;
             }
         }
     }

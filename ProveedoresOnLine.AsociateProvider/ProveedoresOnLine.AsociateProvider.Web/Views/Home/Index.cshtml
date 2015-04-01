@@ -7,8 +7,8 @@
         //get login urls
         string RetUrl = Url.Action(MVC.AsociateProvider.ActionNames.Index, MVC.AsociateProvider.Name, null, Request.Url.Scheme);
 
-        string GoogleUrl = ProveedoresOnLine.AsociateProvider.Web.Models.General.InternalSettings.Instance
-            [ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_Settings_Login_GoogleUrl]
+        string GoogleUrl = ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.InternalSettings.Instance
+            [ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_Settings_Login_GoogleUrl]
             .Value.Replace("{{UrlRetorno}}", RetUrl);
     }
     <div class="POBOLogInHeader">
@@ -21,10 +21,10 @@
         <a href="@GoogleUrl">
             <img src="@Url.Content("~/Content/Images/Google-plus-icon.png")" alt="Login Google" title="Login Google" />
         </a>
-        @if (ViewData[ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_ViewData_UserNotAutorizedText] != null &&
-                !string.IsNullOrEmpty(ViewData[ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()))
+        @if (ViewData[ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_ViewData_UserNotAutorizedText] != null &&
+                !string.IsNullOrEmpty(ViewData[ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_ViewData_UserNotAutorizedText].ToString()))
         {
-            <label>@ViewData[ProveedoresOnLine.AsociateProvider.Web.Models.General.Constants.C_ViewData_UserNotAutorizedText].ToString()</label>
+            <label>@ViewData[ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_ViewData_UserNotAutorizedText].ToString()</label>
         }
     </div>
 

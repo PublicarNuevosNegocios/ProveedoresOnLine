@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace ProveedoresOnLine.AsociateProvider.Test
 {
@@ -71,6 +72,15 @@ namespace ProveedoresOnLine.AsociateProvider.Test
             };
 
             ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.AsociateProvider(AsociateProviderToUpsert);
+        }
+
+        [TestMethod]
+        public void GetAllAsociateProvider()
+        {
+            int TotalRows = 0;
+
+            List<ProveedoresOnLine.AsociateProvider.Interfaces.Models.AsociateProvider.AsociateProviderModel> oReturn =
+                ProveedoresOnLine.AsociateProvider.DAL.Controller.AsociateProviderDataController.Instance.GetAllAsociateProvider("", 0, 100, out TotalRows);
         }
     }
 }

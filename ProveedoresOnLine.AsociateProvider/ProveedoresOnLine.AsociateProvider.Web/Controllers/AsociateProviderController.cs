@@ -12,6 +12,5 @@ namespace ProveedoresOnLine.AsociateProvider.Web.Controllers
         {
             return View();
         }
-
     }
 }

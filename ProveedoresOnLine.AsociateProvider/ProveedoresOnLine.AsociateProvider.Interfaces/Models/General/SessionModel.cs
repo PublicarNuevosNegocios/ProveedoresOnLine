@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;          
+using System.Text;
 using System.Threading.Tasks;
 
-namespace ProveedoresOnLine.AsociateProvider.Web.Models.General
+namespace ProveedoresOnLine.AsociateProvider.Interfaces.Models.General
 {
     public class SessionModel
     {
