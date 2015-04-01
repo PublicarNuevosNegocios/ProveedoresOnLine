@@ -1,5 +1,5 @@
-﻿@if (ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsLoggedIn &&
-    ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsAutorized)
+﻿@if (ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.UserIsLoggedIn &&
+    ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.UserIsAutorized)
 {
     <div class="POBOHeaderWrapper">
         <!--logo-->
@@ -10,7 +10,7 @@
             <div class="POBOUserMenu" onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');">
                 <img src="@(ProveedoresOnLine.
                                 AsociateProvider.
-                                Web.
+                                Interfaces.
                                 Models.
                                 General.
                                 SessionModel.
@@ -20,7 +20,7 @@
                                 Select(x=>x.Value).
                                 DefaultIfEmpty(Url.Content("~/imagennologin.jpg")).
                                 FirstOrDefault())" />
-                <label><span>Bienvenido: </span>@(ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.CurrentLoginUser.Name + " " + ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.CurrentLoginUser.LastName)</label>
+                <label><span>Bienvenido: </span>@(ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.CurrentLoginUser.Name + " " + ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.CurrentLoginUser.LastName)</label>
             </div>
             <div class="POBOUserMenuOptions" id="divHeader_UserMenu" style="display:none;">
                 <ul>

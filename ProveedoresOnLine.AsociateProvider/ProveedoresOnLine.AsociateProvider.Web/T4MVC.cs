@@ -86,6 +86,7 @@ namespace Links
             private const string URLPATH = "~/Scripts/Site";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
         }
     
     }
@@ -108,6 +109,19 @@ namespace Links
             private const string URLPATH = "~/Content/Images";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string arrowSelectedMenuSmall_png = Url("arrowSelectedMenuSmall.png");
+            public static readonly string cerrar_png = Url("cerrar.png");
+            public static readonly string dafaultProvider_png = Url("dafaultProvider.png");
+            public static readonly string Error_png = Url("Error.png");
+            public static readonly string Google_plus_icon_png = Url("Google-plus-icon.png");
+            public static readonly string logo_png = Url("logo.png");
+            public static readonly string LogoPOHeader_png = Url("LogoPOHeader.png");
+            public static readonly string LogoPOLogInAlpha_png = Url("LogoPOLogInAlpha.png");
+            public static readonly string logoPublicarBN_png = Url("logoPublicarBN.png");
+            public static readonly string LogoPublicarFooter_png = Url("LogoPublicarFooter.png");
+            public static readonly string LogoPublicarFooterBlack_png = Url("LogoPublicarFooterBlack.png");
+            public static readonly string POBOBackground3Small_jpg = Url("POBOBackground3Small.jpg");
+            public static readonly string POBOsprite_png = Url("POBOsprite.png");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -115,6 +129,23 @@ namespace Links
             private const string URLPATH = "~/Content/Styles";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Site {
+                private const string URLPATH = "~/Content/Styles/Site";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string POBOFooter_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOFooter.min.css") ? Url("POBOFooter.min.css") : Url("POBOFooter.css");
+                     
+                public static readonly string POBOHeader_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOHeader.min.css") ? Url("POBOHeader.min.css") : Url("POBOHeader.css");
+                     
+                public static readonly string POBOLayout_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOLayout.min.css") ? Url("POBOLayout.min.css") : Url("POBOLayout.css");
+                     
+                public static readonly string POBOLogIn_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOLogIn.min.css") ? Url("POBOLogIn.min.css") : Url("POBOLogIn.css");
+                     
+                public static readonly string POBOLogInProviders_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOLogInProviders.min.css") ? Url("POBOLogInProviders.min.css") : Url("POBOLogInProviders.css");
+                     
+            }
+        
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -203,6 +234,7 @@ namespace Links
             {
                 public static class Assets
                 {
+                    public const string GeneralScripts_js = "~/Scripts/Site/GeneralScripts.js"; 
                 }
             }
             public static class Assets
@@ -228,6 +260,17 @@ namespace Links
             }
             public static partial class Styles 
             {
+                public static partial class Site 
+                {
+                    public static class Assets
+                    {
+                        public const string POBOFooter_css = "~/Content/Styles/Site/POBOFooter.css";
+                        public const string POBOHeader_css = "~/Content/Styles/Site/POBOHeader.css";
+                        public const string POBOLayout_css = "~/Content/Styles/Site/POBOLayout.css";
+                        public const string POBOLogIn_css = "~/Content/Styles/Site/POBOLogIn.css";
+                        public const string POBOLogInProviders_css = "~/Content/Styles/Site/POBOLogInProviders.css";
+                    }
+                }
                 public static class Assets
                 {
                 }

@@ -1,10 +1,12 @@
-﻿namespace ProveedoresOnLine.AsociateProvider.Web.Models.General
+﻿namespace ProveedoresOnLine.AsociateProvider.Interfaces
 {
     public class Constants
     {
         #region Internal Settings
 
         public const string C_SettingsModuleName = "AsociateProvider";
+
+        public const string C_AsociateProviderConnectionName = "AsociateProviderConnection";
 
         #region LoginModule
 

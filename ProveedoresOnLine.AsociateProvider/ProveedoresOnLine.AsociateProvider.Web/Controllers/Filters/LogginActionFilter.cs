@@ -10,8 +10,8 @@ namespace ProveedoresOnLine.AsociateProvider.Web.Controllers.Filters
         public void OnActionExecuted(System.Web.Mvc.ActionExecutedContext filterContext)
         {
             if ((filterContext.RouteData.Values["controller"] + "_" + filterContext.RouteData.Values["action"]).ToLower() != "home_index" &&
-                (!ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsLoggedIn ||
-                !ProveedoresOnLine.AsociateProvider.Web.Models.General.SessionModel.UserIsAutorized))
+                (!ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.UserIsLoggedIn ||
+                !ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.SessionModel.UserIsAutorized))
             {
                 filterContext.HttpContext.Response.Redirect("~/", true);
                 filterContext.HttpContext.Response.End();
