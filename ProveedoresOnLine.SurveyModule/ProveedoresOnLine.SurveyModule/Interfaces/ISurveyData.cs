@@ -40,6 +40,8 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         List<SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
 
+        SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId);
+
         #endregion
     }
 }

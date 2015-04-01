@@ -398,6 +398,10 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
         }
 
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId)
+        {
+            return DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
+        }
         #endregion
     }
 }
