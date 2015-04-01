@@ -40,6 +40,12 @@ namespace MarketPlace.Web.Controllers
             {
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                //get current StepId
+                oModel.RelatedSurvey.CurrentStepId = string.IsNullOrEmpty(StepId) ? oModel.RelatedSurvey.GetSurveyConfigFirstStep() : Convert.ToInt32(StepId.Trim());
+
+                //get survey action menu
+                oModel.RelatedSurvey.CurrentActionMenu = GetSurveyAction(oModel);
             }
 
             return View(oModel);
@@ -57,5 +63,64 @@ namespace MarketPlace.Web.Controllers
                     StepId = StepId,
                 });
         }
+
+        #region Menu
+
+        private GenericMenu GetSurveyAction(ProviderViewModel vProviderInfo)
+        {
+            GenericMenu oReturn = new GenericMenu()
+            {
+                Name = "Guardar",
+                Url = Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Survey.Name,
+                        action = MVC.Survey.ActionNames.SurveyUpsert,
+                        SurveyPublicId = vProviderInfo.RelatedSurvey.SurveyPublicId,
+                        StepId = vProviderInfo.RelatedSurvey.CurrentStepId.ToString(),
+                    }),
+            };
+
+            //eval if has steps
+            if (vProviderInfo.RelatedSurvey.SurveyConfigStepEnable)
+            {
+                Tuple<int?, int?> oStepInfo = vProviderInfo.RelatedSurvey.GetSurveyConfigSteps();
+
+                if (oStepInfo.Item1 != null)
+                {
+                    oReturn.LastMenu = new GenericMenu()
+                    {
+                        Name = "Anterior",
+                        Url = Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Survey.Name,
+                                action = MVC.Survey.ActionNames.SurveyUpsert,
+                                SurveyPublicId = vProviderInfo.RelatedSurvey.SurveyPublicId,
+                                StepId = oStepInfo.Item1.Value.ToString()
+                            }),
+                    };
+                }
+                if (oStepInfo.Item2 != null)
+                {
+                    oReturn.NextMenu = new GenericMenu()
+                    {
+                        Name = "Siguiente",
+                        Url = Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Survey.Name,
+                                action = MVC.Survey.ActionNames.SurveyUpsert,
+                                SurveyPublicId = vProviderInfo.RelatedSurvey.SurveyPublicId,
+                                StepId = oStepInfo.Item2.Value.ToString()
+                            }),
+                    };
+                }
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

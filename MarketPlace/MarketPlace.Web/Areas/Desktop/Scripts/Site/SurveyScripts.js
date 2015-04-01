@@ -179,3 +179,20 @@ var Survey_ProgramObject = {
 };
 
 
+var Survey_SaveObject = {
+
+    ObjectId: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+
+        //show generic progress bar
+        ProgressBar_Generic_Show();
+    },
+
+    Save: function (vUrl) {
+        $('#' + Survey_SaveObject.ObjectId + '_Form').attr('action', vUrl);
+        $('#' + Survey_SaveObject.ObjectId + '_Form').submit();
+    }
+
+};

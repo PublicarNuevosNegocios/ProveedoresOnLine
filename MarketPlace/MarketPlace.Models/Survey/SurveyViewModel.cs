@@ -12,6 +12,10 @@ namespace MarketPlace.Models.Survey
 
         public int TotalRows { get; set; }
 
+        public int CurrentStepId { get; set; }
+
+        public MarketPlace.Models.General.GenericMenu CurrentActionMenu { get; set; }
+
         public string SurveyPublicId { get { return RelatedSurvey.SurveyPublicId; } }
 
         #region Survey Info Fields
@@ -208,6 +212,25 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public bool SurveyConfigStepEnable
+        {
+            get
+            {
+                bool oReturn = false;
+
+                if (RelatedSurvey.RelatedSurveyConfig != null && RelatedSurvey.RelatedSurveyConfig.ItemInfo != null)
+                {
+                    oReturn = RelatedSurvey.RelatedSurveyConfig.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigInfoType.StepEnable).
+                        Select(y => !string.IsNullOrEmpty(y.Value) && y.Value.Trim().ToLower() == "true").
+                        DefaultIfEmpty(false).
+                        FirstOrDefault();
+                }
+
+                return oReturn;
+            }
+        }
+
         #endregion
 
         public SurveyViewModel(ProveedoresOnLine.SurveyModule.Models.SurveyModel oRelatedSurvey)
@@ -242,6 +265,45 @@ namespace MarketPlace.Models.Survey
                 FirstOrDefault();
 
             return oReturn;
+        }
+
+        /// <summary>
+        /// get config steps from CurrentStepId
+        /// </summary>
+        /// <returns>LastStepId,NextStepId</returns>
+        public Tuple<int?, int?> GetSurveyConfigSteps()
+        {
+            List<SurveyConfigItemViewModel> CurrentSurveyAreas = GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
+
+            int? LastStepId = null;
+            int? NextStepId = null;
+
+            LastStepId = CurrentSurveyAreas.
+                Where(x => x.Order < CurrentStepId).
+                Select(x => (int?)x.Order).
+                OrderByDescending(x => x).
+                DefaultIfEmpty(null).
+                FirstOrDefault();
+
+            NextStepId = CurrentSurveyAreas.
+                Where(x => x.Order > CurrentStepId).
+                Select(x => (int?)x.Order).
+                OrderBy(x => x).
+                DefaultIfEmpty(null).
+                FirstOrDefault();
+
+            return new Tuple<int?, int?>(LastStepId, NextStepId);
+        }
+
+        /// <summary>
+        /// get config first stepid
+        /// </summary>
+        /// <returns>FirstStepId</returns>
+        public int GetSurveyConfigFirstStep()
+        {
+            List<SurveyConfigItemViewModel> CurrentSurveyAreas = GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
+            return CurrentSurveyAreas.
+                Min(x => x.Order);
         }
 
         #endregion
