@@ -79,7 +79,6 @@
                             if (!string.IsNullOrEmpty(UlrContent))
                             {
                                 <label>
-                                    @*<iframe src="@(Server.UrlDecode(Url.Action(MVC.Desktop.Provider.ActionNames.GetProviderFileBytes, MVC.Provider.Name, new { FilePath = UlrContent })))" frameborder="0"></iframe>*@
                                     <a class="POMPProviderDocumetIcon" href="@UlrContent" title="" target="_blank">Ver Archivo Representante Legal</a>
                                 </label>
                             }

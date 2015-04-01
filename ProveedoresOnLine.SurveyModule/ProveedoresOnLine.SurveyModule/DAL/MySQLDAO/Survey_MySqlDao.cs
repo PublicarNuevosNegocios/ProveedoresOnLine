@@ -581,6 +581,14 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                     SurveyPublicId = response.DataTableResult.Rows[0].Field<string>("SurveyPublicId"),
                     LastModify = response.DataTableResult.Rows[0].Field<DateTime>("SurveyLastModify"),
 
+                    RelatedProvider = new CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = new Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = response.DataTableResult.Rows[0].Field<string>("ProviderPublicId"),
+                        },
+                    },
+
                     SurveyInfo =
                         (from svinf in response.DataTableResult.AsEnumerable()
                          where !svinf.IsNull("SurveyInfoId") &&

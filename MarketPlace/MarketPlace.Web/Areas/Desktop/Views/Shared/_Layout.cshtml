@@ -54,7 +54,14 @@
             BaseUrl.Init({
                 ApiUrl: '@(Url.Content("~/api"))',
                 SiteUrl: '@(Url.Content("~/"))',
-                PreviewPdfUrl: '@(Server.UrlDecode(Url.Action(MVC.Base.ActionNames.GetPdfFileBytes, MVC.Base.Name, new { FilePath = "${FilePath}" })))',
+                PreviewPdfUrl: '@(Server.UrlDecode(
+                                    Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Base.Name,
+                                        action = MVC.Base.ActionNames.GetPdfFileBytes,
+                                        FilePath = "${FilePath}"
+                                    })))',
             });
 
             //init generic tooltip
@@ -70,7 +77,7 @@
         {
             AnalitycsScript = MarketPlace.Models.General.InternalSettings.Instance
                 [MarketPlace.Models.General.Constants.C_Settings_Analytics.
-                Replace("{AreaName}",MarketPlace.Models.General.AreaModel.CurrentAreaName)].Value;
+                Replace("{AreaName}", MarketPlace.Models.General.AreaModel.CurrentAreaName)].Value;
         }
     }
     @Html.Raw(AnalitycsScript)

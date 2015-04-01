@@ -27,8 +27,6 @@
             });
 
     }
-
-    var lstEvaluationArea = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -87,16 +85,24 @@
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                         {
                         <li>
-                            <a href="" target="_blank">Responder evaluación</a>
+                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Survey.Name,
+                                        action = MVC.Survey.ActionNames.Index,
+                                        SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
+                                    }))" target="_blank">Responder evaluación</a>
                         </li>
                         }
                     </ul>
                 </div>
             </div>
             <div>
+                <span>Los campos con * son obligatorios</span>
                 <!--evaluation items-->
                 <ul>
-                    @foreach (var EvaluationArea in lstEvaluationArea)
+                    @foreach (var EvaluationArea in 
+                        Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
                     {
                         var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
 
@@ -116,9 +122,14 @@
                                         (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
 
                                     <li>
+                                        @if (Question.IsMandatory)
+                                        { 
+                                            <span>*</span>
+                                        }
                                         <span>@Question.Order. @Question.Name</span>
                                         <div class="rateit" data-rateit-value="@(QuestionInfo == null ? 0 : QuestionInfo.Ratting)" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
                                         <span>(@(QuestionInfo == null ? 0 : QuestionInfo.Ratting))</span>
+                                        <span>Peso: @Question.Weight %</span>
                                         <ul>
                                             @foreach (var Answer in lstAnswer)
                                             {

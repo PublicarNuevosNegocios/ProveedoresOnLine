@@ -38,6 +38,30 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public bool IsMandatory
+        {
+            get
+            {
+                return RelatedSurveyConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.IsMandatory).
+                    Select(y => !string.IsNullOrEmpty(y.Value) && y.Value.Trim().ToLower() == "true").
+                    DefaultIfEmpty(false).
+                    FirstOrDefault();
+            }
+        }
+
+        public decimal Weight
+        {
+            get
+            {
+                return RelatedSurveyConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.Weight).
+                    Select(y => Convert.ToDecimal(y.Value)).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedSurveyConfigItem)
         {
             RelatedSurveyConfigItem = oRelatedSurveyConfigItem;

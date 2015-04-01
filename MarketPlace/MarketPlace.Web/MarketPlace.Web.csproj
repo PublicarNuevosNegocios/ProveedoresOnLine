@@ -188,6 +188,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\SurveyController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
     <Compile Include="Areas\Desktop\DesktopAreaRegistration.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
+    <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -226,6 +228,9 @@
     <Compile Include="Desktop.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Desktop.SurveyController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +239,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -984,6 +992,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearch_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearch_Result_Pager.cshtml" />
+    <Content Include="Areas\Desktop\Views\Survey\Index.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

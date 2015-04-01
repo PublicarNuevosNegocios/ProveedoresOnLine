@@ -32,6 +32,7 @@ public static partial class MVC
     public static MarketPlace.Web.Controllers.CustomerController Customer = new MarketPlace.Web.Controllers.T4MVC_CustomerController();
     public static MarketPlace.Web.Controllers.HomeController Home = new MarketPlace.Web.Controllers.T4MVC_HomeController();
     public static MarketPlace.Web.Controllers.ProviderController Provider = new MarketPlace.Web.Controllers.T4MVC_ProviderController();
+    public static MarketPlace.Web.Controllers.SurveyController Survey = new MarketPlace.Web.Controllers.T4MVC_SurveyController();
 }
 
 namespace T4MVC
@@ -44,6 +45,7 @@ namespace T4MVC
         public MarketPlace.Web.Areas.Desktop.Controllers.CustomerController Customer = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_CustomerController();
         public MarketPlace.Web.Areas.Desktop.Controllers.HomeController Home = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_HomeController();
         public MarketPlace.Web.Areas.Desktop.Controllers.ProviderController Provider = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_ProviderController();
+        public MarketPlace.Web.Areas.Desktop.Controllers.SurveyController Survey = new MarketPlace.Web.Areas.Desktop.Controllers.T4MVC_SurveyController();
         public T4MVC.Desktop.SharedController Shared = new T4MVC.Desktop.SharedController();
     }
 }

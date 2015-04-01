@@ -1,0 +1,150 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@{
+    ViewBag.Title = "Proveedores OnLine - Evaluación de desempeño";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    //string strStepId = Request["StepId"];
+
+    var lstEvaluationArea = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
+    //if (!string.IsNullOrEmpty(strStepId))
+    //{
+    //    lstEvaluationArea = lstEvaluationArea.Where(x => x.SurveyConfigItemId.ToString().Replace(" ", "") == strStepId.Replace(" ", "")).ToList();
+    //}
+}
+<div>
+    <!--survey header-->
+    <div>
+        <!--Provider info-->
+        <div class="POMPProviderMenuDetail">
+            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.RelatedLiteProvider)
+</div>
+<!--Survey info-->
+<div>
+    <ul>
+        <li>
+            <span>
+                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+            </span>
+        </li>
+        <li>
+            <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.RelatedSurvey.SurveyRating)</span>
+        </li>
+        <li>
+            <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+            <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
+            <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
+        </li>
+        <li>
+            <span>Estado: @Model.RelatedSurvey.SurveyStatusName</span>
+        </li>
+        <li>
+            <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
+        </li>
+        <li>
+            <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
+        </li>
+    </ul>
+</div>
+</div>
+<div>
+    <span>Los campos con * son obligatorios</span>
+    <!--evaluation items-->
+    <form method="post" action="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Survey.Name,
+                    action = MVC.Survey.ActionNames.SurveyUpsert,
+                    SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
+                }))">
+        <ul>
+            <!--Survey Actions-->
+            <li>
+                <ul>
+                    <li>
+                        <input type="submit" value="Guardar" />
+                    </li>
+                </ul>
+            </li>
+            @foreach (var EvaluationArea in lstEvaluationArea)
+            {
+                var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+
+                var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
+                    (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+
+                <li>
+                    <span>@EvaluationArea.Order. @EvaluationArea.Name</span>
+
+                    <ul>
+                        @foreach (var Question in lstQuestion)
+                        {
+                            var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                            var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                            <li>
+                                @if (Question.IsMandatory)
+                                {
+                                    <span>*</span>
+                                }
+                                <span>@Question.Order. @Question.Name</span>
+                                <ul>
+                                    @foreach (var Answer in lstAnswer)
+                                    {
+                                        <li>
+                                            @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                            {
+                                                <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" />
+                                            }
+                                            <span>@Answer.Name</span>
+                                        </li>
+                                    }
+                                </ul>
+                                @if (Question.HasDescription)
+                                {
+                                    <span>
+                                        Observaciones:
+                                    </span>
+                                    <span>
+                                        <textarea name="SurveyItem_Text_@Question.SurveyConfigItemId">
+                                            @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
+                                        </textarea>
+                                    </span>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            <!--Survey Actions-->
+            <li>
+                <ul>
+                    <li>
+                        <input type="submit" value="Guardar" />
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div style="display:none;">
+            <input type="hidden" id="StepId" name="StepId" value="" />
+        </div>
+    </form>
+</div>
+</div>
+@section inlinescripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //show generic progress bar
+            ProgressBar_Generic_Show();
+        });
+    </script>
+}
+
