@@ -1322,9 +1322,11 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
                 oModel.ProviderMenu = GetProviderMenu(oModel);
+                //get survey info
+                oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
             }
             return View(oModel);
-
         }
 
         #endregion

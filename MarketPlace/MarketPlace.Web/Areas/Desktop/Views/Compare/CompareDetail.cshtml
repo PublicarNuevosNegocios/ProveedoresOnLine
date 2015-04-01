@@ -177,6 +177,9 @@
                     },
                     columns: @Html.Raw(oJsonColumns),
                 });
+
+                //re-init all rates
+                $('.rateit').rateit();
             });
         </script>
     }
@@ -194,6 +197,10 @@
 
                 $('#' + Compare_DetailObject.ObjectId).hide();
                 $('#' + Compare_DetailObject.ObjectId + '_NoResult').show();
+
+                //re-init all rates
+                $('.rateit').rateit();
+
             });
         </script>
     }

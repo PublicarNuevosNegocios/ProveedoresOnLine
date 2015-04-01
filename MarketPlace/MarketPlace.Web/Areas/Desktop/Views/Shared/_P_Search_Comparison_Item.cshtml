@@ -8,7 +8,9 @@
         <img style="@(Model.ProviderIsCertified ? string.Empty : "display:none");" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        <a href="@(Url.RouteUrl
+        <div>
+            <!--Provider logo-->
+            <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
                         {
@@ -16,8 +18,12 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">
-            <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
-        </a>
+                <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
+            </a>
+            <!--Provider rate-->
+            <div class="rateit" data-rateit-value="@Model.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.ProviderRate)</span>
+        </div>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>
             <label><span>@Model.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.RelatedProvider.RelatedCompany.IdentificationNumber</label>
@@ -89,15 +95,20 @@ else
         <img style="display:{ProviderIsCertified};" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        <a href="@(Url.RouteUrl
+        <div>
+            <a href="@(Url.RouteUrl
                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                     new
                     {
                         controller = MVC.Provider.Name,
                         action = MVC.Provider.ActionNames.GIProviderInfo,
                     }) + "?ProviderPublicId={ProviderPublicId}")">
-            <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
-        </a>
+                <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
+            </a>
+            <!--Provider rate-->
+            <div class="{ProviderRateClass}" data-rateit-value="{ProviderRate}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>({ProviderRate})</span>
+        </div>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>{CompanyName}</label>
             <label><span>{IdentificationType} :</span> {IdentificationNumber}</label>

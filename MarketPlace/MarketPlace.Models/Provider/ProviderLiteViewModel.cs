@@ -48,7 +48,7 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return ProviderStatusId.ToString() == 
+                return ProviderStatusId.ToString() ==
                     MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified].Value;
             }
         }
@@ -76,7 +76,7 @@ namespace MarketPlace.Models.Provider
         /// <summary>
         /// Provider rate for session customer
         /// </summary>
-        public decimal? ProviderRate
+        public decimal ProviderRate
         {
             get
             {
@@ -87,10 +87,10 @@ namespace MarketPlace.Models.Provider
                             RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
                             ItemInfo.
                             Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCustomerProviderInfoType.ProviderRate).
-                            Select(x => (decimal?)Convert.ToDecimal(x.Value)).
-                            DefaultIfEmpty(null).
+                            Select(x => Convert.ToDecimal(x.Value)).
+                            DefaultIfEmpty(0).
                             FirstOrDefault() :
-                            null;
+                            0;
             }
         }
 

@@ -21,10 +21,11 @@
         }
     </div>
     <div class="POMPSearchResultProvDataWrapper">
-        <!--Provider Logo-->
-        @if (Model.Item1.IsProviderCustomer)
-        {
-            <a href="@(Url.RouteUrl
+        <div>
+            <!--Provider Logo-->
+            @if (Model.Item1.IsProviderCustomer)
+            {
+                <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
@@ -32,15 +33,19 @@
                                     action = MVC.Provider.ActionNames.GIProviderInfo,
                                     ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
                                 }))">
-                <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
-            </a>
-        }
-        else
-        {
-            <span>
-                <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
-            </span>
-        }
+                    <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+                </a>
+            }
+            else
+            {
+                <span>
+                    <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+                </span>
+            }
+            <!--Provider rate-->
+            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.Item1.ProviderRate)</span>
+        </div>
         <div class="POMPSearchResultNameIDWrapper">
             @if (Model.Item1.IsProviderCustomer)
             {
