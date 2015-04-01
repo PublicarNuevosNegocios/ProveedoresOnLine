@@ -973,7 +973,7 @@
     <Content Include="Areas\Desktop\Views\Provider\HIRiskPoliciesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_IndicatorsItem.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_FI_BalanceItem.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderLite.cshtml" />
     <Content Include="Areas\Desktop\Views\Compare\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Compare\CompareDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CM_CompareMenu.cshtml" />
