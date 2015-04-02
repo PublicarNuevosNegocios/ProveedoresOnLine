@@ -108,11 +108,11 @@
                                             <li>
                                                 @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
                                                 {
-                                                    <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" checked="checked" />
+                                                    <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
                                                 }
                                                 else
                                                 {
-                                                    <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" />
+                                                    <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
                                                 }
                                                 <span>@Answer.Name</span>
                                             </li>
@@ -124,7 +124,7 @@
                                             Observaciones:
                                         </span>
                                         <span>
-                                            <textarea name="SurveyItem_Text_@Question.SurveyConfigItemId">
+                                            <textarea name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>
                                                 @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
                                             </textarea>
                                         </span>
