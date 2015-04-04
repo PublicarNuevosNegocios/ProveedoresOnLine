@@ -53,64 +53,14 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult SurveyUpsert(string SurveyPublicId, string StepId)
         {
-            //get current survey values
-            MarketPlace.Models.Survey.SurveyViewModel oSurvey =
-               new Models.Survey.SurveyViewModel(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+            //get survey request model
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert =
+                GetSurveyUpsertRequest(SurveyPublicId);
 
-            //loop request for update answers
-            Request.Form.AllKeys.Where(x => x.Contains("SurveyItem_")).All(req =>
-            {
-                string[] strAux = Request[req].Split('_');
+            //upsert survey
+            oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
 
-                if (strAux.Length >= 2)
-                {
-                    int oSurveyConfigItemId = Convert.ToInt32(strAux[1].Replace(" ", ""));
-
-                    MarketPlace.Models.Survey.SurveyItemViewModel oSurveyItem = oSurvey.GetSurveyItem(oSurveyConfigItemId);
-
-                    if (oSurveyItem == null)
-                    {
-                        oSurveyItem = new Models.Survey.SurveyItemViewModel(new ProveedoresOnLine.SurveyModule.Models.SurveyItemModel()
-                        {
-                            RelatedSurveyConfigItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                            {
-                                ItemId = oSurveyConfigItemId,
-                            },
-                            Enable = true,
-                        });
-                    }
-
-                    if (oSurveyItem.RelatedSurveyItem.ItemInfo == null)
-                    {
-                        oSurveyItem.RelatedSurveyItem.ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>();
-                    }
-
-
-
-                }
-
-                return true;
-            });
-
-
-            ////eval each survey config item
-            //var lstEvaluationArea = oSurvey.GetSurveyConfigItem(enumSurveyConfigItemType.EvaluationArea, null);
-
-            //lstEvaluationArea.All(ea =>
-            //{
-            //    if(ea.)
-
-
-
-            //    return true;
-            //});
-
-
-
-
-
-
-
+            //eval redirect
             return RedirectToRoute
                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                 new
@@ -121,6 +71,124 @@ namespace MarketPlace.Web.Controllers
                     StepId = StepId,
                 });
         }
+
+        #region Survey pusert request
+
+        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest(string SurveyPublicId)
+        {
+            //get current survey values
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurvey =
+               ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId);
+
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+            {
+                SurveyPublicId = oSurvey.SurveyPublicId,
+                RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
+            };
+
+            #region get request object
+
+            //loop request for update answers
+            Request.Form.AllKeys.Where(req => req.Contains("SurveyItem_")).All(req =>
+            {
+                string[] strAux = req.Split('_');
+
+                if (strAux.Length >= 2)
+                {
+                    int oSurveyConfigItemId = Convert.ToInt32(strAux[1].Replace(" ", ""));
+
+                    ProveedoresOnLine.SurveyModule.Models.SurveyItemModel oSurveyItem = oSurvey.RelatedSurveyItem.
+                        Where(sit => sit.RelatedSurveyConfigItem.ItemId == oSurveyConfigItemId).
+                        FirstOrDefault();
+
+                    ProveedoresOnLine.SurveyModule.Models.SurveyItemModel oSurveyItemToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyItemModel()
+                    {
+                        ItemId = oSurveyItem != null ? oSurveyItem.ItemId : 0,
+                        RelatedSurveyConfigItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = oSurveyConfigItemId,
+                        },
+                        Enable = true,
+
+                        ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>() 
+                        {
+                            new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 
+                                    (oSurveyItem != null && 
+                                    oSurveyItem.ItemInfo != null && 
+                                    oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Ratting)) ?
+                                    oSurveyItem.ItemInfo.
+                                        Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Ratting).
+                                        Select(sitinf=>sitinf.ItemInfoId).
+                                        DefaultIfEmpty(0).
+                                        FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyItemInfoType.Ratting,
+                                },
+                                Value = oSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.
+                                    Where(scit=> scit.ItemType.ItemId == (int)enumSurveyConfigItemType.Answer &&
+                                                 scit.ItemId.ToString() == Request[req].Replace(" ","")).
+                                    Select(scit=>scit.ItemInfo.
+                                                    Where(scitinf=>scitinf.ItemInfoType.ItemId == (int)enumSurveyConfigItemInfoType.Weight).
+                                                    Select(scitinf=>Convert.ToInt32( scitinf.Value)).
+                                                    DefaultIfEmpty(0).
+                                                    FirstOrDefault()).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault().ToString(),
+                                Enable = true,
+                            },
+                            new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 
+                                    (oSurveyItem != null && 
+                                    oSurveyItem.ItemInfo != null && 
+                                    oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Answer)) ?
+                                    oSurveyItem.ItemInfo.
+                                        Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Answer).
+                                        Select(sitinf=>sitinf.ItemInfoId).
+                                        DefaultIfEmpty(0).
+                                        FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyItemInfoType.Answer,
+                                },
+                                Value = Request[req],
+                                Enable = true,
+                            },
+                            new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                            {
+                                ItemInfoId = 
+                                    (oSurveyItem != null && 
+                                    oSurveyItem.ItemInfo != null && 
+                                    oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.DescriptionText)) ?
+                                    oSurveyItem.ItemInfo.
+                                        Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.DescriptionText).
+                                        Select(sitinf=>sitinf.ItemInfoId).
+                                        DefaultIfEmpty(0).
+                                        FirstOrDefault() : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyItemInfoType.DescriptionText,
+                                },
+                                Value = Request["SurveyItemText_" + oSurveyConfigItemId],
+                                Enable = true,
+                            },                        
+                        },
+                    };
+                    //add survey item to survey to upsert
+                    oSurveyToUpsert.RelatedSurveyItem.Add(oSurveyItemToUpsert);
+                }
+                return true;
+            });
+
+            #endregion
+
+            return oSurveyToUpsert;
+        }
+
+        #endregion
 
         #region Menu
 

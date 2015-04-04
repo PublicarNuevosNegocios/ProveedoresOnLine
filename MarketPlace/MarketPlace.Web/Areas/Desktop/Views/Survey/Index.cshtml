@@ -124,9 +124,7 @@
                                             Observaciones:
                                         </span>
                                         <span>
-                                            <textarea name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>
-                                                @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
-                                            </textarea>
+                                            <textarea name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
                                         </span>
                                     }
                                 </li>
@@ -142,18 +140,18 @@
                             if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
                             {
                                 <li>
-                                    <a href="Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
+                                    <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
                                 </li>
                             }
                             if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
                             {
                                 <li>
-                                    <a href="Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
+                                    <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
                                 </li>
                             }
                         }
                         <li>
-                            <a href="Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
+                            <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
                         </li>
                     </ul>
                 </li>
