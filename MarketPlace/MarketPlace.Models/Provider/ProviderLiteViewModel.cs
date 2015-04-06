@@ -80,7 +80,7 @@ namespace MarketPlace.Models.Provider
         {
             get
             {
-                return IsProviderCustomer &&
+                return (5 * (IsProviderCustomer &&
                         RelatedProvider != null &&
                         RelatedProvider.RelatedCustomerInfo != null ?
                             RelatedProvider.
@@ -90,7 +90,7 @@ namespace MarketPlace.Models.Provider
                             Select(x => Convert.ToDecimal(x.Value)).
                             DefaultIfEmpty(0).
                             FirstOrDefault() :
-                            0;
+                            0) / 100);
             }
         }
 

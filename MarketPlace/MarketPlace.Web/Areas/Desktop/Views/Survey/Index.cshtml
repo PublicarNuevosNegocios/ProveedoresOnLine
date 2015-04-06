@@ -30,8 +30,8 @@
                     </span>
                 </li>
                 <li>
-                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                    <span>(@Model.RelatedSurvey.SurveyRating)</span>
+                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",",".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                 </li>
                 <li>
                     <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>

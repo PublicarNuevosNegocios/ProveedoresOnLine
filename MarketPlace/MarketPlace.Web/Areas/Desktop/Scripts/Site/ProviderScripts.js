@@ -149,7 +149,7 @@ var Provider_SearchObject = {
                         oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
                         oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, value.RelatedProvider.RelatedCompany.IdentificationNumber);
                         oItemHtml = oItemHtml.replace(/{ProviderRateClass}/gi, 'rateit');
-                        oItemHtml = oItemHtml.replace(/{ProviderRate}/gi, value.ProviderRate);
+                        oItemHtml = oItemHtml.replace(/{ProviderRate}/gi, value.ProviderRate.replace(/,/gi, '.'));
 
                         //validate item certified
                         if (value.ProviderIsCertified != null && value.ProviderIsCertified == true) {

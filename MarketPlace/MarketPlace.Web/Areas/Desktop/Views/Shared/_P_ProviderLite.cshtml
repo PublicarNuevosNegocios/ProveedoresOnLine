@@ -21,8 +21,8 @@
                 <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
             </a>
             <!--Provider rate-->
-            <div class="rateit" data-rateit-value="@Model.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.ProviderRate)</span>
+            <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.ProviderRate.ToString("0.##").Replace(",", "."))</span>
         </div>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>

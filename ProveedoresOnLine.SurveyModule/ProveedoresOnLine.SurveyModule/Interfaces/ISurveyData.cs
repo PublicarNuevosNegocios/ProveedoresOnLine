@@ -42,6 +42,8 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId);
 
+        List<SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId);
+
         #endregion
     }
 }

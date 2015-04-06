@@ -103,8 +103,6 @@
         CompanyLogo = 203005,
         AlertRisk = 203008,
 
-        Ratting = 203010,
-
         CustomEconomicActivity = 220001,
     }
 
@@ -366,7 +364,8 @@
     public enum enumCustomerProviderInfoType
     {
         CustomerNotes = 901002,
-        ProviderRate = 901003
+        ProviderRate = 901003,
+        ProviderRateCount = 901004
     }
 
     public enum enumContactInfoType

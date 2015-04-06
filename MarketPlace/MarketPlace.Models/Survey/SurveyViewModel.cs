@@ -161,15 +161,15 @@ namespace MarketPlace.Models.Survey
             }
         }
 
-        public int SurveyRating
+        public decimal SurveyRating
         {
             get
             {
-                return RelatedSurvey.SurveyInfo.
+                return ((5 * RelatedSurvey.SurveyInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Rating).
-                    Select(y => Convert.ToInt32(y.Value)).
+                    Select(y => Convert.ToDecimal(y.Value)).
                     DefaultIfEmpty(0).
-                    FirstOrDefault();
+                    FirstOrDefault()) / 100);
             }
         }
 

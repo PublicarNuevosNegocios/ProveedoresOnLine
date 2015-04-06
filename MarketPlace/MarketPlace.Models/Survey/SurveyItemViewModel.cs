@@ -26,11 +26,11 @@ namespace MarketPlace.Models.Survey
         {
             get
             {
-                return RelatedSurveyItem.ItemInfo.
+                return (5 * (RelatedSurveyItem.ItemInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyItemInfoType.Ratting).
                     Select(y => Convert.ToDecimal(y.Value)).
                     DefaultIfEmpty(0).
-                    FirstOrDefault();
+                    FirstOrDefault()) / 100);
             }
         }
 

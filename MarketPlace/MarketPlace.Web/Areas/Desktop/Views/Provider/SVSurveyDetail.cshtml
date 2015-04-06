@@ -48,8 +48,8 @@
                             </span>
                         </li>
                         <li>
-                            <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                            <span>(@Model.RelatedSurvey.SurveyRating)</span>
+                            <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                         </li>
                         <li>
                             <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
@@ -111,8 +111,9 @@
 
                         <li>
                             <span>@EvaluationArea.Order. @EvaluationArea.Name</span>
-                            <div class="rateit" data-rateit-value="@(EvaluationAreaInfo == null ? 0 : EvaluationAreaInfo.Ratting)" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                            <span>(@(EvaluationAreaInfo == null ? 0 : EvaluationAreaInfo.Ratting))</span>
+                            <div class="rateit" data-rateit-value="@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                            <span>(@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
+                            <span>Peso: @EvaluationArea.Weight %</span>
                             <ul>
                                 @foreach (var Question in lstQuestion)
                                 {
@@ -127,8 +128,8 @@
                                             <span>*</span>
                                         }
                                         <span>@Question.Order. @Question.Name</span>
-                                        <div class="rateit" data-rateit-value="@(QuestionInfo == null ? 0 : QuestionInfo.Ratting)" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                                        <span>(@(QuestionInfo == null ? 0 : QuestionInfo.Ratting))</span>
+                                        <div class="rateit" data-rateit-value="@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                        <span>(@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
                                         <span>Peso: @Question.Weight %</span>
                                         <ul>
                                             @foreach (var Answer in lstAnswer)
