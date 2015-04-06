@@ -565,7 +565,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
-                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataSet,
                 CommandText = "MP_CP_Survey_GetById",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams
@@ -573,26 +573,30 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
             SurveyModel oReturn = null;
 
-            if (response.DataTableResult != null &&
-                response.DataTableResult.Rows.Count > 0)
+            if (response.DataSetResult != null &&
+                response.DataSetResult.Tables.Count > 1 &&
+                response.DataSetResult.Tables[0] != null &&
+                response.DataSetResult.Tables[0].Rows.Count > 0 &&
+                response.DataSetResult.Tables[1] != null &&
+                response.DataSetResult.Tables[1].Rows.Count > 0)
             {
                 oReturn = new SurveyModel()
                 {
-                    SurveyPublicId = response.DataTableResult.Rows[0].Field<string>("SurveyPublicId"),
-                    LastModify = response.DataTableResult.Rows[0].Field<DateTime>("SurveyLastModify"),
+                    SurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("SurveyPublicId"),
+                    LastModify = response.DataSetResult.Tables[1].Rows[0].Field<DateTime>("SurveyLastModify"),
 
                     RelatedProvider = new CompanyProvider.Models.Provider.ProviderModel()
                     {
                         RelatedCompany = new Company.Models.Company.CompanyModel()
                         {
-                            CompanyPublicId = response.DataTableResult.Rows[0].Field<string>("ProviderPublicId"),
+                            CompanyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("ProviderPublicId"),
                         },
                     },
 
                     SurveyInfo =
-                        (from svinf in response.DataTableResult.AsEnumerable()
+                        (from svinf in response.DataSetResult.Tables[1].AsEnumerable()
                          where !svinf.IsNull("SurveyInfoId") &&
-                                svinf.Field<string>("SurveyPublicId") == response.DataTableResult.Rows[0].Field<string>("SurveyPublicId")
+                                svinf.Field<string>("SurveyPublicId") == response.DataSetResult.Tables[1].Rows[0].Field<string>("SurveyPublicId")
                          group svinf by new
                          {
                              SurveyInfoId = svinf.Field<int>("SurveyInfoId"),
@@ -616,9 +620,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                          }).ToList(),
 
                     RelatedSurveyItem =
-                        (from svit in response.DataTableResult.AsEnumerable()
+                        (from svit in response.DataSetResult.Tables[1].AsEnumerable()
                          where !svit.IsNull("SurveyItemId") &&
-                                svit.Field<string>("SurveyPublicId") == response.DataTableResult.Rows[0].Field<string>("SurveyPublicId")
+                                svit.Field<string>("SurveyPublicId") == response.DataSetResult.Tables[1].Rows[0].Field<string>("SurveyPublicId")
                          group svit by new
                          {
                              SurveyItemId = svit.Field<int>("SurveyItemId"),
@@ -635,7 +639,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                              LastModify = svitg.Key.SurveyItemLastModify,
 
                              ItemInfo =
-                                (from svitinf in response.DataTableResult.AsEnumerable()
+                                (from svitinf in response.DataSetResult.Tables[1].AsEnumerable()
                                  where !svitinf.IsNull("SurveyItemInfoId") &&
                                         svitinf.Field<int>("SurveyItemId") == svitg.Key.SurveyItemId
                                  group svitinf by new
@@ -661,13 +665,13 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
                     RelatedSurveyConfig = new SurveyConfigModel()
                     {
-                        ItemId = response.DataTableResult.Rows[0].Field<int>("SurveyConfigId"),
-                        ItemName = response.DataTableResult.Rows[0].Field<string>("SurveyName"),
+                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId"),
+                        ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("SurveyName"),
 
                         ItemInfo =
-                           (from scinf in response.DataTableResult.AsEnumerable()
+                           (from scinf in response.DataSetResult.Tables[0].AsEnumerable()
                             where !scinf.IsNull("SurveyConfigInfoId") &&
-                                   scinf.Field<int>("SurveyConfigId") == response.DataTableResult.Rows[0].Field<int>("SurveyConfigId")
+                                   scinf.Field<int>("SurveyConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId")
                             group scinf by new
                             {
                                 SurveyConfigInfoId = scinf.Field<int>("SurveyConfigInfoId"),
@@ -691,9 +695,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                             }).ToList(),
 
                         RelatedSurveyConfigItem =
-                            (from scit in response.DataTableResult.AsEnumerable()
+                            (from scit in response.DataSetResult.Tables[0].AsEnumerable()
                              where !scit.IsNull("SurveyConfigItemId") &&
-                                    scit.Field<int>("SurveyConfigId") == response.DataTableResult.Rows[0].Field<int>("SurveyConfigId")
+                                    scit.Field<int>("SurveyConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("SurveyConfigId")
                              group scit by new
                              {
                                  SurveyConfigItemId = scit.Field<int>("SurveyConfigItemId"),
@@ -718,7 +722,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                                     },
 
                                  ItemInfo =
-                                     (from scitinf in response.DataTableResult.AsEnumerable()
+                                     (from scitinf in response.DataSetResult.Tables[0].AsEnumerable()
                                       where !scitinf.IsNull("SurveyConfigItemInfoId") &&
                                              scitinf.Field<int>("SurveyConfigItemId") == scitg.Key.SurveyConfigItemId
                                       group scitinf by new

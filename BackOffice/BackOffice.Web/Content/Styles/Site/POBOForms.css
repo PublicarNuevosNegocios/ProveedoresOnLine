@@ -4,7 +4,6 @@
     font-size: 0.9em;
     letter-spacing: -0.7px; 
 }
-
 .POBOSectionTitles {
     font-size: 1.5em;
     font-weight: normal;
@@ -22,7 +21,6 @@
     margin: 0 0 0 10px;
     /*border:1px solid darkred;*/
 }
-
 .POBOProviderUpsertForm{
     margin:12px 0px 10px 0px;
 }
@@ -422,10 +420,77 @@ li.POBOBalanceSheetCamposCalculados > input{
                 height:100%;
                 border:none;
             }
-
 .BalanceSheetActions a.POBOButtons,
 .BalanceSheetActions a.POBOProgressButtons{
     font-size: 0.9em;
     border-radius:2px;
     padding:6px 25px !important;  
 }
+/********** DIALOGO DE LISTA DE EVALUACIONES **********/
+.k-window-title{
+        color: #333;
+    float: left;
+    font-size: 1.04em;
+    font-weight: normal;
+    height: 19px;
+    letter-spacing: -0.78px;
+    line-height: 1em;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
+}
+        .k-window-actions{
+            border:none;
+            padding:4px 0px 0px 0px !important;
+        }
+        /*.k-link{                       
+            height: 16px !important;
+            width: 16px !important;
+        }*/
+        .k-i-close, .k-i-close:hover{
+            background-color: #fff;
+            background-image: url("../../Images/cerrar.png");
+            background-position: 2.7px 3.3px !important;
+            background-repeat: no-repeat;
+            background-size: 15px auto;           
+            height:20px;
+            margin:6px 3px 0px 0px !important;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width:100%;
+            border: 1px solid #666;
+            border-radius:2px;
+            opacity:1;
+        }
+.k-edit-label, .k-edit-field > label{
+    color: #4d4d4d;
+    display: block;
+    font-size:1em;
+    font-weight: normal;
+    letter-spacing: -0.1px;
+    margin: 0 0 0 10px;
+    padding:4px 0px 0px 0px !important;
+    line-height: 1.1em;
+}
+    .k-edit-field > label {
+        line-height:1em inherit;
+        margin:0px;
+    }
+.k-edit-label {
+    width: 32%;
+}
+.k-edit-label label{
+    font-weight:normal !important;
+    margin:0px !important;
+    line-height:1em;
+}
+    .k-textbox {
+        border: 1px solid #666 !important;
+        border-radius: 2px;
+        box-shadow: none;
+        color: #333 !important;
+    }

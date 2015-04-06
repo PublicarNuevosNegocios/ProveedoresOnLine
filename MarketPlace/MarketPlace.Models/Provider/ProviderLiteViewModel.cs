@@ -114,6 +114,8 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        public bool IsComparisonView { get; set; }
+
         public ProviderLiteViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oRelatedProvider)
         {
             RelatedProvider = oRelatedProvider;

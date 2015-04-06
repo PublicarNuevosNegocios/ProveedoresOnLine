@@ -21,7 +21,7 @@
         }
     </div>
     <div class="POMPSearchResultProvDataWrapper">
-        <div>
+
             <!--Provider Logo-->
             @if (Model.Item1.IsProviderCustomer)
             {
@@ -42,10 +42,6 @@
                     <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
                 </span>
             }
-            <!--Provider rate-->
-            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.Item1.ProviderRate)</span>
-        </div>
         <div class="POMPSearchResultNameIDWrapper">
             @if (Model.Item1.IsProviderCustomer)
             {
@@ -80,6 +76,13 @@
                 </a>
             }
         </div>
+
+        <!--Provider rate-->
+        <div class="POMPSearchResultProvRating">
+            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.Item1.ProviderRate)</span>
+        </div>
+
         <!--Actions for related provider -->
         <ul class="POMPSearchResultLineTwo">
             @if (!Model.Item1.IsProviderCustomer)

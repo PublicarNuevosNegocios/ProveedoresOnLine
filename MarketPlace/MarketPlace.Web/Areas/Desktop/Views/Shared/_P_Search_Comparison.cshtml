@@ -27,6 +27,7 @@
             {
                 foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oCompareItem in Model.RelatedCompare.RelatedProvider)
                 {
+                    oCompareItem.IsComparisonView = true;
                     <li>
                         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oCompareItem)
                     </li>
