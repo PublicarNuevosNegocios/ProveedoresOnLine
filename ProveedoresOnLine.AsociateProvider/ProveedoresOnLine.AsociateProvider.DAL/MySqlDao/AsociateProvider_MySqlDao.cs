@@ -70,6 +70,24 @@ namespace ProveedoresOnLine.AsociateProvider.DAL.MySqlDao
             return oReturn;
         }
 
+        public int AsociateProviderUpsertEmail(int AsociateProviderId, string Email)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vAsociateProviderId", AsociateProviderId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUserEmail", Email));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "AP_AsociateProviderUpsertEmail",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
         #endregion
     }
 }

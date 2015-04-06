@@ -42,6 +42,11 @@ namespace ProveedoresOnLine.AsociateProvider.DAL.Controller
             return DataFactory.GetAllAsociateProvider(SearchParam, PageNumber, RowCount, out TotalRows);
         }
 
+        public int AsociateProviderUpsertEmail(int AsociateProviderId, string Email)
+        {
+            return DataFactory.AsociateProviderUpsertEmail(AsociateProviderId, Email);
+        }
+
         #endregion
     }
 }

@@ -5,6 +5,7 @@ namespace ProveedoresOnLine.AsociateProvider.Web
 {
     public class BundleConfig
     {
+        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             #region Scripts
@@ -14,9 +15,6 @@ namespace ProveedoresOnLine.AsociateProvider.Web
             bundles.Add(new ScriptBundle("~/site/scripts/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/site/scripts/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
 
             #endregion
 
@@ -33,6 +31,13 @@ namespace ProveedoresOnLine.AsociateProvider.Web
 
             bundles.Add(new ScriptBundle("~/site/scripts/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
+
+            #endregion
+
+            #region Kendo
+
+            bundles.Add(new ScriptBundle("~/site/scripts/kendo").Include(
+                         "~/Scripts/kendo/2014.1.318/kendo.web.min.js"));
 
             #endregion
 
@@ -60,7 +65,15 @@ namespace ProveedoresOnLine.AsociateProvider.Web
             bundles.Add(new StyleBundle("~/site/styles/bootstrap").Include("~/Content/bootstrap.css"));
 
             #endregion
-            
+
+            #region Kendo
+
+            bundles.Add(new StyleBundle("~/site/styles/kendo").Include(
+                      "~/Content/kendo/2014.1.318/kendo.common.min.css",
+                      "~/Content/kendo/2014.1.318/kendo.default.min.css"));
+
+            #endregion
+
             #region site
 
             bundles.Add(new StyleBundle("~/site/styles").IncludeDirectory(

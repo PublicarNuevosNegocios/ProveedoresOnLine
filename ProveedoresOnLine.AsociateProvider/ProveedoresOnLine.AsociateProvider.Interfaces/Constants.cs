@@ -6,7 +6,9 @@
 
         public const string C_SettingsModuleName = "AsociateProvider";
 
-        public const string C_AsociateProviderConnectionName = "AsociateProviderConnection";
+        public const string C_Settings_Grid_RowCountDefault = "Grid_RowCountDefault";
+
+        public const string C_AsociateProviderConnectionName = "POL_AsociateProviderClientConnection";
 
         #region LoginModule
 

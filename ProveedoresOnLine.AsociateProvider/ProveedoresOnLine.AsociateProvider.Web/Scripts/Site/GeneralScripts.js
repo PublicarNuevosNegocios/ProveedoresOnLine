@@ -1,4 +1,15 @@
-﻿/*Message*/
+﻿/*init base url*/
+var BaseUrl = {
+    ApiUrl: '',
+    SiteUrl: '',
+
+    Init: function (vInitObject) {
+        this.ApiUrl = vInitObject.ApiUrl;
+        this.SiteUrl = vInitObject.SiteUrl;
+    },
+};
+
+/*Message*/
 function Message(style, msjText) {
     if ($('div.message').length) {
         $('div.message').remove();
