@@ -68,6 +68,8 @@
     <Compile Include="Models\General\InternalSettings.cs" />
     <Compile Include="Models\General\SessionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AsociateProviderViewModel.cs" />
+    <Compile Include="ViewModel\RelatedProviderViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

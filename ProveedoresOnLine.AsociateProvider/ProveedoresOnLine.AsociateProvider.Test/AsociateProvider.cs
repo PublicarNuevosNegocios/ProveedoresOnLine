@@ -82,5 +82,15 @@ namespace ProveedoresOnLine.AsociateProvider.Test
             List<ProveedoresOnLine.AsociateProvider.Interfaces.Models.AsociateProvider.AsociateProviderModel> oReturn =
                 ProveedoresOnLine.AsociateProvider.DAL.Controller.AsociateProviderDataController.Instance.GetAllAsociateProvider("", 0, 100, out TotalRows);
         }
+
+        [TestMethod]
+        public void AsociateProviderUpsertEmail()
+        {
+            int oReturn = 0;
+
+            oReturn = ProveedoresOnLine.AsociateProvider.DAL.Controller.AsociateProviderDataController.Instance.AsociateProviderUpsertEmail(43, "d.alonsomt@gmail.com");
+
+            Assert.AreEqual(true, oReturn != null);
+        }
     }
 }

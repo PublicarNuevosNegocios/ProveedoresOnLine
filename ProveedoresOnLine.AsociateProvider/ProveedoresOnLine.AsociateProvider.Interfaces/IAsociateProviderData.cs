@@ -9,5 +9,7 @@ namespace ProveedoresOnLine.AsociateProvider.Interfaces
     public interface IAsociateProviderData
     {
         List<ProveedoresOnLine.AsociateProvider.Interfaces.Models.AsociateProvider.AsociateProviderModel> GetAllAsociateProvider(string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
+        int AsociateProviderUpsertEmail(int AsociateProviderId, string Email);
     }
 }

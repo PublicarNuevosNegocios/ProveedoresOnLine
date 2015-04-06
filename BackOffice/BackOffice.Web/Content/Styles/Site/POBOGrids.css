@@ -124,6 +124,32 @@ label.PlaceHolder {
 /***** BUSQUEDA DE EVALUACION *****/
 
 .POBOSurveySearchInput{
-    border:1px solid red;
-    display:block;
+    background-color: #f9f9f9;
+    border: 1px solid #727276;
+    display: inline-block;
+    font-size: 0.88em;
+    height: 24px;
+    letter-spacing: -0.7px;
+    margin: 0 0 0 8px;
+    padding: 0 0 0 5px;
+    vertical-align: middle;
+    width: 226px;
 }
+.POBOSearchEvaluations {
+        background-color: #ff8300;
+        color: #fff;
+        display: inline-block;
+        font-size: 0.9em;
+        height: 21px;
+        letter-spacing: -0.5px;
+        margin: 0 0 0 -5px;
+        padding: 5px 0 0;
+        text-align: center;
+        text-transform: uppercase;
+        vertical-align: middle;
+        width: 64px;
+}
+    .POBOSearchEvaluations:hover {
+        background-color:#ffb362;
+        color:#fff;
+    }

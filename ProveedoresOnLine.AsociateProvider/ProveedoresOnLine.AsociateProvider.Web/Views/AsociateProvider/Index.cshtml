@@ -1,4 +1,26 @@
 ﻿@{
     ViewBag.Title = "Asignación de Proveedores";
-    Layout = MVC.Shared.Views._Layout;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Asignación de Proveedores a Certificadores</label>
+            <div id="loading"></div>
+            <div id="divGridAsociateProvider"></div>
+        </div>
+    </div>
+</div>
+
+@section inlinescripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            AsociateProviderObject.Init({
+                ObjectId: 'divGridAsociateProvider',
+                PageSize: '@ProveedoresOnLine.AsociateProvider.Interfaces.Models.General.InternalSettings.Instance[ProveedoresOnLine.AsociateProvider.Interfaces.Constants.C_Settings_Grid_RowCountDefault].Value',
+            });
+            AsociateProviderObject.RenderAsync();
+        });
+    </script>
 }
