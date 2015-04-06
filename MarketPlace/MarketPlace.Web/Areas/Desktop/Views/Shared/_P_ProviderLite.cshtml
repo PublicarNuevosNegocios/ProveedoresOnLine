@@ -35,8 +35,7 @@
                     <div class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
                 }
             </div>
-            @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName != MVC.Provider.Name &&
-                    MarketPlace.Web.Controllers.BaseController.CurrentActionName != "Search")
+            @if (Model.IsComparisonView)
             {
                 if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName == MVC.Compare.Name &&
                                MarketPlace.Web.Controllers.BaseController.CurrentActionName == MVC.Compare.ActionNames.CompareDetail)
