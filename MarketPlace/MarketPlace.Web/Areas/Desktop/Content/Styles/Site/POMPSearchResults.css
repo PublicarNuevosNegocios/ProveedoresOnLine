@@ -189,13 +189,15 @@
         .POMPSearchResultLineTwo li:last-child{
             border-right:none !important;
         }
-/*.POMPSearchResultProvRating{     
+/******** ESTO PINTA LA CALIFICACION DEL PROVEEDOR ********/
+.POMPSearchResultProvRating{     
     display:inline-block;
     width:96px; height:22px;
-    margin:0px 0px 0px 8%;
-    text-align:center;
-    background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/starsSmall.png');
-    background-repeat:no-repeat;
-    background-position:0px 1px;
-    background-size:96px auto;
-}*/
+    margin:0px 0px 0px 0px;
+    text-align: left;
+    width: 37%;
+}
+    .POMPSearchResultProvRating span {
+        display:inline-block;
+        vertical-align:top;
+    }
