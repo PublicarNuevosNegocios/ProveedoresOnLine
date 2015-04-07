@@ -9,44 +9,6 @@
 
     RenderAsync: function () {
         AsociateProviderObject.RenderAsociateProvider();
-
-        AsociateProviderObject.ConfigKeyBoard();
-
-        AsociateProviderObject.ConfigEvents();
-    },
-
-    ConfigKeyBoard: function () {
-
-        //init keyboard tooltip
-        $('.divGrid_kbtooltip').tooltip();
-
-        $(document.body).keydown(function (e) {
-            if (e.altKey && e.shiftKey && e.keyCode == 71) {
-                //alt+shift+g
-
-                //save
-                $('#' + AsociateProviderObject.ObjectId).data("kendoGrid").saveChanges();
-            }
-            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
-                //alt+shift+n
-
-                //new field
-                $('#' + AsociateProviderObject.ObjectId).data("kendoGrid").addRow();
-            }
-            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
-                //alt+shift+d
-
-                //new field
-                $('#' + AsociateProviderObject.ObjectId).data("kendoGrid").cancelChanges();
-            }
-        });
-    },
-
-    ConfigEvents: function () {
-        //config grid visible enables event
-        $('#' + AsociateProviderObject.ObjectId + '_ViewEnable').change(function () {
-            $('#' + AsociateProviderObject.ObjectId).data('kendoGrid').dataSource.read();
-        });
     },
 
     RenderAsociateProvider: function (param) {
@@ -64,7 +26,6 @@
             pageable: true,
             scrollable: true,
             toolbar: [
-               { name: 'create', text: 'Nuevo' },
                { name: 'save', text: 'Guardar' },
                { name: 'cancel', text: 'Descartar' },
                { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
@@ -76,7 +37,7 @@
                 schema: {
                     total: function (data) {
                         if (data && data.length > 0) {
-                            return data[0].AllTotalRows;
+                            return data[0].TotalRows;
                         }
                         return 0;
                     },
@@ -87,7 +48,7 @@
                             AP_BO_ProviderPublicId: { editable: false },
                             AP_DM_ProviderPublicId: { editable: false },
                             AP_BO_ProviderName: { editable: false },
-                            AP_Email: { editable: true },
+                            AP_Email: { editable: true, validation: { required: false, email: true } },
                             AP_LastModify: { editable: false },
                         },
                     },
@@ -102,7 +63,6 @@
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', '');
                             }
                         });
                     },
@@ -116,12 +76,10 @@
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.AP_AsociateProviderId + '.');
                                 $('#' + AsociateProviderObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', 'Error en la fila con el id ' + options.data.AP_AsociateProviderId + '.');
                             }
                         });
                     },
