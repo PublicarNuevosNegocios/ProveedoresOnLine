@@ -58,6 +58,7 @@ namespace MarketPlace.Web.Controllers
                 GetSurveyUpsertRequest(SurveyPublicId);
 
             //upsert survey
+            oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
 
             //recalculate survey item values
@@ -87,9 +88,37 @@ namespace MarketPlace.Web.Controllers
             {
                 SurveyPublicId = oSurvey.SurveyPublicId,
                 RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
+                SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
             };
 
-            #region get request object
+            #region get request infos
+
+            Request.Form.AllKeys.Where(req => req.Contains("SurveyInfo_")).All(req =>
+            {
+                string[] strAux = req.Split('_');
+
+                if (strAux.Length >= 2)
+                {
+                    int oSurveyInfoTypeId = Convert.ToInt32(strAux[1].Replace(" ", ""));
+                    int oSurveyInfoId = strAux.Length >= 3 && !string.IsNullOrEmpty(strAux[2]) ? Convert.ToInt32(strAux[2].Replace(" ", "")) : 0;
+
+                    oSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = oSurveyInfoId,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = oSurveyInfoTypeId,
+                        },
+                        Value = Request[req].Replace(" ", ""),
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+
+            #endregion
+
+            #region get request answers
 
             //loop request for update answers
             Request.Form.AllKeys.Where(req => req.Contains("SurveyItem_")).All(req =>

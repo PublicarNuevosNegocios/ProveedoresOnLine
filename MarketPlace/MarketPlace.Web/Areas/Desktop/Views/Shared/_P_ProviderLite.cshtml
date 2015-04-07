@@ -22,7 +22,7 @@
             </a>
             <!--Provider rate-->
             <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.ProviderRate.ToString("0.##").Replace(",", "."))</span>
+            <span>(@Model.ProviderRateCount)</span>
         </div>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>
@@ -106,7 +106,7 @@ else
             </a>
             <!--Provider rate-->
             <div class="{ProviderRateClass}" data-rateit-value="{ProviderRate}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>({ProviderRate})</span>
+            <span>({ProviderRateCount})</span>
         </div>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>{CompanyName}</label>

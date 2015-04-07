@@ -136,7 +136,8 @@ var Compare_DetailObject = {
             oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.IdentificationType.ItemName);
             oItemHtml = oItemHtml.replace(/{IdentificationNumber}/gi, Compare_DetailObject.RelatedCompany[vColumName].RelatedProvider.RelatedCompany.IdentificationNumber);
             oItemHtml = oItemHtml.replace(/{ProviderRateClass}/gi, 'rateit');
-            oItemHtml = oItemHtml.replace(/{ProviderRate}/gi, Compare_DetailObject.RelatedCompany[vColumName].ProviderRate.replace(/,/gi,'.'));
+            oItemHtml = oItemHtml.replace(/{ProviderRate}/gi, Compare_DetailObject.RelatedCompany[vColumName].ProviderRate);
+            oItemHtml = oItemHtml.replace(/{ProviderRateCount}/gi, Compare_DetailObject.RelatedCompany[vColumName].ProviderRateCount);
 
             //validate item certified
             if (Compare_DetailObject.RelatedCompany[vColumName].ProviderIsCertified != null && Compare_DetailObject.RelatedCompany[vColumName].ProviderIsCertified == true) {

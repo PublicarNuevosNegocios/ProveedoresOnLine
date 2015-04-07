@@ -156,6 +156,10 @@
                     </ul>
                 </li>
             </ul>
+
+            <div style="display:none;">
+                <input type="hidden" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_@Model.RelatedSurvey.SurveyStatusId" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.InProgress).ToString())" />
+            </div>
         </form>
     </div>
 </div>

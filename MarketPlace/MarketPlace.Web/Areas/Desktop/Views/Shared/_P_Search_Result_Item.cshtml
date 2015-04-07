@@ -44,7 +44,7 @@
             }
             <!--Provider rate-->
             <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.Item1.ProviderRate.ToString("0.##").Replace(",", "."))</span>
+            <span>(@Model.Item1.ProviderRateCount)</span>
         </div>
         <div class="POMPSearchResultNameIDWrapper">
             @if (Model.Item1.IsProviderCustomer)
@@ -84,7 +84,7 @@
         <!--Provider rate-->
         <div class="POMPSearchResultProvRating">
             <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.Item1.ProviderRate)</span>
+            <span>(@Model.Item1.ProviderRateCount)</span>
         </div>
 
         <!--Actions for related provider -->

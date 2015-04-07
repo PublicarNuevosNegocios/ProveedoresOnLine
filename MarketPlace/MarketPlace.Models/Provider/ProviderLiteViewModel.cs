@@ -95,6 +95,28 @@ namespace MarketPlace.Models.Provider
         }
 
         /// <summary>
+        /// Provider rate count for session customer
+        /// </summary>
+        public int ProviderRateCount
+        {
+            get
+            {
+                return IsProviderCustomer &&
+                        RelatedProvider != null &&
+                        RelatedProvider.RelatedCustomerInfo != null ?
+                            RelatedProvider.
+                            RelatedCustomerInfo[MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId].
+                            ItemInfo.
+                            Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCustomerProviderInfoType.ProviderRateCount).
+                            Select(x => Convert.ToInt32(x.Value)).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault() :
+                            0;
+            }
+        }
+
+
+        /// <summary>
         /// Provider alert risk
         /// </summary>
         public MarketPlace.Models.General.enumBlackListStatus ProviderAlertRisk

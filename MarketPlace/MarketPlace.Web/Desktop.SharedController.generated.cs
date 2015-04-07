@@ -46,7 +46,6 @@ namespace T4MVC.Desktop
                 public readonly string _P_FI_IndicatorsItem = "_P_FI_IndicatorsItem";
                 public readonly string _P_ProviderLite = "_P_ProviderLite";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
-                public readonly string _P_ProviderMenuHeader = "_P_ProviderMenuHeader";
                 public readonly string _P_Search_Comparison = "_P_Search_Comparison";
                 public readonly string _P_Search_Filter = "_P_Search_Filter";
                 public readonly string _P_Search_Order = "_P_Search_Order";
@@ -67,7 +66,6 @@ namespace T4MVC.Desktop
             public readonly string _P_FI_IndicatorsItem = "~/Areas/Desktop/Views/Shared/_P_FI_IndicatorsItem.cshtml";
             public readonly string _P_ProviderLite = "~/Areas/Desktop/Views/Shared/_P_ProviderLite.cshtml";
             public readonly string _P_ProviderMenu = "~/Areas/Desktop/Views/Shared/_P_ProviderMenu.cshtml";
-            public readonly string _P_ProviderMenuHeader = "~/Areas/Desktop/Views/Shared/_P_ProviderMenuHeader.cshtml";
             public readonly string _P_Search_Comparison = "~/Areas/Desktop/Views/Shared/_P_Search_Comparison.cshtml";
             public readonly string _P_Search_Filter = "~/Areas/Desktop/Views/Shared/_P_Search_Filter.cshtml";
             public readonly string _P_Search_Order = "~/Areas/Desktop/Views/Shared/_P_Search_Order.cshtml";

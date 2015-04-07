@@ -483,7 +483,6 @@
     <Content Include="Areas\Desktop\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_L_Footer.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_L_Header.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_P_ProviderMenuHeader.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Comparison.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Filter.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Order.cshtml" />
