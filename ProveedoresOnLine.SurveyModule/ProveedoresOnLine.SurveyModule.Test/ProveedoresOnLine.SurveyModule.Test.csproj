@@ -80,6 +80,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="SurveySendProcessTest.cs" />
     <Compile Include="SurveyControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,6 +92,10 @@
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.SurveyBatch\ProveedoresOnLine.SurveyBatch.csproj">
+      <Project>{47d4d50f-e247-49d8-a9d3-f3e82829146a}</Project>
+      <Name>ProveedoresOnLine.SurveyBatch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProveedoresOnLine.SurveyModule\ProveedoresOnLine.SurveyModule.csproj">
       <Project>{38bab21d-4156-41cc-9bd7-45541dcbb93f}</Project>
       <Name>ProveedoresOnLine.SurveyModule</Name>

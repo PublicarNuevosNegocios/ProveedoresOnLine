@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="RecruitmentProcessTest.cs" />
     <Compile Include="CompanyProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +62,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.CompanyProviderBatch\ProveedoresOnLine.CompanyProviderBatch.csproj">
+      <Project>{a2c4e2ca-edab-46b3-9164-f6b6c2cc6372}</Project>
+      <Name>ProveedoresOnLine.CompanyProviderBatch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProveedoresOnLine.CompanyProvider\ProveedoresOnLine.CompanyProvider.csproj">
       <Project>{53f505e8-1d20-4675-ab77-9860bd26faba}</Project>
       <Name>ProveedoresOnLine.CompanyProvider</Name>

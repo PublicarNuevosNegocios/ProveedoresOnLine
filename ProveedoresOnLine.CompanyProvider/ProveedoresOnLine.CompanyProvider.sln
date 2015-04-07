@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.CompanyProvider", "ProveedoresOnLine.CompanyProvider\ProveedoresOnLine.CompanyProvider.csproj", "{53F505E8-1D20-4675-AB77-9860BD26FABA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.CompanyProvider.Test", "ProveedoresOnLine.CompanyProvider.Test\ProveedoresOnLine.CompanyProvider.Test.csproj", "{341AA4AD-A33F-417F-878C-8DE9ABFAF182}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProveedoresOnLine.CompanyProviderBatch", "ProveedoresOnLine.CompanyProviderBatch\ProveedoresOnLine.CompanyProviderBatch.csproj", "{A2C4E2CA-EDAB-46B3-9164-F6B6C2CC6372}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{341AA4AD-A33F-417F-878C-8DE9ABFAF182}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{341AA4AD-A33F-417F-878C-8DE9ABFAF182}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{341AA4AD-A33F-417F-878C-8DE9ABFAF182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2C4E2CA-EDAB-46B3-9164-F6B6C2CC6372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2C4E2CA-EDAB-46B3-9164-F6B6C2CC6372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2C4E2CA-EDAB-46B3-9164-F6B6C2CC6372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2C4E2CA-EDAB-46B3-9164-F6B6C2CC6372}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
