@@ -90,6 +90,12 @@
     <Content Include="Rsx-Company.xml" />
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresOnLine.SurveyModule\ProveedoresOnLine.SurveyModule.csproj">
+      <Project>{38bab21d-4156-41cc-9bd7-45541dcbb93f}</Project>
+      <Name>ProveedoresOnLine.SurveyModule</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

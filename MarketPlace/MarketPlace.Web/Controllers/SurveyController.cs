@@ -60,6 +60,9 @@ namespace MarketPlace.Web.Controllers
             //upsert survey
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
 
+            //recalculate survey item values
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId);
+
             //eval redirect
             return RedirectToRoute
                 (MarketPlace.Models.General.Constants.C_Routes_Default,

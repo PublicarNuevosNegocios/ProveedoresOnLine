@@ -42,6 +42,10 @@
                     <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
                 </span>
             }
+            <!--Provider rate-->
+            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.Item1.ProviderRate.ToString("0.##").Replace(",", "."))</span>
+        </div>
         <div class="POMPSearchResultNameIDWrapper">
             @if (Model.Item1.IsProviderCustomer)
             {
