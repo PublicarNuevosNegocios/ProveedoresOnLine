@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.CompanyProvider.Models.Provider;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
     {
         public static void StartProcess()
         {
-
+            ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BPGetRecruitmentProviders();
         }
     }
 }

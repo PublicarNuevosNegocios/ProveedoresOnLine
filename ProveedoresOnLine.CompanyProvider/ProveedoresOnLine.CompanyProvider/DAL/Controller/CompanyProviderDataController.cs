@@ -225,6 +225,11 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #region BatchProcess
         
-        #endregion
+        List<Models.Provider.ProviderModel> Interfaces.ICompanyProviderData.BPGetRecruitmentProviders()
+        {
+            return DataFactory.BPGetRecruitmentProviders();
+        }
+
+        #endregion  
     }
 }

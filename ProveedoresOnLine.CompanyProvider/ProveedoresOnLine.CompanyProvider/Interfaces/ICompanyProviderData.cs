@@ -102,6 +102,8 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         #region BatchProcess
 
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders();
+
         #endregion
     }
 }
