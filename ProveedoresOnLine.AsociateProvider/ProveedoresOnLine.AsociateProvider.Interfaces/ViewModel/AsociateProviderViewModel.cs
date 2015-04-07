@@ -48,9 +48,11 @@ namespace ProveedoresOnLine.AsociateProvider.Interfaces.ViewModel
 
         public string AP_CreateDate { get; set; }
 
+        public int TotalRows { get; set; }
+
         public AsociateProviderViewModel() { }
 
-        public AsociateProviderViewModel(ProveedoresOnLine.AsociateProvider.Interfaces.Models.AsociateProvider.AsociateProviderModel oAsociateProviderModel)
+        public AsociateProviderViewModel(ProveedoresOnLine.AsociateProvider.Interfaces.Models.AsociateProvider.AsociateProviderModel oAsociateProviderModel, int oTotalRows)
         {
             AP_AsociateProviderId = oAsociateProviderModel.AsociateProviderId.ToString();
             BO_RelatedProvider = oAsociateProviderModel.RelatedProviderBO;
@@ -58,6 +60,7 @@ namespace ProveedoresOnLine.AsociateProvider.Interfaces.ViewModel
             AP_Email = oAsociateProviderModel.Email;
             AP_CreateDate = oAsociateProviderModel.CreateDate.ToString();
             AP_LastModify = oAsociateProviderModel.LastModify.ToString();
+            TotalRows = oTotalRows;
         }
     }
 }

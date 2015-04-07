@@ -34,7 +34,7 @@ namespace ProveedoresOnLine.AsociateProvider.Web.ControllersApi
                 {
                     oSearchResult.All(x =>
                     {
-                        oReturn.Add(new Interfaces.ViewModel.AsociateProviderViewModel(x));
+                        oReturn.Add(new Interfaces.ViewModel.AsociateProviderViewModel(x, TotalRows));
                         return true;
                     });
                 }
