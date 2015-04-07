@@ -27,6 +27,8 @@
             });
 
     }
+
+    Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -53,6 +55,7 @@
                         </li>
                         <li>
                             <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                            <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                             <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
                             <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
                         </li>
@@ -74,25 +77,25 @@
                             Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                         {
-                        <li>
-                            <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
-                                Editar
-                            </a>
-                        </li>
+                            <li>
+                                <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                                    Editar
+                                </a>
+                            </li>
                         }
                         @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                             Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                             MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                         {
-                        <li>
-                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            <li>
+                                <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new
                                     {
                                         controller = MVC.Survey.Name,
                                         action = MVC.Survey.ActionNames.Index,
                                         SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
                                     }))" target="_blank">Responder evaluación</a>
-                        </li>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -101,7 +104,7 @@
                 <span>Los campos con * son obligatorios</span>
                 <!--evaluation items-->
                 <ul>
-                    @foreach (var EvaluationArea in 
+                    @foreach (var EvaluationArea in
                         Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
                     {
                         var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
@@ -124,7 +127,7 @@
 
                                     <li>
                                         @if (Question.IsMandatory)
-                                        { 
+                                        {
                                             <span>*</span>
                                         }
                                         <span>@Question.Order. @Question.Name</span>

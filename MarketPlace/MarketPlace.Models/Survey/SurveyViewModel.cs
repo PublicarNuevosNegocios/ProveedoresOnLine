@@ -306,6 +306,29 @@ namespace MarketPlace.Models.Survey
                 Min(x => x.Order);
         }
 
+
+        public Tuple<int, int> GetMandatoryAnsweredQuestions()
+        {
+            var MandatoryAux = RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.
+                Where(scit => scit.ItemType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemType.Question &&
+                            scit.ItemInfo.Any(scitinf => scitinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.IsMandatory &&
+                                                        !string.IsNullOrEmpty(scitinf.Value) &&
+                                                        scitinf.Value.Replace(" ", "") == "true")).
+                Select(scit => new
+                {
+                    Answered = Convert.ToInt32(RelatedSurvey.RelatedSurveyItem.Any(svit => svit.RelatedSurveyConfigItem.ItemId == scit.ItemId)),
+                });
+
+            Tuple<int, int> oReturn = new Tuple<int, int>(0, 0);
+
+            if (MandatoryAux != null && MandatoryAux.Count() > 0)
+            {
+                oReturn = new Tuple<int, int>(MandatoryAux.Count(), (int)MandatoryAux.Sum(ma => ma.Answered));
+            }
+
+            return oReturn;
+        }
+
         #endregion
     }
 }

@@ -4,6 +4,7 @@
     ViewBag.Title = "Proveedores OnLine - Evaluación de desempeño";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
+    //get evaluation area to show
     List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationArea = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
 
     if (Model.RelatedSurvey.SurveyConfigStepEnable)
@@ -13,6 +14,18 @@
             lstEvaluationArea.Where(x => x.Order == Model.RelatedSurvey.CurrentStepId).FirstOrDefault(),
         };
     }
+
+    //get mandatory info
+    Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
+
+    //get finalize url
+    string strFinalizeUrl = Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+        new
+        {
+            controller = MVC.Survey.Name,
+            action = MVC.Survey.ActionNames.SurveyFinalize,
+            SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
+        });
 }
 <div>
     <!--survey header-->
@@ -35,6 +48,7 @@
                 </li>
                 <li>
                     <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                    <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                     <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
                     <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
                 </li>
@@ -50,35 +64,51 @@
             </ul>
         </div>
     </div>
-    <div>
-        <span>Los campos con * son obligatorios</span>
-        <!--evaluation items-->
-        <form id="SurveySave_Form" method="post">
-            <ul>
-                <!--Survey Actions-->
-                <li>
-                    <ul>
-                        @if (Model.RelatedSurvey.SurveyConfigStepEnable)
+    @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close)
+    {
+        <div>
+            La evaluación de desempeño se encuentra finalizada y no puede ser modificada.
+        </div>
+    }
+    else
+    {
+    <!--Survey questions body-->
+        <div>
+            <span>Los campos con * son obligatorios</span>
+            <!--evaluation items-->
+            <form id="SurveySave_Form" method="post">
+                <ul>
+                    <!--Survey Actions-->
+                    <li>
+                        <ul>
+                            @if (Model.RelatedSurvey.SurveyConfigStepEnable)
                         {
                             if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
                             {
-                                <li>
-                                    <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
-                                </li>
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
+                            </li>
                             }
                             if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
                             {
-                                <li>
-                                    <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
-                                </li>
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
+                            </li>
                             }
                         }
-                        <li>
-                            <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
-                        </li>
-                    </ul>
-                </li>
-                @foreach (var EvaluationArea in lstEvaluationArea)
+                            @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
+                        {
+                            <!--Survey 100%-->
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
+                            </li>
+                        }
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @foreach (var EvaluationArea in lstEvaluationArea)
                 {
                     var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
 
@@ -96,71 +126,89 @@
                                 var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
                                     (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
 
-                                <li>
-                                    @if (Question.IsMandatory)
+                        <li>
+                            @if (Question.IsMandatory)
                                     {
-                                        <span>*</span>
+                                <span>*</span>
                                     }
-                                    <span>@Question.Order. @Question.Name</span>
-                                    <ul>
-                                        @foreach (var Answer in lstAnswer)
+                            <span>@Question.Order. @Question.Name</span>
+                            <ul>
+                                @foreach (var Answer in lstAnswer)
                                         {
-                                            <li>
-                                                @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                    <li>
+                                        @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
                                                 {
-                                                    <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
+                                            <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
                                                 }
                                                 else
                                                 {
-                                                    <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
+                                            <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
                                                 }
-                                                <span>@Answer.Name</span>
-                                            </li>
+                                        <span>@Answer.Name</span>
+                                    </li>
                                         }
-                                    </ul>
-                                    @if (Question.HasDescription)
+                            </ul>
+                            @if (Question.HasDescription)
                                     {
-                                        <span>
-                                            Observaciones:
-                                        </span>
-                                        <span>
-                                            <textarea name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
-                                        </span>
+                                <span>
+                                    Observaciones:
+                                </span>
+                                <span>
+                                    <textarea name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
+                                </span>
                                     }
-                                </li>
+                        </li>
                             }
                         </ul>
                     </li>
                 }
-                <!--Survey Actions-->
-                <li>
-                    <ul>
-                        @if (Model.RelatedSurvey.SurveyConfigStepEnable)
+                    <!--Survey Actions-->
+                    <li>
+                        <ul>
+                            @if (Model.RelatedSurvey.SurveyConfigStepEnable)
                         {
                             if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
                             {
-                                <li>
-                                    <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
-                                </li>
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
+                            </li>
                             }
                             if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
                             {
-                                <li>
-                                    <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
-                                </li>
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
+                            </li>
                             }
                         }
-                        <li>
-                            <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+                            @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
+                        {
+                            <!--Survey 100%-->
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
+                            </li>
+                        }
+                            <li>
+                                <a href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <div style="display:none;">
-                <input type="hidden" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_@Model.RelatedSurvey.SurveyStatusId" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.InProgress).ToString())" />
-            </div>
-        </form>
+                <div style="display:none;">
+                    <input type="hidden" id="SurveySave_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_@Model.RelatedSurvey.SurveyStatusId" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.InProgress).ToString())" />
+                </div>
+            </form>
+        </div>
+    }
+</div>
+<div style="display:none;">
+    <div id="SurveySave_Finalize_Dialog" title="Finalizar evaluación de desempeño">
+        <p>
+            Al finalizar la evaluación de desempeño esta se sumara en el promedio final del proveedor y la evaluación no podra ser editada nuevamente.
+        </p>
+        <p>
+            Desea finalizar la evaluación de desempeño?
+        </p>
     </div>
 </div>
 @section inlinescripts

@@ -64,7 +64,7 @@ namespace MarketPlace.Web.Controllers
             //recalculate survey item values
             ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId);
 
-            //eval redirect
+            //redirect
             return RedirectToRoute
                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                 new
@@ -76,7 +76,34 @@ namespace MarketPlace.Web.Controllers
                 });
         }
 
-        #region Survey pusert request
+        public virtual ActionResult SurveyFinalize(string SurveyPublicId)
+        {
+            //get survey request model
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert =
+                GetSurveyFinalizeRequest(SurveyPublicId);
+
+            //upsert survey
+            if (oSurveyToUpsert.SurveyInfo != null && oSurveyToUpsert.SurveyInfo.Count > 0)
+            {
+                //upsert survey info
+                oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
+            }
+
+            //recalculate survey item values
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId);
+
+            //redirect
+            return RedirectToRoute
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Survey.Name,
+                    action = MVC.Survey.ActionNames.Index,
+                    SurveyPublicId = SurveyPublicId,
+                });
+        }
+
+        #region Survey request
 
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest(string SurveyPublicId)
         {
@@ -211,6 +238,52 @@ namespace MarketPlace.Web.Controllers
                     };
                     //add survey item to survey to upsert
                     oSurveyToUpsert.RelatedSurveyItem.Add(oSurveyItemToUpsert);
+                }
+                return true;
+            });
+
+            #endregion
+
+            return oSurveyToUpsert;
+        }
+
+        private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyFinalizeRequest(string SurveyPublicId)
+        {
+            //get current survey values
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurvey =
+               ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId);
+
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+            {
+                SurveyPublicId = oSurvey.SurveyPublicId,
+                RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
+                SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            };
+
+            #region get request infos
+
+            Request.Form.AllKeys.Where(req => req.Contains("SurveyInfo_")).All(req =>
+            {
+                string[] strAux = req.Split('_');
+
+                if (strAux.Length >= 2)
+                {
+                    int oSurveyInfoTypeId = Convert.ToInt32(strAux[1].Replace(" ", ""));
+                    int oSurveyInfoId = strAux.Length >= 3 && !string.IsNullOrEmpty(strAux[2]) ? Convert.ToInt32(strAux[2].Replace(" ", "")) : 0;
+
+                    if (oSurveyInfoTypeId == (int)enumSurveyInfoType.Status)
+                    {
+                        oSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = oSurveyInfoId,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = oSurveyInfoTypeId,
+                            },
+                            Value = ((int)enumSurveyStatus.Close).ToString(),
+                            Enable = true,
+                        });
+                    }
                 }
                 return true;
             });

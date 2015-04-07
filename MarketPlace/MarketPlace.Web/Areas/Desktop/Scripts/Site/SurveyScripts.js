@@ -193,6 +193,24 @@ var Survey_SaveObject = {
     Save: function (vUrl) {
         $('#' + Survey_SaveObject.ObjectId + '_Form').attr('action', vUrl);
         $('#' + Survey_SaveObject.ObjectId + '_Form').submit();
-    }
+    },
 
+    Finalize: function (vUrl) {
+
+        $('#' + Survey_SaveObject.ObjectId + '_Finalize_Dialog').dialog({
+            width: 500,
+            minWidth: 300,
+            modal: true,
+            buttons: {
+                'Cancelar': function () {
+                    $(this).dialog("close");
+                },
+                'Aceptar': function () {
+                    $('#' + Survey_SaveObject.ObjectId + '_Form').attr('action', vUrl);
+                    $('#' + Survey_SaveObject.ObjectId + '_Form').submit();
+                },
+            },
+        });
+
+    },
 };

@@ -69,6 +69,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SurveyUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SurveyFinalize()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SurveyFinalize);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SurveyController Actions { get { return MVC.Desktop.Survey; } }
@@ -87,6 +93,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string Index = "Index";
             public readonly string SurveyUpsert = "SurveyUpsert";
+            public readonly string SurveyFinalize = "SurveyFinalize";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,6 +101,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public const string Index = "Index";
             public const string SurveyUpsert = "SurveyUpsert";
+            public const string SurveyFinalize = "SurveyFinalize";
         }
 
 
@@ -115,6 +123,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string SurveyPublicId = "SurveyPublicId";
             public readonly string StepId = "StepId";
         }
+        static readonly ActionParamsClass_SurveyFinalize s_params_SurveyFinalize = new ActionParamsClass_SurveyFinalize();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SurveyFinalize SurveyFinalizeParams { get { return s_params_SurveyFinalize; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SurveyFinalize
+        {
+            public readonly string SurveyPublicId = "SurveyPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -126,8 +142,10 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string SurveyFinalize = "SurveyFinalize";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Survey/Index.cshtml";
+            public readonly string SurveyFinalize = "~/Areas/Desktop/Views/Survey/SurveyFinalize.cshtml";
         }
     }
 
@@ -159,6 +177,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "StepId", StepId);
             SurveyUpsertOverride(callInfo, SurveyPublicId, StepId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SurveyFinalizeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string SurveyPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SurveyFinalize(string SurveyPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SurveyFinalize);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
+            SurveyFinalizeOverride(callInfo, SurveyPublicId);
             return callInfo;
         }
 
