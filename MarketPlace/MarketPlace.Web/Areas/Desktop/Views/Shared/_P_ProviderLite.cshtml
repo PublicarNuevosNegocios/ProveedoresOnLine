@@ -133,8 +133,8 @@ else
 
         <!--Provider rate-->
         <div class="POMPSearchResultProvRatingComparison">
-            <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.ProviderRateCount)</span>
+            <div class="{ProviderRateClass}" data-rateit-value="{ProviderRate}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>({ProviderRateCount})</span>
         </div>
 
         <!--Actions for related provider -->
