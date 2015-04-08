@@ -1651,6 +1651,43 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #region BatchProcess
 
-        #endregion
+        /// <summary>
+        /// Get all providers to calculate the Recruitment K
+        /// </summary>
+        /// <returns>ProviderPublicId List</returns>
+        public List<ProviderModel> BPGetRecruitmentProviders()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "BP_CP_Financial_GetRecruitmentProviders",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<ProviderModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from p in response.DataTableResult.AsEnumerable()
+                     where !p.IsNull("CompanyPublicId")
+                     group p by new
+                     {
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),                        
+                     } into pg
+                     select new ProviderModel()
+                     {
+                         RelatedCompany = new Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = pg.Key.CompanyPublicId,                                                         
+                         },
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion       
     }
 }
