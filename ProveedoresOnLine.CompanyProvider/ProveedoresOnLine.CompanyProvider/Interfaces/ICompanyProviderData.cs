@@ -54,7 +54,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         #endregion
 
-        #region Black List
+        #region BlackList
 
         int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl);
 
@@ -101,6 +101,8 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
         #endregion
 
         #region BatchProcess
+
+        List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders();
 
         #endregion
     }

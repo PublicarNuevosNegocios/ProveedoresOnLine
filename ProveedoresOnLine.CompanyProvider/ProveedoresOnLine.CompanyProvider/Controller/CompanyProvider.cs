@@ -1210,5 +1210,15 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         }
 
         #endregion
+
+        #region BatchProcess
+
+        public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders()
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.BPGetRecruitmentProviders();
+        }
+
+        #endregion
+
     }
 }

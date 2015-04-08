@@ -1,21 +1,28 @@
 /********* REGRESAR A LA BUSQUEDA **********/
 .POMPComparisonGoBackWrapper {
-    display:block;
-    width:auto; height:auto;
-    margin:0px; padding:10px 0px;
-    text-align:center;
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 0px;
+    padding: 10px 0px;
+    text-align: center;
 }
-.POMPComparisonGoBackWrapper a,
-.POMPComparisonGoBackWrapper div{
-    vertical-align:middle;
-    display:inline-block;
-}
-    .POMPComparisonGoBackWrapper div{        
-        width:40px; height:34px; padding:0px; margin:0px;
-        background-position:0px 1px;
-        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/goBack.png');
-        background-size:36px auto;
-        background-repeat:no-repeat;
+
+    .POMPComparisonGoBackWrapper a,
+    .POMPComparisonGoBackWrapper div {
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    .POMPComparisonGoBackWrapper div {
+        width: 40px;
+        height: 34px;
+        padding: 0px;
+        margin: 0px;
+        background-position: 0px 1px;
+        background-image: url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/goBack.png');
+        background-size: 36px auto;
+        background-repeat: no-repeat;
     }
 /********* FILTROS ENCABEZADO MONEDA ETC ***********/
 .POMPProviderComparison_mainFilter {
@@ -26,18 +33,21 @@
     padding: 10px 0 0 15px;
     width: 100%;
 }
-    .POMPProviderComparison_mainFilter li{
+
+    .POMPProviderComparison_mainFilter li {
         display: inline-block;
         height: auto;
         vertical-align: top;
         width: 37.5%;
     }
-    .POMPProviderComparison_mainFilter li:nth-child(3){
-        display: inline-block;
-        height: auto;
-        vertical-align: top;
-        width:auto;
-    }
+
+        .POMPProviderComparison_mainFilter li:nth-child(3) {
+            display: inline-block;
+            height: auto;
+            vertical-align: top;
+            width: auto;
+        }
+
         .POMPProviderComparison_mainFilter li label {
             display: inline;
             font-size: 0.9em;
@@ -45,121 +55,188 @@
             margin: -21px 0 0;
             position: absolute;
         }
+
         .POMPProviderComparison_mainFilter li span {
             color: #4d4d4d;
             font-size: 1.2em;
         }
+
         .POMPProviderComparison_mainFilter li select {
-            display:inline-block;
+            display: inline-block;
             color: #666;
             font-size: 1.05em;
-            border:1px solid #727276;
-            width:66%;
-            background-color:#ddd;
+            border: 1px solid #727276;
+            width: 66%;
+            background-color: #ddd;
         }
+
         .POMPProviderComparison_mainFilter li a {
-            border-radius:2px;
+            border-radius: 2px;
         }
 /********* CONTENEDOR PRINCIPAL DE GRILLA COMPARACION **********/
 #CompareDetail {
-    display:block;
-    margin:0px; padding:0px;
+    display: block;
+    margin: 0px;
+    padding: 0px;
 }
-    #CompareDetail > div > div > table > thead > tr > th{
-       background-color:#fff !important;
-       background-image:none !important;
-       width:auto; height:auto; margin:0px; padding:4px 2px;
-    }
-    #CompareDetail > div > div > table > thead > tr > th[data-field="_EvaluationArea"]{
-       padding:6px; margin:0px;
-       vertical-align: bottom;
-       font-size:1.3em; line-height:0.9em; color:#666;
-    }
-        #CompareDetail > div > div > table > thead > tr > th > div{}
-        #CompareDetail > div > div > table > thead > tr > th > ul{
-            display:block; width:auto; height:auto; margin:0px; padding:1px;
-            list-style-type:none;
-        }
-            #CompareDetail > div > div > table > thead > tr > th > ul > li {
-                display:inline-block; width:45%; height:18px;
-                text-align:right; margin: 0px; padding:0px 10px 0px 0px;
-                font-size:1em; line-height:0.9em; color:#666;
-            }
-            #CompareDetail > div > div > table > thead > tr > th > ul > li:first-child {
-                border-right:1px solid grey;
-            }
-/*********** PRIMERA COLUMNA CON AREA DE EVUALUACION ************/
-    #CompareDetail > div > div > table > tbody > tr{
-        height:auto !important;
-    }
-        #CompareDetail > div > div > table > tbody > tr > td[role="gridcell"] {
-            margin:0px; padding:0px; height:auto !important;
-        }
-            #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div {
-                display:block; margin:0px; padding:0px;
-                height:38px;
-            }
-                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div > span{
-                    height:38px; text-overflow:ellipsis; overflow:hidden;
-                }
-/*********** COLUMNAs CON ProVEEDORES ************/
-            #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul {
-                display:block; width:auto; height:38px; margin:0px; padding:0px;
-                list-style-type:none;
-            }
-                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li{
-                    display:inline-block; width:45%; height:38px;
-                    text-align:right; margin: 0px; padding:0px 10px 0px 0px; vertical-align:top;
-                    font-size:1em; line-height:0.9em; color:#666;
-                }
-                #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:first-child {
-                    border-right:1px solid grey;
-                }
 
-    #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper{
+    #CompareDetail > div > div > table > thead > tr > th {
+        background-color: #fff !important;
+        background-image: none !important;
+        width: auto;
+        height: auto;
+        margin: 0px;
+        padding: 4px 2px;
+    }
+
+        #CompareDetail > div > div > table > thead > tr > th[data-field="_EvaluationArea"] {
+            padding: 6px;
+            margin: 0px;
+            vertical-align: bottom;
+            font-size: 1.3em;
+            line-height: 0.9em;
+            color: #666;
+        }
+
+        #CompareDetail > div > div > table > thead > tr > th > div {
+        }
+
+        #CompareDetail > div > div > table > thead > tr > th > ul {
+            display: block;
+            width: auto;
+            height: auto;
+            margin: 0px;
+            padding: 1px;
+            list-style-type: none;
+        }
+
+            #CompareDetail > div > div > table > thead > tr > th > ul > li {
+                display: inline-block;
+                width: 45%;
+                height: 18px;
+                text-align: right;
+                margin: 0px;
+                padding: 0px 10px 0px 0px;
+                font-size: 1em;
+                line-height: 0.9em;
+                color: #666;
+            }
+
+                #CompareDetail > div > div > table > thead > tr > th > ul > li:first-child {
+                    border-right: 1px solid grey;
+                }
+    /*********** PRIMERA COLUMNA CON AREA DE EVUALUACION ************/
+    #CompareDetail > div > div > table > tbody > tr {
+        height: auto !important;
+    }
+
+        #CompareDetail > div > div > table > tbody > tr > td[role="gridcell"] {
+            margin: 0px;
+            padding: 0px;
+            height: auto !important;
+        }
+
+    #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div {
+        display: block;
+        margin: 0px;
+        padding: 0px;
+        height: 38px;
+    }
+
+        #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > div > span {
+            height: 38px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    /*********** COLUMNAs CON ProVEEDORES ************/
+    #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul {
+        display: block;
+        width: auto;
+        height: 38px;
+        margin: 0px;
+        padding: 0px;
+        list-style-type: none;
+    }
+
+        #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li {
+            display: inline-block;
+            width: 45%;
+            height: 38px;
+            text-align: right;
+            margin: 0px;
+            padding: 0px 10px 0px 0px;
+            vertical-align: top;
+            font-size: 1em;
+            line-height: 0.9em;
+            color: #666;
+        }
+
+            #CompareDetail > div > table > tbody > tr > td[role="gridcell"] > ul > li:first-child {
+                border-right: 1px solid grey;
+            }
+
+    #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper {
         min-width: 146px;
         width: 52%;
     }
-    #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper label {
+
+        #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultNameIDWrapper label {
             max-height: 28px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
-    }
+        }
+
     #CompareDetail > div > div > table > thead > tr > th div.POMPComparisonResultAlertComparWrapper {
-        display:inline-flex; float:none;
+        display: inline-flex;
+        float: none;
     }
-    /************* ESTE ES EL MAS ANGOSTO EL ENCABEZADO DE 
+/************* ESTE ES EL MAS ANGOSTO EL ENCABEZADO DE 
                 MENU DE DETALLE DE PROVEEDOR ***************/
 
 .POMPProviderMenuDetail {
-    /*border:1px solid red;*/ width:auto; height:auto; padding:7px 0px;
+    /*border:1px solid red;*/ width: auto;
+    height: auto;
+    padding: 7px 0px;
 }
+
     .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper {
         min-width: 202px !important;
     }
-        .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a{ 
-            width:57px; height:30px;
+
+        .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a {
+            /*width: 57px;
+            height: 30px;*/
+            width: 100px;
+            height: auto;
         }
-        .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper {
-            width: 46%; min-width:93px;
-        }
-            .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label,
-            .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label > span{
-                font-size: 0.82em;
-            }
-    .POMPProviderMenuDetail ul {
-        display:none;
+
+    .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper {
+        width: 46%;
+        min-width: 93px;
     }
-         .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a > img.POMPComparisonResultProvLogo {
-            display: block;
-            height:100%;
-            margin: 0 auto;
-            max-height:23px;
-            max-width:53px;
-            padding:0px;
-            width: auto;
+
+        .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label,
+        .POMPProviderMenuDetail > div > div.POMPComparisonResultNameIDWrapper > label > span {
+            font-size: 0.82em;
         }
 
+    .POMPProviderMenuDetail ul {
+        display: none;
+    }
 
+    .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a > img.POMPComparisonResultProvLogo {
+        display: block;
+        height: 100%;
+        margin: 0 auto;
+        max-height: 38px;
+        max-width: 75px;
+        padding: 0px;
+        width: auto;
+    }
 
+/******** ESTO PINTA LA CALIFICACION DEL PROVEEDOR ********/
+.POMPProviderLogoAndRate {
+    width: 100px;
+    display: inline-block;
+}

@@ -21,11 +21,10 @@
         }
     </div>
     <div class="POMPSearchResultProvDataWrapper">
-
-            <!--Provider Logo-->
-            @if (Model.Item1.IsProviderCustomer)
-            {
-                <a href="@(Url.RouteUrl
+        <!--Provider Logo-->
+        @if (Model.Item1.IsProviderCustomer)
+        {
+            <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
@@ -33,19 +32,15 @@
                                     action = MVC.Provider.ActionNames.GIProviderInfo,
                                     ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
                                 }))">
-                    <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
-                </a>
-            }
-            else
-            {
-                <span>
-                    <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
-                </span>
-            }
-            <!--Provider rate-->
-            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.Item1.ProviderRateCount)</span>
-        </div>
+                <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+            </a>
+        }
+        else
+        {
+            <span>
+                <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+            </span>
+        }
         <div class="POMPSearchResultNameIDWrapper">
             @if (Model.Item1.IsProviderCustomer)
             {
@@ -66,6 +61,7 @@
             }
             <label><span>@Model.Item1.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.Item1.RelatedProvider.RelatedCompany.IdentificationNumber</label>
         </div>
+        
         <div class="POMPSearchResultAlertComparWrapper">
             <div>
                 @if (Model.Item1.IsProviderCustomer && Model.Item1.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
@@ -80,10 +76,10 @@
                 </a>
             }
         </div>
-
+        
         <!--Provider rate-->
         <div class="POMPSearchResultProvRating">
-            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
             <span>(@Model.Item1.ProviderRateCount)</span>
         </div>
 

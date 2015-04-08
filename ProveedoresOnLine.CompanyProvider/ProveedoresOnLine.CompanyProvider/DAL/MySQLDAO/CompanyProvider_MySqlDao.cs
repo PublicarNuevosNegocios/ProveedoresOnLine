@@ -19,7 +19,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             DataInstance = new ADO.MYSQL.MySqlImplement(ProveedoresOnLine.CompanyProvider.Models.Constants.C_POL_CompanyProviderConnectionName);
         }
 
-        #region Provider Commercial
+        #region Commercial
 
         public int CommercialUpsert(string CompanyPublicId, int? CommercialId, int CommercialTypeId, string CommercialName, bool Enable)
         {
@@ -153,7 +153,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #endregion
 
-        #region Provider Certification
+        #region Certification
 
         public int CertificationUpsert(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
         {
@@ -272,7 +272,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #endregion
 
-        #region Provider financial
+        #region Financial
 
         public int FinancialUpsert(string CompanyPublicId, int? FinancialId, int FinancialTypeId, string FinancialName, bool Enable)
         {
@@ -484,7 +484,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
 
         #endregion
 
-        #region Provider Legal
+        #region Legal
 
         public int LegalUpsert(string CompanyPublicId, int? LegalId, int LegalTypeId, string LegalName, bool Enable)
         {
@@ -599,9 +599,10 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             }
             return oReturn;
         }
+
         #endregion
 
-        #region Provider Black List
+        #region Black List
 
         public int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl)
         {
@@ -1647,5 +1648,46 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region BatchProcess
+
+        /// <summary>
+        /// Get all providers to calculate the Recruitment K
+        /// </summary>
+        /// <returns>ProviderPublicId List</returns>
+        public List<ProviderModel> BPGetRecruitmentProviders()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "BP_CP_Financial_GetRecruitmentProviders",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<ProviderModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from p in response.DataTableResult.AsEnumerable()
+                     where !p.IsNull("CompanyPublicId")
+                     group p by new
+                     {
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),                        
+                     } into pg
+                     select new ProviderModel()
+                     {
+                         RelatedCompany = new Company.Models.Company.CompanyModel()
+                         {
+                             CompanyPublicId = pg.Key.CompanyPublicId,                                                         
+                         },
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion       
     }
 }

@@ -56,7 +56,7 @@
                     </li>
                 </ul>
             </div>
-            <div>
+            <div class="POMPResultsOrder">
                 <!--search results-->
                 @if (Model.RelatedSurveySearch.SurveySearchResult != null && Model.RelatedSurveySearch.SurveySearchResult.Count > 0)
                 {
@@ -64,7 +64,7 @@
                         @foreach (MarketPlace.Models.Survey.SurveyViewModel ssit in Model.RelatedSurveySearch.SurveySearchResult)
                         {
                             Model.RelatedSurvey = ssit;
-                            
+
                             <li>
                                 <!--Survey Item-->
                                 @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveySearch_Result_Item, Model)

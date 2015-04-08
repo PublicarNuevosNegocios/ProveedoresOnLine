@@ -142,10 +142,8 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string SurveyFinalize = "SurveyFinalize";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Survey/Index.cshtml";
-            public readonly string SurveyFinalize = "~/Areas/Desktop/Views/Survey/SurveyFinalize.cshtml";
         }
     }
 

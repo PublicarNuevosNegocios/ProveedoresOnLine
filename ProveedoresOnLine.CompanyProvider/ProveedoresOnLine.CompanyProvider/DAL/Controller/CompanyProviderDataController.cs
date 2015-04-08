@@ -35,7 +35,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
-        #region Provider Commercial
+        #region Commercial
 
         public int CommercialUpsert(string CompanyPublicId, int? CommercialId, int CommercialTypeId, string CommercialName, bool Enable)
         {
@@ -54,7 +54,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
-        #region Provider certification
+        #region Certification
 
         public int CertificationUpsert(string CompanyPublicId, int? CertificationId, int CertificationTypeId, string CertificationName, bool Enable)
         {
@@ -73,7 +73,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
-        #region Provider financial
+        #region Financial
 
         public int FinancialUpsert(string CompanyPublicId, int? FinancialId, int FinancialTypeId, string FinancialName, bool Enable)
         {
@@ -107,7 +107,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
-        #region Provider Legal
+        #region Legal
 
         public int LegalUpsert(string CompanyPublicId, int? LegalId, int LegalTypeId, string LegalName, bool Enable)
         {
@@ -126,7 +126,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
 
         #endregion
 
-        #region Provider BlackList
+        #region BlackList
 
         public int BlackListInsert(string CompanyPublicId, int BlackListStatus, string User, string FileUrl)
         {
@@ -222,5 +222,14 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         }
 
         #endregion
+
+        #region BatchProcess
+        
+        List<Models.Provider.ProviderModel> Interfaces.ICompanyProviderData.BPGetRecruitmentProviders()
+        {
+            return DataFactory.BPGetRecruitmentProviders();
+        }
+
+        #endregion  
     }
 }

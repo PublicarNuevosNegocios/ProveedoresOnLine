@@ -37,35 +37,36 @@
 
     <div>
         <!--evaluation basic info-->
-        <div>
+        <div class="POMPResultsBasicInfo">
             <ul>
                 <li>
                     <a href="@strUrlDetail">
                         @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
                     </a>
-                </li>
-                <li>
-                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                    <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                </li>
-                <li>
-                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                    <br />
+                    <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
+
                     <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
+                </li>
+                <li>
+                    <div>
+                        <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                        <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+                    </div>
+
+                    <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
+
                     <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
                 </li>
                 <li>
+                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+
                     <span>Estado: @Model.RelatedSurvey.SurveyStatusName</span>
-                </li>
-                <li>
-                    <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
-                </li>
-                <li>
-                    <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
                 </li>
             </ul>
         </div>
         <!--evaluation actions-->
-        <div>
+        <div class="POMPResultsActions">
             <ul>
                 @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
                     Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
