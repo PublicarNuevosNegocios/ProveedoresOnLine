@@ -128,7 +128,7 @@
         .POMPComparisonResultProvLogo {
             display: block;
             height:100%;
-            margin: 0 auto;
+            margin: 2px auto 0 auto;
             max-height:32px;
             max-width:68px;
             padding:0px;
