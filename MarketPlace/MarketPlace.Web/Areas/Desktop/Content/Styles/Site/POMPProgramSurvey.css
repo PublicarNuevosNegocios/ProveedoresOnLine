@@ -1,0 +1,222 @@
+/***********Dialogo Creación de Evaluación de Desempeño***************/
+#Survey_ProgramSurvey_Form > ul {
+    margin-left: 6%;
+    min-width: 448px;
+}
+
+    #Survey_ProgramSurvey_Form > ul > li {
+        margin: 5px 0px 5px 0px;
+    }
+
+        #Survey_ProgramSurvey_Form > ul > li > label {
+            width: 40%;
+        }
+
+        #Survey_ProgramSurvey_Form > ul > li > input {
+            width: 40%;
+        }
+
+/*****************Campos Obligatorios***********************/
+.PMMPMandatory {
+    color: red;
+    font-weight: bold;
+}
+
+/**************Listado de Evaluaciones de Desempeño****************/
+.POMPResultsOrder {
+    margin: 0px;
+    padding: 0px 10px;
+}
+
+    .POMPResultsOrder > ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+.POMPResultsBasicInfo > ul {
+    list-style-type: none;
+    margin-top: 5px;
+    padding-left: 2em;
+}
+
+    .POMPResultsBasicInfo > ul > li {
+        width: 30%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+        .POMPResultsBasicInfo > ul > li > span {
+            width: 100%;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .POMPResultsBasicInfo > ul > li .selProgressBar {
+            width: 100%;
+            height: 22px;
+            margin: -2px 0px -2px 0px;
+        }
+
+.POMPResultsActions {
+    border-bottom: 1px solid #ff8300;
+    padding-bottom: 1.3em;
+}
+
+    .POMPResultsActions > ul {
+        list-style-type: none;
+        float: right;
+        height: auto;
+        margin: -7px 0px 0px 0px;
+        padding: 0;
+        width: 80%;
+        text-align: right;
+    }
+
+        .POMPResultsActions > ul > li {
+            display: inline-block;
+        }
+
+            .POMPResultsActions > ul > li:first-child, .POMPResultsActions > ul > li:nth-child(2) {
+                border-right: 1px solid #666;
+            }
+
+            .POMPResultsActions > ul > li:last-child {
+                border-right: none !important;
+            }
+
+            .POMPResultsActions > ul > li > a {
+                display: inline-block;
+                font-size: 0.77em;
+                line-height: 0.8em;
+                margin: 0;
+                padding: 0 6px;
+                width: auto;
+            }
+
+/******************Evaluación de Desempeño*********************/
+.POMPSurveyDetail {
+    margin: 0px;
+    padding: 0px 10px;
+}
+
+.PMMPProviderDetail {
+    width: 100% !important;
+    display: block !important;
+    margin-bottom: 5px !important;
+}
+
+.POMPSurveyDetailProviderInfo > ul {
+    list-style-type: none;
+    margin-top: 5px;
+}
+
+    .POMPSurveyDetailProviderInfo > ul > li {
+        width: 30%;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 10px;
+    }
+
+        .POMPSurveyDetailProviderInfo > ul > li > span {
+            width: 100%;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .POMPSurveyDetailProviderInfo > ul > li .selProgressBar {
+            width: 80%;
+            height: 22px;
+            margin: -2px 0px -2px 0px;
+        }
+
+.POMPSurveyDetailProviderInfoActions {
+    border-bottom: 1px solid #ff8300;
+    padding-bottom: 1.3em;
+}
+
+    .POMPSurveyDetailProviderInfoActions > ul {
+        list-style-type: none;
+        float: right;
+        height: auto;
+        margin: -7px 0px 0px 0px;
+        padding: 0;
+        width: 80%;
+        text-align: right;
+    }
+
+        .POMPSurveyDetailProviderInfoActions > ul > li {
+            display: inline-block;
+        }
+
+            .POMPSurveyDetailProviderInfoActions > ul > li:first-child, .POMPSurveyDetailProviderInfoActions > ul > li:nth-child(2) {
+                border-right: 1px solid #666;
+            }
+
+            .POMPSurveyDetailProviderInfoActions > ul > li:last-child {
+                border-right: none !important;
+            }
+
+            .POMPSurveyDetailProviderInfoActions > ul > li > a {
+                display: inline-block;
+                line-height: 0.8em;
+                margin: 0;
+                padding: 0 6px;
+                width: auto;
+            }
+
+.POMPProviderQuestions {
+    margin-top: 10px;
+}
+
+    .POMPProviderQuestions > ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .POMPProviderQuestions > ul > li {
+            border-bottom: 1px solid #ff8300;
+            padding: 8px 0;
+        }
+
+            .POMPProviderQuestions > ul > li > ul {
+                list-style-type: none;
+            }
+
+                .POMPProviderQuestions > ul > li > ul > li {
+                    padding: 8px 0;
+                }
+
+                    .POMPProviderQuestions > ul > li > ul > li > ul {
+                        list-style-type: none;
+                    }
+
+                        .POMPProviderQuestions > ul > li > ul > li > ul > li {
+                            padding: 0.2em 0;
+                        }
+
+.PMMPRateValue {
+    margin-left: 15px;
+}
+
+.POMPDescription {
+    padding-top: 0.2em;
+    margin-left: 40px;
+}
+
+    .POMPDescription > span {
+        vertical-align: top;
+        display: inline-block;
+    }
+
+.POMPDescriptionArea {
+    border: 1px solid #666;
+    border-radius: 2px;
+    background-color: #f9f9f9;
+    width: 70%;
+    min-height: 25px;
+    height: auto;
+}
+
+.PMMPNumeric {
+    font-weight: bold;
+}

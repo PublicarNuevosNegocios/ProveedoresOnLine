@@ -8,7 +8,7 @@
         <img style="@(Model.ProviderIsCertified ? string.Empty : "display:none");" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        <div>
+        <div class="POMPProviderLogoAndRate">
             <!--Provider logo-->
             <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -21,8 +21,10 @@
                 <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
             </a>
             <!--Provider rate-->
-            <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.ProviderRateCount)</span>
+            <div class="POMPSearchResultProvRatingComparison">
+                <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                <span>(@Model.ProviderRateCount)</span>
+            </div>
         </div>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>
@@ -51,7 +53,7 @@
                     </a>
                 }
             }
-        </div>
+        </div>        
         <!--Actions for related provider -->
         <ul class="POMPComparisonResultLineTwo">
             <li>
@@ -94,7 +96,7 @@ else
         <img style="display:{ProviderIsCertified};" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        <div>
+        <div class="POMPProviderLogoAndRate">
             <a href="@(Url.RouteUrl
                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                     new

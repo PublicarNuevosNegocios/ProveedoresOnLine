@@ -1008,6 +1008,8 @@ namespace Links
                              
                         public static readonly string POMPLoginAuth_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPLoginAuth.min.css") ? Url("POMPLoginAuth.min.css") : Url("POMPLoginAuth.css");
                              
+                        public static readonly string POMPProgramSurvey_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPProgramSurvey.min.css") ? Url("POMPProgramSurvey.min.css") : Url("POMPProgramSurvey.css");
+                             
                         public static readonly string POMPProviderComparison_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPProviderComparison.min.css") ? Url("POMPProviderComparison.min.css") : Url("POMPProviderComparison.css");
                              
                         public static readonly string POMPProviderInfo_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPProviderInfo.min.css") ? Url("POMPProviderInfo.min.css") : Url("POMPProviderInfo.css");
@@ -1021,6 +1023,8 @@ namespace Links
                         public static readonly string POMPSideFilters_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSideFilters.min.css") ? Url("POMPSideFilters.min.css") : Url("POMPSideFilters.css");
                              
                         public static readonly string POMPSideMenu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSideMenu.min.css") ? Url("POMPSideMenu.min.css") : Url("POMPSideMenu.css");
+                             
+                        public static readonly string POMPSurvey_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPSurvey.min.css") ? Url("POMPSurvey.min.css") : Url("POMPSurvey.css");
                              
                         public static readonly string POMPTermsConditions_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POMPTermsConditions.min.css") ? Url("POMPTermsConditions.min.css") : Url("POMPTermsConditions.css");
                              

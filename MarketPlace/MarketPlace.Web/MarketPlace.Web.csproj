@@ -422,6 +422,8 @@
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\slider-v.gif" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite.png" />
     <Content Include="Areas\Desktop\Content\kendo\2014.1.318\Uniform\sprite_2x.png" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPSurvey.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProgramSurvey.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPTermsConditions.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPProviderComparison.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPBalanceSheetInfo.css" />
