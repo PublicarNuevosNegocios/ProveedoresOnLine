@@ -858,5 +858,235 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region SurveyBatch
+
+        public List<SurveyModel> BPSurveyGetNotification()
+        {
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataSet,
+                CommandText = "BP_MP_Survey_GetNotification",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = null
+            });
+
+            List<SurveyModel> oReturn = null;
+
+            if (response.DataSetResult != null &&
+                response.DataSetResult.Tables.Count > 2 &&
+                response.DataSetResult.Tables[0] != null &&
+                response.DataSetResult.Tables[0].Rows.Count > 0 &&
+                response.DataSetResult.Tables[1] != null &&
+                response.DataSetResult.Tables[1].Rows.Count > 0 &&
+                response.DataSetResult.Tables[2] != null &&
+                response.DataSetResult.Tables[2].Rows.Count > 0)
+            {
+                oReturn =
+                    (from sv in response.DataSetResult.Tables[1].AsEnumerable()
+                     group sv by new
+                     {
+                         SurveyPublicId = sv.Field<string>("SurveyPublicId"),
+                         LastModify = sv.Field<DateTime>("SurveyLastModify"),
+                         ProviderPublicId = sv.Field<string>("ProviderPublicId"),
+                     } into svg
+                     select new SurveyModel()
+                     {
+                         SurveyPublicId = svg.Key.SurveyPublicId,
+                         LastModify = svg.Key.LastModify,
+
+                         SurveyInfo =
+                            (from svinf in response.DataSetResult.Tables[1].AsEnumerable()
+                             where !svinf.IsNull("SurveyInfoId") &&
+                                     svinf.Field<string>("SurveyPublicId") == svg.Key.SurveyPublicId
+                             group svinf by new
+                             {
+                                 SurveyInfoId = svinf.Field<int>("SurveyInfoId"),
+                                 SurveyInfoTypeId = svinf.Field<int>("SurveyInfoTypeId"),
+                                 SurveyInfoTypeName = svinf.Field<string>("SurveyInfoTypeName"),
+                                 SurveyInfoValue = svinf.Field<string>("SurveyInfoValue"),
+                                 SurveyInfoLargeValue = svinf.Field<string>("SurveyInfoLargeValue"),
+                                 SurveyInfoValueName = svinf.Field<string>("SurveyInfoValueName"),
+                             } into svinfg
+                             select new GenericItemInfoModel()
+                             {
+                                 ItemInfoId = svinfg.Key.SurveyInfoId,
+                                 ItemInfoType = new CatalogModel()
+                                 {
+                                     ItemId = svinfg.Key.SurveyInfoTypeId,
+                                     ItemName = svinfg.Key.SurveyInfoTypeName,
+                                 },
+                                 Value = svinfg.Key.SurveyInfoValue,
+                                 LargeValue = svinfg.Key.SurveyInfoLargeValue,
+                                 ValueName = svinfg.Key.SurveyInfoValueName,
+                             }).ToList(),
+
+                         RelatedProvider =
+                            (from prv in response.DataSetResult.Tables[2].AsEnumerable()
+                             where !prv.IsNull("CompanyPublicId") &&
+                                    prv.Field<string>("SurveyPublicId") == svg.Key.SurveyPublicId &&
+                                    prv.Field<string>("CompanyPublicId") == svg.Key.ProviderPublicId
+                             group prv by new
+                             {
+                                 CompanyPublicId = prv.Field<string>("CompanyPublicId"),
+                                 CompanyName = prv.Field<string>("CompanyName"),
+                                 IdentificationTypeId = prv.Field<int>("IdentificationTypeId"),
+                                 IdentificationTypeName = prv.Field<string>("IdentificationTypeName"),
+                                 IdentificationNumber = prv.Field<string>("IdentificationNumber"),
+                                 CompanyTypeId = prv.Field<int>("CompanyTypeId"),
+                                 CompanyTypeName = prv.Field<string>("CompanyTypeName"),
+                             } into prvg
+                             select new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                             {
+                                 RelatedCompany = new Company.Models.Company.CompanyModel()
+                                 {
+                                     CompanyPublicId = prvg.Key.CompanyPublicId,
+                                     CompanyName = prvg.Key.CompanyName,
+                                     IdentificationType = new CatalogModel()
+                                     {
+                                         ItemId = prvg.Key.IdentificationTypeId,
+                                         ItemName = prvg.Key.IdentificationTypeName,
+                                     },
+                                     IdentificationNumber = prvg.Key.IdentificationNumber,
+                                     CompanyType = new CatalogModel()
+                                     {
+                                         ItemId = prvg.Key.CompanyTypeId,
+                                         ItemName = prvg.Key.CompanyTypeName,
+                                     },
+
+                                     CompanyInfo =
+                                        (from prvinf in response.DataSetResult.Tables[2].AsEnumerable()
+                                         where !prvinf.IsNull("CompanyInfoId") &&
+                                                prvinf.Field<string>("SurveyPublicId") == svg.Key.SurveyPublicId &&
+                                                prvinf.Field<string>("CompanyPublicId") == svg.Key.ProviderPublicId
+                                         group prvinf by new
+                                         {
+                                             CompanyInfoId = prvinf.Field<int>("CompanyInfoId"),
+                                             CompanyInfoTypeId = prvinf.Field<int>("CompanyInfoTypeId"),
+                                             CompanyInfoTypeName = prvinf.Field<string>("CompanyInfoTypeName"),
+                                             CompanyInfoValue = prvinf.Field<string>("CompanyInfoValue"),
+                                             CompanyInfoLargeValue = prvinf.Field<string>("CompanyInfoLargeValue"),
+                                         } into prvinfg
+                                         select new GenericItemInfoModel()
+                                         {
+                                             ItemInfoId = prvinfg.Key.CompanyInfoId,
+                                             ItemInfoType = new CatalogModel()
+                                             {
+                                                 ItemId = prvinfg.Key.CompanyInfoTypeId,
+                                                 ItemName = prvinfg.Key.CompanyInfoTypeName,
+                                             },
+                                             Value = prvinfg.Key.CompanyInfoValue,
+                                             LargeValue = prvinfg.Key.CompanyInfoLargeValue,
+                                         }).ToList(),
+                                 },
+                             }).FirstOrDefault(),
+
+                         RelatedSurveyConfig =
+                            (from sc in response.DataSetResult.Tables[0].AsEnumerable()
+                             where !sc.IsNull("SurveyConfigId") &&
+                                     sc.Field<string>("SurveyPublicId") == svg.Key.SurveyPublicId
+                             group sc by new
+                             {
+                                 SurveyConfigId = sc.Field<int>("SurveyConfigId"),
+                                 SurveyName = sc.Field<string>("SurveyName"),
+                                 CustomerPublicId = sc.Field<string>("CustomerPublicId"),
+                             } into scg
+                             select new SurveyConfigModel()
+                             {
+                                 ItemId = scg.Key.SurveyConfigId,
+                                 ItemName = scg.Key.SurveyName,
+
+                                 ItemInfo =
+                                    (from scinf in response.DataSetResult.Tables[0].AsEnumerable()
+                                     where !scinf.IsNull("SurveyConfigInfoId") &&
+                                            scinf.Field<int>("SurveyConfigId") == scg.Key.SurveyConfigId
+                                     group scinf by new
+                                     {
+                                         SurveyConfigInfoId = scinf.Field<int>("SurveyConfigInfoId"),
+                                         SurveyConfigInfoTypeId = scinf.Field<int>("SurveyConfigInfoTypeId"),
+                                         SurveyConfigInfoTypeName = scinf.Field<string>("SurveyConfigInfoTypeName"),
+                                         SurveyConfigInfoValue = scinf.Field<string>("SurveyConfigInfoValue"),
+                                         SurveyConfigInfoLargeValue = scinf.Field<string>("SurveyConfigInfoLargeValue"),
+                                         SurveyConfigInfoValueName = scinf.Field<string>("SurveyConfigInfoValueName"),
+                                     } into scinfg
+                                     select new GenericItemInfoModel()
+                                     {
+                                         ItemInfoId = scinfg.Key.SurveyConfigInfoId,
+                                         ItemInfoType = new CatalogModel()
+                                         {
+                                             ItemId = scinfg.Key.SurveyConfigInfoTypeId,
+                                             ItemName = scinfg.Key.SurveyConfigInfoTypeName,
+                                         },
+                                         Value = scinfg.Key.SurveyConfigInfoValue,
+                                         LargeValue = scinfg.Key.SurveyConfigInfoLargeValue,
+                                         ValueName = scinfg.Key.SurveyConfigInfoValueName,
+                                     }).ToList(),
+
+                                 RelatedCustomer =
+                                     (from cst in response.DataSetResult.Tables[2].AsEnumerable()
+                                      where !cst.IsNull("CompanyPublicId") &&
+                                             cst.Field<string>("SurveyPublicId") == svg.Key.SurveyPublicId &&
+                                             cst.Field<string>("CompanyPublicId") == scg.Key.CustomerPublicId
+                                      group cst by new
+                                      {
+                                          CompanyPublicId = cst.Field<string>("CompanyPublicId"),
+                                          CompanyName = cst.Field<string>("CompanyName"),
+                                          IdentificationTypeId = cst.Field<int>("IdentificationTypeId"),
+                                          IdentificationTypeName = cst.Field<string>("IdentificationTypeName"),
+                                          IdentificationNumber = cst.Field<string>("IdentificationNumber"),
+                                          CompanyTypeId = cst.Field<int>("CompanyTypeId"),
+                                          CompanyTypeName = cst.Field<string>("CompanyTypeName"),
+                                      } into cstg
+                                      select new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                                      {
+                                          RelatedCompany = new Company.Models.Company.CompanyModel()
+                                          {
+                                              CompanyPublicId = cstg.Key.CompanyPublicId,
+                                              CompanyName = cstg.Key.CompanyName,
+                                              IdentificationType = new CatalogModel()
+                                              {
+                                                  ItemId = cstg.Key.IdentificationTypeId,
+                                                  ItemName = cstg.Key.IdentificationTypeName,
+                                              },
+                                              IdentificationNumber = cstg.Key.IdentificationNumber,
+                                              CompanyType = new CatalogModel()
+                                              {
+                                                  ItemId = cstg.Key.CompanyTypeId,
+                                                  ItemName = cstg.Key.CompanyTypeName,
+                                              },
+
+                                              CompanyInfo =
+                                                 (from cstinf in response.DataSetResult.Tables[2].AsEnumerable()
+                                                  where !cstinf.IsNull("CompanyInfoId") &&
+                                                         cstinf.Field<string>("SurveyPublicId") == svg.Key.SurveyPublicId &&
+                                                         cstinf.Field<string>("CompanyPublicId") == scg.Key.CustomerPublicId
+                                                  group cstinf by new
+                                                  {
+                                                      CompanyInfoId = cstinf.Field<int>("CompanyInfoId"),
+                                                      CompanyInfoTypeId = cstinf.Field<int>("CompanyInfoTypeId"),
+                                                      CompanyInfoTypeName = cstinf.Field<string>("CompanyInfoTypeName"),
+                                                      CompanyInfoValue = cstinf.Field<string>("CompanyInfoValue"),
+                                                      CompanyInfoLargeValue = cstinf.Field<string>("CompanyInfoLargeValue"),
+                                                  } into cstinfg
+                                                  select new GenericItemInfoModel()
+                                                  {
+                                                      ItemInfoId = cstinfg.Key.CompanyInfoId,
+                                                      ItemInfoType = new CatalogModel()
+                                                      {
+                                                          ItemId = cstinfg.Key.CompanyInfoTypeId,
+                                                          ItemName = cstinfg.Key.CompanyInfoTypeName,
+                                                      },
+                                                      Value = cstinfg.Key.CompanyInfoValue,
+                                                      LargeValue = cstinfg.Key.CompanyInfoLargeValue,
+                                                  }).ToList(),
+                                          },
+                                      }).FirstOrDefault(),
+                             }).FirstOrDefault(),
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+        #endregion
     }
 }

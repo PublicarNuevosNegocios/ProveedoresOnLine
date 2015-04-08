@@ -686,5 +686,14 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         }
 
         #endregion
+
+        #region SurveyBatch
+
+        public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> BPSurveyGetNotification()
+        {
+            return DAL.Controller.SurveyDataController.Instance.BPSurveyGetNotification();
+        }
+
+        #endregion
     }
 }

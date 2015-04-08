@@ -91,7 +91,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MessageModuleJob.cs" />
+    <Compile Include="SurveySendProcessJobTest.cs" />
+    <Compile Include="MessageModuleJobTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="quartz_jobs.xml" />
+    <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

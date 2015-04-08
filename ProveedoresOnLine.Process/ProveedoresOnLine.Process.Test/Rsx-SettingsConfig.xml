@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
+  <Module name="MessageModule">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\MessageModule\Rsx-MessageModule.xml</key>
+  </Module>
   <Module name="Company">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
   </Module>

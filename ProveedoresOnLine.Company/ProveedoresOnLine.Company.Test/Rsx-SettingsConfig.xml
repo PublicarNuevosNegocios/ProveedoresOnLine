@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SettingsConfig>
   <Module name="Company">
-    <key name="location">D:\Proyectos\GitHub\ProveedoresOnLine\ProveedoresOnLine.Company\ProveedoresOnLine.Company.Test\Rsx-Company.xml</key>
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
   </Module>
 </SettingsConfig>

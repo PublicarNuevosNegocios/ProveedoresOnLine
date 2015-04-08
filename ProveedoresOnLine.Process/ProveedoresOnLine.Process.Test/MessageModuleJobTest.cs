@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ProveedoresOnLine.Process.Test
 {
     [TestClass]
-    public class MessageModuleJob
+    public class MessageModuleJobTest
     {
         [TestMethod]
         public void MessageModuleJob_Execute()

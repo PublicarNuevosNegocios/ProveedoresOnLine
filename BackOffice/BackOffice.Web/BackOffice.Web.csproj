@@ -1142,7 +1142,7 @@
   <PropertyGroup>
     <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y
 XCOPY "$(ProjectDir)$(OutDir)Rsx-BackOffice.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y
-XCOPY "$(ProjectDir)$(OutDir)Rsx-Company.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\BackOffice\" /y</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,10 +3,10 @@
   <MessageModule>
     <!--Generic agents-->
     <key name="Agent">
-      <![CDATA[POL_RememberPassword_Mail]]>
+      <![CDATA[POL_RememberPassword_Mail,POL_SurveyWriteBackNotification_Mail]]>
     </key>
 
-    <!--Proveedores on line agent-->
+    <!--Proveedores on line remember password email agent-->
     <key name="AgentConfig_POL_RememberPassword_Mail">
       <![CDATA[
         <POL_RememberPassword_Mail>
@@ -74,6 +74,50 @@
         </POL_RememberPassword_Mail>
       ]]>
     </key>
+
+    <!--Proveedores on line survey write back notification email agent-->
+    <key name="AgentConfig_POL_SurveyWriteBackNotification_Mail">
+      <![CDATA[
+        <POL_SurveyWriteBackNotification_Mail>
+          <key name="Assemblie">
+            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
+          </key>
+          <key name="AccessKeyId">
+            &lt;![CDATA[your_AccessKeyId]]&gt;
+          </key>
+          <key name="SecretAccessKey">
+            &lt;![CDATA[your_SecretAccessKey]]&gt;
+          </key>
+          <key name="RegionEndpoint">
+            &lt;![CDATA[us-east-1]]&gt;
+          </key>
+          <key name="Subject">
+            &lt;![CDATA[Proveedores OnLine - Evaluación de desempeño {ProviderName}]]&gt;
+          </key>
+          <key name="From">
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+          </key>
+          <key name="MessageBody">
+            &lt;![CDATA[
+                {CustomerLogo}
+                {CustomerName}
+                {CustomerIdentificationTypeName}
+                {CustomerIdentificationNumber}
+                
+                {ProviderLogo}
+                {ProviderName}
+                {ProviderIdentificationTypeName}
+                {ProviderIdentificationNumber}
+                {ProviderLink}
+                
+                {SurveyName}
+                {SurveyIssueDate}
+                {SurveyLink}
+            ]]&gt;
+          </key>
+        </POL_SurveyWriteBackNotification_Mail>
+      ]]>
+    </key>
+
   </MessageModule>
 </Settings>
-
