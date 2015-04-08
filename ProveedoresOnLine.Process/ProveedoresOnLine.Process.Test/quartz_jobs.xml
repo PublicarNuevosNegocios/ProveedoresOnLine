@@ -19,6 +19,15 @@
       <recover>false</recover>
     </job>
 
+    <job>
+      <name>SurveySendProcess</name>
+      <group>ProveedoresOnLineGroupJob</group>
+      <description>Send survey message job</description>
+      <job-type>ProveedoresOnLine.Process.Implement.SurveySendProcessJob, ProveedoresOnLine.Process</job-type>
+      <durable>true</durable>
+      <recover>false</recover>
+    </job>
+
     <trigger>
       <simple>
         <name>ProveedoresOnLineTrigger</name>
@@ -30,6 +39,19 @@
         <repeat-count>-1</repeat-count>
         <repeat-interval>10000</repeat-interval>
       </simple>
+
+      <simple>
+        <name>ProveedoresOnLineTrigger</name>
+        <group>ProveedoresOnLineGroupTrigger</group>
+        <description>Simple trigger to fire MessageModule job</description>
+        <job-name>SurveySendProcess</job-name>
+        <job-group>ProveedoresOnLine</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <repeat-count>-1</repeat-count>
+        <repeat-interval>10000</repeat-interval>
+      </simple>
     </trigger>
+
+
   </schedule>
 </job-scheduling-data>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <SurveyBatch>
+
+    <!--Default company logo-->
+    <key name="Company_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/dafaultProvider.png</key>
+
+    <!--Provider url-->
+    <key name="Provider_ProviderUrl">https://localhost:44309/Provider/GIProviderInfo?ProviderPublicId={ProviderPublicId}</key>
+
+    <!--Survey url-->
+    <key name="Survey_SurveyUrl">https://localhost:44309/Survey/Index?SurveyPublicId={SurveyPublicId}</key>
+
+  </SurveyBatch>
+</Settings>
+

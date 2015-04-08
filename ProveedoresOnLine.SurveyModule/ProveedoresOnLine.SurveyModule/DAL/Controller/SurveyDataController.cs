@@ -119,5 +119,13 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
 
         #endregion
 
+        #region SurveyBatch
+
+        public List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> BPSurveyGetNotification()
+        {
+            return DataFactory.BPSurveyGetNotification();
+        }
+
+        #endregion
     }
 }
