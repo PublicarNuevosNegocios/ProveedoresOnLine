@@ -1,0 +1,73 @@
+/****************Survey********************/
+.PMMPSurveyHeader > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.PMMPSurveyProviderInfo {
+    width: 78%;
+    min-width: 500px;
+}
+
+    .PMMPSurveyProviderInfo > ul {
+        list-style-type: none;
+        margin-top: 5px;
+    }
+
+        .PMMPSurveyProviderInfo > ul > li {
+            width: 33%;
+            display: inline-block;
+            vertical-align: top;
+            margin-bottom: 10px;
+        }
+
+            .PMMPSurveyProviderInfo > ul > li > span {
+                width: 100%;
+                display: inline-block;
+                margin-top: 5px;
+            }
+
+            .PMMPSurveyProviderInfo > ul > li .selProgressBar {
+                width: 80%;
+                height: 22px;
+                margin: -2px 0px -2px 0px;
+            }
+
+/**************Survey Questions******************/
+.PMMPMandatorySurvey {
+    margin: 10px 0px;
+    display: block;
+}
+
+.PMMPSurveyQuestions {
+    padding: 1% 3%;
+}
+
+.PMMPEvaluationArea {
+    margin: 10px 0px;
+}
+
+    .PMMPEvaluationArea > ul {
+        list-style-type: none;
+    }
+
+        .PMMPEvaluationArea > ul > li {
+            padding: 8px 0;
+        }
+
+            .PMMPEvaluationArea > ul > li > ul {
+                list-style-type: none;
+            }
+
+                .PMMPEvaluationArea > ul > li > ul > li {
+                    padding: 0.2em 0;
+                }
+
+.PMMPSurveyFinished {
+    padding: 10% 0px;
+    text-align: center;
+    font-size: 18px;
+    border-top: 1px solid #FF8300;
+    width: 98%;
+    margin-left: 1%;
+}
