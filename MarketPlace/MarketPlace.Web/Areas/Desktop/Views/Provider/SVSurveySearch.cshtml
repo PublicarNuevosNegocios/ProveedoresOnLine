@@ -34,9 +34,6 @@
                             @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_1";}
                             <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación- antiguo reciente</option>
 
-                            @{
-                                Model.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == (int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup);
-                            }
                             @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_1";}
                             <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - AZ</option>
 
