@@ -34,56 +34,61 @@
             });
 
     }
-
-    <div>
         <!--evaluation basic info-->
         <div class="POMPResultsBasicInfo">
+            <a href="@strUrlDetail">
+                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+            </a>
             <ul>
                 <li>
-                    <a href="@strUrlDetail">
-                        @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-                    </a>
-                    <br />
-                    <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
-
-                    <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
+                    <label>Calificación:</label>
+                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
                 </li>
                 <li>
-                    <div>
-                        <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                        <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                    </div>
-
-                    <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
-
-                    <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
+                    <label>Progreso:</label>
+                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>                
                 </li>
                 <li>
-                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
-
-                    <span>Estado: @Model.RelatedSurvey.SurveyStatusName</span>
+                    <label>Evaluador:</label>
+                    <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+                </li>
+                <li>
+                    <label>Fecha de programación:</label>
+                    <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+                </li>
+                <li>
+                    <label>Responsable:</label>
+                    <span>@Model.RelatedSurvey.SurveyResponsible</span>
+                </li>
+                <li>
+                    <label>Ultima actualización:</label>
+                    <span>@Model.RelatedSurvey.SurveyLastModify</span>
+                </li>
+                <li>
+                    <label>Estado:</label>
+                    <span>@Model.RelatedSurvey.SurveyStatusName</span>
                 </li>
             </ul>
         </div>
         <!--evaluation actions-->
-        <div class="POMPResultsActions">
-            <ul>
+            <div class="POMPResultsActions">
                 @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
                     Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
-                    <li>
-                        <a href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                    
+                        <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
                             Editar
                         </a>
-                    </li>
+                    
                 }
                 @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                     Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
                 {
-                    <li>
-                        <a href="@(Url.RouteUrl
+
+                        <a class="POMPEvaluationListActions" href="@(Url.RouteUrl
                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new
                                     {
@@ -91,13 +96,11 @@
                                         action =MVC.Survey.ActionNames.Index,
                                         SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
                                     }))" target="_blank">Responder evaluación</a>
-                    </li>
+
                 }
-                <li>
-                    <a href="@strUrlDetail">Ver detalle</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+
+                    <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
+
+            </div>
 }
 

@@ -32,108 +32,93 @@
         list-style-type: none;
         padding: 0;
     }
-
+        .POMPResultsBasicInfo a{
+            background-color: #eeeeee;
+            border-bottom: 1px dotted #5d5d5d;
+            border-top: medium none;
+            color: #5d5d5d !important;
+            display: block;
+            font-size: 1.1em !important;
+            line-height: 1em !important;
+            margin: 8px 0px 6px 4px !important;
+            max-width: 99% !important;
+            min-height: 26px !important;
+            padding: 5px 0 0 !important;
+            width: 99% !important;
+        }
 .POMPResultsBasicInfo > ul {
     list-style-type: none;
-    margin-top: 5px;
-    padding-left: 2em;
+    margin:0px 0px 0px 4px;
+    padding:0px ;
 }
-
     .POMPResultsBasicInfo > ul > li {
-        width: 30%;
-        display: inline-block;
-        vertical-align: top;
+        width:99.5%;
+        display:block;
+        margin:0px; padding:4px 0px 4px 6px;
     }
-
-        .POMPResultsBasicInfo > ul > li > span {
-            width: 100%;
+    .POMPResultsBasicInfo > ul > li:nth-child(odd){
+        background-color:#f1f1f1;
+    }
+    .POMPResultsBasicInfo > ul > li:nth-child(even){
+        background-color:#fff;
+    }
+        .POMPResultsBasicInfo > ul > li > label,
+        .POMPResultsBasicInfo > ul > li > div,
+        .POMPResultsBasicInfo > ul > li > span{
             display: inline-block;
-            margin-top: 5px;
+            margin:0px; padding:0px;
+            font-weight:normal;
         }
-
+        .POMPResultsBasicInfo > ul > li > label {
+            border-right:1px solid #333;            
+            width:32%;
+        }
+        .POMPResultsBasicInfo > ul > li > div.rateit,
+        .POMPResultsBasicInfo > ul > li > span {
+            height:16px;
+            vertical-align:text-bottom;
+        }
+            .POMPResultsBasicInfo > ul > li > span:nth-child(2) {
+                height:auto;
+                vertical-align:initial;
+            }
+            .POMPResultsBasicInfo > ul > li > span:nth-child(3) {
+                font-size:0.88em;
+            }
+            
         .POMPResultsBasicInfo > ul > li .selProgressBar {
-            width: 100%;
-            height: 22px;
-            margin: -2px 0px -2px 0px;
+            height: 23px;
+            margin: 0;
+            width: 58%;
+            vertical-align:top;
         }
-
-.POMPResultsActions {
-    border-bottom: 1px solid #ff8300;
-    padding-bottom: 1.3em;
-}
-
-    .POMPResultsActions > ul {
+/************** ACCIONES DE LISTA DE EVALUACIONES ***************/
+    .POMPResultsActions{
+        display:block;
         list-style-type: none;
-        float: right;
         height: auto;
-        margin: -7px 0px 0px 0px;
+        margin: 0px 0px 0px 0px;
         padding: 0;
-        width: 80%;
+        width: 99.5%;
         text-align: right;
     }
-
-        .POMPResultsActions > ul > li {
-            display: inline-block;
-        }
-
-            .POMPResultsActions > ul > li:first-child, .POMPResultsActions > ul > li:nth-child(2), .POMPResultsActions > ul > li:nth-child(3) {
-                border-right: 1px solid #666;
-            }
-
-            .POMPResultsActions > ul > li:last-child {
-                border-right: none !important;
-            }
-
-            .POMPResultsActions > ul > li > a {
-                display: inline-block;
-                font-size: 0.77em;
-                line-height: 0.8em;
-                margin: 0;
-                padding: 0 6px;
-                width: auto;
-            }
+            .POMPEvaluationListActions {
+                border: 1px solid #337ab7;
+                border-radius: 2px;
+                display: inline-block !important;
+                margin: 4px 6px 0 0 !important;
+                padding:0 !important;
+                text-align: center;
+                width: 73px !important;
+                font-size:0.88em;
+            }            
 
 /******************Evaluación de Desempeño*********************/
-.POMPSurveyDetail {
-    margin: 0px;
-    padding: 0px 10px;
-}
-
-.PMMPProviderDetail {
-    width: 100% !important;
-    display: block !important;
-    margin-bottom: 5px !important;
-}
-
-.POMPSurveyDetailProviderInfo > ul {
-    list-style-type: none;
-    margin-top: 5px;
-}
-
-    .POMPSurveyDetailProviderInfo > ul > li {
-        width: 30%;
-        display: inline-block;
-        vertical-align: top;
-        margin-bottom: 10px;
-    }
-
-        .POMPSurveyDetailProviderInfo > ul > li > span {
-            width: 100%;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        .POMPSurveyDetailProviderInfo > ul > li .selProgressBar {
-            width: 80%;
-            height: 22px;
-            margin: -2px 0px -2px 0px;
-        }
 
 .POMPSurveyDetailProviderInfoActions {
     border-bottom: 1px solid #ff8300;
     padding-bottom: 1.3em;
 }
-
     .POMPSurveyDetailProviderInfoActions > ul {
         list-style-type: none;
         float: right;
@@ -164,59 +149,109 @@
                 width: auto;
             }
 
-.POMPProviderQuestions {
-    margin-top: 10px;
-}
+/************* LISTADO DE PREGUNTAS  ************/
 
+.POMPProviderQuestions {
+    margin-top: 8px;
+}
+.POMPProviderQuestions > span{
+    font-size:0.88em;
+}
     .POMPProviderQuestions > ul {
         list-style-type: none;
         padding: 0;
     }
-
         .POMPProviderQuestions > ul > li {
             border-bottom: 1px solid #ff8300;
-            padding: 8px 0;
+            padding: 2px 0;
+            margin:8px 0 0 0;
         }
-
+        .POMPProviderQuestions > ul > li > span{
+            color: #0066ae;
+            font-size: 1.1em;
+            font-weight: normal;
+            line-height: 1.3em;
+            margin: 0;
+            width: 89%;
+        }
+        
+.PMMPRateValue {
+    padding: 3px 0 0 4px;
+    width:100%;
+    height:26px;
+    background-color:#f1f1f1;
+}
+/****** PREGUNTAS ******/
             .POMPProviderQuestions > ul > li > ul {
                 list-style-type: none;
+                padding:0px; margin:5px 0 5px 0px;
             }
-
                 .POMPProviderQuestions > ul > li > ul > li {
-                    padding: 8px 0;
+                    margin:8px 0 5px;
+                    padding: 5px 2px 7px;
+                    border:1px solid #999;
                 }
-
+                    .PMMPSmallText {
+                        display: inline-block;
+                        font-size: 0.96em;
+                        line-height: 15px;
+                        vertical-align: top;
+                        width: 95%;
+                        margin: 0px 0 5px 5px;
+                    }
+                    .PMMPRateValueQuestions {
+                        border-top:1px solid #0066ae;
+                        border-bottom:1px solid #0066ae;
+                        font-size: 0.96em;
+                        padding: 3px 0 0 4px; margin:4px 0 0 0;
+                        width:100%;
+                        height:29px; text-align:center;        
+                    }
+                        .PMMPRateValueQuestions span, .PMMPRateValueQuestions div {
+                            vertical-align:text-bottom;
+                        }
                     .POMPProviderQuestions > ul > li > ul > li > ul {
                         list-style-type: none;
+                        padding: 0;
                     }
-
                         .POMPProviderQuestions > ul > li > ul > li > ul > li {
-                            padding: 0.2em 0;
+                            margin: 0 0 0 37px;
+                            padding: 0.2em 0 0.2em 0.5em;
+                        }
+                        .POMPProviderQuestions > ul > li > ul > li > ul > li:nth-child(odd) {
+                            background-color: #fff;
+                        }
+                        .POMPProviderQuestions > ul > li > ul > li > ul > li:nth-child(even) {
+                            background-color: #f1f1f1;
                         }
 
-.PMMPRateValue {
-    margin-left: 15px;
-}
+                        .POMPProviderQuestions > ul > li > ul > li > ul > li > span{
+                            display: inline-block;
+                            line-height: 1.3em;
+                            vertical-align: top;
+                            width: 95%;
+                            font-size: 0.96em;
+                        }
+
+/*********** OBSERVACIONES **********/
 
 .POMPDescription {
-    padding-top: 0.2em;
-    margin-left: 40px;
+    background-color: #f1f1f1;
+    margin: 6px 0 0 37px;
+    padding: 0.8em 0 0.6em 1.7em;
+    font-size: 0.96em;
+    width:auto;
 }
-
     .POMPDescription > span {
         vertical-align: top;
         display: inline-block;
-    }
 
+    }
 .POMPDescriptionArea {
-    border: 1px solid #666;
+    border: 1px solid #999;
     border-radius: 2px;
     background-color: #f9f9f9;
-    width: 70%;
-    min-height: 25px;
+    width: 73%;
+    min-height: 50px;
     height: auto;
-}
-
-.PMMPNumeric {
-    font-weight: bold;
 }

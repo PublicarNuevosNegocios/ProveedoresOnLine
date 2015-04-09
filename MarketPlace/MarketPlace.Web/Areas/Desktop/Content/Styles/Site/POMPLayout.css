@@ -27,6 +27,7 @@ div#POMPRenderFooter {
     padding: 0px 0;
     position: relative;
     width: 99.8%;
+    min-width:960px;
 }
 /*********** CONTENEDOR DEL MENU LATERAL ***********/
 .POMPProviderSideMenuWrapper {
@@ -44,6 +45,7 @@ div#POMPRenderFooter {
     margin: 8px 0px 10px 0px;
     padding: 0 0 0 2px;
     min-height: 464px;
+    min-width:694px;
     width: calc(100% - 262px);
 }
 

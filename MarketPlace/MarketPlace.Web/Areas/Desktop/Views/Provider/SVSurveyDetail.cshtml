@@ -39,41 +39,44 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">Detalle de evaluación de desempeño</label>
-        <div class="POMPSurveyDetail">
-            <div>
+        <div class="POMPResultsOrder">
+            <div class="POMPResultsBasicInfo">
                 <!--evaluation basic info-->
-                <div class="POMPSurveyDetailProviderInfo">
-                    <ul>
-                        <li class="PMMPProviderDetail">
-                            <span>
-                                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-                            </span>
-                        </li>
-                        <li class="PMMPProviderDetail">
-                            <div>
-                                <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                                <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                            </div>
-                        </li>
-                        <li class="PMMPProviderDetail">
-                            <div>
-                                <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
-                                <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
-                            </div>
-                        </li>
-                        <li>
-                            <span>Estado: @Model.RelatedSurvey.SurveyStatusName</span>
-                            <span>Fecha de programación: @Model.RelatedSurvey.SurveyIssueDate</span>
-                        </li>
-                        <li>
-                            <span>Evaluador: @Model.RelatedSurvey.SurveyEvaluator</span>
-                            <span>Ultima actualización: @Model.RelatedSurvey.SurveyLastModify</span>
-                        </li>
-                        <li>
-                            <span>Responsable: @Model.RelatedSurvey.SurveyResponsible</span>
-                        </li>
-                    </ul>
-                </div>
+                <a>
+                    @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+                </a>
+                <ul>
+                    <li>
+                        <label>Calificación:</label>
+                        <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                        <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+                    </li>
+                    <li>
+                        <label>Progreso:</label>
+                        <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                        <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
+                    </li>
+                    <li>
+                        <label>Estado:</label>
+                        <span>@Model.RelatedSurvey.SurveyStatusName</span>
+                    </li>
+                    <li>
+                        <label>Fecha de programación:</label>
+                        <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+                    </li>
+                    <li>
+                        <label>Evaluador:</label>
+                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+                    </li>
+                    <li>
+                        <label>Ultima actualización:</label>
+                        <span>@Model.RelatedSurvey.SurveyLastModify</span>
+                    </li>
+                    <li>
+                        <label>Responsable:</label>
+                        <span>@Model.RelatedSurvey.SurveyResponsible</span>
+                    </li>
+                </ul>
                 <!--evaluation actions-->
                 <div class="POMPSurveyDetailProviderInfoActions">
                     <ul>
@@ -103,83 +106,93 @@
                         }
                     </ul>
                 </div>
-            </div>
-            <div class="POMPProviderQuestions">
-                <span>Los campos con <span class="PMMPMandatory">*</span> son obligatorios</span>
-                <!--evaluation items-->
-                <ul>
-                    @foreach (var EvaluationArea in
+
+                <div class="POMPProviderQuestions">
+                    <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
+                    <!--evaluation items-->
+                    <ul>
+                        @foreach (var EvaluationArea in
                         Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
-                    {
-                        var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+                        {
+                            var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
 
-                        var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
-                            (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+                            var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
+                                (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
 
-                        <li>
-                            <span><span class="PMMPNumeric">@EvaluationArea.Order.</span> @EvaluationArea.Name</span>
-                            <div class="PMMPRateValue">
-                                <div class="rateit" data-rateit-value="@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                                <span>(@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
-                                <span>Peso: @EvaluationArea.Weight %</span>
-                            </div>
-                            <ul>
-                                @foreach (var Question in lstQuestion)
-                                {
-                                    var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+                            <li>
 
-                                    var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
-                                        (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+                                <span class="PMMPNumeric">@EvaluationArea.Order. @EvaluationArea.Name</span>
 
-                                    <li>
-                                        @if (Question.IsMandatory)
-                                        {
-                                            <span class="PMMPMandatory">*</span>
-                                        }
-                                        <span><span class="PMMPNumeric">@Question.Order.</span> @Question.Name</span>
-                                        <div class="PMMPRateValue">
-                                            <div class="rateit" data-rateit-value="@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                                            <span>(@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
-                                            <span>Peso: @Question.Weight %</span>
-                                        </div>
-                                        <ul>
-                                            @foreach (var Answer in lstAnswer)
+                                <div class="PMMPRateValue">
+                                    <span>Calificación:</span>
+                                    <div class="rateit" data-rateit-value="@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                    <span>(@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
+                                    <span>- Peso: @EvaluationArea.Weight %</span>
+                                </div>
+
+                                @*SEGUNDO NIVEL*@
+
+                                <ul>
+                                    @foreach (var Question in lstQuestion)
+                                    {
+                                        var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                                        var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                            (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                                        <li>
+                                            @if (Question.IsMandatory)
                                             {
-                                                <li>
-                                                    @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
-                                                    {
-                                                        <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked" />
-                                                    }
-                                                    else
-                                                    {
-                                                        <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
-                                                    }
-                                                    <span>@Answer.Name</span>
-                                                </li>
+                                                <span class="PMMPMandatory">*</span>
                                             }
-                                        </ul>
-                                        @if (Question.HasDescription)
-                                        {
-                                            <div class="POMPDescription">
-                                                <span>
-                                                    Observaciones:
-                                                </span>
-                                                <span class="POMPDescriptionArea">
-                                                    @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
-                                                </span>
+                                            <span class="PMMPNumeric PMMPSmallText">@Question.Order. @Question.Name</span>
+                                            <div class="PMMPRateValueQuestions">
+                                                <span>Calificación:</span>
+                                                <div class="rateit" data-rateit-value="@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                                                <span>(@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
+                                                <span>Peso: dentro de <strong>@EvaluationArea.Name</strong>  @Question.Weight %</span>
                                             </div>
-                                        }
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-                    }
-                </ul>
-            </div>
 
+                                            @*TERCER NIVEEEEEEEL*@
+
+                                            <ul>
+                                                @foreach (var Answer in lstAnswer)
+                                                {
+                                                    <li>
+                                                        @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                                        {
+                                                            <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
+                                                        }
+                                                        <span>@Answer.Name</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                            @if (Question.HasDescription)
+                                            {
+                                                <div class="POMPDescription">
+                                                    <span>
+                                                        Observaciones:
+                                                    </span>
+                                                    <span class="POMPDescriptionArea">
+                                                        @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
+                                                    </span>
+                                                </div>
+                                            }
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 
 <!--templates-->
 <div style="display:none;">
