@@ -190,6 +190,7 @@
                     margin:8px 0 5px;
                     padding: 5px 2px 7px;
                     border:1px solid #999;
+                    border-radius:2px;
                 }
                     .PMMPSmallText {
                         display: inline-block;
