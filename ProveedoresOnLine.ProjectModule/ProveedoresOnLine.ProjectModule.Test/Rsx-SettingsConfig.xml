@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsConfig>
+  <Module name="Company">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
+  </Module>
+  <Module name="ProjectBatch">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\SurveyModule\Rsx-SurveyBatch.xml</key>
+  </Module>
+</SettingsConfig>
