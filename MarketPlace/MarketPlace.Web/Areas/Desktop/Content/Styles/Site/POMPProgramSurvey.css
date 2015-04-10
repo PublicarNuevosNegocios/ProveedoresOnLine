@@ -107,9 +107,9 @@
                 border-radius: 2px;
                 display: inline-block !important;
                 margin: 4px 6px 0 0 !important;
-                padding:0 !important;
+                padding:0 4px !important;
                 text-align: center;
-                width: 73px !important;
+                width:auto !important;
                 font-size:0.88em;
             }            
 
