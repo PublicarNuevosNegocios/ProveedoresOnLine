@@ -175,6 +175,8 @@ namespace ProveedoresOnLine.CompanyProviderBatch
         {
             GenericItemModel K_ContactModel = new GenericItemModel();
 
+            //
+
             return K_ContactModel;
         }
 
