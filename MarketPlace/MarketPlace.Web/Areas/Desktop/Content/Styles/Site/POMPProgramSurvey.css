@@ -32,6 +32,40 @@
         padding: 0;
     }
 
+/************ FILTRO DE EVALUACIONES *************/
+    .POMPProviderSurvey_mainFilter {
+        background-color: #f9f9f9;
+        height:auto;
+        width: 100%;
+        padding:7px 0px !important;
+    }
+        .POMPProviderSurvey_mainFilter li {
+            height: auto;
+            vertical-align: top;
+            width: auto;
+        }
+            .POMPProviderSurvey_mainFilter li span {
+                color: #4d4d4d;
+                font-size: 1.2em;
+            }
+                .POMPProviderSurvey_mainFilter li select {
+                    background-color: #ddd;
+                    border: 1px solid #727276;
+                    color: #666;
+                    display: inline-block;
+                    font-size: 1.05em;
+                    width:auto;
+                }
+                .POMPButtonsSurvey {
+                    background-color: #ff8300;
+                    color: #fff;
+                    display: inline-block;
+                    font-size: 1em;
+                    letter-spacing: -0.5px;
+                    margin: 0;
+                    padding: 3px 10px;
+                     border-radius: 2px;
+                }
     /*********** CASO EN EL QUE SE PINTA LA EVALUACION *********/
         .POMPResultsBasicInfoSurvey {
             display:inline-block;
