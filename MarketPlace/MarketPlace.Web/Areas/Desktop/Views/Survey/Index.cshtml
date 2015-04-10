@@ -28,72 +28,53 @@
         });
 }
 <div class="POMPProviderGreatWrapper">
-
-
-
+    <label class="POMPSectionTitles">Responder evaluación de desempeño</label>
     <!--Provider info-->
     <div class="POMPProviderSideMenuWrapper">
         <div class="POMPProviderSideMenu">
             @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.RelatedLiteProvider)
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!--Survey info-->
+    <div class="POMPResultsBasicInfo">
+        <a>
+            @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+        </a>
+        <ul>
+            <li>
+                <label>Calificación:</label>
+                <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",",".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+            </li>
+            <li>
+                <label>Progreso:</label>
+                <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
+            </li>
+            <li>
+                <label>Estado:</label>
+                <span>@Model.RelatedSurvey.SurveyStatusName</span>
+            </li>
+            <li>
+                <label>Fecha de programación:</label>
+                <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+            </li>
+            <li>
+                <label>Evaluador:</label>
+                <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+            </li>
+            <li>
+                <label>Ultima actualización:</label>
+                <span>@Model.RelatedSurvey.SurveyLastModify</span>
+            </li>
+            <li>
+                <label>Responsable:</label>
+                <span>@Model.RelatedSurvey.SurveyResponsible</span>
+            </li>
+        </ul>
+    </div>
     <div class="POMPProviderDataWrapper">
-
-        <label class="POMPSectionTitles">Responder evaluación de desempeño</label>
         <div class="POMPResultsOrder">
-            <div class="POMPResultsBasicInfo">
-                <a>
-                    @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-                </a>
-                <ul>
-                    <li>
-                        <label>Calificación:</label>
-                        <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",",".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                        <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                    </li>
-                    <li>
-                        <label>Progreso:</label>
-                        <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
-                        <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
-                    </li>
-                    <li>
-                        <label>Estado:</label>
-                        <span>@Model.RelatedSurvey.SurveyStatusName</span>
-                    </li>
-                    <li>
-                        <label>Fecha de programación:</label>
-                        <span>@Model.RelatedSurvey.SurveyIssueDate</span>
-                    </li>
-                    <li>
-                        <label>Evaluador:</label>
-                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
-                    </li>
-                    <li>
-                        <label>Ultima actualización:</label>
-                        <span>@Model.RelatedSurvey.SurveyLastModify</span>
-                    </li>
-                    <li>
-                        <label>Responsable:</label>
-                        <span>@Model.RelatedSurvey.SurveyResponsible</span>
-                    </li>
-                </ul>
-            </div>
-
             @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close)
             {
                 <div class="PMMPSurveyFinished">
@@ -102,10 +83,9 @@
             }
             else
             {
-    <!--Survey questions body-->
-                <!--evaluation items-->
+                <!--Survey questions body-->
                 <form id="SurveySave_Form" method="post">
-
+                    <!--Survey Actions-->
                     <div class="POMPResultsActions">
                         @if (Model.RelatedSurvey.SurveyConfigStepEnable)
                         {
@@ -125,7 +105,7 @@
                         }
                         <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
                     </div>
-
+                    <!--evaluation items-->
                     @foreach (var EvaluationArea in lstEvaluationArea)
                     {
                         var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
@@ -210,13 +190,10 @@
                         }
                         <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
                     </div>
-
                     <div style="display:none;">
                         <input type="hidden" id="SurveySave_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_@Model.RelatedSurvey.SurveyStatusId" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.InProgress).ToString())" />
                     </div>
                 </form>
-
-
             }
             <div style="display:none;">
                 <div id="SurveySave_Finalize_Dialog" title="Finalizar evaluación de desempeño">
@@ -229,13 +206,7 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
-
-
 </div>
 @section inlinescripts
 {
