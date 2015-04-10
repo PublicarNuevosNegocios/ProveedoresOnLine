@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -104,6 +105,7 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders();
 
+        List<GenericItemModel> BPGetAllTablesScore(int TreeType);
         #endregion
     }
 }

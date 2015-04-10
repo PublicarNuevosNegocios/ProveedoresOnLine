@@ -8,6 +8,26 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
 {
     public class Enumerations
     {
+        #region General K
+
+        public enum enumUtil
+        {
+            RoleType = 102005,
+            K_ContrTreeType = 114014,
+        } 
+        #endregion
+
+        #region EconomyActivity       
+
+        public enum enumActivitiEconomicInfoType
+        {
+            Provider = 610001,
+            Consultant = 610002,
+            Builder = 610003,
+        }
+ 
+        #endregion
+
         #region Commecial
         public enum enumComercialType
         {
