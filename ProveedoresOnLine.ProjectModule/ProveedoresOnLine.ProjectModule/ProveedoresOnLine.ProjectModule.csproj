@@ -74,7 +74,10 @@
     <Compile Include="DAL\MySQLDAO\Project_MySqlDao.cs" />
     <Compile Include="Interfaces\IProjectData.cs" />
     <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\ProjectProviderInfoModel.cs" />
+    <Compile Include="Models\ProjectProviderModel.cs" />
     <Compile Include="Models\ProjectConfigModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
