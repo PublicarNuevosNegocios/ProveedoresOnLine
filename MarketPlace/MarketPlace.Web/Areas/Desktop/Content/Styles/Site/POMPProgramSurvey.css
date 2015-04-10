@@ -27,11 +27,27 @@
     margin: 0px;
     padding: 0px 10px;
 }
-
     .POMPResultsOrder > ul {
         list-style-type: none;
         padding: 0;
     }
+
+    /*********** CASO EN EL QUE SE PINTA LA EVALUACION *********/
+        .POMPResultsBasicInfoSurvey {
+            display:inline-block;
+            border:NONE;
+            width:calc(100% - 265px);
+        }
+        .POMPProviderDataWrapperSurvey {
+            display: block;
+            height: auto;
+            margin:4px auto 0 auto;         
+            min-width: 694px;
+            padding:2px;
+            width:97.5%;
+            border-top:1px solid #ff8300;
+        }
+    /**********************/
         .POMPResultsBasicInfo a{
             background-color: #eeeeee;
             border-bottom: 1px dotted #5d5d5d;
@@ -97,20 +113,19 @@
         display:block;
         list-style-type: none;
         height: auto;
-        margin: 0px 0px 0px 0px;
+        margin: 4px 0 8px 0px;
         padding: 0;
         width: 99.5%;
         text-align: right;
     }
             .POMPEvaluationListActions {
-                border: 1px solid #337ab7;
                 border-radius: 2px;
                 display: inline-block !important;
-                margin: 4px 6px 0 0 !important;
+                margin: 0px 6px 0 0 !important;
                 padding:0 4px !important;
                 text-align: center;
                 width:auto !important;
-                font-size:0.88em;
+                font-size:0.9em;
             }            
 
 /******************Evaluación de Desempeño*********************/
@@ -154,12 +169,22 @@
 .POMPProviderQuestions {
     margin-top: 8px;
 }
+/*********** CASO EN EL QUE SE PINTA LA EVALUACION *********/
+.QuestionsForSurvey {
+    margin:0px;
+}
+    .QuestionsForSurvey > ul {
+        margin:0px;
+    }
+/**********************************/
+
 .POMPProviderQuestions > span{
     font-size:0.88em;
 }
     .POMPProviderQuestions > ul {
         list-style-type: none;
         padding: 0;
+        margin-left: 0 !important;
     }
         .POMPProviderQuestions > ul > li {
             border-bottom: 1px solid #ff8300;
