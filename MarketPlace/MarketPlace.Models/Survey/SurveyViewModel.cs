@@ -137,13 +137,13 @@ namespace MarketPlace.Models.Survey
             }
         }
 
-        public int SurveyProgress
+        public decimal SurveyProgress
         {
             get
             {
                 return RelatedSurvey.SurveyInfo.
                     Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Progress).
-                    Select(y => Convert.ToInt32(y.Value)).
+                    Select(y => !string.IsNullOrEmpty(y.Value) ? Convert.ToDecimal(y.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) : 0).
                     DefaultIfEmpty(0).
                     FirstOrDefault();
             }
