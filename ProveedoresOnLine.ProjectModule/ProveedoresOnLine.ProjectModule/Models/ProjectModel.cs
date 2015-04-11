@@ -14,6 +14,8 @@ namespace ProveedoresOnLine.ProjectModule.Models
 
         public ProjectConfigModel RelatedProjectConfig { get; set; }
 
+        public ProveedoresOnLine.Company.Models.Util.CatalogModel ProjectStatus { get; set; }
+
         public bool Enable { get; set; }
 
         public DateTime LastModify { get; set; }

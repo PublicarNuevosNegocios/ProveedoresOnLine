@@ -147,5 +147,142 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         #endregion
 
+        #region Project
+
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectUpsert(ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectToUpsert)
+        {
+            LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+
+            try
+            {
+                //upsert project
+                ProjectToUpsert.ProjectPublicId =
+                    DAL.Controller.ProjectDataController.Instance.ProjectUpsert
+                    (ProjectToUpsert.ProjectPublicId,
+                    ProjectToUpsert.ProjectName,
+                    ProjectToUpsert.RelatedProjectConfig.ItemId,
+                    ProjectToUpsert.ProjectStatus.ItemId,
+                    ProjectToUpsert.Enable);
+
+                //upsert survey info
+                //SurveyToUpsert = SurveyInfoUpsert(SurveyToUpsert);
+
+                //upsert survey item 
+                //SurveyToUpsert = SurveyItemUpsert(SurveyToUpsert);
+
+                oLog.IsSuccess = true;
+            }
+            catch (Exception err)
+            {
+                oLog.IsSuccess = false;
+                oLog.Message = err.Message + " - " + err.StackTrace;
+
+                throw err;
+            }
+            finally
+            {
+                oLog.LogObject = ProjectToUpsert;
+                LogManager.ClientLog.AddLog(oLog);
+            }
+
+            return ProjectToUpsert;
+        }
+
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectInfoUpsert(ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectToUpsert)
+        {
+            if (!string.IsNullOrEmpty(ProjectToUpsert.ProjectPublicId) &&
+                ProjectToUpsert.ProjectInfo != null &&
+                ProjectToUpsert.ProjectInfo.Count > 0)
+            {
+                ProjectToUpsert.ProjectInfo.All(pjnf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        pjnf.ItemInfoId = DAL.Controller.ProjectDataController.Instance.ProjectInfoUpsert
+                            (pjnf.ItemInfoId > 0 ? (int?)pjnf.ItemInfoId : null,
+                            ProjectToUpsert.ProjectPublicId,
+                            pjnf.ItemInfoType.ItemId,
+                            pjnf.Value,
+                            pjnf.LargeValue,
+                            pjnf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = pjnf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ProjectPublicId",
+                            Value = ProjectToUpsert.ProjectPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ProjectToUpsert;
+        }
+
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectCompanyUpsert(ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectToUpsert)
+        {
+            if (!string.IsNullOrEmpty(ProjectToUpsert.ProjectPublicId) &&
+                ProjectToUpsert.RelatedProjectProvider != null &&
+                ProjectToUpsert.RelatedProjectProvider.Count > 0)
+            {
+                ProjectToUpsert.RelatedProjectProvider.All(pjp =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        pjp.ProjectCompanyId = DAL.Controller.ProjectDataController.Instance.ProjectCompanyUpsert
+                            (pjp.ProjectCompanyId > 0 ? (int?)pjp.ProjectCompanyId : null,
+                            ProjectToUpsert.ProjectPublicId,
+                            pjp.RelatedProvider.RelatedCompany.CompanyPublicId,
+                            pjp.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = pjp;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ProjectPublicId",
+                            Value = ProjectToUpsert.ProjectPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ProjectToUpsert;
+        }
+
+        #endregion
+
     }
 }

@@ -8,6 +8,8 @@ namespace ProveedoresOnLine.ProjectModule.Models
 {
     public class ProjectProviderModel
     {
+        public int ProjectCompanyId { get; set; }
+
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; set; }
 
         public List<ProjectProviderInfoModel> ItemInfo { get; set; }

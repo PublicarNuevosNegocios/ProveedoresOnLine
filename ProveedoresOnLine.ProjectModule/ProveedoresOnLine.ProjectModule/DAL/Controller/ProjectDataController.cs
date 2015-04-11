@@ -53,5 +53,29 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
         }
 
         #endregion
+
+        #region Project
+
+        public string ProjectUpsert(string ProjectPublicId, string ProjectName, int ProjectConfigId, int ProjectStatus, bool Enable)
+        {
+            return DataFactory.ProjectUpsert(ProjectPublicId, ProjectName, ProjectConfigId, ProjectStatus, Enable);
+        }
+
+        public int ProjectInfoUpsert(int? ProjectInfoId, string ProjectPublicId, int ProjectInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.ProjectInfoUpsert(ProjectInfoId, ProjectPublicId, ProjectInfoType, Value, LargeValue, Enable);
+        }
+
+        public int ProjectCompanyUpsert(int? ProjectCompanyId, string ProjectPublicId, string CompanyPublicId, bool Enable)
+        {
+            return DataFactory.ProjectCompanyUpsert(ProjectCompanyId, ProjectPublicId, CompanyPublicId, Enable);
+        }
+
+        public int ProjectCompanyInfoUpsert(int? ProjectCompanyInfoId, int ProjectCompanyId, int? EvaluationItemId, int ProjectCompanyInfoType, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.ProjectCompanyInfoUpsert(ProjectCompanyInfoId, ProjectCompanyId, EvaluationItemId, ProjectCompanyInfoType, Value, LargeValue, Enable);
+        }
+
+        #endregion
     }
 }
