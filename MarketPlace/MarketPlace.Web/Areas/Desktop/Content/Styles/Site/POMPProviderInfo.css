@@ -153,16 +153,17 @@ label.POMPProviderDataIndiceAltman{
     label.POMPProviderVerDetalle {
         border: medium none !important;
         display: block;
-        min-height: 38px !important;
+        min-height: 30px !important;
         width: 100% !important;
         text-align:right;
     }
-        label.POMPProviderVerDetalle > a {
-            border: 1px solid #337ab7;
+        label.POMPProviderVerDetalle > a {           
             border-radius: 2px;
             float: right;
-            margin: 9px 8px 0 0;
+            margin: 4px 8px 0 0;
             padding: 3px 10px;
+            font-size:0.88em !important;
+            letter-spacing:-0.5px;
             text-align: center;
             width: 100px;
         }

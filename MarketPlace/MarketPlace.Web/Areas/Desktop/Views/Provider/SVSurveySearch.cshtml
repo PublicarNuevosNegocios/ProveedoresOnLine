@@ -21,11 +21,9 @@
             </div>
             <div class="POMPSearchResultsOrder">
                 <!--Orders-->
-                <ul>
+                <ul class="POMPProviderSurvey_mainFilter">
                     <li>
-                        <label>Ordenar por:</label>
-                    </li>
-                    <li>
+                        <span>Ordenar por:</span>
                         <!--order-->
                         <select id="SurveySearch_Order">
                             @{string strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_0";}
@@ -52,7 +50,7 @@
                     </li>
                     <li>
                         <!--actions-->
-                        <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
+                        <a class="POMPButtonsSurvey" href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
                     </li>
                 </ul>
             </div>

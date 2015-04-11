@@ -28,53 +28,58 @@
         });
 }
 <div class="POMPProviderGreatWrapper">
-    <label class="POMPSectionTitles">Responder evaluación de desempeño</label>
+    <label class="POMPSectionTitles">@((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)</label>
     <!--Provider info-->
     <div class="POMPProviderSideMenuWrapper">
         <div class="POMPProviderSideMenu">
-            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.RelatedLiteProvider)
+            <div class="POMPProviderMenuDetail">
+                @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.RelatedLiteProvider)
+            </div>
         </div>
     </div>
     <!--Survey info-->
-    <div class="POMPResultsBasicInfo">
-        <a>
-            @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-        </a>
-        <ul>
-            <li>
-                <label>Calificación:</label>
-                <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",",".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-            </li>
-            <li>
-                <label>Progreso:</label>
-                <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
-                <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
-            </li>
-            <li>
-                <label>Estado:</label>
-                <span>@Model.RelatedSurvey.SurveyStatusName</span>
-            </li>
-            <li>
-                <label>Fecha de programación:</label>
-                <span>@Model.RelatedSurvey.SurveyIssueDate</span>
-            </li>
-            <li>
-                <label>Evaluador:</label>
-                <span>@Model.RelatedSurvey.SurveyEvaluator</span>
-            </li>
-            <li>
-                <label>Ultima actualización:</label>
-                <span>@Model.RelatedSurvey.SurveyLastModify</span>
-            </li>
-            <li>
-                <label>Responsable:</label>
-                <span>@Model.RelatedSurvey.SurveyResponsible</span>
-            </li>
-        </ul>
+    <div class="POMPResultsBasicInfoSurvey">
+        <div class="POMPResultsBasicInfo">
+            <ul>
+                <li>
+                    <label>Calificación:</label>
+                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",",".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                    <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+                </li>
+                <li>
+                    <label>Progreso:</label>
+                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+                    <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
+                </li>
+                @*<li>
+                    <label>Estado:</label>
+                    <span>@Model.RelatedSurvey.SurveyStatusName</span>
+                </li>*@
+                <li>
+                    <label>Fecha de programación:</label>
+                    <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+                </li>
+                @*<li>
+                    <label>Evaluador:</label>
+                    <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+                </li>*@
+                @*<li>
+                    <label>Ultima actualización:</label>
+                    <span>@Model.RelatedSurvey.SurveyLastModify</span>
+                </li>*@
+                <li>
+                    <label>Responsable:</label>
+                    <span>@Model.RelatedSurvey.SurveyResponsible</span>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="POMPProviderDataWrapper">
-        <div class="POMPResultsOrder">
+    <!--Survey info END END END-->
+
+
+    <!-------- AQUI ARRANCA EL BLOQUE DE PREGUNTAS ---------->
+    <div class="POMPProviderDataWrapperSurvey">
+
             @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close)
             {
                 <div class="PMMPSurveyFinished">
@@ -100,7 +105,7 @@
                         }
                         @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
                         {
-                                <!--Survey 100%-->
+                            <!--Survey 100%-->
                             <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
                         }
                         <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
@@ -112,14 +117,12 @@
 
                         var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
                             (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
-                        <div class="POMPProviderQuestions">
+                        <div class="POMPProviderQuestions QuestionsForSurvey">
                             <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
 
                             <ul>
-
-                                <li>
+                                <li style="border-bottom:none;">
                                     <span class="PMMPNumeric">@EvaluationArea.Order. @EvaluationArea.Name</span>
-
                                     <ul>
                                         <li>
                                             @foreach (var Question in lstQuestion)
@@ -135,9 +138,11 @@
                                                 }
                                                 <span class="PMMPNumeric PMMPSmallText">@Question.Order. @Question.Name</span>
 
-                                                foreach (var Answer in lstAnswer)
-                                                {
-                                                    <ul>
+                                                <ul>
+
+                                                    @foreach (var Answer in lstAnswer)
+                                                    {
+
                                                         <li>
                                                             @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
                                                             {
@@ -149,8 +154,8 @@
                                                             }
                                                             <span>@Answer.Name</span>
                                                         </li>
-                                                    </ul>
-                                                }
+                                                    }
+                                                </ul>
 
                                                 if (Question.HasDescription)
                                                 {
@@ -205,7 +210,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+
     </div>
 </div>
 @section inlinescripts
