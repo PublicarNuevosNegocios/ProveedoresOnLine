@@ -21,7 +21,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
         public int ProjectConfigUpsert(string CustomerPublicId, int? ProjectConfigId, string ProjectName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-            
+
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectName", ProjectName));
@@ -72,7 +72,8 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest(){
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
                 CommandText = "EvaluationItemInfoUpsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
@@ -83,7 +84,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int RowCount, int PageNumber, out int TotalRows)
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -94,7 +95,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "",
+                CommandText = "CP_ProjectConfig_GetByCustomerProvider",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -132,10 +133,11 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                          },
                          RelatedEvaluationItem =
                             (from ei in response.DataTableResult.AsEnumerable()
-                             where !ei.IsNull("EvaluationItemId")
+                             where !ei.IsNull("EvaluationItemId") &&
+                                    ei.Field<int>("ProjectConfigId") == pcg.Key.ProjectConfigId
                              group ei by new
                              {
-                                 EvaluationInfoId = ei.Field<int>("EvaluationInfoId"),
+                                 EvaluationItemId = ei.Field<int>("EvaluationItemId"),
                                  EvaluationItemName = ei.Field<string>("EvaluationItemName"),
                                  EvaluationTypeId = ei.Field<int>("EvaluationTypeId"),
                                  EvaluationTypeName = ei.Field<string>("EvaluationTypeName"),
@@ -143,7 +145,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              } into eig
                              select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                              {
-                                 ItemId = eig.Key.EvaluationInfoId,
+                                 ItemId = eig.Key.EvaluationItemId,
                                  ItemName = eig.Key.EvaluationItemName,
                                  ItemType = new Company.Models.Util.CatalogModel()
                                  {
@@ -153,7 +155,8 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                  Enable = eig.Key.EvaluationItemEnable,
                                  ItemInfo =
                                     (from eiinf in response.DataTableResult.AsEnumerable()
-                                     where !eiinf.IsNull("EvaluationItemInfoId")
+                                     where !eiinf.IsNull("EvaluationItemInfoId") &&
+                                            eiinf.Field<int>("EvaluationItemId") == eig.Key.EvaluationItemId
                                      group eiinf by new
                                      {
                                          EvaluationItemInfoId = eiinf.Field<int>("EvaluationItemInfoId"),
