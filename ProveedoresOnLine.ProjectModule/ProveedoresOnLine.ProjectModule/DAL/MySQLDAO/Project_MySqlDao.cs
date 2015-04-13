@@ -157,11 +157,10 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             return Convert.ToInt32(response.ScalarResult);
         }
 
-        public int ProjectCompanyUpsert(int? ProjectCompanyId, string ProjectPublicId, string CompanyPublicId, bool Enable)
+        public int ProjectCompanyUpsert(string ProjectPublicId, string CompanyPublicId, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vProjectCompanyId", ProjectCompanyId));
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectPublicId", ProjectPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
