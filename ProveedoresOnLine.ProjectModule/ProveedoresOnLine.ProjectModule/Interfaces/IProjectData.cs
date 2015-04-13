@@ -26,7 +26,7 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         int ProjectInfoUpsert(int? ProjectInfoId, string ProjectPublicId, int ProjectInfoType, string Value, string LargeValue, bool Enable);
 
-        int ProjectCompanyUpsert(int? ProjectCompanyId, string ProjectPublicId, string CompanyPublicId, bool Enable);
+        int ProjectCompanyUpsert(string ProjectPublicId, string CompanyPublicId, bool Enable);
 
         int ProjectCompanyInfoUpsert(int? ProjectCompanyInfoId, int ProjectCompanyId, int? EvaluationItemId, int ProjectCompanyInfoType, string Value, string LargeValue, bool Enable);
 

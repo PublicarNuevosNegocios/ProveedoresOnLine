@@ -169,11 +169,11 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     ProjectToUpsert.ProjectStatus.ItemId,
                     ProjectToUpsert.Enable);
 
-                //upsert survey info
-                //SurveyToUpsert = SurveyInfoUpsert(SurveyToUpsert);
+                //upsert project info
+                ProjectToUpsert = ProjectInfoUpsert(ProjectToUpsert);
 
-                //upsert survey item 
-                //SurveyToUpsert = SurveyItemUpsert(SurveyToUpsert);
+                //upsert project company
+                ProjectToUpsert = ProjectCompanyUpsert(ProjectToUpsert);
 
                 oLog.IsSuccess = true;
             }
@@ -253,10 +253,12 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     try
                     {
                         pjp.ProjectCompanyId = DAL.Controller.ProjectDataController.Instance.ProjectCompanyUpsert
-                            (pjp.ProjectCompanyId > 0 ? (int?)pjp.ProjectCompanyId : null,
-                            ProjectToUpsert.ProjectPublicId,
+                            (ProjectToUpsert.ProjectPublicId,
                             pjp.RelatedProvider.RelatedCompany.CompanyPublicId,
                             pjp.Enable);
+
+                        //upsert info
+                        pjp = ProjectInfoUpsert(pjp);
 
                         oLog.IsSuccess = true;
                     }
@@ -285,6 +287,55 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             }
 
             return ProjectToUpsert;
+        }
+
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel ProjectInfoUpsert(ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel ProjectProviderToUpsert)
+        {
+            if (ProjectProviderToUpsert.ProjectCompanyId > 0 &&
+                ProjectProviderToUpsert.ItemInfo != null &&
+                ProjectProviderToUpsert.ItemInfo.Count > 0)
+            {
+                ProjectProviderToUpsert.ItemInfo.All(pjpvinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        pjpvinf.ItemInfoId = DAL.Controller.ProjectDataController.Instance.ProjectCompanyInfoUpsert
+                            (pjpvinf.ItemInfoId > 0 ? (int?)pjpvinf.ItemInfoId : null,
+                            ProjectProviderToUpsert.ProjectCompanyId,
+                            pjpvinf.RelatedEvaluationItem != null ? (int?)pjpvinf.RelatedEvaluationItem.ItemId : null,
+                            pjpvinf.ItemInfoType.ItemId,
+                            pjpvinf.Value,
+                            pjpvinf.LargeValue,
+                            pjpvinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = pjpvinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "ProjectCompanyId",
+                            Value = ProjectProviderToUpsert.ProjectCompanyId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ProjectProviderToUpsert;
         }
 
         #endregion
