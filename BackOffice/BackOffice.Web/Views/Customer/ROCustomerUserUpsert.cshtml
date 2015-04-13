@@ -40,7 +40,7 @@
 
     <div id="divGridCustomerUserRoles_ViewEnablesTemplate">
         <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridRiskPolicies_ViewEnable" type="checkbox" checked="checked" />
+        <input class="POBOProviderGridEnableContact" id="divGridCustomerUserRoles_ViewEnable" type="checkbox" checked="checked" />
     </div>
 </div>
 
@@ -62,7 +62,7 @@
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 RoleCompanyList: @Html.Raw(vstrRoleCompanyList),
             });
-            Customer_RulesObject.Render_CustomerUserRules();
+            Customer_RulesObject.RenderAsync();
         });
     </script>
 }

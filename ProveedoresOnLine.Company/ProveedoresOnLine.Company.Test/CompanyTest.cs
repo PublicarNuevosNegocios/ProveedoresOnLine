@@ -189,7 +189,7 @@ namespace ProveedoresOnLine.Company.Test
         {
             List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn =
                 ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetUsersByPublicId
-                ("DA5C572E");
+                ("DA5C572E", true);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
         }
