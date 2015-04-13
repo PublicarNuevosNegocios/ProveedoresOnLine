@@ -15,11 +15,5 @@ namespace ProveedoresOnLine.CompanyCustomer.Models.Customer
         public List<CustomerProviderModel> RelatedProvider { get; set; }
 
         #endregion
-
-        #region Customer Project Config
-
-        public List<ProjectConfigModel> RelatedProjectConfig { get; set; }
-
-        #endregion
     }
 }
