@@ -71,9 +71,9 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.ProjectInfoUpsert(ProjectInfoId, ProjectPublicId, ProjectInfoType, Value, LargeValue, Enable);
         }
 
-        public int ProjectCompanyUpsert(int? ProjectCompanyId, string ProjectPublicId, string CompanyPublicId, bool Enable)
+        public int ProjectCompanyUpsert(string ProjectPublicId, string CompanyPublicId, bool Enable)
         {
-            return DataFactory.ProjectCompanyUpsert(ProjectCompanyId, ProjectPublicId, CompanyPublicId, Enable);
+            return DataFactory.ProjectCompanyUpsert(ProjectPublicId, CompanyPublicId, Enable);
         }
 
         public int ProjectCompanyInfoUpsert(int? ProjectCompanyInfoId, int ProjectCompanyId, int? EvaluationItemId, int ProjectCompanyInfoType, string Value, string LargeValue, bool Enable)
