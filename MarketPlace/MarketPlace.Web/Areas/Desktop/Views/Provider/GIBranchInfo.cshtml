@@ -22,13 +22,13 @@
                         <label class="POMPProviderDataSubtitle">
                             @if (!string.IsNullOrEmpty(item.BR_City))
                             {
-                                <span>@item.BR_City, @item.BR_Name</span>
+                                <span>@item.BR_City @item.BR_Name</span>
                             }
                         </label>
                         @if (!string.IsNullOrEmpty(item.BR_Representative))
                         {
                             <label>
-                                Representante
+                                Nombre de Contacto
                                 <span>@item.BR_Representative</span>
                             </label>
                         }
@@ -64,7 +64,7 @@
                         {
                             <label>
                                 Página Web
-                                <span><a href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
+                                <span><a target="_blank" href="http://@item.BR_Website" title="@item.BR_Website">@item.BR_Website</a></span>
                             </label>
                         }
                         <label>

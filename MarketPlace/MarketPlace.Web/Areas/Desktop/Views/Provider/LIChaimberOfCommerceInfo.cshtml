@@ -25,6 +25,20 @@
                                 <span>Fecha de Expedición del Certificado: @Model.RelatedLegalInfo.Where(x => x.CP_CertificateExpeditionDate != null).Select(x => x.CP_CertificateExpeditionDate).FirstOrDefault()</span>
                             }
                         </label>
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_InscriptionCity != null).Select(x => x.CP_InscriptionCity).FirstOrDefault()))
+                        {
+                            <label>
+                                Ciudad
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_InscriptionCity != null).Select(x => x.CP_InscriptionCity).FirstOrDefault()</span>
+                            </label>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()))
+                        {
+                            <label>
+                                Fecha de Constitución
+                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()</span>
+                            </label>
+                        }
                         @if (Model.RelatedLegalInfo.Where(x => x.CP_UndefinedDate != null).Select(x => x.CP_UndefinedDate).FirstOrDefault() == "1")
                         {
                             <label>
@@ -39,28 +53,13 @@
                                 <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionEndDate != null).Select(x => x.CP_ConstitutionEndDate).FirstOrDefault()</span>
                             </label>
                         }
-
-                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()))
-                        {
-                            <label>
-                                Fecha de Constitución
-                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_ConstitutionDate != null).Select(x => x.CP_ConstitutionDate).FirstOrDefault()</span>
-                            </label>
-                        }
-                        @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_InscriptionCity != null).Select(x => x.CP_InscriptionCity).FirstOrDefault()))
-                        {
-                            <label>
-                                Ciudad
-                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_InscriptionCity != null).Select(x => x.CP_InscriptionCity).FirstOrDefault()</span>
-                            </label>
-                        }
                         @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_InscriptionNumber != null).Select(x => x.CP_InscriptionNumber).FirstOrDefault()))
                         {
                             <label>
                                 Número de Matricula
                                 <span>@Model.RelatedLegalInfo.Where(x => x.CP_InscriptionNumber != null).Select(x => x.CP_InscriptionNumber).FirstOrDefault()</span>
                             </label>
-                        }
+                        }                      
                         @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_ExistenceAndLegalPersonCertificate != null).Select(x => x.CP_ExistenceAndLegalPersonCertificate).FirstOrDefault()))
                         {
                             <label>
@@ -69,15 +68,15 @@
                         }
                         @if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.Where(x => x.CP_SocialObject != null).Select(x => x.CP_SocialObject).FirstOrDefault()))
                         {
-                            <label>
+                            <label class="POMPProviderObjetoSocial">
                                 Objeto Social
-                                <span>@Model.RelatedLegalInfo.Where(x => x.CP_SocialObject != null).Select(x => x.CP_SocialObject).FirstOrDefault()</span>
+                                <span><br />@Model.RelatedLegalInfo.Where(x => x.CP_SocialObject != null).Select(x => x.CP_SocialObject).FirstOrDefault()</span>
                             </label>
-                        }
+                        }                                                
                         @if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
                         {
                             <label class="POMPProviderDataSubtitle">
-                                Socios, Miembros junta directiva, entre otros
+                                Socios, Miembros Junta Directiva, Entre Otros
                             </label>
                             foreach (var item in Model.RelatedDesignationsInfo)
                             {
@@ -95,7 +94,6 @@
                                 </label>
                             }
                         }
-
                     </li>
                 }
             }

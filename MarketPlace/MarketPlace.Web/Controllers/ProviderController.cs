@@ -1347,7 +1347,7 @@ namespace MarketPlace.Web.Controllers
                 //header
                 MarketPlace.Models.General.GenericMenu oMenuAux = new Models.General.GenericMenu()
                 {
-                    Name = "Información general",
+                    Name = "Información General",
                     Position = 0,
                     ChildMenu = new List<Models.General.GenericMenu>(),
                 };
@@ -1373,7 +1373,7 @@ namespace MarketPlace.Web.Controllers
                 //Company persons Contact info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información de personas de contacto",
+                    Name = "Información de Personas de Contacto",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -1410,7 +1410,7 @@ namespace MarketPlace.Web.Controllers
                 //Distributors
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Distribuidores",
+                    Name = "Representación y/o Distribuciones",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -1456,7 +1456,7 @@ namespace MarketPlace.Web.Controllers
                 //header
                 oMenuAux = new Models.General.GenericMenu()
                 {
-                    Name = "Información comercial",
+                    Name = "Información Comercial",
                     Position = 1,
                     ChildMenu = new List<Models.General.GenericMenu>(),
                 };
@@ -1571,7 +1571,7 @@ namespace MarketPlace.Web.Controllers
                 //Balancesheet info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Estados financieros",
+                    Name = "Estados Financieros",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -1607,7 +1607,7 @@ namespace MarketPlace.Web.Controllers
                 //income statement
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Declaración de renta",
+                    Name = "Declaración de Renta",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -1625,7 +1625,7 @@ namespace MarketPlace.Web.Controllers
                 //Bank Info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Información bancaria",
+                    Name = "Información Bancaria",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -1660,7 +1660,7 @@ namespace MarketPlace.Web.Controllers
                 //Balancesheet info
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Cámara de comercio",
+                    Name = "Cámara de Comercio",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -1678,7 +1678,7 @@ namespace MarketPlace.Web.Controllers
                 //RUT
                 oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
                 {
-                    Name = "Registro único tributario",
+                    Name = "Registro Único Tributario",
                     Url = Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new

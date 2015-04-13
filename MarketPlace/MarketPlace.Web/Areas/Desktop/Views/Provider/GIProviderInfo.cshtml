@@ -16,7 +16,7 @@
         <label class="POMPSectionTitles">Resumen del Proveedor</label>
         <ul class="POMPProviderInfoMultipleValues">
             <li>
-                <label class="POMPProviderDataSubtitle">Información básica</label>
+                <label class="POMPProviderDataSubtitle">Información Básica</label>
                 @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
                 {
                     if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
@@ -57,7 +57,7 @@
                     if (!string.IsNullOrWhiteSpace(Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()))
                     {
                         <label>
-                            Fáx
+                            Fax
                             <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Fax).FirstOrDefault()</span>
                         </label>
                     }
@@ -77,9 +77,9 @@
                     }
                     if (!string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
                     {
-                        <label>
+                        <label class="POMPProviderObjetoSocial">
                             Objeto Social
-                            <span>@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
+                            <span><br />@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
                         </label>
                     }
                     <label class="POMPProviderVerDetalle">
