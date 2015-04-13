@@ -14,10 +14,25 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
         {
             RoleType = 102005,
             K_ContrTreeType = 114014,
-        } 
+
+            K_MinValue = 117001,
+            K_Maxvalue = 117002,
+            K_Score = 117003,
+
+            //Tree Tables
+            K_ProviderExpirienceScore = 37,
+            K_BuilderExpirienceScore = 38,
+            K_YearsNumberConsultant = 39,
+            K_MaxValueConsultant = 40,
+            K_ContractsInBuilderConsultant = 41,
+            K_ScoreHeritage = 42,
+            K_LiquidityScore = 43,
+            K_IndebtednessScore = 44,
+            K_TecnicCapacityScore = 45
+        }
         #endregion
 
-        #region EconomyActivity       
+        #region EconomyActivity
 
         public enum enumActivitiEconomicInfoType
         {
@@ -25,7 +40,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             Consultant = 610002,
             Builder = 610003,
         }
- 
+
         #endregion
 
         #region Commecial
@@ -39,7 +54,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             //Experience            
             EX_EconomicActivity = 302013,
             EX_CustomEconomicActivity = 302014,
-        } 
+        }
         #endregion
 
         #region Legal
@@ -51,7 +66,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
         public enum enumLegalInfoType
         {
             CP_ConstitutionDate = 602001,
-        } 
+        }
         #endregion
 
         #region Financial
@@ -61,7 +76,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             BalanceSheetInfoType = 501001,
         }
 
-      //enum AccountsInfo 
+        //enum AccountsInfo 
 
         #endregion
     }
