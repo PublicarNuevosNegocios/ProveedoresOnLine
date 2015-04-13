@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 {
@@ -82,33 +83,104 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
         }
 
-        //public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetProjectConfigByCustomer(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows)
-        //{
-        //    List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oReturn = null;
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int RowCount, int PageNumber, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-        //    List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
 
-        //    lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-        //    lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
-        //    lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
 
-        //    ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-        //    {
-        //        CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-        //        CommandText = "",
-        //        CommandType = System.Data.CommandType.StoredProcedure,
-        //        Parameters = lstParams,
-        //    });
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oReturn = null;
+            TotalRows = 0;
 
-        //    if (response.DataTableResult != null &&
-        //        response.DataTableResult.Rows.Count > 0)
-        //    {
-        //        oReturn =
-        //            (from )
-        //    }
 
-        //    return oReturn;
-        //}
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+
+                oReturn =
+                    (from pc in response.DataTableResult.AsEnumerable()
+                     where !pc.IsNull("ProjectConfigId")
+                     group pc by new
+                     {
+                         ProjectConfigId = pc.Field<int>("ProjectConfigId"),
+                         ProjectConfigName = pc.Field<string>("ProjectConfigName"),
+                         CompanyPublicId = pc.Field<string>("CompanyPublicId"),
+                         ProjectConfigEnable = pc.Field<UInt64>("ProjectConfigEnable") == 1 ? true : false,
+                     } into pcg
+                     select new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                     {
+                         ItemId = pcg.Key.ProjectConfigId,
+                         ItemName = pcg.Key.ProjectConfigName,
+                         Enable = pcg.Key.ProjectConfigEnable,
+                         RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
+                         {
+                             RelatedCompany = new Company.Models.Company.CompanyModel()
+                             {
+                                 CompanyPublicId = pcg.Key.CompanyPublicId,
+                             },
+                         },
+                         RelatedEvaluationItem =
+                            (from ei in response.DataTableResult.AsEnumerable()
+                             where !ei.IsNull("EvaluationItemId")
+                             group ei by new
+                             {
+                                 EvaluationInfoId = ei.Field<int>("EvaluationInfoId"),
+                                 EvaluationItemName = ei.Field<string>("EvaluationItemName"),
+                                 EvaluationTypeId = ei.Field<int>("EvaluationTypeId"),
+                                 EvaluationTypeName = ei.Field<string>("EvaluationTypeName"),
+                                 EvaluationItemEnable = ei.Field<UInt64>("EvaluationItemEnable") == 1 ? true : false,
+                             } into eig
+                             select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                             {
+                                 ItemId = eig.Key.EvaluationInfoId,
+                                 ItemName = eig.Key.EvaluationItemName,
+                                 ItemType = new Company.Models.Util.CatalogModel()
+                                 {
+                                     ItemId = eig.Key.EvaluationTypeId,
+                                     ItemName = eig.Key.EvaluationTypeName
+                                 },
+                                 Enable = eig.Key.EvaluationItemEnable,
+                                 ItemInfo =
+                                    (from eiinf in response.DataTableResult.AsEnumerable()
+                                     where !eiinf.IsNull("EvaluationItemInfoId")
+                                     group eiinf by new
+                                     {
+                                         EvaluationItemInfoId = eiinf.Field<int>("EvaluationItemInfoId"),
+                                         EvaluationItemInfoTypeId = eiinf.Field<int>("EvaluationItemInfoTypeId"),
+                                         EvaluationItemInfoTypeName = eiinf.Field<string>("EvaluationItemInfoTypeName"),
+                                         Value = eiinf.Field<string>("Value"),
+                                         LargeValue = eiinf.Field<string>("LargeValue"),
+                                         EvaluationItemInfoEnable = eiinf.Field<UInt64>("EvaluationItemInfoEnable") == 1 ? true : false,
+                                     } into eiinfg
+                                     select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                     {
+                                         ItemInfoId = eiinfg.Key.EvaluationItemInfoId,
+                                         ItemInfoType = new Company.Models.Util.CatalogModel()
+                                         {
+                                             ItemId = eiinfg.Key.EvaluationItemInfoTypeId,
+                                             ItemName = eiinfg.Key.EvaluationItemInfoTypeName,
+                                         },
+                                         Value = eiinfg.Key.Value,
+                                         LargeValue = eiinfg.Key.LargeValue,
+                                         Enable = eiinfg.Key.EvaluationItemInfoEnable,
+                                     }).ToList(),
+                             }).ToList(),
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
 
         #endregion
 

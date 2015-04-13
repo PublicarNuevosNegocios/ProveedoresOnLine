@@ -7,8 +7,9 @@ namespace ProveedoresOnLine.ProjectModule.Test
     public class ProjectModule
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GetAllProjectConfigByCustomerPublicId()
         {
+            
         }
     }
 }
