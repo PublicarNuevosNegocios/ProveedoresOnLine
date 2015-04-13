@@ -66,7 +66,7 @@ namespace MarketPlace.Web.Controllers
                     //provider search
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Busqueda de proveedores",
+                        Name = "Busqueda de Proveedores",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -85,7 +85,7 @@ namespace MarketPlace.Web.Controllers
                     //provider compare
                     oReturn.Add(new GenericMenu()
                     {
-                        Name = "Comparación de proveedores",
+                        Name = "Comparación de Proveedores",
                         Position = oPosition,
                         Url = Url.RouteUrl(
                             MarketPlace.Models.General.Constants.C_Routes_Default,
