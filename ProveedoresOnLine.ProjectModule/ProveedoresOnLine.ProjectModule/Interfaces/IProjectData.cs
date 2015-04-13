@@ -16,7 +16,7 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         int EvaluationItemInfoUpsert(int? EvaluationItemInfoId, int EvaluationItemId, int EvaluationItemInfoType, string Value, string LargeValue, bool Enable);
 
-        //List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetProjectConfigByCustomer(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows);
+        List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows);
 
         #endregion
 

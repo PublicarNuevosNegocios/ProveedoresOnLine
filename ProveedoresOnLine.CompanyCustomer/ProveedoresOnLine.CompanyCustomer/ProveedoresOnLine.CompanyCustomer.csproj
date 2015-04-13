@@ -67,7 +67,6 @@
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Customer\CustomerModel.cs" />
     <Compile Include="Models\Customer\CustomerProviderModel.cs" />
-    <Compile Include="Models\Customer\ProjectConfigModel.cs" />
     <Compile Include="Models\Enumerations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

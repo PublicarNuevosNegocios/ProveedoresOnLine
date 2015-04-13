@@ -145,6 +145,11 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return EvaluationItemInfoToUpsert;
         }
 
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DAL.Controller.ProjectDataController.Instance.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, PageNumber, RowCount, out TotalRows);
+        }
+
         #endregion
 
         #region Project
