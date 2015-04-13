@@ -150,6 +150,14 @@ label.POMPProviderDataIndiceAltman{
         line-height: 1.1em !important;
         margin:0px 0px 0px 12px;
     }
+    label.POMPProviderObjetoSocial {
+        display: block;
+        width: 100% !important;        
+        width: 98.2% !important;
+    }
+        label.POMPProviderObjetoSocial > span{
+            text-align:justify;
+        }
     label.POMPProviderVerDetalle {
         border: medium none !important;
         display: block;
