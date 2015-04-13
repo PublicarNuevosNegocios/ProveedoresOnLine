@@ -38,22 +38,24 @@ namespace MessageModule.Agent.AWSMail
             //get message info
             Amazon.SimpleEmail.Model.Message oMessage = new Amazon.SimpleEmail.Model.Message();
 
-            //get message subject
-            oMessage.Subject = new Amazon.SimpleEmail.Model.Content(oMsjConfig[Constants.C_Agent_AWS_Subject]);
-
-            //get message body
+            //get message body and subject
             string oMsjBody = oMsjConfig[Constants.C_Agent_AWS_MessageBody];
+            string oMsjSubject = oMsjConfig[Constants.C_Agent_AWS_Subject];
 
             if (MessageToSend.QueueProcessInfo != null && MessageToSend.QueueProcessInfo.Count > 0)
             {
                 MessageToSend.QueueProcessInfo.All(MsjParams =>
                 {
                     oMsjBody = oMsjBody.Replace("{" + MsjParams.Item2 + "}", MsjParams.Item3);
+                    oMsjSubject = oMsjSubject.Replace("{" + MsjParams.Item2 + "}", MsjParams.Item3);
                     return true;
                 });
             }
             oMessage.Body = new Amazon.SimpleEmail.Model.Body();
             oMessage.Body.Html = new Amazon.SimpleEmail.Model.Content(oMsjBody);
+
+            //get message subject
+            oMessage.Subject = new Amazon.SimpleEmail.Model.Content(oMsjSubject);
 
             //get email request object
             Amazon.SimpleEmail.Model.SendEmailRequest oEmailRequest = new Amazon.SimpleEmail.Model.SendEmailRequest
