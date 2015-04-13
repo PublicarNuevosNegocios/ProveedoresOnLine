@@ -175,7 +175,23 @@ namespace ProveedoresOnLine.CompanyProviderBatch
         {
             GenericItemModel K_ContactModel = new GenericItemModel();
 
-            //
+            #region Expiriences Caltulation
+
+            int Years = 0;
+            DateTime ConstitutionCompanydate = oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumLegalInfoType.CP_ConstitutionDate)
+                                                .Select(x => Convert.ToDateTime(x.Value)).DefaultIfEmpty(DateTime.Now).FirstOrDefault();
+            //Set Expirience Years
+            Years = DateTime.Now.Year - ConstitutionCompanydate.Year;
+
+            string oTotalExpirienceScore;
+
+            //oTotalExpirienceScore = CompanyProviderBatch.Models.General.K_ScoreTables.Where(x => x.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_ProviderExpirienceScore)
+            //                        .Select(x => x.ItemInfo.Where(Years >= (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue && Years <= (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).
+            //                                                    Select(y => y.ItemInfoType.)
+
+
+
+            #endregion
 
             return K_ContactModel;
         }
