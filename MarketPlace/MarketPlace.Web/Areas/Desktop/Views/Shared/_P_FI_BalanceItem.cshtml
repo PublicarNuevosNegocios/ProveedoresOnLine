@@ -25,23 +25,21 @@
     if (!string.IsNullOrEmpty(Model.AccountFormula))
     {
         <!--formula field-->
-    <ul class="POMPBalanceSheetContentFormulaFields">
-        <li>
+        <li class="POMPBalanceSheetContentFormulaFields">
             <span class="FormulaFieldsColumnOne">@Model.RelatedAccount.ItemName</span>
-        @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
-        {
+            @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
+            {
                 <span class="FormulaFieldsColumnTwo">
                     @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##")
                 </span>
                 <span class="FormulaFieldsColumnThree">
                     @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
                 </span>
-        }
+            }
             <span class="FormulaFieldsColumnFour">
                 @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##"))
             </span>
         </li>
-    </ul>
     }
     else
     {
@@ -51,9 +49,9 @@
             <span class="POMPBalanceSheetColumnDataTwo">
                 @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##")
             </span>
-    <span class="POMPBalanceSheetColumnDataThree">
-        @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
-    </span>
+            <span class="POMPBalanceSheetColumnDataThree">
+                @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
+            </span>
         }
         <span class="POMPBalanceSheetColumnDataFour">
             @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##"))
