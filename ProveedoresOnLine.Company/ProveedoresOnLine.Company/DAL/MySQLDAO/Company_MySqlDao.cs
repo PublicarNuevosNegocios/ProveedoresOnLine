@@ -1944,11 +1944,12 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
+        public List<UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId, bool ViewEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vViewEnable", ViewEnable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

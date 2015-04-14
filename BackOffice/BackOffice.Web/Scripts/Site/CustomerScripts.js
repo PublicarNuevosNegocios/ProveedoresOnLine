@@ -130,6 +130,13 @@ var Customer_RulesObject = {
         this.RoleCompanyList = vInitObject.RoleCompanyList;
     },
 
+    RenderAsync: function () {
+
+        Customer_RulesObject.Render_CustomerUserRules();
+
+        Customer_RulesObject.ConfigEvents();
+    },
+
     ConfigKeyBoard: function () {
 
         //init keyboard tooltip
@@ -156,6 +163,18 @@ var Customer_RulesObject = {
                 $('#' + Customer_RulesObject.ObjectId).data("kendoGrid").cancelChanges();
             }
         });
+    },
+
+    ConfigEvents: function () {
+
+        //config grid infro visible enable event
+        $('#' + Customer_RulesObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Customer_RulesObject.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnableInfo: function () {
+        return $('#' + Customer_RulesObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_RulesObject.ObjectId + '_ViewEnable').is(':checked') : true;
     },
 
     Render_CustomerUserRules: function () {
@@ -187,7 +206,7 @@ var Customer_RulesObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&CustomerPublicId=' + Customer_RulesObject.CustomerPublicId + '&ViewEnable=' + Customer_RulesObject.GetViewEnableInfo(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -209,6 +228,8 @@ var Customer_RulesObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
+
+                                $('#' + Customer_RulesObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -227,6 +248,8 @@ var Customer_RulesObject = {
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se editó la fila con el id ' + options.data.UserCompanyId + '.');
+
+                                $('#' + Customer_RulesObject.ObjectId).data('kendoGrid').dataSource.read();
                             },
                             error: function (result) {
                                 options.error(result);
@@ -291,6 +314,7 @@ var Customer_RulesObject = {
                 width: '100px',
             }, ],
         });
+
     },
 };
 
@@ -367,7 +391,7 @@ var Customer_SurveyObject = {
         return $('#' + Customer_SurveyObject.ObjectId + '_txtSearch').val();
     },
 
-    Search:function(){
+    Search: function () {
         $('#' + Customer_SurveyObject.ObjectId).data('kendoGrid').dataSource.read();
     },
 
@@ -534,7 +558,7 @@ var Customer_SurveyObject = {
                 field: 'SurveyName',
                 title: 'Nombre',
                 width: '200px',
-            },{
+            }, {
                 field: 'StepEnable',
                 title: 'Paso a paso',
                 width: '100px',
@@ -985,7 +1009,7 @@ var Customer_SurveyItemObject = {
                     }
                     return oReturn;
                 },
-            },{
+            }, {
                 field: 'SurveyConfigItemInfoIsMandatory',
                 title: 'Obligatorio',
                 width: '100px',

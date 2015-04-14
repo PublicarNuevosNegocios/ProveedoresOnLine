@@ -196,13 +196,15 @@
                 .FormulaFieldsColumnOne{
                     width: 22%;
                     height: 28px !important;
-                    padding: 0 2px 0 4px !important;
+                    padding:5px 2px 0 4px !important;
+                    text-transform:uppercase;
                 }
                 .FormulaFieldsColumnTwo,
                 .FormulaFieldsColumnThree,
                 .FormulaFieldsColumnFour{
                     text-align:right;
                     height: 28px !important;
+                    vertical-align:top;
                 }
                     .FormulaFieldsColumnTwo{
                         width:16%;
@@ -302,6 +304,6 @@
     width:23.1%;
 }
 .IndexDataAccountTypeColumnFive {
-
+    text-align:justify;
     width:22.9%;
 }

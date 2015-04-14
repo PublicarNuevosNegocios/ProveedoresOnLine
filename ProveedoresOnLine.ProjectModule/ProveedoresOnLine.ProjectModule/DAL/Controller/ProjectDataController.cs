@@ -52,10 +52,10 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.EvaluationItemInfoUpsert(EvaluationItemInfoId, EvaluationItemId, EvaluationItemInfoType, Value, LargeValue, Enable);
         }
 
-        //public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetProjectConfigByCustomer(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows)
-        //{
-        //    return DataFactory.GetProjectConfigByCustomer(CustomerPublicId, PageNumber, RowCount, out TotalRows);
-        //}
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, PageNumber, RowCount, out TotalRows);
+        }
 
         #endregion
 

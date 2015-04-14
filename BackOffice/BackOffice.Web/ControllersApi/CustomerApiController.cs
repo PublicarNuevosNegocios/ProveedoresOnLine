@@ -65,6 +65,7 @@ namespace BackOffice.Web.ControllersApi
         [HttpGet]
         public List<BackOffice.Models.Customer.CustomerRoleViewModel> UserRolesByCustomer
         (string UserRolesByCustomer,
+            string ViewEnable,
             string CustomerPublicId)
         {
             List<BackOffice.Models.Customer.CustomerRoleViewModel> oReturn = new List<Models.Customer.CustomerRoleViewModel>();
@@ -72,7 +73,7 @@ namespace BackOffice.Web.ControllersApi
             if (UserRolesByCustomer == "true")
             {
                 List<ProveedoresOnLine.Company.Models.Company.UserCompany> oUsersRole = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetUsersByPublicId
-                    (CustomerPublicId);
+                    (CustomerPublicId, Convert.ToBoolean(ViewEnable));
 
                 if (oUsersRole != null)
                 {
@@ -112,7 +113,7 @@ namespace BackOffice.Web.ControllersApi
                     {
                         ItemId = Convert.ToInt32(oDataToUpsert.RoleCompanyId),
                     },
-                    Enable = true,
+                    Enable = Convert.ToBoolean(oDataToUpsert.UserCompanyEnable),
                 };
 
                 ProveedoresOnLine.Company.Controller.Company.UserCompanyUpsert(oUserCompany);

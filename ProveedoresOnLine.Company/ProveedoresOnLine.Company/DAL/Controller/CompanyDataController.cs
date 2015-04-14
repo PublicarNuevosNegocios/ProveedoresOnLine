@@ -273,9 +273,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.RoleCompany_GetByPublicId(CompanyPublicId);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId)
+        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> RoleCompany_GetUsersByPublicId(string CompanyPublicId, bool ViewEnable)
         {
-            return DataFactory.RoleCompany_GetUsersByPublicId(CompanyPublicId);
+            return DataFactory.RoleCompany_GetUsersByPublicId(CompanyPublicId, ViewEnable);
         }
 
         public List<ProveedoresOnLine.Company.Models.Company.CompanyModel> MP_RoleCompanyGetByUser(string User)
