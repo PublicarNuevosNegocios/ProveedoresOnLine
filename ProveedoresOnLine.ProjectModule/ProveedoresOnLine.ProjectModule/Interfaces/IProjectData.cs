@@ -18,6 +18,8 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows);
 
+        List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> MPProjectConfigGetByCustomer(string CustomerPublicId);
+
         #endregion
 
         #region Project
@@ -29,6 +31,12 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
         int ProjectCompanyUpsert(string ProjectPublicId, string CompanyPublicId, bool Enable);
 
         int ProjectCompanyInfoUpsert(int? ProjectCompanyInfoId, int ProjectCompanyId, int? EvaluationItemId, int ProjectCompanyInfoType, string Value, string LargeValue, bool Enable);
+
+        List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows);
+
+        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId);
+
+        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdLite(string ProjectPublicId, string CustomerPublicId);
 
         #endregion
     }

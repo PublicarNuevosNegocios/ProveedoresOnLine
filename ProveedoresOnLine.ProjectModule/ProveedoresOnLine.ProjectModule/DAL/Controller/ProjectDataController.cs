@@ -81,6 +81,26 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.ProjectCompanyInfoUpsert(ProjectCompanyInfoId, ProjectCompanyId, EvaluationItemId, ProjectCompanyInfoType, Value, LargeValue, Enable);
         }
 
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> MPProjectConfigGetByCustomer(string CustomerPublicId)
+        {
+            return DataFactory.MPProjectConfigGetByCustomer(CustomerPublicId);
+        }
+
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
+        {
+            return DataFactory.ProjectSearch(CustomerPublicId, SearchParam, ProjectStatus, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId)
+        {
+            return DataFactory.ProjectGetById(ProjectPublicId, CustomerPublicId);
+        }
+
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdLite(string ProjectPublicId, string CustomerPublicId)
+        {
+            return DataFactory.ProjectGetByIdLite(ProjectPublicId, CustomerPublicId);
+        }
+
         #endregion
     }
 }
