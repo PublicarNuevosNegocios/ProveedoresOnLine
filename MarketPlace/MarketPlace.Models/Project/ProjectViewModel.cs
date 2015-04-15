@@ -12,6 +12,8 @@ namespace MarketPlace.Models.Project
 
         public List<MarketPlace.Models.Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
 
+        public bool RenderScripts { get; set; }
+
         public int TotalRows { get; set; }
 
         public string ProjectPublicId { get { return RelatedProject.ProjectPublicId; } }
