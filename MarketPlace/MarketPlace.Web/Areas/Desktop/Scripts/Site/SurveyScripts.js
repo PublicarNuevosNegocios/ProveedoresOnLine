@@ -55,7 +55,7 @@ var Survey_ProgramObject = {
                                 },
                                 error: function (result) {
                                     DialogDiv.dialog("close");
-                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Ha ocurrido un errro programando la evaluación de desempeño.', null);
+                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Ha ocurrido un error programando la evaluación de desempeño.', null);
                                 }
                             });
                         }

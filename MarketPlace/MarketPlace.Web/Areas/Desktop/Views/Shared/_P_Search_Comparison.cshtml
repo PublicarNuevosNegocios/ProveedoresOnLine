@@ -17,7 +17,7 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        <a href="javascript:Provider_SearchObject.a();" title="Iniciar precalificación" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.ShowProjectCreate();" title="Iniciar precalificación" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
             <span>Iniciar precalificación</span>
         </a>
@@ -51,7 +51,7 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        <a href="javascript:Provider_SearchObject.a();" title="Iniciar precalificación" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.ShowProjectCreate();" title="Iniciar precalificación" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
             <span>Iniciar precalificación</span>
         </a>
@@ -94,15 +94,25 @@
                 <ul>
                     <li>
                         <span>Nombre: </span>
-                        <input type="text" id="Search_Compare_CreateProject_ToolTip_Name" name="ProjectName" />
+                        <input type="text" id="Search_Compare_CreateProject_ToolTip_Name" name="ProjectName" placeholder="Nombre de la precalificación" required validationmessage="El nombre de la precalificación es obligatorio" />
                     </li>
                     <li>
-                        <span>Precalificación: </span>
-                        <select id="Search_Compare_CreateProject_ToolTip_Name" name="ProjectName">
-                            <option>aa</option>
+                        <span>Tipo de precalificación: </span>
+                        <select id="Search_Compare_CreateProject_ToolTip_ProjectConfig" name="ProjectConfig" required validationmessage="Seleccione un tipo de precalificación">
+                            <option value="">Seleccione una opción</option>
+                            @if (Model.RelatedProjectConfig != null && Model.RelatedProjectConfig.Count > 0)
+                            {
+                                foreach (MarketPlace.Models.Project.ProjectConfigViewModel pjc in Model.RelatedProjectConfig)
+                                {
+                                    <option value="@pjc.ProjectConfigId">@pjc.ProjectConfigName</option>
+                                }
+                            }
                         </select>
                     </li>
                 </ul>
+                <div style="display:none;">
+                    <input type="hidden" id="Search_Compare_CreateProject_ToolTip_CompareId" name="CompareId" value="" />
+                </div>
             </form>
         </div>
     </div>

@@ -48,6 +48,8 @@ namespace MarketPlace.Web.Controllers
                     ProviderSearchResult = new List<Models.Provider.ProviderLiteViewModel>(),
                 };
 
+                #region Providers
+
                 //search providers
                 int oTotalRowsAux;
                 List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> oProviderResult =
@@ -81,8 +83,13 @@ namespace MarketPlace.Web.Controllers
 
                 }
 
+                #endregion
+
                 if (!string.IsNullOrEmpty(ProjectPublicId))
                 {
+                    #region Project
+
+                    //get current project
                     ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                         ProjectGetByIdLite
                         (ProjectPublicId,
@@ -92,20 +99,48 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedProject = new Models.Project.ProjectViewModel(oProjectResult);
                     }
-                }
-                else if (!string.IsNullOrEmpty(CompareId))
-                {
-                    //get current compare 
-                    ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
-                        CompareGetCompanyBasicInfo
-                        (Convert.ToInt32(CompareId.Replace(" ", "")),
-                        MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-                    if (oCompareResult != null && oCompareResult.CompareId > 0)
+                    #endregion
+                }
+                else
+                {
+                    #region Compare
+
+                    if (!string.IsNullOrEmpty(CompareId))
                     {
-                        oModel.RelatedCompare = new Models.Compare.CompareViewModel(oCompareResult);
+                        //get current compare 
+                        ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
+                            CompareGetCompanyBasicInfo
+                            (Convert.ToInt32(CompareId.Replace(" ", "")),
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                            MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+                        if (oCompareResult != null && oCompareResult.CompareId > 0)
+                        {
+                            oModel.RelatedCompare = new Models.Compare.CompareViewModel(oCompareResult);
+                        }
                     }
+
+                    #endregion
+
+                    #region Project config
+
+                    //get project config items
+                    List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oProjectConfigResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+                        MPProjectConfigGetByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+                    if (oProjectConfigResult != null && oProjectConfigResult.Count > 0)
+                    {
+                        oModel.RelatedProjectConfig = new List<Models.Project.ProjectConfigViewModel>();
+
+                        oProjectConfigResult.All(pjc =>
+                        {
+                            oModel.RelatedProjectConfig.Add(new Models.Project.ProjectConfigViewModel(pjc));
+                            return true;
+                        });
+                    }
+
+                    #endregion
                 }
             }
 

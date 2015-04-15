@@ -73,6 +73,15 @@
                                 controller = MVC.Compare.Name,
                                 action = MVC.Compare.ActionNames.CompareDetail
                             }))',
+
+                ProjectPublicId: '@(Model.RelatedProject != null ? Model.RelatedProject.ProjectPublicId : string.Empty)',
+                ProjectUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.Index
+                            }) + "?ProjectPublicId={ProjectPublicId}")',
+
                 SearchParam: '@Model.SearchParam',
                 SearchFilter: '@Model.SearchFilter',
                 SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
