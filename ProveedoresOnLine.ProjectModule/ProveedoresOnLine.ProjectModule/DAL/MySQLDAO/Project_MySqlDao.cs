@@ -85,11 +85,12 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vViewEnable", ViewEnable == true ? 1 : 0));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
 
@@ -132,55 +133,37 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                  CompanyPublicId = pcg.Key.CompanyPublicId,
                              },
                          },
-                         RelatedEvaluationItem =
-                            (from ei in response.DataTableResult.AsEnumerable()
-                             where !ei.IsNull("EvaluationItemId") &&
-                                    ei.Field<int>("ProjectConfigId") == pcg.Key.ProjectConfigId
-                             group ei by new
-                             {
-                                 EvaluationItemId = ei.Field<int>("EvaluationItemId"),
-                                 EvaluationItemName = ei.Field<string>("EvaluationItemName"),
-                                 EvaluationTypeId = ei.Field<int>("EvaluationTypeId"),
-                                 EvaluationTypeName = ei.Field<string>("EvaluationTypeName"),
-                                 EvaluationItemEnable = ei.Field<UInt64>("EvaluationItemEnable") == 1 ? true : false,
-                             } into eig
-                             select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                             {
-                                 ItemId = eig.Key.EvaluationItemId,
-                                 ItemName = eig.Key.EvaluationItemName,
-                                 ItemType = new Company.Models.Util.CatalogModel()
-                                 {
-                                     ItemId = eig.Key.EvaluationTypeId,
-                                     ItemName = eig.Key.EvaluationTypeName
-                                 },
-                                 Enable = eig.Key.EvaluationItemEnable,
-                                 ItemInfo =
-                                    (from eiinf in response.DataTableResult.AsEnumerable()
-                                     where !eiinf.IsNull("EvaluationItemInfoId") &&
-                                            eiinf.Field<int>("EvaluationItemId") == eig.Key.EvaluationItemId
-                                     group eiinf by new
-                                     {
-                                         EvaluationItemInfoId = eiinf.Field<int>("EvaluationItemInfoId"),
-                                         EvaluationItemInfoTypeId = eiinf.Field<int>("EvaluationItemInfoTypeId"),
-                                         EvaluationItemInfoTypeName = eiinf.Field<string>("EvaluationItemInfoTypeName"),
-                                         Value = eiinf.Field<string>("Value"),
-                                         LargeValue = eiinf.Field<string>("LargeValue"),
-                                         EvaluationItemInfoEnable = eiinf.Field<UInt64>("EvaluationItemInfoEnable") == 1 ? true : false,
-                                     } into eiinfg
-                                     select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                     {
-                                         ItemInfoId = eiinfg.Key.EvaluationItemInfoId,
-                                         ItemInfoType = new Company.Models.Util.CatalogModel()
-                                         {
-                                             ItemId = eiinfg.Key.EvaluationItemInfoTypeId,
-                                             ItemName = eiinfg.Key.EvaluationItemInfoTypeName,
-                                         },
-                                         Value = eiinfg.Key.Value,
-                                         LargeValue = eiinfg.Key.LargeValue,
-                                         Enable = eiinfg.Key.EvaluationItemInfoEnable,
-                                     }).ToList(),
-                             }).ToList(),
                      }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vViewEnable", ViewEnable == true ? 1 : 0));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CP_EvaluationItem_GetByProjectConfig",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            TotalRows = 0;
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oReturn = null;
+
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
             }
 
             return oReturn;
