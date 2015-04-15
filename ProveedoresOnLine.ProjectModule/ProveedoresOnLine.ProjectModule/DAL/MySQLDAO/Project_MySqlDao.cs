@@ -417,7 +417,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                     ProjectName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectName"),
                     ProjectStatus = new Company.Models.Util.CatalogModel()
                     {
-                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("ProjectStatusId"),
+                        ItemId = (int)response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectStatusId"),
                         ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectStatusName"),
                     },
                     LastModify = response.DataSetResult.Tables[0].Rows[0].Field<DateTime>("ProjectLastModify"),
@@ -448,7 +448,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
                     RelatedProjectConfig = new ProjectConfigModel()
                     {
-                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("ProjectConfigId"),
+                        ItemId = (int)response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectConfigId"),
                         ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectConfigName"),
                         RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
                         {
@@ -462,7 +462,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                             (from pjei in response.DataSetResult.Tables[2].AsEnumerable()
                              where !pjei.IsNull("EvaluationItemId") &&
                                     pjei.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId") &&
-                                    pjei.Field<int>("ProjectConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<int>("ProjectConfigId")
+                                    pjei.Field<Int64>("ProjectConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectConfigId")
                              group pjei by new
                              {
                                  EvaluationItemId = pjei.Field<int>("EvaluationItemId"),
@@ -521,7 +521,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                          group rpp by new
                          {
                              ProjectCompanyId = rpp.Field<int>("ProjectCompanyId"),
-                             ProjectCompanyLastModify = rpp.Field<DateTime>("ProjectCompanyId"),
+                             ProjectCompanyLastModify = rpp.Field<DateTime>("ProjectCompanyLastModify"),
                          } into rppg
                          select new ProjectProviderModel()
                          {
@@ -652,7 +652,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                     ProjectName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectName"),
                     ProjectStatus = new Company.Models.Util.CatalogModel()
                     {
-                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("ProjectStatusId"),
+                        ItemId = (int)response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectStatusId"),
                         ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectStatusName"),
                     },
                     LastModify = response.DataSetResult.Tables[0].Rows[0].Field<DateTime>("ProjectLastModify"),
@@ -683,7 +683,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
                     RelatedProjectConfig = new ProjectConfigModel()
                     {
-                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("ProjectConfigId"),
+                        ItemId = (int)response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectConfigId"),
                         ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectConfigName"),
                         RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
                         {
@@ -701,7 +701,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                          group rpp by new
                          {
                              ProjectCompanyId = rpp.Field<int>("ProjectCompanyId"),
-                             ProjectCompanyLastModify = rpp.Field<DateTime>("ProjectCompanyId"),
+                             ProjectCompanyLastModify = rpp.Field<DateTime>("ProjectCompanyLastModify"),
                          } into rppg
                          select new ProjectProviderModel()
                          {

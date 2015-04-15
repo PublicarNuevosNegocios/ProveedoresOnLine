@@ -28,5 +28,24 @@ namespace ProveedoresOnLine.ProjectModule.Test
 
             Assert.AreEqual(1, 1);
         }
+
+
+        [TestMethod]
+        public void ProjectGetById()
+        {
+            ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn =
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetById("1EC791B6", "DA5C572E");
+
+            Assert.IsNotNull(oReturn);
+        }
+
+        [TestMethod]
+        public void ProjectGetByIdLite()
+        {
+            ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn =
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdLite("1EC791B6", "DA5C572E");
+
+            Assert.IsNotNull(oReturn);
+        }
     }
 }
