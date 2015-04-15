@@ -1,0 +1,35 @@
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+
+@if (!Model.RenderScripts)
+{
+    <!--Project actions-->
+    <span class="POMPComparisonTitle">Precalificación</span>
+    <div class="POMPComparisonActionWrapper">
+        <a href="javascript:Provider_SearchObject.a();" title="Precalificar">
+            <div class="POMPComparisonActionNew"></div>
+            <span>Precalificar</span>
+        </a>
+    </div>
+    <!--Compare title-->
+    <input type="text" id="Search_Project_ProjectName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedProject == null ? string.Empty: Model.RelatedProject.ProjectName)" style="display: @(Model.RelatedProject == null ? "none" : "");" />
+    <!--Compare Providers-->
+    <ul id="Search_Project_ItemContainer" class="POMPComparisonProvListWrapper">
+        @if (Model.RelatedProject != null && Model.RelatedProject.RelatedProvider != null && Model.RelatedProject.RelatedProvider.Count > 0)
+        {
+            foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oProjectItem in Model.RelatedProject.RelatedProvider)
+            {
+                oProjectItem.IsComparisonView = true;
+                <li>
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectItem)
+                </li>
+            }
+        }
+    </ul>
+    <!--Comparison actions-->
+    <div class="Search_Compare_SelActionCompare POMPComparisonActionWrapper" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.a();" title="Precalificar">
+            <div class="POMPComparisonActionNew"></div>
+            <span>Precalificar</span>
+        </a>
+    </div>
+}

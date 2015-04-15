@@ -98,6 +98,9 @@
     <Reference Include="ProveedoresOnLine.CompareModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompareModule\developer\ProveedoresOnLine.CompareModule.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.ProjectModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
     </Reference>
@@ -199,6 +202,7 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ControllersApi\CompanyApiController.cs" />
+    <Compile Include="ControllersApi\ProjectApiController.cs" />
     <Compile Include="ControllersApi\SurveyApiController.cs" />
     <Compile Include="ControllersApi\ProviderApiController.cs" />
     <Compile Include="ControllersApi\CompareApiController.cs" />
@@ -994,6 +998,7 @@
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearch_Result_Pager.cshtml" />
     <Content Include="Areas\Desktop\Views\Survey\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_Search_Project.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

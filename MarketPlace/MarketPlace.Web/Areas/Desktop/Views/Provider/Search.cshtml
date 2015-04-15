@@ -8,7 +8,7 @@
 }
 
 <div class="POMPProviderSearchBox">
-    @*SearchBox*@
+    <!--SearchBox-->
     <input class="POMPTextField" id="Search_txtSearchBox" type="text" value="@Model.SearchParam" onkeydown="if (event.keyCode == 13) javascript:Provider_SearchObject.Search()" placeholder="Buscar Proveedor por Razón Social, NIT o Actividad." />
     <a class="POMPButtons POMPSearchButtons" href="javascript:Provider_SearchObject.Search();">
         Encontrar
@@ -18,16 +18,24 @@
 <div class="POMProviderSearchGreatWrapper">
 
     <div class="POMPProviderFilterMenuWrapper">
-        @*SearchFilter*@
+        <!--SearchFilter-->
         @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
     </div>
     <div class="POMPProviderListWrapper">
-        @*SearchResult*@
+        <!--SearchResult-->
         @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
     </div>
     <div class="POMPComparisonListWrapper">
-        @*Comparison*@
-        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+        @if (Model.RelatedProject != null)
+        {
+            <!--Project-->
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
+        }
+        else
+        {
+            <!--Comparison-->
+            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+        }
     </div>
 
 </div>
@@ -39,7 +47,14 @@
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
-    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+    @if (Model.RelatedProject != null)
+    {
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
+    }
+    else
+    {
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+    }
 
     <script type="text/javascript">
         $(document).ready(function () {

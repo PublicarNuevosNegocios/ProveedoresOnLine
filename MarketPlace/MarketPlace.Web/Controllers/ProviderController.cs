@@ -22,7 +22,8 @@ namespace MarketPlace.Web.Controllers
         #region Provider search
 
         public virtual ActionResult Search
-            (string CompareId,
+            (string ProjectPublicId,
+            string CompareId,
             string SearchParam,
             string SearchFilter,
             string SearchOrderType,
@@ -80,7 +81,19 @@ namespace MarketPlace.Web.Controllers
 
                 }
 
-                if (!string.IsNullOrEmpty(CompareId))
+                if (!string.IsNullOrEmpty(ProjectPublicId))
+                {
+                    ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+                        ProjectGetByIdLite
+                        (ProjectPublicId,
+                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+                    if (oProjectResult != null && !string.IsNullOrEmpty(oProjectResult.ProjectPublicId))
+                    {
+                        oModel.RelatedProject = new Models.Project.ProjectViewModel(oProjectResult);
+                    }
+                }
+                else if (!string.IsNullOrEmpty(CompareId))
                 {
                     //get current compare 
                     ProveedoresOnLine.CompareModule.Models.CompareModel oCompareResult = ProveedoresOnLine.CompareModule.Controller.CompareModule.
@@ -89,7 +102,10 @@ namespace MarketPlace.Web.Controllers
                         MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                         MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-                    oModel.RelatedCompare = new Models.Compare.CompareViewModel(oCompareResult);
+                    if (oCompareResult != null && oCompareResult.CompareId > 0)
+                    {
+                        oModel.RelatedCompare = new Models.Compare.CompareViewModel(oCompareResult);
+                    }
                 }
             }
 

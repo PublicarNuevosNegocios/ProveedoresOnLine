@@ -49,6 +49,7 @@ namespace T4MVC.Desktop
                 public readonly string _P_Search_Comparison = "_P_Search_Comparison";
                 public readonly string _P_Search_Filter = "_P_Search_Filter";
                 public readonly string _P_Search_Order = "_P_Search_Order";
+                public readonly string _P_Search_Project = "_P_Search_Project";
                 public readonly string _P_Search_Result = "_P_Search_Result";
                 public readonly string _P_Search_Result_Item = "_P_Search_Result_Item";
                 public readonly string _P_Search_Result_Pager = "_P_Search_Result_Pager";
@@ -69,6 +70,7 @@ namespace T4MVC.Desktop
             public readonly string _P_Search_Comparison = "~/Areas/Desktop/Views/Shared/_P_Search_Comparison.cshtml";
             public readonly string _P_Search_Filter = "~/Areas/Desktop/Views/Shared/_P_Search_Filter.cshtml";
             public readonly string _P_Search_Order = "~/Areas/Desktop/Views/Shared/_P_Search_Order.cshtml";
+            public readonly string _P_Search_Project = "~/Areas/Desktop/Views/Shared/_P_Search_Project.cshtml";
             public readonly string _P_Search_Result = "~/Areas/Desktop/Views/Shared/_P_Search_Result.cshtml";
             public readonly string _P_Search_Result_Item = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Item.cshtml";
             public readonly string _P_Search_Result_Pager = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Pager.cshtml";
