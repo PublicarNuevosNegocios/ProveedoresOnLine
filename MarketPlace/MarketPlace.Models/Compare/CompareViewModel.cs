@@ -22,10 +22,7 @@ namespace MarketPlace.Models.Compare
 
         public CompareViewModel(ProveedoresOnLine.CompareModule.Models.CompareModel oRelatedCompare)
         {
-            if (oRelatedCompare != null)
-                RelatedCompare = oRelatedCompare;
-            else
-                RelatedCompare = new ProveedoresOnLine.CompareModule.Models.CompareModel();
+            RelatedCompare = oRelatedCompare;
 
             RelatedProvider = new List<Provider.ProviderLiteViewModel>();
 

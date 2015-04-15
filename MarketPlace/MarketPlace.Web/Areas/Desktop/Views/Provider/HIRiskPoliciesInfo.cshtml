@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Proveedores OnLine - Riesgos laborales";
+    ViewBag.Title = "Proveedores OnLine - Sistema de Riesgos Laborales";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -12,7 +12,7 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Sistema de riesgos laborales</label>
+        <label class="POMPSectionTitles">Sistema de Riesgos Laborales</label>
         @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
         {
             <ul class="POMPProviderInfoDisplayList">
@@ -30,13 +30,13 @@
                 </li>
                 <li>
                     <label>
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()">Ver Archivo Afiliación ARL</a>
+                        Resultado LTIF:
+                        <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                     </label>
                 </li>
                 <li>
                     <label>
-                        Resultado LTIF:
-                        <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()">Ver Archivo Afiliación ARL</a>
                     </label>
                 </li>
             </ul>

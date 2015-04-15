@@ -343,22 +343,22 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return ProjectProviderToUpsert;
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> MPProjectConfigGetByCustomer(string CustomerPublicId)
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> MPProjectConfigGetByCustomer(string CustomerPublicId)
         {
             return DAL.Controller.ProjectDataController.Instance.MPProjectConfigGetByCustomer(CustomerPublicId);
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.ProjectDataController.Instance.ProjectSearch(CustomerPublicId, SearchParam, ProjectStatus, PageNumber, RowCount, out  TotalRows);
         }
 
-        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId)
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetById(string ProjectPublicId, string CustomerPublicId)
         {
             return DAL.Controller.ProjectDataController.Instance.ProjectGetById(ProjectPublicId, CustomerPublicId);
         }
 
-        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdLite(string ProjectPublicId, string CustomerPublicId)
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdLite(string ProjectPublicId, string CustomerPublicId)
         {
             return DAL.Controller.ProjectDataController.Instance.ProjectGetByIdLite(ProjectPublicId, CustomerPublicId);
         }

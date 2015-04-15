@@ -203,6 +203,12 @@
                             - 3 o más No es probable la falta de liquidez
                         </span>
                     </label>
+                    <label>
+                        Utilidad del Ejercicio
+                        <span>
+                            Utilidad del Ejercicio
+                        </span>
+                    </label>
 
                     <label class="POMPProviderVerDetalle">
                         <a href="@(Url.RouteUrl
@@ -223,13 +229,13 @@
             {
                 <li>
                     <label class="POMPProviderDataSubtitle">Información HSEQ</label>
-                    @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
-                    {
-                        <label>
-                            LTIF
-                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
-                        </label>
-                    }
+
+                    <label>
+                        Empresa de sistema de riegos
+                        <span>Empresa de sistema de riegos</span>
+                    </label>
+
+
                     @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
                     {
                         <label>
@@ -242,13 +248,6 @@
                             else
                             {
                                 <span>No</span>
-                            }
-                        </label>
-                        <label>
-                            Certificado CCS
-                            @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
-                            {
-                                <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
                             }
                         </label>
                         <label>
@@ -268,6 +267,20 @@
                         <label>
                             Nivel de Riesgo ARL
                             <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                        </label>
+                        <label>
+                            Guia RUC-CCS
+                            @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
+                            {
+                                <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
+                            }
+                        </label>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
+                    {
+                        <label>
+                            LTIF
+                            <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
                         </label>
                     }
                     <label class="POMPProviderVerDetalle">

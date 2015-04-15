@@ -1,6 +1,6 @@
 ﻿@model MarketPlace.Models.Provider.ProviderViewModel
 @{
-    ViewBag.Title = "Proveedores OnLine - Salud, medio ambiente y seguridad";
+    ViewBag.Title = "Proveedores OnLine - Politicas de Seguridad, Medio Ambiente y Seguridad";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -12,7 +12,7 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Salud, medio ambiente y seguridad</label>
+        <label class="POMPSectionTitles">Politicas de Seguridad, Medio Ambiente y Seguridad</label>
         <ul class="POMPProviderInfoMultipleValues">
             <li>
                 @foreach (var item in Model.RelatedHSEQlInfo)
@@ -33,7 +33,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo Política de no Alcohol, Drogas y Fumadores</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsNoAlcohol">Ver Archivo de Política de no alcohol, Drogas y Fumadores</a>
                         </label>
 
                     }
@@ -41,7 +41,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo Programa de Salud Ocupacional</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramOccupationalHealth">Ver Archivo de Sistema de Gestión de Seguridad y Salud en el Trabajo</a>
                         </label>
 
                     }
@@ -49,7 +49,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo Reglamento de Higiene y Seguridad</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_RuleIndustrialSecurity">Ver Archivo de Reglamento de Higiene y Seguridad Industrial</a>
                         </label>
 
                     }
@@ -57,7 +57,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_MatrixRiskControl">Ver Archivo de Matriz de Identificación de Peligros, Evaluación y Control de Riesgos</a>
                         </label>
 
                     }
@@ -65,7 +65,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo Responsabilidad Social Empresarial</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CorporateSocialResponsability">Ver Archivo de Responsabilidad Social Empresarial</a>
                         </label>
 
                     }
@@ -73,7 +73,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo Programa de Seguridad Empresarial y Logística</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_ProgramEnterpriseSecurity">Ver Archivo de Programa de Seguridad Empresarial y Logística</a>
                         </label>
 
                     }
@@ -81,7 +81,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo Política de Contratación de Personal</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsRecruiment">Ver Archivo de Política de Contratación de Personal</a>
                         </label>
 
                     }
@@ -89,7 +89,7 @@
                     {
 
                         <label>
-                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CertificationsForm">Ver Archivo Formulario de Certificaciones</a>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_CertificationsForm">Ver Archivo de Formulario Certificaciones</a>
                         </label>
                     }
 

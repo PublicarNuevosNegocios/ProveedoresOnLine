@@ -42,6 +42,9 @@
     <Reference Include="ProveedoresOnLine.CompareModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompareModule\developer\ProveedoresOnLine.CompareModule.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.ProjectModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
     </Reference>
@@ -72,6 +75,7 @@
     <Compile Include="General\InternalSettings.cs" />
     <Compile Include="General\EconomicActivityViewModel.cs" />
     <Compile Include="General\SessionModel.cs" />
+    <Compile Include="Project\ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ProviderBalanceSheetDetailViewModel.cs" />
     <Compile Include="Provider\ProviderBalanceSheetViewModel.cs" />
@@ -91,6 +95,7 @@
     <Compile Include="Survey\SurveySearchViewModel.cs" />
     <Compile Include="Survey\SurveyViewModel.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
