@@ -6,43 +6,41 @@
     min-width:682px;
 }
 .POMPBalanceSheet_mainFilter {
-    border-bottom: 1px solid #c5c5c5;
     background-color: #f9f9f9;
-    margin: 0px !important;
-    padding: 24px 0 0 15px;  
-    height:67px;
+    border-bottom: 1px solid #c5c5c5;
+    height: auto;
+    margin: 0 !important;
+    padding: 6px 0 6px 16px;
 }
     .POMPBalanceSheet_mainFilter li{
         display: inline-block;
         height: auto;
-        vertical-align: top;
-        width: 37.5%;
-    }
-    .POMPBalanceSheet_mainFilter li:nth-child(3){
-        display: inline-block;
-        height: auto;
-        vertical-align: top;
-        width:auto;
+        vertical-align:middle;
     }
         .POMPBalanceSheet_mainFilter li label {
-            display: inline;
+            display: inline-block;
             font-size: 0.9em;
             font-weight: normal;
-            margin: -21px 0 0;
-            position: absolute;
+            margin: 0;
         }
+    .POMPBalanceSheet_mainFilter li:first-child{
+        display:block; margin: 0 0 5px;
+    }
+    .POMPBalanceSheet_mainFilter li:nth-child(2){width: 22%;}
+    .POMPBalanceSheet_mainFilter li:nth-child(3){width: 26%;}
         .POMPBalanceSheet_mainFilter li span {
             color: #4d4d4d;
-            font-size: 1.2em;
+            font-size: 1em;
         }
         .POMPBalanceSheet_mainFilter li select {
             display:inline-block;
             color: #666;
             font-size: 1.05em;
-            border:1px solid #727276;
-            width:66%;
+            border:1px solid #727276;            
             background-color:#ddd;
         }
+            .POMPBalanceSheet_mainFilter li:nth-child(2) select {width: 74%;}
+            .POMPBalanceSheet_mainFilter li:nth-child(3) select {width: 62%;}
         .POMPBalanceSheet_mainFilter li a {
             border-radius:2px;
         }
@@ -158,6 +156,10 @@
                     .POMPBalanceSheetColumnDataFour {
                         width:15.1%;
                     }
+                    /******* CURRENCY *******/
+                    .POMPBalanceSheetColumnDataTwo > span, .POMPBalanceSheetColumnDataFour > span{
+                        font-size:0.74em;
+                    }
 /********** DATOS DE LAS CELDAS **********/
                     .POMPBalanceSheetContent > ul > li > ul > li > ul > li > ul > li > span{
                         border:none;
@@ -184,12 +186,12 @@
             display:block;
             background-color:#FFF !important;
             width:100%; height:auto; 
-            border-top: 1px solid grey;
+            border-top: 2px solid grey;
         }
             .POMPBalanceSheetContentFormulaFields > span{
                 letter-spacing:-0.5px;
                 background-color:#fff !important;
-                padding:5px 2px 5px 4px;
+                padding:5px 1px 5px 1px;
                 line-height:1.06em;
                 display:inline-block;
                 margin:3px 0px 3px 0px !important;
@@ -216,6 +218,10 @@
                     }
                     .FormulaFieldsColumnFour{
                         width:15.1%; 
+                    }
+                    /********* CURRENCY ********/
+                    .FormulaFieldsColumnTwo > span, .FormulaFieldsColumnFour > span{
+                        font-size:0.74em;
                     }
         /********** ESTE PINTA EL ULTIMO GRUPO DE VALORES ***********/
 

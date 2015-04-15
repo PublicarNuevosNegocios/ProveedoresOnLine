@@ -45,7 +45,9 @@
             <ul class="POMPBalanceSheet_mainFilter">
                 <li>
                     <label>Seleccionar el año y el tipo de moneda</label>
-                    <span>Año</span>
+                </li>
+                <li>
+                    <span>Año: </span>
                     <select id="BalanceSheet_Year">
                         @if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
                         {
@@ -70,7 +72,7 @@
                 @if (oViewName != MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators)
                 {
                     <li>
-                        <span>Moneda</span>
+                        <span>Moneda: </span>
                         <select id="BalanceSheet_Currency">
                             @foreach (var ci in MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
                             {
