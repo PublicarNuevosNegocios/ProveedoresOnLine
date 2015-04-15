@@ -1095,6 +1095,7 @@
     <Content Include="Views\Provider\FIOrganizationStructureUpsert.cshtml" />
     <Content Include="Views\Customer\SCSurveyConfigUpsert.cshtml" />
     <Content Include="Views\Customer\SCSurveyConfigItemUpsert.cshtml" />
+    <Content Include="Views\Customer\PCProjectConfigUpsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

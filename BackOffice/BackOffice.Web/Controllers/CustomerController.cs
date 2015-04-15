@@ -221,6 +221,15 @@ namespace BackOffice.Web.Controllers
 
         #endregion
 
+        #region ProjectConfig
+
+        public virtual ActionResult PCProjectConfigUpsert(string CustomerPublicId)
+        {
+            return View();
+        }
+
+        #endregion
+
         #region Menu
 
         private List<BackOffice.Models.General.GenericMenu> GetCustomerMenu
@@ -330,6 +339,39 @@ namespace BackOffice.Web.Controllers
 
                 //add menu
                 oReturn.Add(oMenuAux);
+
+                #endregion
+
+                #region Project config
+
+                ////header
+                //oMenuAux = new Models.General.GenericMenu()
+                //{
+                //    Name = "Configuración de Precalificaciones",
+                //    Position = 3,
+                //    ChildMenu = new List<Models.General.GenericMenu>(),
+                //};
+
+                ////Company User
+                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                //{
+                //    Name = "Precalificaciones",
+                //    Url = Url.Action
+                //        (MVC.Customer.ActionNames.PCProjectConfigUpsert,
+                //        MVC.Customer.Name,
+                //        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
+                //    Position = 0,
+                //    IsSelected =
+                //        ((oCurrentAction == MVC.Customer.ActionNames.PCProjectConfigUpsert ||
+                //        oCurrentAction == MVC.Customer.ActionNames.PCProjectConfigUpsert) &&
+                //        oCurrentController == MVC.Customer.Name),
+                //});
+
+                ////get is selected menu
+                //oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                ////add menu
+                //oReturn.Add(oMenuAux);
 
                 #endregion
 
