@@ -64,7 +64,7 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-        #region PrivateMethods
+        #region Private Methods
 
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
         {
@@ -88,8 +88,6 @@ namespace MarketPlace.Web.ControllersApi
             };
 
             //get company info
-
-
             System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
             {
                 string[] strSplit = req.Split('_');

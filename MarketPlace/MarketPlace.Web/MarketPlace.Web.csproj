@@ -1008,6 +1008,8 @@
     <Content Include="Areas\Desktop\Views\Survey\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Project.cshtml" />
     <Content Include="Areas\Desktop\Views\Project\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Project\ProjectDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Project\ProjectProviderDetail.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

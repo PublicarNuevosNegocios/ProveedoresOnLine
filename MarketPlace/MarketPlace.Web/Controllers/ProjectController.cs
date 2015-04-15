@@ -10,9 +10,20 @@ namespace MarketPlace.Web.Controllers
 {
     public partial class ProjectController : BaseController
     {
-        public virtual ActionResult Index(string ProjectPublicId)
+        public virtual ActionResult Index()
         {
             return View();
         }
+
+        public virtual ActionResult ProjectDetail(string ProjectPublicId)
+        {
+            return View();
+        }
+
+        public virtual ActionResult ProjectProviderDetail(string ProjectPublicId, string ProviderPublicId)
+        {
+            return View();
+        }
+
     }
 }

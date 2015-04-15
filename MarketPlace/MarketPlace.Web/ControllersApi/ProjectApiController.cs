@@ -16,34 +16,60 @@ namespace MarketPlace.Web.ControllersApi
         {
             if (ProjectUpsert == "true")
             {
-                //ProveedoresOnLine.CompareModule.Models.CompareModel oCompareToUpsert = new ProveedoresOnLine.CompareModule.Models.CompareModel()
-                //{
-                //    CompareId = string.IsNullOrEmpty(CompareId) ? 0 : Convert.ToInt32(CompareId),
-                //    CompareName = CompareName,
-                //    User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                //    Enable = true,
-                //};
+                //get project request
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = GetProjectUpsertRequest();
 
-                //if (!string.IsNullOrEmpty(ProviderPublicId))
-                //{
-                //    oCompareToUpsert.RelatedProvider = new List<ProveedoresOnLine.CompareModule.Models.CompareCompanyModel>()
-                //    {
-                //        new ProveedoresOnLine.CompareModule.Models.CompareCompanyModel()
-                //        {
-                //            Enable = true,
-                //            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                //            {
-                //                CompanyPublicId = ProviderPublicId,
-                //            },
-                //        },
-                //    };
-                //}
+                //validate related compare
+                if (oProjectToUpsert.ProjectInfo.
+                        Any(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Compare &&
+                                !string.IsNullOrEmpty(x.Value)))
+                {
+                    int oCompareId = oProjectToUpsert.ProjectInfo.
+                        Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Compare &&
+                                    !string.IsNullOrEmpty(x.Value)).
+                        Select(x => Convert.ToInt32(x.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
 
-                //oCompareToUpsert = ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareUpsert(oCompareToUpsert);
+                    ProveedoresOnLine.CompareModule.Models.CompareModel oCompare = ProveedoresOnLine.CompareModule.Controller.CompareModule.
+                            CompareGetCompanyBasicInfo
+                            (oCompareId,
+                            MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                            MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-                //return oCompareToUpsert.CompareId;
+                    if (oCompare != null &&
+                        oCompare.RelatedProvider != null &&
+                        oCompare.RelatedProvider.Count > 0)
+                    {
+                        //get compare providers
+
+                        oProjectToUpsert.RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>();
+
+                        oCompare.RelatedProvider.All(prv =>
+                        {
+                            oProjectToUpsert.RelatedProjectProvider.Add(new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                            {
+                                RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                                {
+                                    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                    {
+                                        CompanyPublicId = prv.RelatedCompany.CompanyPublicId,
+                                    }
+                                },
+                                Enable = true,
+                            });
+
+                            return true;
+                        });
+                    }
+
+                }
+
+                //upsert project
+                oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+
+                return oProjectToUpsert.ProjectPublicId;
             }
-
             return string.Empty;
         }
 
@@ -148,6 +174,52 @@ namespace MarketPlace.Web.ControllersApi
             }
             return null;
         }
+
+        #region private methods
+
+        private ProveedoresOnLine.ProjectModule.Models.ProjectModel GetProjectUpsertRequest()
+        {
+            ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+            {
+                ProjectPublicId = System.Web.HttpContext.Current.Request["ProjectPublicId"],
+                ProjectName = System.Web.HttpContext.Current.Request["ProjectName"],
+                ProjectStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)MarketPlace.Models.General.enumProjectStatus.Open,
+                },
+                RelatedProjectConfig = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                {
+                    ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["ProjectConfig"].Replace(" ", "")),
+                },
+                Enable = true,
+                ProjectInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            };
+
+            //get company info
+            System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("ProjectInfo_")).All(req =>
+            {
+                string[] strSplit = req.Split('_');
+
+                if (strSplit.Length >= 3)
+                {
+                    oReturn.ProjectInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = !string.IsNullOrEmpty(strSplit[2]) ? Convert.ToInt32(strSplit[2].Trim()) : 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(strSplit[1].Trim())
+                        },
+                        Value = System.Web.HttpContext.Current.Request[req],
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        #endregion
 
     }
 }

@@ -394,11 +394,15 @@ var Provider_SearchObject = {
                 'Cancelar': function () {
                     $(this).dialog('close');
                 },
-                'Guardar y precalificar': function () {
+                'Guardar e iniciar proceso de selección': function () {
                     //validate form
                     var validator = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').data("kendoValidator");
                     if (validator.validate()) {
 
+                        //hide dialog actions
+                        $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                        //save project
                         $.ajax({
                             type: "POST",
                             url: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').attr('action'),
@@ -406,11 +410,11 @@ var Provider_SearchObject = {
                             success: function (result) {
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
                                 var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, result);
-                                Dialog_ShowMessage('Crear precalificación', 'Se ha creado la precalificación correctamente.', oProjectUrl);
+                                Dialog_ShowMessage('Crear proceso de selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
                             },
                             error: function (result) {
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
-                                Dialog_ShowMessage('Crear precalificación', 'Ha ocurrido un error creando la precalificación.', null);
+                                Dialog_ShowMessage('Crear proceso de selección', 'Ha ocurrido un error creando el proceso de selección.', null);
                             }
                         });
                     }

@@ -59,9 +59,15 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Index()
+        public virtual System.Web.Mvc.ActionResult ProjectDetail()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectDetail);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ProjectProviderDetail()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectProviderDetail);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -80,22 +86,35 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string ProjectDetail = "ProjectDetail";
+            public readonly string ProjectProviderDetail = "ProjectProviderDetail";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string ProjectDetail = "ProjectDetail";
+            public const string ProjectProviderDetail = "ProjectProviderDetail";
         }
 
 
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        static readonly ActionParamsClass_ProjectDetail s_params_ProjectDetail = new ActionParamsClass_ProjectDetail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        public ActionParamsClass_ProjectDetail ProjectDetailParams { get { return s_params_ProjectDetail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
+        public class ActionParamsClass_ProjectDetail
         {
             public readonly string ProjectPublicId = "ProjectPublicId";
+        }
+        static readonly ActionParamsClass_ProjectProviderDetail s_params_ProjectProviderDetail = new ActionParamsClass_ProjectProviderDetail();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ProjectProviderDetail ProjectProviderDetailParams { get { return s_params_ProjectProviderDetail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ProjectProviderDetail
+        {
+            public readonly string ProjectPublicId = "ProjectPublicId";
+            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -108,8 +127,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string ProjectDetail = "ProjectDetail";
+                public readonly string ProjectProviderDetail = "ProjectProviderDetail";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Project/Index.cshtml";
+            public readonly string ProjectDetail = "~/Areas/Desktop/Views/Project/ProjectDetail.cshtml";
+            public readonly string ProjectProviderDetail = "~/Areas/Desktop/Views/Project/ProjectProviderDetail.cshtml";
         }
     }
 
@@ -119,14 +142,38 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public T4MVC_ProjectController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectPublicId);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string ProjectPublicId)
+        public override System.Web.Mvc.ActionResult Index()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ProjectDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ProjectDetail(string ProjectPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
-            IndexOverride(callInfo, ProjectPublicId);
+            ProjectDetailOverride(callInfo, ProjectPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ProjectProviderDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectPublicId, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ProjectProviderDetail(string ProjectPublicId, string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectProviderDetail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ProjectProviderDetailOverride(callInfo, ProjectPublicId, ProviderPublicId);
             return callInfo;
         }
 
