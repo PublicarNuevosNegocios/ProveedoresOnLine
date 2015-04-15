@@ -1,5 +1,13 @@
 ﻿@model MarketPlace.Models.Provider.ProviderBalanceSheetViewModel
 
+@{
+    int oCurrencyValidate = 0;
+
+    int oCurrentCurrency = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
+        Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
+        Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+}
+
 @if (Model.AccountType == 2)
 {
     <!--Render AccountType text content-->
@@ -30,14 +38,14 @@
             @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
             {
                 <span class="FormulaFieldsColumnTwo">
-                    @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##")
+                    @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
                 </span>
                 <span class="FormulaFieldsColumnThree">
                     @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
                 </span>
             }
             <span class="FormulaFieldsColumnFour">
-                @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##"))
+                @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##")) <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
             </span>
         </li>
     }
@@ -47,14 +55,15 @@
         foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
         {
             <span class="POMPBalanceSheetColumnDataTwo">
-                @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##")
+                @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
             </span>
+
             <span class="POMPBalanceSheetColumnDataThree">
                 @((oBalanceValues.VerticalValue != null ? (decimal)oBalanceValues.VerticalValue : 0).ToString("#,0.##"))
             </span>
         }
         <span class="POMPBalanceSheetColumnDataFour">
-            @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##"))
+            @Model.AccountUnit @((Model.HorizontalValue != null ? (decimal)Model.HorizontalValue : 0).ToString("#,0.##")) <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
         </span>
     }
 }
