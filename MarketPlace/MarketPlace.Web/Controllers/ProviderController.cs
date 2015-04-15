@@ -384,7 +384,7 @@ namespace MarketPlace.Web.Controllers
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
-                oModel.RelatedGeneralInfo = oModel.RelatedGeneralInfo.OrderBy(x => x.BR_IsPrincipal).ToList();
+                oModel.RelatedGeneralInfo = oModel.RelatedGeneralInfo.OrderByDescending(x => x.BR_IsPrincipal).ToList();
             }
             return View(oModel);
         }
@@ -743,7 +743,9 @@ namespace MarketPlace.Web.Controllers
                     (int?)Convert.ToInt32(Request["Year"].Replace(" ", "")) :
                     null;
 
-                int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) ?
+                int oCurrencyValidate = 0;
+
+                int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
                     Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
                     Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
 

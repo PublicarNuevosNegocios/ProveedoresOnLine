@@ -19,7 +19,9 @@
         DefaultIfEmpty(0).
         FirstOrDefault();
 
-    int oCurrentCurrency = !string.IsNullOrEmpty(Request["Currency"]) ?
+    int oCurrencyValidate = 0;
+
+    int oCurrentCurrency = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
         Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
         Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
 
@@ -65,22 +67,25 @@
                         }
                     </select>
                 </li>
-                <li>
-                    <span>Moneda</span>
-                    <select id="BalanceSheet_Currency">
-                        @foreach (var ci in MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
-                        {
-                            if (ci.ItemId == oCurrentCurrency)
+                @if (oViewName != MVC.Desktop.Shared.Views.ViewNames._P_FI_Indicators)
+                {
+                    <li>
+                        <span>Moneda</span>
+                        <select id="BalanceSheet_Currency">
+                            @foreach (var ci in MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.CatalogId == 108).OrderBy(x => x.ItemName))
                             {
-                                <option selected="selected" value="@ci.ItemId">@ci.ItemName</option>
+                                if (ci.ItemId == oCurrentCurrency)
+                                {
+                                    <option selected="selected" value="@ci.ItemId">@ci.ItemName</option>
+                                }
+                                else
+                                {
+                                    <option value="@ci.ItemId">@ci.ItemName</option>
+                                }
                             }
-                            else
-                            {
-                                <option value="@ci.ItemId">@ci.ItemName</option>
-                            }
-                        }
-                    </select>
-                </li>
+                        </select>
+                    </li>
+                }
                 <li>
                     <a class="POMPButtons" href="javascript:Provider_FinancialObject.BalanceSheet_Search('@oViewName');">Consultar</a>
                 </li>

@@ -364,6 +364,42 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        private string oCA_Year;
+        public string CA_Year
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCA_Year))
+                {
+                    oCA_Year = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_Year).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oCA_Year;
+            }
+        }
+
+        private string oCA_CertificateAccidentARL;
+        public string CA_CertificateAccidentARL
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCA_CertificateAccidentARL))
+                {
+                    oCA_CertificateAccidentARL = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL).
+                        Select(y => y.LargeValue).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oCA_CertificateAccidentARL;
+            }
+        }
+
         private string oCR_LTIFResult;
         public string CR_LTIFResult
         {
