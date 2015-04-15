@@ -42,6 +42,8 @@ namespace MarketPlace.Models.Provider
 
         public MarketPlace.Models.Project.ProjectViewModel RelatedProject { get; set; }
 
+        public List<MarketPlace.Models.Project.ProjectConfigViewModel> RelatedProjectConfig { get; set; }
+
         #endregion
 
         #region Methods

@@ -8,11 +8,13 @@ function Provider_InitMenu(InitObject) {
 }
 
 var Provider_SearchObject = {
-
+    
     ObjectId: '',
     SearchUrl: '',
     CompareId: '',
     CompareUrl: '',
+    ProjectPublicId: '',
+    ProjectUrl: '',
     SearchParam: '',
     SearchFilter: '',
     SearchOrderType: '',
@@ -28,6 +30,8 @@ var Provider_SearchObject = {
         this.SearchUrl = vInitObject.SearchUrl;
         this.CompareId = vInitObject.CompareId;
         this.CompareUrl = vInitObject.CompareUrl;
+        this.ProjectPublicId = vInitObject.ProjectPublicId;
+        this.ProjectUrl = vInitObject.ProjectUrl;
         this.SearchParam = vInitObject.SearchParam;
         this.SearchFilter = vInitObject.SearchFilter;
         this.SearchOrderType = vInitObject.SearchOrderType;
@@ -369,6 +373,70 @@ var Provider_SearchObject = {
     },
 
     /*****************************Compare search methods end************************************************/
+
+    /*****************************Project search methods start************************************************/
+
+    ShowProjectCreate: function () {
+        //clean input fields
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Name').val('');
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_ProjectConfig').val('');
+
+        //set current compare
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_CompareId').val(Provider_SearchObject.CompareId);
+
+        //init form validator
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').kendoValidator();
+
+        //open new compare dialog
+        $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog({
+            modal: true,
+            buttons: {
+                'Cancelar': function () {
+                    $(this).dialog('close');
+                },
+                'Guardar e iniciar proceso de selección': function () {
+                    //validate form
+                    var validator = $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').data("kendoValidator");
+                    if (validator.validate()) {
+
+                        //hide dialog actions
+                        $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                        //save project
+                        $.ajax({
+                            type: "POST",
+                            url: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').attr('action'),
+                            data: $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Form').serialize(),
+                            success: function (result) {
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
+                                var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, result);
+                                Dialog_ShowMessage('Crear proceso de selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
+                            },
+                            error: function (result) {
+                                $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
+                                Dialog_ShowMessage('Crear proceso de selección', 'Ha ocurrido un error creando el proceso de selección.', null);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    },
+
+    GoToProject: function () {
+
+        //if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
+
+        //    var oUrl = this.CompareUrl;
+
+        //    oUrl += '?CompareId=' + this.CompareId;
+
+        //    window.location = oUrl;
+        //}
+    },
+
+
+    /*****************************Project search methods end************************************************/
 };
 
 var Provider_FinancialObject = {

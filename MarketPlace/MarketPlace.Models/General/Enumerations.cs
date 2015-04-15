@@ -467,7 +467,7 @@
         Ratting = 1205001,
         DescriptionText = 1205002,
         Answer = 1205003,
-    }    
+    }
 
     public enum enumSurveyConfigInfoType
     {
@@ -490,6 +490,30 @@
         IsMandatory = 1203004,
     }
 
+
+    #endregion
+
+    #region Project
+
+    public enum enumProjectStatus
+    {
+        Open = 1406001,
+        Approval = 1406002,
+        OpenRefusal = 1406003,
+        Award = 1406004,
+        CloseLose = 1406005,
+        CloseWin = 1406006,
+    }
+
+    public enum enumProjectInfoType
+    {
+        Compare = 1407001,
+    }
+
+    public enum enumProjectCompanyInfoType
+    {
+
+    }
 
     #endregion
 }

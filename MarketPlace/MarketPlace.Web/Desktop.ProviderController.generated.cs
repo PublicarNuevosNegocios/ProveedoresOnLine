@@ -95,54 +95,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CIExperiencesInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HICertificationsInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HIHealtyPoliticInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HIRiskPoliciesInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult FIBalanceSheetInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult FITaxInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FITaxInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult FIIncomeStatementInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIIncomeStatementInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult FIBankInfo()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBankInfo);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult LIChaimberOfCommerceInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIChaimberOfCommerceInfo);
@@ -170,6 +122,54 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public virtual System.Web.Mvc.ActionResult LIResolutionInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FIBalanceSheetInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FITaxInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FITaxInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FIIncomeStatementInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIIncomeStatementInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FIBankInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBankInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CIExperiencesInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult HICertificationsInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult HIHealtyPoliticInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticInfo);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult HIRiskPoliciesInfo()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesInfo);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -206,19 +206,19 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string GIBranchInfo = "GIBranchInfo";
             public readonly string GIDistributorInfo = "GIDistributorInfo";
             public readonly string GITrackingInfo = "GITrackingInfo";
-            public readonly string CIExperiencesInfo = "CIExperiencesInfo";
-            public readonly string HICertificationsInfo = "HICertificationsInfo";
-            public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
-            public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
-            public readonly string FIBalanceSheetInfo = "FIBalanceSheetInfo";
-            public readonly string FITaxInfo = "FITaxInfo";
-            public readonly string FIIncomeStatementInfo = "FIIncomeStatementInfo";
-            public readonly string FIBankInfo = "FIBankInfo";
             public readonly string LIChaimberOfCommerceInfo = "LIChaimberOfCommerceInfo";
             public readonly string LIRutInfo = "LIRutInfo";
             public readonly string LICIFINInfo = "LICIFINInfo";
             public readonly string LISARLAFTInfo = "LISARLAFTInfo";
             public readonly string LIResolutionInfo = "LIResolutionInfo";
+            public readonly string FIBalanceSheetInfo = "FIBalanceSheetInfo";
+            public readonly string FITaxInfo = "FITaxInfo";
+            public readonly string FIIncomeStatementInfo = "FIIncomeStatementInfo";
+            public readonly string FIBankInfo = "FIBankInfo";
+            public readonly string CIExperiencesInfo = "CIExperiencesInfo";
+            public readonly string HICertificationsInfo = "HICertificationsInfo";
+            public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
+            public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
         }
@@ -233,19 +233,19 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string GIBranchInfo = "GIBranchInfo";
             public const string GIDistributorInfo = "GIDistributorInfo";
             public const string GITrackingInfo = "GITrackingInfo";
-            public const string CIExperiencesInfo = "CIExperiencesInfo";
-            public const string HICertificationsInfo = "HICertificationsInfo";
-            public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
-            public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
-            public const string FIBalanceSheetInfo = "FIBalanceSheetInfo";
-            public const string FITaxInfo = "FITaxInfo";
-            public const string FIIncomeStatementInfo = "FIIncomeStatementInfo";
-            public const string FIBankInfo = "FIBankInfo";
             public const string LIChaimberOfCommerceInfo = "LIChaimberOfCommerceInfo";
             public const string LIRutInfo = "LIRutInfo";
             public const string LICIFINInfo = "LICIFINInfo";
             public const string LISARLAFTInfo = "LISARLAFTInfo";
             public const string LIResolutionInfo = "LIResolutionInfo";
+            public const string FIBalanceSheetInfo = "FIBalanceSheetInfo";
+            public const string FITaxInfo = "FITaxInfo";
+            public const string FIIncomeStatementInfo = "FIIncomeStatementInfo";
+            public const string FIBankInfo = "FIBankInfo";
+            public const string CIExperiencesInfo = "CIExperiencesInfo";
+            public const string HICertificationsInfo = "HICertificationsInfo";
+            public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
+            public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
         }
@@ -305,35 +305,43 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_CIExperiencesInfo s_params_CIExperiencesInfo = new ActionParamsClass_CIExperiencesInfo();
+        static readonly ActionParamsClass_LIChaimberOfCommerceInfo s_params_LIChaimberOfCommerceInfo = new ActionParamsClass_LIChaimberOfCommerceInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CIExperiencesInfo CIExperiencesInfoParams { get { return s_params_CIExperiencesInfo; } }
+        public ActionParamsClass_LIChaimberOfCommerceInfo LIChaimberOfCommerceInfoParams { get { return s_params_LIChaimberOfCommerceInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CIExperiencesInfo
+        public class ActionParamsClass_LIChaimberOfCommerceInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_HICertificationsInfo s_params_HICertificationsInfo = new ActionParamsClass_HICertificationsInfo();
+        static readonly ActionParamsClass_LIRutInfo s_params_LIRutInfo = new ActionParamsClass_LIRutInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HICertificationsInfo HICertificationsInfoParams { get { return s_params_HICertificationsInfo; } }
+        public ActionParamsClass_LIRutInfo LIRutInfoParams { get { return s_params_LIRutInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HICertificationsInfo
+        public class ActionParamsClass_LIRutInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_HIHealtyPoliticInfo s_params_HIHealtyPoliticInfo = new ActionParamsClass_HIHealtyPoliticInfo();
+        static readonly ActionParamsClass_LICIFINInfo s_params_LICIFINInfo = new ActionParamsClass_LICIFINInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HIHealtyPoliticInfo HIHealtyPoliticInfoParams { get { return s_params_HIHealtyPoliticInfo; } }
+        public ActionParamsClass_LICIFINInfo LICIFINInfoParams { get { return s_params_LICIFINInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HIHealtyPoliticInfo
+        public class ActionParamsClass_LICIFINInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_HIRiskPoliciesInfo s_params_HIRiskPoliciesInfo = new ActionParamsClass_HIRiskPoliciesInfo();
+        static readonly ActionParamsClass_LISARLAFTInfo s_params_LISARLAFTInfo = new ActionParamsClass_LISARLAFTInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HIRiskPoliciesInfo HIRiskPoliciesInfoParams { get { return s_params_HIRiskPoliciesInfo; } }
+        public ActionParamsClass_LISARLAFTInfo LISARLAFTInfoParams { get { return s_params_LISARLAFTInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HIRiskPoliciesInfo
+        public class ActionParamsClass_LISARLAFTInfo
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_LIResolutionInfo s_params_LIResolutionInfo = new ActionParamsClass_LIResolutionInfo();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LIResolutionInfo LIResolutionInfoParams { get { return s_params_LIResolutionInfo; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LIResolutionInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -372,43 +380,35 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LIChaimberOfCommerceInfo s_params_LIChaimberOfCommerceInfo = new ActionParamsClass_LIChaimberOfCommerceInfo();
+        static readonly ActionParamsClass_CIExperiencesInfo s_params_CIExperiencesInfo = new ActionParamsClass_CIExperiencesInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIChaimberOfCommerceInfo LIChaimberOfCommerceInfoParams { get { return s_params_LIChaimberOfCommerceInfo; } }
+        public ActionParamsClass_CIExperiencesInfo CIExperiencesInfoParams { get { return s_params_CIExperiencesInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIChaimberOfCommerceInfo
+        public class ActionParamsClass_CIExperiencesInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LIRutInfo s_params_LIRutInfo = new ActionParamsClass_LIRutInfo();
+        static readonly ActionParamsClass_HICertificationsInfo s_params_HICertificationsInfo = new ActionParamsClass_HICertificationsInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIRutInfo LIRutInfoParams { get { return s_params_LIRutInfo; } }
+        public ActionParamsClass_HICertificationsInfo HICertificationsInfoParams { get { return s_params_HICertificationsInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIRutInfo
+        public class ActionParamsClass_HICertificationsInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LICIFINInfo s_params_LICIFINInfo = new ActionParamsClass_LICIFINInfo();
+        static readonly ActionParamsClass_HIHealtyPoliticInfo s_params_HIHealtyPoliticInfo = new ActionParamsClass_HIHealtyPoliticInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LICIFINInfo LICIFINInfoParams { get { return s_params_LICIFINInfo; } }
+        public ActionParamsClass_HIHealtyPoliticInfo HIHealtyPoliticInfoParams { get { return s_params_HIHealtyPoliticInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LICIFINInfo
+        public class ActionParamsClass_HIHealtyPoliticInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
-        static readonly ActionParamsClass_LISARLAFTInfo s_params_LISARLAFTInfo = new ActionParamsClass_LISARLAFTInfo();
+        static readonly ActionParamsClass_HIRiskPoliciesInfo s_params_HIRiskPoliciesInfo = new ActionParamsClass_HIRiskPoliciesInfo();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LISARLAFTInfo LISARLAFTInfoParams { get { return s_params_LISARLAFTInfo; } }
+        public ActionParamsClass_HIRiskPoliciesInfo HIRiskPoliciesInfoParams { get { return s_params_HIRiskPoliciesInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LISARLAFTInfo
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
-        }
-        static readonly ActionParamsClass_LIResolutionInfo s_params_LIResolutionInfo = new ActionParamsClass_LIResolutionInfo();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_LIResolutionInfo LIResolutionInfoParams { get { return s_params_LIResolutionInfo; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LIResolutionInfo
+        public class ActionParamsClass_HIRiskPoliciesInfo
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -585,105 +585,6 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
 
         [NonAction]
-        partial void CIExperiencesInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CIExperiencesInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            CIExperiencesInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void HICertificationsInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult HICertificationsInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            HICertificationsInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void HIHealtyPoliticInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult HIHealtyPoliticInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            HIHealtyPoliticInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void HIRiskPoliciesInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult HIRiskPoliciesInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            HIRiskPoliciesInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void FIBalanceSheetInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ViewName, string Year, string Currency);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult FIBalanceSheetInfo(string ProviderPublicId, string ViewName, string Year, string Currency)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ViewName", ViewName);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
-            FIBalanceSheetInfoOverride(callInfo, ProviderPublicId, ViewName, Year, Currency);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void FITaxInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult FITaxInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FITaxInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            FITaxInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void FIIncomeStatementInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult FIIncomeStatementInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIIncomeStatementInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            FIIncomeStatementInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void FIBankInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult FIBankInfo(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBankInfo);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            FIBankInfoOverride(callInfo, ProviderPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
         partial void LIChaimberOfCommerceInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
 
         [NonAction]
@@ -740,6 +641,105 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LIResolutionInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             LIResolutionInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FIBalanceSheetInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ViewName, string Year, string Currency);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FIBalanceSheetInfo(string ProviderPublicId, string ViewName, string Year, string Currency)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ViewName", ViewName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Year", Year);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "Currency", Currency);
+            FIBalanceSheetInfoOverride(callInfo, ProviderPublicId, ViewName, Year, Currency);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FITaxInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FITaxInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FITaxInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            FITaxInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FIIncomeStatementInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FIIncomeStatementInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIIncomeStatementInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            FIIncomeStatementInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FIBankInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FIBankInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBankInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            FIBankInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CIExperiencesInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CIExperiencesInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            CIExperiencesInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void HICertificationsInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HICertificationsInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HICertificationsInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            HICertificationsInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void HIHealtyPoliticInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HIHealtyPoliticInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIHealtyPoliticInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            HIHealtyPoliticInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void HIRiskPoliciesInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HIRiskPoliciesInfo(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HIRiskPoliciesInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            HIRiskPoliciesInfoOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

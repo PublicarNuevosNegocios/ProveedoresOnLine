@@ -191,6 +191,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
+    <Compile Include="Areas\Desktop\Controllers\ProjectController.cs" />
     <Compile Include="Areas\Desktop\Controllers\SurveyController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProviderController.cs" />
     <Compile Include="Areas\Desktop\Controllers\HomeController.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
     <Compile Include="Controllers\ProviderController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -226,6 +228,9 @@
     <Compile Include="Desktop.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Desktop.ProjectController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Desktop.ProviderController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -239,6 +244,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -999,6 +1007,9 @@
     <Content Include="Areas\Desktop\Views\Shared\_SV_SurveySearch_Result_Pager.cshtml" />
     <Content Include="Areas\Desktop\Views\Survey\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_Search_Project.cshtml" />
+    <Content Include="Areas\Desktop\Views\Project\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Project\ProjectDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Project\ProjectProviderDetail.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
