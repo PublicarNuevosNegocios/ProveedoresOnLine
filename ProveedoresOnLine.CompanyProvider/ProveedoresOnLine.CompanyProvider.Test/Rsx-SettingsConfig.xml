@@ -3,4 +3,7 @@
   <Module name="Company">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\Company\Rsx-Company.xml</key>
   </Module>
+  <Module name="CompanyProviderBatch">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\CompanyProviderBatch\Rsx-CompanyProviderBatch.xml</key>
+  </Module>
 </SettingsConfig>

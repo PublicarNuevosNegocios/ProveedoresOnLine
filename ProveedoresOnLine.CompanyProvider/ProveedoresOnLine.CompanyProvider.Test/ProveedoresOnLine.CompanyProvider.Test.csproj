@@ -72,6 +72,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Rsx-CompanyProviderBatch.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Rsx-Company.xml" />
     <Content Include="Rsx-SettingsConfig.xml" />
   </ItemGroup>

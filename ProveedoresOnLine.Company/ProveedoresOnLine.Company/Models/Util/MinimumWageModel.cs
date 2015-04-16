@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Company.Models.Util
 {
-    public class TreeModel
+    public class MinimumWageModel
     {
-        public int TreeId { get; set; }
+        public int MinimumWageId { get; set; }
 
-        public string TreeName { get; set; }
+        public int Year { get; set; }
 
-        public CatalogModel TreeType { get; set; }
+        public CatalogModel Country { get; set; }
 
-        public List<GenericItemModel> RelatedCategory { get; set; }
+        public CatalogModel MoneyType { get; set; }
+
+        public decimal Value { get; set; }
 
         public bool Enable { get; set; }
 

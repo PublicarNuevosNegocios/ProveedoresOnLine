@@ -13,5 +13,13 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
         public const string C_AppSettings_LogFile = "LogFile";
 
         #endregion
+
+        #region Internal Settings
+
+        public const string C_SettingsModuleName = "CompanyProviderBatch";
+
+        public const string C_Settings_Company_DefaultCountry = "Company_DefaultCountry";
+
+        #endregion
     }
 }

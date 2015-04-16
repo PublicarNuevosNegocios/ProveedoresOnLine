@@ -82,6 +82,110 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         }
 
+        public List<TreeModel> TreeGetFullByType(int TreeType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeType", TreeType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Tree_GetFullByType",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<TreeModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from t in response.DataTableResult.AsEnumerable()
+                     where !t.IsNull("TreeId")
+                     group t by new
+                     {
+                         TreeId = t.Field<int>("TreeId"),
+                         TreeName = t.Field<string>("TreeName"),
+                         TreeTypeId = t.Field<int>("TreeTypeId"),
+                         TreeTypeName = t.Field<string>("TreeTypeName"),
+                         TreeEnable = t.Field<UInt64>("TreeEnable") == 1 ? true : false,
+                         TreeLastModify = t.Field<DateTime>("TreeLastModify"),
+                         TreeCreateDate = t.Field<DateTime>("TreeCreateDate"),
+                     } into tg
+                     select new TreeModel()
+                     {
+                         TreeId = tg.Key.TreeId,
+                         TreeName = tg.Key.TreeName,
+                         TreeType = new CatalogModel()
+                         {
+                             ItemId = tg.Key.TreeTypeId,
+                             ItemName = tg.Key.TreeTypeName,
+                         },
+                         Enable = tg.Key.TreeEnable,
+                         LastModify = tg.Key.TreeLastModify,
+                         CreateDate = tg.Key.TreeCreateDate,
+
+                         RelatedCategory =
+                            (from cat in response.DataTableResult.AsEnumerable()
+                             where !cat.IsNull("CategoryId") &&
+                                    cat.Field<int>("TreeId") == tg.Key.TreeId
+                             group cat by new
+                             {
+                                 ParentCategory = cat.Field<int?>("ParentCategory"),
+                                 CategoryId = cat.Field<int>("CategoryId"),
+                                 CategoryName = cat.Field<string>("CategoryName"),
+                                 CategoryEnable = cat.Field<UInt64>("CategoryEnable") == 1 ? true : false,
+                                 CategoryLastModify = cat.Field<DateTime>("CategoryLastModify"),
+                             } into catg
+                             select new GenericItemModel()
+                             {
+                                 ItemId = catg.Key.CategoryId,
+                                 ItemName = catg.Key.CategoryName,
+                                 ParentItem = catg.Key.ParentCategory == null ? null :
+                                    new GenericItemModel()
+                                    {
+                                        ItemId = catg.Key.ParentCategory.Value,
+                                    },
+                                 Enable = catg.Key.CategoryEnable,
+                                 LastModify = catg.Key.CategoryLastModify,
+
+                                 ItemInfo =
+                                    (from catinf in response.DataTableResult.AsEnumerable()
+                                     where !catinf.IsNull("CategoryInfoId") &&
+                                            catinf.Field<int>("CategoryId") == catg.Key.CategoryId
+                                     group catinf by new
+                                     {
+                                         CategoryInfoId = catinf.Field<int>("CategoryInfoId"),
+                                         CategoryInfoTypeId = catinf.Field<int>("CategoryInfoTypeId"),
+                                         CategoryInfoTypeName = catinf.Field<string>("CategoryInfoTypeName"),
+                                         CategoryInfoTypeValue = catinf.Field<string>("CategoryInfoTypeValue"),
+                                         CategoryInfoTypeLargeValue = catinf.Field<string>("CategoryInfoTypeLargeValue"),
+                                         CategoryInfoTypeEnable = catinf.Field<UInt64>("CategoryInfoTypeEnable") == 1 ? true : false,
+                                         CategoryInfoTypeLastModify = catinf.Field<DateTime>("CategoryInfoTypeLastModify"),
+                                     } into catinfg
+                                     select new GenericItemInfoModel()
+                                     {
+                                         ItemInfoId = catinfg.Key.CategoryInfoId,
+                                         ItemInfoType = new CatalogModel()
+                                         {
+                                             ItemId = catinfg.Key.CategoryInfoTypeId,
+                                             ItemName = catinfg.Key.CategoryInfoTypeName,
+                                         },
+                                         Value = catinfg.Key.CategoryInfoTypeValue,
+                                         LargeValue = catinfg.Key.CategoryInfoTypeLargeValue,
+                                         Enable = catinfg.Key.CategoryInfoTypeEnable,
+                                         LastModify = catinfg.Key.CategoryInfoTypeLastModify,
+                                     }).ToList(),
+                             }).ToList(),
+                     }).ToList();
+            }
+
+            return oReturn;
+
+        }
+
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
@@ -1441,6 +1545,52 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                                  CreateDate = catinfo.Field<DateTime>("CategoryInfoCreateDate"),
                              }).ToList(),
                      }).ToList();
+            }
+            return oReturn;
+        }
+
+        public MinimumWageModel MinimumWageSearchByYear(int Year, int CountryType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCountryType", CountryType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vYear", Year));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_MinimumWage_SearchByYear",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            MinimumWageModel oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn = new MinimumWageModel()
+                     {
+                         MinimumWageId = response.DataTableResult.Rows[0].Field<int>("MinimumWageId"),
+                         Country = new CatalogModel()
+                         {
+                             ItemId = response.DataTableResult.Rows[0].Field<int>("CountryId"),
+                             ItemName = response.DataTableResult.Rows[0].Field<string>("CountryName"),
+                         },
+                         Year = response.DataTableResult.Rows[0].Field<int>("Year"),
+
+                         MoneyType = new CatalogModel()
+                         {
+                             ItemId = response.DataTableResult.Rows[0].Field<int>("MoneyType"),
+                             ItemName = response.DataTableResult.Rows[0].Field<string>("MoneyTypeName"),
+                             ItemEnable = response.DataTableResult.Rows[0].Field<UInt64>("MoneyTypeEnable") == 1 ? true : false,                             
+                         },
+                         Value = response.DataTableResult.Rows[0].Field<decimal>("Value"),
+                         Enable = response.DataTableResult.Rows[0].Field<UInt64>("Enable") == 1 ? true : false,
+                         LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
+                         CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate")
+                     };
+                     
             }
             return oReturn;
         }

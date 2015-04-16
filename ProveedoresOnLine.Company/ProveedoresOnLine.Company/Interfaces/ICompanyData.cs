@@ -16,6 +16,8 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.TreeModel> TreeGetByType(int TreeType);
 
+        List<ProveedoresOnLine.Company.Models.Util.TreeModel> TreeGetFullByType(int TreeType);
+
         int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable);
 
         int CategoryInfoUpsert(int CategoryId, int? CategoryInfoId, int CategoryInfoType, string Value, string LargeValue, bool Enable);
@@ -71,6 +73,8 @@ namespace ProveedoresOnLine.Company.Interfaces
         List<ProveedoresOnLine.Company.Models.Util.GeographyModel> CategorySearchByStateAdmin(string CountrySearchParam, string StateSearchParam, int PageNumber, int RowCount, out int TotalRows);
 
         List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows);
+
+        ProveedoresOnLine.Company.Models.Util.MinimumWageModel MinimumWageSearchByYear(int Year, int CountryType);
 
         #endregion
 

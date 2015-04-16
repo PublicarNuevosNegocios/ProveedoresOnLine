@@ -1218,11 +1218,6 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.BPGetRecruitmentProviders();
         }
 
-        public static List<Company.Models.Util.GenericItemModel> BPGetAllTablesScore(int TreeType)
-        {
-             return DAL.Controller.CompanyProviderDataController.Instance.BPGetAllTablesScore(TreeType);
-        }
-
         #endregion
     }
 }
