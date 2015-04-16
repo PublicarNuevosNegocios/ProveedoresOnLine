@@ -84,8 +84,12 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
 
         public enum enumFinancialDetailType
         {
+            FD_TotalActive = 3115,
+            FD_TotalPassive = 3116,
+            FD_TotalHeritage = 3117,
             FD_CurrentActive = 3118,
             FD_CurentPassive = 3120,
+            FD_OperatingIncome = 3821,
         }
 
         //enum AccountsInfo 
