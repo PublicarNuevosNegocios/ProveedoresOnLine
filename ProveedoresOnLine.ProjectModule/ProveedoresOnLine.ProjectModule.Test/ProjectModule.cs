@@ -47,5 +47,15 @@ namespace ProveedoresOnLine.ProjectModule.Test
 
             Assert.IsNotNull(oReturn);
         }
+
+        [TestMethod]
+        public void ProjectGetByIdCalculate()
+        {
+            ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn =
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdCalculate("1EC791B6", "DA5C572E");
+
+            Assert.IsNotNull(oReturn);
+        }
+
     }
 }
