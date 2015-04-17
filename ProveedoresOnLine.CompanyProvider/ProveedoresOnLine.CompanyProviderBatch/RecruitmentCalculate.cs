@@ -26,9 +26,11 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel GetProviderScore(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider)
         {
-            GenericItemModel K_ContactModel = new GenericItemModel();
+            GenericItemModel K_ContractModelToReturn;
             decimal ExpirienceScore;
             decimal FinancialScore;
+            decimal CapacityByYearScore = 0;
+            decimal oTechnicCapacity = CalculateTechnicCapacity(oProvider.RelatedCompany.CompanyPublicId);
 
             #region Expiriences Caltulation
 
@@ -41,7 +43,385 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             ExpirienceScore = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_ProviderExpirienceScore, Years);
             #endregion
 
-            #region Financial Calculation
+            #region Financial Caculation
+
+            FinancialScore = CalculateFinancialCapacity(oProvider);
+
+            #endregion
+
+            #region Organization Capacity
+
+            CapacityByYearScore = CalculateCapacityOrg(oProvider);
+
+            #endregion
+            
+            #region Create K_Recruitment
+
+            //Star to create the K_Recruitment Object return
+            List<GenericItemModel> K_ContractModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(oProvider.RelatedCompany.CompanyPublicId,
+                                                              (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialType.KRecruitment, true);
+
+            //Get the Financial Info when role like provider
+            K_ContractModel = K_ContractModel != null ? K_ContractModel.Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                                              (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType
+                                                                && y.Value == Convert.ToInt32(CompanyProviderBatch.Models.Enumerations.enumUtil.K_Provider).ToString()).
+                                                                Select(y => y.ItemInfoId).FirstOrDefault() != 0).Select(x => x).ToList() : null;
+          
+
+            K_ContractModelToReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel
+            {
+                ItemId = K_ContractModel != null ? K_ContractModel.FirstOrDefault().ItemId : 0,
+                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialType.KRecruitment,
+                },
+                ItemName = "K_Recruitment",
+                Enable = true,
+                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            };
+
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalExpirienceScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalExpirienceScore,
+                },
+                Value = ExpirienceScore.ToString(),
+                Enable = true,
+            });
+
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalFinancialScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalFinancialScore,
+                },
+                Value = FinancialScore.ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalOrgCapacityScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalOrgCapacityScore,
+                },
+                Value = CapacityByYearScore.ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalTechnicScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalTechnicScore,
+                },
+                Value = oTechnicCapacity.ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_MoneyType).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_MoneyType,
+                },
+                Value = Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.U_COP).ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalKScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalKScore,
+                },
+                Value = CalculateProviderScore(ExpirienceScore, FinancialScore, CapacityByYearScore).ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType,
+                },
+                Value = Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_Provider).ToString(),
+                Enable = true,
+            });
+            #endregion
+
+            return K_ContractModelToReturn;
+        }
+
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel GetConsultantScore(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider)
+        {
+            return null;
+        }
+
+        public ProveedoresOnLine.Company.Models.Util.GenericItemModel GetBuilderScore(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider)
+        {
+            GenericItemModel K_ContractModelToReturn;
+            decimal ExpirienceScore;
+            decimal FinancialScore;
+            decimal CapacityByYearScore = 0;
+            decimal oTechnicCapacity = CalculateTechnicCapacity(oProvider.RelatedCompany.CompanyPublicId);
+
+            #region Expiriences Caltulation
+
+            int Years = 0;
+            DateTime ConstitutionCompanydate = oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumLegalInfoType.CP_ConstitutionDate)
+                                                .Select(x => Convert.ToDateTime(x.Value)).DefaultIfEmpty(DateTime.Now).FirstOrDefault();
+            //Set Expirience Years
+            Years = DateTime.Now.Year - ConstitutionCompanydate.Year;
+
+            ExpirienceScore = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_BuilderExpirienceScore, Years);
+            #endregion
+
+            #region Calculate Financial
+
+            FinancialScore = CalculateFinancialCapacity(oProvider);            
+            
+            #endregion
+
+            #region Organization Capacity
+
+            CapacityByYearScore = CalculateCapacityOrg(oProvider);
+
+            #endregion
+
+            #region Technic Capacity
+
+            oTechnicCapacity = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_TecnicCapacityScore, oTechnicCapacity);
+
+            #endregion
+
+            #region Create K_Recruitment
+
+            //Star to create the K_Recruitment Object return
+            List<GenericItemModel> K_ContractModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(oProvider.RelatedCompany.CompanyPublicId,
+                                                              (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialType.KRecruitment, true);
+
+            //Get the Financial Info when role like provider
+            K_ContractModel = K_ContractModel != null ? K_ContractModel.Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                                              (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType
+                                                                && y.Value == Convert.ToInt32(CompanyProviderBatch.Models.Enumerations.enumUtil.K_Builder).ToString()).
+                                                                Select(y => y.ItemInfoId).FirstOrDefault() != 0).Select(x => x).ToList() : null;
+            
+            K_ContractModelToReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel
+            {
+                ItemId = K_ContractModel != null ? K_ContractModel.FirstOrDefault().ItemId : 0,
+                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialType.KRecruitment,
+                },
+                ItemName = "K_Recruitment",
+                Enable = true,
+                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+            };
+
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalExpirienceScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalExpirienceScore,
+                },
+                Value = ExpirienceScore.ToString(),
+                Enable = true,
+            });
+
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalFinancialScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalFinancialScore,
+                },
+                Value = FinancialScore.ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalOrgCapacityScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalOrgCapacityScore,
+                },
+                Value = CapacityByYearScore.ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalTechnicScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalTechnicScore,
+                },
+                Value = oTechnicCapacity.ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_MoneyType).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_MoneyType,
+                },
+                Value = Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.U_COP).ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalKScore).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalKScore,
+                },
+                Value = CalculateBuilderScore(ExpirienceScore, FinancialScore, CapacityByYearScore, oTechnicCapacity).ToString(),
+                Enable = true,
+            });
+            K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = K_ContractModel != null && K_ContractModel.FirstOrDefault().ItemInfo != null ?
+                             K_ContractModel.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
+                                                            (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType).
+                                                            Select(x => x.ItemInfoId).DefaultIfEmpty(0).FirstOrDefault() : 0,
+
+                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType,
+                },
+                Value = Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_Builder).ToString(),
+                Enable = true,
+            });
+            #endregion
+
+            return K_ContractModelToReturn;
+        }
+
+        private decimal GetTreeScore(int TreeId, decimal ValueToEval)
+        {
+            decimal oReturn = 0;
+
+            KTree.Where(kt => kt.TreeId == TreeId).All(kt =>
+            {
+                kt.RelatedCategory.
+                    OrderBy(cat => cat.ItemInfo.
+                                    Where(catinf => catinf.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).
+                                    Select(catinf => Convert.ToDecimal(catinf.Value)).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault()).
+                    All(cat =>
+                    {
+                        if (ValueToEval >= cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault()
+                            && ValueToEval <= cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxValue).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault())
+                        {
+                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_Score).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
+                        }
+                        else if (ValueToEval > 0 && cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault() != 0
+                            && oReturn == 0)
+                        {
+                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
+                        }
+                        return true;
+                    });
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        private decimal CalculateTechnicCapacity(string ProviderPublicId)
+        {
+            decimal oTechnicCapacity = 0;
+            List<GenericItemModel> OrgaEstructure = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(ProviderPublicId,
+                                               (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialType.OrganizationalEstructure, true);
+            if (OrgaEstructure != null && OrgaEstructure.Count > 0)
+            {
+                OrgaEstructure.All(x =>
+                {
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_TechnicPersonal).
+                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_AdministersPersonal).
+                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_CommercialPersonal).
+                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_ContratistActive).
+                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_ActiveProviders).
+                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_Partners).
+                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+
+                    return true;
+                });
+            }
+            return oTechnicCapacity;
+        }
+
+        private decimal CalculateFinancialCapacity(ProviderModel oProvider)
+        {
             //Get Last year
             int FinancialLastYear = 0;
             GenericItemModel oFinancialLastYear = new GenericItemModel();
@@ -104,21 +484,22 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             decimal ResultIndebtedness = (TotalActive / TotalPassive) * 100;
             FinancialScoreIndebtedness = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_IndebtednessScore, ResultIndebtedness);
 
-            FinancialScore = FinancialScoreHeritage + FinancialScoreLiquidity + FinancialScoreIndebtedness;
-            #endregion
+            return FinancialScoreHeritage + FinancialScoreLiquidity + FinancialScoreIndebtedness;
+        }
 
-            #region Organization Capacity
-
+        private decimal CalculateCapacityOrg(ProviderModel oProvider)
+        {
+            decimal CapacityByYearScore = 0;
             List<GenericItemModel> TwoLastBalaces = new List<GenericItemModel>();
             List<BalanceSheetDetailModel> TwoLastBalacesDetail;
             List<string> LastTwoYears = new List<string>();
 
             oProvider.RelatedFinantial.All(x =>
-                {
-                    LastTwoYears.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_Year).
-                                    Select(y => y.Value).FirstOrDefault());
-                    return true;
-                });
+            {
+                LastTwoYears.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_Year).
+                                Select(y => y.Value).FirstOrDefault());
+                return true;
+            });
 
             LastTwoYears = LastTwoYears.OrderByDescending(x => x).ToList();
 
@@ -130,75 +511,52 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                         Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_Year
                                         && y.Value == ly).Select(y => y).FirstOrDefault() != null).
-                                        Select(x => x).FirstOrDefault());                                               
-                }                
+                                        Select(x => x).FirstOrDefault());
+                }
                 return true;
             });
 
-            decimal oCapacityByYear = 0;
+
             TwoLastBalaces.All(x =>
-                {                    
-                    TwoLastBalacesDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(x.ItemId);
-                    decimal OperIng = TwoLastBalacesDetail.Where(y => y.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_OperatingIncome).
-                                   Select(y => y.Value).DefaultIfEmpty(0).FirstOrDefault();
-
-                    oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
-                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_Year).Select(y => Convert.ToInt32(y.Value)).FirstOrDefault(), 988);
-
-
-                    oCapacityByYear += (OperIng / oMiminumWageModel.Value);
-                    return true;
-                });
-            oCapacityByYear = oCapacityByYear / 2;
-
-
-
-            
-            #endregion
-
-            return K_ContactModel;
-        }
-
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel GetConsultantScore(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider)
-        {
-            return null;
-        }
-
-        public ProveedoresOnLine.Company.Models.Util.GenericItemModel GetBuilderScore(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider)
-        {
-            return null;
-        }
-
-        private decimal GetTreeScore(int TreeId, decimal ValueToEval)
-        {
-            decimal oReturn = 0;
-
-            KTree.Where(kt => kt.TreeId == TreeId).All(kt =>
             {
-                kt.RelatedCategory.
-                    OrderBy(cat => cat.ItemInfo.
-                                    Where(catinf => catinf.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).
-                                    Select(catinf => Convert.ToDecimal(catinf.Value)).
-                                    DefaultIfEmpty(0).
-                                    FirstOrDefault()).
-                    All(cat =>
-                    {
-                        if (ValueToEval >= cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault()
-                            && ValueToEval <= cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxValue).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault())
-                        {
-                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_Score).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
-                        }
-                        else if (ValueToEval > 0 && cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault() != 0
-                            && oReturn == 0)
-                        {
-                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
-                        }
-                        return true;
-                    });
+                TwoLastBalacesDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(x.ItemId);
+                decimal OperIng = TwoLastBalacesDetail.Where(y => y.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_OperatingIncome).
+                               Select(y => y.Value).DefaultIfEmpty(0).FirstOrDefault();
+
+                oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                    (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_Year).Select(y => Convert.ToInt32(y.Value)).FirstOrDefault(), 988);
+
+
+                CapacityByYearScore += (OperIng / oMiminumWageModel.Value);
                 return true;
             });
+            return CapacityByYearScore / 2;
+        }
 
-            return oReturn;
+        private decimal CalculateProviderScore(decimal oTotalExperience, decimal oTotalFinancial, decimal oTotalCapacityOrg)
+        {
+            decimal oTotalResult;
+
+            oTotalResult = oTotalExperience + oTotalFinancial;
+            oTotalResult = oTotalResult / 1000;
+            oTotalResult = oTotalResult + 1;
+            oTotalResult = oTotalCapacityOrg * oTotalResult;
+
+            return oTotalResult;
+        }
+
+        private decimal CalculateBuilderScore(decimal oTotalExperience, decimal oTotalFinancial, decimal oTotalCapacityOrg ,  decimal oTechnicCapacity)
+        {
+            decimal oTotalResult;
+            
+            oTotalResult = oTotalExperience + oTotalFinancial + oTechnicCapacity;
+            oTotalResult = oTotalResult / 1000;
+            oTotalResult = oTotalResult + 1;
+            decimal FPIResult = Convert.ToDecimal(1.6333) * oTotalCapacityOrg;//TODO: REEMPLAZAR POR LLAVE DEL SETTINGS
+
+            oTotalResult = oTotalResult * FPIResult;
+
+            return oTotalResult;
         }
 
         public MinimumWageModel oMiminumWageModel { get; set; }
