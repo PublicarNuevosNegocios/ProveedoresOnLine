@@ -1059,7 +1059,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                      CommercialInfoId = prvcminf.Field<int>("CommercialInfoId"),
                                                      CommercialInfoType = prvcminf.Field<int>("CommercialInfoType"),
                                                      CommercialInfoValue = prvcminf.Field<string>("CommercialInfoValue"),
-                                                     CommercialInfoLargeValue = prvcminf.Field<string>("CommercialInfoLargeValue"),
                                                  } into prvcminfg
                                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                                  {
@@ -1069,7 +1068,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                          ItemId = prvcminfg.Key.CommercialInfoType,
                                                      },
                                                      Value = prvcminfg.Key.CommercialInfoValue,
-                                                     LargeValue = prvcminfg.Key.CommercialInfoLargeValue,
                                                  }).ToList(),
                                          }).ToList(),
 
@@ -1102,7 +1100,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                      CertificationInfoId = prvcrinf.Field<int>("CertificationInfoId"),
                                                      CertificationInfoType = prvcrinf.Field<int>("CertificationInfoType"),
                                                      CertificationInfoValue = prvcrinf.Field<string>("CertificationInfoValue"),
-                                                     CertificationInfoLargeValue = prvcrinf.Field<string>("CertificationInfoLargeValue"),
                                                  } into prvcrinfg
                                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                                  {
@@ -1112,7 +1109,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                          ItemId = prvcrinfg.Key.CertificationInfoType,
                                                      },
                                                      Value = prvcrinfg.Key.CertificationInfoValue,
-                                                     LargeValue = prvcrinfg.Key.CertificationInfoLargeValue,
                                                  }).ToList(),
                                          }).ToList(),
 
@@ -1146,7 +1142,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                      FinancialInfoId = prvfiinf.Field<int>("FinancialInfoId"),
                                                      FinancialInfoType = prvfiinf.Field<int>("FinancialInfoType"),
                                                      FinancialInfoValue = prvfiinf.Field<string>("FinancialInfoValue"),
-                                                     FinancialInfoLargeValue = prvfiinf.Field<string>("FinancialInfoLargeValue"),
                                                  } into prvfiinfg
                                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                                  {
@@ -1156,7 +1151,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                          ItemId = prvfiinfg.Key.FinancialInfoType,
                                                      },
                                                      Value = prvfiinfg.Key.FinancialInfoValue,
-                                                     LargeValue = prvfiinfg.Key.FinancialInfoLargeValue,
                                                  }).ToList(),
                                          }).ToList(),
 
@@ -1190,7 +1184,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                      FinancialInfoId = prvfiinf.Field<int>("FinancialInfoId"),
                                                      FinancialInfoType = prvfiinf.Field<int>("FinancialInfoType"),
                                                      FinancialInfoValue = prvfiinf.Field<string>("FinancialInfoValue"),
-                                                     FinancialInfoLargeValue = prvfiinf.Field<string>("FinancialInfoLargeValue"),
                                                  } into prvfiinfg
                                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                                  {
@@ -1200,7 +1193,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                          ItemId = prvfiinfg.Key.FinancialInfoType,
                                                      },
                                                      Value = prvfiinfg.Key.FinancialInfoValue,
-                                                     LargeValue = prvfiinfg.Key.FinancialInfoLargeValue,
                                                  }).ToList(),
                                              BalanceSheetInfo =
                                                  (from prvbs in response.DataSetResult.Tables[7].AsEnumerable()
@@ -1252,7 +1244,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                      LegalInfoId = prvlginf.Field<int>("LegalInfoId"),
                                                      LegalInfoType = prvlginf.Field<int>("LegalInfoType"),
                                                      LegalInfoValue = prvlginf.Field<string>("LegalInfoValue"),
-                                                     LegalInfoLargeValue = prvlginf.Field<string>("LegalInfoLargeValue"),
                                                  } into prvlginfg
                                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                                  {
@@ -1262,7 +1253,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                          ItemId = prvlginfg.Key.LegalInfoType,
                                                      },
                                                      Value = prvlginfg.Key.LegalInfoValue,
-                                                     LargeValue = prvlginfg.Key.LegalInfoLargeValue,
                                                  }).ToList(),
                                          }).ToList(),
 
