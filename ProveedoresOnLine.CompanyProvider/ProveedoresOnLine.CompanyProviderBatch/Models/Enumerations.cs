@@ -19,6 +19,10 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             K_MaxValue = 117002,
             K_Score = 117003,
             K_MaxScore = 117004,
+            K_Provider = 117005,
+            K_Consultant = 117006,
+            K_Builder = 117007,
+            
 
             //Tree Tables
             K_ProviderExpirienceScore = 37,
@@ -29,7 +33,12 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             K_ScoreHeritage = 42,
             K_LiquidityScore = 43,
             K_IndebtednessScore = 44,
-            K_TecnicCapacityScore = 45
+            K_TecnicCapacityScore = 45,
+
+            //Money Type
+            U_USD = 108001,
+            U_COP = 108002,
+            U_EUR = 108003,	
         }
         #endregion
 
@@ -75,24 +84,41 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
         public enum enumFinancialType
         {
             BalanceSheetInfoType = 501001,
+            OrganizationalEstructure = 501005,
+            KRecruitment = 501006
         }
 
         public enum enumFinancialInfoType
         {
             FI_Year = 502001,
+            
+            FO_TechnicPersonal = 506002,
+            FO_AdministersPersonal = 506003, 
+            FO_CommercialPersonal = 506004, 
+            FO_ContratistActive = 506005,
+            FO_ActiveProviders = 506006,           
+            FO_Partners = 506007,
+                    
+            //K_Recruitment InfoType
+            FK_TotalExpirienceScore = 507001,
+            FK_TotalFinancialScore = 507002,
+            FK_TotalOrgCapacityScore = 507003,
+            FK_TotalTechnicScore = 507004,
+            FK_MoneyType = 507005,
+            FK_TotalKScore = 507006,
+            FK_RoleType = 507007
         }
 
         public enum enumFinancialDetailType
         {
+            //Acounts
             FD_TotalActive = 3115,
             FD_TotalPassive = 3116,
             FD_TotalHeritage = 3117,
             FD_CurrentActive = 3118,
             FD_CurentPassive = 3120,
             FD_OperatingIncome = 3821,
-        }
-
-        //enum AccountsInfo 
+        }        
 
         #endregion
     }

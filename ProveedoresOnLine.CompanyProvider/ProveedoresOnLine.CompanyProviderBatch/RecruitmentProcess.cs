@@ -103,17 +103,23 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Provider).ToString()))
                                     {
                                         //get calculate provider    
-                                        RecruitmentCal.GetProviderScore(providerToCalculate);                                        
+                                        RecruitmentCal.GetProviderScore(providerToCalculate);
+                                        
+                                        //SAVE FINANCIAL
                                     }
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Consultant).ToString()))
                                     {
                                         //Get Calculate Consultant
                                         GetConsultantScore(providerToCalculate);
+
+                                        //SAVE FINANCIAL
                                     }
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Builder).ToString()))
                                     {
                                         //Get Calculate Builder
                                         GetBuilderScore(providerToCalculate);
+
+                                        //SAVE FINANCIAL
                                     }
                                 }
                             }
