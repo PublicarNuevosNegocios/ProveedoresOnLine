@@ -79,7 +79,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ProjectModule.cs" />
+    <Compile Include="ProjectModuleTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace ProveedoresOnLine.ProjectModule.Test
 {
     [TestClass]
-    public class ProjectModule
+    public class ProjectModuleTest
     {
         [TestMethod]
         public void GetAllProjectConfigByCustomerPublicId()
@@ -55,6 +55,12 @@ namespace ProveedoresOnLine.ProjectModule.Test
                 ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdCalculate("1EC791B6", "DA5C572E");
 
             Assert.IsNotNull(oReturn);
+        }
+
+        [TestMethod]
+        public void ProjectCalculate()
+        {
+            ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate("1BC311CC", "DA5C572E");
         }
 
     }

@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ProjectEvaluator.cs" />
     <Compile Include="Controller\ProjectModule.cs" />
     <Compile Include="DAL\Controller\ProjectDataController.cs" />
     <Compile Include="DAL\Controller\ProjectDataFactory.cs" />
