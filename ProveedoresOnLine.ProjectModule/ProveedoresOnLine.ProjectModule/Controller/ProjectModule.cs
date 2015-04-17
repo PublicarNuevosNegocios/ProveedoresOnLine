@@ -263,7 +263,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                             pjp.Enable);
 
                         //upsert info
-                        pjp = ProjectInfoUpsert(pjp);
+                        pjp = ProjectCompanyInfoUpsert(pjp);
 
                         oLog.IsSuccess = true;
                     }
@@ -294,7 +294,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return ProjectToUpsert;
         }
 
-        public static ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel ProjectInfoUpsert(ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel ProjectProviderToUpsert)
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel ProjectCompanyInfoUpsert(ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel ProjectProviderToUpsert)
         {
             if (ProjectProviderToUpsert.ProjectCompanyId > 0 &&
                 ProjectProviderToUpsert.ItemInfo != null &&

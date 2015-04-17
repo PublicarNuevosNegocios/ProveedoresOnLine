@@ -10,7 +10,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
     {
         #region Properties
 
-        public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProjectInfo { get; private set; }
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; private set; }
 
         #endregion
 
@@ -19,104 +19,239 @@ namespace ProveedoresOnLine.ProjectModule.Controller
         public ProjectEvaluator(string oProjectPublicId, string oCustomerPublicId)
         {
             //get project calculate info
-            RelatedProjectInfo = ProjectModule.ProjectGetByIdCalculate(oProjectPublicId, oCustomerPublicId);
+            RelatedProject = ProjectModule.ProjectGetByIdCalculate(oProjectPublicId, oCustomerPublicId);
         }
 
         #endregion
 
         public void InitEval()
         {
-            RelatedProjectInfo.RelatedProjectProvider.All(pjpv =>
+            RelatedProject.RelatedProjectProvider.All(pjpv =>
             {
-                EvalCertification(pjpv);
+                //create upsert model
+                ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
+                    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                {
+                    ProjectCompanyId = pjpv.ProjectCompanyId,
+                    ItemInfo = new List<Models.ProjectProviderInfoModel>(),
+                };
+
+                //loop for evaluation criteria
+                RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
+                Where(ei => ei.ItemType.ItemId == 1401002).
+                All(ei =>
+                {
+                    switch (ei.ItemInfo.
+                                Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
+                                Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault())
+                    {
+                        case 1404001:
+                            break;
+                        case 1404002:
+                            var oResult = Certification_EvalNorms(pjpv, ei);
+                            if (oResult != null && oResult.Count > 0)
+                            {
+                                oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                            }
+                            break;
+                        case 1404003:
+                            break;
+                        case 1404004:
+                            break;
+                        case 1404005:
+                            break;
+                        case 1404006:
+                            break;
+                        case 1404007:
+                            break;
+                        case 1404008:
+                            break;
+                        default:
+                            break;
+                    }
+
+                    return true;
+                });
+
+                //recalculate area results
+
+                //upsert evaluation items responses
+                oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
+
                 return true;
             });
         }
 
         #region Certification
 
-        private void EvalCertification(ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProviderModel)
+        private List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> Certification_EvalNorms
+            (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel vEvaluationItem)
         {
-            bool oEvalNorms = RelatedProjectInfo.RelatedProjectConfig.RelatedEvaluationItem.
-                Any(ei => ei.ItemInfo.
-                    Any(eiinf => eiinf.ItemInfoType.ItemId == 1402005 && eiinf.Value == "1404002"));
-
-
-            //1404002 HSEQ - Norms
-            if (vProjectProviderModel.RelatedProvider.RelatedCertification != null &&
-                RelatedProjectInfo.RelatedProjectConfig.RelatedEvaluationItem.
-                Any(ei => ei.ItemInfo.
-                    Any(eiinf => eiinf.ItemInfoType.ItemId == 1402005 && eiinf.Value == "1404002")))
-            {
-                //all evaluations for norms
-                RelatedProjectInfo.RelatedProjectConfig.RelatedEvaluationItem.
-                Where(ei => ei.ItemInfo.
-                        Any(eiinf => eiinf.ItemInfoType.ItemId == 1402005 && eiinf.Value == "1404002")).
-                All(ei =>
+            //evaluate certification items
+            var oValidCertificationId =
+                vProjectProvider.RelatedProvider.RelatedCertification.
+                Where(rc => rc.ItemType.ItemId == 701001 &&
+                            rc.ItemInfo.
+                                Any(rcinf => rcinf.ItemInfoType.ItemId == 702004 &&
+                                             !string.IsNullOrEmpty(rcinf.Value) &&
+                                             Convert.ToDateTime(rcinf.Value) >= DateTime.Now)).
+                Select(ct => new
                 {
-                    //loop all certifications norms
-                    vProjectProviderModel.RelatedProvider.RelatedCertification.
-                        Where(lg => lg.ItemType.ItemId == 701001 &&
-                                    lg.ItemInfo.Any(lginf => ei.ItemInfo.
-                                        Any(eiinf => eiinf.ItemInfoType.ItemId == 1402006 &&
-                                                    lginf.ItemInfoType.ItemId.ToString() == eiinf.Value.Split('_').
-                                                        DefaultIfEmpty(string.Empty).
-                                                        FirstOrDefault()))).
-                        All(lg =>
-                        {
-                            //validate norm
+                    ItemId = ct.ItemId,
+                    ItemResults = vEvaluationItem.ItemInfo.
+                                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402006 &&
+                                                    !string.IsNullOrEmpty(eiinf.Value) &&
+                                                    eiinf.Value.Split('_').Length >= 3).
+                                    Select(eiinf => ValidateCondition(eiinf.Value, ct)).
+                                    ToList(),
+                }).
+                Where(er => !er.ItemResults.Any(erit => !erit)).
+                Select(er => (int?)er.ItemId).
+                DefaultIfEmpty(null).
+                FirstOrDefault();
 
-                            //get expiration date
-                            DateTime oExpirationDate = lg.ItemInfo.
-                                Where(lginf => lginf.ItemInfoType.ItemId == 702004).
-                                Select(lginf => string.IsNullOrEmpty(lginf.Value) ? DateTime.MinValue : Convert.ToDateTime(lginf.Value)).
-                                DefaultIfEmpty(DateTime.MinValue).
-                                FirstOrDefault();
+            //Response - Create project company info object to upsert
+            Dictionary<int, string> oValues = new Dictionary<int, string>();
+            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
+            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
 
-                            if (oExpirationDate >= DateTime.Now)
-                            {
-                                //validate Infos
-                                bool oValidInfos = true;
+            //get standar response
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
+                (vProjectProvider,
+                vEvaluationItem,
+                oValues);
 
-                                ei.ItemInfo.Where(eiinf => eiinf.ItemInfoType.ItemId == 1402006).All(eiinf =>
-                                {
-                                    //get infotype values
-                                    string[] strSplit = eiinf.Value.Split('_');
+            return oReturn;
+        }
 
-                                    if (strSplit.Length >= 3)
-                                    {
-                                        string oValue = lg.ItemInfo.
-                                            Where(lginf => lginf.ItemInfoType.ItemId.ToString() == strSplit[0]).
-                                            Select(lginf => !string.IsNullOrEmpty(lginf.Value) ? lginf.Value : (!string.IsNullOrEmpty(lginf.LargeValue) ? lginf.LargeValue : string.Empty)).
-                                            DefaultIfEmpty(string.Empty).
-                                            FirstOrDefault();
+        #endregion
 
-                                        if (!string.IsNullOrEmpty(oValue))
-                                        {
-                                            switch (strSplit[2])
-                                            {
-                                                case "1409001":
-                                                    oValidInfos = Convert.ToDecimal(oValue) == Convert.ToDecimal(strSplit[1]);
-                                                    break;
-                                                case "1409002":
-                                                    oValidInfos = Convert.ToDecimal(oValue) > Convert.ToDecimal(strSplit[1]);
-                                                    break;
-                                                case "1409003":
-                                                    oValidInfos = Convert.ToDecimal(oValue) >= Convert.ToDecimal(strSplit[1]);
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                    return true;
-                                });
-                            }
-                            return true;
-                        });
-                    return true;
-                });
+        #region Util
+
+        private bool ValidateCondition
+            (string EvaluationItemValue,
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel ItemToEval)
+        {
+            bool oReturn = false;
+
+            string[] strSplit = EvaluationItemValue.Split('_');
+
+            decimal ValueToEval = ItemToEval.ItemInfo.
+                Where(itinf => itinf.ItemInfoType.ItemId.ToString() == strSplit[0].Replace(" ", "")).
+                Select(itinf => string.IsNullOrEmpty(itinf.Value) ? 0 : Convert.ToDecimal(itinf.Value.Replace(" ", ""))).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+
+            switch (strSplit[2].Replace(" ", ""))
+            {
+                case "1409001":
+                    oReturn = ValueToEval == Convert.ToDecimal(strSplit[1].Replace(" ", ""));
+                    break;
+                case "1409002":
+                    oReturn = ValueToEval > Convert.ToDecimal(strSplit[1].Replace(" ", ""));
+                    break;
+                case "1409003":
+                    oReturn = ValueToEval >= Convert.ToDecimal(strSplit[1].Replace(" ", ""));
+                    break;
+                default:
+                    break;
             }
+
+            return oReturn;
+        }
+
+        private List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> CreateStandarResponse
+            (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel vEvaluationItem,
+            Dictionary<int, string> oResultInfos)
+        {
+
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn =
+                new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>();
+
+            oResultInfos.All(ri =>
+            {
+                oReturn.Add(new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                {
+                    ItemInfoId = vProjectProvider.ItemInfo == null ? 0 :
+                        vProjectProvider.ItemInfo.
+                        Where(pjpvinf => pjpvinf.ItemInfoType.ItemId == ri.Key &&
+                                        pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItem.ItemId).
+                        Select(pjpvinf => pjpvinf.ItemInfoId).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+
+                    RelatedEvaluationItem = new Company.Models.Util.GenericItemModel()
+                    {
+                        ItemId = vEvaluationItem.ItemId,
+                    },
+                    ItemInfoType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = ri.Key,
+                    },
+                    Value = ri.Value,
+                    Enable = true,
+                });
+
+                return true;
+            });
+
+            return oReturn;
+
+            //List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn =
+            //    new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>()
+            //{
+            //    //add ratting item
+            //    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+            //    {
+            //        ItemInfoId = vProjectProvider.ItemInfo == null ? 0 :
+            //            vProjectProvider.ItemInfo.
+            //            Where(pjpvinf => pjpvinf.ItemInfoType.ItemId == 1408001 &&
+            //                            pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItem.ItemId).
+            //            Select(pjpvinf => pjpvinf.ItemInfoId).
+            //            DefaultIfEmpty(0).
+            //            FirstOrDefault(),
+
+            //        RelatedEvaluationItem = new Company.Models.Util.GenericItemModel()
+            //        {
+            //            ItemId = vEvaluationItem.ItemId,
+            //        },
+            //        ItemInfoType = new Company.Models.Util.CatalogModel()
+            //        {
+            //            ItemId = 1408001,
+            //        },
+            //        Value = oValidCertificationId == null? "0":"100",
+            //        Enable = true,
+            //    },
+
+            //    //add provider item 
+            //    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+            //    {
+            //        ItemInfoId = vProjectProvider.ItemInfo == null ? 0 :
+            //            vProjectProvider.ItemInfo.
+            //            Where(pjpvinf => pjpvinf.ItemInfoType.ItemId == 1408002 &&
+            //                            pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItem.ItemId).
+            //            Select(pjpvinf => pjpvinf.ItemInfoId).
+            //            DefaultIfEmpty(0).
+            //            FirstOrDefault(),
+
+            //        RelatedEvaluationItem = new Company.Models.Util.GenericItemModel()
+            //        {
+            //            ItemId = vEvaluationItem.ItemId,
+            //        },
+            //        ItemInfoType = new Company.Models.Util.CatalogModel()
+            //        {
+            //            ItemId = 1408002,
+            //        },
+            //        Value = oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(),
+            //        Enable = true,
+            //    },
+
+            //};
+
         }
 
         #endregion
