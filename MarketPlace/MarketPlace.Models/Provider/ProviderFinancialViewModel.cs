@@ -270,6 +270,15 @@ namespace MarketPlace.Models.Provider
                             Select(y => y.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(oIB_AccountType))
+                    {
+                        oIB_AccountType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where
+                            (x => x.CatalogId == 1001 && x.ItemId.ToString() == oIB_AccountType).
+                            Select(x => x.ItemName).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault();
+                    }
                 }
 
                 return oIB_AccountType;
