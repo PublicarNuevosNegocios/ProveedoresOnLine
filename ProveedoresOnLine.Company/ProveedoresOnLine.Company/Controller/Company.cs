@@ -47,6 +47,11 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.TreeGetByType(TreeType);
         }
 
+        public static List<Models.Util.TreeModel> TreeGetFullByType(int TreeType)
+        {
+            return DAL.Controller.CompanyDataController.Instance.TreeGetFullByType(TreeType);
+        }
+
         public static GenericItemModel CategoryUpsert(int? TreeId, GenericItemModel CategoryToUpsert)
         {
             LogManager.Models.LogModel oLog = GetGenericLogModel();
@@ -359,6 +364,11 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<Models.Util.GenericItemModel> CategorySearchBySurveyGroup(int TreeId, string SearchParam, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.CompanyDataController.Instance.CategorySearchBySurveyGroup(TreeId, SearchParam, PageNumber, RowCount, out  TotalRows);
+        }
+
+        public static MinimumWageModel MinimumWageSearchByYear(int Year, int CountryType)
+        {
+            return DAL.Controller.CompanyDataController.Instance.MinimumWageSearchByYear(Year, CountryType);
         }
 
         #endregion

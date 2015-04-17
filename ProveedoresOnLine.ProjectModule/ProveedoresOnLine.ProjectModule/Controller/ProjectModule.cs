@@ -363,6 +363,17 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return DAL.Controller.ProjectDataController.Instance.ProjectGetByIdLite(ProjectPublicId, CustomerPublicId);
         }
 
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId, string CustomerPublicId)
+        {
+            return DAL.Controller.ProjectDataController.Instance.ProjectGetByIdCalculate(ProjectPublicId, CustomerPublicId);
+        }
+
+        public static void ProjectCalculate(string ProjectPublicId, string CustomerPublicId)
+        {
+            ProjectEvaluator pjeval = new ProjectEvaluator(ProjectPublicId, CustomerPublicId);
+            pjeval.InitEval();
+        }
+
         #endregion
 
     }

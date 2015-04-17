@@ -21,7 +21,8 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                     //log file
                     LogFile("Start K_Recruitment Calc" + DateTime.Now.ToString("yyyyMMdd"));
 
-                    CompanyProviderBatch.Models.General.K_ScoreTables = CompanyProvider.Controller.CompanyProvider.BPGetAllTablesScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_ContrTreeType);
+                    RecruitmentCalculate RecruitmentCal = new RecruitmentCalculate();
+
 
                     oProviderModelList.All(providerToCalculate =>
                     {
@@ -36,15 +37,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                             if (providerToCalculate.RelatedCommercial != null && providerToCalculate.RelatedCommercial.Count > 0
                                 && providerToCalculate.RelatedLegal != null && providerToCalculate.RelatedLegal.Count > 0
                                 && providerToCalculate.RelatedFinantial != null && providerToCalculate.RelatedFinantial.Count > 0)
-                            {
-                                List<List<BalanceSheetDetailModel>> BalanceDetailList = new List<List<BalanceSheetDetailModel>>();
-
-                                providerToCalculate.RelatedFinantial.All(x =>
-                                {
-                                    //GetBalanceShhet Info
-                                    BalanceDetailList.Add(ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(x.ItemId));
-                                    return true;
-                                });
+                            {                              
 
                                 #region Find the Role
 
@@ -109,8 +102,8 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                 {
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Provider).ToString()))
                                     {
-                                        //get calculate provider                                    
-                                        GetProviderScore(providerToCalculate);
+                                        //get calculate provider    
+                                        RecruitmentCal.GetProviderScore(providerToCalculate);                                        
                                     }
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Consultant).ToString()))
                                     {
@@ -171,30 +164,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
         #region Calucalate Functions
 
-        private static GenericItemModel GetProviderScore(ProviderModel oProvider)
-        {
-            GenericItemModel K_ContactModel = new GenericItemModel();
-
-            #region Expiriences Caltulation
-
-            int Years = 0;
-            DateTime ConstitutionCompanydate = oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumLegalInfoType.CP_ConstitutionDate)
-                                                .Select(x => Convert.ToDateTime(x.Value)).DefaultIfEmpty(DateTime.Now).FirstOrDefault();
-            //Set Expirience Years
-            Years = DateTime.Now.Year - ConstitutionCompanydate.Year;
-
-            string oTotalExpirienceScore;
-
-            //oTotalExpirienceScore = CompanyProviderBatch.Models.General.K_ScoreTables.Where(x => x.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_ProviderExpirienceScore)
-            //                        .Select(x => x.ItemInfo.Where(Years >= (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue && Years <= (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).
-            //                                                    Select(y => y.ItemInfoType.)
-
-
-
-            #endregion
-
-            return K_ContactModel;
-        }
+       
 
         private static GenericItemModel GetConsultantScore(ProviderModel oProvider)
         {

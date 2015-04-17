@@ -1632,13 +1632,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                          StatusName = tr.Field<string>("StatusName"),
                      }
                          into trg
-                         select new GenericItemModel()
-                         {
+                     select new GenericItemModel()
+                     {
                              ItemId = trg.Key.CustomerProviderId,
-                             ItemType = new CatalogModel()
-                             {
+                         ItemType = new CatalogModel()
+                         {
                                  ItemName = trg.Key.StatusName
-                             },
+                         },
                              ItemInfo =
                              (from trinf in response.DataTableResult.AsEnumerable()
                               where !trinf.IsNull("CustomerProviderInfoId") &&
@@ -1689,93 +1689,19 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      where !p.IsNull("CompanyPublicId")
                      group p by new
                      {
-                         CompanyPublicId = p.Field<string>("CompanyPublicId"),
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),                        
                      } into pg
                      select new ProviderModel()
                      {
                          RelatedCompany = new Company.Models.Company.CompanyModel()
                          {
-                             CompanyPublicId = pg.Key.CompanyPublicId,
+                             CompanyPublicId = pg.Key.CompanyPublicId,                                                         
                          },
                      }).ToList();
             }
             return oReturn;
         }
 
-
-        /// <summary>
-        /// Get all info from score tables to Calculate the K
-        /// </summary>
-        /// <param name="TreeType">114014 Tree Type corresponding to the tree</param>
-        /// <returns>Score Tables</returns>
-        public List<GenericItemModel> BPGetAllTablesScore(int TreeType)
-        {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-
-            lstParams.Add(DataInstance.CreateTypedParameter("vTreeType", TreeType));
-
-            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
-            {
-                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "BP_U_Tree_GetAllTablesScore",
-                CommandType = System.Data.CommandType.StoredProcedure,
-                Parameters = lstParams
-            });
-
-            List<GenericItemModel> oReturn = null;
-
-            if (response.DataTableResult != null &&
-                response.DataTableResult.Rows.Count > 0)
-            {
-                oReturn =
-                    (from ks in response.DataTableResult.AsEnumerable()
-                     where !ks.IsNull("TreeId")
-                     group ks by new
-                     {
-                         TreeId = ks.Field<int>("TreeId"),
-                         TreeName = ks.Field<string>("TreeName"),
-
-                     } into ksg
-                     select new GenericItemModel()
-                     {
-                         ItemId = ksg.Key.TreeId,
-                         ItemName = ksg.Key.TreeName,
-                         ItemInfo =
-                             (from ksinf in response.DataTableResult.AsEnumerable()
-                              where !ksinf.IsNull("CategoryInfoId") &&
-                                      ksinf.Field<int>("TreeId") == ksg.Key.TreeId
-                              group ksinf by new
-                              {
-                                  CategoryInfoId = ksinf.Field<int>("CategoryInfoId"),
-                                  CategoryInfoType = ksinf.Field<int>("CategoryInfoType"),
-                                  CategoryInfoTypeName = ksinf.Field<string>("CategoryName"),
-
-                                  Value = ksinf.Field<string>("Value"),
-                                  Enable = ksinf.Field<UInt64>("Enable") == 1 ? true : false,
-
-                                  LastModify = ksinf.Field<DateTime>("LastModify"),
-                                  CreateDate = ksinf.Field<DateTime>("CreateDate"),
-                              } into ksinfg
-                              select new GenericItemInfoModel()
-                              {
-                                  ItemInfoId = ksinfg.Key.CategoryInfoId,
-                                  ItemInfoType = new CatalogModel()
-                                  {
-                                      ItemId = ksinfg.Key.CategoryInfoType,
-                                      ItemName = ksinfg.Key.CategoryInfoTypeName,
-                                  },
-                                  Value = ksinfg.Key.Value,
-
-                                  Enable = ksinfg.Key.Enable,
-                                  LastModify = ksinfg.Key.LastModify,
-                                  CreateDate = ksinfg.Key.CreateDate,
-                              }).ToList(),
-
-                     }).ToList();
-            }
-            return oReturn;
-        }
-
-        #endregion
+        #endregion       
     }
 }

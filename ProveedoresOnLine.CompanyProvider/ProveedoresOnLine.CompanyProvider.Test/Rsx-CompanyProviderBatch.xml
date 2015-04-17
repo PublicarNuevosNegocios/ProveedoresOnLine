@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <CompanyProviderBatch>
+    
+    <!--Default Country-->
+    <key name="Company_DefaultCountry">988</key>
+   
+  </CompanyProviderBatch>
+</Settings>

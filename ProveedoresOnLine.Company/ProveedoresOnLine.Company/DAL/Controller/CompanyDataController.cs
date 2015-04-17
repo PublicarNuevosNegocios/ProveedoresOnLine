@@ -47,6 +47,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.TreeGetByType(TreeType);
         }
 
+        public List<Models.Util.TreeModel> TreeGetFullByType(int TreeType)
+        {
+            return DataFactory.TreeGetFullByType(TreeType);
+        }
+
         public int CategoryUpsert(int? CategoryId, string CategoryName, bool Enable)
         {
             return DataFactory.CategoryUpsert(CategoryId, CategoryName, Enable);
@@ -187,6 +192,11 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.CategorySearchBySurveyGroup(TreeId, SearchParam, PageNumber, RowCount, out  TotalRows);
         }
 
+        public Models.Util.MinimumWageModel MinimumWageSearchByYear(int Year, int CountryType)
+        {
+            return DataFactory.MinimumWageSearchByYear(Year, CountryType);
+        }
+
         #endregion
 
         #region Company CRUD
@@ -296,6 +306,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
-        #endregion
+        #endregion      
     }
 }

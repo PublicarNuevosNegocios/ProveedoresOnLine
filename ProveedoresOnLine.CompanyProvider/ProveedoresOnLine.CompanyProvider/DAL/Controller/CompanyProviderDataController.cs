@@ -230,11 +230,6 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.BPGetRecruitmentProviders();
         }
 
-        public List<Company.Models.Util.GenericItemModel> BPGetAllTablesScore(int TreeType)
-        {
-            return DataFactory.BPGetAllTablesScore(TreeType);
-        }
-
         #endregion         
     }
 }

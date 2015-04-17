@@ -16,8 +16,9 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             K_ContrTreeType = 114014,
 
             K_MinValue = 117001,
-            K_Maxvalue = 117002,
+            K_MaxValue = 117002,
             K_Score = 117003,
+            K_MaxScore = 117004,
 
             //Tree Tables
             K_ProviderExpirienceScore = 37,
@@ -74,6 +75,21 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
         public enum enumFinancialType
         {
             BalanceSheetInfoType = 501001,
+        }
+
+        public enum enumFinancialInfoType
+        {
+            FI_Year = 502001,
+        }
+
+        public enum enumFinancialDetailType
+        {
+            FD_TotalActive = 3115,
+            FD_TotalPassive = 3116,
+            FD_TotalHeritage = 3117,
+            FD_CurrentActive = 3118,
+            FD_CurentPassive = 3120,
+            FD_OperatingIncome = 3821,
         }
 
         //enum AccountsInfo 

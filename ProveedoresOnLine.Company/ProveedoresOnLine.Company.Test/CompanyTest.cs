@@ -16,6 +16,14 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn.Count > 0);
         }
 
+        [TestMethod]
+        public void TreeGetFullByType()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.TreeModel> oReturn =
+                ProveedoresOnLine.Company.Controller.Company.TreeGetFullByType(114014);
+
+            Assert.AreEqual(true, oReturn.Count > 0);
+        }
 
         [TestMethod]
         public void CategorySearchByGeography()
@@ -313,6 +321,14 @@ namespace ProveedoresOnLine.Company.Test
                     (20, "", 0, 20, out oTotalRows);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
+        }
+
+        [TestMethod]
+        public void MinimumWageSearchByYear()
+        {   
+            ProveedoresOnLine.Company.Models.Util.MinimumWageModel oReturn = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(2015,988);
+
+            Assert.AreEqual(true, oReturn != null);
         }
     }
 }

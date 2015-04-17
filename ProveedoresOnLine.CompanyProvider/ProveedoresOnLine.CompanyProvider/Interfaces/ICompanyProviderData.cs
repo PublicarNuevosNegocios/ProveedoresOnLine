@@ -105,7 +105,6 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders();
 
-        List<GenericItemModel> BPGetAllTablesScore(int TreeType);
         #endregion
     }
 }
