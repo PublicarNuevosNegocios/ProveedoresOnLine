@@ -8,7 +8,7 @@ function Provider_InitMenu(InitObject) {
 }
 
 var Provider_SearchObject = {
-    
+
     ObjectId: '',
     SearchUrl: '',
     CompareId: '',
@@ -181,7 +181,7 @@ var Provider_SearchObject = {
 
                     //re-init all rates
                     $('.rateit').rateit();
-                    
+
                     //init generic tooltip
                     Tooltip_InitGeneric();
                 }
@@ -502,6 +502,7 @@ var Provider_TrackingObject = {
                             url: BaseUrl.ApiUrl + '/ProviderApi?GITrackingInfo=true&ProviderPublicId=' + Provider_TrackingObject.ProviderPublicId,
                             dataType: 'json',
                             success: function (result) {
+                                $('#ProviderStatus').html(result[0].Value);
                                 options.success(result);
                             },
                             error: function (result) {
@@ -512,18 +513,24 @@ var Provider_TrackingObject = {
                 },
             },
             columns: [{
-                field: 'ItemName',
+                field: 'LargeValue',
                 title: 'Seguimiento',
                 width: '50%',
-            }, {
-                field: 'ItemType.ItemName',
-                title: 'Estado',
-                width: '25%',
             }, {
                 field: 'CreateDate',
                 title: 'Fecha',
                 width: '25%',
-                template: "#= kendo.toString(kendo.parseDate(CreateDate, 'yyyy-MM-dd'), 'MM/dd/yyyy') #"
+                template: function (dataItem) {
+                    var TrackingDate;
+                    if (dataItem.LargeValue != null) {
+                        TrackingDate = new Date(dataItem.CreateDate);
+                        TrackingDate = TrackingDate.getDate() + "/" + (TrackingDate.getMonth() + 1) + "/" + TrackingDate.getFullYear();
+                    }
+                    else {
+                        TrackingDate = "";
+                    }
+                    return TrackingDate;
+                }
             }],
         });
     },

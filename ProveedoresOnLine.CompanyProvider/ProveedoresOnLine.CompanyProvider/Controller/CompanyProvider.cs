@@ -1204,7 +1204,7 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPCertificationGetSpecificCert(ProviderPublicId);
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPCustomerProviderGetAllTracking(CustomerPublicId, ProviderPublicId);
         }

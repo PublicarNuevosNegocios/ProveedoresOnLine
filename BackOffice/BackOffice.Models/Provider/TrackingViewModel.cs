@@ -19,7 +19,7 @@ namespace BackOffice.Models.Provider
 
         public TrackingDetailViewModel CPI_Tracking { get; set; }
 
-        public string CPI_CreateDate { get { return RelatedCustomerProviderInfo.CreateDate.ToString(); } }
+        public string CPI_CreateDate { get { return RelatedCustomerProviderInfo.CreateDate.ToString("dd/MM/yyyy hh:MM:ss"); } }
 
         public bool CPI_Enable { get; set; }
 

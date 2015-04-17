@@ -461,11 +461,11 @@ namespace ProveedoresOnLine.CompanyProvider.Test
         [TestMethod]
         public void MPCustomerProviderGetAllTracking()
         {
-            List<GenericItemModel> oResult =
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetTracking
-                ("1A9863BD", "1D9B9580");
+            GenericItemModel oResult =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCustomerProviderGetAllTracking
+                ("DA5C572E", "18A8F37B");
 
-            Assert.AreEqual(true, oResult.Count > 0);
+            Assert.AreEqual(true, oResult != null && oResult.ItemInfo.Count > 0);
         }
         #endregion
     }

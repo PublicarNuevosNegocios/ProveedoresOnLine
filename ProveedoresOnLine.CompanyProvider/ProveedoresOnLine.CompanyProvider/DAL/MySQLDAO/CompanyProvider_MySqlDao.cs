@@ -1603,7 +1603,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GenericItemModel> MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
+        public GenericItemModel MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
@@ -1618,31 +1618,45 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                 Parameters = lstParams
             });
 
-            List<GenericItemModel> oReturn = null;
+            GenericItemModel oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
-                    (from bl in response.DataTableResult.AsEnumerable()
-                     where !bl.IsNull("CustomerProviderInfoId")
-                     group bl by new
+                    (from tr in response.DataTableResult.AsEnumerable()
+                     where !tr.IsNull("CustomerProviderId")
+                     group tr by new
                      {
-                         CustomerProviderInfoId = bl.Field<int>("CustomerProviderInfoId"),
-                         Seguimiento = bl.Field<string>("Seguimiento"),
-                         CreateDate = bl.Field<DateTime>("CreateDate"),
-                         Status = bl.Field<string>("Status"),
-                     } into blg
+                         CustomerProviderId = tr.Field<int>("CustomerProviderId"),
+                         StatusName = tr.Field<string>("StatusName"),
+                     }
+                         into trg
                      select new GenericItemModel()
                      {
-                         ItemId = blg.Key.CustomerProviderInfoId,
+                             ItemId = trg.Key.CustomerProviderId,
                          ItemType = new CatalogModel()
                          {
-                             ItemName = blg.Key.Status
+                                 ItemName = trg.Key.StatusName
                          },
-                         CreateDate = blg.Key.CreateDate,
-                         ItemName = blg.Key.Seguimiento,
-                     }).ToList();
+                             ItemInfo =
+                             (from trinf in response.DataTableResult.AsEnumerable()
+                              where !trinf.IsNull("CustomerProviderInfoId") &&
+                                    trinf.Field<int>("CustomerProviderId") == trg.Key.CustomerProviderId
+                              group trinf by new
+                              {
+                                  CustomerProviderInfoId = trinf.Field<int>("CustomerProviderInfoId"),
+                                  Tracking = trinf.Field<string>("Tracking"),
+                                  CreateDate = trinf.Field<DateTime>("CreateDate"),
+                              }
+                                  into trinfg
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = trinfg.Key.CustomerProviderInfoId,
+                                      LargeValue = trinfg.Key.Tracking,
+                                      CreateDate = trinfg.Key.CreateDate,
+                                  }).ToList()
+                         }).FirstOrDefault();
             }
             return oReturn;
         }
@@ -1675,19 +1689,19 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                      where !p.IsNull("CompanyPublicId")
                      group p by new
                      {
-                         CompanyPublicId = p.Field<string>("CompanyPublicId"),
+                         CompanyPublicId = p.Field<string>("CompanyPublicId"),                        
                      } into pg
                      select new ProviderModel()
                      {
                          RelatedCompany = new Company.Models.Company.CompanyModel()
                          {
-                             CompanyPublicId = pg.Key.CompanyPublicId,
+                             CompanyPublicId = pg.Key.CompanyPublicId,                                                         
                          },
                      }).ToList();
             }
             return oReturn;
         }
 
-        #endregion
+        #endregion       
     }
 }
