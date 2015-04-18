@@ -169,7 +169,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
                     //loop for evaluation criteria
 
-                    List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult;
+                    List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult = new List<Models.ProjectProviderInfoModel>();
 
                     RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
                     Where(ei => ei.ItemType.ItemId == 1401002).
@@ -245,6 +245,10 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     });
 
                     //recalculate area results
+                    if (oResult == null)
+                        oResult = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>();
+
+                    oProjectProviderToUpsert.ItemInfo.AddRange(AreaResults(pjpv, oResult));
 
                     //upsert evaluation items responses
                     oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
@@ -617,6 +621,81 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 (vProjectProvider,
                 vEvaluationItem,
                 oValues);
+
+            return oReturn;
+        }
+
+        #endregion
+
+        #region AreaResults
+
+        private List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> AreaResults
+            (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> vEvaluationItemResults)
+        {
+
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>();
+
+            //loop for all areas
+            RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
+            Where(ei => ei.ItemType.ItemId == 1401001 &&
+                        ei.ItemInfo.Any(eiinf =>
+                            eiinf.ItemInfoType.ItemId == 1402003 &&
+                            !string.IsNullOrEmpty(eiinf.Value) &&
+                            (eiinf.Value.Replace(" ", "") == "1403001" || eiinf.Value.Replace(" ", "") == "1403002"))).
+            All(ei =>
+            {
+                //get evaluation item unit
+                int oeiUnit = ei.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402003 &&
+                                    !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+
+                //loop for child evaluation
+                var EvaluationItemChild = RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
+                        Where(eichild => eichild.ItemType.ItemId == 1401002 &&
+                                        eichild.ParentItem != null &&
+                                        eichild.ParentItem.ItemId == ei.ItemId).
+                        Select(eichild => new
+                        {
+                            EvaluationItemId = eichild.ItemId,
+                            EvaluationItemWeight = eichild.ItemInfo.
+                                Where(eichildinf => eichildinf.ItemInfoType.ItemId == 1402004 &&
+                                                    !string.IsNullOrEmpty(eichildinf.Value)).
+                                Select(eichildinf => Convert.ToDecimal(eichildinf.Value, System.Globalization.CultureInfo.CreateSpecificCulture("En-us"))).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault(),
+                            EvaluationItemResult = vEvaluationItemResults.
+                                Where(eir => eir.RelatedEvaluationItem.ItemId == eichild.ItemId &&
+                                            eir.ItemInfoType.ItemId == 1408001 &&
+                                            !string.IsNullOrEmpty(eir.Value)).
+                                Select(eir => Convert.ToDecimal(eir.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                                DefaultIfEmpty(0).
+                                FirstOrDefault(),
+                        });
+
+                decimal oResult = 0;
+
+                if (oeiUnit == 1403001)
+                {
+                    oResult = EvaluationItemChild.Any(eic => eic.EvaluationItemResult == 0) ? 0 : 100;
+                }
+                else if (oeiUnit == 1403002)
+                {
+                    oResult = EvaluationItemChild.Sum(eic => eic.EvaluationItemResult * eic.EvaluationItemWeight / 100);
+                }
+
+                //Response - Create project company info object to upsert
+                Dictionary<int, string> oValues = new Dictionary<int, string>();
+                oValues.Add(1408001, oResult.ToString("0.##"));
+
+                //get standar response
+                oReturn.AddRange(CreateStandarResponse(vProjectProvider, ei, oValues));
+
+                return true;
+            });
 
             return oReturn;
         }
