@@ -12,6 +12,133 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; private set; }
 
+        #region Project Infos
+
+        private decimal? oProjectAmmount;
+        public decimal ProjectAmmount
+        {
+            get
+            {
+                if (oProjectAmmount == null)
+                {
+                    oProjectAmmount = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == 1407002 && !string.IsNullOrEmpty(pjinf.Value)).
+                        Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
+                }
+                return oProjectAmmount.Value;
+            }
+        }
+
+        private int? oProjectExperienceYear;
+        public int ProjectExperienceYear
+        {
+            get
+            {
+                if (oProjectExperienceYear == null)
+                {
+                    oProjectExperienceYear = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == 1407003 && !string.IsNullOrEmpty(pjinf.Value)).
+                        Select(pjinf => DateTime.Now.Year - Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
+                }
+                return oProjectExperienceYear.Value;
+            }
+        }
+
+        private int? oProjectExperienceCount;
+        public int ProjectExperienceCount
+        {
+            get
+            {
+                if (oProjectExperienceCount == null)
+                {
+                    oProjectExperienceCount = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == 1407004 && !string.IsNullOrEmpty(pjinf.Value)).
+                        Select(pjinf => Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
+                }
+                return oProjectExperienceCount.Value;
+            }
+        }
+
+        private List<string> oProjectDefaultEconomicActivity;
+        public List<string> ProjectDefaultEconomicActivity
+        {
+            get
+            {
+                if (oProjectDefaultEconomicActivity == null)
+                {
+                    oProjectDefaultEconomicActivity = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == 1407005 && !string.IsNullOrEmpty(pjinf.LargeValue)).
+                        Select(pjinf => pjinf.LargeValue.Replace(" ", "")).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault().
+                        Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                        ToList();
+
+                    if (oProjectDefaultEconomicActivity == null)
+                        oProjectDefaultEconomicActivity = new List<string>();
+                }
+                return oProjectDefaultEconomicActivity;
+            }
+        }
+
+        private List<string> oProjectCustomEconomicActivity;
+        public List<string> ProjectCustomEconomicActivity
+        {
+            get
+            {
+                if (oProjectCustomEconomicActivity == null)
+                {
+                    oProjectCustomEconomicActivity = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == 1407006 && !string.IsNullOrEmpty(pjinf.LargeValue)).
+                        Select(pjinf => pjinf.LargeValue.Replace(" ", "")).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault().
+                        Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                        ToList();
+
+                    if (oProjectCustomEconomicActivity == null)
+                        oProjectCustomEconomicActivity = new List<string>();
+                }
+                return oProjectCustomEconomicActivity;
+            }
+        }
+
+
+        private int? oProjectCurrency;
+        public int ProjectCurrency
+        {
+            get
+            {
+                if (oProjectCurrency == null)
+                {
+                    oProjectCurrency = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == 1407007 && !string.IsNullOrEmpty(pjinf.Value)).
+                        Select(pjinf => Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(DefaultCurrency).
+                        FirstOrDefault();
+                }
+                return oProjectCurrency.Value;
+            }
+        }
+
+
+        #endregion
+
+        public int DefaultCurrency
+        {
+            get
+            {
+                return Convert.ToInt32(ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance
+                    [ProveedoresOnLine.Company.Models.Constants.C_Settings_CurrencyExchange_USD].Value);
+            }
+        }
+
         #endregion
 
         #region Constructors
@@ -128,99 +255,62 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
             ProveedoresOnLine.Company.Models.Util.GenericItemModel vEvaluationItem)
         {
-            //get years to eval
-            int oMinYear = RelatedProject.ProjectInfo.
-                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407003).
-                Select(pjinf => string.IsNullOrEmpty(pjinf.Value) ? DateTime.Now.Year - 1 : DateTime.Now.Year - Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
-                DefaultIfEmpty(DateTime.Now.Year - 1).
-                FirstOrDefault();
-
-            //get min project value
-            decimal oMinValue = RelatedProject.ProjectInfo.
-                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407002).
-                Select(pjinf => string.IsNullOrEmpty(pjinf.Value) ? 0 : Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
-                DefaultIfEmpty(0).
-                FirstOrDefault();
-
-            //get min number of experience
-            int oMinExperience = RelatedProject.ProjectInfo.
-                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407004).
-                Select(pjinf => string.IsNullOrEmpty(pjinf.Value) ? 0 : Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
-                DefaultIfEmpty(0).
-                FirstOrDefault();
-
-            //get default economic activity list
-            List<string> oDefaultActivityList = RelatedProject.ProjectInfo.
-                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407005).
-                Select(pjinf => string.IsNullOrEmpty(pjinf.LargeValue) ? string.Empty : pjinf.LargeValue).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault().
-                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                ToList();
-
-            //get custom economic activity list
-            List<string> oCustomActivityList = RelatedProject.ProjectInfo.
-                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407006).
-                Select(pjinf => string.IsNullOrEmpty(pjinf.LargeValue) ? string.Empty : pjinf.LargeValue).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault().
-                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
-                ToList();
-
-            //get experience in activity
-            vProjectProvider.RelatedProvider.RelatedCommercial.
+            //get experience to eval
+            var oExperienceToEval = vProjectProvider.RelatedProvider.RelatedCommercial.
                 Where(cm => cm.ItemType.ItemId == 301001 &&
-                            (
-                            cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302012 &&
-                                                    (oDefaultActivityList.Count == 0 ? true :
-                                                    cminf.LargeValue.Split(',').
-                                                    Any(dea => oDefaultActivityList.
-                                                                Any(deate => deate == dea)))
-                                            )
+                            (ProjectExperienceYear == 0 ? true :
+                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302003 &&
+                                                        !string.IsNullOrEmpty(cminf.Value) &&
+                                                        Convert.ToDateTime(cminf.Value).Year >= oProjectExperienceYear)
+
                             ) &&
-                            (
-                            cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302013 &&
-                                                    (oCustomActivityList.Count == 0 ? true :
-                                                    cminf.LargeValue.Split(',').
-                                                    Any(dea => oCustomActivityList.
-                                                                Any(deate => deate == dea)))
-                                            )
+                            (ProjectDefaultEconomicActivity != null && ProjectDefaultEconomicActivity.Count > 0 ?
+                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302012 &&
+                                                    !string.IsNullOrEmpty(cminf.LargeValue) &&
+                                                    cminf.LargeValue.Split(',').Any(dea =>
+                                                        ProjectDefaultEconomicActivity.Any(deate => deate.Replace(" ", "") == dea.Replace(" ", ""))))
+                                : true
+                            ) &&
+                            (ProjectCustomEconomicActivity != null && ProjectCustomEconomicActivity.Count > 0 ?
+                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302013 &&
+                                                    !string.IsNullOrEmpty(cminf.LargeValue) &&
+                                                    cminf.LargeValue.Split(',').Any(cta =>
+                                                        ProjectCustomEconomicActivity.Any(ctate => cta.Replace(" ", "") == ctate.Replace(" ", ""))))
+                                : true
                             )
-                    );
-
-
-
-
-
-
-
-            //evaluate certification items
-            var oValidCertificationId =
-                vProjectProvider.RelatedProvider.RelatedCertification.
-                Where(rc => rc.ItemType.ItemId == 701001 &&
-                            rc.ItemInfo.
-                                Any(rcinf => rcinf.ItemInfoType.ItemId == 702004 &&
-                                             !string.IsNullOrEmpty(rcinf.Value) &&
-                                             Convert.ToDateTime(rcinf.Value) >= DateTime.Now)).
-                Select(ct => new
+                    ).
+                Select(cm => new
                 {
-                    ItemId = ct.ItemId,
-                    ItemResults = vEvaluationItem.ItemInfo.
-                                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402006 &&
-                                                    !string.IsNullOrEmpty(eiinf.Value) &&
-                                                    eiinf.Value.Split('_').Length >= 3).
-                                    Select(eiinf => ValidateCondition(eiinf.Value, ct)).
-                                    ToList(),
-                }).
-                Where(er => !er.ItemResults.Any(erit => !erit)).
-                Select(er => (int?)er.ItemId).
-                DefaultIfEmpty(null).
-                FirstOrDefault();
+                    ExperienceId = cm.ItemId,
+                    ExperienceValue = cm.ItemInfo.
+                        Where(cminf => cminf.ItemInfoType.ItemId == 302007 && !string.IsNullOrEmpty(cminf.Value)).
+                        Select(cminf => Convert.ToDecimal(cminf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+                    ExperienceCurrency = cm.ItemInfo.
+                        Where(cminf => cminf.ItemInfoType.ItemId == 302002 && !string.IsNullOrEmpty(cminf.Value)).
+                        Select(cminf => Convert.ToInt32(cminf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(DefaultCurrency).
+                        FirstOrDefault(),
+                    ExperienceYear = cm.ItemInfo.
+                        Where(cminf => cminf.ItemInfoType.ItemId == 302003 && !string.IsNullOrEmpty(cminf.Value)).
+                        Select(cminf => Convert.ToInt32(cminf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+                });
+
+            //get ammount
+            decimal oExpSum = oExperienceToEval.
+                Sum(exp => exp.ExperienceValue * CurrencyExchangeGetRate
+                        (exp.ExperienceCurrency, ProjectCurrency, exp.ExperienceYear));
+
+            //get experience itemif
+            string oExpItemId = string.Join(",", oExperienceToEval.Select(exp => exp.ExperienceId));
 
             //Response - Create project company info object to upsert
             Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            oValues.Add(1408001, oExpSum >= ProjectAmmount && oExperienceToEval.Count() >= ProjectExperienceCount ? "100" : "0");
+            oValues.Add(1408002, oExpItemId);
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -601,6 +691,37 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             }
             return oReturn;
         }
+
+        #region Currency
+        //MoneyFrom,MoneyTo,Year,Result
+        private List<Tuple<int, int, int, decimal>> oConsultCurrency;
+
+        private decimal CurrencyExchangeGetRate
+            (int MoneyFrom,
+            int MoneyTo,
+            int Year)
+        {
+            if (oConsultCurrency == null)
+                oConsultCurrency = new List<Tuple<int, int, int, decimal>>();
+
+            if (!oConsultCurrency.Any(cc => cc.Item1 == MoneyFrom &&
+                                        cc.Item2 == MoneyTo &&
+                                        cc.Item3 == Year))
+            {
+                decimal oValue = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(MoneyFrom, MoneyTo, Year);
+                oConsultCurrency.Add(new Tuple<int, int, int, decimal>(MoneyFrom, MoneyTo, Year, oValue));
+            }
+
+            return oConsultCurrency.
+                Where(cc => cc.Item1 == MoneyFrom &&
+                            cc.Item2 == MoneyTo &&
+                            cc.Item3 == Year).
+                Select(cc => cc.Item4).
+                DefaultIfEmpty(1).
+                FirstOrDefault();
+        }
+
+        #endregion
 
         #endregion
 
