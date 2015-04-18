@@ -1059,6 +1059,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                      CommercialInfoId = prvcminf.Field<int>("CommercialInfoId"),
                                                      CommercialInfoType = prvcminf.Field<int>("CommercialInfoType"),
                                                      CommercialInfoValue = prvcminf.Field<string>("CommercialInfoValue"),
+                                                     CommercialInfoLargeValue = prvcminf.Field<string>("CommercialInfoLargeValue"),
                                                  } into prvcminfg
                                                  select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                                                  {
@@ -1068,6 +1069,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                          ItemId = prvcminfg.Key.CommercialInfoType,
                                                      },
                                                      Value = prvcminfg.Key.CommercialInfoValue,
+                                                     LargeValue = prvcminfg.Key.CommercialInfoLargeValue,
                                                  }).ToList(),
                                          }).ToList(),
 

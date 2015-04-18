@@ -51,6 +51,11 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                                 FirstOrDefault())
                     {
                         case 1404001:
+                            oResult = Commercial_EvalExperience(pjpv, ei);
+                            if (oResult != null && oResult.Count > 0)
+                            {
+                                oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                            }
                             break;
                         case 1404002:
                             //oResult = Certification_EvalNorms(pjpv, ei);
@@ -74,11 +79,11 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                             //}
                             break;
                         case 1404005:
-                            oResult = Financial_EvalBalanceSheet(pjpv, ei);
-                            if (oResult != null && oResult.Count > 0)
-                            {
-                                oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            }
+                            //oResult = Financial_EvalBalanceSheet(pjpv, ei);
+                            //if (oResult != null && oResult.Count > 0)
+                            //{
+                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                            //}
                             break;
                         case 1404006:
                             //oResult = Legal_EvalChamberOfCommerce(pjpv, ei);
@@ -116,6 +121,117 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 return true;
             });
         }
+
+        #region Commercial
+
+        private List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> Commercial_EvalExperience
+            (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel vEvaluationItem)
+        {
+            //get years to eval
+            int oMinYear = RelatedProject.ProjectInfo.
+                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407003).
+                Select(pjinf => string.IsNullOrEmpty(pjinf.Value) ? DateTime.Now.Year - 1 : DateTime.Now.Year - Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
+                DefaultIfEmpty(DateTime.Now.Year - 1).
+                FirstOrDefault();
+
+            //get min project value
+            decimal oMinValue = RelatedProject.ProjectInfo.
+                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407002).
+                Select(pjinf => string.IsNullOrEmpty(pjinf.Value) ? 0 : Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+
+            //get min number of experience
+            int oMinExperience = RelatedProject.ProjectInfo.
+                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407004).
+                Select(pjinf => string.IsNullOrEmpty(pjinf.Value) ? 0 : Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+
+            //get default economic activity list
+            List<string> oDefaultActivityList = RelatedProject.ProjectInfo.
+                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407005).
+                Select(pjinf => string.IsNullOrEmpty(pjinf.LargeValue) ? string.Empty : pjinf.LargeValue).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault().
+                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                ToList();
+
+            //get custom economic activity list
+            List<string> oCustomActivityList = RelatedProject.ProjectInfo.
+                Where(pjinf => pjinf.ItemInfoType.ItemId == 1407006).
+                Select(pjinf => string.IsNullOrEmpty(pjinf.LargeValue) ? string.Empty : pjinf.LargeValue).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault().
+                Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).
+                ToList();
+
+            //get experience in activity
+            vProjectProvider.RelatedProvider.RelatedCommercial.
+                Where(cm => cm.ItemType.ItemId == 301001 &&
+                            (
+                            cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302012 &&
+                                                    (oDefaultActivityList.Count == 0 ? true :
+                                                    cminf.LargeValue.Split(',').
+                                                    Any(dea => oDefaultActivityList.
+                                                                Any(deate => deate == dea)))
+                                            )
+                            ) &&
+                            (
+                            cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302013 &&
+                                                    (oCustomActivityList.Count == 0 ? true :
+                                                    cminf.LargeValue.Split(',').
+                                                    Any(dea => oCustomActivityList.
+                                                                Any(deate => deate == dea)))
+                                            )
+                            )
+                    );
+
+
+
+
+
+
+
+            //evaluate certification items
+            var oValidCertificationId =
+                vProjectProvider.RelatedProvider.RelatedCertification.
+                Where(rc => rc.ItemType.ItemId == 701001 &&
+                            rc.ItemInfo.
+                                Any(rcinf => rcinf.ItemInfoType.ItemId == 702004 &&
+                                             !string.IsNullOrEmpty(rcinf.Value) &&
+                                             Convert.ToDateTime(rcinf.Value) >= DateTime.Now)).
+                Select(ct => new
+                {
+                    ItemId = ct.ItemId,
+                    ItemResults = vEvaluationItem.ItemInfo.
+                                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402006 &&
+                                                    !string.IsNullOrEmpty(eiinf.Value) &&
+                                                    eiinf.Value.Split('_').Length >= 3).
+                                    Select(eiinf => ValidateCondition(eiinf.Value, ct)).
+                                    ToList(),
+                }).
+                Where(er => !er.ItemResults.Any(erit => !erit)).
+                Select(er => (int?)er.ItemId).
+                DefaultIfEmpty(null).
+                FirstOrDefault();
+
+            //Response - Create project company info object to upsert
+            Dictionary<int, string> oValues = new Dictionary<int, string>();
+            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
+            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+
+            //get standar response
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
+                (vProjectProvider,
+                vEvaluationItem,
+                oValues);
+
+            return oReturn;
+        }
+
+        #endregion
 
         #region Certification
 
@@ -241,7 +357,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         #endregion
 
-        #region Balancesheet
+        #region Financial
 
         private List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> Financial_EvalBalanceSheet
             (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
