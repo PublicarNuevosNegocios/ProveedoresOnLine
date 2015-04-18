@@ -247,33 +247,53 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
             ProveedoresOnLine.Company.Models.Util.GenericItemModel vEvaluationItem)
         {
-            //evaluate certification items
-            var oValidCertificationId =
-                vProjectProvider.RelatedProvider.RelatedCertification.
-                Where(rc => rc.ItemType.ItemId == 701001 &&
-                            rc.ItemInfo.
-                                Any(rcinf => rcinf.ItemInfoType.ItemId == 702004 &&
-                                             !string.IsNullOrEmpty(rcinf.Value) &&
-                                             Convert.ToDateTime(rcinf.Value) >= DateTime.Now)).
-                Select(ct => new
-                {
-                    ItemId = ct.ItemId,
-                    ItemResults = vEvaluationItem.ItemInfo.
-                                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402006 &&
-                                                    !string.IsNullOrEmpty(eiinf.Value) &&
-                                                    eiinf.Value.Split('_').Length >= 3).
-                                    Select(eiinf => ValidateCondition(eiinf.Value, ct)).
-                                    ToList(),
-                }).
-                Where(er => !er.ItemResults.Any(erit => !erit)).
-                Select(er => (int?)er.ItemId).
-                DefaultIfEmpty(null).
+            //get years to eval
+            int oMinYear = vEvaluationItem.ItemInfo.
+                Where(eiinf => eiinf.ItemInfoType.ItemId == 1402007 &&
+                              !string.IsNullOrEmpty(eiinf.Value)).
+                Select(eiinf => DateTime.Now.Year - Convert.ToInt32(eiinf.Value)).
+                DefaultIfEmpty(DateTime.Now.Year - 1).
                 FirstOrDefault();
+
+            //get Account to eval and ranges account,minvalue,comparison,result
+            List<Tuple<int, decimal, int, decimal>> oEvalInfo = vEvaluationItem.ItemInfo.
+                Where(eiinf => eiinf.ItemInfoType.ItemId == 1402006 &&
+                            !string.IsNullOrEmpty(eiinf.Value) &&
+                            eiinf.Value.Split('_').Length >= 4).
+                Select(eiinf => new Tuple<int, decimal, int, decimal>
+                                (Convert.ToInt32(eiinf.Value.Split('_')[0].Replace(" ", "")),
+                                Convert.ToDecimal(eiinf.Value.Split('_')[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
+                                Convert.ToInt32(eiinf.Value.Split('_')[2].Replace(" ", "")),
+                                Convert.ToDecimal(eiinf.Value.Split('_')[3].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")))).
+                ToList();
+
+            //get avg value to evaluate
+            decimal oAccountValue = vProjectProvider.RelatedProvider.RelatedBalanceSheet.
+                Where(fi => fi.ItemInfo.
+                    Any(fiinf => fiinf.ItemInfoType.ItemId == 502001 &&
+                                !string.IsNullOrEmpty(fiinf.Value) &&
+                                Convert.ToInt32(fiinf.Value) >= oMinYear &&
+                                Convert.ToInt32(fiinf.Value) < DateTime.Now.Year)).
+                Select(fi => fi.BalanceSheetInfo.
+                    Where(bs => bs.RelatedAccount.ItemId == oEvalInfo.FirstOrDefault().Item1).
+                    FirstOrDefault()).
+                Sum(acinf => acinf.Value);
+
+            oAccountValue = oAccountValue / (DateTime.Now.Year > oMinYear ? (DateTime.Now.Year - oMinYear) : 1);
+
+            //eval ranges and get value
+            decimal oResult = oEvalInfo.
+                OrderByDescending(evinf => evinf.Item2).
+                Where(evinf => evinf.Item3 == 1409002 ? evinf.Item2 < oAccountValue : evinf.Item2 <= oAccountValue).
+                Select(evinf => evinf.Item4).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+
 
             //Response - Create project company info object to upsert
             Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            oValues.Add(1408001, oResult.ToString("0.##"));
+            oValues.Add(1408002, oEvalInfo.FirstOrDefault().Item1.ToString());
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -399,13 +419,13 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             switch (strSplit[2].Replace(" ", ""))
             {
                 case "1409001":
-                    oReturn = ValueToEval == Convert.ToDecimal(strSplit[1].Replace(" ", ""));
+                    oReturn = ValueToEval == Convert.ToDecimal(strSplit[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
                     break;
                 case "1409002":
-                    oReturn = ValueToEval > Convert.ToDecimal(strSplit[1].Replace(" ", ""));
+                    oReturn = ValueToEval > Convert.ToDecimal(strSplit[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
                     break;
                 case "1409003":
-                    oReturn = ValueToEval >= Convert.ToDecimal(strSplit[1].Replace(" ", ""));
+                    oReturn = ValueToEval >= Convert.ToDecimal(strSplit[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
                     break;
                 default:
                     break;
@@ -461,7 +481,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 if (strToEval.Contains("http"))
                     oReturn = 1;
                 else
-                    oReturn = Convert.ToDecimal(strToEval.Replace(" ", ""));
+                    oReturn = Convert.ToDecimal(strToEval.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
             }
             return oReturn;
         }
