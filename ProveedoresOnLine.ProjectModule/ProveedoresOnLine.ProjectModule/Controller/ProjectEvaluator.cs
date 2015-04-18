@@ -155,95 +155,112 @@ namespace ProveedoresOnLine.ProjectModule.Controller
         {
             RelatedProject.RelatedProjectProvider.All(pjpv =>
             {
-                //create upsert model
-                ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
-                    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                try
                 {
-                    ProjectCompanyId = pjpv.ProjectCompanyId,
-                    ItemInfo = new List<Models.ProjectProviderInfoModel>(),
-                };
 
-                //loop for evaluation criteria
-
-                List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult;
-
-                RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
-                Where(ei => ei.ItemType.ItemId == 1401002).
-                All(ei =>
-                {
-                    switch (ei.ItemInfo.
-                                Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
-                                Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
-                                DefaultIfEmpty(0).
-                                FirstOrDefault())
+                    //create upsert model
+                    ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
+                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
                     {
-                        case 1404001:
-                            oResult = Commercial_EvalExperience(pjpv, ei);
-                            if (oResult != null && oResult.Count > 0)
-                            {
-                                oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            }
-                            break;
-                        case 1404002:
-                            //oResult = Certification_EvalNorms(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        case 1404003:
-                            //oResult = Certification_EvalLTIF(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        case 1404004:
-                            //oResult = Certification_EvalRiskPolicies(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        case 1404005:
-                            //oResult = Financial_EvalBalanceSheet(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        case 1404006:
-                            //oResult = Legal_EvalChamberOfCommerce(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        case 1404007:
-                            //oResult = Legal_EvalRut(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        case 1404008:
-                            //oResult = Legal_EvalSARLAFT(pjpv, ei);
-                            //if (oResult != null && oResult.Count > 0)
-                            //{
-                            //    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
-                            //}
-                            break;
-                        default:
-                            break;
-                    }
+                        ProjectCompanyId = pjpv.ProjectCompanyId,
+                        ItemInfo = new List<Models.ProjectProviderInfoModel>(),
+                    };
 
-                    return true;
-                });
+                    //loop for evaluation criteria
 
-                //recalculate area results
+                    List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult;
 
-                //upsert evaluation items responses
-                oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
+                    RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
+                    Where(ei => ei.ItemType.ItemId == 1401002).
+                    All(ei =>
+                    {
+                        switch (ei.ItemInfo.
+                                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
+                                    Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault())
+                        {
+                            case 1404001:
+                                oResult = Commercial_EvalExperience(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404002:
+                                oResult = Certification_EvalNorms(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404003:
+                                oResult = Certification_EvalLTIF(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404004:
+                                oResult = Certification_EvalRiskPolicies(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404005:
+                                oResult = Financial_EvalBalanceSheet(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404006:
+                                oResult = Legal_EvalChamberOfCommerce(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404007:
+                                oResult = Legal_EvalRut(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            case 1404008:
+                                oResult = Legal_EvalSARLAFT(pjpv, ei);
+                                if (oResult != null && oResult.Count > 0)
+                                {
+                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        return true;
+                    });
+
+                    //recalculate area results
+
+                    //upsert evaluation items responses
+                    oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
+                }
+                catch (Exception err)
+                {
+                    oLog.IsSuccess = false;
+                    oLog.Message = err.Message + " - " + err.StackTrace;
+
+                    throw err;
+                }
+                finally
+                {
+                    oLog.LogObject = pjpv;
+                    LogManager.ClientLog.AddLog(oLog);
+                }
 
                 return true;
             });
