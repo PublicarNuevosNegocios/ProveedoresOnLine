@@ -35,7 +35,7 @@
         <!--formula field-->
         <li class="POMPBalanceSheetContentFormulaFields">
             <span class="FormulaFieldsColumnOne">@Model.RelatedAccount.ItemName</span>
-            @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
+            @foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
             {
                 <span class="FormulaFieldsColumnTwo">
                     @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
@@ -52,7 +52,7 @@
     else
     {
         <span class="POMPBalanceSheetColumnDataOne">@Model.RelatedAccount.ItemName</span>
-        foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderBy(x => x.Order))
+        foreach (var oBalanceValues in Model.RelatedBalanceSheetDetail.Where(x => x.RelatedBalanceSheetDetail != null).OrderByDescending(x => x.Order))
         {
             <span class="POMPBalanceSheetColumnDataTwo">
                 @Model.AccountUnit @oBalanceValues.RelatedBalanceSheetDetail.Value.ToString("#,0.##") <span>@MarketPlace.Models.Company.CompanyUtil.ProviderOptions.Where(x => x.ItemId == oCurrentCurrency).Select(x => x.ItemName).FirstOrDefault()</span>
