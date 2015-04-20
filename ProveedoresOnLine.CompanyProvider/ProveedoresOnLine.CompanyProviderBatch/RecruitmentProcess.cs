@@ -23,7 +23,6 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
                     RecruitmentCalculate RecruitmentCal = new RecruitmentCalculate();
 
-
                     oProviderModelList.All(providerToCalculate =>
                     {
                         try
@@ -102,27 +101,33 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                 {
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Provider).ToString()))
                                     {
-                                        //get calculate provider    
-                                        RecruitmentCal.GetProviderScore(providerToCalculate);
+                                        ProviderModel oToUpsert = new ProviderModel();
+                                        oToUpsert.RelatedCompany = providerToCalculate.RelatedCompany;
+                                        oToUpsert.RelatedFinantial = new List<GenericItemModel>();
+                                        oToUpsert.RelatedFinantial.Add(RecruitmentCal.GetProviderScore(providerToCalculate));                                        
                                         
-                                        //SAVE FINANCIAL
+                                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oToUpsert);
                                     }
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Consultant).ToString()))
                                     {
-                                        //Get Calculate Consultant
-                                        GetConsultantScore(providerToCalculate);
+                                        ProviderModel oToUpsert = new ProviderModel();
+                                        oToUpsert.RelatedCompany = providerToCalculate.RelatedCompany;
+                                        oToUpsert.RelatedFinantial = new List<GenericItemModel>();
+                                        oToUpsert.RelatedFinantial.Add(RecruitmentCal.GetConsultantScore(providerToCalculate));
 
-                                        //SAVE FINANCIAL
+                                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oToUpsert);
                                     }
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Builder).ToString()))
                                     {
-                                        //Get Calculate Builder
-                                        GetBuilderScore(providerToCalculate);
+                                        ProviderModel oToUpsert = new ProviderModel();
+                                        oToUpsert.RelatedCompany = providerToCalculate.RelatedCompany;
+                                        oToUpsert.RelatedFinantial = new List<GenericItemModel>();
+                                        oToUpsert.RelatedFinantial.Add(RecruitmentCal.GetBuilderScore(providerToCalculate));
 
-                                        //SAVE FINANCIAL
+                                        ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oToUpsert);
                                     }
                                 }
-                            }
+                            }                            
                         }
                         catch (Exception err)
                         {
@@ -168,24 +173,5 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
         #endregion
 
-        #region Calucalate Functions
-
-       
-
-        private static GenericItemModel GetConsultantScore(ProviderModel oProvider)
-        {
-            GenericItemModel K_ContactModel = new GenericItemModel();
-
-            return K_ContactModel;
-        }
-
-        private static GenericItemModel GetBuilderScore(ProviderModel oProvider)
-        {
-            GenericItemModel K_ContactModel = new GenericItemModel();
-
-            return K_ContactModel;
-        }
-
-        #endregion       
     }
 }
