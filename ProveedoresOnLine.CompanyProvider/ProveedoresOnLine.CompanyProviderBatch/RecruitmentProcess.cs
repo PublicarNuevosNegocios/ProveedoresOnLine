@@ -137,7 +137,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                     });
 
                     //log file
-                    LogFile("End Calculation" + "yyyyMMdd");
+                    LogFile("End K_Recruitment Calculation" + "yyyyMMdd");
                 }
             }
             catch (Exception err)
