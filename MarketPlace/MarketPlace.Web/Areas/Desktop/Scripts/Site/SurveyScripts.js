@@ -64,6 +64,7 @@ var Survey_ProgramObject = {
             });
 
             //init hidden values
+            debugger;
 
             //provider id
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ProviderPublicId').val(vShowObject.ProviderPublicId);
@@ -94,6 +95,28 @@ var Survey_ProgramObject = {
                 if (vShowObject != null && vShowObject.SurveyIssueDate != null && vShowObject.SurveyIssueDateId) {
                     DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').val(vShowObject.SurveyIssueDate);
                     DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').attr('name', DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').attr('name') + vShowObject.SurveyIssueDateId);
+                }
+
+                //set contract name
+                if (vShowObject != null && vShowObject.SurveyContract != null) {
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Contract').val(vShowObject.SurveyContract);
+                }
+
+                //set startdate datepicker
+                if (vShowObject != null && vShowObject.SurveyStartDate != null && vShowObject.SurveyStartDateId) {
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_StartDate').val(vShowObject.SurveyStartDate);
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_StartDate').attr('name', DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_StartDate').attr('name') + vShowObject.SurveyStartDateId);
+                }
+
+                //set enddate datepicker
+                if (vShowObject != null && vShowObject.SurveyEndDate != null && vShowObject.SurveyEndDateId) {
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EndDate').val(vShowObject.SurveyEndDate);
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EndDate').attr('name', DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EndDate').attr('name') + vShowObject.SurveyEndDateId);
+                }
+
+                //set comments
+                if (vShowObject != null && vShowObject.SurveyComments != null) {
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Comments').val(vShowObject.SurveyComments);
                 }
 
                 //remove init imputs
@@ -168,6 +191,18 @@ var Survey_ProgramObject = {
 
             //init issuedate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').kendoDatePicker({
+                format: Survey_ProgramObject.DateFormat,
+                min: new Date(),
+            });
+
+            //init startdate datepicker 
+            DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_StartDate').kendoDatePicker({
+                format: Survey_ProgramObject.DateFormat,
+                min: new Date(),
+            });
+
+            //init enddate datepicker 
+            DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EndDate').kendoDatePicker({
                 format: Survey_ProgramObject.DateFormat,
                 min: new Date(),
             });

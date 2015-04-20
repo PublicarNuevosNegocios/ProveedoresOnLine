@@ -470,7 +470,11 @@
         Evaluator = 1204003,
         Status = 1204004,
         Progress = 1204005,
-        Rating = 1204006
+        Rating = 1204006,
+        Contract = 1204007,
+        StartDate = 1204008,
+        EndDate = 1204009,
+        Comments = 1204010
     }
 
     public enum enumSurveyItemInfoType

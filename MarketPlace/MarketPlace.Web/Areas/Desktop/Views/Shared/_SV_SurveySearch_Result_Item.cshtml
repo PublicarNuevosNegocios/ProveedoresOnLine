@@ -31,6 +31,18 @@
 
                 SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
                 SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
+                
+                SurveyContract = Model.RelatedSurvey.SurveyContract,
+                SurveyContractId = Model.RelatedSurvey.SurveyContractId,
+                
+                SurveyStartDate = Model.RelatedSurvey.SurveyStartDate,
+                SurveyStartDateId = Model.RelatedSurvey.SurveyStartDateId,
+                
+                SurveyEndDate = Model.RelatedSurvey.SurveyEndDate,
+                SurveyEndDateId = Model.RelatedSurvey.SurveyEndDateId,
+                
+                SurveyComments = Model.RelatedSurvey.SurveyComments,
+                SurveyCommentsId = Model.RelatedSurvey.SurveyCommentsId,
             });
 
     }
@@ -68,6 +80,23 @@
                 <li>
                     <label>Estado:</label>
                     <span>@Model.RelatedSurvey.SurveyStatusName</span>
+                </li>
+                <li>
+                    <label>Contrato o Factura</label>
+                    <span>@Model.RelatedSurvey.SurveyContract</span>
+                </li>
+                <li>
+                    <label>Periodo de Evaluación:</label>
+                    <div class="EvaluationPeriod">
+                        <label>Fecha de Inicio:</label>
+                        <span>@Model.RelatedSurvey.SurveyStartDate</span>
+                        <label>Fecha Final:</label>
+                        <span>@Model.RelatedSurvey.SurveyEndDate</span>
+                    </div>
+                </li>
+                <li>
+                    <label>Comentarios</label>
+                    <span>@Model.RelatedSurvey.SurveyComments</span>
                 </li>
             </ul>
         </div>
