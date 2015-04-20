@@ -536,7 +536,25 @@ namespace MarketPlace.Models.Provider
                         DefaultIfEmpty(0).
                         FirstOrDefault().ToString("0.##");
                 }
+                if (oFK_TotalKValueScore != null)
+                {
+                    oFK_TotalKValueScore = (Convert.ToDecimal(oFK_TotalKValueScore) * Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value)).ToString("#,0.##");
+                }
                 return oFK_TotalKValueScore;
+            }
+        }
+
+        public string oCurrency { get; set; }
+        public string Currency
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCurrency))
+                {
+                    oCurrency = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+                }
+
+                return oCurrency;
             }
         }
 
