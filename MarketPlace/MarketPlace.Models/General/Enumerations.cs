@@ -293,6 +293,7 @@
         TaxInfoType = 501002,
         IncomeStatementInfoType = 501003,
         BankInfoType = 501004,
+        KRecruitment = 501006,
     }
 
     /// <summary>
@@ -337,6 +338,16 @@
         BI_CurrentActive = 3118,
         BI_CurrentPassive = 3120,
         BI_Altman = 4930,
+
+        //K_Recruitment InfoType
+        FK_TotalExpirienceScore = 507001,
+        FK_TotalFinancialScore = 507002,
+        FK_TotalOrgCapacityScore = 507003,
+        FK_TotalTechnicScore = 507004,
+        FK_MoneyType = 507005,
+        FK_TotalKValueScore = 507006,
+        FK_RoleType = 507007,
+        FK_TotalScore = 507008,
     }
 
     #endregion

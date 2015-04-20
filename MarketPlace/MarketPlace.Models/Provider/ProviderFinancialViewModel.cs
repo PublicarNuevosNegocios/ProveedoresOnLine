@@ -413,6 +413,135 @@ namespace MarketPlace.Models.Provider
 
         #endregion
 
+        #region K_Contract Info
+
+        private string oFK_RoleType;
+        public string FK_RoleType
+        {
+            get
+            {
+                if (oFK_RoleType == null)
+                {
+                    oFK_RoleType = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.
+                        Where(x =>  x.CatalogId == 117 && 
+                                    x.ItemId.ToString() == RelatedFinancialInfo.ItemInfo.
+                                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_RoleType).
+                                        Select(y => y.Value).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault()).
+                        Select(x => x.ItemName).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+
+                return oFK_RoleType;
+            }
+        }
+
+        private string oFK_TotalTechnicScore;
+        public string FK_TotalTechnicScore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oFK_TotalTechnicScore))
+                {
+                    oFK_TotalTechnicScore = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_TotalTechnicScore).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oFK_TotalTechnicScore;
+            }
+        }
+
+        private string oFK_TotalExpirienceScore;
+        public string FK_TotalExpirienceScore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oFK_TotalExpirienceScore))
+                {
+                    oFK_TotalExpirienceScore = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_TotalExpirienceScore).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oFK_TotalExpirienceScore;
+            }
+        }
+
+        private string oFK_TotalFinancialScore;
+        public string FK_TotalFinancialScore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oFK_TotalFinancialScore))
+                {
+                    oFK_TotalFinancialScore = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_TotalFinancialScore).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oFK_TotalFinancialScore;
+            }
+        }
+
+        private string oFK_TotalScore;
+        public string FK_TotalScore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oFK_TotalScore))
+                {
+                    oFK_TotalScore = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_TotalScore).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oFK_TotalScore;
+            }
+        }
+
+        private string oFK_TotalOrgCapacityScore;
+        public string FK_TotalOrgCapacityScore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oFK_TotalOrgCapacityScore))
+                {
+                    oFK_TotalOrgCapacityScore = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_TotalOrgCapacityScore).
+                        Select(y => Convert.ToDecimal(y.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault().ToString("0.##");
+                }
+                return oFK_TotalOrgCapacityScore;
+            }
+        }
+
+        private string oFK_TotalKValueScore;
+        public string FK_TotalKValueScore
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oFK_TotalKValueScore))
+                {
+                    oFK_TotalKValueScore = RelatedFinancialInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.FK_TotalKValueScore).
+                        Select(y => Convert.ToDecimal(y.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault().ToString("0.##");
+                }
+                return oFK_TotalKValueScore;
+            }
+        }
+
+        #endregion
+
         public ProviderFinancialViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedFinancial)
         {
             RelatedFinancialInfo = RelatedFinancial;

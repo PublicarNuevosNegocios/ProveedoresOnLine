@@ -1,0 +1,62 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - K Contratación";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">K de Contratación</label>
+        <ul>
+            @{
+                if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
+                {
+
+                    <li style="width:24%;float:left;">
+                        <ul class="POMPProviderInfoMultipleValues">
+                            <li><label>Criterio de evaluación</label></li>
+                            <li><label>Capacidad Técnica</label></li>
+                            <li><label>Experiencias</label></li>
+                            <li><label>Financiera</label></li>
+                            <li><label>Puntuación Total</label></li>
+                            <li><label>Capacidad Organizacional S.M.M.L.V</label></li>
+                            <li><label>Capacidad Legal de Contratación</label></li>
+                        </ul>
+                    </li>
+                    foreach (var item in Model.RelatedFinancialInfo)
+                    {
+                        <li style="width:24%;float:left;">
+                            <ul class="POMPProviderInfoMultipleValues">
+                                <li><span>@item.FK_RoleType</span></li>
+                                <li><span>@item.FK_TotalTechnicScore</span></li>
+                                <li><span>@item.FK_TotalExpirienceScore</span></li>
+                                <li><span>@item.FK_TotalFinancialScore</span></li>
+                                <li><span>@item.FK_TotalScore</span></li>
+                                <li><span>@item.FK_TotalOrgCapacityScore</span></li>
+                                <li><span>@item.FK_TotalKValueScore</span></li>
+                            </ul>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+

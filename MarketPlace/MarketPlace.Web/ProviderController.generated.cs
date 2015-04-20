@@ -149,6 +149,12 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FIKContract()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIKContract);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult CIExperiencesInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CIExperiencesInfo);
@@ -215,6 +221,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string FITaxInfo = "FITaxInfo";
             public readonly string FIIncomeStatementInfo = "FIIncomeStatementInfo";
             public readonly string FIBankInfo = "FIBankInfo";
+            public readonly string FIKContract = "FIKContract";
             public readonly string CIExperiencesInfo = "CIExperiencesInfo";
             public readonly string HICertificationsInfo = "HICertificationsInfo";
             public readonly string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
@@ -242,6 +249,7 @@ namespace MarketPlace.Web.Controllers
             public const string FITaxInfo = "FITaxInfo";
             public const string FIIncomeStatementInfo = "FIIncomeStatementInfo";
             public const string FIBankInfo = "FIBankInfo";
+            public const string FIKContract = "FIKContract";
             public const string CIExperiencesInfo = "CIExperiencesInfo";
             public const string HICertificationsInfo = "HICertificationsInfo";
             public const string HIHealtyPoliticInfo = "HIHealtyPoliticInfo";
@@ -377,6 +385,14 @@ namespace MarketPlace.Web.Controllers
         public ActionParamsClass_FIBankInfo FIBankInfoParams { get { return s_params_FIBankInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_FIBankInfo
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_FIKContract s_params_FIKContract = new ActionParamsClass_FIKContract();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_FIKContract FIKContractParams { get { return s_params_FIKContract; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_FIKContract
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -648,6 +664,18 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBankInfo);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             FIBankInfoOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FIKContractOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FIKContract(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIKContract);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            FIKContractOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

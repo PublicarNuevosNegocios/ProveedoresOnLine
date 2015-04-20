@@ -64,6 +64,9 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             //Experience            
             EX_EconomicActivity = 302013,
             EX_CustomEconomicActivity = 302014,
+            EX_ContractValue = 302007,            
+            EX_StartDate=302003,
+            EX_EndDate=302004,            
         }
         #endregion
 
@@ -105,8 +108,9 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
             FK_TotalOrgCapacityScore = 507003,
             FK_TotalTechnicScore = 507004,
             FK_MoneyType = 507005,
-            FK_TotalKScore = 507006,
-            FK_RoleType = 507007
+            FK_TotalKValueScore = 507006,
+            FK_RoleType = 507007,
+            FK_TotalScore = 507008,
         }
 
         public enum enumFinancialDetailType
