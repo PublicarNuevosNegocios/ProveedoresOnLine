@@ -22,12 +22,32 @@
                 <span class="POMPBalanceSheetColumnOne">Cuentas</span>
                 @foreach (var oBalance in oBalanceToShow)
                 {
-                    <span class="POMPBalanceSheetColumnTwo">
-                        Año @oBalance.SH_Year
-                    </span>
-                    <span class="POMPBalanceSheetColumnThree">
-                        Análisis Vertical % @oBalance.SH_Year
-                    </span>
+                    if (oBalanceToShow.Count == 1)
+                    {
+                        var lastYear = Convert.ToInt32(oBalance.SH_Year) - 1;
+
+                        <span class="POMPBalanceSheetColumnTwo">
+                            Año @lastYear
+                        </span>
+                        <span class="POMPBalanceSheetColumnThree">
+                            Análisis Vertical % @lastYear
+                        </span>
+                        <span class="POMPBalanceSheetColumnTwo">
+                            Año @oBalance.SH_Year
+                        </span>
+                        <span class="POMPBalanceSheetColumnThree">
+                            Análisis Vertical % @oBalance.SH_Year
+                        </span>                        
+                    }
+                    else
+                    {
+                        <span class="POMPBalanceSheetColumnTwo">
+                            Año @oBalance.SH_Year
+                        </span>
+                        <span class="POMPBalanceSheetColumnThree">
+                            Análisis Vertical % @oBalance.SH_Year
+                        </span>
+                    }
                 }
                 <span class="POMPBalanceSheetColumnFour">Análisis Horizontal</span>
             </li>
