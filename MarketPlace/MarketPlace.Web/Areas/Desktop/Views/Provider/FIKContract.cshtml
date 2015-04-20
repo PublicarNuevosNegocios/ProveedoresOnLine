@@ -14,34 +14,29 @@
 
     <div class="POMPProviderDataWrapper">
         <label class="POMPSectionTitles">K de Contratación</label>
-        <ul>
+        <ul class="POMPProviderKContratacion">
             @{
                 if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
                 {
-
-                    <li style="width:24%;float:left;">
-                        <ul class="POMPProviderInfoMultipleValues">
-                            <li><label>Criterio de evaluación</label></li>
-                            <li><label>Capacidad Técnica</label></li>
-                            <li><label>Experiencias</label></li>
-                            <li><label>Financiera</label></li>
-                            <li><label>Puntuación Total</label></li>
-                            <li><label>Capacidad Organizacional S.M.M.L.V</label></li>
-                            <li><label>Capacidad Legal de Contratación</label></li>
-                        </ul>
+                    <li>
+                        <label>Criterio de evaluación</label>
+                        <label>Capacidad Técnica</label>
+                        <label>Experiencias</label>
+                        <label>Financiera</label>
+                        <label>Puntuación Total</label>
+                        <label>Capacidad Organizacional S.M.M.L.V</label>
+                        <label>Capacidad Legal de Contratación</label> 
                     </li>
                     foreach (var item in Model.RelatedFinancialInfo)
                     {
-                        <li style="width:24%;float:left;">
-                            <ul class="POMPProviderInfoMultipleValues">
-                                <li><span>@item.FK_RoleType</span></li>
-                                <li><span>@item.FK_TotalTechnicScore</span></li>
-                                <li><span>@item.FK_TotalExpirienceScore</span></li>
-                                <li><span>@item.FK_TotalFinancialScore</span></li>
-                                <li><span>@item.FK_TotalScore</span></li>
-                                <li><span>@item.FK_TotalOrgCapacityScore</span></li>
-                                <li><span>@item.FK_TotalKValueScore</span></li>
-                            </ul>
+                     <li>   
+                        <span>@item.FK_RoleType</span>
+                        <span>@item.FK_TotalTechnicScore</span>
+                        <span>@item.FK_TotalExpirienceScore</span>
+                        <span>@item.FK_TotalFinancialScore</span>
+                        <span>@item.FK_TotalScore</span>
+                        <span>@item.FK_TotalOrgCapacityScore</span>
+                        <span>@item.Currency @item.FK_TotalKValueScore</span>
                         </li>
                     }
                 }
