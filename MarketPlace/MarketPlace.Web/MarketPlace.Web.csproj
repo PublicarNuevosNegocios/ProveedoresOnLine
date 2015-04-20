@@ -1012,6 +1012,8 @@
     <Content Include="Areas\Desktop\Views\Project\ProjectDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Project\ProjectProviderDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\FIKContract.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Header.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

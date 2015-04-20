@@ -22,6 +22,105 @@ namespace MarketPlace.Models.Project
 
         public string LastModify { get { return RelatedProject.LastModify.ToString("yyyy-MM-dd"); } }
 
+        #region Project Info
+
+        //public decimal ProjectAmmount
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        //public decimal ProjectExperienceYears
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        //public decimal ProjectExperienceQuantity
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        //public decimal ProjectDefaultEconomicActivity
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        //public decimal ProjectCustomEconomicActivity
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        //public decimal ProjectCurrencyType
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        //public decimal ProjectResponsible
+        //{
+        //    get
+        //    {
+        //        return RelatedProject.ProjectInfo.
+        //            Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+        //                           !string.IsNullOrEmpty(pjinf.Value)).
+        //            Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault();
+        //    }
+        //}
+
+        #endregion
+
+        #region Project Config Info
+
+        #endregion
+
         public ProjectViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject)
         {
             RelatedProject = oRelatedProject;

@@ -2,12 +2,28 @@
 @{
     ViewBag.Title = "Proveedores OnLine - Proceso de selección";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
 }
 <div>
-
+    <!--Header project-->
+    <div>
+        @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
+    </div>
+    <!--Providers Project-->
+    <div>
+        @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider, Model)
+    </div>
 </div>
+@{
+    Model.RenderScripts = true;
+}
+
 @section inlinescripts
 {
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider, Model)
+
     <script type="text/javascript">
         $(document).ready(function () {
         });

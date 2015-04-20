@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 {
                     oProjectAmmount = RelatedProject.ProjectInfo.
                         Where(pjinf => pjinf.ItemInfoType.ItemId == 1407002 && !string.IsNullOrEmpty(pjinf.Value)).
-                        Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        Select(pjinf => GetDecimalFromValue(pjinf.Value)).
                         DefaultIfEmpty(0).
                         FirstOrDefault();
                 }
@@ -31,8 +31,8 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             }
         }
 
-        private int? oProjectExperienceYear;
-        public int ProjectExperienceYear
+        private string oProjectExperienceYear;
+        public string ProjectExperienceYear
         {
             get
             {
@@ -40,11 +40,11 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 {
                     oProjectExperienceYear = RelatedProject.ProjectInfo.
                         Where(pjinf => pjinf.ItemInfoType.ItemId == 1407003 && !string.IsNullOrEmpty(pjinf.Value)).
-                        Select(pjinf => DateTime.Now.Year - Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
-                        DefaultIfEmpty(0).
+                        Select(pjinf => pjinf.Value.Replace(" ", "")).
+                        DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
                 }
-                return oProjectExperienceYear.Value;
+                return oProjectExperienceYear;
             }
         }
 
@@ -302,10 +302,15 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             //get experience to eval
             var oExperienceToEval = vProjectProvider.RelatedProvider.RelatedCommercial.
                 Where(cm => cm.ItemType.ItemId == 301001 &&
-                            (ProjectExperienceYear == 0 ? true :
-                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302003 &&
-                                                        !string.IsNullOrEmpty(cminf.Value) &&
-                                                        Convert.ToDateTime(cminf.Value).Year >= oProjectExperienceYear)
+                            (!string.IsNullOrEmpty(ProjectExperienceYear) && ProjectExperienceYear.Split('_').Length >= 3 ?
+                                cm.ItemInfo.Any(cminf =>
+                                        !string.IsNullOrEmpty(cminf.Value) &&
+                                        cminf.ItemInfoType.ItemId.ToString() == ProjectExperienceYear.Split('_')[0].Replace(" ", "") &&
+                                        InternalComparisonValidation(
+                                            ProjectExperienceYear.Split('_')[2],
+                                            Convert.ToDateTime(cminf.Value).Year,
+                                            DateTime.Now.Year - GetDecimalFromValue(ProjectExperienceYear.Split('_')[1])))
+                                : true
 
                             ) &&
                             (ProjectDefaultEconomicActivity != null && ProjectDefaultEconomicActivity.Count > 0 ?
@@ -328,7 +333,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     ExperienceId = cm.ItemId,
                     ExperienceValue = cm.ItemInfo.
                         Where(cminf => cminf.ItemInfoType.ItemId == 302007 && !string.IsNullOrEmpty(cminf.Value)).
-                        Select(cminf => Convert.ToDecimal(cminf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        Select(cminf => GetDecimalFromValue(cminf.Value)).
                         DefaultIfEmpty(0).
                         FirstOrDefault(),
                     ExperienceCurrency = cm.ItemInfo.
@@ -512,9 +517,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                             eiinf.Value.Split('_').Length >= 4).
                 Select(eiinf => new Tuple<int, decimal, int, decimal>
                                 (Convert.ToInt32(eiinf.Value.Split('_')[0].Replace(" ", "")),
-                                Convert.ToDecimal(eiinf.Value.Split('_')[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
+                                GetDecimalFromValue(eiinf.Value.Split('_')[1]),
                                 Convert.ToInt32(eiinf.Value.Split('_')[2].Replace(" ", "")),
-                                Convert.ToDecimal(eiinf.Value.Split('_')[3].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")))).
+                                GetDecimalFromValue(eiinf.Value.Split('_')[3]))).
                 ToList();
 
             //get avg value to evaluate
@@ -687,14 +692,14 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                             EvaluationItemWeight = eichild.ItemInfo.
                                 Where(eichildinf => eichildinf.ItemInfoType.ItemId == 1402004 &&
                                                     !string.IsNullOrEmpty(eichildinf.Value)).
-                                Select(eichildinf => Convert.ToDecimal(eichildinf.Value, System.Globalization.CultureInfo.CreateSpecificCulture("En-us"))).
+                                Select(eichildinf => GetDecimalFromValue(eichildinf.Value)).
                                 DefaultIfEmpty(0).
                                 FirstOrDefault(),
                             EvaluationItemResult = vEvaluationItemResults.
                                 Where(eir => eir.RelatedEvaluationItem.ItemId == eichild.ItemId &&
                                             eir.ItemInfoType.ItemId == 1408001 &&
                                             !string.IsNullOrEmpty(eir.Value)).
-                                Select(eir => Convert.ToDecimal(eir.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                                Select(eir => GetDecimalFromValue(eir.Value.Replace(" ", ""))).
                                 DefaultIfEmpty(0).
                                 FirstOrDefault(),
                         });
@@ -731,31 +736,63 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             (string EvaluationItemValue,
             ProveedoresOnLine.Company.Models.Util.GenericItemModel ItemToEval)
         {
-            bool oReturn = false;
-
             string[] strSplit = EvaluationItemValue.Split('_');
 
             decimal ValueToEval = ItemToEval.ItemInfo.
-                Where(itinf => itinf.ItemInfoType.ItemId.ToString() == strSplit[0].Replace(" ", "")).
-                Select(itinf => ConvertToDecimal(itinf.Value)).
+                Where(itinf => itinf.ItemInfoType.ItemId.ToString() == strSplit[0].Replace(" ", "") &&
+                                !string.IsNullOrEmpty(itinf.Value)).
+                Select(itinf => GetDecimalFromValue(itinf.Value)).
                 DefaultIfEmpty(0).
                 FirstOrDefault();
 
-            switch (strSplit[2].Replace(" ", ""))
+            decimal ValueToCompare = GetDecimalFromValue(strSplit[1]);
+
+            return InternalComparisonValidation(strSplit[2], ValueToEval, ValueToCompare);
+        }
+
+        private bool InternalComparisonValidation
+            (string Operator, decimal ValueToEval, decimal ValueToCompare)
+        {
+            bool oReturn = false;
+
+            switch (Operator.Replace(" ", ""))
             {
                 case "1409001":
-                    oReturn = ValueToEval == Convert.ToDecimal(strSplit[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
+                    oReturn = ValueToEval == ValueToCompare;
                     break;
                 case "1409002":
-                    oReturn = ValueToEval > Convert.ToDecimal(strSplit[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
+                    oReturn = ValueToEval > ValueToCompare;
                     break;
                 case "1409003":
-                    oReturn = ValueToEval >= Convert.ToDecimal(strSplit[1].Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
+                    oReturn = ValueToEval >= ValueToCompare;
                     break;
                 default:
                     break;
             }
+            return oReturn;
+        }
 
+        private decimal GetDecimalFromValue(string strToEval)
+        {
+            decimal oReturn = 0;
+            if (!string.IsNullOrEmpty(strToEval))
+            {
+                if (strToEval.Contains("http"))
+                {
+                    oReturn = 1;
+                }
+                else if (string.IsNullOrEmpty(strToEval))
+                {
+                    oReturn = 0;
+                }
+                else
+                {
+                    decimal.TryParse(strToEval.Replace(" ", ""),
+                        System.Globalization.NumberStyles.None,
+                        System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"),
+                        out oReturn);
+                }
+            }
             return oReturn;
         }
 
@@ -795,19 +832,6 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 return true;
             });
 
-            return oReturn;
-        }
-
-        private decimal ConvertToDecimal(string strToEval)
-        {
-            decimal oReturn = 0;
-            if (!string.IsNullOrEmpty(strToEval))
-            {
-                if (strToEval.Contains("http"))
-                    oReturn = 1;
-                else
-                    oReturn = Convert.ToDecimal(strToEval.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
-            }
             return oReturn;
         }
 

@@ -17,6 +17,42 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult ProjectDetail(string ProjectPublicId)
         {
+            ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel oSerialize = new ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel()
+            {
+                AmmounEnable = true,
+                YearsEnable = true,
+                DefaultAcitvityEnable = true,
+                CustomAcitvityEnable = true,
+                CurrencyEnable = true,
+                YearsInterval = new List<Tuple<string, string>>() 
+                {
+                    new Tuple<int, string>("302003_0_1409001","Seleccione"),
+                    new Tuple<int, string>("302003_1_1409001","1"),
+                    new Tuple<int, string>("302003_2_1409001","2"),
+                    new Tuple<int, string>("302003_3_1409001","3"),
+                    new Tuple<int, string>("302003_4_1409001","4"),
+                    new Tuple<int, string>("302003_5_1409003","5"),
+                },
+                QuantityInterval = new List<Tuple<int, string>>()
+                {
+                    new Tuple<int, string>(0,"Seleccione"),
+                    new Tuple<int, string>(1,"1"),
+                    new Tuple<int, string>(2,"2"),
+                    new Tuple<int, string>(3,"3"),
+                    new Tuple<int, string>(4,"4"),
+                    new Tuple<int, string>(10,"10"),
+                }
+            };
+
+            string oResult = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(oSerialize);
+
+
+
+
+
+
+
+
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                 ProjectGetById
                 (ProjectPublicId,

@@ -18,6 +18,23 @@
                         <label>Fecha de programación:</label>
                         <input id="Survey_ProgramSurvey_IssueDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.IssueDate).ToString())_" />
                     </li>
+                    <li>
+                        <label>Contrato o Factura:</label>
+                        <input id="Survey_ProgramSurvey_Contract" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Contract).ToString())_" />
+                    </li>
+                    <li>
+                        <label>Periodo de Evaluación:</label>
+                        <div class="EvaluationPeriodDialog">
+                            <label>Fecha Inicial:</label>
+                            <input id="Survey_ProgramSurvey_StartDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.StartDate).ToString())_" />
+                            <label>Fecha Final:</label>
+                            <input id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" />
+                        </div>
+                    </li>
+                    <li>
+                        <label>Observaciones:</label>
+                        <textarea id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_"></textarea>
+                    </li>
                 </ul>
                 <div style="display:none">
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
