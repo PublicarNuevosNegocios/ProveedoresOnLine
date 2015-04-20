@@ -1,0 +1,89 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - K Contratación";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+
+    <div class="POMPProviderDataWrapper">
+        <label class="POMPSectionTitles">K de Contratación</label>
+        <ul>
+            @{
+                if (Model.RelatedFinancialInfo != null && Model.RelatedFinancialInfo.Count > 0)
+                {
+                    foreach (var item in Model.RelatedFinancialInfo)
+                    {
+                        <li style="width:30%;float:left;">
+                            <ul class="POMPProviderInfoMultipleValues">
+
+                                <li>
+                                    <label>
+                                        <span>@item.FK_RoleType</span>
+                                    </label>
+                                    <label>
+                                        Capacidad Técnica
+                                        <span>@item.FK_TotalTechnicScore</span>
+                                    </label>
+
+                                    @if (!string.IsNullOrEmpty(item.FK_TotalExpirienceScore))
+                                    {
+                                        <label>
+                                            Experiencias
+                                            <span>@item.FK_TotalExpirienceScore</span>
+                                        </label>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.FK_TotalFinancialScore))
+                                    {
+                                        <label>
+                                            Financiera
+                                            <span>@item.FK_TotalFinancialScore</span>
+                                        </label>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.FK_TotalScore))
+                                    {
+                                        <label>
+                                            Puntuación Total
+                                            <span>@item.FK_TotalScore</span>
+                                        </label>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.FK_TotalOrgCapacityScore))
+                                    {
+                                        <label>
+                                            Capacidad Organizacional S.M.M.L.V
+                                            <span>@item.FK_TotalOrgCapacityScore</span>
+                                        </label>
+                                    }
+                                    @if (!string.IsNullOrEmpty(item.FK_TotalKValueScore))
+                                    {
+                                        <label>
+                                            Capacidad Legal de Contratación
+                                            <span>@item.FK_TotalKValueScore</span>
+                                        </label>
+                                    }
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
+
+
+
+
