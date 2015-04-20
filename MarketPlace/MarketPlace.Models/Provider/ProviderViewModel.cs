@@ -41,6 +41,8 @@ namespace MarketPlace.Models.Provider
 
         public List<ProviderFinancialViewModel> RelatedFinancialInfo { get; set; }
 
+        public List<ProviderFinancialViewModel> RelatedKContractInfo { get; set; }
+
         public List<ProviderBalanceSheetViewModel> RelatedBalanceSheetInfo { get; set; }
 
         public List<ProviderLegalViewModel> RelatedLegalInfo { get; set; }

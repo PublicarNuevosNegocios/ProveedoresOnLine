@@ -65,6 +65,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ProjectDetailRecalculate()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectDetailRecalculate);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ProjectProviderDetail()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectProviderDetail);
@@ -87,6 +93,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string Index = "Index";
             public readonly string ProjectDetail = "ProjectDetail";
+            public readonly string ProjectDetailRecalculate = "ProjectDetailRecalculate";
             public readonly string ProjectProviderDetail = "ProjectProviderDetail";
         }
 
@@ -95,6 +102,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public const string Index = "Index";
             public const string ProjectDetail = "ProjectDetail";
+            public const string ProjectDetailRecalculate = "ProjectDetailRecalculate";
             public const string ProjectProviderDetail = "ProjectProviderDetail";
         }
 
@@ -104,6 +112,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public ActionParamsClass_ProjectDetail ProjectDetailParams { get { return s_params_ProjectDetail; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ProjectDetail
+        {
+            public readonly string ProjectPublicId = "ProjectPublicId";
+        }
+        static readonly ActionParamsClass_ProjectDetailRecalculate s_params_ProjectDetailRecalculate = new ActionParamsClass_ProjectDetailRecalculate();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ProjectDetailRecalculate ProjectDetailRecalculateParams { get { return s_params_ProjectDetailRecalculate; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ProjectDetailRecalculate
         {
             public readonly string ProjectPublicId = "ProjectPublicId";
         }
@@ -161,6 +177,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
             ProjectDetailOverride(callInfo, ProjectPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ProjectDetailRecalculateOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ProjectDetailRecalculate(string ProjectPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectDetailRecalculate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
+            ProjectDetailRecalculateOverride(callInfo, ProjectPublicId);
             return callInfo;
         }
 

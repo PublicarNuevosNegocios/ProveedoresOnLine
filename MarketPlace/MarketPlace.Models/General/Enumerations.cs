@@ -523,6 +523,13 @@
     public enum enumProjectInfoType
     {
         Compare = 1407001,
+        Ammount = 1407002,
+        ExperienceYears = 1407003,
+        ExperienceQuantity = 1407004,
+        DefaultEconomicActivity = 1407005,
+        CustomEconomicActivity = 1407006,
+        CurrencyType = 1407007,
+        Responsible = 1407008,
     }
 
     public enum enumProjectCompanyInfoType
