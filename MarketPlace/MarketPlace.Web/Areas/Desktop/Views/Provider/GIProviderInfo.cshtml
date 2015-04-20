@@ -246,17 +246,18 @@
                                 <span>@item.Currency @item.FK_TotalKValueScore</span>
                             </li>
                         }
-                        <li>
-                            <span>CONSTRUCTOR</span>
-                            <span>USD 486.656.637.728.592.392</span>
-                            <span>USD 486.656.637.728.592.392</span>
-                            <span>USD 486.656.637.728.592.392</span>
-                        </li>
                     </ul>
                 </li>
                 <li>
                     <label class="POMPProviderVerDetalle">
-                        <a href="#">Ver Detalle</a>
+                        <a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.FIKContract,
+                                ProviderPublicId = Request["ProviderPublicId"]
+                            }))">Ver Detalle</a>
                     </label>
                 </li>
             }
