@@ -61,6 +61,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void ProjectCalculate()
         {
             ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate("1BC311CC", "DA5C572E");
+            Assert.AreEqual(1, 1);
         }
 
     }

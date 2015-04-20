@@ -850,7 +850,6 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
                             FirstOrDefault(),
                         oCurrentOriginalValue,
                         oCurrentOriginalValue);
-                    //oAccountUnit.IndexOf("$") >= 0 ? oCurrentOriginalValue * CurrencyRate : oCurrentOriginalValue);
 
                     return true;
                 });

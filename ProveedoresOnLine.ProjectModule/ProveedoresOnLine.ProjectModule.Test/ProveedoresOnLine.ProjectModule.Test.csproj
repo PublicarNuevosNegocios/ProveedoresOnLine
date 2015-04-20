@@ -93,7 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Rsx-Company.xml" />
-    <Content Include="Rsx-SettingsConfig.xml" />
+    <Content Include="Rsx-SettingsConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Rsx-ProjectBatch.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -119,7 +121,8 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-ProjectBatch.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ProjectModule\" /y</PostBuildEvent>
+    <PostBuildEvent>XCOPY "$(ProjectDir)$(OutDir)Rsx-SettingsConfig.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ProjectModule\" /y
+XCOPY "$(ProjectDir)$(OutDir)Rsx-ProjectBatch.xml" "\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\ProjectModule\" /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
