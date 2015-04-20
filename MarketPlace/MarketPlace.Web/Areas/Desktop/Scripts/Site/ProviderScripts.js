@@ -376,6 +376,16 @@ var Provider_SearchObject = {
 
     /*****************************Project search methods start************************************************/
 
+    ShowProjectCreateFromCompare: function () {
+        if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0 && $('#' + Provider_SearchObject.ObjectId + '_Compare_ItemContainer').find('li').length > 0) {
+            Provider_SearchObject.ShowProjectCreate();
+        }
+        else {
+            Dialog_ShowMessage('Crear proceso de selección', 'Debe tener por lo menos un proveedor asociado a la comparacion para iniciar un proceso de selección.', null);
+        }
+    },
+
+
     ShowProjectCreate: function () {
         //clean input fields
         $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip_Name').val('');

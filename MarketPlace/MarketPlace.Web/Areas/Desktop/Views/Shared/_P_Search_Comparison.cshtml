@@ -17,7 +17,7 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        <a href="javascript:Provider_SearchObject.ShowProjectCreate();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
             <span>Iniciar proceso de selección</span>
         </a>
@@ -51,7 +51,7 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        <a href="javascript:Provider_SearchObject.ShowProjectCreate();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
             <span>Iniciar proceso de selección</span>
         </a>
@@ -112,6 +112,8 @@
                 </ul>
                 <div style="display:none;">
                     <input type="hidden" id="Search_Compare_CreateProject_ToolTip_CompareId" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Compare).ToString())_" value="" />
+                    <input type="hidden" id="Search_Compare_CreateProject_ToolTip_CurrencyType" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_" value="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value" />
+                    <input type="hidden" id="Search_Compare_CreateProject_ToolTip_Responsible" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
                 </div>
             </form>
         </div>

@@ -167,70 +167,77 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     Where(ei => ei.ItemType.ItemId == 1401002).
                     All(ei =>
                     {
-                        switch (ei.ItemInfo.
-                                    Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
-                                    Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
-                                    DefaultIfEmpty(0).
-                                    FirstOrDefault())
+                        try
                         {
-                            case 1404001:
-                                oTmpResult = Commercial_EvalExperience(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404002:
-                                oTmpResult = Certification_EvalNorms(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404003:
-                                oTmpResult = Certification_EvalLTIF(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404004:
-                                oTmpResult = Certification_EvalRiskPolicies(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404005:
-                                oTmpResult = Financial_EvalBalanceSheet(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404006:
-                                oTmpResult = Legal_EvalChamberOfCommerce(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404007:
-                                oTmpResult = Legal_EvalRut(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            case 1404008:
-                                oTmpResult = Legal_EvalSARLAFT(pjpv, ei);
-                                if (oTmpResult != null && oTmpResult.Count > 0)
-                                {
-                                    oResult.AddRange(oTmpResult);
-                                }
-                                break;
-                            default:
-                                break;
+                            switch (ei.ItemInfo.
+                                        Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
+                                        Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
+                                        DefaultIfEmpty(0).
+                                        FirstOrDefault())
+                            {
+                                case 1404001:
+                                    oTmpResult = Commercial_EvalExperience(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404002:
+                                    oTmpResult = Certification_EvalNorms(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404003:
+                                    oTmpResult = Certification_EvalLTIF(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404004:
+                                    oTmpResult = Certification_EvalRiskPolicies(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404005:
+                                    oTmpResult = Financial_EvalBalanceSheet(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404006:
+                                    oTmpResult = Legal_EvalChamberOfCommerce(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404007:
+                                    oTmpResult = Legal_EvalRut(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                case 1404008:
+                                    oTmpResult = Legal_EvalSARLAFT(pjpv, ei);
+                                    if (oTmpResult != null && oTmpResult.Count > 0)
+                                    {
+                                        oResult.AddRange(oTmpResult);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                        catch (Exception err)
+                        {
+                            throw err;
                         }
 
                         return true;
@@ -331,7 +338,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                         FirstOrDefault(),
                     ExperienceYear = cm.ItemInfo.
                         Where(cminf => cminf.ItemInfoType.ItemId == 302003 && !string.IsNullOrEmpty(cminf.Value)).
-                        Select(cminf => Convert.ToInt32(cminf.Value.Replace(" ", ""))).
+                        Select(cminf => Convert.ToDateTime(cminf.Value.Replace(" ", "")).Year).
                         DefaultIfEmpty(0).
                         FirstOrDefault(),
                 });

@@ -27,6 +27,24 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult ProjectDetailRecalculate(string ProjectPublicId)
+        {
+            //recalculate project values
+            ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate
+                (ProjectPublicId,
+                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+            //return redirect to project detail
+            return RedirectToRoute
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Project.Name,
+                    action = MVC.Project.ActionNames.ProjectDetail,
+                    ProjectPublicId = ProjectPublicId,
+                });
+        }
+
         public virtual ActionResult ProjectProviderDetail(string ProjectPublicId, string ProviderPublicId)
         {
             return View();
