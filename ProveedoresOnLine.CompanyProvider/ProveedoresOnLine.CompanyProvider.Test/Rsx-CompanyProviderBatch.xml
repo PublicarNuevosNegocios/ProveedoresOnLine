@@ -4,6 +4,9 @@
     
     <!--Default Country-->
     <key name="Company_DefaultCountry">988</key>
+
+    <!--Default Country-->
+    <key name="CompanyProvider_FPI">1.6333</key>
    
   </CompanyProviderBatch>
 </Settings>
