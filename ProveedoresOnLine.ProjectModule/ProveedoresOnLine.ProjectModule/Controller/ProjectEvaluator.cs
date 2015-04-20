@@ -158,18 +158,10 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
                 try
                 {
-
-                    //create upsert model
-                    ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
-                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
-                    {
-                        ProjectCompanyId = pjpv.ProjectCompanyId,
-                        ItemInfo = new List<Models.ProjectProviderInfoModel>(),
-                    };
-
                     //loop for evaluation criteria
 
                     List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult = new List<Models.ProjectProviderInfoModel>();
+                    List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oTmpResult = new List<Models.ProjectProviderInfoModel>();
 
                     RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
                     Where(ei => ei.ItemType.ItemId == 1401002).
@@ -182,59 +174,59 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                                     FirstOrDefault())
                         {
                             case 1404001:
-                                oResult = Commercial_EvalExperience(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Commercial_EvalExperience(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404002:
-                                oResult = Certification_EvalNorms(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Certification_EvalNorms(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404003:
-                                oResult = Certification_EvalLTIF(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Certification_EvalLTIF(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404004:
-                                oResult = Certification_EvalRiskPolicies(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Certification_EvalRiskPolicies(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404005:
-                                oResult = Financial_EvalBalanceSheet(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Financial_EvalBalanceSheet(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404006:
-                                oResult = Legal_EvalChamberOfCommerce(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Legal_EvalChamberOfCommerce(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404007:
-                                oResult = Legal_EvalRut(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Legal_EvalRut(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             case 1404008:
-                                oResult = Legal_EvalSARLAFT(pjpv, ei);
-                                if (oResult != null && oResult.Count > 0)
+                                oTmpResult = Legal_EvalSARLAFT(pjpv, ei);
+                                if (oTmpResult != null && oTmpResult.Count > 0)
                                 {
-                                    oProjectProviderToUpsert.ItemInfo.AddRange(oResult);
+                                    oResult.AddRange(oTmpResult);
                                 }
                                 break;
                             default:
@@ -248,7 +240,31 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     if (oResult == null)
                         oResult = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>();
 
-                    oProjectProviderToUpsert.ItemInfo.AddRange(AreaResults(pjpv, oResult));
+                    oResult.AddRange(AreaResults(pjpv, oResult));
+
+
+                    //create upsert model
+                    ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
+                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                        {
+                            ProjectCompanyId = pjpv.ProjectCompanyId,
+                            ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>(),
+                        };
+
+                    //get new items to upsert
+                    oProjectProviderToUpsert.ItemInfo.AddRange
+                        (oResult.Where(ors => ors.ItemInfoId == 0));
+
+                    //get change value items
+                    oProjectProviderToUpsert.ItemInfo.AddRange
+                        (oResult.
+                            Where(ors => ors.ItemInfoId > 0 &&
+                                        ors.Value !=
+                                            pjpv.ItemInfo.
+                                            Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
+                                            Select(pjpvinf => pjpvinf.Value).
+                                            DefaultIfEmpty(string.Empty).
+                                            FirstOrDefault()));
 
                     //upsert evaluation items responses
                     oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
