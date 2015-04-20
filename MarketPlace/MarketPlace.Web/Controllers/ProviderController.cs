@@ -924,6 +924,50 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult FIKContract(string ProviderPublicId)
+        {
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPFinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.KRecruitment);
+                oModel.RelatedFinancialInfo = new List<ProviderFinancialViewModel>();
+
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedFinantial.All(x =>
+                    {
+                        oModel.RelatedFinancialInfo.Add(new ProviderFinancialViewModel(x));
+                        return true;
+                    });
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
+        }
+
         #region Private Methods
 
         private List<ProviderBalanceSheetViewModel> GetBalanceSheetViewModel
@@ -1690,6 +1734,24 @@ namespace MarketPlace.Web.Controllers
                     Position = 3,
                     IsSelected =
                         (oCurrentAction == MVC.Provider.ActionNames.FIBankInfo &&
+                        oCurrentController == MVC.Provider.Name),
+                });
+
+                //income statement
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "K Contratación",
+                    Url = Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.FIKContract,
+                                ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                            }),
+                    Position = 2,
+                    IsSelected =
+                        (oCurrentAction == MVC.Provider.ActionNames.FIKContract &&
                         oCurrentController == MVC.Provider.Name),
                 });
 
