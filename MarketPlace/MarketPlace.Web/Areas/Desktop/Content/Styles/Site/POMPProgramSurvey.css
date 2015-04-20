@@ -27,140 +27,158 @@
     margin: 0px;
     padding: 0px 10px;
 }
+
     .POMPResultsOrder > ul {
         list-style-type: none;
         padding: 0;
     }
 
 /************ FILTRO DE EVALUACIONES *************/
-    .POMPProviderSurvey_mainFilter {
-        background-color: #f9f9f9;
-        height:auto;
-        width: 100%;
-        padding:7px 0px !important;
+.POMPProviderSurvey_mainFilter {
+    background-color: #f9f9f9;
+    height: auto;
+    width: 100%;
+    padding: 7px 0px !important;
+}
+
+    .POMPProviderSurvey_mainFilter li {
+        height: auto;
+        vertical-align: top;
+        width: auto;
     }
-        .POMPProviderSurvey_mainFilter li {
-            height: auto;
-            vertical-align: top;
+
+        .POMPProviderSurvey_mainFilter li span {
+            color: #4d4d4d;
+            font-size: 1.2em;
+        }
+
+        .POMPProviderSurvey_mainFilter li select {
+            background-color: #ddd;
+            border: 1px solid #727276;
+            color: #666;
+            display: inline-block;
+            font-size: 1.05em;
             width: auto;
         }
-            .POMPProviderSurvey_mainFilter li span {
-                color: #4d4d4d;
-                font-size: 1.2em;
-            }
-                .POMPProviderSurvey_mainFilter li select {
-                    background-color: #ddd;
-                    border: 1px solid #727276;
-                    color: #666;
-                    display: inline-block;
-                    font-size: 1.05em;
-                    width:auto;
-                }
-                .POMPButtonsSurvey {
-                    background-color: #ff8300;
-                    color: #fff;
-                    display: inline-block;
-                    font-size: 1em;
-                    letter-spacing: -0.5px;
-                    margin: 0;
-                    padding: 3px 10px;
-                     border-radius: 2px;
-                }
-    /*********** CASO EN EL QUE SE PINTA LA EVALUACION *********/
-        .POMPResultsBasicInfoSurvey {
-            display:inline-block;
-            border:NONE;
-            width:calc(100% - 265px);
-        }
-        .POMPProviderDataWrapperSurvey {
-            display: block;
-            height: auto;
-            margin:4px auto 0 auto;         
-            min-width: 694px;
-            padding:2px;
-            width:97.5%;
-            border-top:1px solid #ff8300;
-        }
-    /**********************/
-        .POMPResultsBasicInfo a{
-            background-color: #eeeeee;
-            border-bottom: 1px dotted #5d5d5d;
-            border-top: medium none;
-            color: #5d5d5d !important;
-            display: block;
-            font-size: 1.1em !important;
-            line-height: 1em !important;
-            margin: 8px 0px 6px 4px !important;
-            max-width: 99% !important;
-            min-height: 26px !important;
-            padding: 5px 0 0 !important;
-            width: 99% !important;
-        }
+
+.POMPButtonsSurvey {
+    background-color: #ff8300;
+    color: #fff;
+    display: inline-block;
+    font-size: 1em;
+    letter-spacing: -0.5px;
+    margin: 0;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+/*********** CASO EN EL QUE SE PINTA LA EVALUACION *********/
+.POMPResultsBasicInfoSurvey {
+    display: inline-block;
+    border: NONE;
+    width: calc(100% - 265px);
+}
+
+.POMPProviderDataWrapperSurvey {
+    display: block;
+    height: auto;
+    margin: 4px auto 0 auto;
+    min-width: 694px;
+    padding: 2px;
+    width: 97.5%;
+    border-top: 1px solid #ff8300;
+}
+/**********************/
+.POMPResultsBasicInfo a {
+    background-color: #eeeeee;
+    border-bottom: 1px dotted #5d5d5d;
+    border-top: medium none;
+    color: #5d5d5d !important;
+    display: block;
+    font-size: 1.1em !important;
+    line-height: 1em !important;
+    margin: 8px 0px 6px 4px !important;
+    max-width: 99% !important;
+    min-height: 26px !important;
+    padding: 5px 0 0 !important;
+    width: 99% !important;
+}
+
 .POMPResultsBasicInfo > ul {
     list-style-type: none;
-    margin:0px 0px 0px 4px;
-    padding:0px ;
+    margin: 0px 0px 0px 4px;
+    padding: 0px;
 }
+
     .POMPResultsBasicInfo > ul > li {
-        width:99.5%;
-        display:block;
-        margin:0px; padding:4px 0px 4px 6px;
+        width: 99.5%;
+        display: block;
+        margin: 0px;
+        padding: 4px 0px 4px 6px;
     }
-    .POMPResultsBasicInfo > ul > li:nth-child(odd){
-        background-color:#f1f1f1;
-    }
-    .POMPResultsBasicInfo > ul > li:nth-child(even){
-        background-color:#fff;
-    }
+
+        .POMPResultsBasicInfo > ul > li:nth-child(odd) {
+            background-color: #f1f1f1;
+        }
+
+        .POMPResultsBasicInfo > ul > li:nth-child(even) {
+            background-color: #fff;
+        }
+
         .POMPResultsBasicInfo > ul > li > label,
         .POMPResultsBasicInfo > ul > li > div,
-        .POMPResultsBasicInfo > ul > li > span{
+        .POMPResultsBasicInfo > ul > li > span {
             display: inline-block;
-            margin:0px; padding:0px;
-            font-weight:normal;
+            margin: 0px;
+            padding: 0px;
+            font-weight: normal;
         }
+
         .POMPResultsBasicInfo > ul > li > label {
-            border-right:1px solid #333;            
-            width:32%;
+            border-right: 1px solid #333;
+            width: 32%;
         }
+
         .POMPResultsBasicInfo > ul > li > div.rateit,
         .POMPResultsBasicInfo > ul > li > span {
-            height:16px;
-            vertical-align:text-bottom;
+            height: 16px;
+            vertical-align: text-bottom;
         }
+
             .POMPResultsBasicInfo > ul > li > span:nth-child(2) {
-                height:auto;
-                vertical-align:initial;
+                height: auto;
+                vertical-align: initial;
             }
+
             .POMPResultsBasicInfo > ul > li > span:nth-child(3) {
-                font-size:0.88em;
+                font-size: 0.88em;
             }
-            
+
         .POMPResultsBasicInfo > ul > li .selProgressBar {
             height: 23px;
             margin: 0;
             width: 58%;
-            vertical-align:top;
+            vertical-align: top;
         }
 /************** ACCIONES DE LISTA DE EVALUACIONES ***************/
-    .POMPResultsActions{
-        display:block;
-        list-style-type: none;
-        height: auto;
-        margin: 4px 0 8px 0px;
-        padding: 0;
-        width: 99.5%;
-        text-align: right;
-    }
-            .POMPEvaluationListActions {
-                border-radius: 2px;
-                display: inline-block !important;
-                margin: 0px 6px 0 0 !important;
-                padding:0 4px !important;
-                text-align: center;
-                width:auto !important;
-                font-size:0.9em;
-            }            
+.POMPResultsActions {
+    display: block;
+    list-style-type: none;
+    height: auto;
+    margin: 4px 0 8px 0px;
+    padding: 0;
+    width: 99.5%;
+    text-align: right;
+}
+
+.POMPEvaluationListActions {
+    border-radius: 2px;
+    display: inline-block !important;
+    margin: 0px 6px 0 0 !important;
+    padding: 0 4px !important;
+    text-align: center;
+    width: auto !important;
+    font-size: 0.9em;
+}
 
 /******************Evaluación de Desempeño*********************/
 
@@ -168,6 +186,7 @@
     border-bottom: 1px solid #ff8300;
     padding-bottom: 1.3em;
 }
+
     .POMPSurveyDetailProviderInfoActions > ul {
         list-style-type: none;
         float: right;
@@ -205,27 +224,31 @@
 }
 /*********** CASO EN EL QUE SE PINTA LA EVALUACION *********/
 .QuestionsForSurvey {
-    margin:0px;
+    margin: 0px;
 }
+
     .QuestionsForSurvey > ul {
-        margin:0px;
+        margin: 0px;
     }
 /**********************************/
 
-.POMPProviderQuestions > span{
-    font-size:0.88em;
+.POMPProviderQuestions > span {
+    font-size: 0.88em;
 }
-    .POMPProviderQuestions > ul {
-        list-style-type: none;
-        padding: 0;
-        margin-left: 0 !important;
+
+.POMPProviderQuestions > ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 0 !important;
+}
+
+    .POMPProviderQuestions > ul > li {
+        border-bottom: 1px solid #ff8300;
+        padding: 2px 0;
+        margin: 8px 0 0 0;
     }
-        .POMPProviderQuestions > ul > li {
-            border-bottom: 1px solid #ff8300;
-            padding: 2px 0;
-            margin:8px 0 0 0;
-        }
-        .POMPProviderQuestions > ul > li > span{
+
+        .POMPProviderQuestions > ul > li > span {
             color: #0066ae;
             font-size: 1.1em;
             font-weight: normal;
@@ -233,65 +256,76 @@
             margin: 0;
             width: 89%;
         }
-        
+
 .PMMPRateValue {
     padding: 3px 0 0 4px;
-    width:100%;
-    height:26px;
-    background-color:#f1f1f1;
+    width: 100%;
+    height: 26px;
+    background-color: #f1f1f1;
 }
 /****** PREGUNTAS ******/
-            .POMPProviderQuestions > ul > li > ul {
-                list-style-type: none;
-                padding:0px; margin:5px 0 5px 0px;
-            }
-                .POMPProviderQuestions > ul > li > ul > li {
-                    margin:8px 0 5px;
-                    padding: 5px 2px 7px;
-                    border:1px solid #999;
-                    border-radius:2px;
-                }
-                    .PMMPSmallText {
-                        display: inline-block;
-                        font-size: 0.96em;
-                        line-height: 15px;
-                        vertical-align: top;
-                        width: 95%;
-                        margin: 0px 0 5px 5px;
-                    }
-                    .PMMPRateValueQuestions {
-                        border-top:1px solid #0066ae;
-                        border-bottom:1px solid #0066ae;
-                        font-size: 0.96em;
-                        padding: 3px 0 0 4px; margin:4px 0 0 0;
-                        width:100%;
-                        height:29px; text-align:center;        
-                    }
-                        .PMMPRateValueQuestions span, .PMMPRateValueQuestions div {
-                            vertical-align:text-bottom;
-                        }
-                    .POMPProviderQuestions > ul > li > ul > li > ul {
-                        list-style-type: none;
-                        padding: 0;
-                    }
-                        .POMPProviderQuestions > ul > li > ul > li > ul > li {
-                            margin: 0 0 0 37px;
-                            padding: 0.2em 0 0.2em 0.5em;
-                        }
-                        .POMPProviderQuestions > ul > li > ul > li > ul > li:nth-child(odd) {
-                            background-color: #fff;
-                        }
-                        .POMPProviderQuestions > ul > li > ul > li > ul > li:nth-child(even) {
-                            background-color: #f1f1f1;
-                        }
+.POMPProviderQuestions > ul > li > ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 5px 0 5px 0px;
+}
 
-                        .POMPProviderQuestions > ul > li > ul > li > ul > li > span{
-                            display: inline-block;
-                            line-height: 1.3em;
-                            vertical-align: top;
-                            width: 95%;
-                            font-size: 0.96em;
-                        }
+    .POMPProviderQuestions > ul > li > ul > li {
+        margin: 8px 0 5px;
+        padding: 5px 2px 7px;
+        border: 1px solid #999;
+        border-radius: 2px;
+    }
+
+.PMMPSmallText {
+    display: inline-block;
+    font-size: 0.96em;
+    line-height: 15px;
+    vertical-align: top;
+    width: 95%;
+    margin: 0px 0 5px 5px;
+}
+
+.PMMPRateValueQuestions {
+    border-top: 1px solid #0066ae;
+    border-bottom: 1px solid #0066ae;
+    font-size: 0.96em;
+    padding: 3px 0 0 4px;
+    margin: 4px 0 0 0;
+    width: 100%;
+    height: 29px;
+    text-align: center;
+}
+
+    .PMMPRateValueQuestions span, .PMMPRateValueQuestions div {
+        vertical-align: text-bottom;
+    }
+
+.POMPProviderQuestions > ul > li > ul > li > ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+    .POMPProviderQuestions > ul > li > ul > li > ul > li {
+        margin: 0 0 0 37px;
+        padding: 0.2em 0 0.2em 0.5em;
+    }
+
+        .POMPProviderQuestions > ul > li > ul > li > ul > li:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        .POMPProviderQuestions > ul > li > ul > li > ul > li:nth-child(even) {
+            background-color: #f1f1f1;
+        }
+
+        .POMPProviderQuestions > ul > li > ul > li > ul > li > span {
+            display: inline-block;
+            line-height: 1.3em;
+            vertical-align: top;
+            width: 95%;
+            font-size: 0.96em;
+        }
 
 /*********** OBSERVACIONES **********/
 
@@ -300,13 +334,14 @@
     margin: 6px 0 0 37px;
     padding: 0.8em 0 0.6em 1.7em;
     font-size: 0.96em;
-    width:auto;
+    width: auto;
 }
+
     .POMPDescription > span {
         vertical-align: top;
         display: inline-block;
-
     }
+
 .POMPDescriptionArea {
     border: 1px solid #999;
     border-radius: 2px;
@@ -314,4 +349,52 @@
     width: 73%;
     min-height: 50px;
     height: auto;
+}
+
+/**********Periodo de Evaluacion************/
+.EvaluationPeriod {
+    width: 50%;
+    text-align: left;
+}
+
+    .EvaluationPeriod label {
+        display: inline-block;
+        margin: 0px 2% 0px 0px;
+        padding: 0px;
+        font-weight: normal;
+    }
+
+    .EvaluationPeriod span {
+        height: auto;
+        vertical-align: initial;
+        margin-right: 1%;
+        border-right: 1px solid #333;
+    }
+
+.EvaluationPeriodDialog {
+    width: 100%;
+}
+
+    .EvaluationPeriodDialog label {
+        width: 40%;
+    }
+
+    .EvaluationPeriodDialog > input {
+        border: 1px solid #D8D8D8;
+        background-color: white;
+    }
+
+    .EvaluationPeriodDialog > textarea {
+        border: 1px solid #D8D8D8;
+        background-color: white;
+    }
+
+input#Survey_ProgramSurvey_Contract {
+    border: 1px solid #BEBEBE;
+    background-color: white;
+}
+
+textarea#Survey_ProgramSurvey_Comments {
+    border: 1px solid #BEBEBE;
+    background-color: white;
 }

@@ -71,6 +71,23 @@
                     <label>Responsable:</label>
                     <span>@Model.RelatedSurvey.SurveyResponsible</span>
                 </li>
+                <li>
+                    <label>Contrato o Factura</label>
+                    <span>@Model.RelatedSurvey.SurveyContract</span>
+                </li>
+                <li>
+                    <label>Periodo de Evaluación:</label>
+                    <div class="EvaluationPeriod">
+                        <label>Fecha de Inicio:</label>
+                        <span>@Model.RelatedSurvey.SurveyStartDate</span>
+                        <label>Fecha Final:</label>
+                        <span>@Model.RelatedSurvey.SurveyEndDate</span>
+                    </div>
+                </li>
+                <li>
+                    <label>Comentarios</label>
+                    <span>@Model.RelatedSurvey.SurveyComments</span>
+                </li>
             </ul>
         </div>
     </div>
