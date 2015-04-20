@@ -257,6 +257,20 @@ namespace MarketPlace.Web.Controllers
                 }
                 #endregion
 
+                #region K_Contract Info
+                List<GenericItemModel> oRelatedKContractInfo = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialGetBasicInfo(ProviderPublicId, (int)enumFinancialType.KRecruitment, true);
+
+                oModel.RelatedKContractInfo = new List<ProviderFinancialViewModel>();
+                if (oRelatedKContractInfo != null)
+                {
+                    oRelatedKContractInfo.All(x =>
+                    {
+                        oModel.RelatedKContractInfo.Add(new ProviderFinancialViewModel(x));
+                        return true;
+                    });
+                }
+                #endregion
+
                 //Get Engagement info                                
                 #region HSEQ
 
