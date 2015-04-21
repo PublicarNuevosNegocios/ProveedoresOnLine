@@ -24,6 +24,8 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             }
         }
 
+        #region Calculation By Role
+
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel GetProviderScore(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oProvider)
         {
             GenericItemModel K_ContractModelToReturn;
@@ -54,7 +56,13 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             CapacityOrganizationScore = CalculateCapacityOrg(oProvider);
 
             #endregion
-            
+
+            #region Technic Capacity
+
+            oTechnicCapacity = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_TecnicCapacityScore, oTechnicCapacity);
+
+            #endregion
+
             #region Create K_Recruitment
 
             //Star to create the K_Recruitment Object return
@@ -66,7 +74,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                                               (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType
                                                                 && y.Value == Convert.ToInt32(CompanyProviderBatch.Models.Enumerations.enumUtil.K_Provider).ToString()).
                                                                 Select(y => y.ItemInfoId).FirstOrDefault() != 0).Select(x => x).ToList() : null;
-          
+
 
             K_ContractModelToReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel
             {
@@ -208,7 +216,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
             #region Expiriences Caltulation
 
-            int Years = 0;            
+            int Years = 0;
 
             DateTime ConstitutionCompanydate = oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumLegalInfoType.CP_ConstitutionDate)
                                                 .Select(x => Convert.ToDateTime(x.Value)).DefaultIfEmpty(DateTime.Now).FirstOrDefault();
@@ -318,7 +326,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                 {
                     ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalOrgCapacityScore,
                 },
-                Value = CapacityOrganizationScore.ToString("0.##"),                
+                Value = CapacityOrganizationScore.ToString("0.##"),
                 Enable = true,
             });
             K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -417,8 +425,8 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
             #region Calculate Financial
 
-            FinancialScore = CalculateFinancialCapacity(oProvider);            
-            
+            FinancialScore = CalculateFinancialCapacity(oProvider);
+
             #endregion
 
             #region Organization Capacity
@@ -444,10 +452,10 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                                               (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_RoleType
                                                                 && y.Value == Convert.ToInt32(CompanyProviderBatch.Models.Enumerations.enumUtil.K_Builder).ToString()).
                                                                 Select(y => y.ItemInfoId).FirstOrDefault() != 0).Select(x => x).ToList() : null;
-            
+
             K_ContractModelToReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel
             {
-                ItemId = K_ContractModel != null && K_ContractModel.Count > 0  ? K_ContractModel.FirstOrDefault().ItemId : 0,
+                ItemId = K_ContractModel != null && K_ContractModel.Count > 0 ? K_ContractModel.FirstOrDefault().ItemId : 0,
                 ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                 {
                     ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialType.KRecruitment,
@@ -497,7 +505,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                 {
                     ItemId = (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FK_TotalOrgCapacityScore,
                 },
-                Value = CapacityOrganizationScore.ToString("0.##"),  
+                Value = CapacityOrganizationScore.ToString("0.##"),
                 Enable = true,
             });
             K_ContractModelToReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -574,41 +582,10 @@ namespace ProveedoresOnLine.CompanyProviderBatch
 
             return K_ContractModelToReturn;
         }
+        
+        #endregion      
 
-        private decimal GetTreeScore(int TreeId, decimal ValueToEval)
-        {
-            decimal oReturn = 0;
-
-            KTree.Where(kt => kt.TreeId == TreeId).All(kt =>
-            {
-                kt.RelatedCategory.
-                    OrderBy(cat => cat.ItemInfo.
-                                    Where(catinf => catinf.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).
-                                    Select(catinf => Convert.ToDecimal(catinf.Value)).
-                                    DefaultIfEmpty(0).
-                                    FirstOrDefault()).
-                    All(cat =>
-                    {
-
-                        decimal minV = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).Select(x => Convert.ToDecimal(x.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
-                        decimal maxV = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxValue).Select(x => Convert.ToDecimal(x.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
-                        if (ValueToEval >= minV
-                            && ValueToEval <= maxV)
-                        {
-                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_Score).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
-                        }
-                        else if (ValueToEval > 0 && cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault() != 0
-                            && oReturn == 0)
-                        {
-                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
-                        }
-                        return true;
-                    });
-                return true;
-            });
-
-            return oReturn;
-        }
+        #region Calculation By Criterial
 
         private decimal CalculateTechnicCapacity(string ProviderPublicId)
         {
@@ -619,6 +596,9 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             {
                 OrgaEstructure.All(x =>
                 {
+                    oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_Personal).
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_TechnicPersonal).
                                         Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
@@ -648,8 +628,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
         {
             //Get Last year
             int FinancialLastYear = 0;
-            GenericItemModel oFinancialLastYear = new GenericItemModel();
-            MinimumWageModel oMiminumWageMode;
+            GenericItemModel oFinancialLastYear = new GenericItemModel();            
             oProvider.RelatedFinantial.All(x =>
             {
                 if (FinancialLastYear == 0)
@@ -674,16 +653,23 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             BalanceDetailList = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(oFinancialLastYear.ItemId);
 
             //Get Minimmum Wage
-            oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(FinancialLastYear, 
-                                Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value)); 
+            oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(FinancialLastYear,
+                                Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value));
 
             decimal FinancialScoreHeritage = 0;
             decimal FinancialScoreLiquidity = 0;
             decimal FinancialScoreIndebtedness = 0;
             decimal CurrentHeritage = 0;
+            int moneyType = oFinancialLastYear.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_MoneyType).
+                                                Select(x => Convert.ToInt32(x.Value)).DefaultIfEmpty((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.U_COP).FirstOrDefault();
+
+            //Get Currency Money Type
+            decimal CurrentExchange = CurrencyExchangeGetRate(moneyType, (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.U_COP, FinancialLastYear);
 
             CurrentHeritage = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_TotalHeritage).
                                     Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault();
+
+            CurrentHeritage = CurrentHeritage * CurrentExchange;
 
             //Get First Table score
             if (oMiminumWageModel != null)
@@ -693,20 +679,22 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             }
 
             decimal CurrentActive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_CurrentActive).
-                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault();
+                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;            
 
             decimal CurrentPassive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_CurentPassive).
-                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault();
+                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;            
+
             decimal ResulLiquidity = CurrentActive / CurrentPassive;
 
             FinancialScoreLiquidity = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_LiquidityScore, ResulLiquidity);
 
             decimal TotalActive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_TotalActive).
-                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault();
-            decimal TotalPassive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_TotalPassive).
-                                   Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault();
+                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;            
 
-            decimal ResultIndebtedness = (TotalActive / TotalPassive) * 100;
+            decimal TotalPassive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_TotalPassive).
+                                   Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange; ;            
+
+            decimal ResultIndebtedness = (TotalPassive/ TotalActive ) * 100;
             FinancialScoreIndebtedness = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_IndebtednessScore, ResultIndebtedness);
 
             return FinancialScoreHeritage + FinancialScoreLiquidity + FinancialScoreIndebtedness;
@@ -741,11 +729,16 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                 return true;
             });
 
+            int moneyType = TwoLastBalaces.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_MoneyType).
+                                               Select(x => Convert.ToInt32(x.Value)).DefaultIfEmpty((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.U_COP).FirstOrDefault();
+            //Get Currency Money Type
+            decimal CurrentExchange = CurrencyExchangeGetRate(moneyType, (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.U_COP, Convert.ToInt32(LastTwoYears.FirstOrDefault()));
+
             TwoLastBalaces.All(x =>
             {
                 TwoLastBalacesDetail = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.BalanceSheetGetByFinancial(x.ItemId);
                 decimal OperIng = TwoLastBalacesDetail.Where(y => y.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_OperatingIncome).
-                               Select(y => y.Value).DefaultIfEmpty(0).FirstOrDefault();
+                               Select(y => y.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;
 
                 oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                     (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FI_Year).Select(y => Convert.ToInt32(y.Value)).FirstOrDefault(), 988);
@@ -754,57 +747,127 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                 CapacityByYearScore += (OperIng / oMiminumWageModel.Value);
                 return true;
             });
+            CapacityByYearScore = Convert.ToDecimal(CapacityByYearScore.ToString("0."));
             return CapacityByYearScore / 2;
-        }
+        } 
+
+        #endregion
+        
+        #region Calculate Total Score
 
         private decimal CalculateProviderScore(decimal oTotalExperience, decimal oTotalFinancial, decimal oTotalCapacityOrg)
         {
             decimal oTotalResult;
-            oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(DateTime.Now.Year,
-                Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value)); 
 
             oTotalResult = oTotalExperience + oTotalFinancial;
             oTotalResult = oTotalResult / 1000;
             oTotalResult = oTotalResult + 1;
-            oTotalResult = oTotalCapacityOrg * oTotalResult;           
+            oTotalResult = oTotalCapacityOrg * oTotalResult;
+            oTotalResult = Convert.ToDecimal(oTotalResult.ToString("0."));
 
             return oTotalResult;
         }
 
-        private decimal CalculateBuilderScore(decimal oTotalExperience, decimal oTotalFinancial, decimal oTotalCapacityOrg ,  decimal oTechnicCapacity)
+        private decimal CalculateBuilderScore(decimal oTotalExperience, decimal oTotalFinancial, decimal oTotalCapacityOrg, decimal oTechnicCapacity)
         {
             decimal oTotalResult;
-            oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(DateTime.Now.Year, 
-                Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value)); 
-
+           
             oTotalResult = oTotalExperience + oTotalFinancial + oTechnicCapacity;
             oTotalResult = oTotalResult / 1000;
             oTotalResult = oTotalResult + 1;
             decimal FPIResult = Convert.ToDecimal(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value) * oTotalCapacityOrg;
 
             oTotalResult = oTotalResult * FPIResult;
-
-            //oTotalResult = oTotalResult * oMiminumWageModel.Value;
+            oTotalResult = Convert.ToDecimal(oTotalResult.ToString("0."));
             return oTotalResult;
         }
 
         private decimal CalculateConsultantScore(decimal oTotalExperience, decimal oTotalFinancial, decimal oTotalCapacityOrg, decimal oTechnicCapacity)
         {
             decimal oTotalResult;
-            oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(DateTime.Now.Year,
-                Convert.ToInt32(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value)); 
-
+          
             oTotalResult = oTotalExperience + oTotalFinancial + oTechnicCapacity;
             oTotalResult = oTotalResult / 1000;
             oTotalResult = oTotalResult + 1;
-            decimal FPIResult = Convert.ToDecimal(1.6333) * oTotalCapacityOrg;
+            decimal FPIResult = Convert.ToDecimal(ProveedoresOnLine.CompanyProviderBatch.Models.InternalSettings.Instance[ProveedoresOnLine.CompanyProviderBatch.Models.Constants.C_Settings_Company_DefaultCountry].Value) * oTotalCapacityOrg;
 
             oTotalResult = oTotalResult * FPIResult;
+            oTotalResult = Convert.ToDecimal(oTotalResult.ToString("0."));
 
-            //oTotalResult = oTotalResult * oMiminumWageModel.Value;
             return oTotalResult;
         }
 
+        private decimal GetTreeScore(int TreeId, decimal ValueToEval)
+        {
+            decimal oReturn = 0;
+
+            KTree.Where(kt => kt.TreeId == TreeId).All(kt =>
+            {
+                kt.RelatedCategory.
+                    OrderBy(cat => cat.ItemInfo.
+                                    Where(catinf => catinf.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).
+                                    Select(catinf => Convert.ToDecimal(catinf.Value)).
+                                    DefaultIfEmpty(0).
+                                    FirstOrDefault()).
+                    All(cat =>
+                    {
+
+                        decimal minV = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MinValue).Select(x => Convert.ToDecimal(x.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
+                        decimal maxV = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxValue).Select(x => Convert.ToDecimal(x.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
+                        if (ValueToEval >= minV
+                            && ValueToEval <= maxV)
+                        {
+                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_Score).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
+                        }
+                        else if (ValueToEval > 0 && cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault() != 0
+                            && oReturn == 0)
+                        {
+                            oReturn = cat.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_MaxScore).Select(x => Convert.ToDecimal(x.Value)).FirstOrDefault();
+                        }
+                        return true;
+                    });
+                return true;
+            });
+
+            return oReturn;
+        } 
+        #endregion        
+
+        #region Util
+
         public MinimumWageModel oMiminumWageModel { get; set; }
+
+        #region Currency
+        //MoneyFrom,MoneyTo,Year,Result
+        private List<Tuple<int, int, int, decimal>> oConsultCurrency;
+
+        private decimal CurrencyExchangeGetRate
+            (int MoneyFrom,
+            int MoneyTo,
+            int Year)
+        {
+            if (oConsultCurrency == null)
+                oConsultCurrency = new List<Tuple<int, int, int, decimal>>();
+
+            if (!oConsultCurrency.Any(cc => cc.Item1 == MoneyFrom &&
+                                        cc.Item2 == MoneyTo &&
+                                        cc.Item3 == Year))
+            {
+                decimal oValue = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(MoneyFrom, MoneyTo, Year);
+                oConsultCurrency.Add(new Tuple<int, int, int, decimal>(MoneyFrom, MoneyTo, Year, oValue));
+            }
+
+            return oConsultCurrency.
+                Where(cc => cc.Item1 == MoneyFrom &&
+                            cc.Item2 == MoneyTo &&
+                            cc.Item3 == Year).
+                Select(cc => cc.Item4).
+                DefaultIfEmpty(1).
+                FirstOrDefault();
+        }
+
+        #endregion
+
+        #endregion
     }
 }
