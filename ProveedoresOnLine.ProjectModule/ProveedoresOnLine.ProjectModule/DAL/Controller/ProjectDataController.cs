@@ -106,9 +106,9 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.ProjectGetByIdLite(ProjectPublicId, CustomerPublicId);
         }
 
-        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId, string CustomerPublicId)
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId)
         {
-            return DataFactory.ProjectGetByIdCalculate( ProjectPublicId,  CustomerPublicId);
+            return DataFactory.ProjectGetByIdCalculate(ProjectPublicId);
         }
 
         #endregion

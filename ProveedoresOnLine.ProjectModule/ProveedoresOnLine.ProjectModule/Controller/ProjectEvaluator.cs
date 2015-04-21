@@ -143,10 +143,10 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         #region Constructors
 
-        public ProjectEvaluator(string oProjectPublicId, string oCustomerPublicId)
+        public ProjectEvaluator(string oProjectPublicId)
         {
             //get project calculate info
-            RelatedProject = ProjectModule.ProjectGetByIdCalculate(oProjectPublicId, oCustomerPublicId);
+            RelatedProject = ProjectModule.ProjectGetByIdCalculate(oProjectPublicId);
         }
 
         #endregion

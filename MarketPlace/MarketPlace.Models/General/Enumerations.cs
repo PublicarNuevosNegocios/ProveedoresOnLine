@@ -532,9 +532,22 @@
         Responsible = 1407008,
     }
 
-    public enum enumProjectCompanyInfoType
+    public enum enumEvaluationItemType
     {
+        EvaluationArea = 1401001,
+        EvaluationCriteria = 1401002,
+    }
 
+    public enum enumEvaluationItemInfoType
+    {
+        EvaluatorType = 1402001,
+        Evaluator = 1402002,
+        Unit = 1402003,
+        Weight = 1402004,
+        EvaluationCriteria = 1402005,
+        EvaluationRanges = 1402006,
+        EvaluationYears = 1402007,
+        EvaluationExperienceConfig = 1402008
     }
 
     #endregion

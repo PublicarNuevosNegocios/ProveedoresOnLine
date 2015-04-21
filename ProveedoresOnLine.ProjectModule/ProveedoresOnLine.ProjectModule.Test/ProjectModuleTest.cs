@@ -34,7 +34,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void ProjectGetById()
         {
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn =
-                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetById("1EC791B6", "DA5C572E");
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetById("1BC311CC", "DA5C572E");
 
             Assert.IsNotNull(oReturn);
         }
@@ -52,7 +52,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void ProjectGetByIdCalculate()
         {
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn =
-                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdCalculate("1EC791B6", "DA5C572E");
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdCalculate("1EC791B6");
 
             Assert.IsNotNull(oReturn);
         }
@@ -60,7 +60,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         [TestMethod]
         public void ProjectCalculate()
         {
-            ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate("1BC311CC", "DA5C572E");
+            ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate("1BC311CC");
             Assert.AreEqual(1, 1);
         }
 

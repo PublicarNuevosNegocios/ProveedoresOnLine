@@ -40,7 +40,7 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdLite(string ProjectPublicId, string CustomerPublicId);
 
-        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId, string CustomerPublicId);
+        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId);
 
         #endregion
     }
