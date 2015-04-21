@@ -530,6 +530,7 @@
         CustomEconomicActivity = 1407006,
         CurrencyType = 1407007,
         Responsible = 1407008,
+        InternalProcessNumber = 1407009,
     }
 
     public enum enumEvaluationItemType
@@ -548,6 +549,13 @@
         EvaluationRanges = 1402006,
         EvaluationYears = 1402007,
         EvaluationExperienceConfig = 1402008
+    }
+
+    public enum enumProjectOperator
+    {
+        Equal = 1409001,
+        Higher = 1409002,
+        GreaterOrEqual = 1409003,
     }
 
     #endregion

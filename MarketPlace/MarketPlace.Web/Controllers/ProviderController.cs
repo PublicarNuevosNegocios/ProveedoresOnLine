@@ -125,20 +125,20 @@ namespace MarketPlace.Web.Controllers
 
                     #region Project config
 
-                    //get project config items
-                    List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oProjectConfigResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
-                        MPProjectConfigGetByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                    ////get project config items
+                    //List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oProjectConfigResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+                    //    MPProjectConfigGetByCustomer(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-                    if (oProjectConfigResult != null && oProjectConfigResult.Count > 0)
-                    {
-                        oModel.RelatedProjectConfig = new List<Models.Project.ProjectConfigViewModel>();
+                    //if (oProjectConfigResult != null && oProjectConfigResult.Count > 0)
+                    //{
+                    //    oModel.RelatedProjectConfig = new List<Models.Project.ProjectConfigViewModel>();
 
-                        oProjectConfigResult.All(pjc =>
-                        {
-                            oModel.RelatedProjectConfig.Add(new Models.Project.ProjectConfigViewModel(pjc));
-                            return true;
-                        });
-                    }
+                    //    oProjectConfigResult.All(pjc =>
+                    //    {
+                    //        oModel.RelatedProjectConfig.Add(new Models.Project.ProjectConfigViewModel(pjc));
+                    //        return true;
+                    //    });
+                    //}
 
                     #endregion
                 }

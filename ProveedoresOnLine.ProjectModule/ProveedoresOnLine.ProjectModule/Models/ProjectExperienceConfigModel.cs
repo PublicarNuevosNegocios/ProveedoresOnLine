@@ -10,22 +10,14 @@ namespace ProveedoresOnLine.ProjectModule.Models
     {
         public bool AmmounEnable { get; set; }
 
-        public bool YearsEnable { get; set; }
-
         public bool DefaultAcitvityEnable { get; set; }
 
         public bool CustomAcitvityEnable { get; set; }
 
         public bool CurrencyEnable { get; set; }
 
-        /// <summary>
-        /// value,name
-        /// </summary>
-        public List<Tuple<string, string>> YearsInterval { get; set; }
+        public List<string> YearsInterval { get; set; }
 
-        /// <summary>
-        /// value,name
-        /// </summary>
-        public List<Tuple<int, string>> QuantityInterval { get; set; }
+        public List<string> QuantityInterval { get; set; }
     }
 }

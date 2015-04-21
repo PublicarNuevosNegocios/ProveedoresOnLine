@@ -20,6 +20,8 @@ namespace MarketPlace.Models.Project
 
         public string ProjectName { get { return RelatedProject.ProjectName; } }
 
+        public MarketPlace.Models.General.enumProjectStatus ProjectStatus { get { return (MarketPlace.Models.General.enumProjectStatus)RelatedProject.ProjectStatus.ItemId; } }
+
         public string LastModify { get { return RelatedProject.LastModify.ToString("yyyy-MM-dd"); } }
 
         #region Project Info
@@ -60,6 +62,40 @@ namespace MarketPlace.Models.Project
                     Select(pjinf => pjinf.Value.Replace(" ", "")).
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();
+            }
+        }
+
+        public string ProjectExperienceYearsValueName
+        {
+            get
+            {
+                string strExpYear = ProjectExperienceYears;
+                string oReturn = string.Empty;
+
+                if (!string.IsNullOrEmpty(strExpYear))
+                {
+                    string[] strSplit = strExpYear.Split('_');
+                    if (strSplit.Length >= 3)
+                    {
+                        switch ((MarketPlace.Models.General.enumProjectOperator)Convert.ToInt32(strSplit[2].Replace(" ", "")))
+                        {
+                            case MarketPlace.Models.General.enumProjectOperator.Equal:
+                                oReturn = "Igual a " + strSplit[1];
+                                break;
+                            case MarketPlace.Models.General.enumProjectOperator.Higher:
+                                oReturn = "Mayor a " + strSplit[1];
+                                break;
+                            case MarketPlace.Models.General.enumProjectOperator.GreaterOrEqual:
+                                oReturn = "Mayor o igual a " + strSplit[1];
+                                break;
+                            default:
+                                break;
+                        }
+
+                    }
+                }
+
+                return oReturn;
             }
         }
 
@@ -152,6 +188,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public string ProjectInternalProcessNumber
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber &&
+                                   !string.IsNullOrEmpty(pjinf.Value)).
+                    Select(pjinf => pjinf.Value).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         #endregion
 
         #region Project Config Info
@@ -196,7 +245,6 @@ namespace MarketPlace.Models.Project
                             CurrencyEnable = false,
                             CustomAcitvityEnable = false,
                             DefaultAcitvityEnable = false,
-                            YearsEnable = false,
                         };
                     }
                 }
