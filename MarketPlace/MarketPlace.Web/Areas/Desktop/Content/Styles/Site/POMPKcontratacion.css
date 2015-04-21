@@ -18,7 +18,7 @@
         }
             .POMPProviderKContratacion > li {
                 display:inline-block !important;
-                width:21.2% !important;
+                /***** El ancho se calcula segun el numero de columnas de categorias *****/
                 height: auto;
                 list-style-type: none;
                 margin: 0 auto;
@@ -26,6 +26,11 @@
                 vertical-align: top;
                 text-align:right;
             }
+
+            .KContratacionTwoColumns{width:65.8% !important;}
+            .KContratacionThreeColumns{width:32.5% !important;}
+            .KContratacionFourColumns{width:21.5% !important;}
+
                 .POMPProviderKContratacion > li > label:nth-child(odd),
                 .POMPProviderKContratacion > li > span:nth-child(odd){
                     background-color:#f9f9f9;

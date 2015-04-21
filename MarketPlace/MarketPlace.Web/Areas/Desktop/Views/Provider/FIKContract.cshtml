@@ -39,6 +39,7 @@
                         <span>@item.Currency @item.FK_TotalKValueScore</span>
                     </li>
                     }
+
                 }
 }
         </ul>
@@ -49,6 +50,22 @@
 }
 @section inlinescripts
 {
+    <script type="text/javascript">
+            $(document).ready(function () {
+                switch ($(".POMPProviderKContratacion li").length) {
+                    case 2:
+                        $(".POMPProviderKContratacion > li").addClass("KContratacionTwoColumns");
+                        break;
+                    case 3:
+                        $(".POMPProviderKContratacion > li").addClass("KContratacionThreeColumns");
+                        break;
+                    case 4:
+                        $(".POMPProviderKContratacion > li").addClass("KContratacionFourColumns");
+                        break;
+                }
+            });
+    </script>
+
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
 }
 
