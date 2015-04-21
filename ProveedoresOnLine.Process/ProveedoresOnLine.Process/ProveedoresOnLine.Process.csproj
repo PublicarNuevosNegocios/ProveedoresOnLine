@@ -65,6 +65,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ADO\developer\MySql.Web.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.CompanyProviderBatch">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProviderBatch\ProveedoresOnLine.CompanyProviderBatch.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyBatch">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyBatch\developer\ProveedoresOnLine.SurveyBatch.dll</HintPath>
     </Reference>
@@ -83,6 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implement\CompanyProviderProcessJob.cs" />
     <Compile Include="Implement\SurveySendProcessJob.cs" />
     <Compile Include="Implement\MessageModuleJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
