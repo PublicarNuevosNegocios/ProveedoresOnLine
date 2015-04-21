@@ -223,7 +223,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             oContractValue = oProvider.RelatedCommercial.OrderByDescending(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_ContractValue).
                                                                                                Select(y => Convert.ToDecimal(y.Value)).DefaultIfEmpty(0).FirstOrDefault()).ToList();
             oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(oContractValue.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
-                                                                                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_EndDate).
+                                                                                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_StartDate).
                                                                                                         Select(x => Convert.ToDateTime(!string.IsNullOrEmpty(x.Value) ? Convert.ToDateTime(x.Value) : DateTime.Now).Year).DefaultIfEmpty(0).FirstOrDefault(), 988);
 
             decimal oMaxContractValue = oContractValue.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_ContractValue).
