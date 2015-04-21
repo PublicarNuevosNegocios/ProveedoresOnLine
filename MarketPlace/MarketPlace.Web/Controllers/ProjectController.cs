@@ -31,8 +31,7 @@ namespace MarketPlace.Web.Controllers
         {
             //recalculate project values
             ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate
-                (ProjectPublicId,
-                MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                (ProjectPublicId);
 
             //return redirect to project detail
             return RedirectToRoute

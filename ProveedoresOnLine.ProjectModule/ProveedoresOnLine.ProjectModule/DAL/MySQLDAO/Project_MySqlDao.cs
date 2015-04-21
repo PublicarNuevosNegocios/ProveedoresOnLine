@@ -446,6 +446,12 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              },
                              Value = pjinfg.Key.ProjectInfoValue,
                              LargeValue = pjinfg.Key.ProjectInfoLargeValue,
+                             ValueName = pjinfg.Key.ProjectInfoTypeId == 1407005 || pjinfg.Key.ProjectInfoTypeId == 1407006 ?
+                                string.Join(";",
+                                (from pjinfv in response.DataSetResult.Tables[0].AsEnumerable()
+                                 where !pjinfv.IsNull("ProjectInfoValueName") &&
+                                        pjinfv.Field<int>("ProjectInfoId") == pjinfg.Key.ProjectInfoId
+                                 select pjinfv.Field<string>("ProjectInfoValueName"))) : string.Empty,
                          }).ToList(),
 
                     #endregion
@@ -785,12 +791,11 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public ProjectModel ProjectGetByIdCalculate(string ProjectPublicId, string CustomerPublicId)
+        public ProjectModel ProjectGetByIdCalculate(string ProjectPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectPublicId", ProjectPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -803,7 +808,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ProjectModel oReturn = null;
 
             if (response.DataSetResult != null &&
-                response.DataSetResult.Tables.Count > 3 &&
+                response.DataSetResult.Tables.Count > 7 &&
                 response.DataSetResult.Tables[0] != null &&
                 response.DataSetResult.Tables[0].Rows.Count > 0 &&
                 response.DataSetResult.Tables[1] != null &&
@@ -812,19 +817,15 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                 response.DataSetResult.Tables[4] != null &&
                 response.DataSetResult.Tables[5] != null &&
                 response.DataSetResult.Tables[6] != null &&
-                response.DataSetResult.Tables[7] != null &&
-                response.DataSetResult.Tables[8] != null)
+                response.DataSetResult.Tables[7] != null)
             {
                 oReturn = new ProjectModel()
                 {
                     ProjectPublicId = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId"),
-                    ProjectName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectName"),
                     ProjectStatus = new Company.Models.Util.CatalogModel()
                     {
-                        ItemId = (int)response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectStatusId"),
-                        ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectStatusName"),
+                        ItemId = response.DataSetResult.Tables[0].Rows[0].Field<int>("ProjectStatusId"),
                     },
-                    LastModify = response.DataSetResult.Tables[0].Rows[0].Field<DateTime>("ProjectLastModify"),
 
                     #region ProjectInfo
 
@@ -836,7 +837,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                          {
                              ProjectInfoId = pjinf.Field<int>("ProjectInfoId"),
                              ProjectInfoTypeId = pjinf.Field<int>("ProjectInfoTypeId"),
-                             ProjectInfoTypeName = pjinf.Field<string>("ProjectInfoTypeName"),
                              ProjectInfoValue = pjinf.Field<string>("ProjectInfoValue"),
                              ProjectInfoLargeValue = pjinf.Field<string>("ProjectInfoLargeValue"),
                          } into pjinfg
@@ -846,7 +846,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              ItemInfoType = new Company.Models.Util.CatalogModel()
                              {
                                  ItemId = pjinfg.Key.ProjectInfoTypeId,
-                                 ItemName = pjinfg.Key.ProjectInfoTypeName,
                              },
                              Value = pjinfg.Key.ProjectInfoValue,
                              LargeValue = pjinfg.Key.ProjectInfoLargeValue,
@@ -858,37 +857,25 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
                     RelatedProjectConfig = new ProjectConfigModel()
                     {
-                        ItemId = (int)response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectConfigId"),
-                        ItemName = response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectConfigName"),
-                        RelatedCustomer = new CompanyCustomer.Models.Customer.CustomerModel()
-                        {
-                            RelatedCompany = new Company.Models.Company.CompanyModel()
-                            {
-                                CompanyPublicId = response.DataSetResult.Tables[0].Rows[0].Field<string>("CustomerPublicId"),
-                            },
-                        },
+                        ItemId = (int)response.DataSetResult.Tables[1].Rows[0].Field<Int64>("ProjectConfigId"),
 
                         RelatedEvaluationItem =
-                            (from pjei in response.DataSetResult.Tables[2].AsEnumerable()
+                            (from pjei in response.DataSetResult.Tables[1].AsEnumerable()
                              where !pjei.IsNull("EvaluationItemId") &&
                                     pjei.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId") &&
-                                    pjei.Field<Int64>("ProjectConfigId") == response.DataSetResult.Tables[0].Rows[0].Field<Int64>("ProjectConfigId")
+                                    pjei.Field<Int64>("ProjectConfigId") == response.DataSetResult.Tables[1].Rows[0].Field<Int64>("ProjectConfigId")
                              group pjei by new
                              {
                                  EvaluationItemId = pjei.Field<int>("EvaluationItemId"),
-                                 EvaluationItemName = pjei.Field<string>("EvaluationItemName"),
                                  EvaluationItemTypeId = pjei.Field<int>("EvaluationItemTypeId"),
-                                 EvaluationItemTypeName = pjei.Field<string>("EvaluationItemTypeName"),
                                  ParentEvaluationItem = pjei.Field<int?>("ParentEvaluationItem"),
                              } into pjeig
                              select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                              {
                                  ItemId = pjeig.Key.EvaluationItemId,
-                                 ItemName = pjeig.Key.EvaluationItemName,
                                  ItemType = new Company.Models.Util.CatalogModel()
                                  {
                                      ItemId = pjeig.Key.EvaluationItemTypeId,
-                                     ItemName = pjeig.Key.EvaluationItemTypeName
                                  },
                                  ParentItem = pjeig.Key.ParentEvaluationItem == null ? null :
                                     new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
@@ -897,14 +884,13 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                     },
 
                                  ItemInfo =
-                                     (from pjeiinf in response.DataSetResult.Tables[2].AsEnumerable()
+                                     (from pjeiinf in response.DataSetResult.Tables[1].AsEnumerable()
                                       where !pjeiinf.IsNull("EvaluationItemInfoId") &&
                                              pjeiinf.Field<int>("EvaluationItemId") == pjeig.Key.EvaluationItemId
                                       group pjeiinf by new
                                       {
                                           EvaluationItemInfoId = pjeiinf.Field<int>("EvaluationItemInfoId"),
                                           EvaluationItemInfoTypeId = pjeiinf.Field<int>("EvaluationItemInfoTypeId"),
-                                          EvaluationItemInfoTypeName = pjeiinf.Field<string>("EvaluationItemInfoTypeName"),
                                           EvaluationItemInfoValue = pjeiinf.Field<string>("EvaluationItemInfoValue"),
                                           EvaluationItemInfoLargeValue = pjeiinf.Field<string>("EvaluationItemInfoLargeValue"),
                                       } into pjeiinfg
@@ -914,7 +900,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                           ItemInfoType = new Company.Models.Util.CatalogModel()
                                           {
                                               ItemId = pjeiinfg.Key.EvaluationItemInfoTypeId,
-                                              ItemName = pjeiinfg.Key.EvaluationItemInfoTypeName,
                                           },
                                           Value = pjeiinfg.Key.EvaluationItemInfoValue,
                                           LargeValue = pjeiinfg.Key.EvaluationItemInfoLargeValue,
@@ -929,29 +914,27 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                     #region Project Provider
 
                     RelatedProjectProvider =
-                        (from rpp in response.DataSetResult.Tables[1].AsEnumerable()
+                        (from rpp in response.DataSetResult.Tables[2].AsEnumerable()
                          where !rpp.IsNull("ProjectCompanyId") &&
                                  rpp.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
                          group rpp by new
                          {
                              ProjectCompanyId = rpp.Field<int>("ProjectCompanyId"),
-                             ProjectCompanyLastModify = rpp.Field<DateTime>("ProjectCompanyLastModify"),
+                             ProviderPublicId = rpp.Field<string>("ProviderPublicId"),
                          } into rppg
                          select new ProjectProviderModel()
                          {
                              ProjectCompanyId = rppg.Key.ProjectCompanyId,
-                             LastModify = rppg.Key.ProjectCompanyLastModify,
                              ItemInfo =
-                              (from rppinf in response.DataSetResult.Tables[3].AsEnumerable()
+                              (from rppinf in response.DataSetResult.Tables[2].AsEnumerable()
                                where !rppinf.IsNull("ProjectCompanyInfoId") &&
-                                       rppinf.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId") &&
-                                       rppinf.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
+                                       rppinf.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                       rppinf.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
                                group rppinf by new
                                {
                                    ProjectCompanyInfoId = rppinf.Field<int>("ProjectCompanyInfoId"),
                                    EvaluationItemId = rppinf.Field<int?>("EvaluationItemId"),
                                    ProjectCompanyInfoTypeId = rppinf.Field<int>("ProjectCompanyInfoTypeId"),
-                                   ProjectCompanyInfoTypeName = rppinf.Field<string>("ProjectCompanyInfoTypeName"),
                                    ProjectCompanyInfoValue = rppinf.Field<string>("ProjectCompanyInfoValue"),
                                    ProjectCompanyInfoLargeValue = rppinf.Field<string>("ProjectCompanyInfoLargeValue"),
                                } into rppinfg
@@ -966,7 +949,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                    ItemInfoType = new Company.Models.Util.CatalogModel()
                                    {
                                        ItemId = rppinfg.Key.ProjectCompanyInfoTypeId,
-                                       ItemName = rppinfg.Key.ProjectCompanyInfoTypeName,
                                    },
                                    Value = rppinfg.Key.ProjectCompanyInfoValue,
                                    LargeValue = rppinfg.Key.ProjectCompanyInfoLargeValue,
@@ -974,293 +956,247 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
                              #region ProviderInfo
 
-                             RelatedProvider =
-                                 (from prv in response.DataSetResult.Tables[1].AsEnumerable()
-                                  where !prv.IsNull("ProviderPublicId") &&
-                                         prv.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
-                                  group prv by new
-                                  {
-                                      ProviderPublicId = prv.Field<string>("ProviderPublicId"),
-                                      CompanyName = prv.Field<string>("CompanyName"),
-                                      IdentificationTypeId = prv.Field<int>("IdentificationTypeId"),
-                                      IdentificationTypeName = prv.Field<string>("IdentificationTypeName"),
-                                      IdentificationNumber = prv.Field<string>("IdentificationNumber"),
-                                      CompanyTypeId = prv.Field<int>("CompanyTypeId"),
-                                      CompanyTypeName = prv.Field<string>("CompanyTypeName"),
-                                  } into prvg
-                                  select new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                                  {
-                                      RelatedCompany = new Company.Models.Company.CompanyModel()
-                                      {
-                                          CompanyPublicId = prvg.Key.ProviderPublicId,
-                                          CompanyName = prvg.Key.CompanyName,
-                                          IdentificationType = new Company.Models.Util.CatalogModel()
-                                          {
-                                              ItemId = prvg.Key.CompanyTypeId,
-                                              ItemName = prvg.Key.CompanyTypeName,
-                                          },
-                                          IdentificationNumber = prvg.Key.IdentificationNumber,
-                                          CompanyType = new Company.Models.Util.CatalogModel()
-                                          {
-                                              ItemId = prvg.Key.CompanyTypeId,
-                                              ItemName = prvg.Key.CompanyTypeName,
-                                          },
+                             RelatedProvider = new CompanyProvider.Models.Provider.ProviderModel()
+                             {
+                                 RelatedCompany = new Company.Models.Company.CompanyModel()
+                                 {
+                                     CompanyPublicId = rppg.Key.ProviderPublicId,
+                                 },
 
-                                          CompanyInfo =
-                                            (from prvinf in response.DataSetResult.Tables[1].AsEnumerable()
-                                             where !prvinf.IsNull("CompanyInfoId") &&
-                                                    prvinf.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
-                                                    prvinf.Field<string>("ProviderPublicId") == prvg.Key.ProviderPublicId
-                                             group prvinf by new
+                                 #region Commercial
+
+                                 RelatedCommercial =
+                                   (from prvcm in response.DataSetResult.Tables[3].AsEnumerable()
+                                    where !prvcm.IsNull("CommercialId") &&
+                                           prvcm.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvcm.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
+                                    group prvcm by new
+                                    {
+                                        CommercialId = prvcm.Field<int>("CommercialId"),
+                                        CommercialType = prvcm.Field<int>("CommercialType"),
+                                    } into prvcmg
+                                    select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = prvcmg.Key.CommercialId,
+                                        ItemType = new Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = prvcmg.Key.CommercialType,
+                                        },
+                                        ItemInfo =
+                                           (from prvcminf in response.DataSetResult.Tables[3].AsEnumerable()
+                                            where !prvcminf.IsNull("CommercialInfoId") &&
+                                                   prvcminf.Field<int>("CommercialId") == prvcmg.Key.CommercialId
+                                            group prvcminf by new
+                                            {
+                                                CommercialInfoId = prvcminf.Field<int>("CommercialInfoId"),
+                                                CommercialInfoType = prvcminf.Field<int>("CommercialInfoType"),
+                                                CommercialInfoValue = prvcminf.Field<string>("CommercialInfoValue"),
+                                                CommercialInfoLargeValue = prvcminf.Field<string>("CommercialInfoLargeValue"),
+                                            } into prvcminfg
+                                            select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                            {
+                                                ItemInfoId = prvcminfg.Key.CommercialInfoId,
+                                                ItemInfoType = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = prvcminfg.Key.CommercialInfoType,
+                                                },
+                                                Value = prvcminfg.Key.CommercialInfoValue,
+                                                LargeValue = prvcminfg.Key.CommercialInfoLargeValue,
+                                            }).ToList(),
+                                    }).ToList(),
+
+                                 #endregion
+
+                                 #region Certification
+
+                                 RelatedCertification =
+                                   (from prvcr in response.DataSetResult.Tables[4].AsEnumerable()
+                                    where !prvcr.IsNull("CertificationId") &&
+                                           prvcr.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvcr.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
+                                    group prvcr by new
+                                    {
+                                        CertificationId = prvcr.Field<int>("CertificationId"),
+                                        CertificationType = prvcr.Field<int>("CertificationType"),
+                                    } into prvcrg
+                                    select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = prvcrg.Key.CertificationId,
+                                        ItemType = new Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = prvcrg.Key.CertificationType,
+                                        },
+                                        ItemInfo =
+                                           (from prvcrinf in response.DataSetResult.Tables[4].AsEnumerable()
+                                            where !prvcrinf.IsNull("CertificationInfoId") &&
+                                                   prvcrinf.Field<int>("CertificationId") == prvcrg.Key.CertificationId
+                                            group prvcrinf by new
+                                            {
+                                                CertificationInfoId = prvcrinf.Field<int>("CertificationInfoId"),
+                                                CertificationInfoType = prvcrinf.Field<int>("CertificationInfoType"),
+                                                CertificationInfoValue = prvcrinf.Field<string>("CertificationInfoValue"),
+                                            } into prvcrinfg
+                                            select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                            {
+                                                ItemInfoId = prvcrinfg.Key.CertificationInfoId,
+                                                ItemInfoType = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = prvcrinfg.Key.CertificationInfoType,
+                                                },
+                                                Value = prvcrinfg.Key.CertificationInfoValue,
+                                            }).ToList(),
+                                    }).ToList(),
+
+                                 #endregion
+
+                                 #region Financial
+
+                                 RelatedFinantial =
+                                   (from prvfi in response.DataSetResult.Tables[5].AsEnumerable()
+                                    where !prvfi.IsNull("FinancialId") &&
+                                           prvfi.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvfi.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId") &&
+                                           prvfi.Field<int>("FinancialType") != 501001
+                                    group prvfi by new
+                                    {
+                                        FinancialId = prvfi.Field<int>("FinancialId"),
+                                        FinancialType = prvfi.Field<int>("FinancialType"),
+                                    } into prvfig
+                                    select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = prvfig.Key.FinancialId,
+                                        ItemType = new Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = prvfig.Key.FinancialType,
+                                        },
+                                        ItemInfo =
+                                           (from prvfiinf in response.DataSetResult.Tables[5].AsEnumerable()
+                                            where !prvfiinf.IsNull("FinancialInfoId") &&
+                                                   prvfiinf.Field<int>("FinancialId") == prvfig.Key.FinancialId
+                                            group prvfiinf by new
+                                            {
+                                                FinancialInfoId = prvfiinf.Field<int>("FinancialInfoId"),
+                                                FinancialInfoType = prvfiinf.Field<int>("FinancialInfoType"),
+                                                FinancialInfoValue = prvfiinf.Field<string>("FinancialInfoValue"),
+                                            } into prvfiinfg
+                                            select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                            {
+                                                ItemInfoId = prvfiinfg.Key.FinancialInfoId,
+                                                ItemInfoType = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = prvfiinfg.Key.FinancialInfoType,
+                                                },
+                                                Value = prvfiinfg.Key.FinancialInfoValue,
+                                            }).ToList(),
+                                    }).ToList(),
+
+                                 #endregion
+
+                                 #region BalanceSheet
+
+                                 RelatedBalanceSheet =
+                                   (from prvfi in response.DataSetResult.Tables[5].AsEnumerable()
+                                    where !prvfi.IsNull("FinancialId") &&
+                                           prvfi.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvfi.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId") &&
+                                           prvfi.Field<int>("FinancialType") == 501001
+                                    group prvfi by new
+                                    {
+                                        FinancialId = prvfi.Field<int>("FinancialId"),
+                                        FinancialType = prvfi.Field<int>("FinancialType"),
+                                    } into prvfig
+                                    select new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel()
+                                    {
+                                        ItemId = prvfig.Key.FinancialId,
+                                        ItemType = new Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = prvfig.Key.FinancialType,
+                                        },
+                                        ItemInfo =
+                                           (from prvfiinf in response.DataSetResult.Tables[5].AsEnumerable()
+                                            where !prvfiinf.IsNull("FinancialInfoId") &&
+                                                   prvfiinf.Field<int>("FinancialId") == prvfig.Key.FinancialId
+                                            group prvfiinf by new
+                                            {
+                                                FinancialInfoId = prvfiinf.Field<int>("FinancialInfoId"),
+                                                FinancialInfoType = prvfiinf.Field<int>("FinancialInfoType"),
+                                                FinancialInfoValue = prvfiinf.Field<string>("FinancialInfoValue"),
+                                            } into prvfiinfg
+                                            select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                            {
+                                                ItemInfoId = prvfiinfg.Key.FinancialInfoId,
+                                                ItemInfoType = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = prvfiinfg.Key.FinancialInfoType,
+                                                },
+                                                Value = prvfiinfg.Key.FinancialInfoValue,
+                                            }).ToList(),
+
+                                        BalanceSheetInfo =
+                                            (from prvbs in response.DataSetResult.Tables[6].AsEnumerable()
+                                             where !prvbs.IsNull("BalanceSheetId") &&
+                                                    prvbs.Field<int>("FinancialId") == prvfig.Key.FinancialId
+                                             group prvbs by new
                                              {
-                                                 CompanyInfoId = prvinf.Field<int>("CompanyInfoId"),
-                                                 CompanyInfoTypeId = prvinf.Field<int>("CompanyInfoTypeId"),
-                                                 CompanyInfoTypeName = prvinf.Field<string>("CompanyInfoTypeName"),
-                                                 CompanyInfoValue = prvinf.Field<string>("CompanyInfoValue"),
-                                                 CompanyInfoLargeValue = prvinf.Field<string>("CompanyInfoLargeValue"),
-                                             } into prvinfg
-                                             select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                                 BalanceSheetId = prvbs.Field<int>("BalanceSheetId"),
+                                                 Account = prvbs.Field<int>("Account"),
+                                                 BalanceSheetValue = prvbs.Field<decimal>("BalanceSheetValue"),
+                                             } into prvbsg
+                                             select new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
                                              {
-                                                 ItemInfoId = prvinfg.Key.CompanyInfoId,
-                                                 ItemInfoType = new Company.Models.Util.CatalogModel()
+                                                 BalanceSheetId = prvbsg.Key.BalanceSheetId,
+                                                 RelatedAccount = new Company.Models.Util.GenericItemModel()
                                                  {
-                                                     ItemId = prvinfg.Key.CompanyInfoTypeId,
-                                                     ItemName = prvinfg.Key.CompanyInfoTypeName,
+                                                     ItemId = prvbsg.Key.Account,
                                                  },
-                                                 Value = prvinfg.Key.CompanyInfoValue,
-                                                 LargeValue = prvinfg.Key.CompanyInfoLargeValue,
+                                                 Value = prvbsg.Key.BalanceSheetValue,
                                              }).ToList(),
-                                      },
+                                    }).ToList(),
 
-                                      #region Commercial
+                                 #endregion
 
-                                      RelatedCommercial =
-                                        (from prvcm in response.DataSetResult.Tables[4].AsEnumerable()
-                                         where !prvcm.IsNull("CommercialId") &&
-                                                prvcm.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
-                                         group prvcm by new
-                                         {
-                                             CommercialId = prvcm.Field<int>("CommercialId"),
-                                             CommercialType = prvcm.Field<int>("CommercialType"),
-                                         } into prvcmg
-                                         select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                                         {
-                                             ItemId = prvcmg.Key.CommercialId,
-                                             ItemType = new Company.Models.Util.CatalogModel()
-                                             {
-                                                 ItemId = prvcmg.Key.CommercialType,
-                                             },
-                                             ItemInfo =
-                                                (from prvcminf in response.DataSetResult.Tables[4].AsEnumerable()
-                                                 where !prvcminf.IsNull("CommercialInfoId") &&
-                                                        prvcminf.Field<int>("CommercialId") == prvcmg.Key.CommercialId
-                                                 group prvcminf by new
-                                                 {
-                                                     CommercialInfoId = prvcminf.Field<int>("CommercialInfoId"),
-                                                     CommercialInfoType = prvcminf.Field<int>("CommercialInfoType"),
-                                                     CommercialInfoValue = prvcminf.Field<string>("CommercialInfoValue"),
-                                                     CommercialInfoLargeValue = prvcminf.Field<string>("CommercialInfoLargeValue"),
-                                                 } into prvcminfg
-                                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                                 {
-                                                     ItemInfoId = prvcminfg.Key.CommercialInfoId,
-                                                     ItemInfoType = new Company.Models.Util.CatalogModel()
-                                                     {
-                                                         ItemId = prvcminfg.Key.CommercialInfoType,
-                                                     },
-                                                     Value = prvcminfg.Key.CommercialInfoValue,
-                                                     LargeValue = prvcminfg.Key.CommercialInfoLargeValue,
-                                                 }).ToList(),
-                                         }).ToList(),
+                                 #region Legal
 
-                                      #endregion
+                                 RelatedLegal =
+                                   (from prvlg in response.DataSetResult.Tables[7].AsEnumerable()
+                                    where !prvlg.IsNull("LegalId") &&
+                                           prvlg.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvlg.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
+                                    group prvlg by new
+                                    {
+                                        LegalId = prvlg.Field<int>("LegalId"),
+                                        LegalType = prvlg.Field<int>("LegalType"),
+                                    } into prvlgg
+                                    select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                    {
+                                        ItemId = prvlgg.Key.LegalId,
+                                        ItemType = new Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = prvlgg.Key.LegalType,
+                                        },
+                                        ItemInfo =
+                                           (from prvlginf in response.DataSetResult.Tables[7].AsEnumerable()
+                                            where !prvlginf.IsNull("LegalInfoId") &&
+                                                   prvlginf.Field<int>("LegalId") == prvlgg.Key.LegalId
+                                            group prvlginf by new
+                                            {
+                                                LegalInfoId = prvlginf.Field<int>("LegalInfoId"),
+                                                LegalInfoType = prvlginf.Field<int>("LegalInfoType"),
+                                                LegalInfoValue = prvlginf.Field<string>("LegalInfoValue"),
+                                            } into prvlginfg
+                                            select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                            {
+                                                ItemInfoId = prvlginfg.Key.LegalInfoId,
+                                                ItemInfoType = new Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = prvlginfg.Key.LegalInfoType,
+                                                },
+                                                Value = prvlginfg.Key.LegalInfoValue,
+                                            }).ToList(),
+                                    }).ToList(),
 
-                                      #region Certification
-
-                                      RelatedCertification =
-                                        (from prvcr in response.DataSetResult.Tables[5].AsEnumerable()
-                                         where !prvcr.IsNull("CertificationId") &&
-                                                prvcr.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
-                                         group prvcr by new
-                                         {
-                                             CertificationId = prvcr.Field<int>("CertificationId"),
-                                             CertificationType = prvcr.Field<int>("CertificationType"),
-                                         } into prvcrg
-                                         select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                                         {
-                                             ItemId = prvcrg.Key.CertificationId,
-                                             ItemType = new Company.Models.Util.CatalogModel()
-                                             {
-                                                 ItemId = prvcrg.Key.CertificationType,
-                                             },
-                                             ItemInfo =
-                                                (from prvcrinf in response.DataSetResult.Tables[5].AsEnumerable()
-                                                 where !prvcrinf.IsNull("CertificationInfoId") &&
-                                                        prvcrinf.Field<int>("CertificationId") == prvcrg.Key.CertificationId
-                                                 group prvcrinf by new
-                                                 {
-                                                     CertificationInfoId = prvcrinf.Field<int>("CertificationInfoId"),
-                                                     CertificationInfoType = prvcrinf.Field<int>("CertificationInfoType"),
-                                                     CertificationInfoValue = prvcrinf.Field<string>("CertificationInfoValue"),
-                                                 } into prvcrinfg
-                                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                                 {
-                                                     ItemInfoId = prvcrinfg.Key.CertificationInfoId,
-                                                     ItemInfoType = new Company.Models.Util.CatalogModel()
-                                                     {
-                                                         ItemId = prvcrinfg.Key.CertificationInfoType,
-                                                     },
-                                                     Value = prvcrinfg.Key.CertificationInfoValue,
-                                                 }).ToList(),
-                                         }).ToList(),
-
-                                      #endregion
-
-                                      #region Financial
-
-                                      RelatedFinantial =
-                                        (from prvfi in response.DataSetResult.Tables[6].AsEnumerable()
-                                         where !prvfi.IsNull("FinancialId") &&
-                                                prvfi.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
-                                                prvfi.Field<int>("FinancialType") != 501001
-                                         group prvfi by new
-                                         {
-                                             FinancialId = prvfi.Field<int>("FinancialId"),
-                                             FinancialType = prvfi.Field<int>("FinancialType"),
-                                         } into prvfig
-                                         select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                                         {
-                                             ItemId = prvfig.Key.FinancialId,
-                                             ItemType = new Company.Models.Util.CatalogModel()
-                                             {
-                                                 ItemId = prvfig.Key.FinancialType,
-                                             },
-                                             ItemInfo =
-                                                (from prvfiinf in response.DataSetResult.Tables[6].AsEnumerable()
-                                                 where !prvfiinf.IsNull("FinancialInfoId") &&
-                                                        prvfiinf.Field<int>("FinancialId") == prvfig.Key.FinancialId
-                                                 group prvfiinf by new
-                                                 {
-                                                     FinancialInfoId = prvfiinf.Field<int>("FinancialInfoId"),
-                                                     FinancialInfoType = prvfiinf.Field<int>("FinancialInfoType"),
-                                                     FinancialInfoValue = prvfiinf.Field<string>("FinancialInfoValue"),
-                                                 } into prvfiinfg
-                                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                                 {
-                                                     ItemInfoId = prvfiinfg.Key.FinancialInfoId,
-                                                     ItemInfoType = new Company.Models.Util.CatalogModel()
-                                                     {
-                                                         ItemId = prvfiinfg.Key.FinancialInfoType,
-                                                     },
-                                                     Value = prvfiinfg.Key.FinancialInfoValue,
-                                                 }).ToList(),
-                                         }).ToList(),
-
-                                      #endregion
-
-                                      #region BalanceSheet
-
-                                      RelatedBalanceSheet =
-                                        (from prvfi in response.DataSetResult.Tables[6].AsEnumerable()
-                                         where !prvfi.IsNull("FinancialId") &&
-                                                prvfi.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
-                                                prvfi.Field<int>("FinancialType") == 501001
-                                         group prvfi by new
-                                         {
-                                             FinancialId = prvfi.Field<int>("FinancialId"),
-                                             FinancialType = prvfi.Field<int>("FinancialType"),
-                                         } into prvfig
-                                         select new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetModel()
-                                         {
-                                             ItemId = prvfig.Key.FinancialId,
-                                             ItemType = new Company.Models.Util.CatalogModel()
-                                             {
-                                                 ItemId = prvfig.Key.FinancialType,
-                                             },
-                                             ItemInfo =
-                                                (from prvfiinf in response.DataSetResult.Tables[6].AsEnumerable()
-                                                 where !prvfiinf.IsNull("FinancialInfoId") &&
-                                                        prvfiinf.Field<int>("FinancialId") == prvfig.Key.FinancialId
-                                                 group prvfiinf by new
-                                                 {
-                                                     FinancialInfoId = prvfiinf.Field<int>("FinancialInfoId"),
-                                                     FinancialInfoType = prvfiinf.Field<int>("FinancialInfoType"),
-                                                     FinancialInfoValue = prvfiinf.Field<string>("FinancialInfoValue"),
-                                                 } into prvfiinfg
-                                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                                 {
-                                                     ItemInfoId = prvfiinfg.Key.FinancialInfoId,
-                                                     ItemInfoType = new Company.Models.Util.CatalogModel()
-                                                     {
-                                                         ItemId = prvfiinfg.Key.FinancialInfoType,
-                                                     },
-                                                     Value = prvfiinfg.Key.FinancialInfoValue,
-                                                 }).ToList(),
-                                             BalanceSheetInfo =
-                                                 (from prvbs in response.DataSetResult.Tables[7].AsEnumerable()
-                                                  where !prvbs.IsNull("BalanceSheetId") &&
-                                                         prvbs.Field<int>("FinancialId") == prvfig.Key.FinancialId
-                                                  group prvbs by new
-                                                  {
-                                                      BalanceSheetId = prvbs.Field<int>("BalanceSheetId"),
-                                                      Account = prvbs.Field<int>("Account"),
-                                                      BalanceSheetValue = prvbs.Field<decimal>("BalanceSheetValue"),
-                                                  } into prvbsg
-                                                  select new ProveedoresOnLine.CompanyProvider.Models.Provider.BalanceSheetDetailModel()
-                                                  {
-                                                      BalanceSheetId = prvbsg.Key.BalanceSheetId,
-                                                      RelatedAccount = new Company.Models.Util.GenericItemModel()
-                                                      {
-                                                          ItemId = prvbsg.Key.Account,
-                                                      },
-                                                      Value = prvbsg.Key.BalanceSheetValue,
-                                                  }).ToList(),
-                                         }).ToList(),
-
-                                      #endregion
-
-                                      #region Legal
-
-                                      RelatedLegal =
-                                        (from prvlg in response.DataSetResult.Tables[8].AsEnumerable()
-                                         where !prvlg.IsNull("LegalId") &&
-                                                prvlg.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
-                                         group prvlg by new
-                                         {
-                                             LegalId = prvlg.Field<int>("LegalId"),
-                                             LegalType = prvlg.Field<int>("LegalType"),
-                                         } into prvlgg
-                                         select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
-                                         {
-                                             ItemId = prvlgg.Key.LegalId,
-                                             ItemType = new Company.Models.Util.CatalogModel()
-                                             {
-                                                 ItemId = prvlgg.Key.LegalType,
-                                             },
-                                             ItemInfo =
-                                                (from prvlginf in response.DataSetResult.Tables[8].AsEnumerable()
-                                                 where !prvlginf.IsNull("LegalInfoId") &&
-                                                        prvlginf.Field<int>("LegalId") == prvlgg.Key.LegalId
-                                                 group prvlginf by new
-                                                 {
-                                                     LegalInfoId = prvlginf.Field<int>("LegalInfoId"),
-                                                     LegalInfoType = prvlginf.Field<int>("LegalInfoType"),
-                                                     LegalInfoValue = prvlginf.Field<string>("LegalInfoValue"),
-                                                 } into prvlginfg
-                                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                                                 {
-                                                     ItemInfoId = prvlginfg.Key.LegalInfoId,
-                                                     ItemInfoType = new Company.Models.Util.CatalogModel()
-                                                     {
-                                                         ItemId = prvlginfg.Key.LegalInfoType,
-                                                     },
-                                                     Value = prvlginfg.Key.LegalInfoValue,
-                                                 }).ToList(),
-                                         }).ToList(),
-
-                                      #endregion
-
-                                  }).FirstOrDefault(),
+                                 #endregion
+                             },
 
                              #endregion
 
