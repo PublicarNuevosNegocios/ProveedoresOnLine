@@ -9,4 +9,7 @@
   <Module name="SurveyBatch">
     <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\SurveyModule\Rsx-SurveyBatch.xml</key>
   </Module>
+  <Module name="CompanyProviderBatch">
+    <key name="location">\\ProjectConfigFiles\ConfigFiles\ProveedoresOnLine\CompanyProvider\Rsx-CompanyProviderBatch.xml</key>
+  </Module>
 </SettingsConfig>

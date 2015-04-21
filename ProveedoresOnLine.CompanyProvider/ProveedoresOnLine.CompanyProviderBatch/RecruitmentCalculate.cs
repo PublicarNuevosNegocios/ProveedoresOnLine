@@ -223,8 +223,8 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             oContractValue = oProvider.RelatedCommercial.OrderByDescending(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_ContractValue).
                                                                                                Select(y => Convert.ToDecimal(y.Value)).DefaultIfEmpty(0).FirstOrDefault()).ToList();
             oMiminumWageModel = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(oContractValue.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId ==
-                                                                                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_EndDate).
-                                                                                                        Select(x => Convert.ToDateTime(x.Value).Year).DefaultIfEmpty(0).FirstOrDefault(), 988);
+                                                                                                        (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_StartDate).
+                                                                                                        Select(x => Convert.ToDateTime(!string.IsNullOrEmpty(x.Value) ? Convert.ToDateTime(x.Value) : DateTime.Now).Year).DefaultIfEmpty(0).FirstOrDefault(), 988);
 
             decimal oMaxContractValue = oContractValue.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumCommercialInfoType.EX_ContractValue).
                                                                                 Select(x => Convert.ToDecimal(x.Value)).DefaultIfEmpty(0).FirstOrDefault() / oMiminumWageModel.Value;
@@ -621,22 +621,22 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                 {
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_TechnicPersonal).
-                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_AdministersPersonal).
-                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_CommercialPersonal).
-                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_ContratistActive).
-                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_ActiveProviders).
-                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
                     oTechnicCapacity += x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
                                         (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialInfoType.FO_Partners).
-                                        Select(y => Convert.ToInt32(y.Value)).DefaultIfEmpty(0).FirstOrDefault();
+                                        Select(y => Convert.ToInt32(!string.IsNullOrEmpty(y.Value) ? y.Value : "0")).DefaultIfEmpty(0).FirstOrDefault();
 
                     return true;
                 });

@@ -923,9 +923,9 @@ var Provider_CompanyContactObject = {
                 width: '180px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    if (dataItem != null && dataItem.BR_CityName != null) {                        
+                    if (dataItem != null && dataItem.BR_CityName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';                            
+                            oReturn = '<span class="k-dirty"></span>';
                         }
                         else if (dataItem.BR_CityName == '') {
                             oReturn = '<label class="PlaceHolder">Ej: Bogotá</label>';
@@ -1290,7 +1290,7 @@ var Provider_CompanyContactObject = {
                 field: 'DT_CityName',
                 title: 'Ciudad',
                 width: '180px',
-                template: function (dataItem) {                    
+                template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.DT_CityName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
@@ -1317,7 +1317,7 @@ var Provider_CompanyContactObject = {
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'ItemName',
-                        select: function (e) {                            
+                        select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model[options.field] = selectedItem.ItemName;
@@ -1519,7 +1519,7 @@ var Provider_CompanyCommercialObject = {
                             EX_ContractType: { editable: true },
                             EX_ContractTypeId: { editable: false },
 
-                            EX_Currency: { editable: true },
+                            EX_Currency: { editable: true, validate: { required: true } },
                             EX_CurrencyId: { editable: false },
 
                             EX_DateIssue: { editable: true },
@@ -5089,7 +5089,7 @@ var Provider_LegalInfoObject = {
                 field: 'R_ICAName',
                 title: 'ICA',
                 width: '350px',
-                template: function (dataItem) {                    
+                template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.R_ICAName != null) {
                         if (dataItem.dirty != null && dataItem.dirty == true) {
@@ -5113,7 +5113,7 @@ var Provider_LegalInfoObject = {
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
                         dataTextField: 'I_ICACode',
-                        select: function (e) {                            
+                        select: function (e) {
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
                             options.model['R_ICA'] = selectedItem.I_ICAId;
