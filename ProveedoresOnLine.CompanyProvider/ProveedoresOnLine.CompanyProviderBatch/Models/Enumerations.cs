@@ -94,7 +94,9 @@ namespace ProveedoresOnLine.CompanyProviderBatch.Models
         public enum enumFinancialInfoType
         {
             FI_Year = 502001,
-            
+            FI_MoneyType = 502003,
+
+            FO_Personal = 506001,
             FO_TechnicPersonal = 506002,
             FO_AdministersPersonal = 506003, 
             FO_CommercialPersonal = 506004, 
