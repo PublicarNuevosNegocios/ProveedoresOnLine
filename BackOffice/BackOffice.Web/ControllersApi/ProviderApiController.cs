@@ -653,8 +653,7 @@ namespace BackOffice.Web.ControllersApi
                         Value = oDataToUpsert.EX_ContractNumber,
                         Enable = true,
                     });
-
-
+                    
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EX_CurrencyId) ? 0 : Convert.ToInt32(oDataToUpsert.EX_CurrencyId.Trim()),
@@ -662,26 +661,9 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_Currency
                         },
-                        Value = BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value.Replace(" ", ""),
+                        Value = oDataToUpsert.EX_Currency,
                         Enable = true,
                     });
-
-
-                    //get experience value
-                    decimal CurrencyRate = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate
-                        (Convert.ToInt32(oDataToUpsert.EX_Currency),
-                        Convert.ToInt32(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
-                        (oDataToUpsert.EX_DateIssue.Replace(" ", "").Length ==
-                        BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value.Replace(" ", "").Length ?
-                            DateTime.ParseExact(
-                                oDataToUpsert.EX_DateIssue,
-                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_Server].Value,
-                                System.Globalization.CultureInfo.InvariantCulture) :
-                            DateTime.ParseExact(
-                                oDataToUpsert.EX_DateIssue,
-                                BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_DateFormat_KendoToServer].Value,
-                                System.Globalization.CultureInfo.InvariantCulture)).Year
-                        );
 
                     oProvider.RelatedCommercial.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
@@ -690,7 +672,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractValue
                         },
-                        Value = (Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture) * CurrencyRate).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
+                        Value = (Convert.ToDecimal(oDataToUpsert.EX_ContractValue, System.Globalization.CultureInfo.InvariantCulture)).ToString("0.00", System.Globalization.CultureInfo.InvariantCulture),
                         Enable = true,
                     });
 
