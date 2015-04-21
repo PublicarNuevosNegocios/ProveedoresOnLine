@@ -25,7 +25,7 @@
                         <label>Financiera</label>
                         <label>Puntuación Total</label>
                         <label>Capacidad Organizacional S.M.M.L.V</label>
-                        <label>Capacidad Legal de Contratación</label> 
+                        <label>Capacidad Legal de Contratación S.M.M.L.V</label> 
                     </li>
                     foreach (var item in Model.RelatedFinancialInfo)
                     {
@@ -36,7 +36,7 @@
                         <span>@item.FK_TotalFinancialScore</span>
                         <span>@item.FK_TotalScore</span>
                         <span>@item.FK_TotalOrgCapacityScore</span>
-                        <span>@item.Currency @item.FK_TotalKValueScore</span>
+                        <span>@item.FK_TotalKValueScore</span>
                     </li>
                     }
 
