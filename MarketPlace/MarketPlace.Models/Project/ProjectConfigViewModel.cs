@@ -14,9 +14,76 @@ namespace MarketPlace.Models.Project
 
         public string ProjectConfigName { get { return RelatedProjectConfig.ItemName; } }
 
+        private ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel oProjectConfigExperience;
+        public ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel ProjectConfigExperience
+        {
+            get
+            {
+                if (oProjectConfigExperience == null)
+                {
+                    string strConfig = RelatedProjectConfig.RelatedEvaluationItem.
+                        Where(ei => ei.ItemInfo.
+                            Any(eiinf => eiinf.ItemInfoType != null &&
+                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
+                                        !string.IsNullOrEmpty(eiinf.LargeValue))).
+                        Select(ei => ei.ItemInfo.
+                            Where(eiinf => eiinf.ItemInfoType != null &&
+                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
+                                        !string.IsNullOrEmpty(eiinf.LargeValue)).
+                            Select(eiinf => eiinf.LargeValue).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault()).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    if (!string.IsNullOrEmpty(strConfig))
+                    {
+                        oProjectConfigExperience = (ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel)
+                            (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                            Deserialize(strConfig, typeof(ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel));
+                    }
+                    else
+                    {
+                        oProjectConfigExperience = new ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel()
+                        {
+                            AmmounEnable = false,
+                            CurrencyEnable = false,
+                            CustomAcitvityEnable = false,
+                            DefaultAcitvityEnable = false,
+                        };
+                    }
+                }
+
+                return oProjectConfigExperience;
+            }
+        }
+
         public ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oRelatedProjectConfig)
         {
             RelatedProjectConfig = oRelatedProjectConfig;
         }
+
+        #region Methods
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetEvaluationAreas()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+                RelatedProjectConfig.RelatedEvaluationItem.
+                Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationArea).
+                OrderBy(ei => ei.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationOrder &&
+                                    !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                ToList();
+
+            if (oReturn == null)
+                oReturn = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

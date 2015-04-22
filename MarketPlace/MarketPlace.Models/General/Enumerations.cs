@@ -548,7 +548,8 @@
         EvaluationCriteria = 1402005,
         EvaluationRanges = 1402006,
         EvaluationYears = 1402007,
-        EvaluationExperienceConfig = 1402008
+        EvaluationExperienceConfig = 1402008,
+        EvaluationOrder = 1402009
     }
 
     public enum enumProjectOperator

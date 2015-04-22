@@ -1,6 +1,48 @@
 ﻿@model MarketPlace.Models.Project.ProjectViewModel
 
+@{
+    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+
+}
+
 @if (!Model.RenderScripts)
 {
+    if (Model.RelatedProvider != null && Model.RelatedProvider.Count > 0)
+    {
+        <ul>
+            @foreach (var oProvider in Model.RelatedProvider)
+            {
+                <li>
+                    <ul>
+                        <li>
+                            <!--Render provider basic info-->
+                            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProvider)
+                        </li>
+                        <!--Render evaluation areas-->
+                        @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+                        {
+                            foreach (var oAreaItem in oEvaluationAreas)
+                            {
+                                <li>
+                                    @oAreaItem.ItemName
+                                </li>
+                            }
+                        }
+                        <li>
+                            <!--Render provider actions-->
+                            <ul>
+                                <li>
+                                    <a>Ver detalle</a>
+                                </li>
+                                <li>
+                                    <a>Solicitar aprobación</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    }
 }
 
