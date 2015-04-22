@@ -74,9 +74,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                     });
                                     return true;
                                 });
-
-                                //List<GenericItemModel> ProvidersRole = new List<GenericItemModel>();
-                                List<List<string>> ProvidersRole = new List<List<string>>();
+                                                                                                
                                 List<string> oActivitieType = new List<string>();
                                 if (oActivities != null && oActivities.Count > 0)
                                 {
@@ -95,6 +93,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                         return true;
                                     });
                                 }
+                                             
                                 #endregion
 
                                 if (oActivitieType != null && oActivitieType.Count > 0)
@@ -109,7 +108,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                         ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.FinancialUpsert(oToUpsert);
                                     }
                                     if (oActivitieType.Any(y => y == ((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumActivitiEconomicInfoType.Consultant).ToString()))
-                                    {
+                                    {                                       
                                         ProviderModel oToUpsert = new ProviderModel();
                                         oToUpsert.RelatedCompany = providerToCalculate.RelatedCompany;
                                         oToUpsert.RelatedFinantial = new List<GenericItemModel>();

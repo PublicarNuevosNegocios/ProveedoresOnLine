@@ -535,11 +535,7 @@ namespace MarketPlace.Models.Provider
                         Select(y => Convert.ToDecimal(y.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
                         DefaultIfEmpty(0).
                         FirstOrDefault().ToString("0.##");
-                }
-                if (oFK_TotalKValueScore != null)
-                {
-                    oFK_TotalKValueScore = (Convert.ToDecimal(oFK_TotalKValueScore) * Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value)).ToString("#,0.##");
-                }
+                }                
                 return oFK_TotalKValueScore;
             }
         }
