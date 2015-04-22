@@ -219,7 +219,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             int Years = 0;
 
             DateTime ConstitutionCompanydate = oProvider.RelatedLegal.FirstOrDefault().ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumLegalInfoType.CP_ConstitutionDate)
-                                                .Select(x => Convert.ToDateTime(x.Value)).DefaultIfEmpty(DateTime.Now).FirstOrDefault();
+                .Select(x => !string.IsNullOrEmpty(x.Value) ? Convert.ToDateTime(x.Value) : DateTime.Now).DefaultIfEmpty(DateTime.Now).FirstOrDefault();
             //Set Expirience Years
             Years = DateTime.Now.Year - ConstitutionCompanydate.Year;
 
@@ -682,11 +682,7 @@ namespace ProveedoresOnLine.CompanyProviderBatch
                                     Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;            
 
             decimal CurrentPassive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_CurentPassive).
-                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;            
-
-            decimal ResulLiquidity = CurrentActive / CurrentPassive;
-
-            FinancialScoreLiquidity = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_LiquidityScore, ResulLiquidity);
+                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;
 
             decimal TotalActive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_TotalActive).
                                     Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange;            
@@ -694,9 +690,17 @@ namespace ProveedoresOnLine.CompanyProviderBatch
             decimal TotalPassive = BalanceDetailList.Where(x => x.RelatedAccount.ItemId == (int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumFinancialDetailType.FD_TotalPassive).
                                    Select(x => x.Value).DefaultIfEmpty(0).FirstOrDefault() * CurrentExchange; ;            
 
-            decimal ResultIndebtedness = (TotalPassive/ TotalActive ) * 100;
-            FinancialScoreIndebtedness = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_IndebtednessScore, ResultIndebtedness);
+            if (CurrentActive  != 0 && CurrentPassive != 0
+                && TotalActive != 0 && TotalPassive != 0)
+            {
+                decimal ResulLiquidity = CurrentActive / CurrentPassive;
 
+                FinancialScoreLiquidity = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_LiquidityScore, ResulLiquidity);
+
+                decimal ResultIndebtedness = (TotalPassive / TotalActive) * 100;
+                FinancialScoreIndebtedness = GetTreeScore((int)ProveedoresOnLine.CompanyProviderBatch.Models.Enumerations.enumUtil.K_IndebtednessScore, ResultIndebtedness);
+            }
+           
             return FinancialScoreHeritage + FinancialScoreLiquidity + FinancialScoreIndebtedness;
         }
 
