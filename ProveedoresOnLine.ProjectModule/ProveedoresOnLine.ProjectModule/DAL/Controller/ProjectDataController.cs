@@ -57,9 +57,9 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, ViewEnable, PageNumber, RowCount, out TotalRows);
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, bool ViewEnable)
         {
-            return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, ViewEnable);
         }
 
         #endregion

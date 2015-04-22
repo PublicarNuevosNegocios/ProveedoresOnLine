@@ -139,14 +139,12 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, bool ViewEnable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vViewEnable", ViewEnable == true ? 1 : 0));
-            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
-            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -156,14 +154,73 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                 Parameters = lstParams,
             });
 
-            TotalRows = 0;
-            List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oReturn = null;
-
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
 
             if (response.DataTableResult != null &&
                 response.DataTableResult.Rows.Count > 0)
             {
-                TotalRows = response.DataTableResult.Rows[0].Field<int>("TotalRows");
+                oReturn =
+                    (from ei in response.DataTableResult.AsEnumerable()
+                     where !ei.IsNull("EvaluationItemId")
+                     group ei by new
+                    {
+                        EvaluationItemId = ei.Field<int>("EvaluationItemId"),
+                        EvaluationItemName = ei.Field<string>("EvaluationItemName"),
+                        EvaluationItemTypeId = ei.Field<int>("EvaluationItemTypeId"),
+                        EvaluationItemTypeName = ei.Field<string>("EvaluationItemTypeName"),
+                        ParentEvaluationItem = ei.Field<int?>("ParentEvaluationItem"),
+                        EvaluationItemEnable = ei.Field<UInt64>("EvaluationItemEnable") == 1 ? true : false,
+                        EvaluationItemLastModify = ei.Field<DateTime>("EvaluationItemLastModify"),
+                        EvaluationItemCreateDate = ei.Field<DateTime>("EvaluationItemCreateDate"),
+                    } into eig
+                     select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                     {
+                         ItemId = eig.Key.EvaluationItemId,
+                         ItemName = eig.Key.EvaluationItemName,
+                         ItemType = new Company.Models.Util.CatalogModel()
+                         {
+                             ItemId = eig.Key.EvaluationItemTypeId,
+                             ItemName = eig.Key.EvaluationItemTypeName,
+                         },
+                         ParentItem = eig.Key.ParentEvaluationItem == null ? null :
+                         new Company.Models.Util.GenericItemModel()
+                         {
+                             ItemId = eig.Key.ParentEvaluationItem.Value,
+                         },
+                         ItemInfo =
+                            (from eiinf in response.DataTableResult.AsEnumerable()
+                             where !eiinf.IsNull("EvaluationItemInfoId") &&
+                                    eiinf.Field<int>("EvaluationItemId") == eig.Key.EvaluationItemId
+                             group eiinf by new
+                             {
+                                 EvaluationItemInfoId = eiinf.Field<int>("EvaluationItemInfoId"),
+                                 EvaluationItemInfoTypeId = eiinf.Field<int>("EvaluationItemInfoTypeId"),
+                                 EvaluationItemInfoTypeName = eiinf.Field<string>("EvaluationItemInfoTypeName"),
+                                 EvaluationItemInfoValue = eiinf.Field<string>("EvaluationItemInfoValue"),
+                                 EvaluationItemInfoLargeValue = eiinf.Field<string>("EvaluationItemInfoLargeValue"),
+                                 EvaluationItemInfoEnable = eiinf.Field<UInt64>("EvaluationItemInfoEnable") == 1 ? true : false,
+                                 EvaluationItemInfoCreateDate = eiinf.Field<DateTime>("EvaluationItemInfoCreateDate"),
+                                 EvaluationItemInfoLastModify = eiinf.Field<DateTime>("EvaluationItemInfoLastModify"),
+                             }
+                                 into eiinfg
+                                 select new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                 {
+                                     ItemInfoId = eiinfg.Key.EvaluationItemInfoId,
+                                     ItemInfoType = new Company.Models.Util.CatalogModel()
+                                     {
+                                         ItemId = eiinfg.Key.EvaluationItemInfoTypeId,
+                                         ItemName = eiinfg.Key.EvaluationItemInfoTypeName,
+                                     },
+                                     Value = eiinfg.Key.EvaluationItemInfoValue,
+                                     LargeValue = eiinfg.Key.EvaluationItemInfoLargeValue,
+                                     Enable = eiinfg.Key.EvaluationItemInfoEnable,
+                                     CreateDate = eiinfg.Key.EvaluationItemInfoCreateDate,
+                                     LastModify = eiinfg.Key.EvaluationItemInfoLastModify,
+                                 }).ToList(),
+                         Enable = eig.Key.EvaluationItemEnable,
+                         CreateDate = eig.Key.EvaluationItemCreateDate,
+                         LastModify = eig.Key.EvaluationItemLastModify,
+                     }).ToList();
             }
 
             return oReturn;

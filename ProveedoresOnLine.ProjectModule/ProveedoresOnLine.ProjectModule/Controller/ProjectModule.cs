@@ -145,9 +145,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return EvaluationItemInfoToUpsert;
         }
 
-        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, bool ViewEnable)
         {
-            return DAL.Controller.ProjectDataController.Instance.GetAllEvaluationItemByProjectConfig(ProjectConfigId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DAL.Controller.ProjectDataController.Instance.GetAllEvaluationItemByProjectConfig(ProjectConfigId, ViewEnable);
         }
 
         public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
