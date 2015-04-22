@@ -10,11 +10,24 @@ namespace MarketPlace.Models.Project
     {
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; private set; }
 
+        private ProjectConfigViewModel oRelatedProjectConfig;
+        public ProjectConfigViewModel RelatedProjectConfig
+        {
+            get
+            {
+                if (oRelatedProjectConfig == null)
+                    oRelatedProjectConfig = new ProjectConfigViewModel(RelatedProject.RelatedProjectConfig);
+                return oRelatedProjectConfig;
+            }
+        }
+
         public List<MarketPlace.Models.Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
 
         public bool RenderScripts { get; set; }
 
         public int TotalRows { get; set; }
+
+        #region Project Info
 
         public string ProjectPublicId { get { return RelatedProject.ProjectPublicId; } }
 
@@ -23,8 +36,6 @@ namespace MarketPlace.Models.Project
         public MarketPlace.Models.General.enumProjectStatus ProjectStatus { get { return (MarketPlace.Models.General.enumProjectStatus)RelatedProject.ProjectStatus.ItemId; } }
 
         public string LastModify { get { return RelatedProject.LastModify.ToString("yyyy-MM-dd"); } }
-
-        #region Project Info
 
         public int? ProjectCompareId
         {
@@ -198,58 +209,6 @@ namespace MarketPlace.Models.Project
                     Select(pjinf => pjinf.Value).
                     DefaultIfEmpty(string.Empty).
                     FirstOrDefault();
-            }
-        }
-
-        #endregion
-
-        #region Project Config Info
-
-        public int ProjectConfigId { get { return RelatedProject.RelatedProjectConfig.ItemId; } }
-
-        public string ProjectConfigName { get { return RelatedProject.RelatedProjectConfig.ItemName; } }
-
-        private ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel oProjectConfigExperience;
-        public ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel ProjectConfigExperience
-        {
-            get
-            {
-                if (oProjectConfigExperience == null)
-                {
-                    string strConfig = RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
-                        Where(ei => ei.ItemInfo.
-                            Any(eiinf => eiinf.ItemInfoType != null &&
-                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
-                                        !string.IsNullOrEmpty(eiinf.LargeValue))).
-                        Select(ei => ei.ItemInfo.
-                            Where(eiinf => eiinf.ItemInfoType != null &&
-                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
-                                        !string.IsNullOrEmpty(eiinf.LargeValue)).
-                            Select(eiinf => eiinf.LargeValue).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault()).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
-
-                    if (!string.IsNullOrEmpty(strConfig))
-                    {
-                        oProjectConfigExperience = (ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel)
-                            (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                            Deserialize(strConfig, typeof(ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel));
-                    }
-                    else
-                    {
-                        oProjectConfigExperience = new ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel()
-                        {
-                            AmmounEnable = false,
-                            CurrencyEnable = false,
-                            CustomAcitvityEnable = false,
-                            DefaultAcitvityEnable = false,
-                        };
-                    }
-                }
-
-                return oProjectConfigExperience;
             }
         }
 

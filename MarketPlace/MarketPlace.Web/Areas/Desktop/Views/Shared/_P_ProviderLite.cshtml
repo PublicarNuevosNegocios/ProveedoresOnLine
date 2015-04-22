@@ -8,8 +8,8 @@
         <img style="@(Model.ProviderIsCertified ? string.Empty : "display:none");" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-            <!--Provider logo-->
-            <a href="@(Url.RouteUrl
+        <!--Provider logo-->
+        <a href="@(Url.RouteUrl
                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                         new
                         {
@@ -17,8 +17,8 @@
                             action = MVC.Provider.ActionNames.GIProviderInfo,
                             ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
                         ))">
-                <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
-            </a>
+            <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
+        </a>
 
         <div class="POMPComparisonResultNameIDWrapper">
             <label>@Model.RelatedProvider.RelatedCompany.CompanyName</label>
@@ -48,29 +48,34 @@
                 }
             }
         </div>
-        
+
         <!--Provider rate-->
         <div class="POMPSearchResultProvRatingComparison">
             <div class="rateit" data-rateit-value="@Model.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
             <span>(@Model.ProviderRateCount)</span>
         </div>
-             
+
         <!--Actions for related provider -->
         <ul class="POMPComparisonResultLineTwo">
-            <li>
-                @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName != MVC.Provider.Name)
-                {
-                    if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName == MVC.Compare.Name &&
-                    MarketPlace.Web.Controllers.BaseController.CurrentActionName == MVC.Compare.ActionNames.CompareDetail)
+
+            @if (Model.IsComparisonView)
+            {
+                <li>
+                    @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName != MVC.Provider.Name)
                     {
-                        <a href="javascript:Compare_DetailObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Remover</a>
+                        if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName == MVC.Compare.Name &&
+                        MarketPlace.Web.Controllers.BaseController.CurrentActionName == MVC.Compare.ActionNames.CompareDetail)
+                        {
+                            <a href="javascript:Compare_DetailObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Remover</a>
+                        }
+                        else
+                        {
+                            <a href="javascript:Provider_SearchObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Remover</a>
+                        }
                     }
-                    else
-                    {
-                        <a href="javascript:Provider_SearchObject.RemoveCompareProvider('@Model.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Remover</a>
-                    }
-                }
-            </li>
+                </li>
+            }
+
             @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName != MVC.Provider.Name)
             {
                 <li>
@@ -97,16 +102,16 @@ else
         <img style="display:{ProviderIsCertified};" class="SelGenericTooltip" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
     </div>
     <div class="POMPComparisonResultProvDataWrapper">
-        
-            <a href="@(Url.RouteUrl
+
+        <a href="@(Url.RouteUrl
                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                     new
                     {
                         controller = MVC.Provider.Name,
                         action = MVC.Provider.ActionNames.GIProviderInfo,
                     }) + "?ProviderPublicId={ProviderPublicId}")">
-                <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
-            </a>        
+            <img class="POMPComparisonResultProvLogo" src="{ProviderLogoUrl}" />
+        </a>
         <div class="POMPComparisonResultNameIDWrapper">
             <label>{CompanyName}</label>
             <label><span>{IdentificationType} :</span> {IdentificationNumber}</label>
