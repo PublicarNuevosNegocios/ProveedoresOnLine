@@ -1232,36 +1232,94 @@ var Customer_ProjectConfig = {
     CustomerPublicId: '',
     ProjectConfigId: '',
     PageSize: '',
+    EvaluationItemUpsertUrl: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.PageSize = vInitObject.PageSize;
+        this.EvaluationItemUpsertUrl = vInitObject.EvaluationItemUpsertUrl;
     },
 
     RenderAsync: function (vRenderObject) {
 
-    },
-
-    RenderProjectConfig: function (param) {
-        if (param == true) {
-            var vSearchParam = $('#SearchBoxId').val();
+        if (Customer_ProjectConfig.ObjectId == "divGridProjectConfig") {
+            Customer_ProjectConfig.RenderProjectConfig();
         }
         else {
-            var vSearchParam = '';
+            Customer_ProjectConfig.RenderEvaluationItem();
         }
 
+        //focus on the grid
+        $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Customer_ProjectConfig.ConfigKeyBoard();
+
+        //Config Events
+        Customer_ProjectConfig.ConfigEvents();
+    },
+
+    ConfigKeyBoard: function () {
+
+        //init keyboard tooltip
+        $('.divGrid_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function () {
+        //config grid visible enables event
+        $('#' + Customer_ProjectConfig.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Customer_ProjectConfig.ObjectId).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Customer_ProjectConfig.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_ProjectConfig.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+    GetSearchParam: function () {
+        return $('#' + Customer_ProjectConfig.ObjectId + '_txtSearch').val();
+    },
+
+    Search: function () {
+        $('#' + Customer_ProjectConfig.ObjectId).data('kendoGrid').dataSource.read();
+    },
+
+    RenderProjectConfig: function () {
         $('#' + Customer_ProjectConfig.ObjectId).kendoGrid({
             editable: true,
-            navigatable: false,
+            navigatable: true,
             pageable: true,
             scrollable: true,
             toolbar: [
-               { name: 'save', text: 'Guardar' },
-               { name: 'cancel', text: 'Descartar' },
-               { name: "SearchBox", template: "<input id='SearchBoxId' type='text'value=''>" },
-               { name: "SearchButton", template: "<a id='Buscar' href='javascript: AsociateProviderObject.RenderAsociateProvider(" + "true" + ");'>Buscar</a" }
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'Search', template: $('#' + Customer_ProjectConfig.ObjectId + '_SearchTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Customer_ProjectConfig.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_ProjectConfig.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
                 pageSize: Customer_ProjectConfig.PageSize,
@@ -1274,21 +1332,18 @@ var Customer_ProjectConfig = {
                         return 0;
                     },
                     model: {
-                        id: "AP_AsociateProviderId",
+                        id: "ProjectProviderId",
                         fields: {
-                            AP_AsociateProviderId: { editable: false, nullable: true },
-                            AP_BO_ProviderPublicId: { editable: false },
-                            AP_DM_ProviderPublicId: { editable: false },
-                            AP_BO_ProviderName: { editable: false },
-                            AP_Email: { editable: true, validation: { required: false, email: true } },
-                            AP_LastModify: { editable: false },
+                            ProjectProviderId: { editable: false, nullable: true },
+                            ProjectProviderName: { editable: true, validation: { required: true } },
+                            ProjectProviderEnable: { editable: true, type: 'boolean', defaultValue: true }
                         },
                     },
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/AsociateProviderApi?GetAllAsociateProvider=true&SearchParam=' + vSearchParam + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCProjectConfigSearch=true&CustomerPublicId=' + Customer_ProjectConfig.CustomerPublicId + '&ViewEnable=' + Customer_ProjectConfig.GetViewEnable() + '&SearchParam=' + Customer_ProjectConfig.GetSearchParam() + '&PageNumber=' + (new Number(options.data.page) - 1) + '&RowCount=' + options.data.pageSize,
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1298,9 +1353,9 @@ var Customer_ProjectConfig = {
                             }
                         });
                     },
-                    update: function (options) {
+                    create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/AsociateProviderApi?AsociateProviderUpsert=true',
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCProjectConfigUpsert=true&CustomerPublicId=' + Customer_ProjectConfig.CustomerPublicId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1309,10 +1364,31 @@ var Customer_ProjectConfig = {
                             success: function (result) {
                                 options.success(result);
                                 $('#' + Customer_ProjectConfig.ObjectId).data('kendoGrid').dataSource.read();
+                                Message('success', 'Se creó el registro.');
                             },
                             error: function (result) {
                                 options.error(result);
-                            }
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCProjectConfigUpsert=true&CustomerPublicId=' + Customer_ProjectConfig.CustomerPublicId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                $('#' + Customer_ProjectConfig.ObjectId).data('kendoGrid').dataSource.read();
+                                Message('success', 'Se editó la fila con el id ' + options.data.ProjectProviderId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.ProjectProviderId + '.');
+                            },
                         });
                     },
                 },
@@ -1323,25 +1399,146 @@ var Customer_ProjectConfig = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
+            editable: "popup",
             columns: [{
-                field: 'AP_BO_ProviderPublicId',
-                title: 'Id Back Office',
+                field: 'ProjectProviderEnable',
+                title: 'Habilitado',
             }, {
-                field: 'AP_DM_ProviderPublicId',
-                title: 'Id Document Management',
+                field: 'ProjectProviderName',
+                title: 'Configuración',
             }, {
-                field: 'AP_BO_ProviderName',
-                title: 'Proveedor',
-            }, {
-                field: 'AP_Email',
-                title: 'Certificador',
-            }, {
-                field: 'AP_LastModify',
-                title: 'Fecha de Edición',
-            }, {
-                field: 'AP_AsociateProviderId',
+                field: 'ProjectProviderId',
                 title: 'Id',
-                width: '78px',
+            }, {
+                title: "&nbsp;",
+                width: "200px",
+                command: [{
+                    name: 'edit',
+                    text: 'Editar'
+                }, {
+                    name: 'Detail',
+                    text: 'Ver detalle',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigId attribute
+                        if (data.ProjectProviderId != null && data.ProjectProviderId > 0) {
+                            window.location = Customer_ProjectConfig.EvaluationItemUpsertUrl.replace(/\${ProjectProviderId}/gi, data.ProjectProviderId);
+                        }
+                    }
+                }],
+            }],
+        });
+    },
+
+    RenderEvaluationItem: function () {
+        $('#' + Customer_ProjectConfig.ObjectId).kendoGrid({
+            editable: true,
+            navigatable: false,
+            pageable: true,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'Search', template: $('#' + Customer_ProjectConfig.ObjectId + '_SearchTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Customer_ProjectConfig.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_ProjectConfig.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: Customer_ProjectConfig.PageSize,
+                serverPaging: true,
+                schema: {
+                    total: function (data) {
+                        if (data && data.length > 0) {
+                            return data[0].TotalRows;
+                        }
+                        return 0;
+                    },
+                    model: {
+                        id: "EvaluationItemId",
+                        fields: {
+                            EvaluationItemId: { editable: false, nullable: true },
+                            EvaluationItemName: { editable: false },
+                            EvaluationItemEnable: { editable: false },
+                        },
+                    },
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=1&ParentEvaluationItem=&EvaluationItemType=1401001&SearchParam=&ViewEnable=' + Customer_ProjectConfig.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
+            },
+            editable: "popup",
+            columns: [{
+                field: 'EvaluationItemEnable',
+                title: 'Habilitado',
+            }, {
+                field: 'EvaluationItemName',
+                title: 'Area',
+            }, {
+                field: 'EvaluationItemId',
+                title: 'Id',
+            }, {
+                title: "&nbsp;",
+                width: "200px",
+                command: [{
+                    name: 'edit',
+                    text: 'Editar'
+                }],
             }],
         });
     },

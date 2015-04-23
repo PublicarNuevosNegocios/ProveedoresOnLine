@@ -43,6 +43,8 @@ namespace BackOffice.Models.Customer
 
         public SurveyConfigViewModel RelatedSurveyConfig { get; set; }
 
+        public ProjectConfigViewModel RelatedProjectConfig { get; set; }
+
         public string GridToSave { get; set; }
 
         

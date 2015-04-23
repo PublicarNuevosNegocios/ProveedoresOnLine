@@ -1,7 +1,7 @@
 ﻿@model BackOffice.Models.Customer.CustomerViewModel
 
 @{
-    ViewBag.Title = "Comprador - Precalificaciones.";
+    ViewBag.Title = "Comprador - Items de Evaluación.";
     Layout = MVC.Shared.Views._Layout;
 
     Model.RenderScripts = false;
@@ -15,13 +15,17 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Precalificaciones</label>
+            <label class="POBOSectionTitles">Items de Precalificaciones.</label>
+            <a href="@(Url.Action(
+                MVC.Customer.ActionNames.PCProjectConfigUpsert,
+                MVC.Customer.Name,
+                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">Regresar a la configuración.</a>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
             <div id="loading"></div>
-            <div id="divGridProjectConfig"></div>
+            <div id="divGridEvaluationItem"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -34,44 +38,34 @@
 <!--templates-->
 <div style="display:none;">
 
-    <div id="divGridProjectConfig_ShortcutToolTipTemplate">
+    <div id="divGridEvaluationItem_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
     </div>
 
-    <div id="divGridProjectConfig_ViewEnablesTemplate">
+    <div id="divGridEvaluationItem_ViewEnablesTemplate">
         <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
-        <input class="POBOProviderGridEnableContact" id="divGridProjectConfig_ViewEnable" type="checkbox" checked="checked" />
+        <input class="POBOProviderGridEnableContact" id="divGridEvaluationItem_ViewEnable" type="checkbox" checked="checked" />
     </div>
 
-    <div id="divGridProjectConfig_SearchTemplate">
-        <input class="POBOSurveySearchInput" id="divGridProjectConfig_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
+    <div id="divGridEvaluationItem_SearchTemplate">
+        <input class="POBOSurveySearchInput" id="divGridEvaluationItem_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
         <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
 </div>
 
 @{
     Model.RenderScripts = true;
-
-    string oPCEvaluationItemUpsertUrl = Url.Action
-        (MVC.Customer.ActionNames.PCEvaluationItemUpsert,
-        MVC.Customer.Name,
-        new
-        {
-            CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
-        }) + "&ProjectProviderId=${ProjectProviderId}";
 }
 
-@section inlinescripts
-{
+@section inlinescripts{
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
     <script type="text/javascript">
         $(document).ready(function () {
             Customer_ProjectConfig.Init({
-                ObjectId: 'divGridProjectConfig',
+                ObjectId: 'divGridEvaluationItem',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
-                EvaluationItemUpsertUrl: '@Html.Raw(oPCEvaluationItemUpsertUrl)',
             });
             Customer_ProjectConfig.RenderAsync();
         });

@@ -235,7 +235,7 @@
         CIFIN = 601003,
         SARLAFT = 601004,
         Resoluciones = 601005,
-        Designations = 601007,        
+        Designations = 601007,
     }
 
     public enum enumLegalInfoType
@@ -398,7 +398,7 @@
         IB_IBAN = 505008,
         IB_Customer = 505009,
         IB_AccountFile = 505010,
-        IB_Code = 505011,        
+        IB_Code = 505011,
     }
 
     #endregion
@@ -452,6 +452,30 @@
         Weight = 1203002,
         HasDescription = 1203003,
         IsMandatory = 1203004,
+    }
+
+    #endregion
+
+    #region ProjectConfig
+
+    public enum enumEvaluationItemType
+    {
+        EvaluationArea = 1401001,
+        EvaluationCriteria = 1401002,
+    }
+
+    public enum enumEvaluationItemInfoType
+    {
+        EvaluatorType = 1402001,
+        Evaluator = 1402002,
+        Unit = 1402003,
+        Weight = 1402004,
+        EvaluationCriteria = 1402005,
+        InfoType_Value_Operator = 1402006,
+        YearsQuantity = 1402007,
+        ExperienceConfig = 1402008,
+        Order = 1402009,
+        AprobatePercent = 1402010,
     }
 
     #endregion

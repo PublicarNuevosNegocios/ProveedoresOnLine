@@ -87,6 +87,12 @@ namespace BackOffice.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCProjectConfigUpsert);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult PCEvaluationItemUpsert()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCEvaluationItemUpsert);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public CustomerController Actions { get { return MVC.Customer; } }
@@ -109,6 +115,7 @@ namespace BackOffice.Web.Controllers
             public readonly string SCSurveyConfigUpsert = "SCSurveyConfigUpsert";
             public readonly string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
             public readonly string PCProjectConfigUpsert = "PCProjectConfigUpsert";
+            public readonly string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -120,6 +127,7 @@ namespace BackOffice.Web.Controllers
             public const string SCSurveyConfigUpsert = "SCSurveyConfigUpsert";
             public const string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
             public const string PCProjectConfigUpsert = "PCProjectConfigUpsert";
+            public const string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
         }
 
 
@@ -164,6 +172,15 @@ namespace BackOffice.Web.Controllers
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
         }
+        static readonly ActionParamsClass_PCEvaluationItemUpsert s_params_PCEvaluationItemUpsert = new ActionParamsClass_PCEvaluationItemUpsert();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_PCEvaluationItemUpsert PCEvaluationItemUpsertParams { get { return s_params_PCEvaluationItemUpsert; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_PCEvaluationItemUpsert
+        {
+            public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string ProjectProviderId = "ProjectProviderId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -176,6 +193,7 @@ namespace BackOffice.Web.Controllers
             {
                 public readonly string GICustomerUpsert = "GICustomerUpsert";
                 public readonly string Index = "Index";
+                public readonly string PCEvaluationItemUpsert = "PCEvaluationItemUpsert";
                 public readonly string PCProjectConfigUpsert = "PCProjectConfigUpsert";
                 public readonly string ROCustomerUserUpsert = "ROCustomerUserUpsert";
                 public readonly string SCSurveyConfigItemUpsert = "SCSurveyConfigItemUpsert";
@@ -183,6 +201,7 @@ namespace BackOffice.Web.Controllers
             }
             public readonly string GICustomerUpsert = "~/Views/Customer/GICustomerUpsert.cshtml";
             public readonly string Index = "~/Views/Customer/Index.cshtml";
+            public readonly string PCEvaluationItemUpsert = "~/Views/Customer/PCEvaluationItemUpsert.cshtml";
             public readonly string PCProjectConfigUpsert = "~/Views/Customer/PCProjectConfigUpsert.cshtml";
             public readonly string ROCustomerUserUpsert = "~/Views/Customer/ROCustomerUserUpsert.cshtml";
             public readonly string SCSurveyConfigItemUpsert = "~/Views/Customer/SCSurveyConfigItemUpsert.cshtml";
@@ -264,6 +283,19 @@ namespace BackOffice.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCProjectConfigUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
             PCProjectConfigUpsertOverride(callInfo, CustomerPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void PCEvaluationItemUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string ProjectProviderId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PCEvaluationItemUpsert(string CustomerPublicId, string ProjectProviderId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCEvaluationItemUpsert);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectProviderId", ProjectProviderId);
+            PCEvaluationItemUpsertOverride(callInfo, CustomerPublicId, ProjectProviderId);
             return callInfo;
         }
 
