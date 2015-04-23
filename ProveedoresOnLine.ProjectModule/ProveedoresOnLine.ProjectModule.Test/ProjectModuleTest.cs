@@ -14,7 +14,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
 
             List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oReturn =
             ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllProjectConfigByCustomerPublicId
-                ("DA5C572E", true, 1000, 0, out TotalRows);
+                ("DA5C572E", null, true, 1000, 0, out TotalRows);
 
             Assert.AreEqual(1, 1);
         }
@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void GetAllEvaluationItemByProjectConfig()
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
-                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(1, 1401001, null, true);
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(1, null,1401001, null, true);
 
             Assert.AreEqual(1, 1);
         }
