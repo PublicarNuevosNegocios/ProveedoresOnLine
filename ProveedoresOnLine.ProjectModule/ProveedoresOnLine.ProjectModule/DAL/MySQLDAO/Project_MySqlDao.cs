@@ -31,7 +31,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "CP_ProjectConfig_Upsert",
+                CommandText = "CC_ProjectConfig_Upsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -53,7 +53,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "CP_EvaluationItemUpsert",
+                CommandText = "CC_EvaluationItemUpsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -97,7 +97,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "CP_ProjectConfig_GetByCustomerProvider",
+                CommandText = "CC_ProjectConfig_GetByCustomerProvider",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
@@ -151,7 +151,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
-                CommandText = "CP_EvaluationItem_GetByProjectConfig",
+                CommandText = "CC_EvaluationItem_GetByProjectConfig",
                 CommandType = CommandType.StoredProcedure,
                 Parameters = lstParams,
             });
