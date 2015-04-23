@@ -145,14 +145,14 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return EvaluationItemInfoToUpsert;
         }
 
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, string SearchParam, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable)
         {
-            return DAL.Controller.ProjectDataController.Instance.GetAllEvaluationItemByProjectConfig(ProjectConfigId, EvaluationItemType, ParentEvaluationItem, ViewEnable);
+            return DAL.Controller.ProjectDataController.Instance.GetAllEvaluationItemByProjectConfig(ProjectConfigId, SearchParam, EvaluationItemType, ParentEvaluationItem, ViewEnable);
         }
 
-        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, string SearchParam, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.ProjectDataController.Instance.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DAL.Controller.ProjectDataController.Instance.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, SearchParam, ViewEnable, PageNumber, RowCount, out TotalRows);
         }
 
         #endregion

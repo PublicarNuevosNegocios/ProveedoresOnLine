@@ -52,14 +52,14 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.EvaluationItemInfoUpsert(EvaluationItemInfoId, EvaluationItemId, EvaluationItemInfoType, Value, LargeValue, Enable);
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, string SearchParam, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DataFactory.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, SearchParam, ViewEnable, PageNumber, RowCount, out TotalRows);
         }
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, string SearchParam, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable)
         {
-            return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, EvaluationItemType, ParentEvaluationItem, ViewEnable);
+            return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, SearchParam, EvaluationItemType, ParentEvaluationItem, ViewEnable);
         }
 
         #endregion
