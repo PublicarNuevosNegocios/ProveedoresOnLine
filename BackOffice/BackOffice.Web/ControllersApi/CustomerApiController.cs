@@ -376,7 +376,126 @@ namespace BackOffice.Web.ControllersApi
 
         #region Project Config
 
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.ProjectConfigViewModel> PCProjectConfigSearch
+            (string PCProjectConfigSearch,
+            string CustomerPublicId,
+            string SearchParam,
+            string ViewEnable,
+            string PageNumber,
+            string RowCount)
+        {
+            List<BackOffice.Models.Customer.ProjectConfigViewModel> oReturn = new List<BackOffice.Models.Customer.ProjectConfigViewModel>();
 
+            if (PCProjectConfigSearch == "true")
+            {
+                int oPageNumber = string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber.Trim());
+
+                int oRowCount = Convert.ToInt32(string.IsNullOrEmpty(RowCount) ?
+                    BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value :
+                    RowCount.Trim());
+
+                bool oEnable = (!string.IsNullOrEmpty(ViewEnable) && ViewEnable == "true");
+
+                int oTotalRows;
+                List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> oSearchResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllProjectConfigByCustomerPublicId
+                    (CustomerPublicId,
+                    SearchParam,
+                    oEnable,
+                    oPageNumber,
+                    oRowCount,
+                    out oTotalRows);
+
+                if (oSearchResult != null && oSearchResult.Count > 0)
+                {
+                    oSearchResult.All(x =>
+                    {
+                        oReturn.Add(new Models.Customer.ProjectConfigViewModel(x));
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.ProjectConfigViewModel PCProjectConfigUpsert
+            (string PCProjectConfigUpsert,
+            string CustomerPublicId)
+        {
+            BackOffice.Models.Customer.ProjectConfigViewModel oReturn = null;
+
+            if (PCProjectConfigUpsert == "true" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Customer.ProjectConfigViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.ProjectConfigViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.ProjectConfigViewModel));
+
+                ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oProjectConfigModel = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                {
+                    ItemId = string.IsNullOrEmpty(oDataToUpsert.ProjectProviderId) ? 0 : Convert.ToInt32(oDataToUpsert.ProjectProviderId.Trim()),
+                    ItemName = oDataToUpsert.ProjectProviderName,
+                    Enable = oDataToUpsert.ProjectProviderEnable,
+                    RelatedCustomer = new CustomerModel()
+                    {
+                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = CustomerPublicId,
+                        },
+                    },
+                };
+
+                oProjectConfigModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigUpsert(oProjectConfigModel);
+
+                //create return object
+                oReturn = new BackOffice.Models.Customer.ProjectConfigViewModel
+                    (oProjectConfigModel);
+            }
+
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public List<BackOffice.Models.Customer.EvaluationItemViewModel> PCEvaluationItemSearch
+            (string PCEvaluationItemSearch,
+            string ProjectConfigId,
+            string ParentEvaluationItem,
+            string EvaluationItemType,
+            string SearchParam,
+            string ViewEnable)
+        {
+            List<BackOffice.Models.Customer.EvaluationItemViewModel> oReturn = new List<Models.Customer.EvaluationItemViewModel>();
+
+            bool oEnable = (!string.IsNullOrEmpty(ViewEnable) && ViewEnable == "true");
+
+            if (PCEvaluationItemSearch == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oSearchResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig
+                    (Convert.ToInt32(ProjectConfigId),
+                    SearchParam,
+                    Convert.ToInt32(EvaluationItemType),
+                    string.IsNullOrEmpty(ParentEvaluationItem) ? null : (int?)Convert.ToInt32(ParentEvaluationItem.Trim()),
+                    oEnable);
+
+                if (oSearchResult != null && oSearchResult.Count > 0)
+                {
+                    oSearchResult.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Customer.EvaluationItemViewModel(x));
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
 
         #endregion
     }

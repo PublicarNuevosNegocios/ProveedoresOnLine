@@ -40,6 +40,9 @@
     <Reference Include="ProveedoresOnLine.CompanyProvider">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.CompanyProvider\developer\ProveedoresOnLine.CompanyProvider.dll</HintPath>
     </Reference>
+    <Reference Include="ProveedoresOnLine.ProjectModule">
+      <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.ProjectModule\developer\ProveedoresOnLine.ProjectModule.dll</HintPath>
+    </Reference>
     <Reference Include="ProveedoresOnLine.SurveyModule">
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.SurveyModule\developer\ProveedoresOnLine.SurveyModule.dll</HintPath>
     </Reference>
@@ -64,7 +67,9 @@
     <Compile Include="Customer\CustomerRoleViewModel.cs" />
     <Compile Include="Customer\CustomerViewModel.cs" />
     <Compile Include="Customer\CustomerSearchViewModel.cs" />
+    <Compile Include="Customer\EvaluationItemViewModel.cs" />
     <Compile Include="Customer\SurveyConfigItemViewModel.cs" />
+    <Compile Include="Customer\ProjectConfigViewModel.cs" />
     <Compile Include="Customer\SurveyConfigViewModel.cs" />
     <Compile Include="General\Constants.cs" />
     <Compile Include="General\EconomicActivityViewModel.cs" />
