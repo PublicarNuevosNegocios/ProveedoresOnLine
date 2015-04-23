@@ -62,5 +62,13 @@ namespace ProveedoresOnLine.ProjectModule.Test
             Assert.AreEqual(1, 1);
         }
 
+        [TestMethod]
+        public void ProjectGetByIdProviderDetail()
+        {
+            ProveedoresOnLine.ProjectModule.Models.ProjectModel oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdProviderDetail
+                ("1EC791B6", "DA5C572E", "1AA24C6B");
+            Assert.IsNotNull(oResult);
+        }
+
     }
 }
