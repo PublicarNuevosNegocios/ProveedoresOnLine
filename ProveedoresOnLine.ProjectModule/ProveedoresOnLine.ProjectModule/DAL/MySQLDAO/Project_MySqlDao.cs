@@ -262,6 +262,45 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             return oReturn;
         }
 
+        public ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "CC_ProjectConfig_GetById",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oReturn = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel();
+
+            if (true)
+            {
+                oReturn =
+                    (from pc in response.DataTableResult.AsEnumerable()
+                     where !pc.IsNull("ProjectConfigId")
+                     group pc by new
+                     {
+                         ProjectConfigId = pc.Field<int>("ProjectConfigId"),
+                         ProjectConfigName = pc.Field<string>("ProjectConfigName"),
+                         ProjectConfigEnable = pc.Field<UInt64>("ProjectConfigEnable") == 1 ? true : false,
+                     }
+                         into pcg
+                         select new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                         {
+                             ItemId = pcg.Key.ProjectConfigId,
+                             ItemName = pcg.Key.ProjectConfigName,
+                             Enable = pcg.Key.ProjectConfigEnable,
+                         }).FirstOrDefault();
+            }
+
+            return oReturn;
+        }
+
         #endregion
 
         #region Project
