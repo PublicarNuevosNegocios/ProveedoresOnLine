@@ -56,6 +56,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public MarketPlace.Models.General.enumEvaluationCriteria EvaluationCriteria
+        {
+            get
+            {
+                return RelatedEvaluationItem.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationCriteria &&
+                                 !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => (MarketPlace.Models.General.enumEvaluationCriteria)Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(MarketPlace.Models.General.enumEvaluationCriteria.None).
+                    FirstOrDefault();
+            }
+        }
+
         public EvaluationItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedEvaluationItem)
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;

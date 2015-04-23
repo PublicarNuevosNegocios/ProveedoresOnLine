@@ -574,5 +574,17 @@
         InfoItems = 1408002,
     }
 
+    public enum enumEvaluationCriteria
+    {
+        None,
+        Experience = 1404001,
+        Norms = 1404002,
+        LTIF = 1404003,
+        HealtyPolitic = 1404004,
+        BalanceSheet = 1404005,
+        ChamberOfCommerce = 1404006,
+        RUT = 1404007,
+        SARLAF = 1404008,
+    }
     #endregion
 }

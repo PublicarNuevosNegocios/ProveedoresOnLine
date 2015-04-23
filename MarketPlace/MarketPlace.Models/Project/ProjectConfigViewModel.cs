@@ -85,6 +85,28 @@ namespace MarketPlace.Models.Project
             return oReturn;
         }
 
+        public List<EvaluationItemViewModel> GetEvaluationCriteria(int oEvaluationAreaId)
+        {
+            List<EvaluationItemViewModel> oReturn =
+                RelatedProjectConfig.RelatedEvaluationItem.
+                Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationCriteria &&
+                            ei.ParentItem != null &&
+                            ei.ParentItem.ItemId == oEvaluationAreaId).
+                OrderBy(ei => ei.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationOrder &&
+                                    !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault()).
+                Select(ei => new EvaluationItemViewModel(ei)).
+                ToList();
+
+            if (oReturn == null)
+                oReturn = new List<EvaluationItemViewModel>();
+
+            return oReturn;
+        }
+
         #endregion
     }
 }
