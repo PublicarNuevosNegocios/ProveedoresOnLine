@@ -22,6 +22,8 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> MPProjectConfigGetByCustomer(string CustomerPublicId);
 
+        ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId);
+
         #endregion
 
         #region Project
