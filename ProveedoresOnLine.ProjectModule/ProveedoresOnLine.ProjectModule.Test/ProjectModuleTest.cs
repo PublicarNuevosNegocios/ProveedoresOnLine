@@ -23,7 +23,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void GetAllEvaluationItemByProjectConfig()
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
-                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(1, true);
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig(1, 1401001, null, true);
 
             Assert.AreEqual(1, 1);
         }
