@@ -547,7 +547,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
             //Response - Create project company info object to upsert
             Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oResult.ToString("0.##"));
+            oValues.Add(1408001, oResult.ToString("0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
             oValues.Add(1408002, oEvalInfo.FirstOrDefault().Item1.ToString());
 
             //get standar response
@@ -717,8 +717,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
                 //Response - Create project company info object to upsert
                 Dictionary<int, string> oValues = new Dictionary<int, string>();
-                oValues.Add(1408001, oResult.ToString("0.##"));
-
+                oValues.Add(1408001, oResult.ToString("0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
                 //get standar response
                 oReturn.AddRange(CreateStandarResponse(vProjectProvider, ei, oValues));
 

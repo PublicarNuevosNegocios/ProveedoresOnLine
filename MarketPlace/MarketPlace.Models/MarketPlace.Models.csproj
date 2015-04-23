@@ -75,7 +75,9 @@
     <Compile Include="General\InternalSettings.cs" />
     <Compile Include="General\EconomicActivityViewModel.cs" />
     <Compile Include="General\SessionModel.cs" />
+    <Compile Include="Project\EvaluationItemViewModel.cs" />
     <Compile Include="Project\ProjectConfigViewModel.cs" />
+    <Compile Include="Project\ProjectProviderViewModel.cs" />
     <Compile Include="Project\ProjectSearchViewModel.cs" />
     <Compile Include="Project\ProjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

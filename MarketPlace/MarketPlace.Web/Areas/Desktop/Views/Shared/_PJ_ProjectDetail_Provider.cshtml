@@ -2,30 +2,88 @@
 
 @{
     var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
-
 }
 
 @if (!Model.RenderScripts)
 {
-    if (Model.RelatedProvider != null && Model.RelatedProvider.Count > 0)
+    if (Model.RelatedProjectProvider != null && Model.RelatedProjectProvider.Count > 0)
     {
         <ul>
-            @foreach (var oProvider in Model.RelatedProvider)
+            <!--evaluation title-->
+            <li>
+                <ul>
+                    <li></li>
+                    @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+                    {
+                        foreach (var oAreaItem in oEvaluationAreas)
+                        {
+                            <li>
+                                <label>@oAreaItem.EvaluationItemName</label>
+                                <span>@oAreaItem.EvaluationItemUnitName</span>
+                            </li>
+                        }
+                    }
+                    <li></li>
+                </ul>
+            </li>
+
+            @foreach (var oProjectProvider in Model.RelatedProjectProvider)
             {
                 <li>
                     <ul>
                         <li>
                             <!--Render provider basic info-->
-                            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProvider)
+                            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProvider.RelatedProvider.RelatedLiteProvider)
                         </li>
                         <!--Render evaluation areas-->
                         @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
                         {
                             foreach (var oAreaItem in oEvaluationAreas)
                             {
-                                <li>
-                                    @oAreaItem.ItemName
-                                </li>
+                                decimal oItemRatting = oProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
+
+                                switch (oAreaItem.EvaluationItemUnit)
+                                {
+                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                        if (oItemRatting >= 100)
+                                        {
+                                            <li>
+                                                <span>Pasa</span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <span>No Pasa</span>
+                                            </li>
+                                        }
+                                        break;
+                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                                        if (oItemRatting >= oAreaItem.AprobalPercent)
+                                        {
+                                            <li>
+                                                <span>@oItemRatting.ToString("#,0.##") %</span>
+                                                <span>Pasa</span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <span>@oItemRatting.ToString("#,0.##") %</span>
+                                                <span>No Pasa</span>
+                                            </li>
+                                        }
+                                        break;
+                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                    <li>
+                                        <span>@oItemRatting.ToString("#,0.##")</span>
+                                        <span>Solo es informativo</span>
+                                    </li>
+                                        break;
+                                    default:
+                                    <li></li>
+                                        break;
+                                }
                             }
                         }
                         <li>
