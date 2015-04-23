@@ -131,6 +131,7 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string ProjectPublicId = "ProjectPublicId";
             public readonly string ProviderPublicId = "ProviderPublicId";
+            public readonly string EvaluationAreaId = "EvaluationAreaId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -187,15 +188,16 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void ProjectProviderDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectPublicId, string ProviderPublicId);
+        partial void ProjectProviderDetailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectPublicId, string ProviderPublicId, string EvaluationAreaId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ProjectProviderDetail(string ProjectPublicId, string ProviderPublicId)
+        public override System.Web.Mvc.ActionResult ProjectProviderDetail(string ProjectPublicId, string ProviderPublicId, string EvaluationAreaId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectProviderDetail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectPublicId", ProjectPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            ProjectProviderDetailOverride(callInfo, ProjectPublicId, ProviderPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EvaluationAreaId", EvaluationAreaId);
+            ProjectProviderDetailOverride(callInfo, ProjectPublicId, ProviderPublicId, EvaluationAreaId);
             return callInfo;
         }
 

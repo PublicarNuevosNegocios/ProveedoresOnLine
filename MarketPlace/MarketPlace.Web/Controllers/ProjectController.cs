@@ -44,8 +44,23 @@ namespace MarketPlace.Web.Controllers
                 });
         }
 
-        public virtual ActionResult ProjectProviderDetail(string ProjectPublicId, string ProviderPublicId)
+        public virtual ActionResult ProjectProviderDetail
+            (string ProjectPublicId, 
+            string ProviderPublicId, 
+            string EvaluationAreaId)
         {
+            //ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+            //    ProjectGetById
+            //    (ProjectPublicId,
+            //    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+            //MarketPlace.Models.Project.ProjectViewModel oModel = new Models.Project.ProjectViewModel(oCurrentProject);
+
+
+
+
+
+
             return View();
         }
 
