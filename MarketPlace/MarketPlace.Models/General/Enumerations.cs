@@ -531,6 +531,7 @@
         CurrencyType = 1407007,
         Responsible = 1407008,
         InternalProcessNumber = 1407009,
+        File = 1407010,
     }
 
     public enum enumEvaluationItemType
@@ -549,7 +550,8 @@
         EvaluationRanges = 1402006,
         EvaluationYears = 1402007,
         EvaluationExperienceConfig = 1402008,
-        EvaluationOrder = 1402009
+        EvaluationOrder = 1402009,
+        AprobalPercent = 1402010,
     }
 
     public enum enumProjectOperator
@@ -557,6 +559,19 @@
         Equal = 1409001,
         Higher = 1409002,
         GreaterOrEqual = 1409003,
+    }
+
+    public enum enumEvaluationItemUnitType
+    {
+        LooseWin = 1403001,
+        Percent = 1403002,
+        Informative = 1403003,
+    }
+
+    public enum enumProjectCompanyInfoType
+    {
+        Ratting = 1408001,
+        InfoItems = 1408002,
     }
 
     #endregion

@@ -65,9 +65,9 @@ namespace MarketPlace.Models.Project
 
         #region Methods
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetEvaluationAreas()
+        public List<EvaluationItemViewModel> GetEvaluationAreas()
         {
-            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn =
+            List<EvaluationItemViewModel> oReturn =
                 RelatedProjectConfig.RelatedEvaluationItem.
                 Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationArea).
                 OrderBy(ei => ei.ItemInfo.
@@ -76,10 +76,11 @@ namespace MarketPlace.Models.Project
                     Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
                     DefaultIfEmpty(0).
                     FirstOrDefault()).
+                Select(ei => new EvaluationItemViewModel(ei)).
                 ToList();
 
             if (oReturn == null)
-                oReturn = new List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>();
+                oReturn = new List<EvaluationItemViewModel>();
 
             return oReturn;
         }

@@ -21,7 +21,7 @@ namespace MarketPlace.Models.Project
             }
         }
 
-        public List<MarketPlace.Models.Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
+        public List<ProjectProviderViewModel> RelatedProjectProvider { get; set; }
 
         public bool RenderScripts { get; set; }
 
@@ -212,19 +212,41 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        List<Tuple<string, string>> oProjectFile;
+        public List<Tuple<string, string>> ProjectFile
+        {
+            get
+            {
+                if (oProjectFile == null)
+                {
+                    oProjectFile = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.File &&
+                                       !string.IsNullOrEmpty(pjinf.LargeValue) &&
+                                       pjinf.LargeValue.Split(',').Length >= 2).
+                        Select(pjinf => new Tuple<string, string>(pjinf.LargeValue.Split(',')[0], pjinf.LargeValue.Split(',')[1])).
+                        ToList();
+
+                    if (oProjectFile == null)
+                        oProjectFile = new List<Tuple<string, string>>();
+                }
+
+                return oProjectFile;
+            }
+        }
+
         #endregion
 
         public ProjectViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject)
         {
             RelatedProject = oRelatedProject;
 
-            RelatedProvider = new List<Provider.ProviderLiteViewModel>();
+            RelatedProjectProvider = new List<ProjectProviderViewModel>();
 
             if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
             {
                 RelatedProject.RelatedProjectProvider.All(rp =>
                 {
-                    RelatedProvider.Add(new Provider.ProviderLiteViewModel(rp.RelatedProvider));
+                    RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
                     return true;
                 });
             }

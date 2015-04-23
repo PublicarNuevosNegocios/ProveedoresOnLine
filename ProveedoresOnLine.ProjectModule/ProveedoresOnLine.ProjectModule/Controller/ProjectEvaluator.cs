@@ -270,7 +270,12 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                                             pjpv.ItemInfo.
                                             Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
                                             Select(pjpvinf => pjpvinf.Value).
-                                            DefaultIfEmpty(string.Empty).
+                                            DefaultIfEmpty(null).
+                                            FirstOrDefault() &&
+                                        ors.LargeValue != pjpv.ItemInfo.
+                                            Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
+                                            Select(pjpvinf => pjpvinf.LargeValue).
+                                            DefaultIfEmpty(null).
                                             FirstOrDefault()));
 
                     //upsert evaluation items responses
@@ -357,9 +362,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             string oExpItemId = string.Join(",", oExperienceToEval.Select(exp => exp.ExperienceId));
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oExpSum >= ProjectAmmount && oExperienceToEval.Count() >= ProjectExperienceCount ? "100" : "0");
-            oValues.Add(1408002, oExpItemId);
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oExpSum >= ProjectAmmount && oExperienceToEval.Count() >= ProjectExperienceCount ? "100" : "0", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oExpItemId, true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -402,9 +407,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 FirstOrDefault();
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oValidCertificationId == null ? "0" : "100", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -439,9 +444,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 FirstOrDefault();
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oValidCertificationId == null ? "0" : "100", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -481,9 +486,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 FirstOrDefault();
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oValidCertificationId == null ? "0" : "100", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -546,9 +551,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oResult.ToString("0.##"));
-            oValues.Add(1408002, oEvalInfo.FirstOrDefault().Item1.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oResult.ToString("0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")), false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oEvalInfo.FirstOrDefault().Item1.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -584,9 +589,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 FirstOrDefault();
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oValidCertificationId == null ? "0" : "100", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -612,9 +617,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 FirstOrDefault();
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oValidCertificationId == null ? "0" : "100", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -640,9 +645,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 FirstOrDefault();
 
             //Response - Create project company info object to upsert
-            Dictionary<int, string> oValues = new Dictionary<int, string>();
-            oValues.Add(1408001, oValidCertificationId == null ? "0" : "100");
-            oValues.Add(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString());
+            List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+            oValues.Add(new Tuple<int, string, bool>(1408001, oValidCertificationId == null ? "0" : "100", false));
+            oValues.Add(new Tuple<int, string, bool>(1408002, oValidCertificationId == null ? string.Empty : oValidCertificationId.Value.ToString(), true));
 
             //get standar response
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn = CreateStandarResponse
@@ -716,9 +721,8 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 }
 
                 //Response - Create project company info object to upsert
-                Dictionary<int, string> oValues = new Dictionary<int, string>();
-                oValues.Add(1408001, oResult.ToString("0.##"));
-
+                List<Tuple<int, string, bool>> oValues = new List<Tuple<int, string, bool>>();
+                oValues.Add(new Tuple<int, string, bool>(1408001, oResult.ToString("0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")), false));
                 //get standar response
                 oReturn.AddRange(CreateStandarResponse(vProjectProvider, ei, oValues));
 
@@ -799,7 +803,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
         private List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> CreateStandarResponse
             (ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel vProjectProvider,
             ProveedoresOnLine.Company.Models.Util.GenericItemModel vEvaluationItem,
-            Dictionary<int, string> oResultInfos)
+            List<Tuple<int, string, bool>> oResultInfos)
         {
 
             List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oReturn =
@@ -811,7 +815,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 {
                     ItemInfoId = vProjectProvider.ItemInfo == null ? 0 :
                         vProjectProvider.ItemInfo.
-                        Where(pjpvinf => pjpvinf.ItemInfoType.ItemId == ri.Key &&
+                        Where(pjpvinf => pjpvinf.ItemInfoType.ItemId == ri.Item1 &&
                                         pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItem.ItemId).
                         Select(pjpvinf => pjpvinf.ItemInfoId).
                         DefaultIfEmpty(0).
@@ -823,9 +827,10 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     },
                     ItemInfoType = new Company.Models.Util.CatalogModel()
                     {
-                        ItemId = ri.Key,
+                        ItemId = ri.Item1,
                     },
-                    Value = ri.Value,
+                    Value = ri.Item3 ? null : ri.Item2,
+                    LargeValue = ri.Item3 ? ri.Item2 : null,
                     Enable = true,
                 });
 
