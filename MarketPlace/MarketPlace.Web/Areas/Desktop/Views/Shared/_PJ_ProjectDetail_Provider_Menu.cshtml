@@ -1,0 +1,25 @@
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@{
+    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+}
+
+@if (!Model.RenderScripts)
+{
+    <div class="POMPProviderSideMenu">
+        <div class="POMPProviderMenuDetail">
+            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider)
+        </div>
+        @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+        {
+            <ul id="ulProviderMenu">
+                @foreach (var oAreaItem in oEvaluationAreas)
+                {
+                    <li class="principalmenuselected">
+                        <a href="javascript:;">@oAreaItem.EvaluationItemName</a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+}

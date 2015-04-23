@@ -491,6 +491,7 @@
     <Content Include="Areas\Desktop\Content\themes\base\tabs.css" />
     <Content Include="Areas\Desktop\Content\themes\base\theme.css" />
     <Content Include="Areas\Desktop\Content\themes\base\tooltip.css" />
+    <Content Include="Areas\Desktop\Scripts\Site\ProjectScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\SurveyScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\GeneralScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\CompareScripts.js" />
@@ -1013,7 +1014,9 @@
     <Content Include="Areas\Desktop\Views\Project\ProjectProviderDetail.cshtml" />
     <Content Include="Areas\Desktop\Views\Provider\FIKContract.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Header.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Menu.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

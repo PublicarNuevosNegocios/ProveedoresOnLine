@@ -1440,7 +1440,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                              ItemInfo =
                               (from rppinf in response.DataSetResult.Tables[3].AsEnumerable()
                                where !rppinf.IsNull("ProjectCompanyInfoId") &&
-                                       rppinf.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
+                                       rppinf.Field<Int64>("ProjectCompanyId") == rppg.Key.ProjectCompanyId
                                group rppinf by new
                                {
                                    ProjectCompanyInfoId = rppinf.Field<int>("ProjectCompanyInfoId"),
@@ -1517,7 +1517,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                  RelatedCommercial =
                                    (from prvcm in response.DataSetResult.Tables[4].AsEnumerable()
                                     where !prvcm.IsNull("CommercialId") &&
-                                           prvcm.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvcm.Field<Int64>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
                                            prvcm.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
                                     group prvcm by new
                                     {
@@ -1574,7 +1574,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                  RelatedCertification =
                                    (from prvcr in response.DataSetResult.Tables[5].AsEnumerable()
                                     where !prvcr.IsNull("CertificationId") &&
-                                           prvcr.Field<int>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
+                                           prvcr.Field<Int64>("ProjectCompanyId") == rppg.Key.ProjectCompanyId &&
                                            prvcr.Field<string>("ProjectPublicId") == response.DataSetResult.Tables[0].Rows[0].Field<string>("ProjectPublicId")
                                     group prvcr by new
                                     {
@@ -1679,7 +1679,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                             ItemId = prvfig.Key.FinancialType,
                                         },
                                         ItemInfo =
-                                           (from prvfiinf in response.DataSetResult.Tables[5].AsEnumerable()
+                                           (from prvfiinf in response.DataSetResult.Tables[6].AsEnumerable()
                                             where !prvfiinf.IsNull("FinancialInfoId") &&
                                                    prvfiinf.Field<int>("FinancialId") == prvfig.Key.FinancialId
                                             group prvfiinf by new

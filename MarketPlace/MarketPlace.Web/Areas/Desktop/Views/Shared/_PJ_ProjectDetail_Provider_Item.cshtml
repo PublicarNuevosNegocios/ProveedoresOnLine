@@ -1,0 +1,10 @@
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@{
+    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+}
+
+@if (!Model.RenderScripts)
+{
+}
+

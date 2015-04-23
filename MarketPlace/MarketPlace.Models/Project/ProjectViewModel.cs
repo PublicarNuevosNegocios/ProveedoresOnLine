@@ -21,7 +21,9 @@ namespace MarketPlace.Models.Project
             }
         }
 
-        public List<ProjectProviderViewModel> RelatedProjectProvider { get; set; }
+        public List<ProjectProviderViewModel> RelatedProjectProvider { get; private set; }
+
+        public ProjectProviderViewModel CurrentProjectProvider { get; private set; }
 
         public bool RenderScripts { get; set; }
 
@@ -247,6 +249,28 @@ namespace MarketPlace.Models.Project
                 RelatedProject.RelatedProjectProvider.All(rp =>
                 {
                     RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
+                    return true;
+                });
+            }
+        }
+
+        public ProjectViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject, string ProviderPublicId)
+        {
+            RelatedProject = oRelatedProject;
+
+            RelatedProjectProvider = new List<ProjectProviderViewModel>();
+
+            if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
+            {
+                RelatedProject.RelatedProjectProvider.All(rp =>
+                {
+                    RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
+
+                    if (rp.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId)
+                    {
+                        CurrentProjectProvider = new ProjectProviderViewModel(rp);
+                    }
+
                     return true;
                 });
             }

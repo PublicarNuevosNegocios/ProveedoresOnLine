@@ -90,7 +90,14 @@
                             <!--Render provider actions-->
                             <ul>
                                 <li>
-                                    <a>Ver detalle</a>
+                                    <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                new
+                                                {
+                                                    controller = MVC.Project.Name,
+                                                    action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                                    ProjectPublicId = Model.ProjectPublicId,
+                                                    ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                                }))">Ver detalle</a>
                                 </li>
                                 <li>
                                     <a>Solicitar aprobación</a>
