@@ -47,12 +47,19 @@ namespace MarketPlace.Models.Project
         {
             get
             {
-                return RelatedEvaluationItem.ItemInfo.
-                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.AprobalPercent &&
-                                 !string.IsNullOrEmpty(eiinf.Value)).
-                    Select(eiinf => Convert.ToDecimal(eiinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
-                    DefaultIfEmpty(0).
-                    FirstOrDefault();
+                if (EvaluationItemUnit == General.enumEvaluationItemUnitType.Percent)
+                {
+                    return RelatedEvaluationItem.ItemInfo.
+                        Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.AprobalPercent &&
+                                     !string.IsNullOrEmpty(eiinf.Value)).
+                        Select(eiinf => Convert.ToDecimal(eiinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault();
+                }
+                else
+                {
+                    return 100;
+                }
             }
         }
 

@@ -40,6 +40,7 @@ namespace T4MVC.Desktop
                 public readonly string _L_Footer = "_L_Footer";
                 public readonly string _L_Header = "_L_Header";
                 public readonly string _Layout = "_Layout";
+                public readonly string _P_CI_ExperiencesInfo = "_P_CI_ExperiencesInfo";
                 public readonly string _P_FI_Balance = "_P_FI_Balance";
                 public readonly string _P_FI_BalanceItem = "_P_FI_BalanceItem";
                 public readonly string _P_FI_Indicators = "_P_FI_Indicators";
@@ -53,6 +54,7 @@ namespace T4MVC.Desktop
                 public readonly string _P_Search_Result = "_P_Search_Result";
                 public readonly string _P_Search_Result_Item = "_P_Search_Result_Item";
                 public readonly string _P_Search_Result_Pager = "_P_Search_Result_Pager";
+                public readonly string _PJ_EvaluationItemResult = "_PJ_EvaluationItemResult";
                 public readonly string _PJ_ProjectDetail_Header = "_PJ_ProjectDetail_Header";
                 public readonly string _PJ_ProjectDetail_Provider_Item = "_PJ_ProjectDetail_Provider_Item";
                 public readonly string _PJ_ProjectDetail_Provider_ItemCriteria_1404001 = "_PJ_ProjectDetail_Provider_ItemCriteria_1404001";
@@ -73,6 +75,7 @@ namespace T4MVC.Desktop
             public readonly string _L_Footer = "~/Areas/Desktop/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";
             public readonly string _Layout = "~/Areas/Desktop/Views/Shared/_Layout.cshtml";
+            public readonly string _P_CI_ExperiencesInfo = "~/Areas/Desktop/Views/Shared/_P_CI_ExperiencesInfo.cshtml";
             public readonly string _P_FI_Balance = "~/Areas/Desktop/Views/Shared/_P_FI_Balance.cshtml";
             public readonly string _P_FI_BalanceItem = "~/Areas/Desktop/Views/Shared/_P_FI_BalanceItem.cshtml";
             public readonly string _P_FI_Indicators = "~/Areas/Desktop/Views/Shared/_P_FI_Indicators.cshtml";
@@ -86,6 +89,7 @@ namespace T4MVC.Desktop
             public readonly string _P_Search_Result = "~/Areas/Desktop/Views/Shared/_P_Search_Result.cshtml";
             public readonly string _P_Search_Result_Item = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Item.cshtml";
             public readonly string _P_Search_Result_Pager = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Pager.cshtml";
+            public readonly string _PJ_EvaluationItemResult = "~/Areas/Desktop/Views/Shared/_PJ_EvaluationItemResult.cshtml";
             public readonly string _PJ_ProjectDetail_Header = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Header.cshtml";
             public readonly string _PJ_ProjectDetail_Provider_Item = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Provider_Item.cshtml";
             public readonly string _PJ_ProjectDetail_Provider_ItemCriteria_1404001 = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Provider_ItemCriteria_1404001.cshtml";

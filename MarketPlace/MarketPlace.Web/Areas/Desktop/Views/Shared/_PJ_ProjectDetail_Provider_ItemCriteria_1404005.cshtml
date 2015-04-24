@@ -1,7 +1,6 @@
-﻿@model MarketPlace.Models.Project.ProjectViewModel
+﻿@model Tuple<MarketPlace.Models.Project.ProjectViewModel, MarketPlace.Models.Project.EvaluationItemViewModel>
 
-
-@if (!Model.RenderScripts)
+@if (!Model.Item1.RenderScripts)
 {
 
 }

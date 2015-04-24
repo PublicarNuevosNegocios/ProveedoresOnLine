@@ -1,8 +1,92 @@
-﻿@model MarketPlace.Models.Project.ProjectViewModel
+﻿@model Tuple<MarketPlace.Models.Project.ProjectViewModel, MarketPlace.Models.Project.EvaluationItemViewModel>
 
-
-@if (!Model.RenderScripts)
-{
-
+@{
+    Tuple<decimal, int> oExperienceTotal = Model.Item1.CurrentProjectProvider.GetExperienceTotal(Model.Item2.EvaluationItemId);
 }
 
+@if (!Model.Item1.RenderScripts)
+{
+    <!--Item results-->
+    <div>
+        <ul>
+            <li>
+                <ul>
+                    <li>
+                        <span>Criterio</span>
+                    </li>
+                    <li>
+                        <span>Unidad</span>
+                    </li>
+                    <li>
+                        <span>Valor</span>
+                    </li>
+                    <li>
+                        <span>Resultado</span>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul>
+                    <li>
+                        <span>Total de experiencias</span>
+                    </li>
+                    <li>
+                        <span>@Model.Item2.EvaluationItemUnitName</span>
+                    </li>
+                    <li>
+                        <span>@oExperienceTotal.Item2.ToString()</span>
+                    </li>
+                    <li>
+                        @(Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>
+                        (Model.Item2.EvaluationItemUnit,
+                        oExperienceTotal.Item2,
+                        Model.Item1.ProjectExperienceQuantity == null ? 0 : Model.Item1.ProjectExperienceQuantity.Value)))
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul>
+                    <li>
+                        <span>Valor acumulado de experiencias</span>
+                    </li>
+                    <li>
+                        <span>@Model.Item2.EvaluationItemUnitName</span>
+                    </li>
+                    <li>
+                        <span>$@oExperienceTotal.Item1.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) @Model.Item1.ProjectCurrencyTypeName</span>
+                    </li>
+                    <li>
+                        @(Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>
+                        (Model.Item2.EvaluationItemUnit,
+                        oExperienceTotal.Item1,
+                        Model.Item1.ProjectAmmount)))
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <label class="POMPProviderVerDetalle">
+            <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.CIExperiencesInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver todas las experiencias</a>
+        </label>
+    </div>
+    <!--Item desicion information-->
+    <div class="POMPProviderDataWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_CI_ExperiencesInfo, Model.Item1.CurrentProjectProvider.RelatedProvider)
+        <label class="POMPProviderVerDetalle">
+            <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.CIExperiencesInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver todas las experiencias</a>
+        </label>
+    </div>
+}

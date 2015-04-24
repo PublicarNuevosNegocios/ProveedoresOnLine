@@ -1025,6 +1025,8 @@
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404005.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404006.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404007.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_EvaluationItemResult.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_CI_ExperiencesInfo.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

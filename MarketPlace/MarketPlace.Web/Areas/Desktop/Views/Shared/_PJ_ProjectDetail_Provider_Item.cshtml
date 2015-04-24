@@ -10,7 +10,7 @@
     <div>
         @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
         {
-            @foreach (var oAreaItem in oEvaluationAreas)
+            foreach (var oAreaItem in oEvaluationAreas)
             {
                 //get evaluation items
                 var oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria(oAreaItem.EvaluationItemId);
@@ -22,43 +22,17 @@
                     <!--Header Area-->
                     <div>
                         <span>@oAreaItem.EvaluationItemName</span>
-                        @switch (oAreaItem.EvaluationItemUnit)
-                        {
-                            case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                                if (oItemRatting >= 100)
-                                {
-                        <span>Pasa</span>
-                                }
-                                else
-                                {
-                        <span>No Pasa</span>
-                                }
-                                break;
-                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
-                                if (oItemRatting >= oAreaItem.AprobalPercent)
-                                {
-                        <span>@oItemRatting.ToString("#,0.##") %</span>
-                        <span>Pasa</span>
-                                }
-                                else
-                                {
-                        <span>@oItemRatting.ToString("#,0.##") %</span>
-                        <span>No Pasa</span>
-                                }
-                                break;
-                            case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
-                        <span>@oItemRatting.ToString("#,0.##")</span>
-                        <span>Solo es informativo</span>
-                                break;
-                            default:
-                                break;
-                        }
+                        @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oItemRatting, oAreaItem.AprobalPercent))
                     </div>
                     <!--Items Area-->
                     <div>
                         @foreach (var oEvaluationCriteriaItem in oEvaluationCriteria)
                         {
-                            
+                            @(Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_ItemCriteria_1404001.
+                                                Replace("1404001", ((int)oEvaluationCriteriaItem.EvaluationCriteria).ToString()),
+                                            new Tuple<MarketPlace.Models.Project.ProjectViewModel, MarketPlace.Models.Project.EvaluationItemViewModel>
+                                            (Model,
+                                            oEvaluationCriteriaItem)))
                         }
                     </div>
                 </div>
