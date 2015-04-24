@@ -1017,6 +1017,14 @@
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Result.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Menu.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404001.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404008.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404002.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404003.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404004.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404005.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404006.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404007.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
