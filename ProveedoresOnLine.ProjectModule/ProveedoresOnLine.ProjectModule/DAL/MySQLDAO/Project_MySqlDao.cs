@@ -278,7 +278,8 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
             ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oReturn = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel();
 
-            if (true)
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
             {
                 oReturn =
                     (from pc in response.DataTableResult.AsEnumerable()
