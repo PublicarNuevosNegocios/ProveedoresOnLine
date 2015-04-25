@@ -25,7 +25,9 @@
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
             <div id="loading"></div>
-            <div id="divGridEvaluationItem"></div>
+            <label>Area de Configuración</label>
+            <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea)"></div>
+            <label>Item de Configuración</label>
             <br />
             @{
                 Model.IsForm = false;
@@ -51,6 +53,93 @@
         <input class="POBOSurveySearchInput" id="divGridEvaluationItem_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
         <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
+
+    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Informative)">
+        <ul>
+            <li>
+                <label>Unidad</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Operador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="" />
+            </li>
+        </ul>
+    </div>
+
+    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Pass)">
+        <ul>
+            <li>
+                <label>Tipo de Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Unidad</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Configuración de Experiencia</label>
+                <input id="" />
+            </li>
+        </ul>
+    </div>
+
+    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Percentage)">
+        <ul>
+            <li>
+                <label>Tipo de Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Unidad</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Porcentaje de Aprobación</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Peso</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Operador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Cantidad de Años</label>
+                <input id="" />
+            </li>
+        </ul>
+    </div>
 </div>
 
 @{
@@ -62,12 +151,16 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Customer_ProjectConfig.Init({
+            Customer_EvaluationItemObject.Init({
                 ObjectId: 'divGridEvaluationItem',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
             });
-            Customer_ProjectConfig.RenderAsync();
+            Customer_EvaluationItemObject.RenderAsync({
+                EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',
+                ParentEvaluationItem: '',
+            });
         });
     </script>
 }
