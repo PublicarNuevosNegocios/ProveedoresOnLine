@@ -12,11 +12,19 @@
         {
             foreach (var oAreaItem in oEvaluationAreas)
             {
-                //get evaluation items
+                //get evaluation items groups
                 var oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria(oAreaItem.EvaluationItemId);
+                var oCriteriaList = oEvaluationCriteria.
+                    GroupBy(ecr => ecr.EvaluationCriteria).
+                    Select(ecrg => new
+                    {
+                        ovKey = ecrg.Key,
+                        ovValue = ecrg.Select(ecr => ecr)
+                    }).ToList();
 
-                //get ratting
+                //get area ratting
                 decimal oItemRatting = Model.CurrentProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
+
 
                 <div id="divAreaItem_@oAreaItem.EvaluationItemId">
                     <!--Header Area-->

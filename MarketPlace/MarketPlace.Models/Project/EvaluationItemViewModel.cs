@@ -76,6 +76,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public int EvaluationOrder
+        {
+            get
+            {
+                return RelatedEvaluationItem.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationOrder &&
+                                 !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
         public EvaluationItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedEvaluationItem)
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
