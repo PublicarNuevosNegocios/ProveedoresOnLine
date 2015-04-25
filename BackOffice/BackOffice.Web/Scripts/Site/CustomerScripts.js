@@ -859,7 +859,6 @@ var Customer_SurveyItemObject = {
                 {
                     name: 'title',
                     template: function () {
-                        debugger;
                         return $('#' + Customer_SurveyItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
                     }
                 },
@@ -1244,12 +1243,7 @@ var Customer_ProjectConfig = {
 
     RenderAsync: function (vRenderObject) {
 
-        if (Customer_ProjectConfig.ObjectId == "divGridProjectConfig") {
-            Customer_ProjectConfig.RenderProjectConfig();
-        }
-        else {
-            Customer_ProjectConfig.RenderEvaluationItem();
-        }
+        Customer_ProjectConfig.RenderProjectConfig();
 
         //focus on the grid
         $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").table.focus();
@@ -1432,22 +1426,101 @@ var Customer_ProjectConfig = {
             }],
         });
     },
+};
 
-    RenderEvaluationItem: function () {
-        $('#' + Customer_ProjectConfig.ObjectId).kendoGrid({
+var Customer_EvaluationItemObject = {
+    ObjectId: '',
+    CustomerPublicId: '',
+    ProjectConfigId: '',
+    PageSize: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.CustomerPublicId = vInitObject.CustomerPublicId;
+        this.ProjectConfigId = vInitObject.ProjectConfigId;
+        this.PageSize = vInitObject.PageSize;
+    },
+
+    RenderAsync: function (vRenderObject) {
+        if (vRenderObject.EvaluationItemType == 1401001) {
+            Customer_EvaluationItemObject.RenderEvaluationArea(vRenderObject);
+
+            //focus on the grid
+            $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
+
+            //config keyboard
+            Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
+
+            //Config Events
+            Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
+        }
+        else if (vRenderObject.EvaluationItemType == 1401002) {
+            Customer_EvaluationItemObject.RenderEvaluationCriteria(vRenderObject);
+        }
+    },
+
+    ConfigKeyBoard: function (EvaluationItemType) {
+
+        //init keyboard tooltip
+        $('.divGrid_kbtooltip').tooltip();
+
+        $(document.body).keydown(function (e) {
+
+            if (e.altKey && e.shiftKey && e.keyCode == 71) {
+                //alt+shift+g
+
+                //save
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + EvaluationItemType).data("kendoGrid").saveChanges();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 78) {
+                //alt+shift+n
+
+                //new field
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + EvaluationItemType).data("kendoGrid").addRow();
+            }
+            else if (e.altKey && e.shiftKey && e.keyCode == 68) {
+                //alt+shift+d
+
+                //new field
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + EvaluationItemType).data("kendoGrid").cancelChanges();
+            }
+        });
+    },
+
+    ConfigEvents: function (EvaluationItemType) {
+        //config grid visible enables event
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnable').change(function () {
+            $('#' + Customer_EvaluationItemObject.ObjectId + '_' + EvaluationItemType).data('kendoGrid').dataSource.read();
+        });
+    },
+
+    GetViewEnable: function () {
+        return $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnable').length > 0 ? $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnable').is(':checked') : true;
+    },
+
+    GetSearchParam: function () {
+        return $('#' + Customer_EvaluationItemObject.ObjectId + '_txtSearch').val();
+    },
+
+    Search: function () {
+        $('#' + Customer_EvaluationItemObject.ObjectId).data('kendoGrid').dataSource.read();
+    },
+
+    RenderEvaluationArea: function (vRenderObject) {
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).kendoGrid({
             editable: true,
             navigatable: false,
-            pageable: true,
+            pageable: false,
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'save', text: 'Guardar datos del listado' },
-                { name: 'Search', template: $('#' + Customer_ProjectConfig.ObjectId + '_SearchTemplate').html() },
-                { name: 'ViewEnable', template: $('#' + Customer_ProjectConfig.ObjectId + '_ViewEnablesTemplate').html() },
-                { name: 'ShortcutToolTip', template: $('#' + Customer_ProjectConfig.ObjectId + '_ShortcutToolTipTemplate').html() },
+                { name: 'Search', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_SearchTemplate').html() },
+                { name: 'ViewEnable', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
-                pageSize: Customer_ProjectConfig.PageSize,
+                pageSize: Customer_EvaluationItemObject.PageSize,
                 serverPaging: true,
                 schema: {
                     total: function (data) {
@@ -1460,15 +1533,19 @@ var Customer_ProjectConfig = {
                         id: "EvaluationItemId",
                         fields: {
                             EvaluationItemId: { editable: false, nullable: true },
-                            EvaluationItemName: { editable: false },
-                            EvaluationItemEnable: { editable: false },
+                            EvaluationItemName: { editable: true, validation: { required: true } },
+                            EvaluationItemEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            EvaluationItemTypeId: { editable: false, nullable: true },
+                            ParentEvaluationItem: { editable: true, nullable: true },
+                            OrderId: { editable: false, nullable: true },
+                            Order: { editable: true }
                         },
                     },
                 },
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=1&ParentEvaluationItem=&EvaluationItemType=1401001&SearchParam=&ViewEnable=' + Customer_ProjectConfig.GetViewEnable(),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1480,7 +1557,7 @@ var Customer_ProjectConfig = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.SurveyConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1498,7 +1575,7 @@ var Customer_ProjectConfig = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.SurveyConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1527,8 +1604,14 @@ var Customer_ProjectConfig = {
                 field: 'EvaluationItemEnable',
                 title: 'Habilitado',
             }, {
+                field: 'ParentEvaluationItem',
+                title: 'Relacionado con',
+            }, {
                 field: 'EvaluationItemName',
                 title: 'Area',
+            }, {
+                field: 'Order',
+                title: 'Orden',
             }, {
                 field: 'EvaluationItemId',
                 title: 'Id',
@@ -1538,8 +1621,48 @@ var Customer_ProjectConfig = {
                 command: [{
                     name: 'edit',
                     text: 'Editar'
+                }, {
+                    name: 'Detail',
+                    text: 'Ver detalle',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigItemTypeId attribute
+                        if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
+                            //is in evaluation area show question
+                            Customer_EvaluationItemObject.RenderAsync({
+                                EvaluationItemType: '1401002',
+                                ParentEvaluationItem: data.EvaluationItemId,
+                            });
+                        }
+                    }
                 }],
-            }],
+            }, ],
+        });
+    },
+
+    RenderEvaluationCriteria: function (vRenderObject) {
+
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
+            dataType: 'json',
+            success: function (result) {
+                result.forEach(function (val) {
+                    debugger;
+                    if (val.Unit == "1403001") {
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).show();
+                    } else if (val.Unit == "1403002") {
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).show();
+                    } else if (val.Unit == "1403003") {
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).show();
+                    }                    
+                });
+            },
+            error: function (result) {
+
+            }
         });
     },
 };

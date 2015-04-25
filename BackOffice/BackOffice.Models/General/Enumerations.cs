@@ -475,8 +475,14 @@
         YearsQuantity = 1402007,
         ExperienceConfig = 1402008,
         Order = 1402009,
-        AprobatePercent = 1402010,
+        ApprovePercentage = 1402010,
     }
 
+    public enum enumEvaluationItemUnitType
+    {
+        Pass = 1403001,
+        Percentage = 1403002,
+        Informative = 1403003,
+    }
     #endregion
 }

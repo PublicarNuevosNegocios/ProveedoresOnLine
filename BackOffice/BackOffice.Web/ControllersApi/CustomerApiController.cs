@@ -497,6 +497,40 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public BackOffice.Models.Customer.EvaluationItemViewModel PCEvaluationItemUpsert
+            (string PCEvaluationItemUpsert,
+            string CustomerPublicId,
+            string ProjectConfigId)
+        {
+            BackOffice.Models.Customer.EvaluationItemViewModel oReturn = new Models.Customer.EvaluationItemViewModel();
+
+            if (PCEvaluationItemUpsert == "PCEvaluationItemUpsert" &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
+            {
+                BackOffice.Models.Customer.EvaluationItemViewModel oDataToUpsert =
+                    (BackOffice.Models.Customer.EvaluationItemViewModel)
+                    (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                    Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
+                                typeof(BackOffice.Models.Customer.EvaluationItemViewModel));
+
+                ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oEvaluationItemConfig = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                {
+                    ItemId = Convert.ToInt32(ProjectConfigId),
+                    RelatedCustomer = new CustomerModel()
+                    {
+                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = CustomerPublicId,
+                        },
+                    },
+                };
+            }
+
+            return oReturn;
+        }
+
         #endregion
     }
 }
