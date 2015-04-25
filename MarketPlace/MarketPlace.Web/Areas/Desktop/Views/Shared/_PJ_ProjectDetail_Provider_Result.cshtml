@@ -40,50 +40,9 @@
                         {
                             foreach (var oAreaItem in oEvaluationAreas)
                             {
-                                decimal oItemRatting = oProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
-
-                                switch (oAreaItem.EvaluationItemUnit)
-                                {
-                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                                        if (oItemRatting >= 100)
-                                        {
-                                            <li>
-                                                <span>Pasa</span>
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li>
-                                                <span>No Pasa</span>
-                                            </li>
-                                        }
-                                        break;
-                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
-                                        if (oItemRatting >= oAreaItem.AprobalPercent)
-                                        {
-                                            <li>
-                                                <span>@oItemRatting.ToString("#,0.##") %</span>
-                                                <span>Pasa</span>
-                                            </li>
-                                        }
-                                        else
-                                        {
-                                            <li>
-                                                <span>@oItemRatting.ToString("#,0.##") %</span>
-                                                <span>No Pasa</span>
-                                            </li>
-                                        }
-                                        break;
-                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
-                                    <li>
-                                        <span>@oItemRatting.ToString("#,0.##")</span>
-                                        <span>Solo es informativo</span>
-                                    </li>
-                                        break;
-                                    default:
-                                    <li></li>
-                                        break;
-                                }
+                                <li>
+                                    @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oProjectProvider.GetRatting(oAreaItem.EvaluationItemId), oAreaItem.AprobalPercent))
+                                </li>
                             }
                         }
                         <li>
