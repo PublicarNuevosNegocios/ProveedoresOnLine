@@ -47,5 +47,11 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
         ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId);
 
         #endregion
+
+        #region Utils
+
+        List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions();
+
+        #endregion
     }
 }

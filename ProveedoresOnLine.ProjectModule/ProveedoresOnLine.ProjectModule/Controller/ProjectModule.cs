@@ -386,5 +386,14 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         #endregion
 
+        #region Utils
+
+        public static List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions()
+        {
+            return DAL.Controller.ProjectDataController.Instance.CatalogGetProjectConfigOptions();
+        }
+
+        #endregion
+
     }
 }

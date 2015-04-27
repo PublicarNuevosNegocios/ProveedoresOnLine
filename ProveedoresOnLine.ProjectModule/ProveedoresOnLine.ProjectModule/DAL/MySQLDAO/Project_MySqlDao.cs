@@ -1821,5 +1821,44 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
         #endregion
 
+        #region Utils
+
+        public List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions()
+        {
+            List<Company.Models.Util.CatalogModel> oReturn = null;
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "U_Catalog_GetProjectConfigOptions",
+                CommandType = CommandType.StoredProcedure,
+            });
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from opt in response.DataTableResult.AsEnumerable()
+                     where !string.IsNullOrEmpty("CatalogId")
+                     group opt by new
+                     {
+                         CatalogId = opt.Field<int>("CatalogId"),
+                         CatalogName = opt.Field<string>("CatalogName"),
+                         ItemId = opt.Field<int>("ItemId"),
+                         ItemName = opt.Field<string>("ItemName"),
+                     } into optg
+                     select new Company.Models.Util.CatalogModel()
+                     {
+                         CatalogId = optg.Key.CatalogId,
+                         CatalogName = optg.Key.CatalogName,
+                         ItemId = optg.Key.ItemId,
+                         ItemName = optg.Key.ItemName,
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

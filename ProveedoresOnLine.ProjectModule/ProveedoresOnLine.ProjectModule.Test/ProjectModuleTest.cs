@@ -38,6 +38,15 @@ namespace ProveedoresOnLine.ProjectModule.Test
         }
 
         [TestMethod]
+        public void CatalogGetProjectConfigOptions()
+        {
+            List<Company.Models.Util.CatalogModel> oReturn =
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions();
+
+            Assert.IsNotNull(oReturn);
+        }
+
+        [TestMethod]
         public void ProjectGetById()
         {
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oReturn =
