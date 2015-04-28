@@ -14,13 +14,15 @@
     <input type="text" id="Search_Project_ProjectName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedProject == null ? string.Empty: Model.RelatedProject.ProjectName)" style="display: @(Model.RelatedProject == null ? "none" : "");" />
     <!--Compare Providers-->
     <ul id="Search_Project_ItemContainer" class="POMPComparisonProvListWrapper">
-        @if (Model.RelatedProject != null && Model.RelatedProject.RelatedProvider != null && Model.RelatedProject.RelatedProvider.Count > 0)
+        @if (Model.RelatedProject != null && 
+            Model.RelatedProject.RelatedProjectProvider != null &&
+            Model.RelatedProject.RelatedProjectProvider.Count > 0)
         {
-            foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oProjectItem in Model.RelatedProject.RelatedProvider)
+            foreach (MarketPlace.Models.Project.ProjectProviderViewModel oProjectProviderItem in Model.RelatedProject.RelatedProjectProvider)
             {
-                oProjectItem.IsComparisonView = true;
+                oProjectProviderItem.RelatedProvider.RelatedLiteProvider.IsComparisonView = true;
                 <li>
-                    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectItem)
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProviderItem.RelatedProvider.RelatedLiteProvider)
                 </li>
             }
         }

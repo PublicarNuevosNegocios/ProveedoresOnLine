@@ -78,8 +78,8 @@
 }
 
 .POBOPBuyersListWrapper {
-        border: medium none;
-    display: inline-block;
+        border: none;
+    display:block;
     height: auto;
     margin: 10px auto 0px auto ;
     min-height: 400px;

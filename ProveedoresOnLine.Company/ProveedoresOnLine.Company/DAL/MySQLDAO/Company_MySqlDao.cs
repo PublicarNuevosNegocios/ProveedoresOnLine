@@ -2051,6 +2051,65 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
 
         #region User Roles
 
+        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> UserRoleSearchByUser(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "C_UserRoleSearchByUser",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from ur in response.DataTableResult.AsEnumerable()
+                     where !ur.IsNull("UserCompanyId")
+                     group ur by new
+                     {
+                         UserCompanyId = ur.Field<int>("UserCompanyId"),
+                         User = ur.Field<string>("User"),
+                         RoleCompanyId = ur.Field<int>("RoleCompanyId"),
+                         RoleCompanyName = ur.Field<string>("RoleCompanyName"),
+                         ParentRoleCompany = ur.Field<int?>("ParentRoleCompany"),
+                         Enable = ur.Field<UInt32>("Enable") == 1 ? true : false,
+                         LastModify = ur.Field<DateTime>("LastModify"),
+                         CreateDate = ur.Field<DateTime>("CreateDate"),
+                     } into urg
+                     select new ProveedoresOnLine.Company.Models.Company.UserCompany()
+                     {
+                         UserCompanyId = urg.Key.UserCompanyId,
+                         User = urg.Key.User,
+                         RelatedRole = new GenericItemModel()
+                         {
+                             ItemId = urg.Key.RoleCompanyId,
+                             ItemName = urg.Key.RoleCompanyName,
+                             ParentItem = urg.Key.ParentRoleCompany == null ? null : 
+                             new GenericItemModel()
+                             {
+                                 ItemId = urg.Key.ParentRoleCompany.Value,
+                             },
+                         },
+                         Enable = urg.Key.Enable,
+                         LastModify = urg.Key.LastModify,
+                         CreateDate = urg.Key.CreateDate,
+                     }).ToList();
+            }
+
+            return oReturn;
+        }
+
         public CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
