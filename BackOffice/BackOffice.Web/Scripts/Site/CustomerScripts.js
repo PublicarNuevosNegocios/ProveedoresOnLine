@@ -66,20 +66,20 @@ var Customer_SearchObject = {
                 field: 'ImageUrl',
                 title: 'Logo',
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
-                width: '40px',
+                width: '36px',
                 attributes: { style: "text-align:center;" },
             }, {
                 field: 'CustomerPublicId',
                 title: 'Id',
-                width: '50px',
+                width: '36px',
             }, {
                 field: 'CustomerName',
                 title: 'Nombre',
-                width: '50px',
+                width: '128px',
             }, {
                 field: 'CustomerType',
                 title: 'Tipo',
-                width: '50px',
+                width: '36px',
             }, {
                 field: 'IdentificationType',
                 title: 'Identification',
@@ -88,7 +88,7 @@ var Customer_SearchObject = {
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
-                width: '100px',
+                width: '34px',
                 template: function (dataItem) {
                     var oReturn = '';
 
@@ -837,7 +837,6 @@ var Customer_SurveyItemObject = {
     //vRenderObject.ParentSurveyConfigItem parent item
     //vRenderObject.Title parent name
     RenderSurveyItemQuestion: function (vRenderObject) {
-        debugger;
         if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
@@ -986,6 +985,31 @@ var Customer_SurveyItemObject = {
                     return oReturn;
                 },
             }, {
+                field: 'SurveyConfigItemInfoQuestionType',
+                title: 'Tipo de Pregunta',
+                width: '190px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
+                        $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
+                            if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_SurveyItemObject.CustomerOptions[118],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
                 field: 'SurveyConfigItemName',
                 title: 'Nombre',
                 width: '200px',
@@ -1032,39 +1056,7 @@ var Customer_SurveyItemObject = {
                     }
                     return oReturn;
                 },
-            },
-
-            //aqui va la columna
-            {
-                field: 'SurveyConfigItemInfoQuestionType',
-                title: 'Tipo de Pregunta',
-                width: '190px',
-                template: function (dataItem) {
-                    debugger;
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
-                        $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
-                            if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Customer_SurveyItemObject.CustomerOptions[118],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
-            },
-
-
-            {
+            }, {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
                 width: '50px',
@@ -1083,13 +1075,16 @@ var Customer_SurveyItemObject = {
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
                         //validate SurveyConfigItemTypeId attribute
-                        if (data.SurveyConfigItemTypeId != null && data.SurveyConfigItemTypeId.length > 0) {
+                        if (data.SurveyConfigItemTypeId != null && data.SurveyConfigItemTypeId.length > 0 && data.SurveyConfigItemInfoQuestionType == '118001') {
                             //is in question show answer
                             Customer_SurveyItemObject.RenderAsync({
                                 SurveyItemType: '1202003',
                                 ParentSurveyConfigItem: data.SurveyConfigItemId,
                                 Title: data.SurveyConfigItemName,
                             });
+                        }
+                        else if (data.SurveyConfigItemInfoQuestionType != '118001') {
+                            Message('success', 'Los campos de tipo pregunta no poseen atributos de tipo respuesta.');
                         }
                     }
                 }],
