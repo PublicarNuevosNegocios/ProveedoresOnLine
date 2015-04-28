@@ -858,8 +858,7 @@ var Customer_SurveyItemObject = {
                 { name: 'cancel', text: 'Descartar' },
                 {
                     name: 'title',
-                    template: function () {
-                        debugger;
+                    template: function () {                       
                         return $('#' + Customer_SurveyItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
                     }
                 },
@@ -888,6 +887,9 @@ var Customer_SurveyItemObject = {
 
                             SurveyConfigItemInfoIsMandatory: { editable: true, type: 'boolean', defaultValue: true },
                             SurveyConfigItemInfoIsMandatoryId: { editable: false },
+
+                            SurveyConfigItemInfoQuestionTypeId: { editable: true, validation: { required: true } },
+                            SurveyConfigItemInfoQuestionType: { editable: false },
                         },
                     }
                 },
@@ -1024,7 +1026,11 @@ var Customer_SurveyItemObject = {
                     }
                     return oReturn;
                 },
-            }, {
+            },
+
+            //aqui va la columna
+
+            {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
                 width: '50px',

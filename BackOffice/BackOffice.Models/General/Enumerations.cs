@@ -110,6 +110,9 @@
         B_Code = 116002,
 
         K_RecruitmentInfoType = 117001,
+
+        SV_Question = 118001,
+        SV_File = 118002,
     }
 
     #endregion
@@ -452,6 +455,7 @@
         Weight = 1203002,
         HasDescription = 1203003,
         IsMandatory = 1203004,
+        QuestionType = 1203005,        
     }
 
     #endregion
