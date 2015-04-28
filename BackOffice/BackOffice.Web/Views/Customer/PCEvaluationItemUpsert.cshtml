@@ -149,13 +149,36 @@
 @section inlinescripts{
     @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
 
+    @{
+        string oProjectConfigOptions = "[]";
+        if (Model.ProjectConfigOptions != null &&
+            Model.ProjectConfigOptions.Count > 0)
+        {
+            Dictionary<int, List<ProveedoresOnLine.Company.Models.Util.CatalogModel>> oOptionProjectConfig =
+                Model.ProjectConfigOptions.
+                GroupBy(x => x.CatalogId).
+                Select(x =>
+                    new
+                    {
+                        okey = x.Key,
+                        ovalue = Model.ProjectConfigOptions.Where(y => y.CatalogId == x.Key).OrderBy(y => y.ItemName).ToList(),
+                    }).ToDictionary(k => k.okey, v => v.ovalue);
+
+            oProjectConfigOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
+        }
+    }
+
     <script type="text/javascript">
         $(document).ready(function () {
+            var vProjectConfigOptionList = @(Html.Raw(oProjectConfigOptions));
+
             Customer_EvaluationItemObject.Init({
                 ObjectId: 'divGridEvaluationItem',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
+                ProjectConfigOptionsList: vProjectConfigOptionList,
             });
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',

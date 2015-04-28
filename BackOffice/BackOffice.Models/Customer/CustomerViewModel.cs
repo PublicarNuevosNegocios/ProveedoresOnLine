@@ -35,6 +35,8 @@ namespace BackOffice.Models.Customer
 
         public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> CustomerOptions { get; set; }
 
+        public List<ProveedoresOnLine.Company.Models.Util.CatalogModel> ProjectConfigOptions { get; set; }
+
         public List<ProveedoresOnLine.Company.Models.Util.TreeModel> CustomActivityTree { get; set; }
 
         public List<ProveedoresOnLine.Company.Models.Util.TreeModel> SurveyGroup { get; set; }
