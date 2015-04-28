@@ -66,20 +66,20 @@ var Customer_SearchObject = {
                 field: 'ImageUrl',
                 title: 'Logo',
                 template: '<img style="width:50px;height:50px;" src="${ImageUrl}" />',
-                width: '40px',
+                width: '36px',
                 attributes: { style: "text-align:center;" },
             }, {
                 field: 'CustomerPublicId',
                 title: 'Id',
-                width: '50px',
+                width: '36px',
             }, {
                 field: 'CustomerName',
                 title: 'Nombre',
-                width: '50px',
+                width: '128px',
             }, {
                 field: 'CustomerType',
                 title: 'Tipo',
-                width: '50px',
+                width: '36px',
             }, {
                 field: 'IdentificationType',
                 title: 'Identification',
@@ -88,7 +88,7 @@ var Customer_SearchObject = {
             }, {
                 field: 'Enable',
                 title: 'Habilitado',
-                width: '100px',
+                width: '34px',
                 template: function (dataItem) {
                     var oReturn = '';
 
