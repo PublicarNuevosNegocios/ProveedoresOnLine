@@ -99,29 +99,28 @@ namespace MarketPlace.Web.Controllers
                     oPosition++;
                 }
 
-                //if (oCurrentUserModules.Any(x =>
-                //        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionCreate) ||
-                //        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAward) ||
-                //        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAudit)))
-                //{
-                //    //provider selection
-                //    oReturn.Add(new GenericMenu()
-                //    {
-                //        Name = "Proceso de selección",
-                //        Position = oPosition,
-                //        Url = Url.RouteUrl(
-                //            MarketPlace.Models.General.Constants.C_Routes_Default,
-                //            new
-                //            {
-                //                controller = MVC.Project.Name,
-                //                action = MVC.Project.ActionNames.Index
-                //            }),
-                //        IsSelected = (CurrentControllerName == MVC.Project.Name &&
-                //                    CurrentActionName == MVC.Project.ActionNames.Index),
-                //    });
-                //    oPosition++;
-                //}
-
+                if (oCurrentUserModules.Any(x =>
+                        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionCreate) ||
+                        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAward) ||
+                        (x == (int)enumMarketPlaceCustomerModules.ProviderSelectionAudit)))
+                {
+                    //provider selection
+                    oReturn.Add(new GenericMenu()
+                    {
+                        Name = "Proceso de selección",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.Index
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.Project.Name &&
+                                    CurrentActionName == MVC.Project.ActionNames.Index),
+                    });
+                    oPosition++;
+                }
             }
 
             #endregion
