@@ -1433,12 +1433,20 @@ var Customer_EvaluationItemObject = {
     CustomerPublicId: '',
     ProjectConfigId: '',
     PageSize: '',
+    ProjectConfigOptionsList: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.PageSize = vInitObject.PageSize;
+        this.ProjectConfigOptionsList = vInitObject.ProjectConfigOptionsList;
+
+        if (vInitObject.ProjectConfigOptionsList != null) {
+            $.each(vInitObject.ProjectConfigOptionsList, function (item, value) {
+                Customer_EvaluationItemObject.ProjectConfigOptionsList[value.Key] = value.Value;
+            });
+        }
     },
 
     RenderAsync: function (vRenderObject) {
@@ -1514,21 +1522,12 @@ var Customer_EvaluationItemObject = {
             scrollable: true,
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
-                { name: 'save', text: 'Guardar datos del listado' },
                 { name: 'Search', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_SearchTemplate').html() },
                 { name: 'ViewEnable', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnablesTemplate').html() },
                 { name: 'ShortcutToolTip', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
             dataSource: {
-                pageSize: Customer_EvaluationItemObject.PageSize,
-                serverPaging: true,
                 schema: {
-                    total: function (data) {
-                        if (data && data.length > 0) {
-                            return data[0].TotalRows;
-                        }
-                        return 0;
-                    },
                     model: {
                         id: "EvaluationItemId",
                         fields: {
@@ -1536,9 +1535,23 @@ var Customer_EvaluationItemObject = {
                             EvaluationItemName: { editable: true, validation: { required: true } },
                             EvaluationItemEnable: { editable: true, type: 'boolean', defaultValue: true },
                             EvaluationItemTypeId: { editable: false, nullable: true },
+                            EvaluationItemTypeName: { editable: false, nullable: true },
                             ParentEvaluationItem: { editable: true, nullable: true },
+
+                            EvaluatorTypeId: { editable: false, nullable: true },
+                            EvaluatorType: { editable: true },
+
+                            EvaluatorId: { editable: false, nullable: true },
+                            Evaluator: { editable: true },
+
+                            UnitId: { editable: false, nullable: true },
+                            Unit: { editable: true },
+
                             OrderId: { editable: false, nullable: true },
-                            Order: { editable: true }
+                            Order: { editable: true },
+
+                            ApprovePercentageId: { editable: false, nullable: true },
+                            ApprovePercentage: { editable: true },
                         },
                     },
                 },
@@ -1557,7 +1570,7 @@ var Customer_EvaluationItemObject = {
                     },
                     create: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1575,7 +1588,7 @@ var Customer_EvaluationItemObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.SurveyConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1583,11 +1596,11 @@ var Customer_EvaluationItemObject = {
                             },
                             success: function (result) {
                                 options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                                Message('success', 'Se editó la fila con el id ' + options.data.ProjectConfigId + '.');
                             },
                             error: function (result) {
                                 options.error(result);
-                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                                Message('error', 'Error en la fila con el id ' + options.data.ProjectConfigId + '.');
                             },
                         });
                     },
@@ -1599,16 +1612,80 @@ var Customer_EvaluationItemObject = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
-            editable: "popup",
+            editable: {
+                mode: "popup",
+                window: {
+                    title: "Area de configuración",
+                }
+            },
+            edit: function (e) {
+                if (e.model.isNew()) {
+                    // set survey item type
+                    debugger;
+                    e.model.EvaluationItemTypeId = vRenderObject.EvaluationItemType;
+                    e.model.ParentEvaluationItem = vRenderObject.ParentEvaluationItem;
+                }
+            },
             columns: [{
                 field: 'EvaluationItemEnable',
                 title: 'Habilitado',
             }, {
-                field: 'ParentEvaluationItem',
-                title: 'Relacionado con',
-            }, {
                 field: 'EvaluationItemName',
                 title: 'Area',
+            }, {
+                field: 'EvaluatorType',
+                title: 'Tipo de Evaluador',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.EvaluatorType != null) {
+                        $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1405], function (item, value) {
+                            if (dataItem.EvaluatorType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_EvaluationItemObject.ProjectConfigOptionsList[1405],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'Evaluator',
+                title: 'Evaluador',
+            }, {
+                field: 'Unit',
+                title: 'Unidad',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Unit != null) {
+                        $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1403], function (item, value) {
+                            if (dataItem.Unit == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_EvaluationItemObject.ProjectConfigOptionsList[1403],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
+                field: 'ApprovePercentage',
+                title: '% de Aprobación',
             }, {
                 field: 'Order',
                 title: 'Orden',
@@ -1650,14 +1727,19 @@ var Customer_EvaluationItemObject = {
             dataType: 'json',
             success: function (result) {
                 result.forEach(function (val) {
-                    debugger;
                     if (val.Unit == "1403001") {
-                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).show();
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).dialog({
+                            width: 500,
+                        });
                     } else if (val.Unit == "1403002") {
-                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).show();
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).dialog({
+                            width: 500,
+                        });
                     } else if (val.Unit == "1403003") {
-                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).show();
-                    }                    
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).dialog({
+                            width: 500,
+                        });
+                    }
                 });
             },
             error: function (result) {

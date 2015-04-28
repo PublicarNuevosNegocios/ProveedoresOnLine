@@ -10,28 +10,26 @@ namespace BackOffice.Models.Customer
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedEvaluationItem { get; private set; }
 
-        public int EvaluationItemId { get; set; }
+        public string EvaluationItemId { get; set; }
         public string EvaluationItemName { get; set; }
-        public int EvaluationItemTypeId { get; set; }
+        public string EvaluationItemTypeId { get; set; }
         public string EvaluationItemTypeName { get; set; }
-        public int ParentEvaluationItem { get; set; }
+        public string ParentEvaluationItem { get; set; }
         public bool EvaluationItemEnable { get; set; }
-        public DateTime EvaluationItemCreateDate { get; set; }
-        public DateTime EvaluationItemLastModify { get; set; }
 
-        public int EvaluatorTypeId { get; set; }
+        public string EvaluatorTypeId { get; set; }
         public string EvaluatorType { get; set; }
 
-        public int EvaluatorId { get; set; }
+        public string EvaluatorId { get; set; }
         public string Evaluator { get; set; }
 
-        public int UnitId { get; set; }
+        public string UnitId { get; set; }
         public string Unit { get; set; }
 
-        public int OrderId { get; set; }
+        public string OrderId { get; set; }
         public string Order { get; set; }
 
-        public int ApprovePercentageId { get; set; }
+        public string ApprovePercentageId { get; set; }
         public string ApprovePercentage { get; set; }
 
         public EvaluationItemViewModel() { }
@@ -40,19 +38,17 @@ namespace BackOffice.Models.Customer
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
             
-            EvaluationItemId = oRelatedEvaluationItem.ItemId;
+            EvaluationItemId = oRelatedEvaluationItem.ItemId.ToString();
             EvaluationItemName = oRelatedEvaluationItem.ItemName;
-            EvaluationItemTypeId = oRelatedEvaluationItem.ItemType.ItemId;
+            EvaluationItemTypeId = oRelatedEvaluationItem.ItemType.ItemId.ToString();
             EvaluationItemTypeName = oRelatedEvaluationItem.ItemType.ItemName;
-            ParentEvaluationItem = oRelatedEvaluationItem.ParentItem == null ? 0 : oRelatedEvaluationItem.ParentItem.ItemId;
+            ParentEvaluationItem = oRelatedEvaluationItem == null ? null : oRelatedEvaluationItem.ToString();
             EvaluationItemEnable = oRelatedEvaluationItem.Enable;
-            EvaluationItemCreateDate = oRelatedEvaluationItem.CreateDate;
-            EvaluationItemLastModify = oRelatedEvaluationItem.LastModify;
 
             EvaluatorTypeId = oRelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluatorType).
-                                Select(x => x.ItemInfoId).
-                                DefaultIfEmpty(0).
+                                Select(x => x.ItemInfoId.ToString()).
+                                DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
             EvaluatorType = oRelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluatorType).
@@ -62,8 +58,8 @@ namespace BackOffice.Models.Customer
 
             EvaluatorId = oRelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Evaluator).
-                                Select(x => x.ItemInfoId).
-                                DefaultIfEmpty(0).
+                                Select(x => x.ItemInfoId.ToString()).
+                                DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
             Evaluator = oRelatedEvaluationItem.ItemInfo.
                             Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Evaluator).
@@ -73,8 +69,8 @@ namespace BackOffice.Models.Customer
 
             UnitId = oRelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
-                        Select(x => x.ItemInfoId).
-                        DefaultIfEmpty(0).
+                        Select(x => x.ItemInfoId.ToString()).
+                        DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
             Unit = oRelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
@@ -84,8 +80,8 @@ namespace BackOffice.Models.Customer
 
             OrderId = oRelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Order).
-                        Select(x => x.ItemInfoId).
-                        DefaultIfEmpty(0).
+                        Select(x => x.ItemInfoId.ToString()).
+                        DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
             Order = oRelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Order).
@@ -95,8 +91,8 @@ namespace BackOffice.Models.Customer
 
             ApprovePercentageId = oRelatedEvaluationItem.ItemInfo.
                                     Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.ApprovePercentage).
-                                    Select(x => x.ItemInfoId).
-                                    DefaultIfEmpty(0).
+                                    Select(x => x.ItemInfoId.ToString()).
+                                    DefaultIfEmpty(string.Empty).
                                     FirstOrDefault();
             ApprovePercentage = oRelatedEvaluationItem.ItemInfo.
                                     Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.ApprovePercentage).

@@ -506,7 +506,7 @@ namespace BackOffice.Web.ControllersApi
         {
             BackOffice.Models.Customer.EvaluationItemViewModel oReturn = new Models.Customer.EvaluationItemViewModel();
 
-            if (PCEvaluationItemUpsert == "PCEvaluationItemUpsert" &&
+            if (PCEvaluationItemUpsert == "true" &&
                 !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["DataToUpsert"]))
             {
                 BackOffice.Models.Customer.EvaluationItemViewModel oDataToUpsert =
@@ -525,7 +525,76 @@ namespace BackOffice.Web.ControllersApi
                             CompanyPublicId = CustomerPublicId,
                         },
                     },
+                    RelatedEvaluationItem = new List<GenericItemModel>(){
+                        new GenericItemModel(){
+                            ItemId = string.IsNullOrEmpty(oDataToUpsert.EvaluationItemId) ? 0 : Convert.ToInt32(oDataToUpsert.EvaluationItemId.Trim()),
+                            ItemName = oDataToUpsert.EvaluationItemName,
+                            ItemType = new CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(oDataToUpsert.EvaluationItemTypeId.Trim()),
+                            },
+                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentEvaluationItem) ? null : 
+                                new GenericItemModel(){ ItemId = Convert.ToInt32(oDataToUpsert.ParentEvaluationItem.Trim())},
+                            Enable = oDataToUpsert.EvaluationItemEnable,
+                            ItemInfo = new List<GenericItemInfoModel>(){
+                                new GenericItemInfoModel(){
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EvaluatorId) ? 0 : Convert.ToInt32(oDataToUpsert.EvaluatorId.Trim()),
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Evaluator,
+                                    },
+                                    Value = oDataToUpsert.Evaluator,
+                                    Enable = true,
+                                },
+                                new GenericItemInfoModel(){
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EvaluatorTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.EvaluatorTypeId.Trim()),
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluatorType,
+                                    },
+                                    Value = oDataToUpsert.EvaluatorType.Replace(" ",""),
+                                    Enable = true,
+                                },
+                                new GenericItemInfoModel(){
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.OrderId) ? 0 : Convert.ToInt32(oDataToUpsert.OrderId.Trim()),
+                                    ItemInfoType = new CatalogModel(){
+                                        ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order,
+                                    },
+                                    Value = oDataToUpsert.Order.Replace(" ",""),
+                                    Enable = true,
+                                },
+                                new GenericItemInfoModel(){
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.UnitId) ? 0 : Convert.ToInt32(oDataToUpsert.UnitId.Trim()),
+                                    ItemInfoType = new CatalogModel(){
+                                        ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
+                                    },
+                                    Value = oDataToUpsert.Unit.Replace(" ",""),
+                                    Enable = true,
+                                }
+                            },
+                        },
+                    },
                 };
+
+                if (!string.IsNullOrEmpty(oDataToUpsert.ApprovePercentage))
+                {
+                    oEvaluationItemConfig.RelatedEvaluationItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ApprovePercentageId) ? 0 : Convert.ToInt32(oDataToUpsert.ApprovePercentageId.Trim()),
+                        ItemInfoType = new CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.ApprovePercentage,
+                        },
+                        Value = oDataToUpsert.ApprovePercentage.Replace(" ",""),
+                        Enable = true,
+                    });
+                }
+
+                oEvaluationItemConfig = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigUpsert(oEvaluationItemConfig);
+
+                //create return object
+                oReturn = new BackOffice.Models.Customer.EvaluationItemViewModel
+                    (oEvaluationItemConfig);
             }
 
             return oReturn;

@@ -4804,7 +4804,6 @@ var Provider_LegalInfoObject = {
                     }
                     return oReturn;
                 },
-
                 editor: function (container, options) {
                     $('<input required data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
