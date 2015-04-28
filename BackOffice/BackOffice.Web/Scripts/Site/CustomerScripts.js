@@ -887,6 +887,9 @@ var Customer_SurveyItemObject = {
 
                             SurveyConfigItemInfoIsMandatory: { editable: true, type: 'boolean', defaultValue: true },
                             SurveyConfigItemInfoIsMandatoryId: { editable: false },
+
+                            SurveyConfigItemInfoQuestionTypeId: { editable: true, validation: { required: true } },
+                            SurveyConfigItemInfoQuestionType: { editable: false },
                         },
                     }
                 },
@@ -1023,7 +1026,11 @@ var Customer_SurveyItemObject = {
                     }
                     return oReturn;
                 },
-            }, {
+            },
+
+            //aqui va la columna
+
+            {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
                 width: '50px',
@@ -1267,7 +1274,7 @@ var Customer_ProjectConfig = {
 
                 //save
                 $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").saveChanges();
-            }
+        }
             else if (e.altKey && e.shiftKey && e.keyCode == 78) {
                 //alt+shift+n
 
@@ -1279,7 +1286,7 @@ var Customer_ProjectConfig = {
 
                 //new field
                 $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").cancelChanges();
-            }
+        }
         });
     },
 
@@ -1493,7 +1500,7 @@ var Customer_EvaluationItemObject = {
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + EvaluationItemType).data("kendoGrid").cancelChanges();
             }
         });
-    },
+                            },
 
     ConfigEvents: function (EvaluationItemType) {
         //config grid visible enables event
@@ -1575,7 +1582,7 @@ var Customer_EvaluationItemObject = {
                             type: 'post',
                             data: {
                                 DataToUpsert: kendo.stringify(options.data)
-                            },
+                },
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
@@ -1698,7 +1705,7 @@ var Customer_EvaluationItemObject = {
                 command: [{
                     name: 'edit',
                     text: 'Editar'
-                }, {
+            }, {
                     name: 'Detail',
                     text: 'Ver detalle',
                     click: function (e) {
@@ -1715,7 +1722,7 @@ var Customer_EvaluationItemObject = {
                             });
                         }
                     }
-                }],
+            }],
             }, ],
         });
     },
