@@ -1666,6 +1666,7 @@ var Customer_EvaluationItemObject = {
             }, {
                 field: 'Evaluator',
                 title: 'Evaluador',
+                template: '',
             }, {
                 field: 'Unit',
                 title: 'Unidad',
