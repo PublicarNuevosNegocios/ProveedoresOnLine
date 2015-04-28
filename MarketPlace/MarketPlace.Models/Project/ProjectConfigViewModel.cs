@@ -85,9 +85,9 @@ namespace MarketPlace.Models.Project
             return oReturn;
         }
 
-        public List<EvaluationItemViewModel> GetEvaluationCriteria(int oEvaluationAreaId)
+        public List<Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>> GetEvaluationCriteria(int oEvaluationAreaId)
         {
-            List<EvaluationItemViewModel> oReturn =
+            List<Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>> oReturn =
                 RelatedProjectConfig.RelatedEvaluationItem.
                 Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationCriteria &&
                             ei.ParentItem != null &&
@@ -99,10 +99,17 @@ namespace MarketPlace.Models.Project
                     DefaultIfEmpty(0).
                     FirstOrDefault()).
                 Select(ei => new EvaluationItemViewModel(ei)).
+                GroupBy(ecr => ecr.EvaluationCriteria).
+                Select(ecrg => new Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>
+                    (
+                        ecrg.Key,
+                        ecrg.Max(ecr => ecr.EvaluationOrder),
+                        ecrg.Select(ecr => ecr).ToList()
+                    )).
                 ToList();
 
             if (oReturn == null)
-                oReturn = new List<EvaluationItemViewModel>();
+                oReturn = new List<Tuple<General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>>();
 
             return oReturn;
         }
