@@ -41,8 +41,6 @@ namespace MarketPlace.Models.Project
 
         #region Methods
 
-        #region Project Company Info
-
         public decimal GetRatting(int vEvaluationItemId)
         {
             return RelatedProjectProvider.ItemInfo.
@@ -67,33 +65,6 @@ namespace MarketPlace.Models.Project
                 Select(strint => !string.IsNullOrEmpty(strint) ? Convert.ToInt32(strint) : 0).
                 ToList();
         }
-
-        #endregion
-
-        #region EvaluationCriteria
-
-        #region Experience
-
-        public Tuple<decimal, int> GetExperienceTotal(int vEvaluationItemId)
-        {
-            List<int> lstExperienceId = GetInfoItems(vEvaluationItemId);
-
-            decimal ExperienceSum = RelatedProvider.RelatedComercialInfo.
-                Where(cm => cm.RelatedCommercialInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumCommercialType.Experience &&
-                            lstExperienceId.Any(cmid => cm.RelatedCommercialInfo.ItemId == cmid)).
-                Sum(cm => Convert.ToDecimal(cm.EX_ContractValue, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
-
-            int ExperienceCount = RelatedProvider.RelatedComercialInfo.
-                Where(cm => cm.RelatedCommercialInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumCommercialType.Experience &&
-                            lstExperienceId.Any(cmid => cm.RelatedCommercialInfo.ItemId == cmid)).
-                Count();
-
-            return new Tuple<decimal, int>(ExperienceSum, ExperienceCount);
-        }
-
-        #endregion
-
-        #endregion
 
         #endregion
     }

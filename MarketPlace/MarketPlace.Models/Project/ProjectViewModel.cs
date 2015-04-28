@@ -10,16 +10,7 @@ namespace MarketPlace.Models.Project
     {
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; private set; }
 
-        private ProjectConfigViewModel oRelatedProjectConfig;
-        public ProjectConfigViewModel RelatedProjectConfig
-        {
-            get
-            {
-                if (oRelatedProjectConfig == null)
-                    oRelatedProjectConfig = new ProjectConfigViewModel(RelatedProject.RelatedProjectConfig);
-                return oRelatedProjectConfig;
-            }
-        }
+        public ProjectConfigViewModel RelatedProjectConfig { get; private set; }
 
         public List<ProjectProviderViewModel> RelatedProjectProvider { get; private set; }
 
@@ -238,26 +229,31 @@ namespace MarketPlace.Models.Project
 
         #endregion
 
+        #region Constructors
+
         public ProjectViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject)
         {
-            RelatedProject = oRelatedProject;
-
-            RelatedProjectProvider = new List<ProjectProviderViewModel>();
-
-            if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
-            {
-                RelatedProject.RelatedProjectProvider.All(rp =>
-                {
-                    RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
-                    return true;
-                });
-            }
+            GenericConstructor(oRelatedProject, null);
         }
 
         public ProjectViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject, string ProviderPublicId)
         {
+            GenericConstructor(oRelatedProject, ProviderPublicId);
+        }
+
+        #endregion
+
+        #region Methods
+
+        private void GenericConstructor(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject, string ProviderPublicId)
+        {
+            //get project info
             RelatedProject = oRelatedProject;
 
+            //get project config info
+            RelatedProjectConfig = new ProjectConfigViewModel(RelatedProject.RelatedProjectConfig);
+
+            //get project provider info
             RelatedProjectProvider = new List<ProjectProviderViewModel>();
 
             if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
@@ -266,7 +262,8 @@ namespace MarketPlace.Models.Project
                 {
                     RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
 
-                    if (rp.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId)
+                    if (!string.IsNullOrEmpty(ProviderPublicId) &&
+                        rp.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId)
                     {
                         CurrentProjectProvider = new ProjectProviderViewModel(rp);
                     }
@@ -275,5 +272,7 @@ namespace MarketPlace.Models.Project
                 });
             }
         }
+
+        #endregion
     }
 }

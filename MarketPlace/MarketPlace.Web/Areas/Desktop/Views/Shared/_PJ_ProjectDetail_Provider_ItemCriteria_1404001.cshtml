@@ -1,11 +1,26 @@
-﻿@model Tuple<MarketPlace.Models.Project.ProjectViewModel, MarketPlace.Models.Project.EvaluationItemViewModel>
-
-@{
-    Tuple<decimal, int> oExperienceTotal = Model.Item1.CurrentProjectProvider.GetExperienceTotal(Model.Item2.EvaluationItemId);
-}
+﻿@model Tuple<MarketPlace.Models.Project.ProjectViewModel, List<MarketPlace.Models.Project.EvaluationItemViewModel>>
 
 @if (!Model.Item1.RenderScripts)
 {
+    //get current evaluation item
+    MarketPlace.Models.Project.EvaluationItemViewModel oEvaluationItem = Model.Item2.
+            DefaultIfEmpty(new MarketPlace.Models.Project.EvaluationItemViewModel(new ProveedoresOnLine.Company.Models.Util.GenericItemModel())).
+            FirstOrDefault();
+
+    //get experienceid to show
+    List<int> lstExperienceId = Model.Item1.CurrentProjectProvider.GetInfoItems(oEvaluationItem.EvaluationItemId);
+
+    //get experience sum
+    decimal oExperienceSum = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedComercialInfo.
+        Where(cm => cm.RelatedCommercialInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumCommercialType.Experience &&
+                    lstExperienceId.Any(cmid => cm.RelatedCommercialInfo.ItemId == cmid)).
+        Sum(cm => Convert.ToDecimal(cm.EX_ContractValue, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+
+    int oExperienceCount = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedComercialInfo.
+        Where(cm => cm.RelatedCommercialInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumCommercialType.Experience &&
+                    lstExperienceId.Any(cmid => cm.RelatedCommercialInfo.ItemId == cmid)).
+        Count();
+
     <!--Item results-->
     <div>
         <ul>
@@ -25,22 +40,22 @@
                     </li>
                 </ul>
             </li>
-            @*<li>
+            <li>
                 <ul>
                     <li>
                         <span>Total de experiencias</span>
                     </li>
                     <li>
-                        <span>@Model.Item2.EvaluationItemUnitName</span>
+                        <span>@oEvaluationItem.EvaluationItemUnitName</span>
                     </li>
                     <li>
-                        <span>@oExperienceTotal.Item2.ToString()</span>
+                        <span>@oExperienceCount.ToString()</span>
                     </li>
                     <li>
                         @(Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>
-                        (Model.Item2.EvaluationItemUnit,
-                        oExperienceTotal.Item2,
-                        Model.Item1.ProjectExperienceQuantity == null ? 0 : Model.Item1.ProjectExperienceQuantity.Value)))
+                            (oEvaluationItem.EvaluationItemUnit,
+                            oExperienceCount,
+                            Model.Item1.ProjectExperienceQuantity == null ? 0 : Model.Item1.ProjectExperienceQuantity.Value)))
                     </li>
                 </ul>
             </li>
@@ -50,19 +65,19 @@
                         <span>Valor acumulado de experiencias</span>
                     </li>
                     <li>
-                        <span>@Model.Item2.EvaluationItemUnitName</span>
+                        <span>@oEvaluationItem.EvaluationItemUnitName</span>
                     </li>
                     <li>
-                        <span>$@oExperienceTotal.Item1.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) @Model.Item1.ProjectCurrencyTypeName</span>
+                        <span>$@oExperienceSum.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) @Model.Item1.ProjectCurrencyTypeName</span>
                     </li>
                     <li>
                         @(Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>
-                        (Model.Item2.EvaluationItemUnit,
-                        oExperienceTotal.Item1,
-                        Model.Item1.ProjectAmmount)))
+                            (oEvaluationItem.EvaluationItemUnit,
+                            oExperienceSum,
+                            Model.Item1.ProjectAmmount)))
                     </li>
                 </ul>
-            </li>*@
+            </li>
         </ul>
         <label class="POMPProviderVerDetalle">
             <a href="@(Url.RouteUrl
