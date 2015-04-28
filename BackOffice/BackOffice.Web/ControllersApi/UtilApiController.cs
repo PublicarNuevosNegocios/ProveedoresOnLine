@@ -1059,5 +1059,26 @@ namespace BackOffice.Web.ControllersApi
         }
 
         #endregion
+
+        #region ProjectConfig
+
+        [HttpPost]
+        [HttpGet]
+        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> CategorySearchByRoleCompanyAC
+            (string CategorySearchByRoleCompanyAC,
+            string CompanyPublicId,
+            string SearchParam)
+        {
+            List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn = new List<ProveedoresOnLine.Company.Models.Company.UserCompany>();
+
+            if (CategorySearchByRoleCompanyAC == "true")
+            {
+                oReturn = ProveedoresOnLine.Company.Controller.Company.UserRoleSearchByUser(CompanyPublicId, SearchParam, 0, 0);
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

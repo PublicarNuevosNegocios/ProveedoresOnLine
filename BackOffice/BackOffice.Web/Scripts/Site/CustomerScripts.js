@@ -609,6 +609,7 @@ var Customer_SurveyItemObject = {
     SurveyConfigId: '',
     HasEvaluations: false,
     PageSize: '',
+    CustomerOptions: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -616,6 +617,11 @@ var Customer_SurveyItemObject = {
         this.SurveyConfigId = vInitObject.SurveyConfigId;
         this.HasEvaluations = vInitObject.HasEvaluations;
         this.PageSize = vInitObject.PageSize;
+        if (vInitObject.CustomerOptions != null) {
+            $.each(vInitObject.CustomerOptions, function (item, value) {
+                Customer_SurveyItemObject.CustomerOptions[value.Key] = value.Value;
+            });
+        }
     },
 
     RenderAsync: function (vRenderObject) {
@@ -831,7 +837,7 @@ var Customer_SurveyItemObject = {
     //vRenderObject.ParentSurveyConfigItem parent item
     //vRenderObject.Title parent name
     RenderSurveyItemQuestion: function (vRenderObject) {
-
+        debugger;
         if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
@@ -847,7 +853,7 @@ var Customer_SurveyItemObject = {
             $('#' + Customer_SurveyItemObject.ObjectId + '_1202003').empty();
         }
 
-        $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({
+        $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({            
             editable: true,
             navigatable: true,
             pageable: false,
@@ -889,7 +895,7 @@ var Customer_SurveyItemObject = {
                             SurveyConfigItemInfoIsMandatoryId: { editable: false },
 
                             SurveyConfigItemInfoQuestionTypeId: { editable: true, validation: { required: true } },
-                            SurveyConfigItemInfoQuestionType: { editable: false },
+                            SurveyConfigItemInfoQuestionType: { editable: true },
                         },
                     }
                 },
@@ -1029,6 +1035,34 @@ var Customer_SurveyItemObject = {
             },
 
             //aqui va la columna
+            {
+                field: 'SurveyConfigItemInfoQuestionType',
+                title: 'Tipo de Pregunta',
+                width: '190px',
+                template: function (dataItem) {
+                    debugger;
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
+                        $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
+                            if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_SurveyItemObject.CustomerOptions[118],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            },
+
 
             {
                 field: 'SurveyConfigItemId',
@@ -1666,6 +1700,7 @@ var Customer_EvaluationItemObject = {
             }, {
                 field: 'Evaluator',
                 title: 'Evaluador',
+                template: '',
             }, {
                 field: 'Unit',
                 title: 'Unidad',

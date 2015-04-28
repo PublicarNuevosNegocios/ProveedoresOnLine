@@ -89,6 +89,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public decimal EvaluationWeight
+        {
+            get
+            {
+                return RelatedEvaluationItem.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.Weight &&
+                                 !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => Convert.ToDecimal(eiinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
         public EvaluationItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedEvaluationItem)
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
