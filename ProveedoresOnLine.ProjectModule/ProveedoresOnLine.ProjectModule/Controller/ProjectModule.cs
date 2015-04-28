@@ -145,14 +145,19 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return EvaluationItemInfoToUpsert;
         }
 
-        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, string SearchParam, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable)
         {
-            return DAL.Controller.ProjectDataController.Instance.GetAllEvaluationItemByProjectConfig(ProjectConfigId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DAL.Controller.ProjectDataController.Instance.GetAllEvaluationItemByProjectConfig(ProjectConfigId, SearchParam, EvaluationItemType, ParentEvaluationItem, ViewEnable);
         }
 
-        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, string SearchParam, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DAL.Controller.ProjectDataController.Instance.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DAL.Controller.ProjectDataController.Instance.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, SearchParam, ViewEnable, PageNumber, RowCount, out TotalRows);
+        }
+
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId)
+        {
+            return DAL.Controller.ProjectDataController.Instance.ProjectConfigGetById(ProjectConfigId);
         }
 
         #endregion
@@ -368,10 +373,24 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return DAL.Controller.ProjectDataController.Instance.ProjectGetByIdCalculate(ProjectPublicId);
         }
 
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
+        {
+            return DAL.Controller.ProjectDataController.Instance.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
+        }
+
         public static void ProjectCalculate(string ProjectPublicId)
         {
             ProjectEvaluator pjeval = new ProjectEvaluator(ProjectPublicId);
             pjeval.InitEval();
+        }
+
+        #endregion
+
+        #region Utils
+
+        public static List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions()
+        {
+            return DAL.Controller.ProjectDataController.Instance.CatalogGetProjectConfigOptions();
         }
 
         #endregion

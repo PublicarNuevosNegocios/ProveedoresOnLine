@@ -10,11 +10,26 @@ namespace MarketPlace.Models.Project
     {
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel RelatedProject { get; private set; }
 
-        public List<MarketPlace.Models.Provider.ProviderLiteViewModel> RelatedProvider { get; set; }
+        private ProjectConfigViewModel oRelatedProjectConfig;
+        public ProjectConfigViewModel RelatedProjectConfig
+        {
+            get
+            {
+                if (oRelatedProjectConfig == null)
+                    oRelatedProjectConfig = new ProjectConfigViewModel(RelatedProject.RelatedProjectConfig);
+                return oRelatedProjectConfig;
+            }
+        }
+
+        public List<ProjectProviderViewModel> RelatedProjectProvider { get; private set; }
+
+        public ProjectProviderViewModel CurrentProjectProvider { get; private set; }
 
         public bool RenderScripts { get; set; }
 
         public int TotalRows { get; set; }
+
+        #region Project Info
 
         public string ProjectPublicId { get { return RelatedProject.ProjectPublicId; } }
 
@@ -23,8 +38,6 @@ namespace MarketPlace.Models.Project
         public MarketPlace.Models.General.enumProjectStatus ProjectStatus { get { return (MarketPlace.Models.General.enumProjectStatus)RelatedProject.ProjectStatus.ItemId; } }
 
         public string LastModify { get { return RelatedProject.LastModify.ToString("yyyy-MM-dd"); } }
-
-        #region Project Info
 
         public int? ProjectCompareId
         {
@@ -201,55 +214,25 @@ namespace MarketPlace.Models.Project
             }
         }
 
-        #endregion
-
-        #region Project Config Info
-
-        public int ProjectConfigId { get { return RelatedProject.RelatedProjectConfig.ItemId; } }
-
-        public string ProjectConfigName { get { return RelatedProject.RelatedProjectConfig.ItemName; } }
-
-        private ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel oProjectConfigExperience;
-        public ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel ProjectConfigExperience
+        List<Tuple<string, string>> oProjectFile;
+        public List<Tuple<string, string>> ProjectFile
         {
             get
             {
-                if (oProjectConfigExperience == null)
+                if (oProjectFile == null)
                 {
-                    string strConfig = RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
-                        Where(ei => ei.ItemInfo.
-                            Any(eiinf => eiinf.ItemInfoType != null &&
-                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
-                                        !string.IsNullOrEmpty(eiinf.LargeValue))).
-                        Select(ei => ei.ItemInfo.
-                            Where(eiinf => eiinf.ItemInfoType != null &&
-                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
-                                        !string.IsNullOrEmpty(eiinf.LargeValue)).
-                            Select(eiinf => eiinf.LargeValue).
-                            DefaultIfEmpty(string.Empty).
-                            FirstOrDefault()).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
+                    oProjectFile = RelatedProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.File &&
+                                       !string.IsNullOrEmpty(pjinf.LargeValue) &&
+                                       pjinf.LargeValue.Split(',').Length >= 2).
+                        Select(pjinf => new Tuple<string, string>(pjinf.LargeValue.Split(',')[0], pjinf.LargeValue.Split(',')[1])).
+                        ToList();
 
-                    if (!string.IsNullOrEmpty(strConfig))
-                    {
-                        oProjectConfigExperience = (ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel)
-                            (new System.Web.Script.Serialization.JavaScriptSerializer()).
-                            Deserialize(strConfig, typeof(ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel));
-                    }
-                    else
-                    {
-                        oProjectConfigExperience = new ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel()
-                        {
-                            AmmounEnable = false,
-                            CurrencyEnable = false,
-                            CustomAcitvityEnable = false,
-                            DefaultAcitvityEnable = false,
-                        };
-                    }
+                    if (oProjectFile == null)
+                        oProjectFile = new List<Tuple<string, string>>();
                 }
 
-                return oProjectConfigExperience;
+                return oProjectFile;
             }
         }
 
@@ -259,13 +242,35 @@ namespace MarketPlace.Models.Project
         {
             RelatedProject = oRelatedProject;
 
-            RelatedProvider = new List<Provider.ProviderLiteViewModel>();
+            RelatedProjectProvider = new List<ProjectProviderViewModel>();
 
             if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
             {
                 RelatedProject.RelatedProjectProvider.All(rp =>
                 {
-                    RelatedProvider.Add(new Provider.ProviderLiteViewModel(rp.RelatedProvider));
+                    RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
+                    return true;
+                });
+            }
+        }
+
+        public ProjectViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectModel oRelatedProject, string ProviderPublicId)
+        {
+            RelatedProject = oRelatedProject;
+
+            RelatedProjectProvider = new List<ProjectProviderViewModel>();
+
+            if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
+            {
+                RelatedProject.RelatedProjectProvider.All(rp =>
+                {
+                    RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
+
+                    if (rp.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId)
+                    {
+                        CurrentProjectProvider = new ProjectProviderViewModel(rp);
+                    }
+
                     return true;
                 });
             }

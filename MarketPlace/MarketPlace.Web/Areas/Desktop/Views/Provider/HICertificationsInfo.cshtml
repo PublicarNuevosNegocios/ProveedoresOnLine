@@ -19,6 +19,12 @@
                 foreach (var item in Model.RelatedHSEQlInfo)
                 {
                     <li>
+                        <label class="POMPProviderDataSubtitle">
+                            @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
+                            {
+                                <span>Norma:   @item.C_Rule.ItemName </span>
+                            }
+                        </label>
                         @if (item.C_CertificationCompany != null)
                         {
                             <label>
@@ -39,15 +45,22 @@
                                 Vigente Hasta
                                 <span>@item.C_EndDateCertification</span>
                             </label>
-                        }                       
+                        }
                         @{
-                            var UlrContent = item.C_CertificationFile;
-                            if (!string.IsNullOrEmpty(UlrContent))
-                            {
-                                <label>
-                                    <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
-                                </label>
-                            }
+                        var UlrContent = item.C_CertificationFile;
+                        if (!string.IsNullOrEmpty(UlrContent))
+                        {
+                            <label>
+                                <a class="POMPProviderDocumetIcon" target="_blank" href="@UlrContent">Ver Archivo de Alcance</a>
+                            </label>
+                        }
+                        }
+                        @if (!string.IsNullOrEmpty(item.C_CCS))
+                        {
+                            <label>
+                                % CCS
+                                <span>@item.C_CCS</span>
+                            </label>
                         }
                         @if (item.C_Scope != null)
                         {
@@ -56,19 +69,7 @@
                                 <span><br />@item.C_Scope</span>
                             </label>
                         }
-                        @*<label class="POMPProviderDataSubtitle">
-                            @if (item.C_Rule != null && !string.IsNullOrEmpty(item.C_Scope))
-                            {                                   
-                                <span>Norma: @item.C_Rule.ItemName </span>
-                            }
-                        </label>
-                        @if (!string.IsNullOrEmpty(item.C_CCS))
-                        {
-                            <label>
-                                % CCS
-                                <span>@item.C_CCS</span>
-                            </label>
-                        }*@
+
                     </li>
                 }
             }

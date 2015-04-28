@@ -3,90 +3,109 @@
 @if (!Model.RenderScripts)
 {
     <div>
-        <label>@Model.ProjectName</label>
-        <span>@Model.LastModify</span>
-        <ul>
-            <li>
-                <label>Proceso de seleccion:</label>
-                <span>@Model.ProjectConfigName</span>
-            </li>
-            <li>
-                <label>Responsable:</label>
-                <span>@Model.ProjectResponsible</span>
-            </li>
-            <li>
-                <label>Número de proceso interno:</label>
-                <span>@Model.ProjectInternalProcessNumber</span>
-            </li>
-            @if (Model.ProjectConfigExperience.AmmounEnable)
-            {
+        <div>
+            <label>@Model.ProjectName</label>
+            <span>@Model.LastModify</span>
+            <ul>
                 <li>
-                    <label>Valor estimado de la compra:</label>
-                    <span>$ @Model.ProjectAmmount.ToString("#,0.##") @Model.ProjectCurrencyTypeName</span>
+                    <label>Proceso de seleccion:</label>
+                    <span>@Model.RelatedProjectConfig.ProjectConfigName</span>
                 </li>
-            }
-            @if (Model.ProjectConfigExperience.YearsInterval != null && Model.ProjectConfigExperience.YearsInterval.Count > 0)
-            {
                 <li>
-                    <label>Cantidad de años de experiencia a tener en cuenta:</label>
-                    <span>@Model.ProjectExperienceYearsValueName</span>
+                    <label>Responsable:</label>
+                    <span>@Model.ProjectResponsible</span>
                 </li>
-            }
-            @if (Model.ProjectConfigExperience.QuantityInterval != null && Model.ProjectConfigExperience.QuantityInterval.Count > 0)
-            {
                 <li>
-                    <label>Cantidad de minima de experiencias:</label>
-                    <span>@Model.ProjectExperienceQuantity</span>
+                    <label>Número de proceso interno:</label>
+                    <span>@Model.ProjectInternalProcessNumber</span>
                 </li>
-            }
-            @if (Model.ProjectConfigExperience.DefaultAcitvityEnable)
-            {
-                <li>
-                    <label>Actividades economicas:</label>
-                    @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
-                    {
-                        <ul>
-                            @foreach (var dea in Model.ProjectDefaultEconomicActivity)
-                            {
-                                <li>@dea.Item2</li>
-                            }
-                        </ul>
-                    }
-                </li>
-            }
-            @if (Model.ProjectConfigExperience.CustomAcitvityEnable)
-            {
-                <li>
-                    <label>Actividades economicas personalizadas:</label>
-                    @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
-                    {
-                        <ul>
-                            @foreach (var dea in Model.ProjectCustomEconomicActivity)
-                            {
-                                <li>@dea.Item2</li>
-                            }
-                        </ul>
-                    }
-                </li>
-            }
-        </ul>
-        <!--Project actions-->
-        <ul>
-            @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
+                {
+                    <li>
+                        <label>Valor estimado de la compra:</label>
+                        <span>$ @Model.ProjectAmmount.ToString("#,0.##") @Model.ProjectCurrencyTypeName</span>
+                    </li>
+                }
+                @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
+                {
+                    <li>
+                        <label>Cantidad de años de experiencia a tener en cuenta:</label>
+                        <span>@Model.ProjectExperienceYearsValueName</span>
+                    </li>
+                }
+                @if (Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval.Count > 0)
+                {
+                    <li>
+                        <label>Cantidad de minima de experiencias:</label>
+                        <span>@Model.ProjectExperienceQuantity</span>
+                    </li>
+                }
+                @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
+                {
+                    <li>
+                        <label>Actividades economicas:</label>
+                        @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var dea in Model.ProjectDefaultEconomicActivity)
+                                {
+                                    <li>@dea.Item2</li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+                @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
+                {
+                    <li>
+                        <label>Actividades economicas personalizadas:</label>
+                        @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
+                        {
+                            <ul>
+                                @foreach (var dea in Model.ProjectCustomEconomicActivity)
+                                {
+                                    <li>@dea.Item2</li>
+                                }
+                            </ul>
+                        }
+                    </li>
+                }
+            </ul>
+            <!--Project actions-->
+            <ul>
+                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
                 Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
-            { 
-                <li>
-                    <a>Agregar proveedores al proceso de selección</a>
-                </li>
-            }
-            @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
-            {
-                <li>
-                    <a>Editar</a>
-                </li>
-            }
-        </ul>
+                {
+                    <li>
+                        <a>Agregar proveedores al proceso de selección</a>
+                    </li>
+                }
+                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
+                {
+                    <li>
+                        <a>Editar</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div>
+            <!--Project files-->
+            <a>Agregar Archivo</a>
 
+            @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
+            {
+                <ul>
+                    @foreach (var oFile in Model.ProjectFile)
+                    {
+                        <li>
+                            <a href="@oFile.Item1" target="_blank">@oFile.Item2</a>
+                            <a>Eliminar</a>
+                        </li>
+                    }
+                </ul>
+                <a>Agregar Archivo</a>
+            }
+        </div>
     </div>
 }
 

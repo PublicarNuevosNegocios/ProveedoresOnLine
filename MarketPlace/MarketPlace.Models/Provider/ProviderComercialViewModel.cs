@@ -142,7 +142,11 @@ namespace MarketPlace.Models.Provider
 
                     if (!string.IsNullOrEmpty(oEX_ContractValue))
                     {
-                        oEX_ContractValue = Convert.ToDecimal(oEX_ContractValue).ToString("#,0.##");
+                        oEX_ContractValue = Convert.ToDecimal(oEX_ContractValue).ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"));
+                    }
+                    else
+                    {
+                        oEX_ContractValue = "0";
                     }
                 }
                 return oEX_ContractValue;

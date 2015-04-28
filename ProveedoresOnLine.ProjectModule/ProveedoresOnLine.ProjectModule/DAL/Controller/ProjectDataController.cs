@@ -52,14 +52,19 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.EvaluationItemInfoUpsert(EvaluationItemInfoId, EvaluationItemId, EvaluationItemInfoType, Value, LargeValue, Enable);
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, string SearchParam, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
         {
-            return DataFactory.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DataFactory.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, SearchParam, ViewEnable, PageNumber, RowCount, out TotalRows);
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, string SearchParam, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable)
         {
-            return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, ViewEnable, PageNumber, RowCount, out TotalRows);
+            return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, SearchParam, EvaluationItemType, ParentEvaluationItem, ViewEnable);
+        }
+
+        public ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId)
+        {
+            return DataFactory.ProjectConfigGetById(ProjectConfigId);
         }
 
         #endregion
@@ -109,6 +114,20 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
         public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId)
         {
             return DataFactory.ProjectGetByIdCalculate(ProjectPublicId);
+        }
+
+        public ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId)
+        {
+            return DataFactory.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
+        }
+
+        #endregion
+
+        #region Utils
+
+        public List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions()
+        {
+            return DataFactory.CatalogGetProjectConfigOptions();
         }
 
         #endregion

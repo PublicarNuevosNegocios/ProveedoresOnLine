@@ -44,29 +44,21 @@
     </div>
 
     <div id="divGridProjectConfig_SearchTemplate">
-        <input class="POBOSurveySearchInput" id="divGridProjectConfig_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar evaluación por nombre o por grupo" />
-        <a class="POBOSearchEvaluations" href="javascript:Customer_SurveyObject.Search();">Buscar</a>
+        <input class="POBOSurveySearchInput" id="divGridProjectConfig_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
+        <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
 </div>
 
 @{
     Model.RenderScripts = true;
 
-    string oSurveyGroup = Model.RelatedCustomer.
-        RelatedCompany.
-        CompanyInfo.
-        Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCompanyInfoType.SurveyGroup).
-        Select(x => x.Value).
-        DefaultIfEmpty(string.Empty).
-        FirstOrDefault();
-
-    string oSCSurveyConfigItemUpsertUrl = Url.Action
-        (MVC.Customer.ActionNames.SCSurveyConfigItemUpsert,
+    string oPCEvaluationItemUpsertUrl = Url.Action
+        (MVC.Customer.ActionNames.PCEvaluationItemUpsert,
         MVC.Customer.Name,
         new
         {
             CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
-        }) + "&SurveyConfigId=${SurveyConfigId}";
+        }) + "&ProjectProviderId=${ProjectProviderId}";
 }
 
 @section inlinescripts
@@ -75,15 +67,13 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            Customer_SurveyObject.Init({
+            Customer_ProjectConfig.Init({
                 ObjectId: 'divGridProjectConfig',
                 CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
-                SurveyGroup: '@oSurveyGroup',
-                SurveyConfigItemUpsertUrl: '@Html.Raw(oSCSurveyConfigItemUpsertUrl)',
+                EvaluationItemUpsertUrl: '@Html.Raw(oPCEvaluationItemUpsertUrl)',
             });
-
-            Customer_SurveyObject.RenderAsync();
+            Customer_ProjectConfig.RenderAsync();
         });
     </script>
 }

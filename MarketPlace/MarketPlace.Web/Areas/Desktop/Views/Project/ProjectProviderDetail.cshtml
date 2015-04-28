@@ -1,9 +1,24 @@
-﻿@{
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@{
     ViewBag.Title = "Proveedores OnLine - Proceso de selección";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
 <div>
-
+    <!--Header project-->
+    <div>
+        @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
+    </div>
+    <div>
+        <div>
+            <!--Provider Menu-->
+            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Menu, Model)
+        </div>
+        <div>
+            <!--Provider Detail-->
+            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Item, Model)
+        </div>
+    </div>
 </div>
 @section inlinescripts
 {

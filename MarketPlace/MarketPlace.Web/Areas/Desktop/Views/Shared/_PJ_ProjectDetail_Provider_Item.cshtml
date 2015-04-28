@@ -1,0 +1,51 @@
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@{
+    //get evaluation areas
+    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+}
+
+@if (!Model.RenderScripts)
+{
+    <div>
+        @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+        {
+            foreach (var oAreaItem in oEvaluationAreas)
+            {
+                //get evaluation items groups
+                var oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria(oAreaItem.EvaluationItemId);
+                var oCriteriaList = oEvaluationCriteria.
+                    GroupBy(ecr => ecr.EvaluationCriteria).
+                    Select(ecrg => new
+                    {
+                        ovKey = ecrg.Key,
+                        ovValue = ecrg.Select(ecr => ecr)
+                    }).ToList();
+
+                //get area ratting
+                decimal oItemRatting = Model.CurrentProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
+
+
+                <div id="divAreaItem_@oAreaItem.EvaluationItemId">
+                    <!--Header Area-->
+                    <div>
+                        <span>@oAreaItem.EvaluationItemName</span>
+                        @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oItemRatting, oAreaItem.AprobalPercent))
+                    </div>
+                    <!--Items Area-->
+                    <div>
+                        @foreach (var oEvaluationCriteriaItem in oEvaluationCriteria)
+                        {
+                            @(Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_ItemCriteria_1404001.
+                                                Replace("1404001", ((int)oEvaluationCriteriaItem.EvaluationCriteria).ToString()),
+                                            new Tuple<MarketPlace.Models.Project.ProjectViewModel, MarketPlace.Models.Project.EvaluationItemViewModel>
+                                            (Model,
+                                            oEvaluationCriteriaItem)))
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
+

@@ -1,0 +1,166 @@
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "Comprador - Items de Evaluación.";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Items de Precalificaciones.</label>
+            <a href="@(Url.Action(
+                MVC.Customer.ActionNames.PCProjectConfigUpsert,
+                MVC.Customer.Name,
+                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">Regresar a la configuración.</a>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div id="loading"></div>
+            <label>Area de Configuración</label>
+            <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea)"></div>
+            <label>Item de Configuración</label>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+        </div>
+    </div>
+</div>
+
+<!--templates-->
+<div style="display:none;">
+
+    <div id="divGridEvaluationItem_ShortcutToolTipTemplate">
+        <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
+    </div>
+
+    <div id="divGridEvaluationItem_ViewEnablesTemplate">
+        <label class="POBOProviderGridVerSoloTrue">Ver solo los habilitados</label>
+        <input class="POBOProviderGridEnableContact" id="divGridEvaluationItem_ViewEnable" type="checkbox" checked="checked" />
+    </div>
+
+    <div id="divGridEvaluationItem_SearchTemplate">
+        <input class="POBOSurveySearchInput" id="divGridEvaluationItem_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
+        <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
+    </div>
+
+    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Informative)">
+        <ul>
+            <li>
+                <label>Unidad</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Operador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="" />
+            </li>
+        </ul>
+    </div>
+
+    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Pass)">
+        <ul>
+            <li>
+                <label>Tipo de Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Unidad</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Configuración de Experiencia</label>
+                <input id="" />
+            </li>
+        </ul>
+    </div>
+
+    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Percentage)">
+        <ul>
+            <li>
+                <label>Tipo de Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Evaluador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Unidad</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Porcentaje de Aprobación</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Peso</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Operador</label>
+                <input id="" />
+            </li>
+            <li>
+                <label>Cantidad de Años</label>
+                <input id="" />
+            </li>
+        </ul>
+    </div>
+</div>
+
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Customer_EvaluationItemObject.Init({
+                ObjectId: 'divGridEvaluationItem',
+                CustomerPublicId: '@Model.RelatedCustomer.RelatedCompany.CompanyPublicId',
+                ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
+                PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
+            });
+            Customer_EvaluationItemObject.RenderAsync({
+                EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',
+                ParentEvaluationItem: '',
+            });
+        });
+    </script>
+}

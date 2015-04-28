@@ -16,11 +16,13 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         int EvaluationItemInfoUpsert(int? EvaluationItemInfoId, int EvaluationItemId, int EvaluationItemInfoType, string Value, string LargeValue, bool Enable);
 
-        List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows);
+        List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllProjectConfigByCustomerPublicId(string CustomerPublicId, string SearchParam, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows);
 
-        List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> GetAllEvaluationItemByProjectConfig(string ProjectConfigId, bool ViewEnable, int PageNumber, int RowCount, out int TotalRows);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> GetAllEvaluationItemByProjectConfig(int ProjectConfigId, string SearchParam, int EvaluationItemType, int? ParentEvaluationItem, bool ViewEnable);
 
         List<ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel> MPProjectConfigGetByCustomer(string CustomerPublicId);
+
+        ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId);
 
         #endregion
 
@@ -41,6 +43,14 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
         ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdLite(string ProjectPublicId, string CustomerPublicId);
 
         ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdCalculate(string ProjectPublicId);
+
+        ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId);
+
+        #endregion
+
+        #region Utils
+
+        List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions();
 
         #endregion
     }

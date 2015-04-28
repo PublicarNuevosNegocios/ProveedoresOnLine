@@ -1,0 +1,72 @@
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@{
+    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+}
+
+@if (!Model.RenderScripts)
+{
+    if (Model.RelatedProjectProvider != null && Model.RelatedProjectProvider.Count > 0)
+    {
+        <ul>
+            <!--evaluation title-->
+            <li>
+                <ul>
+                    <li></li>
+                    @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+                    {
+                        foreach (var oAreaItem in oEvaluationAreas)
+                        {
+                            <li>
+                                <label>@oAreaItem.EvaluationItemName</label>
+                                <span>@oAreaItem.EvaluationItemUnitName</span>
+                            </li>
+                        }
+                    }
+                    <li></li>
+                </ul>
+            </li>
+
+            @foreach (var oProjectProvider in Model.RelatedProjectProvider)
+            {
+                <li>
+                    <ul>
+                        <li>
+                            <!--Render provider basic info-->
+                            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProvider.RelatedProvider.RelatedLiteProvider)
+                        </li>
+                        <!--Render evaluation areas-->
+                        @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+                        {
+                            foreach (var oAreaItem in oEvaluationAreas)
+                            {
+                                <li>
+                                    @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oProjectProvider.GetRatting(oAreaItem.EvaluationItemId), oAreaItem.AprobalPercent))
+                                </li>
+                            }
+                        }
+                        <li>
+                            <!--Render provider actions-->
+                            <ul>
+                                <li>
+                                    <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                new
+                                                {
+                                                    controller = MVC.Project.Name,
+                                                    action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                                    ProjectPublicId = Model.ProjectPublicId,
+                                                    ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                                }))">Ver detalle</a>
+                                </li>
+                                <li>
+                                    <a>Solicitar aprobación</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    }
+}
+
