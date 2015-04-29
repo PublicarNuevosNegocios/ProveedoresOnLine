@@ -1429,7 +1429,12 @@ var Customer_ProjectConfig = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
-            editable: "popup",
+            editable: {
+                mode: "popup",
+                window: {
+                    title: "Precalificación",
+                }
+            },
             columns: [{
                 field: 'ProjectProviderEnable',
                 title: 'Habilitado',
@@ -1668,9 +1673,11 @@ var Customer_EvaluationItemObject = {
             columns: [{
                 field: 'EvaluationItemEnable',
                 title: 'Habilitado',
+                width: '88px',
             }, {
                 field: 'EvaluationItemName',
                 title: 'Area',
+                width: '200px',
             }, {
                 field: 'EvaluatorType',
                 title: 'Tipo de Evaluador',
@@ -1695,10 +1702,12 @@ var Customer_EvaluationItemObject = {
                             optionLabel: 'Seleccione una opción'
                         });
                 },
+                width: '160px',
             }, {
                 field: 'Evaluator',
                 title: 'Evaluador',
                 template: '',
+                width: '190px',
             }, {
                 field: 'Unit',
                 title: 'Unidad',
@@ -1723,17 +1732,21 @@ var Customer_EvaluationItemObject = {
                             optionLabel: 'Seleccione una opción'
                         });
                 },
+                width: '90px',
             }, {
                 field: 'ApprovePercentage',
                 title: '% de Aprobación',
+                width: '130px',
             }, {
                 field: 'Order',
                 title: 'Orden',
+                width: '70px',
             }, {
                 field: 'EvaluationItemId',
                 title: 'Id',
+                width: '70px',
             }, {
-                title: "&nbsp;",
+                title: "Acciones;",
                 width: "200px",
                 command: [{
                     name: 'edit',

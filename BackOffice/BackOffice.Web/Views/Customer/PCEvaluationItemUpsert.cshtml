@@ -16,22 +16,23 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Items de Precalificaciones.</label>
-            <div class="POBOEvaluationGoBackWrapper">
-                <a href="@(Url.Action(
+                @{
+                    Model.IsForm = false;
+                    Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+                }
+                <div class="POBOEvaluationGoBackWrapper">
+                    <a href="@(Url.Action(
                 MVC.Customer.ActionNames.PCProjectConfigUpsert,
                 MVC.Customer.Name,
                 new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">
-                <div></div>Regresar a la configuración.</a>
-            </div>
+                        <div></div>Regresar a la configuración.
+                    </a>
+                </div>
 
-            @{
-                Model.IsForm = false;
-                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
-            }
             <div id="loading"></div>
-            <label>Area de Configuración</label>
+            <label class="POBOSectionTitles">Area de Configuración</label>
             <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea)"></div>
-            <label>Item de Configuración</label>
+            <label class="POBOSectionTitles">Item de Configuración</label>
             <br />
             @{
                 Model.IsForm = false;
