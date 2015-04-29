@@ -5,7 +5,7 @@
     <!--Project actions-->
     <span class="POMPComparisonTitle">Proceso de selección</span>
     <div class="POMPComparisonActionWrapper">
-        <a href="javascript:Provider_SearchObject.a();" title="Ver proceso de selección">
+        <a href="javascript:Provider_SearchObject.GoToProject();" title="Ver proceso de selección">
             <div class="POMPComparisonActionNew"></div>
             <span>Ver proceso de selección</span>
         </a>
@@ -20,7 +20,7 @@
         {
             foreach (MarketPlace.Models.Project.ProjectProviderViewModel oProjectProviderItem in Model.RelatedProject.RelatedProjectProvider)
             {
-                oProjectProviderItem.RelatedProvider.RelatedLiteProvider.IsComparisonView = true;
+                oProjectProviderItem.RelatedProvider.RelatedLiteProvider.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project;
                 <li>
                     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProviderItem.RelatedProvider.RelatedLiteProvider)
                 </li>
@@ -28,8 +28,8 @@
         }
     </ul>
     <!--Comparison actions-->
-    <div class="Search_Compare_SelActionCompare POMPComparisonActionWrapper" style="display: @(Model.RelatedCompare == null ? "none" : "");">
-        <a href="javascript:Provider_SearchObject.a();" title="Ver proceso de selección">
+    <div class="Search_Compare_SelActionCompare POMPComparisonActionWrapper" style="display: @(Model.RelatedProject == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.GoToProject();" title="Ver proceso de selección">
             <div class="POMPComparisonActionNew"></div>
             <span>Ver proceso de selección</span>
         </a>

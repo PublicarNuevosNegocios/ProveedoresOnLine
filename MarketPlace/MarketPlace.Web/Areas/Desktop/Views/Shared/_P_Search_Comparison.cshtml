@@ -30,7 +30,7 @@
         {
             foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oCompareItem in Model.RelatedCompare.RelatedProvider)
             {
-                oCompareItem.IsComparisonView = true;
+                oCompareItem.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison;
                 <li>
                     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oCompareItem)
                 </li>

@@ -108,6 +108,7 @@ var Provider_SearchObject = {
         var oUrl = this.SearchUrl;
 
         oUrl += '?CompareId=' + this.CompareId;
+        oUrl += '&ProjectPublicId=' + this.ProjectPublicId;
         oUrl += '&SearchParam=' + this.SearchParam;
         oUrl += '&SearchFilter=' + this.SearchFilter;
         oUrl += '&SearchOrderType=' + this.SearchOrderType;
@@ -434,18 +435,13 @@ var Provider_SearchObject = {
     },
 
     GoToProject: function () {
-
-        //if (Provider_SearchObject.CompareId != null && Provider_SearchObject.CompareId.length > 0) {
-
-        //    var oUrl = this.CompareUrl;
-
-        //    oUrl += '?CompareId=' + this.CompareId;
-
-        //    window.location = oUrl;
-        //}
+        if (Provider_SearchObject.ProjectPublicId != null && Provider_SearchObject.ProjectPublicId.length > 0) {
+            var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, Provider_SearchObject.ProjectPublicId);
+            window.location = oProjectUrl;
+        }
     },
 
-
+    //AddProjectProvider
     /*****************************Project search methods end************************************************/
 };
 

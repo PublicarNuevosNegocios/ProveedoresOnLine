@@ -31,7 +31,7 @@
                     <div class="SelGenericTooltip POMPComparisonResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
                 }
             </div>
-            @if (Model.IsComparisonView)
+            @if (Model.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
             {
                 if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName == MVC.Compare.Name &&
                                MarketPlace.Web.Controllers.BaseController.CurrentActionName == MVC.Compare.ActionNames.CompareDetail)
@@ -58,7 +58,7 @@
         <!--Actions for related provider -->
         <ul class="POMPComparisonResultLineTwo">
 
-            @if (Model.IsComparisonView)
+            @if (Model.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
             {
                 <li>
                     @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName != MVC.Provider.Name)
@@ -76,21 +76,16 @@
                 </li>
             }
 
-            @if (MarketPlace.Web.Controllers.BaseController.CurrentControllerName != MVC.Provider.Name)
-            {
-                <li>
-
-                    <a href="@(Url.RouteUrl
-                            (MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.GIProviderInfo,
-                                ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
-                            ))">Ver detalle</a>
-
-                </li>
-            }
+            <li>
+                <a href="@(Url.RouteUrl
+                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Provider.Name,
+                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                        ProviderPublicId = Model.RelatedProvider.RelatedCompany.CompanyPublicId}
+                    ))">Ver detalle</a>
+            </li>
         </ul>
     </div>
 }

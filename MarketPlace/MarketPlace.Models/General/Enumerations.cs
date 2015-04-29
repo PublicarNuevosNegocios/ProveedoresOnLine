@@ -354,6 +354,14 @@
 
     #region Provider enum
 
+    [System.ComponentModel.DefaultValue(LiteDescription)]
+    public enum enumProviderLiteType
+    {
+        LiteDescription,
+        Comparison,
+        Project,
+    }
+
     public enum enumSearchOrderType
     {
         CustomerRate = 113001,

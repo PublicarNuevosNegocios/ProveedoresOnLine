@@ -1,12 +1,33 @@
-﻿@model Tuple<MarketPlace.Models.Provider.ProviderLiteViewModel, MarketPlace.Models.Compare.CompareViewModel>
+﻿@model Tuple<MarketPlace.Models.Provider.ProviderSearchViewModel, MarketPlace.Models.Provider.ProviderLiteViewModel>
 
 @{
-    bool oIsInComparison =
-        Model.Item2 != null &&
-        Model.Item2.RelatedProvider != null &&
-        Model.Item2.RelatedProvider.
-            Any(x => x.RelatedProvider.RelatedCompany != null &&
-                x.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId) ? true : false;
+    //set project / comparison
+    bool oIsInLeftPanel = false;
+
+    if (Model.Item1.RelatedProject != null && !string.IsNullOrEmpty(Model.Item1.RelatedProject.ProjectPublicId))
+    {
+        Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project;
+
+        oIsInLeftPanel =
+            Model.Item1 != null &&
+            Model.Item1.RelatedProject != null &&
+            Model.Item1.RelatedProject.RelatedProjectProvider != null &&
+            Model.Item1.RelatedProject.RelatedProjectProvider.
+                Any(x => x.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany != null &&
+                    x.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId);
+    }
+    else
+    {
+        Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison;
+
+        oIsInLeftPanel =
+            Model.Item1 != null &&
+            Model.Item1.RelatedCompare != null &&
+            Model.Item1.RelatedCompare.RelatedProvider != null &&
+            Model.Item1.RelatedCompare.RelatedProvider.
+                Any(x => x.RelatedProvider.RelatedCompany != null &&
+                    x.RelatedProvider.RelatedCompany.CompanyPublicId == Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId);
+    }
 }
 
 <!--ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES-->
@@ -15,14 +36,14 @@
 
     <div class="POMPSearchResultStatusCertified">
         <!--Check certificacion-->
-        @if (Model.Item1.ProviderIsCertified)
+        @if (Model.Item2.ProviderIsCertified)
         {
             <img class="SelGenericTooltip POMPSearchResultStatusCertified" title="Proveedor validado" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_ProviderStatus_Certified_Logo].Value" />
         }
     </div>
     <div class="POMPSearchResultProvDataWrapper">
         <!--Provider Logo-->
-        @if (Model.Item1.IsProviderCustomer)
+        @if (Model.Item2.IsProviderCustomer)
         {
             <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -30,19 +51,19 @@
                                 {
                                     controller = MVC.Provider.Name,
                                     action = MVC.Provider.ActionNames.GIProviderInfo,
-                                    ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
                                 }))">
-                <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+                <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
             </a>
         }
         else
         {
             <span>
-                <img class="POMPSearchResultProvLogo" src="@Model.Item1.ProviderLogoUrl" />
+                <img class="POMPSearchResultProvLogo" src="@Model.Item2.ProviderLogoUrl" />
             </span>
         }
         <div class="POMPSearchResultNameIDWrapper">
-            @if (Model.Item1.IsProviderCustomer)
+            @if (Model.Item2.IsProviderCustomer)
             {
                 <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -50,53 +71,68 @@
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.GIProviderInfo,
-                                ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
+                                ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
                             }))">
-                    @Model.Item1.RelatedProvider.RelatedCompany.CompanyName
+                    @Model.Item2.RelatedProvider.RelatedCompany.CompanyName
                 </a>
             }
             else
             {
-                <label>@Model.Item1.RelatedProvider.RelatedCompany.CompanyName</label>
+                <label>@Model.Item2.RelatedProvider.RelatedCompany.CompanyName</label>
             }
-            <label><span>@Model.Item1.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.Item1.RelatedProvider.RelatedCompany.IdentificationNumber</label>
+            <label><span>@Model.Item2.RelatedProvider.RelatedCompany.IdentificationType.ItemName :</span> @Model.Item2.RelatedProvider.RelatedCompany.IdentificationNumber</label>
         </div>
-        
+
         <div class="POMPSearchResultAlertComparWrapper">
             <div>
-                @if (Model.Item1.IsProviderCustomer && Model.Item1.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
+                @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderAlertRisk == MarketPlace.Models.General.enumBlackListStatus.ShowAlert)
                 {
                     <div class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
                 }
             </div>
-            @if (Model.Item1.IsProviderCustomer)
+            @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
             {
-                <a style="display:@(oIsInComparison ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                    <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar al proceso de selección"></div>
+                </a>
+            }
+            else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+            {
+                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');">
                     <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación"></div>
                 </a>
             }
         </div>
-        
+
         <!--Provider rate-->
         <div class="POMPSearchResultProvRating">
-            <div class="rateit" data-rateit-value="@Model.Item1.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-            <span>(@Model.Item1.ProviderRateCount)</span>
+            <div class="rateit" data-rateit-value="@Model.Item2.ProviderRate.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+            <span>(@Model.Item2.ProviderRateCount)</span>
         </div>
 
         <!--Actions for related provider -->
         <ul class="POMPSearchResultLineTwo">
-            @if (!Model.Item1.IsProviderCustomer)
+            @if (!Model.Item2.IsProviderCustomer)
             {
                 <li>
                     <!--Actions for not related provider -->
-                    <a href="" title="">Hacerlo mi proveedor</a>
+                    <!--<a href="" title="">Hacerlo mi proveedor</a>-->
                 </li>
             }
             else
             {
-                <li>
-                    <a style="display:@(oIsInComparison ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
-                </li>
+                if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                {
+                    <li>
+                        <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar al proceso de selección</a>
+                    </li>
+                }
+                else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+                {
+                    <li>
+                        <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
+                    </li>
+                }
                 <li>
                     <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
@@ -104,7 +140,7 @@
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.GIProviderInfo,
-                                ProviderPublicId = Model.Item1.RelatedProvider.RelatedCompany.CompanyPublicId
+                                ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
                             }))">Ver detalle</a>
                 </li>
             }

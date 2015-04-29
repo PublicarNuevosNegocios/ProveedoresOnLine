@@ -17,7 +17,7 @@
             @foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oSearchItem in Model.ProviderSearchResult)
             {
                 <li>
-                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, new Tuple<MarketPlace.Models.Provider.ProviderLiteViewModel, MarketPlace.Models.Compare.CompareViewModel>(oSearchItem, Model.RelatedCompare))
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result_Item, new Tuple<MarketPlace.Models.Provider.ProviderSearchViewModel, MarketPlace.Models.Provider.ProviderLiteViewModel>(Model, oSearchItem))
                 </li>
             }
         </ul>
