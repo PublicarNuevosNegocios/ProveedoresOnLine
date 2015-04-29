@@ -38,11 +38,13 @@ namespace BackOffice.Models.Customer
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
 
+            
+
             EvaluationItemId = RelatedEvaluationItem.ItemId.ToString();
             EvaluationItemName = RelatedEvaluationItem.ItemName;
             EvaluationItemTypeId = RelatedEvaluationItem.ItemType.ItemId.ToString();
             EvaluationItemTypeName = RelatedEvaluationItem.ItemType.ItemName;
-            ParentEvaluationItem = RelatedEvaluationItem == null ? null : RelatedEvaluationItem.ToString();
+            ParentEvaluationItem = RelatedEvaluationItem.ParentItem == null ? null : RelatedEvaluationItem.ParentItem.ToString();
             EvaluationItemEnable = RelatedEvaluationItem.Enable;
 
             EvaluatorTypeId = RelatedEvaluationItem.ItemInfo.

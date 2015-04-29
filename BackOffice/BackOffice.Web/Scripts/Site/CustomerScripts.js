@@ -1627,7 +1627,7 @@ var Customer_EvaluationItemObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1660,7 +1660,6 @@ var Customer_EvaluationItemObject = {
             edit: function (e) {
                 if (e.model.isNew()) {
                     // set survey item type
-                    debugger;
                     e.model.EvaluationItemTypeId = vRenderObject.EvaluationItemType;
                     e.model.ParentEvaluationItem = vRenderObject.ParentEvaluationItem;
                 }
@@ -1698,7 +1697,6 @@ var Customer_EvaluationItemObject = {
             }, {
                 field: 'Evaluator',
                 title: 'Evaluador',
-                template: '',
             }, {
                 field: 'Unit',
                 title: 'Unidad',
@@ -1726,6 +1724,13 @@ var Customer_EvaluationItemObject = {
             }, {
                 field: 'ApprovePercentage',
                 title: '% de Aprobación',
+                template: function (dataItem) {
+                    var oReturn = 'No aplica.';
+                    if (dataItem != null && dataItem.Unit == '1403002') {
+                        oReturn = dataItem.ApprovePercentage;
+                    }
+                    return oReturn;
+                },
             }, {
                 field: 'Order',
                 title: 'Orden',

@@ -187,6 +187,7 @@
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',
                 ParentEvaluationItem: '',
+                Title: '@Model.RelatedProjectConfig.ProjectProviderName',
             });
         });
     </script>
