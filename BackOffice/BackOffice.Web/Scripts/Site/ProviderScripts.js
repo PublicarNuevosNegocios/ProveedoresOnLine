@@ -1680,7 +1680,7 @@ var Provider_CompanyCommercialObject = {
                 },
             }, {
                 field: 'EX_Currency',
-                title: 'Modeda',
+                title: 'Moneda',
                 width: '180px',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
