@@ -844,6 +844,11 @@ namespace ProveedoresOnLine.Company.Controller
 
         #region User Roles
 
+        public static List<ProveedoresOnLine.Company.Models.Company.UserCompany> UserRoleSearchByUser(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.UserRoleSearchByUser(CompanyPublicId,SearchParam, PageNumber, RowCount);
+        }
+
         public static ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             return DAL.Controller.CompanyDataController.Instance.RoleCompany_GetByPublicId(CompanyPublicId);

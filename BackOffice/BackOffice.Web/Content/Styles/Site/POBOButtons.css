@@ -1,19 +1,23 @@
 .POBOButtons, .POBOSearchButtons{
     background-color:#ff8300;    
-    font-size:1.1em;
+    font-size:1em;
     letter-spacing:-0.5px;
-    color:#fff;
-}
-.POBOButtons {
+    color:#fff !important;
+    text-align:center;
+    border:1px solid #727276;
+    border-radius:2px;
     display: block;
     margin: 0;
-    padding:5px 30px;
+    padding:5px 10px;
+}
+.POBOButtons {
+    width:100px;
 }
 .POBOSearchButtons {
-    text-transform:uppercase;
-    padding:5px 8px 4px 10px;
     margin:0px 0px 0px -5px;
-    line-height:12px;
+    border:1px solid #727276;
+    border-radius:2px;
+    display:inline-block;    
 }
     .POBOSearchButtonsLupita {
             border:none;
@@ -22,23 +26,25 @@
         background-size:522px auto;
         background-repeat:no-repeat;
         display:inline-block;
-        width:24px; height:23px;
+        width:24px; height:20px;
         vertical-align:text-bottom;
-
     }
-    .POBOButtons:hover, .POBOSearchButtons:hover{
+    .POBOButtons:hover, .POBOSearchButtons:hover, 
+    .POBOButtons:active, .POBOSearchButtons:active,
+    .POBOButtons:focus, .POBOSearchButtons:focus{
         background-color:#ffb362;
         text-decoration:underline;
         color:#fff;
     }
 /************* BOTONES SIGUIENTE ANTERIOR *************/
     .POBOProgressButtons, .POBOProgressButtons:hover{
-        font-size:1.1em;
         letter-spacing:-0.5px;
         color:#4d4d4d;
         border:1px solid #ff8300;
-        padding:5px 30px;
+        padding:5px 20px;
         margin:0px 0px 0px 8px;
+        border-radius:2px;
+                    font-size:1em;
     }
         .POBOProgressButtons {
             background-color:#f9f9f9;
@@ -66,9 +72,6 @@
         float: right;
         margin:0px 1% 0px 0px !important;
     }
-    li.POBOButtonsSaveProvider a.POBOButtons{
-        padding:6px 30px !important;
-    }
 /************* ESTOS SON LOS BOTONES E InPUTS DE LAS GRILLAS ***************/
 /********************** BOTON GUARDAR *********************/
 .k-grid-save-changes {
@@ -87,20 +90,23 @@
     }
 /********* BOTON PARA LA CARGA DE ARCHIVOS DENTRO DE LA GRILLA *********/
 .k-grid tbody .k-button{
-        background-color:#f9f9f9;        
-        font-size:1.1em;
-        letter-spacing:-0.5px;
-        color:#4d4d4d;
-        border:1px solid #ff8300;
-        padding: 0 12px;
-        margin:0px 0px 0px 8px;
-        border-radius: 1px;
-        background-image:none;
+    background-color: #f9f9f9;
+    background-image: none;
+    border: 1px solid #ff8300;
+    border-radius: 2px;
+    color: #4d4d4d;
+    font-size: 0.98em;
+    letter-spacing: -0.2px;
+    margin: 0 0 0 8px;
+    padding: 0 12px;
+
 }
     .k-grid tbody .k-button:hover,
-    .k-grid tbody .k-button:active{
-        background-color: #e6e6e6;
+    .k-grid tbody .k-button:active,
+    .k-grid tbody .k-button:focus{
+        background-color: #e6e6e6 ;
         background-image:none;
+        text-decoration:underline;
     }
     .k-upload {
         background-color: #fff;
@@ -151,4 +157,25 @@
 }
     .POBOProviderGridEnableContact {
         height:23px;
+    }
+
+/*************** BOTONES PARA BUSCAR EVALUACIONES ***************/
+    .POBOSearchEvaluations {
+        background-color: #ff8300;
+        color: #fff;
+        display: inline-block;
+        font-size: 0.98em;
+        height: auto;
+        letter-spacing: -0.5px;
+        margin: 0 0 0 -5px;
+        padding: 4px 10px 3px 10px;
+        text-align: center;
+        vertical-align: middle;
+        width:auto;
+        border:1px solid #727276;
+        border-radius:2px;
+}
+    .POBOSearchEvaluations:hover {
+        background-color:#ffb362;
+        color:#fff;
     }
