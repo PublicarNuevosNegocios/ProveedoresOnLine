@@ -837,7 +837,6 @@ var Customer_SurveyItemObject = {
     //vRenderObject.ParentSurveyConfigItem parent item
     //vRenderObject.Title parent name
     RenderSurveyItemQuestion: function (vRenderObject) {
-        debugger;
         if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
@@ -853,7 +852,7 @@ var Customer_SurveyItemObject = {
             $('#' + Customer_SurveyItemObject.ObjectId + '_1202003').empty();
         }
 
-        $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({            
+        $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({
             editable: true,
             navigatable: true,
             pageable: false,
@@ -986,6 +985,31 @@ var Customer_SurveyItemObject = {
                     return oReturn;
                 },
             }, {
+                field: 'SurveyConfigItemInfoQuestionType',
+                title: 'Tipo de Pregunta',
+                width: '190px',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
+                        $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
+                            if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_SurveyItemObject.CustomerOptions[118],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+            }, {
                 field: 'SurveyConfigItemName',
                 title: 'Nombre',
                 width: '200px',
@@ -1032,39 +1056,7 @@ var Customer_SurveyItemObject = {
                     }
                     return oReturn;
                 },
-            },
-
-            //aqui va la columna
-            {
-                field: 'SurveyConfigItemInfoQuestionType',
-                title: 'Tipo de Pregunta',
-                width: '190px',
-                template: function (dataItem) {
-                    debugger;
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.SurveyConfigItemInfoQuestionType != null) {
-                        $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
-                            if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
-                    }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Customer_SurveyItemObject.CustomerOptions[118],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
-            },
-
-
-            {
+            }, {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
                 width: '50px',
@@ -1083,13 +1075,16 @@ var Customer_SurveyItemObject = {
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
                         //validate SurveyConfigItemTypeId attribute
-                        if (data.SurveyConfigItemTypeId != null && data.SurveyConfigItemTypeId.length > 0) {
+                        if (data.SurveyConfigItemTypeId != null && data.SurveyConfigItemTypeId.length > 0 && data.SurveyConfigItemInfoQuestionType == '118001') {
                             //is in question show answer
                             Customer_SurveyItemObject.RenderAsync({
                                 SurveyItemType: '1202003',
                                 ParentSurveyConfigItem: data.SurveyConfigItemId,
                                 Title: data.SurveyConfigItemName,
                             });
+                        }
+                        else if (data.SurveyConfigItemInfoQuestionType != '118001') {
+                            Message('success', 'Los campos de tipo pregunta no poseen atributos de tipo respuesta.');
                         }
                     }
                 }],
@@ -1308,7 +1303,7 @@ var Customer_ProjectConfig = {
 
                 //save
                 $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").saveChanges();
-        }
+            }
             else if (e.altKey && e.shiftKey && e.keyCode == 78) {
                 //alt+shift+n
 
@@ -1320,7 +1315,7 @@ var Customer_ProjectConfig = {
 
                 //new field
                 $('#' + Customer_ProjectConfig.ObjectId).data("kendoGrid").cancelChanges();
-        }
+            }
         });
     },
 
@@ -1537,7 +1532,7 @@ var Customer_EvaluationItemObject = {
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + EvaluationItemType).data("kendoGrid").cancelChanges();
             }
         });
-                            },
+    },
 
     ConfigEvents: function (EvaluationItemType) {
         //config grid visible enables event
@@ -1619,7 +1614,7 @@ var Customer_EvaluationItemObject = {
                             type: 'post',
                             data: {
                                 DataToUpsert: kendo.stringify(options.data)
-                },
+                            },
                             success: function (result) {
                                 options.success(result);
                                 Message('success', 'Se creó el registro.');
@@ -1743,7 +1738,7 @@ var Customer_EvaluationItemObject = {
                 command: [{
                     name: 'edit',
                     text: 'Editar'
-            }, {
+                }, {
                     name: 'Detail',
                     text: 'Ver detalle',
                     click: function (e) {
@@ -1760,7 +1755,7 @@ var Customer_EvaluationItemObject = {
                             });
                         }
                     }
-            }],
+                }],
             }, ],
         });
     },

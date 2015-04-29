@@ -37,64 +37,64 @@ namespace BackOffice.Models.Customer
         public EvaluationItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedEvaluationItem)
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
-            
-            EvaluationItemId = oRelatedEvaluationItem.ItemId.ToString();
-            EvaluationItemName = oRelatedEvaluationItem.ItemName;
-            EvaluationItemTypeId = oRelatedEvaluationItem.ItemType.ItemId.ToString();
-            EvaluationItemTypeName = oRelatedEvaluationItem.ItemType.ItemName;
-            ParentEvaluationItem = oRelatedEvaluationItem == null ? null : oRelatedEvaluationItem.ToString();
-            EvaluationItemEnable = oRelatedEvaluationItem.Enable;
 
-            EvaluatorTypeId = oRelatedEvaluationItem.ItemInfo.
+            EvaluationItemId = RelatedEvaluationItem.ItemId.ToString();
+            EvaluationItemName = RelatedEvaluationItem.ItemName;
+            EvaluationItemTypeId = RelatedEvaluationItem.ItemType.ItemId.ToString();
+            EvaluationItemTypeName = RelatedEvaluationItem.ItemType.ItemName;
+            ParentEvaluationItem = RelatedEvaluationItem == null ? null : RelatedEvaluationItem.ToString();
+            EvaluationItemEnable = RelatedEvaluationItem.Enable;
+
+            EvaluatorTypeId = RelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluatorType).
                                 Select(x => x.ItemInfoId.ToString()).
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
-            EvaluatorType = oRelatedEvaluationItem.ItemInfo.
+            EvaluatorType = RelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluatorType).
                                 Select(x => x.Value).
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
 
-            EvaluatorId = oRelatedEvaluationItem.ItemInfo.
+            EvaluatorId = RelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Evaluator).
                                 Select(x => x.ItemInfoId.ToString()).
                                 DefaultIfEmpty(string.Empty).
                                 FirstOrDefault();
-            Evaluator = oRelatedEvaluationItem.ItemInfo.
+            Evaluator = RelatedEvaluationItem.ItemInfo.
                             Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Evaluator).
                             Select(x => x.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault();
 
-            UnitId = oRelatedEvaluationItem.ItemInfo.
+            UnitId = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
                         Select(x => x.ItemInfoId.ToString()).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-            Unit = oRelatedEvaluationItem.ItemInfo.
+            Unit = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
                         Select(x => x.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
 
-            OrderId = oRelatedEvaluationItem.ItemInfo.
+            OrderId = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Order).
                         Select(x => x.ItemInfoId.ToString()).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
-            Order = oRelatedEvaluationItem.ItemInfo.
+            Order = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Order).
                         Select(x => x.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
 
-            ApprovePercentageId = oRelatedEvaluationItem.ItemInfo.
+            ApprovePercentageId = RelatedEvaluationItem.ItemInfo.
                                     Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.ApprovePercentage).
                                     Select(x => x.ItemInfoId.ToString()).
                                     DefaultIfEmpty(string.Empty).
                                     FirstOrDefault();
-            ApprovePercentage = oRelatedEvaluationItem.ItemInfo.
+            ApprovePercentage = RelatedEvaluationItem.ItemInfo.
                                     Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.ApprovePercentage).
                                     Select(x => x.Value).
                                     DefaultIfEmpty(string.Empty).
