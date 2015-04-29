@@ -1,0 +1,25 @@
+.POBOEvaluationGoBackWrapper{
+    display: block;
+    height: auto;
+    margin: 0;
+    padding: 0 0 4px 0;
+    text-align: left;
+    width: auto;
+}
+    .POBOEvaluationGoBackWrapper a,
+    .POBOEvaluationGoBackWrapper div{
+        display: inline-block;
+        vertical-align: middle;
+        letter-spacing:-0.4px;
+        font-size:0.97em;
+    }
+        .POBOEvaluationGoBackWrapper div {
+            background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/goBack.png");
+            background-position: 0 1px;
+            background-repeat: no-repeat;
+            background-size: 36px auto;
+            height: 34px;
+            margin: 0;
+            padding: 0;
+            width: 40px;
+        }

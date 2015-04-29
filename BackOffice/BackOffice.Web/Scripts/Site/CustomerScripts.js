@@ -1438,12 +1438,15 @@ var Customer_ProjectConfig = {
             columns: [{
                 field: 'ProjectProviderEnable',
                 title: 'Habilitado',
+                width: '82px',
             }, {
                 field: 'ProjectProviderName',
                 title: 'Configuración',
+                width: '300px',
             }, {
                 field: 'ProjectProviderId',
                 title: 'Id',
+                width: '60px',
             }, {
                 title: "&nbsp;",
                 width: "200px",

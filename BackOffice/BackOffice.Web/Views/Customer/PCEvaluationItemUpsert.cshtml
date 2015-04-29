@@ -16,10 +16,14 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Items de Precalificaciones.</label>
-            <a href="@(Url.Action(
+            <div class="POBOEvaluationGoBackWrapper">
+                <a href="@(Url.Action(
                 MVC.Customer.ActionNames.PCProjectConfigUpsert,
                 MVC.Customer.Name,
-                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">Regresar a la configuración.</a>
+                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">
+                <div></div>Regresar a la configuración.</a>
+            </div>
+
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);

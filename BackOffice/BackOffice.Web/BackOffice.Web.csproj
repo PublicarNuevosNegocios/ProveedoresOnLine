@@ -461,6 +461,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Styles\Site\POBOTopSearchBar.css" />
+    <Content Include="Content\Styles\Site\POBOEvaluations.css" />
     <Content Include="Rsx-Company.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
