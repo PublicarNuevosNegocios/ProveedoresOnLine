@@ -1429,7 +1429,12 @@ var Customer_ProjectConfig = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
-            editable: "popup",
+            editable: {
+                mode: "popup",
+                window: {
+                    title: "Precalificación",
+                }
+            },
             columns: [{
                 field: 'ProjectProviderEnable',
                 title: 'Habilitado',
@@ -1627,7 +1632,7 @@ var Customer_EvaluationItemObject = {
                     },
                     update: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
                             dataType: 'json',
                             type: 'post',
                             data: {
@@ -1660,7 +1665,6 @@ var Customer_EvaluationItemObject = {
             edit: function (e) {
                 if (e.model.isNew()) {
                     // set survey item type
-                    debugger;
                     e.model.EvaluationItemTypeId = vRenderObject.EvaluationItemType;
                     e.model.ParentEvaluationItem = vRenderObject.ParentEvaluationItem;
                 }
@@ -1668,9 +1672,11 @@ var Customer_EvaluationItemObject = {
             columns: [{
                 field: 'EvaluationItemEnable',
                 title: 'Habilitado',
+                width: '88px',
             }, {
                 field: 'EvaluationItemName',
                 title: 'Area',
+                width: '200px',
             }, {
                 field: 'EvaluatorType',
                 title: 'Tipo de Evaluador',
@@ -1695,10 +1701,11 @@ var Customer_EvaluationItemObject = {
                             optionLabel: 'Seleccione una opción'
                         });
                 },
+                width: '160px',
             }, {
                 field: 'Evaluator',
                 title: 'Evaluador',
-                template: '',
+                width: '190px',
             }, {
                 field: 'Unit',
                 title: 'Unidad',
@@ -1723,17 +1730,28 @@ var Customer_EvaluationItemObject = {
                             optionLabel: 'Seleccione una opción'
                         });
                 },
+                width: '90px',
             }, {
                 field: 'ApprovePercentage',
                 title: '% de Aprobación',
+                template: function (dataItem) {
+                    var oReturn = 'No aplica.';
+                    if (dataItem != null && dataItem.Unit == '1403002') {
+                        oReturn = dataItem.ApprovePercentage;
+                    }
+                    return oReturn;
+                },
+                width: '130px',
             }, {
                 field: 'Order',
                 title: 'Orden',
+                width: '70px',
             }, {
                 field: 'EvaluationItemId',
                 title: 'Id',
+                width: '70px',
             }, {
-                title: "&nbsp;",
+                title: "Acciones;",
                 width: "200px",
                 command: [{
                     name: 'edit',

@@ -43,17 +43,18 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemId", EvaluationItemId));
+            
             lstParams.Add(DataInstance.CreateTypedParameter("vProjectConfigId", ProjectConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemId", EvaluationItemId));
             lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemName", EvaluationItemName));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemType", EvaluationItemType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vParentEvaluationItem", ParentEvaluationItem));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEvaluationItemTypeId", EvaluationItemType));
+            lstParams.Add(DataInstance.CreateTypedParameter("vParentEvaluationItemId", ParentEvaluationItem));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable == true ? 1 : 0));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
                 CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
-                CommandText = "CC_EvaluationItemUpsert",
+                CommandText = "CC_EvaluationItem_Upsert",
                 CommandType = System.Data.CommandType.StoredProcedure,
                 Parameters = lstParams,
             });

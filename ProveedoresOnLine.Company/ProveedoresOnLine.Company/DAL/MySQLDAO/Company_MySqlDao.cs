@@ -2083,7 +2083,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          RoleCompanyId = ur.Field<int>("RoleCompanyId"),
                          RoleCompanyName = ur.Field<string>("RoleCompanyName"),
                          ParentRoleCompany = ur.Field<int?>("ParentRoleCompany"),
-                         Enable = ur.Field<UInt32>("Enable") == 1 ? true : false,
+                         Enable = ur.Field<UInt64>("Enable") == 1 ? true : false,
                          LastModify = ur.Field<DateTime>("LastModify"),
                          CreateDate = ur.Field<DateTime>("CreateDate"),
                      } into urg

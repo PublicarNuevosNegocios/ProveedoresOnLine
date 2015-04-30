@@ -528,7 +528,7 @@ namespace BackOffice.Web.ControllersApi
 
                 ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oEvaluationItemConfig = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
                 {
-                    ItemId = Convert.ToInt32(ProjectConfigId),
+                    ItemId = Convert.ToInt32(ProjectConfigId.Trim()),
                     RelatedCustomer = new CustomerModel()
                     {
                         RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
@@ -601,11 +601,11 @@ namespace BackOffice.Web.ControllersApi
                     });
                 }
 
-                oEvaluationItemConfig = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigUpsert(oEvaluationItemConfig);
+                oEvaluationItemConfig = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.EvaluationItemUpsert(oEvaluationItemConfig);
 
                 //create return object
                 oReturn = new BackOffice.Models.Customer.EvaluationItemViewModel
-                    (oEvaluationItemConfig);
+                    (oEvaluationItemConfig.RelatedEvaluationItem.FirstOrDefault());
             }
 
             return oReturn;
