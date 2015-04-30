@@ -165,6 +165,22 @@ namespace MarketPlace.Web.ControllersApi
             return null;
         }
 
+
+        [HttpPost]
+        [HttpGet]
+        //fileurl,filename
+        public List<Tuple<string, string>> ProjectUploadFile
+            (string ProjectUploadFile,
+            string ProjectPublicId)
+        {
+            if (ProjectUploadFile == "true")
+            {
+
+            }
+            return null;
+        }
+
+
         #region private methods
 
         private ProveedoresOnLine.ProjectModule.Models.ProjectModel GetProjectUpsertRequest()
