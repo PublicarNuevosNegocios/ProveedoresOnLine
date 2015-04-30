@@ -21,20 +21,26 @@ namespace MarketPlace.Models.Project
             {
                 if (oProjectConfigExperience == null)
                 {
-                    string strConfig = RelatedProjectConfig.RelatedEvaluationItem.
-                        Where(ei => ei.ItemInfo.
-                            Any(eiinf => eiinf.ItemInfoType != null &&
-                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
-                                        !string.IsNullOrEmpty(eiinf.LargeValue))).
-                        Select(ei => ei.ItemInfo.
-                            Where(eiinf => eiinf.ItemInfoType != null &&
-                                        eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
-                                        !string.IsNullOrEmpty(eiinf.LargeValue)).
-                            Select(eiinf => eiinf.LargeValue).
+                    string strConfig = string.Empty;
+
+                    if (RelatedProjectConfig != null &&
+                        RelatedProjectConfig.RelatedEvaluationItem != null)
+                    {
+                        strConfig = RelatedProjectConfig.RelatedEvaluationItem.
+                            Where(ei => ei.ItemInfo.
+                                Any(eiinf => eiinf.ItemInfoType != null &&
+                                            eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
+                                            !string.IsNullOrEmpty(eiinf.LargeValue))).
+                            Select(ei => ei.ItemInfo.
+                                Where(eiinf => eiinf.ItemInfoType != null &&
+                                            eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationExperienceConfig &&
+                                            !string.IsNullOrEmpty(eiinf.LargeValue)).
+                                Select(eiinf => eiinf.LargeValue).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault()).
                             DefaultIfEmpty(string.Empty).
-                            FirstOrDefault()).
-                        DefaultIfEmpty(string.Empty).
-                        FirstOrDefault();
+                            FirstOrDefault();
+                    }
 
                     if (!string.IsNullOrEmpty(strConfig))
                     {

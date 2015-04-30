@@ -138,6 +138,8 @@ namespace MarketPlace.Models.Provider
 
         public MarketPlace.Models.General.enumProviderLiteType ProviderLiteType { get; set; }
 
+        public bool ProviderAddRemoveEnable { get; set; }
+
         public ProviderLiteViewModel(ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel oRelatedProvider)
         {
             RelatedProvider = oRelatedProvider;
