@@ -16,18 +16,18 @@
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
             <label class="POBOSectionTitles">Items de Precalificaciones.</label>
-                @{
-                    Model.IsForm = false;
-                    Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
-                }
-                <div class="POBOEvaluationGoBackWrapper">
-                    <a href="@(Url.Action(
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div class="POBOEvaluationGoBackWrapper">
+                <a href="@(Url.Action(
                 MVC.Customer.ActionNames.PCProjectConfigUpsert,
                 MVC.Customer.Name,
                 new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">
-                        <div></div>Regresar a la configuración.
-                    </a>
-                </div>
+                    <div></div>Regresar a la configuración.
+                </a>
+            </div>
 
             <div id="loading"></div>
             <label class="POBOSectionTitles">Area de Configuración</label>
@@ -59,91 +59,46 @@
         <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
 
-    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Informative)">
-        <ul>
-            <li>
-                <label>Unidad</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Operador</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input id="" />
-            </li>
-        </ul>
-    </div>
+    <div id="divGridEvaluationItem_EvaluationCriteria">
+        <div>
+            <div>
+                Seleccione el tipo de Evaluación:
+                <select>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Experiences)">Experiencias</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Rules)">Normas</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_LTIF)">LTIF</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_HealtyPolitic)">Salud, medio ambiente y seguridad</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_BalanceSheet)">Balances</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_ChaimberOfCommerce)">Cámara de comercio</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_RUT)">Registro único tributario</option>
+                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_SARLAFT)">SARLAFT</option>
+                </select>
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Experiences)">
 
-    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Pass)">
-        <ul>
-            <li>
-                <label>Tipo de Evaluador</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Evaluador</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Unidad</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Configuración de Experiencia</label>
-                <input id="" />
-            </li>
-        </ul>
-    </div>
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Rules)">
 
-    <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemUnitType.Percentage)">
-        <ul>
-            <li>
-                <label>Tipo de Evaluador</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Evaluador</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Unidad</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Porcentaje de Aprobación</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Peso</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Operador</label>
-                <input id="" />
-            </li>
-            <li>
-                <label>Cantidad de Años</label>
-                <input id="" />
-            </li>
-        </ul>
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_LTIF)">
+
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_HealtyPolitic)">
+
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_BalanceSheet)">
+
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_ChaimberOfCommerce)">
+
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_RUT)">
+
+            </div>
+            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_SARLAFT)">
+
+            </div>
+        </div>
     </div>
 </div>
 
