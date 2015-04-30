@@ -258,7 +258,9 @@ namespace MarketPlace.Models.Project
 
             if (RelatedProject.RelatedProjectProvider != null && RelatedProject.RelatedProjectProvider.Count > 0)
             {
-                RelatedProject.RelatedProjectProvider.All(rp =>
+                RelatedProject.RelatedProjectProvider.
+                    OrderBy(pjpv => pjpv.RelatedProvider.RelatedCompany.CompanyName).
+                    All(rp =>
                 {
                     RelatedProjectProvider.Add(new ProjectProviderViewModel(rp));
 

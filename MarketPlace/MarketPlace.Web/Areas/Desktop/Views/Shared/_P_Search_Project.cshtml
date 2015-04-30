@@ -10,28 +10,48 @@
             <span>Ver proceso de selección</span>
         </a>
     </div>
-    <!--Compare title-->
+    <!--project title-->
     <input type="text" id="Search_Project_ProjectName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedProject == null ? string.Empty: Model.RelatedProject.ProjectName)" style="display: @(Model.RelatedProject == null ? "none" : "");" />
-    <!--Compare Providers-->
+    <!--project Providers-->
     <ul id="Search_Project_ItemContainer" class="POMPComparisonProvListWrapper">
-        @if (Model.RelatedProject != null && 
+        @if (Model.RelatedProject != null &&
             Model.RelatedProject.RelatedProjectProvider != null &&
             Model.RelatedProject.RelatedProjectProvider.Count > 0)
         {
             foreach (MarketPlace.Models.Project.ProjectProviderViewModel oProjectProviderItem in Model.RelatedProject.RelatedProjectProvider)
             {
                 oProjectProviderItem.RelatedProvider.RelatedLiteProvider.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project;
+                oProjectProviderItem.RelatedProvider.RelatedLiteProvider.ProviderAddRemoveEnable =
+                    (Model.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                    Model.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal);
+                
                 <li>
                     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProviderItem.RelatedProvider.RelatedLiteProvider)
                 </li>
             }
         }
     </ul>
-    <!--Comparison actions-->
+    <!--Project actions-->
     <div class="Search_Compare_SelActionCompare POMPComparisonActionWrapper" style="display: @(Model.RelatedProject == null ? "none" : "");">
         <a href="javascript:Provider_SearchObject.GoToProject();" title="Ver proceso de selección">
             <div class="POMPComparisonActionNew"></div>
             <span>Ver proceso de selección</span>
         </a>
+    </div>
+
+    <!--templates-->
+    <div style="display:none;">
+        <ul id="Search_Project_Item_Template">
+            <li>
+                @(Html.Partial
+                    (MVC.Desktop.Shared.Views._P_ProviderLite, 
+                    new MarketPlace.Models.Provider.ProviderLiteViewModel(null) 
+                    { 
+                        ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project,
+                        ProviderAddRemoveEnable = (Model.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                                    Model.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal),
+                    }))
+            </li>
+        </ul>
     </div>
 }
