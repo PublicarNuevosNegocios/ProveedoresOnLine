@@ -1767,10 +1767,7 @@ var Customer_EvaluationItemObject = {
                         //validate SurveyConfigItemTypeId attribute
                         if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
                             //is in evaluation area show question
-                            Customer_EvaluationItemObject.RenderAsync({
-                                EvaluationItemType: '1401002',
-                                ParentEvaluationItem: data.EvaluationItemId,
-                            });
+                            Customer_EvaluationItemObject.RenderEvaluationCriteria();
                         }
                     }
                 }],
@@ -1778,31 +1775,10 @@ var Customer_EvaluationItemObject = {
         });
     },
 
-    RenderEvaluationCriteria: function (vRenderObject) {
-
-        $.ajax({
-            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
-            dataType: 'json',
-            success: function (result) {
-                result.forEach(function (val) {
-                    if (val.Unit == "1403001") {
-                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).dialog({
-                            width: 500,
-                        });
-                    } else if (val.Unit == "1403002") {
-                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).dialog({
-                            width: 500,
-                        });
-                    } else if (val.Unit == "1403003") {
-                        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + val.Unit).dialog({
-                            width: 500,
-                        });
-                    }
-                });
-            },
-            error: function (result) {
-
-            }
+    RenderEvaluationCriteria: function () {
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').dialog({
+            width: 500,
+            title: 'Criterios de Evaluación.',
         });
     },
 };
