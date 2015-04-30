@@ -7,6 +7,9 @@
     if (Model.Item1.RelatedProject != null && !string.IsNullOrEmpty(Model.Item1.RelatedProject.ProjectPublicId))
     {
         Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Project;
+        Model.Item2.ProviderAddRemoveEnable =
+            (Model.Item1.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+            Model.Item1.RelatedProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal);
 
         oIsInLeftPanel =
             Model.Item1 != null &&
@@ -19,6 +22,7 @@
     else
     {
         Model.Item2.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison;
+        Model.Item2.ProviderAddRemoveEnable = true;
 
         oIsInLeftPanel =
             Model.Item1 != null &&
@@ -90,17 +94,21 @@
                     <div class="SelGenericTooltip POMPSearchResultProvAlert" title="Este proveedor está en listas restrictivas"></div>
                 }
             </div>
-            @if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+            @if (Model.Item2.ProviderAddRemoveEnable)
             {
-                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');">
-                    <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar al proceso de selección"></div>
-                </a>
-            }
-            else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
-            {
-                <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');">
-                    <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación"></div>
-                </a>
+                if (Model.Item2.IsProviderCustomer &&
+                Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                {
+                    <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                        <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar al proceso de selección"></div>
+                    </a>
+                }
+                else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+                {
+                    <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');">
+                        <div class="SelGenericTooltip POMPSearchResultIncludeCoparisonIcon" title="Agregar a la lista de comparación"></div>
+                    </a>
+                }
             }
         </div>
 
@@ -121,17 +129,20 @@
             }
             else
             {
-                if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                if (Model.Item2.ProviderAddRemoveEnable)
                 {
-                    <li>
-                        <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar al proceso de selección</a>
-                    </li>
-                }
-                else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
-                {
-                    <li>
-                        <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
-                    </li>
+                    if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                    {
+                        <li>
+                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar al proceso de selección</a>
+                        </li>
+                    }
+                    else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+                    {
+                        <li>
+                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
+                        </li>
+                    }
                 }
                 <li>
                     <a href="@(Url.RouteUrl
