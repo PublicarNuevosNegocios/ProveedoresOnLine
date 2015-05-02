@@ -1496,19 +1496,19 @@ var Customer_EvaluationItemObject = {
     RenderAsync: function (vRenderObject) {
         if (vRenderObject.EvaluationItemType == 1401001) {
             Customer_EvaluationItemObject.RenderEvaluationArea(vRenderObject);
-
-            //focus on the grid
-            $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
-
-            //config keyboard
-            Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
-
-            //Config Events
-            Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
         }
         else if (vRenderObject.EvaluationItemType == 1401002) {
             Customer_EvaluationItemObject.RenderEvaluationCriteria(vRenderObject);
         }
+
+        //focus on the grid
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
+
+        //config keyboard
+        Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
+
+        //Config Events
+        Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
     },
 
     ConfigKeyBoard: function (EvaluationItemType) {
@@ -1567,6 +1567,12 @@ var Customer_EvaluationItemObject = {
             toolbar: [
                 { name: 'create', text: 'Nuevo' },
                 { name: 'Search', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_SearchTemplate').html() },
+                {
+                    name: 'title',
+                    template: function () {
+                        return $('#' + Customer_EvaluationItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                    }
+                },
                 { name: 'ViewEnable', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnablesTemplate').html() },
                 { name: 'ShortcutToolTip', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ShortcutToolTipTemplate').html() },
             ],
@@ -1582,8 +1588,9 @@ var Customer_EvaluationItemObject = {
                             EvaluationItemTypeName: { editable: false, nullable: true },
                             ParentEvaluationItem: { editable: true, nullable: true },
 
-                            EvaluatorTypeId: { editable: false, nullable: true },
+                            EvaluatorTypeId: { editable: false },
                             EvaluatorType: { editable: true },
+                            EvaluatorName: { editable: true, validation: { required: true } },
 
                             EvaluatorId: { editable: false, nullable: true },
                             Evaluator: { editable: true },
@@ -1706,6 +1713,61 @@ var Customer_EvaluationItemObject = {
                 field: 'Evaluator',
                 title: 'Evaluador',
                 width: '190px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.EvaluatorName != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else if (dataItem.EvaluatorName == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: ABC QUALITY</label>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.EvaluatorName;
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    // create an input element
+                    var input = $("<input/>");
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr("value", options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: "User",
+                        select: function (e) {
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.User;
+                            options.model['EvaluatorName'] = selectedItem.UserCompanyId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: "json",
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByRoleCompanyAC=true&CompanyPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SearchParam=' + options.data.filter.filters[0].value,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            debugger;
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
             }, {
                 field: 'Unit',
                 title: 'Unidad',
@@ -1767,7 +1829,10 @@ var Customer_EvaluationItemObject = {
                         //validate SurveyConfigItemTypeId attribute
                         if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
                             //is in evaluation area show question
-                            Customer_EvaluationItemObject.RenderEvaluationCriteria();
+                            vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
+                            vRenderObject.EvaluationItemType = '1401002';
+                            vRenderObject.Title = data.EvaluationItemName;
+                            Customer_EvaluationItemObject.RenderAsync(vRenderObject);
                         }
                     }
                 }],
@@ -1775,10 +1840,151 @@ var Customer_EvaluationItemObject = {
         });
     },
 
-    RenderEvaluationCriteria: function () {
-        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').dialog({
-            width: 500,
-            title: 'Criterios de Evaluación.',
+    RenderEvaluationCriteria: function (vRenderObject) {
+
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).kendoGrid({
+            editable: true,
+            navigatable: false,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'Search', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_SearchTemplate').html() },
+                {
+                    name: 'title',
+                    template: function () {
+                        return $('#' + Customer_EvaluationItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                    }
+                },
+                { name: 'ViewEnable', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnablesTemplate').html() },
+                { name: 'ShortcutToolTip', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ShortcutToolTipTemplate').html() },
+            ],
+            dataSource: {
+                schema: {
+                    model: {
+                        id: "EvaluationItemId",
+                        fields: {
+                            EvaluationItemId: { editable: false, nullable: true },
+                            EvaluationItemName: { editable: true, validation: { required: true } },
+                            EvaluationItemEnable: { editable: true, type: 'boolean', defaultValue: true },
+                            EvaluationItemTypeId: { editable: false, nullable: true },
+                            EvaluationItemTypeName: { editable: false, nullable: true },
+                            ParentEvaluationItem: { editable: true, nullable: true },
+
+                            OrderId: { editable: false, nullable: true },
+                            Order: { editable: true },
+                        },
+                    },
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.ProjectConfigId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.ProjectConfigId + '.');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                },
+            },
+            editable: {
+                mode: "popup",
+            },
+            columns: [{
+                field: 'EvaluationItemEnable',
+                title: 'Habilitado',
+                width: '88px',
+            }, {
+                field: 'EvaluationItemName',
+                title: 'Area',
+                width: '200px',
+            }, {
+                field: 'Unit',
+                title: 'Unidad',
+                template: function (dataItem) {
+                    var oReturn = 'Seleccione una opción.';
+                    if (dataItem != null && dataItem.Unit != null) {
+                        $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1403], function (item, value) {
+                            if (dataItem.Unit == value.ItemId) {
+                                oReturn = value.ItemName;
+                            }
+                        });
+                    }
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: Customer_EvaluationItemObject.ProjectConfigOptionsList[1403],
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                },
+                width: '90px',
+            }, {
+                field: 'Order',
+                title: 'Orden',
+                width: '70px',
+            }, {
+                field: 'EvaluationItemId',
+                title: 'Id',
+                width: '70px',
+            }, {
+                title: "Acciones;",
+                width: "200px",
+                command: [{
+                    name: 'edit',
+                    text: 'Editar'
+                }],
+            }, ],
         });
     },
 };

@@ -500,5 +500,11 @@
         EC_RUT = 1404007,
         EC_SARLAFT = 1404008,
     }
+
+    public enum enumEvaluatorType
+    {
+        AnyoneRole = 1405001,
+        SpecificPerson = 1405002,
+    }
     #endregion
 }

@@ -22,6 +22,7 @@ namespace BackOffice.Models.Customer
 
         public string EvaluatorId { get; set; }
         public string Evaluator { get; set; }
+        public string EvaluatorName { get; set; }
 
         public string UnitId { get; set; }
         public string Unit { get; set; }
@@ -38,7 +39,7 @@ namespace BackOffice.Models.Customer
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
 
-            
+
 
             EvaluationItemId = RelatedEvaluationItem.ItemId.ToString();
             EvaluationItemName = RelatedEvaluationItem.ItemName;
@@ -68,6 +69,16 @@ namespace BackOffice.Models.Customer
                             Select(x => x.Value).
                             DefaultIfEmpty(string.Empty).
                             FirstOrDefault();
+            if (RelatedEvaluationItem.ItemInfo != null &&
+                RelatedEvaluationItem.ItemInfo.Count > 0 &&
+                EvaluatorType == ((int)Models.General.enumEvaluatorType.AnyoneRole).ToString())
+            {
+                EvaluatorName = RelatedEvaluationItem.ItemInfo.
+                                   Where(x => x.ItemInfoId.ToString() == EvaluatorId).
+                                   Select(x => x.Value).
+                                   DefaultIfEmpty(string.Empty).
+                                   FirstOrDefault();
+            }
 
             UnitId = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
