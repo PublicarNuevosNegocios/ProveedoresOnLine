@@ -205,8 +205,8 @@ namespace MarketPlace.Models.Project
             }
         }
 
-        List<Tuple<string, string>> oProjectFile;
-        public List<Tuple<string, string>> ProjectFile
+        List<MarketPlace.Models.General.FileModel> oProjectFile;
+        public List<MarketPlace.Models.General.FileModel> ProjectFile
         {
             get
             {
@@ -216,13 +216,17 @@ namespace MarketPlace.Models.Project
                         Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.File &&
                                        !string.IsNullOrEmpty(pjinf.LargeValue) &&
                                        pjinf.LargeValue.Split(',').Length >= 2).
-                        Select(pjinf => new Tuple<string, string>(pjinf.LargeValue.Split(',')[0], pjinf.LargeValue.Split(',')[1])).
+                        Select(pjinf => new MarketPlace.Models.General.FileModel()
+                        {
+                            FileObjectId = pjinf.ItemInfoId.ToString(),
+                            ServerUrl = pjinf.LargeValue.Split(',')[0],
+                            FileName = pjinf.LargeValue.Split(',')[1]
+                        }).
                         ToList();
 
                     if (oProjectFile == null)
-                        oProjectFile = new List<Tuple<string, string>>();
+                        oProjectFile = new List<MarketPlace.Models.General.FileModel>();
                 }
-
                 return oProjectFile;
             }
         }

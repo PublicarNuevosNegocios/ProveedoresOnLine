@@ -103,22 +103,22 @@
                 <ul id="ProjectDetail_FileUpload_FileList">
                     @foreach (var oFile in Model.ProjectFile)
                     {
-                        <li>
-                            <a href="@oFile.Item1" target="_blank">@oFile.Item2</a>
-                            <a>Eliminar</a>
+                        <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
+                            <a href="@oFile.ServerUrl" target="_blank">@oFile.FileName</a>
+                            <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');">Eliminar</a>
                         </li>
                     }
                 </ul>
             }
         </div>
     </div>
-    
+
     <!--Templates-->
     <div style="display:none">
-        <ul id="ProjectDetail_FileUpload_FileItem">
-            <li>
-                <a href="{FileUrl}" target="_blank">{FileName}</a>
-                <a>Eliminar</a>
+        <ul id="ProjectDetail_FileUpload_FileItemTemplate">
+            <li id="ProjectDetail_FileUpload_File_{FileObjectId}">
+                <a href="{ServerUrl}" target="_blank">{FileName}</a>
+                <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');">Eliminar</a>
             </li>
 
         </ul>
@@ -132,7 +132,7 @@ else
             //init project files
             Project_ProjectFile.Init({
                 ObjectId: 'ProjectDetail_FileUpload',
-                ProjectPublicId:'@Model.ProjectPublicId',
+                ProjectPublicId: '@Model.ProjectPublicId',
             });
 
             Project_ProjectFile.RenderAsync();

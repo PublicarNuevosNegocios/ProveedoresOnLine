@@ -19,29 +19,33 @@
             },
             success: function (e) {
                 if (e.response != null && e.response.length > 0) {
-                    //set server fiel name
-                    //$('#' + initObject.ControlellerResponseId).val(e.response[0].ServerName);
-
                     //render uploaded files
-                    //$.each(e.response, function (item, value) {
-                    //    var oFileItem = $('#' + Project_ProjectFile.ObjectId + '_FileItem').html();
+                    $.each(e.response, function (item, value) {
+                        var oFileItem = $('#' + Project_ProjectFile.ObjectId + '_FileItemTemplate').html();
 
-                    //    $('#' + Project_ProjectFile.ObjectId + '_FileList').append(oFileItem);
+                        oFileItem = oFileItem.replace(/{ServerUrl}/gi, value.ServerUrl);
+                        oFileItem = oFileItem.replace(/{FileName}/gi, value.FileName);
+                        oFileItem = oFileItem.replace(/{FileObjectId}/gi, value.FileObjectId);
 
-                    //});
-
-                    //$('.k-upload-files.k-reset').find('li').remove();
+                        $('#' + Project_ProjectFile.ObjectId + '_FileList').append(oFileItem);
+                    });
+                    //clean file list from kendo upload
+                    $('.k-upload-files.k-reset').find('li').remove();
                 }
             },
-            complete: function (e) {
-                //enable lost focus
-                //oFileExit = true;
+        });
+    },
+    
+    RemoveFile: function (vProjectInfoId) {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
+            dataType: 'json',
+            success: function (result) {
+                $('#' + Project_ProjectFile.ObjectId + '_File_' + vProjectInfoId).remove();
             },
-            select: function (e) {
-                //disable lost focus while upload file
-                //oFileExit = false;
+            error: function (result) {
+                Dialog_ShowMessage('Proceso de selección', 'Ha ocurrido un error borrando el archivo.', null);
             },
         });
-
     },
 };
