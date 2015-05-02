@@ -32,6 +32,36 @@
     vertical-align: text-bottom;
     width: 24px;
 }
+/********* BOTONES DE PUP-UPS *********/
+div.ui-dialog-buttonset > button:first-child {
+    background-color: #f9f9f9;
+    border: 1px solid #ff8300;
+    color: #222222;
+}
+div.ui-dialog-buttonset > button:first-child:hover{
+    background-color: #e6e6e6;
+    border: 1px solid #727276;
+    color: #fff;
+    text-decoration:underline;
+}
+div.ui-dialog-buttonset > button:first-child,
+div.ui-dialog-buttonset > button:nth-child(2){    
+    border-radius: 2px;    
+    display: inline-block;
+    font-size: 0.94em;
+    letter-spacing: -0.1px;
+    margin: 8px 9px 0;
+    padding:2px 8px;
+    vertical-align: top;
+}
+div.ui-dialog-buttonset > button:nth-child(2){
+    background-color: #ff8300;
+    border: 1px solid #727276;
+    color: #fff;
+}
+
+/*/********//*/**//*******************************/
+
 
 #Compare_SearchGrid{
     min-height:445px;
@@ -39,7 +69,6 @@
     display:block;
     margin:8px auto;
 }
-
 #Search_Compare_Search_ToolTip_Grid ul,
 #Compare_SearchGrid ul{
     display: block;

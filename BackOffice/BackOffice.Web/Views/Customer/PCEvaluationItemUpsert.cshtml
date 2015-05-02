@@ -33,6 +33,7 @@
             <label class="POBOSectionTitles">Area de Configuración</label>
             <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea)"></div>
             <label class="POBOSectionTitles">Item de Configuración</label>
+            <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationCriteria)"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -44,6 +45,9 @@
 
 <!--templates-->
 <div style="display:none;">
+    <div id="divGridEvaluationItem_TitleTemplate">
+        <label>${Title}</label>
+    </div>1
 
     <div id="divGridEvaluationItem_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
@@ -58,49 +62,9 @@
         <input class="POBOSurveySearchInput" id="divGridEvaluationItem_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
         <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
-
-    <div id="divGridEvaluationItem_EvaluationCriteria">
-        <div>
-            <div>
-                Seleccione el tipo de Evaluación:
-                <select>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Experiences)">Experiencias</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Rules)">Normas</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_LTIF)">LTIF</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_HealtyPolitic)">Salud, medio ambiente y seguridad</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_BalanceSheet)">Balances</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_ChaimberOfCommerce)">Cámara de comercio</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_RUT)">Registro único tributario</option>
-                    <option id="@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_SARLAFT)">SARLAFT</option>
-                </select>
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Experiences)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_Rules)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_LTIF)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_HealtyPolitic)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_BalanceSheet)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_ChaimberOfCommerce)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_RUT)">
-
-            </div>
-            <div id="divEvaluationInfo_@((int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_SARLAFT)">
-
-            </div>
-        </div>
-    </div>
 </div>
+
+
 
 @{
     Model.RenderScripts = true;

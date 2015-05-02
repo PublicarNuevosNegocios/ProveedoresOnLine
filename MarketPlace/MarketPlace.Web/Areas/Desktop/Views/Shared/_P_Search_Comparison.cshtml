@@ -54,19 +54,19 @@
         </a>
         <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
-            <span>Iniciar proceso de selección</span>
+            <span>Iniciar Proceso de Selección</span>
         </a>
     </div>
 
     <!--templates-->
     <div style="display:none;">
-        <div id="Search_Compare_Create_ToolTip" title="Nueva comparación">
+        <div id="Search_Compare_Create_ToolTip" title="Nueva Comparación">
             <!--Dialog new compare-->
             <span>Nombre: </span>
             <input style="width:72%;" type="text" id="Search_Compare_Create_ToolTip_Name" />
         </div>
 
-        <div id="Search_Compare_Search_ToolTip" title="Abrir comparación">
+        <div id="Search_Compare_Search_ToolTip" title="Abrir Comparación">
             <!--Dialog open compare-->
             <div id="Search_Compare_Search_ToolTip_Grid"></div>
         </div>
@@ -89,10 +89,11 @@
             </li>
         </ul>
 
-        <div id="Search_Compare_CreateProject_ToolTip" title="Nuevo proceso de selección">
+
+        <div id="Search_Compare_CreateProject_ToolTip" title="Nuevo Proceso de Selección">
             <!--Dialog new project-->
             <form id="Search_Compare_CreateProject_ToolTip_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")" method="post">
-                <ul>
+                <ul class="POMPCompareCreateProject">
                     <li>
                         <span>Nombre: </span>
                         <input type="text" id="Search_Compare_CreateProject_ToolTip_Name" name="ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre de la precalificación es obligatorio" />

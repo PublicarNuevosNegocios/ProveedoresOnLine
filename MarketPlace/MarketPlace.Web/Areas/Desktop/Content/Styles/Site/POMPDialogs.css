@@ -32,3 +32,34 @@
             #CompareDetail_NoResult span a{
                 font-weight:bold;
             }
+/*********** AQUI SE PINTA EL POPUP DE NUEVO 
+    PROCESO SELECCION **********/
+.POMPCompareCreateProject {
+    margin:2px;
+}
+    .POMPCompareCreateProject > li{
+        display:block;
+        width:auto;
+        margin:15px 0;
+    }
+.POMPCompareCreateProject > li > span{
+    width:178px;
+}
+.POMPCompareCreateProject > li > span,
+.POMPCompareCreateProject > li > input,
+.POMPCompareCreateProject > li > select{
+    font-size:0.9em;
+    letter-spacing:-0.9px;
+    color:#4d4d4d;
+    text-align:left;
+    display:inline-block;    
+}
+        .POMPCompareCreateProject > li > input,
+        .POMPCompareCreateProject > li > select {
+            width:225px;
+        }
+.POMPCompareCreateProject > li > .k-invalid-msg {
+    display:block;
+    margin: 6px 0 0;
+    width: 86.5%;
+}
