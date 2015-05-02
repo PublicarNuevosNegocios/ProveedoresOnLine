@@ -30,7 +30,16 @@
             Project_ProjectDetailObject.Init({
                 ObjectId: 'ProjectDetail',
                 ProjectPublicId: '@Model.ProjectPublicId',
+                CustomEconomicActivity: '@MarketPlace.Models.General.SessionModel.CurrentCompany_CustomEconomicActivity',
+                ProjectUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetailRecalculate
+                            }) + "?ProjectPublicId=" + Model.ProjectPublicId)',
             });
+
+            Project_ProjectDetailObject.RenderAsync();
         });
     </script>
 }

@@ -20,7 +20,8 @@ namespace MarketPlace.Web.ControllersApi
                 ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = GetProjectUpsertRequest();
 
                 //validate related compare
-                if (oProjectToUpsert.ProjectInfo.
+                if (string.IsNullOrEmpty(oProjectToUpsert.ProjectPublicId) &&
+                    oProjectToUpsert.ProjectInfo.
                         Any(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Compare &&
                                 !string.IsNullOrEmpty(x.Value)))
                 {
@@ -311,7 +312,9 @@ namespace MarketPlace.Web.ControllersApi
                 ProjectName = System.Web.HttpContext.Current.Request["ProjectName"],
                 ProjectStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                 {
-                    ItemId = (int)MarketPlace.Models.General.enumProjectStatus.Open,
+                    ItemId = string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["ProjectStatus"]) ?
+                        (int)MarketPlace.Models.General.enumProjectStatus.Open :
+                        Convert.ToInt32(System.Web.HttpContext.Current.Request["ProjectStatus"].Replace(" ", "")),
                 },
                 RelatedProjectConfig = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
                 {
@@ -328,6 +331,18 @@ namespace MarketPlace.Web.ControllersApi
 
                 if (strSplit.Length >= 3)
                 {
+                    string strValue = null, strLargeValue = null;
+
+                    if (Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity ||
+                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity)
+                    {
+                        strLargeValue = System.Web.HttpContext.Current.Request[req];
+                    }
+                    else
+                    {
+                        strValue = System.Web.HttpContext.Current.Request[req];
+                    }
+
                     oReturn.ProjectInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
                         ItemInfoId = !string.IsNullOrEmpty(strSplit[2]) ? Convert.ToInt32(strSplit[2].Trim()) : 0,
@@ -335,7 +350,8 @@ namespace MarketPlace.Web.ControllersApi
                         {
                             ItemId = Convert.ToInt32(strSplit[1].Trim())
                         },
-                        Value = System.Web.HttpContext.Current.Request[req],
+                        Value = strValue,
+                        LargeValue = strLargeValue,
                         Enable = true,
                     });
                 }

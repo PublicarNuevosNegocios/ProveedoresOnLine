@@ -23,7 +23,7 @@
                 {
                     <li>
                         <label>Valor estimado de la compra:</label>
-                        <span>$ @Model.ProjectAmmount.ToString("#,0.##") @Model.ProjectCurrencyTypeName</span>
+                        <span>$ @Model.ProjectAmmount.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) @Model.ProjectCurrencyTypeName</span>
                     </li>
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
@@ -49,7 +49,7 @@
                             <ul>
                                 @foreach (var dea in Model.ProjectDefaultEconomicActivity)
                                 {
-                                    <li>@dea.Item2</li>
+                                    <li>@dea.ActivityName</li>
                                 }
                             </ul>
                         }
@@ -64,7 +64,7 @@
                             <ul>
                                 @foreach (var dea in Model.ProjectCustomEconomicActivity)
                                 {
-                                    <li>@dea.Item2</li>
+                                    <li>@dea.ActivityName</li>
                                 }
                             </ul>
                         }
@@ -125,11 +125,11 @@
         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
         {
             <div id="ProjectDetail_EditProjectDialog">
-                <form>
+                <form id="ProjectDetail_EditProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")">
                     <ul>
                         <li>
                             <span>Nombre del proceso de selección</span>
-                            <input type="text" name="ProjectName" value="@Model.ProjectName" />
+                            <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre de la precalificación es obligatorio" />
                         </li>
                         <li>
                             <label>Tipo de proceso de seleccion:</label>
@@ -147,8 +147,32 @@
                         {
                             <li>
                                 <label>Valor estimado de la compra:</label>
-                                <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("#,0.##")" />
-                                <span>@Model.ProjectCurrencyTypeName</span>
+                                <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
+                                @if (Model.RelatedProjectConfig.ProjectConfigExperience.CurrencyEnable)
+                                {
+                                    var olstCurrency = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.
+                                        Where(cprv => cprv.CatalogId == 108).
+                                        ToList();
+
+                                    <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_@Model.ProjectCurrencyId">
+                                        @foreach (var oItem in olstCurrency)
+                                        {
+                                            if (oItem.ItemId == Model.ProjectCurrencyTypeId)
+                                            {
+                                                <option value="@oItem.ItemId" selected="selected">@oItem.ItemName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@oItem.ItemId">@oItem.ItemName</option>
+                                            }
+
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <span>@Model.ProjectCurrencyTypeName</span>
+                                }
                             </li>
                         }
                         @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
@@ -160,7 +184,7 @@
                                 <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).ToString())_@Model.ProjectExperienceYearsId">
                                     @foreach (var oYears in oYearsValues)
                                     {
-                                        if (oYears.Key == Model.ProjectExperienceYearsValueName)
+                                        if (oYears.Key == Model.ProjectExperienceYears)
                                         {
                                             <option value="@oYears.Key" selected="selected">@oYears.Value</option>
                                         }
@@ -191,40 +215,32 @@
                                         }
                                     }
                                 </select>
-                                <span>@Model.ProjectExperienceQuantity</span>
                             </li>
                         }
                         @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
                         {
+                            string strDefaultSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectDefaultEconomicActivity);
+
                             <li>
                                 <label>Actividades economicas:</label>
-                                @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
-                                {
-                                    <ul>
-                                        @foreach (var dea in Model.ProjectDefaultEconomicActivity)
-                                        {
-                                            <li>@dea.Item2</li>
-                                        }
-                                    </ul>
-                                }
+                                <select id="ProjectDetail_EditProjectDialog_DefaultEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId"></select>
+                                <input type="hidden" id="ProjectDetail_EditProjectDialog_DefaultEconomicActivityValue" value="@strDefaultSerialize" />
                             </li>
                         }
                         @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
                         {
+                            string strCustomSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectCustomEconomicActivity);
+
                             <li>
                                 <label>Actividades economicas personalizadas:</label>
-                                @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
-                                {
-                                    <ul>
-                                        @foreach (var dea in Model.ProjectCustomEconomicActivity)
-                                        {
-                                            <li>@dea.Item2</li>
-                                        }
-                                    </ul>
-                                }
+                                <select id="ProjectDetail_EditProjectDialog_CustomEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId"></select>
+                                <input type="hidden" id="ProjectDetail_EditProjectDialog_CustomEconomicActivityValue" value="@strCustomSerialize" />
                             </li>
                         }
                     </ul>
+                    <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
+                    <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
+                    <input type="hidden" name="ProjectStatus" value="@(((int)Model.ProjectStatus).ToString())" />
                 </form>
             </div>
         }

@@ -78,6 +78,12 @@ namespace ProveedoresOnLine.Company.Interfaces
 
         #endregion
 
+        #region Util MP
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCategorySearchByActivity(int TreeId, string SearchParam, int RowCount);
+
+        #endregion
+
         #region Company CRUD
 
         string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable);

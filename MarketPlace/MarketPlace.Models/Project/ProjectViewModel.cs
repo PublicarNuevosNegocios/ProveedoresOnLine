@@ -153,7 +153,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
-        public List<Tuple<int, string>> ProjectDefaultEconomicActivity
+        public int ProjectDefaultEconomicActivityId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public List<MarketPlace.Models.General.EconomicActivityViewModel> ProjectDefaultEconomicActivity
         {
             get
             {
@@ -166,13 +178,29 @@ namespace MarketPlace.Models.Project
                     Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
                     Where(cat => !string.IsNullOrEmpty(cat) &&
                                 cat.Split(',').Length >= 2).
-                    Select(cat => new Tuple<int, string>(Convert.ToInt32(cat.Split(',')[0].Replace(" ", "")), cat.Split(',')[1])).
-                    OrderBy(cat => cat.Item2).
+                    Select(cat => new MarketPlace.Models.General.EconomicActivityViewModel()
+                    {
+                        EconomicActivityId = cat.Split(',')[0].Replace(" ", ""),
+                        ActivityName = cat.Split(',')[1],
+                    }).
+                    OrderBy(cat => cat.ActivityName).
                     ToList();
             }
         }
 
-        public List<Tuple<int, string>> ProjectCustomEconomicActivity
+        public int ProjectCustomEconomicActivityId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public List<MarketPlace.Models.General.EconomicActivityViewModel> ProjectCustomEconomicActivity
         {
             get
             {
@@ -185,9 +213,25 @@ namespace MarketPlace.Models.Project
                     Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries).
                     Where(cat => !string.IsNullOrEmpty(cat) &&
                                 cat.Split(',').Length >= 2).
-                    Select(cat => new Tuple<int, string>(Convert.ToInt32(cat.Split(',')[0].Replace(" ", "")), cat.Split(',')[1])).
-                    OrderBy(cat => cat.Item2).
+                    Select(cat => new MarketPlace.Models.General.EconomicActivityViewModel()
+                    {
+                        EconomicActivityId = cat.Split(',')[0].Replace(" ", ""),
+                        ActivityName = cat.Split(',')[1],
+                    }).
+                    OrderBy(cat => cat.ActivityName).
                     ToList();
+            }
+        }
+
+        public int ProjectCurrencyId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
             }
         }
 
