@@ -35,7 +35,7 @@
             },
         });
     },
-    
+
     RemoveFile: function (vProjectInfoId) {
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
@@ -47,5 +47,36 @@
                 Dialog_ShowMessage('Proceso de selección', 'Ha ocurrido un error borrando el archivo.', null);
             },
         });
+    },
+};
+
+var Project_ProjectDetailObject = {
+
+    ObjectId: '',
+    ProjectPublicId: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.ProjectPublicId = vInitObject.ProjectPublicId;
+    },
+
+
+    ShowEditProject: function () {
+
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog').length > 0) {
+
+            $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog').dialog({
+                modal: true,
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Guardar': function () {
+                    }
+                },
+            });
+        }
+
+
     },
 };

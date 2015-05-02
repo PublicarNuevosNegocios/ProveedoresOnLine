@@ -43,6 +43,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public int ProjectAmmountId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+                                   !string.IsNullOrEmpty(pjinf.Value)).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
         public decimal ProjectAmmount
         {
             get
@@ -51,6 +64,18 @@ namespace MarketPlace.Models.Project
                     Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
                                    !string.IsNullOrEmpty(pjinf.Value)).
                     Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public int ProjectExperienceYearsId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).
+                    Select(pjinf => pjinf.ItemInfoId).
                     DefaultIfEmpty(0).
                     FirstOrDefault();
             }
@@ -100,6 +125,18 @@ namespace MarketPlace.Models.Project
                 }
 
                 return oReturn;
+            }
+        }
+
+        public int ProjectExperienceQuantityId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
             }
         }
 
@@ -188,6 +225,19 @@ namespace MarketPlace.Models.Project
                                    !string.IsNullOrEmpty(pjinf.Value)).
                     Select(pjinf => pjinf.Value.Replace(" ", "")).
                     DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
+        public int ProjectInternalProcessNumberId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber &&
+                                   !string.IsNullOrEmpty(pjinf.Value)).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
                     FirstOrDefault();
             }
         }

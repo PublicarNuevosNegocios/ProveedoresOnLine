@@ -26,6 +26,11 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            //init project detail object
+            Project_ProjectDetailObject.Init({
+                ObjectId: 'ProjectDetail',
+                ProjectPublicId: '@Model.ProjectPublicId',
+            });
         });
     </script>
 }
