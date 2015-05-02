@@ -17,10 +17,10 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        @*<a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
             <span>Iniciar proceso de selección</span>
-        </a>*@
+        </a>
     </div>
     <!--Compare title-->
     <input type="text" id="Search_Compare_CompareName" class="POMPComparisonSelectionTitle" value="@(Model.RelatedCompare == null ? string.Empty: Model.RelatedCompare.CompareName)" style="display: @(Model.RelatedCompare == null ? "none" : "");" />
@@ -31,6 +31,7 @@
             foreach (MarketPlace.Models.Provider.ProviderLiteViewModel oCompareItem in Model.RelatedCompare.RelatedProvider)
             {
                 oCompareItem.ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison;
+                oCompareItem.ProviderAddRemoveEnable = true;
                 <li>
                     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oCompareItem)
                 </li>
@@ -51,10 +52,10 @@
             <div class="POMPComparisonActionCompare"></div>
             <span>Comparar</span>
         </a>
-        @*<a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
+        <a href="javascript:Provider_SearchObject.ShowProjectCreateFromCompare();" title="Iniciar proceso de selección" class="Search_Compare_SelActionCompare" style="display: @(Model.RelatedCompare == null ? "none" : "");">
             <div class="POMPComparisonActionCompare"></div>
             <span>Iniciar proceso de selección</span>
-        </a>*@
+        </a>
     </div>
 
     <!--templates-->
@@ -84,7 +85,7 @@
 
         <ul id="Search_Compare_Item_Template">
             <li>
-                @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, new MarketPlace.Models.Provider.ProviderLiteViewModel(null))
+                @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, new MarketPlace.Models.Provider.ProviderLiteViewModel(null) { ProviderLiteType = MarketPlace.Models.General.enumProviderLiteType.Comparison, ProviderAddRemoveEnable = true, })
             </li>
         </ul>
 

@@ -82,25 +82,28 @@ namespace MarketPlace.Web.ControllersApi
         {
             if (ProjectAddCompany == "true")
             {
-                //ProveedoresOnLine.CompareModule.Models.CompareModel oCompareToUpsert = new ProveedoresOnLine.CompareModule.Models.CompareModel()
-                //{
-                //    CompareId = Convert.ToInt32(CompareId),
-                //    RelatedProvider = new List<ProveedoresOnLine.CompareModule.Models.CompareCompanyModel>() 
-                //    { 
-                //        new ProveedoresOnLine.CompareModule.Models.CompareCompanyModel()
-                //        {
-                //            Enable = true,
-                //            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                //            {
-                //                CompanyPublicId = ProviderPublicId,
-                //            },
-                //        }, 
-                //    }
-                //};
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                {
+                    ProjectPublicId = ProjectPublicId,
+                    RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>()
+                    {
+                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                        {
+                            Enable = true,
+                            RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                            {
+                                RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                {
+                                    CompanyPublicId = ProviderPublicId,
+                                },
+                            },
+                        },
+                    },
+                };
 
-                //ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareCompanyUpsert(oCompareToUpsert);
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCompanyUpsert(oProjectToUpsert);
 
-                //return true;
+                return true;
             }
 
             return false;
@@ -115,25 +118,28 @@ namespace MarketPlace.Web.ControllersApi
         {
             if (ProjectRemoveCompany == "true")
             {
-                //ProveedoresOnLine.CompareModule.Models.CompareModel oCompareToUpsert = new ProveedoresOnLine.CompareModule.Models.CompareModel()
-                //{
-                //    CompareId = Convert.ToInt32(CompareId),
-                //    RelatedProvider = new List<ProveedoresOnLine.CompareModule.Models.CompareCompanyModel>() 
-                //    { 
-                //        new ProveedoresOnLine.CompareModule.Models.CompareCompanyModel()
-                //        {
-                //            Enable = false,
-                //            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                //            {
-                //                CompanyPublicId = ProviderPublicId,
-                //            },
-                //        }, 
-                //    }
-                //};
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                {
+                    ProjectPublicId = ProjectPublicId,
+                    RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>()
+                    {
+                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                        {
+                            Enable = false,
+                            RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                            {
+                                RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                {
+                                    CompanyPublicId = ProviderPublicId,
+                                },
+                            },
+                        },
+                    },
+                };
 
-                //ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareCompanyUpsert(oCompareToUpsert);
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCompanyUpsert(oProjectToUpsert);
 
-                //return true;
+                return true;
             }
 
             return false;
@@ -141,39 +147,39 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<MarketPlace.Models.Compare.CompareViewModel> ProjectSearch
-            (string ProjectSearch,
-            string SearchParam,
-            string PageNumber,
-            string RowCount)
+        public MarketPlace.Models.Project.ProjectViewModel ProjectGet
+            (string ProjectGet,
+            string ProjectPublicId)
         {
-            if (ProjectSearch == "true")
+            if (ProjectGet == "true")
             {
-                //int oTotalRows;
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+                       ProjectGetByIdLite
+                       (ProjectPublicId,
+                       MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
 
-                //List<ProveedoresOnLine.CompareModule.Models.CompareModel> lstCompare = ProveedoresOnLine.CompareModule.Controller.CompareModule.CompareSearch
-                //    (SearchParam,
-                //    MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                //    string.IsNullOrEmpty(PageNumber) ? 0 : Convert.ToInt32(PageNumber.Replace(" ", "")),
-                //    string.IsNullOrEmpty(RowCount) ? 0 : Convert.ToInt32(RowCount.Replace(" ", "")),
-                //    out oTotalRows);
+                MarketPlace.Models.Project.ProjectViewModel oReturn = new Models.Project.ProjectViewModel(oProjectResult);
 
-                //List<MarketPlace.Models.Compare.CompareViewModel> oReturn = new List<Models.Compare.CompareViewModel>();
-
-                //if (lstCompare != null && lstCompare.Count > 0)
-                //{
-                //    lstCompare.All(x =>
-                //    {
-                //        oReturn.Add(new Models.Compare.CompareViewModel(x) { TotalRows = oTotalRows });
-
-                //        return true;
-                //    });
-                //}
-
-                //return oReturn;
+                return oReturn;
             }
             return null;
         }
+
+
+        [HttpPost]
+        [HttpGet]
+        //fileurl,filename
+        public List<Tuple<string, string>> ProjectUploadFile
+            (string ProjectUploadFile,
+            string ProjectPublicId)
+        {
+            if (ProjectUploadFile == "true")
+            {
+
+            }
+            return null;
+        }
+
 
         #region private methods
 

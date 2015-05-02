@@ -96,11 +96,11 @@
         </div>
         <div>
             <!--Project files-->
-            <a>Agregar Archivo</a>
+            <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
 
             @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
             {
-                <ul>
+                <ul id="ProjectDetail_FileUpload_FileList">
                     @foreach (var oFile in Model.ProjectFile)
                     {
                         <li>
@@ -109,9 +109,34 @@
                         </li>
                     }
                 </ul>
-                <a>Agregar Archivo</a>
             }
         </div>
     </div>
+    
+    <!--Templates-->
+    <div style="display:none">
+        <ul id="ProjectDetail_FileUpload_FileItem">
+            <li>
+                <a href="{FileUrl}" target="_blank">{FileName}</a>
+                <a>Eliminar</a>
+            </li>
+
+        </ul>
+
+    </div>
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //init project files
+            Project_ProjectFile.Init({
+                ObjectId: 'ProjectDetail_FileUpload',
+                ProjectPublicId:'@Model.ProjectPublicId',
+            });
+
+            Project_ProjectFile.RenderAsync();
+        });
+    </script>
 }
 
