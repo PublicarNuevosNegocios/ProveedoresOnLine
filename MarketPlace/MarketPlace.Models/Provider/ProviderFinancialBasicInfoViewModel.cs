@@ -189,6 +189,29 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        public string oBI_ExerciseUtility { get; set; }
+        public string BI_ExerciseUtility
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oBI_ExerciseUtility))
+                {
+                    oBI_ExerciseUtility = RelatedFinancialBasicInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumFinancialInfoType.BI_ExerciseUtility).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+
+                    if (!string.IsNullOrWhiteSpace(oBI_ExerciseUtility))
+                    {
+                        oBI_ExerciseUtility = (Convert.ToDecimal(oBI_IncomeBeforeTaxes) * Exchange).ToString("#,0.##");
+                    }
+                }
+
+                return oBI_ExerciseUtility;
+            }
+        }
+
         public string BI_JobCapital { get; set; }
         public string BI_Year { get; set; }
 
