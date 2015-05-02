@@ -43,6 +43,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public int ProjectAmmountId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
+                                   !string.IsNullOrEmpty(pjinf.Value)).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
         public decimal ProjectAmmount
         {
             get
@@ -51,6 +64,18 @@ namespace MarketPlace.Models.Project
                     Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.Ammount &&
                                    !string.IsNullOrEmpty(pjinf.Value)).
                     Select(pjinf => Convert.ToDecimal(pjinf.Value.Replace(" ", ""), System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public int ProjectExperienceYearsId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).
+                    Select(pjinf => pjinf.ItemInfoId).
                     DefaultIfEmpty(0).
                     FirstOrDefault();
             }
@@ -100,6 +125,18 @@ namespace MarketPlace.Models.Project
                 }
 
                 return oReturn;
+            }
+        }
+
+        public int ProjectExperienceQuantityId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
             }
         }
 
@@ -192,6 +229,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public int ProjectInternalProcessNumberId
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber &&
+                                   !string.IsNullOrEmpty(pjinf.Value)).
+                    Select(pjinf => pjinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
         public string ProjectInternalProcessNumber
         {
             get
@@ -205,8 +255,8 @@ namespace MarketPlace.Models.Project
             }
         }
 
-        List<Tuple<string, string>> oProjectFile;
-        public List<Tuple<string, string>> ProjectFile
+        List<MarketPlace.Models.General.FileModel> oProjectFile;
+        public List<MarketPlace.Models.General.FileModel> ProjectFile
         {
             get
             {
@@ -216,13 +266,17 @@ namespace MarketPlace.Models.Project
                         Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.File &&
                                        !string.IsNullOrEmpty(pjinf.LargeValue) &&
                                        pjinf.LargeValue.Split(',').Length >= 2).
-                        Select(pjinf => new Tuple<string, string>(pjinf.LargeValue.Split(',')[0], pjinf.LargeValue.Split(',')[1])).
+                        Select(pjinf => new MarketPlace.Models.General.FileModel()
+                        {
+                            FileObjectId = pjinf.ItemInfoId.ToString(),
+                            ServerUrl = pjinf.LargeValue.Split(',')[0],
+                            FileName = pjinf.LargeValue.Split(',')[1]
+                        }).
                         ToList();
 
                     if (oProjectFile == null)
-                        oProjectFile = new List<Tuple<string, string>>();
+                        oProjectFile = new List<MarketPlace.Models.General.FileModel>();
                 }
-
                 return oProjectFile;
             }
         }

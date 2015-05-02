@@ -205,9 +205,10 @@
                     </label>
                     <label>
                         Utilidad del Ejercicio
-                        <span>
-                            Utilidad del Ejercicio
-                        </span>
+                        @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
+                        {
+                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
+                        }
                     </label>
 
                     <label class="POMPProviderVerDetalle">
@@ -273,7 +274,7 @@
 
                 <label>
                     Empresa de sistema de riegos
-                    <span>Empresa de sistema de riegos</span>
+                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
                 </label>
 
 

@@ -120,6 +120,44 @@ namespace MarketPlace.Models.Project
             return oReturn;
         }
 
+        public Dictionary<string, string> GetExperienceYearValues()
+        {
+            Dictionary<string, string> oReturn = new Dictionary<string, string>();
+
+            if (ProjectConfigExperience != null &&
+                ProjectConfigExperience.YearsInterval != null &&
+                ProjectConfigExperience.YearsInterval.Count > 0)
+            {
+                oReturn = ProjectConfigExperience.YearsInterval.
+                    Where(qint => qint.Split('_').Length >= 4).
+                    Select(qint => new
+                    {
+                        oKey = qint.Split('_')[1],
+                        oValue = qint.Split('_')[3],
+                    }).ToDictionary(k => k.oKey, v => v.oValue);
+            }
+            return oReturn;
+        }
+
+        public Dictionary<string, string> GetExperienceQuantityValues()
+        {
+            Dictionary<string, string> oReturn = new Dictionary<string, string>();
+
+            if (ProjectConfigExperience != null &&
+                ProjectConfigExperience.QuantityInterval != null &&
+                ProjectConfigExperience.QuantityInterval.Count > 0)
+            {
+                oReturn = ProjectConfigExperience.QuantityInterval.
+                    Where(qint => qint.Split('_').Length >= 2).
+                    Select(qint => new
+                    {
+                        oKey = qint.Split('_')[0],
+                        oValue = qint.Split('_')[1],
+                    }).ToDictionary(k => k.oKey, v => v.oValue);
+            }
+            return oReturn;
+        }
+
         #endregion
     }
 }

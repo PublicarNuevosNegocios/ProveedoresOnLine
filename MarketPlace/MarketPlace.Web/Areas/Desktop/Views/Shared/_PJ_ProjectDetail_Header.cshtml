@@ -89,29 +89,159 @@
                 @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
                 {
                     <li>
-                        <a>Editar</a>
+                        <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
                     </li>
                 }
             </ul>
         </div>
         <div>
             <!--Project files-->
-            <a>Agregar Archivo</a>
+            <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
 
             @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
             {
-                <ul>
+                <ul id="ProjectDetail_FileUpload_FileList">
                     @foreach (var oFile in Model.ProjectFile)
                     {
-                        <li>
-                            <a href="@oFile.Item1" target="_blank">@oFile.Item2</a>
-                            <a>Eliminar</a>
+                        <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
+                            <a href="@oFile.ServerUrl" target="_blank">@oFile.FileName</a>
+                            <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');">Eliminar</a>
                         </li>
                     }
                 </ul>
-                <a>Agregar Archivo</a>
             }
         </div>
     </div>
+
+    <!--Templates-->
+    <div style="display:none">
+        <ul id="ProjectDetail_FileUpload_FileItemTemplate">
+            <li id="ProjectDetail_FileUpload_File_{FileObjectId}">
+                <a href="{ServerUrl}" target="_blank">{FileName}</a>
+                <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');">Eliminar</a>
+            </li>
+
+        </ul>
+        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
+        {
+            <div id="ProjectDetail_EditProjectDialog">
+                <form>
+                    <ul>
+                        <li>
+                            <span>Nombre del proceso de selección</span>
+                            <input type="text" name="ProjectName" value="@Model.ProjectName" />
+                        </li>
+                        <li>
+                            <label>Tipo de proceso de seleccion:</label>
+                            <span>@Model.RelatedProjectConfig.ProjectConfigName</span>
+                        </li>
+                        <li>
+                            <label>Responsable:</label>
+                            <span>@Model.ProjectResponsible</span>
+                        </li>
+                        <li>
+                            <label>Número de proceso interno:</label>
+                            <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber).ToString())_@(Model.ProjectInternalProcessNumberId)" value="@Model.ProjectInternalProcessNumber" />
+                        </li>
+                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
+                        {
+                            <li>
+                                <label>Valor estimado de la compra:</label>
+                                <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("#,0.##")" />
+                                <span>@Model.ProjectCurrencyTypeName</span>
+                            </li>
+                        }
+                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
+                        {
+                            var oYearsValues = Model.RelatedProjectConfig.GetExperienceYearValues();
+
+                            <li>
+                                <label>Cantidad de años de experiencia a tener en cuenta:</label>
+                                <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).ToString())_@Model.ProjectExperienceYearsId">
+                                    @foreach (var oYears in oYearsValues)
+                                    {
+                                        if (oYears.Key == Model.ProjectExperienceYearsValueName)
+                                        {
+                                            <option value="@oYears.Key" selected="selected">@oYears.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@oYears.Key">@oYears.Value</option>
+                                        }
+                                    }
+                                </select>
+                            </li>
+                        }
+                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval.Count > 0)
+                        {
+                            var oQuantityValues = Model.RelatedProjectConfig.GetExperienceQuantityValues();
+
+                            <li>
+                                <label>Cantidad de minima de experiencias:</label>
+                                <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).ToString())_@Model.ProjectExperienceQuantityId">
+                                    @foreach (var oQuantity in oQuantityValues)
+                                    {
+                                        if (Model.ProjectExperienceQuantity.ToString() == oQuantity.Key)
+                                        {
+                                            <option value="@oQuantity.Key" selected="selected">@oQuantity.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@oQuantity.Key">@oQuantity.Value</option>
+                                        }
+                                    }
+                                </select>
+                                <span>@Model.ProjectExperienceQuantity</span>
+                            </li>
+                        }
+                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
+                        {
+                            <li>
+                                <label>Actividades economicas:</label>
+                                @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
+                                {
+                                    <ul>
+                                        @foreach (var dea in Model.ProjectDefaultEconomicActivity)
+                                        {
+                                            <li>@dea.Item2</li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
+                        {
+                            <li>
+                                <label>Actividades economicas personalizadas:</label>
+                                @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
+                                {
+                                    <ul>
+                                        @foreach (var dea in Model.ProjectCustomEconomicActivity)
+                                        {
+                                            <li>@dea.Item2</li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </form>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //init project files
+            Project_ProjectFile.Init({
+                ObjectId: 'ProjectDetail_FileUpload',
+                ProjectPublicId: '@Model.ProjectPublicId',
+            });
+
+            Project_ProjectFile.RenderAsync();
+        });
+    </script>
 }
 

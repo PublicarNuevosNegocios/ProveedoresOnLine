@@ -165,6 +165,142 @@ namespace MarketPlace.Web.ControllersApi
             return null;
         }
 
+
+        [HttpPost]
+        [HttpGet]
+        public List<MarketPlace.Models.General.FileModel> ProjectUploadFile
+            (string ProjectUploadFile,
+            string ProjectPublicId)
+        {
+            List<MarketPlace.Models.General.FileModel> oReturn = new List<MarketPlace.Models.General.FileModel>();
+
+            if (ProjectUploadFile == "true" &&
+                !string.IsNullOrEmpty(ProjectPublicId) &&
+                System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
+            {
+                List<string> lstUsedFiles = new List<string>();
+
+                //get folder
+                string strFolder = System.Web.HttpContext.Current.Server.MapPath
+                    (MarketPlace.Models.General.InternalSettings.Instance
+                    [MarketPlace.Models.General.Constants.C_Settings_File_TempDirectory].Value);
+
+                if (!System.IO.Directory.Exists(strFolder))
+                    System.IO.Directory.CreateDirectory(strFolder);
+
+                System.Web.HttpContext.Current.Request.Files.AllKeys.All(reqFile =>
+                {
+                    MarketPlace.Models.General.FileModel oFile = new MarketPlace.Models.General.FileModel();
+
+                    //get File request
+                    var oUploadFile = System.Web.HttpContext.Current.Request.Files[reqFile];
+
+                    if (oUploadFile != null && !string.IsNullOrEmpty(oUploadFile.FileName))
+                    {
+                        oFile.FileName = oUploadFile.FileName.Replace(",", "");
+
+                        //save local file
+                        string strLocalFile = strFolder.TrimEnd('\\') +
+                            "\\ProjectFile_" +
+                            ProjectPublicId + "_" +
+                            DateTime.Now.ToString("yyyyMMddHHmmss") + "." +
+                            oFile.FileExtension;
+
+                        oUploadFile.SaveAs(strLocalFile);
+
+                        //load file to s3
+                        oFile.ServerUrl = ProveedoresOnLine.FileManager.FileController.LoadFile
+                            (strLocalFile,
+                            MarketPlace.Models.General.InternalSettings.Instance
+                                [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
+                                "\\ProjectFile\\" + ProjectPublicId + "\\");
+
+                        //remove temporal file
+                        if (System.IO.File.Exists(strLocalFile))
+                            System.IO.File.Delete(strLocalFile);
+
+                        //add file to project
+                        ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                        {
+                            ProjectPublicId = ProjectPublicId,
+                            ProjectInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>() 
+                            {
+                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)MarketPlace.Models.General.enumProjectInfoType.File,
+                                    },
+                                    LargeValue = oFile.ServerUrl + "," + oFile.FileName,
+                                    Enable = true,
+                                },
+                            },
+                        };
+
+                        oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectInfoUpsert(oProjectToUpsert);
+
+                        oFile.FileObjectId = oProjectToUpsert.ProjectInfo.Where
+                            (pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.File &&
+                                    pjinf.ItemInfoId > 0).
+                                    Select(pjinf => pjinf.ItemInfoId.ToString()).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault();
+
+                        lstUsedFiles.Add(oFile.ServerUrl);
+
+                        //add result to response                        
+                        oReturn.Add(oFile);
+                    }
+                    return true;
+                });
+
+                //register used files
+                LogManager.ClientLog.FileUsedCreate(lstUsedFiles);
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public bool ProjectRemoveFile
+            (string ProjectRemoveFile,
+            string ProjectPublicId,
+            int ProjectInfoId)
+        {
+            bool oReturn = false;
+
+            if (ProjectRemoveFile == "true" &&
+                !string.IsNullOrEmpty(ProjectPublicId))
+            {
+                //get project basic info
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdLite
+                    (ProjectPublicId,
+                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+                //create object to upsert
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                {
+                    ProjectPublicId = ProjectPublicId,
+                    ProjectInfo = oProject.ProjectInfo.
+                        Where(pjinf => pjinf.ItemInfoId == ProjectInfoId).
+                        Select(pjinf => new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = pjinf.ItemInfoId,
+                            ItemInfoType = pjinf.ItemInfoType,
+                            Value = pjinf.Value,
+                            LargeValue = pjinf.LargeValue,
+                            Enable = false,
+                        }).ToList(),
+                };
+
+                //upsert project info
+                oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectInfoUpsert(oProjectToUpsert);
+
+                oReturn = true;
+            }
+            return oReturn;
+        }
+
         #region private methods
 
         private ProveedoresOnLine.ProjectModule.Models.ProjectModel GetProjectUpsertRequest()
