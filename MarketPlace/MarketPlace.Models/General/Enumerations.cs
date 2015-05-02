@@ -338,6 +338,7 @@
         BI_CurrentActive = 3118,
         BI_CurrentPassive = 3120,
         BI_Altman = 4930,
+        BI_ExerciseUtility = 3820,
 
         //K_Recruitment InfoType
         FK_TotalExpirienceScore = 507001,
