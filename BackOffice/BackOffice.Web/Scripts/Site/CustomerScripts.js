@@ -1588,21 +1588,21 @@ var Customer_EvaluationItemObject = {
                             EvaluationItemTypeName: { editable: false, nullable: true },
                             ParentEvaluationItem: { editable: true, nullable: true },
 
-                            EvaluatorTypeId: { editable: false },
-                            EvaluatorType: { editable: true },
-                            EvaluatorName: { editable: true, validation: { required: true } },
+                            EA_EvaluatorTypeId: { editable: false },
+                            EA_EvaluatorType: { editable: true },
+                            EA_EvaluatorName: { editable: true, validation: { required: true } },
 
-                            EvaluatorId: { editable: false, nullable: true },
-                            Evaluator: { editable: true },
+                            EA_EvaluatorId: { editable: false, nullable: true },
+                            EA_Evaluator: { editable: true },
 
-                            UnitId: { editable: false, nullable: true },
-                            Unit: { editable: true },
+                            EA_UnitId: { editable: false, nullable: true },
+                            EA_Unit: { editable: true },
 
-                            OrderId: { editable: false, nullable: true },
-                            Order: { editable: true },
+                            EA_OrderId: { editable: false, nullable: true },
+                            EA_Order: { editable: true },
 
-                            ApprovePercentageId: { editable: false, nullable: true },
-                            ApprovePercentage: { editable: true },
+                            EA_ApprovePercentageId: { editable: false, nullable: true },
+                            EA_ApprovePercentage: { editable: true },
                         },
                     },
                 },
@@ -1685,13 +1685,13 @@ var Customer_EvaluationItemObject = {
                 title: 'Area',
                 width: '200px',
             }, {
-                field: 'EvaluatorType',
+                field: 'EA_EvaluatorType',
                 title: 'Tipo de Evaluador',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.EvaluatorType != null) {
+                    if (dataItem != null && dataItem.EA_EvaluatorType != null) {
                         $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1405], function (item, value) {
-                            if (dataItem.EvaluatorType == value.ItemId) {
+                            if (dataItem.EA_EvaluatorType == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -1710,72 +1710,59 @@ var Customer_EvaluationItemObject = {
                 },
                 width: '160px',
             }, {
-                field: 'Evaluator',
+                field: 'EA_Evaluator',
                 title: 'Evaluador',
-                width: '190px',
                 template: function (dataItem) {
+                    debugger;
                     var oReturn = '';
-                    if (dataItem != null && dataItem.EvaluatorName != null) {
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
-                        else if (dataItem.EvaluatorName == '') {
-                            oReturn = '<label class="PlaceHolder">Ej: ABC QUALITY</label>';
-                        }
-                        else {
-                            oReturn = '';
-                        }
-                        oReturn = oReturn + dataItem.EvaluatorName;
+                    if (dataItem != null && dataItem.EA_Evaluator != null) {
+                        oReturn = dataItem.EA_Evaluator;
                     }
+
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    // create an input element
-                    var input = $("<input/>");
-                    // set its name to the field to which the column is bound ('name' in this case)
-                    input.attr("value", options.model[options.field]);
-                    // append it to the container
-                    input.appendTo(container);
-                    // initialize a Kendo UI AutoComplete
-                    input.kendoAutoComplete({
-                        dataTextField: "User",
-                        select: function (e) {
-                            var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name
-                            options.model[options.field] = selectedItem.User;
-                            options.model['EvaluatorName'] = selectedItem.UserCompanyId;
-                            //enable made changes
-                            options.model.dirty = true;
-                        },
-                        dataSource: {
-                            type: "json",
-                            serverFiltering: true,
-                            transport: {
-                                read: function (options) {
-                                    $.ajax({
-                                        url: BaseUrl.ApiUrl + '/UtilApi?CategorySearchByRoleCompanyAC=true&CompanyPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&SearchParam=' + options.data.filter.filters[0].value,
-                                        dataType: 'json',
-                                        success: function (result) {
-                                            debugger;
-                                            options.success(result);
-                                        },
-                                        error: function (result) {
-                                            options.error(result);
-                                        }
-                                    });
-                                },
-                            }
-                        }
-                    });
+                    if (options.model.EA_EvaluatorType == '1405001') {
+                        $('<input required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoDropDownList({
+                            dataSource: {
+                                type: "json",
+                                serverFiltering: true,
+                                transport: {
+                                    read: function (options) {
+                                        $.ajax({
+                                            url: BaseUrl.ApiUrl + '/UtilApi?GetRoleCompanyByPublicId=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId,
+                                            dataType: 'json',
+                                            success: function (result) {
+                                                options.success(result);
+                                            },
+                                            error: function (result) {
+                                                options.error(result);
+                                            }
+                                        });
+                                    },
+                                }
+                            },
+                            dataTextField: 'ItemName',
+                            dataValueField: 'ItemId',
+                            optionLabel: 'Seleccione una opción'
+                        });
+                    }
+                    else {
+                        $('<input type="text" class="k-input k-textbox" name="EA_Evaluator" required data-bind="value:' + options.field + '"/>')
+                        .appendTo(container);
+                    }
                 },
+                width: '190px',
             }, {
-                field: 'Unit',
+                field: 'EA_Unit',
                 title: 'Unidad',
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.Unit != null) {
+                    if (dataItem != null && dataItem.EA_Unit != null) {
                         $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1403], function (item, value) {
-                            if (dataItem.Unit == value.ItemId) {
+                            if (dataItem.EA_Unit == value.ItemId) {
                                 oReturn = value.ItemName;
                             }
                         });
@@ -1794,18 +1781,18 @@ var Customer_EvaluationItemObject = {
                 },
                 width: '90px',
             }, {
-                field: 'ApprovePercentage',
+                field: 'EA_ApprovePercentage',
                 title: '% de Aprobación',
                 template: function (dataItem) {
                     var oReturn = 'No aplica.';
-                    if (dataItem != null && dataItem.Unit == '1403002') {
-                        oReturn = dataItem.ApprovePercentage;
+                    if (dataItem != null && dataItem.EA_Unit == '1403002') {
+                        oReturn = dataItem.EA_ApprovePercentage;
                     }
                     return oReturn;
                 },
                 width: '130px',
             }, {
-                field: 'Order',
+                field: 'EA_Order',
                 title: 'Orden',
                 width: '70px',
             }, {
@@ -1813,7 +1800,7 @@ var Customer_EvaluationItemObject = {
                 title: 'Id',
                 width: '70px',
             }, {
-                title: "Acciones;",
+                title: "Acciones",
                 width: "200px",
                 command: [{
                     name: 'edit',
@@ -1933,9 +1920,6 @@ var Customer_EvaluationItemObject = {
                     kendo.ui.progress($("#loading"), false);
                 },
             },
-            editable: {
-                mode: "popup",
-            },
             columns: [{
                 field: 'EvaluationItemEnable',
                 title: 'Habilitado',
@@ -1978,13 +1962,28 @@ var Customer_EvaluationItemObject = {
                 title: 'Id',
                 width: '70px',
             }, {
-                title: "Acciones;",
+                title: "Acciones",
                 width: "200px",
                 command: [{
                     name: 'edit',
-                    text: 'Editar'
+                    text: 'Editar',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigItemTypeId attribute
+                        if (data != null) {
+                            //is in evaluation area show question
+                            Customer_EvaluationItemObject.ShowProjectConfigurationDetail(data);
+                        }
+                    }
                 }],
             }, ],
         });
+    },
+
+    ShowProjectConfigurationDetail: function (dataItem) {
+
     },
 };
