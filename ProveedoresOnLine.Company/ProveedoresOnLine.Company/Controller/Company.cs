@@ -373,6 +373,15 @@ namespace ProveedoresOnLine.Company.Controller
 
         #endregion
 
+        #region Util MP
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCategorySearchByActivity(int TreeId, string SearchParam, int RowCount)
+        {
+            return DAL.Controller.CompanyDataController.Instance.MPCategorySearchByActivity(TreeId, SearchParam, RowCount);
+        }
+
+        #endregion
+
         #region Company CRUD
 
         public static CompanyModel CompanyUpsert(CompanyModel CompanyToUpsert)
@@ -408,7 +417,7 @@ namespace ProveedoresOnLine.Company.Controller
                     };
 
                     ProveedoresOnLine.AsociateProvider.Client.Controller.AsociateProviderClient.ProviderUpsertBO(AsociateProviderToUpsert);
-                }               
+                }
 
                 oLog.IsSuccess = true;
 
@@ -846,7 +855,7 @@ namespace ProveedoresOnLine.Company.Controller
 
         public static List<ProveedoresOnLine.Company.Models.Company.UserCompany> UserRoleSearchByUser(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
         {
-            return DAL.Controller.CompanyDataController.Instance.UserRoleSearchByUser(CompanyPublicId,SearchParam, PageNumber, RowCount);
+            return DAL.Controller.CompanyDataController.Instance.UserRoleSearchByUser(CompanyPublicId, SearchParam, PageNumber, RowCount);
         }
 
         public static ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)

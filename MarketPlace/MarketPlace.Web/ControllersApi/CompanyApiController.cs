@@ -38,5 +38,48 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
+
+        #region Util
+
+        #region Category
+
+        [HttpPost]
+        [HttpGet]
+        public List<EconomicActivityViewModel> CategorySearchByActivityAC
+            (string CategorySearchByActivityAC,
+            string TreeId,
+            string SearchParam)
+        {
+            List<EconomicActivityViewModel> oReturn = new List<EconomicActivityViewModel>();
+
+            if (CategorySearchByActivityAC == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oCategories = ProveedoresOnLine.Company.Controller.Company.MPCategorySearchByActivity
+                    (Convert.ToInt32(TreeId),
+                    SearchParam,
+                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()));
+
+                if (oCategories != null && oCategories.Count > 0)
+                {
+                    oCategories.OrderBy(cat => cat.ItemName).All(cat =>
+                    {
+                        oReturn.Add(new EconomicActivityViewModel()
+                        {
+                            EconomicActivityId = cat.ItemId.ToString(),
+                            ActivityName = cat.ItemName,
+                        });
+
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+
+        #endregion
+
+        #endregion
     }
 }

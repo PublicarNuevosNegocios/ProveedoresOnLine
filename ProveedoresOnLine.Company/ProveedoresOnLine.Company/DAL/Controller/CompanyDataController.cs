@@ -199,6 +199,15 @@ namespace ProveedoresOnLine.Company.DAL.Controller
 
         #endregion
 
+        #region Util MP
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCategorySearchByActivity(int TreeId, string SearchParam, int RowCount)
+        {
+            return DataFactory.MPCategorySearchByActivity(TreeId, SearchParam, RowCount);
+        }
+
+        #endregion
+
         #region Company CRUD
 
         public string CompanyUpsert(string CompanyPublicId, string CompanyName, int IdentificationType, string IdentificationNumber, int CompanyType, bool Enable)
@@ -279,9 +288,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         #region User Roles
         public List<ProveedoresOnLine.Company.Models.Company.UserCompany> UserRoleSearchByUser(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
         {
-            return DataFactory.UserRoleSearchByUser(CompanyPublicId,SearchParam, PageNumber, RowCount);
+            return DataFactory.UserRoleSearchByUser(CompanyPublicId, SearchParam, PageNumber, RowCount);
         }
-    
+
         public ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {
             return DataFactory.RoleCompany_GetByPublicId(CompanyPublicId);
@@ -310,6 +319,7 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         {
             return DataFactory.BlackListGetByCompanyPublicId(CompanyPublicId);
         }
-        #endregion      
+        #endregion
+
     }
 }

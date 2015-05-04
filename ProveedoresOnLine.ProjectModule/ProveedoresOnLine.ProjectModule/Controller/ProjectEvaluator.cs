@@ -792,7 +792,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 else
                 {
                     decimal.TryParse(strToEval.Replace(" ", ""),
-                        System.Globalization.NumberStyles.None,
+                        System.Globalization.NumberStyles.Any,
                         System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"),
                         out oReturn);
                 }

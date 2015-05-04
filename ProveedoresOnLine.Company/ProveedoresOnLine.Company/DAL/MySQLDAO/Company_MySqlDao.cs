@@ -1554,7 +1554,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCountryType", CountryType));
-            lstParams.Add(DataInstance.CreateTypedParameter("vYear", Year));            
+            lstParams.Add(DataInstance.CreateTypedParameter("vYear", Year));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
@@ -1583,15 +1583,53 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          {
                              ItemId = response.DataTableResult.Rows[0].Field<int>("MoneyType"),
                              ItemName = response.DataTableResult.Rows[0].Field<string>("MoneyTypeName"),
-                             ItemEnable = response.DataTableResult.Rows[0].Field<UInt64>("MoneyTypeEnable") == 1 ? true : false,                             
+                             ItemEnable = response.DataTableResult.Rows[0].Field<UInt64>("MoneyTypeEnable") == 1 ? true : false,
                          },
                          Value = response.DataTableResult.Rows[0].Field<decimal>("Value"),
                          Enable = response.DataTableResult.Rows[0].Field<UInt64>("Enable") == 1 ? true : false,
                          LastModify = response.DataTableResult.Rows[0].Field<DateTime>("LastModify"),
                          CreateDate = response.DataTableResult.Rows[0].Field<DateTime>("CreateDate")
                      };
-                     
+
             }
+            return oReturn;
+        }
+
+        #endregion
+
+        #region Util MP
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCategorySearchByActivity(int TreeId, string SearchParam, int RowCount)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vTreeId", TreeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_U_Category_SearchByActivity",
+                CommandType = CommandType.StoredProcedure,
+                Parameters = lstParams,
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from cat in response.DataTableResult.AsEnumerable()
+                     where !cat.IsNull("CategoryId")
+                     select new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                     {
+                         ItemId = cat.Field<int>("CategoryId"),
+                         ItemName = cat.Field<string>("CategoryName"),
+                     }).ToList();
+            }
+
             return oReturn;
         }
 
@@ -2095,7 +2133,7 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
                          {
                              ItemId = urg.Key.RoleCompanyId,
                              ItemName = urg.Key.RoleCompanyName,
-                             ParentItem = urg.Key.ParentRoleCompany == null ? null : 
+                             ParentItem = urg.Key.ParentRoleCompany == null ? null :
                              new GenericItemModel()
                              {
                                  ItemId = urg.Key.ParentRoleCompany.Value,

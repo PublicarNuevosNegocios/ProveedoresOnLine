@@ -28,6 +28,20 @@ namespace MarketPlace.Models.General
 
         public static enumCompanyType CurrentCompanyType { get { return CurrentCompany == null ? enumCompanyType.Provider : (enumCompanyType)CurrentCompany.CompanyType.ItemId; } }
 
+        public static int CurrentCompany_CustomEconomicActivity
+        {
+            get
+            {
+                return CurrentCompany == null ? 0 :
+                  CurrentCompany.CompanyInfo.
+                  Where(cinf => cinf.ItemInfoType.ItemId == (int)enumCompanyInfoType.CustomEconomicActivity &&
+                                !string.IsNullOrEmpty(cinf.Value)).
+                  Select(cinf => Convert.ToInt32(cinf.Value.Replace(" ", ""))).
+                  DefaultIfEmpty(0).
+                  FirstOrDefault();
+            }
+        }
+
         #region Session methods
 
         public static void InitCompanyLogin(List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany)
