@@ -266,17 +266,17 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                     oProjectProviderToUpsert.ItemInfo.AddRange
                         (oResult.
                             Where(ors => ors.ItemInfoId > 0 &&
-                                        ors.Value !=
+                                        (ors.Value !=
                                             pjpv.ItemInfo.
                                             Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
                                             Select(pjpvinf => pjpvinf.Value).
                                             DefaultIfEmpty(null).
-                                            FirstOrDefault() &&
+                                            FirstOrDefault() ||
                                         ors.LargeValue != pjpv.ItemInfo.
                                             Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
                                             Select(pjpvinf => pjpvinf.LargeValue).
                                             DefaultIfEmpty(null).
-                                            FirstOrDefault()));
+                                            FirstOrDefault())));
 
                     //upsert evaluation items responses
                     oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
