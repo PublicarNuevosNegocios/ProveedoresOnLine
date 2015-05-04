@@ -410,9 +410,8 @@ var Provider_SearchObject = {
 
         //open new compare dialog
         $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog({
-            width: 480,
+            width: 455,
             minHeight: 258,
-            minWidth: 500,
             modal: true,
             buttons: {
                 'Cancelar': function () {
@@ -434,11 +433,11 @@ var Provider_SearchObject = {
                             success: function (result) {
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
                                 var oProjectUrl = Provider_SearchObject.ProjectUrl.replace(/{ProjectPublicId}/gi, result);
-                                Dialog_ShowMessage('Crear proceso de selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
+                                Dialog_ShowMessage('Crear Proceso de Selección', 'Se ha creado el proceso de selección correctamente.', oProjectUrl);
                             },
                             error: function (result) {
                                 $('#' + Provider_SearchObject.ObjectId + '_Compare_CreateProject_ToolTip').dialog("close");
-                                Dialog_ShowMessage('Crear proceso de selección', 'Ha ocurrido un error creando el proceso de selección.', null);
+                                Dialog_ShowMessage('Crear Proceso de Selección', 'Ha ocurrido un error creando el proceso de selección.', null);
                             }
                         });
                     }

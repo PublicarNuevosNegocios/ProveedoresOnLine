@@ -40,8 +40,6 @@ div.ui-dialog-buttonset > button:first-child {
 }
 div.ui-dialog-buttonset > button:first-child:hover{
     background-color: #e6e6e6;
-    border: 1px solid #727276;
-    color: #fff;
     text-decoration:underline;
 }
 div.ui-dialog-buttonset > button:first-child,
@@ -55,13 +53,11 @@ div.ui-dialog-buttonset > button:nth-child(2){
     vertical-align: top;
 }
 div.ui-dialog-buttonset > button:nth-child(2){
-    background-color: #ff8300;
     border: 1px solid #727276;
     color: #fff;
 }
 
 /*/********//*/**//*******************************/
-
 
 #Compare_SearchGrid{
     min-height:445px;

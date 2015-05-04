@@ -474,6 +474,7 @@
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPSideMenu.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPTopSearchBar.css" />
     <Content Include="Areas\Desktop\Content\Styles\Site\POMPKcontratacion.css" />
+    <Content Include="Areas\Desktop\Content\Styles\Site\POMPProjectBid.css" />
     <Content Include="Areas\Desktop\Content\themes\base\accordion.css" />
     <Content Include="Areas\Desktop\Content\themes\base\all.css" />
     <Content Include="Areas\Desktop\Content\themes\base\autocomplete.css" />
@@ -507,6 +508,7 @@
     <Content Include="Areas\Desktop\Content\themes\base\tabs.css" />
     <Content Include="Areas\Desktop\Content\themes\base\theme.css" />
     <Content Include="Areas\Desktop\Content\themes\base\tooltip.css" />
+    <Content Include="Areas\Desktop\Scripts\Site\popo.css" />
     <Content Include="Areas\Desktop\Scripts\Site\ProjectScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\SurveyScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\GeneralScripts.js" />
