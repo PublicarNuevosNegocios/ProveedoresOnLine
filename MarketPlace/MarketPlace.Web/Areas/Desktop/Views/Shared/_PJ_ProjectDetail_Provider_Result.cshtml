@@ -8,11 +8,11 @@
 {
     if (Model.RelatedProjectProvider != null && Model.RelatedProjectProvider.Count > 0)
     {
-        <ul>
+        <ul class="POMPProjectBidGridWrapper">
             <!--evaluation title-->
             <li>
-                <ul>
-                    <li></li>
+                <ul class="POMPProjectBidProviderAreaGrid">
+                    <li><span>@Model.ProjectName</span></li>
                     @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
                     {
                         foreach (var oAreaItem in oEvaluationAreas)
@@ -23,7 +23,7 @@
                     </li>
                         }
                     }
-                    <li></li>
+                    <li><span>Acciones</span></li>
                 </ul>
             </li>
 
@@ -32,7 +32,7 @@
                 MarketPlace.Models.General.enumApprovalStatus? oApprovalProviderStatus = oProjectProvider.ApprovalStatus;
 
                 <li>
-                    <ul>
+                    <ul class="POMPProjectBidProviderAreaGrid">
                         <li>
                             <!--Render provider basic info-->
                             @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProvider.RelatedProvider.RelatedLiteProvider)
