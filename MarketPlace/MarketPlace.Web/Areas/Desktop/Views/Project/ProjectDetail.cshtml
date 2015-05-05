@@ -7,13 +7,9 @@
 }
 <div>
     <!--Header project-->
-    <div>
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
-    </div>
     <!--Providers Project-->
-    <div>
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
-    </div>
 </div>
 @{
     Model.RenderScripts = true;

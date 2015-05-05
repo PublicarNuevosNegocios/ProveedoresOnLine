@@ -331,13 +331,5 @@ namespace ProveedoresOnLine.Company.Test
             Assert.AreEqual(true, oReturn != null);
         }
 
-        [TestMethod]
-        public void UserRoleSearchByUser()
-        {
-            List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn =
-                ProveedoresOnLine.Company.Controller.Company.UserRoleSearchByUser("DA5C572E", "d.al", 0, 0);
-
-            Assert.AreEqual(true, oReturn != null);
-        }
     }
 }

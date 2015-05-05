@@ -286,10 +286,6 @@ namespace ProveedoresOnLine.Company.DAL.Controller
         #endregion
 
         #region User Roles
-        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> UserRoleSearchByUser(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
-        {
-            return DataFactory.UserRoleSearchByUser(CompanyPublicId, SearchParam, PageNumber, RowCount);
-        }
 
         public ProveedoresOnLine.Company.Models.Company.CompanyModel RoleCompany_GetByPublicId(string CompanyPublicId)
         {

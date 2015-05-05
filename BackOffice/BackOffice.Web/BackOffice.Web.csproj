@@ -1101,6 +1101,7 @@
     <Content Include="Views\Customer\SCSurveyConfigItemUpsert.cshtml" />
     <Content Include="Views\Customer\PCProjectConfigUpsert.cshtml" />
     <Content Include="Views\Customer\PCEvaluationItemUpsert.cshtml" />
+    <Content Include="Views\Shared\_PJ_EvaluationCriteria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

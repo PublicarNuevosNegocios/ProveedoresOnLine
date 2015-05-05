@@ -1,0 +1,156 @@
+/************** ESTE ES EL CONTENEDOR
+    DEL HEADER *************/
+.POMPProjectBidGreatWrapper {
+    display:block;
+        border-bottom:2px solid #ff8300;
+    width:auto; height:auto;
+    margin:0px; padding:0px 18px 12px; 
+    text-align:left;
+}
+.POMPProjectBidGreatWrapper div{
+        display:block;
+        border:none;
+    width:auto; height:auto;
+    margin:0px; padding:0px;
+    text-align:left;
+}
+.POMPProjectBidGreatWrapper > div > label{
+    background-color: #eeeeee;
+    border-bottom: 1px dotted #5d5d5d !important;
+    border-top: medium none !important;
+    color: #5d5d5d !important;
+    display: block;
+    font-size: 1.1em !important;
+    line-height: 1em !important;
+    margin: 8px 0 6px !important;
+    max-width: 100% !important;
+    min-height: 33px !important;
+    padding: 8px 0 0 !important;
+    width: 100% !important;
+    letter-spacing: -0.5px;
+}
+    ul.POMPProjectBidMainData,
+    ul.POMPProjectBidDataActions {
+        display: inline-block;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        vertical-align:top;
+        width:70%;
+    }
+        ul.POMPProjectBidMainData > li {
+            display:inline-block;
+            width:32.2%;            
+            vertical-align:top;
+            border-bottom: 1px dotted grey;
+            margin:4px 0 0 4px;
+            min-height: 55px;
+        }
+.POMPProjectBidDataActions{
+    text-align:right !important;
+    width:96.2% !important;
+    border-bottom:none !important;
+    min-height: initial !important;
+}
+    .POMPProjectBidDataActions > a {
+        display:inline-block;
+        width:auto;
+        margin:0px 8px;
+    }
+.POMPProjectBidMainData label,
+.POMPProjectBidMainData span {
+    font-size: 0.98em;
+    letter-spacing: -0.2px;
+    display:inline-block;
+    font-weight: normal;
+    line-height: 1em;
+    margin:0px;
+    padding: 4px 0 0;
+}
+.POMPProjectBidMainData label{    
+    color: #0066ae;    
+}
+.POMPProjectBidMainData span{
+    color: #666;
+}
+li.POMPProjectBidActivityData{
+    width: 49% !important;
+    height: 84px;
+    overflow-y: auto;
+}
+li.POMPProjectBidActivityData ul{
+    margin:0px; padding:0px 0px 0px 10px;
+}
+    li.POMPProjectBidActivityData ul li{
+        list-style-type:none;        
+    }
+/*********** AQUI SE PINTA LO DE CARGAR ARCHIVOS ************/
+.POMPProjectBidFileUploadWrapper {
+    border: 1px solid #666 !important;
+    display: inline-block !important;
+    min-height: 222px; max-height: 222px;
+    overflow-y: auto;
+    width: 29% !important;
+     margin: 4px 0 0 !important
+}
+    .POMPProjectBidFileUploadWrapper div.k-dropzone {
+        display: inline-block;
+        background-color:#f9f9f9;
+        border-bottom:1px solid #666;
+        border-radius:0px;
+        width:100%;
+    }
+    .POMPProjectBidFileUploadWrapper div.k-upload-button{
+        border: 1px solid #666;
+        display: inline-block;
+        height: 26px;
+        width: auto;
+    }
+.POMPProjectBidFileUploadWrapper div em{
+    display: inline-block;
+    width: calc(100% - 111px);
+    height: 26px;
+}
+.POMPProjectBidFileUploadWrapper > ul {
+    list-style-type:none;
+    padding:0px; margin:0px;
+}
+    .POMPProjectBidFileUploadWrapper > ul > li {
+        display:block;
+        border-bottom:1px solid #ff8300;
+        padding: 1px 0 2px;
+    }
+    .POMPProjectBidFileUploadWrapper > ul > li > div {
+        background-image: url("http://stgproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/defult_text.png");
+        background-repeat:no-repeat;
+        background-position:1px 1px;
+        background-size:20px 20px;
+        display: inline-block;
+        height: 20px;
+        margin: 0; padding: 0;
+        width: 20px;
+    }
+        .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(2){
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 71%;
+        }
+        .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(2),
+        .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(3){
+            color: #555;
+            display: inline-block;
+            font-size: 0.88em;
+            letter-spacing: -0.4px;
+            line-height: 1.3em;            
+        }
+        .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(3) {
+            width: 16%;
+        }
+
+
+
+
+
+
+
