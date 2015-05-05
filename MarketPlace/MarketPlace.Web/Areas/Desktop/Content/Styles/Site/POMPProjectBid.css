@@ -3,7 +3,7 @@
 .POMPProjectBidGreatWrapper {
     display:block;
         border-bottom:2px solid #ff8300;
-    width:auto; height:auto;
+    width:auto; height:auto; min-width:960px;
     margin:0px; padding:0px 18px 12px; 
     text-align:left;
 }
@@ -197,6 +197,8 @@ li.POMPProjectBidActivityData ul{
     width: 222px;
     overflow-y:auto;
     overflow-x:hidden;
+    border: 1px solid gray !important;
+    width: 99%;
 }
 .POMPProjectBidEditDialogActivity > div > span {
     font-size:0.99em !important;
