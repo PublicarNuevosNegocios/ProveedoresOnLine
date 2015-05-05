@@ -1060,20 +1060,28 @@ namespace BackOffice.Web.ControllersApi
 
         #endregion
 
-        #region ProjectConfig
+        #region Project Config
+
+        /*RoleCompany_GetByPublicId*/
 
         [HttpPost]
         [HttpGet]
-        public List<ProveedoresOnLine.Company.Models.Company.UserCompany> CategorySearchByRoleCompanyAC
-            (string CategorySearchByRoleCompanyAC,
-            string CompanyPublicId,
-            string SearchParam)
+        public List<GenericItemModel> GetRoleCompanyByPublicId
+            (string GetRoleCompanyByPublicId,
+            string CustomerPublicId)
         {
-            List<ProveedoresOnLine.Company.Models.Company.UserCompany> oReturn = new List<ProveedoresOnLine.Company.Models.Company.UserCompany>();
+            List<GenericItemModel> oReturn = new List<GenericItemModel>();
 
-            if (CategorySearchByRoleCompanyAC == "true")
+            if (GetRoleCompanyByPublicId == "true")
             {
-                oReturn = ProveedoresOnLine.Company.Controller.Company.UserRoleSearchByUser(CompanyPublicId, SearchParam, 0, 0);
+                ProveedoresOnLine.Company.Models.Company.CompanyModel RoleList =
+                    ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId(CustomerPublicId);
+
+                RoleList.RelatedRole.All(x =>
+                {
+                    oReturn.Add(x);
+                    return true;
+                });                
             }
 
             return oReturn;

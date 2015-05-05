@@ -473,7 +473,7 @@
         EvaluatorType = 1402001,
         Evaluator = 1402002,
         Unit = 1402003,
-        Weight = 1402004,
+        Rating = 1402004,
         EvaluationCriteria = 1402005,
         InfoType_Value_Operator = 1402006,
         YearsQuantity = 1402007,

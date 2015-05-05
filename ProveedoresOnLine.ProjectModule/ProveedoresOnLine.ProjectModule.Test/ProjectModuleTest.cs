@@ -76,7 +76,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         [TestMethod]
         public void ProjectCalculate()
         {
-            ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate("1BC311CC");
+            ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectCalculate("89E05F04");
             Assert.AreEqual(1, 1);
         }
 

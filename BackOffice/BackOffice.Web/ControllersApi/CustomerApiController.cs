@@ -549,37 +549,37 @@ namespace BackOffice.Web.ControllersApi
                             Enable = oDataToUpsert.EvaluationItemEnable,
                             ItemInfo = new List<GenericItemInfoModel>(){
                                 new GenericItemInfoModel(){
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EvaluatorId) ? 0 : Convert.ToInt32(oDataToUpsert.EvaluatorId.Trim()),
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EA_EvaluatorId) ? 0 : Convert.ToInt32(oDataToUpsert.EA_EvaluatorId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Evaluator,
                                     },
-                                    Value = oDataToUpsert.Evaluator,
+                                    Value = oDataToUpsert.EA_Evaluator,
                                     Enable = true,
                                 },
                                 new GenericItemInfoModel(){
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EvaluatorTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.EvaluatorTypeId.Trim()),
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EA_EvaluatorTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.EA_EvaluatorTypeId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluatorType,
                                     },
-                                    Value = oDataToUpsert.EvaluatorType.Replace(" ",""),
+                                    Value = oDataToUpsert.EA_EvaluatorType.Replace(" ",""),
                                     Enable = true,
                                 },
                                 new GenericItemInfoModel(){
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.OrderId) ? 0 : Convert.ToInt32(oDataToUpsert.OrderId.Trim()),
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EA_OrderId) ? 0 : Convert.ToInt32(oDataToUpsert.EA_OrderId.Trim()),
                                     ItemInfoType = new CatalogModel(){
                                         ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order,
                                     },
-                                    Value = oDataToUpsert.Order.Replace(" ",""),
+                                    Value = oDataToUpsert.EA_Order.Replace(" ",""),
                                     Enable = true,
                                 },
                                 new GenericItemInfoModel(){
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.UnitId) ? 0 : Convert.ToInt32(oDataToUpsert.UnitId.Trim()),
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EA_UnitId) ? 0 : Convert.ToInt32(oDataToUpsert.EA_UnitId.Trim()),
                                     ItemInfoType = new CatalogModel(){
                                         ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
                                     },
-                                    Value = oDataToUpsert.Unit.Replace(" ",""),
+                                    Value = oDataToUpsert.EA_Unit.Replace(" ",""),
                                     Enable = true,
                                 }
                             },
@@ -587,16 +587,16 @@ namespace BackOffice.Web.ControllersApi
                     },
                 };
 
-                if (!string.IsNullOrEmpty(oDataToUpsert.ApprovePercentage))
+                if (!string.IsNullOrEmpty(oDataToUpsert.EA_ApprovePercentage))
                 {
                     oEvaluationItemConfig.RelatedEvaluationItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.ApprovePercentageId) ? 0 : Convert.ToInt32(oDataToUpsert.ApprovePercentageId.Trim()),
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.EA_ApprovePercentageId) ? 0 : Convert.ToInt32(oDataToUpsert.EA_ApprovePercentageId.Trim()),
                         ItemInfoType = new CatalogModel()
                         {
                             ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.ApprovePercentage,
                         },
-                        Value = oDataToUpsert.ApprovePercentage.Replace(" ",""),
+                        Value = oDataToUpsert.EA_ApprovePercentage.Replace(" ", ""),
                         Enable = true,
                     });
                 }

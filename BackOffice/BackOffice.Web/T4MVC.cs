@@ -953,6 +953,8 @@ namespace Links
                      
                 public static readonly string POBODialogs_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBODialogs.min.css") ? Url("POBODialogs.min.css") : Url("POBODialogs.css");
                      
+                public static readonly string POBOEvaluations_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOEvaluations.min.css") ? Url("POBOEvaluations.min.css") : Url("POBOEvaluations.css");
+                     
                 public static readonly string POBOFooter_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOFooter.min.css") ? Url("POBOFooter.min.css") : Url("POBOFooter.css");
                      
                 public static readonly string POBOForms_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/POBOForms.min.css") ? Url("POBOForms.min.css") : Url("POBOForms.css");
