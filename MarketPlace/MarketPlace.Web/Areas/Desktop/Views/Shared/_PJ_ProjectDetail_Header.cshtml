@@ -2,15 +2,11 @@
 
 @if (!Model.RenderScripts)
 {
-    <div class="POMP">
+    <div class="POMPProjectBidGreatWrapper">
+        <!-- ESTE ES EL HEADER -->
         <div>
-            <label>@Model.ProjectName</label>
-            <span>@Model.LastModify</span>
-            <ul>
-                <li>
-                    <label>Proceso de seleccion:</label>
-                    <span>@Model.RelatedProjectConfig.ProjectConfigName</span>
-                </li>
+            <label>@Model.ProjectName - @Model.LastModify - @Model.RelatedProjectConfig.ProjectConfigName</label>
+            <ul class="POMPProjectBidMainData">
                 <li>
                     <label>Responsable:</label>
                     <span>@Model.ProjectResponsible</span>
@@ -29,7 +25,7 @@
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
                 {
                     <li>
-                        <label>Cantidad de años de experiencia a tener en cuenta:</label>
+                        <label>Años de experiencia a tener en cuenta:</label>
                         <span>@Model.ProjectExperienceYearsValueName</span>
                     </li>
                 }
@@ -42,14 +38,14 @@
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
                 {
-                    <li>
+                    <li class="POMPProjectBidActivityData">
                         <label>Actividades economicas:</label>
                         @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
                         {
                             <ul>
                                 @foreach (var dea in Model.ProjectDefaultEconomicActivity)
                                 {
-                                    <li>@dea.ActivityName</li>
+                                    <li><span>@dea.ActivityName</span></li>
                                 }
                             </ul>
                         }
@@ -57,60 +53,60 @@
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
                 {
-                    <li>
+                    <li class="POMPProjectBidActivityData">
                         <label>Actividades economicas personalizadas:</label>
                         @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
                         {
                             <ul>
                                 @foreach (var dea in Model.ProjectCustomEconomicActivity)
                                 {
-                                    <li>@dea.ActivityName</li>
+                                    <li><span>@dea.ActivityName</span></li>
                                 }
                             </ul>
                         }
                     </li>
                 }
-            </ul>
             <!--Project actions-->
-            <ul>
-                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
-                {
-                    <li>
-                        <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                new
-                                {
-                                    controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.Search,
-                                    ProjectPublicId = Model.ProjectPublicId,
-                                }))">Agregar proveedores al proceso de selección</a>
-                    </li>
-                }
-                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
-                {
-                    <li>
-                        <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
-                    </li>
-                }
-            </ul>
-        </div>
-        <div>
-            <!--Project files-->
-            <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
+                    <li class="POMPProjectBidDataActions">
+                        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
+                        {
 
-            @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
-            {
-                <ul id="ProjectDetail_FileUpload_FileList">
-                    @foreach (var oFile in Model.ProjectFile)
-                    {
-                        <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
-                            <a href="@oFile.ServerUrl" target="_blank">@oFile.FileName</a>
-                            <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');">Eliminar</a>
-                        </li>
-                    }
-                </ul>
-            }
-        </div>
+                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                                new
+                                                {
+                                                controller = MVC.Provider.Name,
+                                                action = MVC.Provider.ActionNames.Search,
+                                                ProjectPublicId = Model.ProjectPublicId,
+                                                }))">Agregar proveedores al proceso de selección</a>                        
+                        }
+                        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
+                        {
+                        <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
+
+                        }
+                    </li>
+            </ul>
+            <!-- AQUI SE PINTA LO DE CARGAR ARCHIVOS -->
+            <!--Project files-->
+            <div class="POMPProjectBidFileUploadWrapper">
+                <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
+
+                @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
+                {
+                    <ul id="ProjectDetail_FileUpload_FileList">
+                        @foreach (var oFile in Model.ProjectFile)
+                        {
+                            <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
+                                <div></div>
+                                <a href="@oFile.ServerUrl" target="_blank">@oFile.FileName</a>
+                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');">Eliminar</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>        
     </div>
 
     <!--Templates-->
