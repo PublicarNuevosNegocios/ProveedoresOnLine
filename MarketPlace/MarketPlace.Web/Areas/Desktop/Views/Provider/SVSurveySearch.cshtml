@@ -4,6 +4,11 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+
+    MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
+    {
+        RenderScripts = false,
+    };    
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -88,17 +93,18 @@
 <!--templates-->
 <div style="display:none;">
 
-    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, Model.RenderScripts)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
 
 </div>
 
 @{
     Model.RenderScripts = true;
+    oSurveyModel.RenderScripts = true;
 }
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
-    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, Model.RenderScripts)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
 
     <script type="text/javascript">
         $(document).ready(function () {

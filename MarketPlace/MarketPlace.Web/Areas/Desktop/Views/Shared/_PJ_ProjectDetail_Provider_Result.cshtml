@@ -149,7 +149,8 @@
                                         oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
                                 {
                                     <li>
-                                        <a href="javascript:Project_ProjectDetailObject.('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Evaluación de desempeño</a>
+                                        <!--actions-->
+                                        <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar evaluación de desempeño</a>
                                     </li>
                                 }
                             </ul>

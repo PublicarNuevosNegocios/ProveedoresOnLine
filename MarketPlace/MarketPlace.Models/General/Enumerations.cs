@@ -483,7 +483,8 @@
         Contract = 1204007,
         StartDate = 1204008,
         EndDate = 1204009,
-        Comments = 1204010
+        Comments = 1204010,
+        Project = 1204011,
     }
 
     public enum enumSurveyItemInfoType

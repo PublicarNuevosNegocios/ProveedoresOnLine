@@ -4,6 +4,12 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
+    
+    MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
+    {
+        RenderScripts = false,
+        CurrentProject = Model,
+    };
 }
 <div>
     <!--Header project-->
@@ -11,14 +17,23 @@
     <!--Providers Project-->
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
 </div>
+
+<div style="display:none;">
+    <!--Survey-->
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
+</div>
+
 @{
     Model.RenderScripts = true;
+    oSurveyModel.RenderScripts = true;
 }
 
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
+
 
     <script type="text/javascript">
         $(document).ready(function () {
