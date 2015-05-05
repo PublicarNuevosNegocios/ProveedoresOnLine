@@ -96,6 +96,24 @@ namespace MarketPlace.Web.ControllersApi
             return null;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public bool ProjectClose
+            (string ProjectClose)
+        {
+            if (ProjectClose == "true")
+            {
+                //get project request
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = GetProjectUpsertRequest();
+
+                //upsert project
+                oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+
+                return true;
+            }
+            return false;
+        }
+
 
         #endregion
 
@@ -495,7 +513,8 @@ namespace MarketPlace.Web.ControllersApi
                     string strValue = null, strLargeValue = null;
 
                     if (Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity ||
-                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity)
+                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity ||
+                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.CloseText)
                     {
                         strLargeValue = System.Web.HttpContext.Current.Request[req];
                     }

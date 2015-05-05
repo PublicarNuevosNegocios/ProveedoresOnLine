@@ -299,6 +299,19 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public string ProjectCloseText
+        {
+            get
+            {
+                return RelatedProject.ProjectInfo.
+                    Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.CloseText &&
+                                   !string.IsNullOrEmpty(pjinf.LargeValue)).
+                    Select(pjinf => pjinf.LargeValue).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         List<MarketPlace.Models.General.FileModel> oProjectFile;
         public List<MarketPlace.Models.General.FileModel> ProjectFile
         {

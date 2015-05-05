@@ -541,6 +541,7 @@
         Responsible = 1407008,
         InternalProcessNumber = 1407009,
         File = 1407010,
+        CloseText = 1407011,
     }
 
     public enum enumEvaluationItemType

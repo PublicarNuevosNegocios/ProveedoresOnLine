@@ -18,6 +18,7 @@
                 autoUpload: true
             },
             success: function (e) {
+                debugger;
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
@@ -68,6 +69,7 @@ var Project_ProjectDetailObject = {
 
     RenderAsync: function () {
 
+        //init edit form
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').length > 0) {
             //init form validator
             $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').kendoValidator();
@@ -143,6 +145,13 @@ var Project_ProjectDetailObject = {
                     value: $.parseJSON($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_CustomEconomicActivityValue').val()),
                 });
         }
+
+        //init close form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').length > 0) {
+            //init form validator
+            $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').kendoValidator();
+        }
+
     },
 
     ShowEditProject: function () {
@@ -219,6 +228,50 @@ var Project_ProjectDetailObject = {
                                 $(this).dialog('close');
                             }
                         });
+                    }
+                },
+            });
+        }
+    },
+
+    ShowCloseProject: function () {
+
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').length > 0) {
+
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Guardar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
+
+                        }
                     }
                 },
             });

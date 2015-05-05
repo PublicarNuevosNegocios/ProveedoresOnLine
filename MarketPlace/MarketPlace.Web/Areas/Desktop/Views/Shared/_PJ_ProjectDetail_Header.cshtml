@@ -8,38 +8,38 @@
             <label>@Model.ProjectName - @Model.LastModify - @Model.RelatedProjectConfig.ProjectConfigName</label>
             <ul class="POMPProjectBidMainData">
                 <li>
-                    <label>Responsable:</label>
+                    <label>Responsable</label>
                     <span>@Model.ProjectResponsible</span>
                 </li>
                 <li>
-                    <label>Número de proceso interno:</label>
+                    <label>Número de proceso interno</label>
                     <span>@Model.ProjectInternalProcessNumber</span>
                 </li>
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
                 {
                     <li>
-                        <label>Valor estimado de la compra:</label>
+                        <label>Valor estimado de la compra</label>
                         <span>$ @Model.ProjectAmmount.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")) @Model.ProjectCurrencyTypeName</span>
                     </li>
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
                 {
                     <li>
-                        <label>Años de experiencia a tener en cuenta:</label>
+                        <label>Años de experiencia a tener en cuenta</label>
                         <span>@Model.ProjectExperienceYearsValueName</span>
                     </li>
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval.Count > 0)
                 {
                     <li>
-                        <label>Cantidad de minima de experiencias:</label>
+                        <label>Cantidad de minima de experiencias</label>
                         <span>@Model.ProjectExperienceQuantity</span>
                     </li>
                 }
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
                 {
                     <li class="POMPProjectBidActivityData">
-                        <label>Actividades economicas:</label>
+                        <label>Actividades economicas</label>
                         @if (Model.ProjectDefaultEconomicActivity != null && Model.ProjectDefaultEconomicActivity.Count > 0)
                         {
                             <ul>
@@ -54,7 +54,7 @@
                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
                 {
                     <li class="POMPProjectBidActivityData">
-                        <label>Actividades economicas personalizadas:</label>
+                        <label>Actividades economicas personalizadas</label>
                         @if (Model.ProjectCustomEconomicActivity != null && Model.ProjectCustomEconomicActivity.Count > 0)
                         {
                             <ul>
@@ -66,12 +66,19 @@
                         }
                     </li>
                 }
+                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                {
+                    <li>
+                        <label>Razón de cierre</label>
+                        <span>@Model.ProjectCloseText</span>
+                    </li>
+                }                
                 <!--Project actions-->
                 <li class="POMPProjectBidDataActions">
                     @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
                         Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
                     {
-                        <a href="javascript:Project_ProjectDetailObject.();">Cerrar proceso de selección</a>
+                        <a href="javascript:Project_ProjectDetailObject.ShowCloseProject();">Cerrar proceso de selección</a>
                     }
                     else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
                     {
@@ -126,10 +133,10 @@
     <div style="display:none">
         <ul id="ProjectDetail_FileUpload_FileItemTemplate">
             <li id="ProjectDetail_FileUpload_File_{FileObjectId}">
+                <div></div>
                 <a href="{ServerUrl}" target="_blank">{FileName}</a>
                 <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');">Eliminar</a>
             </li>
-
         </ul>
         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
         {
@@ -138,7 +145,7 @@
                     <ul class="POMPProjectBidEditDialog">
                         <li>
                             <span>Nombre del proceso de selección</span>
-                            <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre de la precalificación es obligatorio" />
+                            <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre del proceso de selección es obligatorio" />
                         </li>
                         <li>
                             <label>Tipo de proceso de seleccion:</label>
@@ -250,6 +257,25 @@
                     <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
                     <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
                     <input type="hidden" name="ProjectStatus" value="@(((int)Model.ProjectStatus).ToString())" />
+                </form>
+            </div>
+        }
+        @if(Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+            Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
+        {
+            <div id="ProjectDetail_CloseProjectDialog" title="Cierre de proceso de selección">
+                <form id="ProjectDetail_CloseProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectClose=true")">
+                    <ul class="POMPProjectBidEditDialog">
+                        <li>
+                            <span>Razón de cierre:</span>
+                            <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CloseText).ToString())_" placeholder="Razón de cierre del proceso de selección" required validationmessage="La razón de cierre del proceso de selección es obligatoria"></textarea>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
+                    <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+                    <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
+                    <input type="hidden" name="ProjectStatus" value="@(((int)MarketPlace.Models.General.enumProjectStatus.CloseLose).ToString())" />
+                    <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
                 </form>
             </div>
         }
