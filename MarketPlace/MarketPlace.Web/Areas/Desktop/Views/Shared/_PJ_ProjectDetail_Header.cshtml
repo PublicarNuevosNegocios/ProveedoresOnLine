@@ -135,7 +135,7 @@
         {
             <div id="ProjectDetail_EditProjectDialog" title="Editar proceso de selección">
                 <form id="ProjectDetail_EditProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")">
-                    <ul>
+                    <ul class="POMPProjectBidEditDialog">
                         <li>
                             <span>Nombre del proceso de selección</span>
                             <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre de la precalificación es obligatorio" />
@@ -156,14 +156,14 @@
                         {
                             <li>
                                 <label>Valor estimado de la compra:</label>
-                                <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
+                                <input class="POMPProjectBidCurrencyValue" type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
                                 @if (Model.RelatedProjectConfig.ProjectConfigExperience.CurrencyEnable)
                                 {
                                     var olstCurrency = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.
                                         Where(cprv => cprv.CatalogId == 108).
                                         ToList();
 
-                                    <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_@Model.ProjectCurrencyId">
+                                    <select class="POMPProjectBidCurrency" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_@Model.ProjectCurrencyId">
                                         @foreach (var oItem in olstCurrency)
                                         {
                                             if (oItem.ItemId == Model.ProjectCurrencyTypeId)
@@ -189,7 +189,7 @@
                             var oYearsValues = Model.RelatedProjectConfig.GetExperienceYearValues();
 
                             <li>
-                                <label>Cantidad de años de experiencia a tener en cuenta:</label>
+                                <label>Años de experiencia a tener en cuenta:</label>
                                 <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).ToString())_@Model.ProjectExperienceYearsId">
                                     @foreach (var oYears in oYearsValues)
                                     {
@@ -230,7 +230,7 @@
                         {
                             string strDefaultSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectDefaultEconomicActivity);
 
-                            <li>
+                            <li class="POMPProjectBidEditDialogActivity">
                                 <label>Actividades economicas:</label>
                                 <select id="ProjectDetail_EditProjectDialog_DefaultEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId"></select>
                                 <input type="hidden" id="ProjectDetail_EditProjectDialog_DefaultEconomicActivityValue" value="@strDefaultSerialize" />
@@ -240,7 +240,7 @@
                         {
                             string strCustomSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectCustomEconomicActivity);
 
-                            <li>
+                            <li class="POMPProjectBidEditDialogActivity">
                                 <label>Actividades economicas personalizadas:</label>
                                 <select id="ProjectDetail_EditProjectDialog_CustomEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId"></select>
                                 <input type="hidden" id="ProjectDetail_EditProjectDialog_CustomEconomicActivityValue" value="@strCustomSerialize" />
