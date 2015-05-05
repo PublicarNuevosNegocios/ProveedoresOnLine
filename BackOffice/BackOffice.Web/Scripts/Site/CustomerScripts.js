@@ -1477,6 +1477,7 @@ var Customer_EvaluationItemObject = {
     CustomerPublicId: '',
     ProjectConfigId: '',
     PageSize: '',
+    FormEvaluationCriteria: '',
     ProjectConfigOptionsList: new Array(),
 
     Init: function (vInitObject) {
@@ -1484,6 +1485,7 @@ var Customer_EvaluationItemObject = {
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.PageSize = vInitObject.PageSize;
+        this.FormEvaluationCriteria = vInitObject.FormEvaluationCriteria;
         this.ProjectConfigOptionsList = vInitObject.ProjectConfigOptionsList;
 
         if (vInitObject.ProjectConfigOptionsList != null) {
@@ -1984,6 +1986,8 @@ var Customer_EvaluationItemObject = {
     },
 
     ShowProjectConfigurationDetail: function (dataItem) {
-
+        debugger;
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').load(Customer_EvaluationItemObject.FormEvaluationCriteria);
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').dialog();
     },
 };

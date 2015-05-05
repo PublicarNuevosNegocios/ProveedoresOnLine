@@ -1,6 +1,6 @@
-﻿@model bool
+﻿@model MarketPlace.Models.Survey.SurveyProgramModel
 
-@if (!Model)
+@if (!Model.RenderScripts)
 {
     <div id="Survey_ProgramSurvey">
         <div id="Survey_ProgramSurvey_Dialog">
@@ -31,6 +31,14 @@
                             <input id="Survey_ProgramSurvey_EndDate" placeholder="yyyy-MM-dd" required validationmessage="Seleccione una fecha" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.EndDate).ToString())_" />
                         </div>
                     </li>
+                    @if (Model.CurrentProject != null)
+                    {
+                        <li>
+                            <label>Proceso de selección:</label>
+                            <span>@Model.CurrentProject.ProjectName</span>
+                            <input type="hidden" id="Survey_ProgramSurvey_Project" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId"/>
+                        </li>
+                    }
                     <li>
                         <label>Observaciones:</label>
                         <textarea id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_"></textarea>
