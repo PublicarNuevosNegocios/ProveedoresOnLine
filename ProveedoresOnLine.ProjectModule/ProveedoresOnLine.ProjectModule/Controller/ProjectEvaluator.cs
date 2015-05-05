@@ -153,149 +153,157 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         public void InitEval()
         {
-            RelatedProject.RelatedProjectProvider.All(pjpv =>
+            //validate project status and project providers
+            if (RelatedProject.RelatedProjectProvider != null &&
+                RelatedProject.RelatedProjectProvider.Count > 0 &&
+                (RelatedProject.ProjectStatus.ItemId == 1406001 ||
+                RelatedProject.ProjectStatus.ItemId == 1406003))
             {
-                LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
-                try
+
+                RelatedProject.RelatedProjectProvider.All(pjpv =>
                 {
-                    //loop for evaluation criteria
-
-                    List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult = new List<Models.ProjectProviderInfoModel>();
-                    List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oTmpResult = new List<Models.ProjectProviderInfoModel>();
-
-                    RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
-                    Where(ei => ei.ItemType.ItemId == 1401002).
-                    All(ei =>
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
                     {
-                        try
+                        //loop for evaluation criteria
+
+                        List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oResult = new List<Models.ProjectProviderInfoModel>();
+                        List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel> oTmpResult = new List<Models.ProjectProviderInfoModel>();
+
+                        RelatedProject.RelatedProjectConfig.RelatedEvaluationItem.
+                        Where(ei => ei.ItemType.ItemId == 1401002).
+                        All(ei =>
                         {
-                            switch (ei.ItemInfo.
-                                        Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
-                                        Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
-                                        DefaultIfEmpty(0).
-                                        FirstOrDefault())
+                            try
                             {
-                                case 1404001:
-                                    oTmpResult = Commercial_EvalExperience(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404002:
-                                    oTmpResult = Certification_EvalNorms(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404003:
-                                    oTmpResult = Certification_EvalLTIF(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404004:
-                                    oTmpResult = Certification_EvalRiskPolicies(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404005:
-                                    oTmpResult = Financial_EvalBalanceSheet(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404006:
-                                    oTmpResult = Legal_EvalChamberOfCommerce(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404007:
-                                    oTmpResult = Legal_EvalRut(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                case 1404008:
-                                    oTmpResult = Legal_EvalSARLAFT(pjpv, ei);
-                                    if (oTmpResult != null && oTmpResult.Count > 0)
-                                    {
-                                        oResult.AddRange(oTmpResult);
-                                    }
-                                    break;
-                                default:
-                                    break;
+                                switch (ei.ItemInfo.
+                                            Where(eiinf => eiinf.ItemInfoType.ItemId == 1402005).
+                                            Select(eiinf => string.IsNullOrEmpty(eiinf.Value) ? 0 : Convert.ToInt32(eiinf.Value)).
+                                            DefaultIfEmpty(0).
+                                            FirstOrDefault())
+                                {
+                                    case 1404001:
+                                        oTmpResult = Commercial_EvalExperience(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404002:
+                                        oTmpResult = Certification_EvalNorms(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404003:
+                                        oTmpResult = Certification_EvalLTIF(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404004:
+                                        oTmpResult = Certification_EvalRiskPolicies(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404005:
+                                        oTmpResult = Financial_EvalBalanceSheet(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404006:
+                                        oTmpResult = Legal_EvalChamberOfCommerce(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404007:
+                                        oTmpResult = Legal_EvalRut(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    case 1404008:
+                                        oTmpResult = Legal_EvalSARLAFT(pjpv, ei);
+                                        if (oTmpResult != null && oTmpResult.Count > 0)
+                                        {
+                                            oResult.AddRange(oTmpResult);
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
                             }
-                        }
-                        catch (Exception err)
-                        {
-                            throw err;
-                        }
+                            catch (Exception err)
+                            {
+                                throw err;
+                            }
 
-                        return true;
-                    });
+                            return true;
+                        });
 
-                    //recalculate area results
-                    if (oResult == null)
-                        oResult = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>();
+                        //recalculate area results
+                        if (oResult == null)
+                            oResult = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>();
 
-                    oResult.AddRange(AreaResults(pjpv, oResult));
+                        oResult.AddRange(AreaResults(pjpv, oResult));
 
 
-                    //create upsert model
-                    ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
-                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
-                        {
-                            ProjectCompanyId = pjpv.ProjectCompanyId,
-                            ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>(),
-                        };
+                        //create upsert model
+                        ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel oProjectProviderToUpsert =
+                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                            {
+                                ProjectCompanyId = pjpv.ProjectCompanyId,
+                                ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>(),
+                            };
 
-                    //get new items to upsert
-                    oProjectProviderToUpsert.ItemInfo.AddRange
-                        (oResult.Where(ors => ors.ItemInfoId == 0));
+                        //get new items to upsert
+                        oProjectProviderToUpsert.ItemInfo.AddRange
+                            (oResult.Where(ors => ors.ItemInfoId == 0));
 
-                    //get change value items
-                    oProjectProviderToUpsert.ItemInfo.AddRange
-                        (oResult.
-                            Where(ors => ors.ItemInfoId > 0 &&
-                                        (ors.Value !=
-                                            pjpv.ItemInfo.
-                                            Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
-                                            Select(pjpvinf => pjpvinf.Value).
-                                            DefaultIfEmpty(null).
-                                            FirstOrDefault() ||
-                                        ors.LargeValue != pjpv.ItemInfo.
-                                            Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
-                                            Select(pjpvinf => pjpvinf.LargeValue).
-                                            DefaultIfEmpty(null).
-                                            FirstOrDefault())));
+                        //get change value items
+                        oProjectProviderToUpsert.ItemInfo.AddRange
+                            (oResult.
+                                Where(ors => ors.ItemInfoId > 0 &&
+                                            (ors.Value !=
+                                                pjpv.ItemInfo.
+                                                Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
+                                                Select(pjpvinf => pjpvinf.Value).
+                                                DefaultIfEmpty(null).
+                                                FirstOrDefault() ||
+                                            ors.LargeValue != pjpv.ItemInfo.
+                                                Where(pjpvinf => pjpvinf.ItemInfoId == ors.ItemInfoId && !string.IsNullOrEmpty(pjpvinf.Value)).
+                                                Select(pjpvinf => pjpvinf.LargeValue).
+                                                DefaultIfEmpty(null).
+                                                FirstOrDefault())));
 
-                    //upsert evaluation items responses
-                    oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
-                }
-                catch (Exception err)
-                {
-                    oLog.IsSuccess = false;
-                    oLog.Message = err.Message + " - " + err.StackTrace;
+                        //upsert evaluation items responses
+                        oProjectProviderToUpsert = ProjectModule.ProjectCompanyInfoUpsert(oProjectProviderToUpsert);
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
 
-                    throw err;
-                }
-                finally
-                {
-                    oLog.LogObject = pjpv;
-                    LogManager.ClientLog.AddLog(oLog);
-                }
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = pjpv;
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
 
-                return true;
-            });
+                    return true;
+                });
+            }
         }
 
         #region Commercial

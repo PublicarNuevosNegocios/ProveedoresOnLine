@@ -603,6 +603,7 @@
         Pending = 1410001,
         Approved = 1410002,
         Rejected = 1410003,
+        Award = 1410004,
     }
 
     public enum enumEvaluatorType

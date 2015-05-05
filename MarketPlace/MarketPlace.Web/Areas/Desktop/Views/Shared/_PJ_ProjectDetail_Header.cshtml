@@ -66,26 +66,39 @@
                         }
                     </li>
                 }
-            <!--Project actions-->
-                    <li class="POMPProjectBidDataActions">
-                        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                <!--Project actions-->
+                <li class="POMPProjectBidDataActions">
+                    @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+                        Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                    {
+                        <a href="javascript:Project_ProjectDetailObject.();">Cerrar proceso de selección</a>
+                    }
+                    else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
+                    {
+                        <span>Proceso adjudicado</span>
+                    }
+                    else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                    {
+                        <span>Proceso cerrado sin adjudicación</span>
+                    }
+                    
+                    @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
                             Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
-                        {
+                    {
 
-                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                                 new
                                                 {
                                                 controller = MVC.Provider.Name,
                                                 action = MVC.Provider.ActionNames.Search,
                                                 ProjectPublicId = Model.ProjectPublicId,
-                                                }))">Agregar proveedores al proceso de selección</a>                        
-                        }
-                        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
-                        {
+                                                }))">Agregar proveedores al proceso de selección</a>
+                    }
+                    @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
+                    {
                         <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
-
-                        }
-                    </li>
+                    }
+                </li>
             </ul>
             <!-- AQUI SE PINTA LO DE CARGAR ARCHIVOS -->
             <!--Project files-->
@@ -106,7 +119,7 @@
                     </ul>
                 }
             </div>
-        </div>        
+        </div>
     </div>
 
     <!--Templates-->

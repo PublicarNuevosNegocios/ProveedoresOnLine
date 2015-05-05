@@ -51,17 +51,19 @@
 };
 
 var Project_ProjectDetailObject = {
-    
+
     ObjectId: '',
     ProjectPublicId: '',
     CustomEconomicActivity: '',
-    ProjectUrl: '',
+    ProjectRecalculateUrl: '',
+    ProjectDetailUrl: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.ProjectPublicId = vInitObject.ProjectPublicId;
         this.CustomEconomicActivity = vInitObject.CustomEconomicActivity;
-        this.ProjectUrl = vInitObject.ProjectUrl;
+        this.ProjectRecalculateUrl = vInitObject.ProjectRecalculateUrl;
+        this.ProjectDetailUrl = vInitObject.ProjectDetailUrl;
     },
 
     RenderAsync: function () {
@@ -169,13 +171,13 @@ var Project_ProjectDetailObject = {
                                 url: $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').attr('action'),
                                 data: $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').serialize(),
                                 success: function (result) {
-                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                    window.location = Project_ProjectDetailObject.ProjectUrl;
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectRecalculateUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectRecalculateUrl;
                                     $(this).dialog('close');
                                 },
                                 error: function (result) {
-                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                    window.location = Project_ProjectDetailObject.ProjectUrl;
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectRecalculateUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectRecalculateUrl;
                                     $(this).dialog('close');
                                 }
                             });
@@ -207,13 +209,13 @@ var Project_ProjectDetailObject = {
                             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRequestApproval=true&ProjectPublicId=' + Project_ProjectDetailObject.ProjectPublicId + '&ProviderPublicId=' + vProviderPublicId,
                             dataType: 'json',
                             success: function (result) {
-                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                window.location = Project_ProjectDetailObject.ProjectUrl;
+                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                window.location = Project_ProjectDetailObject.ProjectDetailUrl;
                                 $(this).dialog('close');
                             },
                             error: function (result) {
-                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                window.location = Project_ProjectDetailObject.ProjectUrl;
+                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                window.location = Project_ProjectDetailObject.ProjectDetailUrl;
                                 $(this).dialog('close');
                             }
                         });

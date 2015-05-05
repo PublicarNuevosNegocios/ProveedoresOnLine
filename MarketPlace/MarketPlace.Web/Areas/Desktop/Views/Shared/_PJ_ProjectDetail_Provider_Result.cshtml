@@ -58,11 +58,38 @@
                                                     ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                                 }))">Ver detalle</a>
                                 </li>
-                                @if (oProjectProvider.ValidateApprovalStatus() == null)
-                                {
-                                    <li>
-                                        <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
-                                    </li>
+                                @{
+                        MarketPlace.Models.General.enumApprovalStatus? oAprovalStatus = oProjectProvider.GetApprovalStatus();
+
+                        if (oAprovalStatus == null &&
+                        (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                        Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
+                        {
+                            <li>
+                                <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                            </li>
+                        }
+                        else if (oAprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Pending &&
+                                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval)
+                        {
+                            <li>
+                                <span>Pendiente por aprobación</span>
+                            </li>
+                        }
+                        else if (oAprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Approved &&
+                                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Award)
+                        {
+                            <li>
+                                <a href="javascript:Project_ProjectDetailObject.('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Adjudicar</a>
+                            </li>
+                        }
+                        else if (oAprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Award &&
+                                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
+                        {
+                            <li>
+                                <a href="javascript:Project_ProjectDetailObject.('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Evaluación de desempeño</a>
+                            </li>
+                        }
                                 }
                             </ul>
                         </li>
