@@ -43,11 +43,16 @@
     </div>
 </div>
 
+<div id="divGridEvaluationItem_EvaluationCriteria" style="display:none;">
+    @Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria, Model)
+    
+</div>
+
 <!--templates-->
 <div style="display:none;">
     <div id="divGridEvaluationItem_TitleTemplate">
         <label>${Title}</label>
-    </div>1
+    </div>
 
     <div id="divGridEvaluationItem_ShortcutToolTipTemplate">
         <img class="divGrid_kbtooltip" src="@Url.Content(BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_InfoTooltip].Value)" title=" Nuevo (alt+shift+n) -  Guardar (alt+shift+g) - Descartar (alt+shift+d) " />
@@ -62,12 +67,16 @@
         <input class="POBOSurveySearchInput" id="divGridEvaluationItem_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
         <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
+
+    
 </div>
 
 
 
 @{
     Model.RenderScripts = true;
+
+    
 }
 
 @section inlinescripts{
@@ -91,6 +100,8 @@
             oProjectConfigOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+
+        string oUrlForm = Url.Action(MVC.Shared.Views._PJ_EvaluationCriteria, Model);
     }
 
     <script type="text/javascript">
@@ -103,6 +114,7 @@
                 ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
+                FormEvaluationCriteria: '@(Html.Raw(oUrlForm))',
             });
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',
