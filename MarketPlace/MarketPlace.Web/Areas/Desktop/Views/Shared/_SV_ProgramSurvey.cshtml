@@ -35,8 +35,8 @@
                     {
                         <li>
                             <label>Proceso de selección:</label>
-                            <span>@Model.CurrentProject.ProjectName</span>
-                            <input type="hidden" id="Survey_ProgramSurvey_Project" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId"/>
+                            <input id="Survey_ProgramSurvey_Project" value="@Model.CurrentProject.ProjectName" readonly="readonly" />
+                            <input type="hidden" id="Survey_ProgramSurvey_ProjectPublicId" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Project).ToString())_" value="@Model.CurrentProject.ProjectPublicId"/>
                         </li>
                     }
                     <li>
