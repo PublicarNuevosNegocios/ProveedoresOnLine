@@ -542,6 +542,7 @@
         InternalProcessNumber = 1407009,
         File = 1407010,
         CloseText = 1407011,
+        AwardText = 1407012,
     }
 
     public enum enumEvaluationItemType

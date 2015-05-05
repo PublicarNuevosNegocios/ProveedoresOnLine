@@ -66,13 +66,20 @@
                         }
                     </li>
                 }
-                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
+                {
+                    <li>
+                        <label>Nota de adjudicación</label>
+                        <span>@Model.ProjectAwardText</span>
+                    </li>
+                }
+                else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
                 {
                     <li>
                         <label>Razón de cierre</label>
                         <span>@Model.ProjectCloseText</span>
                     </li>
-                }                
+                }
                 <!--Project actions-->
                 <li class="POMPProjectBidDataActions">
                     @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
@@ -88,7 +95,7 @@
                     {
                         <span>Proceso cerrado sin adjudicación</span>
                     }
-                    
+
                     @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
                             Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
                     {
@@ -118,9 +125,9 @@
                         @foreach (var oFile in Model.ProjectFile)
                         {
                             <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
-                                <div></div>
-                                <a href="@oFile.ServerUrl" target="_blank">@oFile.FileName</a>
-                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');">Eliminar</a>
+                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
+                                <div class="SelGenericTooltip" title="@oFile.FileName"></div>
+                                <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip" title="@oFile.FileName">@oFile.FileName</a>
                             </li>
                         }
                     </ul>
@@ -133,9 +140,9 @@
     <div style="display:none">
         <ul id="ProjectDetail_FileUpload_FileItemTemplate">
             <li id="ProjectDetail_FileUpload_File_{FileObjectId}">
-                <div></div>
-                <a href="{ServerUrl}" target="_blank">{FileName}</a>
-                <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');">Eliminar</a>
+                <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
+                <div class="SelGenericTooltip" title="{FileName}"></div>
+                <a href="{ServerUrl}" target="_blank" class="SelGenericTooltip" title="{FileName}">{FileName}</a>
             </li>
         </ul>
         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
@@ -260,7 +267,7 @@
                 </form>
             </div>
         }
-        @if(Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+        @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
             Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
         {
             <div id="ProjectDetail_CloseProjectDialog" title="Cierre de proceso de selección">

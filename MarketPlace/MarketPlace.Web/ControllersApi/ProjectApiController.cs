@@ -114,6 +114,23 @@ namespace MarketPlace.Web.ControllersApi
             return false;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public bool ProjectAward
+            (string ProjectAward)
+        {
+            if (ProjectAward == "true")
+            {
+                //get project request
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = GetProjectUpsertRequest();
+
+                //upsert project
+                oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+
+                return true;
+            }
+            return false;
+        }
 
         #endregion
 
@@ -364,7 +381,7 @@ namespace MarketPlace.Web.ControllersApi
 
                     //validate provider and status
                     if (oProjectProvider != null &&
-                        oProjectProvider.GetApprovalStatus() == null)
+                        oProjectProvider.ApprovalStatus == null)
                     {
                         //create project to upsert
                         ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
@@ -514,7 +531,8 @@ namespace MarketPlace.Web.ControllersApi
 
                     if (Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity ||
                         Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity ||
-                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.CloseText)
+                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.CloseText ||
+                        Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectInfoType.AwardText)
                     {
                         strLargeValue = System.Web.HttpContext.Current.Request[req];
                     }
@@ -537,6 +555,61 @@ namespace MarketPlace.Web.ControllersApi
                 }
                 return true;
             });
+
+            //get project company info
+            if (!string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["ProjectCompanyId"]) &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["ProviderPublicId"]))
+            {
+                oReturn.RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>() 
+                {
+                    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                    {
+                        ProjectCompanyId = Convert.ToInt32(System.Web.HttpContext.Current.Request["ProjectCompanyId"].Replace(" ","")),
+                        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = System.Web.HttpContext.Current.Request["ProviderPublicId"].Replace(" ",""),
+                            },
+                        },
+                        Enable = true,
+                        ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>(),
+                    },
+                };
+
+                System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("ProjectCompanyInfo_")).All(req =>
+                {
+                    string[] strSplit = req.Split('_');
+
+                    if (strSplit.Length >= 3)
+                    {
+                        string strValue = null, strLargeValue = null;
+
+                        if (Convert.ToInt32(strSplit[1].Trim()) == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText)
+                        {
+                            strLargeValue = System.Web.HttpContext.Current.Request[req];
+                        }
+                        else
+                        {
+                            strValue = System.Web.HttpContext.Current.Request[req];
+                        }
+
+                        oReturn.RelatedProjectProvider.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                        {
+                            ItemInfoId = !string.IsNullOrEmpty(strSplit[2]) ? Convert.ToInt32(strSplit[2].Trim()) : 0,
+                            RelatedEvaluationItem = null,
+                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(strSplit[1].Trim())
+                            },
+                            Value = strValue,
+                            LargeValue = strLargeValue,
+                            Enable = true,
+                        });
+                    }
+                    return true;
+                });
+            }
 
             return oReturn;
         }

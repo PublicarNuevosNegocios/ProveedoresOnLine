@@ -39,6 +39,37 @@ namespace MarketPlace.Models.Project
             #endregion
         }
 
+        #region Projectprovider info
+
+        public MarketPlace.Models.General.enumApprovalStatus? ApprovalStatus
+        {
+            get
+            {
+                return RelatedProjectProvider.ItemInfo.
+                    Where(pjpvinf => pjpvinf.RelatedEvaluationItem == null &&
+                                    pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus &&
+                                    !string.IsNullOrEmpty(pjpvinf.Value)).
+                    Select(pjpvinf => (MarketPlace.Models.General.enumApprovalStatus?)Convert.ToInt32(pjpvinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(null).
+                    FirstOrDefault();
+            }
+        }
+
+        public int ApprovalStatusId
+        {
+            get
+            {
+                return RelatedProjectProvider.ItemInfo.
+                    Where(pjpvinf => pjpvinf.RelatedEvaluationItem == null &&
+                                    pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus).
+                    Select(pjpvinf => pjpvinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        #endregion
+
         #region Methods
 
         public decimal GetRatting(int vEvaluationItemId)
@@ -69,22 +100,8 @@ namespace MarketPlace.Models.Project
         public MarketPlace.Models.General.enumApprovalStatus? GetApprovalStatusByArea(int vEvaluationItemId)
         {
             return RelatedProjectProvider.ItemInfo.
-                Where(pjpvinf => pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
-                                pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus &&
-                                !string.IsNullOrEmpty(pjpvinf.Value)).
-                Select(pjpvinf => (MarketPlace.Models.General.enumApprovalStatus?)Convert.ToInt32(pjpvinf.Value.Replace(" ", ""))).
-                DefaultIfEmpty(null).
-                FirstOrDefault();
-        }
-
-        /// <summary>
-        /// validate all approval status for provider
-        /// </summary>
-        /// <returns>null not request, enum values for any status</returns>
-        public MarketPlace.Models.General.enumApprovalStatus? GetApprovalStatus()
-        {
-            return RelatedProjectProvider.ItemInfo.
-                Where(pjpvinf => pjpvinf.RelatedEvaluationItem == null &&
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
                                 pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus &&
                                 !string.IsNullOrEmpty(pjpvinf.Value)).
                 Select(pjpvinf => (MarketPlace.Models.General.enumApprovalStatus?)Convert.ToInt32(pjpvinf.Value.Replace(" ", ""))).

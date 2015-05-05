@@ -17,10 +17,10 @@
                     {
                         foreach (var oAreaItem in oEvaluationAreas)
                         {
-                            <li>
-                                <label>@oAreaItem.EvaluationItemName</label>
-                                <span>@oAreaItem.EvaluationItemUnitName</span>
-                            </li>
+                    <li>
+                        <label>@oAreaItem.EvaluationItemName</label>
+                        <span>@oAreaItem.EvaluationItemUnitName</span>
+                    </li>
                         }
                     }
                     <li></li>
@@ -29,19 +29,58 @@
 
             @foreach (var oProjectProvider in Model.RelatedProjectProvider)
             {
+                MarketPlace.Models.General.enumApprovalStatus? oApprovalProviderStatus = oProjectProvider.ApprovalStatus;
+
                 <li>
                     <ul>
                         <li>
                             <!--Render provider basic info-->
                             @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, oProjectProvider.RelatedProvider.RelatedLiteProvider)
+                            @if (oApprovalProviderStatus != null &&
+                                oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+                            {
+                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Pendiente por aprobación"></div>
+                            }
+                            else if (oApprovalProviderStatus != null &&
+                                    oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+                            {
+                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Aprobado"></div>
+                            }
+                            else if (oApprovalProviderStatus != null &&
+                                    oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
+                            {
+                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Rechazado"></div>
+                            }
+                            else if (oApprovalProviderStatus != null &&
+                                    oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+                            {
+                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Adjudicado"></div>
+                            }
                         </li>
                         <!--Render evaluation areas-->
                         @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
                         {
                             foreach (var oAreaItem in oEvaluationAreas)
                             {
+                                MarketPlace.Models.General.enumApprovalStatus? oApprovalAreaStatus = oProjectProvider.GetApprovalStatusByArea(oAreaItem.EvaluationItemId);
                                 <li>
                                     @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oProjectProvider.GetRatting(oAreaItem.EvaluationItemId), oAreaItem.AprobalPercent))
+
+                                    @if (oApprovalAreaStatus != null &&
+                                        oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+                                    {
+                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Pendiente por aprobación"></div>
+                                    }
+                                    else if (oApprovalAreaStatus != null &&
+                                            oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+                                    {
+                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Aprobado"></div>
+                                    }
+                                    else if (oApprovalAreaStatus != null &&
+                                            oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
+                                    {
+                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Rechazado"></div>
+                                    }
                                 </li>
                             }
                         }
@@ -58,38 +97,60 @@
                                                     ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                                 }))">Ver detalle</a>
                                 </li>
-                                @{
-                        MarketPlace.Models.General.enumApprovalStatus? oAprovalStatus = oProjectProvider.GetApprovalStatus();
+                                @if (oApprovalProviderStatus == null &&
+                                    (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                                    Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
+                                {
+                                    <li>
+                                        <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                                    </li>
+                                }
+                                else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval &&
+                                        oApprovalProviderStatus != null &&
+                                        oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+                                {
+                                    <li>
+                                        <span>Pendiente por aprobación</span>
+                                    </li>
+                                }
+                                else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Award &&
+                                        oApprovalProviderStatus != null &&
+                                        oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+                                {
+                                    <li>
+                                        <a href="javascript:Project_ProjectDetailObject.ShowAwardProject();">Adjudicar</a>
 
-                        if (oAprovalStatus == null &&
-                        (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-                        Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
-                        {
-                            <li>
-                                <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
-                            </li>
-                        }
-                        else if (oAprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Pending &&
-                                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval)
-                        {
-                            <li>
-                                <span>Pendiente por aprobación</span>
-                            </li>
-                        }
-                        else if (oAprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Approved &&
-                                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Award)
-                        {
-                            <li>
-                                <a href="javascript:Project_ProjectDetailObject.('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Adjudicar</a>
-                            </li>
-                        }
-                        else if (oAprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Award &&
-                                Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
-                        {
-                            <li>
-                                <a href="javascript:Project_ProjectDetailObject.('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Evaluación de desempeño</a>
-                            </li>
-                        }
+                                        <!--template award provider-->
+                                        <div style="display:none;">
+                                            <div id="ProjectDetail_ProviderAwardDialog" title="Adjudicar proceso de selección">
+                                                <form id="ProjectDetail_ProviderAwardDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectAward=true")">
+                                                    <ul class="POMPProjectBidEditDialog">
+                                                        <li>
+                                                            <span>Nota de adjudicación:</span>
+                                                            <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.AwardText).ToString())_" placeholder="Nota de adjudicación" required validationmessage="La nota de adjudicación es obligatoria es obligatoria"></textarea>
+                                                        </li>
+                                                    </ul>
+                                                    <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
+                                                    <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+                                                    <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
+                                                    <input type="hidden" name="ProjectStatus" value="@(((int)MarketPlace.Models.General.enumProjectStatus.CloseWin).ToString())" />
+                                                    <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+
+                                                    <input type="hidden" name="ProjectCompanyId" value="@oProjectProvider.RelatedProjectProvider.ProjectCompanyId" />
+                                                    <input type="hidden" name="ProviderPublicId" value="@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId" />
+                                                    <input type="hidden" name="ProjectCompanyInfo_@(((int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus).ToString())_@(oProjectProvider.ApprovalStatusId.ToString())" value="@(((int)MarketPlace.Models.General.enumApprovalStatus.Award).ToString())" />
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                                else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+                                        oApprovalProviderStatus != null &&
+                                        oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+                                {
+                                    <li>
+                                        <a href="javascript:Project_ProjectDetailObject.('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Evaluación de desempeño</a>
+                                    </li>
                                 }
                             </ul>
                         </li>
