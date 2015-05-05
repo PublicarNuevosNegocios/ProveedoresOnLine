@@ -217,7 +217,7 @@
                             var oQuantityValues = Model.RelatedProjectConfig.GetExperienceQuantityValues();
 
                             <li>
-                                <label>Cantidad de minima de experiencias:</label>
+                                <label>Cantidad minima de experiencias:</label>
                                 <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).ToString())_@Model.ProjectExperienceQuantityId">
                                     @foreach (var oQuantity in oQuantityValues)
                                     {
@@ -238,7 +238,7 @@
                             string strDefaultSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectDefaultEconomicActivity);
 
                             <li class="POMPProjectBidEditDialogActivity">
-                                <label>Actividades economicas:</label>
+                                <label>Actividades Económicas:</label>
                                 <select id="ProjectDetail_EditProjectDialog_DefaultEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId"></select>
                                 <input type="hidden" id="ProjectDetail_EditProjectDialog_DefaultEconomicActivityValue" value="@strDefaultSerialize" />
                             </li>
@@ -248,7 +248,7 @@
                             string strCustomSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectCustomEconomicActivity);
 
                             <li class="POMPProjectBidEditDialogActivity">
-                                <label>Actividades economicas personalizadas:</label>
+                                <label>Actividades Económicas Personalizadas:</label>
                                 <select id="ProjectDetail_EditProjectDialog_CustomEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId"></select>
                                 <input type="hidden" id="ProjectDetail_EditProjectDialog_CustomEconomicActivityValue" value="@strCustomSerialize" />
                             </li>

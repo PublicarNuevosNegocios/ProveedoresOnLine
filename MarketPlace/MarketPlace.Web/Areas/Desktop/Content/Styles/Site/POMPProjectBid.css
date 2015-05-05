@@ -42,7 +42,7 @@
             display:inline-block;
             width:32.2%;            
             vertical-align:top;
-            border-bottom: 1px dotted grey;
+            border-bottom: 1px solid grey;
             margin:4px 0 0 4px;
             min-height: 55px;
         }
@@ -61,7 +61,7 @@
 .POMPProjectBidMainData span {
     font-size: 0.98em;
     letter-spacing: -0.2px;
-    display:inline-block;
+    display:block;
     font-weight: normal;
     line-height: 1em;
     margin:0px;
@@ -109,7 +109,7 @@ li.POMPProjectBidActivityData ul{
 .POMPProjectBidFileUploadWrapper div em{
     display: inline-block;
     width: calc(100% - 111px);
-    height: 26px;
+    height: 42px;
 }
 .POMPProjectBidFileUploadWrapper > ul {
     list-style-type:none;
@@ -147,79 +147,44 @@ li.POMPProjectBidActivityData ul{
         .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(3) {
             width: 16%;
         }
-
-/***********  AQUI SE PINTA EL POPUP DE EDICION DE
-    PRECALIFICACION  ************/
-.POMPProjectBidEditDialog {
-    margin:2px;
-}
-    .POMPProjectBidEditDialog > li{
-        display:block;
-        width:auto;
-        margin:7px 0;
-    }
-.POMPProjectBidEditDialog > li > span,
-.POMPProjectBidEditDialog > li > label{
-    width:222px;
-}
-.POMPProjectBidEditDialog > li > span,
-.POMPProjectBidEditDialog > li > label,
-.POMPProjectBidEditDialog > li > input,
-.POMPProjectBidEditDialog > li > select{
-    font-size:0.9em;
-    letter-spacing:-0.9px;
-    color:#4d4d4d;
-    text-align:left;
-    display:inline-block;
-    font-weight:normal;
-    vertical-align:top;
-}
-        input.POMPProjectBidCurrencyValue {
-            width:162px !important;
-        }
-        select.POMPProjectBidCurrency{
-            width:60px !important;
-        }
-        .POMPProjectBidEditDialog > li > input,
-        .POMPProjectBidEditDialog > li > select {
-            width:225px;
-        }
-        .POMPProjectBidEditDialog > li > .k-invalid-msg {
-            display: block;
-            margin: 6px 0 0;
-            width: 96%;
-        }
-.POMPProjectBidEditDialogActivity > div{
-    border-radius: 2px;
-    display: inline-block;
-    font-size: 1em;
-    max-height: 86px;
-    width: 222px;
-    overflow-y:auto;
-    overflow-x:hidden;
-    border: 1px solid gray !important;
-    width: 99%;
-}
-.POMPProjectBidEditDialogActivity > div > span {
-    font-size:0.99em !important;
-    color:#4d4d4d !important;
-}
-/***********************************/
-
-
-
-
-
-
-
-
-
-
-
-
 /*********** AQUI SE PINTA EL LISTADO DE 
     PROVEEDORES A PRECALIFICAR ************/
-
+.POMPProjectBidGridWrapper,
+.POMPProjectBidProviderAreaGrid {
+    border:1px solid green;
+    width:auto; height:auto;
+    display:block; list-style-type:none;
+}
+.POMPProjectBidGridWrapper{
+    min-width:960px;
+    margin:10px 0; padding:0 18px 12px;
+}
+.POMPProjectBidGridWrapper li{
+    display:block;
+    width:100%; height:auto;
+    margin:0px; padding:0px;
+}
+.POMPProjectBidProviderAreaGrid {
+    margin:0px; padding:0px;
+}
+.POMPProjectBidProviderAreaGrid li{
+    border:1px solid purple;
+    display:inline-block;
+}
+.POMPProjectBidProviderAreaGrid li:first-child {
+}
+    .POMPProjectBidProviderAreaGrid li:nth-child(2) {
+    }
+    .POMPProjectBidProviderAreaGrid li:nth-child(3) {
+    }
+.POMPProjectBidProviderAreaGrid li:nth-child(4){}
+.POMPProjectBidProviderAreaGrid li:nth-child(5) {}
+.POMPProjectBidProviderAreaGrid li:nth-child(6){
+    border:1px solid red;
+    width:auto; height:auto; min-width:960px;
+    display:block; list-style-type:none;
+    margin:10px 0; padding:0;
+}
 
 
 
