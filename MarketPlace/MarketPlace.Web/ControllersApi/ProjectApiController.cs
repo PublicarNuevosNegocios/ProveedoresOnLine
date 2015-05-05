@@ -413,14 +413,14 @@ namespace MarketPlace.Web.ControllersApi
                         });
 
                         //upsert project
-                        //oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+                        oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
 
                         //send messages
-                        //oMessageToSend.All(msg =>
-                        //{
-                        //    MessageModule.Client.Controller.ClientController.CreateMessage(msg);
-                        //    return true;
-                        //});
+                        oMessageToSend.All(msg =>
+                        {
+                            MessageModule.Client.Controller.ClientController.CreateMessage(msg);
+                            return true;
+                        });
                     }
                 }
 

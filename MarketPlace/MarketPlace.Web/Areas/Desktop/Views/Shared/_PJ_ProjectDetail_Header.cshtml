@@ -120,7 +120,7 @@
         </ul>
         @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
         {
-            <div id="ProjectDetail_EditProjectDialog">
+            <div id="ProjectDetail_EditProjectDialog" title="Editar proceso de selección">
                 <form id="ProjectDetail_EditProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")">
                     <ul>
                         <li>

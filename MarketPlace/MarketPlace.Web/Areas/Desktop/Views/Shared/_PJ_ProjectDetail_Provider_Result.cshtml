@@ -58,9 +58,12 @@
                                                     ProviderPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                                 }))">Ver detalle</a>
                                 </li>
-                                <li>
-                                    <a>Solicitar aprobación</a>
-                                </li>
+                                @if (oProjectProvider.ValidateApprovalStatus() == null)
+                                {
+                                    <li>
+                                        <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     </ul>
@@ -68,5 +71,18 @@
             }
         </ul>
     }
+
+    <!--project templates-->
+    <div style="display:none;">
+
+        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
+        {
+            <div id="ProjectDetail_RequestApprovalDialog" title="Solicitar aprobación">
+                <p>Al solicitar aprobacción sobre el proveedor el proceso de selección sera cerrado hasta recibir respuesta de los diferentes aprobadores, esta seguro que desea realizar esta acción?</p>
+            </div>
+        }
+
+    </div>
 }
 

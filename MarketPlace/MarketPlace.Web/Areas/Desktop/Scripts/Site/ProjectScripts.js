@@ -51,7 +51,7 @@
 };
 
 var Project_ProjectDetailObject = {
-
+    
     ObjectId: '',
     ProjectPublicId: '',
     CustomEconomicActivity: '',
@@ -181,6 +181,42 @@ var Project_ProjectDetailObject = {
                             });
 
                         }
+                    }
+                },
+            });
+        }
+    },
+
+    ShowRequestApprovalProject: function (vProviderPublicId) {
+
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_RequestApprovalDialog').length > 0) {
+
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_RequestApprovalDialog').dialog({
+                modal: true,
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Solicitar aprobación': function () {
+                        //hide dialog actions
+                        $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                        //save project
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRequestApproval=true&ProjectPublicId=' + Project_ProjectDetailObject.ProjectPublicId + '&ProviderPublicId=' + vProviderPublicId,
+                            dataType: 'json',
+                            success: function (result) {
+                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectUrl);
+                                window.location = Project_ProjectDetailObject.ProjectUrl;
+                                $(this).dialog('close');
+                            },
+                            error: function (result) {
+                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectUrl);
+                                window.location = Project_ProjectDetailObject.ProjectUrl;
+                                $(this).dialog('close');
+                            }
+                        });
                     }
                 },
             });
