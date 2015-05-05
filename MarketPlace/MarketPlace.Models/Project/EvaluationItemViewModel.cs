@@ -102,6 +102,32 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public MarketPlace.Models.General.enumEvaluatorType? EvaluatorType
+        {
+            get
+            {
+                return RelatedEvaluationItem.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluatorType &&
+                                 !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => (MarketPlace.Models.General.enumEvaluatorType?)Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                    DefaultIfEmpty(null).
+                    FirstOrDefault();
+            }
+        }
+
+        public string Evaluator
+        {
+            get
+            {
+                return RelatedEvaluationItem.ItemInfo.
+                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.Evaluator &&
+                                 !string.IsNullOrEmpty(eiinf.Value)).
+                    Select(eiinf => eiinf.Value.Replace(" ", "")).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         public EvaluationItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedEvaluationItem)
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;

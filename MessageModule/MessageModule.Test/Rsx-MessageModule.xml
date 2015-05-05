@@ -3,7 +3,9 @@
   <MessageModule>
     <!--Generic agents-->
     <key name="Agent">
-      <![CDATA[POL_RememberPassword_Mail,POL_SurveyWriteBackNotification_Mail]]>
+      <![CDATA[POL_RememberPassword_Mail
+          ,POL_SurveyWriteBackNotification_Mail
+          ,POL_ProjectApprovalRequest_Mail]]>
     </key>
 
     <!--Proveedores on line remember password email agent-->
@@ -106,7 +108,7 @@
 							        <table cellpadding="0" cellspacing="0" >
 								        <tr>
 									        <td style="width:150px; padding:7px 0px 5px 0px;">
-										        <img style="width:150px; display:inline-block;" src="http://proveedoresonline.s3-website-us-east-1.amazonaws.com/BackOffice/CompanyFile/DA5C572E/CompanyFile_DA5C572E_20150311090116.png" alt="{CustomerLogo}" title="{CustomerLogo}"/>
+										        <img style="width:150px; display:inline-block;" src="{CustomerLogo}" alt="{CustomerLogo}" title="{CustomerLogo}"/>
 									        </td>
 									        <td style="width:450px; text-align: right;">
 										        <span style="width:100px; color: #0066ae;
@@ -122,7 +124,7 @@
 								        </tr>
 								        <tr>
 									        <td colspan="2" style="border:1px solid #999; padding: 6px; border-bottom:none;">
-										        <img style="width:150px; display:inline-block; " src="http://proveedoresonline.s3-website-us-east-1.amazonaws.com/BackOffice/CompanyFile/DA5C572E/CompanyFile_DA5C572E_20150311090116.png" alt="{ProviderLogo}" title="{ProviderLogo}"/>
+										        <img style="width:150px; display:inline-block; " src="{ProviderLogo}" alt="{ProviderLogo}" title="{ProviderLogo}"/>
 										        <label style="display:inline-block; color:#666;
 													        font-size: 0.9em;
 													        font-weight: normal;
@@ -177,6 +179,55 @@
 						        </td>
 					        </tr>
 				        </table>
+            ]]&gt;
+          </key>
+        </POL_SurveyWriteBackNotification_Mail>
+      ]]>
+    </key>
+
+    <!--Proveedores on line project approval email agent-->
+    <key name="AgentConfig_POL_ProjectApprovalRequest_Mail">
+      <![CDATA[
+        <POL_SurveyWriteBackNotification_Mail>
+          <key name="Assemblie">
+            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
+          </key>
+          <key name="AccessKeyId">
+            &lt;![CDATA[your_AccessKeyId]]&gt;
+          </key>
+          <key name="SecretAccessKey">
+            &lt;![CDATA[your_SecretAccessKey]]&gt;
+          </key>
+          <key name="RegionEndpoint">
+            &lt;![CDATA[us-east-1]]&gt;
+          </key>
+          <key name="Subject">
+            &lt;![CDATA[Aprobación requerida - Proveedores OnLine]]&gt;
+          </key>
+          <key name="From">
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+          </key>
+          <key name="MessageBody">
+            &lt;![CDATA[
+                    {CustomerLogo}
+                    {CustomerName}
+                    {CustomerIdentificationTypeName}
+                    {CustomerIdentificationNumber}
+                    
+                    {ProviderLogo}
+                    {ProviderName}
+                    {ProviderIdentificationTypeName}
+                    {ProviderIdentificationNumber}
+                    {ProviderLink}
+                    
+                    {ProjectName}
+                    {ProjectLastModify}
+                    {ProjectUrl}
+
+                    {EvaluationAreaName}
+                    
+                    {ProjectProviderUrl}
+    
             ]]&gt;
           </key>
         </POL_SurveyWriteBackNotification_Mail>

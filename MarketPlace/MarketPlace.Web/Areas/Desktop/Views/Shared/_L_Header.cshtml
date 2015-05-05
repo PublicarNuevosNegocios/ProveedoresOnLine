@@ -2,11 +2,7 @@
     MarketPlace.Models.General.SessionModel.IsUserAuthorized())
 {
     //get company logo
-    string strCompanyLogo = MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyInfo.
-        Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCompanyInfoType.CompanyLogo && !string.IsNullOrEmpty(x.Value)).
-        Select(x => x.Value).
-        DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_Customer_DefaultLogoUrl].Value).
-        FirstOrDefault();
+    string strCompanyLogo = MarketPlace.Models.General.SessionModel.CurrentCompany_CompanyLogo;
 
     //get user logo
     string strUserLogo = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedUserInfo.
@@ -18,11 +14,11 @@
     //get header menu
     List<MarketPlace.Models.General.GenericMenu> oHeaderMenu = (ViewContext.Controller as MarketPlace.Web.Controllers.BaseController).GetHeaderMenu();
 
-    
+
     <div class="POMPHeaderWrapper">
         <!--Company Logo-->
         <img class="POMPLogo" src="@strCompanyLogo" />
-        
+
         <div class="POMPMenusGrandWrapper">
             <!--User options-->
             <div class="POMPUserMenu" onclick="javascript: Header_ShowHideUserMenu('divHeader_UserMenu');">
@@ -45,14 +41,14 @@
             </div>
             <!--Header menu-->
             <ul class="POMPMainMenuWrapper">
-                                @foreach (MarketPlace.Models.General.GenericMenu oMenuItem in oHeaderMenu.OrderBy(x => x.Position))
+                @foreach (MarketPlace.Models.General.GenericMenu oMenuItem in oHeaderMenu.OrderBy(x => x.Position))
                 {
                     string strSelectedClass = string.Empty;
                     if (oMenuItem.IsSelected)
                     {
                         strSelectedClass = "selected";
                     }
-                    
+
                     <li class="spacers"></li>
                     <li class="@strSelectedClass">
                         <a href="@oMenuItem.Url">

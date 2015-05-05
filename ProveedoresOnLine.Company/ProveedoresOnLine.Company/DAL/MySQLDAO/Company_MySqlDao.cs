@@ -2377,12 +2377,13 @@ namespace ProveedoresOnLine.Company.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
+        public List<UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int? RoleCompanyId, int PageNumber, int RowCount)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+            lstParams.Add(DataInstance.CreateTypedParameter("vRoleCompanyId", RoleCompanyId));
             lstParams.Add(DataInstance.CreateTypedParameter("vPageNumber", PageNumber));
             lstParams.Add(DataInstance.CreateTypedParameter("vRowCount", RowCount));
 

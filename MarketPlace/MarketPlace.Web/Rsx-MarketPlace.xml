@@ -36,6 +36,9 @@
     <!--Company params-->
     <key name="Company_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/dafaultProvider.png</key>
     <key name="Company_Customer_DefaultLogoUrl">http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoSmall.png</key>
+    
+    <!--Project params-->
+    <key name="Project_Approval_MailAgent">POL_ProjectApprovalRequest_Mail</key>
 
   </MarketPlace>
 </Settings>

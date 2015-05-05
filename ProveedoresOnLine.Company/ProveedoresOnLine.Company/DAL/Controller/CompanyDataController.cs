@@ -306,9 +306,9 @@ namespace ProveedoresOnLine.Company.DAL.Controller
             return DataFactory.MP_RoleCompanyGetByUser(User);
         }
 
-        public List<Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int PageNumber, int RowCount)
+        public List<Models.Company.UserCompany> MP_UserCompanySearch(string CompanyPublicId, string SearchParam, int? RoleCompanyId, int PageNumber, int RowCount)
         {
-            return DataFactory.MP_UserCompanySearch(CompanyPublicId, SearchParam, PageNumber, RowCount);
+            return DataFactory.MP_UserCompanySearch(CompanyPublicId, SearchParam, RoleCompanyId, PageNumber, RowCount);
         }
 
         #endregion

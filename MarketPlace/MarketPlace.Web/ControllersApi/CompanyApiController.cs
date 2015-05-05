@@ -24,6 +24,7 @@ namespace MarketPlace.Web.ControllersApi
                 List<ProveedoresOnLine.Company.Models.Company.UserCompany> SearchResult = ProveedoresOnLine.Company.Controller.Company.MP_UserCompanySearch
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     SearchParam,
+                    null,
                     0,
                     Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()));
 

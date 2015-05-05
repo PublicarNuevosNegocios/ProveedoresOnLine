@@ -29,6 +29,8 @@ function Dialog_ShowMessage(vTitle, vMessage, vRedirectUrl) {
     $(DialogDiv).dialog({
         width: 300,
         modal: true,
+        closeOnEscape: false,
+        open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
         buttons: {
             'Cerrar': function () {
                 $(this).dialog("close");

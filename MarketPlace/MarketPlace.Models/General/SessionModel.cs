@@ -42,6 +42,21 @@ namespace MarketPlace.Models.General
             }
         }
 
+        public static string CurrentCompany_CompanyLogo
+        {
+            get
+            {
+                return CurrentCompany == null ?
+                    MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_Customer_DefaultLogoUrl].Value :
+                    CurrentCompany.CompanyInfo.
+                    Where(cinf => cinf.ItemInfoType.ItemId == (int)enumCompanyInfoType.CompanyLogo &&
+                                !string.IsNullOrEmpty(cinf.Value)).
+                    Select(cinf => cinf.Value).
+                    DefaultIfEmpty(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_Customer_DefaultLogoUrl].Value).
+                    FirstOrDefault();
+            }
+        }
+
         #region Session methods
 
         public static void InitCompanyLogin(List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany)

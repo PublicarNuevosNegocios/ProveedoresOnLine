@@ -9,6 +9,8 @@ namespace MarketPlace.Web.ControllersApi
 {
     public class ProjectApiController : BaseApiController
     {
+        #region Project
+
         [HttpPost]
         [HttpGet]
         public string ProjectUpsert
@@ -73,6 +75,31 @@ namespace MarketPlace.Web.ControllersApi
             }
             return string.Empty;
         }
+
+        [HttpPost]
+        [HttpGet]
+        public MarketPlace.Models.Project.ProjectViewModel ProjectGet
+            (string ProjectGet,
+            string ProjectPublicId)
+        {
+            if (ProjectGet == "true")
+            {
+                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
+                       ProjectGetByIdLite
+                       (ProjectPublicId,
+                       MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+
+                MarketPlace.Models.Project.ProjectViewModel oReturn = new Models.Project.ProjectViewModel(oProjectResult);
+
+                return oReturn;
+            }
+            return null;
+        }
+
+
+        #endregion
+
+        #region Project Company
 
         [HttpPost]
         [HttpGet]
@@ -146,26 +173,9 @@ namespace MarketPlace.Web.ControllersApi
             return false;
         }
 
-        [HttpPost]
-        [HttpGet]
-        public MarketPlace.Models.Project.ProjectViewModel ProjectGet
-            (string ProjectGet,
-            string ProjectPublicId)
-        {
-            if (ProjectGet == "true")
-            {
-                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
-                       ProjectGetByIdLite
-                       (ProjectPublicId,
-                       MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+        #endregion
 
-                MarketPlace.Models.Project.ProjectViewModel oReturn = new Models.Project.ProjectViewModel(oProjectResult);
-
-                return oReturn;
-            }
-            return null;
-        }
-
+        #region Project files
 
         [HttpPost]
         [HttpGet]
@@ -302,6 +312,125 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        #endregion
+
+        #region Project Approval
+
+        [HttpPost]
+        [HttpGet]
+        public bool ProjectRequestApproval
+            (string ProjectRequestApproval,
+            string ProjectPublicId,
+            string ProviderPublicId)
+        {
+            bool oReturn = false;
+
+            if (ProjectRequestApproval == "true" &&
+                !string.IsNullOrEmpty(ProjectPublicId) &&
+                !string.IsNullOrEmpty(ProviderPublicId))
+            {
+                //get project basic info
+                MarketPlace.Models.Project.ProjectViewModel oProject = new Models.Project.ProjectViewModel
+                    (ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdLite
+                        (ProjectPublicId,
+                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId));
+
+                //validate project status
+                if (oProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                    oProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
+                {
+                    //get provider for approval
+                    MarketPlace.Models.Project.ProjectProviderViewModel oProjectProvider = oProject.RelatedProjectProvider.
+                        Where(pjpv => pjpv.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId).
+                        FirstOrDefault();
+
+                    //validate provider and status
+                    if (oProjectProvider != null &&
+                        oProjectProvider.ValidateApprovalStatus() == null)
+                    {
+                        //create project to upsert
+                        ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                        {
+                            ProjectPublicId = oProject.ProjectPublicId,
+                            ProjectStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)MarketPlace.Models.General.enumProjectStatus.Approval,
+                            },
+                            Enable = true,
+                            RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>(),
+                        };
+
+                        List<MessageModule.Client.Models.ClientMessageModel> oMessageToSend = new List<MessageModule.Client.Models.ClientMessageModel>();
+
+                        //loop for all evaluation areas
+                        List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationAreas = oProject.RelatedProjectConfig.GetEvaluationAreas();
+                        oEvaluationAreas.All(ea =>
+                        {
+                            #region Project and provider status
+
+                            oProjectToUpsert.RelatedProjectProvider.Add(
+                                new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                                {
+                                    RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                                    {
+                                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                        {
+                                            CompanyPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                        },
+                                    },
+
+                                    ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>()
+                                    {
+                                        new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                        {
+                                            RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                            {
+                                                ItemId = ea.EvaluationItemId,
+                                            },
+                                            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                            {
+                                                ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus,
+                                            },
+                                            Value = ((int)MarketPlace.Models.General.enumApprovalStatus.Pending).ToString(),
+                                            Enable = true,
+                                        },
+                                    },
+                                    Enable = true,
+                                });
+
+                            #endregion
+
+                            #region Notifications
+
+                            MessageModule.Client.Models.ClientMessageModel oAreaMessage = GetProjectMessage(oProject, oProjectProvider, ea);
+
+                            if (oAreaMessage != null)
+                                oMessageToSend.Add(oAreaMessage);
+
+                            #endregion
+
+                            return true;
+                        });
+
+                        //upsert project
+                        //oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+
+                        //send messages
+                        //oMessageToSend.All(msg =>
+                        //{
+                        //    MessageModule.Client.Controller.ClientController.CreateMessage(msg);
+                        //    return true;
+                        //});
+                    }
+                }
+
+                oReturn = true;
+            }
+            return oReturn;
+        }
+
+        #endregion
+
         #region private methods
 
         private ProveedoresOnLine.ProjectModule.Models.ProjectModel GetProjectUpsertRequest()
@@ -361,7 +490,126 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-        #endregion
+        private MessageModule.Client.Models.ClientMessageModel GetProjectMessage
+            (MarketPlace.Models.Project.ProjectViewModel vProject,
+            MarketPlace.Models.Project.ProjectProviderViewModel vProjectProvider,
+            MarketPlace.Models.Project.EvaluationItemViewModel vEvaluationArea)
+        {
+            //get to for message
+            List<string> oTo = new List<string>();
 
+            if (vEvaluationArea.EvaluatorType != null &&
+                vEvaluationArea.EvaluatorType == Models.General.enumEvaluatorType.SpecificPerson &&
+                !string.IsNullOrEmpty(vEvaluationArea.Evaluator) &&
+                vEvaluationArea.Evaluator.Any(ev => ev == '@'))
+            {
+                //specific user
+                oTo.Add(vEvaluationArea.Evaluator);
+            }
+            else if (vEvaluationArea.EvaluatorType != null &&
+                    vEvaluationArea.EvaluatorType == Models.General.enumEvaluatorType.AnyInRol &&
+                    !string.IsNullOrEmpty(vEvaluationArea.Evaluator))
+            {
+                //all users in role
+                List<ProveedoresOnLine.Company.Models.Company.UserCompany> oUsersTo = ProveedoresOnLine.Company.Controller.Company.MP_UserCompanySearch
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    "@",
+                    Convert.ToInt32(vEvaluationArea.Evaluator.Replace(" ", "")),
+                    0,
+                    20);
+
+                oTo = oUsersTo.Select(usr => usr.User).Distinct().ToList();
+            }
+
+            if (oTo != null && oTo.Count > 0)
+            {
+
+                //Create message object
+                MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
+                {
+                    Agent = MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Project_Approval_MailAgent].Value,
+                    User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                    ProgramTime = DateTime.Now,
+                    MessageQueueInfo = new List<Tuple<string, string>>(),
+                };
+
+                //get to address
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("To", string.Join(",", oTo)));
+
+                //get customer info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerLogo", MarketPlace.Models.General.SessionModel.CurrentCompany_CompanyLogo));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerName", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerIdentificationTypeName", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerIdentificationNumber", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber));
+
+                //get provider info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderLogo", vProjectProvider.RelatedProvider.RelatedLiteProvider.ProviderLogoUrl));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderIdentificationTypeName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderIdentificationNumber", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderLink",
+                    Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Provider.Name,
+                            action = MVC.Provider.ActionNames.GIProviderInfo,
+                            ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        })));
+
+                //get project info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectName", vProject.ProjectName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectLastModify", vProject.LastModify));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectUrl",
+                    Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Project.Name,
+                            action = MVC.Project.ActionNames.ProjectDetail,
+                            ProjectPublicId = vProject.ProjectPublicId,
+                        })));
+
+                //get area info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("EvaluationAreaName", vEvaluationArea.EvaluationItemName));
+
+                //get project provider url
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectProviderUrl",
+                    Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Project.Name,
+                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                            ProjectPublicId = vProject.ProjectPublicId,
+                            ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        })));
+                return oReturn;
+            }
+            return null;
+        }
+
+        #endregion
     }
 }

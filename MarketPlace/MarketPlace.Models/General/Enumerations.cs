@@ -581,6 +581,8 @@
     {
         Ratting = 1408001,
         InfoItems = 1408002,
+        ApprovalStatus = 1408003,
+        ApprovalText = 1408004,
     }
 
     public enum enumEvaluationCriteria
@@ -595,5 +597,19 @@
         RUT = 1404007,
         SARLAF = 1404008,
     }
+
+    public enum enumApprovalStatus
+    {
+        Pending = 1410001,
+        Approved = 1410002,
+        Rejected = 1410003,
+    }
+
+    public enum enumEvaluatorType
+    {
+        AnyInRol = 1405001,
+        SpecificPerson = 1405002,
+    }
+
     #endregion
 }
