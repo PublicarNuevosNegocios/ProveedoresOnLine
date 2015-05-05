@@ -86,7 +86,7 @@ li.POMPProjectBidActivityData ul{
     }
 /*********** AQUI SE PINTA LO DE CARGAR ARCHIVOS ************/
 .POMPProjectBidFileUploadWrapper {
-    border: 1px solid #666 !important;
+    border: 1px solid grey !important;
     display: inline-block !important;
     min-height: 222px; max-height: 222px;
     overflow-y: auto;
@@ -96,7 +96,7 @@ li.POMPProjectBidActivityData ul{
     .POMPProjectBidFileUploadWrapper div.k-dropzone {
         display: inline-block;
         background-color:#f9f9f9;
-        border-bottom:1px solid #666;
+        border-bottom:1px solid grey;
         border-radius:0px;
         width:100%;
     }
@@ -147,6 +147,77 @@ li.POMPProjectBidActivityData ul{
         .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(3) {
             width: 16%;
         }
+
+/***********  AQUI SE PINTA EL POPUP DE EDICION DE
+    PRECALIFICACION  ************/
+.POMPProjectBidEditDialog {
+    margin:2px;
+}
+    .POMPProjectBidEditDialog > li{
+        display:block;
+        width:auto;
+        margin:7px 0;
+    }
+.POMPProjectBidEditDialog > li > span,
+.POMPProjectBidEditDialog > li > label{
+    width:222px;
+}
+.POMPProjectBidEditDialog > li > span,
+.POMPProjectBidEditDialog > li > label,
+.POMPProjectBidEditDialog > li > input,
+.POMPProjectBidEditDialog > li > select{
+    font-size:0.9em;
+    letter-spacing:-0.9px;
+    color:#4d4d4d;
+    text-align:left;
+    display:inline-block;
+    font-weight:normal;
+    vertical-align:top;
+}
+        input.POMPProjectBidCurrencyValue {
+            width:162px !important;
+        }
+        select.POMPProjectBidCurrency{
+            width:60px !important;
+        }
+        .POMPProjectBidEditDialog > li > input,
+        .POMPProjectBidEditDialog > li > select {
+            width:225px;
+        }
+        .POMPProjectBidEditDialog > li > .k-invalid-msg {
+            display: block;
+            margin: 6px 0 0;
+            width: 96%;
+        }
+.POMPProjectBidEditDialogActivity > div{
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 1em;
+    max-height: 86px;
+    width: 222px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+.POMPProjectBidEditDialogActivity > div > span {
+    font-size:0.99em !important;
+    color:#4d4d4d !important;
+}
+/***********************************/
+
+
+
+
+
+
+
+
+
+
+
+
+/*********** AQUI SE PINTA EL LISTADO DE 
+    PROVEEDORES A PRECALIFICAR ************/
+
 
 
 
