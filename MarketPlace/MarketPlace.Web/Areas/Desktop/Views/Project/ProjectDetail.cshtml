@@ -7,9 +7,9 @@
 }
 <div>
     <!--Header project-->
-        @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
     <!--Providers Project-->
-        @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Result, Model)
 </div>
 @{
     Model.RenderScripts = true;
@@ -27,11 +27,17 @@
                 ObjectId: 'ProjectDetail',
                 ProjectPublicId: '@Model.ProjectPublicId',
                 CustomEconomicActivity: '@MarketPlace.Models.General.SessionModel.CurrentCompany_CustomEconomicActivity',
-                ProjectUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                ProjectRecalculateUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Project.Name,
                                 action = MVC.Project.ActionNames.ProjectDetailRecalculate
+                            }) + "?ProjectPublicId=" + Model.ProjectPublicId)',
+                ProjectDetailUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetail
                             }) + "?ProjectPublicId=" + Model.ProjectPublicId)',
             });
 

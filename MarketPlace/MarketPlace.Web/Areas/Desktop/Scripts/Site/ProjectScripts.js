@@ -18,6 +18,7 @@
                 autoUpload: true
             },
             success: function (e) {
+                debugger;
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
@@ -31,6 +32,9 @@
                     });
                     //clean file list from kendo upload
                     $('.k-upload-files.k-reset').find('li').remove();
+
+                    //init tooltips
+                    Tooltip_InitGeneric();
                 }
             },
         });
@@ -51,21 +55,24 @@
 };
 
 var Project_ProjectDetailObject = {
-    
+
     ObjectId: '',
     ProjectPublicId: '',
     CustomEconomicActivity: '',
-    ProjectUrl: '',
+    ProjectRecalculateUrl: '',
+    ProjectDetailUrl: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.ProjectPublicId = vInitObject.ProjectPublicId;
         this.CustomEconomicActivity = vInitObject.CustomEconomicActivity;
-        this.ProjectUrl = vInitObject.ProjectUrl;
+        this.ProjectRecalculateUrl = vInitObject.ProjectRecalculateUrl;
+        this.ProjectDetailUrl = vInitObject.ProjectDetailUrl;
     },
 
     RenderAsync: function () {
 
+        //init edit form
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').length > 0) {
             //init form validator
             $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').kendoValidator();
@@ -141,6 +148,19 @@ var Project_ProjectDetailObject = {
                     value: $.parseJSON($('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_CustomEconomicActivityValue').val()),
                 });
         }
+
+        //init close form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').length > 0) {
+            //init form validator
+            $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').kendoValidator();
+        }
+
+        //init award form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').length > 0) {
+            //init form validator
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').kendoValidator();
+        }
+
     },
 
     ShowEditProject: function () {
@@ -169,13 +189,13 @@ var Project_ProjectDetailObject = {
                                 url: $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').attr('action'),
                                 data: $('#' + Project_ProjectDetailObject.ObjectId + '_EditProjectDialog_Form').serialize(),
                                 success: function (result) {
-                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                    window.location = Project_ProjectDetailObject.ProjectUrl;
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectRecalculateUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectRecalculateUrl;
                                     $(this).dialog('close');
                                 },
                                 error: function (result) {
-                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                    window.location = Project_ProjectDetailObject.ProjectUrl;
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectRecalculateUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectRecalculateUrl;
                                     $(this).dialog('close');
                                 }
                             });
@@ -207,16 +227,103 @@ var Project_ProjectDetailObject = {
                             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRequestApproval=true&ProjectPublicId=' + Project_ProjectDetailObject.ProjectPublicId + '&ProviderPublicId=' + vProviderPublicId,
                             dataType: 'json',
                             success: function (result) {
-                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                window.location = Project_ProjectDetailObject.ProjectUrl;
+                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                window.location = Project_ProjectDetailObject.ProjectDetailUrl;
                                 $(this).dialog('close');
                             },
                             error: function (result) {
-                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectUrl);
-                                window.location = Project_ProjectDetailObject.ProjectUrl;
+                                Dialog_ShowMessage('Proceso de aprobación', 'Se ha enviado el proceso de aprobación correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                window.location = Project_ProjectDetailObject.ProjectDetailUrl;
                                 $(this).dialog('close');
                             }
                         });
+                    }
+                },
+            });
+        }
+    },
+
+    ShowCloseProject: function () {
+
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').length > 0) {
+
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Guardar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
+
+                        }
+                    }
+                },
+            });
+        }
+    },
+
+    ShowAwardProject: function () {
+
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog').length > 0) {
+
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Adjudicar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Adjudicación', 'Se ha adjudicado el proceso correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Adjudicación', 'Ha ocurrido un error adjudicando el proceso de selección.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
+                        }
                     }
                 },
             });

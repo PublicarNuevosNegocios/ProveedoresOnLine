@@ -3,7 +3,7 @@
 .POMPProjectBidGreatWrapper {
     display:block;
         border-bottom:2px solid #ff8300;
-    width:auto; height:auto;
+    width:auto; height:auto; min-width:960px;
     margin:0px; padding:0px 18px 12px; 
     text-align:left;
 }
@@ -42,7 +42,7 @@
             display:inline-block;
             width:32.2%;            
             vertical-align:top;
-            border-bottom: 1px dotted grey;
+            border-bottom: 1px solid grey;
             margin:4px 0 0 4px;
             min-height: 55px;
         }
@@ -61,7 +61,7 @@
 .POMPProjectBidMainData span {
     font-size: 0.98em;
     letter-spacing: -0.2px;
-    display:inline-block;
+    display:block;
     font-weight: normal;
     line-height: 1em;
     margin:0px;
@@ -86,7 +86,7 @@ li.POMPProjectBidActivityData ul{
     }
 /*********** AQUI SE PINTA LO DE CARGAR ARCHIVOS ************/
 .POMPProjectBidFileUploadWrapper {
-    border: 1px solid #666 !important;
+    border: 1px solid grey !important;
     display: inline-block !important;
     min-height: 222px; max-height: 222px;
     overflow-y: auto;
@@ -96,7 +96,7 @@ li.POMPProjectBidActivityData ul{
     .POMPProjectBidFileUploadWrapper div.k-dropzone {
         display: inline-block;
         background-color:#f9f9f9;
-        border-bottom:1px solid #666;
+        border-bottom:1px solid grey;
         border-radius:0px;
         width:100%;
     }
@@ -109,7 +109,7 @@ li.POMPProjectBidActivityData ul{
 .POMPProjectBidFileUploadWrapper div em{
     display: inline-block;
     width: calc(100% - 111px);
-    height: 26px;
+    height: 42px;
 }
 .POMPProjectBidFileUploadWrapper > ul {
     list-style-type:none;
@@ -147,6 +147,44 @@ li.POMPProjectBidActivityData ul{
         .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(3) {
             width: 16%;
         }
+/*********** AQUI SE PINTA EL LISTADO DE 
+    PROVEEDORES A PRECALIFICAR ************/
+.POMPProjectBidGridWrapper,
+.POMPProjectBidProviderAreaGrid {
+    border:1px solid green;
+    width:auto; height:auto;
+    display:block; list-style-type:none;
+}
+.POMPProjectBidGridWrapper{
+    min-width:960px;
+    margin:10px 0; padding:0 18px 12px;
+}
+.POMPProjectBidGridWrapper li{
+    display:block;
+    width:100%; height:auto;
+    margin:0px; padding:0px;
+}
+.POMPProjectBidProviderAreaGrid {
+    margin:0px; padding:0px;
+}
+.POMPProjectBidProviderAreaGrid li{
+    border:1px solid purple;
+    display:inline-block;
+}
+.POMPProjectBidProviderAreaGrid li:first-child {
+}
+    .POMPProjectBidProviderAreaGrid li:nth-child(2) {
+    }
+    .POMPProjectBidProviderAreaGrid li:nth-child(3) {
+    }
+.POMPProjectBidProviderAreaGrid li:nth-child(4){}
+.POMPProjectBidProviderAreaGrid li:nth-child(5) {}
+.POMPProjectBidProviderAreaGrid li:nth-child(6){
+    border:1px solid red;
+    width:auto; height:auto; min-width:960px;
+    display:block; list-style-type:none;
+    margin:10px 0; padding:0;
+}
 
 
 

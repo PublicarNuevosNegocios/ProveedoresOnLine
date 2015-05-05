@@ -541,6 +541,8 @@
         Responsible = 1407008,
         InternalProcessNumber = 1407009,
         File = 1407010,
+        CloseText = 1407011,
+        AwardText = 1407012,
     }
 
     public enum enumEvaluationItemType
@@ -603,6 +605,7 @@
         Pending = 1410001,
         Approved = 1410002,
         Rejected = 1410003,
+        Award = 1410004,
     }
 
     public enum enumEvaluatorType
