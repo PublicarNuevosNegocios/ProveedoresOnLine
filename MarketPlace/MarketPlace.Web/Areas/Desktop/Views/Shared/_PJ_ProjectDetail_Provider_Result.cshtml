@@ -17,10 +17,10 @@
                     {
                         foreach (var oAreaItem in oEvaluationAreas)
                         {
-                    <li>
-                        <label>@oAreaItem.EvaluationItemName</label>
-                        <span>@oAreaItem.EvaluationItemUnitName</span>
-                    </li>
+                            <li>
+                                <label>@oAreaItem.EvaluationItemName</label>
+                                <span>@oAreaItem.EvaluationItemUnitName</span>
+                            </li>
                         }
                     }
                     <li><span>Acciones</span></li>
@@ -62,8 +62,45 @@
                         {
                             foreach (var oAreaItem in oEvaluationAreas)
                             {
+                                Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal> oEvalModel = new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>
+                                    (oAreaItem.EvaluationItemUnit,
+                                    oProjectProvider.GetRatting(oAreaItem.EvaluationItemId),
+                                    oAreaItem.AprobalPercent);
+
+                                string oEvalStyle = string.Empty;
+                                switch (oEvalModel.Item1)
+                                {
+                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+                                        if (oEvalModel.Item2 >= oEvalModel.Item3)
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Win";
+                                        }
+                                        else
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Lose";
+                                        }
+                                        break;
+                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                                        if (oEvalModel.Item2 >= oEvalModel.Item3)
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Win";
+                                        }
+                                        else
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Lose";
+                                        }
+                                        break;
+                                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+                                        oEvalStyle = "POMP_ProjectDetail_Win";
+                                        break;
+                                    default:
+                                        break;
+                                }
+
                                 MarketPlace.Models.General.enumApprovalStatus? oApprovalAreaStatus = oProjectProvider.GetApprovalStatusByArea(oAreaItem.EvaluationItemId);
-                                <li>
+
+
+                                <li class="@oEvalStyle">
                                     @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oProjectProvider.GetRatting(oAreaItem.EvaluationItemId), oAreaItem.AprobalPercent))
 
                                     @if (oApprovalAreaStatus != null &&
