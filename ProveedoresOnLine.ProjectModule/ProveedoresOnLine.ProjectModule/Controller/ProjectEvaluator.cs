@@ -315,7 +315,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             //get experience to eval
             var oExperienceToEval = vProjectProvider.RelatedProvider.RelatedCommercial.
                 Where(cm => cm.ItemType.ItemId == 301001 &&
-                            (!string.IsNullOrEmpty(ProjectExperienceYear) && ProjectExperienceYear.Split('_').Length >= 3 ?
+                            (!string.IsNullOrEmpty(ProjectExperienceYear) && 
+                            ProjectExperienceYear.Split('_').Length >= 3 &&
+                            GetDecimalFromValue(ProjectExperienceYear.Split('_')[1]) > 0 ?
                                 cm.ItemInfo.Any(cminf =>
                                         !string.IsNullOrEmpty(cminf.Value) &&
                                         cminf.ItemInfoType.ItemId.ToString() == ProjectExperienceYear.Split('_')[0].Replace(" ", "") &&
@@ -327,14 +329,14 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
                             ) &&
                             (ProjectDefaultEconomicActivity != null && ProjectDefaultEconomicActivity.Count > 0 ?
-                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302012 &&
+                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302013 &&
                                                     !string.IsNullOrEmpty(cminf.LargeValue) &&
                                                     cminf.LargeValue.Split(',').Any(dea =>
                                                         ProjectDefaultEconomicActivity.Any(deate => deate.Replace(" ", "") == dea.Replace(" ", ""))))
                                 : true
                             ) &&
                             (ProjectCustomEconomicActivity != null && ProjectCustomEconomicActivity.Count > 0 ?
-                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302013 &&
+                                cm.ItemInfo.Any(cminf => cminf.ItemInfoType.ItemId == 302014 &&
                                                     !string.IsNullOrEmpty(cminf.LargeValue) &&
                                                     cminf.LargeValue.Split(',').Any(cta =>
                                                         ProjectCustomEconomicActivity.Any(ctate => cta.Replace(" ", "") == ctate.Replace(" ", ""))))

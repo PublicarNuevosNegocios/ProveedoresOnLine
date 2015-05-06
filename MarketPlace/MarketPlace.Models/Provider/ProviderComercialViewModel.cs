@@ -226,6 +226,7 @@ namespace MarketPlace.Models.Provider
                 }
                 return oEX_EconomicActivity;
             }
+            set { oEX_EconomicActivity = value; }
         }
 
         private List<MarketPlace.Models.General.EconomicActivityViewModel> oEX_CustomEconomicActivity;
@@ -250,6 +251,7 @@ namespace MarketPlace.Models.Provider
                 }
                 return oEX_CustomEconomicActivity;
             }
+            set { oEX_CustomEconomicActivity = value; }
         }
 
         #endregion

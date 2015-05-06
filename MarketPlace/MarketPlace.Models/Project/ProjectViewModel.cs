@@ -106,21 +106,23 @@ namespace MarketPlace.Models.Project
                     string[] strSplit = strExpYear.Split('_');
                     if (strSplit.Length >= 3)
                     {
-                        switch ((MarketPlace.Models.General.enumProjectOperator)Convert.ToInt32(strSplit[2].Replace(" ", "")))
+                        if (strSplit[1].Replace(" ", "") != "0")
                         {
-                            case MarketPlace.Models.General.enumProjectOperator.Equal:
-                                oReturn = "Igual a " + strSplit[1];
-                                break;
-                            case MarketPlace.Models.General.enumProjectOperator.Higher:
-                                oReturn = "Mayor a " + strSplit[1];
-                                break;
-                            case MarketPlace.Models.General.enumProjectOperator.GreaterOrEqual:
-                                oReturn = "Mayor o igual a " + strSplit[1];
-                                break;
-                            default:
-                                break;
+                            switch ((MarketPlace.Models.General.enumProjectOperator)Convert.ToInt32(strSplit[2].Replace(" ", "")))
+                            {
+                                case MarketPlace.Models.General.enumProjectOperator.Equal:
+                                    oReturn = "Igual a " + strSplit[1];
+                                    break;
+                                case MarketPlace.Models.General.enumProjectOperator.Higher:
+                                    oReturn = "Mayor a " + strSplit[1];
+                                    break;
+                                case MarketPlace.Models.General.enumProjectOperator.GreaterOrEqual:
+                                    oReturn = "Mayor o igual a " + strSplit[1];
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-
                     }
                 }
 
