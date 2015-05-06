@@ -1,0 +1,90 @@
+﻿@model Tuple<MarketPlace.Models.Project.ProjectViewModel, List<MarketPlace.Models.Project.EvaluationItemViewModel>>
+
+@if (!Model.Item1.RenderScripts)
+{
+    List<int> lstExperienceId = new List<int>();
+    decimal oExperienceSum = 0, oExperienceCount = 0;
+
+    if (Model.Item2 != null && Model.Item2.Count > 0)
+    {
+        lstExperienceId = Model.Item1.CurrentProjectProvider.GetInfoItems(Model.Item2.FirstOrDefault().EvaluationItemId);
+
+        //get experience sum
+        oExperienceSum = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedComercialInfo.
+            Where(cm => cm.RelatedCommercialInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumCommercialType.Experience &&
+                        lstExperienceId.Any(cmid => cm.RelatedCommercialInfo.ItemId == cmid)).
+            Sum(cm => Convert.ToDecimal(cm.EX_ContractValue, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")));
+
+        oExperienceCount = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedComercialInfo.
+            Where(cm => cm.RelatedCommercialInfo.ItemType.ItemId == (int)MarketPlace.Models.General.enumCommercialType.Experience &&
+                        lstExperienceId.Any(cmid => cm.RelatedCommercialInfo.ItemId == cmid)).
+            Count();
+    }
+
+    if (lstExperienceId != null && lstExperienceId.Count > 0)
+    {
+        //remove experience not apply
+        Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedComercialInfo.All(cm =>
+        {
+            if (Model.Item1.ProjectDefaultEconomicActivity != null && Model.Item1.ProjectDefaultEconomicActivity.Count > 0 &&
+                cm.EX_EconomicActivity != null && cm.EX_EconomicActivity.Count > 0)
+            {
+                cm.EX_EconomicActivity = cm.EX_EconomicActivity.
+                    Where(cea => Model.Item1.ProjectDefaultEconomicActivity.
+                        Any(pea => pea.EconomicActivityId == cea.EconomicActivityId)).ToList();
+            }
+
+            if (Model.Item1.ProjectCustomEconomicActivity != null && Model.Item1.ProjectCustomEconomicActivity.Count > 0 &&
+                cm.EX_CustomEconomicActivity != null && cm.EX_CustomEconomicActivity.Count > 0)
+            {
+                cm.EX_CustomEconomicActivity = cm.EX_CustomEconomicActivity.
+                    Where(cea => Model.Item1.ProjectCustomEconomicActivity.
+                        Any(pea => pea.EconomicActivityId == cea.EconomicActivityId)).ToList();
+            }
+            return true;
+        });
+    }
+
+
+    <!--Item desicion information-->
+    <div class="POMPProviderDataWrapper">
+        <!--Experience total result-->
+        <div>
+            <ul>
+                <li>
+                    <span>Total de experiencias</span>
+                    <span>@oExperienceCount</span>
+                </li>
+                <li>
+                    <span>Valor total de las experiencias:</span>
+                    <span>$ @oExperienceSum.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))</span>
+                </li>
+            </ul>
+        </div>
+        <label class="POMPProviderVerDetalle">
+            <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.CIExperiencesInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver todas las experiencias</a>
+        </label>
+        <!--Render experience detail-->
+        @Html.Partial(MVC.Desktop.Shared.Views._P_CI_ExperiencesInfo, Model.Item1.CurrentProjectProvider.RelatedProvider)
+        @if (oExperienceCount > 0)
+        {
+            <label class="POMPProviderVerDetalle">
+                <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.CIExperiencesInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver todas las experiencias</a>
+            </label>
+        }
+    </div>
+}

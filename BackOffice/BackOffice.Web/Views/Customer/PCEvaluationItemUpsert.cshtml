@@ -43,11 +43,6 @@
     </div>
 </div>
 
-<div id="divGridEvaluationItem_EvaluationCriteria" style="display:none;">
-    @Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria, Model)
-    
-</div>
-
 <!--templates-->
 <div style="display:none;">
     <div id="divGridEvaluationItem_TitleTemplate">
@@ -67,11 +62,18 @@
         <input class="POBOSurveySearchInput" id="divGridEvaluationItem_txtSearch" type="text" value="@Request["SearchParam"]" placeholder="Buscar Proceso de Selección" />
         <a class="POBOSearchEvaluations" href="javascript:Customer_ProjectConfig.Search();">Buscar</a>
     </div>
-
-    
 </div>
 
+<div id="dialog" style="display:none;">
+    <div id="divGridEvaluationItem_Dialog" title="Criterio de Evaluación">
+        <form id="divGridEvaluationItem_Upsert_Form" name="divGridEvaluationItem_Upsert_Form" method="post">
+            <div>
+                <label>Criterios de Evaluación</label>
 
+            </div>
+        </form>
+    </div>
+</div>
 
 @{
     Model.RenderScripts = true;
@@ -100,8 +102,6 @@
             oProjectConfigOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
         }
-
-        string oUrlForm = Url.Action(MVC.Shared.Views._PJ_EvaluationCriteria, Model);
     }
 
     <script type="text/javascript">
@@ -114,7 +114,7 @@
                 ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
-                FormEvaluationCriteria: '@(Html.Raw(oUrlForm))',
+                FormEvaluationCriteria: '',
             });
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',

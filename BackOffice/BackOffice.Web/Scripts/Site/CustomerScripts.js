@@ -1525,10 +1525,6 @@ var Customer_EvaluationItemObject = {
     RenderAsync: function (vRenderObject) {
         if (vRenderObject.EvaluationItemType == 1401001) {
             Customer_EvaluationItemObject.RenderEvaluationArea(vRenderObject);
-        }
-        else if (vRenderObject.EvaluationItemType == 1401002) {
-            Customer_EvaluationItemObject.RenderEvaluationCriteria(vRenderObject);
-        }
 
         //focus on the grid
         $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
@@ -1538,6 +1534,10 @@ var Customer_EvaluationItemObject = {
 
         //Config Events
         Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
+        }
+        else if (vRenderObject.EvaluationItemType == 1401002) {
+            Customer_EvaluationItemObject.RenderEvaluationCriteria(vRenderObject);
+        }        
     },
 
     ConfigKeyBoard: function (EvaluationItemType) {
@@ -1741,7 +1741,7 @@ var Customer_EvaluationItemObject = {
             }, {
                 field: 'EA_Evaluator',
                 title: 'Evaluador',
-                template: function (dataItem) {                    
+                template: function (dataItem) {
                     var oReturn = '';
                     if (dataItem != null && dataItem.EA_Evaluator != null) {
                         oReturn = dataItem.EA_Evaluator;
@@ -1856,158 +1856,40 @@ var Customer_EvaluationItemObject = {
     },
 
     RenderEvaluationCriteria: function (vRenderObject) {
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).html('');
 
-        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).kendoGrid({
-            editable: true,
-            navigatable: false,
-            pageable: false,
-            scrollable: true,
-            toolbar: [
-                { name: 'create', text: 'Nuevo' },
-                { name: 'Search', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_SearchTemplate').html() },
-                {
-                    name: 'title',
-                    template: function () {
-                        return $('#' + Customer_EvaluationItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
-                    }
-                },
-                { name: 'ViewEnable', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ViewEnablesTemplate').html() },
-                { name: 'ShortcutToolTip', template: $('#' + Customer_EvaluationItemObject.ObjectId + '_ShortcutToolTipTemplate').html() },
-            ],
-            dataSource: {
-                schema: {
-                    model: {
-                        id: "EvaluationItemId",
-                        fields: {
-                            EvaluationItemId: { editable: false, nullable: true },
-                            EvaluationItemName: { editable: true, validation: { required: true } },
-                            EvaluationItemEnable: { editable: true, type: 'boolean', defaultValue: true },
-                            EvaluationItemTypeId: { editable: false, nullable: true },
-                            EvaluationItemTypeName: { editable: false, nullable: true },
-                            ParentEvaluationItem: { editable: true, nullable: true },
-
-                            OrderId: { editable: false, nullable: true },
-                            Order: { editable: true },
-                        },
-                    },
-                },
-                transport: {
-                    read: function (options) {
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
                             dataType: 'json',
                             success: function (result) {
-                                options.success(result);
-                            },
-                            error: function (result) {
-                                options.error(result);
+
+                var oResult;
+
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<ul>')
+                for (var i = 0; i < result.length; i++) {
+
+                    oResult = result[i];
+
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<li>')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_OrderId" type="hidden" value="' + result[i].EC_OrderId + '" />')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EC_Order">' + result[i].EC_Order + '</label>')
+
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_EvaluationCriteriaId" type="hidden" value="' + result[i].EC_EvaluationCriteriaId + '" />')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EC_EvaluationCriteria">' + result[i].EC_EvaluationCriteria + '</label>')
+
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EvaluationItemId" type="hidden" value="' + result[i].EvaluationItemId + '" />')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EvaluationItemName">' + result[i].EvaluationItemName + '</label>')
+
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_ApprovePercentageId" type="hidden" value="' + result[i].EC_ApprovePercentageId + '" />')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EC_ApprovePercentage">' + result[i].EC_ApprovePercentage + '</label>')
+
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail();">Ver detalle</button>')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</li>')
                             }
-                        });
-                    },
-                    create: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
-                            dataType: 'json',
-                            type: 'post',
-                            data: {
-                                DataToUpsert: kendo.stringify(options.data)
-                            },
-                            success: function (result) {
-                                options.success(result);
-                                Message('success', 'Se creó el registro.');
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</ul>')
                             },
                             error: function (result) {
-                                options.error(result);
-                                Message('error', result);
-                            },
-                        });
-                    },
-                    update: function (options) {
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemUpsert=true&CustomerPublicId=' + Customer_EvaluationItemObject.CustomerPublicId + '&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId,
-                            dataType: 'json',
-                            type: 'post',
-                            data: {
-                                DataToUpsert: kendo.stringify(options.data)
-                            },
-                            success: function (result) {
-                                options.success(result);
-                                Message('success', 'Se editó la fila con el id ' + options.data.ProjectConfigId + '.');
-                            },
-                            error: function (result) {
-                                options.error(result);
-                                Message('error', 'Error en la fila con el id ' + options.data.ProjectConfigId + '.');
-                            },
-                        });
-                    },
-                },
-                requestStart: function () {
-                    kendo.ui.progress($("#loading"), true);
-                },
-                requestEnd: function () {
-                    kendo.ui.progress($("#loading"), false);
-                },
-            },
-            columns: [{
-                field: 'EvaluationItemEnable',
-                title: 'Habilitado',
-                width: '88px',
-            }, {
-                field: 'EvaluationItemName',
-                title: 'Area',
-                width: '200px',
-            }, {
-                field: 'Unit',
-                title: 'Unidad',
-                template: function (dataItem) {
-                    var oReturn = 'Seleccione una opción.';
-                    if (dataItem != null && dataItem.Unit != null) {
-                        $.each(Customer_EvaluationItemObject.ProjectConfigOptionsList[1403], function (item, value) {
-                            if (dataItem.Unit == value.ItemId) {
-                                oReturn = value.ItemName;
-                            }
-                        });
                     }
-                    return oReturn;
-                },
-                editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoDropDownList({
-                            dataSource: Customer_EvaluationItemObject.ProjectConfigOptionsList[1403],
-                            dataTextField: 'ItemName',
-                            dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
-                        });
-                },
-                width: '90px',
-            }, {
-                field: 'Order',
-                title: 'Orden',
-                width: '70px',
-            }, {
-                field: 'EvaluationItemId',
-                title: 'Id',
-                width: '70px',
-            }, {
-                title: "Acciones",
-                width: "200px",
-                command: [{
-                    name: 'edit',
-                    text: 'Editar',
-                    click: function (e) {
-                        // e.target is the DOM element representing the button
-                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
-                        // get the data bound to the current table row
-                        var data = this.dataItem(tr);
-                        //validate SurveyConfigItemTypeId attribute
-                        if (data != null) {
-                            //is in evaluation area show question
-                            Customer_EvaluationItemObject.ShowProjectConfigurationDetail(data);
-                        }
-                    }
-                }],
-            }, ],
         });
     },
 
