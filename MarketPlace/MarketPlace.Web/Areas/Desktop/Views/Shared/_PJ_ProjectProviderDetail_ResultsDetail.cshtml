@@ -1,0 +1,21 @@
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@if (!Model.RenderScripts)
+{
+    List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria();
+
+    List<MarketPlace.Models.General.enumEvaluationCriteria> oEvaluationCriteriaTypes =
+        oEvaluationCriteria.Select(ecr => ecr.EvaluationCriteria).Distinct().ToList();
+
+    foreach (MarketPlace.Models.General.enumEvaluationCriteria oCriteriaType in oEvaluationCriteriaTypes)
+    {
+        List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteriaItems = oEvaluationCriteria.
+            Where(ecr => ecr.EvaluationCriteria == oCriteriaType).ToList();
+
+        @(Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_ResultsDetail_1404001.
+                    Replace("1404001", ((int)oCriteriaType).ToString()),
+                    new Tuple<MarketPlace.Models.Project.ProjectViewModel, List<MarketPlace.Models.Project.EvaluationItemViewModel>>
+                    (Model, oEvaluationCriteriaItems)))
+    }
+}
+

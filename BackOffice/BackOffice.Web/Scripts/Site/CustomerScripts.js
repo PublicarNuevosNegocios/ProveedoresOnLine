@@ -994,6 +994,9 @@ var Customer_SurveyItemObject = {
                         $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
                             if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
                                 oReturn = value.ItemName;
+                                //if (value.ItemId == 118002) {
+                                //    $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                                //}
                             }
                         });
                     }
@@ -1006,8 +1009,32 @@ var Customer_SurveyItemObject = {
                             dataSource: Customer_SurveyItemObject.CustomerOptions[118],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
+                            optionLabel: 'Seleccione una opción',
+                            select: function (e) {
+                                if (this.dataItem(e.item.index()).ItemId == 118002) {
+                                    $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                                    options.model.SurveyConfigItemInfoIsMandatory = false;
+                                    $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
+                                    options.model.SurveyConfigItemInfoHasDescription = false;
+                                    $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').hide();
+                                }
+                                else {
+                                    $('[data-container-for="SurveyConfigItemInfoWeight"]').show();
+                                    $('[data-container-for="SurveyConfigItemInfoHasDescription"]').show();
+                                    $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').show();
+                                }
+                            },
                         });
+
+                    if (options.model[options.field] == 118002) {
+                        debugger;
+                        $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                        options.model.SurveyConfigItemInfoIsMandatory = false;
+                        $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
+                        options.model.SurveyConfigItemInfoHasDescription = false;
+                        $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').hide();
+                    }
+
                 },
             }, {
                 field: 'SurveyConfigItemName',
@@ -1025,7 +1052,7 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n0}'
+                format: '{0:n0}',
             }, {
                 field: 'SurveyConfigItemInfoHasDescription',
                 title: 'Mostrar descripción',
@@ -1499,14 +1526,14 @@ var Customer_EvaluationItemObject = {
         if (vRenderObject.EvaluationItemType == 1401001) {
             Customer_EvaluationItemObject.RenderEvaluationArea(vRenderObject);
 
-            //focus on the grid
-            $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
+        //focus on the grid
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
 
-            //config keyboard
-            Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
+        //config keyboard
+        Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
 
-            //Config Events
-            Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
+        //Config Events
+        Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
         }
         else if (vRenderObject.EvaluationItemType == 1401002) {
             Customer_EvaluationItemObject.RenderEvaluationCriteria(vRenderObject);
@@ -1715,7 +1742,6 @@ var Customer_EvaluationItemObject = {
                 field: 'EA_Evaluator',
                 title: 'Evaluador',
                 template: function (dataItem) {
-                    debugger;
                     var oReturn = '';
                     if (dataItem != null && dataItem.EA_Evaluator != null) {
                         oReturn = dataItem.EA_Evaluator;
@@ -1832,10 +1858,10 @@ var Customer_EvaluationItemObject = {
     RenderEvaluationCriteria: function (vRenderObject) {
         $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).html('');
 
-        $.ajax({
-            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
-            dataType: 'json',
-            success: function (result) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
+                            dataType: 'json',
+                            success: function (result) {
 
                 var oResult;
 
@@ -1859,16 +1885,15 @@ var Customer_EvaluationItemObject = {
 
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail();">Ver detalle</button>')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</li>')
-                }
+                            }
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</ul>')
-            },
-            error: function (result) {
-            }
+                            },
+                            error: function (result) {
+                    }
         });
     },
 
-    ShowProjectConfigurationDetail: function () {
-        debugger;
+    ShowProjectConfigurationDetail: function (dataItem) {        
         $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').load(Customer_EvaluationItemObject.FormEvaluationCriteria);
         $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').dialog();
     },

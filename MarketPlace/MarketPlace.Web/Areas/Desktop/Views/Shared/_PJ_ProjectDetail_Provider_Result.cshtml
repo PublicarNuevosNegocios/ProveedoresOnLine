@@ -12,7 +12,7 @@
             <!--evaluation title-->
             <li>
                 <ul class="POMPProjectBidProviderAreaGrid">
-                    <li><label>@Model.ProjectName</label></li>
+                    <li></li>
                     @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
                     {
                         foreach (var oAreaItem in oEvaluationAreas)
@@ -22,7 +22,7 @@
                             </li>
                         }
                     }
-                    <li><label>Acciones</label></li>
+                    <li></li>
                 </ul>
             </li>
 
@@ -68,7 +68,7 @@
                                 switch (oAreaItem.EvaluationItemUnit)
                                 {
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                                        if (oRatting >= oAreaItem.AprobalPercent)
+                                        if (oRatting >= 100)
                                         {
                                             oEvalStyle = "POMP_ProjectDetail_Win";
                                             oEvalResult = "Pasa";
@@ -94,38 +94,45 @@
                                         }
                                         break;
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
-                                        oEvalStyle = "POMP_ProjectDetail_Win";
                                         oEvalResult = "Informativo";
-                                        oEvalValue = oRatting.ToString("#,0.##");
+                                        if (oRatting >= 100)
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Win";
+                                            oEvalValue = "Pasa";
+                                        }
+                                        else
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Lose";
+                                            oEvalValue = "No Pasa";
+                                        }
                                         break;
                                     default:
                                         break;
                                 }
 
                                 <li class="@oEvalStyle">
-                                    <span>@oEvalValue</span>
-                                    <span>@oEvalResult</span>
+                                    <span>@oEvalValue @oEvalResult</span>
                                     @if (oApprovalAreaStatus != null &&
                                         oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                                     {
-                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Pendiente por aprobación"></div>
+                                        <div style="display:inline-block; width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip Pendiente" title="Pendiente por aprobación"></div>
                                     }
                                     else if (oApprovalAreaStatus != null &&
                                             oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
                                     {
-                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Aprobado"></div>
+                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip Aprobado" title="Aprobado"></div>
                                     }
                                     else if (oApprovalAreaStatus != null &&
                                             oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
                                     {
-                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Rechazado"></div>
+                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip Rechazado" title="Rechazado"></div>
                                     }
                                 </li>
                             }
                         }
                         <li>
                             <!--Render provider actions-->
-                            <ul>
+                            <ul class="POMPProjectBidProviderActions">
                                 <li>
                                     <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                                                 new
