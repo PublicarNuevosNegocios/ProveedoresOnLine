@@ -151,7 +151,6 @@ li.POMPProjectBidActivityData ul{
     PROVEEDORES A PRECALIFICAR ************/
 .POMPProjectBidGridWrapper,
 .POMPProjectBidProviderAreaGrid {
-    border:1px solid green;
     width:auto; height:auto;
     display:block; list-style-type:none;
 }
@@ -162,7 +161,7 @@ li.POMPProjectBidActivityData ul{
 .POMPProjectBidGridWrapper > li{
     display:block;
     width:100%; height:auto;
-    margin:0px; padding:0px;
+    margin:0px 0px 4px 0px; padding:0px;    
 }
     .POMPProjectBidGridWrapper > li:nth-child(even) {
         background-color:#e6e6e6;
@@ -170,10 +169,11 @@ li.POMPProjectBidActivityData ul{
 .POMPProjectBidProviderAreaGrid {
     margin:0px; padding:0px;
 }
-.POMPProjectBidProviderAreaGrid > li{    
+.POMPProjectBidProviderAreaGrid > li{ 
     display:inline-block;
     vertical-align:bottom;
     height:50px;
+    border-bottom:1px solid gray;
 }
     .POMPProjectBidProviderAreaGrid > li:first-child {
         width:27%;
@@ -183,12 +183,12 @@ li.POMPProjectBidActivityData ul{
     .POMPProjectBidProviderAreaGrid > li:nth-child(4),
     .POMPProjectBidProviderAreaGrid > li:nth-child(5){
         width:13%;
-        margin:0 0 0 -5px;
-        border-left: 1px solid gray;
+        margin:0 0 0 -4px;
+        border-right : 1px solid gray;
     }
 .POMPProjectBidProviderAreaGrid > li:nth-child(6){
     border-left: 1px solid gray;
-    width:21.4%;
+    width:21%;
     margin:0 0 0 -5px;
 
 }
@@ -208,6 +208,16 @@ li.POMPProjectBidActivityData ul{
 }
 .ProviderRowes > li:first-child{
     background-color:#fff !important;
+    border-bottom: 1px solid #ff8300;
+}
+/**************** ESTADOS DE CRITERIOS DE SELECCION
+    PASA, NO PASA ETC. ****************/
+.POMP_ProjectDetail_Lose{
+    border-left:12px solid #FF2A2A;
+    background-color:#;
+}
+.POMP_ProjectDetail_Win {
+    border-left:12px solid #55D400;
 }
 
 
