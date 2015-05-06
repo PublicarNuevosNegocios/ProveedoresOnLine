@@ -37,6 +37,42 @@ namespace MarketPlace.Models.Project
             }
 
             #endregion
+
+            #region HSEQ Info
+
+            RelatedProvider.RelatedHSEQlInfo = new List<Provider.ProviderHSEQViewModel>();
+
+            if (RelatedProjectProvider.RelatedProvider != null &&
+                RelatedProjectProvider.RelatedProvider.RelatedCertification != null &&
+                RelatedProjectProvider.RelatedProvider.RelatedCertification.Count > 0)
+            {
+                RelatedProjectProvider.RelatedProvider.RelatedCertification.All(cr =>
+                {
+                    RelatedProvider.RelatedHSEQlInfo.Add(new MarketPlace.Models.Provider.ProviderHSEQViewModel(cr));
+                    return true;
+                });
+
+            }
+
+            #endregion
+
+            #region Lega Info
+
+            RelatedProvider.RelatedLegalInfo = new List<Provider.ProviderLegalViewModel>();
+
+            if (RelatedProjectProvider.RelatedProvider != null &&
+                RelatedProjectProvider.RelatedProvider.RelatedLegal != null &&
+                RelatedProjectProvider.RelatedProvider.RelatedLegal.Count > 0)
+            {
+                RelatedProjectProvider.RelatedProvider.RelatedLegal.All(lg =>
+                {
+                    RelatedProvider.RelatedLegalInfo.Add(new MarketPlace.Models.Provider.ProviderLegalViewModel(lg));
+                    return true;
+                });
+
+            }
+
+            #endregion
         }
 
         #region Projectprovider info
