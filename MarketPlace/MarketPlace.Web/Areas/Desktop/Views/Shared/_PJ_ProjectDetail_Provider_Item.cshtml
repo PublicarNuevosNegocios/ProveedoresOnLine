@@ -1,19 +1,17 @@
 ﻿@model MarketPlace.Models.Project.ProjectViewModel
 
-@{
-    //get evaluation areas
-    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
-}
-
 @if (!Model.RenderScripts)
 {
+    //get evaluation areas
+    var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+    
     <div>
         @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
         {
             foreach (var oAreaItem in oEvaluationAreas)
             {
                 //get evaluation items groups
-                var oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria(oAreaItem.EvaluationItemId);
+                //var oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria(oAreaItem.EvaluationItemId);
 
                 //get area ratting
                 decimal oItemRatting = Model.CurrentProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
@@ -27,14 +25,14 @@
                     </div>
                     <!--Items Area-->
                     <div>
-                        @foreach (var oEvaluationCriteriaItem in oEvaluationCriteria.OrderBy(ecr => ecr.Item2))
+                        @*@foreach (var oEvaluationCriteriaItem in oEvaluationCriteria.OrderBy(ecr => ecr.Item2))
                         {
                             @(Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_ItemCriteria_1404001.
                                                 Replace("1404001", ((int)oEvaluationCriteriaItem.Item1).ToString()),
                                             new Tuple<MarketPlace.Models.Project.ProjectViewModel, List<MarketPlace.Models.Project.EvaluationItemViewModel>>
                                             (Model,
                                                 oEvaluationCriteriaItem.Item3)))
-                        }
+                        }*@
                     </div>
                 </div>
             }

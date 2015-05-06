@@ -86,7 +86,8 @@ namespace MarketPlace.Models.Project
         public List<int> GetInfoItems(int vEvaluationItemId)
         {
             return RelatedProjectProvider.ItemInfo.
-                Where(pjpvinf => pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
                                 pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.InfoItems &&
                                 !string.IsNullOrEmpty(pjpvinf.LargeValue)).
                 Select(pjpvinf => pjpvinf.LargeValue).

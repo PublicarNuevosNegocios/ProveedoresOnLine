@@ -46,7 +46,8 @@ namespace MarketPlace.Web.Controllers
 
         public virtual ActionResult ProjectProviderDetail
             (string ProjectPublicId,
-            string ProviderPublicId)
+            string ProviderPublicId,
+            string EvaluationAreaId)
         {
             ProveedoresOnLine.ProjectModule.Models.ProjectModel oCurrentProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.
                 ProjectGetByIdProviderDetail
@@ -55,6 +56,17 @@ namespace MarketPlace.Web.Controllers
                 ProviderPublicId);
 
             MarketPlace.Models.Project.ProjectViewModel oModel = new Models.Project.ProjectViewModel(oCurrentProject, ProviderPublicId);
+
+            //get current evaluation area
+            if (!string.IsNullOrEmpty(EvaluationAreaId))
+            {
+                oModel.RelatedProjectConfig.SetCurrentEvaluationArea(Convert.ToInt32(EvaluationAreaId.Replace(" ", "")));
+            }
+
+            if (oModel.RelatedProjectConfig.CurrentEvaluationArea == null)
+            {
+                oModel.RelatedProjectConfig.SetCurrentEvaluationArea(null);
+            }
 
             return View(oModel);
         }

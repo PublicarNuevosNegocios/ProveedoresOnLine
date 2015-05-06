@@ -69,6 +69,8 @@ namespace MarketPlace.Models.Project
             RelatedProjectConfig = oRelatedProjectConfig;
         }
 
+        public EvaluationItemViewModel CurrentEvaluationArea { get; private set; }
+
         #region Methods
 
         public List<EvaluationItemViewModel> GetEvaluationAreas()
@@ -91,34 +93,51 @@ namespace MarketPlace.Models.Project
             return oReturn;
         }
 
-        public List<Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>> GetEvaluationCriteria(int oEvaluationAreaId)
+        public void SetCurrentEvaluationArea(int? vEvaluationAreaId)
         {
-            List<Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>> oReturn =
-                RelatedProjectConfig.RelatedEvaluationItem.
-                Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationCriteria &&
-                            ei.ParentItem != null &&
-                            ei.ParentItem.ItemId == oEvaluationAreaId).
-                OrderBy(ei => ei.ItemInfo.
-                    Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationOrder &&
-                                    !string.IsNullOrEmpty(eiinf.Value)).
-                    Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
-                    DefaultIfEmpty(0).
-                    FirstOrDefault()).
-                Select(ei => new EvaluationItemViewModel(ei)).
-                GroupBy(ecr => ecr.EvaluationCriteria).
-                Select(ecrg => new Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>
-                    (
-                        ecrg.Key,
-                        ecrg.Max(ecr => ecr.EvaluationOrder),
-                        ecrg.Select(ecr => ecr).ToList()
-                    )).
-                ToList();
-
-            if (oReturn == null)
-                oReturn = new List<Tuple<General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>>();
-
-            return oReturn;
+            if (RelatedProjectConfig.RelatedEvaluationItem != null)
+            {
+                CurrentEvaluationArea = new EvaluationItemViewModel(RelatedProjectConfig.RelatedEvaluationItem.
+                    Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationArea &&
+                                vEvaluationAreaId == null ? true : ei.ItemId == vEvaluationAreaId).
+                    OrderBy(ei => ei.ItemInfo.
+                        Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationOrder &&
+                                        !string.IsNullOrEmpty(eiinf.Value)).
+                        Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault()).
+                    FirstOrDefault());
+            }
         }
+
+        //public List<Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>> GetEvaluationCriteria(int oEvaluationAreaId)
+        //{
+        //    List<Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>> oReturn =
+        //        RelatedProjectConfig.RelatedEvaluationItem.
+        //        Where(ei => ei.ItemType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemType.EvaluationCriteria &&
+        //                    ei.ParentItem != null &&
+        //                    ei.ParentItem.ItemId == oEvaluationAreaId).
+        //        OrderBy(ei => ei.ItemInfo.
+        //            Where(eiinf => eiinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumEvaluationItemInfoType.EvaluationOrder &&
+        //                            !string.IsNullOrEmpty(eiinf.Value)).
+        //            Select(eiinf => Convert.ToInt32(eiinf.Value.Replace(" ", ""))).
+        //            DefaultIfEmpty(0).
+        //            FirstOrDefault()).
+        //        Select(ei => new EvaluationItemViewModel(ei)).
+        //        GroupBy(ecr => ecr.EvaluationCriteria).
+        //        Select(ecrg => new Tuple<MarketPlace.Models.General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>
+        //            (
+        //                ecrg.Key,
+        //                ecrg.Max(ecr => ecr.EvaluationOrder),
+        //                ecrg.Select(ecr => ecr).ToList()
+        //            )).
+        //        ToList();
+
+        //    if (oReturn == null)
+        //        oReturn = new List<Tuple<General.enumEvaluationCriteria, int, List<EvaluationItemViewModel>>>();
+
+        //    return oReturn;
+        //}
 
         public Dictionary<string, string> GetExperienceYearValues()
         {
