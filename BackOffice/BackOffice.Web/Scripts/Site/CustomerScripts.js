@@ -1013,7 +1013,9 @@ var Customer_SurveyItemObject = {
                             select: function (e) {
                                 if (this.dataItem(e.item.index()).ItemId == 118002) {
                                     $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                                    options.model.SurveyConfigItemInfoIsMandatory = false;
                                     $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
+                                    options.model.SurveyConfigItemInfoHasDescription = false;
                                     $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').hide();
                                 }
                                 else {
@@ -1025,8 +1027,11 @@ var Customer_SurveyItemObject = {
                         });
 
                     if (options.model[options.field] == 118002) {
+                        debugger;
                         $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                        options.model.SurveyConfigItemInfoIsMandatory = false;
                         $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
+                        options.model.SurveyConfigItemInfoHasDescription = false;
                         $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').hide();
                     }
 
