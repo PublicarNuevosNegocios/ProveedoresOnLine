@@ -2,44 +2,6 @@
 
 @if (!Model.Item1.RenderScripts)
 {
-    <div>
-        <ul>
-            <li>
-                <ul>
-                    <li>
-                        <span>Criterio</span>
-                    </li>
-                    <li>
-                        <span>Unidad</span>
-                    </li>
-                    <li>
-                        <span>Peso</span>
-                    </li>
-                    <li>
-                        <span>Resultado</span>
-                    </li>
-                </ul>
-            </li>
-            @foreach (var oEvaluationItem in Model.Item2)
-            {
-                <li>
-                    <ul>
-                        <li>
-                            <span>@oEvaluationItem.EvaluationItemName</span>
-                        </li>
-                        <li>
-                            <span>@oEvaluationItem.EvaluationItemUnitName</span>
-                        </li>
-                        <li>
-                            <span>@oEvaluationItem.EvaluationWeight</span>
-                        </li>
-                        <li>
-                            <span>@Model.Item1.CurrentProjectProvider.GetRatting(oEvaluationItem.EvaluationItemId)</span>
-                        </li>
-                    </ul>
-                </li>
-            }
-        </ul>
-    </div>
+    
 }
 

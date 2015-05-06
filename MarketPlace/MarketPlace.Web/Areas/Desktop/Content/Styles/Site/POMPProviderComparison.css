@@ -220,10 +220,6 @@
             font-size: 0.82em;
         }
 
-    .POMPProviderMenuDetail ul {
-        display: none;
-    }
-
     .POMPProviderMenuDetail > div.POMPComparisonResultProvDataWrapper > a > img.POMPComparisonResultProvLogo {
         display: block;
         height: 100%;
