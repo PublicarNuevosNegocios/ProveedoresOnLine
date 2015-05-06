@@ -65,11 +65,13 @@
 </div>
 
 <div id="dialog" style="display:none;">
-    <div id="divGridEvaluationItem_Dialog" title="Criterio de Evaluación">
+    <div id="divGridEvaluationItem_Dialog">
         <form id="divGridEvaluationItem_Upsert_Form" name="divGridEvaluationItem_Upsert_Form" method="post">
             <div>
                 <label>Criterios de Evaluación</label>
+                <div id="divGridEvaluationItem_EvaluationCriteriaForm">
 
+                </div>
             </div>
         </form>
     </div>
@@ -78,7 +80,7 @@
 @{
     Model.RenderScripts = true;
 
-    
+
 }
 
 @section inlinescripts{
@@ -114,7 +116,6 @@
                 ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
-                FormEvaluationCriteria: '',
             });
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',

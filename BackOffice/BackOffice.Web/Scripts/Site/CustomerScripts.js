@@ -1027,7 +1027,6 @@ var Customer_SurveyItemObject = {
                         });
 
                     if (options.model[options.field] == 118002) {
-                        debugger;
                         $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
                         options.model.SurveyConfigItemInfoIsMandatory = false;
                         $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
@@ -1504,7 +1503,8 @@ var Customer_EvaluationItemObject = {
     CustomerPublicId: '',
     ProjectConfigId: '',
     PageSize: '',
-    FormEvaluationCriteria: '',
+    DataParentEvaluationItem: '',
+    DataEvaluationItemType: '',
     ProjectConfigOptionsList: new Array(),
 
     Init: function (vInitObject) {
@@ -1512,7 +1512,6 @@ var Customer_EvaluationItemObject = {
         this.CustomerPublicId = vInitObject.CustomerPublicId;
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.PageSize = vInitObject.PageSize;
-        this.FormEvaluationCriteria = vInitObject.FormEvaluationCriteria;
         this.ProjectConfigOptionsList = vInitObject.ProjectConfigOptionsList;
 
         if (vInitObject.ProjectConfigOptionsList != null) {
@@ -1526,18 +1525,15 @@ var Customer_EvaluationItemObject = {
         if (vRenderObject.EvaluationItemType == 1401001) {
             Customer_EvaluationItemObject.RenderEvaluationArea(vRenderObject);
 
-        //focus on the grid
-        $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).data("kendoGrid").table.focus();
+            //config keyboard
+            Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
 
-        //config keyboard
-        Customer_EvaluationItemObject.ConfigKeyBoard(vRenderObject.EvaluationItemType);
-
-        //Config Events
-        Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
+            //Config Events
+            Customer_EvaluationItemObject.ConfigEvents(vRenderObject.EvaluationItemType);
         }
         else if (vRenderObject.EvaluationItemType == 1401002) {
             Customer_EvaluationItemObject.RenderEvaluationCriteria(vRenderObject);
-        }        
+        }
     },
 
     ConfigKeyBoard: function (EvaluationItemType) {
@@ -1858,18 +1854,15 @@ var Customer_EvaluationItemObject = {
     RenderEvaluationCriteria: function (vRenderObject) {
         $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).html('');
 
-                        $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
-                            dataType: 'json',
-                            success: function (result) {
+        Customer_EvaluationItemObject.DataParentEvaluationItem = vRenderObject.ParentEvaluationItem;
+        Customer_EvaluationItemObject.DataEvaluationItemType = vRenderObject.EvaluationItemType;
 
-                var oResult;
-
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + vRenderObject.ParentEvaluationItem + '&EvaluationItemType=' + vRenderObject.EvaluationItemType + '&SearchParam=' + Customer_EvaluationItemObject.GetSearchParam() + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
+            dataType: 'json',
+            success: function (result) {
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<ul>')
                 for (var i = 0; i < result.length; i++) {
-
-                    oResult = result[i];
-
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<li>')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_OrderId" type="hidden" value="' + result[i].EC_OrderId + '" />')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EC_Order">' + result[i].EC_Order + '</label>')
@@ -1883,18 +1876,61 @@ var Customer_EvaluationItemObject = {
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_ApprovePercentageId" type="hidden" value="' + result[i].EC_ApprovePercentageId + '" />')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EC_ApprovePercentage">' + result[i].EC_ApprovePercentage + '</label>')
 
-                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail();">Ver detalle</button>')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail(\'' + result[i].EvaluationItemId + '\');">Ver detalle</button>')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</li>')
-                            }
+                }
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</ul>')
-                            },
-                            error: function (result) {
-                    }
+            },
+            error: function (result) {
+            }
         });
     },
 
-    ShowProjectConfigurationDetail: function (dataItem) {        
-        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').load(Customer_EvaluationItemObject.FormEvaluationCriteria);
-        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').dialog();
+    ShowProjectConfigurationDetail: function (vEvaluationCriteria) {
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').html('');
+
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/CustomerApi?PCEvaluationItemSearch=true&ProjectConfigId=' + Customer_EvaluationItemObject.ProjectConfigId + '&ParentEvaluationItem=' + Customer_EvaluationItemObject.DataParentEvaluationItem + '&EvaluationItemType=' + Customer_EvaluationItemObject.DataEvaluationItemType + '&SearchParam=' + vEvaluationCriteria + '&ViewEnable=' + Customer_EvaluationItemObject.GetViewEnable(),
+            dataType: 'json',
+            success: function (result) {
+                for (var i = 0; i < result.length ; i++) {
+                    if (result[i].EvaluationItemId == vEvaluationCriteria) {
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_EvaluatorTypeId" type="hidden" value="' + result[i].EC_EvaluatorTypeId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_EvaluatorType">' + result[i].EC_EvaluatorType + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_EvaluatorId" type="hidden" value="' + result[i].EC_EvaluatorId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_Evaluator">' + result[i].EC_Evaluator + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_UnitId" type="hidden" value="' + result[i].EC_UnitId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_Unit">' + result[i].EC_Unit + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_RatingId" type="hidden" value="' + result[i].EC_RatingId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_Rating">' + result[i].EC_Rating + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_EvaluationCriteriaId" type="hidden" value="' + result[i].EC_EvaluationCriteriaId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_EvaluationCriteria">' + result[i].EC_EvaluationCriteria + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_InfoType_Value_OperatorId" type="hidden" value="' + result[i].EC_InfoType_Value_OperatorId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_InfoType_Value_Operator">' + result[i].EC_InfoType_Value_Operator + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_YearsQuantityId" type="hidden" value="' + result[i].EC_YearsQuantityId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_YearsQuantity">' + result[i].EC_YearsQuantity + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_ExperienceConfigId" type="hidden" value="' + result[i].EC_ExperienceConfigId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_ExperienceConfig">' + result[i].EC_ExperienceConfig + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_OrderId" type="hidden" value="' + result[i].EC_OrderId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_Order">' + result[i].EC_OrderId + '</label>')
+
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<input id="EC_ApprovePercentageId" type="hidden" value="' + result[i].EC_ApprovePercentageId + '" />')
+                        $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').append('<label name="EC_ApprovePercentage">' + result[i].EC_ApprovePercentage + '</label>')
+                    }
+                }
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_Dialog').dialog();
+            },
+            error: function (result) {
+
+            },
+        });
     },
 };
