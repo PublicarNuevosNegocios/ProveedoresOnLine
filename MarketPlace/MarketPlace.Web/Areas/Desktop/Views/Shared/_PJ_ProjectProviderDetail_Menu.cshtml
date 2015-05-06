@@ -1,0 +1,54 @@
+﻿@model MarketPlace.Models.Project.ProjectViewModel
+
+@if (!Model.RenderScripts)
+{
+    List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
+
+    <div>
+        <div class="POMPProviderMenuDetail">
+            @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider)
+        </div>
+        @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+        {
+            <ul>
+                @foreach (var oAreaItem in oEvaluationAreas)
+                {
+                    if (oAreaItem.EvaluationItemId == Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)
+                    {
+                        <li class="projectmenuselected">
+                            <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.RelatedProject.ProjectPublicId,
+                                            ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            EvaluationAreaId = Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                        }))">
+                                @oAreaItem.EvaluationItemName
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@(Url.RouteUrl
+                                        (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Project.Name,
+                                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                            ProjectPublicId = Model.RelatedProject.ProjectPublicId,
+                                            ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            EvaluationAreaId = Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                        }))">
+                                @oAreaItem.EvaluationItemName
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+}

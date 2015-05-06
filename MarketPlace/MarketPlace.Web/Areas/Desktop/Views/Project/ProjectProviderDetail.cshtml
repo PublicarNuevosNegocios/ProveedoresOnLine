@@ -12,16 +12,23 @@
     <div>
         <div>
             <!--Provider Menu-->
-            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Menu, Model)
+            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Menu, Model)
         </div>
         <div>
             <!--Provider Detail-->
-            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Item, Model)
+            @*@Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_Item, Model)*@
         </div>
     </div>
 </div>
+
+@{
+    Model.RenderScripts = true;
+}
+
 @section inlinescripts
 {
+    @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
+
     <script type="text/javascript">
         $(document).ready(function () {
         });
