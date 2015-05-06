@@ -52,10 +52,17 @@
     border-bottom:none !important;
     min-height: initial !important;
 }
+
     .POMPProjectBidDataActions > a {
-        display:inline-block;
-        width:auto;
-        margin:0px 8px;
+        border-left: 1px solid gray;
+        display: inline-block;
+        font-size: 0.88em;
+        margin: 0;
+        padding: 0 8px;
+        width: auto;
+    }
+    .POMPProjectBidDataActions > a:first-child {
+        border-left: none;        
     }
 .POMPProjectBidMainData label,
 .POMPProjectBidMainData span {
@@ -173,7 +180,6 @@ li.POMPProjectBidActivityData ul{
     display:inline-block;
     vertical-align:bottom;
     height:50px;
-    border-bottom:1px solid gray;
 }
     .POMPProjectBidProviderAreaGrid > li:first-child {
         width:27%;
@@ -184,13 +190,11 @@ li.POMPProjectBidActivityData ul{
     .POMPProjectBidProviderAreaGrid > li:nth-child(5){
         width:13%;
         margin:0 0 0 -4px;
-        border-right : 1px solid gray;
     }
 .POMPProjectBidProviderAreaGrid > li:nth-child(6){
-    border-left: 1px solid gray;
-    width:21%;
-    margin:0 0 0 -5px;
-
+    width:20.8%;
+    margin:0 0 0 -2px;
+    background-color:#fff;
 }
 .POMPProjectBidProviderAreaGrid li > label{
         display:block;
@@ -204,21 +208,39 @@ li.POMPProjectBidActivityData ul{
     display:block;
 }
 .ProviderRowes > li{
+    border-bottom: 1px solid #ff8300;
     height:102px;
 }
 .ProviderRowes > li:first-child{
     background-color:#fff !important;
-    border-bottom: 1px solid #ff8300;
 }
 /**************** ESTADOS DE CRITERIOS DE SELECCION
     PASA, NO PASA ETC. ****************/
+.POMP_ProjectDetail_Win span,
+.POMP_ProjectDetail_Lose span{
+    display:block;
+    margin:39px 0 0 5px;
+}
 .POMP_ProjectDetail_Lose{
-    border-left:12px solid #FF2A2A;
-    background-color:#;
+    border-left:12px solid #FF2A2A;  
 }
 .POMP_ProjectDetail_Win {
     border-left:12px solid #55D400;
 }
+/**************** acciones DE CRITERIOS DE SELECCION
+    DETALLE, SOLICITAR, APROVACION. ****************/
+.POMPProjectBidProviderActions {
+    list-style-type:none; padding:0; margin:23px 0px 0px 0px;
+}
+.POMPProjectBidProviderActions li{
+    padding:0 0 0 8px; margin:0px;
+    height:14px;
+}
+    .POMPProjectBidProviderActions li a,
+    .POMPProjectBidProviderActions li span {
+        font-size:0.89em;
+    }
+
 
 
 
