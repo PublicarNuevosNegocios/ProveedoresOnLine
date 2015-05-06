@@ -61,47 +61,50 @@
                         {
                             foreach (var oAreaItem in oEvaluationAreas)
                             {
-                                Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal> oEvalModel = new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>
-                                    (oAreaItem.EvaluationItemUnit,
-                                    oProjectProvider.GetRatting(oAreaItem.EvaluationItemId),
-                                    oAreaItem.AprobalPercent);
+                                MarketPlace.Models.General.enumApprovalStatus? oApprovalAreaStatus = oProjectProvider.GetApprovalStatusByArea(oAreaItem.EvaluationItemId);
+                                string oEvalStyle = string.Empty, oEvalResult = string.Empty, oEvalValue = string.Empty;
+                                decimal oRatting = oProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
 
-                                string oEvalStyle = string.Empty;
-                                switch (oEvalModel.Item1)
+                                switch (oAreaItem.EvaluationItemUnit)
                                 {
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                                        if (oEvalModel.Item2 >= oEvalModel.Item3)
+                                        if (oRatting >= oAreaItem.AprobalPercent)
                                         {
                                             oEvalStyle = "POMP_ProjectDetail_Win";
+                                            oEvalResult = "Pasa";
                                         }
                                         else
                                         {
                                             oEvalStyle = "POMP_ProjectDetail_Lose";
+                                            oEvalResult = "No Pasa";
                                         }
                                         break;
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
-                                        if (oEvalModel.Item2 >= oEvalModel.Item3)
+                                        if (oRatting >= oAreaItem.AprobalPercent)
                                         {
                                             oEvalStyle = "POMP_ProjectDetail_Win";
+                                            oEvalResult = "Pasa";
+                                            oEvalValue = oRatting.ToString("#,0.##") + " %";
                                         }
                                         else
                                         {
                                             oEvalStyle = "POMP_ProjectDetail_Lose";
+                                            oEvalResult = "No Pasa";
+                                            oEvalValue = oRatting.ToString("#,0.##") + " %";
                                         }
                                         break;
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
                                         oEvalStyle = "POMP_ProjectDetail_Win";
+                                        oEvalResult = "Informativo";
+                                        oEvalValue = oRatting.ToString("#,0.##");
                                         break;
                                     default:
                                         break;
                                 }
 
-                                MarketPlace.Models.General.enumApprovalStatus? oApprovalAreaStatus = oProjectProvider.GetApprovalStatusByArea(oAreaItem.EvaluationItemId);
-
-
                                 <li class="@oEvalStyle">
-                                    @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oProjectProvider.GetRatting(oAreaItem.EvaluationItemId), oAreaItem.AprobalPercent))
-
+                                    <span>@oEvalValue</span>
+                                    <span>@oEvalResult</span>
                                     @if (oApprovalAreaStatus != null &&
                                         oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                                     {
