@@ -1050,6 +1050,10 @@
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectProviderDetail_ResultsDetail_1404007.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_CI_ExperiencesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectProviderDetail_ResultsDetail.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_HI_CertificationsInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_HI_RiskPoliciesInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_HI_HealtyPoliticInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_LI_ChaimberOfCommerceInfo.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

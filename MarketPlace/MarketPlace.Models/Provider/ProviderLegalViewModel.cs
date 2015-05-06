@@ -9,9 +9,9 @@ namespace MarketPlace.Models.Provider
 {
     public class ProviderLegalViewModel
     {
-        public ProviderViewModel RelatedViewProvider { get; set; }
-
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedLegalInfo { get; set; }
+
+        public MarketPlace.Models.General.enumLegalType LegalType { get { return (MarketPlace.Models.General.enumLegalType)RelatedLegalInfo.ItemType.ItemId; } }
 
         #region ChaimberOfComerce
 

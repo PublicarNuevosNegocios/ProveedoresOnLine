@@ -10,6 +10,8 @@ namespace MarketPlace.Models.Provider
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedHSEQInfo { get; private set; }
 
+        public MarketPlace.Models.General.enumHSEQType HSEQType { get { return (MarketPlace.Models.General.enumHSEQType)RelatedHSEQInfo.ItemType.ItemId; } }
+
         #region Certifications
 
         private ProveedoresOnLine.Company.Models.Util.GenericItemModel oC_CertificationCompany;

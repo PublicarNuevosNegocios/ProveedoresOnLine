@@ -1,0 +1,94 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts)
+{
+    MarketPlace.Models.Provider.ProviderLegalViewModel CurrentLegalInfo = null;
+
+    if (Model.RelatedLegalInfo != null && Model.RelatedLegalInfo.Count > 0)
+    {
+        CurrentLegalInfo = Model.RelatedLegalInfo.Where(lg => lg.LegalType == MarketPlace.Models.General.enumLegalType.ChaimberOfCommerce).FirstOrDefault();
+    }
+
+    <ul class="POMPProviderInfoMultipleValues">
+        @if (CurrentLegalInfo != null)
+        {
+            <li>
+                <label class="POMPProviderDataSubtitle">
+                    @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_CertificateExpeditionDate))
+                    {
+                        <span>Fecha de Expedición del Certificado: @CurrentLegalInfo.CP_CertificateExpeditionDate</span>
+                    }
+                </label>
+                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionCity))
+                {
+                    <label>
+                        Ciudad
+                        <span>@CurrentLegalInfo.CP_InscriptionCity</span>
+                    </label>
+                }
+                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionDate))
+                {
+                    <label>
+                        Fecha de Constitución
+                        <span>@CurrentLegalInfo.CP_ConstitutionDate</span>
+                    </label>
+                }
+                @if (CurrentLegalInfo.CP_UndefinedDate == "1")
+                {
+                    <label>
+                        Indefinido
+                        <span>Si</span>
+                    </label>
+                }
+                else if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ConstitutionEndDate))
+                {
+                    <label>
+                        Vigente Hasta
+                        <span>@CurrentLegalInfo.CP_ConstitutionEndDate</span>
+                    </label>
+                }
+                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_InscriptionNumber))
+                {
+                    <label>
+                        Número de Matricula
+                        <span>@CurrentLegalInfo.CP_InscriptionNumber</span>
+                    </label>
+                }
+                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate))
+                {
+                    <label>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@CurrentLegalInfo.CP_ExistenceAndLegalPersonCertificate">Ver Archivo Certificado de Existencia y Representación Legal</a>
+                    </label>
+                }
+                @if (!string.IsNullOrEmpty(CurrentLegalInfo.CP_SocialObject))
+                {
+                    <label class="POMPProviderObjetoSocial">
+                        Objeto Social
+                        <span><br />@CurrentLegalInfo.CP_SocialObject</span>
+                    </label>
+                }
+                @if (Model.RelatedDesignationsInfo != null && Model.RelatedDesignationsInfo.Count > 0)
+                {
+                    <label class="POMPProviderDataSubtitle">
+                        Socios, Miembros Junta Directiva, Entre Otros
+                    </label>
+                    foreach (var item in Model.RelatedDesignationsInfo)
+                    {
+                        <label>
+                            Nombre
+                            <span>@item.CD_PartnerName</span>
+                        </label>
+                        <label>
+                            Número de Identificación
+                            <span>@item.CD_PartnerIdentificationNumber</span>
+                        </label>
+                        <label>
+                            Cargo
+                            <span>@item.CD_PartnerRank</span>
+                        </label>
+                    }
+                }
+            </li>
+        }
+    </ul>
+}

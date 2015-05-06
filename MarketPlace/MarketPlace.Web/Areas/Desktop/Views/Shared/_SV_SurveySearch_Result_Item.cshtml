@@ -43,6 +43,10 @@
                 
                 SurveyComments = Model.RelatedSurvey.SurveyComments,
                 SurveyCommentsId = Model.RelatedSurvey.SurveyCommentsId,
+
+                SurveyRelatedProject = Model.RelatedSurvey.SurveyRelatedProject,
+                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,              
+                
             });
 
     }
@@ -97,6 +101,10 @@
                 <li>
                     <label>Comentarios</label>
                     <span>@Model.RelatedSurvey.SurveyComments</span>
+                </li>
+                <li>
+                    <label>Proceso de Selección</label>
+                    <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
                 </li>
             </ul>
         </div>

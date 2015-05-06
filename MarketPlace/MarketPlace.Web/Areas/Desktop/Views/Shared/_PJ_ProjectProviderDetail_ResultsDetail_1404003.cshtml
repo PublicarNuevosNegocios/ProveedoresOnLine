@@ -2,7 +2,10 @@
 
 @if (!Model.Item1.RenderScripts)
 {
-
+    <div class="POMPProviderDataWrapper">
+        <!--Render experience detail-->
+        @Html.Partial(MVC.Desktop.Shared.Views._P_HI_RiskPoliciesInfo, Model.Item1.CurrentProjectProvider.RelatedProvider)
+    </div>
 }
 
 

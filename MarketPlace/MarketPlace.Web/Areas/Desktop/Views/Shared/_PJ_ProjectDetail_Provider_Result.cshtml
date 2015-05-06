@@ -38,22 +38,22 @@
                             @if (oApprovalProviderStatus != null &&
                                 oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                             {
-                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Pendiente por aprobación"></div>
+                                <div class="SelGenericTooltip ProveedorPendiente" title="Pendiente por aprobación"></div>
                             }
                             else if (oApprovalProviderStatus != null &&
                                     oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
                             {
-                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Aprobado"></div>
+                                <div class="SelGenericTooltip ProveedorAprobado" title="Aprobado"></div>
                             }
                             else if (oApprovalProviderStatus != null &&
                                     oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
                             {
-                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Rechazado"></div>
+                                <div class="SelGenericTooltip ProveedorRechazado" title="Rechazado"></div>
                             }
                             else if (oApprovalProviderStatus != null &&
                                     oApprovalProviderStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
                             {
-                                <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip" title="Adjudicado"></div>
+                                <div class="SelGenericTooltip ProveedorAdjudicado" title="Adjudicado"></div>
                             }
                         </li>
                         <!--Render evaluation areas-->
@@ -115,17 +115,17 @@
                                     @if (oApprovalAreaStatus != null &&
                                         oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
                                     {
-                                        <div style="display:inline-block; width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip Pendiente" title="Pendiente por aprobación"></div>
+                                        <div class="SelGenericTooltip Pendiente" title="Pendiente por aprobación"></div>
                                     }
                                     else if (oApprovalAreaStatus != null &&
                                             oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
                                     {
-                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip Aprobado" title="Aprobado"></div>
+                                        <div class="SelGenericTooltip Aprobado" title="Aprobado"></div>
                                     }
                                     else if (oApprovalAreaStatus != null &&
                                             oApprovalAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Rejected)
                                     {
-                                        <div style="width:5px;height:5px;border:solid 1px red;" class="SelGenericTooltip Rechazado" title="Rechazado"></div>
+                                        <div class="SelGenericTooltip Rechazado" title="Rechazado"></div>
                                     }
                                 </li>
                             }
