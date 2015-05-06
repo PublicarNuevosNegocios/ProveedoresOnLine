@@ -267,6 +267,30 @@ namespace MarketPlace.Models.Survey
                     DefaultIfEmpty(0).
                     FirstOrDefault()) / 100);
             }
+        }        
+
+        public int SurveyRelatedProjectId
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Project).
+                    Select(y => y.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public string SurveyRelatedProject
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Project).
+                    Select(y => y.ValueName).
+                    DefaultIfEmpty("").
+                    FirstOrDefault();
+            }
         }
 
         #endregion
