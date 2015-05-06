@@ -68,7 +68,7 @@
                                 switch (oAreaItem.EvaluationItemUnit)
                                 {
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
-                                        if (oRatting >= oAreaItem.AprobalPercent)
+                                        if (oRatting >= 100)
                                         {
                                             oEvalStyle = "POMP_ProjectDetail_Win";
                                             oEvalResult = "Pasa";
@@ -94,9 +94,17 @@
                                         }
                                         break;
                                     case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
-                                        oEvalStyle = "POMP_ProjectDetail_Win";
                                         oEvalResult = "Informativo";
-                                        oEvalValue = oRatting.ToString("#,0.##");
+                                        if (oRatting >= 100)
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Win";
+                                            oEvalValue = "Pasa";
+                                        }
+                                        else
+                                        {
+                                            oEvalStyle = "POMP_ProjectDetail_Lose";
+                                            oEvalValue = "No Pasa";
+                                        }
                                         break;
                                     default:
                                         break;
