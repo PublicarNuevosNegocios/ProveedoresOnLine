@@ -994,6 +994,9 @@ var Customer_SurveyItemObject = {
                         $.each(Customer_SurveyItemObject.CustomerOptions[118], function (item, value) {
                             if (dataItem.SurveyConfigItemInfoQuestionType == value.ItemId) {
                                 oReturn = value.ItemName;
+                                //if (value.ItemId == 118002) {
+                                //    $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                                //}
                             }
                         });
                     }
@@ -1006,8 +1009,27 @@ var Customer_SurveyItemObject = {
                             dataSource: Customer_SurveyItemObject.CustomerOptions[118],
                             dataTextField: 'ItemName',
                             dataValueField: 'ItemId',
-                            optionLabel: 'Seleccione una opción'
+                            optionLabel: 'Seleccione una opción',
+                            select: function (e) {
+                                if (this.dataItem(e.item.index()).ItemId == 118002) {
+                                    $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                                    $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
+                                    $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').hide();
+                                }
+                                else {
+                                    $('[data-container-for="SurveyConfigItemInfoWeight"]').show();
+                                    $('[data-container-for="SurveyConfigItemInfoHasDescription"]').show();
+                                    $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').show();
+                                }
+                            },
                         });
+
+                    if (options.model[options.field] == 118002) {
+                        $('[data-container-for="SurveyConfigItemInfoWeight"]').hide();
+                        $('[data-container-for="SurveyConfigItemInfoHasDescription"]').hide();
+                        $('[data-container-for="SurveyConfigItemInfoIsMandatory"]').hide();
+                    }
+
                 },
             }, {
                 field: 'SurveyConfigItemName',
@@ -1025,7 +1047,7 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemInfoWeight',
                 title: 'Peso',
                 width: '50px',
-                format: '{0:n0}'
+                format: '{0:n0}',
             }, {
                 field: 'SurveyConfigItemInfoHasDescription',
                 title: 'Mostrar descripción',
@@ -1714,8 +1736,7 @@ var Customer_EvaluationItemObject = {
             }, {
                 field: 'EA_Evaluator',
                 title: 'Evaluador',
-                template: function (dataItem) {
-                    debugger;
+                template: function (dataItem) {                    
                     var oReturn = '';
                     if (dataItem != null && dataItem.EA_Evaluator != null) {
                         oReturn = dataItem.EA_Evaluator;
@@ -1985,8 +2006,7 @@ var Customer_EvaluationItemObject = {
         });
     },
 
-    ShowProjectConfigurationDetail: function (dataItem) {
-        debugger;
+    ShowProjectConfigurationDetail: function (dataItem) {        
         $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').load(Customer_EvaluationItemObject.FormEvaluationCriteria);
         $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteria').dialog();
     },
