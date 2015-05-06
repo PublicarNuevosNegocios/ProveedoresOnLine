@@ -24,7 +24,7 @@
                                             action = MVC.Project.ActionNames.ProjectProviderDetail,
                                             ProjectPublicId = Model.RelatedProject.ProjectPublicId,
                                             ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                                            EvaluationAreaId = Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                            EvaluationAreaId = oAreaItem.EvaluationItemId,
                                         }))">
                                 @oAreaItem.EvaluationItemName
                             </a>
@@ -41,7 +41,7 @@
                                             action = MVC.Project.ActionNames.ProjectProviderDetail,
                                             ProjectPublicId = Model.RelatedProject.ProjectPublicId,
                                             ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                                            EvaluationAreaId = Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                            EvaluationAreaId = oAreaItem.EvaluationItemId,
                                         }))">
                                 @oAreaItem.EvaluationItemName
                             </a>

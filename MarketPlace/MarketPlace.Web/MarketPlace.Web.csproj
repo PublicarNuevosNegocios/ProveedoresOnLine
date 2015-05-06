@@ -1038,7 +1038,7 @@
     <Content Include="Areas\Desktop\Views\Provider\FIKContract.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Header.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Result.cshtml" />
-    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_Item.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectProviderDetail_Results.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectProviderDetail_Menu.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404001.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectDetail_Provider_ItemCriteria_1404008.cshtml" />
