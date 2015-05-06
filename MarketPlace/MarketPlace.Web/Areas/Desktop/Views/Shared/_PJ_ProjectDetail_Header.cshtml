@@ -125,7 +125,7 @@
                         @foreach (var oFile in Model.ProjectFile)
                         {
                             <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
-                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
+                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip" title="Eliminar"></a>
                                 <div class="SelGenericTooltip" title="@oFile.FileName"></div>
                                 <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip" title="@oFile.FileName">@oFile.FileName</a>
                             </li>
