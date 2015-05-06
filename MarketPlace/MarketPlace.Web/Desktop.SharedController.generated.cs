@@ -66,6 +66,7 @@ namespace T4MVC.Desktop
                 public readonly string _PJ_ProjectDetail_Provider_Result = "_PJ_ProjectDetail_Provider_Result";
                 public readonly string _PJ_ProjectProviderDetail_Menu = "_PJ_ProjectProviderDetail_Menu";
                 public readonly string _PJ_ProjectProviderDetail_Results = "_PJ_ProjectProviderDetail_Results";
+                public readonly string _PJ_ProjectProviderDetail_ResultsDetail = "_PJ_ProjectProviderDetail_ResultsDetail";
                 public readonly string _SV_ProgramSurvey = "_SV_ProgramSurvey";
                 public readonly string _SV_SurveySearch_Result_Item = "_SV_SurveySearch_Result_Item";
                 public readonly string _SV_SurveySearch_Result_Pager = "_SV_SurveySearch_Result_Pager";
@@ -100,6 +101,7 @@ namespace T4MVC.Desktop
             public readonly string _PJ_ProjectDetail_Provider_Result = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Provider_Result.cshtml";
             public readonly string _PJ_ProjectProviderDetail_Menu = "~/Areas/Desktop/Views/Shared/_PJ_ProjectProviderDetail_Menu.cshtml";
             public readonly string _PJ_ProjectProviderDetail_Results = "~/Areas/Desktop/Views/Shared/_PJ_ProjectProviderDetail_Results.cshtml";
+            public readonly string _PJ_ProjectProviderDetail_ResultsDetail = "~/Areas/Desktop/Views/Shared/_PJ_ProjectProviderDetail_ResultsDetail.cshtml";
             public readonly string _SV_ProgramSurvey = "~/Areas/Desktop/Views/Shared/_SV_ProgramSurvey.cshtml";
             public readonly string _SV_SurveySearch_Result_Item = "~/Areas/Desktop/Views/Shared/_SV_SurveySearch_Result_Item.cshtml";
             public readonly string _SV_SurveySearch_Result_Pager = "~/Areas/Desktop/Views/Shared/_SV_SurveySearch_Result_Pager.cshtml";
