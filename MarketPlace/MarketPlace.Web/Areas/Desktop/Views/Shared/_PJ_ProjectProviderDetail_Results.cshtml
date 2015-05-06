@@ -2,6 +2,62 @@
 
 @if (!Model.RenderScripts)
 {
+    string oAreaEvalStyle = string.Empty, oAreaEvalResult = string.Empty, oAreaEvalUnit = string.Empty;
+    decimal oAreaRatting = Model.CurrentProjectProvider.GetRatting(Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+
+    switch (Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemUnit)
+    {
+        case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+
+            oAreaEvalUnit = "Pasa / No Pasa";
+
+            if (oAreaRatting >= 100)
+            {
+                oAreaEvalResult = "Pasa";
+                oAreaEvalStyle = "POMP_ProjectDetail_Win";
+            }
+            else
+            {
+                oAreaEvalResult = "No Pasa";
+                oAreaEvalStyle = "POMP_ProjectDetail_Lose";
+            }
+            break;
+        case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+
+            oAreaEvalUnit = "Mínimo " + Model.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent.ToString("#,0.##") + "%";
+
+            if (oAreaRatting >= Model.RelatedProjectConfig.CurrentEvaluationArea.AprobalPercent)
+            {
+                oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % Pasa";
+                oAreaEvalStyle = "POMP_ProjectDetail_Win";
+            }
+            else
+            {
+                oAreaEvalResult = oAreaRatting.ToString("#,0.##") + " % No Pasa";
+                oAreaEvalStyle = "POMP_ProjectDetail_Lose";
+            }
+            break;
+        case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+
+            oAreaEvalUnit = "Informativo";
+
+            if (oAreaRatting >= 100)
+            {
+                oAreaEvalResult = "Pasa";
+                oAreaEvalStyle = "POMP_ProjectDetail_Win";
+            }
+            else
+            {
+                oAreaEvalResult = "No Pasa";
+                oAreaEvalStyle = "POMP_ProjectDetail_Lose";
+            }
+            break;
+        default:
+            break;
+    }
+
+
+
     List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria();
 
     <div>
@@ -15,36 +71,77 @@
                         <span>Peso</span>
                     </li>
                     <li>
-                        <span>Puntos obtenidos</span>
+                        <span>Resultado</span>
                     </li>
                 </ul>
             </li>
             @foreach (var oCriteria in oEvaluationCriteria)
             {
+                string oEvalResult = string.Empty, oEvalUnit = string.Empty;
+                decimal oRatting = Model.CurrentProjectProvider.GetRatting(oCriteria.EvaluationItemId);
+
+                switch (oCriteria.EvaluationItemUnit)
+                {
+                    case MarketPlace.Models.General.enumEvaluationItemUnitType.LooseWin:
+
+                        oEvalUnit = "Pasa / No Pasa";
+
+                        if (oRatting >= 100)
+                        {
+                            oEvalResult = "Pasa";
+                        }
+                        else
+                        {
+                            oEvalResult = "No Pasa";
+                        }
+                        break;
+                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Percent:
+                        oEvalUnit = oCriteria.EvaluationWeight.ToString("#,0.##") + " %";
+
+                        oEvalResult = ((oRatting * oCriteria.EvaluationWeight) / 100).ToString("#,0.##") + " %";
+
+                        break;
+                    case MarketPlace.Models.General.enumEvaluationItemUnitType.Informative:
+
+                        oEvalUnit = "Informativo";
+                        if (oRatting >= 100)
+                        {
+                            oEvalResult = "Pasa";
+                        }
+                        else
+                        {
+                            oEvalResult = "No Pasa";
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+
                 <li>
                     <ul>
                         <li>
                             <span>@oCriteria.EvaluationItemName</span>
                         </li>
                         <li>
-                            <span>@oCriteria.EvaluationWeight</span>
+                            <span>@oEvalUnit</span>
                         </li>
                         <li>
-                            <span></span>
+                            <span>@oEvalResult</span>
                         </li>
                     </ul>
                 </li>
             }
-            <li>
+            <li class="@oAreaEvalStyle">
                 <ul>
                     <li>
-                        <span>Resultado</span>
+                        <span>Resultado @Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName</span>
                     </li>
                     <li>
-                        <span></span>
+                        <span>@oAreaEvalUnit</span>
                     </li>
                     <li>
-                        <span>el total</span>
+                        <span>@oAreaEvalResult</span>
                     </li>
                 </ul>
             </li>
@@ -54,44 +151,5 @@
             <a href="">Ver todas las experiencias</a>
         </label>
     </div>
-
-
-
-    @*//get evaluation areas
-        var oEvaluationAreas = Model.RelatedProjectConfig.GetEvaluationAreas();
-
-        <div>
-            @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
-            {
-                foreach (var oAreaItem in oEvaluationAreas)
-                {
-                    //get evaluation items groups
-                    //var oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria(oAreaItem.EvaluationItemId);
-
-                    //get area ratting
-                    decimal oItemRatting = Model.CurrentProjectProvider.GetRatting(oAreaItem.EvaluationItemId);
-
-
-                    <div id="divAreaItem_@oAreaItem.EvaluationItemId">
-                        <!--Header Area-->
-                        <div>
-                            <span>@oAreaItem.EvaluationItemName</span>
-                            @Html.Partial(MVC.Desktop.Shared.Views._PJ_EvaluationItemResult, new Tuple<MarketPlace.Models.General.enumEvaluationItemUnitType, decimal, decimal>(oAreaItem.EvaluationItemUnit, oItemRatting, oAreaItem.AprobalPercent))
-                        </div>
-                        <!--Items Area-->
-                        <div>
-                            @foreach (var oEvaluationCriteriaItem in oEvaluationCriteria.OrderBy(ecr => ecr.Item2))
-                            {
-                                @(Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Provider_ItemCriteria_1404001.
-                                                    Replace("1404001", ((int)oEvaluationCriteriaItem.Item1).ToString()),
-                                                new Tuple<MarketPlace.Models.Project.ProjectViewModel, List<MarketPlace.Models.Project.EvaluationItemViewModel>>
-                                                (Model,
-                                                    oEvaluationCriteriaItem.Item3)))
-                            }
-                        </div>
-                    </div>
-                }
-            }
-        </div>*@
 }
 
