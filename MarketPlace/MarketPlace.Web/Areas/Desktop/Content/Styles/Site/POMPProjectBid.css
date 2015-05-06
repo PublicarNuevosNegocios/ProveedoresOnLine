@@ -170,10 +170,10 @@ li.POMPProjectBidActivityData ul{
 .POMPProjectBidProviderAreaGrid {
     margin:0px; padding:0px;
 }
-.POMPProjectBidProviderAreaGrid > li{
-    border:1px solid purple;
+.POMPProjectBidProviderAreaGrid > li{    
     display:inline-block;
-    vertical-align:top;
+    vertical-align:bottom;
+    height:50px;
 }
     .POMPProjectBidProviderAreaGrid > li:first-child {
         width:27%;
@@ -182,23 +182,32 @@ li.POMPProjectBidActivityData ul{
     .POMPProjectBidProviderAreaGrid > li:nth-child(3),
     .POMPProjectBidProviderAreaGrid > li:nth-child(4),
     .POMPProjectBidProviderAreaGrid > li:nth-child(5){
-        width:12%;
+        width:13%;
         margin:0 0 0 -5px;
+        border-left: 1px solid gray;
     }
 .POMPProjectBidProviderAreaGrid > li:nth-child(6){
-    border:1px solid red;
-    width:22%;
-}
-.POMPProjectBidProviderAreaGrid li > label,
-.POMPProjectBidProviderAreaGrid li > span{
-        display: inline-block;
-    font-size: 0.98em;
-    font-weight: normal;
-    letter-spacing: -0.2px;
-    line-height: 1em;
-}
-.POMPProjectBidProviderAreaGrid li > span{
+    border-left: 1px solid gray;
+    width:21.4%;
+    margin:0 0 0 -5px;
 
+}
+.POMPProjectBidProviderAreaGrid li > label{
+        display:block;
+    font-size: 0.9em;
+    font-weight:bold;
+    letter-spacing: -0.2px;
+    line-height: 1em; margin:6px 0 0 6px;
+}
+.POMPProjectBidProviderAreaGrid li > label > span{
+    font-weight:normal;
+    display:block;
+}
+.ProviderRowes > li{
+    height:102px;
+}
+.ProviderRowes > li:first-child{
+    background-color:#fff !important;
 }
 
 
