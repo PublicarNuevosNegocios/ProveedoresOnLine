@@ -633,7 +633,6 @@ namespace MarketPlace.Web.ControllersApi
                                             },
                                             new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
                                             {
-                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
                                                 RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                                 {
                                                     ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
@@ -643,6 +642,19 @@ namespace MarketPlace.Web.ControllersApi
                                                     ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText,
                                                 },
                                                 LargeValue = System.Web.HttpContext.Current.Request["ApprovalText"],
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator,
+                                                },
+                                                LargeValue = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                                                 Enable = true,
                                             },
                                         },
@@ -771,7 +783,6 @@ namespace MarketPlace.Web.ControllersApi
                                             },
                                             new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
                                             {
-                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
                                                 RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                                 {
                                                     ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
@@ -781,6 +792,19 @@ namespace MarketPlace.Web.ControllersApi
                                                     ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText,
                                                 },
                                                 LargeValue = System.Web.HttpContext.Current.Request["ApprovalText"],
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator,
+                                                },
+                                                LargeValue = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                                                 Enable = true,
                                             },
                                         },
@@ -1044,7 +1068,7 @@ namespace MarketPlace.Web.ControllersApi
 
             //get to address
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("To", MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email));
+                ("To", vProject.ProjectResponsible));
 
             //get customer info
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>

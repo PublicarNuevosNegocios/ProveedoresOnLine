@@ -589,6 +589,7 @@
         InfoItems = 1408002,
         ApprovalStatus = 1408003,
         ApprovalText = 1408004,
+        Evaluator = 1408005,
     }
 
     public enum enumEvaluationCriteria
