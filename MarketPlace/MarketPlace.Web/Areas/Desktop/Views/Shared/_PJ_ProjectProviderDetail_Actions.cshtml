@@ -2,7 +2,7 @@
 
 @if (!Model.RenderScripts)
 {
-    <ul class="POMPProjectBidProviderActions">
+    <ul class="POMPProjectBidDetailGridActions">
         @if (Model.CurrentProjectProvider.ApprovalStatus == null &&
             (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
             Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
