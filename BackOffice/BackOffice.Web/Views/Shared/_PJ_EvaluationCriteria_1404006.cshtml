@@ -1,0 +1,22 @@
+﻿@model BackOffice.Models.Customer.ProjectConfigViewModel
+
+@if (Model.RelatedProjectProvider != null &&
+    Model.RelatedProjectProvider.ItemType.ItemId == (int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_ChaimberOfCommerce)
+{
+    <div>
+        <ul>
+            <li>
+                <label></label>
+                <input />
+            </li>
+            <li>
+                <label></label>
+                <input />
+            </li>
+            <li>
+                <label></label>
+                <input />
+            </li>
+        </ul>
+    </div>
+}

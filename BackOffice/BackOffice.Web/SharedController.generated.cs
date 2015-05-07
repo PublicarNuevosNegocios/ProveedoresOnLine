@@ -45,7 +45,14 @@ namespace T4MVC
                 public readonly string _P_ProviderActions = "_P_ProviderActions";
                 public readonly string _P_ProviderFilter = "_P_ProviderFilter";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
-                public readonly string _PJ_EvaluationCriteria = "_PJ_EvaluationCriteria";
+                public readonly string _PJ_EvaluationCriteria_1404001 = "_PJ_EvaluationCriteria_1404001";
+                public readonly string _PJ_EvaluationCriteria_1404002 = "_PJ_EvaluationCriteria_1404002";
+                public readonly string _PJ_EvaluationCriteria_1404003 = "_PJ_EvaluationCriteria_1404003";
+                public readonly string _PJ_EvaluationCriteria_1404004 = "_PJ_EvaluationCriteria_1404004";
+                public readonly string _PJ_EvaluationCriteria_1404005 = "_PJ_EvaluationCriteria_1404005";
+                public readonly string _PJ_EvaluationCriteria_1404006 = "_PJ_EvaluationCriteria_1404006";
+                public readonly string _PJ_EvaluationCriteria_1404007 = "_PJ_EvaluationCriteria_1404007";
+                public readonly string _PJ_EvaluationCriteria_1404008 = "_PJ_EvaluationCriteria_1404008";
             }
             public readonly string _C_CustomerActions = "~/Views/Shared/_C_CustomerActions.cshtml";
             public readonly string _C_CustomerMenu = "~/Views/Shared/_C_CustomerMenu.cshtml";
@@ -56,7 +63,14 @@ namespace T4MVC
             public readonly string _P_ProviderActions = "~/Views/Shared/_P_ProviderActions.cshtml";
             public readonly string _P_ProviderFilter = "~/Views/Shared/_P_ProviderFilter.cshtml";
             public readonly string _P_ProviderMenu = "~/Views/Shared/_P_ProviderMenu.cshtml";
-            public readonly string _PJ_EvaluationCriteria = "~/Views/Shared/_PJ_EvaluationCriteria.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404001 = "~/Views/Shared/_PJ_EvaluationCriteria_1404001.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404002 = "~/Views/Shared/_PJ_EvaluationCriteria_1404002.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404003 = "~/Views/Shared/_PJ_EvaluationCriteria_1404003.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404004 = "~/Views/Shared/_PJ_EvaluationCriteria_1404004.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404005 = "~/Views/Shared/_PJ_EvaluationCriteria_1404005.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404006 = "~/Views/Shared/_PJ_EvaluationCriteria_1404006.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404007 = "~/Views/Shared/_PJ_EvaluationCriteria_1404007.cshtml";
+            public readonly string _PJ_EvaluationCriteria_1404008 = "~/Views/Shared/_PJ_EvaluationCriteria_1404008.cshtml";
         }
     }
 
