@@ -52,21 +52,21 @@
                     <span>(@MandatoryInfo.Item2/@MandatoryInfo.Item1)</span>
                 </li>
                 @*<li>
-                    <label>Estado:</label>
-                    <span>@Model.RelatedSurvey.SurveyStatusName</span>
-                </li>*@
+                        <label>Estado:</label>
+                        <span>@Model.RelatedSurvey.SurveyStatusName</span>
+                    </li>*@
                 <li>
                     <label>Fecha de programación:</label>
                     <span>@Model.RelatedSurvey.SurveyIssueDate</span>
                 </li>
                 @*<li>
-                    <label>Evaluador:</label>
-                    <span>@Model.RelatedSurvey.SurveyEvaluator</span>
-                </li>*@
+                        <label>Evaluador:</label>
+                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
+                    </li>*@
                 @*<li>
-                    <label>Ultima actualización:</label>
-                    <span>@Model.RelatedSurvey.SurveyLastModify</span>
-                </li>*@
+                        <label>Ultima actualización:</label>
+                        <span>@Model.RelatedSurvey.SurveyLastModify</span>
+                    </li>*@
                 <li>
                     <label>Responsable:</label>
                     <span>@Model.RelatedSurvey.SurveyResponsible</span>
@@ -92,142 +92,169 @@
         </div>
     </div>
     <!--Survey info END END END-->
-
-
     <!-------- AQUI ARRANCA EL BLOQUE DE PREGUNTAS ---------->
     <div class="POMPProviderDataWrapperSurvey">
 
-            @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close)
-            {
-                <div class="PMMPSurveyFinished">
-                    La evaluación de desempeño se encuentra finalizada y no puede ser modificada.
-                </div>
-            }
-            else
-            {
-                <!--Survey questions body-->
-                <form id="SurveySave_Form" method="post">
-                    <!--Survey Actions-->
-                    <div class="POMPResultsActions">
-                        @if (Model.RelatedSurvey.SurveyConfigStepEnable)
-                        {
-                            if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
-                            {
-                                <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
-                            }
-                            if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
-                            {
-                                <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
-                            }
-                        }
-                        @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
-                        {
-                            <!--Survey 100%-->
-                            <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
-                        }
-                        <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
-                    </div>
-                    <!--evaluation items-->
-                    @foreach (var EvaluationArea in lstEvaluationArea)
-                    {
-                        var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
-
-                        var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
-                            (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
-                        <div class="POMPProviderQuestions QuestionsForSurvey">
-                            <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
-
-                            <ul>
-                                <li style="border-bottom:none;">
-                                    <span class="PMMPNumeric">@EvaluationArea.Order. @EvaluationArea.Name</span>
-                                    <ul>
-                                        <li>
-                                            @foreach (var Question in lstQuestion)
-                                            {
-                                                var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
-
-                                                var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
-                                                    (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
-
-                                                if (Question.IsMandatory)
-                                                {
-                                                    <span class="PMMPMandatory">*</span>
-                                                }
-                                                <span class="PMMPNumeric PMMPSmallText">@Question.Order. @Question.Name</span>
-
-                                                <ul>
-
-                                                    @foreach (var Answer in lstAnswer)
-                                                    {
-
-                                                        <li>
-                                                            @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
-                                                            {
-                                                                <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
-                                                            }
-                                                            else
-                                                            {
-                                                                <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
-                                                            }
-                                                            <span>@Answer.Name</span>
-                                                        </li>
-                                                    }
-                                                </ul>
-
-                                                if (Question.HasDescription)
-                                                {
-                                                    <div class="POMPDescription">
-                                                        <span>
-                                                            Observaciones:
-                                                        </span>
-                                                        <textarea class="POMPDescriptionArea" name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
-
-                                                    </div>
-                                                }
-
-                                            }
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    }
-                    <!--Survey Actions-->
-                    <div class="POMPResultsActions">
-                        @if (Model.RelatedSurvey.SurveyConfigStepEnable)
-                        {
-                            if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
-                            {
-                                <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
-                            }
-                            if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
-                            {
-                                <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
-                            }
-                        }
-                        @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
-                        {
-                                <!--Survey 100%-->
-                            <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
-                        }
-                        <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
-                    </div>
-                    <div style="display:none;">
-                        <input type="hidden" id="SurveySave_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_@Model.RelatedSurvey.SurveyStatusId" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.InProgress).ToString())" />
-                    </div>
-                </form>
-            }
-            <div style="display:none;">
-                <div id="SurveySave_Finalize_Dialog" title="Finalizar evaluación de desempeño">
-                    <p>
-                        Al finalizar la evaluación de desempeño esta se sumara en el promedio final del proveedor y la evaluación no podra ser editada nuevamente.
-                    </p>
-                    <p>
-                        Desea finalizar la evaluación de desempeño?
-                    </p>
-                </div>
+        @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close)
+        {
+            <div class="PMMPSurveyFinished">
+                La evaluación de desempeño se encuentra finalizada y no puede ser modificada.
             </div>
+        }
+        else
+        {
+                <!--Survey questions body-->
+            <form id="SurveySave_Form" method="post">
+                <!--Survey Actions-->
+                <div class="POMPResultsActions">
+                    @if (Model.RelatedSurvey.SurveyConfigStepEnable)
+                    {
+                        if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
+                        {
+                            <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
+                        }
+                        if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
+                        {
+                            <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
+                        }
+                    }
+                    @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
+                    {
+                            <!--Survey 100%-->
+                        <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
+                    }
+                    <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
+                </div>
+                <!--evaluation items-->
+                @foreach (var EvaluationArea in lstEvaluationArea)
+                {
+                    var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
 
+                    var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
+                        (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+                    <div class="POMPProviderQuestions QuestionsForSurvey">
+                        <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
+
+                        <ul>
+                            <li style="border-bottom:none;">
+                                <span class="PMMPNumeric">@EvaluationArea.Order. @EvaluationArea.Name</span>
+                                <ul>
+                                    <li>
+                                        @foreach (var Question in lstQuestion)
+                                        {
+                                            var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                                            var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                                (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                                            if (Question.IsMandatory)
+                                            {
+                                                <span class="PMMPMandatory">*</span>
+                                            }
+                                            if (Question.QuestionType == "118002")
+                                            {
+                                                <input type="file" name="Survey_FileUpload" id="Survey_FileUpload" value="" />
+
+
+                                                @*<ul id="ProjectDetail_FileUpload_FileList">
+
+                                                        <li id="ProjectDetail_FileUpload_File_@oFile.">
+                                                            <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
+                                                            <div class="SelGenericTooltip" title="@oFile.FileName"></div>
+                                                            <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip" title="@oFile.FileName">@oFile.FileName</a>
+                                                        </li>
+
+                                                    </ul>*@
+                                            }
+                                            else
+                                            {
+                                                <span class="PMMPNumeric PMMPSmallText">@Question.Order. @Question.Name</span>
+                                            }
+
+                                            <ul>
+
+                                                @foreach (var Answer in lstAnswer)
+                                                {
+
+                                                    <li>
+                                                        @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
+                                                        {
+                                                            <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" checked="checked" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input name="SurveyItem_@Question.SurveyConfigItemId" type="radio" value="@Answer.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "disabled=\"disabled\"" : string.Empty) />
+                                                        }
+                                                        <span>@Answer.Name</span>
+                                                    </li>
+                                                }
+                                            </ul>
+
+                                            if (Question.HasDescription)
+                                            {
+                                                <div class="POMPDescription">
+                                                    <span>
+                                                        Observaciones:
+                                                    </span>
+                                                    <textarea class="POMPDescriptionArea" name="SurveyItemText_@Question.SurveyConfigItemId" @(Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Close ? "readonly=\"readonly\"" : string.Empty)>@(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText.Trim())</textarea>
+
+                                                </div>
+                                            }
+
+                                        }
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                <!--Survey Actions-->
+                <div class="POMPResultsActions">
+                    @if (Model.RelatedSurvey.SurveyConfigStepEnable)
+                    {
+                        if (Model.RelatedSurvey.CurrentActionMenu.LastMenu != null)
+                        {
+                            <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.LastMenu.Name</a>
+                        }
+                        if (Model.RelatedSurvey.CurrentActionMenu.NextMenu != null)
+                        {
+                            <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.NextMenu.Name</a>
+                        }
+                    }
+                    @if (MandatoryInfo.Item1 == MandatoryInfo.Item2)
+                    {
+                                <!--Survey 100%-->
+                        <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Finalize('@strFinalizeUrl')">Finalizar evaluación</a>
+                    }
+                    <a class="POMPEvaluationListActions" href="javascript:Survey_SaveObject.Save('@Model.RelatedSurvey.CurrentActionMenu.Url')">@Model.RelatedSurvey.CurrentActionMenu.Name</a>
+                </div>
+                <div style="display:none;">
+                    <input type="hidden" id="SurveySave_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_@Model.RelatedSurvey.SurveyStatusId" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.InProgress).ToString())" />
+                </div>
+            </form>
+        }
+        <div style="display:none;">
+            <div id="SurveySave_Finalize_Dialog" title="Finalizar evaluación de desempeño">
+                <p>
+                    Al finalizar la evaluación de desempeño esta se sumara en el promedio final del proveedor y la evaluación no podra ser editada nuevamente.
+                </p>
+                <p>
+                    Desea finalizar la evaluación de desempeño?
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--Templates-->
+    <div style="display:none">
+        <ul id="Survey_FileUpload_FileItemTemplate">
+            <li id="Survey_FileUpload_File_{FileObjectId}">
+                <a href="javascript:Survey_ProjectFile.RemoveFile('{FileObjectId}');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
+                <div class="SelGenericTooltip" title="{FileName}"></div>
+                <a href="{ServerUrl}" target="_blank" class="SelGenericTooltip" title="{FileName}">{FileName}</a>
+            </li>
+        </ul>
     </div>
 </div>
 @section inlinescripts
@@ -237,6 +264,13 @@
             Survey_SaveObject.Init({
                 ObjectId: 'SurveySave',
             });
+
+            Survey_ProjectFile.Init({
+                ObjectId: 'Survey_FileUpload',
+                ProjectPublicId: '@Model.RelatedSurvey.SurveyPublicId',
+            });
+
+            Survey_ProjectFile.RenderAsync();
         });
     </script>
 }

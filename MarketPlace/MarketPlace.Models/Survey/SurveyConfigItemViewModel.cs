@@ -61,6 +61,17 @@ namespace MarketPlace.Models.Survey
                     FirstOrDefault();
             }
         }
+        public string QuestionType
+        {
+            get
+            {
+                return RelatedSurveyConfigItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.QuestionType).
+                    Select(y => (y.Value)).
+                    DefaultIfEmpty("").
+                    FirstOrDefault();
+            }
+        }
 
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedSurveyConfigItem)
         {

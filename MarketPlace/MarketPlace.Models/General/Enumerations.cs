@@ -513,6 +513,7 @@
         Weight = 1203002,
         HasDescription = 1203003,
         IsMandatory = 1203004,
+        QuestionType = 1203005,
     }
 
 
