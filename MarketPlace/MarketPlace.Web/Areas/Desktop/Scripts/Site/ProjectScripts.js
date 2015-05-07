@@ -18,7 +18,6 @@
                 autoUpload: true
             },
             success: function (e) {
-                debugger;
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
@@ -45,6 +44,7 @@
             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
             dataType: 'json',
             success: function (result) {
+                debugger;
                 $('#' + Project_ProjectFile.ObjectId + '_File_' + vProjectInfoId).remove();
             },
             error: function (result) {
@@ -161,6 +161,15 @@ var Project_ProjectDetailObject = {
             $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').kendoValidator();
         }
 
+        //init approved form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').length > 0) {
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').kendoValidator();
+        }
+
+        //init rejected form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').length > 0) {
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').kendoValidator();
+        }
     },
 
     ShowEditProject: function () {
@@ -242,52 +251,88 @@ var Project_ProjectDetailObject = {
         }
     },
 
-    ShowAproveProjectProvider: function () {
+    ShowApproveProjectProvider: function () {
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').length > 0) {
 
-        //if ($('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').length > 0) {
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Aprobar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
 
-        //    //init dialog
-        //    $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog').dialog({
-        //        modal: true,
-        //        width: '500',
-        //        buttons: {
-        //            'Cancelar': function () {
-        //                $(this).dialog('close');
-        //            },
-        //            'Guardar': function () {
-        //                //validate form
-        //                var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').data("kendoValidator");
-        //                if (validator.validate()) {
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - aprobación', 'Se ha aprobado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - aprobación', 'Ha ocurrido un error aprobando el proceso de selección.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
 
-        //                    //hide dialog actions
-        //                    $(".ui-dialog-buttonpane button").css('display', 'none');
-
-        //                    //save project
-        //                    $.ajax({
-        //                        type: "POST",
-        //                        url: $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').attr('action'),
-        //                        data: $('#' + Project_ProjectDetailObject.ObjectId + '_CloseProjectDialog_Form').serialize(),
-        //                        success: function (result) {
-        //                            Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
-        //                            window.location = Project_ProjectDetailObject.ProjectDetailUrl;
-        //                            $(this).dialog('close');
-        //                        },
-        //                        error: function (result) {
-        //                            Dialog_ShowMessage('Proceso de selección', 'Se ha actualizado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
-        //                            window.location = Project_ProjectDetailObject.ProjectDetailUrl;
-        //                            $(this).dialog('close');
-        //                        }
-        //                    });
-
-        //                }
-        //            }
-        //        },
-        //    });
-        //}
+                        }
+                    }
+                },
+            });
+        }
     },
 
     ShowRejectProjectProvider: function () {
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog').length > 0) {
 
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Rechazar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - rechazo', 'Se ha rechazado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - rechazo', 'Ha ocurrido un error rechazando el proceso de selección.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
+
+                        }
+                    }
+                },
+            });
+        }
     },
 
     ShowCloseProject: function () {

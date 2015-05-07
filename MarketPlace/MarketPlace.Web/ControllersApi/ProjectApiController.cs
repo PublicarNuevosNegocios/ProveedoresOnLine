@@ -633,7 +633,6 @@ namespace MarketPlace.Web.ControllersApi
                                             },
                                             new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
                                             {
-                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
                                                 RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                                 {
                                                     ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
@@ -643,6 +642,19 @@ namespace MarketPlace.Web.ControllersApi
                                                     ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText,
                                                 },
                                                 LargeValue = System.Web.HttpContext.Current.Request["ApprovalText"],
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator,
+                                                },
+                                                Value = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                                                 Enable = true,
                                             },
                                         },
@@ -771,7 +783,6 @@ namespace MarketPlace.Web.ControllersApi
                                             },
                                             new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
                                             {
-                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
                                                 RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
                                                 {
                                                     ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
@@ -781,6 +792,19 @@ namespace MarketPlace.Web.ControllersApi
                                                     ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText,
                                                 },
                                                 LargeValue = System.Web.HttpContext.Current.Request["ApprovalText"],
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator,
+                                                },
+                                                Value = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                                                 Enable = true,
                                             },
                                         },
@@ -1033,100 +1057,90 @@ namespace MarketPlace.Web.ControllersApi
             MarketPlace.Models.Project.EvaluationItemViewModel vEvaluationArea,
             string vAgent)
         {
-            //get to for message
-            List<string> oTo = vEvaluationArea.GetEvaluatorsEmails();
-
-            if (oTo != null && oTo.Count > 0)
+            //Create message object
+            MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
             {
-                //Create message object
-                MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
-                {
-                    Agent = vAgent,
-                    User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
-                    ProgramTime = DateTime.Now,
-                    MessageQueueInfo = new List<Tuple<string, string>>(),
-                };
+                Agent = vAgent,
+                User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                ProgramTime = DateTime.Now,
+                MessageQueueInfo = new List<Tuple<string, string>>(),
+            };
 
-                //get to address
-                oTo.All(ovTo =>
-                {
-                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                        ("To", ovTo));
-                    return true;
-                });
+            //get to address
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("To", vProject.ProjectResponsible));
 
-                //get customer info
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("CustomerLogo", MarketPlace.Models.General.SessionModel.CurrentCompany_CompanyLogo));
+            //get customer info
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerLogo", MarketPlace.Models.General.SessionModel.CurrentCompany_CompanyLogo));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("CustomerName", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerName", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("CustomerIdentificationTypeName", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerIdentificationTypeName", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("CustomerIdentificationNumber", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("CustomerIdentificationNumber", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber));
 
-                //get provider info
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProviderLogo", vProjectProvider.RelatedProvider.RelatedLiteProvider.ProviderLogoUrl));
+            //get provider info
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProviderLogo", vProjectProvider.RelatedProvider.RelatedLiteProvider.ProviderLogoUrl));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProviderName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProviderName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProviderIdentificationTypeName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProviderIdentificationTypeName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProviderIdentificationNumber", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProviderIdentificationNumber", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProviderLink",
-                    Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Provider.Name,
-                            action = MVC.Provider.ActionNames.GIProviderInfo,
-                            ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                        }))));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProviderLink",
+                Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Provider.Name,
+                        action = MVC.Provider.ActionNames.GIProviderInfo,
+                        ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                    }))));
 
-                //get project info
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProjectName", vProject.ProjectName));
+            //get project info
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProjectName", vProject.ProjectName));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProjectLastModify", vProject.LastModify));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProjectLastModify", vProject.LastModify));
 
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProjectUrl",
-                    Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Project.Name,
-                            action = MVC.Project.ActionNames.ProjectDetail,
-                            ProjectPublicId = vProject.ProjectPublicId,
-                        }))));
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProjectUrl",
+                Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Project.Name,
+                        action = MVC.Project.ActionNames.ProjectDetail,
+                        ProjectPublicId = vProject.ProjectPublicId,
+                    }))));
 
-                //get area info
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("EvaluationAreaName", vEvaluationArea.EvaluationItemName));
+            //get area info
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("EvaluationAreaName", vEvaluationArea.EvaluationItemName));
 
-                //get project provider url
-                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                    ("ProjectProviderUrl",
-                    Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
-                        new
-                        {
-                            controller = MVC.Project.Name,
-                            action = MVC.Project.ActionNames.ProjectProviderDetail,
-                            ProjectPublicId = vProject.ProjectPublicId,
-                            ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                            EvaluationAreaId = vEvaluationArea.EvaluationItemId.ToString(),
-                        }))));
-                return oReturn;
-            }
-            return null;
+            //get project provider url
+            oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                ("ProjectProviderUrl",
+                Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                    new
+                    {
+                        controller = MVC.Project.Name,
+                        action = MVC.Project.ActionNames.ProjectProviderDetail,
+                        ProjectPublicId = vProject.ProjectPublicId,
+                        ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        EvaluationAreaId = vEvaluationArea.EvaluationItemId.ToString(),
+                    }))));
+
+            return oReturn;
         }
 
         #endregion

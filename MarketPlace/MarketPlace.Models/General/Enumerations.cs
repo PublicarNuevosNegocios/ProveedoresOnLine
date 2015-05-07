@@ -485,6 +485,7 @@
         EndDate = 1204009,
         Comments = 1204010,
         Project = 1204011,
+        File = 1204012,
     }
 
     public enum enumSurveyItemInfoType
@@ -492,6 +493,7 @@
         Ratting = 1205001,
         DescriptionText = 1205002,
         Answer = 1205003,
+        File = 1205004,
     }
 
     public enum enumSurveyConfigInfoType
@@ -587,6 +589,7 @@
         InfoItems = 1408002,
         ApprovalStatus = 1408003,
         ApprovalText = 1408004,
+        Evaluator = 1408005,
     }
 
     public enum enumEvaluationCriteria

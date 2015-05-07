@@ -253,7 +253,7 @@
             &lt;![CDATA[us-east-1]]&gt;
           </key>
           <key name="Subject">
-            &lt;![CDATA[Aprobación de proceso de selección - Proveedores OnLine]]&gt;
+            &lt;![CDATA[Aprobación proceso de selección - Proveedores OnLine]]&gt;
           </key>
           <key name="From">
             &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
@@ -285,8 +285,8 @@
       ]]>
     </key>
 
-    <!--Proveedores on line project approval email agent-->
-    <key name="AgentConfig_POL_ProjectApprovalRequest_Mail">
+    <!--Proveedores on line project reject email agent-->
+    <key name="AgentConfig_POL_ProjectRejectArea_Mail">
       <![CDATA[
         <POL_SurveyWriteBackNotification_Mail>
           <key name="Assemblie">
@@ -302,7 +302,7 @@
             &lt;![CDATA[us-east-1]]&gt;
           </key>
           <key name="Subject">
-            &lt;![CDATA[Aprobación requerida - Proveedores OnLine]]&gt;
+            &lt;![CDATA[Rechazo proceso de selección - Proveedores OnLine]]&gt;
           </key>
           <key name="From">
             &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;

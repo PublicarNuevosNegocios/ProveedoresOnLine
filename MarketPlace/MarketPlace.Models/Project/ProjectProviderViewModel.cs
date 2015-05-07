@@ -157,6 +157,30 @@ namespace MarketPlace.Models.Project
                 FirstOrDefault();
         }
 
+        public string GetApprovalTextByArea(int vEvaluationItemId)
+        {
+            return RelatedProjectProvider.ItemInfo.
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
+                                pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText &&
+                                !string.IsNullOrEmpty(pjpvinf.LargeValue)).
+                Select(pjpvinf => pjpvinf.LargeValue).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+        }
+
+        public string GetEvaluatorByArea(int vEvaluationItemId)
+        {
+            return RelatedProjectProvider.ItemInfo.
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
+                                pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator &&
+                                !string.IsNullOrEmpty(pjpvinf.Value)).
+                Select(pjpvinf => pjpvinf.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+        }
+
         /// <summary>
         /// get status for all areas
         /// </summary>
@@ -173,17 +197,6 @@ namespace MarketPlace.Models.Project
                     oValue = (MarketPlace.Models.General.enumApprovalStatus)Convert.ToInt32(pjpvinf.Value.Replace(" ", "")),
                 }).
                 ToDictionary(k => k.oKey, v => v.oValue);
-        }
-
-        public string GetApprovalText(int vEvaluationItemId)
-        {
-            return RelatedProjectProvider.ItemInfo.
-                Where(pjpvinf => pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
-                                pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText &&
-                                !string.IsNullOrEmpty(pjpvinf.LargeValue)).
-                Select(pjpvinf => pjpvinf.LargeValue).
-                DefaultIfEmpty(string.Empty).
-                FirstOrDefault();
         }
 
         #endregion

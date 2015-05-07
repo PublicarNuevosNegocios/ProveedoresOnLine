@@ -68,7 +68,9 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public List<MarketPlace.Models.General.FileModel> SurveyUploadFile
             (string SurveyUploadFile,
-            string SurveyPublicId)
+            string SurveyPublicId,
+            string SurveyConfigInfoId,
+            string ProviderPublicId)
         {
             List<MarketPlace.Models.General.FileModel> oReturn = new List<MarketPlace.Models.General.FileModel>();
 
@@ -111,40 +113,58 @@ namespace MarketPlace.Web.ControllersApi
                             (strLocalFile,
                             MarketPlace.Models.General.InternalSettings.Instance
                                 [MarketPlace.Models.General.Constants.C_Settings_File_RemoteDirectory].Value.TrimEnd('\\') +
-                                "\\ProjectFile\\" + SurveyPublicId + "\\");
+                                "\\SurveyFile\\" + SurveyPublicId + "\\");
 
                         //remove temporal file
                         if (System.IO.File.Exists(strLocalFile))
                             System.IO.File.Delete(strLocalFile);
 
-                        //add file to project
-                        //ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
-                        //{
-                        //    ProjectPublicId = SurveyPublicId,
-                        //    ProjectInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>() 
-                        //    {
-                        //        new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                        //        {
-                        //            ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                        //            {
-                        //                ItemId = (int)MarketPlace.Models.General.enumProjectInfoType.File,
-                        //            },
-                        //            LargeValue = oFile.ServerUrl + "," + oFile.FileName,
-                        //            Enable = true,
-                        //        },
-                        //    },
-                        //};
 
-                        //oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectInfoUpsert(oProjectToUpsert);
+                        ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurvey =
+                        ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId);
 
-                        //oFile.FileObjectId = oProjectToUpsert.ProjectInfo.Where
-                        //    (pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.File &&
-                        //            pjinf.ItemInfoId > 0).
-                        //            Select(pjinf => pjinf.ItemInfoId.ToString()).
-                        //            DefaultIfEmpty(string.Empty).
-                        //            FirstOrDefault();
+                        //add file to Survey                        
+                        ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+                        {
+                            SurveyPublicId = SurveyPublicId,
+                            
+                            RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                            {
+                                RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                {
+                                    CompanyPublicId = ProviderPublicId,
+                                }
+                            },
+                            RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
+                            {
+                                ItemId = Convert.ToInt32(SurveyConfigInfoId),
+                            },
 
-                        //lstUsedFiles.Add(oFile.ServerUrl);
+                            SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>() 
+                            {
+                                new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                                {
+                                    ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                    {
+                                        ItemId = (int)MarketPlace.Models.General.enumSurveyInfoType.File,
+                                    },
+                                    LargeValue = oFile.ServerUrl + "," + oFile.FileName,
+                                    Enable = true,
+                                },
+                            },
+                            Enable = true,
+                        };
+                        ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(oSurveyToUpsert);
+                        
+
+                        oFile.FileObjectId = oSurveyToUpsert.SurveyInfo.Where
+                            (pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.File &&
+                                    pjinf.ItemInfoId > 0).
+                                    Select(pjinf => pjinf.ItemInfoId.ToString()).
+                                    DefaultIfEmpty(string.Empty).
+                                    FirstOrDefault();
+
+                        lstUsedFiles.Add(oFile.ServerUrl);
 
                         //add result to response                        
                         oReturn.Add(oFile);
@@ -171,28 +191,35 @@ namespace MarketPlace.Web.ControllersApi
                 !string.IsNullOrEmpty(SurveyPublicId))
             {
                 //get project basic info
-                ProveedoresOnLine.ProjectModule.Models.ProjectModel oProject = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetByIdLite
-                    (SurveyPublicId,
-                    MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurvey = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById
+                    (SurveyPublicId);
 
                 //create object to upsert
-                //ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
-                //{
-                //    ProjectPublicId = ProjectPublicId,
-                //    ProjectInfo = oProject.ProjectInfo.
-                //        Where(pjinf => pjinf.ItemInfoId == ProjectInfoId).
-                //        Select(pjinf => new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
-                //        {
-                //            ItemInfoId = pjinf.ItemInfoId,
-                //            ItemInfoType = pjinf.ItemInfoType,
-                //            Value = pjinf.Value,
-                //            LargeValue = pjinf.LargeValue,
-                //            Enable = false,
-                //        }).ToList(),
-                //};
+                ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+                {
+                    SurveyPublicId = SurveyPublicId,
+                    RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                    {
+                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        {
+                            CompanyPublicId = oSurvey.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        }
+                    },
+                    RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel(),
+                    SurveyInfo = oSurvey.SurveyInfo.
+                        Where(pjinf => pjinf.ItemInfoId == SurveyInfoId).
+                        Select(pjinf => new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                        {
+                            ItemInfoId = pjinf.ItemInfoId,
+                            ItemInfoType = pjinf.ItemInfoType,
+                            Value = pjinf.Value,
+                            LargeValue = pjinf.LargeValue,
+                            Enable = false,
+                        }).ToList(),                        
+                };
 
                 //upsert project info
-                //oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectInfoUpsert(oProjectToUpsert);
+                oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
 
                 oReturn = true;
             }

@@ -18,6 +18,32 @@ namespace MarketPlace.Models.Survey
 
         public string SurveyPublicId { get { return RelatedSurvey.SurveyPublicId; } }
 
+        List<MarketPlace.Models.General.FileModel> oSurveyFile;
+        public List<MarketPlace.Models.General.FileModel> SurveyFile
+        {
+            get
+            {
+                if (oSurveyFile == null)
+                {
+                    oSurveyFile = RelatedSurvey.SurveyInfo.
+                        Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.File &&
+                                       !string.IsNullOrEmpty(pjinf.LargeValue) &&
+                                       pjinf.LargeValue.Split(',').Length >= 2).
+                        Select(pjinf => new MarketPlace.Models.General.FileModel()
+                        {
+                            FileObjectId = pjinf.ItemInfoId.ToString(),
+                            ServerUrl = pjinf.LargeValue.Split(',')[0],
+                            FileName = pjinf.LargeValue.Split(',')[1]
+                        }).
+                        ToList();
+
+                    if (oSurveyFile == null)
+                        oSurveyFile = new List<MarketPlace.Models.General.FileModel>();
+                }
+                return oSurveyFile;
+            }
+        }
+
         #region Survey Info Fields
 
         public string SurveyLastModify
