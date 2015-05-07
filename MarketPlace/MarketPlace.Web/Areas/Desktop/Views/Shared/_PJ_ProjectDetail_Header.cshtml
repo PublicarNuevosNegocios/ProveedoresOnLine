@@ -1,5 +1,12 @@
 ﻿@model MarketPlace.Models.Project.ProjectViewModel
 
+@{
+    bool IsProjectProviderDetail =
+        MarketPlace.Web.Controllers.BaseController.CurrentControllerName == MVC.Project.Name &&
+        MarketPlace.Web.Controllers.BaseController.CurrentActionName == MVC.Project.ActionNames.ProjectProviderDetail;
+}
+
+
 @if (!Model.RenderScripts)
 {
     <div class="POMPProjectBidGreatWrapper">
@@ -80,52 +87,75 @@
                         <span>@Model.ProjectCloseText</span>
                     </li>
                 }
-                <!--Project actions-->
-                <li class="POMPProjectBidDataActions">
-                    @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+                @if (!IsProjectProviderDetail)
+                {
+                    <!--Project actions-->
+                    <li class="POMPProjectBidDataActions">
+                        @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
                         Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
-                    {
-                        <a href="javascript:Project_ProjectDetailObject.ShowCloseProject();">Cerrar proceso de selección</a>
-                    }
-                    else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
-                    {
-                        <span>Proceso adjudicado</span>
-                    }
-                    else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
-                    {
-                        <span>Proceso cerrado sin adjudicación</span>
-                    }
+                        {
+                            <a href="javascript:Project_ProjectDetailObject.ShowCloseProject();">Cerrar proceso de selección</a>
+                        }
+                        else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
+                        {
+                            <span>Proceso adjudicado</span>
+                        }
+                        else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
+                        {
+                            <span>Proceso cerrado sin adjudicación</span>
+                        }
 
-                    @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+                        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
                             Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
-                    {
+                        {
 
+                            <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                        new
+                                        {
+                                            controller = MVC.Provider.Name,
+                                            action = MVC.Provider.ActionNames.Search,
+                                            ProjectPublicId = Model.ProjectPublicId,
+                                        }))">Agregar proveedores al proceso de selección</a>
+                        }
+                        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
+                        {
+                            <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
+                        }
+                    </li>
+                }
+                else
+                {
+                    <li class="POMPProjectBidDataActions">
                         <a href="@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                                                new
-                                                {
-                                                controller = MVC.Provider.Name,
-                                                action = MVC.Provider.ActionNames.Search,
-                                                ProjectPublicId = Model.ProjectPublicId,
-                                                }))">Agregar proveedores al proceso de selección</a>
-                    }
-                    @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
-                    {
-                        <a href="javascript:Project_ProjectDetailObject.ShowEditProject();">Editar</a>
-                    }
-                </li>
+                                    new
+                                    {
+                                        controller = MVC.Project.Name,
+                                        action = MVC.Project.ActionNames.ProjectDetail,
+                                        ProjectPublicId = Model.ProjectPublicId,
+                                    }))">Ver proceso de selección</a>
+                    </li>
+                }
             </ul>
-            <!-- AQUI SE PINTA LO DE CARGAR ARCHIVOS -->
             <!--Project files-->
             <div class="POMPProjectBidFileUploadWrapper">
-                <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
-
+                @if (!IsProjectProviderDetail)
+                {
+                    <input type="file" name="ProjectDetail_FileUpload" id="ProjectDetail_FileUpload" value="" />
+                }
+                else
+                {
+                    <label>Archivos del proceso de selección</label>
+                }
                 @if (Model.ProjectFile != null && Model.ProjectFile.Count > 0)
                 {
                     <ul id="ProjectDetail_FileUpload_FileList">
                         @foreach (var oFile in Model.ProjectFile)
                         {
                             <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
-                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
+                                @if (!IsProjectProviderDetail)
+                                {
+                                    <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
+                                }
                                 <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
                                 <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
                             </li>
@@ -135,170 +165,173 @@
             </div>
         </div>
     </div>
-
-    <!--Templates-->
-    <div style="display:none">
-        <ul id="ProjectDetail_FileUpload_FileItemTemplate">
-            <li id="ProjectDetail_FileUpload_File_{FileObjectId}">
-                <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
-                <div class="SelGenericTooltip" title="{FileName}"></div>
-                <a href="{ServerUrl}" target="_blank" class="SelGenericTooltip" title="{FileName}">{FileName}</a>
-            </li>
-        </ul>
-        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
-        {
-            <div id="ProjectDetail_EditProjectDialog" title="Editar proceso de selección">
-                <form id="ProjectDetail_EditProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")">
-                    <ul class="POMPProjectBidEditDialog">
-                        <li>
-                            <span>Nombre del proceso de selección</span>
-                            <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre del proceso de selección es obligatorio" />
-                        </li>
-                        <li>
-                            <label>Tipo de proceso de seleccion:</label>
-                            <span>@Model.RelatedProjectConfig.ProjectConfigName</span>
-                        </li>
-                        <li>
-                            <label>Responsable:</label>
-                            <span>@Model.ProjectResponsible</span>
-                        </li>
-                        <li>
-                            <label>Número de proceso interno:</label>
-                            <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber).ToString())_@(Model.ProjectInternalProcessNumberId)" value="@Model.ProjectInternalProcessNumber" />
-                        </li>
-                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
-                        {
+    if (!IsProjectProviderDetail)
+    {
+        <!--Templates-->
+        <div style="display:none">
+            <ul id="ProjectDetail_FileUpload_FileItemTemplate">
+                <li id="ProjectDetail_FileUpload_File_{FileObjectId}">
+                    <a href="javascript:Project_ProjectFile.RemoveFile('{FileObjectId}');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
+                    <div class="SelGenericTooltip POMPFileUploadIcon" title="{FileName}"></div>
+                    <a href="{ServerUrl}" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="{FileName}">{FileName}</a>
+                </li>
+            </ul>
+            @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open)
+            {
+                <div id="ProjectDetail_EditProjectDialog" title="Editar proceso de selección">
+                    <form id="ProjectDetail_EditProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectUpsert=true")">
+                        <ul class="POMPProjectBidEditDialog">
                             <li>
-                                <label>Valor estimado de la compra:</label>
-                                <input class="POMPProjectBidCurrencyValue" type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
-                                @if (Model.RelatedProjectConfig.ProjectConfigExperience.CurrencyEnable)
-                                {
-                                    var olstCurrency = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.
-                                        Where(cprv => cprv.CatalogId == 108).
-                                        ToList();
+                                <span>Nombre del proceso de selección</span>
+                                <input type="text" name="ProjectName" value="@Model.ProjectName" placeholder="Nombre del proceso de selección" required validationmessage="El nombre del proceso de selección es obligatorio" />
+                            </li>
+                            <li>
+                                <label>Tipo de proceso de seleccion:</label>
+                                <span>@Model.RelatedProjectConfig.ProjectConfigName</span>
+                            </li>
+                            <li>
+                                <label>Responsable:</label>
+                                <span>@Model.ProjectResponsible</span>
+                            </li>
+                            <li>
+                                <label>Número de proceso interno:</label>
+                                <input type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.InternalProcessNumber).ToString())_@(Model.ProjectInternalProcessNumberId)" value="@Model.ProjectInternalProcessNumber" />
+                            </li>
+                            @if (Model.RelatedProjectConfig.ProjectConfigExperience.AmmounEnable)
+                            {
+                                <li>
+                                    <label>Valor estimado de la compra:</label>
+                                    <input class="POMPProjectBidCurrencyValue" type="text" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Ammount).ToString())_@Model.ProjectAmmountId" value="@Model.ProjectAmmount.ToString("0.##",System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))" />
+                                    @if (Model.RelatedProjectConfig.ProjectConfigExperience.CurrencyEnable)
+                                    {
+                                        var olstCurrency = MarketPlace.Models.Company.CompanyUtil.ProviderOptions.
+                                            Where(cprv => cprv.CatalogId == 108).
+                                            ToList();
 
-                                    <select class="POMPProjectBidCurrency" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_@Model.ProjectCurrencyId">
-                                        @foreach (var oItem in olstCurrency)
-                                        {
-                                            if (oItem.ItemId == Model.ProjectCurrencyTypeId)
+                                        <select class="POMPProjectBidCurrency" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_@Model.ProjectCurrencyId">
+                                            @foreach (var oItem in olstCurrency)
                                             {
-                                                <option value="@oItem.ItemId" selected="selected">@oItem.ItemName</option>
+                                                if (oItem.ItemId == Model.ProjectCurrencyTypeId)
+                                                {
+                                                    <option value="@oItem.ItemId" selected="selected">@oItem.ItemName</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@oItem.ItemId">@oItem.ItemName</option>
+                                                }
+
+                                            }
+                                        </select>
+                                    }
+                                    else
+                                    {
+                                        <span>@Model.ProjectCurrencyTypeName</span>
+                                    }
+                                </li>
+                            }
+                            @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
+                            {
+                                var oYearsValues = Model.RelatedProjectConfig.GetExperienceYearValues();
+
+                                <li>
+                                    <label>Años de experiencia a tener en cuenta:</label>
+                                    <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).ToString())_@Model.ProjectExperienceYearsId">
+                                        @foreach (var oYears in oYearsValues)
+                                        {
+                                            if (oYears.Key == Model.ProjectExperienceYears)
+                                            {
+                                                <option value="@oYears.Key" selected="selected">@oYears.Value</option>
                                             }
                                             else
                                             {
-                                                <option value="@oItem.ItemId">@oItem.ItemName</option>
+                                                <option value="@oYears.Key">@oYears.Value</option>
                                             }
-
                                         }
                                     </select>
-                                }
-                                else
-                                {
-                                    <span>@Model.ProjectCurrencyTypeName</span>
-                                }
-                            </li>
-                        }
-                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.YearsInterval.Count > 0)
-                        {
-                            var oYearsValues = Model.RelatedProjectConfig.GetExperienceYearValues();
+                                </li>
+                            }
+                            @if (Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval.Count > 0)
+                            {
+                                var oQuantityValues = Model.RelatedProjectConfig.GetExperienceQuantityValues();
 
-                            <li>
-                                <label>Años de experiencia a tener en cuenta:</label>
-                                <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceYears).ToString())_@Model.ProjectExperienceYearsId">
-                                    @foreach (var oYears in oYearsValues)
-                                    {
-                                        if (oYears.Key == Model.ProjectExperienceYears)
+                                <li>
+                                    <label>Cantidad minima de experiencias:</label>
+                                    <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).ToString())_@Model.ProjectExperienceQuantityId">
+                                        @foreach (var oQuantity in oQuantityValues)
                                         {
-                                            <option value="@oYears.Key" selected="selected">@oYears.Value</option>
+                                            if (Model.ProjectExperienceQuantity.ToString() == oQuantity.Key)
+                                            {
+                                                <option value="@oQuantity.Key" selected="selected">@oQuantity.Value</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@oQuantity.Key">@oQuantity.Value</option>
+                                            }
                                         }
-                                        else
-                                        {
-                                            <option value="@oYears.Key">@oYears.Value</option>
-                                        }
-                                    }
-                                </select>
-                            </li>
-                        }
-                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval != null && Model.RelatedProjectConfig.ProjectConfigExperience.QuantityInterval.Count > 0)
-                        {
-                            var oQuantityValues = Model.RelatedProjectConfig.GetExperienceQuantityValues();
+                                    </select>
+                                </li>
+                            }
+                            @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
+                            {
+                                string strDefaultSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectDefaultEconomicActivity);
 
-                            <li>
-                                <label>Cantidad minima de experiencias:</label>
-                                <select name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.ExperienceQuantity).ToString())_@Model.ProjectExperienceQuantityId">
-                                    @foreach (var oQuantity in oQuantityValues)
-                                    {
-                                        if (Model.ProjectExperienceQuantity.ToString() == oQuantity.Key)
-                                        {
-                                            <option value="@oQuantity.Key" selected="selected">@oQuantity.Value</option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@oQuantity.Key">@oQuantity.Value</option>
-                                        }
-                                    }
-                                </select>
-                            </li>
-                        }
-                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.DefaultAcitvityEnable)
-                        {
-                            string strDefaultSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectDefaultEconomicActivity);
+                                <li class="POMPProjectBidEditDialogActivity">
+                                    <label>Actividades Económicas:</label>
+                                    <select id="ProjectDetail_EditProjectDialog_DefaultEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId"></select>
+                                    <input type="hidden" id="ProjectDetail_EditProjectDialog_DefaultEconomicActivityValue" value="@strDefaultSerialize" />
+                                </li>
+                            }
+                            @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
+                            {
+                                string strCustomSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectCustomEconomicActivity);
 
-                            <li class="POMPProjectBidEditDialogActivity">
-                                <label>Actividades Económicas:</label>
-                                <select id="ProjectDetail_EditProjectDialog_DefaultEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.DefaultEconomicActivity).ToString())_@Model.ProjectDefaultEconomicActivityId"></select>
-                                <input type="hidden" id="ProjectDetail_EditProjectDialog_DefaultEconomicActivityValue" value="@strDefaultSerialize" />
-                            </li>
-                        }
-                        @if (Model.RelatedProjectConfig.ProjectConfigExperience.CustomAcitvityEnable)
-                        {
-                            string strCustomSerialize = (new System.Web.Script.Serialization.JavaScriptSerializer()).Serialize(Model.ProjectCustomEconomicActivity);
-
-                            <li class="POMPProjectBidEditDialogActivity">
-                                <label>Actividades Económicas Personalizadas:</label>
-                                <select id="ProjectDetail_EditProjectDialog_CustomEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId"></select>
-                                <input type="hidden" id="ProjectDetail_EditProjectDialog_CustomEconomicActivityValue" value="@strCustomSerialize" />
-                            </li>
-                        }
-                    </ul>
-                    <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
-                    <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
-                    <input type="hidden" name="ProjectStatus" value="@(((int)Model.ProjectStatus).ToString())" />
-                </form>
-            </div>
-        }
-        @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+                                <li class="POMPProjectBidEditDialogActivity">
+                                    <label>Actividades Económicas Personalizadas:</label>
+                                    <select id="ProjectDetail_EditProjectDialog_CustomEconomicActivity" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CustomEconomicActivity).ToString())_@Model.ProjectCustomEconomicActivityId"></select>
+                                    <input type="hidden" id="ProjectDetail_EditProjectDialog_CustomEconomicActivityValue" value="@strCustomSerialize" />
+                                </li>
+                            }
+                        </ul>
+                        <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
+                        <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
+                        <input type="hidden" name="ProjectStatus" value="@(((int)Model.ProjectStatus).ToString())" />
+                    </form>
+                </div>
+            }
+            @if (Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseWin &&
             Model.ProjectStatus != MarketPlace.Models.General.enumProjectStatus.CloseLose)
-        {
-            <div id="ProjectDetail_CloseProjectDialog" title="Cierre de proceso de selección">
-                <form id="ProjectDetail_CloseProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectClose=true")">
-                    <ul class="POMPProjectBidEditDialog">
-                        <li>
-                            <span>Razón de cierre:</span>
-                            <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CloseText).ToString())_" placeholder="Razón de cierre del proceso de selección" required validationmessage="La razón de cierre del proceso de selección es obligatoria"></textarea>
-                        </li>
-                    </ul>
-                    <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
-                    <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
-                    <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
-                    <input type="hidden" name="ProjectStatus" value="@(((int)MarketPlace.Models.General.enumProjectStatus.CloseLose).ToString())" />
-                    <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
-                </form>
-            </div>
-        }
-    </div>
+            {
+                <div id="ProjectDetail_CloseProjectDialog" title="Cierre de proceso de selección">
+                    <form id="ProjectDetail_CloseProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectClose=true")">
+                        <ul class="POMPProjectBidEditDialog">
+                            <li>
+                                <span>Razón de cierre:</span>
+                                <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CloseText).ToString())_" placeholder="Razón de cierre del proceso de selección" required validationmessage="La razón de cierre del proceso de selección es obligatoria"></textarea>
+                            </li>
+                        </ul>
+                        <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
+                        <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+                        <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
+                        <input type="hidden" name="ProjectStatus" value="@(((int)MarketPlace.Models.General.enumProjectStatus.CloseLose).ToString())" />
+                        <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+                    </form>
+                </div>
+            }
+        </div>
+    }
 }
 else
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            //init project files
-            Project_ProjectFile.Init({
-                ObjectId: 'ProjectDetail_FileUpload',
-                ProjectPublicId: '@Model.ProjectPublicId',
-            });
-
-            Project_ProjectFile.RenderAsync();
+            if ('false' == '@(IsProjectProviderDetail.ToString().ToLower())') {
+                //init project files
+                Project_ProjectFile.Init({
+                    ObjectId: 'ProjectDetail_FileUpload',
+                    ProjectPublicId: '@Model.ProjectPublicId',
+                });
+                Project_ProjectFile.RenderAsync();
+            }
         });
     </script>
 }
