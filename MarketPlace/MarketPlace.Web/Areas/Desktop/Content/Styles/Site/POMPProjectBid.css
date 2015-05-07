@@ -42,9 +42,8 @@
             display:inline-block;
             width:48.2%;
             vertical-align:top;
-            border-bottom: 1px solid grey;
             margin:4px 0 0 4px;
-            min-height: 52px;
+            min-height: 32px;
             height:auto;
         }
 .POMPProjectBidDataActions{
@@ -67,7 +66,7 @@
     }
 .POMPProjectBidMainData label,
 .POMPProjectBidMainData span {
-    font-size: 0.98em;
+    font-size: 0.95em;
     letter-spacing: -0.2px;
     display:inline-block;
     font-weight: normal;
@@ -85,6 +84,8 @@ li.POMPProjectBidActivityData{
     width: 48.2% !important;
     min-height: 80px !important;
     overflow-y: auto;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
 }
 li.POMPProjectBidActivityData ul{
     margin:0px; padding:0px 0px 0px 10px;
@@ -93,7 +94,7 @@ li.POMPProjectBidActivityData ul{
         list-style-type:none;
     }
     li.POMPProjectBidWinClosingNote {
-        width:99.1% !important;
+        width:97.6% !important;
     }
 
 /*********** AQUI SE PINTA LO DE CARGAR ARCHIVOS ************/
@@ -268,7 +269,8 @@ li.POMPProjectBidActivityData ul{
 .POMP_ProjectDetail_Win span,
 .POMP_ProjectDetail_Lose span{
     display:inline-block;
-    margin:39px 0 0 5px;   
+    margin:39px 0 0 5px;
+    font-size: 0.88em;
 }
 .POMP_ProjectDetail_Lose{
     border-left:12px solid #FF2A2A;  
@@ -328,7 +330,7 @@ li.POMPProjectBidActivityData ul{
 }
 /****** CONTIENE PROVEEDOR Y MENU ******/
 div.POMPProjectBidDetailMenu{
-    margin:inherit; padding:1px;
+    margin:inherit; padding:1px 5px 0px 0px;
     display:inline-block; border-right:2px solid #ff8300;
     width:238px; height:inherit; min-height:349px;
     vertical-align:top;
@@ -439,24 +441,25 @@ div.POMPProjectBidDetailMenu{
 
     /********* HE AQUI LAS ACCIONES DEL 
         DETALLE DE AREAS A EVALUAR ***************/
-.POMPProjectBidDetailGridActions {
+.POMPProjectBidDetailGridActions,
+div.POMPProjectBidDetailGridActions{
     list-style-type:none; padding:0; margin:auto;
+    text-align:right; display:block; width:95.9%;
 }
-.POMPProjectBidDetailGridActions li{
-    padding:0 0 0 17px; margin:0px;
-    height:24px; text-align:right;
+.POMPProjectBidDetailGridActions li,
+div.POMPProjectBidDetailGridActions > div{
+    padding:0 4px 0 8px; margin:0px 0px 6px;
+    height:18px; text-align:right;
+    width:auto; display:inline-block;
+    border-bottom:none !important;
+    border-left:1px solid gray;
 }
     .POMPProjectBidDetailGridActions li a,
-    .POMPProjectBidDetailGridActions li span {
+    .POMPProjectBidDetailGridActions li span,
+    div.POMPProjectBidDetailGridActions div span {
         font-size:0.89em;
     }
 /************ AQUI VAN LOS DETALLES DE CADA AREA,
     LOS PARCIALES DE DETALLE DE PROVEEDOR **************/
-
-.POMPProjectBidDetailData > div.POMPProviderDataWrapper {
-    border:1px solid green;
-}
-
-    .POMPProjectBidDetailData > div.POMPProviderDataWrapper > label.POMPSectionTitles {
-        background-image:none;
-    }
+.POMPProjectBidDetailData > div.POMPProviderDataWrapper {}
+.POMPProjectBidDetailData > div.POMPProviderDataWrapper > label.POMPSectionTitles {}

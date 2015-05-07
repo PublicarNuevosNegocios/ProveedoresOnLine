@@ -9,7 +9,7 @@
     bool IsApprovalUser = Model.IsApprovalUser();
 
     <div>
-        <div class="ProviderRowes">
+        <div class="POMPProjectBidDetailGridActions ProviderRowes">
             @if (!IsApprovalUser &&
                 oCurrentEvaluationAreaStatus != null &&
                 oCurrentEvaluationAreaStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
