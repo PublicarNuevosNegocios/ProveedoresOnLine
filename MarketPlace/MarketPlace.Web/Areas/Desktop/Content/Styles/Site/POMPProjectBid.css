@@ -329,13 +329,13 @@ li.POMPProjectBidActivityData ul{
 /****** CONTIENE PROVEEDOR Y MENU ******/
 div.POMPProjectBidDetailMenu{
     margin:inherit; padding:1px;
-    display:inline-block; border:1px solid red;
-    width:238px; height:inherit;
+    display:inline-block; border-right:2px solid #ff8300;
+    width:238px; height:inherit; min-height:349px;
     vertical-align:top;
 }
     .POMPProjectBidAreas {
         margin:inherit; padding:0px;
-        display:inline-block; border:1px solid red;
+        display:inline-block; 
         width:100%; height:inherit;
         vertical-align:top;
         list-style-type:none;
@@ -358,13 +358,13 @@ div.POMPProjectBidDetailMenu{
         }
 .POMPProjectBidDetailData{
     margin:inherit; padding:0px;
-    display:inline-block; border:1px solid blue;
+    display:inline-block;
     width:calc(100% - 242.9px); height:inherit;
     vertical-align:top;
 }    
 .POMPProjectBidViewMore {
     margin:inherit; padding:0px;
-    display:block; border:1px solid pink;
+    display:block;
     width:100%; height:inherit;
     vertical-align:top;
 }
@@ -375,7 +375,7 @@ div.POMPProjectBidDetailMenu{
 .POMPProjectBidDetailGridRowes,
 .POMPProjectBidDetailGridResultRowes {
     margin:0; padding:0;
-    display:block; border:1px solid green;
+    display:block; 
     width:auto; height:auto;
 }
     .POMPProjectBidDetailGrid > ul{
@@ -391,7 +391,7 @@ div.POMPProjectBidDetailMenu{
         .POMPProjectBidDetailGridResultRowes li{
             list-style-type:inherit;
             margin:0 0 0 -4px; padding:0;
-            display:inline-block; border:1px solid RED;
+            display:inline-block;
             width:33.3%; height:28px;
             background-color:#e2e2e2;
             vertical-align:top;
