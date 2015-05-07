@@ -250,23 +250,27 @@ var Survey_SaveObject = {
     },
 };
 
-var Survey_ProjectFile = {
+var Survey_File = {
 
     ObjectId: '',
     SurveyPublicId: '',
+    SurveyConfigInfoId: '',
+    ProviderPublicId: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyPublicId = vInitObject.SurveyPublicId;
+        this.SurveyConfigInfoId = vInitObject.SurveyConfigInfoId
+        this.ProviderPublicId = vInitObject.ProviderPublicId
     },
 
     RenderAsync: function () {
         //var oFileExit = true;
-        $('#' + Survey_ProjectFile.ObjectId)
+        $('#' + Survey_File.ObjectId)
         .kendoUpload({
             multiple: false,
             async: {
-                saveUrl: BaseUrl.ApiUrl + '/SurveyApi?SurveyUploadFile=true&SurveyPublicId=' + Survey_ProjectFile.SurveyPublicId,
+                saveUrl: BaseUrl.ApiUrl + '/SurveyApi?SurveyUploadFile=true&SurveyPublicId=' + Survey_File.SurveyPublicId + '&SurveyConfigInfoId=' + Survey_File.SurveyConfigInfoId + '&ProviderPublicId=' + Survey_File.ProviderPublicId,
                 autoUpload: true
             },
             success: function (e) {
@@ -274,13 +278,14 @@ var Survey_ProjectFile = {
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
-                        var oFileItem = $('#' + Project_ProjectFile.ObjectId + '_FileItemTemplate').html();
+                        debugger;
+                        var oFileItem = $('#' + Survey_File.ObjectId + '_FileItemTemplate').html();
 
                         oFileItem = oFileItem.replace(/{ServerUrl}/gi, value.ServerUrl);
                         oFileItem = oFileItem.replace(/{FileName}/gi, value.FileName);
                         oFileItem = oFileItem.replace(/{FileObjectId}/gi, value.FileObjectId);
 
-                        $('#' + Project_ProjectFile.ObjectId + '_FileList').append(oFileItem);
+                        $('#' + Survey_File.ObjectId + '_FileList').append(oFileItem);
                     });
                     //clean file list from kendo upload
                     $('.k-upload-files.k-reset').find('li').remove();
@@ -292,15 +297,16 @@ var Survey_ProjectFile = {
         });
     },
 
-    RemoveFile: function (vProjectInfoId) {
+    RemoveFile: function (vSurveyInfoId) {
         $.ajax({
-            url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
+            url: BaseUrl.ApiUrl + '/SurveyApi?SurveyRemoveFile=true&SurveyPublicId=' + Survey_File.SurveyPublicId + '&SurveyInfoId=' + vSurveyInfoId,
             dataType: 'json',
             success: function (result) {
-                $('#' + Project_ProjectFile.ObjectId + '_File_' + vProjectInfoId).remove();
+                debugger;
+                $('#' + Survey_File.ObjectId + '_File_' + vSurveyInfoId).remove();
             },
             error: function (result) {
-                Dialog_ShowMessage('Proceso de selección', 'Ha ocurrido un error borrando el archivo.', null);
+                Dialog_ShowMessage('Evaluación de Desempeño', 'Ha ocurrido un error borrando el archivo.', null);
             },
         });
     },

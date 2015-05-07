@@ -26,6 +26,8 @@
             action = MVC.Survey.ActionNames.SurveyFinalize,
             SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
         });
+    var SurveyConfigItemId = 0;
+
 }
 <div class="POMPProviderGreatWrapper">
     <label class="POMPSectionTitles">@((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)</label>
@@ -132,6 +134,7 @@
 
                     var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
                         (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+                    SurveyConfigItemId = lstQuestion.Where(x => x.QuestionType == "118002").Select(x => x.SurveyConfigItemId).FirstOrDefault();
                     <div class="POMPProviderQuestions QuestionsForSurvey">
                         <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
 
@@ -155,16 +158,19 @@
                                             {
                                                 <input type="file" name="Survey_FileUpload" id="Survey_FileUpload" value="" />
 
-
-                                                @*<ul id="ProjectDetail_FileUpload_FileList">
-
-                                                        <li id="ProjectDetail_FileUpload_File_@oFile.">
-                                                            <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
-                                                            <div class="SelGenericTooltip" title="@oFile.FileName"></div>
-                                                            <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip" title="@oFile.FileName">@oFile.FileName</a>
-                                                        </li>
-
-                                                    </ul>*@
+                                                <ul id="Survey_FileUpload_FileList">
+                                                    @if (Model.RelatedSurvey.SurveyFile != null && Model.RelatedSurvey.SurveyFile.Count > 0)
+                                                    {
+                                                        foreach (var oFile in Model.RelatedSurvey.SurveyFile)
+                                                        {
+                                                            <li id="Survey_FileUpload_File_@oFile.FileObjectId">
+                                                                <a href="javascript:Survey_File.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
+                                                                <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
+                                                                <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
                                             }
                                             else
                                             {
@@ -250,7 +256,7 @@
     <div style="display:none">
         <ul id="Survey_FileUpload_FileItemTemplate">
             <li id="Survey_FileUpload_File_{FileObjectId}">
-                <a href="javascript:Survey_ProjectFile.RemoveFile('{FileObjectId}');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
+                <a href="javascript:Survey_File.RemoveFile('{FileObjectId}');" class="SelGenericTooltip" title="Eliminar">Eliminar</a>
                 <div class="SelGenericTooltip" title="{FileName}"></div>
                 <a href="{ServerUrl}" target="_blank" class="SelGenericTooltip" title="{FileName}">{FileName}</a>
             </li>
@@ -264,13 +270,15 @@
             Survey_SaveObject.Init({
                 ObjectId: 'SurveySave',
             });
-
-            Survey_ProjectFile.Init({
+            debugger;
+            Survey_File.Init({
                 ObjectId: 'Survey_FileUpload',
-                ProjectPublicId: '@Model.RelatedSurvey.SurveyPublicId',
+                SurveyPublicId: '@Model.RelatedSurvey.SurveyPublicId',
+                SurveyConfigInfoId: '@SurveyConfigItemId',
+                ProviderPublicId: '@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId'
             });
 
-            Survey_ProjectFile.RenderAsync();
+            Survey_File.RenderAsync();
         });
     </script>
 }

@@ -31,7 +31,7 @@
                     <div style="display:none;">
                         <div id="ProjectDetail_ProjectProviderDetail_RejectDialog" title="Rechazar el area @Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName">
                             <form id="ProjectDetail_ProjectProviderDetail_RejectDialog_Form"
-                                  action="@(Url.Content("~/api/ProjectApi?ProjectRejectEvaluationArea=true&ProjectPublicId" + Model.ProjectPublicId +
+                                  action="@(Url.Content("~/api/ProjectApi?ProjectRejectEvaluationArea=true&ProjectPublicId=" + Model.ProjectPublicId +
                                                         "&ProviderPublicId=" + Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId +
                                                         "&EvaluationAreaId=" + Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId))">
                                 <ul>
@@ -50,7 +50,7 @@
                     <div style="display:none;">
                         <div id="ProjectDetail_ProjectProviderDetail_ApproveDialog" title="Aprobar el area @Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName">
                             <form id="ProjectDetail_ProjectProviderDetail_ApproveDialog_Form"
-                                  action="@(Url.Content("~/api/ProjectApi?ProjectApproveEvaluationArea=true&ProjectPublicId" + Model.ProjectPublicId +
+                                  action="@(Url.Content("~/api/ProjectApi?ProjectApproveEvaluationArea=true&ProjectPublicId=" + Model.ProjectPublicId +
                                                         "&ProviderPublicId=" + Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId +
                                                         "&EvaluationAreaId=" + Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId))">
                                 <ul>
