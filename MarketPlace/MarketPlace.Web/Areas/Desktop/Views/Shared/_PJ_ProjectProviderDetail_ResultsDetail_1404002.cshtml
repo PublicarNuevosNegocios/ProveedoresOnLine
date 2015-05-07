@@ -2,6 +2,17 @@
 
 @if (!Model.Item1.RenderScripts)
 {
-    
+    <div class="POMPProviderDataWrapper">
+        <!--Render detail-->
+        @Html.Partial(MVC.Desktop.Shared.Views._P_HI_CertificationsInfo, Model.Item1.CurrentProjectProvider.RelatedProvider)
+        <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.HICertificationsInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver todas las certificaciones</a>
+    </div>
 }
 

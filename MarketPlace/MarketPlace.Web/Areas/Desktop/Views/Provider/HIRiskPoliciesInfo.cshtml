@@ -12,35 +12,7 @@
         @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     </div>
     <div class="POMPProviderDataWrapper">
-        <label class="POMPSectionTitles">Sistema de Riesgos Laborales</label>
-        @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
-        {
-            <ul class="POMPProviderInfoDisplayList">
-                <li>
-                    <label>
-                        Sistema de Riesgos
-                        <span>@Model.RelatedHSEQlInfo.Where(x => x.CR_SystemOccupationalHazards != null).Select(x => x.CR_SystemOccupationalHazards).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Calificación de Riesgo ARL
-                        <span>@Model.RelatedHSEQlInfo.Select(x => x.CR_RateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        Resultado LTIF:
-                        <span title="@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()">@Model.RelatedHSEQlInfo.Select(x => x.CR_LTIFResult).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()">Ver Archivo Afiliación ARL</a>
-                    </label>
-                </li>
-            </ul>
-        }
+        @Html.Partial(MVC.Desktop.Shared.Views._P_HI_RiskPoliciesInfo, Model)
     </div>
 </div>
 @{

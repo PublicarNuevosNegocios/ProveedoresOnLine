@@ -315,7 +315,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             //get experience to eval
             var oExperienceToEval = vProjectProvider.RelatedProvider.RelatedCommercial.
                 Where(cm => cm.ItemType.ItemId == 301001 &&
-                            (!string.IsNullOrEmpty(ProjectExperienceYear) && 
+                            (!string.IsNullOrEmpty(ProjectExperienceYear) &&
                             ProjectExperienceYear.Split('_').Length >= 3 &&
                             GetDecimalFromValue(ProjectExperienceYear.Split('_')[1]) > 0 ?
                                 cm.ItemInfo.Any(cminf =>
@@ -650,6 +650,12 @@ namespace ProveedoresOnLine.ProjectModule.Controller
                 Where(rlg => rlg.ItemType.ItemId == 601004 &&
                     //validate file exists
                              ValidateCondition("605003_1_1409001", rlg)).
+                OrderByDescending(ct => ct.ItemInfo.
+                        Where(ctinf => ctinf.ItemInfoType.ItemId == 605001 &&
+                                    !string.IsNullOrEmpty(ctinf.Value)).
+                        Select(ctinf => Convert.ToDateTime(ctinf.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(DateTime.MinValue).
+                        FirstOrDefault()).
                 Select(ct => (int?)ct.ItemId).
                 DefaultIfEmpty(null).
                 FirstOrDefault();

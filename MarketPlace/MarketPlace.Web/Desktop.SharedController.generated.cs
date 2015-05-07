@@ -45,6 +45,12 @@ namespace T4MVC.Desktop
                 public readonly string _P_FI_BalanceItem = "_P_FI_BalanceItem";
                 public readonly string _P_FI_Indicators = "_P_FI_Indicators";
                 public readonly string _P_FI_IndicatorsItem = "_P_FI_IndicatorsItem";
+                public readonly string _P_HI_CertificationsInfo = "_P_HI_CertificationsInfo";
+                public readonly string _P_HI_HealtyPoliticInfo = "_P_HI_HealtyPoliticInfo";
+                public readonly string _P_HI_RiskPoliciesInfo = "_P_HI_RiskPoliciesInfo";
+                public readonly string _P_LI_ChaimberOfCommerceInfo = "_P_LI_ChaimberOfCommerceInfo";
+                public readonly string _P_LI_RutInfo = "_P_LI_RutInfo";
+                public readonly string _P_LI_SARLAFTInfo = "_P_LI_SARLAFTInfo";
                 public readonly string _P_ProviderLite = "_P_ProviderLite";
                 public readonly string _P_ProviderMenu = "_P_ProviderMenu";
                 public readonly string _P_Search_Comparison = "_P_Search_Comparison";
@@ -80,6 +86,12 @@ namespace T4MVC.Desktop
             public readonly string _P_FI_BalanceItem = "~/Areas/Desktop/Views/Shared/_P_FI_BalanceItem.cshtml";
             public readonly string _P_FI_Indicators = "~/Areas/Desktop/Views/Shared/_P_FI_Indicators.cshtml";
             public readonly string _P_FI_IndicatorsItem = "~/Areas/Desktop/Views/Shared/_P_FI_IndicatorsItem.cshtml";
+            public readonly string _P_HI_CertificationsInfo = "~/Areas/Desktop/Views/Shared/_P_HI_CertificationsInfo.cshtml";
+            public readonly string _P_HI_HealtyPoliticInfo = "~/Areas/Desktop/Views/Shared/_P_HI_HealtyPoliticInfo.cshtml";
+            public readonly string _P_HI_RiskPoliciesInfo = "~/Areas/Desktop/Views/Shared/_P_HI_RiskPoliciesInfo.cshtml";
+            public readonly string _P_LI_ChaimberOfCommerceInfo = "~/Areas/Desktop/Views/Shared/_P_LI_ChaimberOfCommerceInfo.cshtml";
+            public readonly string _P_LI_RutInfo = "~/Areas/Desktop/Views/Shared/_P_LI_RutInfo.cshtml";
+            public readonly string _P_LI_SARLAFTInfo = "~/Areas/Desktop/Views/Shared/_P_LI_SARLAFTInfo.cshtml";
             public readonly string _P_ProviderLite = "~/Areas/Desktop/Views/Shared/_P_ProviderLite.cshtml";
             public readonly string _P_ProviderMenu = "~/Areas/Desktop/Views/Shared/_P_ProviderMenu.cshtml";
             public readonly string _P_Search_Comparison = "~/Areas/Desktop/Views/Shared/_P_Search_Comparison.cshtml";

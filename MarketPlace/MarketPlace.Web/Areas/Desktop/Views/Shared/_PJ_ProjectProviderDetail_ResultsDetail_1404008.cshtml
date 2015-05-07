@@ -2,7 +2,18 @@
 
 @if (!Model.Item1.RenderScripts)
 {
-
+    <div class="POMPProviderDataWrapper">
+        <!--Render detail-->
+        @Html.Partial(MVC.Desktop.Shared.Views._P_LI_SARLAFTInfo, Model.Item1.CurrentProjectProvider.RelatedProvider)
+        <a href="@(Url.RouteUrl
+                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                new
+                {
+                    controller = MVC.Provider.Name,
+                    action = MVC.Provider.ActionNames.LISARLAFTInfo,
+                    ProviderPublicId = Model.Item1.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                }))">Ver SARLAFT</a>
+    </div>
 }
 
 
