@@ -320,3 +320,117 @@ li.POMPProjectBidActivityData ul{
             background-size: 22px auto;
             height: 18px !important;
         }
+/************** DETALLE DEL AREA DE APROBACION *************/
+.POMPProjectBidDetailGreatWrapper {
+    margin:0; padding:8px 18px;
+    display:block; border:1px solid green;
+    width:auto; height:auto;
+}
+/****** CONTIENE PROVEEDOR Y MENU ******/
+div.POMPProjectBidDetailMenu{
+    margin:inherit; padding:1px;
+    display:inline-block; border:1px solid red;
+    width:238px; height:inherit;
+    vertical-align:top;
+}
+    .POMPProjectBidAreas {
+        margin:inherit; padding:0px;
+        display:inline-block; border:1px solid red;
+        width:100%; height:inherit;
+        vertical-align:top;
+        list-style-type:none;
+    }
+    .POMPProjectBidAreas li,
+    .POMPprojectmenuselected{
+        padding:3px 0px; margin:0px 0px 3px 0px;
+        font-size:0.9em !important; letter-spacing:-0.7px;
+    }
+    .POMPprojectmenuselected {
+        background-color:#ff8300;        
+    }
+    .POMPprojectmenuselected a{
+        color:#fff !important;  margin: 0 0 0 12px;
+        font-size:inherit;
+    }
+        .POMPProjectBidAreas > li > a{
+        color:#333; margin: 0 0 0 12px;
+        font-size:inherit;
+        }
+.POMPProjectBidDetailData{
+    margin:inherit; padding:0px;
+    display:inline-block; border:1px solid blue;
+    width:calc(100% - 242.9px); height:inherit;
+    vertical-align:top;
+}    
+.POMPProjectBidViewMore {
+    margin:inherit; padding:0px;
+    display:block; border:1px solid pink;
+    width:100%; height:inherit;
+    vertical-align:top;
+}
+/******* ESTE CONTIENE LAS ACCIONES DEL DETALLE 
+    Y LA GRILLA DEL AREA *************/
+.POMPProjectBidDetailGrid,
+.POMPProjectBidDetailGridHeaderRowe,
+.POMPProjectBidDetailGridRowes,
+.POMPProjectBidDetailGridResultRowes {
+    margin:0; padding:0;
+    display:block; border:1px solid green;
+    width:auto; height:auto;
+}
+    .POMPProjectBidDetailGrid > ul{
+        list-style-type:none;
+        padding:0 14px;
+    }
+        .POMPProjectBidDetailGridHeaderRowe li:first-child,
+        .POMPProjectBidDetailGridRowes li:first-child{margin:0px !important;}
+
+
+        .POMPProjectBidDetailGridHeaderRowe li,        
+        .POMPProjectBidDetailGridRowes li,
+        .POMPProjectBidDetailGridResultRowes li{
+            list-style-type:inherit;
+            margin:0 0 0 -4px; padding:0;
+            display:inline-block; border:1px solid RED;
+            width:33.3%; height:28px;
+            background-color:#e2e2e2;
+            vertical-align:top;
+        }
+            .POMPProjectBidDetailGridHeaderRowe li > span,
+            .POMPProjectBidDetailGridRowes li > span,
+            .POMPProjectBidDetailGridResultRowes li > span{
+                display: block;
+                font-size: 0.9em;
+                font-weight: bold;
+                letter-spacing: -0.2px;
+                line-height: 1em;
+                margin:7px 0 0 22px;
+                text-transform:uppercase;
+            }
+            .POMPProjectBidDetailGridRowes li{
+                background-color:#fff !important;
+                text-transform:none;
+                height:38px !important;
+            }
+                .POMPProjectBidDetailGridRowes li > span {
+                    text-transform:none !important;
+                    margin:12px 0 0 22px !important;
+                    font-weight:normal !important;
+                }
+        .finalrowe {
+            margin-top:12px !important;
+            border-top:2px solid #666;
+        }
+.POMPProjectBidDetailGridResultRowes > li:first-child {
+    margin:0px;
+    width: calc(33.3% - 8px);
+}
+.POMPProjectBidDetailGridResultRowes > li {
+    width:33.9%;
+    height:50px;
+}
+    .POMPProjectBidDetailGridResultRowes li > span {
+        text-transform:uppercase !important;
+        margin:18px 0 0 22px !important;
+        font-weight:bold !important;
+    }
