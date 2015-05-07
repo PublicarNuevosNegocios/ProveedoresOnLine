@@ -229,20 +229,22 @@ li.POMPProjectBidActivityData ul{
 }
     .ProviderRowes > li:first-child div.ProveedorPendiente,
     .ProviderRowes > li:first-child div.ProveedorAprobado,
-    .ProviderRowes > li:first-child div.ProveedorRechazado,
-    .ProviderRowes > li:first-child div.ProveedorAdjudicado{        
+    .ProviderRowes > li:first-child div.ProveedorRechazado,    
+    .ProviderRowes > li:first-child div.ProveedorAdjudicado{
         width:20px; height:20px;
         border:none;
         margin: -85px 0 0 92%;
         position: relative;
     }
-    .ProviderRowes > li:first-child div.ProveedorPendiente {
+    .ProviderRowes > li:first-child div.ProveedorPendiente,
+    .ProviderRowes > div > div.ProveedorPendiente{
         background-image:url("http://proveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/pendiente.png");
         background-position: -4px -3px;
         background-repeat: no-repeat;
         background-size: 24px auto;
     }
-    .ProviderRowes > li:first-child div.ProveedorAprobado {
+    .ProviderRowes > li:first-child div.ProveedorAprobado,
+    .ProviderRowes > div > div.ProveedorAprobado {
         background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/OKicon.png");
         background-position: 0 -3px;
         background-repeat: no-repeat;
@@ -251,13 +253,15 @@ li.POMPProjectBidActivityData ul{
         -webkit-transform: rotate(-17deg);
         transform: rotate(-17deg);
     }
-    .ProviderRowes > li:first-child div.ProveedorRechazado {
+    .ProviderRowes > li:first-child div.ProveedorRechazado,
+    .ProviderRowes > div > div.ProveedorRechazado {
         background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/cross.png");
         background-position:-19px 1px;
         background-repeat: no-repeat;
         background-size: 35px auto;
     }
-    .ProviderRowes > li:first-child div.ProveedorAdjudicado {
+    .ProviderRowes > li:first-child div.ProveedorAdjudicado,
+    .ProviderRowes > div > div.ProveedorAdjudicado {
         background-image: url("http://proveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/award_iconSmall.png");
         background-position: 0 0;
         background-repeat: no-repeat;
@@ -459,6 +463,21 @@ div.POMPProjectBidDetailGridActions > div{
     div.POMPProjectBidDetailGridActions div span {
         font-size:0.89em;
     }
+    .POMPProjectBidApprovalText {
+        height: auto !important;
+        margin: 0px 0 7px 0 !important;
+        padding: 2px !important;
+        text-align: left !important;
+        width: 99% !important;       
+    }
+.ProviderRowes > div > div.ProveedorPendiente,
+.ProviderRowes > div > div.ProveedorAprobado,
+.ProviderRowes > div > div.ProveedorRechazado,
+.ProviderRowes > div > div.ProveedorAdjudicado {
+        width:16px; height:18px;
+        border:none;
+        display:inline-block;
+}
 /************ AQUI VAN LOS DETALLES DE CADA AREA,
     LOS PARCIALES DE DETALLE DE PROVEEDOR **************/
 .POMPProjectBidDetailData > div.POMPProviderDataWrapper {}
