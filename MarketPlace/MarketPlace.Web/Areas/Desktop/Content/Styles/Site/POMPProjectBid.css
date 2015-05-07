@@ -40,11 +40,12 @@
     }
         ul.POMPProjectBidMainData > li {
             display:inline-block;
-            width:32.2%;            
+            width:48.2%;
             vertical-align:top;
             border-bottom: 1px solid grey;
             margin:4px 0 0 4px;
-            min-height: 55px;
+            min-height: 52px;
+            height:auto;
         }
 .POMPProjectBidDataActions{
     text-align:right !important;
@@ -68,7 +69,7 @@
 .POMPProjectBidMainData span {
     font-size: 0.98em;
     letter-spacing: -0.2px;
-    display:block;
+    display:inline-block;
     font-weight: normal;
     line-height: 1em;
     margin:0px;
@@ -81,8 +82,8 @@
     color: #666;
 }
 li.POMPProjectBidActivityData{
-    width: 49% !important;
-    height: 84px;
+    width: 48.2% !important;
+    min-height: 80px !important;
     overflow-y: auto;
 }
 li.POMPProjectBidActivityData ul{

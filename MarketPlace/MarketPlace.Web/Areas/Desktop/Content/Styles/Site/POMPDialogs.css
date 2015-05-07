@@ -99,6 +99,9 @@
         .POMPProjectBidEditDialog > li > select {
             width:225px;
         }
+        .POMPProjectBidEditDialog > li > textarea {
+
+        }
         .POMPProjectBidEditDialog > li > .k-invalid-msg {
             display: block;
             margin: 6px 0 0;
