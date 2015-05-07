@@ -7,7 +7,7 @@
     margin:0px; padding:0px 18px 12px; 
     text-align:left;
 }
-.POMPProjectBidGreatWrapper div{
+.POMPProjectBidGreatWrapper > div{
         display:block;
         border:none;
     width:auto; height:auto;
@@ -89,14 +89,19 @@ li.POMPProjectBidActivityData ul{
     margin:0px; padding:0px 0px 0px 10px;
 }
     li.POMPProjectBidActivityData ul li{
-        list-style-type:none;        
+        list-style-type:none;
     }
+    li.POMPProjectBidWinClosingNote {
+        width:99.1% !important;
+    }
+
 /*********** AQUI SE PINTA LO DE CARGAR ARCHIVOS ************/
 .POMPProjectBidFileUploadWrapper {
     border: 1px solid grey !important;
     display: inline-block !important;
     min-height: 222px; max-height: 222px;
     overflow-y: auto;
+    overflow-x: hidden;
     width: 29% !important;
      margin: 4px 0 0 !important
 }
@@ -105,15 +110,16 @@ li.POMPProjectBidActivityData ul{
         background-color:#f9f9f9;
         border-bottom:1px solid grey;
         border-radius:0px;
-        width:100%;
+        width:100%; padding:0px;
     }
     .POMPProjectBidFileUploadWrapper div.k-upload-button{
         border: 1px solid #666;
         display: inline-block;
         height: 26px;
         width: auto;
+        padding:0px;
     }
-.POMPProjectBidFileUploadWrapper div em{
+.POMPProjectBidFileUploadWrapper > div > em{
     display: inline-block;
     width: calc(100% - 111px);
     height: 42px;
@@ -128,7 +134,7 @@ li.POMPProjectBidActivityData ul{
         padding: 1px 0 2px;
     }
 
-       .POMPProjectBidFileUploadWrapper > ul > li > a:first-child{
+    a.POMPFileUploadDelet{
         background-image: url("http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/cross.png");
         background-position:-19px 0px;
         background-repeat: no-repeat;
@@ -137,18 +143,7 @@ li.POMPProjectBidActivityData ul{
         margin:0 0 0 4px;
         display:inline-block;
     }
-        .POMPProjectBidFileUploadWrapper > ul > li > a:nth-child(3){
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 80%;      
-            color: #555;
-            display: inline-block;
-            font-size: 0.88em;
-            letter-spacing: -0.4px;
-            line-height: 1.3em;            
-        }
-    .POMPProjectBidFileUploadWrapper > ul > li > div {
+    div.POMPFileUploadIcon{
         background-image: url("http://stgproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/defult_text.png");
         background-repeat:no-repeat;
         background-position:1px 1px;
@@ -157,6 +152,17 @@ li.POMPProjectBidActivityData ul{
         height: 20px;
         margin: 0; padding: 0;
         width: 20px;
+    }
+    a.POMPFileUploadName{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 80%;      
+        color: #555;
+        display: inline-block;
+        font-size: 0.88em;
+        letter-spacing: -0.4px;
+        line-height: 1.3em; 
     }
 /*********** AQUI SE PINTA EL LISTADO DE 
     PROVEEDORES A PRECALIFICAR ************/
@@ -222,11 +228,11 @@ li.POMPProjectBidActivityData ul{
     .ProviderRowes > li:first-child div.ProveedorPendiente,
     .ProviderRowes > li:first-child div.ProveedorAprobado,
     .ProviderRowes > li:first-child div.ProveedorRechazado,
-    .ProviderRowes > li:first-child div.ProveedorAdjudicado{
-        float:right;
+    .ProviderRowes > li:first-child div.ProveedorAdjudicado{        
         width:20px; height:20px;
         border:none;
-        margin: -100px 4px 0 0;
+        margin: -85px 0 0 92%;
+        position: relative;
     }
     .ProviderRowes > li:first-child div.ProveedorPendiente {
         background-image:url("http://proveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/pendiente.png");
@@ -314,13 +320,3 @@ li.POMPProjectBidActivityData ul{
             background-size: 22px auto;
             height: 18px !important;
         }
-
-        
-
-
-        
-
-
-
-
-

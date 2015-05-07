@@ -68,14 +68,14 @@
                 }
                 @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin)
                 {
-                    <li>
+                    <li class="POMPProjectBidWinClosingNote">
                         <label>Nota de adjudicación</label>
                         <span>@Model.ProjectAwardText</span>
                     </li>
                 }
                 else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseLose)
                 {
-                    <li>
+                    <li class="POMPProjectBidWinClosingNote">
                         <label>Razón de cierre</label>
                         <span>@Model.ProjectCloseText</span>
                     </li>
@@ -125,9 +125,9 @@
                         @foreach (var oFile in Model.ProjectFile)
                         {
                             <li id="ProjectDetail_FileUpload_File_@oFile.FileObjectId">
-                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip" title="Eliminar"></a>
-                                <div class="SelGenericTooltip" title="@oFile.FileName"></div>
-                                <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip" title="@oFile.FileName">@oFile.FileName</a>
+                                <a href="javascript:Project_ProjectFile.RemoveFile('@oFile.FileObjectId');" class="SelGenericTooltip POMPFileUploadDelet" title="Eliminar"></a>
+                                <div class="SelGenericTooltip POMPFileUploadIcon" title="@oFile.FileName"></div>
+                                <a href="@oFile.ServerUrl" target="_blank" class="SelGenericTooltip POMPFileUploadName" title="@oFile.FileName">@oFile.FileName</a>
                             </li>
                         }
                     </ul>
