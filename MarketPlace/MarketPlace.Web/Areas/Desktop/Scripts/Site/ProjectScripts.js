@@ -45,6 +45,7 @@
             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
             dataType: 'json',
             success: function (result) {
+                debugger;
                 $('#' + Project_ProjectFile.ObjectId + '_File_' + vProjectInfoId).remove();
             },
             error: function (result) {
