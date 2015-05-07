@@ -39,6 +39,8 @@
     
     <!--Project params-->
     <key name="Project_Approval_MailAgent">POL_ProjectApprovalRequest_Mail</key>
+    <key name="Project_ApproveArea_MailAgent">POL_ProjectApproveArea_Mail</key>
+    <key name="Project_RejectArea_MailAgent">POL_ProjectRejectArea_Mail</key>
 
   </MarketPlace>
 </Settings>

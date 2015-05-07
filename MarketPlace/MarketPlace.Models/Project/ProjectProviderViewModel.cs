@@ -146,6 +146,35 @@ namespace MarketPlace.Models.Project
                 FirstOrDefault();
         }
 
+        public int GetApprovalStatusIdByArea(int vEvaluationItemId)
+        {
+            return RelatedProjectProvider.ItemInfo.
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.RelatedEvaluationItem.ItemId == vEvaluationItemId &&
+                                pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus).
+                Select(pjpvinf => pjpvinf.ItemInfoId).
+                DefaultIfEmpty(0).
+                FirstOrDefault();
+        }
+
+        /// <summary>
+        /// get status for all areas
+        /// </summary>
+        /// <returns>areaid,areastatus</returns>
+        public Dictionary<int, MarketPlace.Models.General.enumApprovalStatus> GetApprovalStatusAllAreas()
+        {
+            return RelatedProjectProvider.ItemInfo.
+                Where(pjpvinf => pjpvinf.RelatedEvaluationItem != null &&
+                                pjpvinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus &&
+                                !string.IsNullOrEmpty(pjpvinf.Value)).
+                Select(pjpvinf => new
+                {
+                    oKey = pjpvinf.RelatedEvaluationItem.ItemId,
+                    oValue = (MarketPlace.Models.General.enumApprovalStatus)Convert.ToInt32(pjpvinf.Value.Replace(" ", "")),
+                }).
+                ToDictionary(k => k.oKey, v => v.oValue);
+        }
+
         public string GetApprovalText(int vEvaluationItemId)
         {
             return RelatedProjectProvider.ItemInfo.

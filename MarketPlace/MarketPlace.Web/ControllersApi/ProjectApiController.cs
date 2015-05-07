@@ -509,8 +509,162 @@ namespace MarketPlace.Web.ControllersApi
             if (ProjectApproveEvaluationArea == "true" &&
                 !string.IsNullOrEmpty(ProjectPublicId) &&
                 !string.IsNullOrEmpty(ProviderPublicId) &&
-                !string.IsNullOrEmpty(EvaluationAreaId))
+                !string.IsNullOrEmpty(EvaluationAreaId) &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["ApprovalText"]))
             {
+                //get project basic info
+                MarketPlace.Models.Project.ProjectViewModel oProject = new Models.Project.ProjectViewModel
+                    (ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetById
+                        (ProjectPublicId,
+                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId));
+
+                //set current evaluation area
+                oProject.RelatedProjectConfig.SetCurrentEvaluationArea(Convert.ToInt32(EvaluationAreaId.Replace(" ", "")));
+
+                //validate project status
+                if (oProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval &&
+                    oProject.RelatedProjectConfig.CurrentEvaluationArea != null)
+                {
+                    //get provider for approval
+                    MarketPlace.Models.Project.ProjectProviderViewModel oProjectProvider = oProject.RelatedProjectProvider.
+                        Where(pjpv => pjpv.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId).
+                        FirstOrDefault();
+
+                    //get current area evaluation status
+                    MarketPlace.Models.General.enumApprovalStatus? oCurrentEvaluationAreaStatus =
+                        oProjectProvider.GetApprovalStatusByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+
+                    //validate provider and status
+                    if (oProjectProvider != null &&
+                        oProjectProvider.ApprovalStatus != null &&
+                        oProjectProvider.ApprovalStatus == Models.General.enumApprovalStatus.Pending &&
+
+                        oCurrentEvaluationAreaStatus != null &&
+                        oCurrentEvaluationAreaStatus == Models.General.enumApprovalStatus.Pending)
+                    {
+                        //validate status for all areas for status project and provider
+                        Dictionary<int, MarketPlace.Models.General.enumApprovalStatus> oProviderAprovalAreas = oProjectProvider.GetApprovalStatusAllAreas();
+                        List<MarketPlace.Models.Project.EvaluationItemViewModel> oAreas = oProject.RelatedProjectConfig.GetEvaluationAreas();
+
+                        bool oApproveArea = true, oApproveProvider = true;
+                        oAreas.
+                            Where(ea => ea.EvaluationItemId != oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId).
+                            All(ea =>
+                            {
+                                if (oProviderAprovalAreas.ContainsKey(ea.EvaluationItemId))
+                                {
+                                    if (oProviderAprovalAreas[ea.EvaluationItemId] == Models.General.enumApprovalStatus.Pending)
+                                    {
+                                        //any area pending
+                                        oApproveProvider = false;
+                                    }
+                                    else if (oProviderAprovalAreas[ea.EvaluationItemId] != Models.General.enumApprovalStatus.Approved)
+                                    {
+                                        //any area rejected or award
+                                        oApproveArea = false;
+                                        oApproveProvider = false;
+                                    }
+                                }
+                                else
+                                {
+                                    //any area not referenced
+                                    oApproveArea = false;
+                                    oApproveProvider = false;
+                                }
+                                return true;
+                            });
+
+                        if (oApproveArea)
+                        {
+                            //create project to upsert
+                            ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                            {
+                                ProjectPublicId = oProject.ProjectPublicId,
+                                ProjectName = oProject.ProjectName,
+                                RelatedProjectConfig = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                                {
+                                    ItemId = oProject.RelatedProjectConfig.ProjectConfigId,
+                                },
+                                ProjectStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = oApproveProvider ? (int)MarketPlace.Models.General.enumProjectStatus.Award :
+                                                                (int)MarketPlace.Models.General.enumProjectStatus.Approval,
+                                },
+                                Enable = true,
+                                RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>() 
+                                { 
+                                    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                                    {
+                                        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                                        {
+                                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                            {
+                                                CompanyPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            },
+                                        },
+
+                                        ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>()
+                                        {
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                ItemInfoId = oProjectProvider.ApprovalStatusId,
+                                                RelatedEvaluationItem = null,
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus,
+                                                },
+                                                Value = oApproveProvider ? ((int)MarketPlace.Models.General.enumApprovalStatus.Approved).ToString() : 
+                                                                           ((int)MarketPlace.Models.General.enumApprovalStatus.Pending).ToString(),
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus,
+                                                },
+                                                Value = ((int)MarketPlace.Models.General.enumApprovalStatus.Approved).ToString(),
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText,
+                                                },
+                                                LargeValue = System.Web.HttpContext.Current.Request["ApprovalText"],
+                                                Enable = true,
+                                            },
+                                        },
+                                        Enable = true,
+                                    },
+                                },
+                            };
+
+                            //upsert project
+                            oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+
+                            //send approve message
+                            MessageModule.Client.Controller.ClientController.CreateMessage(
+                                GetProjectAreaMessage(oProject,
+                                        oProjectProvider,
+                                        oProject.RelatedProjectConfig.CurrentEvaluationArea,
+                                        MarketPlace.Models.General.InternalSettings.Instance
+                                            [MarketPlace.Models.General.Constants.C_Settings_Project_ApproveArea_MailAgent].Value
+                                ));
+                        }
+                    }
+                }
 
             }
             return oReturn;
@@ -529,8 +683,125 @@ namespace MarketPlace.Web.ControllersApi
             if (ProjectRejectEvaluationArea == "true" &&
                 !string.IsNullOrEmpty(ProjectPublicId) &&
                 !string.IsNullOrEmpty(ProviderPublicId) &&
-                !string.IsNullOrEmpty(EvaluationAreaId))
+                !string.IsNullOrEmpty(EvaluationAreaId) &&
+                !string.IsNullOrEmpty(System.Web.HttpContext.Current.Request["ApprovalText"]))
             {
+                //get project basic info
+                MarketPlace.Models.Project.ProjectViewModel oProject = new Models.Project.ProjectViewModel
+                    (ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectGetById
+                        (ProjectPublicId,
+                        MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId));
+
+                //set current evaluation area
+                oProject.RelatedProjectConfig.SetCurrentEvaluationArea(Convert.ToInt32(EvaluationAreaId.Replace(" ", "")));
+
+                //validate project status
+                if (oProject.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval &&
+                    oProject.RelatedProjectConfig.CurrentEvaluationArea != null)
+                {
+                    //get provider for approval
+                    MarketPlace.Models.Project.ProjectProviderViewModel oProjectProvider = oProject.RelatedProjectProvider.
+                        Where(pjpv => pjpv.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId == ProviderPublicId).
+                        FirstOrDefault();
+
+                    //get current area evaluation status
+                    MarketPlace.Models.General.enumApprovalStatus? oCurrentEvaluationAreaStatus =
+                        oProjectProvider.GetApprovalStatusByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId);
+
+                    //validate provider and status
+                    if (oProjectProvider != null &&
+                        oProjectProvider.ApprovalStatus != null &&
+                        oProjectProvider.ApprovalStatus == Models.General.enumApprovalStatus.Pending &&
+
+                        oCurrentEvaluationAreaStatus != null &&
+                        oCurrentEvaluationAreaStatus == Models.General.enumApprovalStatus.Pending)
+                    {
+                        //create project to upsert
+                        ProveedoresOnLine.ProjectModule.Models.ProjectModel oProjectToUpsert = new ProveedoresOnLine.ProjectModule.Models.ProjectModel()
+                        {
+                            ProjectPublicId = oProject.ProjectPublicId,
+                            ProjectName = oProject.ProjectName,
+                            RelatedProjectConfig = new ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel()
+                            {
+                                ItemId = oProject.RelatedProjectConfig.ProjectConfigId,
+                            },
+                            ProjectStatus = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                            {
+                                ItemId = (int)MarketPlace.Models.General.enumProjectStatus.OpenRefusal,
+                            },
+                            Enable = true,
+                            RelatedProjectProvider = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel>() 
+                                { 
+                                    new ProveedoresOnLine.ProjectModule.Models.ProjectProviderModel()
+                                    {
+                                        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                                        {
+                                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                                            {
+                                                CompanyPublicId = oProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                            },
+                                        },
+
+                                        ItemInfo = new List<ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel>()
+                                        {
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                ItemInfoId = oProjectProvider.ApprovalStatusId,
+                                                RelatedEvaluationItem = null,
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus,
+                                                },
+                                                Value = ((int)MarketPlace.Models.General.enumApprovalStatus.Rejected).ToString(),
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus,
+                                                },
+                                                Value = ((int)MarketPlace.Models.General.enumApprovalStatus.Rejected).ToString(),
+                                                Enable = true,
+                                            },
+                                            new ProveedoresOnLine.ProjectModule.Models.ProjectProviderInfoModel()
+                                            {
+                                                ItemInfoId = oProjectProvider.GetApprovalStatusIdByArea(oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId),
+                                                RelatedEvaluationItem = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                                                {
+                                                    ItemId = oProject.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                                                },
+                                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                                {
+                                                    ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalText,
+                                                },
+                                                LargeValue = System.Web.HttpContext.Current.Request["ApprovalText"],
+                                                Enable = true,
+                                            },
+                                        },
+                                        Enable = true,
+                                    },
+                                },
+                        };
+
+                        //upsert project
+                        oProjectToUpsert = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectUpsert(oProjectToUpsert);
+
+                        //send approve message
+                        MessageModule.Client.Controller.ClientController.CreateMessage(
+                            GetProjectAreaMessage(oProject,
+                                    oProjectProvider,
+                                    oProject.RelatedProjectConfig.CurrentEvaluationArea,
+                                    MarketPlace.Models.General.InternalSettings.Instance
+                                        [MarketPlace.Models.General.Constants.C_Settings_Project_RejectArea_MailAgent].Value
+                            ));
+                    }
+                }
 
             }
             return oReturn;
@@ -749,6 +1020,109 @@ namespace MarketPlace.Web.ControllersApi
                             action = MVC.Project.ActionNames.ProjectProviderDetail,
                             ProjectPublicId = vProject.ProjectPublicId,
                             ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                            EvaluationAreaId = vEvaluationArea.EvaluationItemId.ToString(),
+                        }))));
+                return oReturn;
+            }
+            return null;
+        }
+
+        private MessageModule.Client.Models.ClientMessageModel GetProjectAreaMessage
+            (MarketPlace.Models.Project.ProjectViewModel vProject,
+            MarketPlace.Models.Project.ProjectProviderViewModel vProjectProvider,
+            MarketPlace.Models.Project.EvaluationItemViewModel vEvaluationArea,
+            string vAgent)
+        {
+            //get to for message
+            List<string> oTo = vEvaluationArea.GetEvaluatorsEmails();
+
+            if (oTo != null && oTo.Count > 0)
+            {
+                //Create message object
+                MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
+                {
+                    Agent = vAgent,
+                    User = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                    ProgramTime = DateTime.Now,
+                    MessageQueueInfo = new List<Tuple<string, string>>(),
+                };
+
+                //get to address
+                oTo.All(ovTo =>
+                {
+                    oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                        ("To", ovTo));
+                    return true;
+                });
+
+                //get customer info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerLogo", MarketPlace.Models.General.SessionModel.CurrentCompany_CompanyLogo));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerName", MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerIdentificationTypeName", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationType.ItemName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("CustomerIdentificationNumber", MarketPlace.Models.General.SessionModel.CurrentCompany.IdentificationNumber));
+
+                //get provider info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderLogo", vProjectProvider.RelatedProvider.RelatedLiteProvider.ProviderLogoUrl));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderIdentificationTypeName", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderIdentificationNumber", vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProviderLink",
+                    Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Provider.Name,
+                            action = MVC.Provider.ActionNames.GIProviderInfo,
+                            ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        }))));
+
+                //get project info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectName", vProject.ProjectName));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectLastModify", vProject.LastModify));
+
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectUrl",
+                    Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Project.Name,
+                            action = MVC.Project.ActionNames.ProjectDetail,
+                            ProjectPublicId = vProject.ProjectPublicId,
+                        }))));
+
+                //get area info
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("EvaluationAreaName", vEvaluationArea.EvaluationItemName));
+
+                //get project provider url
+                oReturn.MessageQueueInfo.Add(new Tuple<string, string>
+                    ("ProjectProviderUrl",
+                    Url.Content(Url.Route(MarketPlace.Models.General.Constants.C_Routes_Default,
+                        new
+                        {
+                            controller = MVC.Project.Name,
+                            action = MVC.Project.ActionNames.ProjectProviderDetail,
+                            ProjectPublicId = vProject.ProjectPublicId,
+                            ProviderPublicId = vProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                            EvaluationAreaId = vEvaluationArea.EvaluationItemId.ToString(),
                         }))));
                 return oReturn;
             }

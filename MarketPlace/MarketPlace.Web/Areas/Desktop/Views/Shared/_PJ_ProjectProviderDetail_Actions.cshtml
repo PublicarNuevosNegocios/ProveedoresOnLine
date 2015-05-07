@@ -26,10 +26,42 @@
             if (IsApprovalUser)
             {
                 <li>
-                    <a>Rechazar</a>
+                    <a href="javascript:Project_ProjectDetailObject.ShowRejectProjectProvider();">Rechazar</a>
+                    <!--Reject template-->
+                    <div style="display:none;">
+                        <div id="ProjectDetail_ProjectProviderDetail_RejectDialog" title="Rechazar el area @Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName">
+                            <form id="ProjectDetail_ProjectProviderDetail_RejectDialog_Form"
+                                  action="@(Url.Content("~/api/ProjectApi?ProjectRejectEvaluationArea=true&ProjectPublicId" + Model.ProjectPublicId +
+                                                        "&ProviderPublicId=" + Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId +
+                                                        "&EvaluationAreaId=" + Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId))">
+                                <ul>
+                                    <li>
+                                        <span>Nota de rechazo</span>
+                                        <textarea name="ApprovalText" placeholder="Nota de rechazo" required validationmessage="La nota de rechazo es obligatoria"></textarea>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
                 </li>
                 <li>
-                    <a>Aprobar</a>
+                    <a href="javascript:Project_ProjectDetailObject.ShowAproveProjectProvider();">Aprobar</a>
+                    <!--Approval template-->
+                    <div style="display:none;">
+                        <div id="ProjectDetail_ProjectProviderDetail_ApproveDialog" title="Aprobar el area @Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName">
+                            <form id="ProjectDetail_ProjectProviderDetail_ApproveDialog_Form"
+                                  action="@(Url.Content("~/api/ProjectApi?ProjectApproveEvaluationArea=true&ProjectPublicId" + Model.ProjectPublicId +
+                                                        "&ProviderPublicId=" + Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId +
+                                                        "&EvaluationAreaId=" + Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId))">
+                                <ul>
+                                    <li>
+                                        <span>Nota de aprobación</span>
+                                        <textarea name="ApprovalText" placeholder="Nota de aprobación" required validationmessage="La nota de aprobación es obligatoria"></textarea>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
                 </li>
             }
             else
