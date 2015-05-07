@@ -320,3 +320,69 @@ li.POMPProjectBidActivityData ul{
             background-size: 22px auto;
             height: 18px !important;
         }
+/************** DETALLE DEL AREA DE APROBACION *************/
+.POMPProjectBidDetailGreatWrapper {
+    margin:0; padding:8px 18px;
+    display:block; border:1px solid green;
+    width:auto; height:auto;
+}
+/****** CONTIENE PROVEEDOR Y MENU ******/
+div.POMPProjectBidDetailMenu{
+    margin:inherit; padding:1px;
+    display:inline-block; border:1px solid red;
+    width:238px; height:inherit;
+    vertical-align:top;
+}
+    .POMPProjectBidAreas {
+        margin:inherit; padding:0px;
+        display:inline-block; border:1px solid red;
+        width:100%; height:inherit;
+        vertical-align:top;
+        list-style-type:none;
+    }
+    .POMPProjectBidAreas li,
+    .POMPprojectmenuselected{
+        padding:3px 0px; margin:0px 0px 3px 0px;
+        font-size:0.9em !important; letter-spacing:-0.7px;
+    }
+    .POMPprojectmenuselected {
+        background-color:#ff8300;        
+    }
+    .POMPprojectmenuselected a{
+        color:#fff !important;  margin: 0 0 0 12px;
+        font-size:inherit;
+    }
+        .POMPProjectBidAreas > li > a{
+        color:#333; margin: 0 0 0 12px;
+        font-size:inherit;
+        }
+.POMPProjectBidDetailData{
+    margin:inherit; padding:0px;
+    display:inline-block; border:1px solid blue;
+    width:calc(100% - 242.9px); height:inherit;
+    vertical-align:top;
+}    
+.POMPProjectBidViewMore {
+    margin:inherit; padding:0px;
+    display:block; border:1px solid pink;
+    width:100%; height:inherit;
+    vertical-align:top;
+}
+/******* ESTE CONTIENE LAS ACCIONES DEL DETALLE 
+    Y LA GRILLA DEL AREA *************/
+.POMPProjectBidDetailGrid {
+    margin:0; padding:0;
+    display:block; border:1px solid green;
+    width:auto; height:auto;
+}
+    .POMPProjectBidDetailGrid ul{
+        list-style-type:none;
+        padding:0;
+    }
+    .POMPProjectBidDetailGridHeaderRowe li{
+        list-style-type:inherit;
+        margin:0; padding:0;
+        display:block; border:1px solid RED;
+        width:auto; height:auto;
+    }
+

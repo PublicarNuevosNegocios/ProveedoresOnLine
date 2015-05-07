@@ -9,18 +9,19 @@
     <div>
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
     </div>
-    <div>
-        <div>
+    <div class="POMPProjectBidDetailGreatWrapper">
+        <div class="POMPProjectBidDetailMenu">
             <!--Provider Menu-->
             @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Menu, Model)
         </div>
-        <div>
+        <div class="POMPProjectBidDetailData">
             <!--Approval actions-->
             @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Actions, Model)
 
             <!--Provider Results-->
-            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Results, Model)
-
+            @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_Results, Model)            
+        </div>
+        <div class="POMPProjectBidViewMore">
             <!--Provider preview values-->
             @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectProviderDetail_ResultsDetail, Model)
         </div>
