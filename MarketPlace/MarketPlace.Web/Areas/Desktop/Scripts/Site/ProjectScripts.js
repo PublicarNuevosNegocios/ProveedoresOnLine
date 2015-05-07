@@ -251,7 +251,7 @@ var Project_ProjectDetailObject = {
         }
     },
 
-    ShowAproveProjectProvider: function () {
+    ShowApproveProjectProvider: function () {
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').length > 0) {
 
             //init dialog
@@ -294,7 +294,45 @@ var Project_ProjectDetailObject = {
     },
 
     ShowRejectProjectProvider: function () {
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog').length > 0) {
 
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Rechazar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - rechazo', 'Se ha rechazado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - rechazo', 'Ha ocurrido un error rechazando el proceso de selección.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
+
+                        }
+                    }
+                },
+            });
+        }
     },
 
     ShowCloseProject: function () {

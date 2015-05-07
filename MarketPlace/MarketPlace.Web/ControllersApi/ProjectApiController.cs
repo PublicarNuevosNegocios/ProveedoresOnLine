@@ -654,7 +654,7 @@ namespace MarketPlace.Web.ControllersApi
                                                 {
                                                     ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator,
                                                 },
-                                                LargeValue = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                                                Value = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                                                 Enable = true,
                                             },
                                         },
@@ -804,7 +804,7 @@ namespace MarketPlace.Web.ControllersApi
                                                 {
                                                     ItemId = (int)MarketPlace.Models.General.enumProjectCompanyInfoType.Evaluator,
                                                 },
-                                                LargeValue = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
+                                                Value = MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email,
                                                 Enable = true,
                                             },
                                         },
