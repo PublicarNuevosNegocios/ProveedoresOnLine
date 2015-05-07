@@ -4,7 +4,7 @@
     Layout = MVC.Desktop.Shared.Views._Layout;
 
     Model.RenderScripts = false;
-    
+
     MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
     {
         RenderScripts = false,
@@ -21,6 +21,14 @@
 <div style="display:none;">
     <!--Survey-->
     @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
+
+    @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+        Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
+    {
+        <div id="ProjectDetail_RequestApprovalDialog" title="Solicitar aprobación">
+            <p>Al solicitar aprobacción sobre el proveedor el proceso de selección sera cerrado hasta recibir respuesta de los diferentes aprobadores, esta seguro que desea realizar esta acción?</p>
+        </div>
+    }
 </div>
 
 @{
@@ -42,18 +50,20 @@
                 ObjectId: 'ProjectDetail',
                 ProjectPublicId: '@Model.ProjectPublicId',
                 CustomEconomicActivity: '@MarketPlace.Models.General.SessionModel.CurrentCompany_CustomEconomicActivity',
-                ProjectRecalculateUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                ProjectRecalculateUrl: '@(Html.Raw(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Project.Name,
-                                action = MVC.Project.ActionNames.ProjectDetailRecalculate
-                            }) + "?ProjectPublicId=" + Model.ProjectPublicId)',
-                ProjectDetailUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                                action = MVC.Project.ActionNames.ProjectDetailRecalculate,
+                                ProjectPublicId = Model.ProjectPublicId,
+                            })))',
+                ProjectDetailUrl: '@(Html.Raw(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Project.Name,
-                                action = MVC.Project.ActionNames.ProjectDetail
-                            }) + "?ProjectPublicId=" + Model.ProjectPublicId)',
+                                action = MVC.Project.ActionNames.ProjectDetail,
+                                ProjectPublicId = Model.ProjectPublicId,
+                            })))',
             });
 
             Project_ProjectDetailObject.RenderAsync();

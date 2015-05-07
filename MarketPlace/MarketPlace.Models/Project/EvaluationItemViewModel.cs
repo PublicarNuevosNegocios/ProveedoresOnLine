@@ -132,5 +132,40 @@ namespace MarketPlace.Models.Project
         {
             RelatedEvaluationItem = oRelatedEvaluationItem;
         }
+
+        #region Methods
+
+        public List<string> GetEvaluatorsEmails()
+        {
+            List<string> oReturn = new List<string>();
+
+            if (EvaluatorType != null &&
+                EvaluatorType == Models.General.enumEvaluatorType.SpecificPerson &&
+                !string.IsNullOrEmpty(Evaluator) &&
+                Evaluator.Any(ev => ev == '@'))
+            {
+                //specific user
+                oReturn.Add(Evaluator);
+            }
+            else if (EvaluatorType != null &&
+                    EvaluatorType == Models.General.enumEvaluatorType.AnyInRol &&
+                    !string.IsNullOrEmpty(Evaluator))
+            {
+                //all users in role
+                List<ProveedoresOnLine.Company.Models.Company.UserCompany> oUsersTo = ProveedoresOnLine.Company.Controller.Company.MP_UserCompanySearch
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    "@",
+                    Convert.ToInt32(Evaluator.Replace(" ", "")),
+                    0,
+                    65000);
+
+                oReturn = oUsersTo.Select(usr => usr.User).Distinct().ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
+
     }
 }

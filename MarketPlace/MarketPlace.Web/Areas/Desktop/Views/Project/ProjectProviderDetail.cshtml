@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "Proveedores OnLine - Proceso de selección";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
+    {
+        RenderScripts = false,
+        CurrentProject = Model,
+    };    
 }
 <div>
     <!--Header project-->
@@ -28,6 +34,11 @@
     </div>
 </div>
 
+<div style="display:none;">
+    <!--Survey-->
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
+</div>
+
 @{
     Model.RenderScripts = true;
 }
@@ -35,9 +46,35 @@
 @section inlinescripts
 {
     @Html.Partial(MVC.Desktop.Shared.Views._PJ_ProjectDetail_Header, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
 
     <script type="text/javascript">
         $(document).ready(function () {
+            //init project detail object
+            Project_ProjectDetailObject.Init({
+                ObjectId: 'ProjectDetail',
+                ProjectPublicId: '@Model.ProjectPublicId',
+                CustomEconomicActivity: '@MarketPlace.Models.General.SessionModel.CurrentCompany_CustomEconomicActivity',
+                ProjectRecalculateUrl: '@(Html.Raw(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetailRecalculate,
+                                ProjectPublicId = Model.ProjectPublicId,
+                            })))',
+                ProjectDetailUrl: '@(Html.Raw(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectProviderDetail,
+                                ProjectPublicId = Model.ProjectPublicId,
+                                ProviderPublicId = Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
+                                EvaluationAreaId = Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId,
+                            })))',
+            });
+
+            Project_ProjectDetailObject.RenderAsync();
+
         });
     </script>
 }
