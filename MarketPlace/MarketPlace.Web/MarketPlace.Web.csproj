@@ -1054,6 +1054,8 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_HI_RiskPoliciesInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_HI_HealtyPoliticInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_LI_ChaimberOfCommerceInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_LI_RutInfo.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_P_LI_SARLAFTInfo.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
