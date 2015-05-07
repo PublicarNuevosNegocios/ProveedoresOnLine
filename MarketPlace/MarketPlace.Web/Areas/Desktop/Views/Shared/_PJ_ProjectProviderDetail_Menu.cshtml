@@ -8,14 +8,14 @@
         <div class="POMPProviderMenuDetail">
             @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderLite, Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider)
         </div>
-        @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
-        {
-            <ul>
-                @foreach (var oAreaItem in oEvaluationAreas)
+        <ul class="POMPProjectBidAreas">
+            @if (oEvaluationAreas != null && oEvaluationAreas.Count > 0)
+            {
+                foreach (var oAreaItem in oEvaluationAreas)
                 {
                     if (oAreaItem.EvaluationItemId == Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemId)
                     {
-                        <li class="projectmenuselected">
+                        <li class="POMPprojectmenuselected">
                             <a href="@(Url.RouteUrl
                                         (MarketPlace.Models.General.Constants.C_Routes_Default,
                                         new
@@ -48,7 +48,8 @@
                         </li>
                     }
                 }
-            </ul>
-        }
+
+            }
+        </ul>
     </div>
 }

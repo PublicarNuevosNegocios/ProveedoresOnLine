@@ -18,7 +18,6 @@
                 autoUpload: true
             },
             success: function (e) {
-                debugger;
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
@@ -162,6 +161,15 @@ var Project_ProjectDetailObject = {
             $('#' + Project_ProjectDetailObject.ObjectId + '_ProviderAwardDialog_Form').kendoValidator();
         }
 
+        //init approved form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').length > 0) {
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').kendoValidator();
+        }
+
+        //init rejected form
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').length > 0) {
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_RejectDialog_Form').kendoValidator();
+        }
     },
 
     ShowEditProject: function () {
@@ -209,7 +217,6 @@ var Project_ProjectDetailObject = {
     },
 
     ShowRequestApprovalProject: function (vProviderPublicId) {
-
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_RequestApprovalDialog').length > 0) {
 
             //init dialog
@@ -242,6 +249,52 @@ var Project_ProjectDetailObject = {
                 },
             });
         }
+    },
+
+    ShowAproveProjectProvider: function () {
+        if ($('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').length > 0) {
+
+            //init dialog
+            $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog').dialog({
+                modal: true,
+                width: '500',
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Aprobar': function () {
+                        //validate form
+                        var validator = $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').data("kendoValidator");
+                        if (validator.validate()) {
+                            //hide dialog actions
+                            $(".ui-dialog-buttonpane button").css('display', 'none');
+
+                            //save project
+                            $.ajax({
+                                type: "POST",
+                                url: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').attr('action'),
+                                data: $('#' + Project_ProjectDetailObject.ObjectId + '_ProjectProviderDetail_ApproveDialog_Form').serialize(),
+                                success: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - aprobación', 'Se ha aprobado el proceso de selección correctamente.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                },
+                                error: function (result) {
+                                    Dialog_ShowMessage('Proceso de selección - aprobación', 'Ha ocurrido un error aprobando el proceso de selección.', Project_ProjectDetailObject.ProjectDetailUrl);
+                                    window.location = Project_ProjectDetailObject.ProjectDetailUrl;
+                                    $(this).dialog('close');
+                                }
+                            });
+
+                        }
+                    }
+                },
+            });
+        }
+    },
+
+    ShowRejectProjectProvider: function () {
+
     },
 
     ShowCloseProject: function () {

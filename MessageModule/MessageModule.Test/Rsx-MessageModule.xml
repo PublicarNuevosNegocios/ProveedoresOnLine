@@ -5,7 +5,9 @@
     <key name="Agent">
       <![CDATA[POL_RememberPassword_Mail
           ,POL_SurveyWriteBackNotification_Mail
-          ,POL_ProjectApprovalRequest_Mail]]>
+          ,POL_ProjectApprovalRequest_Mail
+          ,POL_ProjectApproveArea_Mail
+          ,POL_ProjectRejectArea_Mail]]>
     </key>
 
     <!--Proveedores on line remember password email agent-->
@@ -234,5 +236,102 @@
       ]]>
     </key>
 
+    <!--Proveedores on line project approve area email agent-->
+    <key name="AgentConfig_POL_ProjectApproveArea_Mail">
+      <![CDATA[
+        <POL_SurveyWriteBackNotification_Mail>
+          <key name="Assemblie">
+            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
+          </key>
+          <key name="AccessKeyId">
+            &lt;![CDATA[your_AccessKeyId]]&gt;
+          </key>
+          <key name="SecretAccessKey">
+            &lt;![CDATA[your_SecretAccessKey]]&gt;
+          </key>
+          <key name="RegionEndpoint">
+            &lt;![CDATA[us-east-1]]&gt;
+          </key>
+          <key name="Subject">
+            &lt;![CDATA[Aprobación proceso de selección - Proveedores OnLine]]&gt;
+          </key>
+          <key name="From">
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+          </key>
+          <key name="MessageBody">
+            &lt;![CDATA[
+                    {CustomerLogo}
+                    {CustomerName}
+                    {CustomerIdentificationTypeName}
+                    {CustomerIdentificationNumber}
+                    
+                    {ProviderLogo}
+                    {ProviderName}
+                    {ProviderIdentificationTypeName}
+                    {ProviderIdentificationNumber}
+                    {ProviderLink}
+                    
+                    {ProjectName}
+                    {ProjectLastModify}
+                    {ProjectUrl}
+
+                    {EvaluationAreaName}
+                    
+                    {ProjectProviderUrl}
+    
+            ]]&gt;
+          </key>
+        </POL_SurveyWriteBackNotification_Mail>
+      ]]>
+    </key>
+
+    <!--Proveedores on line project reject email agent-->
+    <key name="AgentConfig_POL_ProjectRejectArea_Mail">
+      <![CDATA[
+        <POL_SurveyWriteBackNotification_Mail>
+          <key name="Assemblie">
+            &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
+          </key>
+          <key name="AccessKeyId">
+            &lt;![CDATA[your_AccessKeyId]]&gt;
+          </key>
+          <key name="SecretAccessKey">
+            &lt;![CDATA[your_SecretAccessKey]]&gt;
+          </key>
+          <key name="RegionEndpoint">
+            &lt;![CDATA[us-east-1]]&gt;
+          </key>
+          <key name="Subject">
+            &lt;![CDATA[Rechazo proceso de selección - Proveedores OnLine]]&gt;
+          </key>
+          <key name="From">
+            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+          </key>
+          <key name="MessageBody">
+            &lt;![CDATA[
+                    {CustomerLogo}
+                    {CustomerName}
+                    {CustomerIdentificationTypeName}
+                    {CustomerIdentificationNumber}
+                    
+                    {ProviderLogo}
+                    {ProviderName}
+                    {ProviderIdentificationTypeName}
+                    {ProviderIdentificationNumber}
+                    {ProviderLink}
+                    
+                    {ProjectName}
+                    {ProjectLastModify}
+                    {ProjectUrl}
+
+                    {EvaluationAreaName}
+                    
+                    {ProjectProviderUrl}
+    
+            ]]&gt;
+          </key>
+        </POL_SurveyWriteBackNotification_Mail>
+      ]]>
+    </key>
   </MessageModule>
 </Settings>

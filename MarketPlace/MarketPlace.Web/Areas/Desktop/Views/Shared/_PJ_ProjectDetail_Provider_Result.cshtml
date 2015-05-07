@@ -173,7 +173,7 @@
                                                     <ul class="POMPProjectBidEditDialog">
                                                         <li>
                                                             <span>Nota de adjudicación:</span>
-                                                            <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.AwardText).ToString())_" placeholder="Nota de adjudicación" required validationmessage="La nota de adjudicación es obligatoria es obligatoria"></textarea>
+                                                            <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.AwardText).ToString())_" placeholder="Nota de adjudicación" required validationmessage="La nota de adjudicación es obligatoria"></textarea>
                                                         </li>
                                                     </ul>
                                                     <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
@@ -206,18 +206,5 @@
             }
         </ul>
     }
-
-    <!--project templates-->
-    <div style="display:none;">
-
-        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
-        {
-            <div id="ProjectDetail_RequestApprovalDialog" title="Solicitar aprobación">
-                <p>Al solicitar aprobacción sobre el proveedor el proceso de selección sera cerrado hasta recibir respuesta de los diferentes aprobadores, esta seguro que desea realizar esta acción?</p>
-            </div>
-        }
-
-    </div>
 }
 

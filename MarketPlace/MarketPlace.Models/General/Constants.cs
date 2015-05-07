@@ -61,6 +61,9 @@
 
         public const string C_Settings_Project_Approval_MailAgent = "Project_Approval_MailAgent";
 
+        public const string C_Settings_Project_ApproveArea_MailAgent = "Project_ApproveArea_MailAgent";
+
+        public const string C_Settings_Project_RejectArea_MailAgent = "Project_RejectArea_MailAgent";
 
         #endregion
 

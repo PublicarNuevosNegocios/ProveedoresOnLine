@@ -60,10 +60,10 @@
 
     List<MarketPlace.Models.Project.EvaluationItemViewModel> oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria();
 
-    <div>
+    <div class="POMPProjectBidDetailGrid">
         <ul>
             <li>
-                <ul>
+                <ul class="POMPProjectBidDetailGridHeaderRowe">
                     <li>
                         <span>Criterio</span>
                     </li>
@@ -119,7 +119,7 @@
                 }
 
                 <li>
-                    <ul>
+                    <ul class="POMPProjectBidDetailGridRowes">
                         <li>
                             <span>@oCriteria.EvaluationItemName</span>
                         </li>
@@ -132,15 +132,15 @@
                     </ul>
                 </li>
             }
-            <li class="@oAreaEvalStyle">
-                <ul>
-                    <li>
+            <li class="finalrowe">
+                <ul class="POMPProjectBidDetailGridResultRowes">
+                    <li class="@oAreaEvalStyle">
                         <span>Resultado @Model.RelatedProjectConfig.CurrentEvaluationArea.EvaluationItemName</span>
                     </li>
-                    <li>
+                    <li class="@oAreaEvalStyle">
                         <span>@oAreaEvalUnit</span>
                     </li>
-                    <li>
+                    <li class="@oAreaEvalStyle">
                         <span>@oAreaEvalResult</span>
                     </li>
                 </ul>
