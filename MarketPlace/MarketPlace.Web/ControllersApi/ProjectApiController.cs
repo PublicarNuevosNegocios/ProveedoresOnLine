@@ -496,6 +496,46 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public bool ProjectApproveEvaluationArea
+            (string ProjectApproveEvaluationArea,
+            string ProjectPublicId,
+            string ProviderPublicId,
+            string EvaluationAreaId)
+        {
+            bool oReturn = false;
+
+            if (ProjectApproveEvaluationArea == "true" &&
+                !string.IsNullOrEmpty(ProjectPublicId) &&
+                !string.IsNullOrEmpty(ProviderPublicId) &&
+                !string.IsNullOrEmpty(EvaluationAreaId))
+            {
+
+            }
+            return oReturn;
+        }
+
+        [HttpPost]
+        [HttpGet]
+        public bool ProjectRejectEvaluationArea
+            (string ProjectRejectEvaluationArea,
+            string ProjectPublicId,
+            string ProviderPublicId,
+            string EvaluationAreaId)
+        {
+            bool oReturn = false;
+
+            if (ProjectRejectEvaluationArea == "true" &&
+                !string.IsNullOrEmpty(ProjectPublicId) &&
+                !string.IsNullOrEmpty(ProviderPublicId) &&
+                !string.IsNullOrEmpty(EvaluationAreaId))
+            {
+
+            }
+            return oReturn;
+        }
+
         #endregion
 
         #region private methods
@@ -620,30 +660,7 @@ namespace MarketPlace.Web.ControllersApi
             MarketPlace.Models.Project.EvaluationItemViewModel vEvaluationArea)
         {
             //get to for message
-            List<string> oTo = new List<string>();
-
-            if (vEvaluationArea.EvaluatorType != null &&
-                vEvaluationArea.EvaluatorType == Models.General.enumEvaluatorType.SpecificPerson &&
-                !string.IsNullOrEmpty(vEvaluationArea.Evaluator) &&
-                vEvaluationArea.Evaluator.Any(ev => ev == '@'))
-            {
-                //specific user
-                oTo.Add(vEvaluationArea.Evaluator);
-            }
-            else if (vEvaluationArea.EvaluatorType != null &&
-                    vEvaluationArea.EvaluatorType == Models.General.enumEvaluatorType.AnyInRol &&
-                    !string.IsNullOrEmpty(vEvaluationArea.Evaluator))
-            {
-                //all users in role
-                List<ProveedoresOnLine.Company.Models.Company.UserCompany> oUsersTo = ProveedoresOnLine.Company.Controller.Company.MP_UserCompanySearch
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                    "@",
-                    Convert.ToInt32(vEvaluationArea.Evaluator.Replace(" ", "")),
-                    0,
-                    20);
-
-                oTo = oUsersTo.Select(usr => usr.User).Distinct().ToList();
-            }
+            List<string> oTo = vEvaluationArea.GetEvaluatorsEmails();
 
             if (oTo != null && oTo.Count > 0)
             {

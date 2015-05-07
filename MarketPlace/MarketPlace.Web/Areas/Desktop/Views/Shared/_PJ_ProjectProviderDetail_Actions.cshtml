@@ -2,6 +2,83 @@
 
 @if (!Model.RenderScripts)
 {
+    <ul class="POMPProjectBidProviderActions">
+        @if (Model.CurrentProjectProvider.ApprovalStatus == null &&
+            (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
+            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal))
+        {
+            <li>
+                <a href="javascript:Project_ProjectDetailObject.ShowRequestApprovalProject('@Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId');">Solicitar aprobación</a>
+                <!--Approval template-->
+                <div style="display:none;">
+                    <div id="ProjectDetail_RequestApprovalDialog" title="Solicitar aprobación">
+                        <p>Al solicitar aprobacción sobre el proveedor el proceso de selección sera cerrado hasta recibir respuesta de los diferentes aprobadores, esta seguro que desea realizar esta acción?</p>
+                    </div>
+                </div>
+            </li>
+        }
+        else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval &&
+                Model.CurrentProjectProvider.ApprovalStatus != null &&
+                Model.CurrentProjectProvider.ApprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Pending)
+        {
+            bool IsApprovalUser = Model.IsApprovalUser();
 
+            if (IsApprovalUser)
+            {
+                <li>
+                    <a>Rechazar</a>
+                </li>
+                <li>
+                    <a>Aprobar</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <span>Pendiente por aprobación</span>
+                </li>
+            }
+        }
+        else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Award &&
+                Model.CurrentProjectProvider.ApprovalStatus != null &&
+                Model.CurrentProjectProvider.ApprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Approved)
+        {
+            <li>
+                <a href="javascript:Project_ProjectDetailObject.ShowAwardProject();">Adjudicar</a>
+
+                <!--template award provider-->
+                <div style="display:none;">
+                    <div id="ProjectDetail_ProviderAwardDialog" title="Adjudicar proceso de selección">
+                        <form id="ProjectDetail_ProviderAwardDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectAward=true")">
+                            <ul class="POMPProjectBidEditDialog">
+                                <li>
+                                    <span>Nota de adjudicación:</span>
+                                    <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.AwardText).ToString())_" placeholder="Nota de adjudicación" required validationmessage="La nota de adjudicación es obligatoria es obligatoria"></textarea>
+                                </li>
+                            </ul>
+                            <input type="hidden" name="ProjectPublicId" value="@Model.ProjectPublicId" />
+                            <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+                            <input type="hidden" name="ProjectConfig" value="@Model.RelatedProjectConfig.ProjectConfigId" />
+                            <input type="hidden" name="ProjectStatus" value="@(((int)MarketPlace.Models.General.enumProjectStatus.CloseWin).ToString())" />
+                            <input type="hidden" name="ProjectName" value="@Model.ProjectName" />
+
+                            <input type="hidden" name="ProjectCompanyId" value="@Model.CurrentProjectProvider.RelatedProjectProvider.ProjectCompanyId" />
+                            <input type="hidden" name="ProviderPublicId" value="@Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId" />
+                            <input type="hidden" name="ProjectCompanyInfo_@(((int)MarketPlace.Models.General.enumProjectCompanyInfoType.ApprovalStatus).ToString())_@(Model.CurrentProjectProvider.ApprovalStatusId.ToString())" value="@(((int)MarketPlace.Models.General.enumApprovalStatus.Award).ToString())" />
+                        </form>
+                    </div>
+                </div>
+            </li>
+        }
+        else if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.CloseWin &&
+                Model.CurrentProjectProvider.ApprovalStatus != null &&
+                Model.CurrentProjectProvider.ApprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Award)
+        {
+            <li>
+                <!--actions-->
+                <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.CurrentProjectProvider.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar evaluación de desempeño</a>
+            </li>
+        }
+    </ul>
 }
 

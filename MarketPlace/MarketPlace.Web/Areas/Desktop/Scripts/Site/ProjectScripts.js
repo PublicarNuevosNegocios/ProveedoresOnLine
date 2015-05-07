@@ -208,7 +208,6 @@ var Project_ProjectDetailObject = {
     },
 
     ShowRequestApprovalProject: function (vProviderPublicId) {
-
         if ($('#' + Project_ProjectDetailObject.ObjectId + '_RequestApprovalDialog').length > 0) {
 
             //init dialog

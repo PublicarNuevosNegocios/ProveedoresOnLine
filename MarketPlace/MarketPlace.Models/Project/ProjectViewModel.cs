@@ -401,6 +401,26 @@ namespace MarketPlace.Models.Project
             }
         }
 
+        public bool IsApprovalUser()
+        {
+            bool oReturn = false;
+
+            if (ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Approval &&
+                CurrentProjectProvider.ApprovalStatus != null &&
+                CurrentProjectProvider.ApprovalStatus == MarketPlace.Models.General.enumApprovalStatus.Pending &&
+                RelatedProjectConfig.CurrentEvaluationArea != null)
+            {
+                //get approval users for current area
+                List<string> oAprovalEmails = RelatedProjectConfig.CurrentEvaluationArea.GetEvaluatorsEmails();
+
+                oReturn = oAprovalEmails != null &&
+                        oAprovalEmails.Count > 0 &&
+                        oAprovalEmails.Any(ae => ae.Replace(" ", "").ToLower() == MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower());
+            }
+
+            return oReturn;
+        }
+
         #endregion
     }
 }

@@ -206,18 +206,5 @@
             }
         </ul>
     }
-
-    <!--project templates-->
-    <div style="display:none;">
-
-        @if (Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.Open ||
-            Model.ProjectStatus == MarketPlace.Models.General.enumProjectStatus.OpenRefusal)
-        {
-            <div id="ProjectDetail_RequestApprovalDialog" title="Solicitar aprobación">
-                <p>Al solicitar aprobacción sobre el proveedor el proceso de selección sera cerrado hasta recibir respuesta de los diferentes aprobadores, esta seguro que desea realizar esta acción?</p>
-            </div>
-        }
-
-    </div>
 }
 
