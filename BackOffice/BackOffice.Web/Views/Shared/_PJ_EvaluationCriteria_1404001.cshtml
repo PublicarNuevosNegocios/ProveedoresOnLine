@@ -3,18 +3,92 @@
 @if (Model.RelatedProjectProvider != null)
 {
     <div>
+        <label>Criterio de Evaluación de Experiencias</label>
         <ul>
             <li>
-                <label></label>
+                <label>Unidad:</label>
                 <input />
             </li>
             <li>
-                <label></label>
+                <label>Criterio de Evaluación:</label>
                 <input />
             </li>
             <li>
-                <label></label>
+                <label>Orden</label>
                 <input />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Peso:</label>
+                <input />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Configuración de Experiencia</label>
+                <div>
+                    <ul>
+                        <li>
+                            <label>Años de experiencia a tener en cuenta</label>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <label>Tipo de Fecha:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Identificador:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Operador:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Etiqueta:</label>
+                                        <input />
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <label>Cantidad minima de experiencias:</label>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <label>Identificador:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Etiqueta:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Habilitado</label>
+                                        <input type="checkbox" checked />
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <label>Actividades Económicas:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                        <li>
+                            <label>Actividades Económicas Personalizadas:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                        <li>
+                            <label>Valor estimado:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                        <li>
+                            <label>Moneda:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

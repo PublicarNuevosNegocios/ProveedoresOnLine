@@ -1,21 +1,48 @@
 ﻿@model BackOffice.Models.Customer.ProjectConfigViewModel
 
-@if (Model.RelatedProjectProvider != null &&
-    Model.RelatedProjectProvider.ItemType.ItemId == (int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_LTIF)
+@if (Model.RelatedProjectProvider != null)
 {
     <div>
+        <label>Criterio de Evaluación de LTIF</label>
         <ul>
             <li>
-                <label></label>
+                <label>Unidad:</label>
                 <input />
             </li>
             <li>
-                <label></label>
+                <label>Criterio de Evaluación:</label>
                 <input />
             </li>
             <li>
-                <label></label>
+                <label>Orden</label>
                 <input />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Peso:</label>
+                <input />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Valores de Evaluación:</label>
+                <div>
+                    <ul>
+                        <li>
+                            <label>Tipo de Información:</label>
+                            <input />
+                        </li>
+                        <li>
+                            <label>Valor:</label>
+                            <input />
+                        </li>
+                        <li>
+                            <label>Operador</label>
+                            <input />
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

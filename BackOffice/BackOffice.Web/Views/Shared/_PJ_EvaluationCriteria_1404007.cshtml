@@ -1,20 +1,26 @@
 ﻿@model BackOffice.Models.Customer.ProjectConfigViewModel
 
-@if (Model.RelatedProjectProvider != null &&
-    Model.RelatedProjectProvider.ItemType.ItemId == (int)BackOffice.Models.General.enumEvaluationCriteriaType.EC_RUT)
+@if (Model.RelatedProjectProvider != null)
 {
     <div>
+        <label>Criterio de Evaluación de RUT</label>
         <ul>
             <li>
-                <label></label>
+                <label>Unidad:</label>
                 <input />
             </li>
             <li>
-                <label></label>
+                <label>Criterio de Evaluación:</label>
                 <input />
             </li>
             <li>
-                <label></label>
+                <label>Orden:</label>
+                <input />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Peso:</label>
                 <input />
             </li>
         </ul>
