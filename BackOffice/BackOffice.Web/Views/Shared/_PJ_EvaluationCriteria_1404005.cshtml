@@ -1,19 +1,20 @@
-﻿@model BackOffice.Models.Customer.ProjectConfigViewModel
+﻿@model BackOffice.Models.Customer.EvaluationItemViewModel
 
-@if (Model.RelatedProjectProvider != null)
-{
-    <div>
-        <label>Criterio de Evaluación de Balances.</label>
+<div>
+    <label>Criterio de Evaluación de Balances.</label>
+
+    @if (Model.RelatedEvaluationItem != null)
+    {
         <ul>
             <li>
                 <label>Unidad:</label>
-                <input />
+                <input id="@Model.EC_UnitId" name="EC_UnitId" value="@Model.EC_Unit" />
             </li>
             <li>
                 <label>Habilitado:</label>
                 <input type="checkbox" checked />
                 <label>Peso:</label>
-                <input />
+                <input id="@Model.EC_RatingId" name="EC_RatingId" value="@Model.EC_Rating" />
             </li>
             <li>
                 <label>Número de años a tener en cuenta:</label>
@@ -21,7 +22,7 @@
             </li>
             <li>
                 <label>Orden</label>
-                <input />
+                <input id="@Model.EC_OrderId" name="EC_OrderId" value="@Model.EC_Order" />
             </li>
             <li>
                 <label>Habilitado:</label>
@@ -45,5 +46,49 @@
                 </div>
             </li>
         </ul>
-    </div>
-}
+    }
+    else
+    {
+        <ul>
+            <li>
+                <label>Unidad:</label>
+                <input name="EC_UnitId" value="" />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Peso:</label>
+                <input name="EC_RatingId" value="" />
+            </li>
+            <li>
+                <label>Número de años a tener en cuenta:</label>
+                <input />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input name="EC_OrderId" value="" />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Valores de Evaluación.</label>
+                <div>
+                    <ul>
+                        <li>
+                            <label>Tipo de Información</label>
+                            <input />
+                        </li>
+                        <li>
+                            <label>Valor:</label>
+                            <input />
+                        </li>
+                        <li>
+                            <label>Operador:</label>
+                            <input />
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    }
+</div>

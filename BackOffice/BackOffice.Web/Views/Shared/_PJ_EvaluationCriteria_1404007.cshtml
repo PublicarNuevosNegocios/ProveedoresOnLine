@@ -1,28 +1,52 @@
-﻿@model BackOffice.Models.Customer.ProjectConfigViewModel
+﻿@model BackOffice.Models.Customer.EvaluationItemViewModel
 
-@if (Model.RelatedProjectProvider != null)
-{
-    <div>
-        <label>Criterio de Evaluación de RUT</label>
+<div>
+    <label>Criterio de Evaluación de RUT</label>
+
+    @if (Model.RelatedEvaluationItem != null)
+    {
         <ul>
             <li>
                 <label>Unidad:</label>
-                <input />
+                <input id="@Model.EC_UnitId" name="EC_UnitId" value="@Model.EC_Unit" />
             </li>
             <li>
                 <label>Criterio de Evaluación:</label>
-                <input />
+                <input id="@Model.EC_EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@Model.EC_EvaluationCriteria" />
             </li>
             <li>
                 <label>Orden:</label>
-                <input />
+                <input id="@Model.EC_OrderId" name="EC_OrderId" value="@Model.EC_Order" />
             </li>
             <li>
                 <label>Habilitado:</label>
                 <input type="checkbox" checked />
                 <label>Peso:</label>
-                <input />
+                <input id="@Model.EC_RatingId" name="EC_RatingId" value="@Model.EC_Rating" />
             </li>
         </ul>
-    </div>
-}
+    }
+    else
+    {
+        <ul>
+            <li>
+                <label>Unidad:</label>
+                <input name="EC_UnitId" value="" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación:</label>
+                <input name="EC_EvaluationCriteriaId" value="" />
+            </li>
+            <li>
+                <label>Orden:</label>
+                <input name="EC_OrderId" value="" />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Peso:</label>
+                <input name="EC_RatingId" value="" />
+            </li>
+        </ul>
+    }
+</div>

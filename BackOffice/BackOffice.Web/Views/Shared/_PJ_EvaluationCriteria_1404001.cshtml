@@ -1,27 +1,28 @@
-﻿@model BackOffice.Models.Customer.ProjectConfigViewModel
+﻿@model BackOffice.Models.Customer.EvaluationItemViewModel
 
-@if (Model.RelatedProjectProvider != null)
-{
-    <div>
-        <label>Criterio de Evaluación de Experiencias</label>
+<div>
+    <label>Criterio de Evaluación de Experiencias</label>
+
+    @if (Model.RelatedEvaluationItem != null)
+    {
         <ul>
             <li>
                 <label>Unidad:</label>
-                <input />
+                <input id="@Model.EC_UnitId" name="EC_UnitId" value="@Model.EC_Unit" />
             </li>
             <li>
                 <label>Criterio de Evaluación:</label>
-                <input />
+                <input id="@Model.EC_EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@Model.EC_EvaluationCriteria" />
             </li>
             <li>
                 <label>Orden</label>
-                <input />
+                <input id="@Model.EC_OrderId" name="EC_OrderId" value="@Model.EC_Order" />
             </li>
             <li>
                 <label>Habilitado:</label>
                 <input type="checkbox" checked />
                 <label>Peso:</label>
-                <input />
+                <input id="@Model.EC_RatingId" name="EC_RatingId" value="@Model.EC_Rating" />
             </li>
             <li>
                 <label>Habilitado:</label>
@@ -91,5 +92,95 @@
                 </div>
             </li>
         </ul>
-    </div>
-}
+    }
+    else
+    {
+        <ul>
+            <li>
+                <label>Unidad:</label>
+                <input name="EC_UnitId" value="" />
+            </li>
+            <li>
+                <label>Criterio de Evaluación:</label>
+                <input name="EC_EvaluationCriteriaId" value="" />
+            </li>
+            <li>
+                <label>Orden</label>
+                <input name="EC_OrderId" value="" />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Peso:</label>
+                <input name="EC_RatingId" value="" />
+            </li>
+            <li>
+                <label>Habilitado:</label>
+                <input type="checkbox" checked />
+                <label>Configuración de Experiencia</label>
+                <div>
+                    <ul>
+                        <li>
+                            <label>Años de experiencia a tener en cuenta</label>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <label>Tipo de Fecha:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Identificador:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Operador:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Etiqueta:</label>
+                                        <input />
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <label>Cantidad minima de experiencias:</label>
+                            <div>
+                                <ul>
+                                    <li>
+                                        <label>Identificador:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Etiqueta:</label>
+                                        <input />
+                                    </li>
+                                    <li>
+                                        <label>Habilitado</label>
+                                        <input type="checkbox" checked />
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <label>Actividades Económicas:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                        <li>
+                            <label>Actividades Económicas Personalizadas:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                        <li>
+                            <label>Valor estimado:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                        <li>
+                            <label>Moneda:</label>
+                            <input type="checkbox" checked />
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    }
+</div>
