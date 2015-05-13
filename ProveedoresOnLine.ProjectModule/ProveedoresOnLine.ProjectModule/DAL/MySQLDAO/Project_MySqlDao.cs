@@ -393,7 +393,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
         }
 
 
-        public List<ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int? ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
         {
             TotalRows = 0;
 

@@ -480,5 +480,64 @@ div.POMPProjectBidDetailGridActions > div{
 }
 /************ AQUI VAN LOS DETALLES DE CADA AREA,
     LOS PARCIALES DE DETALLE DE PROVEEDOR **************/
-.POMPProjectBidDetailData > div.POMPProviderDataWrapper {}
-.POMPProjectBidDetailData > div.POMPProviderDataWrapper > label.POMPSectionTitles {}
+.POMPProjectBidDetailData > div.POMPProviderDataWrapper {
+    border-top:1px solid gray !important;
+    border-left:none !important;
+    display:block;
+    height: auto;
+    margin:0px 0px 0px -5px;
+    min-height:initial !important;
+    min-width:initial !important;
+    padding: 13px 0 6px 0 !important;
+    width:99% !important;
+}
+.POMPProjectBidDetailData > div.POMPProviderDataWrapper > label.POMPSectionTitles {
+    background-color: #eeeeee !important;
+    background-image:none !important;
+    border-top-left-radius: 1px;
+    border-top-right-radius: 1px;
+    border:none !important;
+    box-shadow: 1px 1px 2px #444;
+    color: #5d5d5d !important;
+    display: block;
+    font-size: 1.3em;
+    font-weight: normal;
+    letter-spacing: -1px;
+    margin: 0 0px 0px !important;
+    padding: 0px 0 0 8px !important;
+}
+    .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoDisplayList {
+        display: block;
+        margin: 1px auto;
+        width: 98%;
+    }
+    .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoDisplayList > li{
+        border-bottom: 1px solid #d4d4d4;        
+        margin: 0 5px 0 0;
+        min-height: 62px;
+        min-width: 213px;
+        padding: 4px 0 0;
+        vertical-align: top;
+        width: 32.5%;
+    }
+        .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoDisplayList > li > label {
+            color: #0066ae;
+            font-size: 1.14em;
+            font-weight: normal;
+            letter-spacing: -0.2px;
+            line-height: 1em;
+        }
+    .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoMultipleValues > label.POMPProviderDataSubtitle {
+        border-bottom: 1px solid #d4d4d4;
+        color: #0066ae;
+        font-size: 1.14em;
+        font-weight: normal;
+        letter-spacing: -0.2px;
+        line-height: 1em;
+        margin: 0 5px 0 0;
+        min-height: 62px;
+        min-width: 213px;
+        padding: 4px 0 0;
+        vertical-align: top;
+        width: 32.1%;
+    }

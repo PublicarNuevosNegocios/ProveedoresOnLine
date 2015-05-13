@@ -114,7 +114,13 @@ namespace MarketPlace.Web.Controllers
                             new
                             {
                                 controller = MVC.Project.Name,
-                                action = MVC.Project.ActionNames.Index
+                                action = MVC.Project.ActionNames.Index,
+                                ProjectStatus = string.Empty,
+                                SearchParam = string.Empty,
+                                SearchFilter = string.Empty,
+                                SearchOrderType = string.Empty,
+                                OrderOrientation = string.Empty,
+                                PageNumber = string.Empty,
                             }),
                         IsSelected = (CurrentControllerName == MVC.Project.Name &&
                                     CurrentActionName == MVC.Project.ActionNames.Index),

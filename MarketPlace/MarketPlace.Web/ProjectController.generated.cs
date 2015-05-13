@@ -59,6 +59,12 @@ namespace MarketPlace.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ProjectDetail()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ProjectDetail);
@@ -107,6 +113,19 @@ namespace MarketPlace.Web.Controllers
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
+        {
+            public readonly string ProjectStatus = "ProjectStatus";
+            public readonly string SearchParam = "SearchParam";
+            public readonly string SearchFilter = "SearchFilter";
+            public readonly string SearchOrderType = "SearchOrderType";
+            public readonly string OrderOrientation = "OrderOrientation";
+            public readonly string PageNumber = "PageNumber";
+        }
         static readonly ActionParamsClass_ProjectDetail s_params_ProjectDetail = new ActionParamsClass_ProjectDetail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ProjectDetail ProjectDetailParams { get { return s_params_ProjectDetail; } }
@@ -153,13 +172,19 @@ namespace MarketPlace.Web.Controllers
         public T4MVC_ProjectController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProjectStatus, string SearchParam, string SearchFilter, string SearchOrderType, string OrderOrientation, string PageNumber);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index()
+        public override System.Web.Mvc.ActionResult Index(string ProjectStatus, string SearchParam, string SearchFilter, string SearchOrderType, string OrderOrientation, string PageNumber)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            IndexOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectStatus", ProjectStatus);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchParam", SearchParam);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchFilter", SearchFilter);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
+            IndexOverride(callInfo, ProjectStatus, SearchParam, SearchFilter, SearchOrderType, OrderOrientation, PageNumber);
             return callInfo;
         }
 
