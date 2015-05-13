@@ -422,3 +422,111 @@ var Project_ProjectDetailObject = {
         }
     },
 };
+
+var Project_SearchObject = {    
+
+    ObjectId: '',
+    SearchUrl: '',
+    ProjectStatus:'',
+    ProjectPublicId: '',
+    ProjectUrl: '',
+    SearchParam: '',
+    SearchFilter: '',
+    SearchOrderType: '',
+    OrderOrientation: false,
+    PageNumber: 0,
+    RowCount: 0,
+
+    BlackListStatusShowAlert: '',
+
+    Init: function (vInitObject) {
+        debugger;
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+        this.ProjectPublicId = vInitObject.ProjectPublicId;
+        this.ProjectUrl = vInitObject.ProjectUrl;
+        this.SearchParam = vInitObject.SearchParam;
+        this.SearchFilter = vInitObject.SearchFilter;
+        this.SearchOrderType = vInitObject.SearchOrderType;
+        this.OrderOrientation = vInitObject.OrderOrientation;
+        this.PageNumber = vInitObject.PageNumber;
+        this.RowCount = vInitObject.RowCount;
+
+        this.BlackListStatusShowAlert = vInitObject.BlackListStatusShowAlert;
+    },
+
+    RenderAsync: function () {
+        debugger;
+        //init Search input
+        $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
+            if (e.keyCode == 13) {
+                //enter action search
+                Project_SearchObject.Search();
+            }
+        });
+
+        //init search orient controls
+        $('input[name="Search_rbOrder"]').change(function () {
+            if ($(this) != null && $(this).attr('searchordertype') != null && $(this).attr('orderorientation') != null) {
+                Project_SearchObject.Search({
+                    SearchOrderType: $(this).attr('searchordertype'),
+                    OrderOrientation: $(this).attr('orderorientation')
+                });
+            }
+        });
+    },
+
+    /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
+    Search: function (vSearchObject) {
+        debugger;
+        /*get serach param*/
+        if (this.SearchParam != $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val()) {
+            /*Init pager*/
+            this.PageNumber = 0;
+        }
+        this.SearchParam = $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val();
+
+        if (vSearchObject != null) {
+            /*get filter values*/
+            if (vSearchObject.SearchFilter != null) {
+                if (vSearchObject.SearchFilter.Enable == true) {
+                    this.SearchFilter += ',' + vSearchObject.SearchFilter.Value;
+                }
+                else {
+                    this.SearchFilter = this.SearchFilter.replace(new RegExp(vSearchObject.SearchFilter.Value, 'gi'), '').replace(/,,/gi, '');
+                }
+
+                /*Init pager*/
+                this.PageNumber = 0;
+            }
+
+            /*get order*/
+            if (vSearchObject.SearchOrderType != null) {
+                this.SearchOrderType = vSearchObject.SearchOrderType;
+            }
+            if (vSearchObject.OrderOrientation != null) {
+                this.OrderOrientation = vSearchObject.OrderOrientation;
+            }
+
+            /*get page*/
+            if (vSearchObject.PageNumber != null) {
+                this.PageNumber = vSearchObject.PageNumber;
+            }
+        }
+        window.location = Project_SearchObject.GetSearchUrl();
+    },
+
+    GetSearchUrl: function () {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?ProjectStatus =' + this.ProjectStatus;        
+        oUrl += '&SearchParam=' + this.SearchParam;
+        oUrl += '&SearchFilter=' + this.SearchFilter;
+        oUrl += '&SearchOrderType=' + this.SearchOrderType;
+        oUrl += '&OrderOrientation=' + this.OrderOrientation;
+        oUrl += '&PageNumber=' + this.PageNumber;
+
+        return oUrl;
+    }
+}

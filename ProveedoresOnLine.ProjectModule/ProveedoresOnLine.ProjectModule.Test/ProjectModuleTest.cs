@@ -88,5 +88,13 @@ namespace ProveedoresOnLine.ProjectModule.Test
             Assert.IsNotNull(oResult);
         }
 
+        [TestMethod]
+        public void ProjectSearch()
+        {
+            int oTotalRows;
+            List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearch
+                ("DA5C572E", string.Empty, null , 0, 20,out oTotalRows);
+            Assert.IsNotNull(oResult);
+        }
     }
 }

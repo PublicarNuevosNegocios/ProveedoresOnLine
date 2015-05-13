@@ -353,7 +353,7 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return DAL.Controller.ProjectDataController.Instance.MPProjectConfigGetByCustomer(CustomerPublicId);
         }
 
-        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
+        public static List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int? ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
         {
             return DAL.Controller.ProjectDataController.Instance.ProjectSearch(CustomerPublicId, SearchParam, ProjectStatus, PageNumber, RowCount, out  TotalRows);
         }

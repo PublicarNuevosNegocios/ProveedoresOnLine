@@ -10,9 +10,48 @@ namespace MarketPlace.Web.Controllers
 {
     public partial class ProjectController : BaseController
     {
-        public virtual ActionResult Index()
+        public virtual ActionResult Index(
+                string ProjectStatus,
+                string SearchParam,
+                string SearchFilter,
+                string SearchOrderType,
+                string OrderOrientation,
+                string PageNumber
+            )
         {
-            return View();
+            MarketPlace.Models.Provider.ProviderSearchViewModel oModel = null;
+
+            //get basic search model
+            oModel = new Models.Provider.ProviderSearchViewModel()
+            {
+                ProviderOptions = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.CatalogGetProviderOptions(),
+                SearchParam = SearchParam,
+                SearchFilter = SearchFilter == null ? null : (SearchFilter.Trim(new char[] { ',' }).Length > 0 ? SearchFilter.Trim(new char[] { ',' }) : null),
+                SearchOrderType = string.IsNullOrEmpty(SearchOrderType) ? MarketPlace.Models.General.enumSearchOrderType.Relevance : (MarketPlace.Models.General.enumSearchOrderType)Convert.ToInt32(SearchOrderType),
+                OrderOrientation = string.IsNullOrEmpty(OrderOrientation) ? false : ((OrderOrientation.Trim().ToLower() == "1") || (OrderOrientation.Trim().ToLower() == "true")),
+                PageNumber = 0,
+                RelatedSearchProject = new List<Models.Project.ProjectSearchViewModel>(),
+            };
+
+            if (MarketPlace.Models.General.SessionModel.CurrentCompany != null &&
+                !string.IsNullOrEmpty(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId))
+            {
+                //get basic search model
+                int oTotalRows;                
+                List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> oProjects =
+                    ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearch(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    SearchParam, null, Convert.ToInt32(!string.IsNullOrEmpty(PageNumber) ? PageNumber : "0"), 100, out oTotalRows);
+
+                if (oProjects != null && oProjects.Count > 0)
+                {
+                    oProjects.All(x =>
+                    {
+                        oModel.RelatedSearchProject.Add(new MarketPlace.Models.Project.ProjectSearchViewModel(x));
+                        return true;
+                    });
+                }
+            }
+            return View(oModel);
         }
 
         public virtual ActionResult ProjectDetail(string ProjectPublicId)

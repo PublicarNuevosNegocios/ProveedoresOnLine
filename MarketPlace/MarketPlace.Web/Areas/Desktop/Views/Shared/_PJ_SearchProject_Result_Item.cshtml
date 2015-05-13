@@ -1,0 +1,58 @@
+﻿@model MarketPlace.Models.Project.ProjectSearchViewModel
+
+
+<!--ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES-->
+<div class="POMPSearchResultLineOne">
+    <!--Search Item-->
+
+    <div class="POMPSearchResultProvDataWrapper">
+
+        <div class="POMPSearchResultNameIDWrapper">
+            <label><span>Nombre: @Model.ProjectName</span> </label>
+        </div>
+        <label>
+            <span>
+                Estado
+                    @{switch (Model.ProjectStatus.ToString())
+                    {
+                        case ("Open"):
+                            <label><span>Abierto</span> </label>
+                            break;
+                        case ("Approval"):
+                        <label><span>Aprobado</span> </label>
+                            break;
+                        case ("OpenRefusal"):
+                        <label><span>Rechazado</span> </label>
+                            break;
+                        case ("Award"):
+                        <label><span>Asignado</span> </label>
+                            break;
+                        case ("CloseLose"):
+                        <label><span>Cerrado Sin Asignación</span> </label>
+                            break;
+                        case ("CloseWin"):
+                        <label><span>Cerrado Asignado</span></label>
+                            break;
+                    }
+                }
+            </span>
+        </label>
+        <label><span>Fecha: @Model.LastModify</span> </label>
+
+        <label><span>Tipo: @{
+            if ( Model.RelatedProject.RelatedProjectConfig != null )
+	        {
+		        @Model.RelatedProject.RelatedProjectConfig.ItemName 
+	        }}
+            </span> 
+        </label>
+        <a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetail,
+                                ProjectPublicId = Model.ProjectPublicId
+                            }))">Ver detalle</a>
+    </div>
+</div>

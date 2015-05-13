@@ -96,7 +96,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.MPProjectConfigGetByCustomer(CustomerPublicId);
         }
 
-        public List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
+        public List<ProveedoresOnLine.ProjectModule.Models.ProjectModel> ProjectSearch(string CustomerPublicId, string SearchParam, int? ProjectStatus, int PageNumber, int RowCount, out int TotalRows)
         {
             return DataFactory.ProjectSearch(CustomerPublicId, SearchParam, ProjectStatus, PageNumber, RowCount, out  TotalRows);
         }
