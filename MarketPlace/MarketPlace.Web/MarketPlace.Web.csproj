@@ -1057,6 +1057,8 @@
     <Content Include="Areas\Desktop\Views\Shared\_P_LI_RutInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_LI_SARLAFTInfo.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_ProjectProviderDetail_Actions.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_SearchProject_Result.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_PJ_SearchProject_Result_Item.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

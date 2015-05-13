@@ -1,15 +1,82 @@
-﻿@{
+﻿@model MarketPlace.Models.Provider.ProviderSearchViewModel
+@{
     ViewBag.Title = "Proveedores OnLine - Proceso de selección";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
-<div>
+<div class="POMPProviderSearchBox">
+    <!--SearchBox-->
+    <input class="POMPTextField" id="Project_txtSearchBox" type="text" value="@Model.SearchParam" onkeydown="if (event.keyCode == 13) javascript:Project_SearchObject.Search()" placeholder="Buscar Proceso de Selección por Nombre" />
+    <a class="POMPButtons POMPSearchButtons" href="javascript:Project_SearchObject.Search();">
+        Encontrar
+        <span class="POMPSearchButtonsLupita"></span>
+    </a>
+</div>
+<div class="POMProviderSearchGreatWrapper">
+
+    <div class="POMPProviderFilterMenuWrapper">
+        <!--SearchFilter-->
+        @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
+    </div>
+    <div class="POMPProviderListWrapper">
+        <!--SearchResult-->
+        @Html.Partial(MVC.Desktop.Shared.Views._PJ_SearchProject_Result, Model)
+    </div>
+    @*<div class="POMPComparisonListWrapper">
+            @if (Model.RelatedProject != null)
+            {
+                <!--Project-->
+                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
+            }
+            else
+            {
+                <!--Comparison-->
+                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+            }
+        </div>*@
 
 </div>
+@{
+    Model.RenderScripts = true;
+}
+
 @section inlinescripts
 {
+    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
+    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
+   
+
     <script type="text/javascript">
         $(document).ready(function () {
+            debugger;
+            Project_SearchObject.Init({
+                ObjectId: 'Project',
+                SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.Index
+                            }))',
+              
+                ProjectSatatus:'',
+                ProjectPublicId: '@(Model.RelatedProject != null ? Model.RelatedProject.ProjectPublicId : string.Empty)',
+                ProjectUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetailRecalculate
+                            }) + "?ProjectPublicId={ProjectPublicId}")',
+
+                SearchParam: '@Model.SearchParam',
+                SearchFilter: '@Model.SearchFilter',
+                SearchOrderType: '@(((int)Model.SearchOrderType).ToString())',
+                OrderOrientation: @Model.OrderOrientation.ToString().ToLower(),
+                PageNumber: @Model.PageNumber,
+                RowCount: @Model.RowCount,
+
+                BlackListStatusShowAlert: @((int)MarketPlace.Models.General.enumBlackListStatus.ShowAlert),
+            });
+
+            Project_SearchObject.RenderAsync();
         });
     </script>
 }
-
