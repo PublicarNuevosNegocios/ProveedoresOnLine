@@ -1,9 +1,9 @@
-﻿@model BackOffice.Models.Customer.EvaluationItemViewModel
+﻿@model List<BackOffice.Models.Customer.EvaluationItemViewModel>
 
 <div>
     <label>Criterio de Evaluación de Experiencias</label>
 
-    @if (Model.RelatedEvaluationItem != null)
+    @if (Model != null)
     {
         <ul>
             <li>

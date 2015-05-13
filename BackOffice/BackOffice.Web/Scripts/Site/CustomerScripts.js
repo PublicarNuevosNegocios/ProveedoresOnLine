@@ -1888,6 +1888,22 @@ var Customer_EvaluationItemObject = {
     },
 
     ShowProjectConfigurationDetail: function (vEvaluationCriteria) {
-        $('#' + Customer_EvaluationItemObject.ObjectId + '_Dialog').dialog();        
+        $('#' + Customer_EvaluationItemObject.ObjectId + '_Dialog').dialog({
+            //autoOpen: false,
+            width: 600,
+            resizable: false,
+            //title: 'hi there',
+            modal: true,
+            open: function(event, ui) {
+                //Load the CreateAlbumPartial action which will return 
+                // the partial view _CreateAlbumPartial
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').load("@Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_" + vEvaluationCriteria + ")");
+            },
+            buttons: {
+                "Close": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
     },
 };
