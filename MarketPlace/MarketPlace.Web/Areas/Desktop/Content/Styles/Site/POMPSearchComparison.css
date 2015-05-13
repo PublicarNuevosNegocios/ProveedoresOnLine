@@ -26,32 +26,39 @@
     .POMPComparisonActionNew,
     .POMPComparisonActionOpen,
     .POMPComparisonActionCompare,
-    .POMPComparisonActionNewComparison{
+    .POMPComparisonActionNewBid{
         display:block;
         width:30px; height:31px;
-        margin:0px auto; padding:0px;
-        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
+        margin:0px auto; padding:0px;        
     }
     .POMPComparisonActionNew{        
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/newSmall.png');
         background-repeat:no-repeat;
-        background-position:-67px -35px;
-        background-size:132px auto;
+        background-position:0px 1px;
+        background-size:29px auto;
     }
-    .POMPComparisonActionOpen{        
+    .POMPComparisonActionOpen{
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
         background-repeat:no-repeat;
         background-position:-67px -2px;
         background-size:132px auto;
         margin-left:3px;
     }
-    .POMPComparisonActionCompare{        
+    .POMPComparisonActionCompare{
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/POMPsprite1.png');
         background-repeat:no-repeat;
         background-position:-115px -3px;
         background-size:148px auto;
     }
-    .POMPComparisonActionNewBid{        
+    .POMPComparisonActionNewBid{       
+        background-image:url('http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/selectSmall.png');
         background-repeat:no-repeat;
-        background-position:-2px -33px;
-        background-size:128px auto;
+        background-position:0px 1px;
+        background-size:27px auto;
+    }
+    .NewBid {
+        float:right;
+        margin: 0 10px 0 0 !important;
     }
         .POMPComparisonActionWrapper a span{
             display:block;
@@ -59,11 +66,6 @@
             margin:0px; padding:0px;
             color:#337ab7;
             font-size:0.8em; line-height:1em; letter-spacing:-0.6px;
-        }
-/********** ESTE ES EL DE ABRIR UNA NUEVA LICITACION **********/
-        .POMPComparisonActionNewBid{
-            margin: 0 0 0 24px !important;
-            width: 102px !important;
         }
 /********** TITULO DE LA COMPARACION/LICITACION *********/
         .POMPComparisonSelectionTitle {
