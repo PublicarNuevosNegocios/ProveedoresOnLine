@@ -99,20 +99,32 @@ li.POMPProjectBidActivityData ul{
 
 /*********** AQUI SE PINTA LO DE CARGAR ARCHIVOS ************/
 .POMPProjectBidFileUploadWrapper {
-    border: 1px solid grey !important;
+    border-left : 1px solid grey !important;
     display: inline-block !important;
     min-height: 222px; max-height: 222px;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 29% !important;
-     margin: 4px 0 0 !important
+    width: 29.4% !important;
+    margin: 4px 0 0 !important;
+    padding: 0 0 0 6px;
+}
+.POMPProjectBidFileUploadWrapper > label {
+    display:block;
+    width:100%; height:auto;
+    color:#5d5d5d;
+    background-color:#f9f9f9;
+    font-weight:normal;
+    padding:6px 0px 6px 8px;
+}
+.POMPProjectBidFileUploadWrapper > div.k-upload{
+    border-radius:0px !important;
 }
     .POMPProjectBidFileUploadWrapper div.k-dropzone {
         display: inline-block;
-        background-color:#f9f9f9;
-        border-bottom:1px solid grey;
+        background-color:#f9f9f9;        
         border-radius:0px;
-        width:100%; padding:0px;
+        width:99%; padding:0px;
+        min-height:48px;
     }
     .POMPProjectBidFileUploadWrapper div.k-upload-button{
         border: 1px solid #666;
@@ -120,6 +132,17 @@ li.POMPProjectBidActivityData ul{
         height: 26px;
         width: auto;
         padding:0px;
+    }
+    .POMPProjectBidFileUploadWrapper ul.k-upload-files {
+        margin: 0!important;
+    }
+    .POMPProjectBidFileUploadWrapper ul.k-upload-files > li.k-file {
+        height: 36px !important;
+        padding: 0 0.167em 0 0.8em !important;
+    }
+    .POMPProjectBidFileUploadWrapper ul.k-upload-files > li.k-file > span.k-filename{
+        font-size: 0.9em !important;
+        max-width: 12.667em !important; 
     }
 .POMPProjectBidFileUploadWrapper > div > em{
     display: inline-block;
@@ -481,7 +504,7 @@ div.POMPProjectBidDetailGridActions > div{
 /************ AQUI VAN LOS DETALLES DE CADA AREA,
     LOS PARCIALES DE DETALLE DE PROVEEDOR **************/
 .POMPProjectBidDetailData > div.POMPProviderDataWrapper {
-    border-top:1px solid gray !important;
+    border-top:1px solid #ff8300 !important;
     border-left:none !important;
     display:block;
     height: auto;
@@ -538,7 +561,7 @@ div.POMPProjectBidDetailGridActions > div{
         width: 98%;
     }
         .POMPProjectBidDetailData > div.POMPProviderDataWrapper > ul.POMPProviderInfoMultipleValues > li > label.POMPProviderDataSubtitle {
-            background-color: #eeeeee;
+            background-color: #fff;
             border-bottom: 1px dotted #5d5d5d !important;
             display: block;
             margin: 8px 0 6px !important;
