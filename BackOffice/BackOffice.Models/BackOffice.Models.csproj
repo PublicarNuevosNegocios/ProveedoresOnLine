@@ -68,6 +68,7 @@
     <Compile Include="Customer\CustomerViewModel.cs" />
     <Compile Include="Customer\CustomerSearchViewModel.cs" />
     <Compile Include="Customer\EvaluationItemViewModel.cs" />
+    <Compile Include="Customer\ProjectExperienceConfigModel.cs" />
     <Compile Include="Customer\SurveyConfigItemViewModel.cs" />
     <Compile Include="Customer\ProjectConfigViewModel.cs" />
     <Compile Include="Customer\SurveyConfigViewModel.cs" />
