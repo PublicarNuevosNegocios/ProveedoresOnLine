@@ -5,48 +5,46 @@
 <div class="POMPSearchResultLineOne">
     <!--Search Item-->
 
-    <div class="POMPSearchResultProvDataWrapper">
-
-        <div class="POMPSearchResultNameIDWrapper">
-            <label><span>Nombre: @Model.ProjectName</span> </label>
-        </div>
-        <label>
+    <div class="POMPSearchResultProvDataWrapper SearchProject">
+        <label class="POMPProjectBidSearchProject">
+            <span>Nombre: @Model.ProjectName</span>
+        </label>
+        <label class="POMPProjectBidSearchProject">
+            @{switch (Model.ProjectStatus.ToString())
+            {
+                case ("Open"):
+                    <span>Estado: Abierto</span>
+                    break;
+                case ("Approval"):
+                <span>Estado: Aprobado</span>
+                    break;
+                case ("OpenRefusal"):
+                <span>Estado: Rechazado</span>
+                    break;
+                case ("Award"):
+                <span>Estado: Asignado</span>
+                    break;
+                case ("CloseLose"):
+                <span>Estado: Cerrado Sin Asignación</span>
+                    break;
+                case ("CloseWin"):
+                <span>Estado: Cerrado Asignado</span>
+                    break;
+            }
+            }
+        </label>
+        <label class="POMPProjectBidSearchProject"><span>Fecha: @Model.LastModify</span></label>
+        <label class="POMPProjectBidSearchProject">
             <span>
-                Estado
-                    @{switch (Model.ProjectStatus.ToString())
+                Tipo: @{
+                    if (Model.RelatedProject.RelatedProjectConfig != null)
                     {
-                        case ("Open"):
-                            <label><span>Abierto</span> </label>
-                            break;
-                        case ("Approval"):
-                        <label><span>Aprobado</span> </label>
-                            break;
-                        case ("OpenRefusal"):
-                        <label><span>Rechazado</span> </label>
-                            break;
-                        case ("Award"):
-                        <label><span>Asignado</span> </label>
-                            break;
-                        case ("CloseLose"):
-                        <label><span>Cerrado Sin Asignación</span> </label>
-                            break;
-                        case ("CloseWin"):
-                        <label><span>Cerrado Asignado</span></label>
-                            break;
-                    }
-                }
+                        @Model.RelatedProject.RelatedProjectConfig.ItemName
+                    }}
             </span>
         </label>
-        <label><span>Fecha: @Model.LastModify</span> </label>
-
-        <label><span>Tipo: @{
-            if ( Model.RelatedProject.RelatedProjectConfig != null )
-	        {
-		        @Model.RelatedProject.RelatedProjectConfig.ItemName 
-	        }}
-            </span> 
-        </label>
-        <a href="@(Url.RouteUrl
+        <div class="POMPProjectBidSearchProjectDetail">
+            <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -54,5 +52,7 @@
                                 action = MVC.Project.ActionNames.ProjectDetail,
                                 ProjectPublicId = Model.ProjectPublicId
                             }))">Ver detalle</a>
+        </div>
     </div>
+
 </div>
