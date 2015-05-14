@@ -597,11 +597,17 @@ div.POMPProjectBidDetailGridActions > div{
 .SearchProject {
     width:100% !important;
 }
+.POMPProjectBidSearchProject:first-child{
+    width:100% !important;
+}
 .POMPProjectBidSearchProject {
     display: inline-block;
-    width:49%;
+    width:32%;
     vertical-align:top;
 }
+    .POMPProjectBidSearchProject > span > a{
+        font-size: 1.2em;
+    }
     .POMPProjectBidSearchProject span {
         display: inline-block;
         font-size: 1.1em;

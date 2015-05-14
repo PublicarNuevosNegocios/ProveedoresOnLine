@@ -1,13 +1,19 @@
 ﻿@model MarketPlace.Models.Project.ProjectSearchViewModel
 
-
 <!--ESTA ES LA LISTA DE RESULTADOS DE LA BUSQUEDA DE PROVEEDORES-->
 <div class="POMPSearchResultLineOne">
     <!--Search Item-->
 
     <div class="POMPSearchResultProvDataWrapper SearchProject">
         <label class="POMPProjectBidSearchProject">
-            <span>Nombre: @Model.ProjectName</span>
+            <span><a href="@(Url.RouteUrl
+                            (MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Project.Name,
+                                action = MVC.Project.ActionNames.ProjectDetail,
+                                ProjectPublicId = Model.ProjectPublicId
+                            }))">@Model.ProjectName</a></span>
         </label>
         <label class="POMPProjectBidSearchProject">
             @{switch (Model.ProjectStatus.ToString())
