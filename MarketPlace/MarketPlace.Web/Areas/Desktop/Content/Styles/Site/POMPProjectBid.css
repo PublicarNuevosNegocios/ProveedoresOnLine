@@ -82,7 +82,7 @@
 }
 li.POMPProjectBidActivityData{
     width: 48.2% !important;
-    min-height: 80px !important;
+    height: 80px !important;
     overflow-y: auto;
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
