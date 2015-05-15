@@ -63,6 +63,10 @@
     margin: 6px 0 0;
     width: 96%;
 }
+.ui-widget-content {
+    color: #4d4d4d !important;
+    letter-spacing: -0.9px !important;
+}
 /***********  AQUI SE PINTA EL POPUP DE EDICION DE
     PRECALIFICACION  ************/
 .POMPProjectBidEditDialog {
@@ -121,4 +125,21 @@
 .POMPProjectBidEditDialogActivity > div > span {
     font-size:0.99em !important;
     color:#4d4d4d !important;
+}
+.closeProjectBid > li > span{
+    width:146px !important;
+}
+.closeProjectBid > li > textarea{
+    width:306px !important;
+    font-size:0.9em;
+    letter-spacing:-0.9px;
+    color:#4d4d4d;
+    text-align:left;
+    display:inline-block;
+    font-weight:normal;
+    vertical-align:top;
+}
+.closeProjectBid > li > span.k-invalid-msg{
+    display:block;
+    width:97% !important;
 }

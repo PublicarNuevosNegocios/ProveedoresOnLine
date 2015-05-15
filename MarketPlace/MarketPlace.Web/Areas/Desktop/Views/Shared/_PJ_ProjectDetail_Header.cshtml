@@ -303,7 +303,7 @@
             {
                 <div id="ProjectDetail_CloseProjectDialog" title="Cierre de proceso de selección">
                     <form id="ProjectDetail_CloseProjectDialog_Form" action="@Url.Content("~/api/ProjectApi?ProjectClose=true")">
-                        <ul class="POMPProjectBidEditDialog">
+                        <ul class="POMPProjectBidEditDialog closeProjectBid">
                             <li>
                                 <span>Razón de cierre:</span>
                                 <textarea name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CloseText).ToString())_" placeholder="Razón de cierre del proceso de selección" required validationmessage="La razón de cierre del proceso de selección es obligatoria"></textarea>
