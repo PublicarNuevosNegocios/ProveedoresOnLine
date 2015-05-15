@@ -597,6 +597,19 @@ div.POMPProjectBidDetailGridActions > div{
 .SearchProject {
     width:100% !important;
 }
+/*.POMPProjectBidSearchFilters {
+    border-right: 2px solid #ff8300;
+    display: inline-block;
+    margin: 0 0 7px;
+    padding: 0 13px 0 11px;
+    vertical-align: top;
+    width: 24.4%;
+}*/
+.POMPProjectBidSearchList {
+    display:block;
+    margin: 0 auto 0 auto;
+    width: 75%;
+}
 .POMPProjectBidSearchProject:first-child{
     width:100% !important;
 }

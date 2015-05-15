@@ -12,39 +12,22 @@
     </a>
 </div>
 <div class="POMProviderSearchGreatWrapper">
-
     <!--SearchFilter-->
-    @*<div class="POMPProviderFilterMenuWrapper">        
-        @Html.Partial(MVC.Desktop.Shared.Views._PJ_Search_Filter, Model)
+    @*<div class="POMPProjectBidSearchFilters">
     </div>*@
-    <div class="">
-        <!--SearchResult-->
+    <!--SearchResult-->
+    <div class="POMPProjectBidSearchList">
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_SearchProject_Result, Model)
     </div>
-    @*<div class="POMPComparisonListWrapper">
-            @if (Model.RelatedProject != null)
-            {
-                <!--Project-->
-                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
-            }
-            else
-            {
-                <!--Comparison-->
-                @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
-            }
-        </div>*@
-
 </div>
 @{
     Model.RenderScripts = true;
 }
 
 @section inlinescripts
-{
-    @*@Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)*@
+{   
     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
    
-
     <script type="text/javascript">
         $(document).ready(function () {
             debugger;
