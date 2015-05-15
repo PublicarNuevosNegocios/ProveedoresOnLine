@@ -13,11 +13,11 @@
 </div>
 <div class="POMProviderSearchGreatWrapper">
 
-    <div class="POMPProviderFilterMenuWrapper">
-        <!--SearchFilter-->
+    <!--SearchFilter-->
+    @*<div class="POMPProviderFilterMenuWrapper">        
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_Search_Filter, Model)
-    </div>
-    <div class="POMPProviderListWrapper">
+    </div>*@
+    <div class="">
         <!--SearchResult-->
         @Html.Partial(MVC.Desktop.Shared.Views._PJ_SearchProject_Result, Model)
     </div>
@@ -41,7 +41,7 @@
 
 @section inlinescripts
 {
-    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)
+    @*@Html.Partial(MVC.Desktop.Shared.Views._P_Search_Filter, Model)*@
     @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
    
 

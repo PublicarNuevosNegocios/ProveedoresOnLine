@@ -26,7 +26,8 @@
                             <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                         </label>
                     }
-                    if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
+                    if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
+                        && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
                     {
                         <label>
                             Registro Mercantil
