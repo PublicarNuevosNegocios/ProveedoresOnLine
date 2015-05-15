@@ -46,6 +46,8 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
 
         ProveedoresOnLine.ProjectModule.Models.ProjectModel ProjectGetByIdProviderDetail(string ProjectPublicId, string CustomerPublicId, string ProviderPublicId);
 
+        List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> ProjectSearchFilter(string SearchParam);
+
         #endregion
 
         #region Utils

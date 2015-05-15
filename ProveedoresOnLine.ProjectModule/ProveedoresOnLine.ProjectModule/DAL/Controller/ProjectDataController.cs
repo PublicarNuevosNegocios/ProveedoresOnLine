@@ -121,6 +121,11 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
         }
 
+        public List<Company.Models.Util.GenericFilterModel> ProjectSearchFilter(string SearchParam)
+        {
+            return DataFactory.ProjectSearchFilter(SearchParam);
+        }
+
         #endregion
 
         #region Utils
@@ -130,6 +135,6 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.CatalogGetProjectConfigOptions();
         }
 
-        #endregion
+        #endregion       
     }
 }

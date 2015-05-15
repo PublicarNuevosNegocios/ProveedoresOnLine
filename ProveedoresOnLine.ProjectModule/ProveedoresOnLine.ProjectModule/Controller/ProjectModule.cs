@@ -378,6 +378,11 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return DAL.Controller.ProjectDataController.Instance.ProjectGetByIdProviderDetail(ProjectPublicId, CustomerPublicId, ProviderPublicId);
         }
 
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> ProjectSearchFilter(string SearchParam)
+        {
+            return DAL.Controller.ProjectDataController.Instance.ProjectSearchFilter(SearchParam);
+        }
+
         public static void ProjectCalculate(string ProjectPublicId)
         {
             ProjectEvaluator pjeval = new ProjectEvaluator(ProjectPublicId);

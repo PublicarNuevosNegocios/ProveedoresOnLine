@@ -96,5 +96,12 @@ namespace ProveedoresOnLine.ProjectModule.Test
                 ("DA5C572E", string.Empty, null , 0, 20,out oTotalRows);
             Assert.IsNotNull(oResult);
         }
+
+        [TestMethod]
+        public void ProjectSearchFilter()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> oResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectSearchFilter("abie");
+            Assert.IsNotNull(oResult);
+        }
     }
 }

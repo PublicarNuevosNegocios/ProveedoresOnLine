@@ -1820,6 +1820,41 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> ProjectSearchFilter(string SearchParam)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vSearchParam", SearchParam));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Project_SearchFilter",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<ProveedoresOnLine.Company.Models.Util.GenericFilterModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from sf in response.DataTableResult.AsEnumerable()
+                     where !sf.IsNull("ItemId")
+                     select new ProveedoresOnLine.Company.Models.Util.GenericFilterModel()
+                     {
+                         FilterType = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+                         {
+                             ItemId = (int)sf.Field<Int32>("ItemId"),
+                             ItemName = sf.Field<string>("Name"),
+                         },
+                     }).ToList();
+            }
+            return oReturn;
+        }
+
+
         #endregion
 
         #region Utils

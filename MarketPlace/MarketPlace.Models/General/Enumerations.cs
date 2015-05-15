@@ -6,6 +6,7 @@
     {
         ProviderStatus = 902,
         personContactType = 210,
+        ProjectStatus = 1406,
     }
 
     #endregion
@@ -378,7 +379,7 @@
 
         ProviderStatus = 112001,
         ProviderRate = 112002,
-        IsRelatedProvider = 112003,
+        IsRelatedProvider = 112003,        
     }
 
     public enum enumCustomerProviderInfoType
