@@ -7,7 +7,7 @@
           ,POL_SurveyWriteBackNotification_Mail
           ,POL_ProjectApprovalRequest_Mail
           ,POL_ProjectApproveArea_Mail
-          ,POL_ProjectRejectArea_Mail]]>
+          ,POL_ProjectRejectArea_Mail]]>   
     </key>
 
     <!--Proveedores on line remember password email agent-->
