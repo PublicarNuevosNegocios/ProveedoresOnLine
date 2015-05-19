@@ -1863,6 +1863,9 @@ var Customer_EvaluationItemObject = {
             dataType: 'json',
             success: function (result) {
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<ul>')
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<li class="NewCriteria">')
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<a href="~/Views/Shared/_PJ_EvaluationCriteria.cshtml" >Agregar Criterio</a>')
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</li>')
                 for (var i = 0; i < result.length; i++) {
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<li>')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_OrderId" type="hidden" value="' + result[i].EC_OrderId + '" />')
@@ -1880,6 +1883,7 @@ var Customer_EvaluationItemObject = {
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail(\'' + result[i].EC_EvaluationCriteria + '\');">Ver detalle</button>')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</li>')
                 }
+
                 $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</ul>')
             },
             error: function (result) {

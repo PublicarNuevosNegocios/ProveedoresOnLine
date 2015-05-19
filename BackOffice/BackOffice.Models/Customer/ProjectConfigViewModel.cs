@@ -28,5 +28,25 @@ namespace BackOffice.Models.Customer
 
             ProjectProviderEnable = oRelatedProjectProvider.Enable;
         }
+
+        #region Methods
+
+        public List<EvaluationItemViewModel> GetEvaluationCriteria()
+        {
+            List<EvaluationItemViewModel> oReturn =
+                RelatedProjectProvider.RelatedEvaluationItem.
+                    Where(ei => ei.ItemType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemType.EvaluationCriteria &&
+                          ei.ParentItem != null &&
+                          ei.ParentItem.ItemId != null).
+                    Select(ei => new EvaluationItemViewModel(ei)).
+                    ToList();
+
+            if (oReturn == null)
+                oReturn = new List<EvaluationItemViewModel>();
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

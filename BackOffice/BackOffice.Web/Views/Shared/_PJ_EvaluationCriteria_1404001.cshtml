@@ -8,21 +8,21 @@
         <ul>
             <li>
                 <label>Unidad:</label>
-                <input id="@Model.EC_UnitId" name="EC_UnitId" value="@Model.EC_Unit" />
+                <input id="@Model.Where(x => x.EC_UnitId != null).Select(x => x.EC_UnitId).FirstOrDefault()" name="EC_UnitId" value="@Model.Where(x => x.EC_Unit != null).Select(x => x.EC_Unit).FirstOrDefault()" />
             </li>
             <li>
                 <label>Criterio de Evaluación:</label>
-                <input id="@Model.EC_EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@Model.EC_EvaluationCriteria" />
+                <input id="@Model.Where(x => x.EC_EvaluationCriteriaId != null).Select(x => x.EC_EvaluationCriteriaId).FirstOrDefault()" name="EC_EvaluationCriteriaId" value="@Model.Where(x => x.EC_EvaluationCriteria != null).Select(x => x.EC_EvaluationCriteria).FirstOrDefault()" />
             </li>
             <li>
                 <label>Orden</label>
-                <input id="@Model.EC_OrderId" name="EC_OrderId" value="@Model.EC_Order" />
+                <input id="@Model.Where(x => x.EC_OrderId != null).Select(x => x.EC_OrderId).FirstOrDefault()" name="EC_OrderId" value="@Model.Where(x => x.EC_Order != null).Select(x => x.EC_Order).FirstOrDefault()" />
             </li>
             <li>
                 <label>Habilitado:</label>
                 <input type="checkbox" checked />
                 <label>Peso:</label>
-                <input id="@Model.EC_RatingId" name="EC_RatingId" value="@Model.EC_Rating" />
+                <input id="@Model.Where(x => x.EC_RatingId != null).Select(x => x.EC_RatingId).FirstOrDefault()" name="EC_RatingId" value="@Model.Where(x => x.EC_Rating != null).Select(x => x.EC_Rating).FirstOrDefault()" />
             </li>
             <li>
                 <label>Habilitado:</label>

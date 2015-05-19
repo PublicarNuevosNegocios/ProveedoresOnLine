@@ -33,9 +33,7 @@
             <label class="POBOSectionTitles">Area de Configuración</label>
             <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea)"></div>
             <label class="POBOSectionTitles">Item de Configuración</label>
-            <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationCriteria)">
-                <a>Agregar Criterio</a>
-            </div>
+            <div id="divGridEvaluationItem_@((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationCriteria)"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -88,7 +86,7 @@
         <form id="divGridEvaluationItem_Upsert_Form" name="divGridEvaluationItem_Upsert_Form" method="post">
             <div>
                 <div id="divGridEvaluationItem_EvaluationCriteriaForm">
-                @*    @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404001, Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem))*@
+                @*    @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria, Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem))*@
                 </div>
                 <button type="submit">Update</button>
                 <button type="button">Cancelar</button>
