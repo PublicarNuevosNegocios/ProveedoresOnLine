@@ -68,11 +68,11 @@ var Provider_SearchObject = {
     Search: function (vSearchObject) {
         debugger;
         /*get serach param*/
-        if (this.SearchParam != $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val()) {
+        if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
             this.PageNumber = 0;
         }
-        this.SearchParam = $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val();
+        this.SearchParam = $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val();
 
         if (vSearchObject != null) {
             /*get filter values*/
@@ -101,7 +101,7 @@ var Provider_SearchObject = {
                 this.PageNumber = vSearchObject.PageNumber;
             }
         }
-        window.location = Project_SearchObject.GetSearchUrl();
+        window.location = Provider_SearchObject.GetSearchUrl();
     },
 
     GetSearchUrl: function () {
