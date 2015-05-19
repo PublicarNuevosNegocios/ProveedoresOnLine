@@ -12,13 +12,13 @@ namespace MessageModule.Test
             int oMessageId = MessageModule.Client.Controller.ClientController.CreateMessage
                 (new Client.Models.ClientMessageModel()
                 {
-                    Agent = "POL_RememberPassword_Mail",
+                    Agent = "POL_SurveyWriteBackNotification_Mail",
                     User = "usario@sistema.com",
                     ProgramTime = DateTime.Now,
 
                     MessageQueueInfo = new System.Collections.Generic.List<Tuple<string,string>>()
                     {
-                        new Tuple<string,string>("To","Jairo Andres Guzman Duran<jairo.guzman@publicar.com>"),
+                        new Tuple<string,string>("To","Jairo Andres Guzman Duran<johann.martinez@publicar.com>"),
                         new Tuple<string,string>("RememberUrl","https://www.proveedoresonline.co/marketplace/home/TermsAndConditios"),
                     },
                 });
