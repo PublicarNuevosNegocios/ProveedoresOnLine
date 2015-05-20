@@ -20,14 +20,14 @@ namespace BackOffice.Models.Customer
         #region EvaluationArea
 
         public string EA_EvaluatorTypeId { get; set; }
-        public string EA_EvaluatorType { get; set; }
+        public BackOffice.Models.General.enumEvaluatorType EA_EvaluatorType { get; set; }
 
         public string EA_EvaluatorId { get; set; }
         public string EA_Evaluator { get; set; }
         public string EA_EvaluatorName { get; set; }
 
         public string EA_UnitId { get; set; }
-        public string EA_Unit { get; set; }
+        public BackOffice.Models.General.enumEvaluationItemUnitType EA_Unit { get; set; }
 
         public string EA_OrderId { get; set; }
         public string EA_Order { get; set; }
@@ -40,19 +40,19 @@ namespace BackOffice.Models.Customer
         #region EvaluationCriteria
 
         public string EC_EvaluatorTypeId { get; set; }
-        public string EC_EvaluatorType { get; set; }
+        public BackOffice.Models.General.enumEvaluatorType? EC_EvaluatorType { get; set; }
 
         public string EC_EvaluatorId { get; set; }
         public string EC_Evaluator { get; set; }
 
         public string EC_UnitId { get; set; }
-        public string EC_Unit { get; set; }
+        public BackOffice.Models.General.enumEvaluationItemUnitType EC_Unit { get; set; }
 
         public string EC_RatingId { get; set; }
         public string EC_Rating { get; set; }
 
         public string EC_EvaluationCriteriaId { get; set; }
-        public string EC_EvaluationCriteria { get; set; }
+        public BackOffice.Models.General.enumEvaluationCriteriaType EC_EvaluationCriteria { get; set; }
 
         public string EC_InfoType_Value_OperatorId { get; set; }
         public string EC_InfoType_Value_Operator { get; set; }
@@ -91,8 +91,8 @@ namespace BackOffice.Models.Customer
                                 FirstOrDefault();
             EA_EvaluatorType = RelatedEvaluationItem.ItemInfo.
                                 Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluatorType).
-                                Select(x => x.Value).
-                                DefaultIfEmpty(string.Empty).
+                                Select(x => (BackOffice.Models.General.enumEvaluatorType)Convert.ToInt32(x.Value.Replace(" ", ""))).
+                                DefaultIfEmpty(BackOffice.Models.General.enumEvaluatorType.None).
                                 FirstOrDefault();
 
             EA_EvaluatorId = RelatedEvaluationItem.ItemInfo.
@@ -107,7 +107,7 @@ namespace BackOffice.Models.Customer
                             FirstOrDefault();
             if (RelatedEvaluationItem.ItemInfo != null &&
                 RelatedEvaluationItem.ItemInfo.Count > 0 &&
-                EA_EvaluatorType == ((int)Models.General.enumEvaluatorType.AnyoneRole).ToString())
+                EA_EvaluatorType == Models.General.enumEvaluatorType.AnyoneRole)
             {
                 EA_EvaluatorName = RelatedEvaluationItem.ItemInfo.
                                    Where(x => x.ItemInfoId.ToString() == EA_EvaluatorId).
@@ -123,8 +123,8 @@ namespace BackOffice.Models.Customer
                         FirstOrDefault();
             EA_Unit = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
-                        Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        Select(x => (BackOffice.Models.General.enumEvaluationItemUnitType)Convert.ToInt32(x.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(BackOffice.Models.General.enumEvaluationItemUnitType.None).
                         FirstOrDefault();
 
             EA_OrderId = RelatedEvaluationItem.ItemInfo.
@@ -156,8 +156,8 @@ namespace BackOffice.Models.Customer
                                     FirstOrDefault();
             EC_EvaluatorType = RelatedEvaluationItem.ItemInfo.
                                     Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluatorType).
-                                    Select(x => x.Value).
-                                    DefaultIfEmpty(string.Empty).
+                                    Select(x => (BackOffice.Models.General.enumEvaluatorType)Convert.ToInt32(x.Value.Replace(" ", ""))).
+                                    DefaultIfEmpty(BackOffice.Models.General.enumEvaluatorType.None).
                                     FirstOrDefault();
 
             EC_EvaluatorId = RelatedEvaluationItem.ItemInfo.
@@ -178,8 +178,8 @@ namespace BackOffice.Models.Customer
                             FirstOrDefault();
             EC_Unit = RelatedEvaluationItem.ItemInfo.
                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.Unit).
-                        Select(x => x.Value).
-                        DefaultIfEmpty(string.Empty).
+                        Select(x => (BackOffice.Models.General.enumEvaluationItemUnitType)Convert.ToInt32(x.Value.Replace(" ", ""))).
+                        DefaultIfEmpty(BackOffice.Models.General.enumEvaluationItemUnitType.None).
                         FirstOrDefault();
 
             EC_RatingId = RelatedEvaluationItem.ItemInfo.
@@ -200,8 +200,8 @@ namespace BackOffice.Models.Customer
                                            FirstOrDefault();
             EC_EvaluationCriteria = RelatedEvaluationItem.ItemInfo.
                                         Where(x => x.ItemInfoType.ItemId == (int)Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
-                                        Select(x => x.Value).
-                                        DefaultIfEmpty(string.Empty).
+                                        Select(x => (BackOffice.Models.General.enumEvaluationCriteriaType)Convert.ToInt32(x.Value.Replace(" ", ""))).
+                                        DefaultIfEmpty(BackOffice.Models.General.enumEvaluationCriteriaType.None).
                                         FirstOrDefault();
 
             EC_InfoType_Value_OperatorId = RelatedEvaluationItem.ItemInfo.

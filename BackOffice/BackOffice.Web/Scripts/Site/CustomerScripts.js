@@ -1901,7 +1901,7 @@ var Customer_EvaluationItemObject = {
             open: function(event, ui) {
                 //Load the CreateAlbumPartial action which will return 
                 // the partial view _CreateAlbumPartial
-                $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').load("@Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_" + vEvaluationCriteria + ")");
+                $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').load('@Url.Action(MVC.Shared.Views._PJ_EvaluationCriteria_' + vEvaluationCriteria + ')');
             },
             buttons: {
                 "Close": function () {

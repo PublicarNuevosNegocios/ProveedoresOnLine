@@ -563,7 +563,7 @@ namespace BackOffice.Web.ControllersApi
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluatorType,
                                     },
-                                    Value = oDataToUpsert.EA_EvaluatorType.Replace(" ",""),
+                                    Value = oDataToUpsert.EA_EvaluatorType.ToString(),
                                     Enable = true,
                                 },
                                 new GenericItemInfoModel(){
@@ -579,7 +579,7 @@ namespace BackOffice.Web.ControllersApi
                                     ItemInfoType = new CatalogModel(){
                                         ItemId = (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit,
                                     },
-                                    Value = oDataToUpsert.EA_Unit.Replace(" ",""),
+                                    Value = oDataToUpsert.EA_Unit.ToString(),
                                     Enable = true,
                                 }
                             },

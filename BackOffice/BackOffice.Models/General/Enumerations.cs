@@ -484,6 +484,7 @@
 
     public enum enumEvaluationItemUnitType
     {
+        None,
         Pass = 1403001,
         Percentage = 1403002,
         Informative = 1403003,
@@ -491,18 +492,20 @@
 
     public enum enumEvaluationCriteriaType
     {
-        EC_Experiences = 1404001,
-        EC_Rules = 1404002,
-        EC_LTIF = 1404003,
-        EC_HealtyPolitic = 1404004,
-        EC_BalanceSheet = 1404005,
-        EC_ChaimberOfCommerce = 1404006,
-        EC_RUT = 1404007,
-        EC_SARLAFT = 1404008,
+        None,
+        Experiences = 1404001,
+        Rules = 1404002,
+        LTIF = 1404003,
+        HealtyPolitic = 1404004,
+        BalanceSheet = 1404005,
+        ChaimberOfCommerce = 1404006,
+        RUT = 1404007,
+        SARLAFT = 1404008,
     }
 
     public enum enumEvaluatorType
     {
+        None,
         AnyoneRole = 1405001,
         SpecificPerson = 1405002,
     }

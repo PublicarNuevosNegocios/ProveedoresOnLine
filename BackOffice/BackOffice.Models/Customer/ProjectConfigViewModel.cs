@@ -16,6 +16,8 @@ namespace BackOffice.Models.Customer
         public string ProjectProviderName { get; set; }
         public bool ProjectProviderEnable { get; set; }
 
+        public bool RenderScripts { get; set; }
+
         public ProjectConfigViewModel() { }
 
         public ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oRelatedProjectProvider)
@@ -33,13 +35,18 @@ namespace BackOffice.Models.Customer
 
         public List<EvaluationItemViewModel> GetEvaluationCriteria()
         {
-            List<EvaluationItemViewModel> oReturn =
-                RelatedProjectProvider.RelatedEvaluationItem.
-                    Where(ei => ei.ItemType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemType.EvaluationCriteria &&
-                          ei.ParentItem != null &&
-                          ei.ParentItem.ItemId != null).
-                    Select(ei => new EvaluationItemViewModel(ei)).
-                    ToList();
+            List<EvaluationItemViewModel> oReturn = null;
+            if (RelatedProjectProvider.RelatedEvaluationItem != null)
+            {
+                oReturn =
+                    RelatedProjectProvider.RelatedEvaluationItem.
+                        Where(ei => ei.ItemType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemType.EvaluationCriteria &&
+                              ei.ParentItem != null &&
+                              ei.ParentItem.ItemId != null).
+                        Select(ei => new EvaluationItemViewModel(ei)).
+                        ToList();
+
+            }
 
             if (oReturn == null)
                 oReturn = new List<EvaluationItemViewModel>();

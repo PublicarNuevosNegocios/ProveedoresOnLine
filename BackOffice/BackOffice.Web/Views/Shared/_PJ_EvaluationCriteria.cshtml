@@ -1,12 +1,20 @@
-﻿@model List<ProveedoresOnLine.Company.Models.Util.GenericItemModel>
+﻿@model BackOffice.Models.Customer.CustomerViewModel
 
-@if (Model != null)
+@if (!Model.RenderScripts)
 {
-    <select>
-        <option id="0">Seleccione una opción</option>
-        @foreach (var item in Model.Where(x => x.ItemType.CatalogId == 1404))
-        {
-            <option id="@item.ItemId">@item.ItemName</option>
-        }
-    </select>
+    List<BackOffice.Models.Customer.EvaluationItemViewModel> oEvaluationCriteria = Model.RelatedProjectConfig.GetEvaluationCriteria();
+
+    List<BackOffice.Models.General.enumEvaluationCriteriaType> oEvaluationCriteriaTypes =
+        oEvaluationCriteria.Select(x => x.EC_EvaluationCriteria).Distinct().ToList();
+
+    foreach (BackOffice.Models.General.enumEvaluationCriteriaType oCriteriaType in oEvaluationCriteriaTypes)
+    {
+        List<BackOffice.Models.Customer.EvaluationItemViewModel> oEvaluationCriteriaItems = oEvaluationCriteria.
+            Where(ecr => ecr.EC_EvaluationCriteria == oCriteriaType).ToList();
+        
+        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404001.
+                Replace("1404001", ((int)oCriteriaType).ToString()),
+                new List<BackOffice.Models.Customer.EvaluationItemViewModel>
+                (oEvaluationCriteriaItems)))
+    }
 } 
