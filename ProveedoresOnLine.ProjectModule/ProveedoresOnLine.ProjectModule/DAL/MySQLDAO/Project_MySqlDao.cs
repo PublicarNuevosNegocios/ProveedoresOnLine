@@ -1548,7 +1548,7 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
                                                  ItemId = prvinfg.Key.CompanyInfoTypeId,
                                                  ItemName = prvinfg.Key.CompanyInfoTypeName,
                                              },
-                                             Value = prvinfg.Key.CompanyInfoTypeName,
+                                             Value = prvinfg.Key.CompanyInfoValue,
                                              LargeValue = prvinfg.Key.CompanyInfoLargeValue,
                                          }).ToList()
                                  },
