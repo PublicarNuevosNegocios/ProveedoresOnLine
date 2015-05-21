@@ -259,9 +259,22 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string ProjectProviderId)
+        public virtual ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string EvaluationItemId)
         {
-            return View();
+            BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
+            {
+                CustomerOptions = ProveedoresOnLine.CompanyCustomer.Controller.CompanyCustomer.CatalogGetCustomerOptions(),
+                RelatedCustomer = new ProveedoresOnLine.CompanyCustomer.Models.Customer.CustomerModel()
+                {
+                    RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
+                },
+                
+                ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
+            };
+
+            //get provider menu
+            oModel.CustomerMenu = GetCustomerMenu(oModel);
+            return View(oModel);
         }
 
         #endregion
@@ -380,7 +393,7 @@ namespace BackOffice.Web.Controllers
 
                 #region Project config
 
-                ////header
+                //header
                 //oMenuAux = new Models.General.GenericMenu()
                 //{
                 //    Name = "Configuración de Precalificaciones",

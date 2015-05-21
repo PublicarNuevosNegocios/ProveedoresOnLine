@@ -1503,6 +1503,7 @@ var Customer_EvaluationItemObject = {
     CustomerPublicId: '',
     ProjectConfigId: '',
     PageSize: '',
+    EvaluationCriteriaUpsertUrl: '',
     DataParentEvaluationItem: '',
     DataEvaluationItemType: '',
     ProjectConfigOptionsList: new Array(),
@@ -1513,6 +1514,7 @@ var Customer_EvaluationItemObject = {
         this.ProjectConfigId = vInitObject.ProjectConfigId;
         this.PageSize = vInitObject.PageSize;
         this.ProjectConfigOptionsList = vInitObject.ProjectConfigOptionsList;
+        this.EvaluationCriteriaUpsertUrl = vInitObject.EvaluationCriteriaUpsertUrl;
 
         if (vInitObject.ProjectConfigOptionsList != null) {
             $.each(vInitObject.ProjectConfigOptionsList, function (item, value) {
@@ -1831,19 +1833,16 @@ var Customer_EvaluationItemObject = {
                     text: 'Editar'
                 }, {
                     name: 'Detail',
-                    text: 'Ver detalle',
+                    text: 'Ver',
                     click: function (e) {
                         // e.target is the DOM element representing the button
                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
-                        //validate SurveyConfigItemTypeId attribute
-                        if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
-                            //is in evaluation area show question
-                            vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
-                            vRenderObject.EvaluationItemType = '1401002';
-                            vRenderObject.Title = data.EvaluationItemName;
-                            Customer_EvaluationItemObject.RenderAsync(vRenderObject);
+                        //validate SurveyConfigId attribute
+                        if (data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                            debugger;
+                            window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.ProjectProviderId);
                         }
                     }
                 }],

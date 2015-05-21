@@ -1,8 +1,51 @@
-﻿
+﻿@model BackOffice.Models.Customer.CustomerViewModel
+
 @{
-    ViewBag.Title = "PCEvaluationCriteriaUpsert";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Comprador - Criterios de Evaluación.";
+    Layout = MVC.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
 }
 
-<h2>PCEvaluationCriteriaUpsert</h2>
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POBOProviderWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POBOProviderSideMenuWrapper">
+        @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+    </div>
+    <div class="POBOProviderContentWrapper">
+        <div id="POBOProviderUpsertForm">
+            <label class="POBOSectionTitles">Criterios de Precalificaciones.</label>
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+            <div class="POBOEvaluationGoBackWrapper">
+                <a href="@(Url.Action(
+                MVC.Customer.ActionNames.PCEvaluationItemUpsert,
+                MVC.Customer.Name,
+                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">
+                    <div></div>Regresar a la configuración de Items.
+                </a>
+            </div>
+            <label class="POBOSectionTitles">Configuración de Criterios</label>
+            <br />
+            @{
+                Model.IsForm = false;
+                Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
+            }
+        </div>
+    </div>
+</div>
 
+@{
+    Model.RenderScripts = true;
+}
+
+@section inlinescripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}
