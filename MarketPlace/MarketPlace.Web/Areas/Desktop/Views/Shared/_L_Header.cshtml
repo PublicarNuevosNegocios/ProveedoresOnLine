@@ -43,6 +43,11 @@
             <ul class="POMPMainMenuWrapper">
                 @foreach (MarketPlace.Models.General.GenericMenu oMenuItem in oHeaderMenu.OrderBy(x => x.Position))
                 {
+                    //if ((int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
+                    //{
+                        
+                    //}
+                    
                     string strSelectedClass = string.Empty;
                     if (oMenuItem.IsSelected)
                     {

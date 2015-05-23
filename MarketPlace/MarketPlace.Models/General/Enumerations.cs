@@ -31,6 +31,8 @@
         ProviderSelectionAudit = 802009,
         ProviderRatingCreate = 802010,
         ProviderRatingView = 802011,
+        ProviderReporting = 802012,
+        ProviderBasicInfo = 802013,
     }
 
     public enum enumMarketPlaceProviderModules
