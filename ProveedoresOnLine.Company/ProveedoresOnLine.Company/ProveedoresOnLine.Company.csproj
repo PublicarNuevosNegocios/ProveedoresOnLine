@@ -72,6 +72,7 @@
     <Compile Include="Models\Company\UserCompany.cs" />
     <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Enumerations.cs" />
+    <Compile Include="Models\Util\ChartsModel.cs" />
     <Compile Include="Models\Util\CatalogModel.cs" />
     <Compile Include="Models\Util\MinimumWageModel.cs" />
     <Compile Include="Models\Util\CurrencyExchangeModel.cs" />
