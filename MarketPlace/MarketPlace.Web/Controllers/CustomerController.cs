@@ -16,10 +16,8 @@ namespace MarketPlace.Web.Controllers
                 new
                 {
                     controller = MVC.Provider.Name,
-                    action = MVC.Provider.ActionNames.Search
-                });
-
-            //return View();
+                    action = MVC.Provider.ActionNames.Index
+                });            
         }
     }
 }

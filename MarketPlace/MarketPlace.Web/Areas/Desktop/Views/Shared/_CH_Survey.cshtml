@@ -1,0 +1,14 @@
+﻿@model System.Collections.Generic.List<ProveedoresOnLine.Company.Models.Util.GenericChartsModel>
+
+
+<div id="SurveyResponsableStatusChartId" style="width:800px;height:600px;"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        Survey_ProgramObject.Init({
+            ObjectId: 'Survey_ProgramSurvey',
+           
+        });
+        Survey_ProgramObject.renderAsync();
+    });
+</script>

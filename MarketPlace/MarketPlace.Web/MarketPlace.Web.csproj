@@ -512,6 +512,7 @@
     <Content Include="Areas\Desktop\Content\themes\base\theme.css" />
     <Content Include="Areas\Desktop\Content\themes\base\tooltip.css" />
     <Content Include="Areas\Desktop\Scripts\Site\ProjectScripts.js" />
+    <Content Include="Areas\Desktop\Scripts\Site\ChartsScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\SurveyScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\GeneralScripts.js" />
     <Content Include="Areas\Desktop\Scripts\Site\CompareScripts.js" />
@@ -1060,6 +1061,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_PJ_SearchProject_Result.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_SearchProject_Result_Item.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_PJ_Search_Filter.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_Survey.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

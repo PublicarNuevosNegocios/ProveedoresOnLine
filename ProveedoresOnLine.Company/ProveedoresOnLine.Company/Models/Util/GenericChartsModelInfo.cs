@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace ProveedoresOnLine.Company.Models.Util
 {
-    public class ChartsModel
+    public class GenericChartsModelInfo
     {
+        public string ChartModuleInfoType { get; set; }
+
+        public string ChartModuleType { get; set; }
+
         public string Title { get; set; }
 
-        public int ItemType { get; set; }
+        public string ItemType { get; set; }
         
         public string ItemName { get; set; }
 

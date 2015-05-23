@@ -1,7 +1,52 @@
-﻿@{
+﻿@model  List<ProveedoresOnLine.Company.Models.Util.GenericChartsModel>
+@{
     ViewBag.Title = "Proveedores OnLine - Proveedores";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
 
-<h2>Index</h2>
+@*Aqui va la validación*@
+
+<div class="POMPProviderMenuDetail">
+
+    @if (Model != null && Model.Count > 0)
+    {
+        List<ProveedoresOnLine.Company.Models.Util.GenericChartsModel> oSurveyModel =
+                              Model.Where(x => x.ChartModuleType == ((int)MarketPlace.Models.General.enumCategoryInfoType.CH_SurveyModule).ToString()).
+                              Select(x => x).ToList();
+
+        @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey, oSurveyModel);
+    }
+
+</div>
+
+
+@{
+
+    //Model.RenderScripts = true;
+
+    <script type="text/javascript">
+
+
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Asignado', 'Porciento'],
+              ['En Proceso', 60],
+              ['Finalizado', 30],
+              ['Asignado', 10]
+            ]);
+            var options = {
+                title: 'Evaluiaciones de Desempeño por estado Año en curso',
+                is3D: true,
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+
+}
 

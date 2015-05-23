@@ -82,6 +82,14 @@
         //Bank Info
         B_Location = 505001,
         B_Code = 505011,
+
+        //Module Charts
+        CH_SurveyModule = 119001,
+        CH_ProjectModule = 119002,
+
+        //Module Charts Info        
+        CH_SurveyStatusByRol = 120001,
+
     }
 
     #endregion

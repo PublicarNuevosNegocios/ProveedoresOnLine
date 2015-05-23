@@ -51,5 +51,11 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
         List<SurveyModule.Models.SurveyModel> BPSurveyGetNotification();
 
         #endregion
+
+        #region SurveyCharts
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year);
+
+        #endregion
     }
 }

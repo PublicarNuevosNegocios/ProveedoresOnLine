@@ -20,7 +20,6 @@ namespace ProveedoresOnLine.SurveyModule.Models
 
         public DateTime CreateDate { get; set; }
 
-
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> SurveyInfo { get; set; }
 
         public List<SurveyItemModel> RelatedSurveyItem { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace ProveedoresOnLine.SurveyModule.Test
 {
@@ -12,6 +13,15 @@ namespace ProveedoresOnLine.SurveyModule.Test
             ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate("1C4FB681");
 
             Assert.AreEqual(1, 1);
+        }
+
+        [TestMethod]
+        public void GetSurveyByResponsable()
+        {
+            List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> oreturn =
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable("johann.martinez@publicar.com", DateTime.Now);
+
+            Assert.IsTrue(oreturn.Count > 0);
         }
     }
 }

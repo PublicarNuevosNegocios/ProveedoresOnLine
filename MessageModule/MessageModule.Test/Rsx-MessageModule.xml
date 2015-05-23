@@ -3,11 +3,7 @@
   <MessageModule>
     <!--Generic agents-->
     <key name="Agent">
-      <![CDATA[POL_RememberPassword_Mail
-          ,POL_SurveyWriteBackNotification_Mail
-          ,POL_ProjectApprovalRequest_Mail
-          ,POL_ProjectApproveArea_Mail
-          ,POL_ProjectRejectArea_Mail]]>   
+		<![CDATA[POL_RememberPassword_Mail,POL_ProjectRejectArea_Mail,POL_ProjectApproveArea_Mail,POL_ProjectApprovalRequest_Mail,POL_SurveyWriteBackNotification_Mail]]>
     </key>
 
     <!--Proveedores on line remember password email agent-->
@@ -18,16 +14,17 @@
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="AccessKeyId">
-            &lt;![CDATA[your_AccessKeyId]]&gt;
+            &lt;![CDATA[My AccesKeyId]]&gt;
           </key>
           <key name="SecretAccessKey">
-            &lt;![CDATA[your_SecretAccessKey]]&gt;
+            &lt;![CDATA[My SecretAccessKey]]&gt;
           </key>
           <key name="RegionEndpoint">
             &lt;![CDATA[us-east-1]]&gt;
           </key>
           <key name="Subject">
-            &lt;![CDATA[Recordar clave - Proveedores OnLine]]&gt;
+		  
+            &lt;![CDATA[Proveedores OnLine - Recordar clave]]&gt;
           </key>
           <key name="From">
             &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
@@ -68,7 +65,7 @@
 					              </div>
 					              <div style="background-color: #727276; height: 22px; text-align: center;">
 						              <span style="color: #fff; font-size: 0.9em;">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-						              <a style="color: #fff; font-size: 0.9em;" target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditios">Terminos y condiciones de uso</a>
+						              <a style="color: #fff; font-size: 0.9em;" target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions">Terminos y condiciones de uso</a>
 					              </div>
 			                 </td>
                       </tr>
@@ -78,127 +75,115 @@
         </POL_RememberPassword_Mail>
       ]]>
     </key>
-
+  
     <!--Proveedores on line survey write back notification email agent-->
     <key name="AgentConfig_POL_SurveyWriteBackNotification_Mail">
-      <![CDATA[
+      <![CDATA[	     
         <POL_SurveyWriteBackNotification_Mail>
           <key name="Assemblie">
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="AccessKeyId">
-            &lt;![CDATA[your_AccessKeyId]]&gt;
+            &lt;![CDATA[My AccesKeyId]]&gt;
           </key>
           <key name="SecretAccessKey">
-            &lt;![CDATA[your_SecretAccessKey]]&gt;
+            &lt;![CDATA[My SecretAccessKey]]&gt;
           </key>
           <key name="RegionEndpoint">
             &lt;![CDATA[us-east-1]]&gt;
           </key>
           <key name="Subject">
-            &lt;![CDATA[Evaluación de desempeño para {ProviderName} - Proveedores OnLine]]&gt;
+            &lt;![CDATA[Proveedores OnLine - Evaluación de desempeño]]&gt;
           </key>
           <key name="From">
-            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+            &lt;![CDATA[Proveedores OnLine<proveedoresonline@publicar.com>]]&gt;
           </key>
           <key name="MessageBody">
             &lt;![CDATA[
 				        <table>
-					        <tr>
-						        <td style="width:628px; text-align:center;">
-						
-							        <table cellpadding="0" cellspacing="0" >
-								        <tr>
-									        <td style="width:150px; padding:7px 0px 5px 0px;">
-										        <img style="width:150px; display:inline-block;" src="{CustomerLogo}" alt="{CustomerLogo}" title="{CustomerLogo}"/>
+					        <tbody>
+							<tr>
+						        <td style="width:628px;">						
+							        <table cellspacing="0" cellpadding="0">
+									<tbody>
+										<tr>
+									        <td style="width:150px;padding:7px 0px 5px 0px">
+										        <img title="Logo del Comprador" alt="Logo del Comprador" src="{CustomerLogo}" style="width:150px;display:inline-block;height:65px;border:1px solid grey;" class="CToWUd">
 									        </td>
-									        <td style="width:450px; text-align: right;">
-										        <span style="width:100px; color: #0066ae;
-													        font-size: 0.88em;
-													        font-weight: normal;
-													        letter-spacing: -0.2px;
-													        line-height: 1.1em;
-													        margin:0px;
-													        padding:0PX;
-													        vertical-align: top;
-													        width: auto;">{CustomerName}, {CustomerIdentificationTypeName}, {CustomerIdentificationNumber}</span>
+									        <td style="width:450px;text-align:right">
+										        <span style="width:100px;color:#0066ae;font-size:0.88em;font-weight:normal;letter-spacing:-0.2px;line-height:1.1em;margin:0px;padding:0px;vertical-align:top;width:auto">{CustomerName}, {CustomerIdentificationTypeName}, {CustomerIdentificationNumber}</span>
 									        </td>
 								        </tr>
-								        <tr>
-									        <td colspan="2" style="border:1px solid #999; padding: 6px; border-bottom:none;">
-										        <img style="width:150px; display:inline-block; " src="{ProviderLogo}" alt="{ProviderLogo}" title="{ProviderLogo}"/>
-										        <label style="display:inline-block; color:#666;
-													        font-size: 0.9em;
-													        font-weight: normal;
-													        letter-spacing: -0.2px;
-													        line-height: 1.3em; vertical-align:top; margin:6px 0px 0px 12px; width: 432px;">
-													
-													        El proveedor {ProviderName} tiene una evaluación  de desempeño pendiente con nombre {SurveyName} y fecha {SurveyIssueDate}.
-													
-										        <br />
-										        Para responder la evaluación haga clic en el siguiente enlace:
+										<tr>
+									        <td style="border:1px solid #999;padding:6px;border-bottom:none" colspan="2">
+										        <img title="Logo del Proveedor" alt="Logo del Proveedor" src="{ProviderLogo}" style="width:150px;display:inline-block;height:65px;border:1px solid grey;" class="CToWUd">
+										        <label style="display:inline-block;color:#666;font-size:0.9em;font-weight:normal;letter-spacing:-0.2px;line-height:1.3em;vertical-align:top;margin:6px 0px 0px 12px;width:432px">													
+													        {ProviderName}
+															<br />
+															tiene la siguiente evaluación de desempeño pendiente:
+															<br />
+															<strong>{SurveyName} y fecha 2015-04-13.</strong>
+															<br />										        
 										        </label>
-										        <a style="display:block; margin: 6px 0 5px 12px; color: #0066ae;
-            display: block;
-            font-size: 0.9em;" href="{ProviderLink}" title="{ProviderLink}" >{SurveyLink}</a>
+												<label style="display:inline-block;color:#666;font-size:0.9em;font-weight:normal;letter-spacing:-0.2px;line-height:1.3em;vertical-align:top;margin:6px 0px 0px 12px;width:432px">
+												Para responder la evaluación haga clic en el siguiente enlace:
+												</label>
+										        <a target="_blank" title="{ProviderLink}" href="{ProviderLink}" style="display:block;margin:6px 0 5px 12px;color:#0066ae;display:block;font-size:1em;letter-spacing: -0.8px;font-weight: bold;">{ProviderLink}</a>
 									        </td>
 								        </tr>
-								        <tr>
-									        <td colspan="2" style="border:1px solid #999;  border-top:none; padding: 6px;">
-										        <label style="display:inline-block; color:#666;
-													        font-size: 0.9em;
-													        font-weight: normal;
-													        letter-spacing: -0.2px;
-													        line-height: 1.1em; vertical-align:top; margin:0px 0px 0px 12px;">
-													        Para ver el detalle de: <br /><br />
-													        {ProviderName}<br />													
-													        {ProviderIdentificationTypeName}<br />
-													        {ProviderIdentificationNumber}<br /><br />
-													        siga el enlace a continuación:																				
+										<tr>
+									        <td style="border:1px solid #999;border-top:none;padding:6px" colspan="2">
+										        <label style="display:inline-block;color:#666;font-size:0.9em;font-weight:normal;letter-spacing:-0.2px;line-height:1.1em;vertical-align:top;margin:0px 0px 0px 12px">
+													Para ver el detalle de: <br /><br />
+													{ProviderName}
+													<br />
+													{ProviderIdentificationTypeName}: {ProviderIdentificationNumber}
+													<br />
+													<br />
+													siga el enlace a continuación:															
+													<br />
 										        </label>
-										        <a style="display:block; margin: 6px 0 5px 12px; color: #0066ae;
-            display: block;
-            font-size: 0.9em;" href="{SurveyLink}" title="{SurveyLink}">{ProviderLink}</a>
+
+										        <a target="_blank" title="{SurveyLink}" href="{SurveyLink}" style="display:block;margin:6px 0 5px 12px;color:#0066ae;display:block;font-size:1em;letter-spacing:-0.8px;font-weight:bold;">{ProviderLink}</a>
 									        </td>
 								        </tr>
-								        <tr><td style="height:8px;"></td></tr>
+								        <tr><td style="height:8px"></td></tr>
 								        <tr>
-									        <td style="width:628px; padding:5px; background-color: #b3b3b3; height:60px;" colspan="2">
-									          <img style="height: 50px; width: 151px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" alt="Provedores Online" title="Provedores Online"/>
-									          <img style="height: 40px; width: 151px; float:right;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" alt="Provedores Online" title="Provedores Online"/>
+									        <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
+									          <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
+									          <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
 									        </td>
 								        </tr>
 								        <tr>
-									        <td style="background-color: #727276; height: 22px; text-align: center; width:628px;" colspan="2">
-										
-										        <span style="color: #fff; font-size: 0.8em;">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-										        <a style="color: #fff; font-size: 0.8em;" target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions">Terminos y condiciones de uso</a>
-									  
+									        <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
+										        <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+										        <a target="_blank" href="https://www.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>									  
 									        </td>
 								        </tr>
-							        </table>
-							
-						        </td>
-					        </tr>
-				        </table>
+									</tbody>	
+									</table>							
+						        </td>								
+							</tr>	
+							</tbody>
+						</table>
             ]]&gt;
           </key>
         </POL_SurveyWriteBackNotification_Mail>
       ]]>
     </key>
-
-    <!--Proveedores on line project approval email agent-->
+	
+	  <!--Proveedores on line project approval email agent-->
     <key name="AgentConfig_POL_ProjectApprovalRequest_Mail">
       <![CDATA[
-        <POL_SurveyWriteBackNotification_Mail>
+        <POL_ProjectApprovalRequest_Mail>
           <key name="Assemblie">
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="AccessKeyId">
-            &lt;![CDATA[your_AccessKeyId]]&gt;
+            &lt;![CDATA[My AccesKeyId]]&gt;
           </key>
           <key name="SecretAccessKey">
-            &lt;![CDATA[your_SecretAccessKey]]&gt;
+            &lt;![CDATA[My SecretAccessKey]]&gt;
           </key>
           <key name="RegionEndpoint">
             &lt;![CDATA[us-east-1]]&gt;
@@ -207,140 +192,106 @@
             &lt;![CDATA[Aprobación requerida - Proveedores OnLine]]&gt;
           </key>
           <key name="From">
-            &lt;![CDATA[Proveedores OnLine<contactoproveedoresonline@gmail.com>]]&gt;
+            &lt;![CDATA[Proveedores OnLine<proveedoresonline@publicar.com>]]&gt;
           </key>
           <key name="MessageBody">
             &lt;![CDATA[
-                    <table style="width:628px;" cellpadding="0" cellspacing="0" border="0" >
-                    <!-- PRIMER PISO -->
-	                    <tr>
-		                    <td style=" height:80px;
-					                    text-align: left;
-					                    width: 100%;
-					                    border-bottom: 1px solid #ff8300;
-					                    padding:8px;" valign="bottom">
-		                    <!-- HEADER -->
-			                    <table cellpadding="0" cellspacing="0" border="0" >
-				                    <tr>
-					                    <td valign="bottom">
-						                    <img style="height: auto; width: 112px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/TinkerHouse-logoS.png" alt="{CustomerLogo}" title="{CustomerLogo}">
-					                    </td>
-					                    <td valign="bottom">
-						                    <label style="display:block;
-						                    width:362px;
-						                    color:#0066ae;
-						                    font-size:0.9em;
-						                    font-weight:normal;
-						                    letter-spacing:-0.2px;
-						                    line-height:1.1em;
-						                    margin:0px 0px 0px 14px;
-						                    padding:0px;">
-						                    {CustomerName}<br />
-						                    {CustomerIdentificationTypeName}<br />
-						                    {CustomerIdentificationNumber}</label>
-					                    </td>
-					                    <td valign="top">
-						                    <img style="height: auto; width: 92px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" alt="Logo de ProveedoresOnline" title="Logo de ProveedoresOnline">
-					                    </td>
-				                    </tr>
-			                    </table>
-		                    </td>
-	                    </tr>
-	                    <!-- SEGUNDO PISO -->
-	                    <tr>
-		                    <td valign="bottom" style="padding:28px 0 0 10px;">
-			                    <!-- CONTENIDO -->
-			                    <label style="padding:0px 0 10px 0px;
-			                    display: block;
-			                    color: #727272; font-weight:bold;">El proveedor:
-			                    </label>
-			                    <img style="height: auto; width: 112px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/narywka.png" alt="{ProviderLogo}" title="{ProviderLogo}">
-			                    <label style="width:449px;
-			                    display:inline-block;
-			                    color:#0066ae;
-			                    font-size:0.9em;
-			                    font-weight:normal;
-			                    letter-spacing:-0.2px;
-			                    line-height:1.1em;
-			                    margin:0px;
-			                    padding:0 0 0 9px;">
-			                    {ProviderName}<br />
-			                    {ProviderIdentificationTypeName}<br />
-			                    {ProviderIdentificationNumber}<br />
-			                    <a style="color: #0066ae;
-			                    padding:6px 0 8px 0px;" href="">{ProviderLink}</a>
-			                    </label>
-		                    </td>
-	                    </tr>
-	                    <tr>
-		                    <td style="font-size: 1em;
-			                    letter-spacing: -0.5px;
-			                    line-height: 1.5em;">
-			                    <label style="padding:18px 0 8px 13px;
-			                    display: block;
-			                    color: #727272;">Ha sido aprobado en el proceso de selección <span style="font-weight:bolder;">{ProjectName}</span>.
-			                    <div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -13px;"></div>
-			                    Para ver el detalle de calificación de cada área, puede ingresar en el siguiente enlace:
-			                    </label>
-			                    <a style="color: #0066ae;
-			                    padding:6px 0 8px 13px;" href="">
-			                    {ProjectProviderUrl}
-			                    </a>
-			                    <br />			
-			                    <label style="padding:6px 0 0px 13px;
-			                    display: block;
-			                    color: #727272;">
-			                    <div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -13px;"></div>
-			                    Si quiere ver el detalle del proceso de selección <span style="font-weight:bolder;">{ProjectName}</span> puede ingresar en el siguiente enlace:
-			                    <br />
-			                    </label>
-			                    <a style="color: #0066ae;
-			                    padding:0px 0 10px 13px; display:block;" href="">{ProjectUrl}</a>						
-		                    </td>
-	                    </tr>
-	                    <!-- TERCER PISO -->
-	                    <tr>
-		                    <td style="height:8px"></td>
-	                    </tr>
-	                    <!-- FROOTER -->
-	                    <tr>
-		                    <td>
-			                    <table cellpadding="0" cellspacing="0" border="0">
-				                    <tr>
-					                    <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
-					                      <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd" />
-					                        <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd" />
-					                    </td>
-				                    </tr>
-				                    <tr>
-					                    <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
-						                    <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-						                    <a target="_blank" href="https://stg.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>
-					                    </td>
-				                    </tr>
-			                    </table>
-		                    </td>
-	                    </tr>
-                    </table>
-    
+                    <table style="width:628px; line-height:1.1em; font-size:15px; letter-spacing:-0.2px; font-weight:normal;" cellpadding="0" cellspacing="0" border="0" >
+					<!-- PRIMER PISO -->
+						<tr>
+							<td style=" height:52px;
+										text-align: left;
+										width: 100%;
+										border-bottom: 1px solid #ff8300;
+										padding:8px;" valign="top">
+							<!-- HEADER -->
+								<table cellpadding="0" cellspacing="0" border="0" style="line-height:1.1em; font-size:15px; letter-spacing:-0.2px; font-weight:normal; color:#0066ae;">
+									<tr>
+										<td valign="top">
+											<img style="height: auto; width:68px;" src="{CustomerLogo}" border="0">
+										</td>
+										<td valign="top">
+											<label style="display:block; width:438px; margin:0px 0px 0px 10px; padding:0px;">
+											{CustomerName}<br />
+											{CustomerIdentificationTypeName}:&nbsp;&nbsp;
+											{CustomerIdentificationNumber}</label>
+										</td>
+										<td valign="top">
+											<img style="height: auto; width: 92px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" alt="Logo de ProveedoresOnline" title="Logo de ProveedoresOnline">
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- SEGUNDO PISO -->
+						<tr>
+							<td valign="top" style="padding:10px 0 0 8px;">
+								<img style="height: auto; width: 68px;" src="{ProviderLogo}" border="0">
+								<!-- CONTENIDO -->
+								<label style="width:auto;display:inline-block;color:#0066ae;margin:0 0 0 10px;padding:0px; vertical-align:top;">
+								{ProviderName}<br />
+								{ProviderIdentificationTypeName}:&nbsp;&nbsp;
+								{ProviderIdentificationNumber}<br />
+								<a style="color: #0066ae; padding:6px 0 8px 0px;" href="{ProviderLink}">{ProviderLink}</a>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="padding:10px 0 8px 10px; display: block; color: #727272;"><span style="font-weight:bolder;">{CustomerName}</span> Lleva a cabo un proceso de selección de proveedores para <span style="font-weight:bolder;">{ProjectName}</span>.
+								</label>
+								<label style="padding:0px 0 8px 10px;display: block;color: #727272;">
+									El Proveedor <span style="font-weight:bolder;">{ProviderName}</span> ha sido seleccionado para este proceso; y requiere la precalificación del <span style="font-weight:bolder;">{EvaluationAreaName}</span>.								
+									<div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -10px; height:2px;"></div>
+									Para poder precalificar <span style="font-weight:bolder;">{EvaluationAreaName}</span> del proveedor <span style="font-weight:bolder;">{ProviderName}</span>;
+									<br />
+									Solo debe seguir el siguiente enlace:
+								</label>
+								<a style="color: #0066ae; padding:0px 0 10px 10px; display:block;" href="{ProjectProviderUrl}">{ProjectProviderUrl}</a>
+							</td>
+						</tr>
+						<!-- TERCER PISO -->
+						<tr>
+							<td style="height:8px"></td>
+						</tr>
+						<!-- FROOTER -->
+						<tr>
+							<td>
+								<table cellpadding="0" cellspacing="0" border="0">
+									<tr>
+										<td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
+										<img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
+									    <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
+											<span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+											<a target="_blank" href="https://stg.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
             ]]&gt;
           </key>
-        </POL_SurveyWriteBackNotification_Mail>
+        </POL_ProjectApprovalRequest_Mail>
       ]]>
     </key>
-
-    <!--Proveedores on line project approve area email agent-->
+	
+	 <!--Proveedores on line project approve area email agent-->
     <key name="AgentConfig_POL_ProjectApproveArea_Mail">
       <![CDATA[
-        <POL_SurveyWriteBackNotification_Mail>
+        <POL_ProjectApproveArea_Mail>
           <key name="Assemblie">
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="AccessKeyId">
-            &lt;![CDATA[your_AccessKeyId]]&gt;
+            &lt;![CDATA[My AccesKeyId]]&gt;
           </key>
           <key name="SecretAccessKey">
-            &lt;![CDATA[your_SecretAccessKey]]&gt;
+            &lt;![CDATA[My SecretAccessKey]]&gt;
           </key>
           <key name="RegionEndpoint">
             &lt;![CDATA[us-east-1]]&gt;
@@ -353,130 +304,104 @@
           </key>
           <key name="MessageBody">
             &lt;![CDATA[
-                    {ProjectProviderUrl}
-                    <table style="width:628px;" cellpadding="0" cellspacing="0" border="0" >
-                      <!-- PRIMER PISO -->
-	                      <tr>
-		                      <td style=" height:80px;
-					                      text-align: left;
-					                      width: 100%;
-					                      border-bottom: 1px solid #ff8300;
-					                      padding:8px;" valign="bottom">
-		                      <!-- HEADER -->
-			                      <table cellpadding="0" cellspacing="0" border="0" >
-				                      <tr>
-					                      <td valign="bottom">
-						                      <img style="height: auto; width: 112px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/TinkerHouse-logoS.png" alt="{CustomerLogo}" title="{CustomerLogo}">
-					                      </td>
-					                      <td valign="bottom">
-						                      <label style="display:block;
-						                      width:362px;
-						                      color:#0066ae;
-						                      font-size:0.9em;
-						                      font-weight:normal;
-						                      letter-spacing:-0.2px;
-						                      line-height:1.1em;
-						                      margin:0px 0px 0px 14px;
-						                      padding:0px;">
-						                      {CustomerName}<br />
-						                      {CustomerIdentificationTypeName}<br />
-						                      {CustomerIdentificationNumber}</label>
-					                      </td>
-					                      <td valign="top">
-						                      <img style="height: auto; width: 92px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" alt="Logo de ProveedoresOnline" title="Logo de ProveedoresOnline">		
-					                      </td>
-				                      </tr>
-			                      </table>
-		                      </td>
-	                      </tr>
-	                      <!-- SEGUNDO PISO -->
-	                      <tr>
-		                      <td valign="bottom" style="padding:28px 0 0 10px;">
-			                      <!-- CONTENIDO -->
-			                      <img style="height: auto; width: 112px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/narywka.png" alt="{ProviderLogo}" title="{ProviderLogo}">
-			                      <label style="width:449px;
-			                      display:inline-block;
-			                      color:#0066ae;
-			                      font-size:0.9em;
-			                      font-weight:normal;
-			                      letter-spacing:-0.2px;
-			                      line-height:1.1em;
-			                      margin:0px;
-			                      padding:0 0 0 9px;">
-			                      {ProviderName}<br />
-			                      {ProviderIdentificationTypeName}<br />
-			                      {ProviderIdentificationNumber}<br />
-			                      <a style="color: #0066ae;
-			                      padding:6px 0 8px 0px;" href="">{ProviderLink}</a>
-			                      </label>
-		                      </td>
-	                      </tr>
-	                      <tr>
-		                      <td style="font-size: 1em;
-			                      letter-spacing: -0.5px;
-			                      line-height: 1.5em;">
-			                      <label style="padding:18px 0 8px 13px;
-			                      display: block;
-			                      color: #727272;"><span style="font-weight:bolder;">{CustomerName}</span> Lleva a cabo un proceso de selección de proveedores para <span style="font-weight:bolder;">{ProjectName}</span>.
-			                      </label>
-			                      <label style="padding:6px 0 0px 13px;
-			                      display: block;
-			                      color: #727272;">
-				                      El Proveedor <span style="font-weight:bolder;">{ProviderName}</span> ha sido seleccionado para este proceso; y requiere la precalificación del <span style="font-weight:bolder;">{EvaluationAreaName}</span>.
-								
-				                      <div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -13px;"></div>				
-				
-				                      Para poder precalificar <span style="font-weight:bolder;">{EvaluationAreaName}</span> del proveedor <span style="font-weight:bolder;">{ProviderName}</span>;
-				                      <br />
-				                      Solo debe seguir el siguiente enlace:
-			                      </label>
-			                      <a style="color: #0066ae;
-			                      padding:0px 0 10px 13px; display:block;" href="">{ProjectProviderUrl}</a>
-		                      </td>
-	                      </tr>
-	                      <!-- TERCER PISO -->
-	                      <tr>
-		                      <td style="height:8px"></td>
-	                      </tr>
-	                      <!-- FROOTER -->
-	                      <tr>
-		                      <td>
-			                      <table cellpadding="0" cellspacing="0" border="0">
-				                      <tr>
-					                      <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
-					                        <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd" />
-					                        <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd" />
-					                      </td>
-				                      </tr>
-				                      <tr>
-					                      <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
-						                      <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-						                      <a target="_blank" href="https://stg.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>
-					                      </td>
-				                      </tr>
-			                      </table>
-		                      </td>
-	                      </tr>
-                      </table>
-    
+                    <table style="width:628px; line-height:1.1em; font-size:15px; letter-spacing:-0.2px; font-weight:normal;" cellpadding="0" cellspacing="0" border="0" >
+					<!-- PRIMER PISO -->
+						<tr>
+							<td style=" height:52px;
+										text-align: left;
+										width: 100%;
+										border-bottom: 1px solid #ff8300;
+										padding:8px;" valign="top">
+							<!-- HEADER -->
+								<table cellpadding="0" cellspacing="0" border="0" style="line-height:1.1em; font-size:15px; letter-spacing:-0.2px; font-weight:normal; color:#0066ae;">
+									<tr>
+										<td valign="top">
+											<img style="height: auto; width:68px;" src="{CustomerLogo}" border="0">
+										</td>
+										<td valign="top">
+											<label style="display:block; width:438px; margin:0px 0px 0px 10px; padding:0px;">
+											{CustomerName}<br />
+											{CustomerIdentificationTypeName}:&nbsp;&nbsp;
+											{CustomerIdentificationNumber}</label>
+										</td>
+										<td valign="top">
+											<img style="height: auto; width: 92px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" alt="Logo de ProveedoresOnline" title="Logo de ProveedoresOnline">
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- SEGUNDO PISO -->
+						<tr>
+							<td valign="top" style="padding:10px 0 0 8px;">
+								<!-- CONTENIDO -->	
+								<img style="height: auto; width: 68px;" src="{ProviderLogo}" border="0">
+								<label style="width:449px;display:inline-block;color:#0066ae;margin:0 0 0 10px;padding:0px;vertical-align:top;">
+								{ProviderName}<br />
+								{ProviderIdentificationTypeName}:&nbsp;&nbsp;
+								{ProviderIdentificationNumber}<br />
+								<a style="color: #0066ae;padding:6px 0 8px 0px;" href="{ProviderLink}">{ProviderLink}</a>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="padding:10px 0 8px 10px;display: block;color: #727272;">Ha sido aprobado en el proceso de selección <span style="font-weight:bolder;">{ProjectName}</span>, en el área de <span style="font-weight:bolder;">{EvaluationAreaName}</span>.
+								<div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -10px; height:2px;"></div>
+								Para ver el detalle de calificación de cada área, puede ingresar en el siguiente enlace:
+								</label>
+								<a style="color: #0066ae;padding:6px 0 8px 10px;" href="{ProjectProviderUrl}">{ProjectProviderUrl}</a>
+								<br />
+								<label style="padding:6px 0 0px 10px;display: block;color: #727272;">
+								<div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -10px; height:2px;"></div>
+								Si quiere ver el detalle del proceso de selección <span style="font-weight:bolder;">{ProjectName}</span> puede ingresar en el siguiente enlace:
+								<br />
+								</label>
+								<a style="color: #0066ae;padding:0px 0 10px 10px; display:block;" href="{ProjectUrl}">{ProjectUrl}</a>
+							</td>
+						</tr>
+						<!-- TERCER PISO -->
+						<tr>
+							<td style="height:8px"></td>
+						</tr>
+						<!-- FROOTER -->
+						<tr>
+							<td>
+								<table cellpadding="0" cellspacing="0" border="0">
+									<tr>
+										<td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
+										<img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
+									    <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
+											<span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+											<a target="_blank" href="https://stg.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
             ]]&gt;
           </key>
-        </POL_SurveyWriteBackNotification_Mail>
+        </POL_ProjectApproveArea_Mail>
       ]]>
     </key>
-
-    <!--Proveedores on line project reject email agent-->
+	
+	 <!--Proveedores on line project reject email agent-->
     <key name="AgentConfig_POL_ProjectRejectArea_Mail">
       <![CDATA[
-        <POL_SurveyWriteBackNotification_Mail>
+        <POL_ProjectRejectArea_Mail>
           <key name="Assemblie">
             &lt;![CDATA[MessageModule.Agent.AWSMail.AWSMail, MessageModule.Agent.AWSMail]]&gt;
           </key>
           <key name="AccessKeyId">
-            &lt;![CDATA[your_AccessKeyId]]&gt;
+            &lt;![CDATA[My AccesKeyId]]&gt;
           </key>
           <key name="SecretAccessKey">
-            &lt;![CDATA[your_SecretAccessKey]]&gt;
+            &lt;![CDATA[My SecretAccessKey]]&gt;
           </key>
           <key name="RegionEndpoint">
             &lt;![CDATA[us-east-1]]&gt;
@@ -489,121 +414,91 @@
           </key>
           <key name="MessageBody">
             &lt;![CDATA[
-                    <table style="width:628px;" cellpadding="0" cellspacing="0" border="0" >
-                      <!-- PRIMER PISO -->
-	                      <tr>
-		                      <td style=" height:80px;
-					                      text-align: left;
-					                      width: 100%;
-					                      border-bottom: 1px solid #ff8300;
-					                      padding:8px;" valign="bottom">
-		                      <!-- HEADER -->
-			                      <table cellpadding="0" cellspacing="0" border="0" >
-				                      <tr>
-					                      <td valign="bottom">
-						                      <img style="height: auto; width: 112px;" src="{CustomerLogo}" alt="{CustomerLogo}" title="{CustomerLogo}">
-					                      </td>
-					                      <td valign="bottom">
-						                      <label style="display:block;
-						                      width:362px;
-						                      color:#0066ae;
-						                      font-size:0.9em;
-						                      font-weight:normal;
-						                      letter-spacing:-0.2px;
-						                      line-height:1.1em;
-						                      margin:0px 0px 0px 14px;
-						                      padding:0px;">
-						                      {CustomerName}<br />
-						                      {CustomerIdentificationTypeName}<br />
-						                      {CustomerIdentificationNumber}</label>
-					                      </td>
-					                      <td valign="top">
-						                      <img style="height: auto; width: 92px;" src="{ProviderLogo}" alt="Logo de ProveedoresOnline" title="Logo de ProveedoresOnline">
-					                      </td>
-				                      </tr>
-			                      </table>
-		                      </td>
-	                      </tr>
-	                      <!-- SEGUNDO PISO -->
-	                      <tr>
-		                      <td valign="bottom" style="padding:28px 0 0 10px;">
-			                      <!-- CONTENIDO -->
-			                      <label style="padding:0px 0 10px 0px;
-			                      display: block;
-			                      color: #727272; font-weight:bold;">El proveedor:
-			                      </label>
-			                      <img style="height: auto; width: 112px;" src="{ProviderLogo}" alt="{ProviderLogo}" title="{ProviderLogo}">
-			                      <label style="width:449px;
-			                      display:inline-block;
-			                      color:#0066ae;
-			                      font-size:0.9em;
-			                      font-weight:normal;
-			                      letter-spacing:-0.2px;
-			                      line-height:1.1em;
-			                      margin:0px;
-			                      padding:0 0 0 9px;">
-			                      {ProviderName}<br />
-			                      {ProviderIdentificationTypeName}<br />
-			                      {ProviderIdentificationNumber}<br />
-			                      <a style="color: #0066ae;
-			                      padding:6px 0 8px 0px;" href="">{ProviderLink}</a>
-			                      </label>
-		                      </td>
-	                      </tr>
-	                      <tr>
-		                      <td style="font-size: 1em;
-			                      letter-spacing: -0.5px;
-			                      line-height: 1.5em;">
-			                      <label style="padding:18px 0 8px 13px;
-			                      display: block;
-			                      color: #727272;">Ha sido rechazado en el proceso de selección <span style="font-weight:bolder;">{ProjectName}</span>.
-			                      <div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -13px;"></div>
-			                      Para ver el detalle de calificación de cada área, puede ingresar en el siguiente enlace:
-			                      </label>
-			                      <a style="color: #0066ae;
-			                      padding:6px 0 8px 13px;" href="">
-			                      {ProjectProviderUrl}
-			                      </a>
-			                      <br />			
-			                      <label style="padding:6px 0 0px 13px;
-			                      display: block;
-			                      color: #727272;">
-			                      <div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -13px;"></div>
-			                      Si quiere ver el detalle del proceso de selección <span style="font-weight:bolder;">{ProjectName}</span> puede ingresar en el siguiente enlace:
-			                      <br />
-			                      </label>
-			                      <a style="color: #0066ae;
-			                      padding:0px 0 10px 13px; display:block;" href="">{ProjectUrl}</a>						
-		                      </td>
-	                      </tr>
-	                      <!-- TERCER PISO -->
-	                      <tr>
-		                      <td style="height:8px"></td>
-	                      </tr>
-	                      <!-- FROOTER -->
-	                      <tr>
-		                      <td>
-			                      <table cellpadding="0" cellspacing="0" border="0">
-				                      <tr>
-					                      <td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
-					                        <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd" />
-					                        <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd" />
-					                      </td>
-				                      </tr>
-				                      <tr>
-					                      <td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
-						                      <span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
-						                      <a target="_blank" href="https://stg.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>
-					                      </td>
-				                      </tr>
-			                      </table>
-		                      </td>
-	                      </tr>
-                      </table>    
+                    <table style="width:628px; line-height:1.1em; font-size:15px; letter-spacing:-0.2px; font-weight:normal;" cellpadding="0" cellspacing="0" border="0" >
+					<!-- PRIMER PISO -->
+						<tr>
+							<td style=" height:52px;
+										text-align: left;
+										width: 100%;
+										border-bottom: 1px solid #ff8300;
+										padding:8px;" valign="top">
+							<!-- HEADER -->
+								<table cellpadding="0" cellspacing="0" border="0" style="line-height:1.1em; font-size:15px; letter-spacing:-0.2px; font-weight:normal; color:#0066ae;">
+									<tr>
+										<td valign="top">
+											<img style="height: auto; width:68px;" src="{CustomerLogo}" border="0">
+										</td>
+										<td valign="top">
+											<label style="display:block; width:438px; margin:0px 0px 0px 10px; padding:0px;">
+											{CustomerName}<br />
+											{CustomerIdentificationTypeName}:&nbsp;&nbsp;
+											{CustomerIdentificationNumber}</label>
+										</td>
+										<td valign="top">
+											<img style="height: auto; width: 92px;" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logo.png" alt="Logo de ProveedoresOnline" title="Logo de ProveedoresOnline">
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- SEGUNDO PISO -->
+						<tr>
+							<td valign="top" style="padding:10px 0 0 8px;">
+								<!-- CONTENIDO -->	
+								<img style="height: auto; width: 68px;" src="{ProviderLogo}" border="0">
+								<label style="width:449px;display:inline-block;color:#0066ae;margin:0 0 0 10px;padding:0px;vertical-align:top;">
+								{ProviderName}<br />
+								{ProviderIdentificationTypeName}:&nbsp;&nbsp;
+								{ProviderIdentificationNumber}<br />
+								<a style="color: #0066ae;padding:6px 0 8px 0px;" href="{ProviderLink}">{ProviderLink}</a>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label style="padding:10px 0 8px 10px;display: block;color: #727272;">Ha sido rechazado en el proceso de selección <span style="font-weight:bolder;">{ProjectName}</span>, en el área de <span style="font-weight:bolder;">{EvaluationAreaName}</span>.
+								<div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -10px; height:2px;"></div>
+								Para ver el detalle de calificación de cada área, puede ingresar en el siguiente enlace:
+								</label>
+								<a style="color: #0066ae;padding:6px 0 8px 10px;" href="{ProjectProviderUrl}">{ProjectProviderUrl}</a>
+								<br />
+								<label style="padding:6px 0 0px 10px;display: block;color: #727272;">
+								<div style="border-bottom: 1px solid #ff8300; margin:10px 0 10px -10px; height:2px;"></div>
+								Si quiere ver el detalle del proceso de selección <span style="font-weight:bolder;">{ProjectName}</span> puede ingresar en el siguiente enlace:
+								<br />
+								</label>
+								<a style="color: #0066ae;padding:0px 0 10px 10px; display:block;" href="{ProjectUrl}">{ProjectUrl}</a>
+							</td>
+						</tr>
+						<!-- TERCER PISO -->
+						<tr>
+							<td style="height:8px"></td>
+						</tr>
+						<!-- FROOTER -->
+						<tr>
+							<td>
+								<table cellpadding="0" cellspacing="0" border="0">
+									<tr>
+										<td colspan="2" style="width:628px;padding:5px;background-color:#b3b3b3;height:60px">
+										<img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logos_footer2.png" style="min-height:50px;width:151px" class="CToWUd">
+									    <img title="Provedores Online" alt="Provedores Online" src="http://devproveedoresonline.s3.amazonaws.com/MarketPlace/SiteImages/logoPublicarBN.png" style="min-height:40px;width:151px;float:right" class="CToWUd">
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2" style="background-color:#727276;height:22px;text-align:center;width:628px">										
+											<span style="color:#fff;font-size:0.8em">&copy;2015 Publicar SAS. Todos los derechos reservados</span>
+											<a target="_blank" href="https://stg.proveedoresonline.co/marketplace/home/TermsAndConditions" style="color:#fff;font-size:0.8em">Terminos y condiciones de uso</a>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
             ]]&gt;
           </key>
-        </POL_SurveyWriteBackNotification_Mail>
+        </POL_ProjectRejectArea_Mail>
       ]]>
-    </key>
+    </key>    
   </MessageModule>
 </Settings>
+

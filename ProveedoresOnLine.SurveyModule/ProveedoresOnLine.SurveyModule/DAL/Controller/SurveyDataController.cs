@@ -127,5 +127,13 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         }
 
         #endregion
+
+        #region SurveyCharts
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year)
+        {
+            return DataFactory.GetSurveyByResponsable(ResponsableEmail, Year);
+        }
+        #endregion
     }
 }

@@ -657,6 +657,7 @@ namespace Links
                     private const string URLPATH = "~/Areas/Desktop/Scripts/Site";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string ChartsScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ChartsScripts.min.js") ? Url("ChartsScripts.min.js") : Url("ChartsScripts.js");
                     public static readonly string CompareScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CompareScripts.min.js") ? Url("CompareScripts.min.js") : Url("CompareScripts.js");
                     public static readonly string GeneralScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/GeneralScripts.min.js") ? Url("GeneralScripts.min.js") : Url("GeneralScripts.js");
                     public static readonly string ProjectScripts_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProjectScripts.min.js") ? Url("ProjectScripts.min.js") : Url("ProjectScripts.js");

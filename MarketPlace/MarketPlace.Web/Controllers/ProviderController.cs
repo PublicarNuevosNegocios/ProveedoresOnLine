@@ -13,10 +13,32 @@ namespace MarketPlace.Web.Controllers
 {
     public partial class ProviderController : BaseController
     {
-
         public virtual ActionResult Index()
         {
-            return View();
+            //Get Charts By Module
+            List<GenericChartsModel> oReturn = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;                       
+            
+            #region Survey
+            oRelatedChart = new GenericChartsModel()
+                {
+                    ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
+                    GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+                };
+            //Get By Responsable
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(SessionModel.CurrentLoginUser.Email, DateTime.Now);
+            if (oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    x.ChartModuleInfoType = ((int)enumCategoryInfoType.CH_SurveyStatusByRol).ToString();
+                    return true;
+                });
+            }
+            oReturn.Add(oRelatedChart); 
+            #endregion
+
+            return View(oReturn);
         }
 
         #region Provider search

@@ -1088,5 +1088,44 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region SurveyCharts
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vResponable", ResponsableEmail));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_SurveyCharts_GetByResponsable",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericChartsModelInfo> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                   (from sv in response.DataTableResult.AsEnumerable()
+                    where !sv.IsNull("Count")
+                    select new GenericChartsModelInfo()
+                    {
+                        Title = sv.Field<string>("Title"),
+                        ItemType = sv.Field<string>("ItemType"),
+                        ItemName = sv.Field<string>("ItemName"),
+                        Count = (int)sv.Field<Int64>("Count"),
+                    }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }

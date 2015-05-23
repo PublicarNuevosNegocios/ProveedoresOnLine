@@ -695,5 +695,14 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         }
 
         #endregion
+
+        #region SurveyCharts
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year)
+        {
+            return DAL.Controller.SurveyDataController.Instance.GetSurveyByResponsable(ResponsableEmail, Year);
+        }
+            
+        #endregion
     }
 }
