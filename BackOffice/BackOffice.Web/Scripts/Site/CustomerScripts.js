@@ -1839,10 +1839,20 @@ var Customer_EvaluationItemObject = {
                         var tr = $(e.target).closest("tr"); // get the current table row (tr)
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
-                        //validate SurveyConfigId attribute
-                        if (data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                            debugger;
-                            window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.ProjectProviderId);
+
+                        ////validate SurveyConfigId attribute
+                        //if (data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                        //    debugger;
+                        //    window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.ProjectProviderId);
+                        //}
+
+                        //validate SurveyConfigItemTypeId attribute
+                        if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
+                            //is in evaluation area show question
+                            vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
+                            vRenderObject.EvaluationItemType = '1401002';
+                            vRenderObject.Title = data.EvaluationItemName;
+                            Customer_EvaluationItemObject.RenderAsync(vRenderObject);
                         }
                     }
                 }],
@@ -1879,7 +1889,7 @@ var Customer_EvaluationItemObject = {
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<input id="EC_ApprovePercentageId" type="hidden" value="' + result[i].EC_ApprovePercentageId + '" />')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<label name="EC_ApprovePercentage">' + result[i].EC_ApprovePercentage + '</label>')
 
-                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail(\'' + result[i].EC_EvaluationCriteria + '\');">Ver detalle</button>')
+                    $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('<button onclick="javascript: Customer_EvaluationItemObject.ShowProjectConfigurationDetail(\'' + result[i].EC_EvaluatorTypeId + ',' + result[i].EC_EvaluatorType + ',' + result[i].EC_EvaluatorId + ',' + result[i].EC_Evaluator + ',' + result[i].EC_UnitId + ',' + result[i].EC_Unit + ',' + result[i].EC_RatingId + ',' + result[i].EC_Rating + ',' + result[i].EC_EvaluationCriteriaId + ',' + result[i].EC_EvaluationCriteria + ',' + result[i].EC_InfoType_Value_OperatorId + ',' + result[i].EC_InfoType_Value_Operator + ',' + result[i].EC_YearsQuantityId + ',' + result[i].EC_YearsQuantity + ',' + result[i].EC_ExperienceConfigId + ',' + result[i].EC_ExperienceConfig + ',' + result[i].EC_OrderId + ',' + result[i].EC_Order + ',' + result[i].EC_ApprovePercentageId + ',' + result[i].EC_ApprovePercentage + '\');">Ver detalle</button>')
                     $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).append('</li>')
                 }
 
@@ -1890,7 +1900,8 @@ var Customer_EvaluationItemObject = {
         });
     },
 
-    ShowProjectConfigurationDetail: function (vEvaluationCriteria) {
+    ShowProjectConfigurationDetail: function (vEvaluationCriteriaObject) {
+        debugger;
         $('#' + Customer_EvaluationItemObject.ObjectId + '_Dialog').dialog({
             //autoOpen: false,
             width: 600,
@@ -1900,7 +1911,9 @@ var Customer_EvaluationItemObject = {
             open: function(event, ui) {
                 //Load the CreateAlbumPartial action which will return 
                 // the partial view _CreateAlbumPartial
-                $('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').load('@Url.Action(MVC.Shared.Views._PJ_EvaluationCriteria_' + vEvaluationCriteria + ')');
+                debugger;
+                window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${EvaluationItem}/gi, vEvaluationCriteriaObject);
+                //$('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').load('@Url.Action(MVC.Shared.Views._PJ_EvaluationCriteria_' + vEvaluationCriteria + ')');
             },
             buttons: {
                 "Close": function () {
