@@ -1,31 +1,16 @@
-﻿@model  List<ProveedoresOnLine.Company.Models.Util.GenericChartsModel>
-@{
+﻿@{
     ViewBag.Title = "Proveedores OnLine - Proveedores";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
 
 @*Aqui va la validación*@
-
 <div class="POMPProviderMenuDetail">
-
-    @if (Model != null && Model.Count > 0)
-    {
-        List<ProveedoresOnLine.Company.Models.Util.GenericChartsModel> oSurveyModel =
-                              Model.Where(x => x.ChartModuleType == ((int)MarketPlace.Models.General.enumCategoryInfoType.CH_SurveyModule).ToString()).
-                              Select(x => x).ToList();
-
-        @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey, oSurveyModel);
-    }
-
+    @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey);
 </div>
 
 
-@{
-
-    //Model.RenderScripts = true;
-
+@*@{
     <script type="text/javascript">
-
 
         google.load("visualization", "1", { packages: ["corechart"] });
         google.setOnLoadCallback(drawChart);
@@ -46,7 +31,5 @@
     </script>
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-
-
-}
+}*@
 

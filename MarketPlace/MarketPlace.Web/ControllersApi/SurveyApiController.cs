@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -226,6 +227,39 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        #region Survey Charts
+
+        [HttpPost]
+        [HttpGet]
+        public List<GenericChartsModel> GetSurveyByResponsable
+            (string GetSurveyByResponsable)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oReturn = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+            #region Survey
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+            //Get By Responsable
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(SessionModel.CurrentLoginUser.Email, DateTime.Now);
+            if (oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    x.ChartModuleInfoType = ((int)enumCategoryInfoType.CH_SurveyStatusByRol).ToString();
+                    return true;
+                });
+            }
+            oReturn.Add(oRelatedChart);
+            #endregion
+
+            return oReturn;
+        }
+        #endregion
 
         #region Private Methods
 

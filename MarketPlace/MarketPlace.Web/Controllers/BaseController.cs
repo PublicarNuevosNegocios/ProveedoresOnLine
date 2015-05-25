@@ -72,8 +72,8 @@ namespace MarketPlace.Web.Controllers
                             MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
-                                controller = MVC.Customer.Name,
-                                action = MVC.Customer.ActionNames.Index
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
                             }),
                         IsSelected = (CurrentControllerName == MVC.Provider.Name),
                     });

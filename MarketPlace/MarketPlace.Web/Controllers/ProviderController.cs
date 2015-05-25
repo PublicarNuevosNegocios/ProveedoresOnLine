@@ -15,30 +15,7 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            //Get Charts By Module
-            List<GenericChartsModel> oReturn = new List<GenericChartsModel>();
-            GenericChartsModel oRelatedChart = null;                       
-            
-            #region Survey
-            oRelatedChart = new GenericChartsModel()
-                {
-                    ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
-                    GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
-                };
-            //Get By Responsable
-            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(SessionModel.CurrentLoginUser.Email, DateTime.Now);
-            if (oRelatedChart.GenericChartsInfoModel.Count > 0)
-            {
-                oRelatedChart.GenericChartsInfoModel.All(x =>
-                {
-                    x.ChartModuleInfoType = ((int)enumCategoryInfoType.CH_SurveyStatusByRol).ToString();
-                    return true;
-                });
-            }
-            oReturn.Add(oRelatedChart); 
-            #endregion
-
-            return View(oReturn);
+            return View();
         }
 
         #region Provider search
