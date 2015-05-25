@@ -83,8 +83,13 @@
                             <span><br />@Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject</span>
                         </label>
                     }
-                    <label class="POMPProviderVerDetalle">
-                        <a href="@(Url.RouteUrl
+
+                    foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+                    {
+                        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
+                        {
+                            <label class="POMPProviderVerDetalle">
+                                <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
@@ -92,128 +97,137 @@
                                     action = MVC.Provider.ActionNames.GIBranchInfo,
                                     ProviderPublicId = Request["ProviderPublicId"]
                                 }))">Ver Detalle</a>
-                    </label>
-                }
-            </li>
-        </ul>
-        @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
-        @if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
-        {
-            <ul class="POMPProviderInfoMultipleValues">
-                <li>
-                    <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
-
-                    @foreach (var itemBL in Model.RelatedBlackListInfo)
-                    {
-                        if (itemBL.ItemType.ItemName != "ProviderPublicId" && itemBL.ItemType.ItemName != "SearchType")
-                        {
-                            <label>
-                                @itemBL.ItemType.ItemName
-                                <span>@itemBL.ItemName</span>
                             </label>
                         }
                     }
-                </li>
-            </ul>
-        }
-        @*AQUI ESTA EL AREA SEGUIMIENTOS*@
-        <ul class="POMPProviderInfoMultipleValues">
-            @if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
-            {
-                <li>
-                    <label class="POMPProviderDataSubtitle">Seguimientos</label>
-                    @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
-                    {
-                        <label>
-                            Seguimiento
-                            <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
-                        </label>
-                    }
-                    @if (Model.RelatedTrackingInfo.FirstOrDefault().CreateDate != null)
-                    {
-                        <label>
-                            Fecha
-                            <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
-                        </label>
-                    }
-                </li>
-            }
-
+                }
+            </li>
         </ul>
-        @*AQUI ESTA EL AREA FINANCIERA*@
-        <ul class="POMPProviderInfoMultipleValues">
-            @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
+
+        @*Validación de Modulos por Rol*@
+        @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+        {
+            if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
             {
-                <li>
-                    <label class="POMPProviderDataSubtitle">Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
-                    <label>
-                        Total Activo
-                        @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
-                        {
-                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
-                        }
-                    </label>
-                    <label>
-                        Total Pasivo
-                        @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
-                        {
-                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
-                        }
-                    </label>
-                    <label>
-                        Total Patrimonio
-                        @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
-                        {
-                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
-                        }
-                    </label>
-                    <label>
-                        Ingresos Operacionales
-                        @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
-                        {
+                @*AQUI ESTA EL AREA DE LISTAS RESTRICTIVAS*@
+                if (Model.RelatedBlackListInfo != null && Model.RelatedBlackListInfo.Count > 0)
+                {
+                    <ul class="POMPProviderInfoMultipleValues">
+                        <li>
+                            <label class="POMPProviderDataSubtitle">Consulta Listas Restrictivas</label>
 
-                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
-                        }
-                    </label>
-                    <label>
-                        Utilidad Antes de Impuestos
-                        @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
-                        {
-                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
-                        }
-                    </label>
-                    <label>
-                        Capital de Trabajo
-                        <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
-                    </label>
-                    <label class="POMPProviderDataIndiceAltman">
-                        <label>
-                            Indice Altman
-                            <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
-                        </label>
-                        <span>
-                            - 1.80 Muy alta
-                        </span>
-                        <span>
-                            - 1.81 a 2.7 Alta
-                        </span>
-                        <span>
-                            - 2.8 a 2.9 Posible
-                        </span>
-                        <span>
-                            - 3 o más No es probable la falta de liquidez
-                        </span>
-                    </label>
-                    <label>
-                        Utilidad del Ejercicio
-                        @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
-                        {
-                            <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
-                        }
-                    </label>
+                            @foreach (var itemBL in Model.RelatedBlackListInfo)
+                            {
+                                if (itemBL.ItemType.ItemName != "ProviderPublicId" && itemBL.ItemType.ItemName != "SearchType")
+                                {
+                                    <label>
+                                        @itemBL.ItemType.ItemName
+                                        <span>@itemBL.ItemName</span>
+                                    </label>
+                                }
+                            }
+                        </li>
+                    </ul>
+                }
 
-                    <label class="POMPProviderVerDetalle">
-                        <a href="@(Url.RouteUrl
+                @*AQUI ESTA EL AREA SEGUIMIENTOS*@
+                <ul class="POMPProviderInfoMultipleValues">
+                    @if (Model.RelatedTrackingInfo != null && Model.RelatedTrackingInfo.Count > 0)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">Seguimientos</label>
+                            @if (!string.IsNullOrEmpty(Model.RelatedTrackingInfo.FirstOrDefault().ItemName))
+                            {
+                                <label>
+                                    Seguimiento
+                                    <span>@Model.RelatedTrackingInfo.FirstOrDefault().ItemName</span>
+                                </label>
+                            }
+                            @if (Model.RelatedTrackingInfo.FirstOrDefault().CreateDate != null)
+                            {
+                                <label>
+                                    Fecha
+                                    <span>@Model.RelatedTrackingInfo.FirstOrDefault().CreateDate</span>
+                                </label>
+                            }
+                        </li>
+                    }
+
+                </ul>
+                @*AQUI ESTA EL AREA FINANCIERA*@
+                <ul class="POMPProviderInfoMultipleValues">
+                    @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">Información Financiera Año @Model.RelatedFinancialBasicInfo.Where(x => x.BI_Year != null).Select(x => x.BI_Year).DefaultIfEmpty("").FirstOrDefault()</label>
+                            <label>
+                                Total Activo
+                                @if (Model.RelatedFinancialBasicInfo != null && Model.RelatedFinancialBasicInfo.Count > 0)
+                                {
+                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalActive != null).Select(x => x.BI_TotalActive).DefaultIfEmpty("").FirstOrDefault()</span>
+                                }
+                            </label>
+                            <label>
+                                Total Pasivo
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPassive != null).Select(x => x.BI_TotalPassive).DefaultIfEmpty("").FirstOrDefault()</span>
+                                }
+                            </label>
+                            <label>
+                                Total Patrimonio
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_TotalPatrimony != null).Select(x => x.BI_TotalPatrimony).DefaultIfEmpty("").FirstOrDefault()</span>
+                                }
+                            </label>
+                            <label>
+                                Ingresos Operacionales
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+
+                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency  @Model.RelatedFinancialBasicInfo.Where(x => x.BI_OperationIncome != null).Select(x => x.BI_OperationIncome).DefaultIfEmpty("").FirstOrDefault()</span>
+                                }
+                            </label>
+                            <label>
+                                Utilidad Antes de Impuestos
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_IncomeBeforeTaxes != null).Select(x => x.BI_IncomeBeforeTaxes).DefaultIfEmpty("").FirstOrDefault()</span>
+                                }
+                            </label>
+                            <label>
+                                Capital de Trabajo
+                                <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_JobCapital != null).Select(x => x.BI_JobCapital).DefaultIfEmpty("0").FirstOrDefault()</span>
+                            </label>
+                            <label class="POMPProviderDataIndiceAltman">
+                                <label>
+                                    Indice Altman
+                                    <span>@Model.RelatedFinancialBasicInfo.Where(x => x.BI_Altman != null).Select(x => x.BI_Altman).DefaultIfEmpty("").FirstOrDefault()</span>
+                                </label>
+                                <span>
+                                    - 1.80 Muy alta
+                                </span>
+                                <span>
+                                    - 1.81 a 2.7 Alta
+                                </span>
+                                <span>
+                                    - 2.8 a 2.9 Posible
+                                </span>
+                                <span>
+                                    - 3 o más No es probable la falta de liquidez
+                                </span>
+                            </label>
+                            <label>
+                                Utilidad del Ejercicio
+                                @if (Model.RelatedFinancialBasicInfo != null && !string.IsNullOrWhiteSpace(Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()))
+                                {
+                                    <span>@Model.RelatedFinancialBasicInfo.FirstOrDefault().Currency @Model.RelatedFinancialBasicInfo.Where(x => x.BI_ExerciseUtility != null).Select(x => x.BI_ExerciseUtility).DefaultIfEmpty("").FirstOrDefault()</span>
+                                }
+                            </label>
+
+                            <label class="POMPProviderVerDetalle">
+                                <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
@@ -221,39 +235,39 @@
                                     action = MVC.Provider.ActionNames.FIBalanceSheetInfo,
                                     ProviderPublicId = Request["ProviderPublicId"]
                                 }))">Ver Detalle</a>
-                    </label>
-                </li>
-            }
-        </ul>
-
-        @*AQUI ESTA EL AREA DE K *@
-        <ul class="POMPProviderInfoMultipleValues">
-            @if (Model.RelatedKContractInfo != null && Model.RelatedKContractInfo.Count > 0)
-            {
-                <li>
-                    <label class="POMPProviderDataSubtitle">Contratación (K)</label>
-                    <ul class="POMPProviderKContratacion" style="padding:0px;">
-                        <li>
-                            <label>Criterio de evaluación</label>
-                            <label>Puntuación Total</label>
-                            <label>Capacidad Organizacional S.M.M.L.V</label>
-                            <label>Capacidad Legal de Contratación S.M.M.L.V</label>
+                            </label>
                         </li>
-                        @foreach (var item in Model.RelatedKContractInfo)
-                        {
-                            <li>
-                                <span>@item.FK_RoleType</span>
-                                <span>@item.FK_TotalScore</span>
-                                <span>@item.FK_TotalOrgCapacityScore</span>
-                                <span>@item.FK_TotalKValueScore</span>
-                            </li>
-                        }
+                    }
+                </ul>
 
-                    </ul>
-                </li>
-                <li>
-                    <label class="POMPProviderVerDetalle">
-                        <a href="@(Url.RouteUrl
+                @*AQUI ESTA EL AREA DE K *@
+                <ul class="POMPProviderInfoMultipleValues">
+                    @if (Model.RelatedKContractInfo != null && Model.RelatedKContractInfo.Count > 0)
+                    {
+                        <li>
+                            <label class="POMPProviderDataSubtitle">Contratación (K)</label>
+                            <ul class="POMPProviderKContratacion" style="padding:0px;">
+                                <li>
+                                    <label>Criterio de evaluación</label>
+                                    <label>Puntuación Total</label>
+                                    <label>Capacidad Organizacional S.M.M.L.V</label>
+                                    <label>Capacidad Legal de Contratación S.M.M.L.V</label>
+                                </li>
+                                @foreach (var item in Model.RelatedKContractInfo)
+                                {
+                                    <li>
+                                        <span>@item.FK_RoleType</span>
+                                        <span>@item.FK_TotalScore</span>
+                                        <span>@item.FK_TotalOrgCapacityScore</span>
+                                        <span>@item.FK_TotalKValueScore</span>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li>
+                            <label class="POMPProviderVerDetalle">
+                                <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -261,73 +275,73 @@
                                 action = MVC.Provider.ActionNames.FIKContract,
                                 ProviderPublicId = Request["ProviderPublicId"]
                             }))">Ver Detalle</a>
-                    </label>
-                </li>
-            }
-        </ul>
+                            </label>
+                        </li>
+                    }
+                </ul>
 
-        @*AQUI ESTA EL AREA info HSE*@
-        <ul class="POMPProviderInfoMultipleValues">
-            @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
-            {
-            <li>
-                <label class="POMPProviderDataSubtitle">Información HSEQ</label>
-
-                <label>
-                    Empresa de sistema de riegos
-                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
-                </label>
-
-
-                @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                @*AQUI ESTA EL AREA info HSE*@
+                <ul class="POMPProviderInfoMultipleValues">
+                    @if (Model.RelatedHSEQlInfo != null && Model.RelatedHSEQlInfo.Count > 0)
                     {
-                    <label>
-                        Certificado de gestión OHSAS 18001
-                        @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
+                        <li>
+                            <label class="POMPProviderDataSubtitle">Información HSEQ</label>
+
+                            <label>
+                                Empresa de sistema de riegos
+                                <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_SystemOccupationalHazards</span>
+                            </label>
+
+
+                            @if (Model.RelatedCertificationBasicInfo != null && Model.RelatedCertificationBasicInfo.Count > 0)
+                            {
+                                <label>
+                                    Certificado de gestión OHSAS 18001
+                                    @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
                         Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 204)
-                            {
-                            <span>Si</span>
-                            }
-                            else
-                            {
-                            <span>No</span>
-                            }
-                    </label>
-                    <label>
-                        Certificados de gestión ISO
-                        @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
+                                    {
+                                        <span>Si</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No</span>
+                                    }
+                                </label>
+                                <label>
+                                    Certificados de gestión ISO
+                                    @if (Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
                         Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 170
                         || Model.RelatedCertificationBasicInfo.FirstOrDefault().LargeValue == "1" &&
                         Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemId == 177)
-                            {
-                            <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemName</span>
+                                    {
+                                        <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().ItemInfoType.ItemName</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No</span>
+                                    }
+                                </label>
+                                <label>
+                                    Nivel de Riesgo ARL
+                                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
+                                </label>
+                                <label>
+                                    Guia RUC-CCS
+                                    @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
+                                    {
+                                        <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
+                                    }
+                                </label>
                             }
-                            else
+                            @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
                             {
-                            <span>No</span>
+                                <label>
+                                    LTIF
+                                    <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
+                                </label>
                             }
-                    </label>
-                    <label>
-                        Nivel de Riesgo ARL
-                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_RateARL</span>
-                    </label>
-                    <label>
-                        Guia RUC-CCS
-                        @if (!string.IsNullOrWhiteSpace(Model.RelatedCertificationBasicInfo.FirstOrDefault().Value))
-                            {
-                            <span>@Model.RelatedCertificationBasicInfo.FirstOrDefault().Value</span>
-                            }
-                    </label>
-                    }
-                @if (!string.IsNullOrWhiteSpace(Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult))
-                    {
-                    <label>
-                        LTIF
-                        <span>@Model.RelatedHSEQlInfo.FirstOrDefault().CR_LTIFResult</span>
-                    </label>
-                    }
-                <label class="POMPProviderVerDetalle">
-                    <a href="@(Url.RouteUrl
+                            <label class="POMPProviderVerDetalle">
+                                <a href="@(Url.RouteUrl
                             (MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -335,10 +349,12 @@
                                 action = MVC.Provider.ActionNames.HIRiskPoliciesInfo,
                                 ProviderPublicId = Request["ProviderPublicId"]
                             }))">Ver Detalle</a>
-                </label>
-            </li>
+                            </label>
+                        </li>
+                    }
+                </ul>
             }
-        </ul>
+        }
     </div>
 </div>
 @{

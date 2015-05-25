@@ -25,19 +25,27 @@
         <!--SearchResult-->
         @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Result, Model)
     </div>
-    <div class="POMPComparisonListWrapper">
-        @if (Model.RelatedProject != null)
-        {
-            <!--Project-->
-            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
-        }
-        else
-        {
-            <!--Comparison-->
-            @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
-        }
-    </div>
 
+    @*Validación de Modulos por Rol*@
+    @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+    {
+        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderCompare ||
+            module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
+        {
+            <div class="POMPComparisonListWrapper">
+                @if (Model.RelatedProject != null)
+                {
+            <!--Project-->
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Project, Model)
+                }
+                else
+                {
+            <!--Comparison-->
+                    @Html.Partial(MVC.Desktop.Shared.Views._P_Search_Comparison, Model)
+                }
+            </div>
+        }
+    }
 </div>
 @{
     Model.RenderScripts = true;

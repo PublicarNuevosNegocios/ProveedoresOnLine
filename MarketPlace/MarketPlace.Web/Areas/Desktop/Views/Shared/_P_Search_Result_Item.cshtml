@@ -129,19 +129,25 @@
             }
             else
             {
-                if (Model.Item2.ProviderAddRemoveEnable)
+                foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
                 {
-                    if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                    if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderDetail)
                     {
-                        <li>
-                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar al proceso de selección</a>
-                        </li>
-                    }
-                    else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
-                    {
-                        <li>
-                            <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
-                        </li>
+                        if (Model.Item2.ProviderAddRemoveEnable)
+                        {
+                            if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Project)
+                            {
+                                <li>
+                                    <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddProjectProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar al proceso de selección</a>
+                                </li>
+                            }
+                            else if (Model.Item2.IsProviderCustomer && Model.Item2.ProviderLiteType == MarketPlace.Models.General.enumProviderLiteType.Comparison)
+                            {
+                                <li>
+                                    <a style="display:@(oIsInLeftPanel ? "none" : string.Empty)" href="javascript:Provider_SearchObject.AddCompareProvider('@Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId');" title="">Agregar a comparación</a>
+                                </li>
+                            }
+                        }
                     }
                 }
                 <li>
@@ -151,7 +157,7 @@
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.GIProviderInfo,
-                                ProjectPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
+                                ProviderPublicId = Model.Item2.RelatedProvider.RelatedCompany.CompanyPublicId
                             }))">Ver detalle</a>
                 </li>
             }

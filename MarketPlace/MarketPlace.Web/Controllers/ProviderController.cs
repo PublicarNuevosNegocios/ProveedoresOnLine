@@ -1919,6 +1919,12 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
+                        //get is selected menu
+                        oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+
+                        //add menu
+                        oReturn.Add(oMenuAux);
+
                         #endregion
                     }
 

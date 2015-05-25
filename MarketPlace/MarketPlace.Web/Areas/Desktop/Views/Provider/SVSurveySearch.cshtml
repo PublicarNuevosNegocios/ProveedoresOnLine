@@ -8,7 +8,7 @@
     MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
     {
         RenderScripts = false,
-    };    
+    };
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -53,10 +53,18 @@
                             <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Estado</option>
                         </select>
                     </li>
-                    <li>
-                        <!--actions-->
-                        <a class="POMPButtonsSurvey" href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
-                    </li>
+
+                    @*Validación de Modulos por Rol*@
+                    @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+                    {
+                        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                        {
+                            <li>
+                                <!--actions-->
+                                <a class="POMPButtonsSurvey" href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
             <div class="POMPResultsOrder">
@@ -77,9 +85,16 @@
                 }
                 else
                 {
-                    <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">
-                        Este proveedor no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.
-                    </a>
+                    @*Validación de Modulos por Rol*@
+                    foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
+                    {
+                        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                        {
+                            <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">
+                                Este proveedor no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.
+                            </a>
+                        }
+                    }
                 }
             </div>
             <div class="POMPSearchResultsPager">
