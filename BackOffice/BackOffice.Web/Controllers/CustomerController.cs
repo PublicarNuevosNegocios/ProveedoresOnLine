@@ -259,7 +259,7 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string ProjectProviderId)
+        public virtual ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string ProjectProviderId, string EvaluationItemId)
         {
             BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
             {
@@ -271,6 +271,17 @@ namespace BackOffice.Web.Controllers
                 RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()))),
                 ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
             };
+
+            List<GenericItemModel> oRelatedEvaluationItem = new List<GenericItemModel>();
+
+            List<GenericItemModel> oSearchResult = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetAllEvaluationItemByProjectConfig
+                    (Convert.ToInt32(ProjectProviderId),
+                    null,
+                    (int)enumEvaluationItemType.EvaluationCriteria,
+                    Convert.ToInt32(EvaluationItemId),
+                    true);
+
+            oModel.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem = oSearchResult;
 
             //get provider menu
             oModel.CustomerMenu = GetCustomerMenu(oModel);

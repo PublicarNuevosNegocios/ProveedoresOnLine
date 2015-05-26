@@ -1842,14 +1842,14 @@ var Customer_EvaluationItemObject = {
 
                         debugger;
                         ////validate SurveyConfigId attribute
-                        if (data.id != null && data.id > 0) {
-                            window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.id);
+                        if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
+                            window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.id).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
                         }
 
                         ////validate SurveyConfigItemTypeId attribute
                         //if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
                         //    //is in evaluation area show question
-                        //    vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
+                        //    vRenderObject.ParentEvaluationIte...m = data.EvaluationItemId;
                         //    vRenderObject.EvaluationItemType = '1401002';
                         //    vRenderObject.Title = data.EvaluationItemName;
                         //    Customer_EvaluationItemObject.RenderAsync(vRenderObject);

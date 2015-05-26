@@ -25,7 +25,29 @@
                     <a>Agregar Criterio</a>
                 </div>
                 <div>
-                    
+
+                    <ul>
+                        @if (Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem != null &&
+                        Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem.Count > 0)
+                        {
+                            foreach (var EvaluationCriteria in Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem)
+                            {
+                                <li>
+                                    <label name="EvaluationCriteriaId">@EvaluationCriteria.ItemId</label>
+
+                                    <label id="EvaluationCriteriaName">@EvaluationCriteria.ItemName</label>
+
+                                    <button onclick="@(
+                                                    Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria,
+                                                        new BackOffice.Models.Customer.EvaluationItemViewModel
+                                                            (EvaluationCriteria)
+                                                    ))">
+                                        Ver detalle
+                                    </button>
+                                </li>
+                            }
+                        }
+                    </ul>
                 </div>
             </div>
 

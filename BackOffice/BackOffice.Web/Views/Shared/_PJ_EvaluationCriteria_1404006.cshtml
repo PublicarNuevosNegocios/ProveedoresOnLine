@@ -1,52 +1,59 @@
-﻿@model BackOffice.Models.Customer.EvaluationItemViewModel
+﻿@model List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>
+
+@{
+    var UnitId = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit).
+        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+
+    var Unit = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit).
+        Select(y => y.Value).FirstOrDefault() : string.Empty;
+
+    var EvaluationCriteriaId = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
+        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+
+    var EvaluationCriteria = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
+        Select(y => y.Value).FirstOrDefault() : string.Empty;
+
+    var OrderId = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order).
+        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+
+    var Order = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order).
+        Select(y => y.Value).FirstOrDefault() : string.Empty;
+
+    var RatingId = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating).
+        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+
+    var Rating = Model != null ?
+        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating).
+        Select(y => y.Value).FirstOrDefault() : string.Empty;
+}
 
 <div>
     <label>Criterio de Evaluación de Cámara de Comercio</label>
-
-    @if (Model.RelatedEvaluationItem != null)
-    {
-        <ul>
-            <li>
-                <label>Unidad:</label>
-                <input id="@Model.EC_UnitId" name="EC_UnitId" value="@Model.EC_Unit" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación:</label>
-                <input id="@Model.EC_EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@Model.EC_EvaluationCriteria" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input id="@Model.EC_OrderId" name="EC_OrderId" value="@Model.EC_Order" />
-            </li>
-            <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
-                <label>Peso:</label>
-                <input id="@Model.EC_RatingId" name="EC_RatingId" value="@Model.EC_Rating" />
-            </li>
-        </ul>
-    }
-    else
-    {
-        <ul>
-            <li>
-                <label>Unidad:</label>
-                <input name="EC_UnitId" value="" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación:</label>
-                <input name="EC_EvaluationCriteriaId" value="" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input name="EC_OrderId" value="" />
-            </li>
-            <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
-                <label>Peso:</label>
-                <input name="EC_RatingId" value="" />
-            </li>
-        </ul>
-    }
+    <ul>
+        <li>
+            <label>Unidad:</label>
+            <input id="@UnitId" name="EC_UnitId" value="@Unit" />
+        </li>
+        <li>
+            <label>Criterio de Evaluación:</label>
+            <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
+        </li>
+        <li>
+            <label>Orden</label>
+            <input id="@OrderId" name="EC_OrderId" value="@OrderId" />
+        </li>
+        <li>
+            <label>Habilitado:</label>
+            <input type="checkbox" checked />
+            <label>Peso:</label>
+            <input id="@RatingId" name="EC_RatingId" value="@Rating" />
+        </li>
+    </ul>
 </div>

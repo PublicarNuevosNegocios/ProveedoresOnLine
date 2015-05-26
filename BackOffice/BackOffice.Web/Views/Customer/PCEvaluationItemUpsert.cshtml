@@ -118,9 +118,6 @@
             oProjectConfigOptions = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
         }
-
-        string oPCEvaluationCriteriaUrl = Url.Action
-            (MVC.Shared.Views._PJ_EvaluationCriteria) + "&EvaluationItem=${EvaluationItem}";
         
         string oPCEvaluationCriteriaUpsertUrl = Url.Action
             (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
@@ -128,7 +125,8 @@
             new
             {
                 CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
-            }) + "&ProjectProviderId=${ProjectProviderId}";
+            }) + "&ProjectProviderId=${ProjectProviderId}"
+            + "&EvaluationItemId=${EvaluationItemId}";
     }
 
     <script type="text/javascript">
