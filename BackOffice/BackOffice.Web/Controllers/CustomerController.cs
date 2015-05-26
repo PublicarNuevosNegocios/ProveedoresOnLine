@@ -259,7 +259,7 @@ namespace BackOffice.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string EvaluationItemId)
+        public virtual ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string ProjectProviderId)
         {
             BackOffice.Models.Customer.CustomerViewModel oModel = new Models.Customer.CustomerViewModel()
             {
@@ -268,7 +268,7 @@ namespace BackOffice.Web.Controllers
                 {
                     RelatedCompany = ProveedoresOnLine.Company.Controller.Company.CompanyGetBasicInfo(CustomerPublicId),
                 },
-                
+                RelatedProjectConfig = new Models.Customer.ProjectConfigViewModel(ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(Convert.ToInt32(ProjectProviderId.Trim()))),
                 ProjectConfigOptions = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.CatalogGetProjectConfigOptions(),
             };
 
@@ -393,34 +393,34 @@ namespace BackOffice.Web.Controllers
 
                 #region Project config
 
-                ////header
-                //oMenuAux = new Models.General.GenericMenu()
-                //{
-                //    Name = "Configuración de Precalificaciones",
-                //    Position = 3,
-                //    ChildMenu = new List<Models.General.GenericMenu>(),
-                //};
+                //header
+                oMenuAux = new Models.General.GenericMenu()
+                {
+                    Name = "Configuración de Precalificaciones",
+                    Position = 3,
+                    ChildMenu = new List<Models.General.GenericMenu>(),
+                };
 
-                ////Company User
-                //oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
-                //{
-                //    Name = "Precalificaciones",
-                //    Url = Url.Action
-                //        (MVC.Customer.ActionNames.PCProjectConfigUpsert,
-                //        MVC.Customer.Name,
-                //        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
-                //    Position = 0,
-                //    IsSelected =
-                //        ((oCurrentAction == MVC.Customer.ActionNames.PCProjectConfigUpsert ||
-                //        oCurrentAction == MVC.Customer.ActionNames.PCEvaluationItemUpsert) &&
-                //        oCurrentController == MVC.Customer.Name),
-                //});
+                //Company User
+                oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                {
+                    Name = "Precalificaciones",
+                    Url = Url.Action
+                        (MVC.Customer.ActionNames.PCProjectConfigUpsert,
+                        MVC.Customer.Name,
+                        new { CustomerPublicId = vCustomerInfo.RelatedCustomer.RelatedCompany.CompanyPublicId }),
+                    Position = 0,
+                    IsSelected =
+                        ((oCurrentAction == MVC.Customer.ActionNames.PCProjectConfigUpsert ||
+                        oCurrentAction == MVC.Customer.ActionNames.PCEvaluationItemUpsert) &&
+                        oCurrentController == MVC.Customer.Name),
+                });
 
-                ////get is selected menu
-                //oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
+                //get is selected menu
+                oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 
-                ////add menu
-                //oReturn.Add(oMenuAux);
+                //add menu
+                oReturn.Add(oMenuAux);
 
                 #endregion
 

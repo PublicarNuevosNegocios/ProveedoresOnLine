@@ -1840,20 +1840,20 @@ var Customer_EvaluationItemObject = {
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
 
+                        debugger;
                         ////validate SurveyConfigId attribute
-                        //if (data.EvaluationItemId != null && data.EvaluationItemId > 0) {
-                        //    debugger;
-                        //    window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.ProjectProviderId);
-                        //}
-
-                        //validate SurveyConfigItemTypeId attribute
-                        if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
-                            //is in evaluation area show question
-                            vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
-                            vRenderObject.EvaluationItemType = '1401002';
-                            vRenderObject.Title = data.EvaluationItemName;
-                            Customer_EvaluationItemObject.RenderAsync(vRenderObject);
+                        if (data.id != null && data.id > 0) {
+                            window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.id);
                         }
+
+                        ////validate SurveyConfigItemTypeId attribute
+                        //if (data.EvaluationItemTypeId != null && data.EvaluationItemTypeId > 0) {
+                        //    //is in evaluation area show question
+                        //    vRenderObject.ParentEvaluationItem = data.EvaluationItemId;
+                        //    vRenderObject.EvaluationItemType = '1401002';
+                        //    vRenderObject.Title = data.EvaluationItemName;
+                        //    Customer_EvaluationItemObject.RenderAsync(vRenderObject);
+                        //}
                     }
                 }],
             }, ],

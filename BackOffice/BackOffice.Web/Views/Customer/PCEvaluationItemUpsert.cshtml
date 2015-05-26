@@ -128,7 +128,7 @@
             new
             {
                 CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId
-            }) + "&EvaluationItemId=${EvaluationItemId}";
+            }) + "&ProjectProviderId=${ProjectProviderId}";
     }
 
     <script type="text/javascript">
@@ -141,8 +141,8 @@
                 ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
-                @*EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',*@
-                EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUrl)',
+                EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',
+                @*EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUrl)',*@
             });
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',

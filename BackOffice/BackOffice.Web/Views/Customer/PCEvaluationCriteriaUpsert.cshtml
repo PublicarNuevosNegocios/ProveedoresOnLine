@@ -15,21 +15,20 @@
     </div>
     <div class="POBOProviderContentWrapper">
         <div id="POBOProviderUpsertForm">
-            <label class="POBOSectionTitles">Criterios de Precalificaciones.</label>
+            <label class="POBOSectionTitles">Criterios de Evaluación</label>
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
             }
-            <div class="POBOEvaluationGoBackWrapper">
-                <a href="@(Url.Action(
-                MVC.Customer.ActionNames.PCEvaluationItemUpsert,
-                MVC.Customer.Name,
-                new { CustomerPublicId = Model.RelatedCustomer.RelatedCompany.CompanyPublicId, }))">
-                    <div></div>Regresar a la configuración de Items.
-                </a>
+            <div id="EvaluationCriteriaList">
+                <div id="NewCriteria">
+                    <a>Agregar Criterio</a>
+                </div>
+                <div>
+                    
+                </div>
             </div>
-            <label class="POBOSectionTitles">Configuración de Criterios</label>
-            <br />
+
             @{
                 Model.IsForm = false;
                 Html.RenderPartial(MVC.Shared.Views._C_CustomerActions, Model);
@@ -38,11 +37,15 @@
     </div>
 </div>
 
+
 @{
     Model.RenderScripts = true;
 }
 
-@section inlinescripts{
+@section inlinescripts
+{
+    @Html.Partial(MVC.Shared.Views._C_CustomerMenu, Model)
+
     <script type="text/javascript">
         $(document).ready(function () {
 
