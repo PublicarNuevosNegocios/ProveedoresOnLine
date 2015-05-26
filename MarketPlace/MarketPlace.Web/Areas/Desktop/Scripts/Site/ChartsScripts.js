@@ -1,37 +1,39 @@
 ﻿/*Init charts program object*/
-var Survey_ProgramObject = {    
+var Survey_ChartsObject = {
     ObjectId: '',
-    SurveyResoinsable:'',
+    SurveyResoinsable: '',
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyResoinsable = vInitObject.SurveyResoinsable;
     },
 
     RenderAsync: function () {
-        debugger;
-        if (Survey_ProgramObject.SurveyResoinsable == 'true') {
-            Survey_ProgramObject.RenderChatrSurveyByResponsable();
+        if (Survey_ChartsObject.SurveyResoinsable == 'true') {
+            //Survey_ChartsObject.RenderChatrSurveyByResponsable();
         }
     },
 
-    RenderChatrSurveyByResponsable: function () {
-        debugger;
-      var jsonData = $.ajax({
-            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true&ProjectPublicId=' + Provider_SearchObject.ProjectPublicId + '&ProviderPublicId=' + vProviderPublicId,
-            dataType: 'json',
-            //success: function (result) {
-            //    if (result != null) {
-            //        Provider_SearchObject.OpenProject();
-            //    }
-            //},
-            //error: function (result) {
-            //    Dialog_ShowMessage('Proceso de selección', 'Se ha generado un error agregando al proveedor al proceso de selección, por favor intentelo nuevamente.', null);
-            //}
-      }).responseText;
+    RenderChatrSurveyByResponsable: function () {        
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true',
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var data = new google.visualization.DataTable();                
 
-      var data = new google.visualization.DataTable(jsonData);
-      var chart = new google.visualization.PieChart(document.getElementById('SurveyResponsableStatusChartId'));
-      chart.draw(data, { width: 400, height: 240 });
-
+                data.addColumn('string', 'Estado');
+                data.addColumn('number', 'Cantidad');
+                $.each(result, function (item, value) {
+                    data.addRows([[item, value]]);
+                });
+                var options = {
+                    title: 'Evaluiaciones de Desempeño por estado Año en curso',
+                    is3D: true,
+                };
+                var chart = new google.visualization.PieChart(document.getElementById(Survey_ChartsObject.ObjectId));
+                chart.draw(data, options);
+            }
+        });
     },
+
 };
