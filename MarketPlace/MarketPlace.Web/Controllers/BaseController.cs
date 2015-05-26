@@ -57,7 +57,8 @@ namespace MarketPlace.Web.Controllers
                             controller = MVC.Customer.Name,
                             action = MVC.Customer.ActionNames.Index
                         }),
-                    IsSelected = (CurrentControllerName == MVC.Customer.Name),
+                    IsSelected = (CurrentControllerName == MVC.Provider.Name &&
+                                    CurrentActionName == MVC.Provider.ActionNames.Index),
                 });
                 oPosition++;
 
@@ -75,7 +76,8 @@ namespace MarketPlace.Web.Controllers
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search
                             }),
-                        IsSelected = (CurrentControllerName == MVC.Provider.Name),
+                        IsSelected = (CurrentControllerName == MVC.Provider.Name && 
+                                    CurrentActionName == MVC.Provider.ActionNames.Search),
                     });
                     oPosition++;
                 }
