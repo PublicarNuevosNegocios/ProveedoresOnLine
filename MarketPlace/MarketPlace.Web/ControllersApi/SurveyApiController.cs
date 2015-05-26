@@ -250,7 +250,7 @@ namespace MarketPlace.Web.ControllersApi
           
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
-            if (oRelatedChart.GenericChartsInfoModel.Count > 0)
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
