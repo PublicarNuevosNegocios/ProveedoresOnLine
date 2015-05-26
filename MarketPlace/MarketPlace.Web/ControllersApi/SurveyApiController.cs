@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace MarketPlace.Web.ControllersApi
 {
@@ -128,7 +129,7 @@ namespace MarketPlace.Web.ControllersApi
                         ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
                         {
                             SurveyPublicId = SurveyPublicId,
-                            
+
                             RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                             {
                                 RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
@@ -156,7 +157,7 @@ namespace MarketPlace.Web.ControllersApi
                             Enable = true,
                         };
                         ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyUpsert(oSurveyToUpsert);
-                        
+
 
                         oFile.FileObjectId = oSurveyToUpsert.SurveyInfo.Where
                             (pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.File &&
@@ -216,7 +217,7 @@ namespace MarketPlace.Web.ControllersApi
                             Value = pjinf.Value,
                             LargeValue = pjinf.LargeValue,
                             Enable = false,
-                        }).ToList(),                        
+                        }).ToList(),
                 };
 
                 //upsert project info
@@ -231,11 +232,11 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public List<GenericChartsModel> GetSurveyByResponsable
+        public Dictionary<string,int> GetSurveyByResponsable
             (string GetSurveyByResponsable)
         {
             //Get Charts By Module
-            List<GenericChartsModel> oReturn = new List<GenericChartsModel>();
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
             GenericChartsModel oRelatedChart = null;
 
             #region Survey
@@ -246,17 +247,18 @@ namespace MarketPlace.Web.ControllersApi
             };
             //Get By Responsable
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(SessionModel.CurrentLoginUser.Email, DateTime.Now);
+          
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
             if (oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    x.ChartModuleInfoType = ((int)enumCategoryInfoType.CH_SurveyStatusByRol).ToString();
+                    oReturn.Add(x.ItemName, x.Count);
                     return true;
                 });
-            }
-            oReturn.Add(oRelatedChart);
+            }            
             #endregion
-
             return oReturn;
         }
         #endregion

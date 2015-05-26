@@ -1,35 +1,10 @@
 ﻿@{
     ViewBag.Title = "Proveedores OnLine - Proveedores";
-    Layout = MVC.Desktop.Shared.Views._Layout;
+    Layout = MVC.Desktop.Shared.Views._Layout;    
 }
 
 @*Aqui va la validación*@
-<div class="POMPProviderMenuDetail">
-    @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey);
+<div >
+    @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
 </div>
-
-
-@*@{
-    <script type="text/javascript">
-
-        google.load("visualization", "1", { packages: ["corechart"] });
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-              ['Asignado', 'Porciento'],
-              ['En Proceso', 60],
-              ['Finalizado', 30],
-              ['Asignado', 10]
-            ]);
-            var options = {
-                title: 'Evaluiaciones de Desempeño por estado Año en curso',
-                is3D: true,
-            };
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
-        }
-    </script>
-
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-}*@
 
