@@ -71,6 +71,8 @@ namespace BackOffice.Models.Customer
 
         #endregion
 
+        public bool RenderScripts { get; set; }
+
         public EvaluationItemViewModel() { }
 
         public EvaluationItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedEvaluationItem)

@@ -85,9 +85,7 @@
     <div id="divGridEvaluationItem_Dialog">
         <form id="divGridEvaluationItem_Upsert_Form" name="divGridEvaluationItem_Upsert_Form" method="post">
             <div>
-                <div id="divGridEvaluationItem_EvaluationCriteriaForm">
-                    @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria, Model))
-                </div>
+                <div id="divGridEvaluationItem_EvaluationCriteriaForm"></div>
                 <button type="submit">Update</button>
                 <button type="button">Cancelar</button>
             </div>
@@ -121,6 +119,9 @@
                 Serialize(oOptionProjectConfig.Select(x => new { Key = x.Key, Value = x.Value }));
         }
 
+        string oPCEvaluationCriteriaUrl = Url.Action
+            (MVC.Shared.Views._PJ_EvaluationCriteria) + "&EvaluationItem=${EvaluationItem}";
+        
         string oPCEvaluationCriteriaUpsertUrl = Url.Action
             (MVC.Customer.ActionNames.PCEvaluationCriteriaUpsert,
             MVC.Customer.Name,
@@ -140,7 +141,8 @@
                 ProjectConfigId: '@Model.RelatedProjectConfig.ProjectProviderId',
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 ProjectConfigOptionsList: vProjectConfigOptionList,
-                EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',
+                @*EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUpsertUrl)',*@
+                EvaluationCriteriaUpsertUrl: '@Html.Raw(oPCEvaluationCriteriaUrl)',
             });
             Customer_EvaluationItemObject.RenderAsync({
                 EvaluationItemType: '@(((int)BackOffice.Models.General.enumEvaluationItemType.EvaluationArea).ToString())',
