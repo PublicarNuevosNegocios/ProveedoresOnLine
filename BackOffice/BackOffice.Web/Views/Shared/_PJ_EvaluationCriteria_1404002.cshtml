@@ -1,94 +1,72 @@
-﻿@model BackOffice.Models.Customer.EvaluationItemViewModel
+﻿@model Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
+
+@{
+    var UnitId = Model.Item2 != null &&
+        Model.Item2.EC_UnitId != null ? Convert.ToInt32(Model.Item2.EC_UnitId.Trim()) : 0;
+    var Unit = Model.Item2 != null &&
+        Model.Item2.EC_Unit != null ? Model.Item2.EC_Unit.ToString() : string.Empty;
+
+    var EvaluationCriteriaId = Model.Item2 != null &&
+        Model.Item2.EC_EvaluationCriteriaId != null ? Convert.ToInt32(Model.Item2.EC_EvaluationCriteriaId.Trim()) : 0;
+    var EvaluationCriteria = Model != null &&
+        Model.Item2.EC_EvaluationCriteria != null ? Model.Item2.EC_EvaluationCriteria.ToString() : string.Empty;
+
+    var OrderId = Model.Item2 != null &&
+        Model.Item2.EC_OrderId != null ? Convert.ToInt32(Model.Item2.EC_OrderId.Trim()) : 0;
+    var Order = Model.Item2 != null &&
+        Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
+
+    var RatingId = Model.Item2 != null &&
+        Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+    var Rating = Model.Item2 != null &&
+        Model.Item2.EC_Rating != string.Empty ? Model.Item2.EC_Rating.ToString() : string.Empty;
+}
 
 <div>
     <label>Criterio de Evaluación de Normas</label>
-
-    @if (Model.RelatedEvaluationItem != null)
-    {
-        <ul>
-            <li>
-                <label>Unidad:</label>
-                <input id="@Model.EC_UnitId" name="EC_UnitId" value="@Model.EC_Unit" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación:</label>
-                <input id="@Model.EC_EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@Model.EC_EvaluationCriteria" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input id="@Model.EC_OrderId" name="EC_OrderId" value="@Model.EA_Order" />
-            </li>
-            <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
-                <label>Peso:</label>
-                <input id="@Model.EC_RatingId" name="EC_RatingId" value="@Model.EC_Rating" />
-            </li>
-            <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
-                <label>Valores de Evaluación:</label>
-                <div>
-                    <ul>
-                        <li>
-                            <label>Tipo de Información:</label>
-                            <input />
-                        </li>
-                        <li>
-                            <label>Valor:</label>
-                            <input />
-                        </li>
-                        <li>
-                            <label>Operador</label>
-                            <input />
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    }
-    else
-    {
-        <ul>
-            <li>
-                <label>Unidad:</label>
-                <input name="EC_UnitId" value="" />
-            </li>
-            <li>
-                <label>Criterio de Evaluación:</label>
-                <input name="EC_EvaluationCriteriaId" value="" />
-            </li>
-            <li>
-                <label>Orden</label>
-                <input name="EC_OrderId" value="" />
-            </li>
-            <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
-                <label>Peso:</label>
-                <input name="EC_RatingId" value="" />
-            </li>
-            <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
-                <label>Valores de Evaluación:</label>
-                <div>
-                    <ul>
-                        <li>
-                            <label>Tipo de Información:</label>
-                            <input />
-                        </li>
-                        <li>
-                            <label>Valor:</label>
-                            <input />
-                        </li>
-                        <li>
-                            <label>Operador</label>
-                            <input />
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    }
+    <ul>
+        <li>
+            <label>Unidad:</label>
+            <input id="@UnitId" name="EC_UnitId" value="@Unit" />
+        </li>
+        <li>
+            <label>Criterio de Evaluación:</label>
+            <input id="@EvaluationCriteriaId" name="EC_EvaluationCriteriaId" value="@EvaluationCriteria" />
+        </li>
+        <li>
+            <label>Orden</label>
+            <input id="@OrderId" name="EC_OrderId" value="@Order" />
+        </li>
+        <li>
+            <label>Habilitado:</label>
+            <input type="checkbox" checked />
+            <label>Peso:</label>
+            <input id="@RatingId" name="EC_RatingId" value="@Rating" />
+        </li>
+        <li>
+            <label>Valores de Evaluación:</label>
+            <div>
+                <ul>
+                    <li>
+                        <label>Tipo de Información:</label>
+                        <input />
+                    </li>
+                    <li>
+                        <label>Valor:</label>
+                        <input />
+                    </li>
+                    <li>
+                        <label>Operador</label>
+                        <select id="OperatorId" name="Operator">
+                            <option id="0">Seleccione un Operador</option>
+                            @foreach (var ProjectOptions in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
+                            {
+                                <option id="@ProjectOptions.ItemId">@ProjectOptions.ItemName</option>                                
+                            }
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
 </div>

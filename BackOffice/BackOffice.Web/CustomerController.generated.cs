@@ -196,6 +196,7 @@ namespace BackOffice.Web.Controllers
         public class ActionParamsClass_PCEvaluationCriteriaUpsert
         {
             public readonly string CustomerPublicId = "CustomerPublicId";
+            public readonly string ProjectProviderId = "ProjectProviderId";
             public readonly string EvaluationItemId = "EvaluationItemId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
@@ -319,15 +320,16 @@ namespace BackOffice.Web.Controllers
         }
 
         [NonAction]
-        partial void PCEvaluationCriteriaUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string EvaluationItemId);
+        partial void PCEvaluationCriteriaUpsertOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string CustomerPublicId, string ProjectProviderId, string EvaluationItemId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string EvaluationItemId)
+        public override System.Web.Mvc.ActionResult PCEvaluationCriteriaUpsert(string CustomerPublicId, string ProjectProviderId, string EvaluationItemId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PCEvaluationCriteriaUpsert);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "CustomerPublicId", CustomerPublicId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProjectProviderId", ProjectProviderId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EvaluationItemId", EvaluationItemId);
-            PCEvaluationCriteriaUpsertOverride(callInfo, CustomerPublicId, EvaluationItemId);
+            PCEvaluationCriteriaUpsertOverride(callInfo, CustomerPublicId, ProjectProviderId, EvaluationItemId);
             return callInfo;
         }
 
