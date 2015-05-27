@@ -1,41 +1,25 @@
-﻿@model List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>
+﻿@model Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
 
 @{
-    var UnitId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var UnitId = Model.Item2 != null &&
+        Model.Item2.EC_UnitId != null ? Convert.ToInt32(Model.Item2.EC_UnitId.Trim()) : 0;
+    var Unit = Model.Item2 != null &&
+        Model.Item2.EC_Unit != null ? Model.Item2.EC_Unit.ToString() : string.Empty;
 
-    var Unit = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
+    var EvaluationCriteriaId = Model.Item2 != null &&
+        Model.Item2.EC_EvaluationCriteriaId != null ? Convert.ToInt32(Model.Item2.EC_EvaluationCriteriaId.Trim()) : 0;
+    var EvaluationCriteria = Model != null &&
+        Model.Item2.EC_EvaluationCriteria != null ? Model.Item2.EC_EvaluationCriteria.ToString() : string.Empty;
 
-    var EvaluationCriteriaId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var OrderId = Model.Item2 != null &&
+        Model.Item2.EC_OrderId != null ? Convert.ToInt32(Model.Item2.EC_OrderId.Trim()) : 0;
+    var Order = Model.Item2 != null &&
+        Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
 
-    var EvaluationCriteria = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
-
-    var OrderId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
-
-    var Order = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
-
-    var RatingId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
-
-    var Rating = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
-
-    var EvaluationTypeId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.InfoType_Value_Operator).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var RatingId = Model.Item2 != null &&
+        Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+    var Rating = Model.Item2 != null &&
+        Model.Item2.EC_Rating != string.Empty ? Model.Item2.EC_Rating.ToString() : string.Empty;
 }
 
 <div>
@@ -60,10 +44,7 @@
                 <input id="@RatingId" name="EC_RatingId" value="@Rating" />
             </li>
             <li>
-                <label>Habilitado:</label>
-                <input type="checkbox" checked />
                 <label>Valores de Evaluación:</label>
-                <input type="hidden" value="@EvaluationTypeId" />
                 <div>
                     <ul>
                         <li>
@@ -76,7 +57,13 @@
                         </li>
                         <li>
                             <label>Operador</label>
-                            <input />
+                            <select id="OperatorId" name="Operator">
+                                <option id="0">Seleccione un Operador</option>
+                                @foreach (var ProjectOptions in Model.Item1.ProjectConfigOptions.Where(x => x.CatalogId == 1409))
+                                {
+                                    <option id="@ProjectOptions.ItemId">@ProjectOptions.ItemName</option>
+                                }
+                            </select>
                         </li>
                     </ul>
                 </div>

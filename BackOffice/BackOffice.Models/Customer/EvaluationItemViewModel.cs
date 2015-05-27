@@ -63,6 +63,46 @@ namespace BackOffice.Models.Customer
         public string EC_ExperienceConfigId { get; set; }
         public string EC_ExperienceConfig { get; set; }
 
+        private ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel oProjectConfigExperience;
+        public ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel ProjectConfigExperience
+        {
+            get
+            {
+                if (oProjectConfigExperience == null)
+                {
+                    string strConfig = string.Empty;
+
+                    if (RelatedEvaluationItem != null)
+                    {
+                        strConfig = RelatedEvaluationItem.ItemInfo.
+                                        Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.ExperienceConfig).
+                                        Select(x => x.LargeValue).
+                                        DefaultIfEmpty(string.Empty).
+                                        FirstOrDefault();                                        
+                    }
+
+                    if (!string.IsNullOrEmpty(strConfig))
+                    {
+                        oProjectConfigExperience = (ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel)
+                            (new System.Web.Script.Serialization.JavaScriptSerializer()).
+                            Deserialize(strConfig, typeof(ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel));
+                    }
+                    else
+                    {
+                        oProjectConfigExperience = new ProveedoresOnLine.ProjectModule.Models.ProjectExperienceConfigModel()
+                        {
+                            AmmounEnable = false,
+                            CurrencyEnable = false,
+                            CustomAcitvityEnable = false,
+                            DefaultAcitvityEnable = false,
+                        };
+                    }
+                }
+
+                return oProjectConfigExperience;
+            }
+        }
+
         public string EC_OrderId { get; set; }
         public string EC_Order { get; set; }
 
@@ -261,5 +301,47 @@ namespace BackOffice.Models.Customer
                                     DefaultIfEmpty(string.Empty).
                                     FirstOrDefault();
         }
+
+        #region Methods
+
+        public Dictionary<string, string> GetExperienceYearValues()
+        {
+            Dictionary<string, string> oReturn = new Dictionary<string, string>();
+
+            if (ProjectConfigExperience != null &&
+                ProjectConfigExperience.YearsInterval != null &&
+                ProjectConfigExperience.YearsInterval.Count > 0)
+            {
+                oReturn = ProjectConfigExperience.YearsInterval.
+                    Where(qint => qint.Split('_').Length >= 4).
+                    Select(qint => new
+                    {
+                        oKey = qint,
+                        oValue = qint.Split('_')[3],
+                    }).ToDictionary(k => k.oKey, v => v.oValue);
+            }
+            return oReturn;
+        }
+
+        public Dictionary<string, string> GetExperienceQuantityValues()
+        {
+            Dictionary<string, string> oReturn = new Dictionary<string, string>();
+
+            if (ProjectConfigExperience != null &&
+                ProjectConfigExperience.QuantityInterval != null &&
+                ProjectConfigExperience.QuantityInterval.Count > 0)
+            {
+                oReturn = ProjectConfigExperience.QuantityInterval.
+                    Where(qint => qint.Split('_').Length >= 2).
+                    Select(qint => new
+                    {
+                        oKey = qint.Split('_')[0],
+                        oValue = qint.Split('_')[1],
+                    }).ToDictionary(k => k.oKey, v => v.oValue);
+            }
+            return oReturn;
+        }
+
+        #endregion
     }
 }

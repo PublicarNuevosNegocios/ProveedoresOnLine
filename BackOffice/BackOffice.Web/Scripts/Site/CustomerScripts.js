@@ -1833,7 +1833,7 @@ var Customer_EvaluationItemObject = {
                     text: 'Editar'
                 }, {
                     name: 'Detail',
-                    text: 'Ver',
+                    text: 'Ver Detalle',
                     click: function (e) {
                         // e.target is the DOM element representing the button
                         var tr = $(e.target).closest("tr"); // get the current table row (tr)

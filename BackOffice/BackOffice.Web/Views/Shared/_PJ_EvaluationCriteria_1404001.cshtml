@@ -1,41 +1,36 @@
-﻿@model List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>
+﻿@model Tuple<BackOffice.Models.Customer.CustomerViewModel, BackOffice.Models.Customer.EvaluationItemViewModel>
 
 @{
-    var UnitId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var UnitId = Model.Item2 != null &&
+        Model.Item2.EC_UnitId != null ? Convert.ToInt32(Model.Item2.EC_UnitId.Trim()) : 0;
+    var Unit = Model.Item2 != null &&
+        Model.Item2.EC_Unit != null ? Model.Item2.EC_Unit.ToString() : string.Empty;
 
-    var Unit = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Unit).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
+    var EvaluationCriteriaId = Model.Item2 != null &&
+        Model.Item2.EC_EvaluationCriteriaId != null ? Convert.ToInt32(Model.Item2.EC_EvaluationCriteriaId.Trim()) : 0;
+    var EvaluationCriteria = Model.Item2 != null &&
+        Model.Item2.EC_EvaluationCriteria != null ? Model.Item2.EC_EvaluationCriteria.ToString() : string.Empty;
 
-    var EvaluationCriteriaId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var OrderId = Model.Item2 != null &&
+        Model.Item2.EC_OrderId != null ? Convert.ToInt32(Model.Item2.EC_OrderId.Trim()) : 0;
+    var Order = Model.Item2 != null &&
+        Model.Item2.EC_Order != null ? Model.Item2.EC_Order.ToString() : string.Empty;
 
-    var EvaluationCriteria = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
+    var RatingId = Model.Item2 != null &&
+        Model.Item2.EC_RatingId != string.Empty ? Convert.ToInt32(Model.Item2.EC_RatingId.Trim()) : 0;
+    var Rating = Model.Item2 != null &&
+        Model.Item2.EC_Rating != string.Empty ? Model.Item2.EC_Rating.ToString() : string.Empty;
 
-    var OrderId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var ExperiencesId = Model.Item2 != null &&
+        Model.Item2.EC_ExperienceConfigId != string.Empty ? Convert.ToInt32(Model.Item2.EC_ExperienceConfigId.Trim()) : 0;
 
-    var Order = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Order).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
+    var AmmountEnable = Model.Item2.ProjectConfigExperience.AmmounEnable != null ? Model.Item2.ProjectConfigExperience.AmmounEnable : true;
+    var CurrencyEnable = Model.Item2.ProjectConfigExperience.CurrencyEnable != null ? Model.Item2.ProjectConfigExperience.CurrencyEnable : true;
+    var CustomActivityEnable = Model.Item2.ProjectConfigExperience.CustomAcitvityEnable != null ? Model.Item2.ProjectConfigExperience.CustomAcitvityEnable : true;
+    var DefaultActivityEnable = Model.Item2.ProjectConfigExperience.DefaultAcitvityEnable != null ? Model.Item2.ProjectConfigExperience.DefaultAcitvityEnable : true;
 
-    var RatingId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
-
-    var Rating = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.Rating).
-        Select(y => y.Value).FirstOrDefault() : string.Empty;
-
-    var ExperiencesId = Model != null ?
-        Model.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.ExperienceConfig).
-        Select(y => y.ItemInfoId).FirstOrDefault() : 0;
+    var QuantityInterval = Model.Item2.GetExperienceQuantityValues();
+    var YearsInterval = Model.Item2.GetExperienceYearValues();
 }
 
 <div>
@@ -60,8 +55,6 @@
             <input id="@RatingId" name="EC_RatingId" value="@Rating" />
         </li>
         <li>
-            <label>Habilitado:</label>
-            <input type="checkbox" checked />
             <label>Configuración de Experiencia</label>
             <input type="hidden" name="EC_ExperiencesConfigId" value="@ExperiencesId" />
             <div>
@@ -110,19 +103,19 @@
                     </li>
                     <li>
                         <label>Actividades Económicas:</label>
-                        <input type="checkbox" checked />
+                        <input type="checkbox" value="@DefaultActivityEnable" />
                     </li>
                     <li>
                         <label>Actividades Económicas Personalizadas:</label>
-                        <input type="checkbox" checked />
+                        <input type="checkbox" value="@CustomActivityEnable />
                     </li>
                     <li>
                         <label>Valor estimado:</label>
-                        <input type="checkbox" checked />
+                        <input type="checkbox" value="@AmmountEnable" />
                     </li>
                     <li>
                         <label>Moneda:</label>
-                        <input type="checkbox" checked />
+                        <input type="checkbox" value="@CurrencyEnable" />
                     </li>
                 </ul>
             </div>
