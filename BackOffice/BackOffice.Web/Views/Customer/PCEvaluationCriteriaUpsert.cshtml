@@ -30,20 +30,20 @@
                         @if (Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem != null &&
                         Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem.Count > 0)
                         {
-                            foreach (var EvaluationCriteria in Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem)
+                            @foreach (ProveedoresOnLine.Company.Models.Util.GenericItemModel EvaluationCriteria in Model.RelatedProjectConfig.RelatedProjectProvider.RelatedEvaluationItem)
                             {
                                 <li>
                                     <label name="EvaluationCriteriaId">@EvaluationCriteria.ItemId</label>
 
                                     <label id="EvaluationCriteriaName">@EvaluationCriteria.ItemName</label>
 
-                                    <button onclick="@(
-                                                    Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria,
-                                                        new BackOffice.Models.Customer.EvaluationItemViewModel
-                                                            (EvaluationCriteria)
-                                                    ))">
-                                        Ver detalle
-                                    </button>
+                                    @foreach (string EvaluationCriteriaType in EvaluationCriteria.ItemInfo.Where(x => x.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumEvaluationItemInfoType.EvaluationCriteria))
+                                    {
+                                        @(Html.Partial(MVC.Shared.Views._PJ_EvaluationCriteria_1404001.
+                                                     Replace("1404001", (EvaluationCriteriaType),
+                                                         new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(EvaluationCriteria.ItemInfo)
+                                                            ))
+                                    }                                    
                                 </li>
                             }
                         }
