@@ -29,8 +29,7 @@
     @*Validación de Modulos por Rol*@
     @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
     {
-        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderCompare ||
-            module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderSelectionCreate)
+        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderCompare)
         {
             <div class="POMPComparisonListWrapper">
                 @if (Model.RelatedProject != null)
