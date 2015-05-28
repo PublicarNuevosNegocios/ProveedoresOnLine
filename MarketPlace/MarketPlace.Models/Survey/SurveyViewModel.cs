@@ -18,6 +18,8 @@ namespace MarketPlace.Models.Survey
 
         public string SurveyPublicId { get { return RelatedSurvey.SurveyPublicId; } }
 
+        public decimal Average { get; set; }
+
         List<MarketPlace.Models.General.FileModel> oSurveyFile;
         public List<MarketPlace.Models.General.FileModel> SurveyFile
         {

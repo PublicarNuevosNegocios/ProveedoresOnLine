@@ -1,11 +1,11 @@
 ﻿/*Init survey program object*/
 var Survey_ProgramObject = {
-
+    
     ObjectId: '',
     DateFormat: '',
 
     Init: function (vInitObject) {
-
+        debugger;
         this.ObjectId = vInitObject.ObjectId;
         this.DateFormat = vInitObject.DateFormat;
     },

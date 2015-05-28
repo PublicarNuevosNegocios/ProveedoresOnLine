@@ -51,9 +51,24 @@
 
                             @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyStatus).ToString() + "_0";}
                             <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Estado</option>
-                        </select>
+                        </select>                        
+                    </li>
+                    <li>
+                        <span>Filtrar por fecha</span>
+                        <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
+                        <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
+                    <li>
+                        <!--actions-->
+                        <input class="POMPButtonsSurvey" type="button" name="SurveySearch_Filter" id="SurveySearch_FilterId" value="Filtrar" />
                     </li>
 
+                    <li>
+                        <label>Promedio:</label>  
+                        @{decimal average = Model.RelatedSurveySearch.SurveySearchResult.Count > 0 ? Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average : 0;                          }
+                        <div class="POMPSearchResultsPager">@average</div>
+                    </li>
+
+                    </li>
                     @*Validación de Modulos por Rol*@
                     @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
                     {

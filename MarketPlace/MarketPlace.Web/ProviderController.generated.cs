@@ -438,6 +438,8 @@ namespace MarketPlace.Web.Controllers
             public readonly string SearchOrderType = "SearchOrderType";
             public readonly string OrderOrientation = "OrderOrientation";
             public readonly string PageNumber = "PageNumber";
+            public readonly string InitDate = "InitDate";
+            public readonly string EndDate = "EndDate";
         }
         static readonly ActionParamsClass_SVSurveyDetail s_params_SVSurveyDetail = new ActionParamsClass_SVSurveyDetail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -728,17 +730,19 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
-        partial void SVSurveySearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber);
+        partial void SVSurveySearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SVSurveySearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber)
+        public override System.Web.Mvc.ActionResult SVSurveySearch(string ProviderPublicId, string SearchOrderType, string OrderOrientation, string PageNumber, string InitDate, string EndDate)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveySearch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SearchOrderType", SearchOrderType);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "OrderOrientation", OrderOrientation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "PageNumber", PageNumber);
-            SVSurveySearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "InitDate", InitDate);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "EndDate", EndDate);
+            SVSurveySearchOverride(callInfo, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, InitDate, EndDate);
             return callInfo;
         }
 

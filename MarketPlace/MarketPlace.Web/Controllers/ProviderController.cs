@@ -1338,7 +1338,9 @@ namespace MarketPlace.Web.Controllers
             (string ProviderPublicId,
             string SearchOrderType,
             string OrderOrientation,
-            string PageNumber)
+            string PageNumber,
+            string InitDate,
+            string EndDate)
         {
             ProviderViewModel oModel = new ProviderViewModel();
 
@@ -1388,17 +1390,49 @@ namespace MarketPlace.Web.Controllers
                             oModel.RelatedSurveySearch.RowCount,
                             out oTotalRowsAux);
 
+                    if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
+                        && oSurveyResults != null && oSurveyResults.Count > 0)
+                    {
+                        oSurveyResults = oSurveyResults.Where(x =>
+                            //x.SurveyInfo.Where(y => y.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).
+                            //Select(y => y.Value == ((int)enumSurveyStatus.Close).ToString()).FirstOrDefault()
+                            //&& 
+                                                       Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
+                                                       Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
+                                                        Select(x => x).ToList();
+                    }
                     oModel.RelatedSurveySearch.TotalRows = oTotalRowsAux;
 
                     //parse view model
                     if (oSurveyResults != null && oSurveyResults.Count > 0)
                     {
+                        //Get the Average
+                        decimal Average = 0;
+                        //Get ClosedSurve
+                        List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> ClosedSurvey = oSurveyResults.Where(x => x.SurveyInfo.
+                                                        Where(y => y.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).
+                                                        Select(y => y.Value == ((int)enumSurveyStatus.Close).ToString()).FirstOrDefault()).
+                                                        Select(x => x).ToList();  
                         oSurveyResults.All(srv =>
                         {
                             oModel.RelatedSurveySearch.SurveySearchResult.Add
                                 (new MarketPlace.Models.Survey.SurveyViewModel(srv));
                             return true;
                         });
+
+                        if (oModel.RelatedSurveySearch.SurveySearchResult != null && oModel.RelatedSurveySearch.SurveySearchResult.Count > 0)
+                        {
+                            oModel.RelatedSurveySearch.SurveySearchResult.All(sv =>
+                            {
+                                if (sv.SurveyStatus == enumSurveyStatus.Close)                                
+                                    Average = (Average += sv.SurveyRating);   
+                                return true;
+                            });
+                            Average = Average / oModel.RelatedSurveySearch.SurveySearchResult.Where(x => x.SurveyStatus == enumSurveyStatus.Close).Count();
+                        }
+
+                        //Set the Average
+                        oModel.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average = Average;
                     }
                 }
             }

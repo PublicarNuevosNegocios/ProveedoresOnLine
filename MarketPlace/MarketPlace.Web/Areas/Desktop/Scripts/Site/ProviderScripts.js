@@ -674,9 +674,13 @@ var Provider_SurveySearchObject = {
         $('#' + Provider_SurveySearchObject.ObjectId + '_Order').change(function () {
             Provider_SurveySearchObject.Search(null);
         });
+        $('#' + Provider_SurveySearchObject.ObjectId + '_FilterId').click(function () {
+            Provider_SurveySearchObject.Filter();
+        });        
     },
 
     Search: function (vSearchObject) {
+        debugger;
         var oUrl = this.SearchUrl;
 
         oUrl += '&SearchOrderType=' + $('#' + Provider_SurveySearchObject.ObjectId + '_Order').val().split('_')[0];
@@ -687,4 +691,13 @@ var Provider_SurveySearchObject = {
         }
         window.location = oUrl;
     },
+
+    Filter: function () {
+        var oUrl = this.SearchUrl;
+        debugger;
+        oUrl += '&InitDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_InitDateId').val();
+        oUrl += '&EndDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').val();
+        window.location = oUrl;
+    }
+
 };

@@ -486,6 +486,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                      {
                          SurveyPublicId = sv.Field<string>("SurveyPublicId"),
                          LastModify = sv.Field<DateTime>("LastModify"),
+                         CreateDate = sv.Field<DateTime>("CreateDate"),
                          SurveyConfigId = sv.Field<int>("SurveyConfigId"),
                          SurveyName = sv.Field<string>("SurveyName"),
                      } into svg
@@ -493,6 +494,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                      {
                          SurveyPublicId = svg.Key.SurveyPublicId,
                          LastModify = svg.Key.LastModify,
+                         CreateDate = svg.Key.CreateDate,
 
                          RelatedSurveyConfig = new SurveyConfigModel()
                          {
