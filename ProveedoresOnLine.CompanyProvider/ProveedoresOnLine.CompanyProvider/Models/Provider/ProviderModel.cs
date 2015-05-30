@@ -42,6 +42,12 @@ namespace ProveedoresOnLine.CompanyProvider.Models.Provider
 
         #endregion
 
+        #region Reports
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> RelatedReports { get; set; }
+
+        #endregion
+
         #region Related Customer Info
 
         /// <summary>

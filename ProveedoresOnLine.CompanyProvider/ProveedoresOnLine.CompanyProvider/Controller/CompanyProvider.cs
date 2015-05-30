@@ -1208,6 +1208,106 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.MPCustomerProviderGetAllTracking(CustomerPublicId, ProviderPublicId);
         }
 
+        public static ProviderModel MPReportUpsert(ProviderModel ProviderToUpsert)
+        {
+            if (ProviderToUpsert.RelatedCompany != null &&
+                !string.IsNullOrEmpty(ProviderToUpsert.RelatedCompany.CompanyPublicId) &&
+                ProviderToUpsert.RelatedReports != null &&
+                ProviderToUpsert.RelatedReports.Count > 0)
+            {
+                ProviderToUpsert.RelatedReports.All(prep =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        prep.ItemId =
+                            ProveedoresOnLine.CompanyProvider.DAL.Controller.CompanyProviderDataController.Instance.MPReportUpsert
+                            (ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                            prep.ItemId > 0 ? (int?)prep.ItemId : null,
+                            prep.ItemType.ItemId,
+                            prep.ItemName,
+                            prep.Enable);
+
+                        MPReportInfoUpsert(prep);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = prep;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "CompanyPublicId",
+                            Value = ProviderToUpsert.RelatedCompany.CompanyPublicId,
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ProviderToUpsert;
+        }
+
+        public static ProveedoresOnLine.Company.Models.Util.GenericItemModel MPReportInfoUpsert
+            (ProveedoresOnLine.Company.Models.Util.GenericItemModel ReportToUpsert)
+        {
+            if (ReportToUpsert.ItemId > 0 &&
+                ReportToUpsert.ItemInfo != null &&
+                ReportToUpsert.ItemInfo.Count > 0)
+            {
+                ReportToUpsert.ItemInfo.All(reportinf =>
+                {
+                    LogManager.Models.LogModel oLog = Company.Controller.Company.GetGenericLogModel();
+                    try
+                    {
+                        reportinf.ItemInfoId = DAL.Controller.CompanyProviderDataController.Instance.MPReportInfoUpsert
+                            (ReportToUpsert.ItemId,
+                            reportinf.ItemInfoId > 0 ? (int?)reportinf.ItemInfoId : null,
+                            reportinf.ItemInfoType.ItemId,
+                            reportinf.Value,
+                            reportinf.LargeValue,
+                            reportinf.Enable);
+
+                        oLog.IsSuccess = true;
+                    }
+                    catch (Exception err)
+                    {
+                        oLog.IsSuccess = false;
+                        oLog.Message = err.Message + " - " + err.StackTrace;
+
+                        throw err;
+                    }
+                    finally
+                    {
+                        oLog.LogObject = reportinf;
+
+                        oLog.RelatedLogInfo.Add(new LogManager.Models.LogInfoModel()
+                        {
+                            LogInfoType = "LegalId",
+                            Value = ReportToUpsert.ItemId.ToString(),
+                        });
+
+                        LogManager.ClientLog.AddLog(oLog);
+                    }
+
+                    return true;
+                });
+            }
+
+            return ReportToUpsert;
+        }
+
         #endregion
 
         #region BatchProcess

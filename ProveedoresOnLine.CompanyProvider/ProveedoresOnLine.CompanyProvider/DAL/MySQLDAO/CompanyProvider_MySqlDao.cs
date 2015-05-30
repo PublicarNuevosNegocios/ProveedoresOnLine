@@ -1661,6 +1661,119 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
             return oReturn;
         }
 
+        public List<GenericItemModel> MPReportGetBasicInfo(string CompanyPublicId, int? ReportType)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportType", ReportType));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_Report_GetBasicInfo",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericItemModel> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                    (from l in response.DataTableResult.AsEnumerable()
+                     where !l.IsNull("ReportId")
+                     group l by new
+                     {
+                         ReportId = l.Field<int>("ReportId"),
+                         ReportTypeId = l.Field<int>("ReportTypeId"),
+                         ReportTypeName = l.Field<string>("ReportTypeName"),
+                         ReportName = l.Field<string>("ReportName"),
+                         ReportEnable = l.Field<UInt64>("ReportEnable") == 1 ? true : false,
+                         ReportLastModify = l.Field<DateTime>("ReportLastModify"),
+                         ReportCreateDate = l.Field<DateTime>("ReportCreateDate"),
+                     }
+                         into cog
+                         select new GenericItemModel()
+                         {
+                             ItemId = cog.Key.ReportId,
+                             ItemType = new CatalogModel()
+                             {
+                                 ItemId = cog.Key.ReportTypeId,
+                                 ItemName = cog.Key.ReportTypeName
+                             },
+                             ItemName = cog.Key.ReportName,
+                             Enable = cog.Key.ReportEnable,
+                             LastModify = cog.Key.ReportLastModify,
+                             CreateDate = cog.Key.ReportCreateDate,
+                             ItemInfo =
+                                 (from coinf in response.DataTableResult.AsEnumerable()
+                                  where !coinf.IsNull("ReportInfoId") &&
+                                          coinf.Field<int>("ReportId") == cog.Key.ReportId
+                                  select new GenericItemInfoModel()
+                                  {
+                                      ItemInfoId = coinf.Field<int>("ReportInfoId"),
+                                      ItemInfoType = new CatalogModel()
+                                      {
+                                          ItemId = coinf.Field<int>("ReportInfoTypeId"),
+                                          ItemName = coinf.Field<string>("ReportInfoTypeName"),
+                                      },
+                                      Value = coinf.Field<string>("Value"),
+                                      LargeValue = coinf.Field<string>("LargeValue"),
+                                      Enable = coinf.Field<UInt64>("ReportInfoEnable") == 1 ? true : false,
+                                      LastModify = coinf.Field<DateTime>("ReportInfoLastModify"),
+                                      CreateDate = coinf.Field<DateTime>("ReportInfoCreateDate"),
+                                  }).ToList(),
+
+                         }).ToList();
+            }
+            return oReturn;
+        }
+        
+        public int MPReportUpsert(string CompanyPublicId, int? ReportId, int ReportTypeId, string ReportName, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportId", ReportId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportTypeId", ReportTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportName", ReportName));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_Report_UpSert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
+        public int MPReportInfoUpsert(int ReportId, int? ReportInfoId, int ReportInfoTypeId, string Value, string LargeValue, bool Enable)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportId", ReportId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportInfoId", ReportInfoId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vReportInfoTypeId", ReportInfoTypeId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vValue", Value));
+            lstParams.Add(DataInstance.CreateTypedParameter("vLargeValue", LargeValue));
+            lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.Scalar,
+                CommandText = "CP_ReportInfo_Upsert",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            return Convert.ToInt32(response.ScalarResult);
+        }
+
         #endregion
 
         #region BatchProcess

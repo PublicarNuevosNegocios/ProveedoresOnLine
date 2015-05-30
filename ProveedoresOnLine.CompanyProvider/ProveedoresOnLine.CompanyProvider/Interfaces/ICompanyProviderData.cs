@@ -99,6 +99,11 @@ namespace ProveedoresOnLine.CompanyProvider.Interfaces
 
         ProveedoresOnLine.Company.Models.Util.GenericItemModel MPCustomerProviderGetAllTracking(string CustomerPublicId, string ProviderPublicId);
 
+        List<GenericItemModel> MPReportGetBasicInfo(string CompanyPublicId, int? ReportType);
+
+        int MPReportUpsert(string CompanyPublicId, int? ReportId, int ReportTypeId, string ReportName, bool Enable);
+
+        int MPReportInfoUpsert(int ReportId, int? ReportInfoId, int ReportInfoTypeId, string Value, string LargeValue, bool Enable);
         #endregion
 
         #region BatchProcess

@@ -221,6 +221,21 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
             return DataFactory.MPCustomerProviderGetAllTracking(CustomerPublicId, ProviderPublicId);
         }
 
+        public List<Company.Models.Util.GenericItemModel> MPReportGetBasicInfo(string CompanyPublicId, int? ReportType)
+        {
+            return DataFactory.MPReportGetBasicInfo(CompanyPublicId, ReportType);
+        }
+
+        public int MPReportUpsert(string CompanyPublicId, int? ReportId, int ReportTypeId, string ReportName, bool Enable)
+        {
+            return DataFactory.MPReportUpsert(CompanyPublicId, ReportId, ReportTypeId, ReportName, Enable);
+        }
+
+        public int MPReportInfoUpsert(int ReportId, int? ReportInfoId, int ReportInfoTypeId, string Value, string LargeValue, bool Enable)
+        {
+            return DataFactory.MPReportInfoUpsert(ReportId, ReportInfoId, ReportInfoTypeId,Value,LargeValue, Enable);
+        }
+
         #endregion
 
         #region BatchProcess
