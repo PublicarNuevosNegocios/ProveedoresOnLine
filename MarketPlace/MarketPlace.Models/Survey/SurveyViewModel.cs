@@ -321,7 +321,9 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public DateTime FilterDateIni { get; set; }
 
+        public DateTime FilterEndDate { get; set; }
         #endregion
 
         #region Survey Config Fields

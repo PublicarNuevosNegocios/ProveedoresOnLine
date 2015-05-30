@@ -1393,10 +1393,7 @@ namespace MarketPlace.Web.Controllers
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
                         && oSurveyResults != null && oSurveyResults.Count > 0)
                     {
-                        oSurveyResults = oSurveyResults.Where(x =>
-                            //x.SurveyInfo.Where(y => y.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).
-                            //Select(y => y.Value == ((int)enumSurveyStatus.Close).ToString()).FirstOrDefault()
-                            //&& 
+                        oSurveyResults = oSurveyResults.Where(x =>                      
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
                                                         Select(x => x).ToList();
@@ -1433,6 +1430,11 @@ namespace MarketPlace.Web.Controllers
 
                         //Set the Average
                         oModel.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average = Average;
+                        if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate))
+                        {
+                            oModel.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni = Convert.ToDateTime(InitDate);
+                            oModel.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate = Convert.ToDateTime(EndDate);
+                        }               
                     }
                 }
             }
@@ -1473,6 +1475,11 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+
+        public virtual ActionResult SVSurveyReport(string ProviderPublicId)
+        {
+            return View();
+        }
         #endregion
 
         #region Menu
@@ -1993,6 +2000,23 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentController == MVC.Provider.Name),
                         });
 
+                        //survey list
+                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        {
+                            Name = "Reportes de evaluaciónes",
+                            Url = Url.RouteUrl
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.SVSurveyReport,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 1,
+                            IsSelected =
+                                 (oCurrentAction == MVC.Provider.ActionNames.SVSurveyReport &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
                         //get is selected menu
                         oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 

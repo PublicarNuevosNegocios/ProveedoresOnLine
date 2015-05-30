@@ -45,6 +45,7 @@
     {
         <script type="text/javascript">
             $(document).ready(function () {
+                debugger;
                 Provider_InitMenu({
                     ObjId: 'ulProviderMenu',
                     active: @(Model.ProviderMenu.Where(x=>x.IsSelected).Select(x=>x.Position).DefaultIfEmpty(0).FirstOrDefault()),

@@ -28,7 +28,7 @@ var Survey_ProgramObject = {
     ShowProgram: function (vShowObject) {
         //validate survey status
         if (vShowObject != null && vShowObject.ProviderPublicId != null && vShowObject.SurveyStatus == '1206001') {
-
+            debugger;
             //get base html
             var DialogDiv = $('<div style="display:none" title="Programar evaluación de desempeño">' + $('#' + Survey_ProgramObject.ObjectId).html() + '</div>');
 
@@ -63,8 +63,7 @@ var Survey_ProgramObject = {
                 }
             });
 
-            //init hidden values
-            debugger;
+            //init hidden values            
 
             //provider id
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ProviderPublicId').val(vShowObject.ProviderPublicId);

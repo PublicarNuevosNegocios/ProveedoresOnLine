@@ -657,6 +657,7 @@ var Provider_TrackingObject = {
     },
 };
 
+
 var Provider_SurveySearchObject = {
 
     ObjectId: '',
@@ -675,12 +676,34 @@ var Provider_SurveySearchObject = {
             Provider_SurveySearchObject.Search(null);
         });
         $('#' + Provider_SurveySearchObject.ObjectId + '_FilterId').click(function () {
-            Provider_SurveySearchObject.Filter();
-        });        
+            Provider_SurveySearchObject.Filter(null);
+        });
+
+        $('#' + Provider_SurveySearchObject.ObjectId + '_ViewObservationId').click(function () {
+            debugger;
+            var divObs = $('#' + Provider_SurveySearchObject.ObjectId + '_div_Observation');
+            if (divObs.is(':visible')) {
+                $('#' + Provider_SurveySearchObject.ObjectId + '_div_Observation').hide(1000)
+            }
+            else {
+                $('#' + Provider_SurveySearchObject.ObjectId + '_div_Observation').show(1000)
+            }
+            
+        });
+        $('#' + Provider_SurveySearchObject.ObjectId + '_ViewActionPlanId').click(function () {
+            debugger;
+            var divP = $('#' + Provider_SurveySearchObject.ObjectId + '_div_ActionPlan');
+            if (divP.is(':visible')) {
+                $('#' + Provider_SurveySearchObject.ObjectId + '_div_ActionPlan').hide(1000);
+            }
+            else {
+                $('#' + Provider_SurveySearchObject.ObjectId + '_div_ActionPlan').show(1000);
+            }
+            
+        });
     },
 
-    Search: function (vSearchObject) {
-        debugger;
+    Search: function (vSearchObject) {        
         var oUrl = this.SearchUrl;
 
         oUrl += '&SearchOrderType=' + $('#' + Provider_SurveySearchObject.ObjectId + '_Order').val().split('_')[0];
@@ -698,6 +721,56 @@ var Provider_SurveySearchObject = {
         oUrl += '&InitDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').val();
         window.location = oUrl;
-    }
-
+    },
+    
 };
+
+var Provider_SurveyReports = {
+
+    ObjectId: '',
+
+    Init: function (vInitObject)
+    {       
+        this.ObjectId = vInitObject.ObjectId
+    },
+
+    ShowProgramReport: function (vShowObject) {
+        debugger;
+        //get base html
+            var DialogDiv = $('<div style="display:none" title="Generar Reporte">' + $('#' + Provider_SurveyReports.ObjectId).html() + '</div>');
+
+            //show dialog
+            DialogDiv.dialog({
+                width: 500,
+                minWidth: 300,
+                modal: true,
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog("close");
+                    },
+                    'Generar Reporte': function () {
+                        debugger;
+                        var validator = DialogDiv.find('#' + ShowProgramReport.ObjectId + '_Form').data("kendoValidator");
+                        if (validator.validate()) {
+                            debugger;
+                            $.ajax({
+                                type: "POST",
+                                url: DialogDiv.find('#' + ShowProgramReport.ObjectId + '_Form').attr('action'),
+                                data: DialogDiv.find('#' + ShowProgramReport.ObjectId + '_Form').serialize(),
+                                success: function (result) {
+                                    DialogDiv.dialog("close");
+                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Se ha programado la evaluación de desempeño.', window.location.toString());
+                                },
+                                error: function (result) {
+                                    DialogDiv.dialog("close");
+                                    Dialog_ShowMessage('Programar evaluación de desempeño', 'Ha ocurrido un error programando la evaluación de desempeño.', null);
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }   
+};
+
+

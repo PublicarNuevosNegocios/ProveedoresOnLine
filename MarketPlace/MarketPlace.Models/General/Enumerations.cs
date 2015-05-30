@@ -389,7 +389,7 @@
 
         ProviderStatus = 112001,
         ProviderRate = 112002,
-        IsRelatedProvider = 112003,        
+        IsRelatedProvider = 112003,
     }
 
     public enum enumCustomerProviderInfoType
@@ -467,6 +467,12 @@
 
     #region Survey
 
+    public enum enumSurveyType
+    {
+       SurveyReport = 1207001,
+    }
+
+
     public enum enumSurveySearchOrderType
     {
         LastModify = 1,
@@ -497,6 +503,19 @@
         Comments = 1204010,
         Project = 1204011,
         File = 1204012,
+
+        //SurveyRepor
+
+        //Report By Date
+        RP_Observation = 1208001,
+        RP_ImprovementPlan = 1208002,
+        RP_InitDateReport = 1208003,
+        RP_EndDateReport = 1208004,
+        RP_ReportAverage = 1208005,
+        RP_ReportDate = 1208006,
+        RP_ReportURL = 1208007,
+        RP_ProviderPublicId = 1208008,
+        RP_ReportResponsable = 1208009,
     }
 
     public enum enumSurveyItemInfoType

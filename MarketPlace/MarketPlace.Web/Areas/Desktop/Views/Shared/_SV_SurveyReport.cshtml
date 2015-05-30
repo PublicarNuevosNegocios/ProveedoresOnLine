@@ -1,0 +1,35 @@
+﻿@model MarketPlace.Models.Survey.SurveyProgramModel
+
+@if (!Model.RenderScripts)
+{
+    <div id="Survey_SurveyReport">
+        <div id="Survey_SurveyReport_Dialog">
+            <form id="Survey_SurveyReport_Form" action="@Url.Content("~/api/SurveyApi?SurveyUpsert=true")" method="post">
+                <ul>
+                    <li>
+                        <label>Observación</label>
+                        <textarea id="Survey_SurveyReport_Observation" rows="4" cols="40"></textarea>
+                    </li>
+                    <li>
+                        <label>Plan de Acción</label>
+                        <textarea id="Survey_SurveyReport_ActionPlan" rows="4" cols="40"></textarea>
+                    </li>
+                </ul>
+                <div style="display:none">
+                    <input type="hidden" id="Survey_SurveyReport_ObservationId" name="ObservationId">
+                    <input type="hidden" id="Survey_SurveyReport_ActionPlanId" name="ActionPlanId">                    
+                </div>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Provider_SurveyReports.Init({
+                ObjectId: 'Survey_SurveyReport',
+            });
+        });
+    </script>
+}
