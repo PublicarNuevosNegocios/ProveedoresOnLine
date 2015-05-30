@@ -1308,6 +1308,10 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return ReportToUpsert;
         }
 
+        public static List<GenericItemModel> MPReportGetBasicInfo(string CompanyPublicId, int? ReportType)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.MPReportGetBasicInfo(CompanyPublicId, ReportType);
+        }
         #endregion
 
         #region BatchProcess

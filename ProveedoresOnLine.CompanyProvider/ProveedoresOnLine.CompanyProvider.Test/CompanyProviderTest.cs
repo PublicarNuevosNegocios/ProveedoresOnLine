@@ -36,14 +36,7 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                 (1);
 
             Assert.AreEqual(true, oReturn.Count >= 1);
-        }
-
-        [TestMethod]
-        public void LegalInfoGetByLegalType()
-        {
-            // List<CatalogModel> oReturn = new List<CatalogModel>();
-            //return (LegalId, LegalInfoId, LegalInfoTypeId, Value, LargeValue, Enable);
-        }
+        }       
 
         [TestMethod]
         public void BalanceSheetUpsert()
@@ -466,6 +459,14 @@ namespace ProveedoresOnLine.CompanyProvider.Test
                 ("DA5C572E", "18A8F37B");
 
             Assert.AreEqual(true, oResult != null && oResult.ItemInfo.Count > 0);
+        }
+
+        [TestMethod]
+        public void MPLegalInfoGetBasicInfo()
+        {
+            List<Company.Models.Util.GenericItemModel> oReturn =
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportGetBasicInfo("1D9B9580", null);
+            Assert.AreEqual(true, oReturn.Count >= 1);
         }
         #endregion
     }
