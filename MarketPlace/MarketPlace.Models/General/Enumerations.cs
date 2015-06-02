@@ -387,6 +387,13 @@
         CustomEconomicActivity = 111007,
         City = 111008,
 
+        StartDateSurvey = 111009,
+        EndDateSurvey = 111010,
+        SurveyStatus = 111011,
+        SurveyType = 111012,
+        SurveyRank = 111013,
+        SurveyEvaluator = 111014,
+
         ProviderStatus = 112001,
         ProviderRate = 112002,
         IsRelatedProvider = 112003,
