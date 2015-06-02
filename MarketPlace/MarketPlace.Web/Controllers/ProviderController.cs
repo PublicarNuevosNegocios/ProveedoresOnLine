@@ -721,7 +721,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
-        }
+        }     
 
         #endregion
 
@@ -1475,11 +1475,50 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-
         public virtual ActionResult SVSurveyReport(string ProviderPublicId)
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel();
+
+            //get basic provider info
+            var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+            var oProvider = olstProvider.
+                Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                            (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                            (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                            x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                            x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                FirstOrDefault();
+
+            //validate provider permisions
+            if (oProvider == null)
+            {
+                //return url provider not allowed
+            }
+            else
+            {
+                //get provider view model
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedReports = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportGetBasicInfo(ProviderPublicId, (int)enumSurveyType.SurveyReport);
+                oModel.RelatedReportInfo = new List<ProviderReportsViewModel>();
+
+                if (oModel.RelatedLiteProvider.RelatedProvider.RelatedReports != null)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedReports.All(x =>
+                    {
+                        oModel.RelatedReportInfo.Add(new ProviderReportsViewModel(x));
+                        return true;
+                    });
+                }
+
+                oModel.ProviderMenu = GetProviderMenu(oModel);
+            }
+            return View(oModel);
         }
+       
         #endregion
 
         #region Menu

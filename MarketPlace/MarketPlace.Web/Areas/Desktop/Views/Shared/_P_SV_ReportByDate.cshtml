@@ -1,0 +1,81 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+
+@if (!Model.RenderScripts)
+{
+    <label class="POMPSectionTitles">Reportes de Evaluaciones</label>
+    if (Model.RelatedReportInfo != null && Model.RelatedReportInfo.Count > 0)
+    {
+        <ul class="POMPProviderInfoMultipleValues">
+            @foreach (var item in Model.RelatedReportInfo.Where(lg => lg.ReportType == MarketPlace.Models.General.enumSurveyType.SurveyReport))
+            {
+                <li>
+                    <label class="POMPProviderDataSubtitle">
+                        @if (!string.IsNullOrEmpty(item.RP_ReportAverage))
+                        {
+                            <span>@item.RP_ReportAverage</span>
+                        }
+                    </label>
+                    @if (!string.IsNullOrEmpty(item.RP_Observation))
+                    {
+                        <label>
+                            Observaciones
+                            <span>@item.RP_Observation</span>
+                        </label>
+                    }
+                    @if (!string.IsNullOrEmpty(item.RP_ImprovementPlan))
+                    {
+                        <label>
+                            Plan de Acción
+                            <span>@item.RP_ImprovementPlan</span>
+                        </label>
+                    }
+                    @if (!string.IsNullOrEmpty(item.RP_InitDateReport))
+                    {
+                        <label>
+                            Fecha Inicial
+                            <span>@item.RP_InitDateReport</span>
+                        </label>
+                    }
+                    @if (!string.IsNullOrEmpty(item.RP_EndDateReport))
+                    {
+                        <label>
+                            Fecha Final
+                            <span>@item.RP_EndDateReport</span>
+                        </label>
+                    }
+                    @if (!string.IsNullOrEmpty(item.RP_ReportDate))
+                    {
+                        <label>
+                            Fecha De Creación del Reporte
+                            <span>@item.RP_ReportDate</span>
+                        </label>
+                    }
+                    @if (!string.IsNullOrEmpty(item.RP_ReportResponsable))
+                    {
+                        <label>
+                            Responsable
+                            <span>@item.RP_ReportResponsable</span>
+                        </label>
+                    }
+                    @if (!string.IsNullOrEmpty(item.RP_ReportURL))
+                    {
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RP_ReportURL">Ver Reporte</a>
+                        </label>
+                    }
+                    <label class="POMPProviderVerDetalle">
+                        <a href="@(Url.RouteUrl
+                                (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                new
+                                {
+                                    controller = MVC.Provider.Name,
+                                    action = MVC.Provider.ActionNames.SVSurveyReport,
+                                    ProviderPublicId = Request["ProviderPublicId"]
+                                }))">Ver Detalle</a>
+                    </label>
+                </li>
+            }
+        </ul>
+    }
+
+}

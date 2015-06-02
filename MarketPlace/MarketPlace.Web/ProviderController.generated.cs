@@ -125,6 +125,12 @@ namespace MarketPlace.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyReport()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult FIBalanceSheetInfo()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FIBalanceSheetInfo);
@@ -189,12 +195,6 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyDetail);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SVSurveyReport()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -223,6 +223,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string LICIFINInfo = "LICIFINInfo";
             public readonly string LISARLAFTInfo = "LISARLAFTInfo";
             public readonly string LIResolutionInfo = "LIResolutionInfo";
+            public readonly string SVSurveyReport = "SVSurveyReport";
             public readonly string FIBalanceSheetInfo = "FIBalanceSheetInfo";
             public readonly string FITaxInfo = "FITaxInfo";
             public readonly string FIIncomeStatementInfo = "FIIncomeStatementInfo";
@@ -234,7 +235,6 @@ namespace MarketPlace.Web.Controllers
             public readonly string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
-            public readonly string SVSurveyReport = "SVSurveyReport";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -252,6 +252,7 @@ namespace MarketPlace.Web.Controllers
             public const string LICIFINInfo = "LICIFINInfo";
             public const string LISARLAFTInfo = "LISARLAFTInfo";
             public const string LIResolutionInfo = "LIResolutionInfo";
+            public const string SVSurveyReport = "SVSurveyReport";
             public const string FIBalanceSheetInfo = "FIBalanceSheetInfo";
             public const string FITaxInfo = "FITaxInfo";
             public const string FIIncomeStatementInfo = "FIIncomeStatementInfo";
@@ -263,7 +264,6 @@ namespace MarketPlace.Web.Controllers
             public const string HIRiskPoliciesInfo = "HIRiskPoliciesInfo";
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
-            public const string SVSurveyReport = "SVSurveyReport";
         }
 
 
@@ -358,6 +358,14 @@ namespace MarketPlace.Web.Controllers
         public ActionParamsClass_LIResolutionInfo LIResolutionInfoParams { get { return s_params_LIResolutionInfo; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_LIResolutionInfo
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_SVSurveyReport s_params_SVSurveyReport = new ActionParamsClass_SVSurveyReport();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyReport SVSurveyReportParams { get { return s_params_SVSurveyReport; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyReport
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -457,14 +465,6 @@ namespace MarketPlace.Web.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
             public readonly string SurveyPublicId = "SurveyPublicId";
-        }
-        static readonly ActionParamsClass_SVSurveyReport s_params_SVSurveyReport = new ActionParamsClass_SVSurveyReport();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SVSurveyReport SVSurveyReportParams { get { return s_params_SVSurveyReport; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SVSurveyReport
-        {
-            public readonly string ProviderPublicId = "ProviderPublicId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -635,6 +635,18 @@ namespace MarketPlace.Web.Controllers
         }
 
         [NonAction]
+        partial void SVSurveyReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyReport(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            SVSurveyReportOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void FIBalanceSheetInfoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId, string ViewName, string Year, string Currency);
 
         [NonAction]
@@ -772,18 +784,6 @@ namespace MarketPlace.Web.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SurveyPublicId", SurveyPublicId);
             SVSurveyDetailOverride(callInfo, ProviderPublicId, SurveyPublicId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SVSurveyReportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult SVSurveyReport(string ProviderPublicId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
-            SVSurveyReportOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

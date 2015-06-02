@@ -55,12 +55,21 @@
                     </li>
                     <li>
                         <span>Filtrar por fecha</span>
-                        @{
+                        @{if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
+                              && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                        {
                             var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
                             var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
-                          }
-                        <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
-                        <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                            <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
+                            <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                        }
+                        else
+                        {
+                            <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
+                            <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
+                        }
+                        }
+
                     <li>
                         <!--actions-->
                         <input class="POMPButtonsSurvey" type="button" name="SurveySearch_Filter" id="SurveySearch_FilterId" value="Filtrar" />
@@ -89,7 +98,7 @@
                         }
                     }
                 </ul>
-            </div>            
+            </div>
             <div class="POMPResultsOrder">
                 <!--search results-->
                 @if (Model.RelatedSurveySearch.SurveySearchResult != null && Model.RelatedSurveySearch.SurveySearchResult.Count > 0)
@@ -132,7 +141,8 @@
 <div style="display:none;">
 
     @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
-    @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveyReport, oSurveyModel)
+    @{Model.RenderScripts = false;}
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveyReport, Model)
 
 </div>
 
@@ -141,10 +151,10 @@
     oSurveyModel.RenderScripts = true;
 }
 @section inlinescripts
-{
+{   
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
-    @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveyReport, oSurveyModel)
+    @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveyReport, Model)
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -157,8 +167,8 @@
                                 action = MVC.Provider.ActionNames.SVSurveySearch,
                                 ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                             }))',
-            });            
-            Provider_SurveyReports.Init({                
+            });
+            Provider_SurveyReports.Init({
                 ObjectId: 'Survey_SurveyReport',
             });
             Provider_SurveySearchObject.RenderAsync();

@@ -1,23 +1,27 @@
-﻿@model MarketPlace.Models.Survey.SurveyProgramModel
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
 
 @if (!Model.RenderScripts)
 {
     <div id="Survey_SurveyReport">
         <div id="Survey_SurveyReport_Dialog">
-            <form id="Survey_SurveyReport_Form" action="@Url.Content("~/api/SurveyApi?SurveyUpsert=true")" method="post">
+            <form id="Survey_SurveyReport_Form" action="@Url.Content("~/api/ProviderApi?RPSurveyFilterReport=true&ProviderPublicId="+ Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId)" method="post">
                 <ul>
                     <li>
                         <label>Observación</label>
-                        <textarea id="Survey_SurveyReport_Observation" rows="4" cols="40"></textarea>
+                        <textarea id="Survey_SurveyReport_Observation" rows="4" cols="40" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_Observation).ToString())_"></textarea>
                     </li>
                     <li>
                         <label>Plan de Acción</label>
-                        <textarea id="Survey_SurveyReport_ActionPlan" rows="4" cols="40"></textarea>
+                        <textarea id="Survey_SurveyReport_ActionPlan" rows="4" cols="40" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_ImprovementPlan).ToString())_"></textarea>
                     </li>
                 </ul>
                 <div style="display:none">
-                    <input type="hidden" id="Survey_SurveyReport_ObservationId" name="ObservationId">
-                    <input type="hidden" id="Survey_SurveyReport_ActionPlanId" name="ActionPlanId">                    
+                    <input type="hidden" id="Survey_SurveyReport_InitDateId" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).ToString())_" value="@Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni">                    
+                    <input type="hidden" id="Survey_SurveyReport_EndDateId" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).ToString())_" value="@Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate">                    
+                    <input type="hidden" id="Survey_SurveyReport_AverageId" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportAverage).ToString())_" value="@Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average">                                                          
+                    <input type="hidden" id="Survey_SurveyReport_ReportDate" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportDate).ToString())_" value="@DateTime.Now">                                                          
+                    <input type="hidden" id="Survey_SurveyReport_ProviderPublicId" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_ProviderPublicId).ToString())_" value="@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId">                                                          
+                    <input type="hidden" id="Survey_SurveyReport_ResponsableId" name="ReportSurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportResponsable).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email">                                                          
                 </div>
             </form>
         </div>
