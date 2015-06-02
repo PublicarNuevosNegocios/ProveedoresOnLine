@@ -63,16 +63,22 @@
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.RP_ReportURL">Ver Reporte</a>
                         </label>
                     }
-                    <label class="POMPProviderVerDetalle">
-                        <a href="@(Url.RouteUrl
+                    @if (!string.IsNullOrEmpty(item.RP_InitDateReport)
+                        && !string.IsNullOrEmpty(item.RP_EndDateReport))
+                    {
+                        <label class="POMPProviderVerDetalle">
+                            <a href="@(Url.RouteUrl
                                 (MarketPlace.Models.General.Constants.C_Routes_Default,
                                 new
                                 {
                                     controller = MVC.Provider.Name,
-                                    action = MVC.Provider.ActionNames.SVSurveyReport,
-                                    ProviderPublicId = Request["ProviderPublicId"]
+                                    action = MVC.Provider.ActionNames.SVSurveySearch,
+                                    ProviderPublicId = Request["ProviderPublicId"],
+                                    InitDate = item.RP_InitDateReport,
+                                    EndDate = item.RP_EndDateReport,
                                 }))">Ver Detalle</a>
-                    </label>
+                        </label>
+                    }                    
                 </li>
             }
         </ul>
