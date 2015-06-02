@@ -61,6 +61,7 @@ namespace T4MVC.Desktop
                 public readonly string _P_Search_Result = "_P_Search_Result";
                 public readonly string _P_Search_Result_Item = "_P_Search_Result_Item";
                 public readonly string _P_Search_Result_Pager = "_P_Search_Result_Pager";
+                public readonly string _P_SV_ReportByDate = "_P_SV_ReportByDate";
                 public readonly string _PJ_ProjectDetail_Header = "_PJ_ProjectDetail_Header";
                 public readonly string _PJ_ProjectDetail_Provider_Result = "_PJ_ProjectDetail_Provider_Result";
                 public readonly string _PJ_ProjectProviderDetail_Actions = "_PJ_ProjectProviderDetail_Actions";
@@ -108,6 +109,7 @@ namespace T4MVC.Desktop
             public readonly string _P_Search_Result = "~/Areas/Desktop/Views/Shared/_P_Search_Result.cshtml";
             public readonly string _P_Search_Result_Item = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Item.cshtml";
             public readonly string _P_Search_Result_Pager = "~/Areas/Desktop/Views/Shared/_P_Search_Result_Pager.cshtml";
+            public readonly string _P_SV_ReportByDate = "~/Areas/Desktop/Views/Shared/_P_SV_ReportByDate.cshtml";
             public readonly string _PJ_ProjectDetail_Header = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Header.cshtml";
             public readonly string _PJ_ProjectDetail_Provider_Result = "~/Areas/Desktop/Views/Shared/_PJ_ProjectDetail_Provider_Result.cshtml";
             public readonly string _PJ_ProjectProviderDetail_Actions = "~/Areas/Desktop/Views/Shared/_PJ_ProjectProviderDetail_Actions.cshtml";

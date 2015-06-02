@@ -479,7 +479,6 @@
        SurveyReport = 1207001,
     }
 
-
     public enum enumSurveySearchOrderType
     {
         LastModify = 1,

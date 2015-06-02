@@ -1,5 +1,7 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,5 +54,70 @@ namespace MarketPlace.Web.ControllersApi
             }
             return null;
         }
+
+        #region Provider Reports
+        [HttpPost]
+        [HttpGet]
+        public void RPSurveyFilterReport(string RPSurveyFilterReport, string ProviderPublicId)
+        {
+            if (RPSurveyFilterReport == "true")
+            {
+                ProviderModel oToInsert = new ProviderModel() 
+                {
+                    RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                    {
+                        CompanyPublicId = ProviderPublicId,
+                    },
+                    RelatedReports = new List<GenericItemModel>(),
+                };
+
+                oToInsert.RelatedReports.Add(this.GetSurveyReportFilterRequest());
+
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
+            }
+        }
+
+        #endregion
+
+        #region Provate Functions
+
+        private ProveedoresOnLine.Company.Models.Util.GenericItemModel GetSurveyReportFilterRequest()
+        {
+            ProveedoresOnLine.Company.Models.Util.GenericItemModel oReturn = new ProveedoresOnLine.Company.Models.Util.GenericItemModel()
+            {
+                ItemId = 0,
+                ItemName = "SurveyFilterReport",
+                ItemType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                {
+                    ItemId = (int)enumSurveyType.SurveyReport,
+                },
+                ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>(),
+
+                Enable = true,
+
+            };
+            System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
+            {
+                string[] strSplit = req.Split('_');
+                if (strSplit.Length > 0)
+                {
+                    oReturn.ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = 0,
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = Convert.ToInt32(strSplit[1].Trim())
+                        },
+                        Value = System.Web.HttpContext.Current.Request[req],
+                        Enable = true,
+                    });
+                }
+                return true;
+            });
+
+            return oReturn;
+        }
+
+        #endregion
     }
 }
