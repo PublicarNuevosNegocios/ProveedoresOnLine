@@ -35,6 +35,12 @@ namespace BackOffice.Models.Customer
         public string SurveyConfigItemInfoQuestionType { get; set; }
         public string SurveyConfigItemInfoQuestionTypeId { get; set; }
 
+        public string SurveyConfigItemInfoRol { get; set; }
+        public string SurveyConfigItemInfoRolId { get; set; }
+
+        public string SurveyConfigItemInfoRolWeight { get; set; }
+        public string SurveyConfigItemInfoRolWeightId { get; set; }
+
         public SurveyConfigItemViewModel() { }
 
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedConfigItem)

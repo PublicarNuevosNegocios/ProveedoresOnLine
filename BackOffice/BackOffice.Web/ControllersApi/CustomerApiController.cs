@@ -229,8 +229,6 @@ namespace BackOffice.Web.ControllersApi
             return oReturn;
         }
 
-
-
         [HttpPost]
         [HttpGet]
         public List<BackOffice.Models.Customer.SurveyConfigItemViewModel> SCSurveyConfigItemGetBySurveyConfigId

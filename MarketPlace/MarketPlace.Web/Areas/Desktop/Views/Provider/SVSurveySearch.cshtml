@@ -57,26 +57,32 @@
                         <span>Filtrar por fecha</span>
                         @{if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
                               && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                        {
-                            var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
-                            var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
-                            <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
-                            <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                            {
+                                var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
+                                var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
+                                <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
+                                <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                            }
+                            else
+                            {
+                                <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
+                                <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
+                            }
                         }
-                        else
-                        {
-                            <input type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
-                            <input type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
-                        }
-                        }
-
                     <li>
                         <!--actions-->
                         <input class="POMPButtonsSurvey" type="button" name="SurveySearch_Filter" id="SurveySearch_FilterId" value="Filtrar" />
                     </li>
                     <li>
-                        <!--actions-->
-                        <a class="POMPButtonsSurvey" href="javascript:Provider_SurveyReports.ShowProgramReport({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId'});">Generar Reporte</a>
+                        @{
+                            if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
+                              && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                            {
+                                <!--actions-->
+                                <a class="POMPButtonsSurvey" href="javascript:Provider_SurveyReports.ShowProgramReport({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId'});">Generar Reporte</a>
+                            }
+                        }                       
+                      
                     </li>
 
                     <li>
@@ -85,7 +91,6 @@
                         <div class="POMPSearchResultsPager">@average</div>
                     </li>
 
-                    </li>
                     @*Validación de Modulos por Rol*@
                     @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
                     {
@@ -123,7 +128,7 @@
                         if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                         {
                             <a href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">
-                                Este proveedor no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.
+                                La búsqueda no arrojó resultados o aún no tiene evaluaciones relacionadas, puede programar una evaluación haciendo click aquí.
                             </a>
                         }
                     }
@@ -151,7 +156,7 @@
     oSurveyModel.RenderScripts = true;
 }
 @section inlinescripts
-{   
+{
     @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
     @Html.Partial(MVC.Desktop.Shared.Views._SV_ProgramSurvey, oSurveyModel)
     @Html.Partial(MVC.Desktop.Shared.Views._SV_SurveyReport, Model)

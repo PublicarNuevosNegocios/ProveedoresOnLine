@@ -636,6 +636,9 @@ var Customer_SurveyItemObject = {
         else if (vRenderObject.SurveyItemType == 1202003) {
             Customer_SurveyItemObject.RenderSurveyItemAnswer(vRenderObject);
         }
+        else if (vRenderObject.SurveyItemType == 1202004) {
+            Customer_SurveyItemObject.RenderSurveyItemRol(vRenderObject);
+        }
 
         //focus on the grid
         $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid").table.focus();
@@ -823,6 +826,24 @@ var Customer_SurveyItemObject = {
                             //is in evaluation area show question
                             Customer_SurveyItemObject.RenderAsync({
                                 SurveyItemType: '1202002',
+                                ParentSurveyConfigItem: data.SurveyConfigItemId,
+                                Title: data.SurveyConfigItemName,
+                            });
+                        }
+                    }
+                },{
+                    name: 'Add Role',
+                    text: 'Agregar Roles',
+                    click: function (e) {
+                        // e.target is the DOM element representing the button
+                        var tr = $(e.target).closest("tr"); // get the current table row (tr)
+                        // get the data bound to the current table row
+                        var data = this.dataItem(tr);
+                        //validate SurveyConfigItemTypeId attribute
+                        if (data.SurveyConfigItemTypeId != null && data.SurveyConfigItemTypeId.length > 0) {
+                            //is in evaluation area show question
+                            Customer_SurveyItemObject.RenderAsync({
+                                SurveyItemType: '1202004',
                                 ParentSurveyConfigItem: data.SurveyConfigItemId,
                                 Title: data.SurveyConfigItemName,
                             });
@@ -1276,6 +1297,161 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemId',
                 title: 'Id',
                 width: '100px',
+            }, {
+                title: "&nbsp;",
+                width: "200px",
+                command: [{
+                    name: 'edit',
+                    text: 'Editar'
+                }],
+            }],
+        });
+    },
+
+    //vRenderObject.SurveyItemType item type
+    //vRenderObject.ParentSurveyConfigItem parent item
+    //vRenderObject.Title parent name
+    RenderSurveyItemRol: function (vRenderObject) {
+        debugger;
+        if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
+            //destroy kendo grid if exist
+
+            // destroy the Grid
+            $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid").destroy();
+            // empty the Grid content (inner HTML)
+            $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).empty();
+        }
+
+        $('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).kendoGrid({
+            editable: true,
+            navigatable: true,
+            pageable: false,
+            scrollable: true,
+            toolbar: [
+                { name: 'create', text: 'Nuevo' },
+                { name: 'save', text: 'Guardar datos del listado' },
+                { name: 'cancel', text: 'Descartar' },
+                {
+                    name: 'title',
+                    template: function () {
+                        return $('#' + Customer_SurveyItemObject.ObjectId + '_TitleTemplate').html().replace(/\${Title}/gi, vRenderObject.Title);
+                    }
+                },
+                { name: 'ViewEnable', template: $('#' + Customer_SurveyItemObject.ObjectId + '_ViewEnablesTemplate').html() },
+            ],
+            dataSource: {
+                pageSize: Customer_SurveyItemObject.PageSize,
+                schema: {
+                    model: {
+                        id: "SurveyConfigItemId",
+                        fields: {
+                            SurveyConfigItemEnable: { editable: true, type: 'boolean', defaultValue: true },
+
+                            SurveyConfigItemInfoRol: { editable: true, validation: { required: true } },
+                            SurveyConfigItemInfoRolId: { editable: false },
+
+                            SurveyConfigItemInfoRolWeight: { editable: true, validation: { required: true } },
+                            SurveyConfigItemInfoRolWeightId: { editable: false },
+                        },
+                    }
+                },
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
+                            dataType: 'json',
+                            success: function (result) {
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    create: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se creó el registro.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', result);
+                            },
+                        });
+                    },
+                    update: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
+                            dataType: 'json',
+                            type: 'post',
+                            data: {
+                                DataToUpsert: kendo.stringify(options.data)
+                            },
+                            success: function (result) {
+                                options.success(result);
+                                Message('success', 'Se editó la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                            error: function (result) {
+                                options.error(result);
+                                Message('error', 'Error en la fila con el id ' + options.data.SurveyConfigItemId + '.');
+                            },
+                        });
+                    },
+                },
+                requestStart: function () {
+                    kendo.ui.progress($("#loading"), true);
+                },
+                requestEnd: function () {
+                    kendo.ui.progress($("#loading"), false);
+                }
+            },
+            editable: {
+                mode: "popup",
+                window: {
+                    title: "Rol",
+                }
+            },
+            edit: function (e) {
+                if (e.model.isNew()) {
+                    // set survey item type
+                    e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
+                    e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
+                }
+            },
+            columns: [{
+                field: 'SurveyConfigItemEnable',
+                title: 'Visible marketplace',
+                width: '100px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.SurveyConfigItemEnable == true) {
+                        oReturn = 'Si'
+                    }
+                    else {
+                        oReturn = 'No'
+                    }
+                    return oReturn;
+                },
+            }, {
+                field: 'SurveyConfigItemInfoRol',
+                title: 'Rol',
+                width: '200px',
+                editor: function (container, options) {
+                    $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
+                },
+            },  {
+                field: 'SurveyConfigItemInfoRolWeight',
+                title: 'Peso',
+                width: '50px',
+                format: '{0:n0}'
             }, {
                 title: "&nbsp;",
                 width: "200px",

@@ -27,10 +27,12 @@
             <div id="loading"></div>
             <label>Areas de evaluación</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.EvaluationArea).ToString())"></div>
+            <label>Asignación de Roles</label>
+            <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Rol).ToString())"></div>
             <label>Preguntas</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Question).ToString())"></div>
             <label>Respuestas</label>
-            <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Answer).ToString())"></div>
+            <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Answer).ToString())"></div>            
             <br />
             @{
                 Model.IsForm = false;
