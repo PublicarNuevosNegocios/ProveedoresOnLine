@@ -128,7 +128,7 @@
                             else
                             {
                                 <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(((int)MarketPlace.Models.General.enumFilterType.ProviderStatus).ToString() + ";" + oFilterItem.ItemId.ToString())'}});" />
-                            }
+                            } 
                             <span>@oFilterItem.ItemName (@(Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.ProviderStatus && x.FilterValue.ItemId == oFilterItem.ItemId).Select(x => x.Quantity).DefaultIfEmpty(0).FirstOrDefault()))</span>
                         </li>
                     }
@@ -137,7 +137,7 @@
             @*Filtros por evaluacion de desempeño*@
             @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
             {
-                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+                if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
                 {
                     if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyEvaluator))
                     {
