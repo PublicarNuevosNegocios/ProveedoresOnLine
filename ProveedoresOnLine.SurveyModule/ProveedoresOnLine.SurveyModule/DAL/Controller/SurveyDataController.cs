@@ -68,9 +68,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveyConfigGetById(SurveyConfigId);
         }
 
-        public List<Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable)
+        public List<Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, int? SurveyItemType, bool Enable)
         {
-            return DataFactory.SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, ParentSurveyConfigItem, Enable);
+            return DataFactory.SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, ParentSurveyConfigItem, SurveyItemType, Enable);
         }
 
         public List<Models.SurveyConfigModel> MP_SurveyConfigSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)

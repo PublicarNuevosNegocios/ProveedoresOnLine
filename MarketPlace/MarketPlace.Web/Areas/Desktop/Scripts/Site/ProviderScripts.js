@@ -67,6 +67,7 @@ var Provider_SearchObject = {
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
         debugger;
+        debugger;
         /*get serach param*/
         if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/

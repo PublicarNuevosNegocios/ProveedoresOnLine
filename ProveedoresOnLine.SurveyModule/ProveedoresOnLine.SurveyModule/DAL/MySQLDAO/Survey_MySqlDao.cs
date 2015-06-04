@@ -230,12 +230,14 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public List<GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable)
+        public List<GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, int? SurveyItemType,  bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSurveyConfigId", SurveyConfigId));
             lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyConfigItem", ParentSurveyConfigItem));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSurveyItemType", SurveyItemType));
+
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()

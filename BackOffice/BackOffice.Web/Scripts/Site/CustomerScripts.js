@@ -703,7 +703,7 @@ var Customer_SurveyItemObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&SurveyConfigItemType=' + vRenderObject.SurveyItemType + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -922,7 +922,7 @@ var Customer_SurveyItemObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&SurveyConfigItemType=' + vRenderObject.SurveyItemType + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1193,7 +1193,7 @@ var Customer_SurveyItemObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&SurveyConfigItemType=' + vRenderObject.SurveyItemType + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1358,7 +1358,7 @@ var Customer_SurveyItemObject = {
                 transport: {
                     read: function (options) {
                         $.ajax({
-                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
+                            url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId + '&ParentSurveyConfigItem=' + vRenderObject.ParentSurveyConfigItem + '&SurveyConfigItemType=' + vRenderObject.SurveyItemType + '&Enable=' + Customer_SurveyItemObject.GetViewEnable(vRenderObject.SurveyItemType),
                             dataType: 'json',
                             success: function (result) {
                                 options.success(result);
@@ -1370,6 +1370,7 @@ var Customer_SurveyItemObject = {
                         });
                     },
                     create: function (options) {
+                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
                             dataType: 'json',
@@ -1388,6 +1389,7 @@ var Customer_SurveyItemObject = {
                         });
                     },
                     update: function (options) {
+                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
                             dataType: 'json',
@@ -1421,6 +1423,7 @@ var Customer_SurveyItemObject = {
             },
             edit: function (e) {
                 if (e.model.isNew()) {
+                    debugger;
                     // set survey item type
                     e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
                     e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
@@ -1444,10 +1447,64 @@ var Customer_SurveyItemObject = {
                 field: 'SurveyConfigItemInfoRol',
                 title: 'Rol',
                 width: '200px',
-                editor: function (container, options) {
-                    $('<textarea data-bind="value: ' + options.field + '" style="height: 115px"></textarea>').appendTo(container);
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.SurveyConfigItemInfoRol != null) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        else if (dataItem.SurveyConfigItemInfoRol == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: Administrador</label>';
+                        }
+                        else {
+                            oReturn = '';
+                        }
+                        oReturn = oReturn + dataItem.SurveyConfigItemInfoRol;
+                    }
+                    return oReturn;
                 },
-            },  {
+                editor: function (container, options) {
+
+                    // create an input element
+                    var input = $('<input/>');
+                    // set its name to the field to which the column is bound ('name' in this case)
+                    input.attr('value', options.model[options.field]);
+                    // append it to the container
+                    input.appendTo(container);
+                    // initialize a Kendo UI AutoComplete
+                    input.kendoAutoComplete({
+                        dataTextField: 'RoleCompanyName',
+                        select: function (e) {
+                            debugger;
+                            var selectedItem = this.dataItem(e.item.index());
+                            //set server fiel name
+                            options.model[options.field] = selectedItem.RoleCompanyName;
+                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleCompanyId;
+                            //enable made changes
+                            options.model.dirty = true;
+                        },
+                        dataSource: {
+                            type: 'json',
+                            serverFiltering: true,
+                            transport: {
+                                read: function (options) {
+                                    debugger;
+                                    $.ajax({
+                                        url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&ViewEnable=true' + '&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId,
+                                        dataType: 'json',
+                                        success: function (result) {
+                                            options.success(result);
+                                        },
+                                        error: function (result) {
+                                            options.error(result);
+                                        }
+                                    });
+                                },
+                            }
+                        }
+                    });
+                },
+            }, {
                 field: 'SurveyConfigItemInfoRolWeight',
                 title: 'Peso',
                 width: '50px',

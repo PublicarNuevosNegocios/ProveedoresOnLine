@@ -235,6 +235,7 @@ namespace BackOffice.Web.ControllersApi
             (string SCSurveyConfigItemGetBySurveyConfigId,
             string SurveyConfigId,
             string ParentSurveyConfigItem,
+            string SurveyConfigItemType,
             string Enable)
         {
             List<BackOffice.Models.Customer.SurveyConfigItemViewModel> oReturn = new List<Models.Customer.SurveyConfigItemViewModel>();
@@ -247,6 +248,7 @@ namespace BackOffice.Web.ControllersApi
                     ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyConfigItemGetBySurveyConfigId
                     (Convert.ToInt32(SurveyConfigId.Trim()),
                     string.IsNullOrEmpty(ParentSurveyConfigItem) ? null : (int?)Convert.ToInt32(ParentSurveyConfigItem.Trim()),
+                    Convert.ToInt32(SurveyConfigItemType),
                     oEnable);
 
                 if (oSearchResult != null && oSearchResult.Count > 0)
@@ -280,17 +282,21 @@ namespace BackOffice.Web.ControllersApi
                     Deserialize(System.Web.HttpContext.Current.Request["DataToUpsert"],
                                 typeof(BackOffice.Models.Customer.SurveyConfigItemViewModel));
 
-                ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel oSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
+                ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel oSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel();
+
+                if (Convert.ToInt32(oDataToUpsert.SurveyConfigItemTypeId.Trim()) != (int)BackOffice.Models.General.enumSurveyConfigItemType.Rol)
                 {
-                    RelatedCustomer = new CustomerModel()
+                    oSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
                     {
-                        RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                        RelatedCustomer = new CustomerModel()
                         {
-                            CompanyPublicId = CustomerPublicId,
+                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = CustomerPublicId,
+                            },
                         },
-                    },
-                    ItemId = Convert.ToInt32(SurveyConfigId.Trim()),
-                    RelatedSurveyConfigItem = new List<GenericItemModel>()
+                        ItemId = Convert.ToInt32(SurveyConfigId.Trim()),
+                        RelatedSurveyConfigItem = new List<GenericItemModel>()
                     {
                         new GenericItemModel()
                         {
@@ -302,12 +308,12 @@ namespace BackOffice.Web.ControllersApi
                             },
                             ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentSurveyConfigItem) ? null : 
                                 new GenericItemModel(){ ItemId = Convert.ToInt32(oDataToUpsert.ParentSurveyConfigItem.Trim())},
-                            Enable = oDataToUpsert.SurveyConfigItemEnable,
+                            Enable = oDataToUpsert.SurveyConfigItemEnable,                           
 
                             ItemInfo = new List<GenericItemInfoModel>()
                             {
                                 new GenericItemInfoModel()
-                                {
+                                {                                   
                                     ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoOrderId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoOrderId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
@@ -329,46 +335,99 @@ namespace BackOffice.Web.ControllersApi
                             },
                         },
                     }
-                };
+                    };
+                    if (oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
+                    {
+                        #region get question
 
-                if (oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
+                        oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoHasDescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoHasDescriptionId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription
+                            },
+                            Value = oDataToUpsert.SurveyConfigItemInfoHasDescription.ToString().ToLower(),
+                            Enable = true,
+                        });
+
+                        oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoIsMandatoryId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoIsMandatoryId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.IsMandatory
+                            },
+                            Value = oDataToUpsert.SurveyConfigItemInfoIsMandatory.ToString().ToLower(),
+                            Enable = true,
+                        });
+
+                        oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                        {
+                            ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoQuestionTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoQuestionTypeId.Trim()),
+                            ItemInfoType = new CatalogModel()
+                            {
+                                ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.QuestionType
+                            },
+                            Value = oDataToUpsert.SurveyConfigItemInfoQuestionType.ToString().ToLower(),
+                            Enable = true,
+                        });
+
+                        #endregion
+                    }
+                }
+                else
                 {
-                    #region get question
-
-                    oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                    oSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoHasDescriptionId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoHasDescriptionId.Trim()),
-                        ItemInfoType = new CatalogModel()
+                        RelatedCustomer = new CustomerModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.HasDescription
+                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = CustomerPublicId,
+                            },
                         },
-                        Value = oDataToUpsert.SurveyConfigItemInfoHasDescription.ToString().ToLower(),
-                        Enable = true,
-                    });
-
-                    oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
+                        ItemId = Convert.ToInt32(SurveyConfigId.Trim()),
+                        RelatedSurveyConfigItem = new List<GenericItemModel>()
                     {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoIsMandatoryId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoIsMandatoryId.Trim()),
-                        ItemInfoType = new CatalogModel()
+                        new GenericItemModel()
                         {
-                            ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.IsMandatory
-                        },
-                        Value = oDataToUpsert.SurveyConfigItemInfoIsMandatory.ToString().ToLower(),
-                        Enable = true,
-                    });
+                            ItemId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemId.Trim()),
+                            ItemName = "Asignación de Rol",
+                            ItemType = new CatalogModel()
+                            {
+                                ItemId = Convert.ToInt32(oDataToUpsert.SurveyConfigItemTypeId.Trim()),
+                            },
+                            ParentItem = string.IsNullOrEmpty(oDataToUpsert.ParentSurveyConfigItem) ? null : 
+                                new GenericItemModel(){ ItemId = Convert.ToInt32(oDataToUpsert.ParentSurveyConfigItem.Trim())},
+                            Enable = oDataToUpsert.SurveyConfigItemEnable,                           
 
-                    oSurveyConfig.RelatedSurveyConfigItem.FirstOrDefault().ItemInfo.Add(new GenericItemInfoModel()
-                    {
-                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoQuestionTypeId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoQuestionTypeId.Trim()),
-                        ItemInfoType = new CatalogModel()
-                        {
-                            ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.QuestionType
+                            ItemInfo = new List<GenericItemInfoModel>()
+                            {
+                                new GenericItemInfoModel()
+                                {                                   
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoOrderId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolId.Trim()),
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolId
+                                    },
+                                    Value = oDataToUpsert.SurveyConfigItemInfoRol.Replace(" ",""),
+                                    Enable = true,
+                                },
+                                new GenericItemInfoModel()
+                                {
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoWeightId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolWeightId.Trim()),
+                                    ItemInfoType = new CatalogModel()
+                                    {
+                                        ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight
+                                    },
+                                    Value = oDataToUpsert.SurveyConfigItemInfoRolWeight.Replace(" ",""),
+                                    Enable = true,
+                                },
+                            },
                         },
-                        Value = oDataToUpsert.SurveyConfigItemInfoQuestionType.ToString().ToLower(),
-                        Enable = true,
-                    });
-
-                    #endregion
+                    }
+                    };
                 }
 
                 oSurveyConfig = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyConfigItemUpsert(oSurveyConfig);
