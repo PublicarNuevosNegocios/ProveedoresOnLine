@@ -79,7 +79,6 @@ namespace MarketPlace.Web.Controllers
 
                         return true;
                     });
-
                 }
 
                 #endregion
@@ -98,13 +97,11 @@ namespace MarketPlace.Web.Controllers
                     {
                         oModel.RelatedProject = new Models.Project.ProjectViewModel(oProjectResult);
                     }
-
                     #endregion
                 }
                 else
                 {
                     #region Compare
-
                     if (!string.IsNullOrEmpty(CompareId))
                     {
                         //get current compare 
@@ -1425,7 +1422,7 @@ namespace MarketPlace.Web.Controllers
                                     Average = (Average += sv.SurveyRating);   
                                 return true;
                             });
-                            Average = Average / oModel.RelatedSurveySearch.SurveySearchResult.Where(x => x.SurveyStatus == enumSurveyStatus.Close).Count();
+                            Average = Average != 0 ? Average / oModel.RelatedSurveySearch.SurveySearchResult.Where(x => x.SurveyStatus == enumSurveyStatus.Close).Count() : 0;
                         }
 
                         //Set the Average
