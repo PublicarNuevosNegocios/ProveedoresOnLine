@@ -135,6 +135,9 @@
                 </ul>
             </li>
             @*Filtros por evaluacion de desempeño*@
+            <li>
+                <span>Filtros de Evaluaciones de Desempeño</span>
+            </li>
             @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
             {
                 if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
@@ -142,7 +145,7 @@
                     if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyEvaluator))
                     {
                         <li>
-                            <span>Evaluadores</span>
+                            <span>Listado de Evaluadores</span>
                             <ul>
                                 @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyEvaluator).OrderByDescending(x => x.Quantity).ToList())
                                 {
@@ -161,10 +164,53 @@
                             </ul>
                         </li>
                     }
+                    if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyStatus))
+                    {
+                        <li>
+                            <span>Evaluadores</span>
+                            <ul>
+                                @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyStatus).OrderByDescending(x => x.Quantity).ToList())
+                                {
+                                    <li>
+                                        @if (lstSearchFilter.Any(x => x.Item1 == oFilterItem.FilterType.ItemId.ToString() && x.Item2 == oFilterItem.FilterValue.ItemId.ToString()))
+                                        {
+                                            <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
+                                        }
+                                        <span>@oFilterItem.FilterValue.ItemName (@oFilterItem.Quantity) </span>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyRank))
+                    {
+                        <li>
+                            <span>Rango de Resultados</span>
+                            <ul>
+                                @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyRank).OrderByDescending(x => x.Quantity).ToList())
+                                {
+                                    <li>
+                                        @if (lstSearchFilter.Any(x => x.Item1 == oFilterItem.FilterType.ItemId.ToString() && x.Item2 == oFilterItem.FilterValue.ItemId.ToString()))
+                                        {
+                                            <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
+                                        }
+                                        <span>@oFilterItem.FilterValue.ItemName (@oFilterItem.Quantity) </span>
+                                    </li>
+                                }
+                            </ul>
+                        </li>   
+                    }
                 }
             }
         </ul>
-
     }
     else
     {
