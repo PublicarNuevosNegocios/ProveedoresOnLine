@@ -67,7 +67,6 @@ namespace BackOffice.Models.Customer
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-
             SurveyConfigItemInfoWeight = RelatedConfigItem.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.Weight).
                 Select(y => y.Value).
@@ -79,6 +78,31 @@ namespace BackOffice.Models.Customer
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
+
+            SurveyConfigItemInfoRol = RelatedConfigItem.ItemInfo.
+              Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolId).
+              Select(y => y.Value).
+              DefaultIfEmpty(string.Empty).
+              FirstOrDefault();
+
+            SurveyConfigItemInfoRolId = RelatedConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolId).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SurveyConfigItemInfoRolWeight = RelatedConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SurveyConfigItemInfoRolWeightId = RelatedConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
 
             if (RelatedConfigItem.ItemType.ItemId == (int)BackOffice.Models.General.enumSurveyConfigItemType.Question)
             {

@@ -206,9 +206,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.SurveyConfigGetById(SurveyConfigId);
         }
 
-        public static List<Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable)
+        public static List<Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, int? SurveyItemType, bool Enable)
         {
-            return DAL.Controller.SurveyDataController.Instance.SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, ParentSurveyConfigItem, Enable);
+            return DAL.Controller.SurveyDataController.Instance.SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, ParentSurveyConfigItem, SurveyItemType, Enable);
         }
 
         public static List<Models.SurveyConfigModel> MP_SurveyConfigSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount)

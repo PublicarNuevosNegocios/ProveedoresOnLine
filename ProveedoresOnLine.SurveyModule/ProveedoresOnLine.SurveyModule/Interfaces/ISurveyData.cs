@@ -22,7 +22,7 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel SurveyConfigGetById(int SurveyConfigId);
 
-        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, bool Enable);
+        List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? ParentSurveyConfigItem, int? SurveyItemType, bool Enable);
 
         List<ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel> MP_SurveyConfigSearch(string CustomerPublicId, string SearchParam, int PageNumber, int RowCount);
 
