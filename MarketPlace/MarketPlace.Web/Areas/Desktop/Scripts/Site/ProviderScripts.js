@@ -66,8 +66,8 @@ var Provider_SearchObject = {
 
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
-        debugger;
-        debugger;
+        
+        
         /*get serach param*/
         if (this.SearchParam != $('#' + Provider_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/
@@ -151,7 +151,7 @@ var Provider_SearchObject = {
 
                         //replace provider info
                         oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);
-                        debugger;
+                        
                         oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.ProviderLogoUrl);
                         oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedCompany.CompanyName);
                         oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
@@ -512,7 +512,7 @@ var Provider_SearchObject = {
                             var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Project_Item_Template').html();
 
                             //replace provider info
-                            debugger;
+                            
                             oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId);
                             oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.RelatedProvider.RelatedLiteProvider.ProviderLogoUrl);
                             oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName);
@@ -696,7 +696,7 @@ var Provider_SurveySearchObject = {
 
     Filter: function () {
         var oUrl = this.SearchUrl;
-        debugger;
+        
         oUrl += '&InitDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_InitDateId').val();
         oUrl += '&EndDate=' + $('#' + Provider_SurveySearchObject.ObjectId + '_EndDateId').val();
         window.location = oUrl;
@@ -714,7 +714,7 @@ var Provider_SurveyReports = {
     },
 
     ShowProgramReport: function (vShowObject) {
-        debugger;
+        
         //get base html
             var DialogDiv = $('<div style="display:none" title="Generar Reporte">' + $('#' + Provider_SurveyReports.ObjectId).html() + '</div>');
 
@@ -727,8 +727,7 @@ var Provider_SurveyReports = {
                     'Cancelar': function () {
                         $(this).dialog("close");
                     },
-                    'Generar Reporte': function () {                        
-                        debugger;
+                    'Generar Reporte': function () {
                         $.ajax({
                             type: "POST",
                             url: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').attr('action'),

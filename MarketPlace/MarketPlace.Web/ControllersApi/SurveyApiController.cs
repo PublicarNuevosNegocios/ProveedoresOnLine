@@ -228,6 +228,36 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> SCSurveyConfigItemGetBySurveyConfigId
+            (string SCSurveyConfigItemGetBySurveyConfigId,
+            string SurveyConfigId,            
+            string SurveyConfigItemType)
+        {
+            List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> oReturn = new List<Models.Survey.SurveyConfigItemViewModel>();
+
+            if (SCSurveyConfigItemGetBySurveyConfigId == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oSearchResult =
+                    ProveedoresOnLine.SurveyModule.Controller.SurveyModule.MP_SurveyConfigItemGetBySurveyConfigId
+                    (Convert.ToInt32(SurveyConfigId.Trim()),                    
+                    Convert.ToInt32(SurveyConfigItemType));
+
+                if (oSearchResult != null && oSearchResult.Count > 0)
+                {
+                    oSearchResult.All(x =>
+                    {
+                        oReturn.Add(new MarketPlace.Models.Survey.SurveyConfigItemViewModel(x));
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+
         #region Survey Charts
 
         [HttpPost]

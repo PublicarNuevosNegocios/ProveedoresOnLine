@@ -35,7 +35,7 @@ var Survey_ChartsObject = {
                     var selectedItem = chart.getSelection()[0];
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
-                        debugger;
+                        
                         alert('The user selected ' + topping);
                     }
                 }

@@ -216,6 +216,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.MP_SurveyConfigSearch(CustomerPublicId, SearchParam, PageNumber, RowCount);
         }
 
+        public static List<Company.Models.Util.GenericItemModel> MP_SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? SurveyItemType)
+        {
+            return DAL.Controller.SurveyDataController.Instance.MP_SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, SurveyItemType);
+        }
+
         #endregion
 
         #region Survey

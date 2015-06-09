@@ -43,8 +43,7 @@
         $.ajax({
             url: BaseUrl.ApiUrl + '/ProjectApi?ProjectRemoveFile=true&ProjectPublicId=' + Project_ProjectFile.ProjectPublicId + '&ProjectInfoId=' + vProjectInfoId,
             dataType: 'json',
-            success: function (result) {
-                debugger;
+            success: function (result) {                
                 $('#' + Project_ProjectFile.ObjectId + '_File_' + vProjectInfoId).remove();
             },
             error: function (result) {
@@ -440,7 +439,7 @@ var Project_SearchObject = {
     BlackListStatusShowAlert: '',
 
     Init: function (vInitObject) {
-        debugger;
+        
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
         this.ProjectPublicId = vInitObject.ProjectPublicId;
@@ -456,7 +455,7 @@ var Project_SearchObject = {
     },
 
     RenderAsync: function () {
-        debugger;
+        
         //init Search input
         $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').keydown(function (e) {
             if (e.keyCode == 13) {
@@ -478,7 +477,7 @@ var Project_SearchObject = {
 
     /*{SearchFilter{Enable,Value},SearchOrderType,OrderOrientation,PageNumber}*/
     Search: function (vSearchObject) {
-        debugger;
+        
         /*get serach param*/
         if (this.SearchParam != $('#' + Project_SearchObject.ObjectId + '_txtSearchBox').val()) {
             /*Init pager*/

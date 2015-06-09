@@ -57,7 +57,6 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveyConfigItemInfoUpsert(SurveyConfigItemInfoId, SurveyConfigItemId, SurveyConfigItemInfoType, Value, LargeValue, Enable);
         }
 
-
         public List<ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel> SurveyConfigSearch(string CustomerPublicId, string SearchParam, bool Enable, int PageNumber, int RowCount, out int TotalRows)
         {
             return DataFactory.SurveyConfigSearch(CustomerPublicId, SearchParam, Enable, PageNumber, RowCount, out TotalRows);
@@ -78,6 +77,10 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.MP_SurveyConfigSearch(CustomerPublicId, SearchParam, PageNumber, RowCount);
         }
 
+        public List<Company.Models.Util.GenericItemModel> MP_SurveyConfigItemGetBySurveyConfigId(int SurveyConfigId, int? SurveyItemType)
+        {
+            return DataFactory.MP_SurveyConfigItemGetBySurveyConfigId(SurveyConfigId, SurveyItemType);
+        }
         #endregion
 
         #region Survey

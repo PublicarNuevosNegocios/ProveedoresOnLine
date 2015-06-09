@@ -552,6 +552,9 @@
         HasDescription = 1203003,
         IsMandatory = 1203004,
         QuestionType = 1203005,
+
+        RolId = 1203006,
+        RolWeight = 1203007
     }
 
 
