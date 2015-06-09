@@ -90,6 +90,35 @@ namespace BackOffice.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public List<BackOffice.Models.Customer.CustomerRoleViewModel> RoleCompanyGetByPublicId
+        (string RoleCompanyGetByPublicId,
+            string ViewEnable,
+            string CustomerPublicId)
+        {
+            List<BackOffice.Models.Customer.CustomerRoleViewModel> oReturn = new List<Models.Customer.CustomerRoleViewModel>();
+
+            if (RoleCompanyGetByPublicId == "true")
+            {
+                ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyModel = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId
+                    (CustomerPublicId);
+
+                if (oCompanyModel != null && oCompanyModel.RelatedRole != null )
+                {
+                    oCompanyModel.RelatedRole.All(x =>
+                    {
+                        oReturn.Add(new BackOffice.Models.Customer.CustomerRoleViewModel(x));
+                        return true;
+                    });
+                }
+            }
+
+            return oReturn;
+        }
+
+        
+
+        [HttpPost]
+        [HttpGet]
         public List<BackOffice.Models.Customer.CustomerRoleViewModel> UserCompanyUpsert
             (string UserCompanyUpsert,
             string CustomerPublicId)
