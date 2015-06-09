@@ -1455,21 +1455,20 @@ var Customer_SurveyItemObject = {
                     if (dataItem != null && dataItem.SurveyConfigItemInfoRol != null) {
                         $.each(Customer_SurveyItemObject.RoleCompanyList, function (item, value) {
                             debugger;
-                            if (dataItem.dirty != null && dataItem.dirty == true) {
-                                oReturn = '<span class="k-dirty"></span>';
-                            }
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
                             else if (value.RoleId == dataItem.SurveyConfigItemInfoRol) {
                                 oReturn = value.RoleName;
                             }
-                            else if (dataItem.SurveyConfigItemInfoRol == '') {
-                                oReturn = '<label class="PlaceHolder">Ej: Administrador</label>';
-                            }
+                        else if (dataItem.SurveyConfigItemInfoRol == '') {
+                            oReturn = '<label class="PlaceHolder">Ej: Evaluador</label>';
+                        }
                         });
                     }
                     return oReturn;
                 },
                 editor: function (container, options) {
-
                     // create an input element
                     var input = $('<input/>');
                     // set its name to the field to which the column is bound ('name' in this case)
@@ -1478,13 +1477,13 @@ var Customer_SurveyItemObject = {
                     input.appendTo(container);
                     // initialize a Kendo UI AutoComplete
                     input.kendoAutoComplete({
-                        dataTextField: 'RoleCompanyName',
+                        dataTextField: 'RoleName',
                         select: function (e) {
                             debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server fiel name
-                            options.model[options.field] = selectedItem.RoleCompanyName;
-                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleCompanyId;
+                            options.model[options.field] = selectedItem.RoleName;
+                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleId;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -1495,7 +1494,7 @@ var Customer_SurveyItemObject = {
                                 read: function (options) {
                                     debugger;
                                     $.ajax({
-                                        url: BaseUrl.ApiUrl + '/CustomerApi?UserRolesByCustomer=true&ViewEnable=true' + '&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId,
+                                        url: BaseUrl.ApiUrl + '/CustomerApi?RoleCompanyGetByPublicId=true&ViewEnable=true' + '&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId,
                                         dataType: 'json',
                                         success: function (result) {
                                             options.success(result);
