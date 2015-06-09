@@ -435,7 +435,7 @@ namespace BackOffice.Web.ControllersApi
                             {
                                 new GenericItemInfoModel()
                                 {                                   
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoOrderId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolId.Trim()),
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoRolId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolId
@@ -445,7 +445,7 @@ namespace BackOffice.Web.ControllersApi
                                 },
                                 new GenericItemInfoModel()
                                 {
-                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoWeightId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolWeightId.Trim()),
+                                    ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.SurveyConfigItemInfoRolWeightId) ? 0 : Convert.ToInt32(oDataToUpsert.SurveyConfigItemInfoRolWeightId.Trim()),
                                     ItemInfoType = new CatalogModel()
                                     {
                                         ItemId = (int)BackOffice.Models.General.enumSurveyConfigItemInfoType.RolWeight
