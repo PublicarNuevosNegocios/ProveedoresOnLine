@@ -610,6 +610,7 @@ var Customer_SurveyItemObject = {
     HasEvaluations: false,
     PageSize: '',
     CustomerOptions: new Array(),
+    RoleCompanyList: new Array(),
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -622,6 +623,7 @@ var Customer_SurveyItemObject = {
                 Customer_SurveyItemObject.CustomerOptions[value.Key] = value.Value;
             });
         }
+        this.RoleCompanyList = vInitObject.RoleCompanyList;
     },
 
     RenderAsync: function (vRenderObject) {
@@ -1449,17 +1451,20 @@ var Customer_SurveyItemObject = {
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
+                    debugger;
                     if (dataItem != null && dataItem.SurveyConfigItemInfoRol != null) {
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
-                        else if (dataItem.SurveyConfigItemInfoRol == '') {
-                            oReturn = '<label class="PlaceHolder">Ej: Administrador</label>';
-                        }
-                        else {
-                            oReturn = '';
-                        }
-                        oReturn = oReturn + dataItem.SurveyConfigItemInfoRol;
+                        $.each(Customer_SurveyItemObject.RoleCompanyList, function (item, value) {
+                            debugger;
+                            if (dataItem.dirty != null && dataItem.dirty == true) {
+                                oReturn = '<span class="k-dirty"></span>';
+                            }
+                            else if (value.RoleId == dataItem.SurveyConfigItemInfoRol) {
+                                oReturn = value.RoleName;
+                            }
+                            else if (dataItem.SurveyConfigItemInfoRol == '') {
+                                oReturn = '<label class="PlaceHolder">Ej: Administrador</label>';
+                            }
+                        });
                     }
                     return oReturn;
                 },
