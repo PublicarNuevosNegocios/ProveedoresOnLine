@@ -543,6 +543,7 @@
         EvaluationArea = 1202001,
         Question = 1202002,
         Answer = 1202003,
+        Rol = 1202004,
     }
 
     public enum enumSurveyConfigItemInfoType
