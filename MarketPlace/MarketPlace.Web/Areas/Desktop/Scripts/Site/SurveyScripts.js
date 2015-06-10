@@ -25,8 +25,8 @@ var Survey_ProgramObject = {
     SurveyIssueDate: issue date to send
     SurveyIssueDateId: issue date to send info id
     */
-    ShowProgram: function (vShowObject) {
-        
+    ShowProgram: function (vShowObject, evaluatorIds) {
+        debugger;
         //validate survey status
         if (vShowObject != null && vShowObject.ProviderPublicId != null && vShowObject.SurveyStatus == '1206001') {
             
@@ -72,6 +72,16 @@ var Survey_ProgramObject = {
             //survey public id
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val('');
             if (vShowObject != null && vShowObject.SurveyPublicId != null) {
+                debugger;
+
+                if (evaluatorIds != null) {
+                    var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
+                    $.each(evaluatorIds, function (item, value) {
+                        var result = ' <li><label>Evaluador - ' + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_' + value + '_' + vShowObject.SurveyConfigId + '" /></li>'
+                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+                    });
+                }
+
                 //set current survey public id
                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val(vShowObject.SurveyPublicId);
 
@@ -160,8 +170,7 @@ var Survey_ProgramObject = {
                     
                     if (vShowObject != null && vShowObject.SurveyConfigName != null && vShowObject.SurveyConfigId != null) {
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(vShowObject.SurveyConfigId);
-                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val(vShowObject.SurveyConfigName);
-                        //todo: aqui va el llamado para saber cuantos roles debe pintar                       
+                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val(vShowObject.SurveyConfigName);                                               
                     }
                     else {
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val('');
@@ -176,22 +185,32 @@ var Survey_ProgramObject = {
                         if (e != null && e.length > 0) {                            
                             //Render Roles
                             var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
-                            $.each(e, function (item, value) {
-                                                                
-                                var result = ' <li><label>Evaluador - ' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_Evaluator_" /></li>'
-                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
 
+                            $.each(e, function (item, value) {
+                                var result = ' <li><label>Evaluador - ' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_'+ value.SurveyConfigItemInfoRol + '" /></li>'
+                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
                                 debugger;
                                 //init survey evaluator autocomplete
                                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRol).kendoAutoComplete({
                                     minLength: 0,
+                                    open: function (e) {
+                                        debugger;
+                                        valid = false;
+                                    },
+                                    select: function (e) {
+                                        valid = true;
+                                    },
+                                    close: function (e) {
+                                        // if no valid selection - clear input
+                                        if (!valid) this.value('');
+                                    },
                                     dataSource: {
                                         type: 'json',
                                         serverFiltering: true,
                                         transport: {
                                             read: function (options) {
                                                 $.ajax({
-                                                    url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchAC=true&SearchParam=' + options.data.filter.filters[0].value,
+                                                    url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchByRoleAC=true&RolId='+ value.SurveyConfigItemInfoRol +'&SearchParam=' + options.data.filter.filters[0].value,
                                                     dataType: 'json',
                                                     success: function (result) {
                                                         options.success(result);
@@ -204,9 +223,7 @@ var Survey_ProgramObject = {
                                         }
                                     }
                                 });
-
-                            });
-                            
+                            });                            
                             //init tooltips
                             Tooltip_InitGeneric();
                         }
