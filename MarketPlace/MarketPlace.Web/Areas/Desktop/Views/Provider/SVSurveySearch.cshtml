@@ -28,86 +28,83 @@
                 <!--Orders-->
                 <div class="separadorPromedio"></div>
                 <ul class="POMPProviderSurvey_mainFilter">
-                    <li class="ordenarCampo">
-                        <span>Ordenar por:</span>
-                        <!--order-->
-                        <select id="SurveySearch_Order" class="orderInput">
-                            @{string strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_0";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación - reciente antiguo</option>
+                    <li class="SurveyFilters">
+                        <div class="SurveyOrderBy">
+                            <span>Ordenar por: &nbsp;</span>
+                            <!--order-->
+                            <select id="SurveySearch_Order" class="orderInput">
+                                @{string strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_0";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación - reciente antiguo</option>
 
-                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_1";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación- antiguo reciente</option>
+                                @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.LastModify).ToString() + "_1";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Fecha de modificación- antiguo reciente</option>
 
-                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_1";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - AZ</option>
+                                @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_1";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - AZ</option>
 
-                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_0";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - ZA</option>
+                                @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyGroup).ToString() + "_0";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Grupo de evaluación - ZA</option>
 
-                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyName).ToString() + "_1";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Nombre de evaluación - AZ</option>
+                                @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyName).ToString() + "_1";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Nombre de evaluación - AZ</option>
 
-                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyName).ToString() + "_0";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Nombre de evaluación - ZA</option>
+                                @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyName).ToString() + "_0";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Nombre de evaluación - ZA</option>
 
-                            @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyStatus).ToString() + "_0";}
-                            <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Estado</option>
-                        </select>
-                    </li>
-                    <li class="filtros">
-                        
-                        @{if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
-                              && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
-                        {
-                            var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
-                            var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
-                            <span>Desde &nbsp;</span>
-                            <input class="filtrarFecha" type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
-                            <span> &nbsp; Hasta &nbsp; </span>
-                            <input class="filtrarFecha" type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
-                        }
-                        else
-                        {
-                            <span>Desde &nbsp;</span>     
-                            <input class="filtrarFecha" type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
-                            <span> &nbsp; Hasta &nbsp; </span>
-                            <input class="filtrarFecha" type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
-                        }
-                        }
-                    </li>
-                    <li id="filtrarCampo">
-                        <!--actions-->
-                        <input class="POMPButtonsSurvey" type="button" name="SurveySearch_Filter" id="SurveySearch_FilterId" value="Filtrar" />
-                    </li>
-                    <li class="generarreporteBoton">
-                        @{
-                            if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
+                                @{strOrderAux = ((int)MarketPlace.Models.General.enumSurveySearchOrderType.SurveyStatus).ToString() + "_0";}
+                                <option value="@strOrderAux" @(strOrderAux == Model.RelatedSurveySearch.OrderTypeOrientation ? "selected='selected'" : string.Empty)>Estado</option>
+                            </select>
+                        </div>
+                        <div class="SurveyFilterDate">
+                            @{if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
                               && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
                             {
-                                <!--actions-->
+                                var InitDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("yyyy-MM-dd");
+                                var EndDate = Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("yyyy-MM-dd");
+                                <span>Desde: &nbsp;</span>
+                                <input class="filtrarFecha" type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="@InitDate" />
+                                <span> &nbsp; Hasta &nbsp; </span>
+                                <input class="filtrarFecha" type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="@EndDate" />
+                            }
+                            else
+                            {
+                                <span>Desde: &nbsp;</span>
+                                <input class="filtrarFecha" type="date" name="SurveySearch_InitDate" id="SurveySearch_InitDateId" value="" />
+                                <span> &nbsp; Hasta &nbsp; </span>
+                                <input class="filtrarFecha" type="date" name="SurveySearch_EndDate" id="SurveySearch_EndDateId" value="" />
+                            }
+                            }
+                        </div>
+                        <div class="SurveyActions">
+                            <!--actions-->
+                            <input class="POMPButtonsSurvey" type="button" name="SurveySearch_Filter" id="SurveySearch_FilterId" value="Filtrar" />
+
+                            @if (Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni.ToString("dd/MM/yyyy") != "01/01/0001"
+                          && Model.RelatedSurveySearch.SurveySearchResult.Count > 0 && Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate.ToString("dd/MM/yyyy") != "01/01/0001")
+                            {
+                            <!--actions-->
                                 <a class="POMPButtonsSurvey" href="javascript:Provider_SurveyReports.ShowProgramReport({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId'});">Generar Reporte</a>
                             }
-                        }
-
+                        </div>
                     </li>
-
-                    <li class="promedioVista">
-                        <label>Promedio:</label>
-                        @{decimal average = Model.RelatedSurveySearch.SurveySearchResult.Count > 0 ? Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average : 0;                          }
-                        <div class="POMPSearchResultsPager">@average</div>
-                    </li>
-
-                    @*Validación de Modulos por Rol*@
-                    @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
-                    {
-                        if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                    <li class="SurveyResults">
+                        @*Validación de Modulos por Rol*@
+                        @foreach (var module in MarketPlace.Models.General.SessionModel.CurrentUserModules())
                         {
-                            <li class="programarevaluacionBoton">
-                                <!--actions-->
-                                <a class="POMPButtonsSurvey" href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
-                            </li>
+                            if (module == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+                            {
+                                <div class="NewSurvey">
+                                    <!--actions-->
+                                    <a class="POMPButtonsSurvey" href="javascript:Survey_ProgramObject.ShowProgram({ProviderPublicId:'@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId',SurveyStatus:'@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())'});">Programar nueva evaluación</a>
+                                </div>
+                            }
                         }
-                    }
+                        <div class="SurveyAverage">
+                            <label>Promedio:</label>
+                            @{decimal average = Model.RelatedSurveySearch.SurveySearchResult.Count > 0 ? Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average : 0;                          }
+                            <div class="POMPSearchResultsPager">@Math.Round(average,1) %</div>
+                        </div>                        
+                    </li>
                 </ul>
             </div>
             <div class="POMPResultsOrder">

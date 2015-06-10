@@ -71,3 +71,7 @@
     width: 98%;
     margin-left: 1%;
 }
+
+#Survey_ProgramSurvey_EvaluatorDiv li label {
+    width: 40.5%;
+}

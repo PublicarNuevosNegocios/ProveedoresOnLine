@@ -5,7 +5,7 @@ var Survey_ProgramObject = {
     DateFormat: '',
 
     Init: function (vInitObject) {
-        debugger;
+        
         this.ObjectId = vInitObject.ObjectId;
         this.DateFormat = vInitObject.DateFormat;
     },
@@ -25,10 +25,11 @@ var Survey_ProgramObject = {
     SurveyIssueDate: issue date to send
     SurveyIssueDateId: issue date to send info id
     */
-    ShowProgram: function (vShowObject) {
+    ShowProgram: function (vShowObject, evaluatorIds) {
+        debugger;
         //validate survey status
         if (vShowObject != null && vShowObject.ProviderPublicId != null && vShowObject.SurveyStatus == '1206001') {
-            debugger;
+            
             //get base html
             var DialogDiv = $('<div style="display:none" title="Programar evaluación de desempeño">' + $('#' + Survey_ProgramObject.ObjectId).html() + '</div>');
 
@@ -71,12 +72,22 @@ var Survey_ProgramObject = {
             //survey public id
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val('');
             if (vShowObject != null && vShowObject.SurveyPublicId != null) {
+                debugger;
+
+                if (evaluatorIds != null) {
+                    var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
+                    $.each(evaluatorIds, function (item, value) {
+                        var result = ' <li><label>Evaluador - ' + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_' + value + '_' + vShowObject.SurveyConfigId + '" /></li>'
+                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+                    });
+                }
+
                 //set current survey public id
                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val(vShowObject.SurveyPublicId);
 
                 //current survey config
                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val('');
-                if (vShowObject != null && vShowObject.SurveyConfigId != null) {
+                if (vShowObject != null && vShowObject.SurveyConfigId != null) {                    
                     DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(vShowObject.SurveyConfigId);
                 }
                 //set survey names autocomplete
@@ -142,6 +153,7 @@ var Survey_ProgramObject = {
                                 url: BaseUrl.ApiUrl + '/SurveyApi?SurveyConfigSearchAC=true&SearchParam=' + options.data.filter.filters[0].value,
                                 dataType: 'json',
                                 success: function (result) {
+                                    
                                     options.success(result);
                                 },
                                 error: function (result) {
@@ -152,41 +164,75 @@ var Survey_ProgramObject = {
                     }
                 }
             }).focusout(function () {
+                
                 //validate survey config selected
                 if (!$.isNumeric(DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val())) {
+                    
                     if (vShowObject != null && vShowObject.SurveyConfigName != null && vShowObject.SurveyConfigId != null) {
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(vShowObject.SurveyConfigId);
-                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val(vShowObject.SurveyConfigName);
+                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val(vShowObject.SurveyConfigName);                                               
                     }
                     else {
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val('');
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val('');
                     }
                 }
-            });
+                vShowObject.SurveyConfigId = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val();
+                $.ajax({
+                    url: BaseUrl.ApiUrl + '/SurveyApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + vShowObject.SurveyConfigId + '&SurveyConfigItemType=' + '1202004',
+                    dataType: 'json',
+                    success: function (e) {                        
+                        if (e != null && e.length > 0) {                            
+                            //Render Roles
+                            var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
 
-            //init survey evaluator autocomplete
-            DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator').kendoAutoComplete({
-                minLength: 0,
-                dataSource: {
-                    type: 'json',
-                    serverFiltering: true,
-                    transport: {
-                        read: function (options) {
-                            $.ajax({
-                                url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchAC=true&SearchParam=' + options.data.filter.filters[0].value,
-                                dataType: 'json',
-                                success: function (result) {
-                                    options.success(result);
-                                },
-                                error: function (result) {
-                                    options.error(result);
-                                }
-                            });
-                        },
+                            $.each(e, function (item, value) {
+                                var result = ' <li><label>Evaluador - ' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_'+ value.SurveyConfigItemInfoRol + '" /></li>'
+                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+                                debugger;
+                                //init survey evaluator autocomplete
+                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRol).kendoAutoComplete({
+                                    minLength: 0,
+                                    open: function (e) {
+                                        debugger;
+                                        valid = false;
+                                    },
+                                    select: function (e) {
+                                        valid = true;
+                                    },
+                                    close: function (e) {
+                                        // if no valid selection - clear input
+                                        if (!valid) this.value('');
+                                    },
+                                    dataSource: {
+                                        type: 'json',
+                                        serverFiltering: true,
+                                        transport: {
+                                            read: function (options) {
+                                                $.ajax({
+                                                    url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchByRoleAC=true&RolId='+ value.SurveyConfigItemInfoRol +'&SearchParam=' + options.data.filter.filters[0].value,
+                                                    dataType: 'json',
+                                                    success: function (result) {
+                                                        options.success(result);
+                                                    },
+                                                    error: function (result) {
+                                                        options.error(result);
+                                                    }
+                                                });
+                                            },
+                                        }
+                                    }
+                                });
+                            });                            
+                            //init tooltips
+                            Tooltip_InitGeneric();
+                        }
+                    },
+                    error: function (result) {
+                        options.error(result);
                     }
-                }
-            });
+                });
+            });           
 
             //init issuedate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').kendoDatePicker({
@@ -273,11 +319,11 @@ var Survey_File = {
                 autoUpload: true
             },
             success: function (e) {
-                debugger;
+                
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
-                        debugger;
+                        
                         var oFileItem = $('#' + Survey_File.ObjectId + '_FileItemTemplate').html();
 
                         oFileItem = oFileItem.replace(/{ServerUrl}/gi, value.ServerUrl);
@@ -301,7 +347,7 @@ var Survey_File = {
             url: BaseUrl.ApiUrl + '/SurveyApi?SurveyRemoveFile=true&SurveyPublicId=' + Survey_File.SurveyPublicId + '&SurveyInfoId=' + vSurveyInfoId,
             dataType: 'json',
             success: function (result) {
-                debugger;
+                
                 $('#' + Survey_File.ObjectId + '_File_' + vSurveyInfoId).remove();
             },
             error: function (result) {

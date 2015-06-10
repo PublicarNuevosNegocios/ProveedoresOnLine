@@ -6,12 +6,18 @@
 <script type="text/javascript">
     google.load('visualization', '1.0', { 'packages': ['corechart'] });
     $(document).ready(function () {
-        
+
         google.setOnLoadCallback(Survey_ChartsObject.RenderChatrSurveyByResponsable);
-        
+
         Survey_ChartsObject.Init({
             ObjectId: 'SurveyResponsableStatusChartId',
             SurveyResoinsable: 'true',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
         }),
         Survey_ChartsObject.RenderAsync();
     })

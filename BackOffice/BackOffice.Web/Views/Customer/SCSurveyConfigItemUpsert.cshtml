@@ -32,7 +32,7 @@
             <label>Preguntas</label>
             <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Question).ToString())"></div>
             <label>Respuestas</label>
-            <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Answer).ToString())"></div>            
+            <div id="divGridItem_@(((int)BackOffice.Models.General.enumSurveyConfigItemType.Answer).ToString())"></div>
             <br />
             @{
                 Model.IsForm = false;
@@ -82,10 +82,13 @@
             oSurveyInfoOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
                 Serialize(oOptionCertification.Select(x => new { Key = x.Key, Value = x.Value }));
         }
+
+        string vstrRoleCompanyList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+       Serialize(Model.RelatedRoleCompanyList);
     }
 
     <script type="text/javascript">
-        
+
         var vCustomerInfoOptionList = @(Html.Raw(oSurveyInfoOptionList));
 
         $(document).ready(function () {
@@ -96,6 +99,7 @@
                 HasEvaluations: @Model.RelatedSurveyConfig.RelatedSurveyConfig.HasEvaluations.ToString().ToLower(),
                 PageSize: '@BackOffice.Models.General.InternalSettings.Instance[BackOffice.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value',
                 CustomerOptions: vCustomerInfoOptionList,
+                RoleCompanyList: @Html.Raw(vstrRoleCompanyList),
             });
 
             Customer_SurveyItemObject.RenderAsync({
@@ -104,5 +108,5 @@
                 Title: '@Model.RelatedSurveyConfig.SurveyName',
             })
         });
-</script>
+    </script>
 }

@@ -40,6 +40,36 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
+        [HttpPost]
+        [HttpGet]
+        public List<string> UserCompanySearchByRoleAC
+            (string UserCompanySearchByRoleAC,
+            string RolId,
+            string SearchParam)
+        {
+            List<string> oReturn = new List<string>();
+
+            if (UserCompanySearchByRoleAC == "true")
+            {
+                List<ProveedoresOnLine.Company.Models.Company.UserCompany> SearchResult = ProveedoresOnLine.Company.Controller.Company.MP_UserCompanySearch
+                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
+                    SearchParam,
+                    Convert.ToInt32(RolId),
+                    0,
+                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Grid_RowCountDefault].Value.Trim()));               
+               
+                if (SearchResult != null && SearchResult.Count > 0)
+                {                   
+                    oReturn = SearchResult.
+                        OrderBy(x => x.User).
+                        Select(x => x.User).
+                        ToList();
+                }
+            }
+
+            return oReturn;
+        }
+
         #region Util
 
         #region Category

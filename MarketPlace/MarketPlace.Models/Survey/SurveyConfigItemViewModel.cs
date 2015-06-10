@@ -73,9 +73,44 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public string SurveyConfigItemInfoRolWeight { get; set; }
+        public string SurveyConfigItemInfoRolWeightId { get; set; }
+
+        public string SurveyConfigItemInfoRol { get; set; }
+        public string SurveyConfigItemInfoRolId { get; set; }
+        public string SurveyConfigItemInfoRolName { get; set; }
+
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedSurveyConfigItem)
         {
             RelatedSurveyConfigItem = oRelatedSurveyConfigItem;
+
+            SurveyConfigItemInfoRol = oRelatedSurveyConfigItem.ItemInfo.
+             Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolId).
+             Select(y => y.Value).
+             DefaultIfEmpty(string.Empty).
+             FirstOrDefault();
+
+            SurveyConfigItemInfoRolId = oRelatedSurveyConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolId).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SurveyConfigItemInfoRolName = !string.IsNullOrEmpty(SurveyConfigItemInfoRol) ? MarketPlace.Models.Company.CompanyUtil.CompanyRole.RelatedRole.
+                                          Where(x => x.ItemId == Convert.ToInt32(SurveyConfigItemInfoRol))
+                                          .Select(x => x.ItemName).FirstOrDefault() : string.Empty;               
+
+            SurveyConfigItemInfoRolWeight = oRelatedSurveyConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolWeight).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            SurveyConfigItemInfoRolWeightId = oRelatedSurveyConfigItem.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolWeight).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
         }
     }
 }

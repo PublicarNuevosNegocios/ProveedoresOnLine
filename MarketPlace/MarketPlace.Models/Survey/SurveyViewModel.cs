@@ -116,7 +116,29 @@ namespace MarketPlace.Models.Survey
                     FirstOrDefault();
             }
         }
+        public List<int> SurveyEvaluatorIdList
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).
+                    Select(y => y.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    ToList();
+            }
+        }
 
+        public List<string> SurveyEvaluatorList
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator).
+                    Select(y => y.Value).
+                    DefaultIfEmpty(string.Empty).
+                    ToList();
+            }
+        }
         public int SurveyStartDateId
         {
             get

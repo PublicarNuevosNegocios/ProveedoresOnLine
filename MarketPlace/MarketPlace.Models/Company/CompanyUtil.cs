@@ -8,6 +8,24 @@ namespace MarketPlace.Models.Company
 {
     public class CompanyUtil
     {
+        #region Company
+
+        public static ProveedoresOnLine.Company.Models.Company.CompanyModel CompanyRole 
+        {
+            get
+            {
+                if (oCompanyRole == null)
+                {
+                    oCompanyRole = ProveedoresOnLine.Company.Controller.Company.RoleCompany_GetByPublicId
+                   (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+                };
+                return oCompanyRole;
+            }           
+        }
+        public static ProveedoresOnLine.Company.Models.Company.CompanyModel oCompanyRole;
+
+        #endregion
+
         #region Generic Catalogs
 
         /// <summary>

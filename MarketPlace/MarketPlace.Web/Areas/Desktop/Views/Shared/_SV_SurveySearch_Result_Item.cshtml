@@ -31,101 +31,112 @@
 
                 SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
                 SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
-                
+
                 SurveyContract = Model.RelatedSurvey.SurveyContract,
                 SurveyContractId = Model.RelatedSurvey.SurveyContractId,
-                
+
                 SurveyStartDate = Model.RelatedSurvey.SurveyStartDate,
                 SurveyStartDateId = Model.RelatedSurvey.SurveyStartDateId,
-                
+
                 SurveyEndDate = Model.RelatedSurvey.SurveyEndDate,
                 SurveyEndDateId = Model.RelatedSurvey.SurveyEndDateId,
-                
+
                 SurveyComments = Model.RelatedSurvey.SurveyComments,
                 SurveyCommentsId = Model.RelatedSurvey.SurveyCommentsId,
 
                 SurveyRelatedProject = Model.RelatedSurvey.SurveyRelatedProject,
-                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,              
-                
+                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,
+
             });
 
     }
         <!--evaluation basic info-->
-        <div class="POMPResultsBasicInfo">
-            <a href="@strUrlDetail">
-                @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
-            </a>
-            <ul>
-                <li>
-                    <label>Calificación:</label>
-                    <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                    <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
-                </li>
-                <li>
-                    <label>Progreso:</label>
-                    <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>                
-                </li>
-                <li>
-                    <label>Evaluador:</label>
-                    <span>@Model.RelatedSurvey.SurveyEvaluator</span>
-                </li>
-                <li>
-                    <label>Fecha de programación:</label>
-                    <span>@Model.RelatedSurvey.SurveyIssueDate</span>
-                </li>
-                <li>
-                    <label>Responsable:</label>
-                    <span>@Model.RelatedSurvey.SurveyResponsible</span>
-                </li>
-                <li>
-                    <label>Ultima actualización:</label>
-                    <span>@Model.RelatedSurvey.SurveyLastModify</span>
-                </li>
-                <li>
-                    <label>Estado:</label>
-                    <span>@Model.RelatedSurvey.SurveyStatusName</span>
-                </li>
-                <li>
-                    <label>Contrato o Factura</label>
-                    <span>@Model.RelatedSurvey.SurveyContract</span>
-                </li>
-                <li>
-                    <label>Periodo de Evaluación:</label>
-                    <div class="EvaluationPeriod">
-                        <label>Fecha de Inicio:</label>
-                        <span>@Model.RelatedSurvey.SurveyStartDate</span>
-                        <label>Fecha Final:</label>
-                        <span>@Model.RelatedSurvey.SurveyEndDate</span>
-                    </div>
-                </li>
-                <li>
-                    <label>Comentarios</label>
-                    <span>@Model.RelatedSurvey.SurveyComments</span>
-                </li>
-                <li>
-                    <label>Proceso de Selección</label>
-                    <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
-                </li>
-            </ul>
-        </div>
+    <div class="POMPResultsBasicInfo">
+        <a href="@strUrlDetail">
+            @((string.IsNullOrEmpty(Model.RelatedSurvey.SurveyConfigGroup) ? string.Empty : (Model.RelatedSurvey.SurveyConfigGroup + " - ")) + Model.RelatedSurvey.SurveyConfigName)
+        </a>
+        <ul>
+            <li>
+                <label>Calificación:</label>
+                <div class="rateit" data-rateit-value="@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", ".")" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+                <span>(@Model.RelatedSurvey.SurveyRating.ToString("0.##").Replace(",", "."))</span>
+            </li>
+            <li>
+                <label>Progreso:</label>
+                <div class="selProgressBar" data-value="@Model.RelatedSurvey.SurveyProgress"></div>
+            </li>
+            @{                
+                for (int i = 0; i < Model.RelatedSurvey.SurveyEvaluatorList.Count; i++)
+                {
+                    <li>
+                        <label>Evaluador:</label>
+                        <span>@Model.RelatedSurvey.SurveyEvaluatorList[i]</span>
+                        <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
+                    </li>
+                }
+            }
+            <li>
+                <label>Fecha de programación:</label>
+                <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+            </li>
+            <li>
+                <label>Responsable:</label>
+                <span>@Model.RelatedSurvey.SurveyResponsible</span>
+            </li>
+            <li>
+                <label>Ultima actualización:</label>
+                <span>@Model.RelatedSurvey.SurveyLastModify</span>
+            </li>
+            <li>
+                <label>Estado:</label>
+                <span>@Model.RelatedSurvey.SurveyStatusName</span>
+            </li>
+            <li>
+                <label>Contrato o Factura</label>
+                <span>@Model.RelatedSurvey.SurveyContract</span>
+            </li>
+            <li>
+                <label>Periodo de Evaluación:</label>
+                <div class="EvaluationPeriod">
+                    <label>Fecha de Inicio:</label>
+                    <span>@Model.RelatedSurvey.SurveyStartDate</span>
+                    <label>Fecha Final:</label>
+                    <span>@Model.RelatedSurvey.SurveyEndDate</span>
+                </div>
+            </li>
+            <li>
+                <label>Comentarios</label>
+                <span>@Model.RelatedSurvey.SurveyComments</span>
+            </li>
+            <li>
+                <label>Proceso de Selección</label>
+                <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
+            </li>
+        </ul>
+    </div>
+    string oChaimberOfComerceOptionList = "[]";
+    oChaimberOfComerceOptionList = (new System.Web.Script.Serialization.JavaScriptSerializer()).
+    Serialize(Model.RelatedSurvey.SurveyEvaluatorIdList.Select(x => new { Key = x }));
+
+    var vChaimberOfComerceOptionList = (Html.Raw(oChaimberOfComerceOptionList));
         <!--evaluation actions-->
-            <div class="POMPResultsActions">
-                @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
+    <div class="POMPResultsActions">
+        @if (Model.RelatedSurvey.SurveyStatus == MarketPlace.Models.General.enumSurveyStatus.Program &&
                     Model.RelatedSurvey.SurveyResponsible.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
-                {
-                    
-                        <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
-                            Editar
-                        </a>
-                    
-                }
-                @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
+        {
+
+            <a class="POMPEvaluationListActions" href="javascript:Survey_ProgramObject.ShowProgram(@strjsUpdateObject);">
+                Editar
+            </a>
+
+        }
+        @if (Model.RelatedSurvey.SurveyStatus != MarketPlace.Models.General.enumSurveyStatus.Close &&
                     Model.RelatedSurvey.SurveyEvaluator.Replace(" ", "").ToLower() ==
                     MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email.Replace(" ", "").ToLower())
-                {
+        {
 
-                        <a class="POMPEvaluationListActions" href="@(Url.RouteUrl
+            <a class="POMPEvaluationListActions" href="@(Url.RouteUrl
                                     (MarketPlace.Models.General.Constants.C_Routes_Default,
                                     new
                                     {
@@ -134,10 +145,10 @@
                                         SurveyPublicId = Model.RelatedSurvey.SurveyPublicId
                                     }))" target="_blank">Responder evaluación</a>
 
-                }
+        }
 
-                    <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
+        <a class="POMPEvaluationListActions" href="@strUrlDetail">Ver detalle</a>
 
-            </div>
+    </div>
 }
 
