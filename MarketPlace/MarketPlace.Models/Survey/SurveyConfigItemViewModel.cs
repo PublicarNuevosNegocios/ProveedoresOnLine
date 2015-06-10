@@ -96,9 +96,9 @@ namespace MarketPlace.Models.Survey
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
-            SurveyConfigItemInfoRolName = MarketPlace.Models.Company.CompanyUtil.CompanyRole.RelatedRole.
+            SurveyConfigItemInfoRolName = !string.IsNullOrEmpty(SurveyConfigItemInfoRol) ? MarketPlace.Models.Company.CompanyUtil.CompanyRole.RelatedRole.
                                           Where(x => x.ItemId == Convert.ToInt32(SurveyConfigItemInfoRol))
-                                          .Select(x => x.ItemName).FirstOrDefault();               
+                                          .Select(x => x.ItemName).FirstOrDefault() : string.Empty;               
 
             SurveyConfigItemInfoRolWeight = oRelatedSurveyConfigItem.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolWeight).

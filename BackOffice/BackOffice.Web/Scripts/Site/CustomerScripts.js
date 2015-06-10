@@ -833,7 +833,7 @@ var Customer_SurveyItemObject = {
                             });
                         }
                     }
-                },{
+                }, {
                     name: 'Add Role',
                     text: 'Agregar Roles',
                     click: function (e) {
@@ -1314,7 +1314,6 @@ var Customer_SurveyItemObject = {
     //vRenderObject.ParentSurveyConfigItem parent item
     //vRenderObject.Title parent name
     RenderSurveyItemRol: function (vRenderObject) {
-        debugger;
         if ($('#' + Customer_SurveyItemObject.ObjectId + '_' + vRenderObject.SurveyItemType).data("kendoGrid")) {
             //destroy kendo grid if exist
 
@@ -1354,7 +1353,7 @@ var Customer_SurveyItemObject = {
 
                             SurveyConfigItemInfoRolWeight: { editable: true, validation: { required: true } },
                             SurveyConfigItemInfoRolWeightId: { editable: false },
-                        },
+                         
                     }
                 },
                 transport: {
@@ -1372,7 +1371,6 @@ var Customer_SurveyItemObject = {
                         });
                     },
                     create: function (options) {
-                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
                             dataType: 'json',
@@ -1391,7 +1389,6 @@ var Customer_SurveyItemObject = {
                         });
                     },
                     update: function (options) {
-                        debugger;
                         $.ajax({
                             url: BaseUrl.ApiUrl + '/CustomerApi?SCSurveyConfigItemUpsert=true&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId + '&SurveyConfigId=' + Customer_SurveyItemObject.SurveyConfigId,
                             dataType: 'json',
@@ -1425,7 +1422,6 @@ var Customer_SurveyItemObject = {
             },
             edit: function (e) {
                 if (e.model.isNew()) {
-                    debugger;
                     // set survey item type
                     e.model.SurveyConfigItemTypeId = vRenderObject.SurveyItemType;
                     e.model.ParentSurveyConfigItem = vRenderObject.ParentSurveyConfigItem;
@@ -1451,19 +1447,17 @@ var Customer_SurveyItemObject = {
                 width: '200px',
                 template: function (dataItem) {
                     var oReturn = '';
-                    debugger;
                     if (dataItem != null && dataItem.SurveyConfigItemInfoRol != null) {
                         $.each(Customer_SurveyItemObject.RoleCompanyList, function (item, value) {
-                            debugger;
-                        if (dataItem.dirty != null && dataItem.dirty == true) {
-                            oReturn = '<span class="k-dirty"></span>';
-                        }
+                            if (dataItem.dirty != null && dataItem.dirty == true) {
+                                oReturn = '<span class="k-dirty"></span>';
+                            }
                             else if (value.RoleId == dataItem.SurveyConfigItemInfoRol) {
                                 oReturn = value.RoleName;
                             }
-                        else if (dataItem.SurveyConfigItemInfoRol == '') {
-                            oReturn = '<label class="PlaceHolder">Ej: Evaluador</label>';
-                        }
+                            else if (dataItem.SurveyConfigItemInfoRol == '') {
+                                oReturn = '<label class="PlaceHolder">Ej: Evaluador</label>';
+                            }
                         });
                     }
                     return oReturn;
@@ -1479,11 +1473,10 @@ var Customer_SurveyItemObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'RoleName',
                         select: function (e) {
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
-                            //set server fiel name
+                            //set server field name
                             options.model[options.field] = selectedItem.RoleName;
-                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleId;
+                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleName;
                             //enable made changes
                             options.model.dirty = true;
                         },
@@ -1492,7 +1485,6 @@ var Customer_SurveyItemObject = {
                             serverFiltering: true,
                             transport: {
                                 read: function (options) {
-                                    debugger;
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/CustomerApi?RoleCompanyGetByPublicId=true&ViewEnable=true' + '&CustomerPublicId=' + Customer_SurveyItemObject.CustomerPublicId,
                                         dataType: 'json',
@@ -2077,7 +2069,6 @@ var Customer_EvaluationItemObject = {
                         // get the data bound to the current table row
                         var data = this.dataItem(tr);
 
-                        debugger;
                         ////validate SurveyConfigId attribute
                         if (data.id != null && data.id > 0 && data.EvaluationItemId != null && data.EvaluationItemId > 0) {
                             window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${ProjectProviderId}/gi, data.id).replace(/\${EvaluationItemId}/gi, data.EvaluationItemId);
@@ -2099,7 +2090,7 @@ var Customer_EvaluationItemObject = {
 
     RenderEvaluationCriteria: function (vRenderObject) {
         $('#' + Customer_EvaluationItemObject.ObjectId + '_' + vRenderObject.EvaluationItemType).html('');
-        
+
 
         Customer_EvaluationItemObject.DataParentEvaluationItem = vRenderObject.ParentEvaluationItem;
         Customer_EvaluationItemObject.DataEvaluationItemType = vRenderObject.EvaluationItemType;
@@ -2138,17 +2129,15 @@ var Customer_EvaluationItemObject = {
     },
 
     ShowProjectConfigurationDetail: function (vEvaluationCriteriaObject) {
-        debugger;
         $('#' + Customer_EvaluationItemObject.ObjectId + '_Dialog').dialog({
             //autoOpen: false,
             width: 600,
             resizable: false,
             //title: 'hi there',
             modal: true,
-            open: function(event, ui) {
+            open: function (event, ui) {
                 //Load the CreateAlbumPartial action which will return 
                 // the partial view _CreateAlbumPartial
-                debugger;
                 window.location = Customer_EvaluationItemObject.EvaluationCriteriaUpsertUrl.replace(/\${EvaluationItem}/gi, vEvaluationCriteriaObject);
                 //$('#' + Customer_EvaluationItemObject.ObjectId + '_EvaluationCriteriaForm').load('@Url.Action(MVC.Shared.Views._PJ_EvaluationCriteria_' + vEvaluationCriteria + ')');
             },
