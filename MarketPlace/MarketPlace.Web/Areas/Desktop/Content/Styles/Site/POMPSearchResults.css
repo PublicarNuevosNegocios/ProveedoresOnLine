@@ -309,8 +309,6 @@
     border: 1px solid #666;
 }
 
-}
-
 .NewSurvey a:hover {
     color: #ffffff;
     text-decoration: none;
@@ -321,7 +319,7 @@
 }
 
 .SurveyFilters {
-    width: 50% !important;
+    width: 55% !important;
 }
 
 .SurveyOrderBy select {
