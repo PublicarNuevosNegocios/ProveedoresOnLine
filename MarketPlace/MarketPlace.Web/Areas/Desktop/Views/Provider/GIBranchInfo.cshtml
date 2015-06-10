@@ -46,6 +46,13 @@
                                 <span> @item.BR_Phone</span>
                             </label>
                         }
+                        @if (!string.IsNullOrEmpty(item.BR_Cellphone))
+                        {
+                            <label>
+                                Celular
+                                <span> @item.BR_Cellphone</span>
+                            </label>
+                        }
                         @if (!string.IsNullOrEmpty(item.BR_Fax))
                         {
                             <label>

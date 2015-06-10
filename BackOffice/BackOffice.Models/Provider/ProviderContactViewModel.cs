@@ -69,6 +69,9 @@ namespace BackOffice.Models.Provider
         public string BR_Phone { get; set; }
         public string BR_PhoneId { get; set; }
 
+        public string BR_Cellphone { get; set; }
+        public string BR_CellphoneId { get; set; }
+
         public string BR_Fax { get; set; }
         public string BR_FaxId { get; set; }
 
@@ -304,6 +307,17 @@ namespace BackOffice.Models.Provider
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 
+            BR_Cellphone = RelatedContact.ItemInfo.
+               Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Cellphone).
+               Select(y => y.Value).
+               DefaultIfEmpty(string.Empty).
+               FirstOrDefault();
+            BR_CellphoneId = RelatedContact.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Cellphone).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
             BR_Fax = RelatedContact.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_Fax).
                 Select(y => y.Value).
@@ -361,7 +375,7 @@ namespace BackOffice.Models.Provider
 
             BR_IsPrincipal = RelatedContact.ItemInfo.
                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumContactInfoType.BR_IsPrincipal).
-               Select(y => y.Value == "1" ? true:false).
+               Select(y => y.Value == "1" ? true : false).
                DefaultIfEmpty().
                FirstOrDefault();
             BR_IsPrincipalId = RelatedContact.ItemInfo.

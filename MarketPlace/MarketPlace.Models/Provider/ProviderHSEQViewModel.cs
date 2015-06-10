@@ -393,7 +393,7 @@ namespace MarketPlace.Models.Provider
                 {
                     oCA_CertificateAccidentARL = RelatedHSEQInfo.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CA_CertificateAccidentARL).
-                        Select(y => y.LargeValue).
+                        Select(y => y.Value).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
                 }
