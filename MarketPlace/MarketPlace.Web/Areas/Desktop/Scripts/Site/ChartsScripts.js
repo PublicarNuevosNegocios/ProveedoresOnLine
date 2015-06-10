@@ -2,9 +2,12 @@
 var Survey_ChartsObject = {
     ObjectId: '',
     SurveyResoinsable: '',
+    SearchUrl: '',
+
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyResoinsable = vInitObject.SurveyResoinsable;
+        this.SearchUrl = vInitObject.SearchUrl;
     },
 
     RenderAsync: function () {
@@ -27,7 +30,7 @@ var Survey_ChartsObject = {
                     data.addRows([[item, value]]);
                 });
                 var options = {
-                    title: 'Evaluiaciones de Desempeño por estado Año en curso',
+                    title: 'Evaluaciones de Desempeño por estado Año en curso',
                     is3D: true,
                 };
 
@@ -35,8 +38,20 @@ var Survey_ChartsObject = {
                     var selectedItem = chart.getSelection()[0];
                     if (selectedItem) {
                         var topping = data.getValue(selectedItem.row, 0);
-                        
-                        alert('The user selected ' + topping);
+                        var SearchFilter = 0;
+                        if (topping == "Programada") {
+                            SearchFilter = 1206001;
+                        }
+                        else if (topping == "Enviada") {
+                            SearchFilter = 1206002;
+                        }
+                        else if (topping == "En progreso") {
+                            SearchFilter = 1206003;
+                        }
+                        else if (topping == "Finalizada") {
+                            SearchFilter = 1206004;
+                        }
+                        window.location = Survey_ChartsObject.GetSearchUrl(SearchFilter);
                     }
                 }
                 var chart = new google.visualization.PieChart(document.getElementById(Survey_ChartsObject.ObjectId));
@@ -46,4 +61,18 @@ var Survey_ChartsObject = {
         });
     },
 
+    GetSearchUrl: function (SearchFilter) {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+        oUrl += '&SearchFilter=,111011;' + SearchFilter;
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
+    },
 };

@@ -29,6 +29,25 @@
                     <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CR_CertificateAffiliateARL).DefaultIfEmpty(string.Empty).FirstOrDefault()">Ver Archivo Afiliación ARL</a>
                 </label>
             </li>
+            @if (Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).DefaultIfEmpty(null).ElementAtOrDefault(1) != null)
+            {
+                <li>
+                    <label>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).ElementAtOrDefault(1)">Ver Archivo Certificado de accidentalidad @Model.RelatedHSEQlInfo.Select(x => x.CA_Year).ElementAtOrDefault(1)</a>
+                    </label>
+                </li>
+            }
+
+            @if (Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).DefaultIfEmpty(null).ElementAtOrDefault(0) != null)
+            {
+                <li>
+                    <label>
+                        <a class="POMPProviderDocumetIcon" target="_blank" href="@Model.RelatedHSEQlInfo.Select(x => x.CA_CertificateAccidentARL).ElementAtOrDefault(0)">Ver Archivo Certificado de accidentalidad @Model.RelatedHSEQlInfo.Select(x => x.CA_Year).ElementAtOrDefault(0)</a>
+                    </label>
+                </li>
+            }
+
+
         </ul>
     }
 }

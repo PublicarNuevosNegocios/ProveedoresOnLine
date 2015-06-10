@@ -268,6 +268,23 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        private string oBR_Cellphone;
+        public string BR_Cellphone
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oBR_Cellphone))
+                {
+                    oBR_Cellphone = RelatedContactInfo.ItemInfo.
+                       Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumContactInfoType.B_Cellphone).
+                       Select(y => y.Value).
+                       DefaultIfEmpty(string.Empty).
+                       FirstOrDefault();
+                }
+                return oBR_Cellphone;
+            }
+        }
+
         private string oBR_Fax;
         public string BR_Fax
         {

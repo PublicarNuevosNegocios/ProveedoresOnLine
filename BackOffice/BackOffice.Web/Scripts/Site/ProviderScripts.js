@@ -778,6 +778,9 @@ var Provider_CompanyContactObject = {
                             BR_Phone: { editable: true, validation: { required: false } },
                             BR_PhoneId: { editable: false },
 
+                            BR_Cellphone: { editable: true, validation: { required: false } },
+                            BR_CellphoneId: { editable: false },
+
                             BR_Fax: { editable: true },
                             BR_FaxId: { editable: false, validation: { required: true } },
 
@@ -987,6 +990,24 @@ var Provider_CompanyContactObject = {
                     }
                     else {
                         oReturn = dataItem.BR_Phone;
+                    }
+                    return oReturn;
+                },
+            },
+            {
+                field: 'BR_Cellphone',
+                title: 'Celular',
+                width: '120px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem.BR_Cellphone == '') {
+                        oReturn = '<label class="PlaceHolder">Ej: 3001234567</label>';
+                    }
+                    else if (dataItem.BR_Cellphone == null) {
+                        oReturn = '';
+                    }
+                    else {
+                        oReturn = dataItem.BR_Cellphone;
                     }
                     return oReturn;
                 },

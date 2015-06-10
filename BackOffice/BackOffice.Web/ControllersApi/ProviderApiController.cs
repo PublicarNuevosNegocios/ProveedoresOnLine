@@ -307,6 +307,17 @@ namespace BackOffice.Web.ControllersApi
 
                     oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                     {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.BR_CellphoneId) ? 0 : Convert.ToInt32(oDataToUpsert.BR_CellphoneId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumContactInfoType.BR_Cellphone
+                        },
+                        Value = oDataToUpsert.BR_Cellphone,
+                        Enable = true,
+                    });
+
+                    oCompany.RelatedContact.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
                         ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.BR_FaxId) ? 0 : Convert.ToInt32(oDataToUpsert.BR_FaxId.Trim()),
                         ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
                         {

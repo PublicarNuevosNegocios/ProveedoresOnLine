@@ -718,7 +718,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
             }
             return View(oModel);
-        }     
+        }
 
         #endregion
 
@@ -1301,11 +1301,30 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 //get provider view model
+
+
+
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
-                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification =
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
+                List<GenericItemModel> certARL = new List<GenericItemModel>();
+                List<GenericItemModel> certAccident = new List<GenericItemModel>();
+                oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification = new List<GenericItemModel>();
+
+                certAccident = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
+                   (ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
+
+                foreach (var item in certAccident)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
+                }
+
+                certARL = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
                     (ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
+
+                foreach (var item in certARL)
+                {
+                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
+                }
 
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
@@ -1390,7 +1409,7 @@ namespace MarketPlace.Web.Controllers
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
                         && oSurveyResults != null && oSurveyResults.Count > 0)
                     {
-                        oSurveyResults = oSurveyResults.Where(x =>                      
+                        oSurveyResults = oSurveyResults.Where(x =>
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) >= Convert.ToDateTime(InitDate) &&
                                                        Convert.ToDateTime(x.CreateDate.ToString("yyyy-MM-dd")) <= Convert.ToDateTime(EndDate)).
                                                         Select(x => x).ToList();
@@ -1406,7 +1425,7 @@ namespace MarketPlace.Web.Controllers
                         List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> ClosedSurvey = oSurveyResults.Where(x => x.SurveyInfo.
                                                         Where(y => y.ItemInfoType.ItemId == (int)enumSurveyInfoType.Status).
                                                         Select(y => y.Value == ((int)enumSurveyStatus.Close).ToString()).FirstOrDefault()).
-                                                        Select(x => x).ToList();  
+                                                        Select(x => x).ToList();
                         oSurveyResults.All(srv =>
                         {
                             oModel.RelatedSurveySearch.SurveySearchResult.Add
@@ -1418,8 +1437,8 @@ namespace MarketPlace.Web.Controllers
                         {
                             oModel.RelatedSurveySearch.SurveySearchResult.All(sv =>
                             {
-                                if (sv.SurveyStatus == enumSurveyStatus.Close)                                
-                                    Average = (Average += sv.SurveyRating);   
+                                if (sv.SurveyStatus == enumSurveyStatus.Close)
+                                    Average = (Average += sv.SurveyRating);
                                 return true;
                             });
                             Average = Average != 0 ? Average / oModel.RelatedSurveySearch.SurveySearchResult.Where(x => x.SurveyStatus == enumSurveyStatus.Close).Count() : 0;
@@ -1431,7 +1450,7 @@ namespace MarketPlace.Web.Controllers
                         {
                             oModel.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterDateIni = Convert.ToDateTime(InitDate);
                             oModel.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().FilterEndDate = Convert.ToDateTime(EndDate);
-                        }               
+                        }
                     }
                 }
             }
@@ -1515,7 +1534,7 @@ namespace MarketPlace.Web.Controllers
             }
             return View(oModel);
         }
-       
+
         #endregion
 
         #region Menu
