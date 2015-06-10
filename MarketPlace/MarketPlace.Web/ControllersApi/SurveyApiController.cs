@@ -237,7 +237,7 @@ namespace MarketPlace.Web.ControllersApi
         {
             List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> oReturn = new List<Models.Survey.SurveyConfigItemViewModel>();
 
-            if (SCSurveyConfigItemGetBySurveyConfigId == "true")
+            if (SCSurveyConfigItemGetBySurveyConfigId == "true" && SurveyConfigId != null)
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oSearchResult =
                     ProveedoresOnLine.SurveyModule.Controller.SurveyModule.MP_SurveyConfigItemGetBySurveyConfigId
