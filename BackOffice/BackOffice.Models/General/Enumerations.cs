@@ -336,6 +336,7 @@
         CH_ProgramEnterpriseSecurity = 703008,
         CH_PoliticsRecruiment = 703009,
         CH_CertificationsForm = 703010,
+        CH_PoliticIntegral = 703011,
 
         //CompanyRiskPolicies
         CR_SystemOccupationalHazards = 704001,

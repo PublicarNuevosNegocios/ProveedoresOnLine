@@ -21,6 +21,12 @@
                             <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticsSecurity">Ver Archivo de Política de Seguridad, Salud y Ambiente</a>
                         </label>
                     }
+                    if (!string.IsNullOrEmpty(item.CH_PoliticIntegral))
+                    {
+                        <label>
+                            <a class="POMPProviderDocumetIcon" target="_blank" href="@item.CH_PoliticIntegral">Ver Archivo de Política integral de HSEQ</a>
+                        </label>
+                    }
                     if (!string.IsNullOrEmpty(item.CH_PoliticsNoAlcohol))
                     {
 
