@@ -1353,7 +1353,7 @@ var Customer_SurveyItemObject = {
 
                             SurveyConfigItemInfoRolWeight: { editable: true, validation: { required: true } },
                             SurveyConfigItemInfoRolWeightId: { editable: false },
-                         
+                        }
                     }
                 },
                 transport: {
@@ -1473,10 +1473,11 @@ var Customer_SurveyItemObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'RoleName',
                         select: function (e) {
+                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server field name
                             options.model[options.field] = selectedItem.RoleName;
-                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleName;
+                            options.model['SurveyConfigItemInfoRol'] = selectedItem.RoleId;
                             //enable made changes
                             options.model.dirty = true;
                         },

@@ -184,12 +184,12 @@ var Survey_ProgramObject = {
                     success: function (e) {                        
                         if (e != null && e.length > 0) {                            
                             //Render Roles
-                            var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
-
+                            var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');                            
                             $.each(e, function (item, value) {
+                                debugger;
                                 var result = ' <li><label>Evaluador - ' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_'+ value.SurveyConfigItemInfoRol + '" /></li>'
                                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
-                                debugger;
+                                
                                 //init survey evaluator autocomplete
                                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRol).kendoAutoComplete({
                                     minLength: 0,

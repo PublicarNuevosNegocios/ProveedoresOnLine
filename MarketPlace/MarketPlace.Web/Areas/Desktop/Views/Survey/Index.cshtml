@@ -7,14 +7,41 @@
     //get evaluation area to show
     List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationArea = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
 
+    List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationRol = null;
+    
+
     if (Model.RelatedSurvey.SurveyConfigStepEnable)
     {
         lstEvaluationArea = new List<MarketPlace.Models.Survey.SurveyConfigItemViewModel>()
         {
             lstEvaluationArea.Where(x => x.Order == Model.RelatedSurvey.CurrentStepId).FirstOrDefault(),
         };
+        
+        //get evaluation area Rol
+        lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());
+    }
+    else
+    {
+        //get all evaluation Rol
+        lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, null);
     }
 
+    var CurrentRolId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
+                                                Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault();
+
+    var isAutorized = false;
+    if (lstEvaluationRol != null && lstEvaluationRol.Count > 0)
+    {
+        lstEvaluationRol.All(x =>
+        {
+            if (x.SurveyConfigItemInfoRol == CurrentRolId.ToString())
+            {
+                isAutorized = true;
+            }
+            return true;
+        });
+    }                                                
+        
     //get mandatory info
     Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
 
@@ -61,18 +88,18 @@
                     <label>Fecha de programación:</label>
                     <span>@Model.RelatedSurvey.SurveyIssueDate</span>
                 </li>
-                @*<li>
-                        <label>Evaluador:</label>
-                        <span>@Model.RelatedSurvey.SurveyEvaluator</span>
-                    </li>*@
-                @*<li>
-                        <label>Ultima actualización:</label>
-                        <span>@Model.RelatedSurvey.SurveyLastModify</span>
-                    </li>*@
-                <li>
-                    <label>Responsable:</label>
-                    <span>@Model.RelatedSurvey.SurveyResponsible</span>
-                </li>
+               
+                @{
+                    for (int i = 0; i < Model.RelatedSurvey.SurveyEvaluatorList.Count; i++)
+                    {
+                        <li>
+                            <label>Evaluador:</label>
+                            <span>@Model.RelatedSurvey.SurveyEvaluatorList[i]</span>
+                            <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
+                        </li>
+                    }
+                }
+               
                 <li>
                     <label>Contrato o Factura</label>
                     <span>@Model.RelatedSurvey.SurveyContract</span>

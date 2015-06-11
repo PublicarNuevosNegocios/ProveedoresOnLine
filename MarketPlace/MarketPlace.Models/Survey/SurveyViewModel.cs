@@ -116,6 +116,7 @@ namespace MarketPlace.Models.Survey
                     FirstOrDefault();
             }
         }
+
         public List<int> SurveyEvaluatorIdList
         {
             get
@@ -139,6 +140,7 @@ namespace MarketPlace.Models.Survey
                     ToList();
             }
         }
+
         public int SurveyStartDateId
         {
             get
