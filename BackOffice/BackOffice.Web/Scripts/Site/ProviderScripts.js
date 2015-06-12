@@ -3792,8 +3792,9 @@ var Provider_CompanyFinancialObject = {
             //append on focus out event
             $('.' + Provider_CompanyFinancialObject.ObjectId + '_AccountContent_Value_Selector').focusout(function () {
                 if ($.isNumeric($(this).val()) == false) {
-                    $(this).val(0);
-                }
+                        $(this).val(0);           
+                }                
+               
                 Provider_CompanyFinancialObject.EvalBalanceSheetFormula();
             });
         }
@@ -3807,7 +3808,8 @@ var Provider_CompanyFinancialObject = {
 
                 if (value.Formula != null && value.Formula.length > 0) {
                     //get formula exclude averange calc and spaces
-                    var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
+                    //var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
+                    var oFormulaToEval = value.Formula.toLowerCase().replace(/prom/gi, '');
 
                     //get variables in formula [AccountId]
                     var olstFormulaVariables = oFormulaToEval.match(new RegExp('[\\[\\d\\]]+', 'gi'));
@@ -3819,7 +3821,8 @@ var Provider_CompanyFinancialObject = {
 
                         if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
                             //replace input value into formula expression
-                            oFormulaToEval = oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
+                            debugger;
+                            oFormulaToEval =  oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
                         }
                     });
                     //eval formula and show in input value
