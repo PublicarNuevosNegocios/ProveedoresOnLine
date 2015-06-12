@@ -32,6 +32,9 @@ var Survey_ChartsObject = {
                 var options = {
                     //title: 'Evaluaciones de Desempeño por estado Año en curso',
                     is3D: true,
+                    chartArea:{left:0,top:0,width:"100%",height:"100%"}
+                  ,height: "100%"
+                  ,width: "100%"
                 };
 
                 function selectHandler() {
@@ -55,8 +58,19 @@ var Survey_ChartsObject = {
                     }
                 }
                 var chart = new google.visualization.PieChart(document.getElementById(Survey_ChartsObject.ObjectId));
-                google.visualization.events.addListener(chart, 'select', selectHandler);
+                google.visualization.events.addListener(chart, 'select', selectHandler);                
                 chart.draw(data, options);
+                function resize() {                    
+                    // change dimensions if necessary
+                    chart.draw(data, options);
+                }
+                if (window.addEventListener) {
+                    window.addEventListener('resize', resize);
+                }
+                else {
+                    window.attachEvent('onresize', resize);
+                }
+                
             }
         });
     },
