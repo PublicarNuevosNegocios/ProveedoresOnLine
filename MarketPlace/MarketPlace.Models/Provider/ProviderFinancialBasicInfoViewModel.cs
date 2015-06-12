@@ -222,7 +222,7 @@ namespace MarketPlace.Models.Provider
             {
                 if (string.IsNullOrEmpty(oCurrency))
                 {
-                    oCurrency = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+                    oCurrency = MarketPlace.Models.Company.CompanyUtil.GetProviderOptionName(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
                 }
 
                 return oCurrency;

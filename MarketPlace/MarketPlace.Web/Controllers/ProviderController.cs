@@ -235,7 +235,7 @@ namespace MarketPlace.Web.Controllers
                     decimal oExchange;
                     oExchange = ProveedoresOnLine.Company.Controller.Company.CurrencyExchangeGetRate(
                                 Convert.ToInt32(oFinancial.FirstOrDefault().ItemInfo.FirstOrDefault().ValueName),
-                                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value),
+                                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value),
                                 Convert.ToInt32(oFinancial.FirstOrDefault().ItemName));
 
                     oFinancial.All(x =>
@@ -757,7 +757,7 @@ namespace MarketPlace.Web.Controllers
 
                 int oCurrencyType = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
                     Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
-                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+                    Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
 
                 string oViewName = !string.IsNullOrEmpty(Request["ViewName"]) ?
                     Request["ViewName"].Replace(" ", "") :
@@ -1314,18 +1314,26 @@ namespace MarketPlace.Web.Controllers
                 certAccident = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
                    (ProviderPublicId, (int)enumHSEQType.CertificatesAccident);
 
-                foreach (var item in certAccident)
+                if (certAccident != null)
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
+                    foreach (var item in certAccident)
+                    {
+                        oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
+                    }
                 }
+             
 
                 certARL = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
                     (ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
 
-                foreach (var item in certARL)
+                if (certARL != null)
                 {
-                    oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
+                    foreach (var item in certARL)
+                    {
+                        oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
+                    }
                 }
+               
 
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
@@ -1487,7 +1495,8 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
                 //get survey info
                 oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
-                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId, SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
+                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId).FirstOrDefault()));
             }
             return View(oModel);
         }

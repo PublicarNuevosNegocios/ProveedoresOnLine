@@ -29,13 +29,17 @@
     var CurrentRolId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
                                                 Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault();
 
-    var isAutorized = false;
+    string AutorizedRol = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
+                                             Where(y => y.User != null).Select(y => y.User).FirstOrDefault();                                                
+
+    var isAutorized = false;    
     if (lstEvaluationRol != null && lstEvaluationRol.Count > 0)
     {
         lstEvaluationRol.All(x =>
         {
             if (x.SurveyConfigItemInfoRol == CurrentRolId.ToString())
             {
+                //AutorizedRol = x.SurveyConfigItemInfoRol;
                 isAutorized = true;
             }
             return true;

@@ -245,7 +245,7 @@ namespace MarketPlace.Models.Project
                     Where(pjinf => pjinf.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType &&
                                    !string.IsNullOrEmpty(pjinf.Value)).
                     Select(pjinf => Convert.ToInt32(pjinf.Value.Replace(" ", ""))).
-                    DefaultIfEmpty(Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value)).
+                    DefaultIfEmpty(Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value)).
                     FirstOrDefault();
             }
         }
