@@ -532,6 +532,8 @@
         DescriptionText = 1205002,
         Answer = 1205003,
         File = 1205004,
+        EvaluatorRol = 1205005,
+        EvaluatorName = 1205006,
     }
 
     public enum enumSurveyConfigInfoType

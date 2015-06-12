@@ -46,6 +46,18 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public string EvaluatorRol
+        {
+            get
+            {
+                return RelatedSurveyItem.ItemInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyItemInfoType.EvaluatorRol).
+                    Select(y => y.Value).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         public SurveyItemViewModel(ProveedoresOnLine.SurveyModule.Models.SurveyItemModel oRelatedSurveyItem)
         {
             RelatedSurveyItem = oRelatedSurveyItem;

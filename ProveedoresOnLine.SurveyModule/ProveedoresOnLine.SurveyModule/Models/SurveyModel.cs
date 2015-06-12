@@ -12,7 +12,7 @@ namespace ProveedoresOnLine.SurveyModule.Models
 
         public ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel RelatedProvider { get; set; }
 
-        public SurveyConfigModel RelatedSurveyConfig { get; set; }
+        public SurveyConfigModel RelatedSurveyConfig { get; set; }        
 
         public bool Enable { get; set; }
 

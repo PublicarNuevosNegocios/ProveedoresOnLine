@@ -9,5 +9,7 @@ namespace ProveedoresOnLine.SurveyModule.Models
     public class SurveyItemModel : ProveedoresOnLine.Company.Models.Util.GenericItemModel
     {
         public ProveedoresOnLine.Company.Models.Util.GenericItemModel RelatedSurveyConfigItem { get; set; }
+
+        public int EvaluatorRoleId { get; set; }
     }
 }

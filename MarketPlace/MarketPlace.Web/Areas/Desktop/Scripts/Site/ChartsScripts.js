@@ -16,13 +16,13 @@ var Survey_ChartsObject = {
         }
     },
 
-    RenderChatrSurveyByResponsable: function () {        
+    RenderChatrSurveyByResponsable: function () {
         $.ajax({
             url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true',
             dataType: "json",
             async: false,
             success: function (result) {
-                var data = new google.visualization.DataTable();                
+                var data = new google.visualization.DataTable();
 
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
@@ -30,7 +30,7 @@ var Survey_ChartsObject = {
                     data.addRows([[item, value]]);
                 });
                 var options = {
-                    title: 'Evaluaciones de Desempeño por estado Año en curso',
+                    //title: 'Evaluaciones de Desempeño por estado Año en curso',
                     is3D: true,
                 };
 

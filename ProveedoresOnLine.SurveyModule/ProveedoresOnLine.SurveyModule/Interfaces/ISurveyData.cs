@@ -36,13 +36,13 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         int SurveyInfoUpsert(int? SurveyInfoId, string SurveyPublicId, int SurveyInfoType, string Value, string LargeValue, bool Enable);
 
-        int SurveyItemUpsert(int? SurveyItemId, string SurveyPublicId, int SurveyConfigItemId, bool Enable);
+        int SurveyItemUpsert(int? SurveyItemId, string SurveyPublicId, int SurveyConfigItemId, int EvaluatorRolId, bool Enable);
 
         int SurveyItemInfoUpsert(int? SurveyItemInfoId, int SurveyItemId, int SurveyItemInfoType, string Value, string LargeValue, bool Enable);
 
         List<SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
-
-        SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId);
+                
+        SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId, int EvaluatorRolId);
 
         List<SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId);
 
