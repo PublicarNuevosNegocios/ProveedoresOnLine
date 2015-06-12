@@ -258,90 +258,62 @@
 
 /******** NUEVOS ESTILOS - EDICIÓN********/
 
-.POMPProviderSurvey_mainFilter {
+.POMPProviderSurvey_mainFilter{
+    position:relative;
 }
 
-    .POMPProviderSurvey_mainFilter li {
-        display: inline-block !important;
-        height: 150px;
-        text-align: center;
-        padding: 1%;
-    }
-
-        .POMPProviderSurvey_mainFilter li div {
-            text-align: left;
-            margin: 10px 0px;
-        }
-
-.SurveyActions {
-    text-align: center !important;
+.SurveyOrderBy{
+    margin:0 0 20px 0;
+    height:50px;
 }
 
-    .SurveyActions input {
-        font-size: 1.3em !important;
-        width: 20%;
-    }
-
-    .SurveyActions a {
-        font-size: 1.3em !important;
-        width: 27%;
-        border-radius: 2px;
-        border: 1px solid #666;
-        margin-left: 5%;
-    }
-
-        .SurveyActions a:hover {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-.POMPProviderSurvey_mainFilter li select {
-    font-size: 1.2em;
+.SurveyFilters{
+    width:49% !important;
 }
 
-.POMPSearchResultsOrder ul li span {
-    font-size: 1.3em;
+#SurveySearch_InitDateId, #SurveySearch_EndDateId{
+    height:25px !important;
+}
+.SurveyFilterDate{
+}
+#SurveySearch_Order{
+    width:325px !important;
 }
 
-.NewSurvey a {
-    font-size: 1.3em !important;
-    border-radius: 2px;
-    border: 1px solid #666;
+.POMPFilterBox{
+    width:163px;
+    height:auto;
+    position:relative;
+    float:left;
+
 }
 
-.NewSurvey a:hover {
-    color: #ffffff;
-    text-decoration: none;
+.POMPButtonsSurvey{
+    margin-top:20px;
 }
 
 .SurveyResults {
-    float: right;
+    width: 49% !important;
+    height: 175px !important;
+    position: relative;
+
 }
 
-.SurveyFilters {
-    width: 55% !important;
+#POMPSearchResultsPagerPercentage{
+    font-size:45px;
+    margin-top:20px;
+    width:120px;
+    height:70px;
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:20px;
+    left:0;
+    right:0;
 }
 
-.SurveyOrderBy select {
-    width: 80% !important;
+#POMPButtonSurveryNewEvaluation{
+    position:absolute;
+    bottom:0;
+    right:0;
 }
-
-.SurveyFilterDate input {
-    width: 38% !important;
-}
-
-.SurveyAverage {
-    text-align: center !important;
-}
-
-    .SurveyAverage label {
-        font-size: 1.4em;
-        font-weight: normal;
-    }
-
-    .SurveyAverage div {
-        display: inline-block;
-        font-size: 2.2em;
-        color: #ff8300;
-        font-weight: bold;
-    }
