@@ -5,7 +5,7 @@
 
     int oCurrentCurrency = !string.IsNullOrEmpty(Request["Currency"]) && int.TryParse(Request["Currency"].ToString(), out oCurrencyValidate) == true ?
         Convert.ToInt32(Request["Currency"].Replace(" ", "")) :
-        Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+        Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
 }
 
 @if (Model.AccountType == 2)
