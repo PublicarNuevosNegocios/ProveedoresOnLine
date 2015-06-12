@@ -326,6 +326,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                             (rsi.ItemId > 0 ? (int?)rsi.ItemId : null,
                             SurveyToUpsert.SurveyPublicId,
                             rsi.RelatedSurveyConfigItem.ItemId,
+                            rsi.EvaluatorRoleId,
                             rsi.Enable);
 
                         //update survey item info
@@ -406,9 +407,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
         }
 
-        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId)
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId, int EvaluatorRolId )
         {
-            return DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
+            return DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId, EvaluatorRolId);
         }
 
         public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId)
@@ -421,9 +422,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         /// </summary>
         /// <param name="SurveyPublicId">Survey to recalculate</param>
         /// <returns></returns>
-        public static void SurveyRecalculate(string SurveyPublicId)
+        public static void SurveyRecalculate(string SurveyPublicId, int EvaluatorRolId)
         {
-            ProveedoresOnLine.SurveyModule.Models.SurveyModel oCurrentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oCurrentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId, EvaluatorRolId);
 
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
             {
@@ -552,7 +553,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                         ItemId = ear.EvaluationAreaId,
                     },
                     Enable = true,
-
+                    EvaluatorRoleId = oCurrentSurvey.RelatedSurveyItem.FirstOrDefault().EvaluatorRoleId,
                     ItemInfo = new List<Company.Models.Util.GenericItemInfoModel>() 
                     { 
                         new Company.Models.Util.GenericItemInfoModel()

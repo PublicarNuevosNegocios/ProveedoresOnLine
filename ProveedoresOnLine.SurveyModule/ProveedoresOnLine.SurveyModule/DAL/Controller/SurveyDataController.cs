@@ -95,9 +95,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveyInfoUpsert(SurveyInfoId, SurveyPublicId, SurveyInfoType, Value, LargeValue, Enable);
         }
 
-        public int SurveyItemUpsert(int? SurveyItemId, string SurveyPublicId, int SurveyConfigItemId, bool Enable)
+        public int SurveyItemUpsert(int? SurveyItemId, string SurveyPublicId, int SurveyConfigItemId, int EvaluatorRolId, bool Enable)
         {
-            return DataFactory.SurveyItemUpsert(SurveyItemId, SurveyPublicId, SurveyConfigItemId, Enable);
+            return DataFactory.SurveyItemUpsert(SurveyItemId, SurveyPublicId, SurveyConfigItemId, EvaluatorRolId, Enable);
         }
 
         public int SurveyItemInfoUpsert(int? SurveyItemInfoId, int SurveyItemId, int SurveyItemInfoType, string Value, string LargeValue, bool Enable)
@@ -110,10 +110,10 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
         }
 
-        public ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId)
+        public Models.SurveyModel SurveyGetById(string SurveyPublicId, int EvaluatorRolId)
         {
-            return DataFactory.SurveyGetById(SurveyPublicId);
-        }
+            return DataFactory.SurveyGetById(SurveyPublicId, EvaluatorRolId);
+        }        
 
         public List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId)
         {
@@ -137,6 +137,6 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         {
             return DataFactory.GetSurveyByResponsable(ResponsableEmail, Year);
         }
-        #endregion
+        #endregion        
     }
 }
