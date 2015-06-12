@@ -977,6 +977,19 @@ namespace BackOffice.Web.ControllersApi
                     lstUsedFiles.Add(oDataToUpsert.CH_PoliticsSecurity);
 
                     oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                    {
+                        ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticIntegralId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticIntegralId.Trim()),
+                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                        {
+                            ItemId = (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticIntegral
+                        },
+                        Value = oDataToUpsert.CH_PoliticIntegral,
+                        Enable = true,
+                    });
+
+                    lstUsedFiles.Add(oDataToUpsert.CH_PoliticIntegral);
+
+                    oProvider.RelatedCertification.FirstOrDefault().ItemInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
                         {
                             ItemInfoId = string.IsNullOrEmpty(oDataToUpsert.CH_PoliticsNoAlcoholId) ? 0 : Convert.ToInt32(oDataToUpsert.CH_PoliticsNoAlcoholId.Trim()),
                             ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()

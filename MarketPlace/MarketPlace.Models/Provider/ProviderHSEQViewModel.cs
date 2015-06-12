@@ -175,6 +175,23 @@ namespace MarketPlace.Models.Provider
             }
         }
 
+        private string oCH_PoliticIntegral;
+        public string CH_PoliticIntegral
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(oCH_PoliticIntegral))
+                {
+                    oCH_PoliticIntegral = RelatedHSEQInfo.ItemInfo.
+                        Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumHSEQInfoType.CH_PoliticIntegral).
+                        Select(y => y.Value).
+                        DefaultIfEmpty(string.Empty).
+                        FirstOrDefault();
+                }
+                return oCH_PoliticIntegral;
+            }
+        }
+
         private string oCH_PoliticsNoAlcohol;
         public string CH_PoliticsNoAlcohol
         {

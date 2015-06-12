@@ -51,6 +51,9 @@ namespace BackOffice.Models.Provider
         public string CH_PoliticsSecurity { get; set; }
         public string CH_PoliticsSecurityId { get; set; }
 
+        public string CH_PoliticIntegral { get; set; }
+        public string CH_PoliticIntegralId { get; set; }
+
         public string CH_PoliticsNoAlcohol { get; set; }
         public string CH_PoliticsNoAlcoholId { get; set; }
 
@@ -247,6 +250,17 @@ namespace BackOffice.Models.Provider
                 FirstOrDefault();
             CH_PoliticsSecurityId = RelatedCertification.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticsSecurity).
+                Select(y => y.ItemInfoId.ToString()).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+
+            CH_PoliticIntegral = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticIntegral).
+                Select(y => y.Value).
+                DefaultIfEmpty(string.Empty).
+                FirstOrDefault();
+            CH_PoliticIntegralId = RelatedCertification.ItemInfo.
+                Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumHSEQInfoType.CH_PoliticIntegral).
                 Select(y => y.ItemInfoId.ToString()).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();

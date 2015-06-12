@@ -2573,6 +2573,7 @@ var Provider_CompanyHSEQObject = {
                 field: 'CH_Year',
                 title: 'Año',
                 width: '120px',
+                validation: { required: true },
                 template: function (dataItem) {
                     var oReturn = 'Seleccione una opción.';
                     if (dataItem != null && dataItem.CH_Year != null) {
@@ -2585,7 +2586,7 @@ var Provider_CompanyHSEQObject = {
                     return oReturn;
                 },
                 editor: function (container, options) {
-                    $('<input required data-bind="value:' + options.field + '"/>')
+                    $('<input  data-bind="value:' + options.field + '"/>')
                         .appendTo(container)
                         .kendoDropDownList({
                             dataSource: Provider_CompanyHSEQObject.YearOptionList,
@@ -2593,6 +2594,8 @@ var Provider_CompanyHSEQObject = {
                             dataValueField: '',
                             optionLabel: 'Seleccione una opción'
                         });
+
+                   
                 },
             }, {
                 field: 'CH_PoliticsSecurity',
@@ -2611,6 +2614,60 @@ var Provider_CompanyHSEQObject = {
                     }
 
                     oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_PoliticsSecurity);
+
+                    return oReturn;
+                },
+                editor: function (container, options) {
+                    var oFileExit = true;
+                    $('<input type="file" id="files" name="files"/>')
+                    .appendTo(container)
+                    .kendoUpload({
+                        multiple: false,
+                        async: {
+                            saveUrl: BaseUrl.ApiUrl + '/FileApi?FileUpload=true&CompanyPublicId=' + Provider_CompanyHSEQObject.ProviderPublicId,
+                            autoUpload: true
+                        },
+                        success: function (e) {
+                            if (e.response != null && e.response.length > 0) {
+                                //set server fiel name
+                                options.model[options.field] = e.response[0].ServerName;
+                                //enable made changes
+                                options.model.dirty = true;
+                            }
+                        },
+                        complete: function (e) {
+                            //enable lost focus
+                            oFileExit = true;
+                        },
+                        select: function (e) {
+                            //disable lost focus while upload file
+                            oFileExit = false;
+                        },
+                    });
+                    $(container).focusout(function () {
+                        if (oFileExit == false) {
+                            //mantain file input focus
+                            $('#files').focus();
+                        }
+                    });
+                },
+            }, {
+                field: 'CH_PoliticIntegral',
+                title: 'Política integral de HSEQ',
+                width: '292px',
+                template: function (dataItem) {
+                    var oReturn = '';
+                    if (dataItem != null && dataItem.CH_PoliticIntegral != null && dataItem.CH_PoliticIntegral.length > 0) {
+                        if (dataItem.dirty != null && dataItem.dirty == true) {
+                            oReturn = '<span class="k-dirty"></span>';
+                        }
+                        oReturn = oReturn + $('#' + Provider_CompanyHSEQObject.ObjectId + '_File').html();
+                    }
+                    else {
+                        oReturn = $('#' + Provider_CompanyHSEQObject.ObjectId + '_NoFile').html();
+                    }
+
+                    oReturn = oReturn.replace(/\${FileUrl}/gi, dataItem.CH_PoliticIntegral);
 
                     return oReturn;
                 },

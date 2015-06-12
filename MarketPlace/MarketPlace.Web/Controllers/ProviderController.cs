@@ -1268,7 +1268,8 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedHSEQlInfo.Add(new ProviderHSEQViewModel(x));
                         return true;
                     });
-                    oModel.RelatedHSEQlInfo = oModel.RelatedHSEQlInfo.OrderByDescending(x => Convert.ToInt32(!string.IsNullOrEmpty(x.CH_Year) ? x.CH_Year : string.Empty)).ToList();
+
+                    oModel.RelatedHSEQlInfo = oModel.RelatedHSEQlInfo.OrderByDescending(x => !string.IsNullOrEmpty(x.CH_Year) ? Convert.ToInt32(x.CH_Year).ToString() : "0").ToList();
                 }
 
                 oModel.ProviderMenu = GetProviderMenu(oModel);
