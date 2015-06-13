@@ -576,6 +576,7 @@ var Provider_FinancialObject = {
 
         var oYear = $('#' + Provider_FinancialObject.ObjectId + '_Year').val();
         var oCurrency = $('#' + Provider_FinancialObject.ObjectId + '_Currency').val();
+        debugger;
         var oUrl = Provider_FinancialObject.QueryUrl.replace(/V_ViewName/gi, vViewName).replace(/V_Year/gi, oYear).replace(/V_Currency/gi, oCurrency)
 
         window.location = oUrl;

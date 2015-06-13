@@ -22,10 +22,9 @@
                 <span class="POMPBalanceSheetColumnOne">Cuentas</span>
                 @foreach (var oBalance in oBalanceToShow)
                 {
+                    var lastYear = Convert.ToInt32(oBalance.SH_Year) - 1;
                     if (oBalanceToShow.Count == 1)
                     {
-                        var lastYear = Convert.ToInt32(oBalance.SH_Year) - 1;
-
                         <span class="POMPBalanceSheetColumnTwo">
                             Año @lastYear
                         </span>
@@ -37,7 +36,7 @@
                         </span>
                         <span class="POMPBalanceSheetColumnThree">
                             Análisis Vertical % @oBalance.SH_Year
-                        </span>                        
+                        </span>
                     }
                     else
                     {
@@ -53,7 +52,7 @@
             </li>
             <!--Render content-->
             @foreach (var oBalanceInfo in Model.RelatedBalanceSheetInfo)
-            {
+            {                
                 <li>
                     @Html.Partial(MVC.Desktop.Shared.Views._P_FI_BalanceItem, oBalanceInfo)
                 </li>

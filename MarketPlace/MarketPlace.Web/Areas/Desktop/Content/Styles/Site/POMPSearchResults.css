@@ -271,6 +271,13 @@
     width:49% !important;
 }
 
+.SurveyResults {
+    width: 49% !important;
+    height: 175px !important;
+    position: relative;
+
+}
+
 #SurveySearch_InitDateId, #SurveySearch_EndDateId{
     height:25px !important;
 }
@@ -292,12 +299,7 @@
     margin-top:20px;
 }
 
-.SurveyResults {
-    width: 49% !important;
-    height: 175px !important;
-    position: relative;
 
-}
 
 #POMPSearchResultsPagerPercentage{
     font-size:45px;
