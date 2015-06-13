@@ -10,7 +10,7 @@ namespace ProveedoresOnLine.SurveyModule.Test
         [TestMethod]
         public void SurveyRecalculate()
         {
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate("1C4FB681", 1);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate("1C4FB681");
 
             Assert.AreEqual(1, 1);
         }

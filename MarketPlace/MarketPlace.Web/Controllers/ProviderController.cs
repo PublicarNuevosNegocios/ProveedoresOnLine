@@ -1487,8 +1487,7 @@ namespace MarketPlace.Web.Controllers
                 oModel.ProviderMenu = GetProviderMenu(oModel);
                 //get survey info
                 oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
-                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId, SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId).FirstOrDefault()));
+                    (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
             }
             return View(oModel);
         }

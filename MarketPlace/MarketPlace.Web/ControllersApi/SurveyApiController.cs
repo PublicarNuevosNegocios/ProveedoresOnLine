@@ -123,8 +123,7 @@ namespace MarketPlace.Web.ControllersApi
 
 
                         ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurvey =
-                        ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId, SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId).FirstOrDefault());
+                        ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId);
 
                         //add file to Survey                        
                         ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
@@ -195,8 +194,7 @@ namespace MarketPlace.Web.ControllersApi
             {
                 //get project basic info
                 ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurvey = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById
-                    (SurveyPublicId, SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId).FirstOrDefault());
+                    (SurveyPublicId);
 
                 //create object to upsert
                 ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()

@@ -636,12 +636,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
             return oReturn;
         }
 
-        public SurveyModel SurveyGetById(string SurveyPublicId, int EvaluatorRolId)
+        public SurveyModel SurveyGetById(string SurveyPublicId)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vSurveyPublicId", SurveyPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vEvaluatorRolId", EvaluatorRolId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vSurveyPublicId", SurveyPublicId));            
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {

@@ -110,9 +110,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
             return DataFactory.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
         }
 
-        public Models.SurveyModel SurveyGetById(string SurveyPublicId, int EvaluatorRolId)
+        public Models.SurveyModel SurveyGetById(string SurveyPublicId)
         {
-            return DataFactory.SurveyGetById(SurveyPublicId, EvaluatorRolId);
+            return DataFactory.SurveyGetById(SurveyPublicId);
         }        
 
         public List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId)

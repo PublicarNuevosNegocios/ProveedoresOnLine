@@ -357,7 +357,6 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     return true;
                 });
             }
-
             return SurveyToUpsert;
         }
 
@@ -407,9 +406,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.SurveySearch(CustomerPublicId, ProviderPublicId, SearchOrderType, OrderOrientation, PageNumber, RowCount, out  TotalRows);
         }
 
-        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId, int EvaluatorRolId )
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId)
         {
-            return DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId, EvaluatorRolId);
+            return DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
         }
 
         public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId)
@@ -422,9 +421,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         /// </summary>
         /// <param name="SurveyPublicId">Survey to recalculate</param>
         /// <returns></returns>
-        public static void SurveyRecalculate(string SurveyPublicId, int EvaluatorRolId)
+        public static void SurveyRecalculate(string SurveyPublicId)
         {
-            ProveedoresOnLine.SurveyModule.Models.SurveyModel oCurrentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId, EvaluatorRolId);
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oCurrentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
 
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
             {
