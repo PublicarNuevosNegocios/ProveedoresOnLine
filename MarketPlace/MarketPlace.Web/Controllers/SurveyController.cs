@@ -41,6 +41,9 @@ namespace MarketPlace.Web.Controllers
                 //get provider view model
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
+                oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem = oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem.
+                                            Where(x => x.EvaluatorRoleId == 4).Select(x => x).ToList();
+
                 //get current StepId
                 oModel.RelatedSurvey.CurrentStepId = string.IsNullOrEmpty(StepId) ? oModel.RelatedSurvey.GetSurveyConfigFirstStep() : Convert.ToInt32(StepId.Trim());
 

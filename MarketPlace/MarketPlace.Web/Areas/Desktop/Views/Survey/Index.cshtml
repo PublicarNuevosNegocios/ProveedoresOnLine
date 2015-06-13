@@ -18,7 +18,8 @@
         };
         
         //get evaluation area Rol
-        lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());
+        lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, 
+                    lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());
     }
     else
     {
