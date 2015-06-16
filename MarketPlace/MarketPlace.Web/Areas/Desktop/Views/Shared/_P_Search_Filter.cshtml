@@ -232,31 +232,6 @@
                 <li>
                     <span>Filtros de Evaluaciones de Desempeño</span>
                 </li>
-                if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyEvaluator))
-                {
-                    <li>
-                        <span>Listado de Evaluadores:</span>
-                        <ul>
-                            @foreach (var oFilterItem in Model.ProviderFilterResult.Where(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyEvaluator).OrderByDescending(x => x.Quantity).ToList())
-                            {
-                                if (oFilterItem.FilterValue.ItemName == MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email)
-                                {
-                                    <li>
-                                        @if (lstSearchFilter.Any(x => x.Item1 == oFilterItem.FilterType.ItemId.ToString() && x.Item2 == oFilterItem.FilterValue.ItemId.ToString()))
-                                        {
-                                            <input type="checkbox" checked="checked" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:false,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" onchange="javascript: Provider_SearchObject.Search({SearchFilter:{Enable:true,Value:'@(oFilterItem.FilterType.ItemId + ";" + oFilterItem.FilterValue.ItemId)'}});" />
-                                        }
-                                        <span>@oFilterItem.FilterValue.ItemName (@oFilterItem.Quantity) </span>
-                                    </li>
-                                }
-                            }
-                        </ul>
-                    </li>
-                }
                 if (Model.ProviderFilterResult.Any(x => x.FilterType.ItemId == (int)MarketPlace.Models.General.enumFilterType.SurveyStatus))
                 {
                     <li>
