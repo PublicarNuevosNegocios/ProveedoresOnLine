@@ -3,11 +3,13 @@ var Survey_ChartsObject = {
     ObjectId: '',
     SurveyResoinsable: '',
     SearchUrl: '',
+    UserEmail: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyResoinsable = vInitObject.SurveyResoinsable;
         this.SearchUrl = vInitObject.SearchUrl;
+        this.UserEmail = vInitObject.UserEmail;
     },
 
     RenderAsync: function () {
@@ -54,7 +56,7 @@ var Survey_ChartsObject = {
                         else if (topping == "Finalizada") {
                             SearchFilter = 1206004;
                         }
-                        window.location = Survey_ChartsObject.GetSearchUrl(SearchFilter);
+                        window.location = Survey_ChartsObject.GetSearchUrl(SearchFilter, Survey_ChartsObject.UserEmail);
                     }
                 }
                 var chart = new google.visualization.PieChart(document.getElementById(Survey_ChartsObject.ObjectId));
@@ -75,14 +77,20 @@ var Survey_ChartsObject = {
         });
     },
 
-    GetSearchUrl: function (SearchFilter) {
+    GetSearchUrl: function (SearchFilter, UserEmail) {
 
         var oUrl = this.SearchUrl;
 
         oUrl += '?CompareId=';
         oUrl += '&ProjectPublicId=';
         oUrl += '&SearchParam=';
-        oUrl += '&SearchFilter=,111011;' + SearchFilter;
+
+        if (UserEmail != 0) {
+            oUrl += '&SearchFilter=,111011;' + SearchFilter + ',111014;' + UserEmail;
+        }
+        else {
+            oUrl += '&SearchFilter=,111011;' + SearchFilter
+        }        
         oUrl += '&SearchOrderType=113002';
         oUrl += '&OrderOrientation=false';
         oUrl += '&PageNumber=0';
