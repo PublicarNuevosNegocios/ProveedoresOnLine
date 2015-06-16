@@ -9,6 +9,18 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
     font-family: 'OpenSans-Regular', Fallback, sans-serif;
 }
 /*********Body Content************/
+html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+#GeneralContainer{
+   min-height:100%;
+   position:relative;
+}
+
 .POMPRenderHeader, .POMPRenderBody, .POMPRenderFooter{
      text-align:left;
      display:block;
@@ -16,13 +28,24 @@ p, h1, h2, h3, h4, h5, h6, a, label, title, input, span, select, option{
      /*border:none;*/
 }
 
+.POMPRenderBody{
+   padding:10px;
+   padding-bottom:98px;
 
-
+}
+.POMPRenderFooter{
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:98px;
+}
 
 div#POMPRenderFooter {
-    width:100%;
-    height:auto;
-   float:left;
+      position:absolute;
+   bottom:0;
+   width:100%;
+   height:98px;
+    /*float:left;*/
     
 }
 /*************** AQUI VA TODA LA INFORMACION 

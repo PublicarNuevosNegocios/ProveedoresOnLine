@@ -1,26 +1,19 @@
-﻿@{
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
     ViewBag.Title = "Proveedores OnLine - Proveedores";
     Layout = MVC.Desktop.Shared.Views._Layout;
 }
-@*Aqui va la validación*@
+
+
 <div id="POMPGraphicContainerMain">
-
-
     <div class="POMPGraphicDynamic">
         <div class="POMPHeaderGraphicDynamic">
             <h1>Evaluaciones de desempeño por estado año en curso</h1>
-            <div>
-                @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
-            </div>
         </div>
+        @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
     </div>
 
-
-
-
 </div>
-
-
 
 
 

@@ -1177,8 +1177,8 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
         public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
-
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();            
+            
             lstParams.Add(DataInstance.CreateTypedParameter("vResponable", ResponsableEmail));
             lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
 
