@@ -15,7 +15,8 @@ namespace MarketPlace.Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            return View();
+            ProviderViewModel oModel = new ProviderViewModel();
+            return View(oModel);
         }
 
         #region Provider search
