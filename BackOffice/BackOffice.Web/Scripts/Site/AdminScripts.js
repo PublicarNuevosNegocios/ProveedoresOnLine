@@ -422,6 +422,7 @@
                             GIT_Country: { editable: true, nullable: false },
                             GIT_CountryId: { editable: true, nullable: false },
 
+                            B_BankId: { editable: false },
                             B_Bank: { editable: true, nullable: false, validation: { required: true } },
 
                             B_BankCode: { editable: true, nullable: false },
@@ -492,6 +493,10 @@
                 },
             },
             columns: [{
+                field: 'B_BankId',
+                title: 'Id',
+                width: '50px',
+            }, {
                 field: 'B_Bank',
                 title: 'Banco',
                 width: '100px',

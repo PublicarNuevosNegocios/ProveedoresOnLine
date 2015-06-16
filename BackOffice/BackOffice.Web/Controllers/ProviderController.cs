@@ -607,6 +607,8 @@ namespace BackOffice.Web.Controllers
                 },
             };
 
+            //get provider menu
+            oModel.ProviderMenu = GetProviderMenu(oModel);
             //eval upsert action
             if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
             {
