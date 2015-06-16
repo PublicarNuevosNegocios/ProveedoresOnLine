@@ -26,10 +26,25 @@ namespace ProveedoresOnLine.SurveyBatch
                         {
                             if (sv.SurveyInfo != null)
                             {
-                                MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv);
+                                List<string> EvaluatorRol = new List<string>();
 
-                                //create message
-                                MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToUpsert);
+                                sv.SurveyInfo.All(x =>
+                                    {
+                                        if (x.ItemInfoType.ItemId == 1204003)
+                                        {
+                                            EvaluatorRol.Add(x.Value);
+                                        }
+                                        return true;
+                                    });
+                                EvaluatorRol.All(r =>
+                                    {
+                                        MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv, r);
+
+                                        //create message
+                                        MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToUpsert);
+                                        return true;
+                                    }
+                                );                                                               
 
                                 //update survey status
                                 ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new SurveyModule.Models.SurveyModel()
@@ -82,7 +97,7 @@ namespace ProveedoresOnLine.SurveyBatch
 
         #region MessageFabric
 
-        private static MessageModule.Client.Models.ClientMessageModel GetMessage(ProveedoresOnLine.SurveyModule.Models.SurveyModel vSurvey)
+        private static MessageModule.Client.Models.ClientMessageModel GetMessage(ProveedoresOnLine.SurveyModule.Models.SurveyModel vSurvey, string EvaluatorRol)
         {
             //Create message object
             MessageModule.Client.Models.ClientMessageModel oReturn = new MessageModule.Client.Models.ClientMessageModel()
@@ -99,11 +114,7 @@ namespace ProveedoresOnLine.SurveyBatch
 
             //get to address
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("To",
-                vSurvey.SurveyInfo.
-                    Where(svinf => svinf.ItemInfoType.ItemId == 1204003).
-                    Select(svinf => svinf.Value).
-                    FirstOrDefault()));
+                ("To",EvaluatorRol));
 
             //get customer info
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>

@@ -376,7 +376,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                             SurveyItemToUpsert.ItemId,
                             siinf.ItemInfoType.ItemId,
                             siinf.Value,
-                            siinf.LargeValue,
+                            SurveyItemToUpsert.EvaluatorRoleId.ToString(),
                             siinf.Enable);
 
                         oLog.IsSuccess = true;

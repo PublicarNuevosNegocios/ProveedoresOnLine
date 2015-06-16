@@ -42,7 +42,8 @@ namespace MarketPlace.Web.Controllers
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
 
                 oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem = oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem.
-                                            Where(x => x.EvaluatorRoleId == 4).Select(x => x).ToList();
+                                                Where(x => x.EvaluatorRoleId == SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
+                                                Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault()).Select(x => x).ToList();
 
                 //get current StepId
                 oModel.RelatedSurvey.CurrentStepId = string.IsNullOrEmpty(StepId) ? oModel.RelatedSurvey.GetSurveyConfigFirstStep() : Convert.ToInt32(StepId.Trim());
@@ -158,7 +159,7 @@ namespace MarketPlace.Web.Controllers
                 if (strAux.Length >= 2)
                 {
                     int oSurveyConfigItemId = Convert.ToInt32(strAux[1].Replace(" ", ""));
-
+                                        
                     ProveedoresOnLine.SurveyModule.Models.SurveyItemModel oSurveyItem = oSurvey.RelatedSurveyItem.
                         Where(sit => sit.RelatedSurveyConfigItem.ItemId == oSurveyConfigItemId).
                         FirstOrDefault();
@@ -179,7 +180,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 ItemInfoId = 
                                     (oSurveyItem != null && 
-                                    oSurveyItem.ItemInfo != null && 
+                                    oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
                                     oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Ratting)) ?
                                     oSurveyItem.ItemInfo.
                                         Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Ratting).
@@ -191,7 +192,7 @@ namespace MarketPlace.Web.Controllers
                                     ItemId = (int)enumSurveyItemInfoType.Ratting,
                                 },
                                 Value = oSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.
-                                    Where(scit=> scit.ItemType.ItemId == (int)enumSurveyConfigItemType.Answer &&
+                                    Where(scit=> scit.ItemType.ItemId == (int)enumSurveyConfigItemType.Answer &&                                                
                                                  scit.ItemId.ToString() == Request[req].Replace(" ","")).
                                     Select(scit=>scit.ItemInfo.
                                                     Where(scitinf=>scitinf.ItemInfoType.ItemId == (int)enumSurveyConfigItemInfoType.Weight).
@@ -207,6 +208,7 @@ namespace MarketPlace.Web.Controllers
                                 ItemInfoId = 
                                     (oSurveyItem != null && 
                                     oSurveyItem.ItemInfo != null && 
+                                     oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
                                     oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Answer)) ?
                                     oSurveyItem.ItemInfo.
                                         Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.Answer).
@@ -225,6 +227,7 @@ namespace MarketPlace.Web.Controllers
                                 ItemInfoId = 
                                     (oSurveyItem != null && 
                                     oSurveyItem.ItemInfo != null && 
+                                     oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
                                     oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.DescriptionText)) ?
                                     oSurveyItem.ItemInfo.
                                         Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.DescriptionText).
@@ -243,6 +246,7 @@ namespace MarketPlace.Web.Controllers
                                 ItemInfoId = 
                                     (oSurveyItem != null && 
                                     oSurveyItem.ItemInfo != null && 
+                                     oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
                                     oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.EvaluatorRol)) ?
                                     oSurveyItem.ItemInfo.
                                         Where(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.EvaluatorRol).
@@ -261,6 +265,7 @@ namespace MarketPlace.Web.Controllers
                             {
                                 ItemInfoId = 
                                     (oSurveyItem != null && 
+                                     oSurveyItem.ItemInfo != null && oSurveyItem.ItemInfo.Any(r => r.LargeValue == SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().UserCompanyId.ToString()) &&
                                     oSurveyItem.ItemInfo != null && 
                                     oSurveyItem.ItemInfo.Any(sitinf=>sitinf.ItemInfoType.ItemId == (int)enumSurveyItemInfoType.EvaluatorName)) ?
                                     oSurveyItem.ItemInfo.
