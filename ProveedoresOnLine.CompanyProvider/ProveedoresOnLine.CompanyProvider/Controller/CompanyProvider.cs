@@ -1068,6 +1068,9 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.CatalogGetProviderOptions();
         }
 
+        //Todo: Acá hago la lógica de generación del pdf
+        //Recibe Una lista de Params
+
         #endregion
 
         #region MarketPlace
