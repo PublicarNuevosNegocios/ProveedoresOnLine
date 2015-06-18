@@ -73,6 +73,8 @@ namespace MarketPlace.Web.ControllersApi
 
                 oToInsert.RelatedReports.Add(this.GetSurveyReportFilterRequest());
 
+                //TODO: Llamo la funcion en CompanyProvider.Utils. que me genera el pdf a partir del request                
+
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
             }
         }
@@ -117,11 +119,6 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
-
-        //TODO: Acá va l función que genera el pdf
-        //Recibe los parametros del reporte
-        //
-
         #endregion
     }
 }
