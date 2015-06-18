@@ -79,7 +79,7 @@ namespace MarketPlace.Web.ControllersApi
 
         #endregion
 
-        #region Provate Functions
+        #region Private Functions
 
         private ProveedoresOnLine.Company.Models.Util.GenericItemModel GetSurveyReportFilterRequest()
         {
@@ -117,6 +117,10 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
+
+        //TODO: Acá va l función que genera el pdf
+        //Recibe los parametros del reporte
+        //
 
         #endregion
     }

@@ -232,7 +232,7 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> SCSurveyConfigItemGetBySurveyConfigId
             (string SCSurveyConfigItemGetBySurveyConfigId,
-            string SurveyConfigId,            
+            string SurveyConfigId,
             string SurveyConfigItemType)
         {
             List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> oReturn = new List<Models.Survey.SurveyConfigItemViewModel>();
@@ -241,7 +241,7 @@ namespace MarketPlace.Web.ControllersApi
             {
                 List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> oSearchResult =
                     ProveedoresOnLine.SurveyModule.Controller.SurveyModule.MP_SurveyConfigItemGetBySurveyConfigId
-                    (Convert.ToInt32(SurveyConfigId.Trim()),                    
+                    (Convert.ToInt32(SurveyConfigId.Trim()),
                     Convert.ToInt32(SurveyConfigItemType));
 
                 if (oSearchResult != null && oSearchResult.Count > 0)
@@ -262,7 +262,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string,int> GetSurveyByResponsable
+        public Dictionary<string, int> GetSurveyByResponsable
             (string GetSurveyByResponsable)
         {
             //Get Charts By Module
@@ -276,16 +276,11 @@ namespace MarketPlace.Web.ControllersApi
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
             //Get By Responsable
-            //if (SessionModel.)
-            //{
-                
-            //}
-
-            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)            
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(string.Empty, DateTime.Now);            
-            else            
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(string.Empty, DateTime.Now);
+            else
                 oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(SessionModel.CurrentLoginUser.Email, DateTime.Now);
-          
+
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
@@ -295,7 +290,7 @@ namespace MarketPlace.Web.ControllersApi
                     oReturn.Add(x.ItemName, x.Count);
                     return true;
                 });
-            }            
+            }
             #endregion
             return oReturn;
         }
