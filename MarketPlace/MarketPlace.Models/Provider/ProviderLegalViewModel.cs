@@ -143,7 +143,7 @@ namespace MarketPlace.Models.Provider
                 {
                     oCP_SocialObject = RelatedLegalInfo.ItemInfo.
                          Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumLegalInfoType.CP_SocialObject).
-                         Select(y => y.Value).
+                         Select(y => y.LargeValue).
                          DefaultIfEmpty(string.Empty).
                          FirstOrDefault();
                 }

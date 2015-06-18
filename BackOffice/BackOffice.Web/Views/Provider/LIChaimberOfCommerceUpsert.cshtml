@@ -70,7 +70,7 @@
                 var SocialObj = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                                  Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
                                 Select(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_SocialObject).
-                                    Select(y => y.Value).FirstOrDefault()).FirstOrDefault() : string.Empty;
+                                    Select(y => y.LargeValue).FirstOrDefault()).FirstOrDefault() : string.Empty;
 
                 var SocialObjId = Model.RelatedProvider != null && Model.RelatedProvider.RelatedLegal != null ?
                             Model.RelatedProvider.RelatedLegal.Where(x => x.ItemInfo != null).
@@ -182,9 +182,9 @@
                     <li>
                         <label>Objeto Social</label>
                         <br />
-                        <input type="Text" name="SocialObject" id="SocialObjectId" value="@SocialObj" />
-                        <input type="hidden" name="SocialObjectId" value="@SocialObjId" />
-                    </li>
+                        <textarea rows="4" cols="50" name="SocialObject" id="SocialObjectId"> @SocialObj </textarea> 
+                            <input type="hidden" name="SocialObjectId" value="@SocialObjId" />
+</li>
                 </ul>
                 <div style="display:none">
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />

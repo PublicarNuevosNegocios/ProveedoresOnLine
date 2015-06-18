@@ -235,7 +235,7 @@ namespace BackOffice.Models.Provider
 
             CP_SocialObject = RelatedLegal.ItemInfo.
                  Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumLegalInfoType.CP_SocialObject).
-                 Select(y => y.Value).
+                 Select(y => y.LargeValue).
                  DefaultIfEmpty(string.Empty).
                  FirstOrDefault();
 
