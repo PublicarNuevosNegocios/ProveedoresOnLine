@@ -108,7 +108,7 @@
                     <li class="SurveyResults">
 
                         <div class="SurveyAverage">
-                            <label>Promedio:</label>
+                            <label id="POMPPromedio">Promedio</label>
                             @{decimal average = Model.RelatedSurveySearch.SurveySearchResult.Count > 0 ? Model.RelatedSurveySearch.SurveySearchResult.FirstOrDefault().Average : 0;                          }
                             <div class="POMPSearchResultsPager" id="POMPSearchResultsPagerPercentage">@Math.Round(average, 1) %</div>
                         </div>
