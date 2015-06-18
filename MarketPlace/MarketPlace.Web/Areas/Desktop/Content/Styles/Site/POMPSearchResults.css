@@ -268,14 +268,39 @@
 }
 
 .SurveyFilters{
-    width:49% !important;
+    width:50% !important;
+    margin-left:4%;
+   
 }
 
 .SurveyResults {
-    width: 49% !important;
+    width: 42% !important;
     height: 175px !important;
     position: relative;
 
+}
+
+.SurveyAverage{
+   width:100%;
+}
+
+#POMPPromedio{
+    position:absolute;
+    margin:auto;
+    right:15%;
+    width:auto;
+    height:50px;
+   
+}
+
+#POMPSearchResultsPagerPercentage{
+    font-size:45px;
+    width:auto;
+    height:70px;
+    position:absolute;
+    margin:auto;
+    right:10%;
+   top:50px;
 }
 
 #SurveySearch_InitDateId, #SurveySearch_EndDateId{
@@ -284,7 +309,8 @@
 .SurveyFilterDate{
 }
 #SurveySearch_Order{
-    width:325px !important;
+    width:100% !important;
+    max-width:325px !important;
 }
 
 .POMPFilterBox{
@@ -301,18 +327,7 @@
 
 
 
-#POMPSearchResultsPagerPercentage{
-    font-size:45px;
-    margin-top:20px;
-    width:160px;
-    height:70px;
-    position:absolute;
-    margin:auto;
-    top:0;
-    bottom:20px;
-    left:0;
-    right:0;
-}
+
 
 #POMPButtonSurveryNewEvaluation{
     position:absolute;
