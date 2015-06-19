@@ -17,7 +17,7 @@
         <ul class="POMPProviderInfoMultipleValues">
             <li>
                 <label class="POMPProviderDataSubtitle">Información Básica</label>
-                @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0)
+                @if (Model.RelatedGeneralInfo != null && Model.RelatedGeneralInfo.Count > 0 )
                 {
                     if (!string.IsNullOrEmpty(Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).FirstOrDefault()))
                     {
@@ -26,7 +26,7 @@
                             <span>@Model.RelatedGeneralInfo.Where(x => x.PC_RepresentantType == "Legal").Select(x => x.PC_ContactName).DefaultIfEmpty(string.Empty).FirstOrDefault()</span>
                         </label>
                     }
-                    if (!string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
+                    if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrEmpty(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber)
                         && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_InscriptionNumber))
                     {
                         <label>
@@ -76,7 +76,7 @@
                             <span>@Model.RelatedGeneralInfo.Where(x => x.BR_IsPrincipal == true).Select(x => x.BR_Email).FirstOrDefault()</span>
                         </label>
                     }
-                    if (!string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
+                    if (Model.RelatedLegalInfo.Count > 0 && !string.IsNullOrWhiteSpace(Model.RelatedLegalInfo.FirstOrDefault().CP_SocialObject))
                     {
                         <label class="POMPProviderObjetoSocial">
                             Objeto Social
