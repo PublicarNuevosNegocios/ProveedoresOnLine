@@ -12,7 +12,7 @@
                     <label class="POMPProviderDataSubtitle">
                         @if (!string.IsNullOrEmpty(item.RP_ReportAverage))
                         {
-                            <span>@item.RP_ReportAverage</span>
+                            <span>Promedio: @item.RP_ReportAverage %</span>
                         }
                     </label>
                     @if (!string.IsNullOrEmpty(item.RP_Observation))
@@ -78,7 +78,7 @@
                                     EndDate = item.RP_EndDateReport,
                                 }))">Ver Detalle</a>
                         </label>
-                    }                    
+                    }
                 </li>
             }
         </ul>
