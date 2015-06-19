@@ -181,7 +181,7 @@ namespace BackOffice.Models.Provider
 
             EX_ContractSubject = RelatedCommercial.ItemInfo.
                 Where(y => y.ItemInfoType.ItemId == (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractSubject).
-                Select(y => y.Value).
+                Select(y => y.LargeValue).
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
 

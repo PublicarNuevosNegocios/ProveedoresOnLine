@@ -196,7 +196,7 @@ namespace MarketPlace.Models.Provider
                 {
                     oEX_ContractSubject = RelatedCommercialInfo.ItemInfo.
                         Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumCommercialInfoType.EX_ContractSubject).
-                        Select(y => y.Value).
+                        Select(y => y.LargeValue).
                         DefaultIfEmpty(string.Empty).
                         FirstOrDefault();
                 }

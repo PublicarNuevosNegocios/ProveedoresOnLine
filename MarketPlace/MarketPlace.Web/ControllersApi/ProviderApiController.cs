@@ -62,7 +62,7 @@ namespace MarketPlace.Web.ControllersApi
         {
             if (RPSurveyFilterReport == "true")
             {
-                ProviderModel oToInsert = new ProviderModel()
+                ProviderModel oToInsert = new ProviderModel() 
                 {
                     RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
                     {
@@ -73,7 +73,9 @@ namespace MarketPlace.Web.ControllersApi
 
                 oToInsert.RelatedReports.Add(this.GetSurveyReportFilterRequest());
 
-                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);               
+                //TODO: Llamo la funcion en CompanyProvider.Utils. que me genera el pdf a partir del request                
+
+                ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
 
                 #region Get Basic Info
                 //get basic provider info
@@ -244,6 +246,10 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
+
+        //TODO: Acá va l función que genera el pdf
+        //Recibe los parametros del reporte
+        //
 
         #endregion
     }

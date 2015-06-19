@@ -187,11 +187,11 @@ var Survey_ProgramObject = {
                             var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');                            
                             $.each(e, function (item, value) {
                                 debugger;
-                                var result = ' <li><label>Evaluador - ' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRol + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_'+ value.SurveyConfigItemInfoRol + '" /></li>'
+                                var result = ' <li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '" /></li>'
                                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
                                 
                                 //init survey evaluator autocomplete
-                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRol).kendoAutoComplete({
+                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRolId).kendoAutoComplete({
                                     minLength: 0,
                                     open: function (e) {
                                         debugger;
@@ -242,14 +242,12 @@ var Survey_ProgramObject = {
 
             //init startdate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_StartDate').kendoDatePicker({
-                format: Survey_ProgramObject.DateFormat,
-                min: new Date(),
+                format: Survey_ProgramObject.DateFormat,                
             });
 
             //init enddate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EndDate').kendoDatePicker({
-                format: Survey_ProgramObject.DateFormat,
-                min: new Date(),
+                format: Survey_ProgramObject.DateFormat,                
             });
 
             //init form validator
