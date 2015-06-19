@@ -43,7 +43,7 @@ namespace MarketPlace.Web.Controllers
 
                 oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem = oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyItem.
                                                 Where(x => x.EvaluatorRoleId == SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault()).Select(x => x).ToList();
+                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.UserCompanyId).FirstOrDefault()).Select(x => x).ToList();
 
                 //get current StepId
                 oModel.RelatedSurvey.CurrentStepId = string.IsNullOrEmpty(StepId) ? oModel.RelatedSurvey.GetSurveyConfigFirstStep() : Convert.ToInt32(StepId.Trim());
@@ -173,7 +173,8 @@ namespace MarketPlace.Web.Controllers
                         },
                         Enable = true,
                         EvaluatorRoleId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.RelatedRole.ItemId).FirstOrDefault(),                        
+                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.UserCompanyId).FirstOrDefault(),        
+                
                         ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>() 
                         {
                             new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
