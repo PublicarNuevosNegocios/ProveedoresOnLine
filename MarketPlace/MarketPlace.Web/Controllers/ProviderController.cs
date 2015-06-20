@@ -69,14 +69,7 @@ namespace MarketPlace.Web.Controllers
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
                     oModel.SearchFilter);
-
-                List<GenericFilterModel> oFilterResult = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
-                    (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
-                    oModel.SearchParam,
-                    oModel.SearchFilter);
-
-                //oModel.ProviderFilterResult = oFilterResult.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).Select(x => x).ToList();
-
+                
                 //parse view model
                 if (oProviderResult != null && oProviderResult.Count > 0)
                 {
