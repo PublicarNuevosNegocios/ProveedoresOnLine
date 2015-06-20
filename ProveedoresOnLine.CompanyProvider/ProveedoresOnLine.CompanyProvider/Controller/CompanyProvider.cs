@@ -1068,9 +1068,6 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
             return DAL.Controller.CompanyProviderDataController.Instance.CatalogGetProviderOptions();
         }
 
-        //Todo: Acá hago la lógica de generación del pdf
-        //Recibe Una lista de Params
-
         #endregion
 
         #region MarketPlace
@@ -1315,6 +1312,32 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         {
             return DAL.Controller.CompanyProviderDataController.Instance.MPReportGetBasicInfo(CompanyPublicId, ReportType);
         }
+
+        #region MP Reports
+
+        public static string MPCreateReportByType(int ReportType, GenericItemModel oReportToBuild)
+        {
+            string oReturn = "";
+
+            if (ReportType == (int)ProveedoresOnLine.CompanyProvider.Models.Enumerations.enumReportType.CP_SVFilterByDateReport)
+            {
+                //TODO: acá se realiza la´lógica para crear el reporte de filtrado por fecha de evaluación
+                if (oReportToBuild.ItemInfo != null && oReportToBuild.ItemInfo.Count > 0)
+                {
+                    oReportToBuild.ItemInfo.All(x =>
+                        {
+
+                            return true;
+                        }
+                    );
+                }
+            }
+
+
+            return oReturn;
+        }
+
+        #endregion
         #endregion
 
         #region BatchProcess
@@ -1322,6 +1345,15 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         public static List<ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel> BPGetRecruitmentProviders()
         {
             return DAL.Controller.CompanyProviderDataController.Instance.BPGetRecruitmentProviders();
+        }
+
+        #endregion
+
+        #region SurveyCharts
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.GetProvidersByState(CompanyPublicId);
         }
 
         #endregion

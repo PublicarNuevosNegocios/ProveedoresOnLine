@@ -1817,5 +1817,43 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
         }
 
         #endregion       
+   
+        #region Charts
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", CompanyPublicId));            
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_ProvidersCharts_GetByState",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericChartsModelInfo> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                   (from sv in response.DataTableResult.AsEnumerable()
+                    where !sv.IsNull("Count")
+                    select new GenericChartsModelInfo()
+                    {
+                        Title = "Estado de mis proveedores",
+                        ItemType = sv.Field<string>("StateId"),
+                        ItemName = sv.Field<string>("State"),
+                        Count = (int)sv.Field<Int64>("Count"),
+                    }).ToList();
+            }
+
+            return oReturn;
+        }
+
+        #endregion        
     }
 }
