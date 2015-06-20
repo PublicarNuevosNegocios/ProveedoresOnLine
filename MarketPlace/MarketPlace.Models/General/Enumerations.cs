@@ -88,6 +88,7 @@
         //Module Charts
         CH_SurveyModule = 119001,
         CH_ProjectModule = 119002,
+        CH_ProvidersStateModule = 119003,
 
         //Module Charts Info        
         CH_SurveyStatusByRol = 120001,

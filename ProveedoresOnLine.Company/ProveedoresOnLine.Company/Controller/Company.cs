@@ -1,8 +1,11 @@
-﻿using ProveedoresOnLine.AsociateProvider.Client.Models;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using ProveedoresOnLine.AsociateProvider.Client.Models;
 using ProveedoresOnLine.Company.Models.Company;
 using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -378,6 +381,76 @@ namespace ProveedoresOnLine.Company.Controller
         public static List<ProveedoresOnLine.Company.Models.Util.GenericItemModel> MPCategorySearchByActivity(int TreeId, string SearchParam, int RowCount)
         {
             return DAL.Controller.CompanyDataController.Instance.MPCategorySearchByActivity(TreeId, SearchParam, RowCount);
+        }
+
+        public static bool MPBuildReport(List<string> oReportToBuild)
+        {
+            if (oReportToBuild != null)
+            {
+                //Stream
+                MemoryStream workStream = new MemoryStream();
+                Document document = new Document();
+                PdfWriter.GetInstance(document, workStream).CloseStream = false;
+
+                //Current Company Data report
+                string currentCompanyObservaciones = oReportToBuild[0].ToString();
+                string currentCompanyPlanAccion = oReportToBuild[1].ToString();
+                string currentCompanyFechaInicio = oReportToBuild[2].ToString();
+                string currentCompanyFechaFin = oReportToBuild[3].ToString();
+                string currentCompanyPromedio = oReportToBuild[4].ToString();
+                string currentCompanyFechaCreacion = oReportToBuild[5].ToString();
+                string currentCompanyResponsable = oReportToBuild[6].ToString();
+                //Current Company Data Info
+                string currentCompanyName = oReportToBuild[7].ToString();
+                string currentCompanyIdentificationNumber = oReportToBuild[8].ToString();
+                string currentCompanyIdentificationType = oReportToBuild[9].ToString();
+                string currentCompanyLogo = oReportToBuild[10].ToString();
+                //Provider Data
+                string providerLogo = oReportToBuild[11].ToString(); ;
+                string providerName = oReportToBuild[12].ToString(); ;
+                string providerIdentificationNumber = oReportToBuild[13].ToString(); ;
+
+                //Create document and array
+                document.Open();
+                document.Add(new Paragraph("Buenas Chino"));
+                document.Add(new Paragraph("Como Va todo viejo"));
+                document.Add(new Paragraph("A ver como esta la cosa del pdf"));
+                //document.Add(jpg); 
+
+
+            }
+
+
+
+
+            /*
+           
+
+            if (oReportToBuild != null)
+            {
+                //TODO: acá se realiza la´lógica para crear el reporte de filtrado por fecha de evaluación
+                               
+
+                    string imageURL = ;
+                    iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
+                    //Resize image depend upon your need
+                    jpg.ScaleToFit(50f, 50f);
+                    //Give space before image
+                    jpg.SpacingBefore = 10f;
+                    //Give some space after the image
+                    jpg.SpacingAfter = 1f;
+                    jpg.Alignment = Element.ALIGN_LEFT;
+
+
+                    document.Open();
+                    document.Add(new Paragraph("Buenas Chino"));
+                    document.Add(new Paragraph("Como Va todo viejo"));
+                    document.Add(new Paragraph("A ver como esta la cosa del pdf"));
+                    document.Add(jpg); 
+               
+            }     */      
+                        
+            return true;
         }
 
         #endregion

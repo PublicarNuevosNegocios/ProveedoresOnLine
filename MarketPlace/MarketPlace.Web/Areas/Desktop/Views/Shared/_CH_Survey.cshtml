@@ -1,8 +1,5 @@
 ﻿
-
-
 <div id="SurveyResponsableStatusChartId" style="width:95%; margin: 20px 0 0 2.2%; height:300px;  max-height: 300px;"></div>
-
 @{
     /*Get session modules by user*/
     bool IsProviderRatingCreate = false;
@@ -24,15 +21,15 @@
     });
 
     var email = 0;
-    
+
     if (!IsProviderRatingCreate && IsProviderRatingView)
     {
         email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
     }
-    
+
 }
 
- 
+
 <script type="text/javascript">
     google.load('visualization', '1.0', { 'packages': ['corechart'] });
     $(document).ready(function () {
@@ -53,18 +50,3 @@
         Survey_ChartsObject.RenderAsync();
     })
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
