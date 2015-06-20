@@ -112,6 +112,133 @@ namespace MarketPlace.Web.ControllersApi
                 //TODO: Llamo la funcion en CompanyProvider.Utils. que me genera el pdf a partir del request                
 
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
+
+                #region Get Basic Info
+                //get basic provider info
+                var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
+                    (SessionModel.CurrentCompany.CompanyPublicId, ProviderPublicId);
+
+                var oProvider = olstProvider.
+                    Where(x => SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.BuyerProvider ?
+                                (x.RelatedCompany.CompanyPublicId == ProviderPublicId ||
+                                x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId)) :
+                                (SessionModel.CurrentCompany.CompanyType.ItemId == (int)enumCompanyType.Buyer ?
+                                x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
+                                x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
+                    FirstOrDefault();      
+                #endregion
+
+                #region Set Params to Report
+                List<string> oParams = new List<string>();
+
+                ProviderViewModel oModel = new ProviderViewModel();
+                oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
+                if (oToInsert.RelatedReports != null)
+                {                    
+                    oToInsert.RelatedReports.All(x =>
+                        {
+                            oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                                (int)MarketPlace.Models.General.enumSurveyInfoType.RP_Observation).Select(y => y.Value).
+                                DefaultIfEmpty(string.Empty).
+                                FirstOrDefault());
+                            return true;
+                        });                    
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ImprovementPlan).Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_InitDateReport).Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_EndDateReport).Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportAverage).Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportDate).Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(x.ItemInfo.Where(y => y.ItemInfoType.ItemId ==
+                            (int)MarketPlace.Models.General.enumSurveyInfoType.RP_ReportResponsable).Select(y => y.Value).
+                            DefaultIfEmpty(string.Empty).
+                            FirstOrDefault());
+                        return true;
+                    });
+                    //Current Company info
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(SessionModel.CurrentCompany.CompanyName);
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(SessionModel.CurrentCompany.IdentificationNumber);
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(SessionModel.CurrentCompany.IdentificationType.ItemName);
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(SessionModel.CurrentCompany_CompanyLogo);
+                        return true;
+                    });
+
+
+                    //ProviderInfo
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(oModel.RelatedLiteProvider.ProviderLogoUrl);
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
+                        oParams.Add(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationNumber);
+                        return true;
+                    });
+                } 
+                #endregion
+
+
+               ProveedoresOnLine.Company.Controller.Company.MPBuildReport(oParams);
+
+
+                //Generar reporte
             }
         }
 
@@ -155,6 +282,11 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
+
+        //TODO: Acá va l función que genera el pdf
+        //Recibe los parametros del reporte
+        //
+
         #endregion
     }
 }
