@@ -1,0 +1,28 @@
+﻿
+<div id="ProvidersStatusChartId" style="width:95%; margin: 20px 0 0 2.2%; height:300px;  max-height: 300px;"></div>
+
+
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(Providers_ChartsObject.RenderChatrProvidersByStatus);
+
+        Providers_ChartsObject.Init({
+            ObjectId: 'ProvidersStatusChartId',                        
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        }),
+
+        Providers_ChartsObject.RenderAsync();
+    })
+</script>
+
+
+
+
+

@@ -55,6 +55,42 @@ namespace MarketPlace.Web.ControllersApi
             return null;
         }
 
+        #region Providers Charts
+
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetProvidersByState
+            (string GetProvidersByState)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+ 
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_ProvidersStateModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+
+            //Get Providers of the Company
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.GetProvidersByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId);
+  
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(x.ItemName, x.Count);
+                    return true;
+                });
+            }
+      
+            return oReturn;
+        }
+        #endregion
+
         #region Provider Reports
         [HttpPost]
         [HttpGet]

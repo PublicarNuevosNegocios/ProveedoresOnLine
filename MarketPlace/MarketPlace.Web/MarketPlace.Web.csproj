@@ -1066,6 +1066,7 @@
     <Content Include="Areas\Desktop\Views\Provider\SVSurveyReport.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_SV_SurveyReport.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_SV_ReportByDate.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_StateProviders.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />

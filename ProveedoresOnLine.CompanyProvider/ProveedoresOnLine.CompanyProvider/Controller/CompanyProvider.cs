@@ -1325,5 +1325,14 @@ namespace ProveedoresOnLine.CompanyProvider.Controller
         }
 
         #endregion
+
+        #region SurveyCharts
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId)
+        {
+            return DAL.Controller.CompanyProviderDataController.Instance.GetProvidersByState(CompanyPublicId);
+        }
+
+        #endregion
     }
 }

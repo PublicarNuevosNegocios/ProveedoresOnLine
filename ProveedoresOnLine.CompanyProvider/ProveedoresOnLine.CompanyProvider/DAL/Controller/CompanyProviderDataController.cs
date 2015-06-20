@@ -246,5 +246,13 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.Controller
         }
 
         #endregion         
+    
+        #region Charts
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProvidersByState(string CompanyPublicId)
+        {
+            return DataFactory.GetProvidersByState(CompanyPublicId);
+        }
+        #endregion
     }
 }
