@@ -70,7 +70,10 @@ namespace MarketPlace.Web.Controllers
                     oModel.SearchParam,
                     oModel.SearchFilter);
 
+                if (oFilterModel != null)
+                {
                 oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                }
                                 
                 //parse view model
                 if (oProviderResult != null && oProviderResult.Count > 0)
@@ -1426,7 +1429,7 @@ namespace MarketPlace.Web.Controllers
                         {
                             oSurveyResults = oSurveyResults.Where(sv => sv.SurveyInfo.Any(inf => inf.Value == 
                                             SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().User) == true)
-                                                            .Select(sv =>sv).ToList();                            
+                                                            .Select(sv => sv).ToList();
                         }
                     }
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
