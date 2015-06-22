@@ -79,10 +79,16 @@ namespace MarketPlace.Models.Survey
         public string SurveyConfigItemInfoRol { get; set; }
         public string SurveyConfigItemInfoRolId { get; set; }
         public string SurveyConfigItemInfoRolName { get; set; }
+        public string AreaName { get; set; }
+
+        public string AreaId { get; set; }
 
         public SurveyConfigItemViewModel(ProveedoresOnLine.Company.Models.Util.GenericItemModel oRelatedSurveyConfigItem)
         {
             RelatedSurveyConfigItem = oRelatedSurveyConfigItem;
+
+            AreaId = oRelatedSurveyConfigItem.ParentItem.ItemId.ToString();
+            AreaName = oRelatedSurveyConfigItem.ParentItem.ItemName;
 
             SurveyConfigItemInfoRol = oRelatedSurveyConfigItem.ItemInfo.
              Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolId).
@@ -112,5 +118,6 @@ namespace MarketPlace.Models.Survey
                 DefaultIfEmpty(string.Empty).
                 FirstOrDefault();
         }
+
     }
 }

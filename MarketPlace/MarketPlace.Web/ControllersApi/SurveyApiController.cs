@@ -334,6 +334,7 @@ namespace MarketPlace.Web.ControllersApi
                             ItemId = Convert.ToInt32(strSplit[1].Trim())
                         },
                         Value = System.Web.HttpContext.Current.Request[req],
+                        LargeValue = Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator ? strSplit[4].Trim() : string.Empty,
                         Enable = true,
                     });
                 }

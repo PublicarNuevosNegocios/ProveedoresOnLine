@@ -102,7 +102,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ProveedoresOnLine.Company">
+    <Reference Include="ProveedoresOnLine.Company, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>\\ProjectAssemblies\Assemblies\ProveedoresOnLine\ProveedoresOnLine.Company\developer\ProveedoresOnLine.Company.dll</HintPath>
     </Reference>
     <Reference Include="ProveedoresOnLine.CompanyCustomer">

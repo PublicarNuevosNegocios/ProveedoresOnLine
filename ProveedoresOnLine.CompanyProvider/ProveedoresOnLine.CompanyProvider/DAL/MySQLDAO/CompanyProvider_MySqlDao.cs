@@ -850,6 +850,7 @@ namespace ProveedoresOnLine.CompanyProvider.DAL.MySQLDAO
                              ItemName = sf.Field<string>("FilterValueName"),
                          },
                          Quantity = Convert.ToInt32(sf.Field<Int64>("Quantity")),
+                         CustomerPublicId = sf.Field<string>("CustomerPublicId"),
                      }).ToList();
             }
             return oReturn;

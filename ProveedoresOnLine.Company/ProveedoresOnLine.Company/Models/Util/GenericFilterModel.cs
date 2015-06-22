@@ -13,5 +13,7 @@ namespace ProveedoresOnLine.Company.Models.Util
         public GenericItemModel FilterValue { get; set; }
 
         public int Quantity { get; set; }
+
+        public string CustomerPublicId { get; set; }
     }
 }

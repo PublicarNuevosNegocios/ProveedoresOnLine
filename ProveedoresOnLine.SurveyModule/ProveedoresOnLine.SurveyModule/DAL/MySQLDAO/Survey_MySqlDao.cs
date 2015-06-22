@@ -394,6 +394,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                          SurveyConfigItemTypeId = scit.Field<int>("SurveyConfigItemTypeId"),
                          SurveyConfigItemTypeName = scit.Field<string>("SurveyConfigItemTypeName"),
                          ParentSurveyConfigItem = scit.Field<int?>("ParentSurveyConfigItem"),
+                         ParentName = scit.Field<string>("ParentName"),
                          SurveyConfigItemEnable = scit.Field<UInt64>("SurveyConfigItemEnable") == 1 ? true : false,
                          SurveyConfigItemLastModify = scit.Field<DateTime>("SurveyConfigItemLastModify"),
                          SurveyConfigItemCreateDate = scit.Field<DateTime>("SurveyConfigItemCreateDate"),
@@ -412,6 +413,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                             new GenericItemModel()
                             {
                                 ItemId = (int)scitg.Key.ParentSurveyConfigItem,
+                                ItemName = scitg.Key.ParentName,
                             },
                          Enable = scitg.Key.SurveyConfigItemEnable,
                          LastModify = scitg.Key.SurveyConfigItemLastModify,
