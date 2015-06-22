@@ -1,11 +1,11 @@
 ﻿/*Init survey program object*/
 var Survey_ProgramObject = {
-    
+
     ObjectId: '',
     DateFormat: '',
 
     Init: function (vInitObject) {
-        
+
         this.ObjectId = vInitObject.ObjectId;
         this.DateFormat = vInitObject.DateFormat;
     },
@@ -29,7 +29,7 @@ var Survey_ProgramObject = {
         debugger;
         //validate survey status
         if (vShowObject != null && vShowObject.ProviderPublicId != null && vShowObject.SurveyStatus == '1206001') {
-            
+
             //get base html
             var DialogDiv = $('<div style="display:none" title="Programar evaluación de desempeño">' + $('#' + Survey_ProgramObject.ObjectId).html() + '</div>');
 
@@ -87,7 +87,7 @@ var Survey_ProgramObject = {
 
                 //current survey config
                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val('');
-                if (vShowObject != null && vShowObject.SurveyConfigId != null) {                    
+                if (vShowObject != null && vShowObject.SurveyConfigId != null) {
                     DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(vShowObject.SurveyConfigId);
                 }
                 //set survey names autocomplete
@@ -153,7 +153,7 @@ var Survey_ProgramObject = {
                                 url: BaseUrl.ApiUrl + '/SurveyApi?SurveyConfigSearchAC=true&SearchParam=' + options.data.filter.filters[0].value,
                                 dataType: 'json',
                                 success: function (result) {
-                                    
+
                                     options.success(result);
                                 },
                                 error: function (result) {
@@ -164,13 +164,13 @@ var Survey_ProgramObject = {
                     }
                 }
             }).focusout(function () {
-                
+
                 //validate survey config selected
                 if (!$.isNumeric(DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val())) {
-                    
+
                     if (vShowObject != null && vShowObject.SurveyConfigName != null && vShowObject.SurveyConfigId != null) {
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(vShowObject.SurveyConfigId);
-                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val(vShowObject.SurveyConfigName);                                               
+                        DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigName').val(vShowObject.SurveyConfigName);
                     }
                     else {
                         DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val('');
@@ -181,20 +181,27 @@ var Survey_ProgramObject = {
                 $.ajax({
                     url: BaseUrl.ApiUrl + '/SurveyApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + vShowObject.SurveyConfigId + '&SurveyConfigItemType=' + '1202004',
                     dataType: 'json',
-                    success: function (e) {                        
-                        if (e != null && e.length > 0) {                            
+                    success: function (e) {
+                        if (e != null && e.length > 0) {
                             //Render Roles
-                            var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');                            
+                            var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
+                            var area = null;
                             $.each(e, function (item, value) {
-                                debugger;
-                                var result = ' <li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '" /></li>'
-                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+                                debugger;                                
+                                if (area == value.AreaName) {
+                                    var result = '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_'+ value.AreaId + '" /></li>'                                    
+                                }
+                                else {
+                                    var result = '<li><label>' + value.AreaName + '</label></li>' + '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
+                                    area = value.AreaName;
+                                }
                                 
+                                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+
                                 //init survey evaluator autocomplete
                                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRolId).kendoAutoComplete({
                                     minLength: 0,
                                     open: function (e) {
-                                        debugger;
                                         valid = false;
                                     },
                                     select: function (e) {
@@ -210,7 +217,7 @@ var Survey_ProgramObject = {
                                         transport: {
                                             read: function (options) {
                                                 $.ajax({
-                                                    url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchByRoleAC=true&RolId='+ value.SurveyConfigItemInfoRol +'&SearchParam=' + options.data.filter.filters[0].value,
+                                                    url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchByRoleAC=true&RolId=' + value.SurveyConfigItemInfoRol + '&SearchParam=' + options.data.filter.filters[0].value,
                                                     dataType: 'json',
                                                     success: function (result) {
                                                         options.success(result);
@@ -223,7 +230,7 @@ var Survey_ProgramObject = {
                                         }
                                     }
                                 });
-                            });                            
+                            });
                             //init tooltips
                             Tooltip_InitGeneric();
                         }
@@ -232,7 +239,7 @@ var Survey_ProgramObject = {
                         options.error(result);
                     }
                 });
-            });           
+            });
 
             //init issuedate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').kendoDatePicker({
@@ -242,12 +249,12 @@ var Survey_ProgramObject = {
 
             //init startdate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_StartDate').kendoDatePicker({
-                format: Survey_ProgramObject.DateFormat,                
+                format: Survey_ProgramObject.DateFormat,
             });
 
             //init enddate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EndDate').kendoDatePicker({
-                format: Survey_ProgramObject.DateFormat,                
+                format: Survey_ProgramObject.DateFormat,
             });
 
             //init form validator
@@ -317,11 +324,11 @@ var Survey_File = {
                 autoUpload: true
             },
             success: function (e) {
-                
+
                 if (e.response != null && e.response.length > 0) {
                     //render uploaded files
                     $.each(e.response, function (item, value) {
-                        
+
                         var oFileItem = $('#' + Survey_File.ObjectId + '_FileItemTemplate').html();
 
                         oFileItem = oFileItem.replace(/{ServerUrl}/gi, value.ServerUrl);
@@ -345,7 +352,7 @@ var Survey_File = {
             url: BaseUrl.ApiUrl + '/SurveyApi?SurveyRemoveFile=true&SurveyPublicId=' + Survey_File.SurveyPublicId + '&SurveyInfoId=' + vSurveyInfoId,
             dataType: 'json',
             success: function (result) {
-                
+
                 $('#' + Survey_File.ObjectId + '_File_' + vSurveyInfoId).remove();
             },
             error: function (result) {

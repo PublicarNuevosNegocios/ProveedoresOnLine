@@ -1416,6 +1416,17 @@ namespace MarketPlace.Web.Controllers
                             oModel.RelatedSurveySearch.RowCount,
                             out oTotalRowsAux);
 
+                    if (SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().RelatedRole.ParentItem != null)
+                    {
+                        List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oFilterObj = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
+
+                        if (oSurveyResults != null)
+                        {
+                            oSurveyResults = oSurveyResults.Where(sv => sv.SurveyInfo.Any(inf => inf.Value == 
+                                            SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().User) == true)
+                                                            .Select(sv =>sv).ToList();                            
+                        }
+                    }
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
                         && oSurveyResults != null && oSurveyResults.Count > 0)
                     {
