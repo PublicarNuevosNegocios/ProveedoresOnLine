@@ -101,9 +101,12 @@ var Survey_ChartsObject = {
 
 var Providers_ChartsObject = {
     ObjectId: '',
+    SearchUrl: '',
+
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
     },
 
     RenderAsync: function () {
@@ -123,8 +126,7 @@ var Providers_ChartsObject = {
                 $.each(result, function (item, value) {
                     data.addRows([[item, value]]);
                 });
-                var options = {
-                    //title: 'Evaluaciones de Desempeño por estado Año en curso',
+                var options = {                   
                     is3D: true,
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                   , height: "100%"
@@ -148,6 +150,8 @@ var Providers_ChartsObject = {
                         else if (topping == "Validado doc. completa") {
                             SearchFilter = 902005;
                         }
+                        debugger;
+                        window.location = Providers_ChartsObject.GetSearchUrl(SearchFilter);
                         
                     }
                 }
@@ -168,6 +172,24 @@ var Providers_ChartsObject = {
 
             }
         });
+    },
+
+    GetSearchUrl: function (SearchFilter) {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+
+            oUrl += '&SearchFilter=,112001;' + SearchFilter
+               
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
     },
 
 };

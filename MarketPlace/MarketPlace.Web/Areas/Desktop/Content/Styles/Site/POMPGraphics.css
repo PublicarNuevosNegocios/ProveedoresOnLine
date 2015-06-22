@@ -3,8 +3,10 @@
 #POMPGraphicContainerMain {
     width: 100%;
     height: auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     /*background: #f1f1f1;*/
-  
     /*float:left;*/
 
 }
@@ -16,15 +18,12 @@ h1{
 /*****************  GRÁFICOS DINÁMICOS ******************/
 
 .POMPGraphicDynamic {
-    width: 48%;
+    flex:48%;
+    margin:1%;
     height: 350px;
-    margin-left:1%;
     position: relative;
     background: #fff;
     border:1px solid #f1f1f1;
-
-
-    float:left;
 }
 
 .POMPHeaderGraphicDynamic {
@@ -68,10 +67,14 @@ h1{
     }
 
 
-    #SurveyResponsableStatusChartId{
+    .ResponsiveChartsClass{
         /*border:1px solid black !important;*/
-        max-height:270px !important;
+        max-height:100% !important;
         height:270px !important;
         position:relative;
         float:left;
+        width:95%; 
+        margin: 20px 0 0 2.2%; 
+        height:300px;  
+        max-height: 300px;
     }
