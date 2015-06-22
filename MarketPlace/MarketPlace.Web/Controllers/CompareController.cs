@@ -33,7 +33,7 @@ namespace MarketPlace.Web.Controllers
 
             oModel.CompareCurrency = !string.IsNullOrEmpty(Currency) ?
                 Convert.ToInt32(Currency.Replace(" ", "")) :
-                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value);
+                Convert.ToInt32(MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value);
             oModel.Year = string.IsNullOrEmpty(Year) ? null : (int?)Convert.ToInt32(Year);
             oModel.CompareType = string.IsNullOrEmpty(CompareType) ? enumCompareType.Commercial : (enumCompareType)Convert.ToInt32(CompareType.Replace(" ", ""));
 

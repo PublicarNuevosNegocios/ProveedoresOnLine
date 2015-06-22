@@ -150,8 +150,7 @@ var Provider_SearchObject = {
                         var oItemHtml = $('#' + Provider_SearchObject.ObjectId + '_Compare_Item_Template').html();
 
                         //replace provider info
-                        oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);
-                        
+                        oItemHtml = oItemHtml.replace(/{ProviderPublicId}/gi, value.RelatedProvider.RelatedCompany.CompanyPublicId);                           
                         oItemHtml = oItemHtml.replace(/{ProviderLogoUrl}/gi, value.ProviderLogoUrl);
                         oItemHtml = oItemHtml.replace(/{CompanyName}/gi, value.RelatedProvider.RelatedCompany.CompanyName);
                         oItemHtml = oItemHtml.replace(/{IdentificationType}/gi, value.RelatedProvider.RelatedCompany.IdentificationType.ItemName);

@@ -19,11 +19,11 @@
                         ))">
             @if(string.IsNullOrEmpty(@Model.ProviderLogoUrl))
             {
-            <img class="POMPComparisonResultProvLogo" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value" />
+                <img class="POMPComparisonResultProvLogo" src="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_Company_DefaultLogoUrl].Value" />
             }
             else
             {
-            <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
+                <img class="POMPComparisonResultProvLogo" src="@Model.ProviderLogoUrl" />
             }
 
         </a>

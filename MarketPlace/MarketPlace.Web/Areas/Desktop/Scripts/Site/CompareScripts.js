@@ -160,7 +160,6 @@ var Compare_DetailObject = {
 
     GetItemTemplate: function (vColumName) {
         var oReturn = '';
-
         if (vColumName == 'EvaluationArea') {
             oReturn = $('#' + Compare_DetailObject .ObjectId+ '_EvaluationArea_Item_Template').html();
         }

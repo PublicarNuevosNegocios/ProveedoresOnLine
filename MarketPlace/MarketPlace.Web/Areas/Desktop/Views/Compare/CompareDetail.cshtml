@@ -123,7 +123,7 @@
     <div id="CompareDetail_Company_Item_Template">
         <ul>
             @for (int i = 1; i <= Model.MaxValueCount; i++)
-            {
+            {                
                 <li>${_{ProviderPublicId}.Unit_@(i.ToString()).Before} ${_{ProviderPublicId}.Value_@(i.ToString())} ${_{ProviderPublicId}.Unit_@(i.ToString()).After}</li>
             }
         </ul>

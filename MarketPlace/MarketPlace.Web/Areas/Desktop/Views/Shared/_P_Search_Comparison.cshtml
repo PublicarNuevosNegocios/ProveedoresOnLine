@@ -3,7 +3,7 @@
 @if (!Model.RenderScripts)
 {
     <!--Comparison actions-->
-    <span class="POMPComparisonTitle">Análisis de competencias</span>
+    <span class="POMPComparisonTitle">Resumen de comparaciones</span>
     <div class="POMPComparisonActionWrapper">
         <a href="javascript:Provider_SearchObject.ShowCompareCreate('');" title="Crear selección">
             <div class="POMPComparisonActionNew"></div>
@@ -114,7 +114,7 @@
                 </ul>
                 <div style="display:none;">
                     <input type="hidden" id="Search_Compare_CreateProject_ToolTip_CompareId" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Compare).ToString())_" value="" />
-                    <input type="hidden" id="Search_Compare_CreateProject_ToolTip_CurrencyType" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_" value="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_USD].Value" />
+                    <input type="hidden" id="Search_Compare_CreateProject_ToolTip_CurrencyType" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.CurrencyType).ToString())_" value="@MarketPlace.Models.General.InternalSettings.Instance[MarketPlace.Models.General.Constants.C_Settings_CurrencyExchange_COP].Value" />
                     <input type="hidden" id="Search_Compare_CreateProject_ToolTip_Responsible" name="ProjectInfo_@(((int)MarketPlace.Models.General.enumProjectInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
                 </div>
             </form>
