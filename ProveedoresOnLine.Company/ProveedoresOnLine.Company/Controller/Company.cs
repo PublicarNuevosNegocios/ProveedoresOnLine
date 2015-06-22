@@ -383,75 +383,60 @@ namespace ProveedoresOnLine.Company.Controller
             return DAL.Controller.CompanyDataController.Instance.MPCategorySearchByActivity(TreeId, SearchParam, RowCount);
         }
 
-        public static bool MPBuildReport(List<string> oReportToBuild)
+        #region Reports
+
+        #region Survey
+        public static MemoryStream MP_SVBuildGeneralReport(List<string> oReportToBuild)
         {
+            MemoryStream workStream = new MemoryStream();
+            
             if (oReportToBuild != null)
             {
-                //Stream
-                MemoryStream workStream = new MemoryStream();
+                #region Data To Report
+                    //Current Company Data report
+                    string currentCompanyObservaciones = oReportToBuild[0].ToString();
+                    string currentCompanyPlanAccion = oReportToBuild[1].ToString();
+                    string currentCompanyFechaInicio = oReportToBuild[2].ToString();
+                    string currentCompanyFechaFin = oReportToBuild[3].ToString();
+                    string currentCompanyPromedio = oReportToBuild[4].ToString();
+                    string currentCompanyFechaCreacion = oReportToBuild[5].ToString();
+                    string currentCompanyResponsable = oReportToBuild[6].ToString();
+                    //Current Company Data Info
+                    string currentCompanyName = oReportToBuild[7].ToString();
+                    string currentCompanyIdentificationNumber = oReportToBuild[8].ToString();
+                    string currentCompanyIdentificationType = oReportToBuild[9].ToString();
+                    string currentCompanyLogo = oReportToBuild[10].ToString();
+                    //Provider Data
+                    string providerLogo = oReportToBuild[11].ToString(); ;
+                    string providerName = oReportToBuild[12].ToString(); ;
+                    string providerIdentificationNumber = oReportToBuild[13].ToString(); ;
+                #endregion
+                #region read xml
+                    string strFile = ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_SurveyGeneralReport].Value;
+                    strFile = strFile.Replace("{providerName}", providerName);
+                    strFile = strFile.Replace("{providerId}", providerIdentificationNumber);
+                    strFile = strFile.Replace("{dateStart}", currentCompanyFechaInicio);
+                    strFile = strFile.Replace("{dateEnd}", currentCompanyFechaFin);
+                    strFile = strFile.Replace("{reportDate}", currentCompanyFechaCreacion);
+                    strFile = strFile.Replace("{average}", currentCompanyPromedio);
+                    strFile = strFile.Replace("{remarks}", currentCompanyObservaciones);
+                    strFile = strFile.Replace("{actionPlan}", currentCompanyPlanAccion);
+                    strFile = strFile.Replace("{author}", currentCompanyResponsable);
+                #endregion
+                #region Create PDF, send PDF to MemoryStream.
                 Document document = new Document();
-                PdfWriter.GetInstance(document, workStream).CloseStream = false;
-
-                //Current Company Data report
-                string currentCompanyObservaciones = oReportToBuild[0].ToString();
-                string currentCompanyPlanAccion = oReportToBuild[1].ToString();
-                string currentCompanyFechaInicio = oReportToBuild[2].ToString();
-                string currentCompanyFechaFin = oReportToBuild[3].ToString();
-                string currentCompanyPromedio = oReportToBuild[4].ToString();
-                string currentCompanyFechaCreacion = oReportToBuild[5].ToString();
-                string currentCompanyResponsable = oReportToBuild[6].ToString();
-                //Current Company Data Info
-                string currentCompanyName = oReportToBuild[7].ToString();
-                string currentCompanyIdentificationNumber = oReportToBuild[8].ToString();
-                string currentCompanyIdentificationType = oReportToBuild[9].ToString();
-                string currentCompanyLogo = oReportToBuild[10].ToString();
-                //Provider Data
-                string providerLogo = oReportToBuild[11].ToString(); ;
-                string providerName = oReportToBuild[12].ToString(); ;
-                string providerIdentificationNumber = oReportToBuild[13].ToString(); ;
-
-                //Create document and array
-                document.Open();
-                document.Add(new Paragraph("Buenas Chino"));
-                document.Add(new Paragraph("Como Va todo viejo"));
-                document.Add(new Paragraph("A ver como esta la cosa del pdf"));
-                //document.Add(jpg); 
-
-
-            }
-
-
-
-
-            /*
-           
-
-            if (oReportToBuild != null)
-            {
-                //TODO: acá se realiza la´lógica para crear el reporte de filtrado por fecha de evaluación
-                               
-
-                    string imageURL = ;
-                    iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
-                    //Resize image depend upon your need
-                    jpg.ScaleToFit(50f, 50f);
-                    //Give space before image
-                    jpg.SpacingBefore = 10f;
-                    //Give some space after the image
-                    jpg.SpacingAfter = 1f;
-                    jpg.Alignment = Element.ALIGN_LEFT;
-
-
+                    PdfWriter.GetInstance(document, workStream).CloseStream = false;
+                    //Create document and array
                     document.Open();
-                    document.Add(new Paragraph("Buenas Chino"));
-                    document.Add(new Paragraph("Como Va todo viejo"));
-                    document.Add(new Paragraph("A ver como esta la cosa del pdf"));
-                    document.Add(jpg); 
-               
-            }     */      
-                        
-            return true;
+                    document.Add(new Paragraph(strFile));
+                    //document.Add(jpg); 
+                #endregion
+
+            }//if
+            return workStream;
         }
+        #endregion Survey
+        #endregion Reports
 
         #endregion
 

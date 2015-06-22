@@ -3,6 +3,10 @@
   <Company>
     <!--Default Currency-->
     <key name="CurrencyExchange_USD">108001</key>
+    <!--Reports-->
+    <key name="SurveyGeneralReport">
+      <![CDATA[Señores {providerName}.\n{providerId}.\nSe evaluó el periodo comprendido desde {dateStart} hasta {dateEnd} el dia {reportDate} donde arrojo el promedio equivalete a {average}%\n\n\nObservaciones:{remarks}\n\nPlan de acción:{actionPlan}.\n\n\n\n\nResponsablr{author}]]>
+    </key>
   </Company>
 </Settings>
 
