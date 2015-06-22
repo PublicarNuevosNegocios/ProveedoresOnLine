@@ -3,27 +3,35 @@
 #POMPGraphicContainerMain {
     width: 100%;
     height: auto;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    /*background: #f1f1f1;*/
-    /*float:left;*/
-
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
-h1{
-    padding:0;
-    margin:0;
+h1 {
+    padding: 0;
+    margin: 0;
 }
 /*****************  GRÁFICOS DINÁMICOS ******************/
 
 .POMPGraphicDynamic {
-    flex:48%;
-    margin:1%;
+    flex: 48%;
+    -ms-flex:48%;
+    margin: 1%;
     height: 350px;
     position: relative;
     background: #fff;
-    border:1px solid #f1f1f1;
+    border: 1px solid #f1f1f1;
 }
 
 .POMPHeaderGraphicDynamic {
@@ -67,14 +75,14 @@ h1{
     }
 
 
-    .ResponsiveChartsClass{
-        /*border:1px solid black !important;*/
-        max-height:100% !important;
-        height:270px !important;
-        position:relative;
-        float:left;
-        width:95%; 
-        margin: 20px 0 0 2.2%; 
-        height:300px;  
-        max-height: 300px;
-    }
+.ResponsiveChartsClass {
+    /*border:1px solid black !important;*/
+    max-height: 100% !important;
+    height: 270px !important;
+    position: relative;
+    float: left;
+    width: 95%;
+    margin: 20px 0 0 2.2%;
+    height: 300px;
+    max-height: 300px;
+}
