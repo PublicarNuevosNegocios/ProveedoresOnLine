@@ -64,12 +64,14 @@ namespace MarketPlace.Web.Controllers
                     out oTotalRowsAux);
 
                 oModel.TotalRows = oTotalRowsAux;
-                oModel.ProviderFilterResult =
-                    ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
+
+                List<GenericFilterModel> oFilterModel = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchFilter
                     (MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId,
                     oModel.SearchParam,
                     oModel.SearchFilter);
-                
+
+                oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                                
                 //parse view model
                 if (oProviderResult != null && oProviderResult.Count > 0)
                 {
