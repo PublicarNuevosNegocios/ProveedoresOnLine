@@ -235,7 +235,7 @@ namespace MarketPlace.Web.ControllersApi
                 #endregion
 
 
-               ProveedoresOnLine.Company.Controller.Company.MPBuildReport(oParams);
+                //ProveedoresOnLine.Company.Controller.Company.MPBuildReport(oParams);
 
 
                 //Generar reporte
