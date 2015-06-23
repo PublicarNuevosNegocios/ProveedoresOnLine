@@ -1473,7 +1473,6 @@ var Customer_SurveyItemObject = {
                     input.kendoAutoComplete({
                         dataTextField: 'RoleName',
                         select: function (e) {
-                            debugger;
                             var selectedItem = this.dataItem(e.item.index());
                             //set server field name
                             options.model[options.field] = selectedItem.RoleName;
