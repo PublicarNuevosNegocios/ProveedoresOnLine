@@ -334,8 +334,7 @@ namespace ProveedoresOnLine.Company.Test
         [TestMethod]
         public void MP_SVBuildGeneralReport()
         {
-
-            List<string> variables = new List<string>() { "currentCompanyObservaciones", "currentCompanyPlanAccion", "currentCompanyFechaInicio", "currentCompanyFechaFin", "currentCompanyPromedio", "currentCompanyFechaCreacion", "currentCompanyResponsable", "currentCompanyName", "currentCompanyIdentificationNumber", "currentCompanyIdentificationType", "currentCompanyLogo", "providerLogo", "providerName", "providerIdentificationNumber" };
+            List<string> variables = new List<string>() { "currentCompanyObservaciones", "currentCompanyPlanAccion", "currentCompanyFechaInicio", "currentCompanyFechaFin", "currentCompanyPromedio", "currentCompanyFechaCreacion", "currentCompanyResponsable", "currentCompanyName", "currentCompanyIdentificationNumber", "currentCompanyIdentificationType", "http://www.smartblog.es/wp-content/uploads/2011/07/NASA-logo.png", "http://www.smartblog.es/wp-content/uploads/2011/07/NASA-logo.png", "providerName", "providerIdentificationNumber" };
             MemoryStream oReturn = ProveedoresOnLine.Company.Controller.Company.MP_SVBuildGeneralReport(variables);
             Assert.AreEqual(true, oReturn != null);
         }

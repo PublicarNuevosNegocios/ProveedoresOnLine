@@ -5,7 +5,7 @@
     <key name="CurrencyExchange_USD">108001</key>
     <!--Reports-->
     <key name="SurveyGeneralReport">
-      <![CDATA[Señores {providerName}.\n{providerId}.\nSe evaluó el periodo comprendido desde {dateStart} hasta {dateEnd} el dia {reportDate} donde arrojo el promedio equivalete a {average}%\n\n\nObservaciones:{remarks}\n\nPlan de acción:{actionPlan}.\n\n\n\n\nResponsablr{author}]]>
+      <![CDATA[Señores {providerName}.*{providerTipoId}: {providerId}.*Se evaluó el periodo comprendido desde: {dateStart} hasta: {dateEnd} el día: {reportDate}. Donde arrojo el promedio equivalete a: {average}%.*Observaciones: {remarks}.*Plan de acción: {actionPlan}.*Responsable: {author}]]>
     </key>
   </Company>
 </Settings>

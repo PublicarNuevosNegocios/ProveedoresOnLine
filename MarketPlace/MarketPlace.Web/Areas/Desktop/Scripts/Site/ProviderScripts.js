@@ -733,6 +733,7 @@ var Provider_SurveyReports = {
                             url: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').attr('action'),
                             data: DialogDiv.find('#' + Provider_SurveyReports.ObjectId + '_Form').serialize(),
                             success: function (result) {
+                                debugger;
                                 DialogDiv.dialog("close");
                                 Dialog_ShowMessage('Generar Reporte de Promedio de Evaluaciones', 'Se ha generado el reporte.', window.location.toString());
                             },

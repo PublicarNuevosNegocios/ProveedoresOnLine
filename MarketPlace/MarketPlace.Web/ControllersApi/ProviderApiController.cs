@@ -4,6 +4,7 @@ using ProveedoresOnLine.Company.Models.Util;
 using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -96,6 +97,7 @@ namespace MarketPlace.Web.ControllersApi
         [HttpGet]
         public void RPSurveyFilterReport(string RPSurveyFilterReport, string ProviderPublicId)
         {
+            List<string> oParams = new List<string>();
             if (RPSurveyFilterReport == "true")
             {
                 ProviderModel oToInsert = new ProviderModel() 
@@ -108,8 +110,6 @@ namespace MarketPlace.Web.ControllersApi
                 };
 
                 oToInsert.RelatedReports.Add(this.GetSurveyReportFilterRequest());
-
-                //TODO: Llamo la funcion en CompanyProvider.Utils. que me genera el pdf a partir del request                
 
                 ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPReportUpsert(oToInsert);
 
@@ -126,10 +126,8 @@ namespace MarketPlace.Web.ControllersApi
                                 x.RelatedCustomerInfo.Any(y => y.Key == SessionModel.CurrentCompany.CompanyPublicId) :
                                 x.RelatedCompany.CompanyPublicId == ProviderPublicId)).
                     FirstOrDefault();      
-                #endregion
-
-                #region Set Params to Report
-                List<string> oParams = new List<string>();
+                #endregion                
+                #region Set Params to Report                
 
                 ProviderViewModel oModel = new ProviderViewModel();
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
@@ -223,6 +221,11 @@ namespace MarketPlace.Web.ControllersApi
                     });
                     oToInsert.RelatedReports.All(x =>
                     {
+                        oParams.Add(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyName);
+                        return true;
+                    });
+                    oToInsert.RelatedReports.All(x =>
+                    {
                         oParams.Add(oModel.RelatedLiteProvider.RelatedProvider.RelatedCompany.IdentificationType.ItemName);
                         return true;
                     });
@@ -232,14 +235,14 @@ namespace MarketPlace.Web.ControllersApi
                         return true;
                     });
                 } 
-                #endregion
-
-
-                //ProveedoresOnLine.Company.Controller.Company.MPBuildReport(oParams);
-
-
-                //Generar reporte
+                #endregion               
             }
+            //return new System.Web.Mvc.FileStreamResult(ProveedoresOnLine.Company.Controller.Company.MP_SVBuildGeneralReport(oParams), "application/pdf");
+
+            System.Web.HttpContext.Current.Session["reportStreamPdf"] = ProveedoresOnLine.Company.Controller.Company.MP_SVBuildGeneralReport(oParams);;
+
+
+            
         }
 
         #endregion
@@ -283,9 +286,6 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-        //TODO: Acá va l función que genera el pdf
-        //Recibe los parametros del reporte
-        //
 
         #endregion
     }

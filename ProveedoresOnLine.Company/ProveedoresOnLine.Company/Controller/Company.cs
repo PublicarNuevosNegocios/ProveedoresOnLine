@@ -407,13 +407,15 @@ namespace ProveedoresOnLine.Company.Controller
                     string currentCompanyIdentificationType = oReportToBuild[9].ToString();
                     string currentCompanyLogo = oReportToBuild[10].ToString();
                     //Provider Data
-                    string providerLogo = oReportToBuild[11].ToString(); ;
-                    string providerName = oReportToBuild[12].ToString(); ;
-                    string providerIdentificationNumber = oReportToBuild[13].ToString(); ;
+                    string providerLogo = oReportToBuild[11].ToString();
+                    string providerName = oReportToBuild[12].ToString();
+                    string providerIdType = oReportToBuild[13].ToString();    
+                    string providerIdentificationNumber = oReportToBuild[14].ToString();
                 #endregion
                 #region read xml
                     string strFile = ProveedoresOnLine.Company.Models.Util.InternalSettings.Instance[ProveedoresOnLine.Company.Models.Constants.C_Settings_SurveyGeneralReport].Value;
                     strFile = strFile.Replace("{providerName}", providerName);
+                    strFile = strFile.Replace("{providerTipoId}", providerIdType);
                     strFile = strFile.Replace("{providerId}", providerIdentificationNumber);
                     strFile = strFile.Replace("{dateStart}", currentCompanyFechaInicio);
                     strFile = strFile.Replace("{dateEnd}", currentCompanyFechaFin);
@@ -422,14 +424,38 @@ namespace ProveedoresOnLine.Company.Controller
                     strFile = strFile.Replace("{remarks}", currentCompanyObservaciones);
                     strFile = strFile.Replace("{actionPlan}", currentCompanyPlanAccion);
                     strFile = strFile.Replace("{author}", currentCompanyResponsable);
+
+                    string[] split = strFile.Split(new Char[] {'*'});
+
+
+
                 #endregion
                 #region Create PDF, send PDF to MemoryStream.
                 Document document = new Document();
-                    PdfWriter.GetInstance(document, workStream).CloseStream = false;
+                PdfWriter.GetInstance(document, workStream).CloseStream = false;
+                iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(currentCompanyLogo);
+                    jpg.ScaleToFit(150f, 150f);
+                    jpg.SpacingBefore = 0f;
+                    jpg.SpacingAfter = 0f;
+                    jpg.Alignment = Element.ALIGN_LEFT;
                     //Create document and array
                     document.Open();
-                    document.Add(new Paragraph(strFile));
-                    //document.Add(jpg); 
+                    document.Add(jpg);
+                    //document.Add(new Paragraph(currentCompanyIdentificationNumber));
+                    document.Add(new Paragraph("\n\n"));
+
+                    foreach (string providerInfoStr in split)
+                    {
+                        if (providerInfoStr.Trim().Length > 0) {
+                            document.Add(new Paragraph(providerInfoStr));
+                            document.Add(new Paragraph("\n"));
+                        }
+                    }
+
+                    document.Close();
+                    byte[] byteInfo = workStream.ToArray();
+                    workStream.Write(byteInfo, 0, byteInfo.Length);
+                    workStream.Position = 0;
                 #endregion
 
             }//if
