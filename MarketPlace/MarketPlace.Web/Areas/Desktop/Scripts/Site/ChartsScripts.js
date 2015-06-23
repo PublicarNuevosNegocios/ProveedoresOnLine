@@ -144,12 +144,16 @@ var Providers_ChartsObject = {
                         else if (topping == "En proceso") {
                             SearchFilter = 902002;
                         }
+                        else if (topping == "En actualización") {
+                            SearchFilter = 902003;
+                        }
                         else if (topping == "Validado doc. básica") {
                             SearchFilter = 902004;
                         }
                         else if (topping == "Validado doc. completa") {
                             SearchFilter = 902005;
                         }
+                   
                         debugger;
                         window.location = Providers_ChartsObject.GetSearchUrl(SearchFilter);
                         
