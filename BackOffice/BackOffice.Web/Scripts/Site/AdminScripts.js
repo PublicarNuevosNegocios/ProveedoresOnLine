@@ -323,7 +323,6 @@
                             serverFiltering: true,
                             transport: {                                
                                 read: function (options) {
-                                    debugger;
                                     $.ajax({
                                         url: BaseUrl.ApiUrl + '/UtilApi?GetState=true&SearchParamCountry=' + CountrySearched + '&SearchParamState=' + options.data.filter.filters[0].value + '&PageNumber=0' + '&RowCount=20',
                                         dataType: 'json',

@@ -150,7 +150,6 @@ var Providers_ChartsObject = {
                         else if (topping == "Validado doc. completa") {
                             SearchFilter = 902005;
                         }
-                        debugger;
                         window.location = Providers_ChartsObject.GetSearchUrl(SearchFilter);
                         
                     }
