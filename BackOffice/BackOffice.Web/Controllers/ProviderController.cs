@@ -523,7 +523,7 @@ namespace BackOffice.Web.Controllers
                                 {
                                     ItemId = (int)enumLegalInfoType.CP_SocialObject
                                 },
-                                Value = Request["SocialObject"],
+                                LargeValue = Request["SocialObject"],
                                 Enable = true
                             },
                         }
