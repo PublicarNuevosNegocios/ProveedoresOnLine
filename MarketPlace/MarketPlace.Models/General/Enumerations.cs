@@ -33,6 +33,7 @@
         ProviderRatingView = 802011,
         ProviderReporting = 802012,
         ProviderBasicInfo = 802013,
+        ProviderStats = 802014,
     }
 
     public enum enumMarketPlaceProviderModules
