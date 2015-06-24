@@ -1483,13 +1483,10 @@ namespace MarketPlace.Web.Controllers
             }
             if ((System.IO.MemoryStream)Session["reportStreamPdf"] != null)
             {
-                System.IO.MemoryStream var = (System.IO.MemoryStream)Session["reportStreamPdf"];
+                System.IO.MemoryStream reportStreamReader = (System.IO.MemoryStream)Session["reportStreamPdf"];
                 Session["reportStreamPdf"] = null;
-                //return new FileStreamResult(var, "application/pdf");
-                StringBuilder data = new StringBuilder();
-
-                byte[] buffer = Encoding.ASCII.GetBytes(var.ToString().ToCharArray());
-                return File(var, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
+                //return new FileStreamResult(var, "application/pdf"); //Si se neceita abrir en la misma ventana
+                return File(reportStreamReader, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
             }
             
             return View(oModel);
