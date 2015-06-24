@@ -87,8 +87,8 @@ namespace MarketPlace.Models.Survey
         {
             RelatedSurveyConfigItem = oRelatedSurveyConfigItem;
 
-            AreaId = oRelatedSurveyConfigItem.ParentItem.ItemId.ToString();
-            AreaName = oRelatedSurveyConfigItem.ParentItem.ItemName;
+            AreaId = oRelatedSurveyConfigItem.ParentItem != null ? oRelatedSurveyConfigItem.ParentItem.ItemId.ToString() : string.Empty;
+            AreaName = oRelatedSurveyConfigItem.ParentItem != null ? oRelatedSurveyConfigItem.ParentItem.ItemName : string.Empty; 
 
             SurveyConfigItemInfoRol = oRelatedSurveyConfigItem.ItemInfo.
              Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyConfigItemInfoType.RolId).

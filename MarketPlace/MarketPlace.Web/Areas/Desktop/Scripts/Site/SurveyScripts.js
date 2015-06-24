@@ -26,7 +26,6 @@ var Survey_ProgramObject = {
     SurveyIssueDateId: issue date to send info id
     */
     ShowProgram: function (vShowObject, evaluatorIds) {
-        debugger;
         //validate survey status
         if (vShowObject != null && vShowObject.ProviderPublicId != null && vShowObject.SurveyStatus == '1206001') {
 
@@ -72,7 +71,6 @@ var Survey_ProgramObject = {
             //survey public id
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyPublicId').val('');
             if (vShowObject != null && vShowObject.SurveyPublicId != null) {
-                debugger;
 
                 if (evaluatorIds != null) {
                     var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
@@ -186,8 +184,7 @@ var Survey_ProgramObject = {
                             //Render Roles
                             var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
                             var area = null;
-                            $.each(e, function (item, value) {
-                                debugger;                                
+                            $.each(e, function (item, value) {              
                                 if (area == value.AreaName) {
                                     var result = '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_'+ value.AreaId + '" /></li>'                                    
                                 }

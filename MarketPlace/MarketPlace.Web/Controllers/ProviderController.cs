@@ -73,9 +73,9 @@ namespace MarketPlace.Web.Controllers
 
                 if (oFilterModel != null)
                 {
-                oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
+                    oModel.ProviderFilterResult = oFilterModel.Where(x => x.CustomerPublicId == MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId).ToList();
                 }
-                                
+
                 //parse view model
                 if (oProviderResult != null && oProviderResult.Count > 0)
                 {
@@ -1328,7 +1328,7 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
                     }
                 }
-             
+
 
                 certARL = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPCertificationGetBasicInfo
                     (ProviderPublicId, (int)enumHSEQType.CompanyRiskPolicies);
@@ -1340,7 +1340,7 @@ namespace MarketPlace.Web.Controllers
                         oModel.RelatedLiteProvider.RelatedProvider.RelatedCertification.Add(item);
                     }
                 }
-               
+
 
                 oModel.RelatedHSEQlInfo = new List<ProviderHSEQViewModel>();
 
@@ -1428,7 +1428,7 @@ namespace MarketPlace.Web.Controllers
 
                         if (oSurveyResults != null)
                         {
-                            oSurveyResults = oSurveyResults.Where(sv => sv.SurveyInfo.Any(inf => inf.Value == 
+                            oSurveyResults = oSurveyResults.Where(sv => sv.SurveyInfo.Any(inf => inf.Value ==
                                             SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().User) == true)
                                                             .Select(sv => sv).ToList();
                         }

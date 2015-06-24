@@ -3821,7 +3821,6 @@ var Provider_CompanyFinancialObject = {
 
                         if (Provider_CompanyFinancialObject.ValueAccounts[oAccountId] != null && Provider_CompanyFinancialObject.ValueAccounts[oAccountId].length > 0) {
                             //replace input value into formula expression
-                            debugger;
                             oFormulaToEval =  oFormulaToEval.replace(new RegExp('\\[' + oAccountId + '\\]', 'gi'), Provider_CompanyFinancialObject.ValueAccounts[oAccountId].val());
                         }
                     });

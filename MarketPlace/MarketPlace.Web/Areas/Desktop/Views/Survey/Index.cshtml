@@ -8,8 +8,8 @@
     List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationArea = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null);
 
     List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationRol = null;
-    
 
+    var isAutorized = false;    
     if (Model.RelatedSurvey.SurveyConfigStepEnable)
     {
         lstEvaluationArea = new List<MarketPlace.Models.Survey.SurveyConfigItemViewModel>()
@@ -19,33 +19,33 @@
         
         //get evaluation area Rol
         lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, 
-                    lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());
+                    lstEvaluationArea.Where(x => x.SurveyConfigItemId != null).Select(x => x.SurveyConfigItemId).FirstOrDefault());       
+        
+        var CurrentRolId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
+                                                Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault();
+        var RoleAutorizedArea =
+            Model.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.Evaluator && x.Value ==
+                                            SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
+                                             Where(y => y.User != null).Select(y => y.User).FirstOrDefault()).Select(x => x.LargeValue).ToList();
+
+        RoleAutorizedArea = RoleAutorizedArea.Where(x => x == lstEvaluationArea.FirstOrDefault().SurveyConfigItemId.ToString()).Select(x => x).ToList();
+        
+        lstEvaluationRol = lstEvaluationRol.Where(x => x.SurveyConfigItemInfoRol == CurrentRolId.ToString() 
+                            && x.AreaId == lstEvaluationArea.FirstOrDefault().SurveyConfigItemId.ToString()).Select(x => x).ToList();
+
+        if (RoleAutorizedArea.FirstOrDefault() == lstEvaluationRol.FirstOrDefault().AreaId)
+        {
+            isAutorized = true;
+        }
     }
     else
     {
         //get all evaluation Rol
         lstEvaluationRol = Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.Rol, null);
-    }
-
-    var CurrentRolId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                Where(y => y.RelatedRole.ItemId != null).Select(y => y.RelatedRole.ItemId).FirstOrDefault();
+    }    
 
     string AutorizedRol = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                             Where(y => y.User != null).Select(y => y.User).FirstOrDefault();                                                
-
-    var isAutorized = false;    
-    if (lstEvaluationRol != null && lstEvaluationRol.Count > 0)
-    {
-        lstEvaluationRol.All(x =>
-        {
-            if (x.SurveyConfigItemInfoRol == CurrentRolId.ToString())
-            {
-                //AutorizedRol = x.SurveyConfigItemInfoRol;
-                isAutorized = true;
-            }
-            return true;
-        });
-    }                                                
+                                             Where(y => y.User != null).Select(y => y.User).FirstOrDefault();                              
         
     //get mandatory info
     Tuple<int, int> MandatoryInfo = Model.RelatedSurvey.GetMandatoryAnsweredQuestions();
@@ -103,8 +103,7 @@
                             <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
                         </li>
                     }
-                }
-               
+                }               
                 <li>
                     <label>Contrato o Factura</label>
                     <span>@Model.RelatedSurvey.SurveyContract</span>
@@ -163,7 +162,7 @@
                 @foreach (var EvaluationArea in lstEvaluationArea)
                 {
                     var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
-
+                    
                     var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
                         (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
 
