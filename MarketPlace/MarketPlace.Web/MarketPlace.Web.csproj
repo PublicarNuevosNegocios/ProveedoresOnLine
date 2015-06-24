@@ -209,6 +209,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Desktop\Controllers\StatsController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Desktop\Controllers\CompareController.cs" />
     <Compile Include="Areas\Desktop\Controllers\ProjectController.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="ControllersApi\CompareApiController.cs" />
     <Compile Include="ControllersApi\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\CompareController.cs" />
     <Compile Include="Controllers\Filters\LogginActionFilter.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
@@ -257,6 +259,9 @@
     <Compile Include="Desktop.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Desktop.StatsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Desktop.SurveyController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -271,6 +276,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="SurveyController.generated.cs">
@@ -1068,6 +1076,8 @@
     <Content Include="Areas\Desktop\Views\Shared\_SV_SurveyReport.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_P_SV_ReportByDate.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_StateProviders.cshtml" />
+    <Content Include="Areas\Desktop\Views\Stats\Index.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_ST_StatsMenu.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
