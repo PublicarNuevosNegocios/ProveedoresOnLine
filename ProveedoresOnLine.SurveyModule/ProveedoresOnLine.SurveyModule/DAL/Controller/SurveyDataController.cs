@@ -133,9 +133,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
 
         #region SurveyCharts
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string CustomerPublicId, string ResponsableEmail, DateTime Year)
         {
-            return DataFactory.GetSurveyByResponsable(ResponsableEmail, Year);
+            return DataFactory.GetSurveyByResponsable(CustomerPublicId, ResponsableEmail, Year);
         }
         #endregion        
     }
