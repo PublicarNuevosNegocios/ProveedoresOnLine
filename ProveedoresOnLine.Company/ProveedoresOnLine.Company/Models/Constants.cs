@@ -7,9 +7,8 @@
         #region Internal Settings
 
         public const string C_SettingsModuleName = "Company";
-
         public const string C_Settings_CurrencyExchange_USD = "CurrencyExchange_USD";
-
+        public const string C_Settings_SurveyGeneralReport = "SurveyGeneralReport";
         #endregion
     }
 }

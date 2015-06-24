@@ -1177,10 +1177,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
         #region SurveyCharts
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string ResponsableEmail, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string CustomerPublicId, string ResponsableEmail, DateTime Year)
         {
-            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();            
-            
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vResponable", ResponsableEmail));
             lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
 

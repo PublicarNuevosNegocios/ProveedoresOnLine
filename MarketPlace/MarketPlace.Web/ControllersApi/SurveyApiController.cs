@@ -277,9 +277,9 @@ namespace MarketPlace.Web.ControllersApi
             };
             //Get By Responsable
             if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(string.Empty, DateTime.Now);
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
             else
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(SessionModel.CurrentLoginUser.Email, DateTime.Now);
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
 
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 

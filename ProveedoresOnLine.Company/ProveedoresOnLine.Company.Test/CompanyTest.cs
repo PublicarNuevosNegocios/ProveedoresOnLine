@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ProveedoresOnLine.Company.Test
 {
@@ -328,6 +329,13 @@ namespace ProveedoresOnLine.Company.Test
         {   
             ProveedoresOnLine.Company.Models.Util.MinimumWageModel oReturn = ProveedoresOnLine.Company.Controller.Company.MinimumWageSearchByYear(2015,988);
 
+            Assert.AreEqual(true, oReturn != null);
+        }
+        [TestMethod]
+        public void MP_SVBuildGeneralReport()
+        {
+            List<string> variables = new List<string>() { "currentCompanyObservaciones", "currentCompanyPlanAccion", "currentCompanyFechaInicio", "currentCompanyFechaFin", "currentCompanyPromedio", "currentCompanyFechaCreacion", "currentCompanyResponsable", "currentCompanyName", "currentCompanyIdentificationNumber", "currentCompanyIdentificationType", "http://www.smartblog.es/wp-content/uploads/2011/07/NASA-logo.png", "http://www.smartblog.es/wp-content/uploads/2011/07/NASA-logo.png", "providerName", "providerIdentificationNumber" };
+            MemoryStream oReturn = ProveedoresOnLine.Company.Controller.Company.MP_SVBuildGeneralReport(variables);
             Assert.AreEqual(true, oReturn != null);
         }
 

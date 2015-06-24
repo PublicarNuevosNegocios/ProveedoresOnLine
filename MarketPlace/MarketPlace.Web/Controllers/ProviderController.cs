@@ -5,6 +5,7 @@ using ProveedoresOnLine.CompanyProvider.Models.Provider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -1480,6 +1481,14 @@ namespace MarketPlace.Web.Controllers
                     }
                 }
             }
+            if ((System.IO.MemoryStream)Session["reportStreamPdf"] != null)
+            {
+                System.IO.MemoryStream reportStreamReader = (System.IO.MemoryStream)Session["reportStreamPdf"];
+                Session["reportStreamPdf"] = null;
+                //return new FileStreamResult(var, "application/pdf"); //Si se neceita abrir en la misma ventana
+                return File(reportStreamReader, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
+            }
+            
             return View(oModel);
         }
 

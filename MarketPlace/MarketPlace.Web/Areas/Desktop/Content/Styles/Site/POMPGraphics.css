@@ -27,7 +27,7 @@ h1 {
 .POMPGraphicDynamic {
     flex: 48%;
     -ms-flex:48%;
-    margin: 1%;
+    margin: 0.5%;
     height: 350px;
     position: relative;
     background: #fff;

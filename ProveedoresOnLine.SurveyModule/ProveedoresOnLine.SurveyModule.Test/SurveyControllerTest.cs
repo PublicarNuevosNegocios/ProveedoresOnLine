@@ -19,7 +19,7 @@ namespace ProveedoresOnLine.SurveyModule.Test
         public void GetSurveyByResponsable()
         {
             List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> oreturn =
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable("johann.martinez@publicar.com", DateTime.Now);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable("1EA5A78A", "johann.martinez@publicar.com", DateTime.Now);
 
             Assert.IsTrue(oreturn.Count > 0);
         }

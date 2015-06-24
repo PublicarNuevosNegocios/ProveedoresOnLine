@@ -718,7 +718,7 @@ namespace BackOffice.Web.ControllersApi
                         {
                             ItemId = (int)BackOffice.Models.General.enumCommercialInfoType.EX_ContractSubject
                         },
-                        Value = oDataToUpsert.EX_ContractSubject,
+                        LargeValue = oDataToUpsert.EX_ContractSubject,
                         Enable = true,
                     });
 
