@@ -141,6 +141,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         {
             return DataFactory.GetSurveyByEvaluator(CustomerPublicId, ResponsableEmail, Year);
         }
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByYear(string CustomerPublicId, DateTime Year)
+        {
+            return DataFactory.GetSurveyByYear(CustomerPublicId, Year);
+        }
         #endregion        
     }
 }

@@ -1079,6 +1079,7 @@
     <Content Include="Areas\Desktop\Views\Stats\Index.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_ST_StatsMenu.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByEvaluators.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByMonth.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
