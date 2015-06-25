@@ -9,16 +9,16 @@
         google.setOnLoadCallback(Providers_ChartsObject.RenderChatrProvidersByStatus);
 
         Providers_ChartsObject.Init({
-            ObjectId: 'ProvidersStatusChartId',                        
+            ObjectId: 'ProvidersStatusChartId',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search
                             }))',
-        }),
-
-        Providers_ChartsObject.RenderAsync();
+        });
+        
+        
     })
 </script>
 
