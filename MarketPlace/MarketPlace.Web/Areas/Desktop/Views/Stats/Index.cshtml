@@ -7,16 +7,22 @@
     @Html.Partial(MVC.Desktop.Shared.Views._ST_StatsMenu, Model)
 </div>*@
 <div id="POMPGraphicContainerMain">
-    <div class="POMPGraphicDynamic">
+    @*<div class="POMPGraphicDynamic">
         <div class="POMPHeaderGraphicDynamic">
             <h1>Evaluaciones de desempeño por estado año en curso</h1>
         </div>
         @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
-    </div>
+    </div>*@
     <div class="POMPGraphicDynamic">
         <div class="POMPHeaderGraphicDynamic">
             <h1>Estado de los proveedores</h1>
         </div>
         @Html.Partial(MVC.Desktop.Shared.Views._CH_StateProviders)
+    </div>
+    <div class="POMPGraphicDynamic">
+        <div class="POMPHeaderGraphicDynamic">
+            <h1>Estado de los proveedores por año</h1>
+        </div>
+        @Html.Partial(MVC.Desktop.Shared.Views._CH_SurveyByMonth)
     </div>
 </div>

@@ -60,8 +60,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetProvidersByState
-            (string GetProvidersByState)
+        public Dictionary<string, int> GetProvidersByState(string GetProvidersByState)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
