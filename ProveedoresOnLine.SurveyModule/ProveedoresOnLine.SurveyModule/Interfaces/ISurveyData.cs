@@ -58,7 +58,6 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByResponsable(string CustomerPublicId, string ResponsableEmail, DateTime Year);
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year);
-
         List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, string ResponsableEmail, DateTime Year);
 
         #endregion

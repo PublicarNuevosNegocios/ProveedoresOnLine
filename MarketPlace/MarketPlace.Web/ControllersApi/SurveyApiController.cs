@@ -343,12 +343,9 @@ namespace MarketPlace.Web.ControllersApi
                 ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
             };
-            //Get By Responsable
-            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
-            else
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
-
+            //Get By Year
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+            
             Dictionary<string, int> oReturn = new Dictionary<string, int>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)

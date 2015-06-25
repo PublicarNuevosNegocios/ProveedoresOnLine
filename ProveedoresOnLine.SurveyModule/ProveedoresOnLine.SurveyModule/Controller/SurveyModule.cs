@@ -707,10 +707,10 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         {
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByResponsable(CustomerPublicId, ResponsableEmail, Year);
         }
-            
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByYear(string CustomerPublicId, DateTime Year)
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year)
         {
-            return DAL.Controller.SurveyDataController.Instance.GetSurveyByYear(CustomerPublicId, Year);
+            return DAL.Controller.SurveyDataController.Instance.GetSurveyByMonth(CustomerPublicId, Year);
         }
             
         public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, string ResponsableEmail, DateTime Year)
