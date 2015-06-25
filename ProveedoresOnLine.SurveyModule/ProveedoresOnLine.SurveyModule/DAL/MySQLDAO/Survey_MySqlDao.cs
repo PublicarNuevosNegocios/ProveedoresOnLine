@@ -1214,12 +1214,11 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
         }
 
 
-        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, string ResponsableEmail, DateTime Year)
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByMonth(string CustomerPublicId, DateTime Year)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
-            lstParams.Add(DataInstance.CreateTypedParameter("vResponable", ResponsableEmail));
             lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
