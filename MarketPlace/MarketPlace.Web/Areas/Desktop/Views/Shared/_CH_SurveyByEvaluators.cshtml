@@ -1,0 +1,52 @@
+﻿
+<div id="SurveyByEvaluatorsChartId" class="ResponsiveChartsClass" ></div>
+@{
+    /*Get session modules by user*/
+    bool IsProviderRatingCreate = false;
+    bool IsProviderRatingView = false;
+
+    List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+
+    Modules.All(x =>
+    {
+        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+        {
+            IsProviderRatingCreate = true;
+        }
+        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+        {
+            IsProviderRatingView = true;
+        }
+        return true;
+    });
+
+    var email = 0;
+
+    if (!IsProviderRatingCreate && IsProviderRatingView)
+    {
+        email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
+    }
+
+}
+
+
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart','bar'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(SurveyByEvaluators_ChartsObject.RenderChatrSurveyByEvaluator);
+
+        Survey_ChartsObject.Init({
+            ObjectId: 'SurveyByEvaluatorsChartId',
+            SurveyResoinsable: 'true',
+            UserEmail: '@(email)',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        }),
+        SurveyByEvaluators_ChartsObject.RenderAsync();
+    })
+</script>
