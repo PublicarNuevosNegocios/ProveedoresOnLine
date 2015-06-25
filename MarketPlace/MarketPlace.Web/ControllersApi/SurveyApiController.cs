@@ -296,6 +296,41 @@ namespace MarketPlace.Web.ControllersApi
         }
 
 
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetSurveyByEvaluators(string GetSurveyByResponsable)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+            #region Survey
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+            //Get By Responsable
+            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
+            else
+                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
+
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(x.ItemName, x.Count);
+                    return true;
+                });
+            }
+            #endregion
+            return oReturn;
+        }
+
+
         public Dictionary<string, int> GetSurveyByMonth(string GetSurveyByResponsable)
         {
             //Get Charts By Module
