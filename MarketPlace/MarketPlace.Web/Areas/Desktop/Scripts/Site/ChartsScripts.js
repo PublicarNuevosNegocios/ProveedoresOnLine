@@ -99,7 +99,6 @@ var Survey_ChartsObject = {
     },
 };
 
-/*PONGALE LO QUE KIERA*/
 var SurveyByEvaluators_ChartsObject = {
     ObjectId: '',
     SurveyResoinsable: '',
@@ -323,8 +322,7 @@ var SurveyByMonth_ChartsObject = {
                 data.addColumn({ type: 'string', role: 'tooltip' });
                 $.each(result, function (item, value) {                    
                     data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4]]);
-                });
-                debugger;
+                });                
                 var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByMonth_ChartsObject.DashboardId));
 
                 var pieChart = new google.visualization.ChartWrapper({
@@ -348,9 +346,6 @@ var SurveyByMonth_ChartsObject = {
                         'filterColumnLabel': 'Estado'
                     }
                 });
-              
-                
-
                 dashboard.bind(donutRangeSlider, pieChart);
 
                 //function selectHandler() {
@@ -375,6 +370,7 @@ var SurveyByMonth_ChartsObject = {
                 //}
                 //var chart = new google.visualization.ChartWrapper(document.getElementById(SurveyByMonth_ChartsObject.ObjectId));
                 //google.visualization.events.addListener(chart, 'select', selectHandler);
+
                 dashboard.draw(data);
                 function resize() {
                     // change dimensions if necessary
