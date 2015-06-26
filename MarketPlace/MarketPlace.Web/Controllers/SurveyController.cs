@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,36 @@ namespace MarketPlace.Web.Controllers
             //get survey info
             oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                 (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
+
+            List<GenericItemInfoModel> oEvaluators = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == 1204003 && inf.Value == "sebastian.admin@alpina.com").Select(inf => inf).ToList();
+            //Get Only Rol Area's
+            List<GenericItemModel> Areas = new List<GenericItemModel>();            
+            List<GenericItemModel> Answers = new List<GenericItemModel>();
+
+            if (oEvaluators.Count > 0)
+            {
+                oEvaluators.All(ev =>
+                {
+                    //Get Areas
+                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.LargeValue)).Select(x => x).ToList());
+                    //Get Areas Iteminfo
+                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.LargeValue)).Select(x => x).ToList());                   
+                    return true;
+                });
+                if (Areas.Count > 0)
+                {
+                    Areas.All(qs =>
+                        {
+                            Answers.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202003 && x.ParentItem.ItemId == qs.ItemId).Select(x => x).ToList());
+                            return true;
+                        });
+                    if (Answers.Count > 0)
+                    {
+                        Areas.AddRange(Answers);
+                    }
+                }
+                oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem = Areas;
+            }
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -60,9 +91,9 @@ namespace MarketPlace.Web.Controllers
             //get survey request model
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert =
                 GetSurveyUpsertRequest(SurveyPublicId);
-         
+
             //upsert survey
-            oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);            
+            oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
 
             //recalculate survey item values
@@ -159,7 +190,7 @@ namespace MarketPlace.Web.Controllers
                 if (strAux.Length >= 2)
                 {
                     int oSurveyConfigItemId = Convert.ToInt32(strAux[1].Replace(" ", ""));
-                                        
+
                     ProveedoresOnLine.SurveyModule.Models.SurveyItemModel oSurveyItem = oSurvey.RelatedSurveyItem.
                         Where(sit => sit.RelatedSurveyConfigItem.ItemId == oSurveyConfigItemId).
                         FirstOrDefault();
@@ -173,8 +204,8 @@ namespace MarketPlace.Web.Controllers
                         },
                         Enable = true,
                         EvaluatorRoleId = SessionManager.SessionController.POLMarketPlace_MarketPlaceUserLogin.RelatedCompany.FirstOrDefault().RelatedUser.
-                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.UserCompanyId).FirstOrDefault(),        
-                
+                                                               Where(y => y.RelatedRole.ItemId != 0).Select(y => y.UserCompanyId).FirstOrDefault(),
+
                         ItemInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>() 
                         {
                             new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()

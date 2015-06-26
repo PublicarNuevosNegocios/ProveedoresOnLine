@@ -14,7 +14,7 @@ var Survey_ChartsObject = {
 
     RenderAsync: function () {
         if (Survey_ChartsObject.SurveyResoinsable == 'true') {
-            //Survey_ChartsObject.RenderChatrSurveyByResponsable();
+            Survey_ChartsObject.RenderChatrSurveyByResponsable();
         }        
     },    
 
@@ -104,13 +104,11 @@ var SurveyByEvaluators_ChartsObject = {
     ObjectId: '',
     SurveyResoinsable: '',
     SearchUrl: '',
-    UserEmail: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SurveyResoinsable = vInitObject.SurveyResoinsable;
         this.SearchUrl = vInitObject.SearchUrl;
-        this.UserEmail = vInitObject.UserEmail;
     },
 
     RenderAsync: function () {
@@ -132,7 +130,6 @@ var SurveyByEvaluators_ChartsObject = {
                     data.addRows([[item, value]]);
                 });
                 var options = {
-                    //title: 'Evaluaciones de Desempeño por estado Año en curso',
                     is3D: true,
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                   , height: "100%"
@@ -203,7 +200,6 @@ var SurveyByEvaluators_ChartsObject = {
 var Providers_ChartsObject = {
     ObjectId: '',
     SearchUrl: '',
-
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
@@ -299,15 +295,11 @@ var Providers_ChartsObject = {
 
 var SurveyByMonth_ChartsObject = {
     ObjectId: '',
-    SurveyResoinsable: '',
     SearchUrl: '',
-    UserEmail: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
-        this.SurveyResoinsable = vInitObject.SurveyResoinsable;
         this.SearchUrl = vInitObject.SearchUrl;
-        this.UserEmail = vInitObject.UserEmail;
     },
 
     RenderAsync: function () {
@@ -315,11 +307,13 @@ var SurveyByMonth_ChartsObject = {
     },
 
     RenderChatrSurveyByMonth: function () {
+        debugger;
         $.ajax({
-            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByResponsable=true',
+            url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByMonth=true',
             dataType: "json",
             async: false,
             success: function (result) {
+                debugger;
                 var data = new google.visualization.DataTable();
 
                 data.addColumn('string', 'Estado');
@@ -328,7 +322,6 @@ var SurveyByMonth_ChartsObject = {
                     data.addRows([[item, value]]);
                 });
                 var options = {
-                    //title: 'Evaluaciones de Desempeño por estado Año en curso',
                     is3D: true,
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                   , height: "100%"

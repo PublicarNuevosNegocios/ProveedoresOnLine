@@ -90,8 +90,8 @@ namespace T4MVC.Desktop
             }
             public readonly string _CH_StateProviders = "~/Areas/Desktop/Views/Shared/_CH_StateProviders.cshtml";
             public readonly string _CH_Survey = "~/Areas/Desktop/Views/Shared/_CH_Survey.cshtml";
-            public readonly string _CH_SurveyByMonth = "~/Areas/Desktop/Views/Shared/_CH_SurveyByMonth.cshtml";
             public readonly string _CH_SurveyByEvaluators = "~/Areas/Desktop/Views/Shared/_CH_SurveyByEvaluators.cshtml";
+            public readonly string _CH_SurveyByMonth = "~/Areas/Desktop/Views/Shared/_CH_SurveyByMonth.cshtml";
             public readonly string _CM_CompareMenu = "~/Areas/Desktop/Views/Shared/_CM_CompareMenu.cshtml";
             public readonly string _L_Footer = "~/Areas/Desktop/Views/Shared/_L_Footer.cshtml";
             public readonly string _L_Header = "~/Areas/Desktop/Views/Shared/_L_Header.cshtml";

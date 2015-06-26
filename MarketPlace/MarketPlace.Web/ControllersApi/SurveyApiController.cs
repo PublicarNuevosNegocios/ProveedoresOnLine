@@ -298,7 +298,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetSurveyByEvaluators(string GetSurveyByResponsable)
+        public Dictionary<string, int> GetSurveyByEvaluators(string GetSurveyByEvaluators)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -330,8 +330,9 @@ namespace MarketPlace.Web.ControllersApi
             return oReturn;
         }
 
-
-        public Dictionary<string, int> GetSurveyByMonth(string GetSurveyByResponsable)
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetSurveyByMonth(string GetSurveyByMonth)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();

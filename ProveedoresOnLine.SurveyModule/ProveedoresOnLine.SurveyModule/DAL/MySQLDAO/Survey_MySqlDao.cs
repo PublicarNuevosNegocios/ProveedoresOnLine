@@ -1275,7 +1275,8 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                     where !sv.IsNull("Count")
                     select new GenericChartsModelInfo()
                     {
-                        Title = sv.Field<string>("Title"),
+                        Title = "Evaluaciones por Mes",
+                        AxisX = sv.Field<string>("CurrentMonth"),
                         ItemType = sv.Field<string>("ItemType"),
                         ItemName = sv.Field<string>("ItemName"),
                         Count = (int)sv.Field<Int64>("Count"),
