@@ -116,7 +116,7 @@ var SurveyByEvaluators_ChartsObject = {
     },
 
     RenderChatrSurveyByEvaluator: function () {
-        debugger;
+        
         $.ajax({
             url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByEvaluators=true',
             dataType: "json",
@@ -295,10 +295,12 @@ var Providers_ChartsObject = {
 
 var SurveyByMonth_ChartsObject = {
     ObjectId: '',
+    DashboardId: '',
     SearchUrl: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
+        this.DashboardId = vInitObject.DashboardId;
         this.SearchUrl = vInitObject.SearchUrl;
     },
 
@@ -307,53 +309,76 @@ var SurveyByMonth_ChartsObject = {
     },
 
     RenderChatrSurveyByMonth: function () {
-        debugger;
+        
         $.ajax({
             url: BaseUrl.ApiUrl + '/SurveyApi?GetSurveyByMonth=true',
             dataType: "json",
             async: false,
-            success: function (result) {
-                debugger;
+            success: function (result) {                
                 var data = new google.visualization.DataTable();
 
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
-                $.each(result, function (item, value) {
-                    data.addRows([[item, value]]);
+                data.addColumn('string', 'Mes');
+                data.addColumn({ type: 'string', role: 'tooltip' });
+                $.each(result, function (item, value) {                    
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4]]);
                 });
-                var options = {
-                    is3D: true,
-                    chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
-                  , height: "100%"
-                  , width: "100%"
-                };
+                debugger;
+                var dashboard = new google.visualization.Dashboard(document.getElementById(SurveyByMonth_ChartsObject.DashboardId));
 
-                function selectHandler() {
-                    var selectedItem = chart.getSelection()[0];
-                    if (selectedItem) {
-                        var topping = data.getValue(selectedItem.row, 0);
-                        var SearchFilter = 0;
-                        if (topping == "Programada") {
-                            SearchFilter = 1206001;
-                        }
-                        else if (topping == "Enviada") {
-                            SearchFilter = 1206002;
-                        }
-                        else if (topping == "En progreso") {
-                            SearchFilter = 1206003;
-                        }
-                        else if (topping == "Finalizada") {
-                            SearchFilter = 1206004;
-                        }
-                        window.location = Survey_ChartsObject.GetSearchUrl(SearchFilter, Survey_ChartsObject.UserEmail);
+                var pieChart = new google.visualization.ChartWrapper({
+                    'chartType': 'PieChart',
+                    'containerId': document.getElementById(SurveyByMonth_ChartsObject.ObjectId),
+                    'options': {
+                        legend: 'none',
+                        is3D: true
+                        ,chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
+                        , height: "100%"
+                        , width: "100%"
+                    },
+                    'view': { 'columns': [2, 1] },
+                   
+                });
+                // Create a range slider, passing some options
+                var donutRangeSlider = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_div',
+                    'options': {
+                        'filterColumnLabel': 'Estado'
                     }
-                }
-                var chart = new google.visualization.PieChart(document.getElementById(Survey_ChartsObject.ObjectId));
-                google.visualization.events.addListener(chart, 'select', selectHandler);
-                chart.draw(data, options);
+                });
+              
+                
+
+                dashboard.bind(donutRangeSlider, pieChart);
+
+                //function selectHandler() {
+                //    var selectedItem = chart.getSelection()[0];
+                //    if (selectedItem) {
+                //        var topping = data.getValue(selectedItem.row, 0);
+                //        var SearchFilter = 0;
+                //        if (topping == "Programada") {
+                //            SearchFilter = 1206001;
+                //        }
+                //        else if (topping == "Enviada") {
+                //            SearchFilter = 1206002;
+                //        }
+                //        else if (topping == "En progreso") {
+                //            SearchFilter = 1206003;
+                //        }
+                //        else if (topping == "Finalizada") {
+                //            SearchFilter = 1206004;
+                //        }
+                //        //window.location = SurveyByMonth_ChartsObject.GetSearchUrl(SearchFilter, Survey_ChartsObject.UserEmail);
+                //    }
+                //}
+                //var chart = new google.visualization.ChartWrapper(document.getElementById(SurveyByMonth_ChartsObject.ObjectId));
+                //google.visualization.events.addListener(chart, 'select', selectHandler);
+                dashboard.draw(data);
                 function resize() {
                     // change dimensions if necessary
-                    chart.draw(data, options);
+                    dashboard.draw(data);
                 }
                 if (window.addEventListener) {
                     window.addEventListener('resize', resize);

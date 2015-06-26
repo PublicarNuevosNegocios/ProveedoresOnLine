@@ -332,7 +332,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetSurveyByMonth(string GetSurveyByMonth)
+        public List<Tuple<string, int, string, string>> GetSurveyByMonth(string GetSurveyByMonth)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -347,13 +347,15 @@ namespace MarketPlace.Web.ControllersApi
             //Get By Year
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
             
-            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+            // Se repite el estado porque es necesario para el tooltip de la gráfica
+            List<Tuple<string, int, string, string>> oReturn = new List<Tuple<string, int, string, string>>();
+            
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(x.ItemName, x.Count);
+                    oReturn.Add(Tuple.Create(x.ItemName, x.Count, x.AxisX, x.ItemName));
                     return true;
                 });
             }

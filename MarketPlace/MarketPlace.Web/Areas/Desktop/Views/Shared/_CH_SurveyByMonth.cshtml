@@ -1,24 +1,25 @@
 ﻿
-<div id="SurveybyMonthChartId" class="ResponsiveChartsClass"></div>
-
-
+<div id="dashboard_div">
+    <div id="filter_div"></div>
+    <div id="SurveybyMonthChartId" class="ResponsiveChartsClass"></div>
+</div>
 
 <script type="text/javascript">
-    google.load('visualization', '1.0', { 'packages': ['corechart'] });
+    google.load('visualization', '1.0', { 'packages': ['controls'] });
     $(document).ready(function () {
-
-        google.setOnLoadCallback(SurveyByMonth_ChartsObject.RenderChatrSurveyByMonth);
 
         SurveyByMonth_ChartsObject.Init({
             ObjectId: 'SurveybyMonthChartId',
-            SurveyResoinsable: 'true',
+            DashboardId: 'dashboard_div',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
-                            new
-                            {
-                                controller = MVC.Provider.Name,
-                                action = MVC.Provider.ActionNames.Search
-                            }))',
+                           new
+        {
+                               controller = MVC.Provider.Name,
+                               action = MVC.Provider.ActionNames.Search
+        }))',
         });
-        SurveyByMonth_ChartsObject.RenderAsync();
+
+        google.setOnLoadCallback(SurveyByMonth_ChartsObject.RenderChatrSurveyByMonth);
+
     })
 </script>
