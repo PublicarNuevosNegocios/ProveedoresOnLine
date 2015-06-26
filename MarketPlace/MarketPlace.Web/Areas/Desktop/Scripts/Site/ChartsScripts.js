@@ -201,7 +201,6 @@ var Providers_ChartsObject = {
     ObjectId: '',
     SearchUrl: '',
 
-
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
@@ -256,7 +255,7 @@ var Providers_ChartsObject = {
                     }
                 }
        
-                var chart = new google.visualization.ColumnChart(document.getElementById(Providers_ChartsObject.ObjectId));
+                var chart = new google.visualization.PieChart(document.getElementById(Providers_ChartsObject.ObjectId));
                 google.visualization.events.addListener(chart, 'select', selectHandler);
                 chart.draw(data, options);
                 function resize() {

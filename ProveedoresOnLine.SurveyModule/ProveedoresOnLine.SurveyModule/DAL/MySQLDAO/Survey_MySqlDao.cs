@@ -1276,6 +1276,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                     select new GenericChartsModelInfo()
                     {
                         Title = "Evaluaciones por Mes",
+                        AxisX = sv.Field<string>("CurrentMonth"),
                         ItemType = sv.Field<string>("ItemType"),
                         ItemName = sv.Field<string>("ItemName"),
                         Count = (int)sv.Field<Int64>("Count"),
