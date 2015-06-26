@@ -1,15 +1,17 @@
 ﻿
-<div id="ProvidersStatusChartId" class="ResponsiveChartsClass" ></div>
+<div id="SurveybyMonthChartId" class="ResponsiveChartsClass"></div>
+
 
 
 <script type="text/javascript">
     google.load('visualization', '1.0', { 'packages': ['corechart'] });
     $(document).ready(function () {
 
-        google.setOnLoadCallback(Providers_ChartsObject.RenderChatrProvidersByStatus);
+        google.setOnLoadCallback(SurveyByMonth_ChartsObject.RenderChatrSurveyByMonth);
 
-        Providers_ChartsObject.Init({
-            ObjectId: 'ProvidersStatusChartId',
+        SurveyByMonth_ChartsObject.Init({
+            ObjectId: 'SurveybyMonthChartId',
+            SurveyResoinsable: 'true',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -17,12 +19,6 @@
                                 action = MVC.Provider.ActionNames.Search
                             }))',
         });
-        
-        
+        SurveyByMonth_ChartsObject.RenderAsync();
     })
 </script>
-
-
-
-
-

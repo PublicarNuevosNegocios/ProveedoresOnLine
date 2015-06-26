@@ -14,6 +14,7 @@ namespace MarketPlace.Web.Controllers
             if (MarketPlace.Models.General.SessionModel.UserIsLoggedIn)
             {
                 //get user company info
+                
                 List<ProveedoresOnLine.Company.Models.Company.CompanyModel> UserCompany =
                     ProveedoresOnLine.Company.Controller.Company.MP_RoleCompanyGetByUser(MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email);
 

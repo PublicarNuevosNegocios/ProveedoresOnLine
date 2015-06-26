@@ -130,24 +130,24 @@ namespace MarketPlace.Web.Controllers
                     oPosition++;
                 }
 
-                //if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderStats))
-                //{
-                //    //provider compare
-                //    oReturn.Add(new GenericMenu()
-                //    {
-                //        Name = "Estadisticas",
-                //        Position = oPosition,
-                //        Url = Url.RouteUrl(
-                //            MarketPlace.Models.General.Constants.C_Routes_Default,
-                //            new
-                //            {
-                //                controller = MVC.Stats.Name,
-                //                action = MVC.Stats.ActionNames.Index
-                //            }),
-                //        IsSelected = (CurrentControllerName == MVC.Stats.ActionNames.Index),
-                //    });
-                //    oPosition++;
-                //}
+                if (oCurrentUserModules.Any(x => x == (int)enumMarketPlaceCustomerModules.ProviderStats))
+                {
+                    //provider compare
+                    oReturn.Add(new GenericMenu()
+                    {
+                        Name = "Estadisticas",
+                        Position = oPosition,
+                        Url = Url.RouteUrl(
+                            MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Stats.Name,
+                                action = MVC.Stats.ActionNames.Index
+                            }),
+                        IsSelected = (CurrentControllerName == MVC.Stats.ActionNames.Index),
+                    });
+                    oPosition++;
+                }
             }
 
             #endregion

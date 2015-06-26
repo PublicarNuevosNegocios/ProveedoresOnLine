@@ -22,7 +22,11 @@ namespace ProveedoresOnLine.Company.Models.Util
 
         public string AxisX { get; set; }
 
+        public int CountX { get; set; }
+
         public string AxisY { get; set; }
+
+        public int CountY { get; set; }
     }
 }
 
