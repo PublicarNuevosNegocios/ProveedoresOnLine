@@ -24,21 +24,21 @@
 
                 SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
                 SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
-                
+
                 SurveyContract = Model.RelatedSurvey.SurveyContract,
                 SurveyContractId = Model.RelatedSurvey.SurveyContractId,
-                
+
                 SurveyStartDate = Model.RelatedSurvey.SurveyStartDate,
                 SurveyStartDateId = Model.RelatedSurvey.SurveyStartDateId,
-                
+
                 SurveyEndDate = Model.RelatedSurvey.SurveyEndDate,
                 SurveyEndDateId = Model.RelatedSurvey.SurveyEndDateId,
-                
+
                 SurveyComments = Model.RelatedSurvey.SurveyComments,
                 SurveyCommentsId = Model.RelatedSurvey.SurveyCommentsId,
 
                 SurveyRelatedProject = Model.RelatedSurvey.SurveyRelatedProject,
-                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,    
+                SurveyRelatedProjectId = Model.RelatedSurvey.SurveyRelatedProjectId,
             });
 
     }
@@ -48,7 +48,7 @@
     MarketPlace.Models.Survey.SurveyProgramModel oSurveyModel = new MarketPlace.Models.Survey.SurveyProgramModel()
     {
         RenderScripts = false,
-    };    
+    };
 }
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
 <div class="POMPProviderGreatWrapper">
@@ -101,7 +101,7 @@
                         <span>@Model.RelatedSurvey.SurveyRelatedProject</span>
                     </li>
                 </ul>
-             </div>
+            </div>
             <!--evaluation actions-->
             <div class="POMPResultsActions">
 
@@ -132,90 +132,80 @@
 
             </div>
 
+            <div style="margin-top:40px;"></div>
+
+            <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
+
+            <div style="margin-top:40px;"></div>
+
             <div class="POMPProviderQuestions">
-                    <span>Los campos con ( <span class="PMMPMandatory">*</span> ) son obligatorios</span>
-                    <!--evaluation items-->
-                    <ul>
-                        @foreach (var EvaluationArea in
+
+                @foreach (var EvaluationArea in
                         Model.RelatedSurvey.GetSurveyConfigItem(MarketPlace.Models.General.enumSurveyConfigItemType.EvaluationArea, null))
-                        {
-                            var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
+                {
+                    var EvaluationAreaInfo = Model.RelatedSurvey.GetSurveyItem(EvaluationArea.SurveyConfigItemId);
 
-                            var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
-                                (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
+                    var lstQuestion = Model.RelatedSurvey.GetSurveyConfigItem
+                        (MarketPlace.Models.General.enumSurveyConfigItemType.Question, EvaluationArea.SurveyConfigItemId);
 
-                            <li>
+                    <!-- CONTENEDOR ÁREA-->
+                    <div class="POMPAreaWrap">
 
-                                <span class="PMMPNumeric">@EvaluationArea.Order. @EvaluationArea.Name</span>
+                        <!--título aréa-->
+                        <h1>@EvaluationArea.Order. @EvaluationArea.Name  / Calificación: (@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))) - Peso: @EvaluationArea.Weight %</h1>
 
-                                <div class="PMMPRateValue">
-                                    <span>Calificación:</span>
-                                    <div class="rateit" data-rateit-value="@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                                    <span>(@(EvaluationAreaInfo == null ? "0" : EvaluationAreaInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
-                                    <span>- Peso: @EvaluationArea.Weight %</span>
+                        <!--contenedor detalle preguntas-->
+                        <div class="POMPAreaDetail">
+
+                            @foreach (var Question in lstQuestion)
+                            {
+                                var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
+
+                                var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
+                                    (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
+
+                                <div class="POMPAreaQuestion">
+                                    @if (Question.IsMandatory)
+                                    {
+                                        <p><span class="PMMPMandatory">*</span> @Question.Order. @Question.Name</p>
+                                    }
                                 </div>
 
-                                @*SEGUNDO NIVEL*@
-
-                                <ul>
-                                    @foreach (var Question in lstQuestion)
+                                <div class="POMPAreaAnswer">
+                                    @foreach (var Answer in lstAnswer)
                                     {
-                                        var QuestionInfo = Model.RelatedSurvey.GetSurveyItem(Question.SurveyConfigItemId);
-
-                                        var lstAnswer = Model.RelatedSurvey.GetSurveyConfigItem
-                                            (MarketPlace.Models.General.enumSurveyConfigItemType.Answer, Question.SurveyConfigItemId);
-
-                                        <li>
-                                            @if (Question.IsMandatory)
+                                        <p>
+                                            @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
                                             {
-                                                <span class="PMMPMandatory">*</span>
+                                                <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked"  />
                                             }
-                                            <span class="PMMPNumeric PMMPSmallText">@Question.Order. @Question.Name</span>
-                                            <div class="PMMPRateValueQuestions">
-                                                <span>Calificación:</span>
-                                                <div class="rateit" data-rateit-value="@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
-                                                <span>(@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", ".")))</span>
-                                                <span>Peso: dentro de <strong>@EvaluationArea.Name</strong>  @Question.Weight %</span>
-                                            </div>
-
-                                            @*TERCER NIVEEEEEEEL*@
-
-                                            <ul>
-                                                @foreach (var Answer in lstAnswer)
-                                                {
-                                                    <li>
-                                                        @if (QuestionInfo != null && QuestionInfo.Answer == Answer.SurveyConfigItemId)
-                                                        {
-                                                            <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" checked="checked" />
-                                                        }
-                                                        else
-                                                        {
-                                                            <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
-                                                        }
-                                                        <span>@Answer.Name</span>
-                                                    </li>
-                                                }
-                                            </ul>
-                                            @if (Question.HasDescription)
+                                            else
                                             {
-                                                <div class="POMPDescription">
-                                                    <span>
-                                                        Observaciones:
-                                                    </span>
-                                                    <span class="POMPDescriptionArea">
-                                                        @(QuestionInfo == null ? string.Empty : QuestionInfo.DescriptionText)
-                                                    </span>
-                                                </div>
+                                                <input name="@Question.SurveyConfigItemId" type="radio" disabled="disabled" />
                                             }
-                                        </li>
+                                            <span>@Answer.Name</span>                                           
+                                        </p>
                                     }
-                                </ul>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                                </div>
 
-         </div>
+                                <div class="POMPAreaObservation">
+                                    @if (Question.HasDescription)
+                                    {
+                                        <p>Observaciones:</p>
+                                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.</p>
+                                    }
+                                </div>
+
+                                <div class="POMPAreaCalification">
+                                    <p>Calificación: (@(QuestionInfo == null ? "0" : QuestionInfo.Ratting.ToString("0.##").Replace(",", "."))) /  Peso: dentro de <strong>@EvaluationArea.Name</strong>  @Question.Weight %</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
     </div>
 </div>
 
