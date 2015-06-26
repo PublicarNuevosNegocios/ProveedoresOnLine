@@ -19,7 +19,7 @@ namespace MarketPlace.Web.Controllers
             oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                 (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
 
-            List<GenericItemInfoModel> oEvaluators = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == 1204003 && inf.Value == "sebastian.admin@alpina.com").Select(inf => inf).ToList();
+            List<GenericItemInfoModel> oEvaluators = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.Evaluator && inf.Value == SessionModel.CurrentLoginUser.Email).Select(inf => inf).ToList();
             //Get Only Rol Area's
             List<GenericItemModel> Areas = new List<GenericItemModel>();            
             List<GenericItemModel> Answers = new List<GenericItemModel>();
@@ -38,7 +38,7 @@ namespace MarketPlace.Web.Controllers
                 {
                     Areas.All(qs =>
                         {
-                            Answers.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202003 && x.ParentItem.ItemId == qs.ItemId).Select(x => x).ToList());
+                            Answers.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == (int)enumSurveyConfigItemType.Answer && x.ParentItem.ItemId == qs.ItemId).Select(x => x).ToList());
                             return true;
                         });
                     if (Answers.Count > 0)

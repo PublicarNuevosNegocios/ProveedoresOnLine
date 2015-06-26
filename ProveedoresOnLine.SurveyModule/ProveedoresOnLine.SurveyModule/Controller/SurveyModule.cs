@@ -540,20 +540,22 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             //add survey item evaluation area info
             EvaluationAreaResults.All(ear =>
             {
-                oSurveyToUpsert.RelatedSurveyItem.Add(new ProveedoresOnLine.SurveyModule.Models.SurveyItemModel()
+                if (oCurrentSurvey.RelatedSurveyItem != null && oCurrentSurvey.RelatedSurveyItem.Count > 0)
                 {
-                    ItemId = oCurrentSurvey.RelatedSurveyItem.
-                        Where(svit => svit.RelatedSurveyConfigItem.ItemId == ear.EvaluationAreaId).
-                        Select(svit => svit.ItemId).
-                        DefaultIfEmpty(0).
-                        FirstOrDefault(),
-                    RelatedSurveyConfigItem = new Company.Models.Util.GenericItemModel()
+                    oSurveyToUpsert.RelatedSurveyItem.Add(new ProveedoresOnLine.SurveyModule.Models.SurveyItemModel()
                     {
-                        ItemId = ear.EvaluationAreaId,
-                    },
-                    Enable = true,
-                    EvaluatorRoleId = oCurrentSurvey.RelatedSurveyItem.FirstOrDefault().EvaluatorRoleId,
-                    ItemInfo = new List<Company.Models.Util.GenericItemInfoModel>() 
+                        ItemId = oCurrentSurvey.RelatedSurveyItem.
+                            Where(svit => svit.RelatedSurveyConfigItem.ItemId == ear.EvaluationAreaId).
+                            Select(svit => svit.ItemId).
+                            DefaultIfEmpty(0).
+                            FirstOrDefault(),
+                        RelatedSurveyConfigItem = new Company.Models.Util.GenericItemModel()
+                        {
+                            ItemId = ear.EvaluationAreaId,
+                        },
+                        Enable = true,
+                        EvaluatorRoleId = oCurrentSurvey.RelatedSurveyItem.FirstOrDefault().EvaluatorRoleId,
+                        ItemInfo = new List<Company.Models.Util.GenericItemInfoModel>() 
                     { 
                         new Company.Models.Util.GenericItemInfoModel()
                         {
@@ -574,8 +576,8 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                             Enable = true,
                         },                    
                     }
-                });
-
+                    });
+                }
                 return true;
             });
 
