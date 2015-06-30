@@ -498,6 +498,7 @@
         Send = 1206002,
         InProgress = 1206003,
         Close = 1206004,
+        Expired = 1206005,
     }
 
     public enum enumSurveyInfoType
@@ -514,6 +515,7 @@
         Comments = 1204010,
         Project = 1204011,
         File = 1204012,
+        ExpirationDate = 1204013,
 
         //SurveyRepor
 
