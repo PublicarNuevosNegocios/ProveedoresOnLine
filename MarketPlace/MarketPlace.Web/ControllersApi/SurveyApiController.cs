@@ -298,7 +298,7 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
-        public Dictionary<string, int> GetSurveyByEvaluators(string GetSurveyByEvaluators)
+        public List<Tuple<string, string, string, int>> GetSurveyByEvaluators(string GetSurveyByEvaluators)
         {
             //Get Charts By Module
             List<GenericChartsModel> oResult = new List<GenericChartsModel>();
@@ -309,20 +309,19 @@ namespace MarketPlace.Web.ControllersApi
             {
                 ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
-            };
-            //Get By Responsable
-            if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, string.Empty, DateTime.Now);
-            else
-                oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByResponsable(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, SessionModel.CurrentLoginUser.Email, DateTime.Now);
+            };            
 
-            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+   
+            
+
+            List<Tuple<string, string, string, int>> oReturn = new List<Tuple<string, string, string, int>>();
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
                 oRelatedChart.GenericChartsInfoModel.All(x =>
                 {
-                    oReturn.Add(x.ItemName, x.Count);
+                    oReturn.Add(Tuple.Create(x.AxisY, x.ItemName, x.AxisX, x.Count));
                     return true;
                 });
             }
