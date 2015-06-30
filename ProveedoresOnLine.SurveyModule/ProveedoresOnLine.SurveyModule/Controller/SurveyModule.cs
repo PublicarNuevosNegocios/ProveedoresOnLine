@@ -445,7 +445,8 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 Average();
 
             //get percent value
-            oProgress = oProgress == null ? 0 : oProgress * 100;
+            
+            oProgress = oProgress == null ? 0 : ((oProgress * 50)/100) * 100;
 
             #endregion
 
@@ -516,7 +517,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 {
                     ItemId = 1204005,
                 },
-                Value = oProgress.Value.ToString("#,0.##"),
+                Value = oProgress.Value.ToString("#.#"),
                 Enable = true,
             });
 
