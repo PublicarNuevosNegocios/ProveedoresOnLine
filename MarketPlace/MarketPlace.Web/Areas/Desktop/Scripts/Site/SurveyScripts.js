@@ -105,6 +105,13 @@ var Survey_ProgramObject = {
                     DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').attr('name', DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').attr('name') + vShowObject.SurveyIssueDateId);
                 }
 
+                //set expirationdate datepicjer
+                debugger;
+                if (vShowObject != null && vShowObject.SurveyExpirationDate != null && vShowObject.SurveyExpirationDateId) {
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ExpirationDate').val(vShowObject.SurveyExpirationDate);
+                    DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ExpirationDate').attr('name', DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ExpirationDate').attr('name') + vShowObject.SurveyExpirationDateId);
+                }
+
                 //set contract name
                 if (vShowObject != null && vShowObject.SurveyContract != null) {
                     DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_Contract').val(vShowObject.SurveyContract);
@@ -240,6 +247,12 @@ var Survey_ProgramObject = {
 
             //init issuedate datepicker 
             DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_IssueDate').kendoDatePicker({
+                format: Survey_ProgramObject.DateFormat,
+                min: new Date(),
+            });
+
+            //init expirationdate datepicker
+            DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_ExpirationDate').kendoDatePicker({
                 format: Survey_ProgramObject.DateFormat,
                 min: new Date(),
             });
