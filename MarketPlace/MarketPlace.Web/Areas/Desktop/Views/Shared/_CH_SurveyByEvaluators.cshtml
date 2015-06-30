@@ -1,33 +1,5 @@
 ﻿
 <div id="SurveyByEvaluatorsChartId" class="ResponsiveChartsClass" ></div>
-@{
-    /*Get session modules by user*/
-    bool IsProviderRatingCreate = false;
-    bool IsProviderRatingView = false;
-
-    List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
-
-    Modules.All(x =>
-    {
-        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
-        {
-            IsProviderRatingCreate = true;
-        }
-        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
-        {
-            IsProviderRatingView = true;
-        }
-        return true;
-    });
-
-    var email = 0;
-
-    if (!IsProviderRatingCreate && IsProviderRatingView)
-    {
-        email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
-    }
-
-}
 
 
 <script type="text/javascript">
@@ -38,7 +10,6 @@
 
         SurveyByEvaluators_ChartsObject.Init({
             ObjectId: 'SurveyByEvaluatorsChartId',
-            SurveyResoinsable: 'true',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
@@ -46,6 +17,5 @@
                                 action = MVC.Provider.ActionNames.Search
                             }))',
         }),
-        SurveyByEvaluators_ChartsObject.RenderAsync();
     })
 </script>
