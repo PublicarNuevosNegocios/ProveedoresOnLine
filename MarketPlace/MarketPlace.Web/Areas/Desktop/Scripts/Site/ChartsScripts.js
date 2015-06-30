@@ -215,8 +215,8 @@ var SurveyByMonth_ChartsObject = {
                     'chartType': 'PieChart',
                     'containerId': document.getElementById(SurveyByMonth_ChartsObject.ObjectId),
                     'options': {
-                        legend: 'none',
-                        is3D: true
+                        pieHole: 0.4,
+                        legend: 'none'
                         , chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                         , height: "100%"
                         , width: "100%"
