@@ -396,10 +396,10 @@ namespace ProveedoresOnLine.Company.Controller
                     //Current Company Data report
                     string currentCompanyObservaciones = oReportToBuild[0].ToString();
                     string currentCompanyPlanAccion = oReportToBuild[1].ToString();
-                    string currentCompanyFechaInicio = oReportToBuild[2].ToString();
-                    string currentCompanyFechaFin = oReportToBuild[3].ToString();
+                    string currentCompanyFechaInicio = oReportToBuild[2].ToString().Remove(10,14);
+                    string currentCompanyFechaFin = oReportToBuild[3].ToString().Remove(10, 14);
                     string currentCompanyPromedio = oReportToBuild[4].ToString();
-                    string currentCompanyFechaCreacion = oReportToBuild[5].ToString();
+                    string currentCompanyFechaCreacion = oReportToBuild[5].ToString().Remove(10, 14);
                     string currentCompanyResponsable = oReportToBuild[6].ToString();
                     //Current Company Data Info
                     string currentCompanyName = oReportToBuild[7].ToString();
