@@ -22,6 +22,7 @@
     font-weight: bold;
 }
 
+
 /**************Listado de Evaluaciones de Desempeño****************/
 .POMPResultsOrder {
     margin: 0px;
@@ -220,90 +221,122 @@
 
 /****************NUEVO DETALLE DE EVALUACIÓN******************/
 
-.POMPProviderQuestions{
-    width:100%;
-    min-width:700px;
-    height:auto;
+.POMPProviderQuestions {
+    width: 100%;
+    min-width: 700px;
+    height: auto;
     display: -webkit-flex; /* Safari */
-    display:flex;
-    flex-wrap:wrap;
+    display: flex;
+    flex-wrap: wrap;
     -webkit-justify-content: center;
-    justify-content:center;
+    justify-content: center;
 }
 
 
-.POMPAreaWrap{
-    width:100%;
-    flex:100%;
-    height:auto;
-    margin:10px 0 10px 0;
-     -webkit-justify-content: center;
-    justify-content:center;    
+.POMPAreaWrap {
+    width: 100%;
+    flex: 100%;
+    height: auto;
+    margin: 10px 0 10px 0;
+    -webkit-justify-content: center;
+    justify-content: center;
+    min-width: 700px;
 }
 
-.POMPAreaWrap > h1{
-    font-size:1.3em; 
+    .POMPAreaWrap > h1 {
+        font-size: 1.3em;
+    }
+
+    .POMPAreaWrap > form > h2 {
+        font-size: 1.3em;
+        margin-left:10px;
+    }
+
+.POMPAreaDetail {
+    width: 100%;
+    flex: 30%;
+    height: auto;
+    margin: 20px 0 20px 0;
+    border: 1px solid #808080;
 }
 
-.POMPAreaDetail{
-    width:100%;
-    flex:30%;
-    height:auto;
-    margin:20px 0 20px 0;
-    border:1px solid #808080;
+
+.POMPAreaQuestion, .POMPAreaAnswer {
+    width: 95%;
+    height: auto;
+    border-bottom: 1px solid #E0E0E0;
+    margin-left: 2.5%;
+    display: inline-block;
+}
+
+.POMPAreaQuestion2 {
+    width: 95%;
+    height: auto;
+    border-bottom: 1px solid #E0E0E0;
+    margin-left: 2.5%;
+    display: inline-block;
 }
 
 
-.POMPAreaQuestion, .POMPAreaAnswer{
-    width:95%;
-    height:auto;
-    border-bottom:1px solid #E0E0E0;
-    margin-left:2.5%;
-    display:inline-block;
+.POMPAreaObservation {
+    width: 95%;
+    height: auto;
+    margin-left: 2.5%;
+    display: inline-block;
 }
 
-.POMPAreaObservation{
-    width:95%;
-    height:auto;
-    margin-left:2.5%;
-    display:inline-block;
-
-}
-.POMPAreaQuestion{
-    padding-top:20px;
-    font-size:1.2em;
-    display:inline-block;
+.POMPAreaQuestion, .POMPAreaQuestion2 {
+    padding-top: 20px;
+    font-size: 1.2em;
+    display: inline-block;
 }
 
-.POMPAreaQuestion > p, .POMPAreaAnswer > p{
-    padding:15px 0 10px 10px;
-    font-size:1em;
 
+
+    .POMPAreaQuestion > p, .POMPAreaAnswer > p, .POMPAreaQuestion2 > p {
+        padding: 15px 0 10px 10px;
+        font-size: 1em;
+    }
+
+
+    .POMPAreaQuestion > li > p, .POMPAreaAnswer > li > p {
+        padding: 15px 0 10px 10px;
+        font-size: 1em;
+    }
+
+.POMPAreaAnswer > li {
+    list-style: none;
 }
 
-.POMPAreaObservation > p{
-    padding:10px 0 10px 10px;
-    font-size:1em;
-    text-align:justify;
-
+.POMPAreaObservation > p {
+    padding: 10px 0 10px 10px;
+    font-size: 1em;
+    text-align: justify;
 }
 
-.POMPAreaCalification{
-    width:100%;
-    height:50px;
-    background:#EEEEEE;
-    display:inline-block;
+.POMPAreaCalification {
+    width: 100%;
+    height: 50px;
+    background: #EEEEEE;
+    display: inline-block;
 }
 
-.POMPAreaCalification > p{
-    line-height:50px;
-    padding:0 0 0 2.5%;
-}
+    .POMPAreaCalification > p {
+        line-height: 50px;
+        padding: 0 0 0 2.5%;
+    }
 
 .POMPAreaAnswer > p:nth-child(even) {
-    background:#f1f1f1;
-
-
+    background: #f1f1f1;
 }
 
 
+.POMPDescriptionArea{
+    width:100%;
+    height:120px;
+    margin:0 0 20px 0;
+}
+
+#POMPTopColor{
+    border-top:1px solid #ff8300;
+}
