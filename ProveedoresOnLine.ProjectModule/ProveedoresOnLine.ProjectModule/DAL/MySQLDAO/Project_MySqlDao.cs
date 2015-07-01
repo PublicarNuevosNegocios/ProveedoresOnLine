@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using ProveedoresOnLine.Company.Models.Util;
 
 namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 {
@@ -1896,5 +1897,44 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
         }
 
         #endregion
+
+        #region ProjectCharts
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByState(string CustomerPublicId,  DateTime Year)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_ProjectCharts_GetByState",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericChartsModelInfo> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                   (from sv in response.DataTableResult.AsEnumerable()
+                    where !sv.IsNull("Count")
+                    select new GenericChartsModelInfo()
+                    {
+                        Title = "Proceso de Selección por estado",
+                        CountX = (int)sv.Field<Int32>("ProjectStatus"),
+                        AxisX = sv.Field<string>("Name"),
+                        Count = (int)sv.Field<UInt64>("Count"),
+                    }).ToList();
+            }
+
+            return oReturn;
+        }
+        
+        #endregion        
     }
 }

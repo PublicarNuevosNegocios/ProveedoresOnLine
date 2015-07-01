@@ -400,5 +400,14 @@ namespace ProveedoresOnLine.ProjectModule.Controller
 
         #endregion
 
+        #region ProjectCharts
+
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByState(string CustomerPublicId,  DateTime Year)
+        {
+            return DAL.Controller.ProjectDataController.Instance.GetProjectByState(CustomerPublicId, Year);
+        }
+
+       
+        #endregion
     }
 }

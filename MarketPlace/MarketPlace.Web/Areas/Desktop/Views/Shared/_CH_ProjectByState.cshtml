@@ -1,0 +1,20 @@
+﻿
+<div id="ProjectByStatusChartId" class="ResponsiveChartsClass"></div>
+
+<script type="text/javascript">
+    google.load('visualization', '1.0', { 'packages': ['corechart', 'bar'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(ProjectByStatus_ChartsObject.RenderChatrProjectByStatus);
+
+        ProjectByStatus_ChartsObject.Init({
+            ObjectId: 'ProjectByStatusChartId',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        })
+    })
+</script>

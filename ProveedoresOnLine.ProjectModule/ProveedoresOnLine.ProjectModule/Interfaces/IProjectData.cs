@@ -55,5 +55,12 @@ namespace ProveedoresOnLine.ProjectModule.Interfaces
         List<Company.Models.Util.CatalogModel> CatalogGetProjectConfigOptions();
 
         #endregion
+
+        #region ProjectCharts
+
+        List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByState(string CustomerPublicId, DateTime Year);
+
+
+        #endregion
     }
 }

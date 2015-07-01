@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MarketPlace.Models.General;
+using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -1142,6 +1144,41 @@ namespace MarketPlace.Web.ControllersApi
 
             return oReturn;
         }
+
+        #endregion
+
+        #region Project Charts
+
+        [HttpPost]
+        [HttpGet]
+        public Dictionary<string, int> GetProjectByState(string GetProjectByState)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+            #region Project
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_ProjectModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetProjectByState(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+
+            Dictionary<string, int> oReturn = new Dictionary<string, int>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(x.AxisX, x.Count);
+                    return true;
+                });
+            }
+            #endregion
+            return oReturn;
+        }   
 
         #endregion
     }

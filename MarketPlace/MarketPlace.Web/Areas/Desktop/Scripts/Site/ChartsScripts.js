@@ -357,3 +357,74 @@ var Providers_ChartsObject = {
     },
 
 };
+
+
+
+//**** PROJECT CHARTS ****//
+var ProjectByStatus_ChartsObject = {
+    ObjectId: '',    
+    SearchUrl: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;        
+        this.SearchUrl = vInitObject.SearchUrl;
+    },
+
+    RenderChatrProjectByStatus: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByState=true',
+            dataType: "json",
+            async: false,
+            success: function (result) {               
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Estado');
+                data.addColumn('number', 'Cantidad');
+                $.each(result, function (item, value) {
+                    data.addRows([[item, value]]);
+                });
+                var options = {
+                    legend: 'none',
+                    is3D: true,
+                    chartArea: { left: 0, top: 0, width: "80%", height: "80%" }
+                  , height: "100%"
+                  , width: "100%"
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById(ProjectByStatus_ChartsObject.ObjectId));
+                
+                chart.draw(data, options);
+                function resize() {                   
+                    chart.draw(data, options);
+                }
+                if (window.addEventListener) {
+                    window.addEventListener('resize', resize);
+                }
+                else {
+                    window.attachEvent('onresize', resize);
+                }
+
+            }
+        });
+    },
+
+    GetSearchUrl: function (SearchFilter, UserEmail) {
+
+        var oUrl = this.SearchUrl;
+
+        oUrl += '?CompareId=';
+        oUrl += '&ProjectPublicId=';
+        oUrl += '&SearchParam=';
+
+        if (UserEmail != 0) {
+            oUrl += '&SearchFilter=,111011;' + SearchFilter + ',111014;' + UserEmail;
+        }
+        else {
+            oUrl += '&SearchFilter=,111011;' + SearchFilter
+        }
+        oUrl += '&SearchOrderType=113002';
+        oUrl += '&OrderOrientation=false';
+        oUrl += '&PageNumber=0';
+
+        return oUrl;
+    },
+};
