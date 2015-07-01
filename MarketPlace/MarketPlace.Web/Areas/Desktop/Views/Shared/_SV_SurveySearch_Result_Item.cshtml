@@ -31,6 +31,9 @@
 
                 SurveyIssueDate = Model.RelatedSurvey.SurveyIssueDate,
                 SurveyIssueDateId = Model.RelatedSurvey.SurveyIssueDateId,
+                
+                SurveyExpirationDateId = Model.RelatedSurvey.SurveyExpirationDateId,
+                SurveyExpirationDate = Model.RelatedSurvey.SurveyExpirationDate,
 
                 SurveyContract = Model.RelatedSurvey.SurveyContract,
                 SurveyContractId = Model.RelatedSurvey.SurveyContractId,
@@ -76,8 +79,12 @@
                 }
             }
             <li>
-                <label>Fecha de programación:</label>
+                <label>Fecha de envío:</label>
                 <span>@Model.RelatedSurvey.SurveyIssueDate</span>
+            </li>
+            <li>
+                <label>Fecha de vencimiento</label>
+                <span>@Model.RelatedSurvey.SurveyExpirationDate</span>
             </li>
             <li>
                 <label>Responsable:</label>

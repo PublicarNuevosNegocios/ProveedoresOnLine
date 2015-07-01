@@ -81,6 +81,30 @@ namespace MarketPlace.Models.Survey
             }
         }
 
+        public int SurveyExpirationDateId
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).
+                    Select(y => y.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault();
+            }
+        }
+
+        public string SurveyExpirationDate
+        {
+            get
+            {
+                return RelatedSurvey.SurveyInfo.
+                    Where(y => y.ItemInfoType.ItemId == (int)MarketPlace.Models.General.enumSurveyInfoType.ExpirationDate).
+                    Select(y => y.Value).
+                    DefaultIfEmpty(string.Empty).
+                    FirstOrDefault();
+            }
+        }
+
         public string SurveyResponsible
         {
             get

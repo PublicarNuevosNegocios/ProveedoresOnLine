@@ -716,9 +716,9 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByMonth(CustomerPublicId, Year);
         }
             
-        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, string ResponsableEmail, DateTime Year)
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
         {
-            return DAL.Controller.SurveyDataController.Instance.GetSurveyByEvaluator(CustomerPublicId, ResponsableEmail, Year);
+            return DAL.Controller.SurveyDataController.Instance.GetSurveyByEvaluator(CustomerPublicId, Year);
         }        
         #endregion
     }
