@@ -421,7 +421,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         /// </summary>
         /// <param name="SurveyPublicId">Survey to recalculate</param>
         /// <returns></returns>
-        public static void SurveyRecalculate(string SurveyPublicId)
+        public static void SurveyRecalculate(string SurveyPublicId, int EvaluatorRolId)
         {
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oCurrentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
 
@@ -431,23 +431,23 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>(),
                 RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
             };
+            decimal? currentProgress = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204005).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
+            decimal? currentCalification = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();        
 
             #region Survey progress
-
             //get mandatory survey answers
             decimal? oProgress = oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.
                 Where(scit => scit.ItemType.ItemId == 1202002 && //filter only question configuration values
                             scit.ItemInfo.Any(scitinf => scitinf.ItemInfoType.ItemId == 1203004 && //get only mandatory item info
-                                            scitinf.Value == "true" //get only mandatory fields to progress
+                                            scitinf.Value == "true" //get only mandatory fields to progress                                            
                     )).
                 //validate if has answer (1) or not (0)
-                Select(scit => Convert.ToDecimal(oCurrentSurvey.RelatedSurveyItem.Any(svit => svit.RelatedSurveyConfigItem.ItemId == scit.ItemId))).
-                Average();
+                Select(scit => Convert.ToDecimal(oCurrentSurvey.RelatedSurveyItem.Any(svit => svit.RelatedSurveyConfigItem.ItemId == scit.ItemId
+                                                && svit.EvaluatorRoleId == EvaluatorRolId))).Average();
+            //get percent value            
+            oProgress = oProgress == null ? 0 : oProgress * 100;
 
-            //get percent value
-            
-            oProgress = oProgress == null ? 0 : ((oProgress * 50)/100) * 100;
-
+            oProgress = oProgress + currentProgress;
             #endregion
 
             #region Survey Ratting
@@ -517,7 +517,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 {
                     ItemId = 1204005,
                 },
-                Value = oProgress.Value.ToString("#.#"),
+                Value = oProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                 Enable = true,
             });
 
