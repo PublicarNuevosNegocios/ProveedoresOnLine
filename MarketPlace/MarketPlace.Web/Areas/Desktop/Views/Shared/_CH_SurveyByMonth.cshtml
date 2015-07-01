@@ -8,18 +8,18 @@
     google.load('visualization', '1.0', { 'packages': ['controls'] });
     $(document).ready(function () {
 
+        google.setOnLoadCallback(SurveyByMonth_ChartsObject.RenderChatrSurveyByMonth);
+
         SurveyByMonth_ChartsObject.Init({
             ObjectId: 'SurveybyMonthChartId',
             DashboardId: 'dashboard_div',
+            SurveyMonth: 'true',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                            new
-        {
+                            {
                                controller = MVC.Provider.Name,
                                action = MVC.Provider.ActionNames.Search
-        }))',
-        });
-
-        google.setOnLoadCallback(SurveyByMonth_ChartsObject.RenderChatrSurveyByMonth);
-
+                            }))',
+        })
     })
 </script>

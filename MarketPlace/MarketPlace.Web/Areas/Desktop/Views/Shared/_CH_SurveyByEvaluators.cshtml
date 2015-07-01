@@ -1,34 +1,8 @@
-﻿
-<div id="SurveyByEvaluatorsChartId" class="ResponsiveChartsClass" ></div>
-@{
-    /*Get session modules by user*/
-    bool IsProviderRatingCreate = false;
-    bool IsProviderRatingView = false;
-
-    List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
-
-    Modules.All(x =>
-    {
-        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
-        {
-            IsProviderRatingCreate = true;
-        }
-        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
-        {
-            IsProviderRatingView = true;
-        }
-        return true;
-    });
-
-    var email = 0;
-
-    if (!IsProviderRatingCreate && IsProviderRatingView)
-    {
-        email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
-    }
-
-}
-
+﻿<div id="dashboard_evaluators">
+    <div id="filter_month"></div>
+    <div id="filter_state"></div>
+    <div id="SurveyByEvaluatorsChartId" class="ResponsiveChartsClass"></div>
+</div>
 
 <script type="text/javascript">
     google.load('visualization', '1.0', { 'packages': ['corechart','bar'] });
@@ -38,14 +12,13 @@
 
         SurveyByEvaluators_ChartsObject.Init({
             ObjectId: 'SurveyByEvaluatorsChartId',
-            SurveyResoinsable: 'true',
+            DashboardId: 'dashboard_evaluators',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
                             {
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search
                             }))',
-        }),
-        SurveyByEvaluators_ChartsObject.RenderAsync();
+        })
     })
 </script>

@@ -1,5 +1,5 @@
 ﻿
-<div id="SurveyResponsableStatusChartId" class="ResponsiveChartsClass" ></div>
+<div id="SurveyResponsableStatusChartId" class="ResponsiveChartsClass"></div>
 @{
     /*Get session modules by user*/
     bool IsProviderRatingCreate = false;
@@ -26,7 +26,6 @@
     {
         email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
     }
-
 }
 
 
@@ -38,7 +37,7 @@
 
         Survey_ChartsObject.Init({
             ObjectId: 'SurveyResponsableStatusChartId',
-            SurveyResoinsable: 'true',
+            SurveyResponsible: 'true',
             UserEmail: '@(email)',
             SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
                             new
@@ -46,7 +45,6 @@
                                 controller = MVC.Provider.Name,
                                 action = MVC.Provider.ActionNames.Search
                             }))',
-        }),
-        Survey_ChartsObject.RenderAsync();
+        })
     })
 </script>

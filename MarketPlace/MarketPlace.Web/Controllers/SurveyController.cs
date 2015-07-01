@@ -1,5 +1,6 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
+using MarketPlace.Models.Survey;
 using ProveedoresOnLine.Company.Models.Util;
 using System;
 using System.Collections.Generic;
@@ -91,13 +92,13 @@ namespace MarketPlace.Web.Controllers
             //get survey request model
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert =
                 GetSurveyUpsertRequest(SurveyPublicId);
-
+         
             //upsert survey
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
-
+            
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().UserCompanyId);
 
             //redirect
             return RedirectToRoute
@@ -125,7 +126,7 @@ namespace MarketPlace.Web.Controllers
             }
 
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().UserCompanyId);
 
             //redirect
             return RedirectToRoute
