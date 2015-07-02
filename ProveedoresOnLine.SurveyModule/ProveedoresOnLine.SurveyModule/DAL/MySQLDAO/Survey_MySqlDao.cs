@@ -849,8 +849,8 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
         {
             List<System.Data.IDbDataParameter> lstParams = new List<IDbDataParameter>();
 
-            lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyPublicId", ParentSurveyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
+            lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyPublicId", ParentSurveyPublicId));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
             {
