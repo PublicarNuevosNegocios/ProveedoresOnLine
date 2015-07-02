@@ -437,6 +437,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             return DAL.Controller.SurveyDataController.Instance.SurveyGetById(SurveyPublicId);
         }
 
+        public static ProveedoresOnLine.SurveyModule.Models.SurveyModel SurveyGetByUser(string ParentSurveyPublicId, string User)
+        {
+            return DAL.Controller.SurveyDataController.Instance.SurveyGetByUser(ParentSurveyPublicId, User);
+        }
+
         public static List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId)
         {
             return DAL.Controller.SurveyDataController.Instance.SurveyGetByCustomerProvider(CustomerPublicId, ProviderPublicId);

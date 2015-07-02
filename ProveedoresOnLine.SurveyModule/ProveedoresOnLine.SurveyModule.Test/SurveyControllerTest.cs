@@ -23,5 +23,14 @@ namespace ProveedoresOnLine.SurveyModule.Test
 
             Assert.IsTrue(oreturn.Count > 0);
         }
+
+        [TestMethod]
+        public void GetSurveyByUser()
+        {
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oReturn =
+                ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(null, "sebastian.admin@alpina.com");
+
+            Assert.IsTrue(oReturn != null);
+        }
     }
 }
