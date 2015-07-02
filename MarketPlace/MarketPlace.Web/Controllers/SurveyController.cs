@@ -19,37 +19,7 @@ namespace MarketPlace.Web.Controllers
             //get survey info
             oModel.RelatedSurvey = new Models.Survey.SurveyViewModel
                 (ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetById(SurveyPublicId));
-
-            List<GenericItemInfoModel> oEvaluators = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.Evaluator && inf.Value == SessionModel.CurrentLoginUser.Email).Select(inf => inf).ToList();
-            //Get Only Rol Area's
-            List<GenericItemModel> Areas = new List<GenericItemModel>();            
-            List<GenericItemModel> Answers = new List<GenericItemModel>();
-
-            if (oEvaluators.Count > 0)
-            {
-                oEvaluators.All(ev =>
-                {
-                    //Get Areas
-                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.LargeValue)).Select(x => x).ToList());
-                    //Get Areas Iteminfo
-                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.LargeValue)).Select(x => x).ToList());                   
-                    return true;
-                });
-                if (Areas.Count > 0)
-                {
-                    Areas.All(qs =>
-                        {
-                            Answers.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == (int)enumSurveyConfigItemType.Answer && x.ParentItem.ItemId == qs.ItemId).Select(x => x).ToList());
-                            return true;
-                        });
-                    if (Answers.Count > 0)
-                    {
-                        Areas.AddRange(Answers);
-                    }
-                }
-                oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem = Areas;
-            }
-
+                        
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
                 (SessionModel.CurrentCompany.CompanyPublicId, oModel.RelatedSurvey.RelatedSurvey.RelatedProvider.RelatedCompany.CompanyPublicId);

@@ -1,6 +1,7 @@
 ﻿using MarketPlace.Models.General;
 using MarketPlace.Models.Provider;
 using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.SurveyModule.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -309,11 +310,11 @@ namespace MarketPlace.Web.ControllersApi
             {
                 ChartModuleType = ((int)enumCategoryInfoType.CH_SurveyModule).ToString(),
                 GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
-            };            
+            };
 
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByEvaluator(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
-   
-            
+
+
 
             List<Tuple<string, string, string, int>> oReturn = new List<Tuple<string, string, string, int>>();
 
@@ -345,10 +346,10 @@ namespace MarketPlace.Web.ControllersApi
             };
             //Get By Year
             oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.GetSurveyByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
-            
+
             // Se repite el estado porque es necesario para el tooltip de la gráfica
             List<Tuple<string, int, string, string>> oReturn = new List<Tuple<string, int, string, string>>();
-            
+
 
             if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
             {
@@ -361,16 +362,25 @@ namespace MarketPlace.Web.ControllersApi
             #endregion
             return oReturn;
         }
-        
-        
+
+
         #endregion
 
         #region Private Methods
 
         private ProveedoresOnLine.SurveyModule.Models.SurveyModel GetSurveyUpsertRequest()
         {
+            //Obtener El reponsable
+            //Obetener todos los evaluadores
+
+            List<Tuple<string, int, int>> EvaluatorsRoleObj = new List<Tuple<string, int, int>>();
+            List<string> EvaluatorsEmail = new List<string>();
+
+            #region Parent Survey
             ProveedoresOnLine.SurveyModule.Models.SurveyModel oReturn = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
             {
+                ChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>(),
+
                 SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
                 RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
                 {
@@ -384,15 +394,15 @@ namespace MarketPlace.Web.ControllersApi
                     ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
                 },
                 Enable = true,
-
+                User = SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User, //Responsable               
                 SurveyInfo = new List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel>()
             };
 
-            //get company info
             System.Web.HttpContext.Current.Request.Form.AllKeys.Where(x => x.Contains("SurveyInfo_")).All(req =>
             {
                 string[] strSplit = req.Split('_');
 
+                //Set Parent Survey Info
                 if (strSplit.Length >= 3)
                 {
                     oReturn.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -403,12 +413,75 @@ namespace MarketPlace.Web.ControllersApi
                             ItemId = Convert.ToInt32(strSplit[1].Trim())
                         },
                         Value = System.Web.HttpContext.Current.Request[req],
-                        LargeValue = Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator ? strSplit[4].Trim() : string.Empty,
+                        //LargeValue = Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator ? strSplit[4].Trim() : string.Empty,
                         Enable = true,
                     });
+
+                    if (Convert.ToInt32(strSplit[1].Trim()) == (int)enumSurveyInfoType.Evaluator)
+                        EvaluatorsRoleObj.Add(new Tuple<string, int, int>(System.Web.HttpContext.Current.Request[req], Convert.ToInt32(strSplit[4].Trim()), Convert.ToInt32(strSplit[2].Trim())));
                 }
                 return true;
             });
+            #endregion
+
+            if (EvaluatorsRoleObj != null && EvaluatorsRoleObj.Count > 0)
+            {
+                EvaluatorsEmail = new List<string>();
+                EvaluatorsEmail = EvaluatorsRoleObj.GroupBy(x => x.Item1).Select(grp => grp.First().Item1).ToList();
+
+                #region Child Survey
+                //Set survey by evaluators
+                EvaluatorsEmail.All(x =>
+                {
+                    oReturn.ChildSurvey.Add(new SurveyModel()
+                    {
+                        SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
+                        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = System.Web.HttpContext.Current.Request["ProviderPublicId"],
+                            }
+                        },
+                        RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
+                        {
+                            ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
+                        },
+                        Enable = true,
+                        User = x,//Evaluator,                     
+                        SurveyInfo = new List<GenericItemInfoModel>()
+                    });
+                    return true;
+                });
+
+                //Set SurveyChild Info
+                oReturn.ChildSurvey.All(inf =>
+                {
+                    List<Tuple<int, int>> AreaIdList = new List<Tuple<int, int>>();
+                    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == inf.User).Select(y => new Tuple<int, int>(y.Item2, y.Item3)).ToList());
+                    inf.SurveyInfo = oReturn.SurveyInfo;
+                    if (AreaIdList != null)
+                    {
+                        AreaIdList.All(a =>
+                        {
+                            inf.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = a.Item2 != null ? a.Item2 : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.CurrentArea
+                                },
+                                Value = a.Item1.ToString(),
+                                Enable = true,
+                            });
+                            return true;
+                        });
+                    }
+
+                    return true;
+                });
+                #endregion
+            }
 
             return oReturn;
         }

@@ -85,9 +85,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
 
         #region Survey
 
-        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, bool Enable)
+        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, string ParentSurveyPublicId, string User, bool Enable)
         {
-            return DataFactory.SurveyUpsert(SurveyPublicId, ProviderPublicId, SurveyConfigId, Enable);
+            return DataFactory.SurveyUpsert(SurveyPublicId, ProviderPublicId, SurveyConfigId, ParentSurveyPublicId, User, Enable);
         }
 
         public int SurveyInfoUpsert(int? SurveyInfoId, string SurveyPublicId, int SurveyInfoType, string Value, string LargeValue, bool Enable)

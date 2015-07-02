@@ -445,13 +445,15 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
 
         #region Survey
 
-        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, bool Enable)
+        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, string ParentSurveyPublicId, string User, bool Enable)
         {
             List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
 
             lstParams.Add(DataInstance.CreateTypedParameter("vSurveyPublicId", SurveyPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vCompanyPublicId", ProviderPublicId));
             lstParams.Add(DataInstance.CreateTypedParameter("vSurveyConfigId", SurveyConfigId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vParentSurveyPublicId", ParentSurveyPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vUser", User));
             lstParams.Add(DataInstance.CreateTypedParameter("vEnable", Enable));
 
             ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
@@ -568,18 +570,21 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                          CreateDate = sv.Field<DateTime>("CreateDate"),
                          SurveyConfigId = sv.Field<int>("SurveyConfigId"),
                          SurveyName = sv.Field<string>("SurveyName"),
+                         User = sv.Field<string>("User"),
+                         ParentSurveyPublicId = sv.Field<string>("ParentSurveyPublicId"), 
                      } into svg
                      select new SurveyModel()
                      {
                          SurveyPublicId = svg.Key.SurveyPublicId,
                          LastModify = svg.Key.LastModify,
                          CreateDate = svg.Key.CreateDate,
-
+                         ParentSurveyPublicId = svg.Key.ParentSurveyPublicId,
+                         User = svg.Key.User,
                          RelatedSurveyConfig = new SurveyConfigModel()
                          {
                              ItemId = svg.Key.SurveyConfigId,
                              ItemName = svg.Key.SurveyName,
-
+                             
                              ItemInfo =
                                 (from scinf in response.DataTableResult.AsEnumerable()
                                  where !scinf.IsNull("SurveyConfigInfoId") &&
@@ -665,7 +670,8 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                 {
                     SurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("SurveyPublicId"),
                     LastModify = response.DataSetResult.Tables[1].Rows[0].Field<DateTime>("SurveyLastModify"),
-
+                    ParentSurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("ParentSurveyPublicId"),
+                    User = response.DataSetResult.Tables[1].Rows[0].Field<string>("User"),
                     RelatedProvider = new CompanyProvider.Models.Provider.ProviderModel()
                     {
                         RelatedCompany = new Company.Models.Company.CompanyModel()

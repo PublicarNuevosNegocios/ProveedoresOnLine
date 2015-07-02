@@ -191,12 +191,21 @@ var Survey_ProgramObject = {
                             //Render Roles
                             var divEvaluator = DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
                             var area = null;
-                            $.each(e, function (item, value) {              
+                            $.each(e, function (item, value) {
+                                debugger;
                                 if (area == value.AreaName) {
-                                    var result = '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_'+ value.AreaId + '" /></li>'                                    
+                                    var result = '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' +
+                                        "_" + value.SurveyConfigItemInfoRolId +
+                                        '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' +
+                                        value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
                                 }
                                 else {
-                                    var result = '<li><label>' + value.AreaName + '</label></li>' + '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' + "_" + value.SurveyConfigItemInfoRolId + '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' + value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
+                                    var result = '<li><label>' + value.AreaName + '</label></li>' +
+                                                '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' +
+                                                 "_" + value.SurveyConfigItemInfoRolId +
+                                                 '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' +
+                                                 value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
+
                                     area = value.AreaName;
                                 }
                                 
@@ -209,6 +218,7 @@ var Survey_ProgramObject = {
                                         valid = false;
                                     },
                                     select: function (e) {
+                                        debugger;
                                         valid = true;
                                     },
                                     close: function (e) {

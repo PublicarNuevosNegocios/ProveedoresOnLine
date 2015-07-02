@@ -1421,6 +1421,26 @@ namespace MarketPlace.Web.Controllers
                             oModel.RelatedSurveySearch.PageNumber,
                             oModel.RelatedSurveySearch.RowCount,
                             out oTotalRowsAux);
+                    if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
+                    {
+                        if (oSurveyResults != null)
+                        {
+                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();
+                        }
+                    }
+                    else
+                    {
+                        if (oSurveyResults != null)
+                        {
+                            List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
+                            oSurveyResults.All(x =>
+                                {
+                                   //oChildSurvey.Add(funcionDavid.(x.SurveyPublicId, CurrenUser))
+                                    return true;
+                                });
+                            //oSurveyResults = 
+                        }                        
+                    }
 
                     if (SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().RelatedRole.ParentItem != null)
                     {
@@ -1485,7 +1505,6 @@ namespace MarketPlace.Web.Controllers
             {
                 System.IO.MemoryStream reportStreamReader = (System.IO.MemoryStream)Session["reportStreamPdf"];
                 Session["reportStreamPdf"] = null;
-                //return new FileStreamResult(var, "application/pdf"); //Si se neceita abrir en la misma ventana
                 return File(reportStreamReader, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
             }
             
