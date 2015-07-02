@@ -1435,23 +1435,12 @@ namespace MarketPlace.Web.Controllers
                             List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
                             oSurveyResults.All(x =>
                                 {
-                                   //oChildSurvey.Add(funcionDavid.(x.SurveyPublicId, CurrenUser))
+                                    oChildSurvey.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));
                                     return true;
                                 });
-                            //oSurveyResults = 
+                            oSurveyResults = oChildSurvey.Where(x => x != null).ToList();                           
+
                         }                        
-                    }
-
-                    if (SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().RelatedRole.ParentItem != null)
-                    {
-                        List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oFilterObj = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
-
-                        if (oSurveyResults != null)
-                        {
-                            oSurveyResults = oSurveyResults.Where(sv => sv.SurveyInfo.Any(inf => inf.Value ==
-                                            SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().User) == true)
-                                                            .Select(sv => sv).ToList();
-                        }
                     }
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
                         && oSurveyResults != null && oSurveyResults.Count > 0)
@@ -1507,7 +1496,7 @@ namespace MarketPlace.Web.Controllers
                 Session["reportStreamPdf"] = null;
                 return File(reportStreamReader, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
             }
-            
+
             return View(oModel);
         }
 
