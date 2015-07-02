@@ -232,11 +232,14 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             try
             {
                 //upsert survey
+                //Upsert Parent Survey
                 SurveyToUpsert.SurveyPublicId =
                     DAL.Controller.SurveyDataController.Instance.SurveyUpsert
                     (SurveyToUpsert.SurveyPublicId,
                     SurveyToUpsert.RelatedProvider.RelatedCompany.CompanyPublicId,
                     SurveyToUpsert.RelatedSurveyConfig.ItemId,
+                    null,
+                    SurveyToUpsert.User,
                     SurveyToUpsert.Enable);
 
                 //upsert survey info
@@ -244,6 +247,29 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
                 //upsert survey item 
                 SurveyToUpsert = SurveyItemUpsert(SurveyToUpsert);
+
+                //Upsert Child
+                if (SurveyToUpsert.ChildSurvey != null && SurveyToUpsert.ChildSurvey.Count > 0)
+                {
+                    SurveyToUpsert.ChildSurvey.All(x =>
+                    {
+                        //Upsert Parent Survey                    
+                        DAL.Controller.SurveyDataController.Instance.SurveyUpsert
+                        (x.SurveyPublicId,
+                        SurveyToUpsert.RelatedProvider.RelatedCompany.CompanyPublicId,
+                        SurveyToUpsert.RelatedSurveyConfig.ItemId,
+                        SurveyToUpsert.SurveyPublicId,
+                        x.User,
+                        SurveyToUpsert.Enable);                        
+
+                        //upsert ChildSurvey info
+                        SurveyInfoUpsert(x);
+
+                        //upsert ChildSurvey item 
+                        SurveyItemUpsert(x);
+                        return true;
+                    });
+                }
 
                 oLog.IsSuccess = true;
             }
@@ -437,7 +463,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
             };
             decimal? currentProgress = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204005).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
-            decimal? currentCalification = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();        
+            decimal? currentCalification = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
 
             #region Survey progress
             //get mandatory survey answers
@@ -452,7 +478,6 @@ namespace ProveedoresOnLine.SurveyModule.Controller
             //get percent value            
             oProgress = oProgress == null ? 0 : oProgress * 100;
 
-            oProgress = oProgress + currentProgress;
             #endregion
 
             #region Survey Ratting
@@ -720,11 +745,11 @@ namespace ProveedoresOnLine.SurveyModule.Controller
         {
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByMonth(CustomerPublicId, Year);
         }
-            
+
         public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetSurveyByEvaluator(string CustomerPublicId, DateTime Year)
         {
             return DAL.Controller.SurveyDataController.Instance.GetSurveyByEvaluator(CustomerPublicId, Year);
-        }        
+        }
         #endregion
     }
 }
