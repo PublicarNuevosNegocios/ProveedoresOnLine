@@ -32,7 +32,7 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
 
         #region Survey
 
-        string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, bool Enable);
+        string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, string ParentSurveyPublicId, string User, bool Enable);
 
         int SurveyInfoUpsert(int? SurveyInfoId, string SurveyPublicId, int SurveyInfoType, string Value, string LargeValue, bool Enable);
 
@@ -43,6 +43,8 @@ namespace ProveedoresOnLine.SurveyModule.Interfaces
         List<SurveyModule.Models.SurveyModel> SurveySearch(string CustomerPublicId, string ProviderPublicId, int SearchOrderType, bool OrderOrientation, int PageNumber, int RowCount, out int TotalRows);
                 
         SurveyModule.Models.SurveyModel SurveyGetById(string SurveyPublicId);
+
+        SurveyModule.Models.SurveyModel SurveyGetByUser(string ParentSurveyPublicId, string User);
 
         List<SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId);
 

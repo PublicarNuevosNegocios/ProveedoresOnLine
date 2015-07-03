@@ -85,9 +85,9 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
 
         #region Survey
 
-        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, bool Enable)
+        public string SurveyUpsert(string SurveyPublicId, string ProviderPublicId, int SurveyConfigId, string ParentSurveyPublicId, string User, bool Enable)
         {
-            return DataFactory.SurveyUpsert(SurveyPublicId, ProviderPublicId, SurveyConfigId, Enable);
+            return DataFactory.SurveyUpsert(SurveyPublicId, ProviderPublicId, SurveyConfigId, ParentSurveyPublicId, User, Enable);
         }
 
         public int SurveyInfoUpsert(int? SurveyInfoId, string SurveyPublicId, int SurveyInfoType, string Value, string LargeValue, bool Enable)
@@ -113,7 +113,12 @@ namespace ProveedoresOnLine.SurveyModule.DAL.Controller
         public Models.SurveyModel SurveyGetById(string SurveyPublicId)
         {
             return DataFactory.SurveyGetById(SurveyPublicId);
-        }        
+        }
+
+        public SurveyModule.Models.SurveyModel SurveyGetByUser(string ParentSurveyPublicId, string User)
+        {
+            return DataFactory.SurveyGetByUser(ParentSurveyPublicId, User);
+        }
 
         public List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> SurveyGetByCustomerProvider(string CustomerPublicId, string ProviderPublicId)
         {

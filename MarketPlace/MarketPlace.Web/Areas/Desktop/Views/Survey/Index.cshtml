@@ -9,7 +9,7 @@
 
     List<MarketPlace.Models.Survey.SurveyConfigItemViewModel> lstEvaluationRol = null;
 
-    var isAutorized = false;    
+    var isAutorized = true;    
     if (Model.RelatedSurvey.SurveyConfigStepEnable)
     {
         lstEvaluationArea = new List<MarketPlace.Models.Survey.SurveyConfigItemViewModel>()
@@ -35,7 +35,7 @@
 
         if (RoleAutorizedArea.FirstOrDefault() == lstEvaluationRol.FirstOrDefault().AreaId)
         {
-            isAutorized = true;
+            //isAutorized = true;
         }
     }
     else

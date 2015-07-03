@@ -516,6 +516,7 @@
         Project = 1204011,
         File = 1204012,
         ExpirationDate = 1204013,
+        CurrentArea = 1204014,
 
         //SurveyRepor
 

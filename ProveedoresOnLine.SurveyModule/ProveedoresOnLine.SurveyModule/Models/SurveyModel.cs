@@ -15,6 +15,10 @@ namespace ProveedoresOnLine.SurveyModule.Models
         public SurveyConfigModel RelatedSurveyConfig { get; set; }        
 
         public bool Enable { get; set; }
+        
+        public string ParentSurveyPublicId { get; set; }
+
+        public string User { get; set; }
 
         public DateTime LastModify { get; set; }
 
@@ -23,5 +27,7 @@ namespace ProveedoresOnLine.SurveyModule.Models
         public List<ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel> SurveyInfo { get; set; }
 
         public List<SurveyItemModel> RelatedSurveyItem { get; set; }
+
+        public List<SurveyModel> ChildSurvey { get; set; }
     }
 }

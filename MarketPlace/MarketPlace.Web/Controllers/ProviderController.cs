@@ -1421,17 +1421,26 @@ namespace MarketPlace.Web.Controllers
                             oModel.RelatedSurveySearch.PageNumber,
                             oModel.RelatedSurveySearch.RowCount,
                             out oTotalRowsAux);
-
-                    if (SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().RelatedRole.ParentItem != null)
+                    if (SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ParentItem == null)
                     {
-                        List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oFilterObj = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
-
                         if (oSurveyResults != null)
                         {
-                            oSurveyResults = oSurveyResults.Where(sv => sv.SurveyInfo.Any(inf => inf.Value ==
-                                            SessionModel.CurrentCompanyLoginUser.RelatedCompany.FirstOrDefault().RelatedUser.FirstOrDefault().User) == true)
-                                                            .Select(sv => sv).ToList();
+                            oSurveyResults = oSurveyResults.Where(x => x.ParentSurveyPublicId == null).Select(x => x).ToList();
                         }
+                    }
+                    else
+                    {
+                        if (oSurveyResults != null)
+                        {
+                            List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
+                            oSurveyResults.All(x =>
+                                {
+                                    oChildSurvey.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));
+                                    return true;
+                                });
+                            oSurveyResults = oChildSurvey.Where(x => x != null).ToList();                           
+
+                        }                        
                     }
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
                         && oSurveyResults != null && oSurveyResults.Count > 0)
@@ -1485,10 +1494,9 @@ namespace MarketPlace.Web.Controllers
             {
                 System.IO.MemoryStream reportStreamReader = (System.IO.MemoryStream)Session["reportStreamPdf"];
                 Session["reportStreamPdf"] = null;
-                //return new FileStreamResult(var, "application/pdf"); //Si se neceita abrir en la misma ventana
                 return File(reportStreamReader, "application/pdf", "Proveedores_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".pdf");
             }
-            
+
             return View(oModel);
         }
 
