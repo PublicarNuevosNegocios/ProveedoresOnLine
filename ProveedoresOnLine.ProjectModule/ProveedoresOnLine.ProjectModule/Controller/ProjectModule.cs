@@ -406,6 +406,10 @@ namespace ProveedoresOnLine.ProjectModule.Controller
         {
             return DAL.Controller.ProjectDataController.Instance.GetProjectByState(CustomerPublicId, Year);
         }
+        public static List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByMonth(string CustomerPublicId, DateTime Year)
+        {
+            return DAL.Controller.ProjectDataController.Instance.GetProjectByMonth(CustomerPublicId, Year);
+        }
 
        
         #endregion

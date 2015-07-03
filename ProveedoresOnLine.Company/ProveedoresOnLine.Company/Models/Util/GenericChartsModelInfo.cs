@@ -27,6 +27,8 @@ namespace ProveedoresOnLine.Company.Models.Util
         public string AxisY { get; set; }
 
         public int CountY { get; set; }
+
+        public DateTime Date { get; set; }
     }
 }
 

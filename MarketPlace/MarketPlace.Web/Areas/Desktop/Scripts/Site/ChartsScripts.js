@@ -94,12 +94,12 @@ var Survey_ChartsObject = {
 var SurveyByEvaluators_ChartsObject = {
     ObjectId: '',
     SearchUrl: '',
-    DashboardId: '',    
+    DashboardId: '',
 
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
-        this.DashboardId = vInitObject.DashboardId;        
+        this.DashboardId = vInitObject.DashboardId;
     },
 
     RenderChatrSurveyByEvaluator: function () {
@@ -108,14 +108,14 @@ var SurveyByEvaluators_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-                
+
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Mail');
                 data.addColumn('string', 'Estado');
                 data.addColumn('string', 'Mes');
                 data.addColumn('number', 'Cantidad');
                 data.addColumn({ type: 'string', role: 'annotation' });
-                $.each(result, function (item, value) {                    
+                $.each(result, function (item, value) {
                     data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item2]]);
                 });
 
@@ -125,13 +125,13 @@ var SurveyByEvaluators_ChartsObject = {
                     'chartType': 'BarChart',
                     'bars': 'horizontal',
                     'containerId': document.getElementById(SurveyByEvaluators_ChartsObject.ObjectId),
-                    'options': {           
+                    'options': {
                         chartArea: { left: 150, top: 0, width: "70%", height: "60%" },
                         height: "100%",
                         width: "100%"
                     },
                     'view': {
-                        'columns': [0,3,4]
+                        'columns': [0, 3, 4]
                     }
 
                 });
@@ -171,26 +171,6 @@ var SurveyByEvaluators_ChartsObject = {
         });
     },
 
-    GetSearchUrl: function (SearchFilter, UserEmail) {
-
-        var oUrl = this.SearchUrl;
-
-        oUrl += '?CompareId=';
-        oUrl += '&ProjectPublicId=';
-        oUrl += '&SearchParam=';
-
-        if (UserEmail != 0) {
-            oUrl += '&SearchFilter=,111011;' + SearchFilter + ',111014;' + UserEmail;
-        }
-        else {
-            oUrl += '&SearchFilter=,111011;' + SearchFilter
-        }
-        oUrl += '&SearchOrderType=113002';
-        oUrl += '&OrderOrientation=false';
-        oUrl += '&PageNumber=0';
-
-        return oUrl;
-    },
 };
 
 var SurveyByMonth_ChartsObject = {
@@ -289,6 +269,7 @@ var Providers_ChartsObject = {
                     data.addRows([[item, value]]);
                 });
                 var options = {
+                    opacity: 0.2,
                     is3D: true,
                     chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                   , height: "100%"
@@ -362,11 +343,11 @@ var Providers_ChartsObject = {
 
 //**** PROJECT CHARTS ****//
 var ProjectByStatus_ChartsObject = {
-    ObjectId: '',    
+    ObjectId: '',
     SearchUrl: '',
 
     Init: function (vInitObject) {
-        this.ObjectId = vInitObject.ObjectId;        
+        this.ObjectId = vInitObject.ObjectId;
         this.SearchUrl = vInitObject.SearchUrl;
     },
 
@@ -375,7 +356,7 @@ var ProjectByStatus_ChartsObject = {
             url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByState=true',
             dataType: "json",
             async: false,
-            success: function (result) {               
+            success: function (result) {
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Cantidad');
@@ -384,16 +365,18 @@ var ProjectByStatus_ChartsObject = {
                 });
                 var options = {
                     legend: 'none',
+
+                    series: { 0: { color: 'orange', opacity: 0.2}, 1: { color: 'blue', opacity: 0.2 } },
                     is3D: true,
-                    chartArea: { left: 0, top: 0, width: "80%", height: "80%" }
+                    chartArea: { left: 30, top: 10, width: "100%", height: "80%" }
                   , height: "100%"
                   , width: "100%"
                 };
 
                 var chart = new google.visualization.ColumnChart(document.getElementById(ProjectByStatus_ChartsObject.ObjectId));
-                
+
                 chart.draw(data, options);
-                function resize() {                   
+                function resize() {
                     chart.draw(data, options);
                 }
                 if (window.addEventListener) {
@@ -407,24 +390,79 @@ var ProjectByStatus_ChartsObject = {
         });
     },
 
-    GetSearchUrl: function (SearchFilter, UserEmail) {
 
-        var oUrl = this.SearchUrl;
+};
 
-        oUrl += '?CompareId=';
-        oUrl += '&ProjectPublicId=';
-        oUrl += '&SearchParam=';
+var ProjectByMonth_ChartsObject = {
+    ObjectId: '',
+    DashboardId: '',
+    SearchUrl: '',
 
-        if (UserEmail != 0) {
-            oUrl += '&SearchFilter=,111011;' + SearchFilter + ',111014;' + UserEmail;
-        }
-        else {
-            oUrl += '&SearchFilter=,111011;' + SearchFilter
-        }
-        oUrl += '&SearchOrderType=113002';
-        oUrl += '&OrderOrientation=false';
-        oUrl += '&PageNumber=0';
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+        this.SearchUrl = vInitObject.SearchUrl;
+        this.DashboardId = vInitObject.DashboardId;
+    },
 
-        return oUrl;
+    RenderChatrProjectByMonth: function () {
+        $.ajax({
+            url: BaseUrl.ApiUrl + '/ProjectApi?GetProjectByMonth=true',
+            dataType: "json",
+            async: false,
+            success: function (result) {
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Estado');
+                data.addColumn('number', 'Mes');
+                data.addColumn('string', 'Meses');
+                data.addColumn('string', 'Responsable');
+                data.addColumn('number', 'Cantidad');
+                data.addColumn('date', 'Fecha');
+                data.addColumn({ type: 'string', role: 'annotation' });
+                $.each(result, function (item, value) {
+                    data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item5,  new Date (value.m_Item6), value.m_Item1]]);
+                });
+
+                var dashboard = new google.visualization.Dashboard(document.getElementById(ProjectByMonth_ChartsObject.DashboardId));
+
+                var vBarChart = new google.visualization.ChartWrapper({
+                    'chartType': 'Bar',                    
+                    'containerId': document.getElementById(ProjectByMonth_ChartsObject.ObjectId),
+                    'options': {
+                        bars: 'horizontal',                        
+                        series: {0:{color: 'orange', visibleInLegend: false}, 1:{color: 'blue', visibleInLegend: false}},                                                                
+                        chartArea: { left: 150, top: 10, width: "80%", height: "80%" },
+                        height: "100%",
+                        width: "100%"
+                    },
+
+                    'view': {
+                        'columns': [3,4, 6]
+                    }
+                });
+
+                // Create the filter
+                var barFilterMonth = new google.visualization.ControlWrapper({
+                    'controlType': 'CategoryFilter',
+                    'containerId': 'filter_month',
+                    'options': {
+                        'filterColumnLabel': 'Meses'
+                    }
+                });
+
+                dashboard.bind(barFilterMonth, vBarChart);
+
+                dashboard.draw(data);
+                function resize() {
+                    dashboard.draw(data);
+                }
+                if (window.addEventListener) {
+                    window.addEventListener('resize', resize);
+                }
+                else {
+                    window.attachEvent('onresize', resize);
+                }
+
+            }
+        });
     },
 };
