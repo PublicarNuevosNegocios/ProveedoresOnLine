@@ -74,12 +74,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string STProviderStats = "STProviderStats";
+            public readonly string STSurveyStats = "STSurveyStats";
+            public readonly string STProjectStats = "STProjectStats";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string STProviderStats = "STProviderStats";
+            public const string STSurveyStats = "STSurveyStats";
+            public const string STProjectStats = "STProjectStats";
         }
 
 
@@ -94,8 +100,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string STProjectStats = "STProjectStats";
+                public readonly string STProviderStats = "STProviderStats";
+                public readonly string STSurveyStats = "STSurveyStats";
             }
             public readonly string Index = "~/Areas/Desktop/Views/Stats/Index.cshtml";
+            public readonly string STProjectStats = "~/Areas/Desktop/Views/Stats/STProjectStats.cshtml";
+            public readonly string STProviderStats = "~/Areas/Desktop/Views/Stats/STProviderStats.cshtml";
+            public readonly string STSurveyStats = "~/Areas/Desktop/Views/Stats/STSurveyStats.cshtml";
         }
     }
 
@@ -112,6 +124,39 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void STProviderStatsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult STProviderStats()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.STProviderStats);
+            STProviderStatsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void STSurveyStatsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult STSurveyStats()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.STSurveyStats);
+            STSurveyStatsOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void STProjectStatsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult STProjectStats()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.STProjectStats);
+            STProjectStatsOverride(callInfo);
             return callInfo;
         }
 

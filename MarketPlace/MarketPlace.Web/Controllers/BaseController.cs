@@ -142,9 +142,9 @@ namespace MarketPlace.Web.Controllers
                             new
                             {
                                 controller = MVC.Stats.Name,
-                                action = MVC.Stats.ActionNames.Index
+                                action = MVC.Stats.ActionNames.STProviderStats
                             }),
-                        IsSelected = (CurrentControllerName == MVC.Stats.ActionNames.Index),
+                        IsSelected = (CurrentControllerName == MVC.Stats.ActionNames.STProviderStats),
                     });
                     oPosition++;
                 }

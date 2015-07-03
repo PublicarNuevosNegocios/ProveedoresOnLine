@@ -1167,6 +1167,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <Content Include="Areas\Desktop\Views\Stats\STProviderStats.cshtml" />
+    <Content Include="Areas\Desktop\Views\Stats\STSurveyStats.cshtml" />
+    <Content Include="Areas\Desktop\Views\Stats\STProjectStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />

@@ -1,0 +1,23 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Estadísticas de Proveedores";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <div id="POMPGraphicContainerMain">
+            <div class="POMPGraphicDynamic">
+                <div class="POMPHeaderGraphicDynamic">
+                    <h1>Estado de los proveedores</h1>
+                </div>
+                @Html.Partial(MVC.Desktop.Shared.Views._CH_StateProviders)
+            </div>
+        </div>
+    </div>
+</div>
