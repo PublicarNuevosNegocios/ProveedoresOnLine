@@ -143,6 +143,10 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
         {
             return DataFactory.GetProjectByState(CustomerPublicId, Year);
         }
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByMonth(string CustomerPublicId, DateTime Year)
+        {
+            return DataFactory.GetProjectByMonth(CustomerPublicId, Year);
+        }
       
         #endregion  
     }

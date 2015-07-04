@@ -1081,6 +1081,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByEvaluators.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByMonth.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_ProjectByState.cshtml" />
+    <Content Include="Areas\Desktop\Views\Shared\_CH_ProjectByMonth.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
@@ -1166,6 +1167,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <Content Include="Areas\Desktop\Views\Stats\STProviderStats.cshtml" />
+    <Content Include="Areas\Desktop\Views\Stats\STSurveyStats.cshtml" />
+    <Content Include="Areas\Desktop\Views\Stats\STProjectStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Desktop\Content\Images\" />

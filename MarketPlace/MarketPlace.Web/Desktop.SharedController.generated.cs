@@ -36,6 +36,7 @@ namespace T4MVC.Desktop
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _CH_ProjectByMonth = "_CH_ProjectByMonth";
                 public readonly string _CH_ProjectByState = "_CH_ProjectByState";
                 public readonly string _CH_StateProviders = "_CH_StateProviders";
                 public readonly string _CH_Survey = "_CH_Survey";
@@ -89,6 +90,7 @@ namespace T4MVC.Desktop
                 public readonly string _SV_SurveySearch_Result_Item = "_SV_SurveySearch_Result_Item";
                 public readonly string _SV_SurveySearch_Result_Pager = "_SV_SurveySearch_Result_Pager";
             }
+            public readonly string _CH_ProjectByMonth = "~/Areas/Desktop/Views/Shared/_CH_ProjectByMonth.cshtml";
             public readonly string _CH_ProjectByState = "~/Areas/Desktop/Views/Shared/_CH_ProjectByState.cshtml";
             public readonly string _CH_StateProviders = "~/Areas/Desktop/Views/Shared/_CH_StateProviders.cshtml";
             public readonly string _CH_Survey = "~/Areas/Desktop/Views/Shared/_CH_Survey.cshtml";

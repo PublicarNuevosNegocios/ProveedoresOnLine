@@ -1,0 +1,64 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Estadísticas de Evaluación de Desempeño";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+
+    /*Get session modules by user*/
+    bool IsProviderRatingCreate = false;
+    bool IsProviderRatingView = false;
+
+    List<int> Modules = MarketPlace.Models.General.SessionModel.CurrentUserModules();
+
+    Modules.All(x =>
+    {
+        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingCreate)
+        {
+            IsProviderRatingCreate = true;
+        }
+        if (x == (int)MarketPlace.Models.General.enumMarketPlaceCustomerModules.ProviderRatingView)
+        {
+            IsProviderRatingView = true;
+        }
+        return true;
+    });
+    
+    var email = 0;
+
+    if (!IsProviderRatingCreate && IsProviderRatingView)
+    {
+        email = MarketPlace.Models.General.SessionModel.CurrentLoginUser.RelatedApplicationRole.Where(x => x.ApplicationRoleId != null).Select(x => x.ApplicationRoleId).DefaultIfEmpty(0).FirstOrDefault();
+    }
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        @if (email != 0)
+        {
+            <div class="POMPGraphicDynamic">
+                <div class="POMPHeaderGraphicDynamic">
+                    <h1>Desempeño por evaluadores</h1>
+                </div>
+                @Html.Partial(MVC.Desktop.Shared.Views._CH_SurveyByEvaluators)
+            </div>
+        }
+        <div id="POMPGraphicContainerMain">
+            <div class="POMPGraphicDynamic">
+                <div class="POMPHeaderGraphicDynamic">
+                    <h1>Evaluaciones por mes</h1>
+                </div>
+                @Html.Partial(MVC.Desktop.Shared.Views._CH_SurveyByMonth)
+            </div>
+        </div>
+        <div class="POMPGraphicDynamic">
+            <div class="POMPHeaderGraphicDynamic">
+                <h1>Evaluaciones de desempeño por estado año en curso</h1>
+            </div>
+            @Html.Partial(MVC.Desktop.Shared.Views._CH_Survey)
+        </div>
+    </div>
+</div>

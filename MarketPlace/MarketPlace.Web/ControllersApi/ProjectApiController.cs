@@ -1151,6 +1151,39 @@ namespace MarketPlace.Web.ControllersApi
 
         [HttpPost]
         [HttpGet]
+        public List<Tuple<string, int, string, string, int, DateTime >> GetProjectByMonth(string GetProjectByMonth)
+        {
+            //Get Charts By Module
+            List<GenericChartsModel> oResult = new List<GenericChartsModel>();
+            GenericChartsModel oRelatedChart = null;
+
+            #region Project
+            oRelatedChart = new GenericChartsModel()
+            {
+                ChartModuleType = ((int)enumCategoryInfoType.CH_ProjectModule).ToString(),
+                GenericChartsInfoModel = new List<GenericChartsModelInfo>(),
+            };
+
+            oRelatedChart.GenericChartsInfoModel = ProveedoresOnLine.ProjectModule.Controller.ProjectModule.GetProjectByMonth(MarketPlace.Models.General.SessionModel.CurrentCompany.CompanyPublicId, DateTime.Now);
+
+            List<Tuple<string, int, string, string, int, DateTime>> oReturn = new List<Tuple<string, int, string, string, int, DateTime>>();
+
+            if (oRelatedChart.GenericChartsInfoModel != null && oRelatedChart.GenericChartsInfoModel.Count > 0)
+            {
+                oRelatedChart.GenericChartsInfoModel.All(x =>
+                {
+                    oReturn.Add(Tuple.Create(x.Title, x.CountX, x.AxisX, x.AxisY, x.Count, x.Date));
+                    return true;
+                });
+            }
+            #endregion
+            return oReturn;
+        }
+
+
+
+        [HttpPost]
+        [HttpGet]
         public Dictionary<string, int> GetProjectByState(string GetProjectByState)
         {
             //Get Charts By Module

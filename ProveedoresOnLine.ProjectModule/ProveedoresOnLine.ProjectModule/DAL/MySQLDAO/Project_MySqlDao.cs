@@ -1934,6 +1934,44 @@ namespace ProveedoresOnLine.ProjectModule.DAL.MySQLDAO
 
             return oReturn;
         }
+
+
+        public List<ProveedoresOnLine.Company.Models.Util.GenericChartsModelInfo> GetProjectByMonth(string CustomerPublicId, DateTime Year)
+        {
+            List<System.Data.IDbDataParameter> lstParams = new List<System.Data.IDbDataParameter>();
+
+            lstParams.Add(DataInstance.CreateTypedParameter("vCustomerPublicId", CustomerPublicId));
+            lstParams.Add(DataInstance.CreateTypedParameter("vCurrentDate", Year));
+
+            ADO.Models.ADOModelResponse response = DataInstance.ExecuteQuery(new ADO.Models.ADOModelRequest()
+            {
+                CommandExecutionType = ADO.Models.enumCommandExecutionType.DataTable,
+                CommandText = "MP_CP_ProjectCharts_GetByMonth",
+                CommandType = System.Data.CommandType.StoredProcedure,
+                Parameters = lstParams
+            });
+
+            List<GenericChartsModelInfo> oReturn = null;
+
+            if (response.DataTableResult != null &&
+                response.DataTableResult.Rows.Count > 0)
+            {
+                oReturn =
+                   (from sv in response.DataTableResult.AsEnumerable()
+                    where !sv.IsNull("Count")
+                    select new GenericChartsModelInfo()
+                    {
+                        CountX = (int)sv.Field<Int32>("CurrentMonth"),
+                        AxisX = sv.Field<string>("LabelMonth"),
+                        Title = sv.Field<string>("State"),
+                        AxisY = sv.Field<string>("Responsible"),
+                        Count = (int)sv.Field<UInt64>("Count"),
+                        Date = sv.Field<DateTime>("ProjectDate")
+                    }).ToList();
+            }
+
+            return oReturn;
+        }
         
         #endregion        
     }

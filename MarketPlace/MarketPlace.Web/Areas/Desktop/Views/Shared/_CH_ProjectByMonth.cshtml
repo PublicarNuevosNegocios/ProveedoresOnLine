@@ -1,0 +1,23 @@
+﻿<div id="dashboard_projects">
+    <div id="filter_month"></div>    
+    <div id="ProjectByMonthChartId" class="ResponsiveChartsClass"></div>
+</div>
+
+<script type="text/javascript">
+    google.load('visualization', '1.1', { 'packages': ['bar'] });
+    $(document).ready(function () {
+
+        google.setOnLoadCallback(ProjectByMonth_ChartsObject.RenderChatrProjectByMonth);
+
+        ProjectByMonth_ChartsObject.Init({
+            ObjectId: 'ProjectByMonthChartId',
+            DashboardId: 'dashboard_projects',
+            SearchUrl: '@(Url.RouteUrl(MarketPlace.Models.General.Constants.C_Routes_Default,
+                            new
+                            {
+                                controller = MVC.Provider.Name,
+                                action = MVC.Provider.ActionNames.Search
+                            }))',
+        })
+    })
+</script>

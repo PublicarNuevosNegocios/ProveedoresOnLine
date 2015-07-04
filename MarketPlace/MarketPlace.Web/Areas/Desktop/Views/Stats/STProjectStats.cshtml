@@ -1,0 +1,29 @@
+﻿@model MarketPlace.Models.Provider.ProviderViewModel
+@{
+    ViewBag.Title = "Proveedores OnLine - Estadísticas por Proceso de Selección";
+    Layout = MVC.Desktop.Shared.Views._Layout;
+}
+
+@*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
+<div class="POMPProviderGreatWrapper">
+    @*ESTE ES QUE TRAE EL PARCIAL QUE PINTA EL MENU LATERAL*@
+    <div class="POMPProviderSideMenuWrapper">
+        @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+    </div>
+    <div class="POMPProviderDataWrapper">
+        <div id="POMPGraphicContainerMain">
+            <div class="POMPGraphicDynamic">
+                <div class="POMPHeaderGraphicDynamic">
+                    <h1>Procesos de Selección por estado año en curso</h1>
+                </div>
+                @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByState)
+            </div>
+            <div class="POMPGraphicDynamic">
+                <div class="POMPHeaderGraphicDynamic">
+                    <h1>Procesos de Selección por Responsable</h1>
+                </div>
+                @Html.Partial(MVC.Desktop.Shared.Views._CH_ProjectByMonth)
+            </div>
+        </div>
+    </div>
+</div>
