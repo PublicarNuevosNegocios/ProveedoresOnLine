@@ -254,7 +254,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                     SurveyToUpsert.ChildSurvey.All(x =>
                     {
                         //Upsert Parent Survey                    
-                        DAL.Controller.SurveyDataController.Instance.SurveyUpsert
+                        x.SurveyPublicId = DAL.Controller.SurveyDataController.Instance.SurveyUpsert
                         (x.SurveyPublicId,
                         SurveyToUpsert.RelatedProvider.RelatedCompany.CompanyPublicId,
                         SurveyToUpsert.RelatedSurveyConfig.ItemId,
@@ -263,10 +263,10 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                         SurveyToUpsert.Enable);                        
 
                         //upsert ChildSurvey info
-                        SurveyInfoUpsert(x);
+                        x = SurveyInfoUpsert(x);
 
                         //upsert ChildSurvey item 
-                        SurveyItemUpsert(x);
+                        x = SurveyItemUpsert(x);
                         return true;
                     });
                 }

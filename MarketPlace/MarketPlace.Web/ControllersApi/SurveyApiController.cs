@@ -459,7 +459,6 @@ namespace MarketPlace.Web.ControllersApi
                 {
                     List<Tuple<int, int>> AreaIdList = new List<Tuple<int, int>>();
                     AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == inf.User).Select(y => new Tuple<int, int>(y.Item2, y.Item3)).ToList());
-                    inf.SurveyInfo = oReturn.SurveyInfo;
                     if (AreaIdList != null)
                     {
                         AreaIdList.All(a =>
@@ -474,15 +473,64 @@ namespace MarketPlace.Web.ControllersApi
                                 Value = a.Item1.ToString(),
                                 Enable = true,
                             });
+                            inf.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.IssueDate
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });                            
+                            inf.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Contract
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            inf.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Comments
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+
+                            List<GenericItemInfoModel> oEvaluators = new List<GenericItemInfoModel>();
+                            oEvaluators = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Evaluator).Select(x => x).ToList();
+
+                            if (oEvaluators.Count > 0)
+                            {
+                                oEvaluators.All(x =>
+                                {
+                                    inf.SurveyInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoId = 0,
+                                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = (int)enumSurveyInfoType.Evaluator
+                                        },
+                                        Value = x.Value,
+                                        Enable = true,
+                                    });
+                                    return true;
+                                });
+                            }
                             return true;
                         });
                     }
-
                     return true;
                 });
                 #endregion
             }
-
             return oReturn;
         }
 
