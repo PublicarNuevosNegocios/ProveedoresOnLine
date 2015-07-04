@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProveedoresOnLine.Company.Models.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -260,7 +261,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                         SurveyToUpsert.RelatedSurveyConfig.ItemId,
                         SurveyToUpsert.SurveyPublicId,
                         x.User,
-                        SurveyToUpsert.Enable);                        
+                        SurveyToUpsert.Enable);
 
                         //upsert ChildSurvey info
                         x = SurveyInfoUpsert(x);
@@ -462,10 +463,39 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>(),
                 RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
             };
-            decimal? currentProgress = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204005).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
-            decimal? currentCalification = oCurrentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value, System.Globalization.CultureInfo.CreateSpecificCulture("EN-us"))).FirstOrDefault();
 
-            #region Survey progress
+            List<GenericItemInfoModel> oAssignedAreas = oCurrentSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == 1204014).Select(inf => inf).ToList();
+
+            //Get Only Rol Area's
+            List<GenericItemModel> Areas = new List<GenericItemModel>();
+            List<GenericItemModel> Answers = new List<GenericItemModel>();
+
+            if (oAssignedAreas.Count > 0)
+            {
+                oAssignedAreas.All(ev =>
+                {
+                    //Get Areas
+                    Areas.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
+                    //Get Areas Iteminfo
+                    Areas.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
+                    return true;
+                });
+                if (Areas.Count > 0)
+                {
+                    Areas.All(qs =>
+                    {
+                        Answers.AddRange(oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202003 && x.ParentItem.ItemId == qs.ItemId).Select(x => x).ToList());
+                        return true;
+                    });
+                    if (Answers.Count > 0)
+                    {
+                        Areas.AddRange(Answers);
+                    }
+                }
+                oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem = Areas;
+            }
+
+            #region Survey Child progress
             //get mandatory survey answers
             decimal? oProgress = oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.
                 Where(scit => scit.ItemType.ItemId == 1202002 && //filter only question configuration values
@@ -473,14 +503,13 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                                             scitinf.Value == "true" //get only mandatory fields to progress                                            
                     )).
                 //validate if has answer (1) or not (0)
-                Select(scit => Convert.ToDecimal(oCurrentSurvey.RelatedSurveyItem.Any(svit => svit.RelatedSurveyConfigItem.ItemId == scit.ItemId
-                                                && svit.EvaluatorRoleId == EvaluatorRolId))).Average();
+                Select(scit => Convert.ToDecimal(oCurrentSurvey.RelatedSurveyItem.Any(svit => svit.RelatedSurveyConfigItem.ItemId == scit.ItemId))).Average();
             //get percent value            
             oProgress = oProgress == null ? 0 : oProgress * 100;
 
             #endregion
 
-            #region Survey Ratting
+            #region Survey Child Ratting
 
             var EvaluationAreaResults = oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.
                 //filter only question configuration values
@@ -532,7 +561,7 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
             #endregion
 
-            #region Upsert survey calculate values
+            #region Upsert Survey Child calculate values
 
             //add survey progress to upsert model
             oSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
@@ -620,6 +649,48 @@ namespace ProveedoresOnLine.SurveyModule.Controller
 
             #endregion
 
+            #region Calculate Parent Survey
+
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oParentSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetById(oCurrentSurvey.ParentSurveyPublicId);
+
+            ProveedoresOnLine.SurveyModule.Models.SurveyModel oParentSurveyToUpsert = new ProveedoresOnLine.SurveyModule.Models.SurveyModel()
+            {
+                SurveyPublicId = oCurrentSurvey.SurveyPublicId,
+                SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>(),
+                RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
+            };
+
+            EvaluationAreaResults.All(a =>
+                {
+                    List<GenericItemModel> RoleWeightModel = oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202004 &&
+                                                    x.ParentItem.ItemId == (int)a.EvaluationAreaId).Select(x => x).ToList().
+                                                    Where(y => y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == 1203006 && inf.Value == EvaluatorRolId.ToString())
+                                                        .Select(inf => inf).ToList() != null).Select(inf => inf).ToList();
+                    if (RoleWeightModel != null && RoleWeightModel.Count > 0)
+                    {
+
+                    }
+                    return true;
+                });
+            //decimal CurrenRoleWeight = oCurrentSurvey.RelatedSurveyConfig.
+            //add survey progress to upsert model
+            oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = oParentSurvey.SurveyInfo.
+                    Where(svinf => svinf.ItemInfoType.ItemId == 1204005).
+                    Select(svinf => svinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault(),
+
+                ItemInfoType = new Company.Models.Util.CatalogModel()
+                {
+                    ItemId = 1204005,
+                },
+                Value = oProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")), // Value * Current Weight
+                Enable = true,
+            });
+
+            #endregion
             #region Total provider ratting
 
             List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> lstProviderSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetByCustomerProvider

@@ -33,10 +33,7 @@
         lstEvaluationRol = lstEvaluationRol.Where(x => x.SurveyConfigItemInfoRol == CurrentRolId.ToString() 
                             && x.AreaId == lstEvaluationArea.FirstOrDefault().SurveyConfigItemId.ToString()).Select(x => x).ToList();
 
-        if (RoleAutorizedArea.FirstOrDefault() == lstEvaluationRol.FirstOrDefault().AreaId)
-        {
-            //isAutorized = true;
-        }
+       
     }
     else
     {

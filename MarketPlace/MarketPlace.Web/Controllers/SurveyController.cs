@@ -26,19 +26,20 @@ namespace MarketPlace.Web.Controllers
                     ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser
                     (SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));     
             }
-            List<GenericItemInfoModel> oEvaluators = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.Evaluator && inf.Value == SessionModel.CurrentLoginUser.Email).Select(inf => inf).ToList();
+            List<GenericItemInfoModel> oAssignedAreas = oModel.RelatedSurvey.RelatedSurvey.SurveyInfo.Where(inf => inf.ItemInfoType.ItemId == (int)enumSurveyInfoType.CurrentArea).Select(inf => inf).ToList();
+
             //Get Only Rol Area's
             List<GenericItemModel> Areas = new List<GenericItemModel>();
             List<GenericItemModel> Answers = new List<GenericItemModel>();
 
-            if (oEvaluators.Count > 0)
+            if (oAssignedAreas.Count > 0)
             {
-                oEvaluators.All(ev =>
+                oAssignedAreas.All(ev =>
                 {
                     //Get Areas
-                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.LargeValue)).Select(x => x).ToList());
+                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
                     //Get Areas Iteminfo
-                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.LargeValue)).Select(x => x).ToList());
+                    Areas.AddRange(oModel.RelatedSurvey.RelatedSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ParentItem != null && x.ParentItem.ItemId == Convert.ToInt32(ev.Value)).Select(x => x).ToList());
                     return true;
                 });
                 if (Areas.Count > 0)
@@ -104,7 +105,7 @@ namespace MarketPlace.Web.Controllers
             oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyItemUpsert(oSurveyToUpsert);
             
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().UserCompanyId);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId);
 
             //redirect
             return RedirectToRoute
