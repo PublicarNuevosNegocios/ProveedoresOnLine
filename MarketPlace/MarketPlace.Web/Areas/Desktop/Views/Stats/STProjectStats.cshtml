@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Proveedores OnLine - Estadísticas por Proceso de Selección";
     Layout = MVC.Desktop.Shared.Views._Layout;
+
+    Model.RenderScripts = false;
 }
 
 @*ESTE ES EL ENVUELTO COMPLETO DE MENU LATERAL Y CONTENIDO*@
@@ -27,3 +29,11 @@
         </div>
     </div>
 </div>
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}

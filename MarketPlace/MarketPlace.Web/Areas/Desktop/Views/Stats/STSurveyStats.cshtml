@@ -3,6 +3,8 @@
     ViewBag.Title = "Proveedores OnLine - Estadísticas de Evaluación de Desempeño";
     Layout = MVC.Desktop.Shared.Views._Layout;
 
+    Model.RenderScripts = false;
+
     /*Get session modules by user*/
     bool IsProviderRatingCreate = false;
     bool IsProviderRatingView = false;
@@ -62,3 +64,11 @@
         </div>
     </div>
 </div>
+
+@{
+    Model.RenderScripts = true;
+}
+@section inlinescripts
+{
+    @Html.Partial(MVC.Desktop.Shared.Views._P_ProviderMenu, Model)
+}
