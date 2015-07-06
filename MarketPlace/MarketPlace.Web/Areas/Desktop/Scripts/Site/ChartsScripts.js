@@ -108,7 +108,7 @@ var SurveyByEvaluators_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
-
+                
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Mail');
                 data.addColumn('string', 'Estado');
@@ -205,8 +205,13 @@ var SurveyByMonth_ChartsObject = {
                     'chartType': 'PieChart',
                     'containerId': document.getElementById(SurveyByMonth_ChartsObject.ObjectId),
                     'options': {
-                        pieHole: 0.4,
-                        legend: 'none'
+                        pieSliceTextStyle: {
+                            color: 'black',
+                        },
+                        slices: {
+                            0: { color: 'orange' },
+                        },
+                        pieHole: 0.4
                         , chartArea: { left: 0, top: 0, width: "100%", height: "100%" }
                         , height: "100%"
                         , width: "100%"
@@ -365,7 +370,6 @@ var ProjectByStatus_ChartsObject = {
                 });
                 var options = {
                     legend: 'none',
-
                     series: { 0: { color: 'orange', opacity: 0.2}, 1: { color: 'blue', opacity: 0.2 } },
                     is3D: true,
                     chartArea: { left: 30, top: 10, width: "100%", height: "80%" }
@@ -410,6 +414,7 @@ var ProjectByMonth_ChartsObject = {
             dataType: "json",
             async: false,
             success: function (result) {
+                
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'Estado');
                 data.addColumn('number', 'Mes');
@@ -420,8 +425,7 @@ var ProjectByMonth_ChartsObject = {
                 data.addColumn({ type: 'string', role: 'annotation' });
                 $.each(result, function (item, value) {
                     data.addRows([[value.m_Item1, value.m_Item2, value.m_Item3, value.m_Item4, value.m_Item5,  new Date (value.m_Item6), value.m_Item1]]);
-                });
-
+                });             
                 var dashboard = new google.visualization.Dashboard(document.getElementById(ProjectByMonth_ChartsObject.DashboardId));
 
                 var vBarChart = new google.visualization.ChartWrapper({

@@ -3803,7 +3803,7 @@ var Provider_CompanyFinancialObject = {
     EvalBalanceSheetFormula: function () {
 
         if (Provider_CompanyFinancialObject.FormulaAccounts != null && Provider_CompanyFinancialObject.FormulaAccounts.length > 0) {
-
+            debugger;
             $.each(Provider_CompanyFinancialObject.FormulaAccounts, function (item, value) {
 
                 if (value.Formula != null && value.Formula.length > 0) {
@@ -3841,11 +3841,10 @@ var Provider_CompanyFinancialObject = {
 
     ValidateBalanceSheetDetail: function () {
         var oReturn = true;
-
+    
         if (Provider_CompanyFinancialObject.ValidateFormulaAccounts != null && Provider_CompanyFinancialObject.ValidateFormulaAccounts.length > 0) {
-
             $.each(Provider_CompanyFinancialObject.ValidateFormulaAccounts, function (item, value) {
-
+               
                 if (value.Formula != null && value.Formula.length > 0) {
                     //get formula exclude averange calc and spaces
                     var oFormulaToEval = value.Formula.toLowerCase().replace(/ /gi, '').replace(/prom/gi, '');
@@ -3883,7 +3882,6 @@ var Provider_CompanyFinancialObject = {
     },
 
     SaveBalanceSheetDetail: function (vFinancialId) {
-
         if (Provider_CompanyFinancialObject.ValidateBalanceSheetDetail() == true) {
             $('#' + Provider_CompanyFinancialObject.ObjectId + '_Detail_Form_' + vFinancialId).submit();
         }
