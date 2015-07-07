@@ -37,7 +37,7 @@
         display:inline-block;
         height: auto;
         vertical-align: top;
-        width:48.5%;
+        width:100%;
 }
 
         .POBOProviderUpsertForm ul li label {
@@ -47,7 +47,9 @@
             letter-spacing: -0.7px;
             margin: 0px;
     }
-
+#POBOTA{
+    width:100%;
+}
 a.POBOSmallCaption {
             color: #ff8400;
         font-size: 0.9em;
