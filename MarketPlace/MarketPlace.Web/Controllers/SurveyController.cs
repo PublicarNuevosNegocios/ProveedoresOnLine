@@ -133,7 +133,7 @@ namespace MarketPlace.Web.Controllers
             }
 
             //recalculate survey item values
-            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().UserCompanyId);
+            ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyRecalculate(SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().RelatedRole.ItemId);
 
             //redirect
             return RedirectToRoute

@@ -24,33 +24,20 @@ namespace ProveedoresOnLine.SurveyBatch
                     {
                         try
                         {
-                            if (sv.SurveyInfo != null)
+                            if (sv.RelatedSurveyConfig.ParentItem != null)
                             {
-                                List<string> EvaluatorRol = new List<string>();
-
-                                sv.SurveyInfo.All(x =>
-                                    {
-                                        if (x.ItemInfoType.ItemId == 1204003)
-                                        {
-                                            EvaluatorRol.Add(x.Value);
-                                        }
-                                        return true;
-                                    });
-                                EvaluatorRol.All(r =>
-                                    {
-                                        MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv, r);
-
-                                        //create message
-                                        MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToUpsert);
-                                        return true;
-                                    }
-                                );                                                               
-
-                                //update survey status
-                                ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new SurveyModule.Models.SurveyModel()
+                                if (sv.SurveyInfo != null)
                                 {
-                                    SurveyPublicId = sv.SurveyPublicId,
-                                    SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>()
+                                    MessageModule.Client.Models.ClientMessageModel oMessageToUpsert = GetMessage(sv, sv.User);
+
+                                    //create message
+                                    MessageModule.Client.Controller.ClientController.CreateMessage(oMessageToUpsert);
+
+                                    //update survey status
+                                    ProveedoresOnLine.SurveyModule.Models.SurveyModel oSurveyToUpsert = new SurveyModule.Models.SurveyModel()
+                                    {
+                                        SurveyPublicId = sv.SurveyPublicId,
+                                        SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>()
                                     {
                                         new Company.Models.Util.GenericItemInfoModel()
                                         {
@@ -67,13 +54,14 @@ namespace ProveedoresOnLine.SurveyBatch
                                             Enable = true,
                                         }
                                     }
-                                };
+                                    };
 
-                                oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
-                            }
-                            else
-                            {
-                                throw new Exception("La evaluación con id '" + sv.SurveyPublicId + "' no tienen información para enviar el correo.");
+                                    oSurveyToUpsert = ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyInfoUpsert(oSurveyToUpsert);
+                                }
+                                else
+                                {
+                                    throw new Exception("La evaluación con id '" + sv.SurveyPublicId + "' no tienen información para enviar el correo.");
+                                }
                             }
                         }
                         catch (Exception err)
@@ -114,7 +102,7 @@ namespace ProveedoresOnLine.SurveyBatch
 
             //get to address
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>
-                ("To",EvaluatorRol));
+                ("To", EvaluatorRol));
 
             //get customer info
             oReturn.MessageQueueInfo.Add(new Tuple<string, string>

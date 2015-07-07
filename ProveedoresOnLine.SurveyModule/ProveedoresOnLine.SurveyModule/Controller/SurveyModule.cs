@@ -1,4 +1,5 @@
 ﻿using ProveedoresOnLine.Company.Models.Util;
+using ProveedoresOnLine.SurveyModule.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -659,20 +660,98 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 SurveyInfo = new List<Company.Models.Util.GenericItemInfoModel>(),
                 RelatedSurveyItem = new List<ProveedoresOnLine.SurveyModule.Models.SurveyItemModel>(),
             };
+            List<SurveyModel> ChildsSurvey = new List<SurveyModel>();
 
-            EvaluationAreaResults.All(a =>
-                {
-                    List<GenericItemModel> RoleWeightModel = oCurrentSurvey.RelatedSurveyConfig.RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202004 &&
-                                                    x.ParentItem.ItemId == (int)a.EvaluationAreaId).Select(x => x).ToList().
-                                                    Where(y => y.ItemInfo.Where(inf => inf.ItemInfoType.ItemId == 1203006 && inf.Value == EvaluatorRolId.ToString())
-                                                        .Select(inf => inf).ToList() != null).Select(inf => inf).ToList();
-                    if (RoleWeightModel != null && RoleWeightModel.Count > 0)
+            List<string> Evaluators = oParentSurvey.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204003).Select(x => x.Value).ToList();
+            Evaluators = Evaluators.GroupBy(x => x).Select(grp => grp.First()).ToList();
+
+            //Get Evaluators Parent Survey
+            if (Evaluators != null)
+            {
+                Evaluators.All(y =>
                     {
+                        ChildsSurvey.Add(SurveyGetByUser(oParentSurvey.SurveyPublicId, y));
+                        return true;
+                    });
+            }
 
-                    }
-                    return true;
+            #region Parent Status
+            if (ChildsSurvey.Any(z => z.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204004).Select(x => x.Value).FirstOrDefault() != "1206004"))
+            {
+                oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                {
+                    ItemInfoId = oParentSurvey.SurveyInfo.
+                        Where(svinf => svinf.ItemInfoType.ItemId == 1204004).
+                        Select(svinf => svinf.ItemInfoId).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+
+                    ItemInfoType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = 1204004,
+                    },
+                    Value = "1206003",
+                    Enable = true,
                 });
-            //decimal CurrenRoleWeight = oCurrentSurvey.RelatedSurveyConfig.
+            }
+            else
+            {
+                oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+                {
+                    ItemInfoId = oParentSurvey.SurveyInfo.
+                        Where(svinf => svinf.ItemInfoType.ItemId == 1204004).
+                        Select(svinf => svinf.ItemInfoId).
+                        DefaultIfEmpty(0).
+                        FirstOrDefault(),
+
+                    ItemInfoType = new Company.Models.Util.CatalogModel()
+                    {
+                        ItemId = 1204004,
+                    },
+                    Value = "1206004",
+                    Enable = true,
+                });
+            }
+            #endregion            
+
+            decimal? ChildCurrentProgress = 0;
+            decimal? ParentProgress = 0;
+            if (ChildsSurvey != null && ChildsSurvey.Count > 0)
+            {
+                decimal? ChilSurveyCount = ChildsSurvey.Count;
+                //get ProgressBar
+                if (ChildsSurvey.Any(z => z.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204004).Select(x => x.Value).FirstOrDefault() == "1206004"))
+                {
+                    #region Child Progress
+                    //Get Only Closed Survey
+                    ChildsSurvey = ChildsSurvey.Where(ch => ch.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204004).
+                                                Select(x => x.Value).FirstOrDefault() == "1206004").Select(ch => ch).ToList();
+
+                    ChildCurrentProgress = (100 / ChilSurveyCount) * ChildsSurvey.Count;
+
+                    #endregion
+
+                    #region Parent Ratting
+                    //Get EvaluetorRole
+                    List<GenericItemModel> CurrentAreaModel = oParentSurvey.RelatedSurveyConfig.
+                                                            RelatedSurveyConfigItem.Where(x => x.ItemType.ItemId == 1202004).ToList();
+                    decimal? TotalRate = 0;
+                    ChildsSurvey.All(a =>
+                    {
+                        decimal? CurrentChildRate = a.SurveyInfo.Where(x => x.ItemInfoType.ItemId == 1204006).Select(x => Convert.ToDecimal(x.Value)).DefaultIfEmpty(0).FirstOrDefault();
+
+                        TotalRate += (CurrentChildRate * CurrentAreaModel.Where(x => x.ItemInfo.Where(y => y.ItemInfoType.ItemId == 1203006)
+                                                .Select(y => y.Value).FirstOrDefault() == EvaluatorRolId.ToString()).Select(x => x.ItemInfo.
+                                                Where(i => i.ItemInfoType.ItemId == 1203006).
+                                                Select(i => Convert.ToDecimal(i.Value)).DefaultIfEmpty(0).FirstOrDefault()).FirstOrDefault()) / 100;
+
+                        return true;
+                    });
+                    ParentProgress = ParentProgress + TotalRate;
+                    #endregion
+                }
+            }          
+
             //add survey progress to upsert model
             oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
             {
@@ -686,16 +765,40 @@ namespace ProveedoresOnLine.SurveyModule.Controller
                 {
                     ItemId = 1204005,
                 },
-                Value = oProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")), // Value * Current Weight
+                Value = ChildCurrentProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
                 Enable = true,
             });
 
+            //add survey progress to upsert model
+            oParentSurveyToUpsert.SurveyInfo.Add(new ProveedoresOnLine.Company.Models.Util.GenericItemInfoModel()
+            {
+                ItemInfoId = oParentSurvey.SurveyInfo.
+                    Where(svinf => svinf.ItemInfoType.ItemId == 1204006).
+                    Select(svinf => svinf.ItemInfoId).
+                    DefaultIfEmpty(0).
+                    FirstOrDefault(),
+
+                ItemInfoType = new Company.Models.Util.CatalogModel()
+                {
+                    ItemId = 1204006,
+                },
+                Value = ParentProgress.Value.ToString("#,0.##", System.Globalization.CultureInfo.CreateSpecificCulture("EN-us")),
+                Enable = true,
+            });
+
+            //upsert survey info
+            oSurveyToUpsert = SurveyInfoUpsert(oParentSurveyToUpsert);
+
+            //upsert survey item
+            oSurveyToUpsert = SurveyItemUpsert(oParentSurveyToUpsert);
+
             #endregion
+
             #region Total provider ratting
 
             List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> lstProviderSurvey = DAL.Controller.SurveyDataController.Instance.SurveyGetByCustomerProvider
-                (oCurrentSurvey.RelatedSurveyConfig.RelatedCustomer.RelatedCompany.CompanyPublicId,
-                oCurrentSurvey.RelatedProvider.RelatedCompany.CompanyPublicId);
+                (oParentSurvey.RelatedSurveyConfig.RelatedCustomer.RelatedCompany.CompanyPublicId,
+                oParentSurvey.RelatedProvider.RelatedCompany.CompanyPublicId);
 
             decimal? oTotalProviderRatting = 0;
             int oTotalProviderRattingCount = 0;

@@ -94,11 +94,7 @@
                 @{
                     for (int i = 0; i < Model.RelatedSurvey.SurveyEvaluatorList.Count; i++)
                     {
-                        <li>
-                            <label>Evaluador:</label>
-                            <span>@Model.RelatedSurvey.SurveyEvaluatorList[i]</span>
-                            <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
-                        </li>
+                        <input type="hidden" name="Survey_ProgramSurvey_Evaluator_@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" value="@Model.RelatedSurvey.SurveyEvaluatorIdList[i]" />
                     }
                 }               
                 <li>

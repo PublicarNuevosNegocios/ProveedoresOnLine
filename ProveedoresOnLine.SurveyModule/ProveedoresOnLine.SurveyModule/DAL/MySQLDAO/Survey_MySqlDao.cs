@@ -879,6 +879,7 @@ namespace ProveedoresOnLine.SurveyModule.DAL.MySQLDAO
                 {
                     SurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("SurveyPublicId"),
                     LastModify = response.DataSetResult.Tables[1].Rows[0].Field<DateTime>("SurveyLastModify"),
+                    CreateDate = response.DataSetResult.Tables[1].Rows[0].Field<DateTime>("SurveyCreateDate"),
                     User = response.DataSetResult.Tables[1].Rows[0].Field<string>("User"),
                     ParentSurveyPublicId = response.DataSetResult.Tables[1].Rows[0].Field<string>("ParentSurveyId"),
 
