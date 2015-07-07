@@ -26,6 +26,7 @@ var Survey_ProgramObject = {
     SurveyIssueDateId: issue date to send info id
     */
     ShowProgram: function (vShowObject, evaluatorIds) {
+
         //validate survey status
         if (vShowObject != null && vShowObject.ProviderPublicId != null && vShowObject.SurveyStatus == '1206001') {
 
@@ -283,20 +284,29 @@ var Survey_ProgramObject = {
     },
 };
 
-var Survey_ProgramObject_2 = {
-    ObjectId: '',
 
+
+
+
+/*Print View EvaluationProgramSurvey*/
+var Survey_Evaluation_ProgramObject = {
+    ObjectId: '',
+    DateFormat: '',
     Init: function (vInitObject) {
         this.ObjectId = vInitObject.ObjectId;
+        this.DateFormat = vInitObject.DateFormat;
     },
 
     RenderEvaluation: function () {
-        $('#' + Survey_ProgramObject_2.ObjectId + '_SurveyName').kendoAutoComplete({
+        //Autocomplete        
+        $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyName').kendoAutoComplete({
+
             minLength: 0,
             dataTextField: 'm_Item2',
             select: function (e) {
                 var selectedItem = this.dataItem(e.item.index());
-                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(selectedItem.m_Item1);
+                $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyConfigId').val(selectedItem.m_Item1);
+
             },
             dataSource: {
                 type: 'json',
@@ -317,11 +327,94 @@ var Survey_ProgramObject_2 = {
                     },
                 }
             }
-        }
+        }).focusout(function () {
+            var IdSurvey = $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_SurveyConfigId').val();
+            $.ajax({
+                url: BaseUrl.ApiUrl + '/SurveyApi?SCSurveyConfigItemGetBySurveyConfigId=true&SurveyConfigId=' + IdSurvey + '&SurveyConfigItemType=' + '1202004',
+                dataType: 'json',
+                success: function (e) {
+                    if (e != null && e.length > 0) {
+                        //Render Roles
+                        var divEvaluator = $('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').html('');
+                        var area = null;
+                        $.each(e, function (item, value) {
+                            var result = '<li><label>' + value.AreaName + '</label></li>' +
+                                        '<li><label>' + value.SurveyConfigItemInfoRolName + ':</label><input id="Survey_ProgramSurvey_Evaluator' +
+                                         "_" + value.SurveyConfigItemInfoRolId +
+                                         '" placeholder="andres.perez@gmail.com" required validationmessage="Seleccione un evaluador" name="SurveyInfo_1204003_0_' +
+                                         value.SurveyConfigItemInfoRolId + '_' + value.AreaId + '" /></li>'
 
-        )
-    }
+                            area = value.AreaName;
+                            $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
+                            //init survey evaluator autocomplete
+                            $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_Evaluator_' + value.SurveyConfigItemInfoRolId).kendoAutoComplete({
+                                minLength: 0,
+                                open: function (e) {
+                                    valid = false;
+                                },
+                                select: function (e) {
+                                    debugger;
+                                    valid = true;
+                                },
+                                close: function (e) {
+                                    if (!valid) this.value('');
+                                },
+                                dataSource: {
+                                    type: 'json',
+                                    serverFiltering: true,
+                                    transport: {
+                                        read: function (options) {
+                                            $.ajax({
+                                                url: BaseUrl.ApiUrl + '/CompanyApi?UserCompanySearchByRoleAC=true&RolId=' + value.SurveyConfigItemInfoRol + '&SearchParam=' + options.data.filter.filters[0].value,
+                                                dataType: 'json',
+                                                success: function (result) {
+                                                    options.success(result);
+                                                },
+                                                error: function (result) {
+                                                    options.error(result);
+                                                }
+                                            });
+                                        },
+                                    }
+                                }
+                            });
+                        });
+                        //init tooltips
+                        Tooltip_InitGeneric();
+                    }
+                },
+                error: function (result) {
+                    options.error(result);
+                }
+            });
+        });
+        //Init DatePickers
+        $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_IssueDate').kendoDatePicker({
+            format: Survey_Evaluation_ProgramObject.DateFormat,
+            min: new Date(),
+        });
+        $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_ExpirationDate').kendoDatePicker({
+            format: Survey_Evaluation_ProgramObject.DateFormat,
+            min: new Date(),
+        });
+        $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_StartDate').kendoDatePicker({
+            format: Survey_Evaluation_ProgramObject.DateFormat,
+            min: new Date(),
+        });
+        $('#' + Survey_Evaluation_ProgramObject.ObjectId + '_EndDate').kendoDatePicker({
+            format: Survey_Evaluation_ProgramObject.DateFormat,
+            min: new Date(),
+        });
+
+        //init form validator
+        $('#' + Survey_ProgramObject.ObjectId + '_Form').kendoValidator();
+
+
+    }//RenderEValuation
 }
+
+
+
 
 var Survey_SaveObject = {
 
@@ -358,6 +451,10 @@ var Survey_SaveObject = {
 
     },
 };
+
+
+
+
 
 var Survey_File = {
 

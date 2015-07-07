@@ -5,6 +5,9 @@
     <div id="Survey_ProgramSurvey">
         <div id="Survey_ProgramSurvey_Dialog">
             <form id="Survey_ProgramSurvey_Form" action="@Url.Content("~/api/SurveyApi?SurveyUpsert=true")" method="post">
+                
+                
+                
                 <ul>
                     <li>
                         <label>Evaluación:</label>
@@ -48,6 +51,8 @@
                         <textarea id="Survey_ProgramSurvey_Comments" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Comments).ToString())_"></textarea>
                     </li>
                 </ul>
+                
+
                 <div style="display:none">
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
@@ -59,6 +64,7 @@
                     <input type="hidden" id="Survey_ProgramSurvey_Rating" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Rating).ToString())_" value="0" />
                 </div>
             </form>
+
         </div>
     </div>
 }
