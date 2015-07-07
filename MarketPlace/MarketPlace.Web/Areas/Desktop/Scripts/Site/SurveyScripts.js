@@ -208,7 +208,7 @@ var Survey_ProgramObject = {
 
                                     area = value.AreaName;
                                 }
-                                
+
                                 DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_EvaluatorDiv').append(result);
 
                                 //init survey evaluator autocomplete
@@ -283,6 +283,45 @@ var Survey_ProgramObject = {
     },
 };
 
+var Survey_ProgramObject_2 = {
+    ObjectId: '',
+
+    Init: function (vInitObject) {
+        this.ObjectId = vInitObject.ObjectId;
+    },
+
+    RenderEvaluation: function () {
+        $('#' + Survey_ProgramObject_2.ObjectId + '_SurveyName').kendoAutoComplete({
+            minLength: 0,
+            dataTextField: 'm_Item2',
+            select: function (e) {
+                var selectedItem = this.dataItem(e.item.index());
+                DialogDiv.find('#' + Survey_ProgramObject.ObjectId + '_SurveyConfigId').val(selectedItem.m_Item1);
+            },
+            dataSource: {
+                type: 'json',
+                serverFiltering: true,
+                transport: {
+                    read: function (options) {
+                        $.ajax({
+                            url: BaseUrl.ApiUrl + '/SurveyApi?SurveyConfigSearchAC=true&SearchParam=' + options.data.filter.filters[0].value,
+                            dataType: 'json',
+                            success: function (result) {
+
+                                options.success(result);
+                            },
+                            error: function (result) {
+                                options.error(result);
+                            }
+                        });
+                    },
+                }
+            }
+        }
+
+        )
+    }
+}
 
 var Survey_SaveObject = {
 

@@ -1082,6 +1082,7 @@
     <Content Include="Areas\Desktop\Views\Shared\_CH_SurveyByMonth.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_ProjectByState.cshtml" />
     <Content Include="Areas\Desktop\Views\Shared\_CH_ProjectByMonth.cshtml" />
+    <Content Include="Areas\Desktop\Views\Provider\SVSurveyProgram.cshtml" />
     <None Include="Properties\PublishProfiles\David.pubxml" />
     <None Include="Properties\PublishProfiles\P1.pubxml" />
     <None Include="Properties\PublishProfiles\Sebastian MP.pubxml" />
