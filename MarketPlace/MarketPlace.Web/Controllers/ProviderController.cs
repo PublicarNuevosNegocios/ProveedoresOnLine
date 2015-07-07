@@ -1588,9 +1588,9 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
-        public virtual ActionResult SVSurveyProgram(string ProviderPublicId)
+        public virtual ActionResult SVSurveyProgram(string ProviderPublicId, string UpsertAction)
         {
-            ProviderViewModel oModel = new ProviderViewModel();
+             ProviderViewModel oModel = new ProviderViewModel();
 
             //get basic provider info
             var olstProvider = ProveedoresOnLine.CompanyProvider.Controller.CompanyProvider.MPProviderSearchById
@@ -1613,6 +1613,7 @@ namespace MarketPlace.Web.Controllers
             else
             {
                 oModel.RelatedLiteProvider = new ProviderLiteViewModel(oProvider);
+
                 if (!string.IsNullOrEmpty(Request["UpsertAction"]) && Request["UpsertAction"].Trim() == "true")
                 {
                     GetSurveyUpsertRequest();
@@ -1688,127 +1689,127 @@ namespace MarketPlace.Web.Controllers
                 EvaluatorsEmail = new List<string>();
                 EvaluatorsEmail = EvaluatorsRoleObj.GroupBy(x => x.Item1).Select(grp => grp.First().Item1).ToList();
 
-                //#region Child Survey
-                ////Set survey by evaluators
-                //EvaluatorsEmail.All(x =>
-                //{
-                //    oReturn.ChildSurvey.Add(new SurveyModel()
-                //    {
-                //        SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
-                //        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
-                //        {
-                //            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
-                //            {
-                //                CompanyPublicId = System.Web.HttpContext.Current.Request["ProviderPublicId"],
-                //            }
-                //        },
-                //        RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
-                //        {
-                //            ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
-                //        },
-                //        Enable = true,
-                //        User = x,//Evaluator,                     
-                //        SurveyInfo = new List<GenericItemInfoModel>()
-                //    });
-                //    return true;
-                //});
+                #region Child Survey
+                //Set survey by evaluators
+                EvaluatorsEmail.All(x =>
+                {
+                    oReturn.ChildSurvey.Add(new SurveyModel()
+                    {
+                        SurveyPublicId = System.Web.HttpContext.Current.Request["SurveyPublicId"],
+                        RelatedProvider = new ProveedoresOnLine.CompanyProvider.Models.Provider.ProviderModel()
+                        {
+                            RelatedCompany = new ProveedoresOnLine.Company.Models.Company.CompanyModel()
+                            {
+                                CompanyPublicId = System.Web.HttpContext.Current.Request["ProviderPublicId"],
+                            }
+                        },
+                        RelatedSurveyConfig = new ProveedoresOnLine.SurveyModule.Models.SurveyConfigModel()
+                        {
+                            ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["SurveyConfigId"].Trim()),
+                        },
+                        Enable = true,
+                        User = x,//Evaluator,                     
+                        SurveyInfo = new List<GenericItemInfoModel>()
+                    });
+                    return true;
+                });
 
-                ////Set SurveyChild Info
-                //oReturn.ChildSurvey.All(it =>
-                //{
-                //    List<Tuple<int, int>> AreaIdList = new List<Tuple<int, int>>();
-                //    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int>(y.Item2, y.Item3)).ToList());
-                //    if (AreaIdList != null)
-                //    {
-                //        AreaIdList.All(a =>
-                //        {
-                //            it.SurveyInfo.Add(new GenericItemInfoModel()
-                //            {
-                //                ItemInfoId = a.Item2 != null ? a.Item2 : 0,
-                //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                {
-                //                    ItemId = (int)enumSurveyInfoType.CurrentArea
-                //                },
-                //                Value = a.Item1.ToString(),
-                //                Enable = true,
-                //            });
-                //            it.SurveyInfo.Add(new GenericItemInfoModel()
-                //            {
-                //                ItemInfoId = 0,
-                //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                {
-                //                    ItemId = (int)enumSurveyInfoType.IssueDate
-                //                },
-                //                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(x => x.Value).FirstOrDefault(),
-                //                Enable = true,
-                //            });
-                //            it.SurveyInfo.Add(new GenericItemInfoModel()
-                //            {
-                //                ItemInfoId = 0,
-                //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                {
-                //                    ItemId = (int)enumSurveyInfoType.Contract
-                //                },
-                //                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),
-                //                Enable = true,
-                //            });
-                //            it.SurveyInfo.Add(new GenericItemInfoModel()
-                //            {
-                //                ItemInfoId = 0,
-                //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                {
-                //                    ItemId = (int)enumSurveyInfoType.Comments
-                //                },
-                //                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(x => x.Value).FirstOrDefault(),
-                //                Enable = true,
-                //            });
-                //            it.SurveyInfo.Add(new GenericItemInfoModel()
-                //            {
-                //                ItemInfoId = 0,
-                //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                {
-                //                    ItemId = (int)enumSurveyInfoType.Responsible
-                //                },
-                //                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(x => x.Value).FirstOrDefault(),
-                //                Enable = true,
-                //            });
-                //            it.SurveyInfo.Add(new GenericItemInfoModel()
-                //            {
-                //                ItemInfoId = 0,
-                //                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                {
-                //                    ItemId = (int)enumSurveyInfoType.ExpirationDate
-                //                },
-                //                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(x => x.Value).FirstOrDefault(),
-                //                Enable = true,
-                //            });
+                //Set SurveyChild Info
+                oReturn.ChildSurvey.All(it =>
+                {
+                    List<Tuple<int, int>> AreaIdList = new List<Tuple<int, int>>();
+                    AreaIdList.AddRange(EvaluatorsRoleObj.Where(y => y.Item1 == it.User).Select(y => new Tuple<int, int>(y.Item2, y.Item3)).ToList());
+                    if (AreaIdList != null)
+                    {
+                        AreaIdList.All(a =>
+                        {
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = a.Item2 != null ? a.Item2 : 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.CurrentArea
+                                },
+                                Value = a.Item1.ToString(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.IssueDate
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.IssueDate).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Contract
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Contract).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Comments
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Comments).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.Responsible
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Responsible).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
+                            it.SurveyInfo.Add(new GenericItemInfoModel()
+                            {
+                                ItemInfoId = 0,
+                                ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                {
+                                    ItemId = (int)enumSurveyInfoType.ExpirationDate
+                                },
+                                Value = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.ExpirationDate).Select(x => x.Value).FirstOrDefault(),
+                                Enable = true,
+                            });
 
-                //            List<GenericItemInfoModel> oEvaluators = new List<GenericItemInfoModel>();
-                //            oEvaluators = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Evaluator).Select(x => x).ToList();
+                            List<GenericItemInfoModel> oEvaluators = new List<GenericItemInfoModel>();
+                            oEvaluators = oReturn.SurveyInfo.Where(x => x.ItemInfoType.ItemId == (int)enumSurveyInfoType.Evaluator).Select(x => x).ToList();
 
-                //            if (oEvaluators.Count > 0)
-                //            {
-                //                oEvaluators.All(x =>
-                //                {
-                //                    it.SurveyInfo.Add(new GenericItemInfoModel()
-                //                    {
-                //                        ItemInfoId = 0,
-                //                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
-                //                        {
-                //                            ItemId = (int)enumSurveyInfoType.Evaluator
-                //                        },
-                //                        Value = x.Value,
-                //                        Enable = true,
-                //                    });
-                //                    return true;
-                //                });
-                //            }
-                //            return true;
-                //        });
-                //    }
-                //    return true;
-                //});
-                //#endregion
+                            if (oEvaluators.Count > 0)
+                            {
+                                oEvaluators.All(x =>
+                                {
+                                    it.SurveyInfo.Add(new GenericItemInfoModel()
+                                    {
+                                        ItemInfoId = 0,
+                                        ItemInfoType = new ProveedoresOnLine.Company.Models.Util.CatalogModel()
+                                        {
+                                            ItemId = (int)enumSurveyInfoType.Evaluator
+                                        },
+                                        Value = x.Value,
+                                        Enable = true,
+                                    });
+                                    return true;
+                                });
+                            }
+                            return true;
+                        });
+                    }
+                    return true;
+                });
+                #endregion
             }
             return oReturn;
         }

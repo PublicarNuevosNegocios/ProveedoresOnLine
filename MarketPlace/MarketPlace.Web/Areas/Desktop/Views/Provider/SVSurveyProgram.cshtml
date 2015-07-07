@@ -15,11 +15,10 @@
             <form id="Survey_ProgramSurvey_Form" method="post"
                   action="@(Url.Action
                 (MVC.Provider.ActionNames.SVSurveyProgram,
-                MVC.Provider.Name,
-                new
-                {
-                    ProviderPublicId = Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId,
-                }))">                
+                MVC.Provider.Name))">    
+                
+                <input type="text" name="ProviderPublicId" value="@Model.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId"/>            
+                <br />
                 <ul>
                     <li>
                         <label>Evaluación:</label>
@@ -69,7 +68,7 @@
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyPublicId" name="SurveyPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_ProviderPublicId" name="ProviderPublicId">
                     <input type="hidden" id="Survey_ProgramSurvey_SurveyConfigId" name="SurveyConfigId" />
-                    <input type="hidden" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
+                    <input type="text" id="Survey_ProgramSurvey_UpsertAction" name="UpsertAction" value="true" />
 
                     <input type="hidden" id="Survey_ProgramSurvey_Responsible" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Responsible).ToString())_" value="@MarketPlace.Models.General.SessionModel.CurrentLoginUser.Email" />
                     <input type="hidden" id="Survey_ProgramSurvey_Status" name="SurveyInfo_@(((int)MarketPlace.Models.General.enumSurveyInfoType.Status).ToString())_" value="@(((int)MarketPlace.Models.General.enumSurveyStatus.Program).ToString())" />
