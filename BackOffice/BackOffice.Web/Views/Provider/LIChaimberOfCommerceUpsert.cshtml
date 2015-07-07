@@ -182,15 +182,15 @@
                     <li>
                         <label>Objeto Social</label>
                         <br />
-                        <textarea rows="4" cols="50" name="SocialObject" id="SocialObjectId"> @SocialObj </textarea> 
-                            <input type="hidden" name="SocialObjectId" value="@SocialObjId" />
-</li>
+                        <textarea id="POBOTA" rows="4" cols="50" name="SocialObject" id="SocialObjectId"> @SocialObj </textarea>
+                        <input type="hidden" name="SocialObjectId" value="@SocialObjId" />
+                    </li>
                 </ul>
                 <div style="display:none">
                     <input type="hidden" name="UpsertAction" id="UpsertAction" value="true" />
                     <input type="hidden" name="StepAction" id="StepAction" value="" />
                 </div>
-            </form>                        
+            </form>
             <ul class="POBOCamaraComercioSociosWrapper">
                 <li class="POBOCamaraComercioSocios">
                     <label>Socios, Miembros junta directiva, entre otros</label>
@@ -266,7 +266,7 @@
             UploadFile({
                 ProviderPublicId: '@Model.RelatedProvider.RelatedCompany.CompanyPublicId',
                 ControlellerResponseId: "CertificateURL",
-            });         
+            });
             Provider_LegalInfoObject.RenderAsync();
         });
     </script>

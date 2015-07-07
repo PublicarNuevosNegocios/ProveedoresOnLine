@@ -62,9 +62,9 @@ namespace ProveedoresOnLine.ProjectModule.DAL.Controller
             return DataFactory.GetAllEvaluationItemByProjectConfig(ProjectConfigId, SearchParam, EvaluationItemType, ParentEvaluationItem, ViewEnable);
         }
 
-        public ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId)
+        public ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId, bool ViewEnable)
         {
-            return DataFactory.ProjectConfigGetById(ProjectConfigId);
+            return DataFactory.ProjectConfigGetById(ProjectConfigId, ViewEnable);
         }
 
         #endregion
