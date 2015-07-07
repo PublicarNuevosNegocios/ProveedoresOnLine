@@ -155,9 +155,9 @@ namespace ProveedoresOnLine.ProjectModule.Controller
             return DAL.Controller.ProjectDataController.Instance.GetAllProjectConfigByCustomerPublicId(CustomerPublicId, SearchParam, ViewEnable, PageNumber, RowCount, out TotalRows);
         }
 
-        public static ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId)
+        public static ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel ProjectConfigGetById(int ProjectConfigId, bool ViewEnable)
         {
-            return DAL.Controller.ProjectDataController.Instance.ProjectConfigGetById(ProjectConfigId);
+            return DAL.Controller.ProjectDataController.Instance.ProjectConfigGetById(ProjectConfigId, ViewEnable);
         }
 
         #endregion

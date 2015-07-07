@@ -32,7 +32,7 @@ namespace ProveedoresOnLine.ProjectModule.Test
         public void ProjectConfigGetById()
         {
             ProveedoresOnLine.ProjectModule.Models.ProjectConfigModel oReturn =
-                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(1);
+                ProveedoresOnLine.ProjectModule.Controller.ProjectModule.ProjectConfigGetById(1, true);
 
             Assert.IsNotNull(oReturn);
         }
