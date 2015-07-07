@@ -1587,6 +1587,10 @@ namespace MarketPlace.Web.Controllers
             return View(oModel);
         }
 
+        public virtual ActionResult SVSurveyProgram(string ProviderPublicId)
+        {
+            return View();
+        }
         #endregion
 
         #region Menu
@@ -2106,6 +2110,23 @@ namespace MarketPlace.Web.Controllers
                                 oCurrentAction == MVC.Provider.ActionNames.SVSurveyDetail) &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                        //survey list
+                        oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
+                        {
+                            Name = "Programar evaluación",
+                            Url = Url.RouteUrl
+                                    (MarketPlace.Models.General.Constants.C_Routes_Default,
+                                    new
+                                    {
+                                        controller = MVC.Provider.Name,
+                                        action = MVC.Provider.ActionNames.SVSurveyProgram,
+                                        ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
+                                    }),
+                            Position = 1,
+                            IsSelected =
+                                 (oCurrentAction == MVC.Provider.ActionNames.SVSurveyProgram &&
+                                oCurrentController == MVC.Provider.Name),
+                        });
 
                         //survey list
                         oMenuAux.ChildMenu.Add(new Models.General.GenericMenu()
@@ -2119,11 +2140,12 @@ namespace MarketPlace.Web.Controllers
                                         action = MVC.Provider.ActionNames.SVSurveyReport,
                                         ProviderPublicId = vProviderInfo.RelatedLiteProvider.RelatedProvider.RelatedCompany.CompanyPublicId
                                     }),
-                            Position = 1,
+                            Position = 2,
                             IsSelected =
                                  (oCurrentAction == MVC.Provider.ActionNames.SVSurveyReport &&
                                 oCurrentController == MVC.Provider.Name),
                         });
+                        
                         //get is selected menu
                         oMenuAux.IsSelected = oMenuAux.ChildMenu.Any(x => x.IsSelected);
 

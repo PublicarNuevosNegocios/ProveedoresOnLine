@@ -195,6 +195,12 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyProgram()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Desktop.Provider; } }
@@ -235,6 +241,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
             public readonly string SVSurveyReport = "SVSurveyReport";
+            public readonly string SVSurveyProgram = "SVSurveyProgram";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -264,6 +271,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
             public const string SVSurveyReport = "SVSurveyReport";
+            public const string SVSurveyProgram = "SVSurveyProgram";
         }
 
 
@@ -466,6 +474,14 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
+        static readonly ActionParamsClass_SVSurveyProgram s_params_SVSurveyProgram = new ActionParamsClass_SVSurveyProgram();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyProgram SVSurveyProgramParams { get { return s_params_SVSurveyProgram; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyProgram
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -498,6 +514,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
                 public readonly string LISARLAFTInfo = "LISARLAFTInfo";
                 public readonly string Search = "Search";
                 public readonly string SVSurveyDetail = "SVSurveyDetail";
+                public readonly string SVSurveyProgram = "SVSurveyProgram";
                 public readonly string SVSurveyReport = "SVSurveyReport";
                 public readonly string SVSurveySearch = "SVSurveySearch";
             }
@@ -523,6 +540,7 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             public readonly string LISARLAFTInfo = "~/Areas/Desktop/Views/Provider/LISARLAFTInfo.cshtml";
             public readonly string Search = "~/Areas/Desktop/Views/Provider/Search.cshtml";
             public readonly string SVSurveyDetail = "~/Areas/Desktop/Views/Provider/SVSurveyDetail.cshtml";
+            public readonly string SVSurveyProgram = "~/Areas/Desktop/Views/Provider/SVSurveyProgram.cshtml";
             public readonly string SVSurveyReport = "~/Areas/Desktop/Views/Provider/SVSurveyReport.cshtml";
             public readonly string SVSurveySearch = "~/Areas/Desktop/Views/Provider/SVSurveySearch.cshtml";
         }
@@ -832,6 +850,18 @@ namespace MarketPlace.Web.Areas.Desktop.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             SVSurveyReportOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            SVSurveyProgramOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 

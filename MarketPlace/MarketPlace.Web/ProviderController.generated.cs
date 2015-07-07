@@ -195,6 +195,12 @@ namespace MarketPlace.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SVSurveyProgram()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ProviderController Actions { get { return MVC.Provider; } }
@@ -235,6 +241,7 @@ namespace MarketPlace.Web.Controllers
             public readonly string SVSurveySearch = "SVSurveySearch";
             public readonly string SVSurveyDetail = "SVSurveyDetail";
             public readonly string SVSurveyReport = "SVSurveyReport";
+            public readonly string SVSurveyProgram = "SVSurveyProgram";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -264,6 +271,7 @@ namespace MarketPlace.Web.Controllers
             public const string SVSurveySearch = "SVSurveySearch";
             public const string SVSurveyDetail = "SVSurveyDetail";
             public const string SVSurveyReport = "SVSurveyReport";
+            public const string SVSurveyProgram = "SVSurveyProgram";
         }
 
 
@@ -463,6 +471,14 @@ namespace MarketPlace.Web.Controllers
         public ActionParamsClass_SVSurveyReport SVSurveyReportParams { get { return s_params_SVSurveyReport; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_SVSurveyReport
+        {
+            public readonly string ProviderPublicId = "ProviderPublicId";
+        }
+        static readonly ActionParamsClass_SVSurveyProgram s_params_SVSurveyProgram = new ActionParamsClass_SVSurveyProgram();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SVSurveyProgram SVSurveyProgramParams { get { return s_params_SVSurveyProgram; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SVSurveyProgram
         {
             public readonly string ProviderPublicId = "ProviderPublicId";
         }
@@ -784,6 +800,18 @@ namespace MarketPlace.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyReport);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
             SVSurveyReportOverride(callInfo, ProviderPublicId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SVSurveyProgramOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ProviderPublicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SVSurveyProgram(string ProviderPublicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SVSurveyProgram);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ProviderPublicId", ProviderPublicId);
+            SVSurveyProgramOverride(callInfo, ProviderPublicId);
             return callInfo;
         }
 
