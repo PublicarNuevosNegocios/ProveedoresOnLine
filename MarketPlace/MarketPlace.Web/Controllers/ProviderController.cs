@@ -1050,11 +1050,14 @@ namespace MarketPlace.Web.Controllers
                             }
                             else
                             {
-                                oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
-                                {
-                                    RelatedAccount = ac,
-                                    Value = 0,
-                                };
+                                    oItemDetailToAdd.RelatedBalanceSheetDetail = new BalanceSheetDetailModel()
+                                    {
+
+                                        RelatedAccount = ac,
+                                        Value = 0,
+
+
+                                    };                                
                             }
 
                             #region Eval Vertical Formula
@@ -1437,19 +1440,19 @@ namespace MarketPlace.Web.Controllers
                             List<ProveedoresOnLine.SurveyModule.Models.SurveyModel> oChildSurvey = new List<ProveedoresOnLine.SurveyModule.Models.SurveyModel>();
                             oSurveyResults.All(x =>
                                 {
-                                    oChildSurvey.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));                                    
-                                    
+                                    oChildSurvey.Add(ProveedoresOnLine.SurveyModule.Controller.SurveyModule.SurveyGetByUser(x.SurveyPublicId, SessionModel.CurrentCompany.RelatedUser.FirstOrDefault().User));
+
                                     oChildSurvey.All(y =>
                                     {
                                         if (y != null && y.ParentSurveyPublicId == x.SurveyPublicId && y.SurveyInfo.Count == 0)
-                                            y.SurveyInfo =  x.SurveyInfo;
-                                                                                
+                                            y.SurveyInfo = x.SurveyInfo;
+
                                         return true;
                                     });
                                     return true;
-                                });                            
-                            oSurveyResults = oChildSurvey.Where(x => x != null).ToList();        
-                        }                        
+                                });
+                            oSurveyResults = oChildSurvey.Where(x => x != null).ToList();
+                        }
                     }
                     if (!string.IsNullOrEmpty(InitDate) && !string.IsNullOrEmpty(EndDate)
                         && oSurveyResults != null && oSurveyResults.Count > 0)
